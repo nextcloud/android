@@ -147,6 +147,35 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    private void toggleFileChecked(File file) {
+        if (mAdapter.isCheckedFile(file)) {
+            // uncheck
+            mAdapter.removeCheckedFile(file);
+            if (file.isDirectory()) {
+                for (File containingFile : file.listFiles()) {
+                    // Add and toggle -> remove recursively
+                    mAdapter.addCheckedFile(containingFile);
+                    toggleFileChecked(containingFile);
+                }
+            }
+        } else {
+            // check
+            mAdapter.addCheckedFile(file);
+            if (file.isDirectory()) {
+                for (File containingFile : file.listFiles()) {
+                    // Remove and toggle -> add recursively
+                    mAdapter.removeCheckedFile(containingFile);
+                    toggleFileChecked(containingFile);
+                }
+            }
+        }
+
+        mAdapter.notifyItemChanged(mAdapter.getItemPosition(file));
+
+        // notify the change to the container Activity
+        mContainerActivity.onFileClick(file);
+    }
+
     /**
      * Checks the file clicked over. Browses inside if it is a directory.
      * Notifies the container activity in any case.
@@ -165,23 +194,21 @@ public class LocalFileListFragment extends ExtendedListFragment implements
                 saveIndexAndTopPosition(mAdapter.getItemPosition(file));
 
             } else {    /// Click on a file
-                if (mAdapter.isCheckedFile(file)) {
-                    // uncheck
-                    mAdapter.removeCheckedFile(file);
-                } else {
-                    // check
-                    mAdapter.addCheckedFile(file);
-                }
-
-                mAdapter.notifyItemChanged(mAdapter.getItemPosition(file));
-
-                // notify the change to the container Activity
-                mContainerActivity.onFileClick(file);
+                toggleFileChecked(file);
             }
 
         } else {
             Log_OC.w(TAG, "Null object in ListAdapter!!");
         }
+    }
+
+    @Override
+    public boolean onItemLongClicked(File file) {
+        if (file == null || !file.isDirectory()) {
+            return true;
+        }
+        toggleFileChecked(file);
+        return true;
     }
 
     /**
@@ -248,8 +275,6 @@ public class LocalFileListFragment extends ExtendedListFragment implements
             directory = directory.getParentFile();
         }
 
-        // by now, only files in the same directory will be kept as selected
-        mAdapter.removeAllFilesFromCheckedFiles();
         mAdapter.swapDirectory(directory);
 
         mDirectory = directory;

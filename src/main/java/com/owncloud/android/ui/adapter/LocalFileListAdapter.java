@@ -122,6 +122,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         List<String> result = new ArrayList<>();
 
         for (File file : checkedFiles) {
+            if (file.isDirectory()) {
+                continue;
+            }
             result.add(file.getAbsolutePath());
         }
 
@@ -163,7 +166,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 setThumbnail(file, gridViewHolder.thumbnail);
 
                 if (file.isDirectory()) {
-                    gridViewHolder.checkbox.setVisibility(View.GONE);
+                    // gridViewHolder.checkbox.setVisibility(View.GONE);
                 } else {
                     gridViewHolder.checkbox.setVisibility(View.VISIBLE);
                 }
@@ -171,6 +174,8 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 File finalFile = file;
                 gridViewHolder.itemLayout.setOnClickListener(v -> localFileListFragmentInterface
                         .onItemClicked(finalFile));
+                gridViewHolder.itemLayout.setOnLongClickListener(v -> localFileListFragmentInterface
+                        .onItemLongClicked(finalFile));
 
 
                 if (holder instanceof LocalFileListItemViewHolder) {

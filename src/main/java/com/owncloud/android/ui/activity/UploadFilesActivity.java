@@ -58,6 +58,8 @@ import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.ThemeUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +102,9 @@ public class UploadFilesActivity extends FileActivity implements
 
     public static final String EXTRA_CHOSEN_FILES =
             UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
+
+    public static final String EXTRA_REPLICATION_START_DIR =
+            UploadFilesActivity.class.getCanonicalName() + ".EXTRA_DIRECTORY_ROOT";
 
     public static final String EXTRA_ACTION = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_ACTION";
     public final static String KEY_LOCAL_FOLDER_PICKER_MODE = UploadFilesActivity.class.getCanonicalName()
@@ -483,6 +488,7 @@ public class UploadFilesActivity extends FileActivity implements
                 preferences.setUploaderBehaviour(FileUploader.LOCAL_BEHAVIOUR_MOVE);
             } else {
                 data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
+                data.putExtra(EXTRA_REPLICATION_START_DIR, getReplicationStartDir());
 
                 // set result code
                 switch (mBehaviourSpinner.getSelectedItemPosition()) {
@@ -701,6 +707,40 @@ public class UploadFilesActivity extends FileActivity implements
         }
 
         return mFileListFragment;
+    }
+
+    private String getReplicationStartDir() {
+        File currentDirectory = mFileListFragment.getCurrentDirectory();
+        for (String filePath : mFileListFragment.getCheckedFilePaths()) {
+            if (!filePath.startsWith(currentDirectory.getAbsolutePath())) {
+                return determineReplicationRootDir();
+            }
+        }
+        return currentDirectory.getAbsolutePath() + File.separator;
+    }
+
+    /** Traverses currentDirectory upward until a common ancestor with targetDirectory is reached, and returns it */
+    private File traverseToCommonAncestor(@NotNull File targetDirectory, @NotNull File currentDirectory) {
+        String targetPath = targetDirectory.getAbsolutePath();
+        String currentPath = currentDirectory.getAbsolutePath();
+        if (targetPath.startsWith(currentPath)) {
+            return new File(targetPath.replace(targetPath.replace(currentPath, ""), ""));
+        }
+        return traverseToCommonAncestor(targetDirectory, currentDirectory.getParentFile());
+    }
+
+    /** Tries to guess where replication root is by using common ancestor of all files */
+    private String determineReplicationRootDir() {
+        File commonDirectory = null;
+        for (String filePath : mFileListFragment.getCheckedFilePaths()) {
+            File directory = new File(filePath).getParentFile();
+            if (commonDirectory == null) {
+                commonDirectory = directory;
+                continue;
+            }
+            commonDirectory = traverseToCommonAncestor(commonDirectory, directory);
+        }
+        return commonDirectory.getAbsolutePath() + File.separator;
     }
 
     @Override

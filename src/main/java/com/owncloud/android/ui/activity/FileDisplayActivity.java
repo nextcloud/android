@@ -44,6 +44,7 @@ import android.content.res.Resources.NotFoundException;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -95,6 +96,7 @@ import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
+import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
@@ -134,7 +136,9 @@ import org.parceler.Parcels;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -218,6 +222,12 @@ public class FileDisplayActivity extends FileActivity
     private PlayerServiceConnection mPlayerConnection;
     private Account mLastDisplayedAccount;
 
+    private Handler mCreateFolderHandler;
+    private Set<String> foldersToAutoCreate = new HashSet<>();
+    private String[] mRemotePaths;
+    private String[] mFilePaths;
+    private int mResultCode;
+
     @Inject
     AppPreferences preferences;
 
@@ -230,7 +240,7 @@ public class FileDisplayActivity extends FileActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
-
+        mCreateFolderHandler = new Handler();
         // Set the default theme to replace the launch screen theme.
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
 
@@ -1023,49 +1033,115 @@ public class FileDisplayActivity extends FileActivity
 
     private void requestUploadOfFilesFromFileSystem(Intent data, int resultCode) {
         String[] filePaths = data.getStringArrayExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
-        requestUploadOfFilesFromFileSystem(filePaths, resultCode);
+        String replicationStartDir = data.getStringExtra(UploadFilesActivity.EXTRA_REPLICATION_START_DIR);
+        requestUploadOfFilesFromFileSystem(filePaths, resultCode, replicationStartDir);
     }
 
     private void requestUploadOfFilesFromFileSystem(String[] filePaths, int resultCode) {
+        requestUploadOfFilesFromFileSystem(filePaths, resultCode, null);
+    }
+
+    private void queueFolderCreation(String folder) {
+        if (foldersToAutoCreate.contains(folder)) {
+            // Folder already being created, don't create again
+            return;
+        }
+        this.foldersToAutoCreate.add(folder);
+        Intent intent = new Intent(this, OperationsService.class);
+        intent.setAction(OperationsService.ACTION_CREATE_FOLDER);
+        intent.putExtra(OperationsService.EXTRA_ACCOUNT, getAccount());
+        intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, folder);
+        intent.putExtra(OperationsService.EXTRA_CREATE_FULL_PATH, true);
+        getOperationsServiceBinder().queueNewOperation(intent);
+    }
+
+    private void completeFileUploadOperation() {
+        int behaviour;
+        if (mFilePaths == null) {
+            return;
+        }
+        switch (mResultCode) {
+            case UploadFilesActivity.RESULT_OK_AND_MOVE:
+                behaviour = FileUploader.LOCAL_BEHAVIOUR_MOVE;
+                break;
+
+            case UploadFilesActivity.RESULT_OK_AND_DELETE:
+                behaviour = FileUploader.LOCAL_BEHAVIOUR_DELETE;
+                break;
+
+            case UploadFilesActivity.RESULT_OK_AND_DO_NOTHING:
+                behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+                break;
+
+            default:
+                behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+                break;
+        }
+
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        requester.uploadNewFile(
+            this,
+            getAccount(),
+            mFilePaths,
+            mRemotePaths,
+            null,           // MIME type will be detected from file name
+            behaviour,
+            false,          // do not create parent folder if not existent
+            UploadFileOperation.CREATED_BY_USER,
+            false,
+            false
+        );
+        mFilePaths = null;
+        mRemotePaths = null;
+    }
+
+    /**
+     * Requests an upload from local filesystem.
+     * @param filePaths             Local file paths to upload
+     * @param resultCode            result code
+     * @param replicationStartDir   Root of file structure replication. All filePaths should be contained in this dir.
+     *                              the directory name should always
+     *                              If this parameter is null, no replication happens and all files will be uploaded
+     *                              to current directory.
+     */
+    private void requestUploadOfFilesFromFileSystem(String[] filePaths, int resultCode, String replicationStartDir) {
+
+        if (replicationStartDir == null) {
+            replicationStartDir = "0";
+        }
+
         if (filePaths != null) {
+            foldersToAutoCreate.clear();
             String[] remotePaths = new String[filePaths.length];
             String remotePathBase = getCurrentDir().getRemotePath();
             for (int j = 0; j < remotePaths.length; j++) {
-                remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
+
+                // Determine upload targes and full remote paths (eg. /Documents and /Documents/foo.txt)
+                String remoteDirectory = (new File(filePaths[j])).getName();
+                if (filePaths[j].startsWith(replicationStartDir)) {
+                    remoteDirectory = filePaths[j].replace(replicationStartDir, "");
+                }
+                remotePaths[j] = remotePathBase + remoteDirectory;
+                String folder = remotePaths[j].replace(remotePaths[j].substring(remotePaths[j].lastIndexOf("/")), "");
+
+                if (folder.equals("")) {
+                    // Uploading to root so no folder creation needed
+                    continue;
+                }
+
+                queueFolderCreation(folder);
             }
 
-            int behaviour;
-            switch (resultCode) {
-                case UploadFilesActivity.RESULT_OK_AND_MOVE:
-                    behaviour = FileUploader.LOCAL_BEHAVIOUR_MOVE;
-                    break;
-
-                case UploadFilesActivity.RESULT_OK_AND_DELETE:
-                    behaviour = FileUploader.LOCAL_BEHAVIOUR_DELETE;
-                    break;
-
-                case UploadFilesActivity.RESULT_OK_AND_DO_NOTHING:
-                    behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
-                    break;
-
-                default:
-                    behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
-                    break;
+            if (foldersToAutoCreate.isEmpty()) {
+                // No new folders needed, just upload files right now
+                completeFileUploadOperation();
+                return;
             }
 
-            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-            requester.uploadNewFile(
-                this,
-                getAccount(),
-                filePaths,
-                remotePaths,
-                null,           // MIME type will be detected from file name
-                behaviour,
-                false,          // do not create parent folder if not existent
-                UploadFileOperation.CREATED_BY_USER,
-                false,
-                false
-            );
+            getOperationsServiceBinder().addOperationListener(this, mCreateFolderHandler);
+            mResultCode = resultCode;
+            mFilePaths = filePaths;
+            mRemotePaths = remotePaths;
 
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
@@ -2113,7 +2189,18 @@ public class FileDisplayActivity extends FileActivity
      */
     private void onCreateFolderOperationFinish(CreateFolderOperation operation,
                                                RemoteOperationResult result) {
+
+
         if (result.isSuccess()) {
+            String createdPath = operation.getRemotePath();
+            if (foldersToAutoCreate.contains(createdPath)) {
+                foldersToAutoCreate.remove(createdPath);
+                if (foldersToAutoCreate.isEmpty()) {
+                    completeFileUploadOperation();
+                }
+                return;
+            }
+
             OCFileListFragment fileListFragment = getListOfFilesFragment();
             if (fileListFragment != null) {
                 fileListFragment.onItemClicked(getStorageManager().getFileByPath(operation.getRemotePath()));
