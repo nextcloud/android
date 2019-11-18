@@ -41,10 +41,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -125,15 +127,15 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         setContentView(R.layout.synced_folders_layout);
 
-        String account;
-        Account currentAccount;
         if (getIntent() != null && getIntent().getExtras() != null) {
-            account = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT);
-            currentAccount = getAccount();
-
-            if (account != null && currentAccount != null && !account.equalsIgnoreCase(currentAccount.name)) {
-                accountManager.setCurrentOwnCloudAccount(account);
-                setAccount(getUserAccountManager().getCurrentAccount(), false);
+            final String accountName = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT);
+            Optional<User> optionalUser = getUser();
+            if (optionalUser.isPresent() && accountName != null) {
+                User user = optionalUser.get();
+                if (!accountName.equalsIgnoreCase(user.getAccountName())) {
+                    accountManager.setCurrentOwnCloudAccount(accountName);
+                    setUser(getUserAccountManager().getUser());
+                }
             }
 
             path = getIntent().getStringExtra(MediaFoldersDetectionJob.KEY_MEDIA_FOLDER_PATH);
@@ -254,10 +256,9 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         List<SyncedFolder> syncedFolderArrayList = mSyncedFolderProvider.getSyncedFolders();
         List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<>();
-        Account currentAccount = getUserAccountManager().getCurrentAccount();
+        User user = getUserAccountManager().getUser();
         for (SyncedFolder syncedFolder : syncedFolderArrayList) {
-            if (currentAccount != null && syncedFolder.getAccount().equals(currentAccount.name)) {
-
+            if (syncedFolder.getAccount().equals(user.getAccountName())) {
                 // delete non-existing & disabled synced folders
                 if (!new File(syncedFolder.getLocalPath()).exists() && !syncedFolder.isEnabled()) {
                     mSyncedFolderProvider.deleteSyncedFolder(syncedFolder.getId());

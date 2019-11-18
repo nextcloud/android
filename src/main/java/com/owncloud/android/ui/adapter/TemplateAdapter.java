@@ -33,6 +33,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
@@ -56,17 +57,20 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
     private Context context;
     private ChooseTemplateDialogFragment.Type type;
     private CurrentAccountProvider currentAccountProvider;
+    private ClientFactory clientFactory;
 
     public TemplateAdapter(
         ChooseTemplateDialogFragment.Type type,
         ClickListener clickListener,
         Context context,
-        CurrentAccountProvider currentAccountProvider
+        CurrentAccountProvider currentAccountProvider,
+        ClientFactory clientFactory
     ) {
         this.clickListener = clickListener;
         this.type = type;
         this.context = context;
         this.currentAccountProvider = currentAccountProvider;
+        this.clientFactory = clientFactory;
     }
 
     @NonNull
@@ -135,7 +139,8 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
                     break;
             }
 
-            Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider)).load(template.getThumbnailLink())
+            Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider, clientFactory))
+                    .load(template.getThumbnailLink())
                     .placeholder(placeholder)
                     .error(placeholder)
                     .into(thumbnail);

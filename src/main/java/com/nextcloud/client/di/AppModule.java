@@ -41,6 +41,7 @@ import com.nextcloud.client.logger.FileLogHandler;
 import com.nextcloud.client.logger.Logger;
 import com.nextcloud.client.logger.LoggerImpl;
 import com.nextcloud.client.logger.LogsRepository;
+import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
@@ -106,8 +107,8 @@ class AppModule {
     }
 
     @Provides
-    FilesRepository filesRepository(UserAccountManager accountManager) {
-        return new RemoteFilesRepository(new FilesServiceApiImpl(accountManager));
+    FilesRepository filesRepository(UserAccountManager accountManager, ClientFactory clientFactory) {
+        return new RemoteFilesRepository(new FilesServiceApiImpl(accountManager, clientFactory));
     }
 
     @Provides

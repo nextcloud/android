@@ -43,9 +43,11 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.files.services.FileUploader;
@@ -230,9 +232,9 @@ public class UploadListActivity extends FileActivity {
     protected void onStart() {
         super.onStart();
         ThemeUtils.setColoredTitle(getSupportActionBar(), R.string.uploads_view_title, this);
-        final Account account = getAccount();
-        if (account != null) {
-            setAccountInDrawer(account);
+        final Optional<User> optionalUser = getUser();
+        if (optionalUser.isPresent()) {
+            setAccountInDrawer(optionalUser.get());
         }
     }
 

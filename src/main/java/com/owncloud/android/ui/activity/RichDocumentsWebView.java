@@ -49,6 +49,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -155,7 +156,8 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
                     break;
             }
 
-            Glide.with(this).using(new CustomGlideStreamLoader(currentAccountProvider)).load(template.getThumbnailLink())
+            Glide.with(this).using(new CustomGlideStreamLoader(currentAccountProvider, clientFactory))
+                .load(template.getThumbnailLink())
                 .placeholder(placeholder)
                 .error(placeholder)
                 .into(thumbnail);
@@ -314,9 +316,9 @@ public class RichDocumentsWebView extends ExternalSiteWebView {
         OCFile file = data.getParcelableExtra(FolderPickerActivity.EXTRA_FILES);
 
         new Thread(() -> {
-            Account account = currentAccountProvider.getCurrentAccount();
+            User user = currentAccountProvider.getUser();
             RichDocumentsCreateAssetOperation operation = new RichDocumentsCreateAssetOperation(file.getRemotePath());
-            RemoteOperationResult result = operation.execute(account, this);
+            RemoteOperationResult result = operation.execute(user.toPlatformAccount(), this);
 
             if (result.isSuccess()) {
                 String asset = (String) result.getSingleData();
