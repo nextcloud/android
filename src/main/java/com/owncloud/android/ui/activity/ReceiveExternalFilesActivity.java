@@ -1016,7 +1016,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.receive_file_menu, menu);
+        inflater.inflate(R.menu.activity_receive_external_files, menu);
 
         if (!isHaveMultipleAccount()) {
             MenuItem switchAccountMenu = menu.findItem(R.id.action_switch_account);

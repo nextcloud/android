@@ -212,7 +212,7 @@ public class TrashbinActivity extends FileActivity implements
     @Override
     public void onOverflowIconClicked(TrashbinFile file, View view) {
         PopupMenu popup = new PopupMenu(this, view);
-        popup.inflate(R.menu.trashbin_actions_menu);
+        popup.inflate(R.menu.item_trashbin);
 
         popup.setOnMenuItemClickListener(item -> {
             trashbinPresenter.removeTrashbinFile(file);
@@ -243,7 +243,7 @@ public class TrashbinActivity extends FileActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.trashbin_options_menu, menu);
+        getMenuInflater().inflate(R.menu.activity_trashbin, menu);
 
         return true;
     }

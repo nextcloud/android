@@ -51,7 +51,7 @@ class EtmPreferencesFragment : EtmBaseFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.etm_preferences, menu)
+        inflater.inflate(R.menu.fragment_etm_preferences, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
