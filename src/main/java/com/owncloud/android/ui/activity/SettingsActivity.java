@@ -25,7 +25,6 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -52,10 +51,12 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.URLUtil;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.etm.EtmActivity;
 import com.nextcloud.client.logger.ui.LogsActivity;
+import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.BuildConfig;
@@ -69,8 +70,6 @@ import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.utils.DeviceCredentialUtils;
@@ -130,10 +129,11 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private String storagePath;
     private String pendingLock;
 
-    private Account account;
+    private User user;
     @Inject ArbitraryDataProvider arbitraryDataProvider;
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
+    @Inject ClientFactory clientFactory;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -156,7 +156,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         String appVersion = getAppVersion();
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
-        account = accountManager.getCurrentAccount();
+        user = accountManager.getUser();
 
         // retrieve user's base uri
         setupBaseUri();
@@ -408,7 +408,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     }
 
     private void setupE2EMnemonicPreference(PreferenceCategory preferenceCategoryMore) {
-        String mnemonic = arbitraryDataProvider.getValue(account.name, EncryptionUtils.MNEMONIC);
+        String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
 
         Preference pMnemonic = findPreference("mnemonic");
         if (pMnemonic != null) {
@@ -603,11 +603,11 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
             final SwitchPreference pUploadOnWifiCheckbox = (SwitchPreference) findPreference("synced_folder_on_wifi");
             pUploadOnWifiCheckbox.setChecked(
-                    arbitraryDataProvider.getBooleanValue(account, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
+                    arbitraryDataProvider.getBooleanValue(user.toPlatformAccount(), SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
 
             pUploadOnWifiCheckbox.setOnPreferenceClickListener(preference -> {
-                arbitraryDataProvider.storeOrUpdateKeyValue(account.name, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
-                        String.valueOf(pUploadOnWifiCheckbox.isChecked()));
+                arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
+                                                            String.valueOf(pUploadOnWifiCheckbox.isChecked()));
 
                 return true;
             });
@@ -764,7 +764,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 davDroidLoginIntent.setData(Uri.parse(serverBaseUri.toString() + AuthenticatorActivity.WEB_LOGIN));
                 davDroidLoginIntent.putExtra("davPath", DAV_PATH);
             }
-            davDroidLoginIntent.putExtra("username", UserAccountManager.getUsername(account));
+            davDroidLoginIntent.putExtra("username", UserAccountManager.getUsername(user.toPlatformAccount()));
 
             startActivityForResult(davDroidLoginIntent, ACTION_REQUEST_CODE_DAVDROID_SETUP);
         } else {
@@ -789,9 +789,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         // retrieve and set user's base URI
         Thread t = new Thread(() -> {
             try {
-                OwnCloudAccount ocAccount = new OwnCloudAccount(account, MainApp.getAppContext());
-                serverBaseUri = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount,
-                        getApplicationContext()).getBaseUri();
+                serverBaseUri = clientFactory.create(user).getBaseUri();
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error retrieving user's base URI", e);
             }
@@ -857,7 +855,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                         RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
 
                     ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
-                    String mnemonic = arbitraryDataProvider.getValue(account.name, EncryptionUtils.MNEMONIC);
+                    String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
 
                     int accentColor = ThemeUtils.primaryAccentColor(this);
 

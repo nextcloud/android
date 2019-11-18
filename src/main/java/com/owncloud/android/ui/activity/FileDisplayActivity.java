@@ -54,11 +54,13 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -2545,8 +2547,8 @@ public class FileDisplayActivity extends FileActivity
     @Override
     public void onStart() {
         super.onStart();
-        final Account account = getAccount();
-        if (account != null) {
+        Optional<User> optionalUser = getUser();
+        if (optionalUser.isPresent()) {
             /// Check whether the 'main' OCFile handled by the Activity is contained in the
             // current Account
             OCFile file = getFile();
@@ -2572,10 +2574,12 @@ public class FileDisplayActivity extends FileActivity
             }
             setFile(file);
 
-            setAccountInDrawer(account);
+            User user = optionalUser.get();
+            setAccountInDrawer(user);
             setupDrawer();
 
-            final boolean accountChanged = !account.equals(mLastDisplayedAccount);
+            final String lastDisplayedAccountName = mLastDisplayedAccount != null ? mLastDisplayedAccount.name : null;
+            final boolean accountChanged = !user.getAccountName().equals(lastDisplayedAccountName);
             if (accountChanged) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
@@ -2587,7 +2591,11 @@ public class FileDisplayActivity extends FileActivity
                 updateActionBarTitleAndHomeButton(file.isFolder() ? null : file);
             }
         }
-        mLastDisplayedAccount = account;
+        if (optionalUser.isPresent()) {
+            mLastDisplayedAccount = optionalUser.get().toPlatformAccount();
+        } else {
+            mLastDisplayedAccount = null;
+        }
 
         EventBus.getDefault().post(new TokenPushEvent());
         checkForNewDevVersionNecessary(findViewById(R.id.root_layout), getApplicationContext());

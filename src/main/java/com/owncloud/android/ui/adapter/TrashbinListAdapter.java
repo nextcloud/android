@@ -20,7 +20,6 @@
  */
 package com.owncloud.android.ui.adapter;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -31,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -65,7 +65,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final TrashbinActivityInterface trashbinActivityInterface;
     private List<TrashbinFile> files;
     private final Context context;
-    private final Account account;
+    private final User user;
     private final FileDataStorageManager storageManager;
     private final AppPreferences preferences;
 
@@ -76,11 +76,11 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         FileDataStorageManager storageManager,
         AppPreferences preferences,
         Context context,
-        Account account
+        User user
     ) {
         this.files = new ArrayList<>();
         this.trashbinActivityInterface = trashbinActivityInterface;
-        this.account = account;
+        this.user = user;
         this.storageManager = storageManager;
         this.preferences = preferences;
         this.context = context;
@@ -237,7 +237,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         try {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView, storageManager,
-                                            account, asyncTasks);
+                                                                                       user.toPlatformAccount(), asyncTasks);
 
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                     new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
@@ -257,7 +257,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             } else {
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(),
-                        account, context));
+                                                                            user.toPlatformAccount(), context));
             }
         }
     }

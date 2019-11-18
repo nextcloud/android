@@ -161,7 +161,7 @@ public class PhotoFragment extends OCFileListFragment {
         if (!photoSearchQueryRunning && !photoSearchNoNew) {
             photoSearchTask = new PhotoSearchTask(getColumnsCount(),
                                                   this,
-                                                  accountManager.getCurrentAccount(),
+                                                  accountManager.getUser(),
                                                   searchRemoteOperation,
                                                   mContainerActivity.getStorageManager())
                 .execute();

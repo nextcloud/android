@@ -1259,8 +1259,8 @@ public class FileDataStorageManager {
 
     private void resetShareFlagsInAllFiles() {
         ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, false);
-        cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, false);
+        cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, Boolean.FALSE);
+        cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, Boolean.FALSE);
         cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, "");
         String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
         String[] whereArgs = new String[]{account.name};
@@ -1279,8 +1279,8 @@ public class FileDataStorageManager {
 
     private void resetShareFlagsInFolder(OCFile folder) {
         ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, false);
-        cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, false);
+        cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, Boolean.FALSE);
+        cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, Boolean.FALSE);
         cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, "");
         String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PARENT + "=?";
         String[] whereArgs = new String[]{account.name, String.valueOf(folder.getFileId())};
@@ -1299,8 +1299,8 @@ public class FileDataStorageManager {
 
     private void resetShareFlagInAFile(String filePath) {
         ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, false);
-        cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, false);
+        cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, Boolean.FALSE);
+        cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, Boolean.FALSE);
         cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, "");
         String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + "=?";
         String[] whereArgs = new String[]{account.name, filePath};

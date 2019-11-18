@@ -26,6 +26,7 @@ import com.owncloud.android.lib.common.OwnCloudAccount
 interface User {
     val accountName: String
     val server: Server
+    val isAnonymous: Boolean
 
     /**
      * This is temporary helper method created to facilitate incremental refactoring.

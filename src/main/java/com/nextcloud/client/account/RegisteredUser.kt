@@ -31,6 +31,7 @@ internal class RegisteredUser(
     private val ownCloudAccount: OwnCloudAccount,
     override val server: Server
 ) : User {
+    override val isAnonymous = false
 
     override val accountName: String get() {
         return account.name
