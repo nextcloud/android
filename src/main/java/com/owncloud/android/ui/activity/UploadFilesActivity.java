@@ -254,7 +254,7 @@ public class UploadFilesActivity extends FileActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mOptionsMenu = menu;
-        getMenuInflater().inflate(R.menu.upload_files_picker, menu);
+        getMenuInflater().inflate(R.menu.activity_upload_files, menu);
 
         if(!mLocalFolderPickerMode) {
             MenuItem selectAll = menu.findItem(R.id.action_select_all);

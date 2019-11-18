@@ -156,7 +156,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.user_info_menu, menu);
+        inflater.inflate(R.menu.activity_user_info, menu);
 
         return true;
     }

@@ -409,7 +409,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         }
 
         PopupMenu popup = new PopupMenu(context, overflowMenuShareLink);
-        popup.inflate(R.menu.file_detail_sharing_link_menu);
+        popup.inflate(R.menu.fragment_file_detail_sharing_link);
         prepareOptionsMenu(popup.getMenu());
         popup.setOnMenuItemClickListener(this::optionsItemSelected);
         popup.show();

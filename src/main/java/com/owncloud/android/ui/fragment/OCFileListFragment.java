@@ -467,7 +467,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onOverflowIconClicked(OCFile file, View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
-        popup.inflate(R.menu.file_actions_menu);
+        popup.inflate(R.menu.item_file);
         Account currentAccount = ((FileActivity) getActivity()).getAccount();
         FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
                                                Collections.singleton(file),
@@ -587,7 +587,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mActiveActionMode = mode;
 
             MenuInflater inflater = getActivity().getMenuInflater();
-            inflater.inflate(R.menu.file_actions_menu, menu);
+            inflater.inflate(R.menu.item_file, menu);
             mode.invalidate();
 
             //set gray color
