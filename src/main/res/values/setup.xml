@@ -72,7 +72,7 @@
     <!-- Drawer options -->
     <bool name="recently_added_enabled">false</bool>
     <bool name="recently_modified_enabled">false</bool>
-    <bool name="shared_enabled">true</bool>
+    <bool name="shared_enabled">false</bool>
     <bool name="videos_enabled">false</bool>
     <bool name="show_drawer_logout">true</bool>
     <bool name="show_drawer_contacts_backup">false</bool> <!-- if false it will shown in settings -->
@@ -88,7 +88,7 @@
     <bool name="help_enabled">false</bool>
     <string name="url_help">https://help.nextcloud.com/c/feature</string>
     <bool name="privacy_enabled">true</bool>
-    <string name="privacy_url">https://nextcloud.com/privacy</string>
+    <string name="privacy_url">https://www.infomaniak.com/fr/cgv/politique-de-confidentialite</string>
     <bool name="imprint_enabled">false</bool>
     <bool name="recommend_enabled">true</bool>
     <bool name="logger_enabled">false</bool>
