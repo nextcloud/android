@@ -27,6 +27,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.db.ProviderMeta;
@@ -47,20 +48,22 @@ import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 public class SyncedFolderProvider extends Observable {
     static private final String TAG = SyncedFolderProvider.class.getSimpleName();
 
-    private ContentResolver mContentResolver;
-    private AppPreferences preferences;
+    private final ContentResolver mContentResolver;
+    private final AppPreferences preferences;
+    private final Clock clock;
 
     /**
      * constructor.
      *
      * @param contentResolver the ContentResolver to work with.
      */
-    public SyncedFolderProvider(ContentResolver contentResolver, AppPreferences preferences) {
+    public SyncedFolderProvider(ContentResolver contentResolver, AppPreferences preferences, Clock clock) {
         if (contentResolver == null) {
             throw new IllegalArgumentException("Cannot create an instance with a NULL contentResolver");
         }
         mContentResolver = contentResolver;
         this.preferences = preferences;
+        this.clock = clock;
     }
 
     /**
@@ -162,7 +165,7 @@ public class SyncedFolderProvider extends Observable {
                 // read sync folder object and update
                 SyncedFolder syncedFolder = createSyncedFolderFromCursor(cursor);
 
-                syncedFolder.setEnabled(enabled);
+                syncedFolder.setEnabled(enabled, clock.getCurrentTime());
 
                 // update sync folder object in db
                 result = updateSyncFolder(syncedFolder);
@@ -347,11 +350,13 @@ public class SyncedFolderProvider extends Observable {
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION));
             Boolean enabled = cursor.getInt(cursor.getColumnIndex(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED)) == 1;
+            long enabledTimestampMs = cursor.getLong(cursor.getColumnIndex(
+                    ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS));
             MediaFolderType type = MediaFolderType.getById(cursor.getInt(cursor.getColumnIndex(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE)));
 
             syncedFolder = new SyncedFolder(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate,
-                    accountName, uploadAction, enabled, type);
+                    accountName, uploadAction, enabled, enabledTimestampMs, type);
         }
         return syncedFolder;
     }
@@ -370,6 +375,7 @@ public class SyncedFolderProvider extends Observable {
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY, syncedFolder.getWifiOnly());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY, syncedFolder.getChargingOnly());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED, syncedFolder.isEnabled());
+        cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS, syncedFolder.getEnabledTimestampMs());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE, syncedFolder.getSubfolderByDate());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT, syncedFolder.getAccount());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION, syncedFolder.getUploadAction());

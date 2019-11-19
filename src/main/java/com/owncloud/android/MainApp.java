@@ -45,6 +45,7 @@ import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.DaggerAppComponent;
@@ -161,6 +162,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @Inject
     BackgroundJobManager backgroundJobManager;
 
+    @Inject
+    Clock clock;
+
     private PassCodeManager passCodeManager;
 
     @SuppressWarnings("unused")
@@ -268,7 +272,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 preferences,
                 uploadsStorageManager,
                 connectivityService,
-                powerManagementService
+                powerManagementService,
+                clock
             )
         );
 
@@ -304,7 +309,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                            accountManager,
                            connectivityService,
                            powerManagementService,
-                           backgroundJobManager);
+                           backgroundJobManager,
+                           clock);
         initContactsBackup(accountManager);
         notificationChannels();
 
@@ -462,23 +468,24 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         final UserAccountManager accountManager,
         final ConnectivityService connectivityService,
         final PowerManagementService powerManagementService,
-        final BackgroundJobManager jobManager
+        final BackgroundJobManager jobManager,
+        final Clock clock
     ) {
         updateToAutoUpload();
-        cleanOldEntries();
-        updateAutoUploadEntries();
+        cleanOldEntries(clock);
+        updateAutoUploadEntries(clock);
 
         if (getAppContext() != null) {
             if (PermissionUtil.checkSelfPermission(getAppContext(),
                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                splitOutAutoUploadEntries();
+                splitOutAutoUploadEntries(clock);
             } else {
                 AppPreferences preferences = AppPreferencesImpl.fromContext(getAppContext());
                 preferences.setAutoUploadSplitEntriesEnabled(true);
             }
         }
 
-        initiateExistingAutoUploadEntries();
+        initiateExistingAutoUploadEntries(clock);
 
         FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext, jobManager);
         FilesSyncHelper.restartJobsIfNeeded(
@@ -685,18 +692,18 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
     }
 
-    private static void updateAutoUploadEntries() {
+    private static void updateAutoUploadEntries(Clock clock) {
         // updates entries to reflect their true paths
         Context context = getAppContext();
         AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         if (!preferences.isAutoUploadPathsUpdateEnabled()) {
             SyncedFolderProvider syncedFolderProvider =
-                new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences);
+                new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences, clock);
             syncedFolderProvider.updateAutoUploadPaths(mContext);
         }
     }
 
-    private static void splitOutAutoUploadEntries() {
+    private static void splitOutAutoUploadEntries(Clock clock) {
         Context context = getAppContext();
         AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         if (!preferences.isAutoUploadSplitEntriesEnabled()) {
@@ -705,7 +712,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             Log_OC.i(TAG, "Migrate synced_folders records for image/video split");
             ContentResolver contentResolver = context.getContentResolver();
 
-            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences);
+            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences, clock);
 
             final List<MediaFolder> imageMediaFolders = MediaProvider.getImageFolders(contentResolver, 1, null, true);
             final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 1, null, true);
@@ -751,12 +758,12 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
     }
 
-    private static void initiateExistingAutoUploadEntries() {
+    private static void initiateExistingAutoUploadEntries(Clock clock) {
         new Thread(() -> {
             AppPreferences preferences = AppPreferencesImpl.fromContext(getAppContext());
             if (!preferences.isAutoUploadInitialized()) {
                 SyncedFolderProvider syncedFolderProvider =
-                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences);
+                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences, clock);
 
                 for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
                     if (syncedFolder.isEnabled()) {
@@ -770,7 +777,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }).start();
     }
 
-    private static void cleanOldEntries() {
+    private static void cleanOldEntries(Clock clock) {
         // previous versions of application created broken entries in the SyncedFolderProvider
         // database, and this cleans all that and leaves 1 (newest) entry per synced folder
 
@@ -779,7 +786,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         if (!preferences.isLegacyClean()) {
             SyncedFolderProvider syncedFolderProvider =
-                new SyncedFolderProvider(context.getContentResolver(), preferences);
+                new SyncedFolderProvider(context.getContentResolver(), preferences, clock);
 
             List<SyncedFolder> syncedFolderList = syncedFolderProvider.getSyncedFolders();
             Map<Pair<String, String>, Long> syncedFolders = new HashMap<>();
