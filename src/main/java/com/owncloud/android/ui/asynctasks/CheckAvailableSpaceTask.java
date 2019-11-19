@@ -26,6 +26,8 @@ import android.os.AsyncTask;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Asynchronous task checking if there is space enough to copy all the files chosen to upload into the ownCloud local
@@ -38,6 +40,15 @@ public class CheckAvailableSpaceTask extends AsyncTask<Boolean, Void, Boolean> {
 
     public CheckAvailableSpaceTask(CheckAvailableSpaceListener callback, String... paths) {
         this.paths = paths;
+        this.callback = callback;
+    }
+
+    public CheckAvailableSpaceTask(CheckAvailableSpaceListener callback, ArrayList<File> files) {
+        ArrayList<String> paths = new ArrayList<>();
+        for (File file : files) {
+            paths.add(file.getAbsolutePath());
+        }
+        this.paths = paths.toArray(new String[]{});
         this.callback = callback;
     }
 

@@ -711,7 +711,8 @@ public class UploadFilesActivity extends FileActivity implements
 
     private String getReplicationStartDir() {
         File currentDirectory = mFileListFragment.getCurrentDirectory();
-        for (String filePath : mFileListFragment.getCheckedFilePaths()) {
+        for (File file : mFileListFragment.getCheckedFilePaths()) {
+            String filePath = file.getAbsolutePath();
             if (!filePath.startsWith(currentDirectory.getAbsolutePath())) {
                 return determineReplicationRootDir();
             }
@@ -732,8 +733,8 @@ public class UploadFilesActivity extends FileActivity implements
     /** Tries to guess where replication root is by using common ancestor of all files */
     private String determineReplicationRootDir() {
         File commonDirectory = null;
-        for (String filePath : mFileListFragment.getCheckedFilePaths()) {
-            File directory = new File(filePath).getParentFile();
+        for (File file : mFileListFragment.getCheckedFilePaths()) {
+            File directory = file.getParentFile();
             if (commonDirectory == null) {
                 commonDirectory = directory;
                 continue;

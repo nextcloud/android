@@ -118,19 +118,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         return mFiles.indexOf(file);
     }
 
-    public String[] getCheckedFilesPath() {
-        List<String> result = new ArrayList<>();
-
-        for (File file : checkedFiles) {
-            if (file.isDirectory()) {
-                continue;
-            }
-            result.add(file.getAbsolutePath());
-        }
-
-        Log_OC.d(TAG, "Returning " + result.size() + " selected files");
-
-        return result.toArray(new String[0]);
+    public ArrayList<File> getCheckedFilesPath() {
+        Log_OC.d(TAG, "Returning " + checkedFiles.size() + " selected files");
+        return new ArrayList<>(checkedFiles);
     }
 
     @Override
@@ -174,8 +164,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 File finalFile = file;
                 gridViewHolder.itemLayout.setOnClickListener(v -> localFileListFragmentInterface
                         .onItemClicked(finalFile));
-                gridViewHolder.itemLayout.setOnLongClickListener(v -> localFileListFragmentInterface
-                        .onItemLongClicked(finalFile));
+
+                gridViewHolder.checkbox.setOnClickListener(v -> localFileListFragmentInterface
+                        .onCheckboxClicked(finalFile));
 
 
                 if (holder instanceof LocalFileListItemViewHolder) {

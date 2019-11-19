@@ -134,9 +134,12 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -988,9 +991,9 @@ public class FileDisplayActivity extends FileActivity
                             DisplayUtils.showSnackMessage(getActivity(), "Fail to upload taken image!");
                             return;
                         }
-
-                        requestUploadOfFilesFromFileSystem(new String[]{renamedFile.getAbsolutePath()},
-                                                           FileUploader.LOCAL_BEHAVIOUR_MOVE);
+                        ArrayList<File> files = new ArrayList<>();
+                        files.add(renamedFile);
+                        requestUploadOfFilesFromFileSystem(files, FileUploader.LOCAL_BEHAVIOUR_MOVE);
                     }
                 }
             }, new String[]{FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath()}).execute();
@@ -1032,13 +1035,21 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void requestUploadOfFilesFromFileSystem(Intent data, int resultCode) {
-        String[] filePaths = data.getStringArrayExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
+        // Do a type check just in case. A string is added to EXTRA_CHOSEN_FILES somewhere.
+        Serializable serializable = data.getSerializableExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
+        List<File> files = new ArrayList<>();
+        if (serializable instanceof ArrayList) {
+            files = (ArrayList) serializable;
+        } else if (serializable instanceof String) {
+            String filePath = (String) serializable;
+            files.add(new File(filePath));
+        }
         String replicationStartDir = data.getStringExtra(UploadFilesActivity.EXTRA_REPLICATION_START_DIR);
-        requestUploadOfFilesFromFileSystem(filePaths, resultCode, replicationStartDir);
+        requestUploadOfFilesFromFileSystem(files, resultCode, replicationStartDir);
     }
 
-    private void requestUploadOfFilesFromFileSystem(String[] filePaths, int resultCode) {
-        requestUploadOfFilesFromFileSystem(filePaths, resultCode, null);
+    private void requestUploadOfFilesFromFileSystem(List<File> files, int resultCode) {
+        requestUploadOfFilesFromFileSystem(files, resultCode, null);
     }
 
     private void queueFolderCreation(String folder) {
@@ -1097,32 +1108,41 @@ public class FileDisplayActivity extends FileActivity
 
     /**
      * Requests an upload from local filesystem.
-     * @param filePaths             Local file paths to upload
+     * @param files                 Local files to upload
      * @param resultCode            result code
      * @param replicationStartDir   Root of file structure replication. All filePaths should be contained in this dir.
      *                              the directory name should always
      *                              If this parameter is null, no replication happens and all files will be uploaded
      *                              to current directory.
      */
-    private void requestUploadOfFilesFromFileSystem(String[] filePaths, int resultCode, String replicationStartDir) {
+    private void requestUploadOfFilesFromFileSystem(List<File> files, int resultCode,
+                                                    String replicationStartDir) {
 
         if (replicationStartDir == null) {
             replicationStartDir = "0";
         }
 
-        if (filePaths != null) {
+        if (files != null) {
             foldersToAutoCreate.clear();
-            String[] remotePaths = new String[filePaths.length];
+            List<String> remotePaths = new ArrayList<>();
             String remotePathBase = getCurrentDir().getRemotePath();
-            for (int j = 0; j < remotePaths.length; j++) {
+            for (File file : files) {
 
                 // Determine upload targes and full remote paths (eg. /Documents and /Documents/foo.txt)
-                String remoteDirectory = (new File(filePaths[j])).getName();
-                if (filePaths[j].startsWith(replicationStartDir)) {
-                    remoteDirectory = filePaths[j].replace(replicationStartDir, "");
+                String filePath = file.getAbsolutePath();
+                String remoteDirectory = file.getName();
+                if (filePath.startsWith(replicationStartDir)) {
+                    remoteDirectory = filePath.replace(replicationStartDir, "");
                 }
-                remotePaths[j] = remotePathBase + remoteDirectory;
-                String folder = remotePaths[j].replace(remotePaths[j].substring(remotePaths[j].lastIndexOf("/")), "");
+                String remotePath = remotePathBase + remoteDirectory;
+                String folder = remotePath.replace(remotePath.substring(remotePath.lastIndexOf("/")), "");
+                if (file.isDirectory()) {
+                    folder = remotePath;
+                }
+
+                if (file.isFile()) {
+                    remotePaths.add(remotePath);
+                }
 
                 if (folder.equals("")) {
                     // Uploading to root so no folder creation needed
@@ -1132,6 +1152,9 @@ public class FileDisplayActivity extends FileActivity
                 queueFolderCreation(folder);
             }
 
+            removeFolders(files);
+
+
             if (foldersToAutoCreate.isEmpty()) {
                 // No new folders needed, just upload files right now
                 completeFileUploadOperation();
@@ -1139,14 +1162,35 @@ public class FileDisplayActivity extends FileActivity
             }
 
             getOperationsServiceBinder().addOperationListener(this, mCreateFolderHandler);
-            mResultCode = resultCode;
-            mFilePaths = filePaths;
-            mRemotePaths = remotePaths;
+            uploadAfterFoldersAreCreated(getFilePaths(files), remotePaths.toArray(new String[]{}), resultCode);
 
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
             DisplayUtils.showSnackMessage(this, R.string.filedisplay_no_file_selected);
         }
+    }
+
+    private void uploadAfterFoldersAreCreated(String[] filePaths, String[] remotePaths, int resultCode) {
+        mFilePaths = filePaths;
+        mRemotePaths = remotePaths;
+        mResultCode = resultCode;
+    }
+
+    private void removeFolders(List<File> files) {
+        Iterator<File> it = files.iterator();
+        while (it.hasNext()) {
+            if (it.next().isDirectory()) {
+                it.remove();
+            }
+        }
+    }
+
+    private String[] getFilePaths(List<File> files) {
+        List<String> paths = new ArrayList<>();
+        for (File file : files) {
+            paths.add(file.getAbsolutePath());
+        }
+        return paths.toArray(new String[]{});
     }
 
     private void requestUploadOfContentFromApps(Intent contentIntent, int resultCode) {
@@ -2190,16 +2234,20 @@ public class FileDisplayActivity extends FileActivity
     private void onCreateFolderOperationFinish(CreateFolderOperation operation,
                                                RemoteOperationResult result) {
 
+        String createdPath = operation.getRemotePath();
+        if (createdPath.endsWith("/")) {
+            createdPath = createdPath.substring(0, createdPath.length() - 1);
+        }
+        if ((result.isSuccess() || result.getCode() == ResultCode.FOLDER_ALREADY_EXISTS)
+            && foldersToAutoCreate.contains(createdPath)) {
+            foldersToAutoCreate.remove(createdPath);
+            if (foldersToAutoCreate.isEmpty()) {
+                completeFileUploadOperation();
+            }
+            return;
+        }
 
         if (result.isSuccess()) {
-            String createdPath = operation.getRemotePath();
-            if (foldersToAutoCreate.contains(createdPath)) {
-                foldersToAutoCreate.remove(createdPath);
-                if (foldersToAutoCreate.isEmpty()) {
-                    completeFileUploadOperation();
-                }
-                return;
-            }
 
             OCFileListFragment fileListFragment = getListOfFilesFragment();
             if (fileListFragment != null) {
