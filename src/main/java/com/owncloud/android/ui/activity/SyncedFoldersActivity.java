@@ -41,13 +41,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.MediaProvider;
@@ -113,6 +113,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     private int type;
     @Inject AppPreferences preferences;
     @Inject PowerManagementService powerManagementService;
+    @Inject Clock clock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -223,8 +224,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         final int gridWidth = getResources().getInteger(R.integer.media_grid_width);
         boolean lightVersion = getResources().getBoolean(R.bool.syncedFolder_light);
-        mAdapter = new SyncedFolderAdapter(this, gridWidth, this, lightVersion);
-        mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences);
+        mAdapter = new SyncedFolderAdapter(this, clock, gridWidth, this, lightVersion);
+        mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
 
         final GridLayoutManager lm = new GridLayoutManager(this, gridWidth);
         mAdapter.setLayoutManager(lm);
@@ -386,6 +387,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 syncedFolder.getAccount(),
                 syncedFolder.getUploadAction(),
                 syncedFolder.isEnabled(),
+                clock.getCurrentTime(),
                 filePaths,
                 localFolder.getName(),
                 files.length,
@@ -411,6 +413,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 syncedFolder.getAccount(),
                 syncedFolder.getUploadAction(),
                 syncedFolder.isEnabled(),
+                clock.getCurrentTime(),
                 mediaFolder.filePaths,
                 mediaFolder.folderName,
                 mediaFolder.numberOfFiles,
@@ -432,9 +435,10 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 true,
                 false,
                 false,
-            getAccount().name,
+                getAccount().name,
                 FileUploader.LOCAL_BEHAVIOUR_FORGET,
                 false,
+                clock.getCurrentTime(),
                 mediaFolder.filePaths,
                 mediaFolder.folderName,
                 mediaFolder.numberOfFiles,
@@ -519,7 +523,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 SyncedFolderDisplayItem emptyCustomFolder = new SyncedFolderDisplayItem(
                     SyncedFolder.UNPERSISTED_ID, null, null, true, false,
                     false, getAccount().name,
-                    FileUploader.LOCAL_BEHAVIOUR_FORGET, false, null, MediaFolderType.CUSTOM);
+                    FileUploader.LOCAL_BEHAVIOUR_FORGET, false, clock.getCurrentTime(), null, MediaFolderType.CUSTOM);
                 onSyncFolderSettingsClick(0, emptyCustomFolder);
             }
 
@@ -548,9 +552,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
     @Override
     public void onSyncStatusToggleClick(int section, SyncedFolderDisplayItem syncedFolderDisplayItem) {
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().
-                getContentResolver());
-
         if (syncedFolderDisplayItem.getId() > UNPERSISTED_ID) {
             mSyncedFolderProvider.updateSyncedFolderEnabled(syncedFolderDisplayItem.getId(),
                     syncedFolderDisplayItem.isEnabled());
@@ -565,9 +566,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolderDisplayItem);
 
             showBatteryOptimizationInfo();
-        } else {
-            String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + syncedFolderDisplayItem.getId();
-            arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
         }
     }
 
@@ -600,9 +598,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
     @Override
     public void onSaveSyncedFolderPreference(SyncedFolderParcelable syncedFolder) {
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().
-                getContentResolver());
-
         // custom folders newly created aren't in the list already,
         // so triggering a refresh
         if (MediaFolderType.CUSTOM == syncedFolder.getType() && syncedFolder.getId() == UNPERSISTED_ID) {
@@ -610,15 +605,12 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                     SyncedFolder.UNPERSISTED_ID, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(),
                     syncedFolder.getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(),
                     syncedFolder.getAccount(), syncedFolder.getUploadAction(), syncedFolder.getEnabled(),
-                    new File(syncedFolder.getLocalPath()).getName(), syncedFolder.getType());
+                    clock.getCurrentTime(), new File(syncedFolder.getLocalPath()).getName(), syncedFolder.getType());
             long storedId = mSyncedFolderProvider.storeSyncedFolder(newCustomFolder);
             if (storedId != -1) {
                 newCustomFolder.setId(storedId);
                 if (newCustomFolder.isEnabled()) {
                     FilesSyncHelper.insertAllDBEntriesForSyncedFolder(newCustomFolder);
-                } else {
-                    String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + newCustomFolder.getId();
-                    arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
                 }
             }
             mAdapter.addSyncFolderItem(newCustomFolder);
@@ -635,9 +627,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                     item.setId(storedId);
                     if (item.isEnabled()) {
                         FilesSyncHelper.insertAllDBEntriesForSyncedFolder(item);
-                    } else {
-                        String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + item.getId();
-                        arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
                     }
                 }
             } else {
@@ -645,9 +634,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 mSyncedFolderProvider.updateSyncFolder(item);
                 if (item.isEnabled()) {
                     FilesSyncHelper.insertAllDBEntriesForSyncedFolder(item);
-                } else {
-                    String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + item.getId();
-                    arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
                 }
             }
 
@@ -699,7 +685,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         item.setChargingOnly(chargingOnly);
         item.setSubfolderByDate(subfolderByDate);
         item.setUploadAction(uploadAction);
-        item.setEnabled(enabled);
+        item.setEnabled(enabled, clock.getCurrentTime());
         return item;
     }
 

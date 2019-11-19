@@ -177,6 +177,7 @@ public class SyncedFoldersActivityTest {
                                            "test@nextcloud.com",
                                            1,
                                            enabled,
+                                           System.currentTimeMillis(),
                                            new ArrayList<String>(),
                                            folderName,
                                            2,

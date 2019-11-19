@@ -39,6 +39,7 @@ import android.text.TextUtils;
 import com.evernote.android.job.Job;
 import com.google.gson.Gson;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.R;
@@ -74,11 +75,13 @@ public class MediaFoldersDetectionJob extends Job {
 
     private static final String DISABLE_DETECTION_CLICK = "DISABLE_DETECTION_CLICK";
 
-    private UserAccountManager userAccountManager;
-    private Random randomId = new Random();
+    private final UserAccountManager userAccountManager;
+    private final Clock clock;
+    private final Random randomId = new Random();
 
-    MediaFoldersDetectionJob(UserAccountManager accountManager) {
+    MediaFoldersDetectionJob(UserAccountManager accountManager, Clock clock) {
         this.userAccountManager = accountManager;
+        this.clock = clock;
     }
 
     @NonNull
@@ -88,7 +91,8 @@ public class MediaFoldersDetectionJob extends Job {
         ContentResolver contentResolver = context.getContentResolver();
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(contentResolver);
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver,
-                                                                             AppPreferencesImpl.fromContext(context));
+                                                                             AppPreferencesImpl.fromContext(context),
+                                                                             clock);
         Gson gson = new Gson();
         String arbitraryDataString;
         MediaFoldersModel mediaFoldersModel;

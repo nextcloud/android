@@ -32,6 +32,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.jobs.NotificationJob;
 import com.owncloud.android.providers.DiskLruImageCacheFileProvider;
+import com.owncloud.android.providers.FileContentProvider;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.services.AccountManagerService;
 import com.owncloud.android.services.OperationsService;
@@ -148,6 +149,7 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract BootupBroadcastReceiver bootupBroadcastReceiver();
     @ContributesAndroidInjector abstract NotificationJob.NotificationReceiver notificationJobBroadcastReceiver();
 
+    @ContributesAndroidInjector abstract FileContentProvider fileContentProvider();
     @ContributesAndroidInjector abstract UsersAndGroupsSearchProvider usersAndGroupsSearchProvider();
     @ContributesAndroidInjector abstract DiskLruImageCacheFileProvider diskLruImageCacheFileProvider();
 

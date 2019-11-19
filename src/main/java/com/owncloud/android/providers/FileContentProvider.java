@@ -42,9 +42,11 @@ import android.net.Uri;
 import android.os.Binder;
 import android.text.TextUtils;
 
+import com.nextcloud.client.core.Clock;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -58,7 +60,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
+import dagger.android.AndroidInjection;
 
 /**
  * The ContentProvider for the ownCloud App.
@@ -91,6 +96,7 @@ public class FileContentProvider extends ContentProvider {
     public static final int ARBITRARY_DATA_TABLE_INTRODUCTION_VERSION = 20;
     public static final int MINIMUM_PATH_SEGMENTS_SIZE = 1;
 
+    @Inject protected Clock clock;
     private DataBaseHelper mDbHelper;
     private Context mContext;
     private UriMatcher mUriMatcher;
@@ -414,6 +420,7 @@ public class FileContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
+        AndroidInjection.inject(this);
         mDbHelper = new DataBaseHelper(getContext());
         mContext = getContext();
 
@@ -822,6 +829,7 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY + " INTEGER, "         // wifi_only
                        + ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY + " INTEGER, "     // charging only
                        + ProviderTableMeta.SYNCED_FOLDER_ENABLED + " INTEGER, "           // enabled
+                       + ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS + " INTEGER, "           // enable date
                        + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + " INTEGER, " // subfolder by date
                        + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + "  TEXT, "             // account
                        + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION + " INTEGER, "     // upload action
@@ -2002,6 +2010,30 @@ public class FileContentProvider extends ContentProvider {
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
                                    ADD_COLUMN + ProviderTableMeta.CAPABILITIES_EXTENDED_SUPPORT + " INTEGER ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 50 && newVersion >= 50) {
+                Log_OC.i(SQL, "Entering in the #50 add persistent enable date to synced_folders table");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS + " INTEGER ");
+
+                    db.execSQL("UPDATE " + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME + " SET " +
+                                   ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS + " = CASE " +
+                                   " WHEN enabled = 0 THEN " + SyncedFolder.EMPTY_ENABLED_TIMESTAMP_MS + " " +
+                                   " ELSE " + clock.getCurrentTime() +
+                                   " END ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();

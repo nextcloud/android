@@ -34,6 +34,7 @@ import android.text.TextUtils;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -76,22 +77,25 @@ public class FilesSyncJob extends Job {
     public static final String OVERRIDE_POWER_SAVING = "overridePowerSaving";
     private static final String WAKELOCK_TAG_SEPARATION = ":";
 
-    private UserAccountManager userAccountManager;
-    private AppPreferences preferences;
-    private UploadsStorageManager uploadsStorageManager;
-    private ConnectivityService connectivityService;
-    private PowerManagementService powerManagementService;
+    private final UserAccountManager userAccountManager;
+    private final AppPreferences preferences;
+    private final UploadsStorageManager uploadsStorageManager;
+    private final ConnectivityService connectivityService;
+    private final PowerManagementService powerManagementService;
+    private final Clock clock;
 
     FilesSyncJob(final UserAccountManager userAccountManager,
                         final AppPreferences preferences,
                         final UploadsStorageManager uploadsStorageManager,
                         final ConnectivityService connectivityService,
-                        final PowerManagementService powerManagementService) {
+                        final PowerManagementService powerManagementService,
+                        final Clock clock) {
         this.userAccountManager = userAccountManager;
         this.preferences = preferences;
         this.uploadsStorageManager = uploadsStorageManager;
         this.connectivityService = connectivityService;
         this.powerManagementService = powerManagementService;
+        this.clock = clock;
     }
 
     @NonNull
@@ -126,13 +130,12 @@ public class FilesSyncJob extends Job {
                                             userAccountManager,
                                             connectivityService,
                                             powerManagementService);
-        FilesSyncHelper.insertAllDBEntries(preferences, skipCustom);
+        FilesSyncHelper.insertAllDBEntries(preferences, clock, skipCustom);
 
         // Create all the providers we'll need
         final ContentResolver contentResolver = context.getContentResolver();
         final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
-        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver,
-                                                                             preferences);
+        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences, clock);
 
         Locale currentLocale = context.getResources().getConfiguration().locale;
         SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale);
