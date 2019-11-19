@@ -10,4 +10,8 @@
     <string name="intro_title_3">Save automatically your pictures on your Drive</string>
 
     <string name="unavailable_operation_beta">This operation is unavailable during the beta-testing phase</string>
+
+    <string name="nextcloud_repo_url">https://github.com/nextcloud/android</string>
+    <string name="prefs_redistribution">Redistribution</string>
+    <string name="prefs_redistribution_text">This application is redistributed from Nextcloud source code under GPLv2/AGPLv3 license</string>
 </resources>

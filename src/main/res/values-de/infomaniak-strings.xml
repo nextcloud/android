@@ -10,4 +10,7 @@
     <string name="intro_title_3">Speichern Sie Ihre Bilder automatisch auf Ihrem Drive.</string>
 
     <string name="unavailable_operation_beta">Dieser Vorgang ist während der Beta-Testphase nicht verfügbar.</string>
+
+    <string name="prefs_redistribution">Umverteilung</string>
+    <string name="prefs_redistribution_text">Diese Anwendung resultiert aus dem Quellcode von Nextcloud unter Anwendung der Lizenzen GPLv2/AGPLv3</string>
 </resources>

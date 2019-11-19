@@ -246,6 +246,17 @@ public class SettingsActivity extends PreferenceActivity
             }
         }
 
+        // Nextcloud initial branding
+        Preference nxcBrandPreference = findPreference("nextcloud_brand_app");
+        if (nxcBrandPreference != null) {
+            nxcBrandPreference.setTitle(R.string.prefs_redistribution);
+            nxcBrandPreference.setSummary(R.string.prefs_redistribution_text);
+            nxcBrandPreference.setOnPreferenceClickListener(preference -> {
+                DisplayUtils.startLinkIntent(this, R.string.nextcloud_repo_url);
+                return true;
+            });
+        }
+
         // license
         boolean licenseEnabled = getResources().getBoolean(R.bool.license_enabled);
         Preference licensePreference = findPreference("license");
@@ -265,30 +276,10 @@ public class SettingsActivity extends PreferenceActivity
         boolean privacyEnabled = getResources().getBoolean(R.bool.privacy_enabled);
         Preference privacyPreference = findPreference("privacy");
         if (privacyPreference != null) {
-            if (privacyEnabled && URLUtil.isValidUrl(getString(R.string.privacy_url))) {
+            if (privacyEnabled) {
+                privacyPreference.setSummary(R.string.privacy);
                 privacyPreference.setOnPreferenceClickListener(preference -> {
-                    try {
-                        Uri privacyUrl = Uri.parse(getString(R.string.privacy_url));
-                        String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(privacyUrl.getLastPathSegment());
-
-                        Intent intent;
-                        if ("application/pdf".equals(mimeType)) {
-                            intent = new Intent(Intent.ACTION_VIEW, privacyUrl);
-                            DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_pdf_app_available);
-                        } else {
-                            intent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                            intent.putExtra(ExternalSiteWebView.EXTRA_TITLE,
-                                    getResources().getString(R.string.privacy));
-                            intent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl.toString());
-                            intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                            intent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
-                        }
-
-                        startActivity(intent);
-                    } catch (Exception e) {
-                        Log_OC.e(TAG, "Could not parse privacy url");
-                        preferenceCategoryAbout.removePreference(privacyPreference);
-                    }
+                    DisplayUtils.startLinkIntent(this, R.string.privacy_url);
                     return true;
                 });
             } else {

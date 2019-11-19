@@ -85,7 +85,9 @@
 			android:id="@+id/license"
 			android:key="license"/>
 		<Preference android:title="@string/about_title" android:id="@+id/about_app" android:key="about_app" />
-	</PreferenceCategory>
+        <Preference android:title="@string/about_title" android:id="@+id/nextcloud_brand_app" android:key="nextcloud_brand_app" />
+
+    </PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_dev" android:key="dev_category">
 		<Preference android:id="@+id/dev_link"

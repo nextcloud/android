@@ -10,4 +10,7 @@
     <string name="intro_title_3">Save automatically your pictures on your Drive</string>
 
     <string name="unavailable_operation_beta">Questa operazione non è disponibile durante la fase di beta-testing.</string>
-</resources>
+
+    <string name="prefs_redistribution">Ridistribuzione</string>
+    <string name="prefs_redistribution_text">Questa applicazione viene ridistribuita in base al codice sorgente della licenza Nextcloud GPLv2 / AGPLv3</string>
+    </resources>

@@ -10,4 +10,7 @@
     <string name="intro_title_3">Sauvegardez automatiquement vos photos sur votre Drive</string>
 
     <string name="unavailable_operation_beta">Cette opération est indisponible durant la phase de beta-testing</string>
+
+    <string name="prefs_redistribution">Redistribution</string>
+    <string name="prefs_redistribution_text">Cette application est redistribuée sur la base du code source de Nextcloud sous licence GPLv2/AGPLv3</string>
 </resources>
