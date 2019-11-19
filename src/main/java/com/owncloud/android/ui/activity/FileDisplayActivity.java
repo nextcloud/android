@@ -136,7 +136,6 @@ import org.parceler.Parcels;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -1135,7 +1134,7 @@ public class FileDisplayActivity extends FileActivity
                     remoteDirectory = filePath.replace(replicationStartDir, "");
                 }
                 String remotePath = remotePathBase + remoteDirectory;
-                String folder = remotePath.replace(remotePath.substring(remotePath.lastIndexOf("/")), "");
+                String folder = remotePath.replace(remotePath.substring(remotePath.lastIndexOf('/')), "");
                 if (file.isDirectory()) {
                     folder = remotePath;
                 }
@@ -1144,7 +1143,7 @@ public class FileDisplayActivity extends FileActivity
                     remotePaths.add(remotePath);
                 }
 
-                if (folder.equals("")) {
+                if ("".equals(folder)) {
                     // Uploading to root so no folder creation needed
                     continue;
                 }
