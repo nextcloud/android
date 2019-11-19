@@ -58,7 +58,7 @@ configurations {
 ext {
     jacocoVersion = "0.8.2"
     daggerVersion = "2.25.2"
-    markwonVersion =  "4.1.2"
+    markwonVersion =  "4.2.0"
     prismVersion = "2.0.0"
     androidLibraryVersion = "master-SNAPSHOT"
 
