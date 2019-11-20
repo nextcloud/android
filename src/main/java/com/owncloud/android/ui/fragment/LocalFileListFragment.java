@@ -39,7 +39,7 @@ import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface;
 import com.owncloud.android.utils.FileSortOrder;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -287,7 +287,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
      *
      * @return File paths to the files checked by the user.
      */
-    public ArrayList<File> getCheckedFilePaths() {
+    public List<File> getCheckedFilePaths() {
         return mAdapter.getCheckedFilesPath();
     }
 

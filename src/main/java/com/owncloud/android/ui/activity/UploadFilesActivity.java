@@ -487,7 +487,7 @@ public class UploadFilesActivity extends FileActivity implements
 
                 preferences.setUploaderBehaviour(FileUploader.LOCAL_BEHAVIOUR_MOVE);
             } else {
-                data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
+                data.putExtra(EXTRA_CHOSEN_FILES, (ArrayList<File>)mFileListFragment.getCheckedFilePaths());
                 data.putExtra(EXTRA_REPLICATION_START_DIR, getReplicationStartDir());
 
                 // set result code
@@ -665,7 +665,7 @@ public class UploadFilesActivity extends FileActivity implements
             // return the list of selected files to the caller activity (success),
             // signaling that they should be moved to the ownCloud folder, instead of copied
             Intent data = new Intent();
-            data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
+            data.putExtra(EXTRA_CHOSEN_FILES, (ArrayList<File>)mFileListFragment.getCheckedFilePaths());
             setResult(RESULT_OK_AND_MOVE, data);
             finish();
         }

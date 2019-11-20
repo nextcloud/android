@@ -118,7 +118,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         return mFiles.indexOf(file);
     }
 
-    public ArrayList<File> getCheckedFilesPath() {
+    public List<File> getCheckedFilesPath() {
         Log_OC.d(TAG, "Returning " + checkedFiles.size() + " selected files");
         return new ArrayList<>(checkedFiles);
     }

@@ -1066,10 +1066,10 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void completeFileUploadOperation() {
-        int behaviour;
         if (mFilePaths == null) {
             return;
         }
+        int behaviour;
         switch (mResultCode) {
             case UploadFilesActivity.RESULT_OK_AND_MOVE:
                 behaviour = FileUploader.LOCAL_BEHAVIOUR_MOVE;
@@ -1101,8 +1101,8 @@ public class FileDisplayActivity extends FileActivity
             false,
             false
         );
-        mFilePaths = null;
-        mRemotePaths = null;
+        mFilePaths = new String[]{};
+        mRemotePaths = new String[]{};
     }
 
     /**
@@ -1117,8 +1117,11 @@ public class FileDisplayActivity extends FileActivity
     private void requestUploadOfFilesFromFileSystem(List<File> files, int resultCode,
                                                     String replicationStartDir) {
 
+        String replicationStartDirectory;
         if (replicationStartDir == null) {
-            replicationStartDir = "0";
+            replicationStartDirectory = "0";
+        } else {
+            replicationStartDirectory = replicationStartDir;
         }
 
         if (files != null) {
@@ -1130,8 +1133,8 @@ public class FileDisplayActivity extends FileActivity
                 // Determine upload targes and full remote paths (eg. /Documents and /Documents/foo.txt)
                 String filePath = file.getAbsolutePath();
                 String remoteDirectory = file.getName();
-                if (filePath.startsWith(replicationStartDir)) {
-                    remoteDirectory = filePath.replace(replicationStartDir, "");
+                if (filePath.startsWith(replicationStartDirectory)) {
+                    remoteDirectory = filePath.replace(replicationStartDirectory, "");
                 }
                 String remotePath = remotePathBase + remoteDirectory;
                 String folder = remotePath.replace(remotePath.substring(remotePath.lastIndexOf('/')), "");
