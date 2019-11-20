@@ -1,0 +1,7 @@
+21ef00654 Merge pull request #4858 from nextcloud/changeScreenshot
+0223085a8 shorten text a bit
+8879179cf Drone: update FindBugs results to reflect reduced error/warning count [skip ci]
+94502f66b Merge pull request #4787 from ArisuOngaku/auto-upload-start-date-persistence
+21109375c Merge pull request #4839 from nextcloud/dependabot/gradle/markwonVersion-4.2.0
+f1a0ac5c2 [tx-robot] updated from transifex
+a00677cd6 daily dev 20191119
