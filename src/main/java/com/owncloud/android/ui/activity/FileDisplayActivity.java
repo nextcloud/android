@@ -1163,7 +1163,6 @@ public class FileDisplayActivity extends FileActivity
                 return;
             }
 
-            getOperationsServiceBinder().addOperationListener(this, mCreateFolderHandler);
             uploadAfterFoldersAreCreated(getFilePaths(files), remotePaths.toArray(new String[]{}), resultCode);
 
         } else {
