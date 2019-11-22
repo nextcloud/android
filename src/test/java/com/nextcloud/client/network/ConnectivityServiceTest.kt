@@ -19,16 +19,17 @@
  */
 package com.nextcloud.client.network
 
-import android.accounts.Account
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.net.Uri
+import com.nextcloud.client.account.Server
+import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.logger.Logger
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import org.apache.commons.httpclient.HttpClient
 import org.apache.commons.httpclient.HttpStatus
@@ -42,6 +43,7 @@ import org.junit.runners.Suite
 import org.mockito.ArgumentCaptor
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import java.net.URI
 
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
@@ -86,13 +88,14 @@ class ConnectivityServiceTest {
         lateinit var requestBuilder: ConnectivityServiceImpl.GetRequestBuilder
 
         @Mock
-        lateinit var platformAccount: Account
+        lateinit var logger: Logger
+
+        val baseServerUri = URI.create(SERVER_BASE_URL)
+        val newServer = Server(baseServerUri, OwnCloudVersion.nextcloud_14)
+        val legacyServer = Server(baseServerUri, OwnCloudVersion.nextcloud_13)
 
         @Mock
-        lateinit var ownCloudAccount: OwnCloudAccount
-
-        @Mock
-        lateinit var baseServerUri: Uri
+        lateinit var user: User
 
         lateinit var connectivityService: ConnectivityServiceImpl
 
@@ -103,15 +106,15 @@ class ConnectivityServiceTest {
                 platformConnectivityManager,
                 accountManager,
                 clientFactory,
-                requestBuilder
+                requestBuilder,
+                logger
             )
+
             whenever(platformConnectivityManager.activeNetworkInfo).thenReturn(networkInfo)
             whenever(requestBuilder.invoke(any())).thenReturn(getRequest)
             whenever(clientFactory.createPlainClient()).thenReturn(client)
-            whenever(accountManager.currentOwnCloudAccount).thenReturn(ownCloudAccount)
-            whenever(accountManager.currentAccount).thenReturn(platformAccount)
-            whenever(baseServerUri.toString()).thenReturn(SERVER_BASE_URL)
-            whenever(ownCloudAccount.baseUri).thenReturn(baseServerUri)
+            whenever(user.server).thenReturn(newServer)
+            whenever(accountManager.user).thenReturn(user)
         }
     }
 
@@ -158,7 +161,7 @@ class ConnectivityServiceTest {
         fun setUp() {
             whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
             whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
-            whenever(accountManager.getServerVersion(any())).thenReturn(OwnCloudVersion.nextcloud_13)
+            whenever(user.server).thenReturn(legacyServer)
             assertTrue("Precondition failed", connectivityService.isOnlineWithWifi)
         }
 
@@ -205,6 +208,28 @@ class ConnectivityServiceTest {
             whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
             whenever(accountManager.getServerVersion(any())).thenReturn(OwnCloudVersion.nextcloud_14)
             assertTrue("Precondition failed", connectivityService.isOnlineWithWifi)
+        }
+
+        @Test
+        fun `check request is not sent when server uri is not set`() {
+            // GIVEN
+            //      network connectivity is present
+            //      user has no server URI (empty)
+            val serverWithoutUri = Server(URI(""), OwnCloudVersion.nextcloud_14)
+            whenever(user.server).thenReturn(serverWithoutUri)
+
+            // WHEN
+            //      connectivity is checked
+            val result = connectivityService.isInternetWalled
+
+            // THEN
+            //      connection is walled
+            //      request is not sent
+            assertTrue("Server should not be accessible", result)
+            verify(requestBuilder, never()).invoke(any())
+            verify(client, never()).executeMethod(any())
+            verify(client, never()).executeMethod(any(), any())
+            verify(client, never()).executeMethod(any(), any(), any())
         }
 
         fun mockResponse(contentLength: Long = 0, status: Int = HttpStatus.SC_OK) {
