@@ -332,7 +332,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         mAdapter = new OCFileListAdapter(
             getActivity(),
-            accountManager.getCurrentAccount(),
+            accountManager.getUser(),
             preferences,
             accountManager,
             mContainerActivity,
@@ -1180,7 +1180,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 }
 
                 mAdapter.swapDirectory(
-                    accountManager.getCurrentAccount(),
+                    accountManager.getUser(),
                     directory,
                     storageManager,
                     onlyOnDevice,

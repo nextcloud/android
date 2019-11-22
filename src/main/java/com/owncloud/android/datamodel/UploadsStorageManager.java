@@ -30,6 +30,7 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.account.User;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.db.UploadResult;
@@ -345,24 +346,19 @@ public class UploadsStorageManager extends Observable {
     }
 
     public OCUpload[] getCurrentAndPendingUploadsForCurrentAccount() {
-        Account account = currentAccountProvider.getCurrentAccount();
+        User user = currentAccountProvider.getUser();
 
-        if (account != null) {
-            return getUploads(
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
-                            " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                            " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "==" + UploadResult.LOCK_FAILED.getValue() +
-                            " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                            " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
-                            " AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
-                account.name);
-        } else {
-            return new OCUpload[0];
-        }
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
+                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
+                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        "==" + UploadResult.LOCK_FAILED.getValue() +
+                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
+                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
+                        " AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
+                        user.getAccountName());
     }
 
     /**
@@ -384,14 +380,10 @@ public class UploadsStorageManager extends Observable {
     }
 
     public OCUpload[] getFinishedUploadsForCurrentAccount() {
-        Account account = currentAccountProvider.getCurrentAccount();
+        User user = currentAccountProvider.getUser();
 
-        if (account != null) {
-            return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value + AND +
-                                  ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", account.name);
-        } else {
-            return new OCUpload[0];
-        }
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value + AND +
+                              ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", user.getAccountName());
     }
 
     /**
@@ -403,23 +395,19 @@ public class UploadsStorageManager extends Observable {
     }
 
     public OCUpload[] getFailedButNotDelayedUploadsForCurrentAccount() {
-        Account account = currentAccountProvider.getCurrentAccount();
+        User user = currentAccountProvider.getUser();
 
-        if (account != null) {
-            return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value +
-                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "<>" + UploadResult.LOCK_FAILED.getValue() +
-                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
-                            AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
-                              account.name);
-        } else {
-            return new OCUpload[0];
-        }
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        "<>" + UploadResult.LOCK_FAILED.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
+                        user.getAccountName());
     }
 
     /**
@@ -446,50 +434,41 @@ public class UploadsStorageManager extends Observable {
     }
 
     public long clearFailedButNotDelayedUploads() {
-        Account account = currentAccountProvider.getCurrentAccount();
-
-        long result = 0;
-        if (account != null) {
-            result = getDB().delete(
-                    ProviderTableMeta.CONTENT_URI_UPLOADS,
-                    ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value +
-                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "<>" + UploadResult.LOCK_FAILED.getValue() +
-                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                            AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                            "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
-                            AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
-                    new String[]{account.name}
-            );
-        }
-
+        User user = currentAccountProvider.getUser();
+        final long deleted = getDB().delete(
+                ProviderTableMeta.CONTENT_URI_UPLOADS,
+                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        "<>" + UploadResult.LOCK_FAILED.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                        "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
+                        AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
+                new String[]{user.getAccountName()}
+        );
         Log_OC.d(TAG, "delete all failed uploads but those delayed for Wifi");
-        if (result > 0) {
+        if (deleted > 0) {
             notifyObserversNow();
         }
-        return result;
+        return deleted;
     }
 
     public long clearSuccessfulUploads() {
-        Account account = currentAccountProvider.getCurrentAccount();
-
-        long result = 0;
-        if (account != null) {
-            result = getDB().delete(
-                    ProviderTableMeta.CONTENT_URI_UPLOADS,
-                    ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value + AND +
-                            ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", new String[]{account.name}
-            );
-        }
+        User user = currentAccountProvider.getUser();
+        final long deleted = getDB().delete(
+                ProviderTableMeta.CONTENT_URI_UPLOADS,
+                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value + AND +
+                        ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", new String[]{user.getAccountName()}
+        );
 
         Log_OC.d(TAG, "delete all successful uploads");
-        if (result > 0) {
+        if (deleted > 0) {
             notifyObserversNow();
         }
-        return result;
+        return deleted;
     }
 
     /**
