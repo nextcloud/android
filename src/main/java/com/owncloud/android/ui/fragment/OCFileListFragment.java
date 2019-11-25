@@ -126,6 +126,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import static com.infomaniak.drive.Utils.openOnlyOffice;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 
 /**
@@ -938,7 +939,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         if (PreviewMediaFragment.canBePreviewed(file)) {
                             // media preview
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false);
-                        } else {
+                        } else if (!openOnlyOffice(((FileDisplayActivity) mContainerActivity), file)) {
                             mContainerActivity.getFileOperationsHelper().openFile(file);
                         }
                     } else {

@@ -147,6 +147,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import static com.infomaniak.drive.Utils.openOnlyOffice;
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
 /**
@@ -738,7 +739,7 @@ public class FileDisplayActivity extends FileActivity
                         } else if (PreviewTextFragment.canBePreviewed(mWaitingToPreview)) {
                             startTextPreview(mWaitingToPreview, true);
                             detailsFragmentChanged = true;
-                        } else {
+                        } else if (!openOnlyOffice(this, mWaitingToPreview)) {
                             getFileOperationsHelper().openFile(mWaitingToPreview);
                         }
                     }
