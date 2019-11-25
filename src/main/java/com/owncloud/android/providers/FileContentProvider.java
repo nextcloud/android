@@ -804,7 +804,7 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.UPLOADS_STATUS + INTEGER               // UploadStatus
                        + ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR + INTEGER      // Upload LocalBehaviour
                        + ProviderTableMeta.UPLOADS_UPLOAD_TIME + INTEGER
-                       + ProviderTableMeta.UPLOADS_FORCE_OVERWRITE + INTEGER  // boolean
+                       + ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY + INTEGER  // boolean
                        + ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER + INTEGER  // boolean
                        + ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP + INTEGER
                        + ProviderTableMeta.UPLOADS_LAST_RESULT + INTEGER     // Upload LastResult
@@ -2106,12 +2106,57 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
 
-            if(oldVersion < 54 && newVersion >= 54) {
-                Log_OC.i(SQL, "Entering in the #54 add synced.existing");
+            if (oldVersion < 54 && newVersion >= 54) {
+                Log_OC.i(SQL, "Entering in the #54 add synced.existing," +
+                    " rename uploads.force_overwrite to uploads.name_collision_policy");
                 db.beginTransaction();
                 try {
+                    // Add synced.existing
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME +
                                    ADD_COLUMN + ProviderTableMeta.SYNCED_FOLDER_EXISTING + " INTEGER "); // boolean
+
+
+                    // Rename uploads.force_overwrite to uploads.name_collision_policy
+                    String tmpTableName = ProviderTableMeta.UPLOADS_TABLE_NAME + "_old";
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME + " RENAME TO " + tmpTableName);
+                    createUploadsTable(db);
+                    db.execSQL("INSERT INTO " + ProviderTableMeta.UPLOADS_TABLE_NAME + " (" +
+                                   ProviderTableMeta._ID + ", " +
+                                   ProviderTableMeta.UPLOADS_LOCAL_PATH + ", " +
+                                   ProviderTableMeta.UPLOADS_REMOTE_PATH + ", " +
+                                   ProviderTableMeta.UPLOADS_ACCOUNT_NAME + ", " +
+                                   ProviderTableMeta.UPLOADS_FILE_SIZE + ", " +
+                                   ProviderTableMeta.UPLOADS_STATUS + ", " +
+                                   ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR + ", " +
+                                   ProviderTableMeta.UPLOADS_UPLOAD_TIME + ", " +
+                                   ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY + ", " +
+                                   ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER + ", " +
+                                   ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP + ", " +
+                                   ProviderTableMeta.UPLOADS_LAST_RESULT + ", " +
+                                   ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY + ", " +
+                                   ProviderTableMeta.UPLOADS_IS_WIFI_ONLY + ", " +
+                                   ProviderTableMeta.UPLOADS_CREATED_BY + ", " +
+                                   ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN +
+                                   ") " +
+                                   " SELECT " +
+                                   ProviderTableMeta._ID + ", " +
+                                   ProviderTableMeta.UPLOADS_LOCAL_PATH + ", " +
+                                   ProviderTableMeta.UPLOADS_REMOTE_PATH + ", " +
+                                   ProviderTableMeta.UPLOADS_ACCOUNT_NAME + ", " +
+                                   ProviderTableMeta.UPLOADS_FILE_SIZE + ", " +
+                                   ProviderTableMeta.UPLOADS_STATUS + ", " +
+                                   ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR + ", " +
+                                   ProviderTableMeta.UPLOADS_UPLOAD_TIME + ", " +
+                                   "force_overwrite" + ", " +
+                                   ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER + ", " +
+                                   ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP + ", " +
+                                   ProviderTableMeta.UPLOADS_LAST_RESULT + ", " +
+                                   ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY + ", " +
+                                   ProviderTableMeta.UPLOADS_IS_WIFI_ONLY + ", " +
+                                   ProviderTableMeta.UPLOADS_CREATED_BY + ", " +
+                                   ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN +
+                                   " FROM " + tmpTableName);
+                    db.execSQL("DROP TABLE " + tmpTableName);
 
                     upgraded = true;
                     db.setTransactionSuccessful();

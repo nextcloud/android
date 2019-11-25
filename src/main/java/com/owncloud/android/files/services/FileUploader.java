@@ -148,9 +148,10 @@ public class FileUploader extends Service
     public static final String KEY_ACCOUNT = "ACCOUNT";
 
     /**
-     * Set to true if remote file is to be overwritten. Default action is to upload with different name.
+     * What {@link NameCollisionPolicy} to do when the file already exists on the remote.
      */
-    public static final String KEY_FORCE_OVERWRITE = "KEY_FORCE_OVERWRITE";
+    public static final String KEY_NAME_COLLISION_POLICY = "KEY_NAME_COLLISION_POLICY";
+
     /**
      * Set to true if remote folder is to be created if it does not exist.
      */
@@ -256,7 +257,7 @@ public class FileUploader extends Service
             }
         }
 
-        public void uploadFileWithOverwrite(
+        public void uploadFileWithNameCollisionPolicy(
                 Context context,
                 Account account,
                 String[] localPaths,
@@ -267,7 +268,7 @@ public class FileUploader extends Service
                 int createdBy,
                 boolean requiresWifi,
                 boolean requiresCharging,
-                boolean overwrite
+                NameCollisionPolicy nameCollisionPolicy
         ) {
             Intent intent = new Intent(context, FileUploader.class);
 
@@ -280,7 +281,7 @@ public class FileUploader extends Service
             intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
             intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
             intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
-            intent.putExtra(FileUploader.KEY_FORCE_OVERWRITE, overwrite);
+            intent.putExtra(FileUploader.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 context.startForegroundService(intent);
@@ -292,11 +293,11 @@ public class FileUploader extends Service
         /**
          * Call to upload a file
          */
-        public void uploadFileWithOverwrite(Context context, Account account, String localPath, String remotePath, int
+        public void uploadFileWithNameCollisionPolicy(Context context, Account account, String localPath, String remotePath, int
                 behaviour, String mimeType, boolean createRemoteFile, int createdBy, boolean requiresWifi,
-                                  boolean requiresCharging, boolean overwrite) {
+                                                      boolean requiresCharging, NameCollisionPolicy nameCollisionPolicy) {
 
-            uploadFileWithOverwrite(
+            uploadFileWithNameCollisionPolicy(
                     context,
                     account,
                     new String[]{localPath},
@@ -307,7 +308,7 @@ public class FileUploader extends Service
                     createdBy,
                     requiresWifi,
                     requiresCharging,
-                    overwrite
+                    nameCollisionPolicy
             );
         }
 
@@ -336,13 +337,13 @@ public class FileUploader extends Service
          * Call to update multiple files already uploaded
          */
         public void uploadUpdate(Context context, Account account, OCFile[] existingFiles, Integer behaviour,
-                                        Boolean forceOverwrite) {
+                                        NameCollisionPolicy nameCollisionPolicy) {
             Intent intent = new Intent(context, FileUploader.class);
 
             intent.putExtra(FileUploader.KEY_ACCOUNT, account);
             intent.putExtra(FileUploader.KEY_FILE, existingFiles);
             intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
-            intent.putExtra(FileUploader.KEY_FORCE_OVERWRITE, forceOverwrite);
+            intent.putExtra(FileUploader.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 context.startForegroundService(intent);
@@ -355,9 +356,9 @@ public class FileUploader extends Service
          * Call to update a dingle file already uploaded
          */
         public void uploadUpdate(Context context, Account account, OCFile existingFile, Integer behaviour,
-                                        Boolean forceOverwrite) {
+                                        NameCollisionPolicy nameCollisionPolicy) {
 
-            uploadUpdate(context, account, new OCFile[]{existingFile}, behaviour, forceOverwrite);
+            uploadUpdate(context, account, new OCFile[]{existingFile}, behaviour, nameCollisionPolicy);
         }
 
 
@@ -617,7 +618,10 @@ public class FileUploader extends Service
             }
             // at this point variable "OCFile[] files" is loaded correctly.
 
-            boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
+            NameCollisionPolicy nameCollisionPolicy = (NameCollisionPolicy) intent.getSerializableExtra(KEY_NAME_COLLISION_POLICY);
+            if(nameCollisionPolicy == null) {
+                nameCollisionPolicy = NameCollisionPolicy.DEFAULT;
+            }
             int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
             boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
             int createdBy = intent.getIntExtra(KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
@@ -628,7 +632,7 @@ public class FileUploader extends Service
 
                     OCUpload ocUpload = new OCUpload(file, account);
                     ocUpload.setFileSize(file.getFileLength());
-                    ocUpload.setForceOverwrite(forceOverwrite);
+                    ocUpload.setNameCollisionPolicy(nameCollisionPolicy);
                     ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
                     ocUpload.setCreatedBy(createdBy);
                     ocUpload.setLocalAction(localAction);
@@ -644,7 +648,7 @@ public class FileUploader extends Service
                             account,
                             file,
                             ocUpload,
-                            forceOverwrite,
+                            nameCollisionPolicy,
                             localAction,
                             this,
                             onWifiOnly,
@@ -705,7 +709,7 @@ public class FileUploader extends Service
                     account,
                     null,
                     upload,
-                    upload.isForceOverwrite(),  // TODO should be read from DB?
+                    upload.getNameCollisionPolicy(),  // TODO should be read from DB?
                     upload.getLocalAction(),    // TODO should be read from DB?
                     this,
                     onWifiOnly,
@@ -868,9 +872,8 @@ public class FileUploader extends Service
          * If 'file' is a directory, returns 'true' if some of its descendant files
          * is uploading or waiting to upload.
          *
-         * Warning: If remote file exists and !forceOverwrite the original file
-         * is being returned here. That is, it seems as if the original file is
-         * being updated when actually a new file is being uploaded.
+         * Warning: If remote file exists and target was renamed the original file is being returned here.
+         * That is, it seems as if the original file is being updated when actually a new file is being uploaded.
          *
          * @param account Owncloud account where the remote file will be stored.
          * @param file    A file that could be in the queue of pending uploads
@@ -1361,5 +1364,23 @@ public class FileUploader extends Service
     private void cancelUploadsForAccount(Account account) {
         mPendingUploads.remove(account.name);
         mUploadsStorageManager.removeUploads(account.name);
+    }
+
+    public enum NameCollisionPolicy {
+        CANCEL,
+        RENAME,
+        OVERWRITE,
+        ASK_USER;
+
+        public static final NameCollisionPolicy DEFAULT = RENAME;
+
+        public static NameCollisionPolicy deserialize(int ordinal) {
+            NameCollisionPolicy[] values = NameCollisionPolicy.values();
+            return ordinal >= 0 && ordinal < values.length ? values[ordinal] : DEFAULT;
+        }
+
+        public int serialize() {
+            return this.ordinal();
+        }
     }
 }

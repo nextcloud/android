@@ -45,6 +45,7 @@ import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
@@ -121,6 +122,9 @@ public class UploadListActivity extends FileActivity {
     @Inject
     PowerManagementService powerManagementService;
 
+    @Inject
+    Clock clock;
+
     @Override
     public void showFiles(boolean onDeviceOnly) {
         super.showFiles(onDeviceOnly);
@@ -169,9 +173,11 @@ public class UploadListActivity extends FileActivity {
 
         uploadListAdapter = new UploadListAdapter(this,
                                                   uploadsStorageManager,
+                                                  getStorageManager(),
                                                   userAccountManager,
                                                   connectivityService,
-                                                  powerManagementService);
+                                                  powerManagementService,
+                                                  clock);
 
         final GridLayoutManager lm = new GridLayoutManager(this, 1);
         uploadListAdapter.setLayoutManager(lm);

@@ -77,9 +77,9 @@ public class OCUpload implements Parcelable {
     @Getter @Setter private int localAction;
 
     /**
-     * Overwrite destination file?
+     * What to do in case of name collision.
      */
-    @Getter @Setter private boolean forceOverwrite;
+    @Getter @Setter private FileUploader.NameCollisionPolicy nameCollisionPolicy;
 
     /**
      * Create destination folder?
@@ -172,7 +172,7 @@ public class OCUpload implements Parcelable {
         fileSize = -1;
         uploadId = -1;
         localAction = FileUploader.LOCAL_BEHAVIOUR_COPY;
-        forceOverwrite = false;
+        nameCollisionPolicy = FileUploader.NameCollisionPolicy.DEFAULT;
         createRemoteFolder = false;
         uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
         lastResult = UploadResult.UNKNOWN;
@@ -281,7 +281,7 @@ public class OCUpload implements Parcelable {
         remotePath = source.readString();
         accountName = source.readString();
         localAction = source.readInt();
-        forceOverwrite = source.readInt() == 1;
+        nameCollisionPolicy = FileUploader.NameCollisionPolicy.deserialize(source.readInt());
         createRemoteFolder = source.readInt() == 1;
         try {
             uploadStatus = UploadStatus.valueOf(source.readString());
@@ -312,7 +312,7 @@ public class OCUpload implements Parcelable {
         dest.writeString(remotePath);
         dest.writeString(accountName);
         dest.writeInt(localAction);
-        dest.writeInt(forceOverwrite ? 1 : 0);
+        dest.writeInt(nameCollisionPolicy.serialize());
         dest.writeInt(createRemoteFolder ? 1 : 0);
         dest.writeString(uploadStatus.name());
         dest.writeLong(uploadEndTimestamp);

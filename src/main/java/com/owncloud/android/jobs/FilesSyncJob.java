@@ -203,24 +203,24 @@ public class FilesSyncJob extends Job {
                 remotePath = syncedFolder.getRemotePath();
             }
 
-            requester.uploadFileWithOverwrite(
-                    context,
-                    user.toPlatformAccount(),
-                    file.getAbsolutePath(),
-                    FileStorageUtils.getInstantUploadFilePath(
+            requester.uploadFileWithNameCollisionPolicy(
+                context,
+                user.toPlatformAccount(),
+                file.getAbsolutePath(),
+                FileStorageUtils.getInstantUploadFilePath(
                         file,
                         currentLocale,
                         remotePath,
                         syncedFolder.getLocalPath(),
                         lastModificationTime,
                         subfolderByDate),
-                    uploadAction,
-                    mimeType,
-                    true,           // create parent folder if not existent
-                    UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
-                    needsWifi,
-                    needsCharging,
-                    true
+                uploadAction,
+                mimeType,
+                true,           // create parent folder if not existent
+                UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
+                needsWifi,
+                needsCharging,
+                FileUploader.NameCollisionPolicy.ASK_USER
             );
 
             filesystemDataProvider.updateFilesystemFileAsSentForUpload(path,
