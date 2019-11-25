@@ -372,7 +372,7 @@
     <string name="logs_menu_search">Preišči dnevnike</string>
     <string name="logs_menu_send">Pošlji dnevnike po elektronski pošti</string>
     <string name="logs_status_filtered">Dnevniki: %1$d kB, poizvedba kaže na %2$d / %3$d zadetkov v %4$d ms</string>
-    <string name="logs_status_loading">Poteka nalaganje…</string>
+    <string name="logs_status_loading">Poteka nalaganje …</string>
     <string name="logs_status_not_filtered">Dnevniki: %1$d kB, brez filtra</string>
     <string name="logs_title">Dnevniki</string>
     <string name="maintenance_mode">Strežnik je v načinu vzdrževanja</string>
@@ -523,8 +523,6 @@
     <string name="screenshot_04_accounts_subline">na enem mestu</string>
     <string name="screenshot_05_autoUpload_heading">Samodejno pošiljanje</string>
     <string name="screenshot_05_autoUpload_subline">za vaše slike in posnetke</string>
-    <string name="screenshot_06_davdroid_heading">Usklajevalnik koledarja in stikov</string>
-    <string name="screenshot_06_davdroid_subline">z DAVx5 (prej poimenovan DAVdroid)</string>
     <string name="search_users_and_groups_hint">Iskanje uporabnikov in skupin</string>
     <string name="select_all">Izberi vse</string>
     <string name="select_template">IZbor predloge</string>

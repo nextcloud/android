@@ -531,17 +531,13 @@
     <string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
     <string name="scanQR_description">Prihlásiť sa pomocou QR kódu</string>
     <string name="screenshot_01_gridView_heading">Chránte vaše údaje</string>
-    <string name="screenshot_01_gridView_subline">Platforma pre produktivitu s vlastným hosťovaním</string>
     <string name="screenshot_02_listView_heading">Prehliadajte a zdieľajte</string>
     <string name="screenshot_02_listView_subline">všetky akcie na dosah ruky</string>
-    <string name="screenshot_03_drawer_heading">Aktivity, zdieľania, offline súbory</string>
     <string name="screenshot_03_drawer_subline">všetko rýchlo prístupné</string>
     <string name="screenshot_04_accounts_heading">Všetky vaše účty</string>
     <string name="screenshot_04_accounts_subline">na jednom mieste</string>
     <string name="screenshot_05_autoUpload_heading">Automatické nahrávanie</string>
     <string name="screenshot_05_autoUpload_subline">vašich fotiek a videí</string>
-    <string name="screenshot_06_davdroid_heading">Synchronizácia kalendára a kontaktov</string>
-    <string name="screenshot_06_davdroid_subline">pomocou DAVx5 (pôvodne DAVdroid)</string>
     <string name="search_users_and_groups_hint">Vyhľadať používateľov alebo skupiny</string>
     <string name="select_all">Vybrať všetko</string>
     <string name="select_template">Vybrať šablónu</string>

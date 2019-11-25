@@ -525,17 +525,13 @@
     <string name="saml_authentication_wrong_pass">סיסמא שגוייה</string>
     <string name="scanQR_description">כניסה עם קוד QR</string>
     <string name="screenshot_01_gridView_heading">הגנה על הנתונים שלך</string>
-    <string name="screenshot_01_gridView_subline">פלטפורמת כלי משרד באירוח עצמי</string>
     <string name="screenshot_02_listView_heading">עיון ושיתוף</string>
     <string name="screenshot_02_listView_subline">כל הפעולות בהינף יד</string>
-    <string name="screenshot_03_drawer_heading">פעילות, שיתופים, קבצים בלתי מקוונים</string>
     <string name="screenshot_03_drawer_subline">הכול נגיש במהירות</string>
     <string name="screenshot_04_accounts_heading">כל החשבונות שלך</string>
     <string name="screenshot_04_accounts_subline">במקום אחד</string>
     <string name="screenshot_05_autoUpload_heading">העלאה אוטומטית</string>
     <string name="screenshot_05_autoUpload_subline">לתמונות ולסרטונים שלך</string>
-    <string name="screenshot_06_davdroid_heading">סנכרון לוח שנה ואנשי קשר</string>
-    <string name="screenshot_06_davdroid_subline">עם DAVx5 (לשעבר DAVdroid)</string>
     <string name="search_users_and_groups_hint">חיפוש משתמשים וקבוצות</string>
     <string name="select_all">בחר הכל</string>
     <string name="select_template">בחירת תבנית</string>

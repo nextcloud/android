@@ -530,17 +530,13 @@
     <string name="saml_authentication_wrong_pass">密碼錯誤</string>
     <string name="scanQR_description">使用 QR Code 登入</string>
     <string name="screenshot_01_gridView_heading">保護您的資料</string>
-    <string name="screenshot_01_gridView_subline">自建具有生產力的平台</string>
     <string name="screenshot_02_listView_heading">瀏覽與分享</string>
     <string name="screenshot_02_listView_subline">全在您一指之間</string>
-    <string name="screenshot_03_drawer_heading">活動,分享,離線檔案</string>
     <string name="screenshot_03_drawer_subline">可快速存取所有資源</string>
     <string name="screenshot_04_accounts_heading">您所有的帳戶</string>
     <string name="screenshot_04_accounts_subline">在一個地方</string>
     <string name="screenshot_05_autoUpload_heading">自動上傳</string>
     <string name="screenshot_05_autoUpload_subline">您的照片&amp;影片</string>
-    <string name="screenshot_06_davdroid_heading">同步行事曆&amp;聯絡人</string>
-    <string name="screenshot_06_davdroid_subline">透過DAVx5(前身為DAVdroid)</string>
     <string name="search_users_and_groups_hint">搜尋使用者或群組</string>
     <string name="select_all">全選</string>
     <string name="select_template">選擇範本</string>

@@ -522,8 +522,6 @@
     <string name="screenshot_04_accounts_subline">σε ένα σημείο</string>
     <string name="screenshot_05_autoUpload_heading">Αυτόματη μεταφόρτωση</string>
     <string name="screenshot_05_autoUpload_subline">για τις φωτογραφίες &amp; τα βίντεό σας</string>
-    <string name="screenshot_06_davdroid_heading">Συγχρονισμός ημερολογίου &amp; επαφών</string>
-    <string name="screenshot_06_davdroid_subline">με DAVx5 (πρώην DAVdroid)</string>
     <string name="search_users_and_groups_hint">Αναζήτηση χρηστών και ομάδων</string>
     <string name="select_all">Επιλογή όλων</string>
     <string name="select_template">Επιλογή προτύπου</string>

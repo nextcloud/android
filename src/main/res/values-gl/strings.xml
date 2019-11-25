@@ -537,17 +537,13 @@
     <string name="saml_authentication_wrong_pass">Contrasinal incorrecto</string>
     <string name="scanQR_description">Acceder cun código QR</string>
     <string name="screenshot_01_gridView_heading">Protexendo os seus datos</string>
-    <string name="screenshot_01_gridView_subline">plataforma de produtividade de aloxamento propio</string>
     <string name="screenshot_02_listView_heading">Navegar e compartir</string>
     <string name="screenshot_02_listView_subline">todas as accións ao seu alcance</string>
-    <string name="screenshot_03_drawer_heading">Actividade, comparticións, ficheiros sen conexión</string>
     <string name="screenshot_03_drawer_subline">todo accesíbel rapidamente</string>
     <string name="screenshot_04_accounts_heading">Todas as súas contas</string>
     <string name="screenshot_04_accounts_subline">nun só lugar</string>
     <string name="screenshot_05_autoUpload_heading">Envío automático</string>
     <string name="screenshot_05_autoUpload_subline">para as súas fotos e vídeos</string>
-    <string name="screenshot_06_davdroid_heading">Sincronizar o calendario e os contactos</string>
-    <string name="screenshot_06_davdroid_subline">con DAVx5 (anteriormente coñecido como DAVdroid)</string>
     <string name="search_users_and_groups_hint">Buscar usuarios e grupos</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_template">Seleccionar o modelo</string>

@@ -517,17 +517,13 @@
     <string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
     <string name="scanQR_description">Најавете се преку QR код</string>
     <string name="screenshot_01_gridView_heading">Заштитете ги вашите податоци</string>
-    <string name="screenshot_01_gridView_subline">продуктивна платформа која можете сами да ја хостирате</string>
     <string name="screenshot_02_listView_heading">Прелистај и сподели</string>
     <string name="screenshot_02_listView_subline">сите активности се во вашите раце</string>
-    <string name="screenshot_03_drawer_heading">Активности, акции, офлајн датотеки</string>
     <string name="screenshot_03_drawer_subline">сè брзо достапно</string>
     <string name="screenshot_04_accounts_heading">Сите ваши сметки</string>
     <string name="screenshot_04_accounts_subline">на едно место</string>
     <string name="screenshot_05_autoUpload_heading">Автоматско прикачување</string>
     <string name="screenshot_05_autoUpload_subline">за вашите слики &amp; видеа</string>
-    <string name="screenshot_06_davdroid_heading">Синхронизирај календар &amp; контакти</string>
-    <string name="screenshot_06_davdroid_subline">со DAVx5 (поранешен DAVdroid)</string>
     <string name="search_users_and_groups_hint">Пребарувај корисници и групи</string>
     <string name="select_all">Избери се</string>
     <string name="select_template">Избери шаблон</string>

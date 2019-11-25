@@ -534,17 +534,13 @@
     <string name="saml_authentication_wrong_pass">错误密码</string>
     <string name="scanQR_description">通过扫描二维码登录</string>
     <string name="screenshot_01_gridView_heading">保护您的数据</string>
-    <string name="screenshot_01_gridView_subline">自托管生产力平台</string>
     <string name="screenshot_02_listView_heading">浏览与分享</string>
     <string name="screenshot_02_listView_subline">所有操控尽在您的指尖</string>
-    <string name="screenshot_03_drawer_heading">活动，共享，离线文件</string>
     <string name="screenshot_03_drawer_subline">快速访问所有数据</string>
     <string name="screenshot_04_accounts_heading">您所有的账号</string>
     <string name="screenshot_04_accounts_subline">都在一处</string>
     <string name="screenshot_05_autoUpload_heading">自动上传</string>
     <string name="screenshot_05_autoUpload_subline">您的照片&amp;视频</string>
-    <string name="screenshot_06_davdroid_heading">同步日历&amp;联系人</string>
-    <string name="screenshot_06_davdroid_subline">通过 DAVx5（原名DAVdroid）</string>
     <string name="search_users_and_groups_hint">搜索用户和组</string>
     <string name="select_all">选择全部</string>
     <string name="select_template">选择模板</string>

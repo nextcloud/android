@@ -261,6 +261,7 @@
     <string name="fallback_weblogin_text">Lehengoratu saioa hasteko metodo zaharrera</string>
     <string name="favorite">Gogokoenetara gehitu</string>
     <string name="favorite_icon">Gogokoa</string>
+    <string name="file">fitxategia</string>
     <string name="file_delete">Ezabatu</string>
     <string name="file_details_no_content">Huts egin du zehaztapenak kargatzen</string>
     <string name="file_icon">Fitxategia</string>
@@ -329,6 +330,7 @@
     <string name="first_run_2_text">Lankidetza &amp; fitxategi partekatze segurua</string>
     <string name="first_run_3_text">Web posta, egutegi &amp; kontaktu erabilerraza</string>
     <string name="first_run_4_text">Pantaila partekatzea, online bilerak &amp;web konferentziak</string>
+    <string name="folder">karpeta</string>
     <string name="folder_already_exists">Karpeta dagoeneko existitzen da</string>
     <string name="folder_confirm_create">Sortu</string>
     <string name="folder_icon">Karpetaren ikonoa</string>
@@ -410,6 +412,7 @@
     <string name="new_notification">Jakinarazpen berria</string>
     <string name="new_version_was_created">Bertsio berria sortu da</string>
     <string name="no_browser_available">Ez dago eskuragarri estekak kudeatzeko aplikaziorik</string>
+    <string name="no_mutliple_accounts_allowed">Bakarrik kontu bat onartzen da</string>
     <string name="no_pdf_app_available">Ez dago eskuragarri PDFak kudeatzeko aplikaziorik</string>
     <string name="note_confirm">Bidali</string>
     <string name="note_could_not_sent">Ezin da oharrik bidali</string>
@@ -496,6 +499,9 @@
     <string name="prefs_storage_path">Biltegiratze helbidea</string>
     <string name="prefs_synced_folders_local_path_title">Karpeta lokala</string>
     <string name="prefs_synced_folders_remote_path_title">Urruneko karpeta</string>
+    <string name="prefs_theme_title">Gaia</string>
+    <string name="prefs_value_theme_dark">Iluna</string>
+    <string name="prefs_value_theme_light">Argia</string>
     <string name="preview_image_description">Irudi aurreikuspena</string>
     <string name="preview_image_error_no_local_file">Ez dago aurreikusteko fitxategi lokalik</string>
     <string name="preview_image_error_unknown_format">Ezin izan da irudia erakutsi</string>
@@ -526,17 +532,13 @@
     <string name="saml_authentication_wrong_pass">Pasahitz okerra</string>
     <string name="scanQR_description">Saioa hasi QR kode bidez</string>
     <string name="screenshot_01_gridView_heading">Zure datuak babesten</string>
-    <string name="screenshot_01_gridView_subline">norberak ostatatutako produktibitate plataforma</string>
     <string name="screenshot_02_listView_heading">Arakatu eta partekatu</string>
     <string name="screenshot_02_listView_subline">ekintza guztiak zure atzamarretan</string>
-    <string name="screenshot_03_drawer_heading">Jarduera, partekatzeak, lineaz kanpoko fitxategiak</string>
     <string name="screenshot_03_drawer_subline">guztia azkar eskuragarri</string>
     <string name="screenshot_04_accounts_heading">Zure kontu guztiak</string>
     <string name="screenshot_04_accounts_subline">leku bakar batean</string>
     <string name="screenshot_05_autoUpload_heading">Igoera automatikoa</string>
     <string name="screenshot_05_autoUpload_subline">zure argazki eta bideoentzat</string>
-    <string name="screenshot_06_davdroid_heading">Egutegia eta kontaktuak sinkronizatu</string>
-    <string name="screenshot_06_davdroid_subline">DAVx5ekin (lehen DAVdroid)</string>
     <string name="search_users_and_groups_hint">Bilatu erabiltzaile eta taldeak</string>
     <string name="select_all">Hautatu dena</string>
     <string name="select_template">Aukeratu txantiloia</string>

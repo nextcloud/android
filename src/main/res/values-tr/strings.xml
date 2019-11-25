@@ -30,7 +30,7 @@
     <string name="activities_no_results_headline">Henüz bir işlem yapılmamış</string>
     <string name="activities_no_results_message">Henüz ekleme, değiştirme, paylaşım gibi bir işlem yapılmamış</string>
     <string name="activity_chooser_send_file_title">Gönder</string>
-    <string name="activity_chooser_title">Bağlantıyı gönder…</string>
+    <string name="activity_chooser_title">Bağlantıyı şuraya gönder…</string>
     <string name="activity_icon">İşlem</string>
     <string name="add_to_cloud">%1$s üzerine ekle</string>
     <string name="associated_account_not_found">İlişkili hesap bulunamadı!</string>
@@ -51,7 +51,7 @@
     <string name="auth_incorrect_path_title">Sunucu bulunamadı</string>
     <string name="auth_no_net_conn_title">Ağ bağlantısı yok</string>
     <string name="auth_nossl_plain_ok_title">Güvenli bağlantı kullanılamıyor.</string>
-    <string name="auth_not_configured_title">Sunucu ayarları doğru değil</string>
+    <string name="auth_not_configured_title">Sunucu yapılandırması doğru değil</string>
     <string name="auth_oauth_error">Kimlik doğrulanamadı</string>
     <string name="auth_oauth_error_access_denied">Kimlik doğrulama sunucusu erişime izin vermedi</string>
     <string name="auth_password">Parola</string>
@@ -189,7 +189,7 @@
     <string name="dev_version_no_new_version_available">Yeni bir sürüm yok.</string>
     <string name="digest_algorithm_not_available">Telefonunuz için gerekli algoritma bulunamadı.</string>
     <string name="disable_new_media_folder_detection_notifications">Devre Dışı Bırak</string>
-    <string name="dismiss">Yoksay</string>
+    <string name="dismiss">Yok say</string>
     <string name="dismiss_notification_description">Bildirimi yok say</string>
     <string name="download_latest_dev_version">Son geliştirici sürümünü indirin</string>
     <string name="downloader_download_failed_content">%1$s indirmesi tamamlanamadı</string>
@@ -235,7 +235,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Bu klasör boş değil.</string>
     <string name="end_to_end_encryption_generating_keys">Yeni anahtarlar üretiliyor…</string>
     <string name="end_to_end_encryption_keywords_description">12 sözcüklü parola çok güçlüdür ve şifrelenmiş dosyalarınızı yalnız sizin görüntüleyip kullanabilmenizi sağlar. Lütfen bir yere yazarak güvenli bir yerde saklayın.</string>
-    <string name="end_to_end_encryption_not_enabled">Sunucu üzerinde uçtan uca şifreleme devre dışı bırakıldı.</string>
+    <string name="end_to_end_encryption_not_enabled">Sunucu üzerinde uçtan uca şifreleme devre dışı bırakılmış.</string>
     <string name="end_to_end_encryption_not_supported">Şifreleme yalnız KitKat(4.4) ve üzerindeki sürümlerde kullanılabilir</string>
     <string name="end_to_end_encryption_passphrase_title">12 sözcüklü şifreleme parolanızı not edin</string>
     <string name="end_to_end_encryption_password">Parola…</string>
@@ -308,8 +308,8 @@
     <string name="file_migration_ok_finished">Tamamlandı</string>
     <string name="file_migration_override_data_folder">Değiştirilsin</string>
     <string name="file_migration_preparing">Aktarıma hazırlanılıyor…</string>
-    <string name="file_migration_restoring_accounts_configuration">Hesap ayarları geri yükleniyor…</string>
-    <string name="file_migration_saving_accounts_configuration">Hesap ayarları kaydediliyor…</string>
+    <string name="file_migration_restoring_accounts_configuration">Hesap yapılandırması geri yükleniyor…</string>
+    <string name="file_migration_saving_accounts_configuration">Hesap yapılandırması kaydediliyor…</string>
     <string name="file_migration_source_not_readable">Depolama yolunu gene de %1$s olarak değiştirmek istediğinizden emin misiniz?\n\nNot: Tüm verilerin yeniden indirilmesi gerekecek.</string>
     <string name="file_migration_source_not_readable_title">Kaynak klasör okunabilir değil!</string>
     <string name="file_migration_updating_index">Dizin güncelleniyor…</string>
@@ -483,8 +483,8 @@
     <string name="prefs_gpl_v2">GNU Genel Kamu Lisansı 2. Sürüm</string>
     <string name="prefs_help">Yardım</string>
     <string name="prefs_imprint">İzlenim</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya için</string>
-    <string name="prefs_instant_behaviour_title">Özgün dosya için…</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya şu olacak…</string>
+    <string name="prefs_instant_behaviour_title">Özgün dosya şu olacak…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Yıla ve aya göre alt klasörlere kaydedilsin</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Alt klasörler kullanılsın</string>
     <string name="prefs_license">Lisans</string>
@@ -536,17 +536,13 @@
     <string name="saml_authentication_wrong_pass">Parola yanlış</string>
     <string name="scanQR_description">QR kodu ile oturum aç</string>
     <string name="screenshot_01_gridView_heading">Verilerinizi korumak</string>
-    <string name="screenshot_01_gridView_subline">sizin barındırdığınız üretkenlik platformu</string>
     <string name="screenshot_02_listView_heading">Gözat ve paylaş</string>
     <string name="screenshot_02_listView_subline">tüm işlemler parmaklarınızın ucunda</string>
-    <string name="screenshot_03_drawer_heading">İşlemler, paylaşımlar, çevrimdışı dosyalar</string>
     <string name="screenshot_03_drawer_subline">her şey kolayca erişilebilir</string>
     <string name="screenshot_04_accounts_heading">Tüm hesaplarınız</string>
     <string name="screenshot_04_accounts_subline">tek bir yerde</string>
     <string name="screenshot_05_autoUpload_heading">Otomatik yükleme</string>
     <string name="screenshot_05_autoUpload_subline">fotoğraf ve görüntüleriniz için</string>
-    <string name="screenshot_06_davdroid_heading">Takvim ve kişileri eşitleme</string>
-    <string name="screenshot_06_davdroid_subline">DAVx5 (eski adı DAVdroid) ile</string>
     <string name="search_users_and_groups_hint">Kullanıcı ve Grup Arama</string>
     <string name="select_all">Tümünü seç</string>
     <string name="select_template">Kalıp seçin</string>
