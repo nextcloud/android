@@ -533,8 +533,6 @@
     <string name="screenshot_04_accounts_subline">в одном месте</string>
     <string name="screenshot_05_autoUpload_heading">Автоматическая загрузка</string>
     <string name="screenshot_05_autoUpload_subline">ваших фото &amp; видео</string>
-    <string name="screenshot_06_davdroid_heading">Синхронизуйте календарь &amp; контакты</string>
-    <string name="screenshot_06_davdroid_subline">с DAVx5 (бывший DAVdroid)</string>
     <string name="search_users_and_groups_hint">Поиск пользователей и групп</string>
     <string name="select_all">Выбрать все</string>
     <string name="select_template">Выбрать шаблон</string>

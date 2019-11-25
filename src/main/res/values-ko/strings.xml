@@ -533,16 +533,13 @@
     <string name="saml_authentication_wrong_pass">잘못된 암호</string>
     <string name="scanQR_description">QR 코드로 로그인</string>
     <string name="screenshot_01_gridView_heading">데이터 보호</string>
-    <string name="screenshot_01_gridView_subline">자체 호스팅 생산성 플랫폼</string>
     <string name="screenshot_02_listView_heading">탐색하고 공유</string>
     <string name="screenshot_02_listView_subline">모든 터치 액션</string>
-    <string name="screenshot_03_drawer_heading">활동, 공유, 오프라인 파일</string>
     <string name="screenshot_03_drawer_subline">빠르게 접근 가능한 모든 것.</string>
     <string name="screenshot_04_accounts_heading">모든 계정</string>
     <string name="screenshot_04_accounts_subline">한곳에서</string>
     <string name="screenshot_05_autoUpload_heading">자동 업로드</string>
     <string name="screenshot_05_autoUpload_subline">사진 &amp; 동영상</string>
-    <string name="screenshot_06_davdroid_heading">달력 및 &amp;연락처 동기화</string>
     <string name="search_users_and_groups_hint">사용자와 그룹 검색</string>
     <string name="select_all">모두 선택</string>
     <string name="select_template">템플릿 선택</string>

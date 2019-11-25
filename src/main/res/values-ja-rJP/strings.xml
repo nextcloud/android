@@ -526,12 +526,9 @@
     <string name="scanQR_description">QRコードを用いてログイン</string>
     <string name="screenshot_01_gridView_heading">あなたのデータを保護</string>
     <string name="screenshot_02_listView_heading">閲覧と共有</string>
-    <string name="screenshot_03_drawer_heading">アクティビティ、共有、オフラインファイル</string>
     <string name="screenshot_04_accounts_heading">あなたのすべてのアカウント</string>
     <string name="screenshot_04_accounts_subline">ひとつの場所に</string>
     <string name="screenshot_05_autoUpload_heading">自動アップロード</string>
-    <string name="screenshot_06_davdroid_heading">コンタクト&amp;カレンダーを同期</string>
-    <string name="screenshot_06_davdroid_subline">DAVx5(旧称:DAVdroid)で</string>
     <string name="search_users_and_groups_hint">ユーザーとグループを検索</string>
     <string name="select_all">すべて選択</string>
     <string name="select_template">テンプレートを選択する</string>

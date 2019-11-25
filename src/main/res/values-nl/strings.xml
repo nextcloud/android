@@ -536,17 +536,13 @@
     <string name="saml_authentication_wrong_pass">Onjuist wachtwoord</string>
     <string name="scanQR_description">Inloggen via QR code</string>
     <string name="screenshot_01_gridView_heading">Beschermt jouw gegevens</string>
-    <string name="screenshot_01_gridView_subline">eigen-hosting productiviteitsplatform</string>
     <string name="screenshot_02_listView_heading">Blader en deel</string>
     <string name="screenshot_02_listView_subline">alle taken onder je vindertoppen</string>
-    <string name="screenshot_03_drawer_heading">Activiteiten, delen, off-line bestanden</string>
     <string name="screenshot_03_drawer_subline">alles snel toegankelijk</string>
     <string name="screenshot_04_accounts_heading">Al je accounts</string>
     <string name="screenshot_04_accounts_subline">op één plek</string>
     <string name="screenshot_05_autoUpload_heading">Automatisch uploaden</string>
     <string name="screenshot_05_autoUpload_subline">voor je foto\'s &amp; video\'s</string>
-    <string name="screenshot_06_davdroid_heading">Synchroniseren agenda &amp; contactpersonen</string>
-    <string name="screenshot_06_davdroid_subline">met DAVx5 (voorheen DAVdroid)</string>
     <string name="search_users_and_groups_hint">Zoeken naar gebruikers en groepen</string>
     <string name="select_all">Alles selecteren</string>
     <string name="select_template">Kies sjabloon</string>
