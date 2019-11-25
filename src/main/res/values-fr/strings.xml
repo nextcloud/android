@@ -538,17 +538,13 @@ Attention la suppression est irréversible.</string>
     <string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
     <string name="scanQR_description">Connexion par code QR</string>
     <string name="screenshot_01_gridView_heading">Protection de vos données</string>
-    <string name="screenshot_01_gridView_subline">plateforme de productivité auto-hébergée</string>
     <string name="screenshot_02_listView_heading">Parcourir et partager</string>
     <string name="screenshot_02_listView_subline">toutes les actions à portée de main</string>
-    <string name="screenshot_03_drawer_heading">Activité, partages, fichiers hors-ligne</string>
     <string name="screenshot_03_drawer_subline">tout accessible rapidement</string>
     <string name="screenshot_04_accounts_heading">Tous vos comptes</string>
     <string name="screenshot_04_accounts_subline">en un seul endroit</string>
     <string name="screenshot_05_autoUpload_heading">Téléversement automatique</string>
     <string name="screenshot_05_autoUpload_subline">pour vos photos &amp; vidéos</string>
-    <string name="screenshot_06_davdroid_heading">Synchronisez votre calendrier &amp; vos contacts</string>
-    <string name="screenshot_06_davdroid_subline">avec DAVx5 (anciennement DAVdroid)</string>
     <string name="search_users_and_groups_hint">Rechercher parmi les utilisateurs et groupes</string>
     <string name="select_all">Tout sélectionner</string>
     <string name="select_template">Sélectionnez un modèle</string>

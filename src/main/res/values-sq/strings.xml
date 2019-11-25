@@ -536,17 +536,13 @@
     <string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>
     <string name="scanQR_description">Identifikohu nëpërmjet QR code</string>
     <string name="screenshot_01_gridView_heading">Mbrojtja e të dhënave tuaja</string>
-    <string name="screenshot_01_gridView_subline">platformë e vetë-pritur e produktivitetit</string>
     <string name="screenshot_02_listView_heading">Shfletoni dhe shpërndani</string>
     <string name="screenshot_02_listView_subline">të gjitha veprimet në majë të gishtave tuaj</string>
-    <string name="screenshot_03_drawer_heading">Aktiviteti, aksionet, skedarët jashtë linje</string>
     <string name="screenshot_03_drawer_subline">gjithçka shpejt e arritshme</string>
     <string name="screenshot_04_accounts_heading">Të gjitha llogaritë tuaja</string>
     <string name="screenshot_04_accounts_subline">në një vend</string>
     <string name="screenshot_05_autoUpload_heading">Ngarkimi automatik</string>
     <string name="screenshot_05_autoUpload_subline">për fotot tuaja &amp; videot</string>
-    <string name="screenshot_06_davdroid_heading">Kalendar i sinkronizuar &amp; kontaktet</string>
-    <string name="screenshot_06_davdroid_subline">me DAVx5 (më parë i njohur si DAVdroid)</string>
     <string name="search_users_and_groups_hint">Kërkoni për grupe dhe përdorues</string>
     <string name="select_all">Zgjidhi të gjitha</string>
     <string name="select_template">Zgjidh shabllonin</string>

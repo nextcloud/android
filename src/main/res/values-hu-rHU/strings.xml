@@ -263,7 +263,9 @@
     <string name="fallback_weblogin_text">Visszatérés a régi bejelentkezési módhoz</string>
     <string name="favorite">Hozzáadás a kedvencekhez </string>
     <string name="favorite_icon">Kedvenc</string>
+    <string name="file">fájlhoz</string>
     <string name="file_delete">Törlés</string>
+    <string name="file_detail_activity_error">Hiba a fájl tevékenységeinek lekérésekor</string>
     <string name="file_details_no_content">A részletek betöltése sikertelen</string>
     <string name="file_icon">Fájl</string>
     <string name="file_keep">Megtartás</string>
@@ -331,6 +333,7 @@
     <string name="first_run_2_text">Biztonságos csoportmunka és fájlmegosztás</string>
     <string name="first_run_3_text">Könnyen használható webes levelezés, naptárkezelés és névjegyek</string>
     <string name="first_run_4_text">Képernyőmegosztás, online megbeszélések és webes konferenciák</string>
+    <string name="folder">mappához</string>
     <string name="folder_already_exists">A mappa már létezik</string>
     <string name="folder_confirm_create">Létrehozás</string>
     <string name="folder_icon">Mappaikon</string>
@@ -412,6 +415,7 @@
     <string name="new_notification">Új értesítés</string>
     <string name="new_version_was_created">Új verzió létrehozva</string>
     <string name="no_browser_available">Nincs elérhető alkalmazás hivatkozások kezeléséhez</string>
+    <string name="no_mutliple_accounts_allowed">Csak egy fiók engedélyezett</string>
     <string name="no_pdf_app_available">Nincs elérhető alkalmazás PDF kezeléséhez</string>
     <string name="note_confirm">Küldés</string>
     <string name="note_could_not_sent">A jegyzet nem küldhető el</string>
@@ -498,6 +502,9 @@
     <string name="prefs_storage_path">Tároló útvonal</string>
     <string name="prefs_synced_folders_local_path_title">Helyi mappa</string>
     <string name="prefs_synced_folders_remote_path_title">Távoli mappa</string>
+    <string name="prefs_theme_title">Téma</string>
+    <string name="prefs_value_theme_dark">Sötét</string>
+    <string name="prefs_value_theme_light">Világos</string>
     <string name="preview_image_description">Kép előnézete</string>
     <string name="preview_image_error_no_local_file">Nincs helyi fájl az előnézethez</string>
     <string name="preview_image_error_unknown_format">A kép nem jeleníthető meg</string>
@@ -509,6 +516,7 @@
     <string name="recommend_subject">Próbálja ki a %1$sot az eszközén!</string>
     <string name="recommend_text">Meg akarom hívni a %1$s használatára az eszközén.\nTöltse le itt: %2$s</string>
     <string name="recommend_urls">%1$s vagy %2$s</string>
+    <string name="remote_file_fetch_failed">A fájl nem található.</string>
     <string name="remove_fail_msg">Törlés sikertelen</string>
     <string name="remove_notification_failed">Az értesítés eltávolítása sikertelen.</string>
     <string name="remove_push_notification">Eltávolítás</string>
@@ -528,17 +536,13 @@
     <string name="saml_authentication_wrong_pass">Hibás jelszó</string>
     <string name="scanQR_description">Belépés QR-kóddal</string>
     <string name="screenshot_01_gridView_heading">Az adatai védelme</string>
-    <string name="screenshot_01_gridView_subline">saját üzemeltetésű irodai platform</string>
     <string name="screenshot_02_listView_heading">Tallózás és megosztás</string>
     <string name="screenshot_02_listView_subline">minden művelet karnyújtásnyira</string>
-    <string name="screenshot_03_drawer_heading">Tevékenységek, megosztások, offline fájlok</string>
     <string name="screenshot_03_drawer_subline">minden gyorsan elérhető</string>
     <string name="screenshot_04_accounts_heading">Az összes fiókja</string>
     <string name="screenshot_04_accounts_subline">egy helyen</string>
     <string name="screenshot_05_autoUpload_heading">Automatikus feltöltés</string>
     <string name="screenshot_05_autoUpload_subline">a képeinek és videóinak</string>
-    <string name="screenshot_06_davdroid_heading">Naptár és névjegyek szinkronizálása</string>
-    <string name="screenshot_06_davdroid_subline">DAVx5 (régi nevén DAVdroid) segítségével</string>
     <string name="search_users_and_groups_hint">Felhasználók és csoportok keresése</string>
     <string name="select_all">Összes kiválasztása</string>
     <string name="select_template">Válasszon sablont</string>
@@ -556,6 +560,8 @@
     <string name="share_file">%1$s megosztása</string>
     <string name="share_get_public_link_button">Hivatkozás beszerzése</string>
     <string name="share_group_clarification">%1$s (csoport)</string>
+    <string name="share_internal_link">Belső hivatkozás megosztása</string>
+    <string name="share_internal_link_text">Csak azoknál a felhasználóknál működik, akiknek hozzáférése van ehhez a %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( itt: %2$s )</string>
     <string name="share_link_empty_password">Meg kell adnia a jelszót</string>
     <string name="share_link_file_error">Hiba történt a fájl vagy mappa megosztásakor</string>

@@ -530,17 +530,13 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="saml_authentication_wrong_pass">Väärä salasana</string>
     <string name="scanQR_description">Kirjaudu QR-koodilla</string>
     <string name="screenshot_01_gridView_heading">Tietojasi suojaten</string>
-    <string name="screenshot_01_gridView_subline">Itse ylläpidettävä tuottavuusalusta</string>
     <string name="screenshot_02_listView_heading">Selaa ja jaa</string>
     <string name="screenshot_02_listView_subline">kaikki toiminnot lähettyvillä</string>
-    <string name="screenshot_03_drawer_heading">Toiminnot, jaot ja yhteydettömän tilan tiedostot</string>
     <string name="screenshot_03_drawer_subline">kaikki käytettävissä nopeasti</string>
     <string name="screenshot_04_accounts_heading">Kaikki tilisi</string>
     <string name="screenshot_04_accounts_subline">yhdessä paikassa</string>
     <string name="screenshot_05_autoUpload_heading">Automaattinen lähetys</string>
     <string name="screenshot_05_autoUpload_subline">kuvillesi ja videoillesi</string>
-    <string name="screenshot_06_davdroid_heading">Synkronoi kalenteri ja yhteystiedot</string>
-    <string name="screenshot_06_davdroid_subline">DAVx5:llä (aiemmin DAVdroid)</string>
     <string name="search_users_and_groups_hint">Etsi käyttäjiä ja ryhmiä</string>
     <string name="select_all">Valitse kaikki</string>
     <string name="select_template">Valitse mallipohja</string>

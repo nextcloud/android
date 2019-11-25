@@ -532,17 +532,13 @@ Enheds legitimationsoplysninger er sat op
     <string name="saml_authentication_wrong_pass">Forkert kodeord</string>
     <string name="scanQR_description">Login med QR kode</string>
     <string name="screenshot_01_gridView_heading">Beskytter dine data</string>
-    <string name="screenshot_01_gridView_subline">Vært i eget hus produktivitets platform</string>
     <string name="screenshot_02_listView_heading">Defiler og del</string>
     <string name="screenshot_02_listView_subline">Alle funktioner lige ved hånden</string>
-    <string name="screenshot_03_drawer_heading">Aktiviteter, delinger, offline filer</string>
     <string name="screenshot_03_drawer_subline">alt hurtigt tilgængeligt</string>
     <string name="screenshot_04_accounts_heading">Alle dine konti</string>
     <string name="screenshot_04_accounts_subline">på et sted</string>
     <string name="screenshot_05_autoUpload_heading">Automatisk upload</string>
     <string name="screenshot_05_autoUpload_subline">Til dine billeder &amp; videoer</string>
-    <string name="screenshot_06_davdroid_heading">Synk kalender &amp; kontakter</string>
-    <string name="screenshot_06_davdroid_subline">med DAVx5 (forhenværende DAVdroid)</string>
     <string name="search_users_and_groups_hint">Søg brugere og grupper</string>
     <string name="select_all">Vælg alle</string>
     <string name="select_template">Vælg model</string>

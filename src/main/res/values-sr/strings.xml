@@ -170,7 +170,7 @@
     <string name="copy_link">Копирај везу</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирање/премештање у шифровану фасциклу није подржано.</string>
     <string name="copy_to">Копирај у…</string>
-    <string name="could_not_download_image">Не могу да преузмем целу слику</string>
+    <string name="could_not_download_image">Није могуће преузети целу слику</string>
     <string name="could_not_retrieve_url">Не могу да добавим адресу</string>
     <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
     <string name="create_file_from_template">Направите фајл из шаблона…</string>
@@ -264,6 +264,7 @@
     <string name="fallback_weblogin_text">Врати се на стари начин пријаве</string>
     <string name="favorite">Додај у омиљене</string>
     <string name="favorite_icon">Омиљени</string>
+    <string name="file">Фајл</string>
     <string name="file_delete">Обриши</string>
     <string name="file_detail_activity_error">Грешка при дохватању активности фајла</string>
     <string name="file_details_no_content">Грешка при учитавању детаља</string>
@@ -333,6 +334,7 @@
     <string name="first_run_2_text">Безбедна сарадња &amp; и размена фајлова</string>
     <string name="first_run_3_text">Веб пошта лака за коришћење, календар &amp; контакти</string>
     <string name="first_run_4_text">Дељење екрана, састанци на интернету &amp; веб конференције</string>
+    <string name="folder">Фолдер</string>
     <string name="folder_already_exists">Фасцикла већ постоји</string>
     <string name="folder_confirm_create">Направи</string>
     <string name="folder_icon">Икона фасцикле</string>
@@ -501,6 +503,9 @@
     <string name="prefs_storage_path">Путања до складишта</string>
     <string name="prefs_synced_folders_local_path_title">Локална фасцикла</string>
     <string name="prefs_synced_folders_remote_path_title">Удаљена фасцикла</string>
+    <string name="prefs_theme_title">Тема</string>
+    <string name="prefs_value_theme_dark">Тамно</string>
+    <string name="prefs_value_theme_light">Светло</string>
     <string name="preview_image_description">Преглед слике</string>
     <string name="preview_image_error_no_local_file">Нема локалног фајла за преглед</string>
     <string name="preview_image_error_unknown_format">Не могу да прикажем слику</string>
@@ -512,6 +517,7 @@
     <string name="recommend_subject">Испробај %1$s на свом уређају!</string>
     <string name="recommend_text">Желим да те позовем да испробаш %1$s на свом уређају.\nПреузми га овде: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="remote_file_fetch_failed">Није могуће пронаћи фајл!</string>
     <string name="remove_fail_msg">Брисање није успело</string>
     <string name="remove_notification_failed">Грешка при уклањању обавештења.</string>
     <string name="remove_push_notification">Уклони</string>
@@ -531,17 +537,13 @@
     <string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
     <string name="scanQR_description">Пријава преко QR кода</string>
     <string name="screenshot_01_gridView_heading">Штити Ваше податке</string>
-    <string name="screenshot_01_gridView_subline">платформа за продуктивност коју и Ви можете да хостујете</string>
     <string name="screenshot_02_listView_heading">Претражи и дели</string>
     <string name="screenshot_02_listView_subline">све радње под Вашим прстима</string>
-    <string name="screenshot_03_drawer_heading">Активности, дељења, фајлови доступни без интернета</string>
     <string name="screenshot_03_drawer_subline">све брзо доступно</string>
     <string name="screenshot_04_accounts_heading">Сви Ваши налози</string>
     <string name="screenshot_04_accounts_subline">на једном месту</string>
     <string name="screenshot_05_autoUpload_heading">Аутоматска отпремања</string>
     <string name="screenshot_05_autoUpload_subline">Ваших слика &amp; видео записа</string>
-    <string name="screenshot_06_davdroid_heading">Синхронизуј календар &amp; контакте</string>
-    <string name="screenshot_06_davdroid_subline">преко DAVx5-а (бивши DAVdroid)</string>
     <string name="search_users_and_groups_hint">Претражи кориснике и групе</string>
     <string name="select_all">Означи све</string>
     <string name="select_template">Одаберите шаблон</string>
@@ -559,6 +561,8 @@
     <string name="share_file">Подели %1$s</string>
     <string name="share_get_public_link_button">Добави везу</string>
     <string name="share_group_clarification">%1$s (група)</string>
+    <string name="share_internal_link">Подели интерну везу</string>
+    <string name="share_internal_link_text">Ради само за корисике са приступом овоме %1$s</string>
     <string name="share_known_remote_clarification">%1$s (на %2$s)</string>
     <string name="share_link_empty_password">Морате унети лозинку</string>
     <string name="share_link_file_error">Дошло је до грешке приликом покушаја дељења овог фајла или фасцикле</string>

@@ -528,17 +528,13 @@
     <string name="saml_authentication_wrong_pass">Pogrešna zaporka</string>
     <string name="scanQR_description">Prijavite se putem QR koda</string>
     <string name="screenshot_01_gridView_heading">Zaštita podataka</string>
-    <string name="screenshot_01_gridView_subline">samopostavljena platforma za pospješivanje produktivnosti</string>
     <string name="screenshot_02_listView_heading">Pretražujte i dijelite</string>
     <string name="screenshot_02_listView_subline">jednostavan pristup svim mogućnostima i radnjama</string>
-    <string name="screenshot_03_drawer_heading">Aktivnosti, dijeljenje, izvanmrežne datoteke</string>
     <string name="screenshot_03_drawer_subline">brz pristup svemu</string>
     <string name="screenshot_04_accounts_heading">Svi vaši računi</string>
     <string name="screenshot_04_accounts_subline">na jednom mjestu</string>
     <string name="screenshot_05_autoUpload_heading">Automatsko otpremanje</string>
     <string name="screenshot_05_autoUpload_subline">fotografija i videozapisa</string>
-    <string name="screenshot_06_davdroid_heading">Sinkroniziraj kalendar i kontakte</string>
-    <string name="screenshot_06_davdroid_subline">s aplikacijom DAVx5 (ranije poznatom kao DAVdroid)</string>
     <string name="search_users_and_groups_hint">Pretraži korisnike i grupe</string>
     <string name="select_all">Odaberi sve</string>
     <string name="select_template">Odaberi predložak</string>

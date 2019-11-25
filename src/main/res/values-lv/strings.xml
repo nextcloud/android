@@ -358,7 +358,6 @@
     <string name="restore_button_description">Atjaunot dzēstu datni</string>
     <string name="saml_authentication_required_text">Nepieciešama parole</string>
     <string name="saml_authentication_wrong_pass">Nepareiza parole</string>
-    <string name="screenshot_03_drawer_heading">Darbības, kopīgošana, bezsaistes faili</string>
     <string name="search_users_and_groups_hint">Meklēt lietotājus un grupas</string>
     <string name="select_all">Atzīmēt visu</string>
     <string name="send">Sūtīt</string>
