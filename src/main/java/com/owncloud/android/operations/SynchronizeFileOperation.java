@@ -292,7 +292,8 @@ public class SynchronizeFileOperation extends SyncOperation {
      */
     private void requestForUpload(OCFile file) {
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        requester.uploadUpdate(mContext, mAccount, file, FileUploader.LOCAL_BEHAVIOUR_MOVE, true);
+        requester.uploadUpdate(mContext, mAccount, file, FileUploader.LOCAL_BEHAVIOUR_MOVE,
+                               FileUploader.NameCollisionPolicy.ASK_USER);
 
         mTransferWasRequested = true;
     }

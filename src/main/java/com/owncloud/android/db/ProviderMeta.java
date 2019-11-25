@@ -208,7 +208,7 @@ public class ProviderMeta {
         public static final String UPLOADS_STATUS = "status";
         public static final String UPLOADS_LOCAL_BEHAVIOUR = "local_behaviour";
         public static final String UPLOADS_UPLOAD_TIME = "upload_time";
-        public static final String UPLOADS_FORCE_OVERWRITE = "force_overwrite";
+        public static final String UPLOADS_NAME_COLLISION_POLICY = "name_collision_policy";
         public static final String UPLOADS_IS_CREATE_REMOTE_FOLDER = "is_create_remote_folder";
         public static final String UPLOADS_UPLOAD_END_TIMESTAMP = "upload_end_timestamp";
         public static final String UPLOADS_LAST_RESULT = "last_result";
