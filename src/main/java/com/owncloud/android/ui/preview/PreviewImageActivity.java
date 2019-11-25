@@ -37,6 +37,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -385,11 +386,11 @@ public class PreviewImageActivity extends FileActivity implements
     @SuppressFBWarnings("DLS")
     @Override
     public void showDetails(OCFile file) {
-        final Account currentAccount = getUserAccountManager().getCurrentAccount();
+        final User currentUser = getUserAccountManager().getUser();
         final Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.setAction(FileDisplayActivity.ACTION_DETAILS);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, file);
-        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, currentAccount);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, currentUser.toPlatformAccount());
         showDetailsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(showDetailsIntent);
         finish();
