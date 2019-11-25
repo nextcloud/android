@@ -22,19 +22,16 @@
  */
 package com.owncloud.android.ui.activities.data.files;
 
-import android.accounts.Account;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -44,8 +41,6 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.utils.FileStorageUtils;
 
-import java.io.IOException;
-
 /**
  * Implementation of the Files service API that communicates with the NextCloud remote server.
  */
@@ -54,15 +49,18 @@ public class FilesServiceApiImpl implements FilesServiceApi {
     private static final String TAG = FilesServiceApiImpl.class.getSimpleName();
 
     private UserAccountManager accountManager;
+    private ClientFactory clientFactory;
 
-    public FilesServiceApiImpl(UserAccountManager accountManager) {
+    public FilesServiceApiImpl(UserAccountManager accountManager, ClientFactory clientFactory) {
         this.accountManager = accountManager;
+        this.clientFactory = clientFactory;
     }
 
     @Override
     public void readRemoteFile(String fileUrl, BaseActivity activity, FilesServiceCallback<OCFile> callback) {
         ReadRemoteFileTask readRemoteFileTask = new ReadRemoteFileTask(
             accountManager,
+            clientFactory,
             fileUrl,
             activity,
             callback
@@ -77,30 +75,29 @@ public class FilesServiceApiImpl implements FilesServiceApi {
         // TODO: Figure out a better way to do this than passing a BaseActivity reference.
         private final BaseActivity baseActivity;
         private final String fileUrl;
-        private final Account account;
+        private final User user;
         private final UserAccountManager accountManager;
+        private final ClientFactory clientFactory;
 
         private ReadRemoteFileTask(UserAccountManager accountManager,
+                                   ClientFactory clientFactory,
                                    String fileUrl,
                                    BaseActivity baseActivity,
                                    FilesServiceCallback<OCFile> callback) {
             this.callback = callback;
             this.baseActivity = baseActivity;
             this.fileUrl = fileUrl;
-            this.account = accountManager.getCurrentAccount();
+            this.user = accountManager.getUser();
             this.accountManager = accountManager;
+            this.clientFactory = clientFactory;
         }
 
         @Override
         protected Boolean doInBackground(Void... voids) {
             final Context context = MainApp.getAppContext();
-            OwnCloudAccount ocAccount;
-            OwnCloudClient ownCloudClient;
             try {
-                ocAccount = new OwnCloudAccount(account, context);
-                ownCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                        getClientFor(ocAccount, MainApp.getAppContext());
-                ownCloudClient.setOwnCloudVersion(accountManager.getServerVersion(account));
+                OwnCloudClient ownCloudClient = clientFactory.create(user);
+                ownCloudClient.setOwnCloudVersion(user.getServer().getVersion());
                 // always update file as it could be an old state saved in database
                 RemoteOperationResult resultRemoteFileOp = new ReadFileRemoteOperation(fileUrl).execute(ownCloudClient);
 
@@ -111,28 +108,19 @@ public class FilesServiceApiImpl implements FilesServiceApi {
                     if (remoteOcFile.isFolder()) {
                         // perform folder synchronization
                         RemoteOperation synchFolderOp = new RefreshFolderOperation(remoteOcFile,
-                                System.currentTimeMillis(),
-                                false,
-                                true,
-                                baseActivity.getStorageManager(),
-                                baseActivity.getAccount(),
-                                context);
+                                                                                   System.currentTimeMillis(),
+                                                                                   false,
+                                                                                   true,
+                                                                                   baseActivity.getStorageManager(),
+                                                                                   baseActivity.getAccount(),
+                                                                                   context);
                         synchFolderOp.execute(ownCloudClient);
                     }
                 }
                 return true;
-            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+            } catch (ClientFactory.CreationException e) {
                 Log_OC.e(TAG, "Account not found", e);
                 errorMessage = baseActivity.getString(R.string.account_not_found);
-            } catch (IOException e) {
-                Log_OC.e(TAG, "IO error", e);
-                errorMessage = baseActivity.getString(R.string.io_error);
-            } catch (OperationCanceledException e) {
-                Log_OC.e(TAG, "Operation has been canceled", e);
-                errorMessage = baseActivity.getString(R.string.operation_canceled);
-            } catch (AuthenticatorException e) {
-                Log_OC.e(TAG, "Authentication Exception", e);
-                errorMessage = baseActivity.getString(R.string.authentication_exception);
             }
 
             return false;

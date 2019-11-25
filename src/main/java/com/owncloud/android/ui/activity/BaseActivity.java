@@ -6,17 +6,16 @@ import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -161,6 +160,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         }
     }
 
+    protected void setUser(User user) {
+        setAccount(user.toPlatformAccount(), false);
+    }
+
     /**
      * Tries to swap the current ownCloud {@link Account} for other valid and existing.
      *
@@ -214,6 +217,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      */
     public Account getAccount() {
         return currentAccount;
+    }
+
+    public Optional<User> getUser() {
+        if (currentAccount != null) {
+            return accountManager.getUser(currentAccount.name);
+        } else {
+            return Optional.empty();
+        }
     }
     
     public FileDataStorageManager getStorageManager() {

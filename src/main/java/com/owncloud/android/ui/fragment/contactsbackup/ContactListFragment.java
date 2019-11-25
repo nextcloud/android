@@ -61,6 +61,7 @@ import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -149,6 +150,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
     private List<VCard> vCards = new ArrayList<>();
     private OCFile ocFile;
     @Inject UserAccountManager accountManager;
+    @Inject ClientFactory clientFactory;
 
     public static ContactListFragment newInstance(OCFile file, Account account) {
         ContactListFragment frag = new ContactListFragment();
@@ -191,7 +193,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
         recyclerView = view.findViewById(R.id.contactlist_recyclerview);
 
         if (savedInstanceState == null) {
-            contactListAdapter = new ContactListAdapter(accountManager, getContext(), vCards);
+            contactListAdapter = new ContactListAdapter(accountManager, clientFactory, getContext(), vCards);
         } else {
             Set<Integer> checkedItems = new HashSet<>();
             int[] itemsArray = savedInstanceState.getIntArray(CHECKED_ITEMS_ARRAY_KEY);
@@ -589,12 +591,15 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
     private Context context;
 
     private UserAccountManager accountManager;
+    private ClientFactory clientFactory;
 
-    ContactListAdapter(UserAccountManager accountManager, Context context, List<VCard> vCards) {
+    ContactListAdapter(UserAccountManager accountManager, ClientFactory clientFactory, Context context,
+                       List<VCard> vCards) {
         this.vCards = vCards;
         this.context = context;
         this.checkedVCards = new HashSet<>();
         this.accountManager = accountManager;
+        this.clientFactory = clientFactory;
     }
 
     ContactListAdapter(UserAccountManager accountManager,
@@ -699,6 +704,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                 }
             };
             DisplayUtils.downloadIcon(accountManager,
+                                      clientFactory,
                                       context,
                                       url,
                                       target,

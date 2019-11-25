@@ -46,6 +46,7 @@ internal class AnonymousUser(private val accountType: String) : User {
 
     override val accountName: String = "anonymous"
     override val server = Server(URI.create(""), MainApp.MINIMUM_SUPPORTED_SERVER_VERSION)
+    override val isAnonymous = true
 
     override fun toPlatformAccount(): Account {
         return Account(accountName, accountType)

@@ -92,6 +92,7 @@ import android.widget.Toast;
 
 import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
@@ -1735,8 +1736,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
             /// add the new account as default in preferences, if there is none already
-            Account defaultAccount = accountManager.getCurrentAccount();
-            if (defaultAccount == null) {
+            User defaultAccount = accountManager.getUser();
+            if (defaultAccount.isAnonymous()) {
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
                 editor.putString("select_oc_account", accountName);
                 editor.apply();

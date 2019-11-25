@@ -21,9 +21,9 @@
 
 package com.owncloud.android.ui.asynctasks;
 
-import android.accounts.Account;
 import android.os.AsyncTask;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -38,18 +38,18 @@ import java.lang.ref.WeakReference;
 public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult> {
 
     private int columnCount;
-    private Account account;
+    private User user;
     private WeakReference<PhotoFragment> photoFragmentWeakReference;
     private SearchRemoteOperation searchRemoteOperation;
     private FileDataStorageManager storageManager;
 
     public PhotoSearchTask(int columnsCount,
                            PhotoFragment photoFragment,
-                           Account account,
+                           User user,
                            SearchRemoteOperation searchRemoteOperation,
                            FileDataStorageManager storageManager) {
         this.columnCount = columnsCount;
-        this.account = account;
+        this.user = user;
         this.photoFragmentWeakReference = new WeakReference<>(photoFragment);
         this.searchRemoteOperation = searchRemoteOperation;
         this.storageManager = storageManager;
@@ -88,7 +88,7 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
             searchRemoteOperation.setTimestamp(timestamp);
 
             if (photoFragment.getContext() != null) {
-                return searchRemoteOperation.execute(account, photoFragment.getContext());
+                return searchRemoteOperation.execute(user.toPlatformAccount(), photoFragment.getContext());
             } else {
                 return new RemoteOperationResult(new IllegalStateException("No context available"));
             }
