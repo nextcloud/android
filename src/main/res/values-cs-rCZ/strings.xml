@@ -536,13 +536,17 @@
     <string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
     <string name="scanQR_description">Přihlášení prostřednictvím QR kódu</string>
     <string name="screenshot_01_gridView_heading">Ochrana vašich dat</string>
+    <string name="screenshot_01_gridView_subline">nástroje pro produktivitu, hostované u vás</string>
     <string name="screenshot_02_listView_heading">Procházet a sdílet</string>
     <string name="screenshot_02_listView_subline">všechny akce na dosah ruky</string>
+    <string name="screenshot_03_drawer_heading">Aktivita, sdílení, …</string>
     <string name="screenshot_03_drawer_subline">vše pohotově přístupné</string>
     <string name="screenshot_04_accounts_heading">Všechny vaše účty</string>
     <string name="screenshot_04_accounts_subline">na jednom místě</string>
     <string name="screenshot_05_autoUpload_heading">Automatické nahrání</string>
     <string name="screenshot_05_autoUpload_subline">pro vaše fotky a videa</string>
+    <string name="screenshot_06_davdroid_heading">Kalendář a kontakty</string>
+    <string name="screenshot_06_davdroid_subline">Synchronizace s DAVx5</string>
     <string name="search_users_and_groups_hint">Hledat uživatele a skupiny</string>
     <string name="select_all">Vybrat vše</string>
     <string name="select_template">Vybrat šablonu</string>

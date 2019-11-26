@@ -536,13 +536,17 @@
     <string name="saml_authentication_wrong_pass">Złe hasło</string>
     <string name="scanQR_description">Zaloguj się za pomocą kodu QR</string>
     <string name="screenshot_01_gridView_heading">Ochrona Twoich danych</string>
+    <string name="screenshot_01_gridView_subline">produkcyjny samo-hostujący</string>
     <string name="screenshot_02_listView_heading">Przeglądaj i udostępniaj</string>
     <string name="screenshot_02_listView_subline">wszystkie działania na wyciągnięcie ręki</string>
+    <string name="screenshot_03_drawer_heading">Aktywność, udostępnienia...</string>
     <string name="screenshot_03_drawer_subline">wszystko szybko dostępne</string>
     <string name="screenshot_04_accounts_heading">Wszystkie Twoje konta</string>
     <string name="screenshot_04_accounts_subline">w jednym miejscu</string>
     <string name="screenshot_05_autoUpload_heading">Automatyczne przesyłanie</string>
     <string name="screenshot_05_autoUpload_subline">dla Twoich zdjęć &amp; wideo</string>
+    <string name="screenshot_06_davdroid_heading">Kontakty w kalendarzu: &amp;</string>
+    <string name="screenshot_06_davdroid_subline">Synchronizuj z DAVx5</string>
     <string name="search_users_and_groups_hint">Szukaj użytkowników i grup</string>
     <string name="select_all">Wybierz wszystko</string>
     <string name="select_template">Wybierz szablon</string>
