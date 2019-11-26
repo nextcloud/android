@@ -46,6 +46,7 @@ import android.webkit.MimeTypeMap;
 
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -291,14 +292,14 @@ public class FileOperationsHelper {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Account account = currentAccount.getCurrentAccount();
+                    User user = currentAccount.getUser();
                     FileDataStorageManager storageManager =
-                            new FileDataStorageManager(account, fileActivity.getContentResolver());
+                            new FileDataStorageManager(user.toPlatformAccount(), fileActivity.getContentResolver());
                     // a fresh object is needed; many things could have occurred to the file
                     // since it was registered to observe again, assuming that local files
                     // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
                     SynchronizeFileOperation sfo =
-                            new SynchronizeFileOperation(file, null, account, true, fileActivity);
+                            new SynchronizeFileOperation(file, null, user.toPlatformAccount(), true, fileActivity);
                     RemoteOperationResult result = sfo.execute(storageManager, fileActivity);
                     fileActivity.dismissLoadingDialog();
                     if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
@@ -307,7 +308,7 @@ public class FileOperationsHelper {
                         Intent i = new Intent(fileActivity, ConflictsResolveActivity.class);
                         i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
                         i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
-                        i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
+                        i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
                         fileActivity.startActivity(i);
                     } else {
                         if (!launchables.isEmpty()) {
@@ -397,10 +398,10 @@ public class FileOperationsHelper {
 
     public void streamMediaFile(OCFile file) {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
-        final Account account = currentAccount.getCurrentAccount();
+        final User user = currentAccount.getUser();
         new Thread(() -> {
             StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
-            RemoteOperationResult result = sfo.execute(account, fileActivity);
+            RemoteOperationResult result = sfo.execute(user.toPlatformAccount(), fileActivity);
 
             fileActivity.dismissLoadingDialog();
 

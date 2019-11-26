@@ -47,9 +47,11 @@ import android.widget.AbsListView;
 import android.widget.PopupMenu;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -169,6 +171,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
+    @Inject ClientFactory clientFactory;
     protected FileFragment.ContainerActivity mContainerActivity;
 
     protected OCFile mFile;
@@ -942,10 +945,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             mContainerActivity.getFileOperationsHelper().openFile(file);
                         }
                     } else {
-                        Account account = accountManager.getCurrentAccount();
-                        OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.name);
+                        User account = accountManager.getUser();
+                        OCCapability capability = mContainerActivity.getStorageManager()
+                            .getCapability(account.getAccountName());
 
-                        if (PreviewMediaFragment.canBePreviewed(file) && accountManager.getServerVersion(account)
+                        if (PreviewMediaFragment.canBePreviewed(file) && account.getServer().getVersion()
                                 .isMediaStreamingSupported()) {
                             // stream media preview on >= NC14
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
@@ -1430,26 +1434,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(FavoriteEvent event) {
-        Account currentAccount = accountManager.getCurrentAccount();
-
-        OwnCloudAccount ocAccount;
-
         try {
-            ocAccount = new OwnCloudAccount(currentAccount, MainApp.getAppContext());
-
-            OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                    getClientFor(ocAccount, MainApp.getAppContext());
+            User user = accountManager.getUser();
+            OwnCloudClient client = clientFactory.create(user);
 
             ToggleFavoriteRemoteOperation toggleFavoriteOperation = new ToggleFavoriteRemoteOperation(
                 event.shouldFavorite, event.remotePath);
-            RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(mClient);
+            RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(client);
 
             if (remoteOperationResult.isSuccess()) {
                 mAdapter.setFavoriteAttributeForItemID(event.remoteId, event.shouldFavorite);
             }
 
-        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException | AuthenticatorException
-                | IOException | OperationCanceledException e) {
+        } catch (ClientFactory.CreationException e) {
             Log_OC.e(TAG, "Error processing event", e);
         }
     }
@@ -1483,7 +1480,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
 
-        final Account currentAccount = accountManager.getCurrentAccount();
+        final User currentAccount = accountManager.getUser();
 
         final RemoteOperation remoteOperation;
         if (currentSearchType != SearchType.SHARED_FILTER) {
@@ -1503,7 +1500,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             protected Object doInBackground(Object[] params) {
                 setTitle();
                 if (getContext() != null && !isCancelled()) {
-                    RemoteOperationResult remoteOperationResult = remoteOperation.execute(currentAccount, getContext());
+                    RemoteOperationResult remoteOperationResult = remoteOperation.execute(
+                        currentAccount.toPlatformAccount(), getContext());
 
                     FileDataStorageManager storageManager = null;
                     if (mContainerActivity != null && mContainerActivity.getStorageManager() != null) {
@@ -1555,18 +1553,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(EncryptionEvent event) {
-        Account currentAccount = accountManager.getCurrentAccount();
-
-        OwnCloudAccount ocAccount;
         try {
-            ocAccount = new OwnCloudAccount(currentAccount, MainApp.getAppContext());
-
-            OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                    getClientFor(ocAccount, MainApp.getAppContext());
-
-            ToggleEncryptionRemoteOperation toggleEncryptionOperation = new ToggleEncryptionRemoteOperation(
+            final User user = accountManager.getUser();
+            final OwnCloudClient client = clientFactory.create(user);
+            final ToggleEncryptionRemoteOperation toggleEncryptionOperation = new ToggleEncryptionRemoteOperation(
                 event.localId, event.remotePath, event.shouldBeEncrypted);
-            RemoteOperationResult remoteOperationResult = toggleEncryptionOperation.execute(mClient);
+            final RemoteOperationResult remoteOperationResult = toggleEncryptionOperation.execute(client);
 
             if (remoteOperationResult.isSuccess()) {
                 mAdapter.setEncryptionAttributeForItemID(event.remoteId, event.shouldBeEncrypted);
@@ -1576,14 +1568,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 Snackbar.make(getRecyclerView(), R.string.common_error_unknown, Snackbar.LENGTH_LONG).show();
             }
 
-        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            Log_OC.e(TAG, "Account not found", e);
-        } catch (AuthenticatorException e) {
-            Log_OC.e(TAG, "Authentication failed", e);
-        } catch (IOException e) {
-            Log_OC.e(TAG, "IO error", e);
-        } catch (OperationCanceledException e) {
-            Log_OC.e(TAG, "Operation has been canceled", e);
+        } catch (ClientFactory.CreationException e) {
+            Log_OC.e(TAG, "Cannot create client", e);
         }
     }
 

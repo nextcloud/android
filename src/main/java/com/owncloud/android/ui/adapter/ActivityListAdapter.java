@@ -51,6 +51,7 @@ import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -94,6 +95,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     protected Context context;
     private CurrentAccountProvider currentAccountProvider;
+    private ClientFactory clientFactory;
     private FileDataStorageManager storageManager;
     private OCCapability capability;
     protected List<Object> values;
@@ -246,8 +248,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         if (MimeTypeUtil.isImageOrVideo(previewObject.getMimeType())) {
             int placeholder = R.drawable.file;
-            Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider)).load(previewObject.getSource()).
-                placeholder(placeholder).error(placeholder).into(imageView);
+            Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider, clientFactory))
+                .load(previewObject.getSource())
+                .placeholder(placeholder)
+                .error(placeholder)
+                .into(imageView);
         } else {
             if (MimeTypeUtil.isFolder(previewObject.getMimeType())) {
                 imageView.setImageDrawable(
@@ -297,8 +302,10 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 String uri = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + px + "/" + px +
                     Uri.encode(file.getRemotePath(), "/");
 
-                Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider)).load(uri).placeholder(placeholder)
-                    .error(placeholder).into(fileIcon); // using custom fetcher
+                Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider, clientFactory))
+                    .load(uri).placeholder(placeholder)
+                    .error(placeholder)
+                    .into(fileIcon); // using custom fetcher
 
             } else {
                 if (isDetailView) {
