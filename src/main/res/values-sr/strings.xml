@@ -537,13 +537,17 @@
     <string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
     <string name="scanQR_description">Пријава преко QR кода</string>
     <string name="screenshot_01_gridView_heading">Штити Ваше податке</string>
+    <string name="screenshot_01_gridView_subline">продуктивност коју Ви хостујете</string>
     <string name="screenshot_02_listView_heading">Претражи и дели</string>
     <string name="screenshot_02_listView_subline">све радње под Вашим прстима</string>
+    <string name="screenshot_03_drawer_heading">Активности, дељења, …</string>
     <string name="screenshot_03_drawer_subline">све брзо доступно</string>
     <string name="screenshot_04_accounts_heading">Сви Ваши налози</string>
     <string name="screenshot_04_accounts_subline">на једном месту</string>
     <string name="screenshot_05_autoUpload_heading">Аутоматска отпремања</string>
     <string name="screenshot_05_autoUpload_subline">Ваших слика &amp; видео записа</string>
+    <string name="screenshot_06_davdroid_heading">Календар &amp; контакти</string>
+    <string name="screenshot_06_davdroid_subline">Синхронизација са DAVx5</string>
     <string name="search_users_and_groups_hint">Претражи кориснике и групе</string>
     <string name="select_all">Означи све</string>
     <string name="select_template">Одаберите шаблон</string>

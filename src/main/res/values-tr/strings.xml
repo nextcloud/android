@@ -536,13 +536,17 @@
     <string name="saml_authentication_wrong_pass">Parola yanlış</string>
     <string name="scanQR_description">QR kodu ile oturum aç</string>
     <string name="screenshot_01_gridView_heading">Verilerinizi korumak</string>
+    <string name="screenshot_01_gridView_subline">sizin barındırdığınız üretkenlik</string>
     <string name="screenshot_02_listView_heading">Gözat ve paylaş</string>
     <string name="screenshot_02_listView_subline">tüm işlemler parmaklarınızın ucunda</string>
+    <string name="screenshot_03_drawer_heading">İşlemler, paylaşımlar, …</string>
     <string name="screenshot_03_drawer_subline">her şey kolayca erişilebilir</string>
     <string name="screenshot_04_accounts_heading">Tüm hesaplarınız</string>
     <string name="screenshot_04_accounts_subline">tek bir yerde</string>
     <string name="screenshot_05_autoUpload_heading">Otomatik yükleme</string>
     <string name="screenshot_05_autoUpload_subline">fotoğraf ve görüntüleriniz için</string>
+    <string name="screenshot_06_davdroid_heading">Takvim ve kişiler</string>
+    <string name="screenshot_06_davdroid_subline">DAVx5 ile eşitleme</string>
     <string name="search_users_and_groups_hint">Kullanıcı ve Grup Arama</string>
     <string name="select_all">Tümünü seç</string>
     <string name="select_template">Kalıp seçin</string>
