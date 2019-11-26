@@ -25,6 +25,7 @@ package com.owncloud.android.utils.glide;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.stream.StreamModelLoader;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.network.ClientFactory;
 
 import java.io.InputStream;
 
@@ -34,13 +35,15 @@ import java.io.InputStream;
 public class CustomGlideStreamLoader implements StreamModelLoader<String> {
 
     private final CurrentAccountProvider currentAccount;
+    private final ClientFactory clientFactory;
 
-    public CustomGlideStreamLoader(CurrentAccountProvider currentAccount) {
+    public CustomGlideStreamLoader(CurrentAccountProvider currentAccount, ClientFactory clientFactory) {
         this.currentAccount = currentAccount;
+        this.clientFactory = clientFactory;
     }
 
     @Override
     public DataFetcher<InputStream> getResourceFetcher(String url, int width, int height) {
-        return new HttpStreamFetcher(currentAccount, url);
+        return new HttpStreamFetcher(currentAccount, clientFactory, url);
     }
 }

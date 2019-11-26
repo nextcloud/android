@@ -26,6 +26,7 @@ import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.net.Uri;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 
@@ -35,10 +36,31 @@ import java.io.IOException;
 
 public interface ClientFactory {
 
+    /**
+     * This exception wraps all possible errors thrown by trigger-happy
+     * OwnCloudClient constructor, making try-catch blocks manageable.
+     *
+     * This is a temporary refactoring measure, until a better
+     * error handling method can be procured.
+     */
+    @Deprecated
+    class CreationException extends Exception {
+
+        private static final long serialVersionUID = 0L;
+
+        CreationException(Throwable t) {
+            super(t);
+        }
+    }
+
+    OwnCloudClient create(User user) throws CreationException;
+
+    @Deprecated
     OwnCloudClient create(Account account)
         throws OperationCanceledException, AuthenticatorException, IOException,
         AccountUtils.AccountNotFoundException;
 
+    @Deprecated
     OwnCloudClient create(Account account, Activity currentActivity)
         throws OperationCanceledException, AuthenticatorException, IOException,
         AccountUtils.AccountNotFoundException;

@@ -868,9 +868,6 @@
     <string name="storage_music">Music</string>
     <string name="storage_documents">Documents</string>
     <string name="storage_downloads">Downloads</string>
-    <string name="io_error">IO error</string>
-    <string name="operation_canceled">Operation has been canceled</string>
-    <string name="authentication_exception">Authentication Exception</string>
     <string name="shared_avatar_desc">Avatar from shared user</string>
     <string name="shared_with_you_by">Shared with you by %1$s</string>
     <string name="reshare_not_allowed">Resharing is not allowed</string>

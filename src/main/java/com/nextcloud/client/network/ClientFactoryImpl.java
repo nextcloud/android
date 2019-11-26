@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -39,6 +40,18 @@ class ClientFactoryImpl implements ClientFactory {
 
     ClientFactoryImpl(Context context) {
         this.context = context;
+    }
+
+    @Override
+    public OwnCloudClient create(User user) throws CreationException {
+        try {
+            return OwnCloudClientFactory.createOwnCloudClient(user.toPlatformAccount(), context);
+        } catch (OperationCanceledException|
+                 AuthenticatorException|
+                 IOException|
+                 AccountUtils.AccountNotFoundException e) {
+            throw new CreationException(e);
+        }
     }
 
     @Override

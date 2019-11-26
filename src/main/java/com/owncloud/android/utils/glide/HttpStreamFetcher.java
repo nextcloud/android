@@ -27,6 +27,8 @@ import android.accounts.Account;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.account.User;
+import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -47,30 +49,30 @@ public class HttpStreamFetcher implements DataFetcher<InputStream> {
     private static final String TAG = HttpStreamFetcher.class.getName();
     private final String url;
     private final CurrentAccountProvider currentAccount;
+    private final ClientFactory clientFactory;
 
-    HttpStreamFetcher(final CurrentAccountProvider currentAccount, final String url) {
+    HttpStreamFetcher(final CurrentAccountProvider currentAccount, ClientFactory clientFactory, final String url) {
         this.currentAccount = currentAccount;
+        this.clientFactory = clientFactory;
         this.url = url;
     }
 
     @Override
     public InputStream loadData(Priority priority) throws Exception {
-        Account account = currentAccount.getCurrentAccount();
-        OwnCloudAccount ocAccount = new OwnCloudAccount(account, MainApp.getAppContext());
-        OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                getClientFor(ocAccount, MainApp.getAppContext());
+        User user = currentAccount.getUser();
+        OwnCloudClient client = clientFactory.create(user);
 
-        if (mClient != null) {
+        if (client != null) {
             GetMethod get;
             try {
                 get = new GetMethod(url);
                 get.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
                 get.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
-                int status = mClient.executeMethod(get);
+                int status = client.executeMethod(get);
                 if (status == HttpStatus.SC_OK) {
                     return get.getResponseBodyAsStream();
                 } else {
-                    mClient.exhaustResponse(get.getResponseBodyAsStream());
+                    client.exhaustResponse(get.getResponseBodyAsStream());
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, e.getMessage(), e);
