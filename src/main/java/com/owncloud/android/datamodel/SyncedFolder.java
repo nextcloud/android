@@ -62,9 +62,17 @@ public class SyncedFolder implements Serializable, Cloneable {
      * @param type            the type of the folder
      * @param hidden          hide item flag
      */
-    public SyncedFolder(String localPath, String remotePath, boolean wifiOnly, boolean chargingOnly,
-                        boolean subfolderByDate, String account, int uploadAction, boolean enabled,
-                        long timestampMs, MediaFolderType type, boolean hidden) {
+    public SyncedFolder(String localPath,
+                        String remotePath,
+                        boolean wifiOnly,
+                        boolean chargingOnly,
+                        boolean subfolderByDate,
+                        String account,
+                        int uploadAction,
+                        boolean enabled,
+                        long timestampMs,
+                        MediaFolderType type,
+                        boolean hidden) {
         this(UNPERSISTED_ID, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction,
              enabled, timestampMs, type, hidden);
     }
@@ -74,9 +82,18 @@ public class SyncedFolder implements Serializable, Cloneable {
      *
      * @param id id
      */
-    protected SyncedFolder(long id, String localPath, String remotePath, boolean wifiOnly, boolean chargingOnly,
-                           boolean subfolderByDate, String account, int uploadAction, boolean enabled,
-                           long timestampMs, MediaFolderType type, boolean hidden) {
+    protected SyncedFolder(long id,
+                           String localPath,
+                           String remotePath,
+                           boolean wifiOnly,
+                           boolean chargingOnly,
+                           boolean subfolderByDate,
+                           String account,
+                           int uploadAction,
+                           boolean enabled,
+                           long timestampMs,
+                           MediaFolderType type,
+                           boolean hidden) {
         this.id = id;
         this.localPath = localPath;
         this.remotePath = remotePath;

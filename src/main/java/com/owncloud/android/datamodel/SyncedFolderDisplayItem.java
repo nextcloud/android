@@ -55,11 +55,21 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
      * @param type            the type of the folder
      * @param hidden          hide item flag
      */
-    public SyncedFolderDisplayItem(long id, String localPath, String remotePath, boolean wifiOnly, boolean chargingOnly,
-                                   boolean subfolderByDate, String account, int uploadAction, boolean enabled,
-                                   long timestampMs, List<String> filePaths, String folderName, long numberOfFiles,
-                                   MediaFolderType type, boolean hidden)
-    {
+    public SyncedFolderDisplayItem(long id,
+                                   String localPath,
+                                   String remotePath,
+                                   boolean wifiOnly,
+                                   boolean chargingOnly,
+                                   boolean subfolderByDate,
+                                   String account,
+                                   int uploadAction,
+                                   boolean enabled,
+                                   long timestampMs,
+                                   List<String> filePaths,
+                                   String folderName,
+                                   long numberOfFiles,
+                                   MediaFolderType type,
+                                   boolean hidden) {
         super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled,
               timestampMs, type, hidden);
         this.filePaths = filePaths;
@@ -67,9 +77,17 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
         this.numberOfFiles = numberOfFiles;
     }
 
-    public SyncedFolderDisplayItem(long id, String localPath, String remotePath, boolean wifiOnly, boolean chargingOnly,
-                                   boolean subfolderByDate, String account, int uploadAction, boolean enabled,
-                                   long timestampMs, String folderName, MediaFolderType type, boolean hidden) {
+    public SyncedFolderDisplayItem(long id,
+                                   String localPath,
+                                   String remotePath,
+                                   boolean wifiOnly,
+                                   boolean chargingOnly,
+                                   boolean subfolderByDate,
+                                   String account,
+                                   int uploadAction,
+                                   boolean enabled,
+                                   long timestampMs,
+                                   String folderName, MediaFolderType type, boolean hidden) {
         super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled,
               timestampMs, type, hidden);
         this.folderName = folderName;

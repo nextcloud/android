@@ -83,7 +83,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
         shouldShowFooters(true);
     }
 
-    private void toggleHiddenItemsVisibility() {
+    public void toggleHiddenItemsVisibility() {
         hideItems = !hideItems;
         filteredSyncFolderItems.clear();
         filteredSyncFolderItems.addAll(filterHiddenItems(syncFolderItems, hideItems));
@@ -99,7 +99,6 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     }
 
     public void setSyncFolderItem(int location, SyncedFolderDisplayItem syncFolderItem) {
-        // show all items OR
         if (hideItems && syncFolderItem.isHidden() && filteredSyncFolderItems.contains(syncFolderItem)) {
             filteredSyncFolderItems.remove(location);
         } else {
@@ -123,7 +122,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
         syncFolderItems.add(syncFolderItem);
 
         // add item for display when either all items should be shown (!hideItems)
-        // or if items should be hi
+        // or if item should be shown (!.isHidden())
         if (!hideItems || !syncFolderItem.isHidden()) {
             filteredSyncFolderItems.add(syncFolderItem);
             notifyDataSetChanged();
@@ -148,15 +147,15 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
         if (!hide) {
             return items;
         } else {
-            List<SyncedFolderDisplayItem> ret = new ArrayList<>();
+            List<SyncedFolderDisplayItem> result = new ArrayList<>();
 
             for (SyncedFolderDisplayItem item : items) {
-                if (!item.isHidden() && !ret.contains(item)) {
-                    ret.add(item);
+                if (!item.isHidden() && !result.contains(item)) {
+                    result.add(item);
                 }
             }
 
-            return ret;
+            return result;
         }
     }
 

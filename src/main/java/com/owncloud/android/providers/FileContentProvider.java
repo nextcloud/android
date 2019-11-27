@@ -2076,12 +2076,6 @@ public class FileContentProvider extends ContentProvider {
                 db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
                                REMOVE_COLUMN + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION);
             }
-
-            if(oldVersion == 50 && newVersion < 50) {
-                db.execSQL(ALTER_TABLE + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME +
-                               REMOVE_COLUMN + ProviderTableMeta.SYNCED_FOLDER_HIDDEN);
-
-            }
         }
     }
 }
