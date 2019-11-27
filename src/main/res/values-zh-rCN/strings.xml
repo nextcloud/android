@@ -263,6 +263,7 @@
     <string name="fallback_weblogin_text">采用旧的登录方式</string>
     <string name="favorite">添加到收藏列表</string>
     <string name="favorite_icon">收藏</string>
+    <string name="file">文件</string>
     <string name="file_delete">删除</string>
     <string name="file_detail_activity_error">获取文件动态时出错</string>
     <string name="file_details_no_content">加载详情失败</string>
@@ -332,6 +333,7 @@
     <string name="first_run_2_text">安全的交换 &amp; 个协作文件</string>
     <string name="first_run_3_text">易于使用的网络邮件，日历和&amp;联系</string>
     <string name="first_run_4_text">屏幕分享，在线会议，&amp;网络会议</string>
+    <string name="folder">文件夹</string>
     <string name="folder_already_exists">目录已经存在</string>
     <string name="folder_confirm_create">创建</string>
     <string name="folder_icon">目录图标</string>
@@ -534,13 +536,17 @@
     <string name="saml_authentication_wrong_pass">错误密码</string>
     <string name="scanQR_description">通过扫描二维码登录</string>
     <string name="screenshot_01_gridView_heading">保护您的数据</string>
+    <string name="screenshot_01_gridView_subline">自托管生产力</string>
     <string name="screenshot_02_listView_heading">浏览与分享</string>
     <string name="screenshot_02_listView_subline">所有操控尽在您的指尖</string>
+    <string name="screenshot_03_drawer_heading">活动，共享，...</string>
     <string name="screenshot_03_drawer_subline">快速访问所有数据</string>
     <string name="screenshot_04_accounts_heading">您所有的账号</string>
     <string name="screenshot_04_accounts_subline">都在一处</string>
     <string name="screenshot_05_autoUpload_heading">自动上传</string>
     <string name="screenshot_05_autoUpload_subline">您的照片&amp;视频</string>
+    <string name="screenshot_06_davdroid_heading">日历 &amp; 联系人</string>
+    <string name="screenshot_06_davdroid_subline">与DAVx5同步</string>
     <string name="search_users_and_groups_hint">搜索用户和组</string>
     <string name="select_all">选择全部</string>
     <string name="select_template">选择模板</string>
@@ -558,6 +564,8 @@
     <string name="share_file">分享 %1$s</string>
     <string name="share_get_public_link_button">获取链接</string>
     <string name="share_group_clarification">%1$s (组)</string>
+    <string name="share_internal_link">共享内部链接</string>
+    <string name="share_internal_link_text">仅适用于有权限访问此%1$s的用户</string>
     <string name="share_known_remote_clarification">%1$s ( 在 %2$s )</string>
     <string name="share_link_empty_password">您必须输入密码</string>
     <string name="share_link_file_error">共享文件或目录出错</string>
