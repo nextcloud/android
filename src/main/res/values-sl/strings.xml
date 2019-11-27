@@ -448,6 +448,7 @@
     <string name="permission_allow">Dovoli</string>
     <string name="permission_deny">Zavrni</string>
     <string name="permission_storage_access">Za prejemanje oziroma pošiljanje datotek v oblak so zahtevana dodatna dovoljenja.</string>
+    <string name="picture_set_as_no_app">Ni najdenega programa za nastavitev slike</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">vsebnik.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -519,6 +520,7 @@
     <string name="scanQR_description">Prijava s kodo QR</string>
     <string name="screenshot_01_gridView_heading">Zaščita podatkov</string>
     <string name="screenshot_02_listView_heading">Brskanje in souporaba</string>
+    <string name="screenshot_03_drawer_heading">Dejavnosti, souporaba ...</string>
     <string name="screenshot_04_accounts_heading">Vsi vaši računi</string>
     <string name="screenshot_04_accounts_subline">na enem mestu</string>
     <string name="screenshot_05_autoUpload_heading">Samodejno pošiljanje</string>
