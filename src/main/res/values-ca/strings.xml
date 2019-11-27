@@ -538,11 +538,14 @@
     <string name="screenshot_01_gridView_heading">Protegint les vostres dades </string>
     <string name="screenshot_02_listView_heading">Explorar i compartir</string>
     <string name="screenshot_02_listView_subline">totes les accions als vostres dits</string>
+    <string name="screenshot_03_drawer_heading">Activitat, comparticions, …</string>
     <string name="screenshot_03_drawer_subline">tot molt ràpidament accesible</string>
     <string name="screenshot_04_accounts_heading">Tots els vostres comptes</string>
     <string name="screenshot_04_accounts_subline">En un sol lloc</string>
     <string name="screenshot_05_autoUpload_heading">Pujada automàtica</string>
     <string name="screenshot_05_autoUpload_subline">pels vostres vídeos i imatges</string>
+    <string name="screenshot_06_davdroid_heading">Calendari i contactes</string>
+    <string name="screenshot_06_davdroid_subline">Sincronitza amb DAVx5</string>
     <string name="search_users_and_groups_hint">Cerca usuaris i grups</string>
     <string name="select_all">Selecciona-ho tot</string>
     <string name="select_template">Selecciona una plantilla</string>
