@@ -23,11 +23,14 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -54,64 +57,174 @@ import butterknife.ButterKnife;
  */
 public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedViewHolder> {
 
-    private final Context mContext;
+    private final Context context;
     private final Clock clock;
-    private final int mGridWidth;
-    private final int mGridTotal;
-    private final ClickListener mListener;
-    private final List<SyncedFolderDisplayItem> mSyncFolderItems;
-    private final boolean mLight;
+    private final int gridWidth;
+    private final int gridTotal;
+    private final ClickListener clickListener;
+    private final List<SyncedFolderDisplayItem> syncFolderItems;
+    private final List<SyncedFolderDisplayItem> filteredSyncFolderItems;
+    private final boolean light;
+    private final int VIEW_TYPE_EMPTY = Integer.MAX_VALUE;
+    private boolean hideItems;
 
     public SyncedFolderAdapter(Context context, Clock clock, int gridWidth, ClickListener listener, boolean light) {
-        mContext = context;
+        this.context = context;
         this.clock = clock;
-        mGridWidth = gridWidth;
-        mGridTotal = gridWidth * 2;
-        mListener = listener;
-        mSyncFolderItems = new ArrayList<>();
-        mLight = light;
+        this.gridWidth = gridWidth;
+        gridTotal = gridWidth * 2;
+        clickListener = listener;
+        syncFolderItems = new ArrayList<>();
+        filteredSyncFolderItems = new ArrayList<>();
+        this.light = light;
+        this.hideItems = true;
 
         shouldShowHeadersForEmptySections(true);
+        shouldShowFooters(true);
+    }
+
+    public void toggleHiddenItemsVisibility() {
+        hideItems = !hideItems;
+        filteredSyncFolderItems.clear();
+        filteredSyncFolderItems.addAll(filterHiddenItems(syncFolderItems, hideItems));
+        notifyDataSetChanged();
     }
 
     public void setSyncFolderItems(List<SyncedFolderDisplayItem> syncFolderItems) {
-        mSyncFolderItems.clear();
-        mSyncFolderItems.addAll(syncFolderItems);
+        this.syncFolderItems.clear();
+        this.syncFolderItems.addAll(syncFolderItems);
+
+        this.filteredSyncFolderItems.clear();
+        this.filteredSyncFolderItems.addAll(filterHiddenItems(this.syncFolderItems, hideItems));
     }
 
     public void setSyncFolderItem(int location, SyncedFolderDisplayItem syncFolderItem) {
-        mSyncFolderItems.set(location, syncFolderItem);
+        if (hideItems && syncFolderItem.isHidden() && filteredSyncFolderItems.contains(syncFolderItem)) {
+            filteredSyncFolderItems.remove(location);
+        } else {
+            if (filteredSyncFolderItems.contains(syncFolderItem)) {
+                filteredSyncFolderItems.set(filteredSyncFolderItems.indexOf(syncFolderItem), syncFolderItem);
+            } else {
+                filteredSyncFolderItems.add(syncFolderItem);
+            }
+        }
+
+        if (syncFolderItems.contains(syncFolderItem)) {
+            syncFolderItems.set(syncFolderItems.indexOf(syncFolderItem), syncFolderItem);
+        } else {
+            syncFolderItems.add(syncFolderItem);
+        }
+
         notifyDataSetChanged();
     }
 
     public void addSyncFolderItem(SyncedFolderDisplayItem syncFolderItem) {
-        mSyncFolderItems.add(syncFolderItem);
-        notifyDataSetChanged();
+        syncFolderItems.add(syncFolderItem);
+
+        // add item for display when either all items should be shown (!hideItems)
+        // or if item should be shown (!.isHidden())
+        if (!hideItems || !syncFolderItem.isHidden()) {
+            filteredSyncFolderItems.add(syncFolderItem);
+            notifyDataSetChanged();
+        }
     }
 
     public void removeItem(int section) {
-        mSyncFolderItems.remove(section);
-        notifyDataSetChanged();
+        if (filteredSyncFolderItems.contains(syncFolderItems.get(section))) {
+            filteredSyncFolderItems.remove(syncFolderItems.get(section));
+            notifyDataSetChanged();
+        }
+        syncFolderItems.remove(section);
+    }
+
+    /**
+     * Filter for hidden items
+     *
+     * @param items Collection of items to filter
+     * @return Non-hidden items
+     */
+    private List<SyncedFolderDisplayItem> filterHiddenItems(List<SyncedFolderDisplayItem> items, boolean hide) {
+        if (!hide) {
+            return items;
+        } else {
+            List<SyncedFolderDisplayItem> result = new ArrayList<>();
+
+            for (SyncedFolderDisplayItem item : items) {
+                if (!item.isHidden() && !result.contains(item)) {
+                    result.add(item);
+                }
+            }
+
+            return result;
+        }
     }
 
     @Override
     public int getSectionCount() {
-        return mSyncFolderItems.size();
+        if (filteredSyncFolderItems.size() > 0) {
+            return filteredSyncFolderItems.size() + 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public int getUnfilteredSectionCount() {
+        if (syncFolderItems.size() > 0) {
+            return syncFolderItems.size() + 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override
     public int getItemCount(int section) {
-        List<String> filePaths = mSyncFolderItems.get(section).getFilePaths();
+        if (section < filteredSyncFolderItems.size()) {
+            List<String> filePaths = filteredSyncFolderItems.get(section).getFilePaths();
 
-        if (filePaths != null) {
-            return mSyncFolderItems.get(section).getFilePaths().size();
+            if (filePaths != null) {
+                return filteredSyncFolderItems.get(section).getFilePaths().size();
+            } else {
+                return 1;
+            }
         } else {
             return 1;
         }
     }
 
     public SyncedFolderDisplayItem get(int section) {
-        return mSyncFolderItems.get(section);
+        return filteredSyncFolderItems.get(section);
+    }
+
+    @Override
+    public int getItemViewType(int section, int relativePosition, int absolutePosition) {
+        if (isLastSection(section)) {
+            return VIEW_TYPE_EMPTY;
+        } else {
+            return VIEW_TYPE_ITEM;
+        }
+    }
+
+    @Override
+    public int getHeaderViewType(int section) {
+        if (isLastSection(section)) {
+            return VIEW_TYPE_EMPTY;
+        } else {
+            return VIEW_TYPE_HEADER;
+        }
+    }
+
+    @Override
+    public int getFooterViewType(int section) {
+        if (isLastSection(section) && showFooter()) {
+            return VIEW_TYPE_FOOTER;
+        } else {
+            // only show footer after last item and only if folders have been hidden
+            return VIEW_TYPE_EMPTY;
+        }
+    }
+
+    private boolean showFooter() {
+        return syncFolderItems.size() > filteredSyncFolderItems.size();
     }
 
     /**
@@ -122,9 +235,9 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
      * @return the section index of the looked up synced folder, <code>-1</code> if not present
      */
     public int getSectionByLocalPathAndType(String localPath, int type) {
-        for (int i = 0; i < mSyncFolderItems.size(); i++) {
-            if (mSyncFolderItems.get(i).getLocalPath().equalsIgnoreCase(localPath) &&
-                    mSyncFolderItems.get(i).getType().getId().equals(type)) {
+        for (int i = 0; i < filteredSyncFolderItems.size(); i++) {
+            if (filteredSyncFolderItems.get(i).getLocalPath().equalsIgnoreCase(localPath) &&
+                filteredSyncFolderItems.get(i).getType().getId().equals(type)) {
                 return i;
             }
         }
@@ -134,70 +247,96 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
 
     @Override
     public void onBindHeaderViewHolder(SectionedViewHolder commonHolder, final int section, boolean expanded) {
-        HeaderViewHolder holder = (HeaderViewHolder) commonHolder;
+        if (section < filteredSyncFolderItems.size()) {
+            HeaderViewHolder holder = (HeaderViewHolder) commonHolder;
+            holder.mainHeaderContainer.setVisibility(View.VISIBLE);
 
-        holder.mainHeaderContainer.setVisibility(View.VISIBLE);
+            holder.title.setText(filteredSyncFolderItems.get(section).getFolderName());
 
-        holder.title.setText(mSyncFolderItems.get(section).getFolderName());
+            if (MediaFolderType.VIDEO == filteredSyncFolderItems.get(section).getType()) {
+                holder.type.setImageResource(R.drawable.video_32dp);
+            } else if (MediaFolderType.IMAGE == filteredSyncFolderItems.get(section).getType()) {
+                holder.type.setImageResource(R.drawable.image_32dp);
+            } else {
+                holder.type.setImageResource(R.drawable.folder_star_32dp);
+            }
 
-        if (MediaFolderType.VIDEO == mSyncFolderItems.get(section).getType()) {
-            holder.type.setImageResource(R.drawable.video_32dp);
-        } else if (MediaFolderType.IMAGE == mSyncFolderItems.get(section).getType()) {
-            holder.type.setImageResource(R.drawable.image_32dp);
-        } else {
-            holder.type.setImageResource(R.drawable.folder_star_32dp);
+            holder.syncStatusButton.setVisibility(View.VISIBLE);
+            holder.syncStatusButton.setTag(section);
+            holder.syncStatusButton.setOnClickListener(v -> {
+                filteredSyncFolderItems.get(section).setEnabled(
+                    !filteredSyncFolderItems.get(section).isEnabled(),
+                    clock.getCurrentTime()
+                );
+                setSyncButtonActiveIcon(holder.syncStatusButton, filteredSyncFolderItems.get(section).isEnabled());
+                clickListener.onSyncStatusToggleClick(section, filteredSyncFolderItems.get(section));
+            });
+            setSyncButtonActiveIcon(holder.syncStatusButton, filteredSyncFolderItems.get(section).isEnabled());
+
+            if (light) {
+                holder.menuButton.setVisibility(View.GONE);
+            } else {
+                holder.menuButton.setVisibility(View.VISIBLE);
+                holder.menuButton.setTag(section);
+                holder.menuButton.setOnClickListener(v -> onOverflowIconClicked(section,
+                                                                                filteredSyncFolderItems.get(section),
+                                                                                v));
+            }
         }
+    }
 
-        holder.syncStatusButton.setVisibility(View.VISIBLE);
-        holder.syncStatusButton.setTag(section);
-        holder.syncStatusButton.setOnClickListener(v -> {
-            mSyncFolderItems.get(section).setEnabled(!mSyncFolderItems.get(section).isEnabled(), clock.getCurrentTime());
-            setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
-            mListener.onSyncStatusToggleClick(section, mSyncFolderItems.get(section));
-        });
-        setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
+    private void onOverflowIconClicked(int section, SyncedFolderDisplayItem item, View view) {
+        PopupMenu popup = new PopupMenu(context, view);
+        popup.inflate(R.menu.synced_folders_adapter);
+        popup.setOnMenuItemClickListener(i -> optionsItemSelected(i, section, item));
+        popup.getMenu()
+            .findItem(R.id.action_auto_upload_folder_toggle_visibility)
+            .setChecked(item.isHidden());
 
-        holder.syncStatusButton.setVisibility(View.VISIBLE);
-        holder.syncStatusButton.setTag(section);
-        holder.syncStatusButton.setOnClickListener(v -> {
-            mSyncFolderItems.get(section).setEnabled(!mSyncFolderItems.get(section).isEnabled(), clock.getCurrentTime());
-            setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
-            mListener.onSyncStatusToggleClick(section, mSyncFolderItems.get(section));
-        });
-        setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
+        popup.show();
+    }
 
-        if (mLight) {
-            holder.menuButton.setVisibility(View.GONE);
+    private boolean optionsItemSelected(MenuItem menuItem, int section, SyncedFolderDisplayItem item) {
+        if (menuItem.getItemId() == R.id.action_auto_upload_folder_toggle_visibility) {
+            clickListener.onVisibilityToggleClick(section, item);
         } else {
-            holder.menuButton.setVisibility(View.VISIBLE);
-            holder.menuButton.setTag(section);
-            holder.menuButton.setOnClickListener(v -> mListener.onSyncFolderSettingsClick(section,
-                    mSyncFolderItems.get(section)));
+            // default: R.id.action_create_custom_folder
+            clickListener.onSyncFolderSettingsClick(section, item);
         }
+        return true;
     }
 
     @Override
     public void onBindFooterViewHolder(SectionedViewHolder holder, int section) {
-        // not needed
+        if (isLastSection(section) && showFooter()) {
+            FooterViewHolder footerHolder = (FooterViewHolder) holder;
+            footerHolder.title.setOnClickListener(v -> toggleHiddenItemsVisibility());
+            footerHolder.title.setText(
+                context.getResources().getQuantityString(
+                    R.plurals.synced_folders_show_hidden_folders,
+                    getHiddenFolderCount(),
+                    getHiddenFolderCount()
+                )
+            );
+        }
     }
-
 
     @Override
     public void onBindViewHolder(SectionedViewHolder commonHolder, int section, int relativePosition,
                                  int absolutePosition) {
-        if (mSyncFolderItems.get(section).getFilePaths() != null) {
+        if (section < filteredSyncFolderItems.size() && filteredSyncFolderItems.get(section).getFilePaths() != null) {
             MainViewHolder holder = (MainViewHolder) commonHolder;
 
-            File file = new File(mSyncFolderItems.get(section).getFilePaths().get(relativePosition));
+            File file = new File(filteredSyncFolderItems.get(section).getFilePaths().get(relativePosition));
 
             ThumbnailsCacheManager.MediaThumbnailGenerationTask task =
-                    new ThumbnailsCacheManager.MediaThumbnailGenerationTask(holder.image, mContext);
+                    new ThumbnailsCacheManager.MediaThumbnailGenerationTask(holder.image, context);
 
             ThumbnailsCacheManager.AsyncMediaThumbnailDrawable asyncDrawable =
                     new ThumbnailsCacheManager.AsyncMediaThumbnailDrawable(
-                            mContext.getResources(),
-                            ThumbnailsCacheManager.mDefaultImg,
-                            task
+                        context.getResources(),
+                        ThumbnailsCacheManager.mDefaultImg,
+                        task
                     );
             holder.image.setImageDrawable(asyncDrawable);
 
@@ -206,11 +345,11 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
             // set proper tag
             holder.image.setTag(file.hashCode());
 
-            holder.itemView.setTag(relativePosition % mGridWidth);
+            holder.itemView.setTag(relativePosition % gridWidth);
 
-            if (mSyncFolderItems.get(section).getNumberOfFiles() > mGridTotal && relativePosition >= mGridTotal - 1) {
+            if (filteredSyncFolderItems.get(section).getNumberOfFiles() > gridTotal && relativePosition >= gridTotal - 1) {
                 holder.counterValue.setText(String.format(Locale.US, "%d",
-                    mSyncFolderItems.get(section).getNumberOfFiles() - mGridTotal));
+                                                          filteredSyncFolderItems.get(section).getNumberOfFiles() - gridTotal));
                 holder.counterBar.setVisibility(View.VISIBLE);
                 holder.thumbnailDarkener.setVisibility(View.VISIBLE);
             } else {
@@ -226,15 +365,34 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
         if (viewType == VIEW_TYPE_HEADER) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.synced_folders_item_header, parent, false);
             return new HeaderViewHolder(v);
+        } else if (viewType == VIEW_TYPE_FOOTER) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.synced_folders_footer, parent, false);
+            return new FooterViewHolder(v);
+        } else if (viewType == VIEW_TYPE_EMPTY) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.synced_folders_empty, parent, false);
+            return new EmptyViewHolder(v);
         } else {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_sync_item, parent, false);
             return new MainViewHolder(v);
         }
     }
 
+    private boolean isLastSection(int section) {
+        return section >= getSectionCount() - 1;
+    }
+
+    public int getHiddenFolderCount() {
+        if (syncFolderItems != null && filteredSyncFolderItems != null) {
+            return syncFolderItems.size() - filteredSyncFolderItems.size();
+        } else {
+            return 0;
+        }
+    }
+
     public interface ClickListener {
         void onSyncStatusToggleClick(int section, SyncedFolderDisplayItem syncedFolderDisplayItem);
         void onSyncFolderSettingsClick(int section, SyncedFolderDisplayItem syncedFolderDisplayItem);
+        void onVisibilityToggleClick(int section, SyncedFolderDisplayItem item);
     }
 
     static class HeaderViewHolder extends SectionedViewHolder {
@@ -259,7 +417,29 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
         }
     }
 
+    static class FooterViewHolder extends SectionedViewHolder {
+        @BindView(R.id.footer_container)
+        public LinearLayout mainFooterContainer;
+
+        @BindView(R.id.footer_text)
+        public TextView title;
+
+        private FooterViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    static class EmptyViewHolder extends SectionedViewHolder {
+        private EmptyViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
     static class MainViewHolder extends SectionedViewHolder {
+        @BindView(R.id.grid_item_container)
+        public FrameLayout item_container;
+
         @BindView(R.id.thumbnail)
         public ImageView image;
 
@@ -281,7 +461,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     private void setSyncButtonActiveIcon(ImageButton syncStatusButton, boolean enabled) {
         if (enabled) {
             syncStatusButton.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_cloud_sync_on,
-                    ThemeUtils.primaryColor(mContext)));
+                    ThemeUtils.primaryColor(context)));
         } else {
             syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_off);
         }

@@ -833,7 +833,8 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + " INTEGER, " // subfolder by date
                        + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + "  TEXT, "             // account
                        + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION + " INTEGER, "     // upload action
-                       + ProviderTableMeta.SYNCED_FOLDER_TYPE + " INTEGER );"             // type
+                       + ProviderTableMeta.SYNCED_FOLDER_TYPE + " INTEGER, "              // type
+                       + ProviderTableMeta.SYNCED_FOLDER_HIDDEN + " INTEGER );"           // hidden
         );
     }
 
@@ -2034,6 +2035,24 @@ public class FileContentProvider extends ContentProvider {
                                    " WHEN enabled = 0 THEN " + SyncedFolder.EMPTY_ENABLED_TIMESTAMP_MS + " " +
                                    " ELSE " + clock.getCurrentTime() +
                                    " END ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 51 && newVersion >= 51) {
+                Log_OC.i(SQL, "Entering in the #51 add show/hide to folderSync table");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.SYNCED_FOLDER_HIDDEN + " INTEGER ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();

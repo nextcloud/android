@@ -202,7 +202,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         ThemeUtils.themeDialogActionButton(mSave);
 
         // Set values
-        setEnabled(mSyncedFolder.getEnabled());
+        setEnabled(mSyncedFolder.isEnabled());
 
         if (!TextUtils.isEmpty(mSyncedFolder.getLocalPath())) {
             mLocalFolderPath.setText(
@@ -223,11 +223,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
             mRemoteFolderSummary.setText(R.string.choose_remote_folder);
         }
 
-        mUploadOnWifiCheckbox.setChecked(mSyncedFolder.getWifiOnly());
+        mUploadOnWifiCheckbox.setChecked(mSyncedFolder.isWifiOnly());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            mUploadOnChargingCheckbox.setChecked(mSyncedFolder.getChargingOnly());
+            mUploadOnChargingCheckbox.setChecked(mSyncedFolder.isChargingOnly());
         }
-        mUploadUseSubfoldersCheckbox.setChecked(mSyncedFolder.getSubfolderByDate());
+        mUploadUseSubfoldersCheckbox.setChecked(mSyncedFolder.isSubfolderByDate());
 
         mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[mSyncedFolder.getUploadActionInteger()]);
     }
@@ -344,7 +344,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                 new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mSyncedFolder.setWifiOnly(!mSyncedFolder.getWifiOnly());
+                        mSyncedFolder.setWifiOnly(!mSyncedFolder.isWifiOnly());
                         mUploadOnWifiCheckbox.toggle();
                     }
                 });
@@ -355,7 +355,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                     new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mSyncedFolder.setChargingOnly(!mSyncedFolder.getChargingOnly());
+                            mSyncedFolder.setChargingOnly(!mSyncedFolder.isChargingOnly());
                             mUploadOnChargingCheckbox.toggle();
                         }
                     });
@@ -365,7 +365,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                 new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mSyncedFolder.setSubfolderByDate(!mSyncedFolder.getSubfolderByDate());
+                        mSyncedFolder.setSubfolderByDate(!mSyncedFolder.isSubfolderByDate());
                         mUploadUseSubfoldersCheckbox.toggle();
                     }
                 });
@@ -401,7 +401,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         view.findViewById(R.id.sync_enabled).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                setEnabled(!mSyncedFolder.getEnabled());
+                setEnabled(!mSyncedFolder.isEnabled());
             }
         });
 
