@@ -48,12 +48,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -532,6 +534,40 @@ public final class FileStorageUtils {
         }
 
         return rv;
+    }
+
+    public static String getReplicationStartDirectory(File currentDirectory, Collection<File> files) {
+        for (File file : files) {
+            String filePath = file.getAbsolutePath();
+            if (!filePath.startsWith(currentDirectory.getAbsolutePath())) {
+                return getCommonDirectoryPath(files);
+            }
+        }
+        return currentDirectory.getAbsolutePath() + File.separator;
+    }
+
+    /** Traverses currentDirectory upward until a common ancestor with targetDirectory is reached, and returns it */
+    private static File traverseToCommonAncestor(@NonNull File targetDirectory, @NonNull File currentDirectory) {
+        String targetPath = targetDirectory.getAbsolutePath();
+        String currentPath = currentDirectory.getAbsolutePath();
+        if (targetPath.startsWith(currentPath)) {
+            return new File(targetPath.replace(targetPath.replace(currentPath, ""), ""));
+        }
+        return traverseToCommonAncestor(targetDirectory, currentDirectory.getParentFile());
+    }
+
+    /** Tries to guess where replication root is by using common ancestor of all files */
+    private static String getCommonDirectoryPath(Collection<File> files) {
+        File commonDirectory = null;
+        for (File file : files) {
+            File directory = file.getParentFile();
+            if (commonDirectory == null) {
+                commonDirectory = directory;
+                continue;
+            }
+            commonDirectory = traverseToCommonAncestor(commonDirectory, directory);
+        }
+        return commonDirectory.getAbsolutePath() + File.separator;
     }
 
     /**

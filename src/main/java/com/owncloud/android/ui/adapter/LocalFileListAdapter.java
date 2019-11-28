@@ -118,7 +118,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         return mFiles.indexOf(file);
     }
 
-    public List<File> getCheckedFilesPath() {
+    public ArrayList<File> getCheckedFilesPath() {
         Log_OC.d(TAG, "Returning " + checkedFiles.size() + " selected files");
         return new ArrayList<>(checkedFiles);
     }
@@ -155,9 +155,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 gridViewHolder.thumbnail.setTag(file.hashCode());
                 setThumbnail(file, gridViewHolder.thumbnail);
 
-                if (file.isDirectory()) {
-                    // gridViewHolder.checkbox.setVisibility(View.GONE);
-                } else {
+                if (!file.isDirectory()) {
                     gridViewHolder.checkbox.setVisibility(View.VISIBLE);
                 }
 
