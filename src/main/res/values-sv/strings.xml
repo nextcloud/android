@@ -538,11 +538,14 @@
     <string name="screenshot_01_gridView_heading">Skydda din data</string>
     <string name="screenshot_02_listView_heading">Bläddra och dela</string>
     <string name="screenshot_02_listView_subline">alla åtgärder till hands</string>
+    <string name="screenshot_03_drawer_heading">Aktivitet, delningar, …</string>
     <string name="screenshot_03_drawer_subline">allt snabbt tillgängligt</string>
     <string name="screenshot_04_accounts_heading">Alla dina konton</string>
     <string name="screenshot_04_accounts_subline">på ett ställe</string>
     <string name="screenshot_05_autoUpload_heading">Automatisk uppladdning</string>
     <string name="screenshot_05_autoUpload_subline">för dina bilder &amp; videor</string>
+    <string name="screenshot_06_davdroid_heading">Kalender &amp; kontakter</string>
+    <string name="screenshot_06_davdroid_subline">Synka med DAVx5</string>
     <string name="search_users_and_groups_hint">Sök användare och grupper</string>
     <string name="select_all">Välj alla</string>
     <string name="select_template">Välj mall</string>
