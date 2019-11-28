@@ -1212,6 +1212,7 @@ public class FileDisplayActivity extends FileActivity
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
+        refreshList(true);
 
         OCFile startFile = null;
         if (getIntent() != null && getIntent().getParcelableExtra(EXTRA_FILE) != null) {
@@ -1884,6 +1885,7 @@ public class FileDisplayActivity extends FileActivity
                                            RemoteOperationResult result) {
         if (result.isSuccess()) {
             refreshListOfFilesFragment(false);
+            refreshList(true);
         } else {
             try {
                 DisplayUtils.showSnackMessage(
