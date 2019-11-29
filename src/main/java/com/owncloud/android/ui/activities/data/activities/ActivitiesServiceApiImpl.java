@@ -30,10 +30,10 @@ import android.os.AsyncTask;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -75,7 +75,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         private UserAccountManager accountManager;
         private int lastGiven;
         private String errorMessage;
-        private OwnCloudClient ownCloudClient;
+        private NextcloudClient client;
 
         private GetActivityListTask(Account account,
                                     UserAccountManager accountManager,
@@ -95,9 +95,8 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
             OwnCloudAccount ocAccount;
             try {
                 ocAccount = new OwnCloudAccount(account, context);
-                ownCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                        getClientFor(ocAccount, MainApp.getAppContext());
-                ownCloudClient.setOwnCloudVersion(accountManager.getServerVersion(account));
+                client = OwnCloudClientManagerFactory.getDefaultSingleton().
+                    getNextcloudClientFor(ocAccount, MainApp.getAppContext());
 
                 GetActivitiesRemoteOperation getRemoteActivitiesOperation;
                 if (lastGiven > 0) {
@@ -106,7 +105,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
                     getRemoteActivitiesOperation = new GetActivitiesRemoteOperation();
                 }
 
-                final RemoteOperationResult result = getRemoteActivitiesOperation.execute(ownCloudClient);
+                final RemoteOperationResult result = getRemoteActivitiesOperation.execute(client);
 
                 if (result.isSuccess() && result.getData() != null) {
                     final ArrayList<Object> data = result.getData();
@@ -145,7 +144,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
-                callback.onLoaded(activities, ownCloudClient, lastGiven);
+                callback.onLoaded(activities, client, lastGiven);
             } else {
                 callback.onError(errorMessage);
             }
