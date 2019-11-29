@@ -97,7 +97,6 @@ public class FilesServiceApiImpl implements FilesServiceApi {
             final Context context = MainApp.getAppContext();
             try {
                 OwnCloudClient ownCloudClient = clientFactory.create(user);
-                ownCloudClient.setOwnCloudVersion(user.getServer().getVersion());
                 // always update file as it could be an old state saved in database
                 RemoteOperationResult resultRemoteFileOp = new ReadFileRemoteOperation(fileUrl).execute(ownCloudClient);
 

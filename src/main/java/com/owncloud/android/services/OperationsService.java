@@ -51,7 +51,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.operations.CopyFileOperation;
@@ -442,9 +441,6 @@ public class OperationsService extends Service {
                             OwnCloudAccount ocAccount = new OwnCloudAccount(mLastTarget.mAccount, mService);
                             mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                                     getClientFor(ocAccount, mService);
-
-                            OwnCloudVersion version = accountManager.getServerVersion(mLastTarget.mAccount);
-                            mOwnCloudClient.setOwnCloudVersion(version);
 
                             mStorageManager = new FileDataStorageManager(
                                 mLastTarget.mAccount,
