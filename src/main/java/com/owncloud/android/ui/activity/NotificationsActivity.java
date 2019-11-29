@@ -256,7 +256,6 @@ public class NotificationsActivity extends FileActivity implements Notifications
                 try {
                     User user = optionalUser.get();
                     client = clientFactory.create(user);
-                    client.setOwnCloudVersion(user.getServer().getVersion());
                 } catch (ClientFactory.CreationException e) {
                     Log_OC.e(TAG, "Error initializing client", e);
                 }

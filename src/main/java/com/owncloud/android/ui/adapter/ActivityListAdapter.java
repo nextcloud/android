@@ -52,11 +52,11 @@ import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.lib.resources.activities.model.RichElement;
@@ -91,7 +91,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final ActivityListInterface activityListInterface;
     private final int px;
     private static final String TAG = ActivityListAdapter.class.getSimpleName();
-    protected OwnCloudClient client;
+    protected NextcloudClient client;
 
     protected Context context;
     private CurrentAccountProvider currentAccountProvider;
@@ -119,7 +119,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.isDetailView = isDetailView;
     }
 
-    public void setActivityItems(List<Object> activityItems, OwnCloudClient client, boolean clear) {
+    public void setActivityItems(List<Object> activityItems, NextcloudClient client, boolean clear) {
         this.client = client;
         String sTime = "";
 

@@ -29,10 +29,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.model.RichObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
@@ -238,7 +238,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     }
 
     @Override
-    public void showActivities(List<Object> activities, OwnCloudClient client, int lastGiven) {
+    public void showActivities(List<Object> activities, NextcloudClient client, int lastGiven) {
         boolean clear = false;
         if (this.lastGiven == UNDEFINED) {
             clear = true;
