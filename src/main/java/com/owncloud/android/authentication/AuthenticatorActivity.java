@@ -1559,8 +1559,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             deleteCookies();
 
             if (success) {
-                finish();
-
                 accountManager.setCurrentOwnCloudAccount(mAccount.name);
 
                 Intent i = new Intent(this, FileDisplayActivity.class);
@@ -1568,6 +1566,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
 
+                finish();
             } else {
                 // init webView again
                 if (mLoginWebView != null) {
