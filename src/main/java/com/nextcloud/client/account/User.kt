@@ -21,10 +21,13 @@
 package com.nextcloud.client.account
 
 import android.accounts.Account
+import android.os.Parcelable
 import com.owncloud.android.lib.common.OwnCloudAccount
 
-interface User {
+interface User : Parcelable {
+    @Deprecated("Use id instead")
     val accountName: String
+    val id: AccountId
     val server: Server
     val isAnonymous: Boolean
 
@@ -51,4 +54,24 @@ interface User {
      */
     @Deprecated("Temporary workaround")
     fun toOwnCloudAccount(): OwnCloudAccount
+
+    /**
+     * Check user account ID for equality, comparing string representation.
+     * Contrary to [equals] method, different types of [CharSequence] can
+     * be compared.
+     *
+     * @param other Other id representation
+     * @return true if user ID content equals other char sequence
+     */
+    fun idEquals(other: CharSequence) = id.idEquals(other)
+
+    /**
+     * Check if users have same IDs comparing string representations.
+     * This method compares only user IDs. Contrary to [equals], this
+     * method does not compare other properties.
+     *
+     * @param other Other id representation
+     * @return true if user IDs are equal, otherwise false
+     */
+    fun idEquals(user: User) = id.idEquals(user.id)
 }
