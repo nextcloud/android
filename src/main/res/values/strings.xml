@@ -885,6 +885,7 @@
     <string name="autoupload_disable_power_save_check">Disable power save check</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>
     <string name="etm_title">Engineering Test Mode</string>
+    <string name="etm_accounts">Accounts</string>
     <string name="etm_preferences">Preferences</string>
 
     <string name="logs_status_loading">Loading…</string>
