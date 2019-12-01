@@ -30,7 +30,8 @@ import org.openqa.selenium.support.PageFactory;
 public class CertificatePopUp {
 	final AndroidDriver driver;	
 	
-	@AndroidFindBy(name = "OK")
+	@AndroidFindBy(uiAutomator = "new UiSelector()" 
+	+ ".resourceId(\"com.nextcloud.client:id/ok\")")
 	private AndroidElement okButton;
 	
 	public CertificatePopUp (AndroidDriver driver) {
@@ -38,8 +39,10 @@ public class CertificatePopUp {
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 	
-	public void clickOnOkButton () {
+	public AuthOptions clickOnOkButton () {
 		okButton.click();
+		AuthOptions authOptions = new AuthOptions(driver);
+		return authOptions;
 	}
 	
 	public AndroidElement getOkButtonElement () {

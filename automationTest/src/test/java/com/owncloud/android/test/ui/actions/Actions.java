@@ -30,13 +30,19 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.owncloud.android.test.ui.models.AuthOptions;
 import com.owncloud.android.test.ui.models.CertificatePopUp;
+import com.owncloud.android.test.ui.models.ConnectionTest;
 import com.owncloud.android.test.ui.models.ElementMenuOptions;
 import com.owncloud.android.test.ui.models.GmailSendMailView;
+import com.owncloud.android.test.ui.models.GrantAccess;
+import com.owncloud.android.test.ui.models.GrantPermission;
 import com.owncloud.android.test.ui.models.ShareView;
 import com.owncloud.android.test.ui.models.UploadFilesView;
 import com.owncloud.android.test.ui.models.LoginForm;
 import com.owncloud.android.test.ui.models.FileListView;
+import com.owncloud.android.test.ui.models.FirstRun;
 import com.owncloud.android.test.ui.models.MenuList;
 import com.owncloud.android.test.ui.models.NewFolderPopUp;
 import com.owncloud.android.test.ui.models.RemoveConfirmationView;
@@ -50,10 +56,13 @@ public class Actions {
 	public static FileListView login(String url, String user, String password,
 			Boolean isTrusted, AndroidDriver driver) 
 					throws InterruptedException {
-		LoginForm loginForm = new LoginForm(driver);
-		CertificatePopUp certificatePopUp = loginForm.typeHostUrl(url);	
+		FirstRun firstRun = new FirstRun(driver);
+		ConnectionTest connectionTest = firstRun.ChooseLogin();
+		CertificatePopUp certificatePopUp = connectionTest.ServerConnectionOK(url);
+		AuthOptions authOptions = null;
 		if(!isTrusted){
 			WebDriverWait wait = new WebDriverWait(driver, 30);
+			
 			//sometimes the certificate has been already accept 
 			//and it doesn't appear again
 			try {
@@ -63,16 +72,18 @@ public class Actions {
 				//because of some element are misplaced
 				driver.rotate(ScreenOrientation.LANDSCAPE);
 				driver.rotate(ScreenOrientation.PORTRAIT);
-				certificatePopUp.clickOnOkButton();
+				authOptions = certificatePopUp.clickOnOkButton();
 			}catch (NoSuchElementException e) {
 
 			}
 
 		}
-		loginForm.typeUserName(user);
-		loginForm.typePassword(password);
-		//TODO. Assert related to check the connection?
-		return loginForm.clickOnConnectButton();
+		LoginForm loginForm = authOptions.SinginWithWeb();
+		GrantAccess grantAcess = loginForm.login(user,password);
+		grantAcess.grantAcess();
+		driver.context("NATIVE_APP");
+		GrantPermission grantPermission = new GrantPermission(driver);
+		return grantPermission.grantPermission();
 	}
 
 	public static WaitAMomentPopUp createFolder(String folderName,
@@ -171,7 +182,6 @@ public class Actions {
 							.getSharedElementIndicator()))));
 
 		}catch(NoSuchElementException e){
-			return null;
 		}
 		return (AndroidElement) fileListView.getFileElementLayout()
 				.findElement(By.id(FileListView.getSharedElementIndicator()));
@@ -239,6 +249,5 @@ public class Actions {
 		//TO DO. detect when the file is successfully uploaded
 		Thread.sleep(15000);
 		return fileListViewAfterUploadFile; 
-	}
-	
+	}	
 }

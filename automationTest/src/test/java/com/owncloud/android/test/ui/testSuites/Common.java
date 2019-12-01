@@ -54,15 +54,19 @@ public class Common{
 		File app = new File(appDir,"ownCloud.apk");
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability("platformName", "Android");
+		capabilities.setCapability("automationName", "UiAutomator2");
 		capabilities.setCapability("deviceName", "test");
-		capabilities.setCapability("app", app.getAbsolutePath());
-		capabilities.setCapability("appPackage", "com.owncloud.android");
+		capabilities.setCapability("app",app.getAbsolutePath());
+		capabilities.setCapability("appPackage", "com.nextcloud.client");
 		capabilities.setCapability("appActivity", 
-				".ui.activity.FileDisplayActivity");	
+				"com.owncloud.android.ui.activity.FileDisplayActivity");	
 		capabilities.setCapability("appWaitActivity", 
-				".authentication.AuthenticatorActivity");
-		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),
+				"com.nextcloud.client.onboarding.FirstRunActivity");
+		capabilities.setCapability("printPageSourceOnFindFailure", 
+				"true");		
+		driver = new AndroidDriver(new URL("http://10.0.2.2:4723/wd/hub"),
 				capabilities);
+		
 		driver.manage().timeouts().implicitlyWait(waitingTime,
 				TimeUnit.SECONDS);
 		wait = new WebDriverWait(driver, waitingTime, 50);
@@ -158,15 +162,12 @@ public class Common{
 	}
 
 	protected void assertIsInFileListView() throws InterruptedException {
-		//waitForTextPresent("Wrong username or password", 
-			//	changePasswordForm.getAuthStatusText());
-		Thread.sleep(2000);
-		assertTrue(waitForTextPresent("ownCloud", (AndroidElement) driver
+		assertTrue(waitForTextPresent("Nextcloud", (AndroidElement) driver
 				.findElementByAndroidUIAutomator("new UiSelector()"
-						+ ".resourceId(\"android:id/action_bar_title\")")));
+						+ ".className(\"android.widget.TextView\").instance(0)")));
 		assertTrue(isElementPresent((AndroidElement) driver
 				.findElementByAndroidUIAutomator("new UiSelector()"
-						+ ".description(\"Upload\")")));	
+						+ ".description(\"Add or upload\")")));	
 	}
 
 	protected void assertIsNotInFileListView() throws InterruptedException {

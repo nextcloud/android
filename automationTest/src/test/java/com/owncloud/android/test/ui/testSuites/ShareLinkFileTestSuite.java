@@ -33,7 +33,6 @@ import org.junit.rules.TestName;
 
 import com.owncloud.android.test.ui.actions.Actions;
 import com.owncloud.android.test.ui.groups.IgnoreTestCategory;
-import com.owncloud.android.test.ui.groups.InProgressCategory;
 import com.owncloud.android.test.ui.groups.NoIgnoreTestCategory;
 import com.owncloud.android.test.ui.groups.SmokeTestCategory;
 import com.owncloud.android.test.ui.models.FileListView;;
