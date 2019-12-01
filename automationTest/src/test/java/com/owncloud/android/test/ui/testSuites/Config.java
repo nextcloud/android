@@ -30,6 +30,7 @@ public final class Config {
 	public static final String URL2 = "owncloudServer2Var";
 	public static boolean isTrusted2 = true;
 
+
 	public static final String user = "owncloudUserVar";
 	public static final String password = "owncloudPasswordVar";
 	public static final String user2 = "owncloudUser2Var";

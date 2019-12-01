@@ -20,8 +20,16 @@
 
 package com.owncloud.android.test.ui.models;
 
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
@@ -32,84 +40,38 @@ public class LoginForm {
 	final AndroidDriver driver;
 	
 	@CacheLookup
-	@AndroidFindBy(uiAutomator = "new UiSelector()"
-			+ ".description(\"Server address\")")
-	private AndroidElement hostUrlInput;
+	@FindBy(id = "user")
+	private WebElement userNameEdit;
 	
 	@CacheLookup
-	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"Username\")")
-	private AndroidElement userNameInput;
-	
+	@FindBy(id = "password")
+	private WebElement passwordEdit;
+
 	@CacheLookup
-	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"Password\")")
-	private AndroidElement passwordInput;
-	
-	@CacheLookup
-	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"Connect\")")
-	private AndroidElement connectButton;
-	
-	@AndroidFindBy(uiAutomator = "new UiSelector()"
-			+ ".description(\"Testing connection\")")
-	private AndroidElement serverStatusText;
-	
-	@AndroidFindBy(uiAutomator = "new UiSelector()"
-			+ ".description(\"Wrong username or password\")")
-	private AndroidElement authStatusText;
+	@FindBy(id = "submit")
+	private AndroidElement loginButton;
+
 	
 	public LoginForm (AndroidDriver driver) {
 		this.driver = driver;
-		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver,5, TimeUnit.SECONDS), this);
 	}
 
-	public CertificatePopUp typeHostUrl (String hostUrl) {
-		hostUrlInput.clear();
-		hostUrlInput.sendKeys(hostUrl + "\n");
-		CertificatePopUp certificatePopUp = new CertificatePopUp(driver);
-		return certificatePopUp;
+	public GrantAccess login(String usr,String password){
+		typeUserName(usr);
+		typePassword(password);
+		loginButton.click();
+		GrantAccess grantAccess = new GrantAccess(driver);
+		return grantAccess;
 	}
-	
-	public void clickOnUserName () {
-		userNameInput.click();
+
+	private void typeUserName (String usr) {
+		userNameEdit.clear();
+		userNameEdit.sendKeys(usr + "\n");
 	}
-	
-	public void typeUserName (String userName) {
-		userNameInput.clear();
-		//using the \n , it not need to hide the keyboard
-		//which sometimes gives problems
-		userNameInput.sendKeys(userName + "\n");
-		//driver.hideKeyboard();
-	}
-	
-	public void typePassword (String password) {
-		passwordInput.clear();
-		passwordInput.sendKeys(password + "\n");
-		//driver.hideKeyboard();
-	}
-	
-	public FileListView clickOnConnectButton () {
-		connectButton.click();
-		FileListView fileListView = new FileListView(driver);
-		return fileListView;
-	}
-	
-	public AndroidElement gethostUrlInput () {
-		return hostUrlInput;
-	}
-	
-	public AndroidElement getUserNameInput () {
-		return userNameInput;
-	}
-	
-	public AndroidElement getPasswordInput () {
-		return passwordInput;
-	}
-	
-	
-	public AndroidElement getServerStatusTextElement () {
-		return serverStatusText;
-	}
-	
-	public AndroidElement getAuthStatusText () {
-		return authStatusText;
+
+	private void typePassword (String password) {
+		passwordEdit.clear();
+		passwordEdit.sendKeys(password + "\n");
 	}
 }
