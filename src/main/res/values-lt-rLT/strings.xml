@@ -445,7 +445,7 @@
     <string name="share_no_users">Su vartotojais niekuo nesidalinama</string>
     <string name="share_password_title">Apsaugota slaptažodžiu</string>
     <string name="share_privilege_can_edit">gali redaguoti</string>
-    <string name="share_privilege_can_share">gali dalintis</string>
+    <string name="share_privilege_can_share">gali bendrinti</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
     <string name="share_search">Vardas, federacinės debesijos ID arba el. pašto adresas…</string>
     <string name="share_send_note">Pastaba gavėjui</string>
@@ -509,7 +509,6 @@
     <string name="synced_folders_configure_folders">Konfigūruokite aplankus</string>
     <string name="synced_folders_loading_folders">Įkeliami aplankai…</string>
     <string name="synced_folders_new_info">Momentinis įkėlimas buvo visiškai sutaisytas. Perkonfigūruokite automatinius įkėlimus per pagrindinį meniu.\n\nMėgaukitės naujuoju automatiniu įkėlimu.</string>
-    <string name="synced_folders_no_results">Medijos aplankų nerasta</string>
     <string name="synced_folders_preferences">Pageidaujami nustatymai automatiniam įkėlimui</string>
     <string name="synced_folders_preferences_folder_path">Dėl %1$s</string>
     <string name="synced_folders_type">Tipas</string>

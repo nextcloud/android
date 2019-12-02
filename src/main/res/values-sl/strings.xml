@@ -634,7 +634,6 @@
     <string name="synced_folders_configure_folders">Nastavi mape</string>
     <string name="synced_folders_loading_folders">Poteka nalaganje map …</string>
     <string name="synced_folders_new_info">Možnost Hipnega pošiljanja je bila v celoti predelana. Nastavitve je treba ponovno prilagoditi v glavnem meniju.\n\nUživajte v razširjenih možnostih samodejnega pošiljanja.</string>
-    <string name="synced_folders_no_results">Map s predstavno vsebino ni mogoče najti.</string>
     <string name="synced_folders_preferences">Nastavitve za samodejno pošiljanje</string>
     <string name="synced_folders_preferences_folder_path">Za %1$s</string>
     <string name="synced_folders_type">Vrsta</string>

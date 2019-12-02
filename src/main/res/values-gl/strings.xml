@@ -670,14 +670,13 @@
     <string name="sync_folder_failed_content">A sincronización do cartafol %1$s non se completou</string>
     <string name="sync_foreign_files_forgotten_explanation">A partires da versión 1.3.16, os ficheiros enviados dende este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un único ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados con versións anteriores desta aplicación foron copiados no cartafol %2$s. Porén, un erro impediu que se completara esta operación durante a sincronización da conta. Pode deixar o(s) ficheiro(s) tal e como está(n) e eliminar a ligazón cara a %3$s ou mover o(s) ficheiro(s) para o cartafol %1$s e manter a ligazón cara a %4$s.\n\nEmbaixo amósanse os ficheiros locais e os ficheiros remotos en %5$s aos que foron enlazados.</string>
     <string name="sync_foreign_files_forgotten_ticker">Esquecéronse algúns ficheiros locais</string>
-    <string name="sync_in_progress">Obtendo a versión mais recente do ficheiro.</string>
+    <string name="sync_in_progress">Recuperando a versión mais recente do ficheiro.</string>
     <string name="sync_status_button">Botón do estado da sincronización</string>
     <string name="sync_string_files">Ficheiros</string>
     <string name="synced_folder_settings_button">Botón de axustes</string>
     <string name="synced_folders_configure_folders">Configurar os cartafoles</string>
     <string name="synced_folders_loading_folders">Cargando cartafoles…</string>
     <string name="synced_folders_new_info">O envío automático foi renovado completamente. Reconfigure os seus envíos instantáneos no menú principal.\n\nGoce das novas e ampliadas capacidades do envío automático!</string>
-    <string name="synced_folders_no_results">Non se atopan cartafoles multimedia.</string>
     <string name="synced_folders_preferences">Preferencias de envío automático</string>
     <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <string name="synced_folders_type">Tipo</string>

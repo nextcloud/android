@@ -648,7 +648,6 @@
     <string name="synced_folders_configure_folders">Sett opp mapper</string>
     <string name="synced_folders_loading_folders">Laster inn mapper…</string>
     <string name="synced_folders_new_info">Umiddelbar opplasting er fullstendig omarbeidet. Du må sette opp auto-opplasting på nytt fra hovedmenyen.\n\nKos deg med den nye og utvidede auto-opplastingen.</string>
-    <string name="synced_folders_no_results">Ingen mediamapper funnet.</string>
     <string name="synced_folders_preferences">Alternativer for auto-opplasting</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <string name="synced_folders_type">Type</string>
