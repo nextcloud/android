@@ -266,7 +266,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private void updateUserProfile() {
         GetUserProfileOperation update = new GetUserProfileOperation();
-        RemoteOperationResult result = update.execute(mStorageManager, mContext);
+        RemoteOperationResult result = update.executeNextcloudClient(mStorageManager, mContext);
         if (!result.isSuccess()) {
             Log_OC.w(TAG, "Couldn't update user profile from server");
         } else {

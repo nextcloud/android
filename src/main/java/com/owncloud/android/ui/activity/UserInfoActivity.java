@@ -366,7 +366,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
     private void fetchAndSetData() {
         Thread t = new Thread(() -> {
             RemoteOperation getRemoteUserInfoOperation = new GetUserInfoRemoteOperation();
-            RemoteOperationResult result = getRemoteUserInfoOperation.execute(account, this);
+            RemoteOperationResult result = getRemoteUserInfoOperation.executeNextcloudClient(account, this);
 
             if (result.isSuccess() && result.getData() != null) {
                 userInfo = (UserInfo) result.getData().get(0);

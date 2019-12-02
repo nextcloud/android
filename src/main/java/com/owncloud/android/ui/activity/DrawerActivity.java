@@ -1030,7 +1030,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
 
                 final Context context = MainApp.getAppContext();
-                RemoteOperationResult result = new GetUserInfoRemoteOperation().execute(user.toPlatformAccount(), context);
+                RemoteOperationResult result = new GetUserInfoRemoteOperation().executeNextcloudClient(currentAccount,
+                                                                                                       context);
 
                 if (result.isSuccess() && result.getData() != null) {
                     final UserInfo userInfo = (UserInfo) result.getData().get(0);

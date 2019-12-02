@@ -126,7 +126,7 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         data.add(authMethod);
         result.setData(data);
         return result;  // same result instance, so that other errors
-        // can be handled by the caller transparently
+                        // can be handled by the caller transparently
     }
 
     private String authenticationMethodToString(AuthenticationMethod value) {
