@@ -676,7 +676,6 @@
     <string name="synced_folders_configure_folders">Configura cartelle</string>
     <string name="synced_folders_loading_folders">Caricamento cartelle…</string>
     <string name="synced_folders_new_info">Il caricamento istantaneo è stato riscritto completamente. Riconfigura il caricamento automatico dal menu principale.\n\nGoditi il nuovo ed esteso caricamento automatico.</string>
-    <string name="synced_folders_no_results">Nessuna cartella di file multimediali trovata.</string>
     <string name="synced_folders_preferences">Preferenze per il caricamento automatico</string>
     <string name="synced_folders_preferences_folder_path">Per %1$s</string>
     <string name="synced_folders_type">Tipo</string>

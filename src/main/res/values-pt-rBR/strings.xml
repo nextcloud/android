@@ -676,7 +676,6 @@
     <string name="synced_folders_configure_folders">Configurar pastas</string>
     <string name="synced_folders_loading_folders">Carregando pastas…</string>
     <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure seu auto envio no menu principal.\n\nDesfrute do novo envio automático e estendido.</string>
-    <string name="synced_folders_no_results">Nenhuma pasta de mídia encontrada.</string>
     <string name="synced_folders_preferences">Preferências do auto envio</string>
     <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <string name="synced_folders_type">Tipo</string>

@@ -672,7 +672,6 @@
     <string name="synced_folders_configure_folders">Konfiguroni dosjet</string>
     <string name="synced_folders_loading_folders">Duke ngarkuar dosjet…</string>
     <string name="synced_folders_new_info">Ngarkimi i menjëhershëm është ngritur plotësisht. Rii-konfiguroni ngarkimet tuaja automatike  brenda menusë kryesore.\n\nShijoni aftësitë e reja dhe të zgjeruara të ngarkimit automatik.</string>
-    <string name="synced_folders_no_results">Nuk u gjet asnjë dosje.</string>
     <string name="synced_folders_preferences">Parapëlqimet për ngarkimin automatik</string>
     <string name="synced_folders_preferences_folder_path">Për %1$s</string>
     <string name="synced_folders_type">Tipi</string>

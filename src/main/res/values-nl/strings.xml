@@ -672,7 +672,6 @@
     <string name="synced_folders_configure_folders">Mappen instellen</string>
     <string name="synced_folders_loading_folders">Mappen laden…</string>
     <string name="synced_folders_new_info">Automatisch uploaden is helemaal herzien. Herconfigureer je auto-uploadfunctie in het hoofdmenu.\n\nVeel plezier met de nieuwe en meer uitgebreide auto-upload.</string>
-    <string name="synced_folders_no_results">Geen mediamappen gevonden.</string>
     <string name="synced_folders_preferences">Voorkeuren voor automatisch uploaden</string>
     <string name="synced_folders_preferences_folder_path">Voor %1$s</string>
     <string name="synced_folders_type">Type</string>
