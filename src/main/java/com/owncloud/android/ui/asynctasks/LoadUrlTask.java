@@ -45,14 +45,18 @@ public class LoadUrlTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... fileId) {
-        if (editorWebViewWeakReference.get() == null) {
+        final EditorWebView editorWebView = editorWebViewWeakReference.get();
+
+        if (editorWebView == null) {
             return "";
         }
 
-        RemoteOperationResult result = null;
-        if (editorWebViewWeakReference.get() instanceof RichDocumentsEditorWebView) {
+        RemoteOperationResult result;
+
+
+        if (editorWebView instanceof RichDocumentsEditorWebView) {
             result = new RichDocumentsUrlOperation(fileId[0]).execute(account, editorWebViewWeakReference.get());
-        } else if (editorWebViewWeakReference.get() instanceof TextEditorWebView) {
+        } else if (editorWebView instanceof TextEditorWebView) {
             result = new DirectEditingOpenFileRemoteOperation(fileId[0], TEXT)
                 .execute(account, editorWebViewWeakReference.get());
         } else {
