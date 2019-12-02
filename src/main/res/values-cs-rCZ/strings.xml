@@ -694,7 +694,6 @@ Jak vývojová tak produkční verze je k dispozici na F-droidu a mohou být nai
     <string name="synced_folders_configure_folders">Nastavit složky</string>
     <string name="synced_folders_loading_folders">Načítání složek…</string>
     <string name="synced_folders_new_info">Okamžité nahrávání bylo zcela předěláno. Proto je třeba ho znovu nastavit z hlavní nabídky.\n\nUžijte si nové a rozšířené automatické nahrávání.</string>
-    <string name="synced_folders_no_results">Nebyly nalezeny žádné složky médií.</string>
     <string name="synced_folders_preferences">Předvolby automatického nahrávání</string>
     <string name="synced_folders_preferences_folder_path">Pro %1$s</string>
     <string name="synced_folders_type">Typ</string>

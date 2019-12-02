@@ -263,7 +263,9 @@
     <string name="fallback_weblogin_text">Vrati na stari način prijave</string>
     <string name="favorite">Dodaj u favorite</string>
     <string name="favorite_icon">Favorit</string>
+    <string name="file">datoteka</string>
     <string name="file_delete">Izbriši</string>
+    <string name="file_detail_activity_error">Pogreška pri dohvaćanju aktivnosti za datoteku</string>
     <string name="file_details_no_content">Učitavanje pojedinosti nije uspjelo</string>
     <string name="file_icon">Datoteka</string>
     <string name="file_keep">Zadrži</string>
@@ -331,6 +333,7 @@
     <string name="first_run_2_text">Sigurna suradnja i razmjena datoteka</string>
     <string name="first_run_3_text">Jednostavna e-pošta putem interneta, kalendar i kontakti</string>
     <string name="first_run_4_text">Dijeljenje zaslona, sastanci na mreži i web konferencije</string>
+    <string name="folder">mapa</string>
     <string name="folder_already_exists">Mapa već postoji</string>
     <string name="folder_confirm_create">Stvori</string>
     <string name="folder_icon">Ikona mape</string>
@@ -412,6 +415,7 @@
     <string name="new_notification">Nova obavijest</string>
     <string name="new_version_was_created">Stvorena je nova inačica</string>
     <string name="no_browser_available">Nema dostupnih aplikacija za upravljanje poveznicama</string>
+    <string name="no_mutliple_accounts_allowed">Dopušten je samo jedan račun</string>
     <string name="no_pdf_app_available">Nema dostupnih aplikacija za upravljanje PDF datotekama</string>
     <string name="note_confirm">Pošalji</string>
     <string name="note_could_not_sent">Nije moguće poslati bilješku</string>
@@ -498,6 +502,9 @@
     <string name="prefs_storage_path">Put pohrane</string>
     <string name="prefs_synced_folders_local_path_title">Lokalna mapa</string>
     <string name="prefs_synced_folders_remote_path_title">Udaljena mapa</string>
+    <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Tamno</string>
+    <string name="prefs_value_theme_light">Svijetlo</string>
     <string name="preview_image_description">Pretpregled slike</string>
     <string name="preview_image_error_no_local_file">Nema lokalne datoteke za pretpregled</string>
     <string name="preview_image_error_unknown_format">Nije moguće prikazati sliku</string>
@@ -509,6 +516,7 @@
     <string name="recommend_subject">Isprobajte %1$s na uređaju!</string>
     <string name="recommend_text">Želim vas pozvati da koristite %1$s na svom uređaju.\nPreuzmite ovdje: %2$s</string>
     <string name="recommend_urls">%1$s ili %2$s</string>
+    <string name="remote_file_fetch_failed">Datoteka nije pronađena!</string>
     <string name="remove_fail_msg">Brisanje nije uspjelo</string>
     <string name="remove_notification_failed">Nije uspjelo uklanjanje obavijesti.</string>
     <string name="remove_push_notification">Ukloni</string>
@@ -552,6 +560,8 @@
     <string name="share_file">Dijeli %1$s</string>
     <string name="share_get_public_link_button">Preuzmi poveznicu</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
+    <string name="share_internal_link">Dijeli internu poveznicu</string>
+    <string name="share_internal_link_text">Samo za korisnike koji smiju pristupiti %1$s</string>
     <string name="share_known_remote_clarification">%1$s (na %2$s)</string>
     <string name="share_link_empty_password">Morate unijeti zaporku</string>
     <string name="share_link_file_error">Došlo je do pogreške prilikom dijeljenja ove datoteke ili mape</string>
@@ -662,7 +672,6 @@
     <string name="synced_folders_configure_folders">Konfiguriraj mape</string>
     <string name="synced_folders_loading_folders">Učitavanje mapa...</string>
     <string name="synced_folders_new_info">Trenutačno otpremanje datoteka potpuno je obnovljeno. Ponovno konfigurirajte automatsko otpremanje iz glavnog izbornika.\n\nUživajte u novoj i proširenoj značajci automatskog otpremanja datoteka.</string>
-    <string name="synced_folders_no_results">Nije pronađena nijedna medijska mapa.</string>
     <string name="synced_folders_preferences">Preferencije za automatsko otpremanje</string>
     <string name="synced_folders_preferences_folder_path">Za %1$s</string>
     <string name="synced_folders_type">Vrsta</string>

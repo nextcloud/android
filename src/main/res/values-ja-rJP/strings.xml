@@ -652,7 +652,6 @@
     <string name="synced_folders_configure_folders">フォルダの設定</string>
     <string name="synced_folders_loading_folders">フォルダーの読み込み中…</string>
     <string name="synced_folders_new_info">インスタントアップロードは完全に改訂されました。 メインメニューから自動アップロードを再設定してください。\n\n新しく拡張された自動アップロードをお楽しみください。</string>
-    <string name="synced_folders_no_results">メディアフォルダーが見つかりません。</string>
     <string name="synced_folders_preferences">自動アップロード設定</string>
     <string name="synced_folders_preferences_folder_path">%1$sの</string>
     <string name="synced_folders_type">タイプ</string>

@@ -677,7 +677,6 @@
     <string name="synced_folders_configure_folders">Подесите фасцикле</string>
     <string name="synced_folders_loading_folders">Учитавам фасцикле…</string>
     <string name="synced_folders_new_info">Брзо отпремање је скроз редизајнирано. Поново подесите Ваша аутоматска отпремања из главног менија.\n\nУживајте у новом аутоматском отпремању.</string>
-    <string name="synced_folders_no_results">Нису пронађене мултимедијалне фасцикле.</string>
     <string name="synced_folders_preferences">Подешавања аутоматског отпремања</string>
     <string name="synced_folders_preferences_folder_path">За %1$s</string>
     <string name="synced_folders_type">Тип</string>

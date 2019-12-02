@@ -599,7 +599,6 @@
     <string name="synced_folders_configure_folders">Agordi dosierujojn</string>
     <string name="synced_folders_loading_folders">Ŝargado de dosierujoj...</string>
     <string name="synced_folders_new_info">Ni tute elrenovigis tuj-alŝutadon. Reagordu vian aŭtomatan alŝuton pere de la ĉefa menuo.\n\nUzu la novan, kaj pli kapablan, aŭtomatan alŝuton.</string>
-    <string name="synced_folders_no_results">Neniu aŭdovida dosierujo troveblas</string>
     <string name="synced_folders_preferences">Agordoj pri aŭtomata alŝuto</string>
     <string name="synced_folders_preferences_folder_path">Pri %1$s</string>
     <string name="synced_folders_type">Tipo</string>

@@ -663,7 +663,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="synced_folders_configure_folders">Määritä kansiot</string>
     <string name="synced_folders_loading_folders">Ladataan kansioita…</string>
     <string name="synced_folders_new_info">Heti lähetettävien tiedostojen lähetys on uudistettu täysin. Muuta automaattisen lähetyksen asetuksia päävalikossa vastaamaan nykyistä toimintaa.\n\nNauti uudesta ja monipuolisemmasta toiminnosta.</string>
-    <string name="synced_folders_no_results">Mediakansioita ei löytynyt.</string>
     <string name="synced_folders_preferences">Automaattisen lähetyksen asetukset</string>
     <string name="synced_folders_preferences_folder_path">%1$s varten</string>
     <string name="synced_folders_type">Tyyppi</string>
