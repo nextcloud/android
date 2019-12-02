@@ -25,6 +25,7 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.SystemClock;
 import android.widget.Toast;
 
 import com.nextcloud.client.preferences.AppPreferencesImpl;
@@ -53,7 +54,7 @@ public class RequestCredentialsActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS) {
             if (resultCode == Activity.RESULT_OK) {
-                AppPreferencesImpl.fromContext(this).setLockTimestamp(System.currentTimeMillis());
+                AppPreferencesImpl.fromContext(this).setLockTimestamp(SystemClock.elapsedRealtime());
                 finishWithResult(KEY_CHECK_RESULT_TRUE);
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 finishWithResult(KEY_CHECK_RESULT_CANCEL);
