@@ -265,12 +265,16 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     }
 
     private void setLinkDetailVisible(boolean visible) {
+
+        shareByLinkAllowEditing.setVisibility(View.INVISIBLE);
+        overflowMenuShareLink.setVisibility(View.INVISIBLE);
+
+        if(!getResources().getBoolean(R.bool.ik_hide_urlshare_edit_permission)) {
+            shareByLinkAllowEditing.setVisibility(View.VISIBLE);
+        }
+
         if (visible) {
-                shareByLinkAllowEditing.setVisibility(View.VISIBLE);
             overflowMenuShareLink.setVisibility(View.VISIBLE);
-        } else {
-            shareByLinkAllowEditing.setVisibility(View.INVISIBLE);
-            overflowMenuShareLink.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -420,7 +424,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 publicShare.getPermissions()
         );
         SharingMenuHelper.setupHideFileDownload(menu.findItem(R.id.action_hide_file_download),
-            publicShare.isHideFileDownload(), capabilities);
+            publicShare.isHideFileDownload(), capabilities, res.getBoolean(R.bool.ik_hide_urlshare_file_download));
         SharingMenuHelper.setupPasswordMenuItem(
                 menu.findItem(R.id.action_password),
                 publicShare.isPasswordProtected()
@@ -431,7 +435,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 res
         );
 
-        menu.findItem(R.id.action_share_send_note).setVisible(capabilities.getVersion().isNoteOnShareSupported());
+        SharingMenuHelper.setupSendNoteItem(menu.findItem(R.id.action_share_send_note), capabilities, res, res.getBoolean(R.bool.ik_hide_urlshare_file_download));
     }
 
     private boolean optionsItemSelected(MenuItem item) {
