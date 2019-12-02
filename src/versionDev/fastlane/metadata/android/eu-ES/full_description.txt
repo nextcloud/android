@@ -1,0 +1,3 @@
+Agintean mantentzen zaituen produktibitate-plataforma autobabestua.\Garapenaren bertsio ofiziala da, probatu gabeko edozein funtzionalitateren eguneroko lagina hartzen duena, eta horrek ezegonkortasuna eta datu-galera eragin ditzake. Aplikazio hau probatu eta gertatzen diren akatsen berri eman nahi duten erabiltzaileentzat da. Ez erabili zure produkzio-lanerako!
+
+Berdin garapeneko bertsio normala eta ofiziala F-Droiden daude eskuragarri eta aldi berean instalatuta egon daitezke.

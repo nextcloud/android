@@ -263,6 +263,7 @@
     <string name="fallback_weblogin_text">Tilbage til foregående login metode</string>
     <string name="favorite">Tilføj til favoritter</string>
     <string name="favorite_icon">Favorit</string>
+    <string name="file">fil</string>
     <string name="file_delete">Slet</string>
     <string name="file_detail_activity_error">Fejl ved indlæsning af aktiviteter for fil</string>
     <string name="file_details_no_content">Fejl ved indlæsning af detaljer</string>
@@ -332,6 +333,7 @@
     <string name="first_run_2_text">Sikker kollaboration&amp; fil udveksling</string>
     <string name="first_run_3_text">Nemt at bruge web mail, kalender &amp; kontakter</string>
     <string name="first_run_4_text">Skærmdeling, onlinemøder &amp; web konferencer</string>
+    <string name="folder">mappe</string>
     <string name="folder_already_exists">Mappe findes allerede</string>
     <string name="folder_confirm_create">Opret</string>
     <string name="folder_icon">Mappe ikon</string>
@@ -502,6 +504,9 @@ Enheds legitimationsoplysninger er sat op
     <string name="prefs_storage_path">Lagringssti</string>
     <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
     <string name="prefs_synced_folders_remote_path_title">Ekstern mappe</string>
+    <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Mørk</string>
+    <string name="prefs_value_theme_light">Lys</string>
     <string name="preview_image_description">Forhåndsvisning af billede</string>
     <string name="preview_image_error_no_local_file">Der er ingen lokalfil at forhåndsvise</string>
     <string name="preview_image_error_unknown_format">Kunne ikke vise billede</string>
@@ -539,6 +544,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="screenshot_04_accounts_subline">på et sted</string>
     <string name="screenshot_05_autoUpload_heading">Automatisk upload</string>
     <string name="screenshot_05_autoUpload_subline">Til dine billeder &amp; videoer</string>
+    <string name="screenshot_06_davdroid_subline">Synkronisér med DAVx5</string>
     <string name="search_users_and_groups_hint">Søg brugere og grupper</string>
     <string name="select_all">Vælg alle</string>
     <string name="select_template">Vælg model</string>
@@ -556,6 +562,8 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_file">Del %1$s</string>
     <string name="share_get_public_link_button">Få link</string>
     <string name="share_group_clarification">%1$s (gruppe)</string>
+    <string name="share_internal_link">Del internt link</string>
+    <string name="share_internal_link_text">Virker kun for brugere med adgang til %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( ved %2$s)</string>
     <string name="share_link_empty_password">Du skal angive et kodeord</string>
     <string name="share_link_file_error">Der opstod en fejl ved deling af denne fil eller mappe</string>
@@ -666,7 +674,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="synced_folders_configure_folders">Konfigurer mapper</string>
     <string name="synced_folders_loading_folders">Henter mapper...</string>
     <string name="synced_folders_new_info">Øjeblikkelig send er blevet fundamentalt nylanceret. Omkonfigurer din autoupload fra hovedmenuen.\n\nNyd den nye og udvidede auto upload.</string>
-    <string name="synced_folders_no_results">Ingen medie mappe fundet</string>
     <string name="synced_folders_preferences">indstillinger til auto send</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <string name="synced_folders_type">Type</string>

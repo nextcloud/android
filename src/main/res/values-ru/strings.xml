@@ -657,7 +657,6 @@
     <string name="synced_folders_configure_folders">Настроить каталоги</string>
     <string name="synced_folders_loading_folders">Получение списка папок…</string>
     <string name="synced_folders_new_info">Моментальная загрузка была полностью переделана. Используйте главное меню для перенастройки автоматической загрузки. Извините за неудобства.\n\nВам понравятся новые расширенные возможности!</string>
-    <string name="synced_folders_no_results">Не найдены каталоги с медиа(файлами).</string>
     <string name="synced_folders_preferences">Настройки автозагрузки</string>
     <string name="synced_folders_preferences_folder_path">Для %1$s</string>
     <string name="synced_folders_type">Тип</string>

@@ -675,7 +675,6 @@
     <string name="synced_folders_configure_folders">Konfigurera mappar</string>
     <string name="synced_folders_loading_folders">Laddar mappar…</string>
     <string name="synced_folders_new_info">Direktuppladdning heter numera Automatisk uppladdning och har blivit totalt omgjort. Vänligen se huvudmenyn för att konfigurera Automatisk uppladdning igen. Ledsen för besväret.\n\nNjut av de nya och förbättrade uppladdningsmöjligheterna!</string>
-    <string name="synced_folders_no_results">Inga mediamappar funna.</string>
     <string name="synced_folders_preferences">Inställningar för automatisk uppladdning</string>
     <string name="synced_folders_preferences_folder_path">För %1$s</string>
     <string name="synced_folders_type">Typ</string>

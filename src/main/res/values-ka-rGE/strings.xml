@@ -418,7 +418,6 @@
     <string name="synced_folder_settings_button">პარამეტრების ღილაკი</string>
     <string name="synced_folders_configure_folders">დირექტორიების კონფიგურაცია</string>
     <string name="synced_folders_new_info">მყისიერი ატვირთვა სრულიად გამოსწორდა. ავტო-ატვირთვას რეკონფიგურაცია გაუწიეთ მთავარი მენიუდან.\n\nისიამოვნეთ ახალი და გაუმჯობესებული ავტო-ატვირთვით.</string>
-    <string name="synced_folders_no_results">მედია დირექტორიები ვერ იქნა ნაპოვნი.</string>
     <string name="synced_folders_preferences">პრეფერენციები ავტო-ატვირთვაზე</string>
     <string name="synced_folders_preferences_folder_path">%1$s-ისთვის</string>
     <string name="synced_folders_type">სახეობა</string>

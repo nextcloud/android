@@ -676,7 +676,6 @@
     <string name="synced_folders_configure_folders">Skonfiguruj katalogi</string>
     <string name="synced_folders_loading_folders">Pobieram katalogi…</string>
     <string name="synced_folders_new_info">Automatyczne wysyłanie zostało całkowicie zmienione. Ponownie skonfiguruj automatyczne wysyłanie z menu głównego.\n\nCiesz się nowym i rozszerzonym automatycznym wysyłaniem.</string>
-    <string name="synced_folders_no_results">Nie znaleziono katalogów multimedialnych.</string>
     <string name="synced_folders_preferences">Preferencje automatycznego wysyłania</string>
     <string name="synced_folders_preferences_folder_path">Dla %1$s</string>
     <string name="synced_folders_type">Typ</string>

@@ -677,7 +677,6 @@ Attention la suppression est irréversible.</string>
     <string name="synced_folders_configure_folders">Configurer les dossiers</string>
     <string name="synced_folders_loading_folders">Chargement des dossiers…</string>
     <string name="synced_folders_new_info">L\'envoi immédiat a été complètement refondu. Merci de reconfigurer vos envois automatiques depuis le Menu principal.\n\nProfitez des capacités nouvelles et étendues des envois automatiques.</string>
-    <string name="synced_folders_no_results">Aucun dossier média trouvé.</string>
     <string name="synced_folders_preferences">Préférences d\'envois automatiques</string>
     <string name="synced_folders_preferences_folder_path">Pour %1$s</string>
     <string name="synced_folders_type">Type</string>
