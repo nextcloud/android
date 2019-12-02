@@ -328,7 +328,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 }
 
                 Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
-                final RemoteOperationResult result = getRemoteNotificationOperation.execute(nextcloudClient);
+                final RemoteOperationResult result = nextcloudClient.execute(getRemoteNotificationOperation);
 
                 ArrayList<Object> versions = null;
                 if (restoreFileVersionSupported) {
