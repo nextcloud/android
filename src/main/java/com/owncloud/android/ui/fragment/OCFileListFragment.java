@@ -25,8 +25,6 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -60,9 +58,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.files.FileMenuFilter;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -108,7 +104,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -954,7 +949,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                 .isMediaStreamingSupported()) {
                             // stream media preview on >= NC14
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
-                        } else if (FileMenuFilter.isEditorAvailable(capability, file.getMimeType())) {
+                        } else if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
+                                                                    account.toPlatformAccount(),
+                                                                    file.getMimeType())) {
                             mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
                         } else if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
                             android.os.Build.VERSION.SDK_INT >= RichDocumentsEditorWebView.MINIMUM_API &&
@@ -1024,9 +1021,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 case R.id.action_edit: {
                     Account account = ((FileActivity) mContainerActivity).getUserAccountManager()
                         .getUser().toPlatformAccount();
-                    OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(account.name);
 
-                    if (FileMenuFilter.isEditorAvailable(ocCapability, singleFile.getMimeType())) {
+                    if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
+                                                         account,
+                                                         singleFile.getMimeType())) {
                         mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext());
                     } else {
                         mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(singleFile, getContext());
