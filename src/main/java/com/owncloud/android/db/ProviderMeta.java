@@ -194,7 +194,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_RICHDOCUMENT_PRODUCT_NAME = "richdocument_product_name";
         public static final String CAPABILITIES_DEFAULT_SORT_ORDER = CAPABILITIES_ACCOUNT_NAME
                 + " collate nocase asc";
-        public static final String CAPABILITIES_DIRECT_EDITING = "direct_editing";
+        public static final String CAPABILITIES_DIRECT_EDITING_ETAG = "direct_editing_etag";
 
         //Columns of Uploads table
         public static final String UPLOADS_LOCAL_PATH = "local_path";

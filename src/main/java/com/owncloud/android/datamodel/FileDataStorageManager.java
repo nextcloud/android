@@ -39,7 +39,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -2031,7 +2030,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES, capability.getRichDocumentsTemplatesAvailable()
             .getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_PRODUCT_NAME, capability.getRichDocumentsProductName());
-        cv.put(ProviderTableMeta.CAPABILITIES_DIRECT_EDITING, new Gson().toJson(capability.getDirectEditing()));
+        cv.put(ProviderTableMeta.CAPABILITIES_DIRECT_EDITING_ETAG, capability.getDirectEditingEtag());
 
         return cv;
     }
@@ -2151,8 +2150,7 @@ public class FileDataStorageManager {
             }
             capability.setRichDocumentsOptionalMimeTypeList(Arrays.asList(optionalMimetypes.split(",")));
             capability.setRichDocumentsProductName(getString(c, ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_PRODUCT_NAME));
-            capability.setDirectEditing(new Gson().fromJson(getString(c, ProviderTableMeta.CAPABILITIES_DIRECT_EDITING),
-                                                            DirectEditing.class));
+            capability.setDirectEditingEtag(getString(c, ProviderTableMeta.CAPABILITIES_DIRECT_EDITING_ETAG));
         }
         return capability;
     }

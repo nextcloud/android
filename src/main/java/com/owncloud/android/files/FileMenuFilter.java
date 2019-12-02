@@ -22,11 +22,14 @@
 package com.owncloud.android.files;
 
 import android.accounts.Account;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.gson.Gson;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -261,15 +264,23 @@ public class FileMenuFilter {
     ) {
         String mimeType = mFiles.iterator().next().getMimeType();
 
-        if (isRichDocumentEditingSupported(capability, mimeType) || isEditorAvailable(capability, mimeType)) {
+        if (isRichDocumentEditingSupported(capability, mimeType) || isEditorAvailable(mContext.getContentResolver(),
+                                                                                      mAccount,
+                                                                                      mimeType)) {
             toShow.add(R.id.action_edit);
         } else {
             toHide.add(R.id.action_edit);
         }
     }
 
-    public static boolean isEditorAvailable(OCCapability capability, String mimeType) {
-        DirectEditing directEditing = capability.getDirectEditing();
+    public static boolean isEditorAvailable(ContentResolver contentResolver, Account account, String mimeType) {
+        String json = new ArbitraryDataProvider(contentResolver).getValue(account, ArbitraryDataProvider.DIRECT_EDITING);
+
+        if (json.isEmpty()) {
+            return false;
+        }
+
+        DirectEditing directEditing = new Gson().fromJson(json, DirectEditing.class);
 
         for (Editor editor : directEditing.editors.values()) {
             if (editor.mimetypes.contains(mimeType) || editor.optionalMimetypes.contains(mimeType)) {
