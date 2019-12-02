@@ -461,7 +461,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 return true;
             }
             case R.id.action_share_expiration_date: {
-                ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment.newInstance(file, -1);
+                ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment.newInstance(file, publicShare.getExpirationDate());
                 dialog.show(
                     fileDisplayActivity.getSupportFragmentManager(),
                         ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
