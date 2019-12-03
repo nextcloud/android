@@ -24,7 +24,7 @@ public class AuthOptions {
     
     public AuthOptions (AndroidDriver driver){
         this.driver = driver;
-		PageFactory.initElements(new AppiumFieldDecorator(driver,5, TimeUnit.SECONDS), this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver,60, TimeUnit.SECONDS), this);
     }
     public LoginForm SinginWithWeb(){
         connectButton.click();

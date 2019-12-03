@@ -68,10 +68,6 @@ public class Actions {
 			try {
 				wait.until(ExpectedConditions
 						.visibilityOf(certificatePopUp.getOkButtonElement()));
-				//we need to repaint the screen 
-				//because of some element are misplaced
-				driver.rotate(ScreenOrientation.LANDSCAPE);
-				driver.rotate(ScreenOrientation.PORTRAIT);
 				authOptions = certificatePopUp.clickOnOkButton();
 			}catch (NoSuchElementException e) {
 

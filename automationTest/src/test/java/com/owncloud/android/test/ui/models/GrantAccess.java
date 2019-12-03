@@ -19,7 +19,7 @@ public class GrantAccess {
 
     public GrantAccess (AndroidDriver driver){
         this.driver = driver;
-        PageFactory.initElements(new AppiumFieldDecorator(driver,5, TimeUnit.SECONDS), this);
+        PageFactory.initElements(new AppiumFieldDecorator(driver,10, TimeUnit.SECONDS), this);
     }
 
     public void grantAcess(){

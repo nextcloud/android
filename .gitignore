@@ -35,4 +35,6 @@ build
 .attach_pid*
 fastlane/Fastfile
 *.hprof
-
+.classpath
+.settings/
+.project

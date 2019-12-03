@@ -51,20 +51,22 @@ public class Common{
 	protected AndroidDriver setUpCommonDriver () throws Exception {
 		File rootPath = new File(System.getProperty("user.dir"));
 		File appDir = new File(rootPath,"src/test/resources");
-		File app = new File(appDir,"ownCloud.apk");
+		File app = new File(appDir,"nextcloud.apk");
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability("platformName", "Android");
 		capabilities.setCapability("automationName", "UiAutomator2");
 		capabilities.setCapability("deviceName", "test");
 		capabilities.setCapability("app",app.getAbsolutePath());
-		capabilities.setCapability("appPackage", "com.nextcloud.client");
+		capabilities.setCapability("appPackage", "com.nextcloud.android.qa");
 		capabilities.setCapability("appActivity", 
 				"com.owncloud.android.ui.activity.FileDisplayActivity");	
 		capabilities.setCapability("appWaitActivity", 
 				"com.nextcloud.client.onboarding.FirstRunActivity");
 		capabilities.setCapability("printPageSourceOnFindFailure", 
 				"true");		
-		driver = new AndroidDriver(new URL("http://10.0.2.2:4723/wd/hub"),
+		// capabilities.setCapability("chromedriverExecutableDir", 
+		// 		"/home/danny/node_modules/appium/node_modules/appium-chromedriver/chromedriver/linux/");
+		driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"),
 				capabilities);
 		
 		driver.manage().timeouts().implicitlyWait(waitingTime,
