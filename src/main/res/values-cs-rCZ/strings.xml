@@ -76,9 +76,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechán v původní složce, protože je pouze pro čtení</string>
     <string name="auto_upload_on_wifi">Nahrávat pouze přes neplacené Wi-Fi připojení</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="autoupload_configure">Nastavit</string>
     <string name="autoupload_create_new_custom_folder">Vytvořte nové nastavení vlastní složky</string>
     <string name="autoupload_custom_folder">Nastavit uživatelsky určenou složku</string>
     <string name="autoupload_disable_power_save_check">Zakázat kontrolu úspory energie</string>
+    <string name="autoupload_hide_folder">Skrýt složku</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Zavřít</string>
     <string name="battery_optimization_disable">Vypnout</string>
@@ -694,6 +696,7 @@ Jak vývojová tak produkční verze je k dispozici na F-droidu a mohou být nai
     <string name="synced_folders_configure_folders">Nastavit složky</string>
     <string name="synced_folders_loading_folders">Načítání složek…</string>
     <string name="synced_folders_new_info">Okamžité nahrávání bylo zcela předěláno. Proto je třeba ho znovu nastavit z hlavní nabídky.\n\nUžijte si nové a rozšířené automatické nahrávání.</string>
+    <string name="synced_folders_no_results">Nebyly nalezeny žádné složky médií</string>
     <string name="synced_folders_preferences">Předvolby automatického nahrávání</string>
     <string name="synced_folders_preferences_folder_path">Pro %1$s</string>
     <string name="synced_folders_type">Typ</string>
@@ -829,6 +832,12 @@ Jak vývojová tak produkční verze je k dispozici na F-droidu a mohou být nai
         <item quantity="few">%1$d soubory</item>
         <item quantity="many">%1$d souborů</item>
         <item quantity="other">%1$d soubory</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Zobrazit %1$d skrytou složku</item>
+        <item quantity="few">Zobrazit %1$d skryté složky</item>
+        <item quantity="many">Zobrazit %1$d skrytých složek</item>
+        <item quantity="other">Zobrazit %1$d skryté složky</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d vybrán</item>
