@@ -24,6 +24,7 @@ package com.owncloud.android.files;
 import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.os.Build;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -38,7 +39,6 @@ import com.owncloud.android.lib.common.Editor;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.NextcloudServer;
 
@@ -262,6 +262,11 @@ public class FileMenuFilter {
                             List<Integer> toHide,
                             OCCapability capability
     ) {
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            toHide.add(R.id.action_edit);
+            return;
+        }
+
         String mimeType = mFiles.iterator().next().getMimeType();
 
         if (isRichDocumentEditingSupported(capability, mimeType) || isEditorAvailable(mContext.getContentResolver(),
@@ -296,7 +301,7 @@ public class FileMenuFilter {
      */
     @NextcloudServer(max = 18)
     private boolean isRichDocumentEditingSupported(OCCapability capability, String mimeType) {
-        return isSingleFile() && android.os.Build.VERSION.SDK_INT >= RichDocumentsEditorWebView.MINIMUM_API &&
+        return isSingleFile() && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
             (capability.getRichDocumentsMimeTypeList().contains(mimeType) ||
                 capability.getRichDocumentsOptionalMimeTypeList().contains(mimeType)) &&
             capability.getRichDocumentsDirectEditing().isTrue();
