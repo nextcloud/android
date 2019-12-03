@@ -80,7 +80,6 @@ import com.owncloud.android.utils.ThemeUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -498,7 +497,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
             }
         }
 
-        @NotNull
+        @NonNull
         @Override
         public String toString() {
             return displayName;

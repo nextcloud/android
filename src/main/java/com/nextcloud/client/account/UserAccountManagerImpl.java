@@ -42,8 +42,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -216,7 +214,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
      *
      * @return User instance
      */
-    @NotNull
+    @NonNull
     @Override
     public User getUser() {
         Account account = getCurrentAccount();

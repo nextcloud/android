@@ -54,8 +54,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1970,7 +1968,7 @@ public class FileDataStorageManager {
         return capability;
     }
 
-    @NotNull
+    @NonNull
     private ContentValues createContentValues(String accountName, OCCapability capability) {
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME, accountName);
