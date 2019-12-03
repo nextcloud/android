@@ -76,8 +76,6 @@ import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.ThemeUtils;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.util.AbstractList;
 import java.util.HashMap;
@@ -396,10 +394,10 @@ public class FileUploader extends Service
         public void retryFailedUploads(
             @NonNull final Context context,
             @Nullable final Account account,
-            @NotNull final UploadsStorageManager uploadsStorageManager,
-            @NotNull final ConnectivityService connectivityService,
-            @NotNull final UserAccountManager accountManager,
-            @NotNull final PowerManagementService powerManagementService,
+            @NonNull final UploadsStorageManager uploadsStorageManager,
+            @NonNull final ConnectivityService connectivityService,
+            @NonNull final UserAccountManager accountManager,
+            @NonNull final PowerManagementService powerManagementService,
             @Nullable final UploadResult uploadResult
         ) {
             OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();

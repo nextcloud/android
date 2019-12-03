@@ -66,7 +66,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -76,6 +75,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -868,7 +868,7 @@ public final class ThumbnailsCacheManager {
             return Math.round(r.getDimension(R.dimen.file_avatar_size));
         }
 
-        private @NotNull
+        private @NonNull
         Drawable doAvatarInBackground() {
             Bitmap avatar;
 
