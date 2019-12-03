@@ -24,7 +24,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
@@ -75,7 +74,6 @@ import butterknife.Unbinder;
  */
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class RichDocumentsEditorWebView extends EditorWebView {
-    public static final int MINIMUM_API = Build.VERSION_CODES.LOLLIPOP;
     public static final int REQUEST_LOCAL_FILE = 101;
     private static final int REQUEST_REMOTE_FILE = 100;
     private static final String URL = "URL";
