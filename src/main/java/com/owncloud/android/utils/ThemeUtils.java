@@ -409,11 +409,9 @@ public final class ThemeUtils {
      */
     public static void colorHorizontalSeekBar(SeekBar seekBar, Context context) {
         int color = ThemeUtils.primaryAccentColor(context);
-        colorHorizontalProgressBar(seekBar, color);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-        }
+        colorHorizontalProgressBar(seekBar, color);
+        seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 
     /**
