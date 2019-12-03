@@ -27,8 +27,6 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,7 +104,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NotNull LayoutInflater inflater,
+    public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
