@@ -76,9 +76,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">zachowany w oryginalnym katalogu, jak jest tylko do odczytu</string>
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="autoupload_configure">Konfiguruj</string>
     <string name="autoupload_create_new_custom_folder">Stwórz nowy własny katalog</string>
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
     <string name="autoupload_disable_power_save_check">Wyłącz kontrolę oszczędzania energii</string>
+    <string name="autoupload_hide_folder">Ukryj katalog</string>
     <string name="avatar">Awatar</string>
     <string name="battery_optimization_close">Zamknij</string>
     <string name="battery_optimization_disable">Wyłącz</string>
@@ -676,6 +678,7 @@
     <string name="synced_folders_configure_folders">Skonfiguruj katalogi</string>
     <string name="synced_folders_loading_folders">Pobieram katalogi…</string>
     <string name="synced_folders_new_info">Automatyczne wysyłanie zostało całkowicie zmienione. Ponownie skonfiguruj automatyczne wysyłanie z menu głównego.\n\nCiesz się nowym i rozszerzonym automatycznym wysyłaniem.</string>
+    <string name="synced_folders_no_results">Nie znaleziono katalogów multimedialnych</string>
     <string name="synced_folders_preferences">Preferencje automatycznego wysyłania</string>
     <string name="synced_folders_preferences_folder_path">Dla %1$s</string>
     <string name="synced_folders_type">Typ</string>
@@ -811,6 +814,12 @@
         <item quantity="few">%1$d pliki</item>
         <item quantity="many">%1$d plików</item>
         <item quantity="other">%1$d plików</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Pokaż %1$d katalog ukryty</item>
+        <item quantity="few">Pokaż %1$d katalogi ukryte</item>
+        <item quantity="many">Pokaż %1$d katalogów ukrytych</item>
+        <item quantity="other">Pokaż %1$d katalogów ukrytych</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d wybrany</item>

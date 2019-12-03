@@ -76,9 +76,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">Jatorrizko karpetan mantendu da, soilik irakurtzeko delako</string>
     <string name="auto_upload_on_wifi">Igoerak neurketarik gabeko Wi-Fi bidez soilik</string>
     <string name="auto_upload_path">/Auto-karga</string>
+    <string name="autoupload_configure">Konfiguratu</string>
     <string name="autoupload_create_new_custom_folder">Sortu karpeta pertsonalizatu berriaren konfigurazioa</string>
     <string name="autoupload_custom_folder">Konfiguratu karpeta berria</string>
     <string name="autoupload_disable_power_save_check">Desgaitu energia aurrezteko kontrola</string>
+    <string name="autoupload_hide_folder">Karpeta ezkutatu</string>
     <string name="avatar">avatar</string>
     <string name="battery_optimization_close">Itxi</string>
     <string name="battery_optimization_disable">Desaktibatu</string>
@@ -676,6 +678,7 @@
     <string name="synced_folders_configure_folders">Karpetak konfiguratu</string>
     <string name="synced_folders_loading_folders">Karpetak kargatzen...</string>
     <string name="synced_folders_new_info">Berehalako karga erabat aldatu da. Birkonfiguratu zure karga automatikoa menu nagusitik.\n\nGozatu karga automatiko berri eta hedatuaz. </string>
+    <string name="synced_folders_no_results">Ez da media karpetarik aurkitu</string>
     <string name="synced_folders_preferences">Ezarpenak igoera automatikorako</string>
     <string name="synced_folders_preferences_folder_path"> %1$s-(r)entzat</string>
     <string name="synced_folders_type">Mota</string>
@@ -720,7 +723,7 @@
     <string name="upload_local_storage_full">Biltegiratze lokala beteta</string>
     <string name="upload_local_storage_not_copied">Ezin izan da fitxategia kopiatu biltegiratze lokalera</string>
     <string name="upload_lock_failed">Karpeta blokeatzeak huts egin du</string>
-    <string name="upload_old_android"><![CDATA[Enkriptatzea bakarrik >= Android 5.0rekin da posible]]></string>
+    <string name="upload_old_android"><![CDATA[Zifratzea >= Android 5.0 bertsioarekin soilik da posible]]></string>
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>
     <string name="upload_sync_conflict">Sinkronizazio gatazka, ebatzi eskuz</string>
     <string name="upload_unknown_error">Akats ezezaguna</string>
@@ -803,6 +806,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">fitxategi %1$d</item>
         <item quantity="other">%1$d fitxategi</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Erakutsi ezkutatutako karpeta %1$d</item>
+        <item quantity="other">Erakutsi ezkutatutako %1$d karpetak </item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">aukeratuta %d</item>

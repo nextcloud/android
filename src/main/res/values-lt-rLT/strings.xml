@@ -300,6 +300,7 @@
     <string name="local_folder_list_empty">Nėra kitų aplankų</string>
     <string name="log_send_mail_subject">%1$s Android žurnalai</string>
     <string name="log_send_no_mail_app">Nėra programėlės įrašams siųsti. Prašome instaliuoti el. pašto klientą.</string>
+    <string name="logs_menu_delete">Ištrinti žurnalus</string>
     <string name="logs_menu_refresh">Įkelti iš naujo</string>
     <string name="logs_status_loading">Įkeliama…</string>
     <string name="maintenance_mode">Serveris yra techninės priežiūros veiksenoje</string>
@@ -394,6 +395,9 @@
     <string name="prefs_storage_path">Saugojimo kelias</string>
     <string name="prefs_synced_folders_local_path_title">Aplankas vietinis</string>
     <string name="prefs_synced_folders_remote_path_title">Nuotolinis aplankas</string>
+    <string name="prefs_theme_title">Apipavidalinimas</string>
+    <string name="prefs_value_theme_dark">Tamsus</string>
+    <string name="prefs_value_theme_light">Šviesus</string>
     <string name="preview_image_description">Paveikslėlio peržiūra</string>
     <string name="preview_image_error_no_local_file">Nėra vietinio failo peržiūrai</string>
     <string name="preview_image_error_unknown_format">Nepavyko parodyti paveikslo</string>
@@ -421,6 +425,7 @@
     <string name="richdocuments_failed_to_load_document">Nepavyko įkelti dokumento!</string>
     <string name="saml_authentication_required_text">Reikalingas slaptažodis</string>
     <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
+    <string name="scanQR_description">Prisijungti per QR kodą</string>
     <string name="search_users_and_groups_hint">Ieškoti naudotojų ar grupių</string>
     <string name="select_all">Pažymėti viską</string>
     <string name="send">Siųsti</string>
@@ -445,6 +450,7 @@
     <string name="share_no_users">Su vartotojais niekuo nesidalinama</string>
     <string name="share_password_title">Apsaugota slaptažodžiu</string>
     <string name="share_privilege_can_edit">gali redaguoti</string>
+    <string name="share_privilege_can_edit_delete">gali ištrinti</string>
     <string name="share_privilege_can_share">gali bendrinti</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
     <string name="share_search">Vardas, federacinės debesijos ID arba el. pašto adresas…</string>
@@ -516,6 +522,7 @@
     <string name="tags">Žymės</string>
     <string name="test_server_button">Prisijunkite prie serverio</string>
     <string name="thumbnail">Miniatiūra</string>
+    <string name="timeout_richDocuments">Įkėlimas užima labai ilgai…</string>
     <string name="trashbin_activity_title">Ištrinti failai</string>
     <string name="trashbin_empty_headline">Ištrintų failų nėra</string>
     <string name="trashbin_empty_message">Čia galėsite atkurti ištrintus failus</string>
@@ -523,6 +530,7 @@
     <string name="trashbin_file_not_restored">Nepavyko atkurti failo %1$s!</string>
     <string name="trashbin_loading_failed">Nepavyko įkelti šiukšlinės!</string>
     <string name="trashbin_not_emptied">Nepavyko ištrinti failų visam laikui!</string>
+    <string name="unread_comments">Yra neskaitytų komentarų</string>
     <string name="unset_favorite">Šalinti iš mėgstamų</string>
     <string name="unshare_link_file_error">Įvyko klaida bandant nebedalinti šio failu ar aplanku</string>
     <string name="unshare_link_file_no_exist">Nepavyksta nebedalinti. Patikrinkite ar failas egzistuoja</string>
@@ -617,5 +625,11 @@
         <item quantity="few">%1$d failai</item>
         <item quantity="many">%1$d failų</item>
         <item quantity="other">%1$d failas</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Rodyti %1$d paslėptą aplanką</item>
+        <item quantity="few">Rodyti %1$d paslėptus aplankus</item>
+        <item quantity="many">Rodyti %1$d paslėptų aplankų</item>
+        <item quantity="other">Rodyti %1$d paslėptą aplanką</item>
     </plurals>
     </resources>
