@@ -71,7 +71,6 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
-import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
@@ -951,10 +950,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
                         } else if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
                                                                     account.toPlatformAccount(),
-                                                                    file.getMimeType())) {
+                                                                    file.getMimeType()) &&
+                            android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
                         } else if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
-                            android.os.Build.VERSION.SDK_INT >= RichDocumentsEditorWebView.MINIMUM_API &&
+                            android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                             capability.getRichDocumentsDirectEditing().isTrue()) {
                             mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
                         } else {
@@ -1022,14 +1022,23 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     Account account = ((FileActivity) mContainerActivity).getUserAccountManager()
                         .getUser().toPlatformAccount();
 
-                    if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
-                                                         account,
-                                                         singleFile.getMimeType())) {
-                        mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext());
+                    // should not be necessary, as menu item is filtered, but better play safe
+                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
+                                                             account,
+                                                             singleFile.getMimeType())) {
+                            mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile,
+                                                                                                getContext());
+                        } else {
+                            mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(singleFile,
+                                                                                                getContext());
+                        }
+
+                        return true;
                     } else {
-                        mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(singleFile, getContext());
+                        DisplayUtils.showSnackMessage(getView(), "Not supported on older than Android 5");
+                        return false;
                     }
-                    return true;
                 }
                 case R.id.action_rename_file: {
                     RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(singleFile);
