@@ -15,6 +15,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.client.preferences.DarkMode;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -59,8 +60,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
     private AppPreferences.Listener onPreferencesChanged = new AppPreferences.Listener() {
         @Override
-        public void onDarkThemeEnabledChanged(boolean enabled) {
-            BaseActivity.this.onThemeSettingsChanged();
+        public void onDarkThemeModeChanged(DarkMode mode) {
+            onThemeSettingsModeChanged();
         }
     };
 
@@ -91,7 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         super.onResume();
         paused = false;
 
-        if(themeChangePending) {
+        if (themeChangePending) {
             recreate();
         }
     }
@@ -129,8 +130,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         Log_OC.v(TAG, "onRestart() end");
     }
 
-    private void onThemeSettingsChanged() {
-        if(paused) {
+    private void onThemeSettingsModeChanged() {
+        if (paused) {
             themeChangePending = true;
         } else {
             recreate();
@@ -226,7 +227,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
             return Optional.empty();
         }
     }
-    
+
     public FileDataStorageManager getStorageManager() {
         return storageManager;
     }

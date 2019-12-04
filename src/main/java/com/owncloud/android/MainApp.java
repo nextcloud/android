@@ -57,6 +57,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.nextcloud.client.preferences.DarkMode;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
@@ -247,7 +248,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @SuppressFBWarnings("ST")
     @Override
     public void onCreate() {
-        setAppTheme(preferences.isDarkThemeEnabled());
+        setAppTheme(preferences.getDarkThemeMode());
         super.onCreate();
 
         insertConscrypt();
@@ -821,11 +822,17 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
 
-    public static void setAppTheme(Boolean darkTheme) {
-        if (darkTheme) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+    public static void setAppTheme(DarkMode mode) {
+        switch (mode) {
+            case LIGHT:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case DARK:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case SYSTEM:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
         }
     }
 }
