@@ -34,7 +34,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
@@ -716,13 +715,11 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
     private void setChecked(boolean checked, CheckedTextView checkedTextView) {
         checkedTextView.setChecked(checked);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            if (checked) {
-                checkedTextView.getCheckMarkDrawable()
-                        .setColorFilter(ThemeUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP);
-            } else {
-                checkedTextView.getCheckMarkDrawable().clearColorFilter();
-            }
+        if (checked) {
+            checkedTextView.getCheckMarkDrawable()
+                .setColorFilter(ThemeUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP);
+        } else {
+            checkedTextView.getCheckMarkDrawable().clearColorFilter();
         }
     }
 
@@ -730,19 +727,15 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         holder.getName().setChecked(!holder.getName().isChecked());
 
         if (holder.getName().isChecked()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                holder.getName().getCheckMarkDrawable()
-                        .setColorFilter(ThemeUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP);
-            }
+            holder.getName().getCheckMarkDrawable().setColorFilter(ThemeUtils.primaryColor(context),
+                                                                   PorterDuff.Mode.SRC_ATOP);
 
             checkedVCards.add(verifiedPosition);
             if (checkedVCards.size() == SINGLE_SELECTION) {
                 EventBus.getDefault().post(new VCardToggleEvent(true));
             }
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                holder.getName().getCheckMarkDrawable().clearColorFilter();
-            }
+            holder.getName().getCheckMarkDrawable().clearColorFilter();
 
             checkedVCards.remove(verifiedPosition);
 
