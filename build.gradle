@@ -110,7 +110,8 @@ android {
             'VectorPath',
             'IconMissingDensityFolder',
             'IconDensities',
-            'GoogleAppIndexingWarning'
+            'GoogleAppIndexingWarning',
+            'MissingDefaultResource'
     }
 
     dexOptions {
