@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.DarkMode;
 
 import javax.inject.Inject;
 
@@ -41,8 +42,10 @@ public class ThemedPreferenceActivity extends PreferenceActivity {
 
     private AppPreferences.Listener onThemeChangedListener = new AppPreferences.Listener() {
         @Override
-        public void onDarkThemeEnabledChanged(boolean enabled) {
-            if(paused) {
+        public void onDarkThemeModeChanged(DarkMode mode) {
+            preferences.setDarkThemeMode(mode);
+
+            if (paused) {
                 themeChangePending = true;
                 return;
             }
@@ -73,7 +76,7 @@ public class ThemedPreferenceActivity extends PreferenceActivity {
         super.onResume();
         paused = false;
 
-        if(themeChangePending) {
+        if (themeChangePending) {
             recreate();
         }
     }

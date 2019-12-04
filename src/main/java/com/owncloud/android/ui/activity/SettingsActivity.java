@@ -59,6 +59,7 @@ import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.nextcloud.client.preferences.DarkMode;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -79,6 +80,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -105,6 +107,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     public static final String LOCK_NONE = "none";
     public static final String LOCK_PASSCODE = "passcode";
     public static final String LOCK_DEVICE_CREDENTIALS = "device_credentials";
+
 
     public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
     public static final String PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
@@ -692,13 +695,27 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         loadStoragePath();
 
-        SwitchPreference themePref = (SwitchPreference) findPreference("dark_theme_enabled");
-        boolean darkThemeEnabled = preferences.isDarkThemeEnabled();
-        int summaryResId = darkThemeEnabled ? R.string.prefs_value_theme_dark : R.string.prefs_value_theme_light;
-        themePref.setSummary(summaryResId);
+        ListPreference themePref = (ListPreference) findPreference("darkTheme");
+
+        List<String> themeEntries = new ArrayList<>(3);
+        themeEntries.add(getString(R.string.prefs_value_theme_light));
+        themeEntries.add(getString(R.string.prefs_value_theme_dark));
+        themeEntries.add(getString(R.string.prefs_value_theme_system));
+
+        List<String> themeValues = new ArrayList<>(3);
+        themeValues.add(DarkMode.LIGHT.name());
+        themeValues.add(DarkMode.DARK.name());
+        themeValues.add(DarkMode.SYSTEM.name());
+
+        themePref.setEntries(themeEntries.toArray(new String[0]));
+        themePref.setEntryValues(themeValues.toArray(new String[0]));
+        themePref.setSummary(themePref.getEntry().length() == 0 ? DarkMode.LIGHT.name() : themePref.getEntry());
+
         themePref.setOnPreferenceChangeListener((preference, newValue) -> {
-            boolean enabled = (Boolean)newValue;
-            MainApp.setAppTheme(enabled);
+            DarkMode mode = DarkMode.valueOf((String) newValue);
+            preferences.setDarkThemeMode(mode);
+            MainApp.setAppTheme(mode);
+
             return true;
         });
     }
