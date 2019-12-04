@@ -23,7 +23,6 @@ package com.owncloud.android.ui;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.os.Build;
 import android.preference.SwitchPreference;
 import android.util.AttributeSet;
 import android.view.View;
@@ -33,7 +32,6 @@ import android.widget.Switch;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.ThemeUtils;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 
@@ -58,12 +56,11 @@ public class ThemeableSwitchPreference extends SwitchPreference {
     protected void onBindView(View view) {
         super.onBindView(view);
 
-        if (view instanceof ViewGroup && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        if (view instanceof ViewGroup) {
             findSwitch((ViewGroup) view);
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private void findSwitch(ViewGroup viewGroup) {
         ColorStateList thumbColorStateList = null;
         ColorStateList trackColorStateList = null;

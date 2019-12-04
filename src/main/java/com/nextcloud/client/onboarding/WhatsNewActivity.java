@@ -23,7 +23,6 @@
  */
 package com.nextcloud.client.onboarding;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -99,11 +98,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             updateNextButtonIfNeeded();
         });
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            mForwardFinishButton.setBackground(null);
-        } else {
-            mForwardFinishButton.setBackgroundDrawable(null);
-        }
+        mForwardFinishButton.setBackground(null);
 
         mSkipButton = findViewById(R.id.skip);
         mSkipButton.setTextColor(fontColor);

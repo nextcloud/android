@@ -404,11 +404,9 @@ public final class ThemeUtils {
      */
     public static void colorHorizontalSeekBar(SeekBar seekBar, Context context) {
         int color = ThemeUtils.primaryAccentColor(context);
-        colorHorizontalProgressBar(seekBar, color);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-        }
+        colorHorizontalProgressBar(seekBar, color);
+        seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 
     /**
@@ -508,7 +506,7 @@ public final class ThemeUtils {
                 color = ContextCompat.getColor(context, R.color.themed_fg_inverse);
             }
         }
-        
+
         editText.setTextColor(color);
         editText.setHighlightColor(context.getResources().getColor(R.color.fg_contrast));
         setEditTextCursorColor(editText, color);
