@@ -167,8 +167,8 @@ android {
             versionDev {
                 applicationId "com.nextcloud.android.beta"
                 dimension "default"
-                versionCode 20191203
-                versionName "20191203"
+                versionCode 20191204
+                versionName "20191204"
             }
 
             qa {
