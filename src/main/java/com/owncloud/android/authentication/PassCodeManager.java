@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -102,7 +103,7 @@ public final class PassCodeManager {
             activity.startActivityForResult(i, PASSCODE_ACTIVITY);
         } else {
             if (!askedForPin && preferences.getLockTimestamp() != 0) {
-                preferences.setLockTimestamp(System.currentTimeMillis());
+                preferences.setLockTimestamp(SystemClock.elapsedRealtime());
             }
         }
 
