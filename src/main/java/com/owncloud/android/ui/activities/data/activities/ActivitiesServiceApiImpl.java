@@ -28,7 +28,6 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.MainApp;
@@ -59,9 +58,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
 
     @Override
     public void getAllActivities(int lastGiven, ActivitiesServiceCallback<List<Object>> callback) {
-        User user = accountManager.getUser();
-        GetActivityListTask getActivityListTask = new GetActivityListTask(user.toPlatformAccount(),
-                                                                          accountManager,
+        GetActivityListTask getActivityListTask = new GetActivityListTask(accountManager.getUser().toPlatformAccount(),
                                                                           lastGiven,
                                                                           callback);
         getActivityListTask.execute();
@@ -72,17 +69,14 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         private final ActivitiesServiceCallback<List<Object>> callback;
         private List<Object> activities;
         private Account account;
-        private UserAccountManager accountManager;
         private int lastGiven;
         private String errorMessage;
         private NextcloudClient client;
 
         private GetActivityListTask(Account account,
-                                    UserAccountManager accountManager,
                                     int lastGiven,
                                     ActivitiesServiceCallback<List<Object>> callback) {
             this.account = account;
-            this.accountManager = accountManager;
             this.lastGiven = lastGiven;
             this.callback = callback;
             activities = new ArrayList<>();
