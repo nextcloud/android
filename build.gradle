@@ -131,6 +131,7 @@ android {
         testInstrumentationRunnerArgument "TEST_SERVER_USERNAME", "${NC_TEST_SERVER_USERNAME}"
         testInstrumentationRunnerArgument "TEST_SERVER_PASSWORD", "${NC_TEST_SERVER_PASSWORD}"
         testInstrumentationRunnerArguments disableAnalytics: 'true'
+        testInstrumentationRunnerArguments clearPackageData: 'true'
 
         multiDexEnabled true
 
@@ -184,6 +185,7 @@ android {
 
         testOptions {
             unitTests.returnDefaultValues = true
+            execution 'ANDROIDX_TEST_ORCHESTRATOR'
         }
     }
 
@@ -358,6 +360,7 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.2.0'
     // Android JUnit Runner
     androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestUtil 'androidx.test:orchestrator:1.1.0'
 
     // Espresso core
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
