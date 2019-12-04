@@ -506,6 +506,8 @@ public class FileDisplayActivity extends FileActivity
         if (ACTION_DETAILS.equalsIgnoreCase(intent.getAction())) {
             setIntent(intent);
             setFile(intent.getParcelableExtra(EXTRA_FILE));
+            // Showing details after getting an intent
+            showDetails(intent.getParcelableExtra(EXTRA_FILE));
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             handleOpenFileViaIntent(intent);
         } else if (RESTART.equals(intent.getAction())) {
