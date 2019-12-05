@@ -24,6 +24,7 @@ import android.accounts.Account;
 import android.os.AsyncTask;
 
 import com.nextcloud.android.lib.resources.directediting.DirectEditingOpenFileRemoteOperation;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RichDocumentsUrlOperation;
 import com.owncloud.android.ui.activity.EditorWebView;
@@ -32,19 +33,22 @@ import com.owncloud.android.ui.activity.TextEditorWebView;
 
 import java.lang.ref.WeakReference;
 
-public class LoadUrlTask extends AsyncTask<String, Void, String> {
+public class LoadUrlTask extends AsyncTask<Void, Void, String> {
+
+    private static final String TEXT = "text";
 
     private Account account;
     private WeakReference<EditorWebView> editorWebViewWeakReference;
-    private static final String TEXT = "text";
+    private OCFile file;
 
-    public LoadUrlTask(EditorWebView editorWebView, Account account) {
+    public LoadUrlTask(EditorWebView editorWebView, Account account, OCFile file) {
         this.account = account;
         this.editorWebViewWeakReference = new WeakReference<>(editorWebView);
+        this.file = file;
     }
 
     @Override
-    protected String doInBackground(String... fileId) {
+    protected String doInBackground(Void... voids) {
         final EditorWebView editorWebView = editorWebViewWeakReference.get();
 
         if (editorWebView == null) {
@@ -55,9 +59,10 @@ public class LoadUrlTask extends AsyncTask<String, Void, String> {
 
 
         if (editorWebView instanceof RichDocumentsEditorWebView) {
-            result = new RichDocumentsUrlOperation(fileId[0]).execute(account, editorWebViewWeakReference.get());
+            result = new RichDocumentsUrlOperation(file.getLocalId()).execute(account,
+                                                                              editorWebViewWeakReference.get());
         } else if (editorWebView instanceof TextEditorWebView) {
-            result = new DirectEditingOpenFileRemoteOperation(fileId[0], TEXT)
+            result = new DirectEditingOpenFileRemoteOperation(file.getRemotePath(), TEXT)
                 .execute(account, editorWebViewWeakReference.get());
         } else {
             return "";
