@@ -507,6 +507,7 @@
     <string name="prefs_theme_title">Motiv</string>
     <string name="prefs_value_theme_dark">Tmavý</string>
     <string name="prefs_value_theme_light">Světlý</string>
+    <string name="prefs_value_theme_system">Následovat systém</string>
     <string name="preview_image_description">Náhled obrázku</string>
     <string name="preview_image_error_no_local_file">Není zde žádný místní soubor pro který zobrazit náhled</string>
     <string name="preview_image_error_unknown_format">Obrázek se nedaří zobrazit</string>

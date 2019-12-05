@@ -74,6 +74,7 @@
     <string name="auto_upload_path">automatinis paleidimas</string>
     <string name="autoupload_create_new_custom_folder">Naujas aplanko nustatymas</string>
     <string name="autoupload_custom_folder">Pritaikyti aplanką</string>
+    <string name="autoupload_hide_folder">Slėpti aplanką</string>
     <string name="avatar">Avataras</string>
     <string name="battery_optimization_close">Užverti</string>
     <string name="battery_optimization_disable">Išjungti</string>
