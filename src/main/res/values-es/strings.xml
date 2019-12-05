@@ -507,6 +507,7 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_value_theme_dark">Oscuro</string>
     <string name="prefs_value_theme_light">Claro</string>
+    <string name="prefs_value_theme_system">Sistema de seguimiento</string>
     <string name="preview_image_description">Previsualización de imagen</string>
     <string name="preview_image_error_no_local_file">No hay archivo local para previsualizar</string>
     <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
