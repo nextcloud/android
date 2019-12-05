@@ -70,7 +70,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
 
     protected void loadUrl(String url, OCFile file) {
         if (TextUtils.isEmpty(url)) {
-            new LoadUrlTask(this, getAccount()).execute(file.getLocalId());
+            new LoadUrlTask(this, getAccount(), file).execute();
         } else {
             webview.loadUrl(url);
         }
