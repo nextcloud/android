@@ -61,6 +61,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.SwitchCompat;
@@ -180,6 +181,10 @@ public final class ThemeUtils {
      * adapted from https://github.com/nextcloud/server/blob/master/apps/theming/lib/Util.php#L90-L102
      */
     public static int fontColor(Context context) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            return Color.WHITE;
+        }
+
         try {
             return Color.parseColor(getCapability(context).getServerTextColor());
         } catch (Exception e) {
@@ -499,7 +504,9 @@ public final class ThemeUtils {
         int color = ContextCompat.getColor(context, R.color.fg_default);
 
         // Theme the view when it is already on a theme'd background according to dark / light theme
-        if (themedBackground) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            color = Color.WHITE;
+        } else if (themedBackground) {
             if (darkTheme(context)) {
                 color = ContextCompat.getColor(context, R.color.themed_fg);
             } else {
