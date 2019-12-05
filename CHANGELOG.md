@@ -1,3 +1,9 @@
+3.9.2 (December, 05, 2019)
+
+- HOTFIX: fix login loop
+- Fix crash on opening png images
+- Translation updates
+
 3.9.1 (December, 04, 2019)
 
 - Fix crash on opening png images
