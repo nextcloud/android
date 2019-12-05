@@ -351,7 +351,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
                 return;
             }
             if (isChecked) {
-                ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment.newInstance(mFile, -1);
+                ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment.newInstance(mFile, mPublicShare.getExpirationDate());
                 dialog.show(
                         getActivity().getSupportFragmentManager(),
                         ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
