@@ -509,6 +509,7 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_theme_title">Thème</string>
     <string name="prefs_value_theme_dark">Sombre</string>
     <string name="prefs_value_theme_light">Clair</string>
+    <string name="prefs_value_theme_system">Selon le système</string>
     <string name="preview_image_description">Prévisualisation de l\'image</string>
     <string name="preview_image_error_no_local_file">Il n\'y a aucun fichier local à prévisualiser</string>
     <string name="preview_image_error_unknown_format">L\'image ne peut pas être affichée</string>
