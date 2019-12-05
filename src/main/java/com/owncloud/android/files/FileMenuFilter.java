@@ -48,6 +48,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import androidx.annotation.Nullable;
+
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile}
  * according to the current state of the latest.
@@ -279,21 +281,26 @@ public class FileMenuFilter {
     }
 
     public static boolean isEditorAvailable(ContentResolver contentResolver, Account account, String mimeType) {
+        return getEditor(contentResolver, account, mimeType) != null;
+    }
+
+    @Nullable
+    public static Editor getEditor(ContentResolver contentResolver, Account account, String mimeType) {
         String json = new ArbitraryDataProvider(contentResolver).getValue(account, ArbitraryDataProvider.DIRECT_EDITING);
 
         if (json.isEmpty()) {
-            return false;
+            return null;
         }
 
         DirectEditing directEditing = new Gson().fromJson(json, DirectEditing.class);
 
         for (Editor editor : directEditing.editors.values()) {
             if (editor.mimetypes.contains(mimeType) || editor.optionalMimetypes.contains(mimeType)) {
-                return true;
+                return editor;
             }
         }
 
-        return false;
+        return null;
     }
 
     /**
