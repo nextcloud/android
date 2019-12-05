@@ -25,6 +25,8 @@ import android.os.AsyncTask;
 
 import com.nextcloud.android.lib.resources.directediting.DirectEditingOpenFileRemoteOperation;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
+import com.owncloud.android.lib.common.Editor;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RichDocumentsUrlOperation;
 import com.owncloud.android.ui.activity.EditorWebView;
@@ -59,10 +61,15 @@ public class LoadUrlTask extends AsyncTask<Void, Void, String> {
 
 
         if (editorWebView instanceof RichDocumentsEditorWebView) {
-            result = new RichDocumentsUrlOperation(file.getLocalId()).execute(account,
-                                                                              editorWebViewWeakReference.get());
+            result = new RichDocumentsUrlOperation(file.getLocalId()).execute(account, editorWebView);
         } else if (editorWebView instanceof TextEditorWebView) {
-            result = new DirectEditingOpenFileRemoteOperation(file.getRemotePath(), TEXT)
+            Editor editor = FileMenuFilter.getEditor(editorWebView.getContentResolver(), account, file.getMimeType());
+
+            if (editor == null) {
+                return "";
+            }
+
+            result = new DirectEditingOpenFileRemoteOperation(file.getRemotePath(), editor.id)
                 .execute(account, editorWebViewWeakReference.get());
         } else {
             return "";
