@@ -322,7 +322,7 @@ dependencies {
     compileOnly "org.projectlombok:lombok:1.18.10"
     annotationProcessor "org.projectlombok:lombok:1.18.10"
 
-    ktlint "com.pinterest:ktlint:0.35.0"
+    ktlint "com.pinterest:ktlint:0.36.0"
     implementation 'org.conscrypt:conscrypt-android:2.2.1'
 
     // dependencies for markdown rendering
