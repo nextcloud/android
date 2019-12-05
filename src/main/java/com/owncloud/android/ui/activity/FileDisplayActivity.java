@@ -217,6 +217,8 @@ public class FileDisplayActivity extends FileActivity
     private PlayerServiceConnection mPlayerConnection;
     private Account mLastDisplayedAccount;
 
+    private Intent initialIntent;
+
     @Inject
     AppPreferences preferences;
 
@@ -511,10 +513,12 @@ public class FileDisplayActivity extends FileActivity
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             handleOpenFileViaIntent(intent);
         } else if (RESTART.equals(intent.getAction())) {
+            initialIntent = null;
             finish();
             startActivity(intent);
         } else // Verify the action and get the query
             if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+                initialIntent = intent;
                 setIntent(intent);
 
                 SearchEvent searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
@@ -540,6 +544,7 @@ public class FileDisplayActivity extends FileActivity
                     transaction.commit();
                 }
             } else if (UsersAndGroupsSearchProvider.ACTION_SHARE_WITH.equals(intent.getAction())) {
+                initialIntent = intent;
                 Uri data = intent.getData();
                 String dataString = intent.getDataString();
                 String shareWith = dataString.substring(dataString.lastIndexOf('/') + 1);
@@ -1163,15 +1168,6 @@ public class FileDisplayActivity extends FileActivity
             // close drawer first
             super.onBackPressed();
         } else {
-            // all closed
-
-            //if PreviewImageActivity called this activity and mDualPane==false  then calls PreviewImageActivity again
-            if (ACTION_DETAILS.equalsIgnoreCase(getIntent().getAction()) && !mDualPane) {
-                getIntent().setAction(null);
-                getIntent().putExtra(EXTRA_FILE, (OCFile) null);
-                startImagePreview(getFile(), false);
-            }
-
             OCFileListFragment listOfFiles = getListOfFilesFragment();
             if (mDualPane || getSecondFragment() == null) {
                 OCFile currentDir = getCurrentDir();
