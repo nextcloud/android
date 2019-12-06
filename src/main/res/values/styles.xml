@@ -277,10 +277,6 @@
 
 	<style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
     </style>
-	<style name="Nextcloud.EditText.Login" parent="ThemeOverlay.MaterialComponents.TextInputEditText">
-        <item name="colorControlNormal">@color/login_text_color</item>
-		<item name="colorControlActivated">@color/login_text_color</item>
-	</style>
 
 	<style name="AppTabTextAppearance" parent="@style/TextAppearance.Design.Tab">
 		<item name="android:textSize">16sp</item>
