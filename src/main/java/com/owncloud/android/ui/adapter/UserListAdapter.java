@@ -336,7 +336,8 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
                 return true;
             }
             case R.id.action_expiration_date: {
-                ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment.newInstance(share, share.getExpirationDate());
+                ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment
+                    .newInstance(share, share.getExpirationDate());
                 dialog.show(fragmentManager, ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG);
                 return true;
             }
