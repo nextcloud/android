@@ -450,7 +450,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Dažas lokālās datnes tika aizmirstas</string>
     <string name="sync_string_files">Datnes</string>
     <string name="synced_folders_loading_folders">Ielādē mapes…</string>
-    <string name="synced_folders_no_results">Nav atrastas multivides mapes.</string>
     <string name="synced_folders_preferences">Iestatījumi automātiskai augšupielādei</string>
     <string name="synced_folders_preferences_folder_path">Priekš %1$s</string>
     <string name="synced_folders_type">Tips</string>

@@ -26,7 +26,7 @@ buildscript {
         }
         classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.6'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.2.0"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.2.2"
     }
 }
 
@@ -110,7 +110,8 @@ android {
             'VectorPath',
             'IconMissingDensityFolder',
             'IconDensities',
-            'GoogleAppIndexingWarning'
+            'GoogleAppIndexingWarning',
+            'MissingDefaultResource'
     }
 
     dexOptions {
@@ -167,8 +168,8 @@ android {
             versionDev {
                 applicationId "com.nextcloud.android.beta"
                 dimension "default"
-                versionCode 20191127
-                versionName "20191127"
+                versionCode 20191206
+                versionName "20191206"
             }
 
             qa {
@@ -283,7 +284,7 @@ dependencies {
     implementation "androidx.work:work-runtime:2.2.0"
     implementation "androidx.work:work-runtime-ktx:2.2.0"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
-    implementation 'com.google.code.findbugs:annotations:2.0.1'
+    compileOnly 'com.google.code.findbugs:annotations:2.0.1'
     implementation 'commons-io:commons-io:2.6'
     implementation 'com.github.tobiaskaminsky:android-job:v1.2.6.1' // 'com.github.evernote:android-job:v1.2.5'
     implementation 'com.jakewharton:butterknife:10.2.0'
@@ -306,7 +307,6 @@ dependencies {
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'org.jetbrains:annotations:18.0.0'
 
     implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido:2.5.1'
 
@@ -322,7 +322,7 @@ dependencies {
     compileOnly "org.projectlombok:lombok:1.18.10"
     annotationProcessor "org.projectlombok:lombok:1.18.10"
 
-    ktlint "com.pinterest:ktlint:0.35.0"
+    ktlint "com.pinterest:ktlint:0.36.0"
     implementation 'org.conscrypt:conscrypt-android:2.2.1'
 
     // dependencies for markdown rendering
@@ -338,7 +338,7 @@ dependencies {
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:3.1.0'
+    testImplementation 'org.mockito:mockito-core:3.2.0'
     testImplementation 'androidx.test:core:1.2.0'
     testImplementation 'org.powermock:powermock-core:2.0.4'
     testImplementation 'org.powermock:powermock-module-junit4:2.0.4'

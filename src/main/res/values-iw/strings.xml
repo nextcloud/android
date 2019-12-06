@@ -76,9 +76,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">נשאר בתיקייה המקומית כיוון שהיא לקריאה בלבד</string>
     <string name="auto_upload_on_wifi">להעלות רק ברשת אלחוטית ללא מדידת כמות</string>
     <string name="auto_upload_path">/העלאה אוטומטית</string>
+    <string name="autoupload_configure">הגדרה</string>
     <string name="autoupload_create_new_custom_folder">יצירת התקנה בתיקייה בהתאמה אישית</string>
     <string name="autoupload_custom_folder">הגדרת תיקייה בהתאמה אישית</string>
     <string name="autoupload_disable_power_save_check">השבתת בדיקת חיסכון בחשמל</string>
+    <string name="autoupload_hide_folder">הסתרת תיקייה</string>
     <string name="avatar">תמונה מייצגת</string>
     <string name="battery_optimization_close">סגירה</string>
     <string name="battery_optimization_disable">השבתה</string>
@@ -169,6 +171,7 @@
     <string name="copy_link">העתקת קישור</string>
     <string name="copy_move_to_encrypted_folder_not_supported">נכון לעכשיו, אין תמיכה בהעתקה/העברה לתיקייה מוצפנת.</string>
     <string name="copy_to">העתק אל…</string>
+    <string name="could_not_download_image">לא ניתן להוריד את התמונה המלאה</string>
     <string name="could_not_retrieve_url">לא ניתן לקבל כתובת</string>
     <string name="create_dir_fail_msg">לא ניתן ליצור תיקייה</string>
     <string name="create_file_from_template">נוצר קובץ מתבנית…</string>
@@ -201,6 +204,7 @@
     <string name="downloader_download_succeeded_ticker">הורדה</string>
     <string name="downloader_not_downloaded_yet">לא הורד עדיין</string>
     <string name="drawer_close">סגירת סרגל הצד</string>
+    <string name="drawer_community">קהילה</string>
     <string name="drawer_current_account">חשבון נוכחי</string>
     <string name="drawer_end_account">חשבון אחרון</string>
     <string name="drawer_header_background">תמונת רקע של כותרת מגירה</string>
@@ -256,11 +260,14 @@
     <string name="etm_title">מצב בדיקת מהנדסים</string>
     <string name="fab_label">הוספה או העלאה</string>
     <string name="failed_to_download">העברת הקובץ למנהל ההורדות נכשלה</string>
+    <string name="failed_to_print">הדפסת הקובץ נכשלה</string>
     <string name="fallback_weblogin_back">חזרה</string>
     <string name="fallback_weblogin_text">החזרה לשיטת כניסה ישנה</string>
     <string name="favorite">הוספה למועדפים</string>
     <string name="favorite_icon">סימון כמועדף</string>
+    <string name="file">קובץ</string>
     <string name="file_delete">מחיקה</string>
+    <string name="file_detail_activity_error">שגיאה בקבלת הפעילויות לקובץ</string>
     <string name="file_details_no_content">טעינת הפרטים נכשלה</string>
     <string name="file_icon">קובץ</string>
     <string name="file_keep">שימור</string>
@@ -328,6 +335,7 @@
     <string name="first_run_2_text">שיתוף פעולה והעברת קבצים באופן מאובטח</string>
     <string name="first_run_3_text">אתר מייל, לוח שנה ואנשי קשר נוחים לשימוש</string>
     <string name="first_run_4_text">שיתוף מסך, פגישות מקוונות וכנסים מקוונים</string>
+    <string name="folder">תיקייה</string>
     <string name="folder_already_exists">התיקייה כבר קיימת</string>
     <string name="folder_confirm_create">יצירה</string>
     <string name="folder_icon">סמל תיקייה</string>
@@ -409,6 +417,7 @@
     <string name="new_notification">התראה חדשה</string>
     <string name="new_version_was_created">נוצרה גרסה חדשה</string>
     <string name="no_browser_available">אין יישומון שיכול לטפל בקישורים</string>
+    <string name="no_mutliple_accounts_allowed">מותר חשבון אחד בלבד</string>
     <string name="no_pdf_app_available">אין יישומים זמינים לטיפול ב־PDF</string>
     <string name="note_confirm">שליחה</string>
     <string name="note_could_not_sent">לא ניתן לשלוח מסר</string>
@@ -495,6 +504,10 @@
     <string name="prefs_storage_path">נתיב אחסון</string>
     <string name="prefs_synced_folders_local_path_title">תיקייה מקומית</string>
     <string name="prefs_synced_folders_remote_path_title">תיקייה מרוחקת</string>
+    <string name="prefs_theme_title">ערכת עיצוב</string>
+    <string name="prefs_value_theme_dark">כהה</string>
+    <string name="prefs_value_theme_light">בהירה</string>
+    <string name="prefs_value_theme_system">כמו המערכת</string>
     <string name="preview_image_description">תצוגה מקדימה לתמונה</string>
     <string name="preview_image_error_no_local_file">אין קובץ מקומי לתצוגה מקדימה</string>
     <string name="preview_image_error_unknown_format">לא ניתן להציג תמונה</string>
@@ -506,6 +519,7 @@
     <string name="recommend_subject">לנסות את %1$s בהתקן שלך!</string>
     <string name="recommend_text">אשמח להזמין אותך להשתמש ב־%1$s במכשיר שלך.\nניתן להוריד מכאן: %2$s</string>
     <string name="recommend_urls">%1$s או %2$s</string>
+    <string name="remote_file_fetch_failed">איתור הקובץ נכשל!</string>
     <string name="remove_fail_msg">המחיקה נכשלה</string>
     <string name="remove_notification_failed">הסרת ההתראה נכשלה.</string>
     <string name="remove_push_notification">הסרה</string>
@@ -525,13 +539,17 @@
     <string name="saml_authentication_wrong_pass">סיסמא שגוייה</string>
     <string name="scanQR_description">כניסה עם קוד QR</string>
     <string name="screenshot_01_gridView_heading">הגנה על הנתונים שלך</string>
+    <string name="screenshot_01_gridView_subline">כלי משרד באירוח עצמי</string>
     <string name="screenshot_02_listView_heading">עיון ושיתוף</string>
     <string name="screenshot_02_listView_subline">כל הפעולות בהינף יד</string>
+    <string name="screenshot_03_drawer_heading">פעילות, שיתופים, …</string>
     <string name="screenshot_03_drawer_subline">הכול נגיש במהירות</string>
     <string name="screenshot_04_accounts_heading">כל החשבונות שלך</string>
     <string name="screenshot_04_accounts_subline">במקום אחד</string>
     <string name="screenshot_05_autoUpload_heading">העלאה אוטומטית</string>
     <string name="screenshot_05_autoUpload_subline">לתמונות ולסרטונים שלך</string>
+    <string name="screenshot_06_davdroid_heading">לוח שנה ואנשי קשר</string>
+    <string name="screenshot_06_davdroid_subline">סנכרון עם DAVx5</string>
     <string name="search_users_and_groups_hint">חיפוש משתמשים וקבוצות</string>
     <string name="select_all">בחר הכל</string>
     <string name="select_template">בחירת תבנית</string>
@@ -549,6 +567,8 @@
     <string name="share_file">שיתוף %1$s</string>
     <string name="share_get_public_link_button">קבלת קישור</string>
     <string name="share_group_clarification">%1$s (קבוצה)</string>
+    <string name="share_internal_link">שיתוף קישור פנימי</string>
+    <string name="share_internal_link_text">עובד עבור משתמשים עם גישה ל%1$s הזו</string>
     <string name="share_known_remote_clarification">%1$s ( ב- %2$s )</string>
     <string name="share_link_empty_password">יש להכניס סיסמא</string>
     <string name="share_link_file_error">שגיאה אירעה בזמן ניסיון לשתף קובץ זה או תיקייה זו</string>

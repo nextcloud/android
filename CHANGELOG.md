@@ -1,3 +1,16 @@
+3.9.2 (December, 05, 2019)
+
+- HOTFIX: fix login loop
+- Fix crash on opening png images
+- Translation updates
+
+3.9.1 (December, 04, 2019)
+
+- Fix crash on opening png images
+- Translation updates
+
+For a full list, please see https://github.com/nextcloud/android/milestone/43
+
 3.9.0 (November, 12, 2019)
 
 - preview Markdown with syntax highlighting @AndyScherzinger

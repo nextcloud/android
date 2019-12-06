@@ -76,9 +76,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">salt okunur olduğundan özgün klasörde kaldı</string>
     <string name="auto_upload_on_wifi">Yalnız kullanıma göre ücretlendirilmeyen kablosuz ağ üzerinden yüklensin</string>
     <string name="auto_upload_path">/OtomatikYükleme</string>
+    <string name="autoupload_configure">Ayarla</string>
     <string name="autoupload_create_new_custom_folder">Özel klasör kurulumu ekle</string>
     <string name="autoupload_custom_folder">Bir özel klasör kurun</string>
     <string name="autoupload_disable_power_save_check">Güç koruma denetimini devre dışı bırak</string>
+    <string name="autoupload_hide_folder">Klasörü gizle</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Kapat</string>
     <string name="battery_optimization_disable">Devre dışı bırak</string>
@@ -505,6 +507,7 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_value_theme_dark">Koyu</string>
     <string name="prefs_value_theme_light">Açık</string>
+    <string name="prefs_value_theme_system">Sistemi takip et</string>
     <string name="preview_image_description">Görsel ön izleme</string>
     <string name="preview_image_error_no_local_file">Ön izlenebilecek bir yerel dosya yok</string>
     <string name="preview_image_error_unknown_format">Görsel görüntülenemedi</string>
@@ -676,7 +679,7 @@
     <string name="synced_folders_configure_folders">Klasör ayarları</string>
     <string name="synced_folders_loading_folders">Klasörler yükleniyor…</string>
     <string name="synced_folders_new_info">Anında yükleme tamamen elden geçirildi. Lütfen ama menüye giderek otomatik yükleme ayarlarınızı yeniden yapın.\n\nYeni ve geliştirilmiş otomatik yükleme özelliklerinin tadını çıkarın.</string>
-    <string name="synced_folders_no_results">Herhangi bir ortam klasörü bulunamadı.</string>
+    <string name="synced_folders_no_results">Medya klasörü bulunamadı</string>
     <string name="synced_folders_preferences">Otomatik yükleme ayarları</string>
     <string name="synced_folders_preferences_folder_path">%1$s için</string>
     <string name="synced_folders_type">Tür</string>
@@ -804,6 +807,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d dosya</item>
         <item quantity="other">%1$d dosya</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">%1$dgizli klasörleri göster</item>
+        <item quantity="other">%1$d gizli klasörleri göster</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d seçilmiş</item>

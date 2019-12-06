@@ -536,7 +536,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Unele fisiere locale au fost uitate</string>
     <string name="sync_string_files">Fișiere</string>
     <string name="synced_folders_loading_folders">Încărcare dosare…</string>
-    <string name="synced_folders_no_results">Nu au fost găsite dosare media.</string>
     <string name="synced_folders_type">Tip</string>
     <string name="tags">Etichete</string>
     <string name="thumbnail">Miniatură</string>
