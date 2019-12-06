@@ -45,6 +45,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -216,8 +217,6 @@ public class FileDisplayActivity extends FileActivity
     private SearchView searchView;
     private PlayerServiceConnection mPlayerConnection;
     private Account mLastDisplayedAccount;
-
-    private Intent initialIntent;
 
     @Inject
     AppPreferences preferences;
@@ -506,19 +505,17 @@ public class FileDisplayActivity extends FileActivity
         super.onNewIntent(intent);
 
         if (ACTION_DETAILS.equalsIgnoreCase(intent.getAction())) {
+            OCFile file = intent.getParcelableExtra(EXTRA_FILE);
+            setFile(file);
             setIntent(intent);
-            setFile(intent.getParcelableExtra(EXTRA_FILE));
-            // Showing details after getting an intent
-            showDetails(intent.getParcelableExtra(EXTRA_FILE));
+            showDetails(file);
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             handleOpenFileViaIntent(intent);
         } else if (RESTART.equals(intent.getAction())) {
-            initialIntent = null;
             finish();
             startActivity(intent);
         } else // Verify the action and get the query
             if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-                initialIntent = intent;
                 setIntent(intent);
 
                 SearchEvent searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
@@ -544,7 +541,6 @@ public class FileDisplayActivity extends FileActivity
                     transaction.commit();
                 }
             } else if (UsersAndGroupsSearchProvider.ACTION_SHARE_WITH.equals(intent.getAction())) {
-                initialIntent = intent;
                 Uri data = intent.getData();
                 String dataString = intent.getDataString();
                 String shareWith = dataString.substring(dataString.lastIndexOf('/') + 1);
