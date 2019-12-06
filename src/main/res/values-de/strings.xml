@@ -507,6 +507,7 @@
     <string name="prefs_theme_title">Design</string>
     <string name="prefs_value_theme_dark">Dunkel</string>
     <string name="prefs_value_theme_light">Hell</string>
+    <string name="prefs_value_theme_system">Systemvorgaben verwenden</string>
     <string name="preview_image_description">Bildvorschau</string>
     <string name="preview_image_error_no_local_file">Keine lokale Datei für die Vorschau vorhanden</string>
     <string name="preview_image_error_unknown_format">Bild kann nicht angezeigt werden</string>
