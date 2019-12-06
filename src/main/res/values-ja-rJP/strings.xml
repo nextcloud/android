@@ -76,9 +76,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">読み取り専用のため元のフォルダに残しました</string>
     <string name="auto_upload_on_wifi">定額制 Wi-Fi でのみアップロード</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="autoupload_configure">設定</string>
     <string name="autoupload_create_new_custom_folder">新しいカスタムフォルダセットアップを作成する</string>
     <string name="autoupload_custom_folder">カスタムフォルダを設定する</string>
     <string name="autoupload_disable_power_save_check">省電力チェックを無効化</string>
+    <string name="autoupload_hide_folder">フォルダを隠す</string>
     <string name="avatar">アバター</string>
     <string name="battery_optimization_close">閉じる</string>
     <string name="battery_optimization_disable">無効</string>
@@ -255,6 +257,7 @@
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
     <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>
     <string name="etm_preferences">環境設定</string>
+    <string name="etm_title">開発者用テストモード</string>
     <string name="fab_label">追加またはアップロード</string>
     <string name="failed_to_download">ダウンロードマネージャーにファイルを渡せませんでした</string>
     <string name="failed_to_print">ファイルの印刷に失敗</string>
@@ -262,7 +265,9 @@
     <string name="fallback_weblogin_text">古いログイン方法へ戻す</string>
     <string name="favorite">お気に入りに追加</string>
     <string name="favorite_icon">お気に入り</string>
+    <string name="file">ファイル</string>
     <string name="file_delete">削除</string>
+    <string name="file_detail_activity_error">ファイルのアクティビティ取得エラー</string>
     <string name="file_details_no_content">詳細のロードに失敗しました</string>
     <string name="file_icon">ファイル</string>
     <string name="file_keep">保持</string>
@@ -330,6 +335,7 @@
     <string name="first_run_2_text">セキュアなコラボレーションとファイル交換</string>
     <string name="first_run_3_text">使いやすいWebメールやカレンダーや連絡先</string>
     <string name="first_run_4_text">画面共有やオンラインミーティングやウェブ会議</string>
+    <string name="folder">フォルダー</string>
     <string name="folder_already_exists">フォルダーはすでに存在します</string>
     <string name="folder_confirm_create">作成</string>
     <string name="folder_icon">フォルダアイコン</string>
@@ -370,7 +376,9 @@
     <string name="logs_menu_refresh">更新</string>
     <string name="logs_menu_search">ログを検索</string>
     <string name="logs_menu_send">ログをメールで送信</string>
+    <string name="logs_status_filtered">ログ: %1$d kB, 一致 %2$d 件 / %3$d 件、%4$d ms </string>
     <string name="logs_status_loading">読み込み中…</string>
+    <string name="logs_status_not_filtered">ログ: %1$d kB, フィルタ無し</string>
     <string name="logs_title">ログ</string>
     <string name="maintenance_mode">サーバーはメンテナンスモードです。</string>
     <string name="manage_space_clear_data">データのクリア</string>
@@ -409,6 +417,7 @@
     <string name="new_notification">新しい通知</string>
     <string name="new_version_was_created">新しいバージョンが作成されました</string>
     <string name="no_browser_available">リンクを処理するアプリがありません</string>
+    <string name="no_mutliple_accounts_allowed">利用できるアカウントは１つだけです</string>
     <string name="no_pdf_app_available">PDFを処理するアプリケーションがありません</string>
     <string name="note_confirm">送信</string>
     <string name="note_could_not_sent">メモを送信できませんでした</string>
@@ -495,6 +504,10 @@
     <string name="prefs_storage_path">ストレージの場所</string>
     <string name="prefs_synced_folders_local_path_title">ローカルフォルダー</string>
     <string name="prefs_synced_folders_remote_path_title">リモートフォルダー</string>
+    <string name="prefs_theme_title">テーマ</string>
+    <string name="prefs_value_theme_dark">暗い</string>
+    <string name="prefs_value_theme_light">明るい</string>
+    <string name="prefs_value_theme_system">システムの設定に従う</string>
     <string name="preview_image_description">イメージプレビュー</string>
     <string name="preview_image_error_no_local_file">プレビューするローカルファイルはありません</string>
     <string name="preview_image_error_unknown_format">画像を表示できません</string>
@@ -506,6 +519,7 @@
     <string name="recommend_subject">デバイスで %1$s をお試しください</string>
     <string name="recommend_text">あなたのデバイスで %1$s を使用してください。\nダウンロードはこちらです: %2$s</string>
     <string name="recommend_urls">%1$s または %2$s</string>
+    <string name="remote_file_fetch_failed">ファイルが見つかりません！</string>
     <string name="remove_fail_msg">削除失敗</string>
     <string name="remove_notification_failed">通知の削除に失敗</string>
     <string name="remove_push_notification">削除</string>
@@ -525,10 +539,17 @@
     <string name="saml_authentication_wrong_pass">パスワードが間違っています</string>
     <string name="scanQR_description">QRコードを用いてログイン</string>
     <string name="screenshot_01_gridView_heading">あなたのデータを保護</string>
+    <string name="screenshot_01_gridView_subline">自己ホスト型の生産性</string>
     <string name="screenshot_02_listView_heading">閲覧と共有</string>
+    <string name="screenshot_02_listView_subline">すべての操作をあなたの指で</string>
+    <string name="screenshot_03_drawer_heading">アクティビティ、共有、 …</string>
+    <string name="screenshot_03_drawer_subline">あらゆるものにすぐにアクセスできます</string>
     <string name="screenshot_04_accounts_heading">あなたのすべてのアカウント</string>
     <string name="screenshot_04_accounts_subline">ひとつの場所に</string>
     <string name="screenshot_05_autoUpload_heading">自動アップロード</string>
+    <string name="screenshot_05_autoUpload_subline">あなたの写真&amp;ビデオ</string>
+    <string name="screenshot_06_davdroid_heading">カレンダー &amp; 連絡先</string>
+    <string name="screenshot_06_davdroid_subline">DAVx5で同期</string>
     <string name="search_users_and_groups_hint">ユーザーとグループを検索</string>
     <string name="select_all">すべて選択</string>
     <string name="select_template">テンプレートを選択する</string>
@@ -546,6 +567,8 @@
     <string name="share_file">%1$s を共有</string>
     <string name="share_get_public_link_button">リンクを取得</string>
     <string name="share_group_clarification">%1$s (グループ)</string>
+    <string name="share_internal_link">内部リンクを共有</string>
+    <string name="share_internal_link_text">この %1$sにアクセスできるユーザーにのみ機能します</string>
     <string name="share_known_remote_clarification">%1$s ( %2$s で)</string>
     <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
     <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
@@ -629,6 +652,10 @@
     <string name="storage_movies">動画</string>
     <string name="storage_music">音楽</string>
     <string name="storage_pictures">写真</string>
+    <string name="store_full_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム\n\nフィーチャー：\n* 簡単でモダンなインターフェースであなたのサーバに適合\n* あなたのNextcloudサーバにファイルをアップロード\n* ファイルの共有\n* お気に入りのファイルやフォルダをいつでも同期\n* サーバのすべてのフォルダをまたいで検索\n* あなたのデバイスで撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダー&amp;連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期&amp;共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分のためのホストをたてたり、そのための有償サービスを企業から受けることが出来るので、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\nNextcloud 詳細は https://nextcloud.com まで。</string>
+    <string name="store_full_dev_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム。\nこれは公式の開発バージョンです。テストされていない新しい機能のサンプルを毎日提供しており、不安定やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、バグが発生した場合にレポートを必要とします。 実業務では使用しないでください！\n\n公式開発の正規バージョンはF-droidからもインストールできます。</string>
+    <string name="store_short_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム</string>
+    <string name="store_short_dev_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム（開発プレビューバージョン）</string>
     <string name="stream">ストリームと...</string>
     <string name="stream_not_possible_headline">内部ストリーミングは不可能</string>
     <string name="stream_not_possible_message">代わりにメディアをダウンロードするか、外部アプリを使用してください。</string>
@@ -652,6 +679,7 @@
     <string name="synced_folders_configure_folders">フォルダの設定</string>
     <string name="synced_folders_loading_folders">フォルダーの読み込み中…</string>
     <string name="synced_folders_new_info">インスタントアップロードは完全に改訂されました。 メインメニューから自動アップロードを再設定してください。\n\n新しく拡張された自動アップロードをお楽しみください。</string>
+    <string name="synced_folders_no_results">メディアフォルダーが見つかりません</string>
     <string name="synced_folders_preferences">自動アップロード設定</string>
     <string name="synced_folders_preferences_folder_path">%1$sの</string>
     <string name="synced_folders_type">タイプ</string>
@@ -775,6 +803,9 @@
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="other">%1$d ファイル</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="other">%1$d 件の隠しフォルダを表示する</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="other">%d 選択</item>

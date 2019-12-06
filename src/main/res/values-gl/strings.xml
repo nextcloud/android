@@ -508,6 +508,7 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_value_theme_dark">Escuro</string>
     <string name="prefs_value_theme_light">Claro</string>
+    <string name="prefs_value_theme_system">Seguir o sistema</string>
     <string name="preview_image_description">Vista previa da imaxe</string>
     <string name="preview_image_error_no_local_file">Non hai ficheiro local que ver</string>
     <string name="preview_image_error_unknown_format">Non é posíbel amosar a imaxe</string>
