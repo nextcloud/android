@@ -48,7 +48,7 @@ trigger:
 
 ---
 kind: pipeline
-name: gplay
+name: android10
 
 steps:
   - name: test
