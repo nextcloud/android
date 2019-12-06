@@ -248,12 +248,8 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
         // Hide the recyclerView if list is empty
         if (adapter.isEmpty()) {
+            showEmptyContent(noResultsHeadline, noResultsMessage);
             recyclerView.setVisibility(View.INVISIBLE);
-
-            emptyContentMessage.setText(noResultsMessage);
-            emptyContentHeadline.setText(noResultsHeadline);
-            emptyContentMessage.setVisibility(View.VISIBLE);
-            emptyContentHeadline.setVisibility(View.VISIBLE);
         } else {
             emptyContentMessage.setVisibility(View.INVISIBLE);
             emptyContentHeadline.setVisibility(View.INVISIBLE);
@@ -308,6 +304,9 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
             emptyContentProgressBar.setVisibility(View.GONE);
             emptyContentIcon.setVisibility(View.VISIBLE);
+            emptyContentHeadline.setVisibility(View.VISIBLE);
+            emptyContentMessage.setVisibility(View.VISIBLE);
+
         }
     }
 
