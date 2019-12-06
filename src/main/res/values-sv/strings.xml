@@ -507,6 +507,7 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_value_theme_dark">Mörkt</string>
     <string name="prefs_value_theme_light">Ljust</string>
+    <string name="prefs_value_theme_system">Följ systemet</string>
     <string name="preview_image_description">Förhandsvisa bild</string>
     <string name="preview_image_error_no_local_file">Där finns ingen lokal fil att förhandsvisa</string>
     <string name="preview_image_error_unknown_format">Kan inte visa bild</string>
