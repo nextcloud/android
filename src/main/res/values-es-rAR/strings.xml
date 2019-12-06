@@ -599,7 +599,6 @@
     <string name="synced_folders_configure_folders">Configurar carpetas</string>
     <string name="synced_folders_loading_folders">Cargando carpetas…</string>
     <string name="synced_folders_new_info">La carga instantánea ha sido completamente modernizada. Reconfigure su carga automática desde el menu principal. \n\nDisfrute de las nuevas y extendidas capacidades de la carga automática. </string>
-    <string name="synced_folders_no_results">No se encontraron carpetas de medios</string>
     <string name="synced_folders_preferences">Preferencias de carga automática</string>
     <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <string name="synced_folders_type">Escribir</string>

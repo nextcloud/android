@@ -76,9 +76,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">се чува во оргиналната папка, како да се само за читање</string>
     <string name="auto_upload_on_wifi">Прикачувај само на неограничена Wi-Fi мрежа</string>
     <string name="auto_upload_path">/Автоматско прикачување</string>
+    <string name="autoupload_configure">Конфигурирај</string>
     <string name="autoupload_create_new_custom_folder">Креирај нова папка за инсталација</string>
     <string name="autoupload_custom_folder">Креирај нова папка</string>
     <string name="autoupload_disable_power_save_check">Оневозможи проверка за заштеда на енергија</string>
+    <string name="autoupload_hide_folder">Сокриј папка</string>
     <string name="avatar">Аватар</string>
     <string name="battery_optimization_close">Затвори</string>
     <string name="battery_optimization_disable">Оневозможи</string>
@@ -246,6 +248,7 @@
     <string name="fallback_weblogin_text">Врти се на стариот начин на за најавување</string>
     <string name="favorite">Додади во фаворити</string>
     <string name="favorite_icon">Омилен</string>
+    <string name="file">датотека</string>
     <string name="file_delete">Избриши</string>
     <string name="file_detail_activity_error">Грешка при превземањето на активностите за датотеката</string>
     <string name="file_details_no_content">Неуспешно вчитување на деталите</string>
@@ -315,6 +318,7 @@
     <string name="first_run_2_text">Безбедна соработка &amp; пренос на датотеки</string>
     <string name="first_run_3_text">Лесно за користење веб базирана е-пошта &amp; контакти</string>
     <string name="first_run_4_text">Споделување на екранот, онлајн состаноци &amp; веб конференции</string>
+    <string name="folder">папка</string>
     <string name="folder_already_exists">Папката веќе постои</string>
     <string name="folder_confirm_create">Креирај</string>
     <string name="folder_icon">Икона на папка</string>
@@ -519,11 +523,13 @@
     <string name="screenshot_01_gridView_heading">Заштитете ги вашите податоци</string>
     <string name="screenshot_02_listView_heading">Прелистај и сподели</string>
     <string name="screenshot_02_listView_subline">сите активности се во вашите раце</string>
+    <string name="screenshot_03_drawer_heading">Активности, споделувања, ...</string>
     <string name="screenshot_03_drawer_subline">сè брзо достапно</string>
     <string name="screenshot_04_accounts_heading">Сите ваши сметки</string>
     <string name="screenshot_04_accounts_subline">на едно место</string>
     <string name="screenshot_05_autoUpload_heading">Автоматско прикачување</string>
     <string name="screenshot_05_autoUpload_subline">за вашите слики &amp; видеа</string>
+    <string name="screenshot_06_davdroid_heading">Календар &amp; контакти</string>
     <string name="search_users_and_groups_hint">Пребарувај корисници и групи</string>
     <string name="select_all">Избери се</string>
     <string name="select_template">Избери шаблон</string>
@@ -541,6 +547,8 @@
     <string name="share_file">Сподели %1$s</string>
     <string name="share_get_public_link_button">Земете линк</string>
     <string name="share_group_clarification">%1$s (група)</string>
+    <string name="share_internal_link">Сподели внатрешен линк</string>
+    <string name="share_internal_link_text">Функционира само за корисници со пристап до оваа %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( на %2$s )</string>
     <string name="share_link_empty_password">Морате да внесете лозинка</string>
     <string name="share_link_file_error">Се случи грешка кога пробав да ја споделам оваа папка</string>
@@ -779,6 +787,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d датотека</item>
         <item quantity="other">%1$d датотеки</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Прикажи %1$d сокриена папка</item>
+        <item quantity="other">Прикажи %1$d сокриени папки</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d означена</item>

@@ -675,7 +675,6 @@
     <string name="synced_folders_configure_folders">Configureu les carpetes</string>
     <string name="synced_folders_loading_folders">S\'està carregant les carpetes…</string>
     <string name="synced_folders_new_info">La càrrega instantània s\'ha renovat completament. Torneu a configurar la vostra càrrega automàtica des de dins del menú principal.\n\nGaudiu de la nova càrrega automàtica amb més funcionalitats.</string>
-    <string name="synced_folders_no_results">No s\'han trobat carpetes amb contingut multimèdia</string>
     <string name="synced_folders_preferences">Preferències de la càrrega automàtica</string>
     <string name="synced_folders_preferences_folder_path">Per %1$s</string>
     <string name="synced_folders_type">Tipus</string>

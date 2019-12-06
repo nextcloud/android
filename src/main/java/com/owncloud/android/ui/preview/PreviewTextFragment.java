@@ -557,8 +557,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
     }
 
     private void setText(TextView textView, String text, OCFile file) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN
-            && MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN.equals(file.getMimeType())) {
+        if (MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN.equals(file.getMimeType())) {
             textView.setText(getRenderedMarkdownText(getContext(), text));
         } else {
             textView.setText(text);

@@ -73,9 +73,4 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:colorBackground">@color/bg_default</item>
     </style>
-
-    <style name="Nextcloud.EditText.Login" parent="ThemeOverlay.MaterialComponents.TextInputEditText">
-        <item name="colorControlNormal">@color/login_text_color</item>
-        <item name="colorControlActivated">@color/login_text_color</item>
-    </style>
 </resources>

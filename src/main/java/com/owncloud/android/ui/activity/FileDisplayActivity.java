@@ -28,7 +28,6 @@ package com.owncloud.android.ui.activity;
 import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -42,7 +41,6 @@ import android.content.SyncRequest;
 import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
@@ -939,7 +937,6 @@ public class FileDisplayActivity extends FileActivity
     /**
      * Called, when the user selected something for uploading
      */
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -1077,10 +1074,7 @@ public class FileDisplayActivity extends FileActivity
 
         ArrayList<Parcelable> streamsToUpload = new ArrayList<>();
 
-        //getClipData is only supported on api level 16+, Jelly Bean
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN &&
-                contentIntent.getClipData() != null &&
-                contentIntent.getClipData().getItemCount() > 0) {
+        if (contentIntent.getClipData() != null && contentIntent.getClipData().getItemCount() > 0) {
 
             for (int i = 0; i < contentIntent.getClipData().getItemCount(); i++) {
                 streamsToUpload.add(contentIntent.getClipData().getItemAt(i).getUri());
