@@ -323,18 +323,21 @@ public class PreviewImageActivity extends FileActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean returnValue = false;
 
-        switch(item.getItemId()){
-        case android.R.id.home:
-            if (isDrawerOpen()) {
-                closeDrawer();
-            } else {
-                backToDisplayActivity();
-            }
-            returnValue = true;
-            break;
-        default:
-        	returnValue = super.onOptionsItemSelected(item);
-            break;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (isDrawerOpen()) {
+                    closeDrawer();
+                } else {
+                    backToDisplayActivity();
+                }
+                returnValue = true;
+                break;
+            case R.id.action_see_details:
+                showDetails(getFile());
+                break;
+            default:
+                returnValue = super.onOptionsItemSelected(item);
+                break;
         }
 
         return returnValue;
@@ -375,12 +378,10 @@ public class PreviewImageActivity extends FileActivity implements
     @SuppressFBWarnings("DLS")
     @Override
     public void showDetails(OCFile file) {
-        final Account currentAccount = getUserAccountManager().getCurrentAccount();
         final Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.setAction(FileDisplayActivity.ACTION_DETAILS);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, file);
-        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, currentAccount);
-        showDetailsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        // showDetailsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(showDetailsIntent);
         finish();
     }

@@ -45,6 +45,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -504,8 +505,10 @@ public class FileDisplayActivity extends FileActivity
         super.onNewIntent(intent);
 
         if (ACTION_DETAILS.equalsIgnoreCase(intent.getAction())) {
+            OCFile file = intent.getParcelableExtra(EXTRA_FILE);
+            setFile(file);
             setIntent(intent);
-            setFile(intent.getParcelableExtra(EXTRA_FILE));
+            showDetails(file);
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             handleOpenFileViaIntent(intent);
         } else if (RESTART.equals(intent.getAction())) {
@@ -1161,15 +1164,6 @@ public class FileDisplayActivity extends FileActivity
             // close drawer first
             super.onBackPressed();
         } else {
-            // all closed
-
-            //if PreviewImageActivity called this activity and mDualPane==false  then calls PreviewImageActivity again
-            if (ACTION_DETAILS.equalsIgnoreCase(getIntent().getAction()) && !mDualPane) {
-                getIntent().setAction(null);
-                getIntent().putExtra(EXTRA_FILE, (OCFile) null);
-                startImagePreview(getFile(), false);
-            }
-
             OCFileListFragment listOfFiles = getListOfFilesFragment();
             if (mDualPane || getSecondFragment() == null) {
                 OCFile currentDir = getCurrentDir();
