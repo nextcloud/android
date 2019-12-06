@@ -709,7 +709,11 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         themePref.setEntries(themeEntries.toArray(new String[0]));
         themePref.setEntryValues(themeValues.toArray(new String[0]));
-        themePref.setSummary(themePref.getEntry().length() == 0 ? DarkMode.LIGHT.name() : themePref.getEntry());
+
+        if (TextUtils.isEmpty(themePref.getEntry())) {
+            themePref.setValue(DarkMode.LIGHT.name());
+            themePref.setSummary(TextUtils.isEmpty(themePref.getEntry()) ? DarkMode.LIGHT.name() : themePref.getEntry());
+        }
 
         themePref.setOnPreferenceChangeListener((preference, newValue) -> {
             DarkMode mode = DarkMode.valueOf((String) newValue);
