@@ -78,11 +78,10 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
-import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -253,6 +252,7 @@ public class FileUploader extends Service
     /**
      * Service clean up
      */
+    @SuppressWarnings("PMD.NullAssignment")
     @Override
     public void onDestroy() {
         Log_OC.v(TAG, "Destroying service");
@@ -297,177 +297,28 @@ public class FileUploader extends Service
         }
 
         boolean retry = intent.getBooleanExtra(KEY_RETRY, false);
-        AbstractList<String> requestedUploads = new Vector<>();
+        List<String> requestedUploads = new ArrayList<>();
 
         boolean onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, false);
         boolean whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
 
-        if (!retry) {
+        if (!retry) { // Start new uploads
             if (!(intent.hasExtra(KEY_LOCAL_FILE) || intent.hasExtra(KEY_FILE))) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
                 return Service.START_NOT_STICKY;
             }
 
-            String[] localPaths = null;
-            String[] remotePaths = null;
-            String[] mimeTypes = null;
-            OCFile[] files = null;
-
-            if (intent.hasExtra(KEY_FILE)) {
-                Parcelable[] files_temp = intent.getParcelableArrayExtra(KEY_FILE);
-                files = new OCFile[files_temp.length];
-                System.arraycopy(files_temp, 0, files, 0, files_temp.length);
-            } else {
-                localPaths = intent.getStringArrayExtra(KEY_LOCAL_FILE);
-                remotePaths = intent.getStringArrayExtra(KEY_REMOTE_FILE);
-                mimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
+            Integer error = gatherAndStartNewUploads(intent, account, requestedUploads, onWifiOnly, whileChargingOnly);
+            if (error != null) {
+                return error;
             }
-
-            if (intent.hasExtra(KEY_FILE) && files == null) {
-                Log_OC.e(TAG, "Incorrect array for OCFiles provided in upload intent");
-                return Service.START_NOT_STICKY;
-            } else if (!intent.hasExtra(KEY_FILE)) {
-                if (localPaths == null) {
-                    Log_OC.e(TAG, "Incorrect array for local paths provided in upload intent");
-                    return Service.START_NOT_STICKY;
-                }
-                if (remotePaths == null) {
-                    Log_OC.e(TAG, "Incorrect array for remote paths provided in upload intent");
-                    return Service.START_NOT_STICKY;
-                }
-                if (localPaths.length != remotePaths.length) {
-                    Log_OC.e(TAG, "Different number of remote paths and local paths!");
-                    return Service.START_NOT_STICKY;
-                }
-
-                files = new OCFile[localPaths.length];
-                for (int i = 0; i < localPaths.length; i++) {
-                    files[i] = UploadFileOperation.obtainNewOCFileToUpload(
-                        remotePaths[i],
-                        localPaths[i],
-                        mimeTypes != null ? mimeTypes[i] : null
-                    );
-                    if (files[i] == null) {
-                        Log_OC.e(TAG, "obtainNewOCFileToUpload() returned null for remotePaths[i]:" + remotePaths[i]
-                            + " and localPaths[i]:" + localPaths[i]);
-                        return Service.START_NOT_STICKY;
-                    }
-                }
-            }
-            // at this point variable "OCFile[] files" is loaded correctly.
-
-            NameCollisionPolicy nameCollisionPolicy = (NameCollisionPolicy) intent.getSerializableExtra(KEY_NAME_COLLISION_POLICY);
-            if (nameCollisionPolicy == null) {
-                nameCollisionPolicy = NameCollisionPolicy.DEFAULT;
-            }
-            int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
-            boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
-            int createdBy = intent.getIntExtra(KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
-            String uploadKey;
-            UploadFileOperation newUpload;
-            try {
-                for (OCFile file : files) {
-                    OCUpload ocUpload = new OCUpload(file, account);
-                    ocUpload.setFileSize(file.getFileLength());
-                    ocUpload.setNameCollisionPolicy(nameCollisionPolicy);
-                    ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
-                    ocUpload.setCreatedBy(createdBy);
-                    ocUpload.setLocalAction(localAction);
-                    ocUpload.setUseWifiOnly(onWifiOnly);
-                    ocUpload.setWhileChargingOnly(whileChargingOnly);
-                    ocUpload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
-
-                    newUpload = new UploadFileOperation(
-                        mUploadsStorageManager,
-                        connectivityService,
-                        powerManagementService,
-                        account,
-                        file,
-                        ocUpload,
-                        nameCollisionPolicy,
-                        localAction,
-                        this,
-                        onWifiOnly,
-                        whileChargingOnly
-                    );
-                    newUpload.setCreatedBy(createdBy);
-                    if (isCreateRemoteFolder) {
-                        newUpload.setRemoteFolderToBeCreated();
-                    }
-                    newUpload.addDataTransferProgressListener(this);
-                    newUpload.addDataTransferProgressListener((FileUploaderBinder) mBinder);
-
-                    newUpload.addRenameUploadListener(this);
-
-                    Pair<String, String> putResult = mPendingUploads.putIfAbsent(
-                        account.name,
-                        file.getRemotePath(),
-                        newUpload
-                    );
-                    if (putResult != null) {
-                        uploadKey = putResult.first;
-                        requestedUploads.add(uploadKey);
-
-                        // Save upload in database
-                        long id = mUploadsStorageManager.storeUpload(ocUpload);
-                        newUpload.setOCUploadId(id);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                Log_OC.e(TAG, "Not enough information provided in intent: " + e.getMessage());
-                return START_NOT_STICKY;
-            } catch (IllegalStateException e) {
-                Log_OC.e(TAG, "Bad information provided in intent: " + e.getMessage());
-                return START_NOT_STICKY;
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Unexpected exception while processing upload intent", e);
-                return START_NOT_STICKY;
-            }
-            // *** TODO REWRITE: block inserted to request A retry; too many code copied, no control exception ***/
-        } else {
+        } else { // Retry uploads
             if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_RETRY_UPLOAD)) {
                 Log_OC.e(TAG, "Not enough information provided in intent: no KEY_RETRY_UPLOAD_KEY");
                 return START_NOT_STICKY;
             }
-            OCUpload upload = intent.getParcelableExtra(KEY_RETRY_UPLOAD);
-
-            onWifiOnly = upload.isUseWifiOnly();
-            whileChargingOnly = upload.isWhileChargingOnly();
-
-            UploadFileOperation newUpload = new UploadFileOperation(
-                mUploadsStorageManager,
-                connectivityService,
-                powerManagementService,
-                account,
-                null,
-                upload,
-                upload.getNameCollisionPolicy(),  // TODO should be read from DB?
-                upload.getLocalAction(),    // TODO should be read from DB?
-                this,
-                onWifiOnly,
-                whileChargingOnly
-            );
-
-            newUpload.addDataTransferProgressListener(this);
-            newUpload.addDataTransferProgressListener((FileUploaderBinder) mBinder);
-
-            newUpload.addRenameUploadListener(this);
-
-            Pair<String, String> putResult = mPendingUploads.putIfAbsent(
-                account.name,
-                upload.getRemotePath(),
-                newUpload
-            );
-            if (putResult != null) {
-                String uploadKey = putResult.first;
-                requestedUploads.add(uploadKey);
-
-                // Update upload in database
-                upload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
-                mUploadsStorageManager.updateUpload(upload);
-            }
+            retryUploads(intent, account, requestedUploads);
         }
-        // *** TODO REWRITE END ***/
 
         if (requestedUploads.size() > 0) {
             Message msg = mServiceHandler.obtainMessage();
@@ -477,6 +328,207 @@ public class FileUploader extends Service
             sendBroadcastUploadsAdded();
         }
         return Service.START_NOT_STICKY;
+    }
+
+    /**
+     * Gather and start new uploads.
+     *
+     * @return A {@link Service} constant in case of error, {@code null} otherwise.
+     */
+    @Nullable
+    private Integer gatherAndStartNewUploads(
+        Intent intent,
+        Account account,
+        List<String> requestedUploads,
+        boolean onWifiOnly,
+        boolean whileChargingOnly
+    ) {
+        String[] localPaths = null;
+        String[] remotePaths = null;
+        String[] mimeTypes = null;
+        OCFile[] files = null;
+
+        if (intent.hasExtra(KEY_FILE)) {
+            Parcelable[] files_temp = intent.getParcelableArrayExtra(KEY_FILE);
+            files = new OCFile[files_temp.length];
+            System.arraycopy(files_temp, 0, files, 0, files_temp.length);
+        } else {
+            localPaths = intent.getStringArrayExtra(KEY_LOCAL_FILE);
+            remotePaths = intent.getStringArrayExtra(KEY_REMOTE_FILE);
+            mimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
+        }
+
+        if (intent.hasExtra(KEY_FILE) && files == null) {
+            Log_OC.e(TAG, "Incorrect array for OCFiles provided in upload intent");
+            return Service.START_NOT_STICKY;
+        } else if (!intent.hasExtra(KEY_FILE)) {
+            if (localPaths == null) {
+                Log_OC.e(TAG, "Incorrect array for local paths provided in upload intent");
+                return Service.START_NOT_STICKY;
+            }
+            if (remotePaths == null) {
+                Log_OC.e(TAG, "Incorrect array for remote paths provided in upload intent");
+                return Service.START_NOT_STICKY;
+            }
+            if (localPaths.length != remotePaths.length) {
+                Log_OC.e(TAG, "Different number of remote paths and local paths!");
+                return Service.START_NOT_STICKY;
+            }
+
+            files = new OCFile[localPaths.length];
+            for (int i = 0; i < localPaths.length; i++) {
+                files[i] = UploadFileOperation.obtainNewOCFileToUpload(
+                    remotePaths[i],
+                    localPaths[i],
+                    mimeTypes != null ? mimeTypes[i] : null
+                );
+                if (files[i] == null) {
+                    Log_OC.e(TAG, "obtainNewOCFileToUpload() returned null for remotePaths[i]:" + remotePaths[i]
+                        + " and localPaths[i]:" + localPaths[i]);
+                    return Service.START_NOT_STICKY;
+                }
+            }
+        }
+        // at this point variable "OCFile[] files" is loaded correctly.
+
+        NameCollisionPolicy nameCollisionPolicy = (NameCollisionPolicy) intent.getSerializableExtra(KEY_NAME_COLLISION_POLICY);
+        if (nameCollisionPolicy == null) {
+            nameCollisionPolicy = NameCollisionPolicy.DEFAULT;
+        }
+        int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
+        boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
+        int createdBy = intent.getIntExtra(KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
+        try {
+            for (OCFile file : files) {
+                startNewUpload(
+                    account,
+                    requestedUploads,
+                    onWifiOnly,
+                    whileChargingOnly,
+                    nameCollisionPolicy,
+                    localAction,
+                    isCreateRemoteFolder,
+                    createdBy,
+                    file
+                );
+            }
+        } catch (IllegalArgumentException e) {
+            Log_OC.e(TAG, "Not enough information provided in intent: " + e.getMessage());
+            return START_NOT_STICKY;
+        } catch (IllegalStateException e) {
+            Log_OC.e(TAG, "Bad information provided in intent: " + e.getMessage());
+            return START_NOT_STICKY;
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Unexpected exception while processing upload intent", e);
+            return START_NOT_STICKY;
+        }
+        return null;
+    }
+
+    /**
+     * Start a new {@link UploadFileOperation}.
+     */
+    private void startNewUpload(
+        Account account,
+        List<String> requestedUploads,
+        boolean onWifiOnly,
+        boolean whileChargingOnly,
+        NameCollisionPolicy nameCollisionPolicy,
+        int localAction,
+        boolean isCreateRemoteFolder,
+        int createdBy,
+        OCFile file
+    ) {
+        OCUpload ocUpload = new OCUpload(file, account);
+        ocUpload.setFileSize(file.getFileLength());
+        ocUpload.setNameCollisionPolicy(nameCollisionPolicy);
+        ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
+        ocUpload.setCreatedBy(createdBy);
+        ocUpload.setLocalAction(localAction);
+        ocUpload.setUseWifiOnly(onWifiOnly);
+        ocUpload.setWhileChargingOnly(whileChargingOnly);
+        ocUpload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
+
+        UploadFileOperation newUpload = new UploadFileOperation(
+            mUploadsStorageManager,
+            connectivityService,
+            powerManagementService,
+            account,
+            file,
+            ocUpload,
+            nameCollisionPolicy,
+            localAction,
+            this,
+            onWifiOnly,
+            whileChargingOnly
+        );
+        newUpload.setCreatedBy(createdBy);
+        if (isCreateRemoteFolder) {
+            newUpload.setRemoteFolderToBeCreated();
+        }
+        newUpload.addDataTransferProgressListener(this);
+        newUpload.addDataTransferProgressListener((FileUploaderBinder) mBinder);
+
+        newUpload.addRenameUploadListener(this);
+
+        Pair<String, String> putResult = mPendingUploads.putIfAbsent(
+            account.name,
+            file.getRemotePath(),
+            newUpload
+        );
+
+        if (putResult != null) {
+            requestedUploads.add(putResult.first);
+
+            // Save upload in database
+            long id = mUploadsStorageManager.storeUpload(ocUpload);
+            newUpload.setOCUploadId(id);
+        }
+    }
+
+    /**
+     * Retries a list of uploads.
+     */
+    private void retryUploads(Intent intent, Account account, List<String> requestedUploads) {
+        boolean onWifiOnly;
+        boolean whileChargingOnly;
+        OCUpload upload = intent.getParcelableExtra(KEY_RETRY_UPLOAD);
+
+        onWifiOnly = upload.isUseWifiOnly();
+        whileChargingOnly = upload.isWhileChargingOnly();
+
+        UploadFileOperation newUpload = new UploadFileOperation(
+            mUploadsStorageManager,
+            connectivityService,
+            powerManagementService,
+            account,
+            null,
+            upload,
+            upload.getNameCollisionPolicy(),
+            upload.getLocalAction(),
+            this,
+            onWifiOnly,
+            whileChargingOnly
+        );
+
+        newUpload.addDataTransferProgressListener(this);
+        newUpload.addDataTransferProgressListener((FileUploaderBinder) mBinder);
+
+        newUpload.addRenameUploadListener(this);
+
+        Pair<String, String> putResult = mPendingUploads.putIfAbsent(
+            account.name,
+            upload.getRemotePath(),
+            newUpload
+        );
+        if (putResult != null) {
+            String uploadKey = putResult.first;
+            requestedUploads.add(uploadKey);
+
+            // Update upload in database
+            upload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
+            mUploadsStorageManager.updateUpload(upload);
+        }
     }
 
     /**
@@ -959,14 +1011,14 @@ public class FileUploader extends Service
 
         for (OCUpload failedUpload : failedUploads) {
             accountMatch = account == null || account.name.equals(failedUpload.getAccountName());
-            resultMatch = uploadResult == null || uploadResult.equals(failedUpload.getLastResult());
+            resultMatch = uploadResult == null || uploadResult == failedUpload.getLastResult();
             if (accountMatch && resultMatch) {
                 if (currentAccount == null || !currentAccount.name.equals(failedUpload.getAccountName())) {
                     currentAccount = failedUpload.getAccount(accountManager);
                 }
 
                 if (!new File(failedUpload.getLocalPath()).exists()) {
-                    if (!failedUpload.getLastResult().equals(UploadResult.FILE_NOT_FOUND)) {
+                    if (failedUpload.getLastResult() != UploadResult.FILE_NOT_FOUND) {
                         failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
                         uploadsStorageManager.updateUpload(failedUpload);
                     }
