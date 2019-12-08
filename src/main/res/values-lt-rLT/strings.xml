@@ -441,6 +441,7 @@
     <string name="share_file">Dalintis %1$s</string>
     <string name="share_get_public_link_button">Gauti nuorodą</string>
     <string name="share_group_clarification">%1$s (grupė)</string>
+    <string name="share_internal_link_text">Veikia tik naudotojams, turintiems prieigą prie šio %1$s</string>
     <string name="share_known_remote_clarification">%1$s (šiame %2$s)</string>
     <string name="share_link_empty_password">Privalote įvesti slaptažodį</string>
     <string name="share_link_file_error">Įvyko klaida bandant dalinti šį failą ar aplanką</string>
@@ -458,7 +459,7 @@
     <string name="share_send_note">Pastaba gavėjui</string>
     <string name="share_via_link_hide_file_listing_permission_label">Paslėpti failų sąrašą</string>
     <string name="share_via_link_password_label">Apsaugoti slaptažodžiu</string>
-    <string name="share_via_link_section_title">Dalintis nuoroda</string>
+    <string name="share_via_link_section_title">Bendrinimo nuoroda</string>
     <string name="share_via_link_send_link_label">Siųsti nuorodą</string>
     <string name="share_with_edit_title">Dalintis su %1$s</string>
     <string name="share_with_title">Dalintis su…</string>
