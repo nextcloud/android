@@ -3,3 +3,4 @@ target/
 ScreenShots/
 .DS_Store
 Users/
+.vscode/settings.json
