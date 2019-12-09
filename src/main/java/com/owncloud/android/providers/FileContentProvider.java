@@ -2147,7 +2147,7 @@ public class FileContentProvider extends ContentProvider {
                                    ProviderTableMeta.UPLOADS_STATUS + ", " +
                                    ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR + ", " +
                                    ProviderTableMeta.UPLOADS_UPLOAD_TIME + ", " +
-                                   "force_overwrite" + ", " +
+                                   "force_overwrite" + ", " + // See FileUploader.NameCollisionPolicy
                                    ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER + ", " +
                                    ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP + ", " +
                                    ProviderTableMeta.UPLOADS_LAST_RESULT + ", " +

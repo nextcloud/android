@@ -1053,10 +1053,13 @@ public class FileUploader extends Service
     }
 
 
+    /**
+     * Ordinal of enumerated constants is important for old data compatibility.
+     */
     public enum NameCollisionPolicy {
+        RENAME, // Ordinal corresponds to old forceOverwrite = false (0 in database)
+        OVERWRITE, // Ordinal corresponds to old forceOverwrite = true (1 in database)
         CANCEL,
-        RENAME,
-        OVERWRITE,
         ASK_USER;
 
         public static final NameCollisionPolicy DEFAULT = RENAME;
