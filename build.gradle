@@ -118,11 +118,11 @@ android {
         javaMaxHeapSize "4g"
     }
 
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 28
+        targetSdkVersion 29
 
         // arguments to be passed to functional tests
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
