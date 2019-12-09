@@ -79,6 +79,7 @@
     <string name="autoupload_create_new_custom_folder">새 사용자 정의 폴더 설정 만들기</string>
     <string name="autoupload_custom_folder">사용자 정의 폴더 설정</string>
     <string name="autoupload_disable_power_save_check">에너지 절약 사용 안함</string>
+    <string name="autoupload_hide_folder">폴더 숨기기</string>
     <string name="avatar">아바타</string>
     <string name="battery_optimization_close">닫기</string>
     <string name="battery_optimization_disable">비활성화</string>
@@ -668,6 +669,7 @@
     <string name="synced_folders_configure_folders">폴더 설정</string>
     <string name="synced_folders_loading_folders">폴더 불러오는 중…</string>
     <string name="synced_folders_new_info">즉석 업로드가 완전히 변경되었습니다. 주 메뉴에서 자동 업로드를 다시 설정해 주십시오.\n\n새롭게 강화된 자동 업로드 기능을 활용하십시오.</string>
+    <string name="synced_folders_no_results">미디어 폴더를 찾을 수 없음</string>
     <string name="synced_folders_preferences">자동 업로드 설정</string>
     <string name="synced_folders_preferences_folder_path">%1$s</string>
     <string name="synced_folders_type">종류</string>
@@ -790,6 +792,9 @@
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="other">파일 %1$d개</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="other">숨김 폴더 %1$d개 보이기</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="other">%d개 선택됨</item>
