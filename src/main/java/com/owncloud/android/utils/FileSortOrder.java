@@ -20,6 +20,7 @@
 
 package com.owncloud.android.utils;
 
+import com.infomaniak.drive.Utils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 
@@ -93,7 +94,7 @@ public class FileSortOrder {
             }
             return 0;
         });
-
-        return files;
+        // IK change - Will return team space in first position
+        return Utils.setTeamSpaceFirst(files);
     }
 }

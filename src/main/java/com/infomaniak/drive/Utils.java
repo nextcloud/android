@@ -6,6 +6,9 @@ import android.net.Uri;
 
 import com.owncloud.android.datamodel.OCFile;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,6 +16,8 @@ import java.util.regex.Pattern;
 import static com.owncloud.android.utils.MimeTypeUtil.getMimeTypeFromPath;
 
 public class Utils {
+
+    public static final String TEAM_SPACE_ETAG = "team_space";
 
     /**
      * If open in browser return true
@@ -107,5 +112,26 @@ public class Utils {
             mimeType.toLowerCase(Locale.ROOT).startsWith("application/x-mspowerpoint") ||
             mimeType.toLowerCase(Locale.ROOT).startsWith("application/vnd.openxmlformats-officedocument.presentationml") ||
             mimeType.toLowerCase(Locale.ROOT).startsWith("application/vnd.oasis.opendocument.presentation"));
+    }
+
+    /**
+     * Set the "team space" element in head of OCFiles ArrayList
+     *
+     * @param files The ArrayList of files
+     * @return The new ArrayList with teamspace ahead
+     */
+    public static List<OCFile> setTeamSpaceFirst(List<OCFile> files) {
+        List<OCFile> newList = new ArrayList<>();
+        Iterator<OCFile> i = files.iterator();
+        while (i.hasNext()) {
+            OCFile currentFile = i.next();
+            if (currentFile.getEtagOnServer().equals(TEAM_SPACE_ETAG)) {
+                newList.add(0, currentFile);
+                i.remove();
+            }
+        }
+
+        newList.addAll(files);
+        return newList;
     }
 }
