@@ -25,20 +25,20 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import org.openqa.selenium.support.PageFactory;
 
 public class CertificatePopUp {
-	final AndroidDriver driver;	
+	final AndroidDriver<AndroidElement> driver;	
 	
 	@AndroidFindBy(uiAutomator = "new UiSelector()" 
 	+ ".resourceId(\"com.nextcloud.android.qa:id/ok\")")
 	private AndroidElement okButton;
 	
-	public CertificatePopUp (AndroidDriver driver) {
+	public CertificatePopUp (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
-		PageFactory.initElements(new AppiumFieldDecorator(driver,10, TimeUnit.SECONDS), this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver,Duration.ofSeconds(10, 1)), this);
 	}
 	
 	public AuthOptions clickOnOkButton () {

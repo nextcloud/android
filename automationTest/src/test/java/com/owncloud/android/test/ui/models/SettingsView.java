@@ -31,43 +31,43 @@ import org.openqa.selenium.support.PageFactory;
 import com.owncloud.android.test.ui.testSuites.Config;
 
 public class SettingsView {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 
 	@CacheLookup
-	@AndroidFindBy(name = Config.userAccount)
+	@AndroidFindBy(tagName = Config.userAccount)
 	private AndroidElement accountElement;
 
 	@CacheLookup
-	@AndroidFindBy(name = Config.userAccount2)
+	@AndroidFindBy(tagName = Config.userAccount2)
 	private AndroidElement accountElement2;
 
-	@AndroidFindBy(name = "Delete account")
+	@AndroidFindBy(tagName = "Delete account")
 	private AndroidElement deleteAccountElement;
 
-	@AndroidFindBy(name = "Change password")
+	@AndroidFindBy(tagName = "Change password")
 	private AndroidElement changePasswordElement;
 
-	@AndroidFindBy(name = "Add account")
+	@AndroidFindBy(tagName = "Add account")
 	private AndroidElement addAccountElement;
 
 	@AndroidFindBy(uiAutomator = "new UiSelector()"
 			+ ".className(\"android.widget.CheckBox\").index(0)")
 	private AndroidElement passcodeCheckbox;
 
-	public SettingsView (AndroidDriver driver) {
+	public SettingsView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 
 	public void tapOnAccountElement (int accountPosition, int fingers, int milliSeconds) {
-		if(accountPosition==1)
-			accountElement.tap(fingers, milliSeconds);
-		else
-			accountElement2.tap(fingers, milliSeconds);
+		// if(accountPosition==1)
+		// 	accountElement.tap(fingers, milliSeconds);
+		// else
+		// 	accountElement2.tap(fingers, milliSeconds);
 	}
 
 	public void tapOnAddAccount (int fingers, int milliSeconds) {
-		addAccountElement.tap(fingers, milliSeconds);
+		// addAccountElement.tap(fingers, milliSeconds);
 	}
 
 	public LoginForm clickOnDeleteAccountElement () {

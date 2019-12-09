@@ -29,16 +29,16 @@ import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
 
 public class FileDetailsView {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
 	@CacheLookup
-	@AndroidFindBy(name = "Keep file up to date")
+	@AndroidFindBy(tagName = "Keep file up to date")
 	private AndroidElement keepFileUpToDateCheckbox;
 	
 	@AndroidFindBy(id = "com.owncloud.android:id/fdProgressBar")
 	private AndroidElement progressBar;
 	
-	public FileDetailsView (AndroidDriver driver) {
+	public FileDetailsView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

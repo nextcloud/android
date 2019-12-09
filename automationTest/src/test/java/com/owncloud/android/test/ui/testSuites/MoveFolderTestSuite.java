@@ -22,6 +22,9 @@ package com.owncloud.android.test.ui.testSuites;
 
 import static org.junit.Assert.*;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 
 import org.junit.After;
 import org.junit.Before;
@@ -43,7 +46,7 @@ import com.owncloud.android.test.ui.models.WaitAMomentPopUp;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MoveFolderTestSuite{
-	AndroidDriver driver;
+	AndroidDriver<AndroidElement> driver;
 	Common common;
 	private String FOLDER_TO_MOVE = "folderToMove";
 	private String FOLDER_WHERE_MOVE = "folderWhereMove";
@@ -93,13 +96,13 @@ public class MoveFolderTestSuite{
 		MoveView moveView = menuOptions.clickOnMove();
 
 		//to move to a folder
-		moveView.scrollTillFindElement(FOLDER_WHERE_MOVE).tap(1,1);
+		// moveView.scrollTillFindElement(FOLDER_WHERE_MOVE).tap(1,1);
 		waitAMomentPopUp = moveView.clickOnChoose();
 		Common.waitTillElementIsNotPresentWithoutTimeout(waitAMomentPopUp
 				.getWaitAMomentTextElement(), 100);
 		
 		//check that the folder moved is inside the other
-		fileListView.scrollTillFindElement(FOLDER_WHERE_MOVE).tap(1,1);
+		// fileListView.scrollTillFindElement(FOLDER_WHERE_MOVE).tap(1,1);
 		Common.waitTillElementIsNotPresentWithoutTimeout(fileListView.getProgressCircular(),
 				1000);
 		Thread.sleep(1000);
@@ -111,7 +114,7 @@ public class MoveFolderTestSuite{
 	public void tearDown() throws Exception {
 		common.takeScreenShotOnFailed(name.getMethodName());
 		FileListView fileListView = new FileListView(driver);
-		driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_BACK);
+		driver.pressKey(new KeyEvent(AndroidKey.BACK));
 		Actions.deleteElement(FOLDER_WHERE_MOVE, fileListView, driver);
 		Actions.deleteElement(FOLDER_TO_MOVE, fileListView, driver);
 		driver.removeApp("com.owncloud.android");

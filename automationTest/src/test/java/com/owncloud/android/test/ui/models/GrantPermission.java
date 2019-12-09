@@ -8,13 +8,13 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class GrantPermission {
-	final AndroidDriver driver;	
+	final AndroidDriver<AndroidElement> driver;	
 	
 	@AndroidFindBy(uiAutomator = "new UiSelector()" 
 	+ ".resourceId(\"com.android.packageinstaller:id/permission_allow_button\")")
 	private AndroidElement grantPermissionButton;
 	
-	public GrantPermission (AndroidDriver driver) {
+	public GrantPermission (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

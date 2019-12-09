@@ -30,7 +30,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class GmailEmailListView {
 	
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
 	@AndroidFindBy(uiAutomator = "new UiSelector().description(\""
 			+ "me about UploadFile,  on May 11, conversation read\")")
@@ -40,7 +40,7 @@ public class GmailEmailListView {
 	private AndroidElement emailEuropeanFormatDate;
 	
 		
-	public GmailEmailListView (AndroidDriver driver) {
+	public GmailEmailListView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

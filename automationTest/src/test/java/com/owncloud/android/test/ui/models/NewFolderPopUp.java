@@ -29,7 +29,7 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class NewFolderPopUp {
 
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
 	@AndroidFindBy(uiAutomator = "new UiSelector()"
 			+ ".resourceId(\"android:id/button1\")")
@@ -39,7 +39,7 @@ public class NewFolderPopUp {
 			+ ".resourceId(\"com.owncloud.android:id/user_input\")")
 	private AndroidElement newFolderNameField;
 	
-	public NewFolderPopUp (AndroidDriver driver) {
+	public NewFolderPopUp (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

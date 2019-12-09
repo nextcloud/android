@@ -20,7 +20,11 @@
 
 package com.owncloud.android.test.ui.testSuites;
 
+import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 
 import org.junit.After;
 import org.junit.Before;
@@ -42,7 +46,7 @@ import com.owncloud.android.test.ui.models.SettingsView;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PasscodeTestSuite {
-	AndroidDriver driver;
+	AndroidDriver<AndroidElement> driver;
 	Common common;
 	
 	@Rule public TestName name = new TestName();
@@ -71,10 +75,10 @@ public class PasscodeTestSuite {
 		passCodeview2.reenterPasscode(Config.passcode1, Config.passcode2, 
 				Config.passcode3, Config.passcode4);
 		
-		driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_HOME);
-		//TO DO. Open the app instead of start an activity
-		driver.startActivity("com.owncloud.android", 
-				".ui.activity.FileDisplayActivity");
+		driver.pressKey(new KeyEvent(AndroidKey.HOME));
+		//TO DO. Open the app instead of start an 
+		Activity activity = new Activity("com.owncloud.android", ".ui.activity.FileDisplayActivity");
+		driver.startActivity(activity);
 		//here we check that we are not in the fileDisplayActivity,
 		//because pincode is asked
 		common.assertIsNotInFileListView();

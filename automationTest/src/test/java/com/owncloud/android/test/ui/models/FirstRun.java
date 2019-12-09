@@ -10,14 +10,14 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class FirstRun {
-    final AndroidDriver driver;
+    final AndroidDriver<AndroidElement> driver;
 
     @CacheLookup
     @AndroidFindBy(uiAutomator = "new UiSelector()" 
         + ".resourceId(\"com.nextcloud.android.qa:id/login\")")
     private AndroidElement loginButton;
 
-    public FirstRun (AndroidDriver driver){
+    public FirstRun (AndroidDriver<AndroidElement> driver){
         this.driver = driver;
         PageFactory.initElements(new AppiumFieldDecorator(driver),this);
     }

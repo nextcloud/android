@@ -28,7 +28,7 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.support.PageFactory;
 
 public class PassCodeView {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
 	@AndroidFindBy(uiAutomator = "new UiSelector()"
 			+ ".className(\"android.widget.EditText\").index(0)")
@@ -46,10 +46,10 @@ public class PassCodeView {
 			+ ".className(\"android.widget.EditText\").index(3)")
 	private AndroidElement codeElement4;
 	
-	@AndroidFindBy(name = "Cancel")
+	@AndroidFindBy(tagName = "Cancel")
 	private AndroidElement cancelButton;
 	
-	public PassCodeView (AndroidDriver driver) {
+	public PassCodeView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

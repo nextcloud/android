@@ -1,7 +1,7 @@
 package com.owncloud.android.test.ui.models;
 
+import java.time.Duration;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.CacheLookup;
@@ -15,16 +15,16 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class AuthOptions {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
 	@CacheLookup
 	@AndroidFindBy(uiAutomator = "new UiSelector()"
 			+ ".className(\"android.widget.Button\")")
 	private AndroidElement connectButton;
     
-    public AuthOptions (AndroidDriver driver){
+    public AuthOptions (AndroidDriver<AndroidElement> driver){
         this.driver = driver;
-		PageFactory.initElements(new AppiumFieldDecorator(driver,60, TimeUnit.SECONDS), this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver,Duration.ofSeconds(30, 1)), this);
     }
     public LoginForm SinginWithWeb(){
         connectButton.click();

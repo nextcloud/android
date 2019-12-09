@@ -8,12 +8,12 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.support.PageFactory;
 
 public class NotificationView {
-final AndroidDriver driver;	
+final AndroidDriver<AndroidElement> driver;	
 	
-	@AndroidFindBy(name = "Upload succeeded")
+	@AndroidFindBy(tagName = "Upload succeeded")
 	private static AndroidElement uploadSucceededNotification;
 	
-	@AndroidFindBy(name = "Uploading ?")
+	@AndroidFindBy(tagName = "Uploading ?")
 	private static AndroidElement uploadingNotification;
 	
 	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"Clear all notifications.\")")
@@ -23,7 +23,7 @@ final AndroidDriver driver;
 	private AndroidElement notificationArea;
 
 	
-	public NotificationView (AndroidDriver driver) {
+	public NotificationView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
@@ -42,13 +42,13 @@ final AndroidDriver driver;
 	}
 	
 	public void tapOnClearAllNotification () {
-		clearAllNotificationButton.tap(1, 1000);
+		// clearAllNotificationButton.tap(1, 1000);
 	}
 	
 	public void tapOnBottomNotificationArea(){
 		//TODO. it is not working
 		notificationArea.getSize();
-		notificationArea.tap(1, 1000);
+		// notificationArea.tap(1, 1000);
 	}
 
 }

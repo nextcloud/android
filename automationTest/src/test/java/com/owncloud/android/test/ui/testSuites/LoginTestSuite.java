@@ -21,6 +21,8 @@
 package com.owncloud.android.test.ui.testSuites;
 
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.AndroidStartScreenRecordingOptions;
 
 import org.junit.After;
 import org.junit.Before;
@@ -32,12 +34,14 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.openqa.selenium.ScreenOrientation;
 
+import java.time.Duration;
+
 import com.owncloud.android.test.ui.actions.Actions;
 import com.owncloud.android.test.ui.groups.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginTestSuite{
-	AndroidDriver driver;
+	AndroidDriver<AndroidElement> driver;
 	Common common;
 	
 	@Rule public TestName name = new TestName();
@@ -46,6 +50,8 @@ public class LoginTestSuite{
 	public void setUp() throws Exception {
 		common=new Common();
 		driver=common.setUpCommonDriver();
+		driver.startRecordingScreen(
+			new AndroidStartScreenRecordingOptions().withTimeLimit(Duration.ofSeconds(200)));
 	}
 	
 	@Test

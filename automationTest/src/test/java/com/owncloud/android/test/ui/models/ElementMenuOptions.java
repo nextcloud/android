@@ -29,27 +29,27 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ElementMenuOptions {
 
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
-	@AndroidFindBy(name = "Share link")
+	@AndroidFindBy(tagName = "Share link")
 	private AndroidElement shareLinkElement;
 	
-	@AndroidFindBy(name = "Unshare link")
+	@AndroidFindBy(tagName = "Unshare link")
 	private AndroidElement unshareLinkElement;
 	
-	@AndroidFindBy(name = "Details")
+	@AndroidFindBy(tagName = "Details")
 	private AndroidElement detailsFileElement;
 	
-	@AndroidFindBy(name = "Rename")
+	@AndroidFindBy(tagName = "Rename")
 	private AndroidElement renameFileElement;
 	
-	@AndroidFindBy(name = "Remove")
+	@AndroidFindBy(tagName = "Remove")
 	private AndroidElement removeFileElement;
 	
-	@AndroidFindBy(name = "Move")
+	@AndroidFindBy(tagName = "Move")
 	private AndroidElement moveElement;
 	
-	public ElementMenuOptions (AndroidDriver driver) {
+	public ElementMenuOptions (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

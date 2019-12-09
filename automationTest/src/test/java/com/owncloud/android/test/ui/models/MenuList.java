@@ -29,12 +29,12 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class MenuList {
 
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
-	@AndroidFindBy(name = "Settings")
+	@AndroidFindBy(tagName = "Settings")
 	private AndroidElement settingsButton;
 	
-	public MenuList (AndroidDriver driver) {
+	public MenuList (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

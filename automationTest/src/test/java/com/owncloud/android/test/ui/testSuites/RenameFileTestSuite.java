@@ -22,6 +22,7 @@ package com.owncloud.android.test.ui.testSuites;
 
 import static org.junit.Assert.*;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 
 import org.junit.After;
 import org.junit.Before;
@@ -46,7 +47,7 @@ import com.owncloud.android.test.ui.models.WaitAMomentPopUp;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RenameFileTestSuite{
 
-	AndroidDriver driver;
+	AndroidDriver<AndroidElement> driver;
 	Common common;
 	private Boolean fileHasBeenCreated = false;
 	private final String OLD_FILE_NAME = Config.fileToTestName;

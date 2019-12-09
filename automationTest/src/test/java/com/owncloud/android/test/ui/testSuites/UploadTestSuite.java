@@ -20,10 +20,13 @@
 
 package com.owncloud.android.test.ui.testSuites;
 
-
 import static org.junit.Assert.*;
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 
 import org.junit.After;
 import org.junit.Before;
@@ -36,6 +39,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 
 import com.owncloud.android.test.ui.actions.Actions;
 import com.owncloud.android.test.ui.groups.FailingTestCategory;
@@ -56,7 +60,7 @@ import com.owncloud.android.test.ui.models.UploadView;
 @Category({NoIgnoreTestCategory.class})
 public class UploadTestSuite{
 
-	AndroidDriver driver;
+	AndroidDriver<AndroidElement> driver;
 	Common common;
 	String FILE_NAME = Config.fileToTestName;
 	String BIG_FILE_NAME = Config.bigFileToTestName;
@@ -127,15 +131,15 @@ public class UploadTestSuite{
 			if(notificationView.getUploadingNotification().isDisplayed()){
 				Common.waitTillElementIsPresent(
 						notificationView.getUploadSucceededNotification(),300000);
-				driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_HOME);
-				driver.startActivity("com.owncloud.android", 
-						".ui.activity.FileDisplayActivity");
+				driver.pressKey(new KeyEvent(AndroidKey.HOME));
+				Activity activity = new Activity("com.owncloud.android", ".ui.activity.FileDisplayActivity");
+				driver.startActivity(activity);
 				
 			}
 		} catch (NoSuchElementException e) {
-			driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_HOME);
-			driver.startActivity("com.owncloud.android", 
-					".ui.activity.FileDisplayActivity");
+			driver.pressKey(new KeyEvent(AndroidKey.HOME));
+				Activity activity = new Activity("com.owncloud.android", ".ui.activity.FileDisplayActivity");
+				driver.startActivity(activity);
 		}
 
 		fileListViewAfterUploadFile.scrollTillFindElement(BIG_FILE_NAME);
@@ -162,8 +166,8 @@ public class UploadTestSuite{
 	public void testUploadFromGmail () throws Exception {
 		FileListView fileListView = Actions.login(Config.URL, Config.user,
 				Config.password, Config.isTrusted, driver);
-		driver.startActivity("com.google.android.gm",
-				".ConversationListActivityGmail");
+		Activity activity = new Activity("com.google.android.gm", ".ConversationListActivityGmail");
+		driver.startActivity(activity);
 		GmailEmailListView gmailEmailListView = new GmailEmailListView(driver);
 		Thread.sleep(3000);
 		GmailEmailView gmailEmailView = gmailEmailListView.clickOnEmail();
@@ -178,9 +182,9 @@ public class UploadTestSuite{
 		}
 		UploadView uploadView = new UploadView(driver);
 		uploadView.clickOUploadButton();
-		driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_HOME);
-		driver.startActivity("com.owncloud.android",
-				".ui.activity.FileDisplayActivity");
+		driver.pressKey(new KeyEvent(AndroidKey.HOME));
+		Activity activityFileDisplay = new Activity("com.owncloud.android", ".ui.activity.FileDisplayActivity");
+		driver.startActivity(activityFileDisplay);
 		common.wait.until(ExpectedConditions
 				.visibilityOfAllElementsLocatedBy(By.name(FILE_GMAIL_NAME)));
 		assertEquals(Config.fileToTestSendByEmailName ,
@@ -215,7 +219,7 @@ public class UploadTestSuite{
 		FileDetailsView fileDetailsView = menuOptions.clickOnDetails();
 		fileDetailsView.checkKeepFileUpToDateCheckbox();
 		Thread.sleep(3000);
-		driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_BACK);
+		driver.pressKey(new KeyEvent(AndroidKey.BACK));
 		assertTrue(common.isElementPresent(
 				fileListViewAfterUploadFile.getFileElementLayout(), 
 				MobileBy.id(FileListView.getFavoriteFileIndicator())));
@@ -246,7 +250,7 @@ public class UploadTestSuite{
 		FileDetailsView fileDetailsView = menuOptions.clickOnDetails();
 		fileDetailsView.checkKeepFileUpToDateCheckbox();
 		Thread.sleep(3000);
-		driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_BACK);
+		driver.pressKey(new KeyEvent(AndroidKey.BACK));
 
 		fileListViewAfterUploadFile.pulldownToRefresh();
 		//assertTrue(fileListView.getProgressCircular().isDisplayed());

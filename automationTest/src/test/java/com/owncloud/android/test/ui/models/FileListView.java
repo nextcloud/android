@@ -24,7 +24,8 @@ import java.util.List;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.android.AndroidKeyCode;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
@@ -36,7 +37,7 @@ import org.openqa.selenium.Point;
 import com.owncloud.android.test.ui.actions.Actions;
 
 public class FileListView {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
 	@AndroidFindBy(uiAutomator = "new UiSelector()"
 			+ ".description(\"More options\")")
@@ -71,7 +72,7 @@ public class FileListView {
 	@AndroidFindBy(id = "com.owncloud.android:id/list_root")
 	private AndroidElement listRootLayout;
 	
-	@AndroidFindBy(name = "Files")
+	@AndroidFindBy(tagName = "Files")
 	private AndroidElement filesElementUploadFile;
 	
 	@CacheLookup
@@ -94,7 +95,7 @@ public class FileListView {
 			"com.owncloud.android:id/sharedIcon";
 	
 	
-	public FileListView (AndroidDriver driver) {
+	public FileListView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
@@ -104,7 +105,7 @@ public class FileListView {
 		try {
 			menuButton.click();
 		} catch (NoSuchElementException e){
-			driver.sendKeyEvent(AndroidKeyCode.MENU);
+			driver.pressKey(new KeyEvent(AndroidKey.MENU));
 		}
 		MenuList menuList = new MenuList (driver);
 		return menuList;
@@ -156,7 +157,7 @@ public class FileListView {
 	}
 	
 	public ElementMenuOptions longPressOnElement (String elementName) {
-		scrollTillFindElement(elementName).tap(1, 1000);
+		// scrollTillFindElement(elementName).tap(1, 1000);
 		//fileElement.tap(1, 1000);
 		ElementMenuOptions menuOptions = new ElementMenuOptions(driver);
 		return menuOptions;
@@ -196,16 +197,16 @@ public class FileListView {
 	}
 	public void pulldownToRefresh () throws InterruptedException {
 		Point listLocation = listLayout.getLocation();
-		driver.swipe(listLocation.getX(),listLocation.getY(), 
-				listLocation.getX(),listLocation.getY()+1000, 5000);
+		// driver.swipe(listLocation.getX(),listLocation.getY(), 
+		// 		listLocation.getX(),listLocation.getY()+1000, 5000);
 	}
 
 	
 	
 	public void pulldownToSeeNotification () throws InterruptedException {
 		Point listLocation = deviceScreen.getLocation();
-		driver.swipe(listLocation.getX(),listLocation.getY(), 
-				listLocation.getX(),listLocation.getY()+1000, 5000);
+		// driver.swipe(listLocation.getX(),listLocation.getY(), 
+		// 		listLocation.getX(),listLocation.getY()+1000, 5000);
 	}
 
 }
