@@ -41,7 +41,7 @@
     <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
-        <version>2.45.0</version>
+        <version>3.14.0</version>
     </dependency>
     <dependency>
         <groupId>io.selendroid</groupId>
@@ -56,7 +56,7 @@
     <dependency>
         <groupId>io.appium</groupId>
         <artifactId>java-client</artifactId>
-        <version>2.2.0</version>
+        <version>7.3.0</version>
     </dependency>
     <dependency>
         <groupId>commons-lang</groupId>
