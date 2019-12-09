@@ -291,9 +291,13 @@ public class SynchronizeFileOperation extends SyncOperation {
      * @param file OCFile object representing the file to upload
      */
     private void requestForUpload(OCFile file) {
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        requester.uploadUpdate(mContext, mAccount, file, FileUploader.LOCAL_BEHAVIOUR_MOVE,
-                               FileUploader.NameCollisionPolicy.ASK_USER);
+        FileUploader.uploadUpdateFile(
+            mContext,
+            mAccount,
+            file,
+            FileUploader.LOCAL_BEHAVIOUR_MOVE,
+            FileUploader.NameCollisionPolicy.ASK_USER
+        );
 
         mTransferWasRequested = true;
     }

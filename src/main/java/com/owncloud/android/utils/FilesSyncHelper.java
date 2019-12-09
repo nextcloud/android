@@ -196,8 +196,6 @@ public final class FilesSyncHelper {
                                            final PowerManagementService powerManagementService) {
         final Context context = MainApp.getAppContext();
 
-        FileUploader.UploadRequester uploadRequester = new FileUploader.UploadRequester();
-
         boolean accountExists;
 
         OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
@@ -221,13 +219,15 @@ public final class FilesSyncHelper {
         new Thread(() -> {
             if (connectivityService.getActiveNetworkType() != JobRequest.NetworkType.ANY &&
                     !connectivityService.isInternetWalled()) {
-                uploadRequester.retryFailedUploads(context,
-                                                   null,
-                                                   uploadsStorageManager,
-                                                   connectivityService,
-                                                   accountManager,
-                                                   powerManagementService,
-                                                   null);
+                FileUploader.retryFailedUploads(
+                    context,
+                    null,
+                    uploadsStorageManager,
+                    connectivityService,
+                    accountManager,
+                    powerManagementService,
+                    null
+                );
             }
         }).start();
     }

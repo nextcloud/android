@@ -82,7 +82,6 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
         }
 
         OCFile file = getFile();
-        FileUploader.UploadRequester uploadRequester = new FileUploader.UploadRequester();
 
         // Upload
         if (decision == Decision.KEEP_LOCAL || decision == Decision.KEEP_BOTH) {
@@ -91,7 +90,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 collisionPolicy = FileUploader.NameCollisionPolicy.RENAME;
             }
 
-            uploadRequester.uploadUpdate(this, getAccount(), file, localBehaviour, collisionPolicy);
+            FileUploader.uploadUpdateFile(this, getAccount(), file, localBehaviour, collisionPolicy);
 
             if (this.conflictUpload != null) {
                 uploadsStorageManager.removeUpload(this.conflictUpload);

@@ -141,12 +141,11 @@ public class FilesSyncJob extends Job {
         Locale currentLocale = context.getResources().getConfiguration().locale;
         SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale);
         sFormatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if ((syncedFolder.isEnabled()) && (!skipCustom || MediaFolderType.CUSTOM != syncedFolder.getType())) {
                 syncFolder(context, resources, lightVersion, filesystemDataProvider, currentLocale, sFormatter,
-                        requester, syncedFolder);
+                           syncedFolder);
             }
         }
 
@@ -157,10 +156,15 @@ public class FilesSyncJob extends Job {
         return Result.SUCCESS;
     }
 
-    private void syncFolder(Context context, Resources resources, boolean lightVersion,
-                            FilesystemDataProvider filesystemDataProvider, Locale currentLocale,
-                            SimpleDateFormat sFormatter, FileUploader.UploadRequester requester,
-                            SyncedFolder syncedFolder) {
+    private void syncFolder(
+        Context context,
+        Resources resources,
+        boolean lightVersion,
+        FilesystemDataProvider filesystemDataProvider,
+        Locale currentLocale,
+        SimpleDateFormat sFormatter,
+        SyncedFolder syncedFolder
+    ) {
         String remotePath;
         boolean subfolderByDate;
         Integer uploadAction;
@@ -203,7 +207,7 @@ public class FilesSyncJob extends Job {
                 remotePath = syncedFolder.getRemotePath();
             }
 
-            requester.uploadFileWithNameCollisionPolicy(
+            FileUploader.uploadNewFile(
                 context,
                 user.toPlatformAccount(),
                 file.getAbsolutePath(),

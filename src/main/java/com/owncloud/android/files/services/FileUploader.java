@@ -37,6 +37,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -124,10 +125,6 @@ public class FileUploader extends Service
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
     public static final String KEY_MIME_TYPE = "MIME_TYPE";
 
-    private Notification mNotification;
-
-    @Inject UserAccountManager accountManager;
-
     /**
      * Call this Service with only this Intent key if all pending uploads are to be retried.
      */
@@ -175,13 +172,16 @@ public class FileUploader extends Service
     public static final int LOCAL_BEHAVIOUR_FORGET = 2;
     public static final int LOCAL_BEHAVIOUR_DELETE = 3;
 
+
+    private Notification mNotification;
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     private IBinder mBinder;
     private OwnCloudClient mUploadClient;
     private Account mCurrentAccount;
     private FileDataStorageManager mStorageManager;
-    //since there can be only one instance of an Android service, there also just one db connection.
+
+    @Inject UserAccountManager accountManager;
     @Inject UploadsStorageManager mUploadsStorageManager;
     @Inject ConnectivityService connectivityService;
     @Inject PowerManagementService powerManagementService;
@@ -189,7 +189,8 @@ public class FileUploader extends Service
     private IndexedForest<UploadFileOperation> mPendingUploads = new IndexedForest<>();
 
     /**
-     * {@link UploadFileOperation} object of ongoing upload. Can be null. Note: There can only be one concurrent upload!
+     * {@link UploadFileOperation} object of ongoing upload. Can be null. Note: There can only be one concurrent
+     * upload!
      */
     private UploadFileOperation mCurrentUpload;
 
@@ -197,265 +198,11 @@ public class FileUploader extends Service
     private NotificationCompat.Builder mNotificationBuilder;
     private int mLastPercent;
 
-    public static String getUploadsAddedMessage() {
-        return FileUploader.class.getName() + UPLOADS_ADDED_MESSAGE;
-    }
-
-    public static String getUploadStartMessage() {
-        return FileUploader.class.getName() + UPLOAD_START_MESSAGE;
-    }
-
-    public static String getUploadFinishMessage() {
-        return FileUploader.class.getName() + UPLOAD_FINISH_MESSAGE;
-    }
 
     @Override
     public void onRenameUpload() {
         mUploadsStorageManager.updateDatabaseUploadStart(mCurrentUpload);
         sendBroadcastUploadStarted(mCurrentUpload);
-    }
-
-    /**
-     * Helper class providing methods to ease requesting commands to {@link FileUploader} .
-     *
-     * Avoids the need of checking once and again what extras are needed or optional
-     * in the {@link Intent} to pass to {@link Context#startService(Intent)}.
-     */
-    public static class UploadRequester {
-
-        /**
-         * Call to upload several new files
-         */
-        public void uploadNewFile(
-                Context context,
-                Account account,
-                String[] localPaths,
-                String[] remotePaths,
-                String[] mimeTypes,
-                Integer behaviour,
-                Boolean createRemoteFolder,
-                int createdBy,
-                boolean requiresWifi,
-                boolean requiresCharging
-        ) {
-            Intent intent = new Intent(context, FileUploader.class);
-
-            intent.putExtra(FileUploader.KEY_ACCOUNT, account);
-            intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
-            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
-            intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
-            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
-            intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
-            intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
-            intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
-            intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                context.startForegroundService(intent);
-            } else {
-                context.startService(intent);
-            }
-        }
-
-        public void uploadFileWithNameCollisionPolicy(
-                Context context,
-                Account account,
-                String[] localPaths,
-                String[] remotePaths,
-                String[] mimeTypes,
-                Integer behaviour,
-                Boolean createRemoteFolder,
-                int createdBy,
-                boolean requiresWifi,
-                boolean requiresCharging,
-                NameCollisionPolicy nameCollisionPolicy
-        ) {
-            Intent intent = new Intent(context, FileUploader.class);
-
-            intent.putExtra(FileUploader.KEY_ACCOUNT, account);
-            intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
-            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
-            intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
-            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
-            intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
-            intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
-            intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
-            intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
-            intent.putExtra(FileUploader.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                context.startForegroundService(intent);
-            } else {
-                context.startService(intent);
-            }
-        }
-
-        /**
-         * Call to upload a file
-         */
-        public void uploadFileWithNameCollisionPolicy(Context context, Account account, String localPath, String remotePath, int
-                behaviour, String mimeType, boolean createRemoteFile, int createdBy, boolean requiresWifi,
-                                                      boolean requiresCharging, NameCollisionPolicy nameCollisionPolicy) {
-
-            uploadFileWithNameCollisionPolicy(
-                    context,
-                    account,
-                    new String[]{localPath},
-                    new String[]{remotePath},
-                    new String[]{mimeType},
-                    behaviour,
-                    createRemoteFile,
-                    createdBy,
-                    requiresWifi,
-                    requiresCharging,
-                    nameCollisionPolicy
-            );
-        }
-
-        /**
-         * Call to upload a new single file
-         */
-        public void uploadNewFile(Context context, Account account, String localPath, String remotePath, int
-                behaviour, String mimeType, boolean createRemoteFile, int createdBy, boolean requiresWifi,
-                                  boolean requiresCharging) {
-
-            uploadNewFile(
-                context,
-                account,
-                new String[]{localPath},
-                new String[]{remotePath},
-                new String[]{mimeType},
-                behaviour,
-                createRemoteFile,
-                createdBy,
-                requiresWifi,
-                requiresCharging
-            );
-        }
-
-        /**
-         * Call to update multiple files already uploaded
-         */
-        public void uploadUpdate(Context context, Account account, OCFile[] existingFiles, Integer behaviour,
-                                        NameCollisionPolicy nameCollisionPolicy) {
-            Intent intent = new Intent(context, FileUploader.class);
-
-            intent.putExtra(FileUploader.KEY_ACCOUNT, account);
-            intent.putExtra(FileUploader.KEY_FILE, existingFiles);
-            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
-            intent.putExtra(FileUploader.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                context.startForegroundService(intent);
-            } else {
-                context.startService(intent);
-            }
-        }
-
-        /**
-         * Call to update a dingle file already uploaded
-         */
-        public void uploadUpdate(Context context, Account account, OCFile existingFile, Integer behaviour,
-                                        NameCollisionPolicy nameCollisionPolicy) {
-
-            uploadUpdate(context, account, new OCFile[]{existingFile}, behaviour, nameCollisionPolicy);
-        }
-
-
-        /**
-         * Call to retry upload identified by remotePath
-         */
-        public void retry (Context context, UserAccountManager accountManager, OCUpload upload) {
-            if (upload != null && context != null) {
-                Account account = accountManager.getAccountByName(upload.getAccountName());
-                retry(context, account, upload);
-            } else {
-                throw new IllegalArgumentException("Null parameter!");
-            }
-        }
-
-        private boolean checkIfUploadCanBeRetried(OCUpload ocUpload, boolean gotWifi, boolean isCharging) {
-            boolean needsWifi = ocUpload.isUseWifiOnly();
-            boolean needsCharging = ocUpload.isWhileChargingOnly();
-
-            return new File(ocUpload.getLocalPath()).exists() && !(needsCharging && !isCharging) &&
-                    !(needsWifi && !gotWifi);
-
-        }
-
-        /**
-         * Retry a subset of all the stored failed uploads.
-         *
-         * @param context           Caller {@link Context}
-         * @param account           If not null, only failed uploads to this OC account will be retried; otherwise,
-         *                          uploads of all accounts will be retried.
-         * @param uploadResult      If not null, only failed uploads with the result specified will be retried;
-         *                          otherwise, failed uploads due to any result will be retried.
-         */
-        public void retryFailedUploads(
-            @NonNull final Context context,
-            @Nullable final Account account,
-            @NonNull final UploadsStorageManager uploadsStorageManager,
-            @NonNull final ConnectivityService connectivityService,
-            @NonNull final UserAccountManager accountManager,
-            @NonNull final PowerManagementService powerManagementService,
-            @Nullable final UploadResult uploadResult
-        ) {
-            OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-            Account currentAccount = null;
-            boolean resultMatch;
-            boolean accountMatch;
-
-            boolean gotNetwork = connectivityService.getActiveNetworkType() != JobRequest.NetworkType.ANY &&
-                    !connectivityService.isInternetWalled();
-            boolean gotWifi = gotNetwork && Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED);
-            boolean charging = Device.getBatteryStatus(context).isCharging();
-            boolean isPowerSaving = powerManagementService.isPowerSavingEnabled();
-
-            for ( OCUpload failedUpload: failedUploads) {
-                accountMatch = account == null || account.name.equals(failedUpload.getAccountName());
-                resultMatch = uploadResult == null || uploadResult.equals(failedUpload.getLastResult());
-                if (accountMatch && resultMatch) {
-                    if (currentAccount == null || !currentAccount.name.equals(failedUpload.getAccountName())) {
-                        currentAccount = failedUpload.getAccount(accountManager);
-                    }
-
-                    if (!new File(failedUpload.getLocalPath()).exists()) {
-                        if (!failedUpload.getLastResult().equals(UploadResult.FILE_NOT_FOUND)) {
-                            failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
-                            uploadsStorageManager.updateUpload(failedUpload);
-                        }
-                    } else {
-                        charging = charging || Device.getBatteryStatus(context).getBatteryPercent() == 1;
-                        if (!isPowerSaving && gotNetwork && checkIfUploadCanBeRetried(failedUpload, gotWifi, charging)) {
-                            retry(context, currentAccount, failedUpload);
-                        }
-                    }
-                }
-            }
-        }
-
-        /**
-         * Private implementation of retry.
-         *
-         * @param context
-         * @param account
-         * @param upload
-         */
-        private void retry(Context context, Account account, OCUpload upload) {
-            if (upload != null) {
-                Intent i = new Intent(context, FileUploader.class);
-                i.putExtra(FileUploader.KEY_RETRY, true);
-                i.putExtra(FileUploader.KEY_ACCOUNT, account);
-                i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
-
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    context.startForegroundService(i);
-                } else {
-                    context.startService(i);
-                }
-            }
-        }
     }
 
     /**
@@ -1359,12 +1106,206 @@ public class FileUploader extends Service
     /**
      * Remove and 'forgets' pending uploads of an account.
      *
-     * @param account   Account which uploads will be cancelled
+     * @param account Account which uploads will be cancelled
      */
     private void cancelUploadsForAccount(Account account) {
         mPendingUploads.remove(account.name);
         mUploadsStorageManager.removeUploads(account.name);
     }
+
+
+    /**
+     * Upload a new file
+     */
+    public static void uploadNewFile(
+        Context context,
+        Account account,
+        String localPath,
+        String remotePath,
+        int behaviour,
+        String mimeType,
+        boolean createRemoteFile,
+        int createdBy,
+        boolean requiresWifi,
+        boolean requiresCharging,
+        NameCollisionPolicy nameCollisionPolicy
+    ) {
+        uploadNewFile(
+            context,
+            account,
+            new String[]{localPath},
+            new String[]{remotePath},
+            new String[]{mimeType},
+            behaviour,
+            createRemoteFile,
+            createdBy,
+            requiresWifi,
+            requiresCharging,
+            nameCollisionPolicy
+        );
+    }
+
+    /**
+     * Upload multiple new files
+     */
+    public static void uploadNewFile(
+        Context context,
+        Account account,
+        String[] localPaths,
+        String[] remotePaths,
+        String[] mimeTypes,
+        Integer behaviour,
+        Boolean createRemoteFolder,
+        int createdBy,
+        boolean requiresWifi,
+        boolean requiresCharging,
+        NameCollisionPolicy nameCollisionPolicy
+    ) {
+        Intent intent = new Intent(context, FileUploader.class);
+
+        intent.putExtra(FileUploader.KEY_ACCOUNT, account);
+        intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
+        intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
+        intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
+        intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
+        intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
+        intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
+        intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
+        intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
+        intent.putExtra(FileUploader.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intent);
+        } else {
+            context.startService(intent);
+        }
+    }
+
+    /**
+     * Upload and overwrite an already uploaded file
+     */
+    public static void uploadUpdateFile(
+        Context context,
+        Account account,
+        OCFile existingFile,
+        Integer behaviour,
+        NameCollisionPolicy nameCollisionPolicy
+    ) {
+        uploadUpdateFile(context, account, new OCFile[]{existingFile}, behaviour, nameCollisionPolicy);
+    }
+
+    /**
+     * Upload and overwrite already uploaded files
+     */
+    public static void uploadUpdateFile(
+        Context context,
+        Account account,
+        OCFile[] existingFiles,
+        Integer behaviour,
+        NameCollisionPolicy nameCollisionPolicy
+    ) {
+        Intent intent = new Intent(context, FileUploader.class);
+
+        intent.putExtra(FileUploader.KEY_ACCOUNT, account);
+        intent.putExtra(FileUploader.KEY_FILE, existingFiles);
+        intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
+        intent.putExtra(FileUploader.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intent);
+        } else {
+            context.startService(intent);
+        }
+    }
+
+    /**
+     * Retry a failed {@link OCUpload} identified by {@link OCUpload#getRemotePath()}
+     */
+    public static void retryUpload(@NonNull Context context, @NonNull Account account, @NonNull OCUpload upload) {
+        Intent i = new Intent(context, FileUploader.class);
+        i.putExtra(FileUploader.KEY_RETRY, true);
+        i.putExtra(FileUploader.KEY_ACCOUNT, account);
+        i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(i);
+        } else {
+            context.startService(i);
+        }
+    }
+
+    /**
+     * Retry a subset of all the stored failed uploads.
+     *
+     * @param context      Caller {@link Context}
+     * @param account      If not null, only failed uploads to this OC account will be retried; otherwise, uploads of
+     *                     all accounts will be retried.
+     * @param uploadResult If not null, only failed uploads with the result specified will be retried; otherwise, failed
+     *                     uploads due to any result will be retried.
+     */
+    public static void retryFailedUploads(
+        @NonNull final Context context,
+        @Nullable final Account account,
+        @NonNull final UploadsStorageManager uploadsStorageManager,
+        @NonNull final ConnectivityService connectivityService,
+        @NonNull final UserAccountManager accountManager,
+        @NonNull final PowerManagementService powerManagementService,
+        @Nullable final UploadResult uploadResult
+    ) {
+        OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
+        Account currentAccount = null;
+        boolean resultMatch;
+        boolean accountMatch;
+
+        boolean gotNetwork = connectivityService.getActiveNetworkType() != JobRequest.NetworkType.ANY &&
+            !connectivityService.isInternetWalled();
+        boolean gotWifi = gotNetwork && Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED);
+        boolean charging = Device.getBatteryStatus(context).isCharging();
+        boolean isPowerSaving = powerManagementService.isPowerSavingEnabled();
+
+        for (OCUpload failedUpload : failedUploads) {
+            accountMatch = account == null || account.name.equals(failedUpload.getAccountName());
+            resultMatch = uploadResult == null || uploadResult.equals(failedUpload.getLastResult());
+            if (accountMatch && resultMatch) {
+                if (currentAccount == null || !currentAccount.name.equals(failedUpload.getAccountName())) {
+                    currentAccount = failedUpload.getAccount(accountManager);
+                }
+
+                if (!new File(failedUpload.getLocalPath()).exists()) {
+                    if (!failedUpload.getLastResult().equals(UploadResult.FILE_NOT_FOUND)) {
+                        failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
+                        uploadsStorageManager.updateUpload(failedUpload);
+                    }
+                } else {
+                    charging = charging || Device.getBatteryStatus(context).getBatteryPercent() == 1;
+                    if (!isPowerSaving && gotNetwork && canUploadBeRetried(failedUpload, gotWifi, charging)) {
+                        retryUpload(context, currentAccount, failedUpload);
+                    }
+                }
+            }
+        }
+    }
+
+    private static boolean canUploadBeRetried(OCUpload upload, boolean gotWifi, boolean isCharging) {
+        File file = new File(upload.getLocalPath());
+        boolean needsWifi = upload.isUseWifiOnly();
+        boolean needsCharging = upload.isWhileChargingOnly();
+
+        return file.exists() && (!needsWifi || gotWifi) && (!needsCharging || isCharging);
+    }
+
+    public static String getUploadsAddedMessage() {
+        return FileUploader.class.getName() + UPLOADS_ADDED_MESSAGE;
+    }
+
+    public static String getUploadStartMessage() {
+        return FileUploader.class.getName() + UPLOAD_START_MESSAGE;
+    }
+
+    public static String getUploadFinishMessage() {
+        return FileUploader.class.getName() + UPLOAD_FINISH_MESSAGE;
+    }
+
 
     public enum NameCollisionPolicy {
         CANCEL,
