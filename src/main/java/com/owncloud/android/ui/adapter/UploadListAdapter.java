@@ -142,16 +142,15 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     uploadsStorageManager.clearSuccessfulUploads();
                     break;
                 case FAILED:
-                    new Thread(() -> new FileUploader.UploadRequester()
-                        .retryFailedUploads(
-                            parentActivity,
-                            null,
-                            uploadsStorageManager,
-                            connectivityService,
-                            accountManager,
-                            powerManagementService,
-                            null))
-                        .start();
+                    new Thread(() -> FileUploader.retryFailedUploads(
+                        parentActivity,
+                        null,
+                        uploadsStorageManager,
+                        connectivityService,
+                        accountManager,
+                        powerManagementService,
+                        null
+                    )).start();
                     break;
 
                 default:
@@ -394,8 +393,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 // not a credentials error
                 File file = new File(item.getLocalPath());
                 if (file.exists()) {
-                    FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-                    requester.retry(parentActivity, accountManager, item);
+                    FileUploader.retryUpload(parentActivity, item.getAccount(accountManager), item);
                     loadUploadItemsFromDb();
                 } else {
                     DisplayUtils.showSnackMessage(

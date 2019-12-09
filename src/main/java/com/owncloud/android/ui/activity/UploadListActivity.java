@@ -220,14 +220,15 @@ public class UploadListActivity extends FileActivity {
         }
 
         // retry failed uploads
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        new Thread(() -> requester.retryFailedUploads(this,
-                                                      null,
-                                                      uploadsStorageManager,
-                                                      connectivityService,
-                                                      userAccountManager,
-                                                      powerManagementService,
-                                                      null)).start();
+        new Thread(() -> FileUploader.retryFailedUploads(
+            this,
+            null,
+            uploadsStorageManager,
+            connectivityService,
+            userAccountManager,
+            powerManagementService,
+            null
+        )).start();
 
         // update UI
         uploadListAdapter.loadUploadItemsFromDb();

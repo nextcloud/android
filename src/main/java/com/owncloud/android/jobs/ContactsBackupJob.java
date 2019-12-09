@@ -169,18 +169,18 @@ public class ContactsBackupJob extends Job {
             }
         }
 
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        requester.uploadNewFile(
-                getContext(),
-                user.toPlatformAccount(),
-                file.getAbsolutePath(),
-                backupFolder + filename,
-                FileUploader.LOCAL_BEHAVIOUR_MOVE,
-                null,
-                true,
-                UploadFileOperation.CREATED_BY_USER,
-                false,
-                false
+        FileUploader.uploadNewFile(
+            getContext(),
+            user.toPlatformAccount(),
+            file.getAbsolutePath(),
+            backupFolder + filename,
+            FileUploader.LOCAL_BEHAVIOUR_MOVE,
+            null,
+            true,
+            UploadFileOperation.CREATED_BY_USER,
+            false,
+            false,
+            FileUploader.NameCollisionPolicy.ASK_USER
         );
     }
 
