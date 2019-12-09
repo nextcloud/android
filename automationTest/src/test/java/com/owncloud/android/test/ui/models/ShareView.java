@@ -29,13 +29,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class ShareView {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
 	@CacheLookup
 	@FindBy(id = "android:id/select_dialog_listview")
 	private AndroidElement listViewLayout;
 	
-	public ShareView (AndroidDriver driver) {
+	public ShareView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

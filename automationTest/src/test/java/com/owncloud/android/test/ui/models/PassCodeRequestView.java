@@ -28,7 +28,7 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class PassCodeRequestView {
-final AndroidDriver driver;
+final AndroidDriver<AndroidElement> driver;
 	
 	@AndroidFindBy(uiAutomator = "new UiSelector()"
 			+ ".className(\"android.widget.EditText\").index(0)")
@@ -46,7 +46,7 @@ final AndroidDriver driver;
 			+ ".className(\"android.widget.EditText\").index(3)")
 	private AndroidElement codeElement4;
 	
-	public PassCodeRequestView (AndroidDriver driver) {
+	public PassCodeRequestView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

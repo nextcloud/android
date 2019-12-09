@@ -29,21 +29,21 @@ import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
 
 public class GmailSendMailView {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
 	@CacheLookup
 	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"To\")")
 	private AndroidElement toTextField;
 	
 	@CacheLookup
-	@AndroidFindBy(name = "Subject")
+	@AndroidFindBy(tagName = "Subject")
 	private AndroidElement subjectTextField;
 	
 	@CacheLookup
 	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"Send\")")
 	private AndroidElement sendButton;
 	
-	public GmailSendMailView (AndroidDriver driver) {
+	public GmailSendMailView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

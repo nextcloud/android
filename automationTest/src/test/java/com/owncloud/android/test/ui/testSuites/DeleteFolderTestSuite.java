@@ -22,6 +22,7 @@ package com.owncloud.android.test.ui.testSuites;
 
 import static org.junit.Assert.*;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 
 import org.junit.After;
 import org.junit.Before;
@@ -41,7 +42,7 @@ import com.owncloud.android.test.ui.models.WaitAMomentPopUp;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DeleteFolderTestSuite{
-	AndroidDriver driver;
+	AndroidDriver<AndroidElement> driver;
 	Common common;
 	private Boolean folderHasBeenCreated = false;
 	private final String FOLDER_NAME = "testCreateFolder";

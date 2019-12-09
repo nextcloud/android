@@ -20,7 +20,7 @@
 
 package com.owncloud.android.test.ui.models;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -32,7 +32,7 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class LoginForm {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
 	@CacheLookup
 	@FindBy(id = "user")
@@ -47,9 +47,9 @@ public class LoginForm {
 	private AndroidElement loginButton;
 
 	
-	public LoginForm (AndroidDriver driver) {
+	public LoginForm (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
-		PageFactory.initElements(new AppiumFieldDecorator(driver,60, TimeUnit.SECONDS), this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver,Duration.ofSeconds(60, 1)), this);
 	}
 
 	public GrantAccess login(String usr,String password){

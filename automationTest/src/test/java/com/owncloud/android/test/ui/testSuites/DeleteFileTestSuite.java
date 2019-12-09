@@ -22,6 +22,7 @@ package com.owncloud.android.test.ui.testSuites;
 
 import static org.junit.Assert.*;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 
 import org.junit.After;
 import org.junit.Before;
@@ -43,7 +44,7 @@ import com.owncloud.android.test.ui.models.FileListView;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DeleteFileTestSuite{
 	
-	AndroidDriver driver;
+	AndroidDriver<AndroidElement> driver;
 	Common common;
 	private final String FILE_NAME = Config.fileToTestName;
 	

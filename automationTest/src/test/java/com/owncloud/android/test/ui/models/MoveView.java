@@ -31,16 +31,16 @@ import org.openqa.selenium.support.PageFactory;
 import com.owncloud.android.test.ui.actions.Actions;
 
 public class MoveView {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
 	@CacheLookup
 	@AndroidFindBy(id = "com.owncloud.android:id/list_root")
 	private AndroidElement filesLayout;
 	
-	@AndroidFindBy(name = "Choose")
+	@AndroidFindBy(tagName = "Choose")
 	private AndroidElement chooseButton;
 	
-	public MoveView (AndroidDriver driver) {
+	public MoveView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

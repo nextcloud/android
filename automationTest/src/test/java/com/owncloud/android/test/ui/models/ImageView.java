@@ -32,29 +32,29 @@ import com.owncloud.android.test.ui.testSuites.Common;
 
 
 public class ImageView {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 
 	@CacheLookup
 	@AndroidFindBy(uiAutomator = "new UiSelector()"
 			+ ".description(\"More options\")")
 	private AndroidElement optionsButton;
 
-	@AndroidFindBy(name = "Share")
+	@AndroidFindBy(tagName = "Share")
 	private AndroidElement shareButton;
 
-	@AndroidFindBy(name = "ownCloud")
+	@AndroidFindBy(tagName = "ownCloud")
 	private AndroidElement ownCloudButton;
 
-	@AndroidFindBy(name = "Share with ownCloud")
+	@AndroidFindBy(tagName = "Share with ownCloud")
 	private AndroidElement shareWithOwnCloudButton;
 
-	@AndroidFindBy(name = "Just once")
+	@AndroidFindBy(tagName = "Just once")
 	private AndroidElement justOnceButton;
 
 	@AndroidFindBy(id = "android:id/resolver_list")
 	private AndroidElement sharingAppsLayout;
 
-	public ImageView (AndroidDriver driver) {
+	public ImageView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

@@ -43,12 +43,12 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 
 public class Common{
-	AndroidDriver driver;
+	AndroidDriver<AndroidElement> driver;
 	static int waitingTime = 30;
 
 	public WebDriverWait wait;
 
-	protected AndroidDriver setUpCommonDriver () throws Exception {
+	protected AndroidDriver<AndroidElement> setUpCommonDriver () throws Exception {
 		File rootPath = new File(System.getProperty("user.dir"));
 		File appDir = new File(rootPath,"src/test/resources");
 		File app = new File(appDir,"nextcloud.apk");
@@ -63,11 +63,8 @@ public class Common{
 		capabilities.setCapability("appWaitActivity", 
 				"com.nextcloud.client.onboarding.FirstRunActivity");
 		capabilities.setCapability("printPageSourceOnFindFailure", 
-				"true");		
-		// capabilities.setCapability("chromedriverExecutableDir", 
-		// 		"/home/danny/node_modules/appium/node_modules/appium-chromedriver/chromedriver/linux/");
-		driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"),
-				capabilities);
+				"true");
+		driver = new AndroidDriver<>(new URL("http://localhost:4723/wd/hub"),capabilities);
 		
 		driver.manage().timeouts().implicitlyWait(waitingTime,
 				TimeUnit.SECONDS);

@@ -1,6 +1,6 @@
 package com.owncloud.android.test.ui.models;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
@@ -11,7 +11,7 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class ConnectionTest {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
 	@CacheLookup
 	@AndroidFindBy(uiAutomator = "new UiSelector()"
@@ -23,9 +23,9 @@ public class ConnectionTest {
 			+ ".resourceId(\"com.nextcloud.android.qa:id/testServerButton\")")
     private AndroidElement connectButton;
     
-    public ConnectionTest (AndroidDriver driver){
+    public ConnectionTest (AndroidDriver<AndroidElement> driver){
         this.driver = driver;
-		PageFactory.initElements(new AppiumFieldDecorator(driver,10, TimeUnit.SECONDS), this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver,Duration.ofSeconds(10, 1)), this);
     }
 
     public CertificatePopUp ServerConnectionOK(String hostUrl){

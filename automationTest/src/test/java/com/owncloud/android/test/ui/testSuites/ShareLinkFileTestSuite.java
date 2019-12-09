@@ -39,7 +39,7 @@ import com.owncloud.android.test.ui.models.FileListView;;
 
 public class ShareLinkFileTestSuite{
 	
-	AndroidDriver driver;
+	AndroidDriver<AndroidElement> driver;
 	Common common;
 	private final String FILE_NAME = Config.fileToTestName;
 	private Boolean fileHasBeenCreated = false;

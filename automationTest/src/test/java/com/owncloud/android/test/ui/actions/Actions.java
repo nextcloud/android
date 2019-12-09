@@ -24,12 +24,13 @@ import java.util.HashMap;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.RemoteWebElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 import com.owncloud.android.test.ui.models.AuthOptions;
 import com.owncloud.android.test.ui.models.CertificatePopUp;
@@ -54,7 +55,7 @@ import com.owncloud.android.test.ui.testSuites.Config;
 public class Actions {
 
 	public static FileListView login(String url, String user, String password,
-			Boolean isTrusted, AndroidDriver driver) 
+			Boolean isTrusted, AndroidDriver<AndroidElement> driver) 
 					throws InterruptedException {
 		FirstRun firstRun = new FirstRun(driver);
 		ConnectionTest connectionTest = firstRun.ChooseLogin();
@@ -94,7 +95,7 @@ public class Actions {
 
 
 	public static AndroidElement scrollTillFindElement (String elementName,
-			AndroidElement element, AndroidDriver driver) {
+			AndroidElement element, AndroidDriver<AndroidElement> driver) {
 		AndroidElement fileElement;
 
 		if(element.getAttribute("scrollable").equals("true")){
@@ -124,20 +125,20 @@ public class Actions {
 		settingsView.clickOnDeleteAccountElement();
 	}
 
-	public static void clickOnMainLayout(AndroidDriver driver){
-		driver.tap(1, 0, 0, 1);
+	public static void clickOnMainLayout(AndroidDriver<AndroidElement> driver){
+		// driver.tap(1, 0, 0, 1);
 	}
 
 
 	public static AndroidElement deleteElement(String elementName,  
-			FileListView fileListView, AndroidDriver driver) throws Exception{
+			FileListView fileListView, AndroidDriver<AndroidElement> driver) throws Exception{
 		AndroidElement fileElement;
 		WaitAMomentPopUp waitAMomentPopUp;
 		try{
 			//To open directly the "file list view" and
 			//we don't need to know in which view we are
-			driver.startActivity("com.owncloud.android",
-					".ui.activity.FileDisplayActivity");
+			Activity activity = new Activity("com.owncloud.android", ".ui.activity.FileDisplayActivity");
+			driver.startActivity(activity);
 			fileElement = (AndroidElement) driver
 					.findElementByName(elementName);
 			ElementMenuOptions menuOptions = fileListView
@@ -155,13 +156,13 @@ public class Actions {
 	}
 
 	public static AndroidElement shareLinkElementByGmail(String elementName,  
-			FileListView fileListView, AndroidDriver driver, Common common) 
+			FileListView fileListView, AndroidDriver<AndroidElement> driver, Common common) 
 					throws Exception{
 		try{
 			//To open directly the "file list view" and
 			//we don't need to know in which view we are
-			driver.startActivity("com.owncloud.android",
-					".ui.activity.FileDisplayActivity");
+			Activity activity = new Activity("com.owncloud.android", ".ui.activity.FileDisplayActivity");
+			driver.startActivity(activity);
 			ElementMenuOptions menuOptions = fileListView
 					.longPressOnElement(elementName);
 			ShareView shareView = menuOptions.clickOnShareLinkElement();
@@ -184,13 +185,13 @@ public class Actions {
 	}
 
 	public static AndroidElement shareLinkElementByCopyLink(String elementName,  
-			FileListView fileListView, AndroidDriver driver, Common common) 
+			FileListView fileListView, AndroidDriver<AndroidElement> driver, Common common) 
 					throws Exception{
 		try{
 			//To open directly the "file list view" and
 			//we don't need to know in which view we are
-			driver.startActivity("com.owncloud.android",
-					".ui.activity.FileDisplayActivity");
+			Activity activity = new Activity("com.owncloud.android", ".ui.activity.FileDisplayActivity");
+			driver.startActivity(activity);
 			ElementMenuOptions menuOptions = fileListView
 					.longPressOnElement(elementName);
 			ShareView shareView = menuOptions.clickOnShareLinkElement();
@@ -211,13 +212,13 @@ public class Actions {
 	
 	
 	public static void unshareLinkElement(String elementName,  
-			FileListView fileListView, AndroidDriver driver, Common common) 
+			FileListView fileListView, AndroidDriver<AndroidElement> driver, Common common) 
 					throws Exception{
 		try{
 			//To open directly the "file list view" and
 			//we don't need to know in which view we are
-			driver.startActivity("com.owncloud.android",
-					".ui.activity.FileDisplayActivity");
+			Activity activity = new Activity("com.owncloud.android", ".ui.activity.FileDisplayActivity");
+			driver.startActivity(activity);
 			ElementMenuOptions menuOptions = fileListView
 					.longPressOnElement(elementName);
 			WaitAMomentPopUp waitAMomentPopUp = menuOptions

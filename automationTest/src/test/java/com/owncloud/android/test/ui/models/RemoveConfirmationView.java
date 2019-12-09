@@ -28,12 +28,12 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.support.PageFactory;
 
 public class RemoveConfirmationView {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
-	@AndroidFindBy(name = "Remote and local")
+	@AndroidFindBy(tagName = "Remote and local")
 	private AndroidElement remoteAndLocalButton;
 	
-	public RemoveConfirmationView (AndroidDriver driver) {
+	public RemoveConfirmationView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

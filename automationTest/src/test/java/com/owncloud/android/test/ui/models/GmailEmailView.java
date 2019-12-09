@@ -31,13 +31,13 @@ import org.openqa.selenium.support.PageFactory;
 import com.owncloud.android.test.ui.testSuites.Config;
 
 public class GmailEmailView {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
 	@CacheLookup
-	@AndroidFindBy(name = Config.fileToTestSendByEmailName)
+	@AndroidFindBy(tagName = Config.fileToTestSendByEmailName)
 	private AndroidElement fileButton;
 		
-	public GmailEmailView (AndroidDriver driver) {
+	public GmailEmailView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

@@ -28,12 +28,12 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class WaitAMomentPopUp {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
-	@AndroidFindBy(name = "Wait a moment")
+	@AndroidFindBy(tagName = "Wait a moment")
 	private AndroidElement waitAMomentText;
 	
-	public WaitAMomentPopUp (AndroidDriver driver) {
+	public WaitAMomentPopUp (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

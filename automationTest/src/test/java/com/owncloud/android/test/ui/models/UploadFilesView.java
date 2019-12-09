@@ -31,7 +31,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.owncloud.android.test.ui.actions.Actions;
 
 public class UploadFilesView{
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
 	@CacheLookup
 	@AndroidFindBy(id = "com.owncloud.android:id/list_root")
@@ -43,7 +43,7 @@ public class UploadFilesView{
 	
 	private AndroidElement fileElement;
 	
-	public UploadFilesView (AndroidDriver driver) {
+	public UploadFilesView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

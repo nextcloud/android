@@ -29,13 +29,13 @@ import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
 
 public class UploadView {
-	final AndroidDriver driver;
+	final AndroidDriver<AndroidElement> driver;
 	
 	@CacheLookup
-	@AndroidFindBy(name = "Upload")
+	@AndroidFindBy(tagName = "Upload")
 	private AndroidElement uploadButton;
 		
-	public UploadView (AndroidDriver driver) {
+	public UploadView (AndroidDriver<AndroidElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

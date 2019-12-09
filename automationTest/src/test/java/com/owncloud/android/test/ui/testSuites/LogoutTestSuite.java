@@ -21,6 +21,7 @@
 package com.owncloud.android.test.ui.testSuites;
 
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 
 import com.owncloud.android.test.ui.actions.Actions;
 import com.owncloud.android.test.ui.groups.NoIgnoreTestCategory;
@@ -40,7 +41,7 @@ import org.junit.rules.TestName;
 
 public class LogoutTestSuite{
 	
-	AndroidDriver driver;
+	AndroidDriver<AndroidElement> driver;
 	Common common;
 
 	@Rule public TestName name = new TestName();
