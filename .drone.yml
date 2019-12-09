@@ -52,7 +52,7 @@ name: android10
 
 steps:
   - name: test
-    image: nextcloudci/android10:android10-1 # use always latest android version
+    image: nextcloudci/android10:android-54 # use always latest android version
     privileged: true
     environment:
       LOG_USERNAME:
@@ -70,9 +70,9 @@ steps:
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - ./wait_for_emulator.sh
-      - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" 10 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew installGplayDebugAndroidTest
-      - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" 10 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew combinedTestReport
       - curl -o codecov.sh https://codecov.io/bash
       - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
@@ -110,12 +110,13 @@ trigger:
     - pull_request
 
 ---
+
 kind: pipeline
-name: android8
+name: android
 
 steps:
   - name: test
-    image: nextcloudci/android8:android8-1
+    image: nextcloudci/android${ANDROID_VERSION}:android-54
     privileged: true
     environment:
       LOG_USERNAME:
@@ -133,9 +134,9 @@ steps:
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - ./wait_for_emulator.sh
-      - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" ${ANDROID_VERSION} $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew installGplayDebugAndroidTest
-      - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" ${ANDROID_VERSION} $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
   - name: notify
     image: drillster/drone-email
     settings:
@@ -168,6 +169,15 @@ trigger:
   event:
     - push
     - pull_request
+
+matrix:
+  ANDROID_VERSION:
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
 ---
 
 kind: pipeline
