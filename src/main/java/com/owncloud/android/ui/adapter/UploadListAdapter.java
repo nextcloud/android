@@ -38,6 +38,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -335,14 +336,22 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             });
 
         } else if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
-            // Delete
-            itemViewHolder.button.setImageResource(R.drawable.ic_action_delete_grey);
+            if (item.getLastResult() == UploadResult.SYNC_CONFLICT) {
+                itemViewHolder.button.setImageResource(R.drawable.ic_dots_vertical);
+                itemViewHolder.button.setOnClickListener(view -> {
+                    if (optionalUser.isPresent()) {
+                        Account account = optionalUser.get().toPlatformAccount();
+                        showItemConflictPopup(
+                            itemViewHolder, item, account, status, view
+                        );
+                    }
+                });
+            } else {
+                // Delete
+                itemViewHolder.button.setImageResource(R.drawable.ic_action_delete_grey);
+                itemViewHolder.button.setOnClickListener(v -> removeUpload(item));
+            }
             itemViewHolder.button.setVisibility(View.VISIBLE);
-            itemViewHolder.button.setOnClickListener(v -> {
-                uploadsStorageManager.removeUpload(item);
-                loadUploadItemsFromDb();
-            });
-
         } else {    // UploadStatus.UPLOAD_SUCCESS
             itemViewHolder.button.setVisibility(View.INVISIBLE);
         }
@@ -354,40 +363,13 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             final UploadResult uploadResult = item.getLastResult();
             itemViewHolder.itemLayout.setOnClickListener(v -> {
                 if (uploadResult == UploadResult.CREDENTIAL_ERROR) {
-                    parentActivity.getFileOperationsHelper().checkCurrentCredentials(
-                        item.getAccount(accountManager));
+                    parentActivity.getFileOperationsHelper().checkCurrentCredentials(item.getAccount(accountManager));
                     return;
-                } else if (uploadResult == UploadResult.SYNC_CONFLICT) {
-                    String remotePath = item.getRemotePath();
-                    OCFile ocFile = storageManager.getFileByPath(remotePath);
-
-                    if (ocFile == null) { // Remote file doesn't exist, try to refresh folder
-                        OCFile folder = storageManager.getFileByPath(new File(remotePath).getParent() + "/");
-                        if (folder != null && folder.isFolder()) {
-                            if (optionalUser.isPresent()) {
-                                Account userAccount = optionalUser.get().toPlatformAccount();
-                                this.refreshFolder(itemViewHolder, userAccount, folder, (caller, result) -> {
-                                    itemViewHolder.status.setText(status);
-                                    if (result.isSuccess()) {
-                                        OCFile file = storageManager.getFileByPath(remotePath);
-                                        if (file != null) {
-                                            this.openConflictActivity(file, item);
-                                        }
-                                    }
-                                });
-                            }
-                            return;
-                        }
-
-                        // Destination folder doesn't exist anymore
-                    }
-
-                    if (ocFile != null) {
-                        this.openConflictActivity(ocFile, item);
+                } else if (uploadResult == UploadResult.SYNC_CONFLICT && optionalUser.isPresent()) {
+                    Account account = optionalUser.get().toPlatformAccount();
+                    if (checkAndOpenConflictResolutionDialog(itemViewHolder, item, account, status)) {
                         return;
                     }
-
-                    // Remote file doesn't exist anymore = there is no more conflict
                 }
 
                 // not a credentials error
@@ -403,8 +385,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 }
             });
         } else {
-            itemViewHolder.itemLayout.setOnClickListener(v ->
-                    onUploadItemClick(item));
+            itemViewHolder.itemLayout.setOnClickListener(v -> onUploadItemClick(item));
         }
 
         // Set icon or thumbnail
@@ -507,6 +488,60 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 itemViewHolder.thumbnail.setImageDrawable(icon);
             }
         }
+    }
+
+    private boolean checkAndOpenConflictResolutionDialog(ItemViewHolder itemViewHolder, OCUpload item, Account account, String status) {
+        String remotePath = item.getRemotePath();
+        OCFile ocFile = storageManager.getFileByPath(remotePath);
+
+        if (ocFile == null) { // Remote file doesn't exist, try to refresh folder
+            OCFile folder = storageManager.getFileByPath(new File(remotePath).getParent() + "/");
+            if (folder != null && folder.isFolder()) {
+                this.refreshFolder(itemViewHolder, account, folder, (caller, result) -> {
+                    itemViewHolder.status.setText(status);
+                    if (result.isSuccess()) {
+                        OCFile file = storageManager.getFileByPath(remotePath);
+                        if (file != null) {
+                            this.openConflictActivity(file, item);
+                        }
+                    }
+                });
+                return true;
+            }
+
+            // Destination folder doesn't exist anymore
+        }
+
+        if (ocFile != null) {
+            this.openConflictActivity(ocFile, item);
+            return true;
+        }
+
+        // Remote file doesn't exist anymore = there is no more conflict
+        return false;
+    }
+
+    private void showItemConflictPopup(ItemViewHolder itemViewHolder, OCUpload item, Account account, String status, View view) {
+        PopupMenu popup = new PopupMenu(MainApp.getAppContext(), view);
+        popup.inflate(R.menu.upload_list_item_file_conflict);
+        popup.setOnMenuItemClickListener(i -> {
+            switch (i.getItemId()) {
+                case R.id.action_upload_list_resolve_conflict:
+                    checkAndOpenConflictResolutionDialog(itemViewHolder, item, account, status);
+                    break;
+                case R.id.action_upload_list_delete:
+                default:
+                    removeUpload(item);
+                    break;
+            }
+            return true;
+        });
+        popup.show();
+    }
+
+    private void removeUpload(OCUpload item) {
+        uploadsStorageManager.removeUpload(item);
+        loadUploadItemsFromDb();
     }
 
     private void refreshFolder(ItemViewHolder view, Account account, OCFile folder, OnRemoteOperationListener listener) {
