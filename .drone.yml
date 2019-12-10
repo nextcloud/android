@@ -66,7 +66,7 @@ steps:
       ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - /opt/android-sdk-linux/tools/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - ./wait_for_emulator.sh
@@ -130,7 +130,7 @@ steps:
       ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - /opt/android-sdk-linux/tools/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - ./wait_for_emulator.sh
@@ -190,7 +190,7 @@ steps:
       ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - /opt/android-sdk-linux/tools/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - ./wait_for_emulator.sh
@@ -250,7 +250,7 @@ steps:
       ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - /opt/android-sdk-linux/tools/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - ./wait_for_emulator.sh
@@ -310,7 +310,7 @@ steps:
       ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - /opt/android-sdk-linux/tools/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - ./wait_for_emulator.sh
@@ -370,7 +370,7 @@ steps:
       ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - /opt/android-sdk-linux/tools/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - ./wait_for_emulator.sh
@@ -430,7 +430,7 @@ steps:
       ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - /opt/android-sdk-linux/tools/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - ./wait_for_emulator.sh
