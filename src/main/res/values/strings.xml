@@ -914,6 +914,8 @@
     <string name="create_rich_workspace">Add folder info</string>
     <string name="creates_rich_workspace">creates folder info</string>
     <string name="edit_rich_workspace">edit folder info</string>
+    <string name="uploader_upload_failed_sync_conflict_error">File upload conflict</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Pick which version to keep of %1$s</string>
     <string name="create_new">Create new</string>
     <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
 
