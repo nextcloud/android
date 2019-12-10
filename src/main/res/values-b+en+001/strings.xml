@@ -76,9 +76,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="autoupload_configure">Configure</string>
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
     <string name="autoupload_custom_folder">Set up a custom folder</string>
     <string name="autoupload_disable_power_save_check">Disable power save check</string>
+    <string name="autoupload_hide_folder">Hide folder</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Close</string>
     <string name="battery_optimization_disable">Disable</string>
@@ -263,6 +265,7 @@
     <string name="fallback_weblogin_text">Revert to old login method</string>
     <string name="favorite">Add to favorites</string>
     <string name="favorite_icon">Favorite</string>
+    <string name="file">file</string>
     <string name="file_delete">Delete</string>
     <string name="file_details_no_content">Failed to load details</string>
     <string name="file_icon">File</string>

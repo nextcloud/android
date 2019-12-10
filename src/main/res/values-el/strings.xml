@@ -539,6 +539,8 @@
     <string name="scanQR_description">Είσοδος μέσω κωδικού QR</string>
     <string name="screenshot_01_gridView_heading">Προστασία των δεδομένων σας</string>
     <string name="screenshot_02_listView_heading">Περιήγηση και διαμοιρασμός</string>
+    <string name="screenshot_03_drawer_heading">Δραστρηριότητα, κοινόχρηστα, ...</string>
+    <string name="screenshot_03_drawer_subline">όλα άμεσα προσβάσιμα</string>
     <string name="screenshot_04_accounts_heading">Όλοι οι λογαριασμοί σας</string>
     <string name="screenshot_04_accounts_subline">σε ένα σημείο</string>
     <string name="screenshot_05_autoUpload_heading">Αυτόματη μεταφόρτωση</string>
@@ -602,6 +604,7 @@
     <string name="shared_icon_shared_via_link">Διαμοιράστηκε μέσω συνδέσμου</string>
     <string name="shared_with_you_by">Διαμοιράστηκε με εσάς από τον %1$s</string>
     <string name="signup_with_provider">Σύνδεση με πάροχο</string>
+    <string name="single_sign_on_request_token" formatted="true">Επιτρέπεται το %1$sνα έχει πρόσβαση στον λογαριασμό σας Nextclound %2$s ?</string>
     <string name="sort_by">Ταξινόμηση κατά</string>
     <string name="sort_by_modification_date_ascending">Νεότερο πρώτα</string>
     <string name="sort_by_modification_date_descending">Παλαιότερο πρώτα</string>
@@ -643,6 +646,7 @@
     <string name="storage_movies">Βίντεο</string>
     <string name="storage_music">Μουσική</string>
     <string name="storage_pictures">Φωτογραφίες</string>
+    <string name="store_full_desc">Μια αυτόνομη πλατφόρμα που έχετε τον πλήρη έλεγχο.\n\nFeatures:\n* Εύκολο, μοντέρνο, συμβατό με το θέμα του διακομιστή σας\n* Μεταφόρτωση αρχείων στον Nextclound διακομιστή σας\n* Κοινή χρήση\n* Κρατήστε τα αγαπημένα σας αρχεία και φακέλους συγχρονισμένα\n* Αναζήτηση σε όλ΄ους τους φακέλους στον διακομιστή σας\n* Αυτόματη μεταφόρτωση φωτογραφιών και βίντεο από την συσκευή σας\n* Ενημέρωση με ειδοποιήσεις\n* Υποστήριξη πολλαπλών λογαριασμών\n* Ασφαλή σύνδεση στα δεδομένα σας με χρήση δακτυλικού αποτυπώματος ή κωδικού PIN\n* Συνεργασία με DADVx5 (γνωστό ως DAVdroid) για εύκολη εγκατάσταση και συγχρονισμό ημερολογίου &amp;\n\nΠαρακαλώ αναφέρετε τα σφάλματα στο https://github.com/nextcloud/android/issues και συζητήστε για την εφαρμογή στο https://help.nextcloud.com/c/clients/android\n\n Καινούργιος στο Nextclound? To Nextclound είναι ένας διακομιστής &amp;συγχρονισμού αρχείων κοινόχρηστων και επικοινωνίας. Ένα ελεύθερο λογισμικό, οπου μπορείτε να το υποστηρίξετε μόνοι σας ή επι πληρωμής. Με αυτό τον τρόπο έχετε τον έλεγχο των φωτογραφιών σας, του ημερολογίου σας και των δεδομένων των επαφών σας, των αρχείων σας και οτιδήποτε άλλο.\n\nΕνημερωθείτε για το Nextclound στο https://nextcloud.com</string>
     <string name="stream">Ροή με...</string>
     <string name="stream_not_possible_message">Παρακαλούμε να γίνει λήψη των μέσων ή να χρησιμοποιηθεί εξωτερική εφαρμογή</string>
     <string name="subject_shared_with_you">Ο \"%1$s\" διαμοιράστηκε μαζί σας</string>
@@ -663,6 +667,7 @@
     <string name="synced_folders_configure_folders">Ρυθμίστε τους φακέλους</string>
     <string name="synced_folders_loading_folders">Φόρτωση φακέλων…</string>
     <string name="synced_folders_new_info">Η άμεση μεταφόρτωση έχει ανανεωθεί πλήρως. Ξανά ρυθμίστε την αυτόματη μεταφόρτωσή σας από το κύριο μενού. \ N \ nΑπολαύστε τη νέα και εκτεταμένη αυτόματη μεταφόρτωση.</string>
+    <string name="synced_folders_no_results">Δεν βρέθηκαν φάκελοι πολυμέσων</string>
     <string name="synced_folders_preferences">Προτιμήσεις για αυτόματη μεταφόρτωση</string>
     <string name="synced_folders_preferences_folder_path">Για%1$s</string>
     <string name="synced_folders_type">Τύπος</string>
@@ -704,7 +709,9 @@
     <string name="upload_local_storage_full">Η τοπική αποθήκη είναι πλήρης</string>
     <string name="upload_local_storage_not_copied">Το αρχείο δεν μπορεί να αντιγραφεί σε τοπικό αποθηκευτικό χώρο</string>
     <string name="upload_lock_failed">Το κλείδωμα του φακέλου απέτυχε</string>
+    <string name="upload_old_android"><![CDATA[Κρυπτασφάλιση μόνο με >= Android 5.0]]></string>
     <string name="upload_query_move_foreign_files">Δεν υπάρχει αρκετός διαθέσιμος αποθηκευτικός χώρος για να αντιγραφούν τα επιλεγμένα αρχεία στον φάκελο %1$s. Θα θέλατε να τα μετακινήσετε αντί αυτού;</string>
+    <string name="upload_sync_conflict">Σφάλμα συγχρονισμού, παρακαλώ διορθώστε χειροκίνητα</string>
     <string name="upload_unknown_error">Άγνωστο σφάλμα</string>
     <string name="uploader_btn_alternative_text">Επιλογή</string>
     <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
@@ -761,6 +768,7 @@
     <string name="user_info_website">Ιστοσελίδα</string>
     <string name="user_information_retrieval_error">Σφάλμα ανάκτησης πληροφοριών χρήστη</string>
     <string name="userinfo_no_info_headline">Δεν ορίστηκαν προσωπικές πληροφορίες</string>
+    <string name="userinfo_no_info_text">Προσθέστε όνομα, εικόνα και λεπτομέρειες επικοινωνίας στο προφίλ σας.</string>
     <string name="username">Όνομα χρήστη</string>
     <string name="version_dev_download">Λήψη</string>
     <string name="wait_a_moment">Παρακαλούμε περιμένετε…</string>
@@ -768,6 +776,14 @@
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>
     <string name="whats_new_skip">Παράλειψη</string>
     <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Αδύνατος συγχρονισμός %1$d αρχείου (διενέξεις: %2$d)</item>
+        <item quantity="other">Αδύνατος συγχρονισμός %1$d αρχείων (διενέξεις: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Σφάλμα αντιγραφής αρχείου %1$dαπό %2$s φάκελο</item>
+        <item quantity="other">Σφάλμα αντιγραφής %1$dαρχείων από %2$sφάκελο</item>
+    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d φάκελος</item>
         <item quantity="other">%1$d φάκελοι</item>
@@ -775,6 +791,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d αρχείο</item>
         <item quantity="other">%1$d αρχεία</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Εμφάνιση %1$dκρυφού φακέλου</item>
+        <item quantity="other">Εμφάνιση %1$dκρυφών φακέλων</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d επιλεγμένο</item>

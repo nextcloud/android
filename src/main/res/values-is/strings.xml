@@ -76,8 +76,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">haldið áfram í upprunalegri möppu, því hún er skrifvarin</string>
     <string name="auto_upload_on_wifi">Aðeins senda inn á gjaldfrjálsu WiFi-neti</string>
     <string name="auto_upload_path">/SjálfvirkInnsending</string>
+    <string name="autoupload_configure">Uppsetning</string>
     <string name="autoupload_create_new_custom_folder">Búa til nýja nýja sérsniðna uppsetningu á möppum</string>
     <string name="autoupload_custom_folder">Settu upp sérsniðna möppu</string>
+    <string name="autoupload_disable_power_save_check">Gera orkusparnaðarprófun óvirka</string>
+    <string name="autoupload_hide_folder">Fela möppu</string>
     <string name="avatar">Persónutákn</string>
     <string name="battery_optimization_close">Loka</string>
     <string name="battery_optimization_disable">Gera óvirkt</string>
@@ -85,6 +88,7 @@
     <string name="battery_optimization_no_setting">Tekst ekki að ræsa rafhlöðustillingar beint. Lagaðu þetta handvirkt í stillingunum.</string>
     <string name="battery_optimization_title">Bestun fyrir rafhlöðunotkun</string>
     <string name="certificate_load_problem">Það kom upp vandamál við að lesa inn skilríkið.</string>
+    <string name="changelog_dev_version">Breytingaskrá þróunarútgáfu</string>
     <string name="checkbox">Hakreitur</string>
     <string name="choose_local_folder">Veldu staðværa möppu…</string>
     <string name="choose_remote_folder">Veldu fjartengda möppu…</string>
@@ -167,6 +171,7 @@
     <string name="copy_link">Afrita tengil</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Ekki er stuðningur ennþá við afritun/færslu inn í dulritaða möppu.</string>
     <string name="copy_to">Afrita í…</string>
+    <string name="could_not_download_image">Gat ekki sótt alla myndina</string>
     <string name="could_not_retrieve_url">Tókst ekki að ná í slóð</string>
     <string name="create_dir_fail_msg">Gat ekki búið til möppu</string>
     <string name="create_file_from_template">Bý til skrá út frá sniðmáti…</string>
@@ -188,6 +193,7 @@
     <string name="disable_new_media_folder_detection_notifications">Gera óvirkt</string>
     <string name="dismiss">Hafna</string>
     <string name="dismiss_notification_description">Afgreiða tilkynningu</string>
+    <string name="download_latest_dev_version">Sækja nýjustu þróunarútgáfuna</string>
     <string name="downloader_download_failed_content">Gat ekki sótt %1$s</string>
     <string name="downloader_download_failed_credentials_error">Niðurhal mistókst, skráðu þig inn aftur</string>
     <string name="downloader_download_failed_ticker">Niðurhal mistókst</string>
@@ -198,6 +204,7 @@
     <string name="downloader_download_succeeded_ticker">Þegar sótt</string>
     <string name="downloader_not_downloaded_yet">Ekki ennþá búið að sækja</string>
     <string name="drawer_close">Loka hliðarspjaldi</string>
+    <string name="drawer_community">Samfélags</string>
     <string name="drawer_current_account">Núverandi notandaaðgangur</string>
     <string name="drawer_end_account">Síðasti notandaaðgangur</string>
     <string name="drawer_header_background">Bakgrunnsmynd á haus hliðarspjalds</string>
@@ -243,17 +250,24 @@
     <string name="error__upload__local_file_not_copied">%1$s var ekki hægt að afrita í staðværu %2$s möppuna</string>
     <string name="error_cant_bind_to_operations_service">Alvarleg villa: Ekki hægt að framkvæma aðgerðir</string>
     <string name="error_comment_file">Villa við að gera athugasemd við skrá</string>
+    <string name="error_crash_title">%1$s hrundi</string>
+    <string name="error_report_issue_action">Tilkynna</string>
+    <string name="error_report_issue_text">Tilkynna vandamál á villuskráningu? (krefst Github-aðgangs)</string>
     <string name="error_retrieving_file">Villa við að ná í skrá</string>
     <string name="error_retrieving_templates">Villa við að ná í sniðmát</string>
     <string name="error_starting_direct_camera_upload">Villa við að ræsa myndavél</string>
     <string name="etm_preferences">Kjörstillingar</string>
+    <string name="etm_title">Verkfræðilegur prófunarhamur</string>
     <string name="fab_label">Bæta við eða senda inn</string>
     <string name="failed_to_download">Mistókst að senda skrá í niðurhalsstýringu</string>
+    <string name="failed_to_print">Mistókst að prenta skrá</string>
     <string name="fallback_weblogin_back">Til baka</string>
     <string name="fallback_weblogin_text">Fara til baka í gömlu innskráningaraðferðina</string>
     <string name="favorite">Bæta í eftirlæti</string>
     <string name="favorite_icon">Eftirlæti</string>
+    <string name="file">skrá</string>
     <string name="file_delete">Eyða</string>
+    <string name="file_detail_activity_error">Villa við að ná í virkni fyrir skrá</string>
     <string name="file_details_no_content">Mistókst að hlaða inn ítarupplýsingum</string>
     <string name="file_icon">Skrá</string>
     <string name="file_keep">Halda</string>
@@ -321,6 +335,7 @@
     <string name="first_run_2_text">Örugg samvinna og skráaskipti</string>
     <string name="first_run_3_text">Einfaldur og auðveldur vefpóstur, dagatal &amp; tengiliðir</string>
     <string name="first_run_4_text">Skjádeiling, netfundir og vefráðstefnur</string>
+    <string name="folder">mappa</string>
     <string name="folder_already_exists">Mappa er þegar til</string>
     <string name="folder_confirm_create">Búa til</string>
     <string name="folder_icon">Táknmynd fyrir möppu</string>
@@ -357,8 +372,13 @@
     <string name="log_send_mail_subject">%1$s atvikaskrár Android-forrita</string>
     <string name="log_send_no_mail_app">Ekkert forrit fannst til að senda atvikaskrár. Settu upp tölvupóstforrit.</string>
     <string name="login">Skrá inn</string>
+    <string name="logs_menu_delete">Eyða atvikaskrám</string>
     <string name="logs_menu_refresh">Endurlesa</string>
+    <string name="logs_menu_search">Leita í atvikaskrám</string>
+    <string name="logs_menu_send">Senda atvikaskrár með tölvupósti</string>
+    <string name="logs_status_filtered">Atvikaskráning: %1$d kB, fyrirspurn samsvaraði %2$d / %3$d á %4$d ms</string>
     <string name="logs_status_loading">Hleð inn…</string>
+    <string name="logs_status_not_filtered">Atvikaskráning: %1$d kB, engin sía</string>
     <string name="logs_title">Atvikaskrár</string>
     <string name="maintenance_mode">Þjónn í viðhaldsham</string>
     <string name="manage_space_clear_data">Hreinsa gögn</string>
@@ -397,6 +417,7 @@
     <string name="new_notification">Ný tilkynning</string>
     <string name="new_version_was_created">Ný útgáfa var útbúin</string>
     <string name="no_browser_available">Ekkert forrit tiltækt til að meðhöndla tengla</string>
+    <string name="no_mutliple_accounts_allowed">Aðeins leyfður einn notandaaðgangur</string>
     <string name="no_pdf_app_available">Ekkert forrit tiltækt til að meðhöndla PDF-skrár</string>
     <string name="note_confirm">Senda</string>
     <string name="note_could_not_sent">Gat ekki sent minnispunkt</string>
@@ -441,6 +462,7 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Þetta er frátökutákn</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 EH</string>
+    <string name="power_save_check_dialog_message">Sé orkusparnaðarprófun gerð óvirk getur það leitt til þess að verið sé að senda inn skrár þegar mjög lítið er eftir á rafhlöðunni!</string>
     <string name="pref_behaviour_entries_delete_file">eytt</string>
     <string name="pref_behaviour_entries_keep_file">áfram í upprunalegri möppu</string>
     <string name="pref_behaviour_entries_move">færð í forritsmöppu</string>
@@ -482,6 +504,10 @@
     <string name="prefs_storage_path">Slóð á gagnageymslu</string>
     <string name="prefs_synced_folders_local_path_title">Staðvær mappa</string>
     <string name="prefs_synced_folders_remote_path_title">Fjartengd mappa</string>
+    <string name="prefs_theme_title">Þema</string>
+    <string name="prefs_value_theme_dark">Dökkt</string>
+    <string name="prefs_value_theme_light">Ljóst</string>
+    <string name="prefs_value_theme_system">Fylgja kerfinu</string>
     <string name="preview_image_description">Forskoðun myndar</string>
     <string name="preview_image_error_no_local_file">Það er engin staðvær skrá til að forskoða</string>
     <string name="preview_image_error_unknown_format">Get ekki birt mynd</string>
@@ -493,6 +519,7 @@
     <string name="recommend_subject">Prófaðu %1$s á snjalltækinu þínu!</string>
     <string name="recommend_text">Mér langar til að bjóða þér að nota  %1$s á snjalltækinu þínu.\nSæktu það hér: %2$s</string>
     <string name="recommend_urls">%1$s eða %2$s</string>
+    <string name="remote_file_fetch_failed">Mistókst að finna skrá!</string>
     <string name="remove_fail_msg">Eyðing mistókst</string>
     <string name="remove_notification_failed">Mistókst að fjarlægja tilkynningu.</string>
     <string name="remove_push_notification">Fjarlægja</string>
@@ -511,6 +538,18 @@
     <string name="saml_authentication_required_text">Lykilorðs er krafist</string>
     <string name="saml_authentication_wrong_pass">Rangt lykilorð</string>
     <string name="scanQR_description">Skrá inn með QR-kóða</string>
+    <string name="screenshot_01_gridView_heading">Verndar gögnin þín</string>
+    <string name="screenshot_01_gridView_subline">vinnugögn hýst á eigin vegum</string>
+    <string name="screenshot_02_listView_heading">Skoða og deila</string>
+    <string name="screenshot_02_listView_subline">allar aðgerðir innan seilingar</string>
+    <string name="screenshot_03_drawer_heading">Virkni, sameignir, …</string>
+    <string name="screenshot_03_drawer_subline">allt við hendina</string>
+    <string name="screenshot_04_accounts_heading">Allir aðgangarnir þínir</string>
+    <string name="screenshot_04_accounts_subline">á einum stað</string>
+    <string name="screenshot_05_autoUpload_heading">Sjálfvirk innsending</string>
+    <string name="screenshot_05_autoUpload_subline">mynda &amp; myndskeiða</string>
+    <string name="screenshot_06_davdroid_heading">Dagatal &amp; tengiliðir</string>
+    <string name="screenshot_06_davdroid_subline">Samstilla með DAVx5</string>
     <string name="search_users_and_groups_hint">Leita að notendum eða hópum</string>
     <string name="select_all">Velja allt</string>
     <string name="select_template">Veldu sniðmát</string>
@@ -528,6 +567,8 @@
     <string name="share_file">Deila %1$s</string>
     <string name="share_get_public_link_button">Ná í tengil</string>
     <string name="share_group_clarification">%1$s (hópur)</string>
+    <string name="share_internal_link">Deila innri tengli</string>
+    <string name="share_internal_link_text">Virkar bara fyrir notendur sem eiga aðgang að þessari %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( á %2$s )</string>
     <string name="share_link_empty_password">Þú verður að setja inn lykilorð</string>
     <string name="share_link_file_error">Villa kom upp við að reyna að deila þessari skrá eða möppu</string>
@@ -638,6 +679,7 @@
     <string name="synced_folders_configure_folders">Stilla möppur</string>
     <string name="synced_folders_loading_folders">Hleð inn möppum…</string>
     <string name="synced_folders_new_info">Beinar innsendingar hafa verið algerlega endurhannaðar. Endurstilltu sjálfvirkar innsendingar beint í aðalvalmyndinni\n\nNjóttu góðs af nýju og ítarlegu viðmóti sjálfvirkra innsendinga.</string>
+    <string name="synced_folders_no_results">Engar margmiðlunarmöppur fundust</string>
     <string name="synced_folders_preferences">Kjörstillingar fyrir sjálfvirkar innsendingar</string>
     <string name="synced_folders_preferences_folder_path">Fyrir %1$s</string>
     <string name="synced_folders_type">Tegund</string>
@@ -765,6 +807,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d skrá</item>
         <item quantity="other">%1$d skrár</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Birta %1$d falda skrá</item>
+        <item quantity="other">Birta %1$d faldar skrár</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d valið</item>
