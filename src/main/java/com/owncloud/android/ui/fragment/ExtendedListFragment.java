@@ -334,7 +334,7 @@ public class ExtendedListFragment extends Fragment implements
                 if (activity instanceof FileDisplayActivity) {
                     FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
                     fileDisplayActivity.resetSearchView();
-                    fileDisplayActivity.refreshListOfFilesFragment(true);
+                    fileDisplayActivity.updateListOfFilesFragment(true);
                 } else if (activity instanceof UploadFilesActivity) {
                     LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) adapter;
                     localFileListAdapter.filter(query);

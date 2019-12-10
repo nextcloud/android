@@ -321,7 +321,7 @@ public class FileDisplayActivity extends FileActivity
             }
         } else {
             createMinFragments(savedInstanceState);
-            refreshList(true);
+            syncAndUpdateFolder(true);
         }
 
         setIndeterminate(mSyncInProgress);
@@ -394,7 +394,7 @@ public class FileDisplayActivity extends FileActivity
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
                     EventBus.getDefault().post(new TokenPushEvent());
-                    refreshList(true);
+                    syncAndUpdateFolder(true);
                     // toggle on is save since this is the only scenario this code gets accessed
                 } else {
                     // permission denied --> do nothing
@@ -685,7 +685,7 @@ public class FileDisplayActivity extends FileActivity
         updateActionBarTitleAndHomeButton(null);
     }
 
-    public void refreshListOfFilesFragment(boolean fromSearch) {
+    public void updateListOfFilesFragment(boolean fromSearch) {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) {
             fileListFragment.listDirectory(MainApp.isOnlyOnDevice(), fromSearch);
@@ -1206,6 +1206,7 @@ public class FileDisplayActivity extends FileActivity
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
+        syncAndUpdateFolder(false);
 
         OCFile startFile = null;
         if (getIntent() != null && getIntent().getParcelableExtra(EXTRA_FILE) != null) {
@@ -1218,7 +1219,7 @@ public class FileDisplayActivity extends FileActivity
             searchView.setQuery(searchQuery, false);
         } else if (getListOfFilesFragment() != null && !getListOfFilesFragment().isSearchFragment()
                 && startFile == null) {
-            refreshListOfFilesFragment(false);
+            updateListOfFilesFragment(false);
         } else {
             getListOfFilesFragment().listDirectory(startFile, false, false);
             updateActionBarTitleAndHomeButton(startFile);
@@ -1466,7 +1467,7 @@ public class FileDisplayActivity extends FileActivity
                     String linkedToRemotePath =
                             intent.getStringExtra(FileUploader.EXTRA_LINKED_TO_PATH);
                     if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
-                        refreshListOfFilesFragment(false);
+                        updateListOfFilesFragment(false);
                     }
                 }
 
@@ -1550,7 +1551,7 @@ public class FileDisplayActivity extends FileActivity
                 if (sameAccount && isDescendant) {
                     String linkedToRemotePath = intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
                     if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
-                        refreshListOfFilesFragment(false);
+                        updateListOfFilesFragment(false);
                     }
                     refreshSecondFragment(
                             intent.getAction(),
@@ -1821,7 +1822,7 @@ public class FileDisplayActivity extends FileActivity
             }
             OCFile parentFile = getStorageManager().getFileById(removedFile.getParentId());
             if (parentFile != null && parentFile.equals(getCurrentDir())) {
-                refreshListOfFilesFragment(false);
+                updateListOfFilesFragment(false);
             }
             supportInvalidateOptionsMenu();
         } else {
@@ -1877,7 +1878,7 @@ public class FileDisplayActivity extends FileActivity
     private void onMoveFileOperationFinish(MoveFileOperation operation,
                                            RemoteOperationResult result) {
         if (result.isSuccess()) {
-            refreshListOfFilesFragment(false);
+            syncAndUpdateFolder(true);
         } else {
             try {
                 DisplayUtils.showSnackMessage(
@@ -1915,7 +1916,7 @@ public class FileDisplayActivity extends FileActivity
                 fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
                 fileDetailFragment.getFileDetailSharingFragment().onUpdateShareInformation(result, getFile());
             }
-            refreshListOfFilesFragment(false);
+            updateListOfFilesFragment(false);
         } else {
             // Detect Failure (403) --> maybe needs password
             String password = operation.getPassword();
@@ -1968,7 +1969,7 @@ public class FileDisplayActivity extends FileActivity
 
         if (result.isSuccess()) {
             updateFileFromDB();
-            refreshListOfFilesFragment(false);
+            updateListOfFilesFragment(false);
         } else if (fileDetailFragment != null && fileDetailFragment.getView() != null) {
             String errorResponse;
 
@@ -2018,7 +2019,7 @@ public class FileDisplayActivity extends FileActivity
      */
     private void onCopyFileOperationFinish(CopyFileOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
-            refreshListOfFilesFragment(false);
+            updateListOfFilesFragment(false);
         } else {
             try {
                 DisplayUtils.showSnackMessage(
@@ -2072,7 +2073,7 @@ public class FileDisplayActivity extends FileActivity
             }
 
             if (getStorageManager().getFileById(renamedFile.getParentId()).equals(getCurrentDir())) {
-                refreshListOfFilesFragment(false);
+                updateListOfFilesFragment(false);
             }
 
         } else {
@@ -2132,7 +2133,7 @@ public class FileDisplayActivity extends FileActivity
      */
     @Override
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
-        refreshListOfFilesFragment(false);
+        updateListOfFilesFragment(false);
         FileFragment details = getSecondFragment();
         if (details instanceof FileDetailFragment &&
                 file.equals(details.getFile())) {
@@ -2443,15 +2444,15 @@ public class FileDisplayActivity extends FileActivity
 
     @Override
     public void onRefresh(boolean ignoreETag) {
-        refreshList(ignoreETag);
+        syncAndUpdateFolder(ignoreETag);
     }
 
     @Override
     public void onRefresh() {
-        refreshList(true);
+        syncAndUpdateFolder(true);
     }
 
-    private void refreshList(boolean ignoreETag) {
+    private void syncAndUpdateFolder(boolean ignoreETag) {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null && !listOfFiles.isSearchFragment()) {
             OCFile folder = listOfFiles.getCurrentFile();
