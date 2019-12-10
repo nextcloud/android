@@ -28,6 +28,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.2.2"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
+        classpath 'com.karumi:shot:3.1.0'
     }
 }
 
@@ -39,8 +40,9 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'jacoco-android'
-apply plugin: "com.github.spotbugs"
-apply plugin: "io.gitlab.arturbosch.detekt"
+apply plugin: 'com.github.spotbugs'
+apply plugin: 'io.gitlab.arturbosch.detekt'
+apply plugin: 'shot'
 
 configurations {
     ktlint
@@ -101,6 +103,11 @@ spotbugs {
     toolVersion = '3.1.12'
 }
 
+shot {
+    appId = 'com.nextcloud.client'
+    instrumentationTestTask = 'connectedGenericDebugAndroidTest'
+}
+
 android {
     lintOptions {
         abortOnError false
@@ -126,7 +133,7 @@ android {
         targetSdkVersion 29
 
         // arguments to be passed to functional tests
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.nextcloud.client.ScreenshotTestRunner"
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "${NC_TEST_SERVER_BASEURL}"
         testInstrumentationRunnerArgument "TEST_SERVER_USERNAME", "${NC_TEST_SERVER_USERNAME}"
         testInstrumentationRunnerArgument "TEST_SERVER_PASSWORD", "${NC_TEST_SERVER_PASSWORD}"
@@ -369,6 +376,7 @@ dependencies {
     //androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
     androidTestImplementation 'tools.fastlane:screengrab:1.2.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    androidTestCompile('com.android.support.test.espresso:espresso-intents:2.2.1')
 
 //    jacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
 //    jacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
