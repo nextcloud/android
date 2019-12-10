@@ -739,8 +739,12 @@ public class FileUploader extends Service
             String content;
 
             // check credentials error
-            boolean needsToUpdateCredentials = ResultCode.UNAUTHORIZED.equals(uploadResult.getCode());
-            tickerId = needsToUpdateCredentials ? R.string.uploader_upload_failed_credentials_error : tickerId;
+            boolean needsToUpdateCredentials = uploadResult.getCode() == ResultCode.UNAUTHORIZED;
+            if (needsToUpdateCredentials) {
+                tickerId = R.string.uploader_upload_failed_credentials_error;
+            } else if (uploadResult.getCode() == ResultCode.SYNC_CONFLICT) { // check file conflict
+                tickerId = R.string.uploader_upload_failed_sync_conflict_error;
+            }
 
             mNotificationBuilder
                 .setTicker(getString(tickerId))
