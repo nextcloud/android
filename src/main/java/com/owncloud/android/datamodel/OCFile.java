@@ -155,6 +155,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         favorite = source.readInt() == 1;
         encrypted = source.readInt() == 1;
         encryptedFileName = source.readString();
+        ownerId = source.readString();
+        ownerDisplayName = source.readString();
         mountType = (WebdavEntry.MountType) source.readSerializable();
     }
 
@@ -185,6 +187,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeInt(favorite ? 1 : 0);
         dest.writeInt(encrypted ? 1 : 0);
         dest.writeString(encryptedFileName);
+        dest.writeString(ownerId);
+        dest.writeString(ownerDisplayName);
         dest.writeSerializable(mountType);
     }
 

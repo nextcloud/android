@@ -502,9 +502,13 @@ public class FileDisplayActivity extends FileActivity
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
+
         if (ACTION_DETAILS.equalsIgnoreCase(intent.getAction())) {
+            OCFile file = intent.getParcelableExtra(EXTRA_FILE);
+            setFile(file);
             setIntent(intent);
             setFile(intent.getParcelableExtra(EXTRA_FILE));
+            showDetails(file);
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             handleOpenFileViaIntent(intent);
         } else if (RESTART.equals(intent.getAction())) {
@@ -1157,13 +1161,6 @@ public class FileDisplayActivity extends FileActivity
             super.onBackPressed();
         } else {
             // all closed
-
-            //if PreviewImageActivity called this activity and mDualPane==false  then calls PreviewImageActivity again
-            if (ACTION_DETAILS.equalsIgnoreCase(getIntent().getAction()) && !mDualPane) {
-                getIntent().setAction(null);
-                getIntent().putExtra(EXTRA_FILE, (OCFile) null);
-                startImagePreview(getFile(), false);
-            }
 
             OCFileListFragment listOfFiles = getListOfFilesFragment();
             if (mDualPane || getSecondFragment() == null) {
