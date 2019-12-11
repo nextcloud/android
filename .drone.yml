@@ -3,7 +3,7 @@ name: generic
 
 steps:
   - name: generic
-    image: nextcloudci/android10:android-55 # use always latest android version
+    image: nextcloudci/android10:android-56 # use always latest android version
     environment:
       GIT_USERNAME:
         from_secret: GIT_USERNAME
@@ -52,7 +52,7 @@ name: android10
 
 steps:
   - name: test
-    image: nextcloudci/android10:android-55 # use always latest android version
+    image: nextcloudci/android10:android-56 # use always latest android version
     privileged: true
     environment:
       LOG_USERNAME:
@@ -66,7 +66,7 @@ steps:
       ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - /opt/android-sdk-linux/tools/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - /opt/android-sdk-linux/emulator/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - ./wait_for_emulator.sh
@@ -116,7 +116,7 @@ name: android9
 
 steps:
   - name: test
-    image: nextcloudci/android9:android-55
+    image: nextcloudci/android9:android-56
     privileged: true
     environment:
       LOG_USERNAME:
@@ -130,7 +130,7 @@ steps:
       ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - /opt/android-sdk-linux/tools/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - /opt/android-sdk-linux/emulator/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - ./wait_for_emulator.sh
@@ -176,7 +176,7 @@ name: android8
 
 steps:
   - name: test
-    image: nextcloudci/android8:android-55
+    image: nextcloudci/android8:android-56
     privileged: true
     environment:
       LOG_USERNAME:
@@ -190,7 +190,7 @@ steps:
       ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - /opt/android-sdk-linux/tools/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - /opt/android-sdk-linux/emulator/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - ./wait_for_emulator.sh
@@ -236,7 +236,7 @@ name: android7
 
 steps:
   - name: test
-    image: nextcloudci/android7:android-55
+    image: nextcloudci/android7:android-56
     privileged: true
     environment:
       LOG_USERNAME:
@@ -250,7 +250,7 @@ steps:
       ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - /opt/android-sdk-linux/tools/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - /opt/android-sdk-linux/emulator/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - ./wait_for_emulator.sh
@@ -296,7 +296,7 @@ name: android6
 
 steps:
   - name: test
-    image: nextcloudci/android6:android-55
+    image: nextcloudci/android6:android-56
     privileged: true
     environment:
       LOG_USERNAME:
@@ -356,7 +356,7 @@ name: android5
 
 steps:
   - name: test
-    image: nextcloudci/android5:android-55
+    image: nextcloudci/android5:android-56
     privileged: true
     environment:
       LOG_USERNAME:
@@ -416,7 +416,7 @@ name: android4
 
 steps:
   - name: test
-    image: nextcloudci/android4:android-55
+    image: nextcloudci/android4:android-56
     privileged: true
     environment:
       LOG_USERNAME:
@@ -476,7 +476,7 @@ name: analysis
 
 steps:
   - name: analysis
-    image: nextcloudci/android10:android-55 # use always latest android version
+    image: nextcloudci/android10:android-56 # use always latest android version
     environment:
       GIT_USERNAME:
         from_secret: GIT_USERNAME
@@ -525,7 +525,7 @@ name: qa
 
 steps:
   - name: qa
-    image: nextcloudci/android10:android-55 # use always latest android version
+    image: nextcloudci/android10:android-56 # use always latest android version
     privileged: true
     environment:
       LOG_USERNAME:
