@@ -206,15 +206,11 @@
     <string name="manage_space_clear_data">Xóa dữ liệu</string>
     <string name="manage_space_title">Quản lý dung lượng</string>
     <string name="media_err_io">Không thể đọc tập tin media</string>
-    <string name="media_err_not_in_owncloud">Tập tin không hợp lệ trong tài khoản </string>
-    <string name="media_err_nothing_to_play">Không tìm thấy tập tin media nào</string>
     <string name="media_err_unsupported">Codec của media không được hỗ trợ</string>
-    <string name="media_event_done">%1$s phát lại khi kết thúc</string>
     <string name="media_forward_description">Nút đẩy nhanh tốc độ phát</string>
     <string name="media_notif_ticker">%1$s trình nghe nhạc</string>
     <string name="media_play_pause_description">Nút phát hoặc tạm dừng</string>
     <string name="media_rewind_description">Nút chuyển lại</string>
-    <string name="media_state_loading">%1$s (đang chạy)</string>
     <string name="media_state_playing">%1$s (đang phát)</string>
     <string name="menu_item_sort_by_date_newest_first">Mới trước</string>
     <string name="menu_item_sort_by_date_oldest_first">Cũ trước</string>
@@ -262,7 +258,6 @@
     <string name="prefs_category_general">Tổng hợp</string>
     <string name="prefs_category_more">hơn</string>
     <string name="prefs_daily_contacts_sync_summary">Sao lưu hàng ngày danh bạn của bạn</string>
-    <string name="prefs_feedback">Phản hồi</string>
     <string name="prefs_help">Giúp đỡ</string>
     <string name="prefs_imprint">Đánh dấu</string>
     <string name="prefs_lock_device_credentials_enabled">Bật chứng nhận thiết bị</string>
@@ -368,7 +363,6 @@
     <string name="synced_folder_settings_button">Nút thiết đặt</string>
     <string name="synced_folders_configure_folders">Cấu hình thư mục</string>
     <string name="synced_folders_loading_folders">Đang tải thư mục</string>
-    <string name="synced_folders_no_results">Không có thư mục media nào được tìm thấy</string>
     <string name="synced_icon">Đã đồng bộ</string>
     <string name="test_server_button">Kiểm tra kết nối máy chủ</string>
     <string name="trashbin_activity_title">File đã bị xóa</string>

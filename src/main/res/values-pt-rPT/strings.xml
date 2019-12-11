@@ -198,7 +198,6 @@
     <string name="drawer_manage_accounts">Gerir contas</string>
     <string name="drawer_middle_account">Conta intermédia</string>
     <string name="drawer_open">Abrir barra lateral</string>
-    <string name="drawer_participate">Participe</string>
     <string name="drawer_quota">Usado %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilizado</string>
     <string name="drawer_synced_folders">Carregamento automático</string>
@@ -233,7 +232,6 @@
     <string name="fallback_weblogin_text">Reverter para método de início de sessão anterior</string>
     <string name="favorite">Adicionar aos favoritos</string>
     <string name="favorite_icon">Favorito</string>
-    <string name="feedback_no_mail_app">Nenhuma aplicação disponível para enviar e-mails!</string>
     <string name="file_delete">Apagar</string>
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
     <string name="file_icon">Ficheiro</string>
@@ -345,18 +343,13 @@
     <string name="media_err_invalid_progressive_playback">O ficheiro de multimédia não pode ser transmitido</string>
     <string name="media_err_io">Não foi possível ler o ficheiro de multimédia</string>
     <string name="media_err_malformed">O ficheiro de multimédia tem codificação incorreta</string>
-    <string name="media_err_not_in_owncloud">O ficheiro não está numa conta válida</string>
-    <string name="media_err_nothing_to_play">Não foi encontrado nenhum ficheiro de multimédia</string>
-    <string name="media_err_playing">Erro inesperado ao tentar reproduzir %1$s</string>
     <string name="media_err_timeout">Tentativa de reproduzir o ficheiro expirou</string>
     <string name="media_err_unknown">O leitor multimédia pré-configurado é incapaz de reproduzir o ficheiro de multimédia</string>
     <string name="media_err_unsupported">Codec de multimédia não suportado</string>
-    <string name="media_event_done">%1$s reprodução terminou</string>
     <string name="media_forward_description">Botão de Avançar Rápido</string>
     <string name="media_notif_ticker">%1$s reprodutor de música</string>
     <string name="media_play_pause_description">Botão de Reproduzir/Pausar</string>
     <string name="media_rewind_description">Botão de Retroceder</string>
-    <string name="media_state_loading">%1$s (a carregar)</string>
     <string name="media_state_playing">%1$s (a reproduzir)</string>
     <string name="menu_item_sort_by_date_newest_first">Recentes primeiro</string>
     <string name="menu_item_sort_by_date_oldest_first">Antigos primeiro</string>
@@ -406,25 +399,6 @@
     <string name="operation_canceled">A operação foi cancelada</string>
     <string name="outdated_server">O servidor chegou ao fim de vida, por favor, actualize-o!</string>
     <string name="overflow_menu">Menu mais</string>
-    <string name="participate_beta_headline">Teste a versão de desenvolvimento</string>
-    <string name="participate_beta_text">Inclui todas as futuras e mais recentes funcionalidades. Falhas/erros podem ocorrer, se e quando tal acontecer, por favor, reporte as suas descobertas.</string>
-    <string name="participate_contribute_forum_forum">fórum</string>
-    <string name="participate_contribute_forum_text">Ajude outros em</string>
-    <string name="participate_contribute_github_text">Reveja, emende e escreva código, veja %1$s para detalhes</string>
-    <string name="participate_contribute_headline">Contribua activamente</string>
-    <string name="participate_contribute_irc_text">Junte-se à conversação em IRC:</string>
-    <string name="participate_contribute_translate_text">a aplicação</string>
-    <string name="participate_contribute_translate_translate">Traduzir</string>
-    <string name="participate_dev_direct_download">Transfira diretamente a versão de desenvolvimento</string>
-    <string name="participate_dev_fdroid">Obter versão de desenvolvimento a partir da aplicação F-Droid</string>
-    <string name="participate_rc_fdroid">Obter versão candidata a lançamento a partir da aplicação F-Droid</string>
-    <string name="participate_rc_play_store">Obter versão candidata a lançamento a partir da loja Google Play</string>
-    <string name="participate_release_candidate_headline">Versão candidata a lançamento</string>
-    <string name="participate_release_candidate_text">A versão candidata a lançamento (RC) é um snapshot da próxima versão e é espectável que seja estável. Através do teste da sua configuração individual pode ajudar-nos a assegurá-lo. Para testar, inscreva-se na loja Play ou verifique a secção \"Version\" do F-Droid.</string>
-    <string name="participate_testing_bug_text">Encontrou um erro? Ocorrências estranhas?</string>
-    <string name="participate_testing_headline">Ajude-nos testando</string>
-    <string name="participate_testing_report_text">Reportar um problema no Github</string>
-    <string name="participate_testing_version_text">Interessado em ajudar testando a próxima versão?</string>
     <string name="pass_code_configure_your_pass_code">Insira o seu código</string>
     <string name="pass_code_configure_your_pass_code_explanation">O código será solicitado sempre que a aplicação é iniciada</string>
     <string name="pass_code_enter_pass_code">Por favor, insira o seu código</string>
@@ -463,7 +437,6 @@
     <string name="prefs_e2e_no_device_credentials">Para mostrar a mnemónica, por favor, ative as credenciais do dispositivo.</string>
     <string name="prefs_enable_media_scan_notifications">Mostrar notificações de análise de multimédia</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notificar sobre novas pastas multimédia encontradas</string>
-    <string name="prefs_feedback">Opinião</string>
     <string name="prefs_gpl_v2">GNU - Licença Pública Geral, Versão 2</string>
     <string name="prefs_help">Ajuda</string>
     <string name="prefs_imprint">Informação</string>
@@ -643,7 +616,6 @@
     <string name="synced_folders_loading_folders">A carregar pastas…</string>
     <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure o seu envio automático a partir do menu principal.
 Aproveite o novo e melhorado envio automático.</string>
-    <string name="synced_folders_no_results">Não foram encontrados pastas multimédia.</string>
     <string name="synced_folders_preferences">Preferências de envio automático</string>
     <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <string name="synced_folders_type">Tipo</string>

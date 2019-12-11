@@ -552,7 +552,7 @@
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="choose_local_folder">Choose local folder…</string>
     <string name="synced_folders_loading_folders">Loading folders…</string>
-    <string name="synced_folders_no_results">No media folders found.</string>
+    <string name="synced_folders_no_results">No media folders found</string>
     <string name="synced_folders_preferences">Preferences for auto uploading</string>
     <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
@@ -706,12 +706,12 @@
     <string name="account_not_found">Account not found!</string>
 
     <string name="screenshot_01_gridView_heading">Protecting your data</string>
-    <string name="screenshot_01_gridView_subline">self-hosted productivity platform</string>
+    <string name="screenshot_01_gridView_subline">self-hosted productivity</string>
 
     <string name="screenshot_02_listView_heading">Browse and share</string>
     <string name="screenshot_02_listView_subline">all actions at your fingertips</string>
 
-    <string name="screenshot_03_drawer_heading">Activity, shares, offline files</string>
+    <string name="screenshot_03_drawer_heading">Activity, shares, …</string>
     <string name="screenshot_03_drawer_subline">everything quickly accessible</string>
 
     <string name="screenshot_04_accounts_heading">All your accounts</string>
@@ -720,7 +720,8 @@
     <string name="screenshot_05_autoUpload_heading">Automatic upload</string>
     <string name="screenshot_05_autoUpload_subline">for your photos &amp; videos</string>
 
-    <string name="screenshot_06_davdroid_heading">Sync calendar &amp; contacts</string>
+    <string name="screenshot_06_davdroid_heading">Calendar &amp; contacts</string>
+    <string name="screenshot_06_davdroid_subline">Sync with kSync</string>
 
     <string name="userinfo_no_info_headline">No personal info set</string>
     <string name="userinfo_no_info_text">Add name, picture and contact details on your profile page.</string>

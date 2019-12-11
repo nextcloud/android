@@ -1,19 +1,17 @@
-Svobodně licencovaná Nexcloud Android aplikace, dávající vám mobilní svobodu.
-
+Software, který můžete nasadit na vlastní server a ten organizuje ukládání a synchronizaci souborů. Díky doplňkům jde o kompletní groupwarové řešení.
 Funkce:
-* Snadno použitelné moderní rozhraní, přizpůsobené vzhledu, používaném na vašem serveru
-* Nahrávejte soubory na svůj Nextcloud server
-* Sdílejte je s ostatními
-* Udržujte své oblíbené soubory a složky synchronizované
-* Hledejte napříč všemi složkami na svém serveru
-* Automaticky nahrávejte své fotky a videa, pořízená zařízením
-* Udržujte si přehled pomocí oznámení
-* Podporuje vícero účtů
-* Zabezpečený přístup k vašim datům pomocí otisku prstu nebo PIN kódu
-* Napojení na kSync (dříve známé pod názvem DAVdroid) pro snadné nastavení synchronizace kalendáře a kontaktů
+* Soubory nahrané do nexcloudu lze snadno sdílet s ostatními.
+* Přístup odkudkoli přes webové a mobilní rozhraní.
+* Synchronizace s počítačem umožňující offline práci.
+* Vaše data jsou na vašem serveru a máte nad nimi plnou kontrolu.
+* Jde o svobodný software, který snadno můžete sami hostovat a volně si ho přizplsobit.  V případě potřeby je ale k dispozici komerční podpora.
+* Vyhledávání napříč soubory.
+* Synchronizace kontaktů a zpráv.
+* Sdílení kalendářů do mobilu (DAVx5/DAVdroid)
+* Neomezený počet uživatelů, autoupload fotek přímo z mobilu, oznámení, 
+* Klienti pro WIndows, MacOS, iOS, Android, web.
+* Mnoho dalších doplňků s dalšími funkcemi.
 
- Veškeré nalezené problémy hlaste na https://github.com/nextcloud/android/issues a diskutujte o aplikaci na https://help.nextcloud.com/c/clients/android
+Díky Nextcloudu budete mít kompletní privátní řešení pro všechy vaše soubory, fotky, kalendáře a kontakty. 
 
-Noví v Nextcloud? Nextcloud je soukromý server pro synchronizaci souborů a jejich sdílení, dále pro komunikaci. Jedná se o svobodný software a můžete ho hostovat svými silami nebo za to zaplatit nějaké společnosti. Tím máte pod kontrolou své fotky, kalendář a kontakty, dokumenty a vše ostatní.
-
-Podívejte se na Nextcloud na https://nextcloud.com
+Připomínky  zasílejte na https://github.com/nextcloud/android/issues, diskutovat lze na https://help.nextcloud.com/c/clients a vše ostatní najdete na  https://nextcloud.com 

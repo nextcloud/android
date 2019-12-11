@@ -41,6 +41,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -1426,7 +1427,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Override
     protected void onStop() {
         if (preferences.getLockTimestamp() != 0) {
-            preferences.setLockTimestamp(System.currentTimeMillis());
+            preferences.setLockTimestamp(SystemClock.elapsedRealtime());
         }
         EventBus.getDefault().unregister(this);
         super.onStop();
