@@ -547,7 +547,6 @@
     <string name="screenshot_05_autoUpload_heading">Subida automática</string>
     <string name="screenshot_05_autoUpload_subline">para sus fotos &amp; vídeos</string>
     <string name="screenshot_06_davdroid_heading">Calendario y contactos</string>
-    <string name="screenshot_06_davdroid_subline">Sincronización con kSync</string>
     <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_template">Escoge plantilla</string>

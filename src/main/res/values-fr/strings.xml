@@ -549,7 +549,6 @@ Attention la suppression est irréversible.</string>
     <string name="screenshot_05_autoUpload_heading">Téléversement automatique</string>
     <string name="screenshot_05_autoUpload_subline">pour vos photos &amp; vidéos</string>
     <string name="screenshot_06_davdroid_heading">Agenda &amp; Contacts</string>
-    <string name="screenshot_06_davdroid_subline">Synchroniser avec kSync</string>
     <string name="search_users_and_groups_hint">Rechercher parmi les utilisateurs et groupes</string>
     <string name="select_all">Tout sélectionner</string>
     <string name="select_template">Sélectionnez un modèle</string>
