@@ -179,6 +179,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_SERVER_AUTH_METHOD = "SERVER_AUTH_METHOD";
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
     private static final String KEY_AUTH_TOKEN = "AUTH_TOKEN";
+    private static final String KEY_ONLY_ADD = "onlyAdd";
 
     public static final byte ACTION_CREATE = 0;
     public static final byte ACTION_UPDATE_EXPIRED_TOKEN = 2;       // detected by the app
@@ -260,6 +261,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject AppPreferences preferences;
     @Inject OnboardingService onboarding;
     @Inject DeviceInfo deviceInfo;
+    private boolean onlyAdd = false;
 
     /**
      * {@inheritDoc}
@@ -276,6 +278,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (savedInstanceState == null && !directLogin) {
             onboarding.launchFirstRunIfNeeded(this);
         }
+
+        onlyAdd = getIntent().getBooleanExtra(KEY_ONLY_ADD, false);
 
         // delete cookies for webView
         deleteCookies();
@@ -888,6 +892,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (intent.getBooleanExtra(FirstRunActivity.EXTRA_EXIT, false)) {
             super.finish();
         }
+
+        onlyAdd = intent.getBooleanExtra(KEY_ONLY_ADD, false);
 
         // Passcode
         PassCodeManager passCodeManager = new PassCodeManager(preferences);
@@ -1565,10 +1571,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 accountManager.setCurrentOwnCloudAccount(mAccount.name);
 
-                Intent i = new Intent(this, FileDisplayActivity.class);
-                i.setAction(FileDisplayActivity.RESTART);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
+                if (!onlyAdd) {
+                    Intent i = new Intent(this, FileDisplayActivity.class);
+                    i.setAction(FileDisplayActivity.RESTART);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                }
 
             } else {
                 // init webView again
