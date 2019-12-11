@@ -131,7 +131,6 @@ android {
         testInstrumentationRunnerArgument "TEST_SERVER_USERNAME", "${NC_TEST_SERVER_USERNAME}"
         testInstrumentationRunnerArgument "TEST_SERVER_PASSWORD", "${NC_TEST_SERVER_PASSWORD}"
         testInstrumentationRunnerArguments disableAnalytics: 'true'
-        testInstrumentationRunnerArguments clearPackageData: 'true'
 
         multiDexEnabled true
 
@@ -152,7 +151,7 @@ android {
 
         buildTypes {
             debug {
-                testCoverageEnabled (project.hasProperty('coverage'))
+                testCoverageEnabled true
             }
         }
 

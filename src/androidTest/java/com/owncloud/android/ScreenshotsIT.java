@@ -32,6 +32,7 @@ import tools.fastlane.screengrab.locale.LocaleTestRule;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.AnyOf.anyOf;
@@ -133,6 +134,7 @@ public class ScreenshotsIT extends AbstractIT {
         ActivityScenario.launch(FileDisplayActivity.class);
 
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+        onView(withId(R.id.nav_view)).perform(swipeUp());
         onView(anyOf(withText(R.string.drawer_synced_folders), withId(R.id.nav_synced_folders))).perform(click());
 
         Screengrab.screenshot("05_autoUpload");
