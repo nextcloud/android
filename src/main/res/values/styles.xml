@@ -138,7 +138,7 @@
 		<item name="android:textColor">@color/primary_button_text_color</item>
 	</style>
 
-	<style name="Button.Login" parent="Button">
+	<style name="Button.Login" parent="Widget.MaterialComponents.Button.UnelevatedButton">
 		<item name="colorButtonNormal">@color/primary</item>
         <item name="colorAccent">@color/primary</item>
 		<item name="android:textColor">@color/white</item>

@@ -75,10 +75,9 @@
                 android:layout_gravity="center"
                 android:maxWidth="400dp"
                 android:minWidth="300dp"
-                android:textStyle="bold"
                 android:text="@string/login"
                 android:padding="@dimen/standard_padding"
-                app:cornerRadius="@dimen/button_corner_radius" />
+                app:cornerRadius="5dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/signup"

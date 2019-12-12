@@ -5,9 +5,10 @@
     <string name="store_full_desc">La plateforme de productivité auto-hébergée qui vous redonne le contrôle.\n\nFonctionalités: \n* Intuitif, interface moderne, adaptée au thème de votre serveur.\n* Envoyez des fichiers sur votre Infomaniak Drive\n* Partagez avec d\'autres personnes\n* Gardez vos fichiers et dossiers préférés synchronisés\n* Recherchez dans tous les dossiers de votre serveur\n* Envoi automatique des photos et vidéos prises par votre appareil\n* Restez à jour avec les notifications\n* Supporte plusieurs comptes simultanément\n* Accès sécurisé avec votre empreinte digitale ou un PIN\n* Intégration avec kSync pour configurer facilement l\'agenda&amp;et synchroniser les contacts\n\nMerci de signaler les problèmes sur https://github.com/nextcloud/android/issues et discutez ce cette application sur https://help.nextcloud.com/c/clients/android\n\nNouveau sur Nextcloud? Nextcloud est un serveur privé de synchronisation de fichiers&amp;de partage et de communications. C\'est un logiciel libre, et vous pouvez l\'héberger vous même ou payer une entreprise pour le faire à votre place. De cette façon, vous avez le contrôle de vos photos, votre agenda et vos données de contacts, vos documents et tout le reste.\n\nApprenez en plus sur Nextcloud sur https://nextcloud.com</string>
     <string name="screenshot_06_davdroid_subline">Synchroniser avec kSync</string>
 
-    <string name="intro_title_1">Bienvenue dans la version bêta du Drive Infomaniak</string>
-    <string name="intro_title_2">Synchronisez facilement vos fichiers</string>
-    <string name="intro_title_3">Sauvegardez automatiquement vos photos sur votre Drive</string>
+    <string name="intro_title_1">Le Cloud sécurisé pour PME et particuliers</string>
+    <string name="intro_title_2">Accédez à vos fichiers sur tous vos appareils</string>
+    <string name="intro_title_3">Partagez et travaillez ensemble au même endroit</string>
+    <string name="intro_title_4">Sauvegardez vos photos automatiquement</string>
 
     <string name="unavailable_operation_beta">Cette opération est indisponible durant la phase de beta-testing</string>
 

@@ -5,9 +5,10 @@
     <string name="store_full_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle.\n\nFunktionen:\n* Einfache, moderne Oberfläche. Angepasst an das Design Ihres Servers\n* .\n\nEigenschaften:\n* Einfache, moderne an Ihr Design angepasste Oberfläche\n* Laden Sie Ihre Dateien auf Ihren Nextcloud Server\n* Teilen Sie Ihre Dateien mit anderen\n* Halten Sie Ihre favorisierten Dateien und Ordner synchron\n* Suche über alle Ordner auf Ihrem Server\n* Automatisches Hochladen von Fotos und Videos von Ihrem Gerät\n* Bleiben Sie auf dem Laufenden durch Benachrichtigungen\n* Mehrere Konten gleichzeitig\n* Geschützter Zugriff durch Fingerabdruck oder PIN\n* Integration mit kSync (ehemals DAVdroid) für einfaches Konfigurieren der Kalender- &amp; Kontakte-Synchronisation\n\nBitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues oder diskutieren Sie über die App auf https://help.nextcloud.com/c/clients/android\n\nWas ist die Nextcloud? Die Nextcloud ist ein privater Dateiaustausch &amp; -synchronisierungs Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behalten Sie die Kontrolle über Ihre Fotos, Ihre Kalender und Kontakte, Ihre Dokumente und alle anderen Daten.\n\nSchauen Sie sich Nextcloud an unter https://nextcloud.com.</string>
     <string name="screenshot_06_davdroid_subline">Synchronisiere mit kSync</string>
 
-    <string name="intro_title_1">Willkommen zu der Beta-Version von Infomaniak Drive</string>
-    <string name="intro_title_2">Einfache Synchronisierung Ihrer Dateien</string>
-    <string name="intro_title_3">Speichern Sie Ihre Bilder automatisch auf Ihrem Drive.</string>
+    <string name="intro_title_1">Sichere Cloud für KMU und Privatpersonen</string>
+    <string name="intro_title_2">Zugriff auf Ihre Dateien auf allen Ihren Geräten</string>
+    <string name="intro_title_3">Teilen und Arbeiten am selben Ort</string>
+    <string name="intro_title_4">Speichern Sie Ihre Fotos automatisch.</string>
 
     <string name="unavailable_operation_beta">Dieser Vorgang ist während der Beta-Testphase nicht verfügbar.</string>
 

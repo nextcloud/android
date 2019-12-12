@@ -28,7 +28,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -231,6 +230,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         return new FeatureItem[]{
             new FeatureItem(R.drawable.ic_intro_step_1, R.string.intro_title_1, R.string.empty, true, false),
             new FeatureItem(R.drawable.ic_intro_step_2, R.string.intro_title_2, R.string.empty, true, false),
-            new FeatureItem(R.drawable.ic_intro_step_3, R.string.intro_title_3, R.string.empty, true, false)};
+            new FeatureItem(R.drawable.ic_intro_step_3, R.string.intro_title_3, R.string.empty, true, false),
+            new FeatureItem(R.drawable.ic_intro_step_4, R.string.intro_title_4, R.string.empty, true, false)};
     }
 }
