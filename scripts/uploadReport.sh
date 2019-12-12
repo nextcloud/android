@@ -15,7 +15,7 @@ USER=$1
 PASS=$2
 TYPE=$4
 ANDROID_VERSION=$5
-
+FOLDER=$ID-$ANDROID_VERSION
 set -e
 
 if [ $TYPE = "IT" ]; then
@@ -24,12 +24,12 @@ else
     cd build/reports/tests/testGplayDebugUnitTest
 fi
 
-find . -type d -exec curl -u $USER:$PASS -X MKCOL $URL/$ID/$(echo {} | sed s#\./##) \;
-find . -type f -exec curl -u $USER:$PASS -X PUT $URL/$ID/$(echo {} | sed s#\./##) --upload-file {} \;
+find . -type d -exec curl -u $USER:$PASS -X MKCOL $URL/$FOLDER/$(echo {} | sed s#\./##) \;
+find . -type f -exec curl -u $USER:$PASS -X PUT $URL/$FOLDER/$(echo {} | sed s#\./##) --upload-file {} \;
 
-echo "Uploaded failing tests to https://www.kaminsky.me/nc-dev/android-integrationTests/$ID-$ANDROID_VERSION"
+echo "Uploaded failing tests to https://www.kaminsky.me/nc-dev/android-integrationTests/$FOLDER"
 
 curl -u $7:$8 -X POST https://api.github.com/repos/nextcloud/android/issues/$6/comments -d "{ \"body\" : \"$TYPE test
- failed: https://www.kaminsky.me/nc-dev/android-integrationTests/$ID \" }"
+ failed: https://www.kaminsky.me/nc-dev/android-integrationTests/$FOLDER \" }"
 
 exit 1
