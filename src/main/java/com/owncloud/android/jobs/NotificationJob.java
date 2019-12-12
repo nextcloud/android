@@ -253,7 +253,6 @@ public class NotificationJob extends Job {
             OwnCloudAccount ocAccount = new OwnCloudAccount(currentAccount, context);
             OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton()
                 .getClientFor(ocAccount, context);
-            client.setOwnCloudVersion(accountManager.getServerVersion(currentAccount));
 
             RemoteOperationResult result = new GetNotificationRemoteOperation(decryptedPushMessage.nid)
                 .execute(client);
@@ -306,7 +305,6 @@ public class NotificationJob extends Job {
                         OwnCloudAccount ocAccount = new OwnCloudAccount(currentAccount, context);
                         OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton()
                             .getClientFor(ocAccount, context);
-                        client.setOwnCloudVersion(accountManager.getServerVersion(currentAccount));
 
                         String actionType = intent.getStringExtra(KEY_NOTIFICATION_ACTION_TYPE);
                         String actionLink = intent.getStringExtra(KEY_NOTIFICATION_ACTION_LINK);
