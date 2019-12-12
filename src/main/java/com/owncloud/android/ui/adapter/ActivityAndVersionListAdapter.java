@@ -32,9 +32,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -69,7 +69,7 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
         this.versionListInterface = versionListInterface;
     }
 
-    public void setActivityAndVersionItems(List<Object> items, OwnCloudClient newClient, boolean clear) {
+    public void setActivityAndVersionItems(List<Object> items, NextcloudClient newClient, boolean clear) {
         if (client == null) {
             client = newClient;
         }

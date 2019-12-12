@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.net.Uri;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 
@@ -54,6 +55,8 @@ public interface ClientFactory {
     }
 
     OwnCloudClient create(User user) throws CreationException;
+
+    NextcloudClient createNextcloudClient(User user) throws CreationException;
 
     @Deprecated
     OwnCloudClient create(Account account)

@@ -42,6 +42,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -99,6 +100,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     private ActivityAndVersionListAdapter adapter;
     private Unbinder unbinder;
     private OwnCloudClient ownCloudClient;
+    private NextcloudClient nextcloudClient;
 
     private OCFile file;
     private Account account;
@@ -313,7 +315,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
         Thread t = new Thread(() -> {
             try {
                 ownCloudClient = clientFactory.create(user);
-                ownCloudClient.setOwnCloudVersion(user.getServer().getVersion());
+                nextcloudClient = clientFactory.createNextcloudClient(user);
+
                 isLoadingActivities = true;
 
                 GetActivitiesRemoteOperation getRemoteNotificationOperation;
@@ -325,7 +328,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 }
 
                 Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
-                final RemoteOperationResult result = getRemoteNotificationOperation.execute(ownCloudClient);
+                final RemoteOperationResult result = nextcloudClient.execute(getRemoteNotificationOperation);
 
                 ArrayList<Object> versions = null;
                 if (restoreFileVersionSupported) {
@@ -401,7 +404,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     }
 
     private void populateList(List<Object> activities, boolean clear) {
-        adapter.setActivityAndVersionItems(activities, ownCloudClient, clear);
+        adapter.setActivityAndVersionItems(activities, nextcloudClient, clear);
     }
 
     private void setEmptyContent(String headline, String message) {
