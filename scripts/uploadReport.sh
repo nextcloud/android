@@ -29,7 +29,6 @@ find . -type f -exec curl -u $USER:$PASS -X PUT $URL/$FOLDER/$(echo {} | sed s#\
 
 echo "Uploaded failing tests to https://www.kaminsky.me/nc-dev/android-integrationTests/$FOLDER"
 
-curl -u $7:$8 -X POST https://api.github.com/repos/nextcloud/android/issues/$6/comments -d "{ \"body\" : \"$TYPE test
- failed: https://www.kaminsky.me/nc-dev/android-integrationTests/$FOLDER \" }"
+curl -u $7:$8 -X POST https://api.github.com/repos/nextcloud/android/issues/$6/comments -d "{ \"body\" : \"$TYPE test failed: https://www.kaminsky.me/nc-dev/android-integrationTests/$FOLDER \" }"
 
 exit 1
