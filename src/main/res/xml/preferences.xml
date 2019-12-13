@@ -28,7 +28,7 @@
             android:key="storage_path"/>
         <ListPreference
             android:title="@string/prefs_theme_title"
-            android:key="darkTheme"
+            android:key="darkMode"
             android:summary="%s" />
 	</PreferenceCategory>
 	<PreferenceCategory
