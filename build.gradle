@@ -366,7 +366,7 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.2.0'
     // Android JUnit Runner
     androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestUtil 'androidx.test:orchestrator:1.1.0'
+    androidTestUtil 'androidx.test:orchestrator:1.2.0'
 
     // Espresso core
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
