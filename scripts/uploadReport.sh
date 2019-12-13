@@ -22,7 +22,7 @@ if [ $TYPE = "IT" ]; then
 elif [ $TYPE = "Unit" ]; then
     cd build/reports/tests/testGplayDebugUnitTest
 else
-    cd build/reports/short/verification/
+    cd build/reports/shot/verification/
 fi
 
 find . -type d -exec curl -u $USER:$PASS -X MKCOL $URL/$FOLDER/$(echo {} | sed s#\./##) \;
