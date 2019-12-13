@@ -1,18 +1,24 @@
 package com.owncloud.android;
 
 import android.accounts.Account;
+import android.content.ContentValues;
+import android.content.OperationApplicationException;
+import android.os.RemoteException;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class FileDataStorageManagerLocal implements FileDataStorageManager {
@@ -65,6 +71,11 @@ public class FileDataStorageManagerLocal implements FileDataStorageManager {
 
     @Override
     public boolean fileExists(long id) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public boolean fileExists(String path) {
         throw new UnsupportedOperationException("to implement");
     }
 
@@ -123,6 +134,12 @@ public class FileDataStorageManagerLocal implements FileDataStorageManager {
         throw new UnsupportedOperationException("to implement");
     }
 
+    @NonNull
+    @Override
+    public OCCapability getCapability(String accountName) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
     @Override
     public void saveSharesDB(List<OCShare> shares) {
         throw new UnsupportedOperationException("to implement");
@@ -135,6 +152,82 @@ public class FileDataStorageManagerLocal implements FileDataStorageManager {
 
     @Override
     public OCShare getShareById(long id) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public void triggerMediaScan(String path) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public OCFile getFileByLocalPath(String path) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Nullable
+    @Override
+    public OCFile getFileByRemoteId(String remoteId) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public List<OCFile> getFolderImages(OCFile folder, boolean onlyOnDevice) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public OCFile saveFileWithParent(OCFile file) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public void saveNewFile(OCFile newFile) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public void migrateStoredFiles(String srcPath, String dstPath) throws RemoteException, OperationApplicationException {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public void saveShares(Collection<OCShare> shares) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public void updateSharedFiles(Collection<OCFile> sharedFiles) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public void saveSharesInFolder(ArrayList<OCShare> shares, OCFile folder) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public void deleteVirtuals(VirtualFolderType type) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public void saveVirtuals(VirtualFolderType type, List<ContentValues> values) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public void saveVirtual(VirtualFolderType type, OCFile file) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public List<OCFile> getVirtualFolderContent(VirtualFolderType type, boolean onlyImages) {
+        throw new UnsupportedOperationException("to implement");
+    }
+
+    @Override
+    public void deleteAllFiles() {
         throw new UnsupportedOperationException("to implement");
     }
 

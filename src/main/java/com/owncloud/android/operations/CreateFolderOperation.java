@@ -71,7 +71,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         RemoteOperationResult result = createCreateFolderRemoteOperation(mRemotePath, mCreateFullPath).execute(client);
 
         if (result.isSuccess()) {
-            RemoteOperationResult remoteFolderOperationResult = new ReadFolderRemoteOperation(mRemotePath)
+            RemoteOperationResult remoteFolderOperationResult = createReadFolderRemoteOperation(mRemotePath)
                 .execute(client);
 
             createdRemoteFolder = (RemoteFile) remoteFolderOperationResult.getData().get(0);
@@ -83,11 +83,11 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         return result;
     }
 
-    public CreateFolderRemoteOperation createCreateFolderRemoteOperation(String remotePath, boolean createFullPath) {
+    CreateFolderRemoteOperation createCreateFolderRemoteOperation(String remotePath, boolean createFullPath) {
         return new CreateFolderRemoteOperation(remotePath, createFullPath);
     }
 
-    public ReadFolderRemoteOperation createReadFolderRemoteOperation(String remotePath) {
+    ReadFolderRemoteOperation createReadFolderRemoteOperation(String remotePath) {
         return new ReadFolderRemoteOperation(remotePath);
     }
 

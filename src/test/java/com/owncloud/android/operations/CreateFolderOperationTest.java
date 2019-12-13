@@ -1,5 +1,6 @@
 package com.owncloud.android.operations;
 
+import com.nextcloud.client.logger.Logger;
 import com.owncloud.android.FileDataStorageManagerLocal;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -30,6 +31,8 @@ public class CreateFolderOperationTest {
     @Mock CreateFolderRemoteOperation createFolderRemoteOperation;
     @Mock ReadFolderRemoteOperation readFolderRemoteOperation;
 
+    @Mock Logger logger;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -41,7 +44,9 @@ public class CreateFolderOperationTest {
         String path = "/testFolder/";
         CreateFolderOperation sut = spy(new CreateFolderOperation(path, true));
 
-        when(createFolderRemoteOperation.execute(any()))
+        sut.logger = logger;
+
+        when(createFolderRemoteOperation.execute(any(OwnCloudClient.class)))
             .thenReturn(new RemoteOperationResult(RemoteOperationResult.ResultCode.OK));
 
         RemoteOperationResult result = new RemoteOperationResult(RemoteOperationResult.ResultCode.OK);
