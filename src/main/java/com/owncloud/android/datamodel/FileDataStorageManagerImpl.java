@@ -1573,7 +1573,7 @@ public class FileDataStorageManagerImpl implements FileDataStorageManager {
     }
 
 
-    public void saveSharesInFolder(ArrayList<OCShare> shares, OCFile folder) {
+    public void saveSharesInFolder(List<OCShare> shares, OCFile folder) {
         resetShareFlagsInFolder(folder);
         ArrayList<ContentProviderOperation> operations = new ArrayList<>();
         operations = prepareRemoveSharesInFolder(folder, operations);

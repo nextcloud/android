@@ -9,7 +9,6 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -86,7 +85,7 @@ public interface FileDataStorageManager {
 
     void updateSharedFiles(Collection<OCFile> sharedFiles);
 
-    void saveSharesInFolder(ArrayList<OCShare> shares, OCFile folder);
+    void saveSharesInFolder(List<OCShare> shares, OCFile folder);
 
     void deleteVirtuals(VirtualFolderType type);
 
