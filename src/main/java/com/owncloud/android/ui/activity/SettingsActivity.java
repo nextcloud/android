@@ -695,7 +695,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         loadStoragePath();
 
-        ListPreference themePref = (ListPreference) findPreference("darkTheme");
+        ListPreference themePref = (ListPreference) findPreference("darkMode");
 
         List<String> themeEntries = new ArrayList<>(3);
         themeEntries.add(getString(R.string.prefs_value_theme_light));
