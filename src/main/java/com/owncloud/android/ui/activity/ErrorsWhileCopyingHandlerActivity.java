@@ -45,8 +45,6 @@ import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.util.List;
 
@@ -153,9 +151,8 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             /**
          * {@inheritDoc}
          */
-            @NotNull
             @Override
-            public View getView (int position, View convertView, @NonNull ViewGroup parent) {
+            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             View view = convertView;
             if (view == null) {
                 LayoutInflater vi = (LayoutInflater) getSystemService(
