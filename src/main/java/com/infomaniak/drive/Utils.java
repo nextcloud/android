@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,7 +18,8 @@ import static com.owncloud.android.utils.MimeTypeUtil.getMimeTypeFromPath;
 
 public class Utils {
 
-    public static final String TEAM_SPACE_ETAG = "team_space";
+    private static final String COMMON_DOCUMENTS_NAME = "Common documents"; // Change if needed
+    private static final String IK_TAG = "Infomaniak Error";
 
     /**
      * If open in browser return true
@@ -121,17 +123,22 @@ public class Utils {
      * @return The new ArrayList with teamspace ahead
      */
     public static List<OCFile> setTeamSpaceFirst(List<OCFile> files) {
-        List<OCFile> newList = new ArrayList<>();
-        Iterator<OCFile> i = files.iterator();
-        while (i.hasNext()) {
-            OCFile currentFile = i.next();
-            if (currentFile.getEtagOnServer().equals(TEAM_SPACE_ETAG)) {
-                newList.add(0, currentFile);
-                i.remove();
+        try {
+            List<OCFile> newList = new ArrayList<>();
+            Iterator<OCFile> i = files.iterator();
+            while (i.hasNext()) {
+                OCFile currentFile = i.next();
+                if (currentFile.getFileName().equals(COMMON_DOCUMENTS_NAME)) {
+                    newList.add(0, currentFile);
+                    i.remove();
+                }
             }
+            newList.addAll(files);
+            return newList;
+        } catch (Exception e) {
+            Log_OC.e(IK_TAG, "Unable to set team space first");
+            return files;
         }
 
-        newList.addAll(files);
-        return newList;
     }
 }
