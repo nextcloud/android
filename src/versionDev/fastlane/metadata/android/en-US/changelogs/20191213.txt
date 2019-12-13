@@ -1,0 +1,13 @@
+10789e900 Merge pull request #4932 from nextcloud/useTestOrchestrator
+50a73b4a5 on smaller displays we have to swipe up
+9fce154e9 Use android test orchestrator
+cbf59eb04 Merge pull request #4983 from nextcloud/disableGoogleTracking
+e8eae2a53 disable google test tracking
+257ac81f7 Merge pull request #4900 from nextcloud/v2withActivity
+a2357181a fix tests
+6eb4ac7c4 revert to master snapshot
+8b61e7405 remove unneeded accountManager
+e5cd5ffcd use nextcloudClient.execute(…)
+066f4c25a Initial work on v2 with activity
+45f114671 [tx-robot] updated from transifex
+d913950b5 daily dev 20191211
