@@ -1,0 +1,3 @@
+b56a6b930 Merge pull request #4982 from nextcloud/authIntent
+7bbb8833e Merge pull request #4994 from nextcloud/dependabot/gradle/androidx.test-orchestrator-1.2.0
+e20e2797a daily dev 20191213
