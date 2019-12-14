@@ -77,7 +77,7 @@
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_configure">Konfiguruj</string>
-    <string name="autoupload_create_new_custom_folder">Stwórz nowy własny katalog</string>
+    <string name="autoupload_create_new_custom_folder">Utwórz nową niestandardową konfigurację katalogu</string>
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
     <string name="autoupload_disable_power_save_check">Wyłącz kontrolę oszczędzania energii</string>
     <string name="autoupload_hide_folder">Ukryj katalog</string>
@@ -175,10 +175,10 @@
     <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć katalogu</string>
     <string name="create_file_from_template">Tworzenie pliku z szablonu…</string>
-    <string name="create_new_document">Stwórz nowy dokument</string>
+    <string name="create_new_document">Utwórz nowy dokument</string>
     <string name="create_new_folder">Utwórz nowy katalog</string>
-    <string name="create_new_presentation">Stwórz nową prezentację</string>
-    <string name="create_new_spreadsheet">Stwórz nowy arkusz kalkulacyjny</string>
+    <string name="create_new_presentation">Utwórz nową prezentację</string>
+    <string name="create_new_spreadsheet">Utwórz nowy arkusz kalkulacyjny</string>
     <string name="credentials_disabled">Poświadczenia wyłączone</string>
     <string name="date_unknown">Nieznane</string>
     <string name="default_credentials_wrong">Błedne poświadczenia</string>
