@@ -76,9 +76,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">manté a la carpeta original, ja que és només de lectura</string>
     <string name="auto_upload_on_wifi">Només carrega quan hi hagi Wi-Fi sense límits</string>
     <string name="auto_upload_path">/Càrrega automàtica</string>
+    <string name="autoupload_configure">Configura</string>
     <string name="autoupload_create_new_custom_folder">Creeu la configuració per la nova carpeta personalitzada</string>
     <string name="autoupload_custom_folder">Configureu una carpeta personalitzada</string>
     <string name="autoupload_disable_power_save_check">Desactiva la comprovació d\'estalvi energètic</string>
+    <string name="autoupload_hide_folder">Amaga la carpeta</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Tanca</string>
     <string name="battery_optimization_disable">Desactiva</string>
@@ -802,6 +804,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d fitxer</item>
         <item quantity="other">%1$d fitxers</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Mostra %1$d carpeta oculta</item>
+        <item quantity="other">Mostra %1$d carpetes ocultes</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionat</item>

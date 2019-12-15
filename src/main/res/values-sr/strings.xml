@@ -77,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">задржи у оригиналној фасцикли, пошто је само за читање</string>
     <string name="auto_upload_on_wifi">Отпремај само на бежичним мрежама које не мере проток саобраћаја</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>
+    <string name="autoupload_configure">Подеси</string>
     <string name="autoupload_create_new_custom_folder">Додај фасциклу која није на листи</string>
     <string name="autoupload_custom_folder">Подесите произвољну фасциклу</string>
     <string name="autoupload_disable_power_save_check">Искључи проверу уштеде батерије</string>
+    <string name="autoupload_hide_folder">Сакриј фасциклу</string>
     <string name="avatar">Аватар</string>
     <string name="battery_optimization_close">Затвори</string>
     <string name="battery_optimization_disable">Искључи</string>
@@ -506,6 +508,7 @@
     <string name="prefs_theme_title">Тема</string>
     <string name="prefs_value_theme_dark">Тамно</string>
     <string name="prefs_value_theme_light">Светло</string>
+    <string name="prefs_value_theme_system">Прати систем</string>
     <string name="preview_image_description">Преглед слике</string>
     <string name="preview_image_error_no_local_file">Нема локалног фајла за преглед</string>
     <string name="preview_image_error_unknown_format">Не могу да прикажем слику</string>
@@ -677,6 +680,7 @@
     <string name="synced_folders_configure_folders">Подесите фасцикле</string>
     <string name="synced_folders_loading_folders">Учитавам фасцикле…</string>
     <string name="synced_folders_new_info">Брзо отпремање је скроз редизајнирано. Поново подесите Ваша аутоматска отпремања из главног менија.\n\nУживајте у новом аутоматском отпремању.</string>
+    <string name="synced_folders_no_results">Нису пронађене мултимедијалне фасцикле</string>
     <string name="synced_folders_preferences">Подешавања аутоматског отпремања</string>
     <string name="synced_folders_preferences_folder_path">За %1$s</string>
     <string name="synced_folders_type">Тип</string>
@@ -808,6 +812,11 @@
         <item quantity="one">%1$d фајл</item>
         <item quantity="few">%1$d фајла</item>
         <item quantity="other">%1$d фајлова</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Прикажи %1$d сакривену фасциклу</item>
+        <item quantity="few">Прикажи %1$d сакривене фасцикле</item>
+        <item quantity="other">Прикажи %1$d сакривених фасцикли</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d одабран</item>
