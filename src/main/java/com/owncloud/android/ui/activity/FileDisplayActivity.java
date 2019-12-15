@@ -600,7 +600,7 @@ public class FileDisplayActivity extends FileActivity
             } else if (file.isDown() && PreviewTextFragment.canBePreviewed(file)) {
                 secondFragment = null;
             } else {
-                secondFragment = FileDetailFragment.newInstance(file, getAccount());
+                secondFragment = FileDetailFragment.newInstance(file, getUser().orElseThrow(RuntimeException::new));
             }
         }
         return secondFragment;
@@ -1644,7 +1644,9 @@ public class FileDisplayActivity extends FileActivity
      * @param activeTab the active tab in the details view
      */
     public void showDetails(OCFile file, int activeTab) {
-        Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount(), activeTab);
+        Fragment detailFragment = FileDetailFragment.newInstance(file,
+                                                                 getUser().orElseThrow(RuntimeException::new),
+                                                                 activeTab);
         setSecondFragment(detailFragment);
         updateFragmentsVisibility(true);
         updateActionBarTitleAndHomeButton(file);
@@ -2044,7 +2046,8 @@ public class FileDisplayActivity extends FileActivity
             if (details != null) {
                 if (details instanceof FileDetailFragment &&
                         renamedFile.equals(details.getFile())) {
-                    ((FileDetailFragment) details).updateFileDetails(renamedFile, getAccount());
+                    ((FileDetailFragment) details).updateFileDetails(renamedFile,
+                                                                     getUser().orElseThrow(RuntimeException::new));
                     showDetails(renamedFile);
 
                 } else if (details instanceof PreviewMediaFragment &&
@@ -2135,7 +2138,7 @@ public class FileDisplayActivity extends FileActivity
         if (details instanceof FileDetailFragment &&
                 file.equals(details.getFile())) {
             if (downloading || uploading) {
-                ((FileDetailFragment) details).updateFileDetails(file, getAccount());
+                ((FileDetailFragment) details).updateFileDetails(file, getUser().orElseThrow(RuntimeException::new));
             } else {
                 if (!file.fileExists()) {
                     cleanSecondFragment();
@@ -2400,7 +2403,7 @@ public class FileDisplayActivity extends FileActivity
      * @param file {@link OCFile} to download and preview.
      */
     public void startDownloadForPreview(OCFile file) {
-        Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount());
+        Fragment detailFragment = FileDetailFragment.newInstance(file, getUser().orElseThrow(RuntimeException::new));
         setSecondFragment(detailFragment);
         mWaitingToPreview = file;
         requestForDownload();

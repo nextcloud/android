@@ -126,7 +126,17 @@ public interface UserAccountManager extends CurrentAccountProvider {
      * @param account account to compare
      * @return false if ownerId is not set or owner is a different account
      */
+    @Deprecated
     boolean accountOwnsFile(OCFile file, Account account);
+
+    /**
+     * Checks if the owns the file (file's ownerId is the same as account name)
+     *
+     * @param file File to check
+     * @param user account to compare
+     * @return false if ownerId is not set or owner is a different account
+     */
+    boolean userOwnsFile(OCFile file, User user);
 
     /**
      * Extract username from account.

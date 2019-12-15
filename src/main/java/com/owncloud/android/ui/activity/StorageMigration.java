@@ -30,6 +30,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.view.View;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -433,7 +434,7 @@ public class StorageMigration {
         }
 
         private void updateIndex(Context context) throws MigrationException {
-            FileDataStorageManager manager = new FileDataStorageManager(null, context.getContentResolver());
+            FileDataStorageManager manager = new FileDataStorageManager((User) null, context.getContentResolver());
 
             try {
                 manager.migrateStoredFiles(mStorageSource, mStorageTarget);

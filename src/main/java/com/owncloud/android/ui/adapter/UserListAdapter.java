@@ -21,7 +21,6 @@
 
 package com.owncloud.android.ui.adapter;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -39,8 +38,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import com.nextcloud.client.account.AccountId;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -70,20 +70,24 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     private List<OCShare> shares;
     private float avatarRadiusDimension;
     private OCFile file;
-    private String userId;
+    private AccountId accountId;
 
-    public UserListAdapter(FragmentManager fragmentManager, Context context, List<OCShare> shares, Account account,
-                           OCFile file, ShareeListAdapterListener listener, String userId) {
+    public UserListAdapter(FragmentManager fragmentManager,
+                           Context context,
+                           List<OCShare> shares,
+                           AccountId accountId,
+                           OCFile file,
+                           ShareeListAdapterListener listener,
+                           OCCapability capabilities) {
         this.context = context;
         this.fragmentManager = fragmentManager;
         this.shares = shares;
         this.listener = listener;
         this.file = file;
-        this.userId = userId;
-
-        accentColor = ThemeUtils.primaryAccentColor(context);
-        capabilities = new FileDataStorageManager(account, context.getContentResolver()).getCapability(account.name);
-        avatarRadiusDimension = context.getResources().getDimension(R.dimen.user_icon_radius);
+        this.accountId = accountId;
+        this.accentColor = ThemeUtils.primaryAccentColor(context);
+        this.capabilities = capabilities;
+        this.avatarRadiusDimension = context.getResources().getDimension(R.dimen.user_icon_radius);
     }
 
     @NonNull
@@ -120,7 +124,8 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
 
             holder.name.setText(name);
 
-            if (share.getShareWith().equalsIgnoreCase(userId) || share.getUserId().equalsIgnoreCase(userId)) {
+            if (share.getShareWith().equalsIgnoreCase(accountId.toString()) ||
+                share.getUserId().equalsIgnoreCase(accountId.toString())) {
                 holder.allowEditing.setVisibility(View.VISIBLE);
                 holder.editShareButton.setVisibility(View.VISIBLE);
 

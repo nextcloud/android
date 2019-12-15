@@ -37,6 +37,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.nextcloud.client.account.User;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -87,10 +88,18 @@ public class FileDataStorageManager {
     private ContentProviderClient contentProviderClient;
     @Setter private Account account;
 
+    /**
+     * @deprecated Use {@link FileDataStorageManager#FileDataStorageManager(User, ContentResolver)} instead.
+     */
+    @Deprecated
     public FileDataStorageManager(Account account, ContentResolver cr) {
         contentProviderClient = null;
         contentResolver = cr;
         this.account = account;
+    }
+
+    public FileDataStorageManager(User user, ContentResolver cr) {
+        this(user != null ? user.toPlatformAccount() : null, cr);
     }
 
     public FileDataStorageManager(Account account, ContentProviderClient cp) {
@@ -1681,7 +1690,7 @@ public class FileDataStorageManager {
 
     }
 
-    public List<OCShare> getSharesWithForAFile(String filePath, String accountName) {
+    public List<OCShare> getSharesWithForAFile(String filePath, CharSequence accountName) {
         // Condition
         String where = ProviderTableMeta.OCSHARES_PATH + AND
                 + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + AND
@@ -1690,7 +1699,7 @@ public class FileDataStorageManager {
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? ) ";
-        String[] whereArgs = new String[]{filePath, accountName,
+        String[] whereArgs = new String[]{filePath, accountName.toString(),
                 Integer.toString(ShareType.USER.getValue()),
                 Integer.toString(ShareType.GROUP.getValue()),
                 Integer.toString(ShareType.EMAIL.getValue()),
@@ -2067,9 +2076,9 @@ public class FileDataStorageManager {
     }
 
     @NonNull
-    public OCCapability getCapability(String accountName) {
+    public OCCapability getCapability(CharSequence accountName) {
         OCCapability capability;
-        Cursor c = getCapabilityCursorForAccount(accountName);
+        Cursor c = getCapabilityCursorForAccount(accountName.toString());
 
         if (c.moveToFirst()) {
             capability = createCapabilityInstance(c);
