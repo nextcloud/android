@@ -5,10 +5,10 @@
     <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with kSync (formerly known as DAVdroid) for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
     <string name="screenshot_06_davdroid_subline">Sincronizza con kSync</string>
 
-    <string name="intro_title_1">Cloud sicuro per PMI e privati</string>
+    <string name="intro_title_1">Il Cloud protetto per PMI e privati</string>
     <string name="intro_title_2">Accedi ai tuoi file su tutti i tuoi dispositivi</string>
-    <string name="intro_title_3">Condividere e lavorare insieme nello stesso luogo</string>
-    <string name="intro_title_4">Salva automaticamente le tue foto</string>
+    <string name="intro_title_3">Condividi e collabora in una stessa postazione</string>
+    <string name="intro_title_4">Effettua il backup automatico delle tue foto</string>
 
     <string name="unavailable_operation_beta">Questa operazione non è disponibile durante la fase di beta-testing.</string>
 
