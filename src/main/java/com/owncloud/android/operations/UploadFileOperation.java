@@ -967,7 +967,9 @@ public class UploadFileOperation extends SyncOperation {
                 }
                 mFile.setStoragePath(expectedFile.getAbsolutePath());
                 saveUploadedFile(client);
-                FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
+                if (MimeTypeUtil.isMedia(mFile.getMimeType())) {
+                    FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
+                }
                 break;
 
             case FileUploader.LOCAL_BEHAVIOUR_MOVE:
@@ -982,7 +984,9 @@ public class UploadFileOperation extends SyncOperation {
                 getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
                 mFile.setStoragePath(newFile.getAbsolutePath());
                 saveUploadedFile(client);
-                FileDataStorageManager.triggerMediaScan(newFile.getAbsolutePath());
+                if (MimeTypeUtil.isMedia(mFile.getMimeType())) {
+                    FileDataStorageManager.triggerMediaScan(newFile.getAbsolutePath());
+                }
                 break;
         }
     }
@@ -1324,7 +1328,9 @@ public class UploadFileOperation extends SyncOperation {
         getStorageManager().saveFile(file);
         getStorageManager().saveConflict(file, null);
 
-        FileDataStorageManager.triggerMediaScan(file.getStoragePath());
+        if (MimeTypeUtil.isMedia(file.getMimeType())) {
+            FileDataStorageManager.triggerMediaScan(file.getStoragePath());
+        }
 
         // generate new Thumbnail
         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
