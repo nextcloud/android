@@ -381,7 +381,7 @@ public class FileDataStorageManager {
 
                     if (file.isDown()) {
                         String path = file.getStoragePath();
-                        if (new File(path).delete()) {
+                        if (new File(path).delete() && MimeTypeUtil.isMedia(file.getMimeType())) {
                             triggerMediaScan(path); // notify MediaScanner about removed file
                         }
                     }
@@ -702,8 +702,10 @@ public class FileDataStorageManager {
 
                         cv.put(ProviderTableMeta.FILE_STORAGE_PATH, targetLocalPath);
 
-                        originalPathsToTriggerMediaScan.add(child.getStoragePath());
-                        newPathsToTriggerMediaScan.add(targetLocalPath);
+                        if (MimeTypeUtil.isMedia(child.getMimeType())) {
+                            originalPathsToTriggerMediaScan.add(child.getStoragePath());
+                            newPathsToTriggerMediaScan.add(targetLocalPath);
+                        }
 
                     }
                     if (child.getRemotePath().equals(file.getRemotePath())) {
