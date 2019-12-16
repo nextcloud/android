@@ -203,6 +203,10 @@ public final class MimeTypeUtil {
         return candidates.get(0);
     }
 
+    public static boolean isMedia(String mimeType) {
+        return isImage(mimeType) || isVideo(mimeType) || isAudio(mimeType);
+    }
+
     public static boolean isImageOrVideo(String mimeType) {
         return isImage(mimeType) || isVideo(mimeType);
     }

@@ -60,6 +60,7 @@ import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
@@ -504,7 +505,9 @@ public class FileDownloader extends Service
         file.setFileLength(new File(mCurrentDownload.getSavePath()).length());
         file.setRemoteId(mCurrentDownload.getFile().getRemoteId());
         mStorageManager.saveFile(file);
-        FileDataStorageManager.triggerMediaScan(file.getStoragePath());
+        if (MimeTypeUtil.isMedia(mCurrentDownload.getMimeType())) {
+            FileDataStorageManager.triggerMediaScan(file.getStoragePath());
+        }
         mStorageManager.saveConflict(file, null);
     }
 
