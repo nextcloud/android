@@ -63,7 +63,7 @@ ext {
     daggerVersion = "2.25.3"
     markwonVersion =  "4.2.0"
     prismVersion = "2.0.0"
-    androidLibraryVersion = "directEditing-SNAPSHOT"
+    androidLibraryVersion = "master-SNAPSHOT"
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
