@@ -1,4 +1,4 @@
-# [Nextcloud](https://nextcloud.com) Android app 
+# [Nextcloud](https://nextcloud.com) Android app :iphone:
 
 [![Build Status](https://drone.nextcloud.com/api/badges/nextcloud/android/status.svg)](https://drone.nextcloud.com/nextcloud/android) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/80401cb343854343b4d94acbfb72d3ec)](https://www.codacy.com/app/Nextcloud/android?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nextcloud/android&amp;utm_campaign=Badge_Grade) [![Releases](https://img.shields.io/github/release/nextcloud/android.svg)](https://github.com/nextcloud/android/releases/latest) [![irc](https://img.shields.io/badge/IRC-%23nextcloud--mobile%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-mobile)
 
@@ -13,7 +13,7 @@
 
 ![App screenshots](/doc/Nextcloud_Android_Screenshots.png "App screenshots")
 
-## How to contribute
+## How to contribute :rocket:
 If you want to [contribute](https://nextcloud.com/contribute/) to Nextcloud, you are very welcome: 
 
 - on our IRC channels [![irc](https://img.shields.io/badge/IRC-%23nextcloud%20on%20freenode-orange.svg)](https://webchat.freenode.net/?channels=nextcloud) and [![irc](https://img.shields.io/badge/IRC-%23nextcloud--mobile%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-mobile) on freenode
@@ -21,7 +21,7 @@ If you want to [contribute](https://nextcloud.com/contribute/) to Nextcloud, you
 - for translations of the app on [Transifex](https://www.transifex.com/nextcloud/nextcloud/android/)
 - opening issues and PRs (including a corresponding issue)
 
-## Contribution Guidelines & License
+## Contribution Guidelines & License :scroll:
 
 [GPLv2](https://github.com/nextcloud/android/blob/master/LICENSE.txt). All contributions to this repository from June, 16 2016 on are considered to be licensed under the AGPLv3 or any later version.
 
@@ -37,11 +37,11 @@ Please review the [guidelines for contributing](https://github.com/nextcloud/and
 
 More information how to contribute: [https://nextcloud.com/contribute/](https://nextcloud.com/contribute/)
 
-## Start contributing
+## Start contributing :hammer_and_wrench:
 Make sure you read [SETUP.md](https://github.com/nextcloud/android/blob/master/SETUP.md) and [CONTRIBUTING.md](https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md) before you start working on this project. But basically: fork this repository and contribute back using pull requests to the master branch.
 Easy starting points are also reviewing [pull requests](https://github.com/nextcloud/android/pulls) and working on [starter issues](https://github.com/nextcloud/android/issues?q=is%3Aopen+is%3Aissue+label%3A%22starter+issue%22).
 
-### Getting debug info via logcat
+### Getting debug info via logcat :mag:
 #### With a computer:
 - connect the device via USB
 - open command prompt/terminal
@@ -49,7 +49,7 @@ Easy starting points are also reviewing [pull requests](https://github.com/nextc
 
 **Note:** You must have [adb](https://developer.android.com/studio/releases/platform-tools.html) installed first!
 
-#### On a device (with root)
+#### On a device (with root) :wrench:
 - open terminal app *(can be enabled in developer options)*
 - get root access via "su"
 - enter `logcat -d -f /sdcard/logcatOutput.txt`
@@ -61,14 +61,14 @@ or
 
 **Note:** Your device needs to be rooted for this approach!
 
-## Development version
+## Development version :hammer:
 - [APK (direct download)](https://download.nextcloud.com/android/dev/latest.apk)
 - [F-Droid](https://f-droid.org/en/packages/com.nextcloud.android.beta/)
 
-## Support
+## Support :rescue_worker_helmet:
 
 If you need assistance or want to ask a question about the Android app, you are welcome to [ask for support](https://help.nextcloud.com/c/clients/android) in our Forums or the [IRC-Channel](https://webchat.freenode.net/?channels=nextcloud-mobile). If you have found a bug, feel free to [open a new Issue on GitHub](https://github.com/nextcloud/android/issues). Keep in mind, that this repository only manages the Android app. If you find bugs or have problems with the server/backend, you should ask the [Nextcloud server team](https://github.com/nextcloud/server) for help!
 
-## Remarks
+## Remarks :scroll:
 
 Google Play and the Google Play logo are trademarks of Google Inc.
