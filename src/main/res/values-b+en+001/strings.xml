@@ -267,6 +267,7 @@
     <string name="favorite_icon">Favorite</string>
     <string name="file">file</string>
     <string name="file_delete">Delete</string>
+    <string name="file_detail_activity_error">Error retrieving activities for file</string>
     <string name="file_details_no_content">Failed to load details</string>
     <string name="file_icon">File</string>
     <string name="file_keep">Keep</string>
@@ -334,6 +335,7 @@
     <string name="first_run_2_text">Secure collaboration &amp; file exchange</string>
     <string name="first_run_3_text">Easy-to-use web mail, calendering &amp; contacts</string>
     <string name="first_run_4_text">Screensharing, online meetings &amp; web conferences</string>
+    <string name="folder">folder</string>
     <string name="folder_already_exists">Folder already exists</string>
     <string name="folder_confirm_create">Create</string>
     <string name="folder_icon">Folder icon</string>
@@ -415,6 +417,7 @@
     <string name="new_notification">New Notification</string>
     <string name="new_version_was_created">New version was created</string>
     <string name="no_browser_available">No app available to handle links</string>
+    <string name="no_mutliple_accounts_allowed">Only one account allowed</string>
     <string name="no_pdf_app_available">No App available to handle PDF</string>
     <string name="note_confirm">Send</string>
     <string name="note_could_not_sent">Could not send note</string>
@@ -501,6 +504,10 @@
     <string name="prefs_storage_path">Storage path</string>
     <string name="prefs_synced_folders_local_path_title">Local folder</string>
     <string name="prefs_synced_folders_remote_path_title">Remote folder</string>
+    <string name="prefs_theme_title">Theme</string>
+    <string name="prefs_value_theme_dark">Dark</string>
+    <string name="prefs_value_theme_light">Light</string>
+    <string name="prefs_value_theme_system">Follow system</string>
     <string name="preview_image_description">Image preview</string>
     <string name="preview_image_error_no_local_file">There is no local file to preview</string>
     <string name="preview_image_error_unknown_format">Unable to show image</string>
@@ -512,6 +519,7 @@
     <string name="recommend_subject">Try %1$s on your device!</string>
     <string name="recommend_text">I want to invite you to use %1$s on your device.\nDownload here: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
+    <string name="remote_file_fetch_failed">Failed to find file!</string>
     <string name="remove_fail_msg">Deletion failed</string>
     <string name="remove_notification_failed">Failed to remove notification.</string>
     <string name="remove_push_notification">Remove</string>
@@ -531,13 +539,17 @@
     <string name="saml_authentication_wrong_pass">Incorrect password</string>
     <string name="scanQR_description">Login via QR code</string>
     <string name="screenshot_01_gridView_heading">Protecting your data</string>
+    <string name="screenshot_01_gridView_subline">self-hosted productivity</string>
     <string name="screenshot_02_listView_heading">Browse and share</string>
     <string name="screenshot_02_listView_subline">all actions at your fingertips</string>
+    <string name="screenshot_03_drawer_heading">Activity, shares, …</string>
     <string name="screenshot_03_drawer_subline">everything quickly accessible</string>
     <string name="screenshot_04_accounts_heading">All your accounts</string>
     <string name="screenshot_04_accounts_subline">in one place</string>
     <string name="screenshot_05_autoUpload_heading">Automatic upload</string>
     <string name="screenshot_05_autoUpload_subline">for your photos &amp; videos</string>
+    <string name="screenshot_06_davdroid_heading">Calendar &amp; contacts</string>
+    <string name="screenshot_06_davdroid_subline">Sync with DAVx5</string>
     <string name="search_users_and_groups_hint">Search users and groups</string>
     <string name="select_all">Select all</string>
     <string name="select_template">Select template</string>
@@ -555,6 +567,8 @@
     <string name="share_file">Share %1$s</string>
     <string name="share_get_public_link_button">Get link</string>
     <string name="share_group_clarification">%1$s (group)</string>
+    <string name="share_internal_link">Share internal link</string>
+    <string name="share_internal_link_text">Only works for users with access to this %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
     <string name="share_link_empty_password">You must enter a password</string>
     <string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
@@ -665,6 +679,7 @@
     <string name="synced_folders_configure_folders">Configure folders</string>
     <string name="synced_folders_loading_folders">Loading folders…</string>
     <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
+    <string name="synced_folders_no_results">No media folders found</string>
     <string name="synced_folders_preferences">Preferences for auto uploading</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <string name="synced_folders_type">Type</string>
@@ -792,6 +807,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d file</item>
         <item quantity="other">%1$d files</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Show %1$d hidden folder</item>
+        <item quantity="other">Show %1$d hidden folders</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d selected</item>
