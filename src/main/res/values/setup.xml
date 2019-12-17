@@ -121,7 +121,7 @@
     <string name="fdroid_beta_link" translatable="false">https://f-droid.org/repository/browse/?fdid=com.nextcloud.android.beta</string>
     <string name="beta_apk_link" translatable="false">https://download.nextcloud.com/android/dev/latest.apk</string>
     <string name="play_store_register_beta" translatable="false">https://play.google.com/apps/testing/com.nextcloud.client</string>
-    <string name="fdroid_link" translatable="false">https://f-droid.org/repository/browse/?fdid=com.nextcloud.client</string>
+    <string name="fdroid_link" translatable="false">https://f-droid.org/repository/browse/?fdid=com.infomaniak.drive</string>
     <string name="irc_weblink" translatable="false">http://webchat.freenode.net?channels=nextcloud-mobile</string>
     <string name="help_link" translatable="false">https://help.nextcloud.com/c/clients/android</string>
     <string name="translation_link" translatable="false">https://www.transifex.com/nextcloud/nextcloud/android/</string>
