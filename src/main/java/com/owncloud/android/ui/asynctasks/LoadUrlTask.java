@@ -37,8 +37,6 @@ import java.lang.ref.WeakReference;
 
 public class LoadUrlTask extends AsyncTask<Void, Void, String> {
 
-    private static final String TEXT = "text";
-
     private Account account;
     private WeakReference<EditorWebView> editorWebViewWeakReference;
     private OCFile file;
