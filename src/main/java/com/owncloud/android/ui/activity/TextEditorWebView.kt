@@ -22,9 +22,13 @@
 package com.owncloud.android.ui.activity
 
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager.NameNotFoundException
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
+import com.owncloud.android.R
+import com.owncloud.android.files.FileMenuFilter
+import com.owncloud.android.lib.common.utils.Log_OC
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 class TextEditorWebView : EditorWebView() {
@@ -34,8 +38,30 @@ class TextEditorWebView : EditorWebView() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val editor = FileMenuFilter.getEditor(contentResolver, account, file.mimeType)
+
+        if (editor != null && editor.id == "onlyoffice") {
+            webview.settings.userAgentString = generateOnlyOfficeUserAgent()
+        }
+
         webview.addJavascriptInterface(MobileInterface(), "DirectEditingMobileInterface")
 
         loadUrl(intent.getStringExtra(ExternalSiteWebView.EXTRA_URL), file)
+    }
+
+    private fun generateOnlyOfficeUserAgent(): String {
+        val appString = applicationContext.resources.getString(R.string.only_office_user_agent)
+        val packageName = applicationContext.packageName
+        val androidVersion = Build.VERSION.RELEASE
+        var appVersion = ""
+        try {
+            val pInfo = applicationContext.packageManager.getPackageInfo(packageName, 0)
+            if (pInfo != null) {
+                appVersion = pInfo.versionName
+            }
+        } catch (e: NameNotFoundException) {
+            Log_OC.e(this, "Trying to get packageName", e.cause)
+        }
+        return String.format(appString, androidVersion, appVersion)
     }
 }
