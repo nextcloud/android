@@ -14,6 +14,7 @@ skip_docs
 ## public lanes
 
 lane :screenshotsPhone do
+    beautifyPhone()
     build_for_screengrab()
 
     screengrab(
@@ -24,6 +25,7 @@ lane :screenshotsPhone do
 end
 
 lane :screenshotsTablet do
+    beautifyPhone()
     build_for_screengrab()
 
     screengrab(
@@ -103,6 +105,15 @@ desc "Create Dev release"
 lane :createDevRelease do |options|
     SignedRelease(flavor:"VersionDev")
     sh("mv ../build/outputs/apk/versionDev/release/*.apk ../release/")
+end
+
+desc "Beautify phone for screenshots: set time, remove other icons, no charging"
+lane :beautifyPhone do
+    sh("adb shell settings put global sysui_demo_allowed 1")
+    sh("adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm 1200")
+    sh("adb shell am broadcast -a com.android.systemui.demo -e command network -e mobile show -e level 4 -e datatype false")
+    sh("adb shell am broadcast -a com.android.systemui.demo -e command notifications -e visible false")
+    sh("adb shell am broadcast -a com.android.systemui.demo -e command battery -e plugged false -e level 100")
 end
 
 ## private lanes
