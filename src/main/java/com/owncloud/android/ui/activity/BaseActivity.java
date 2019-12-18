@@ -70,6 +70,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     }
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Account account = accountManager.getCurrentAccount();
+        setAccount(account, false);
+    }
+
+    @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         preferences.addListener(onPreferencesChanged);
@@ -95,12 +102,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         if (themeChangePending) {
             recreate();
         }
-    }
-
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        Account account = accountManager.getCurrentAccount();
-        setAccount(account, false);
     }
 
     @Override
@@ -177,6 +178,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         if (newAccount == null) {
             /// no account available: force account creation
             createAccount(true);
+            finish();
         } else {
             currentAccount = newAccount;
         }

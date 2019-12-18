@@ -2539,8 +2539,9 @@ public class FileDisplayActivity extends FileActivity
     @Override
     public void onStart() {
         super.onStart();
-        Optional<User> optionalUser = getUser();
-        if (optionalUser.isPresent()) {
+        final Optional<User> optionalUser = getUser();
+        final FileDataStorageManager storageManager = getStorageManager();
+        if (optionalUser.isPresent() && storageManager != null) {
             /// Check whether the 'main' OCFile handled by the Activity is contained in the
             // current Account
             OCFile file = getFile();
@@ -2552,17 +2553,17 @@ public class FileDisplayActivity extends FileActivity
                     // cache until the upload is successful get parent from path
                     parentPath = file.getRemotePath().substring(0,
                                                                 file.getRemotePath().lastIndexOf(file.getFileName()));
-                    if (getStorageManager().getFileByPath(parentPath) == null) {
+                    if (storageManager.getFileByPath(parentPath) == null) {
                         file = null; // not able to know the directory where the file is uploading
                     }
                 } else {
-                    file = getStorageManager().getFileByPath(file.getRemotePath());
+                    file = storageManager.getFileByPath(file.getRemotePath());
                     // currentDir = null if not in the current Account
                 }
             }
             if (file == null) {
                 // fall back to root folder
-                file = getStorageManager().getFileByPath(OCFile.ROOT_PATH);  // never returns null
+                file = storageManager.getFileByPath(OCFile.ROOT_PATH);  // never returns null
             }
             setFile(file);
 
