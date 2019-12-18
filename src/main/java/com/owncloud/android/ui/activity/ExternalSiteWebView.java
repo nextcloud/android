@@ -163,6 +163,12 @@ public class ExternalSiteWebView extends FileActivity {
         // enable javascript
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
+
+        // caching disabled in debug mode
+        if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) == 0) {
+            webSettings.setAppCacheEnabled(true);
+            webSettings.setAppCachePath(getCacheDir().getPath());
+        }
     }
 
     private void setupActionBar(String title) {
