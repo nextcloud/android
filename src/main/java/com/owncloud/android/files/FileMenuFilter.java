@@ -22,25 +22,33 @@
 package com.owncloud.android.files;
 
 import android.accounts.Account;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.os.Build;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.gson.Gson;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.DirectEditing;
+import com.owncloud.android.lib.common.Editor;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.activity.RichDocumentsWebView;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.NextcloudServer;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile}
@@ -172,6 +180,7 @@ public class FileMenuFilter {
         OCCapability capability = mComponentsGetter.getStorageManager().getCapability(mAccount.name);
         boolean endToEndEncryptionEnabled = capability.getEndToEndEncryption().isTrue();
 
+        filterEdit(toShow, toHide, capability);
         filterDownload(toShow, toHide, synchronizing);
         filterRename(toShow, toHide, synchronizing);
         filterMoveCopy(toShow, toHide, synchronizing);
@@ -189,7 +198,6 @@ public class FileMenuFilter {
         filterUnsetEncrypted(toShow, toHide, endToEndEncryptionEnabled);
         filterSetPictureAs(toShow, toHide);
         filterStream(toShow, toHide, isMediaSupported);
-        filterOpenAsRichDocument(toShow, toHide, capability, menu);
     }
 
     private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
@@ -252,29 +260,58 @@ public class FileMenuFilter {
         }
     }
 
-    private void filterOpenAsRichDocument(List<Integer> toShow,
-                                          List<Integer> toHide,
-                                          OCCapability capability,
-                                          Menu menu) {
+    private void filterEdit(List<Integer> toShow,
+                            List<Integer> toHide,
+                            OCCapability capability
+    ) {
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            toHide.add(R.id.action_edit);
+            return;
+        }
+
         String mimeType = mFiles.iterator().next().getMimeType();
 
-        if (isSingleFile() && android.os.Build.VERSION.SDK_INT >= RichDocumentsWebView.MINIMUM_API &&
+        if (isRichDocumentEditingSupported(capability, mimeType) || isEditorAvailable(mContext.getContentResolver(),
+                                                                                      mAccount,
+                                                                                      mimeType)) {
+            toShow.add(R.id.action_edit);
+        } else {
+            toHide.add(R.id.action_edit);
+        }
+    }
+
+    public static boolean isEditorAvailable(ContentResolver contentResolver, Account account, String mimeType) {
+        return getEditor(contentResolver, account, mimeType) != null;
+    }
+
+    @Nullable
+    public static Editor getEditor(ContentResolver contentResolver, Account account, String mimeType) {
+        String json = new ArbitraryDataProvider(contentResolver).getValue(account, ArbitraryDataProvider.DIRECT_EDITING);
+
+        if (json.isEmpty()) {
+            return null;
+        }
+
+        DirectEditing directEditing = new Gson().fromJson(json, DirectEditing.class);
+
+        for (Editor editor : directEditing.editors.values()) {
+            if (editor.mimetypes.contains(mimeType) || editor.optionalMimetypes.contains(mimeType)) {
+                return editor;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * This will be replaced by unified editor and can be removed once EOL of corresponding server version.
+     */
+    @NextcloudServer(max = 18)
+    private boolean isRichDocumentEditingSupported(OCCapability capability, String mimeType) {
+        return isSingleFile() && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
             (capability.getRichDocumentsMimeTypeList().contains(mimeType) ||
                 capability.getRichDocumentsOptionalMimeTypeList().contains(mimeType)) &&
-            capability.getRichDocumentsDirectEditing().isTrue()) {
-
-            String openWith = mContext.getResources().getString(R.string.actionbar_open_as_richdocument_parameter);
-            String productName = capability.getRichDocumentsProductName();
-            MenuItem item = menu.findItem(R.id.action_open_file_as_richdocument);
-
-            if (item != null) {
-                item.setTitle(String.format(openWith, productName));
-            }
-
-            toShow.add(R.id.action_open_file_as_richdocument);
-        } else {
-            toHide.add(R.id.action_open_file_as_richdocument);
-        }
+            capability.getRichDocumentsDirectEditing().isTrue();
     }
 
     private void filterSync(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {

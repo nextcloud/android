@@ -37,10 +37,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Template {
+    public enum Type {
+        DOCUMENT, SPREADSHEET, PRESENTATION
+    }
 
     public int id;
     public String name;
     public String thumbnailLink;
-    public String type;
+    public Type type;
     public String extension;
 }

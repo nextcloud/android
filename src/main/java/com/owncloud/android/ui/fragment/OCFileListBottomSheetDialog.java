@@ -20,6 +20,7 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,6 @@ import com.nextcloud.client.device.DeviceInfo;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.RichDocumentsWebView;
 import com.owncloud.android.utils.ThemeUtils;
 
 import butterknife.BindView;
@@ -100,7 +100,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         OCCapability capability = fileActivity.getCapabilities();
         if (capability.getRichDocuments().isTrue() && capability.getRichDocumentsDirectEditing().isTrue() &&
-            android.os.Build.VERSION.SDK_INT >= RichDocumentsWebView.MINIMUM_API &&
+            android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
             capability.getRichDocumentsTemplatesAvailable().isTrue()) {
             templates.setVisibility(View.VISIBLE);
         }

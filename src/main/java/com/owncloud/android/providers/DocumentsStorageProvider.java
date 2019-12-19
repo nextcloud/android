@@ -53,6 +53,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -163,7 +164,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         boolean isLoading = false;
         if (parentFolder.isExpired()) {
-            final ReloadFolderDocumentTask task = new ReloadFolderDocumentTask(parentFolder, result -> {
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
+
+            final ReloadFolderDocumentTask task = new ReloadFolderDocumentTask(arbitraryDataProvider,
+                                                                               parentFolder,
+                                                                               result -> {
                 getContext().getContentResolver().notifyChange(toNotifyUri(parentFolder), null, false);
             });
             task.executeOnExecutor(executor);
@@ -309,7 +314,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         Document document = toDocument(documentId);
-        
+
         boolean exists = ThumbnailsCacheManager.containsBitmap(ThumbnailsCacheManager.PREFIX_THUMBNAIL
                                                                    + document.getFile().getRemoteId());
 
@@ -692,10 +697,14 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         private final Document folder;
         private final OnTaskFinishedCallback callback;
+        private final ArbitraryDataProvider arbitraryDataProvider;
 
-        ReloadFolderDocumentTask(Document folder, OnTaskFinishedCallback callback) {
+        ReloadFolderDocumentTask(ArbitraryDataProvider arbitraryDataProvider,
+                                 Document folder,
+                                 OnTaskFinishedCallback callback) {
             this.folder = folder;
             this.callback = callback;
+            this.arbitraryDataProvider = arbitraryDataProvider;
         }
 
         @Override

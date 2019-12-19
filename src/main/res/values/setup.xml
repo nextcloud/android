@@ -18,6 +18,7 @@
     <string name="data_folder">nextcloud</string>
     <string name="default_display_name_for_root_folder">Nextcloud</string>
     <string name="nextcloud_user_agent">Mozilla/5.0 (Android) Nextcloud-android/%1$s</string>
+    <string name="only_office_user_agent">Mozilla/5.0 (Android %1$s) Mobile Nextcloud-android/%2$s</string>
 
     <!-- URLs and flags related -->
     <string name="server_url"></string>

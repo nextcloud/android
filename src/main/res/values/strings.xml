@@ -810,7 +810,6 @@
     <string name="stream_not_possible_headline">Internal streaming not possible</string>
     <string name="stream_not_possible_message">Please download media instead or use external app.</string>
     <string name="folder_already_exists">Folder already exists</string>
-    <string name="actionbar_open_as_richdocument_parameter">Open with %1$s</string>
     <string name="notification_icon">Notification icon</string>
     <string name="folder_confirm_create">Create</string>
     <string name="file_delete">Delete</string>
@@ -908,4 +907,5 @@
     <string name="folder">folder</string>
     <string name="file">file</string>
     <string name="share_internal_link">Share internal link</string>
+    <string name="action_edit">Edit</string>
 </resources>

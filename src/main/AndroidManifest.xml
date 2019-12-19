@@ -133,7 +133,10 @@
         <activity android:name=".ui.activity.ExternalSiteWebView"
                   android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
-            android:name=".ui.activity.RichDocumentsWebView"
+            android:name=".ui.activity.RichDocumentsEditorWebView"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".ui.activity.TextEditorWebView"
             android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity android:name=".ui.activity.ContactsPreferenceActivity"
             android:launchMode="singleInstance"/>

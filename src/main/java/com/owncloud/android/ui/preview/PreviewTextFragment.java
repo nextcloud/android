@@ -19,21 +19,16 @@
 
 package com.owncloud.android.ui.preview;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -44,35 +39,16 @@ import android.widget.TextView;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.ThemeUtils;
-
-import org.mozilla.universalchardet.ReaderFactory;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.lang.ref.WeakReference;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
 
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuItemCompat;
 import io.noties.markwon.AbstractMarkwonPlugin;
 import io.noties.markwon.Markwon;
 import io.noties.markwon.core.MarkwonTheme;
@@ -94,45 +70,24 @@ import io.noties.prism4j.annotations.PrismBundle;
     },
     grammarLocatorClassName = ".MarkwonGrammarLocator"
 )
-public class PreviewTextFragment extends FileFragment implements SearchView.OnQueryTextListener, Injectable {
-    private static final String EXTRA_FILE = "FILE";
-    private static final String EXTRA_ACCOUNT = "ACCOUNT";
+public abstract class PreviewTextFragment extends FileFragment implements SearchView.OnQueryTextListener, Injectable {
     private static final String TAG = PreviewTextFragment.class.getSimpleName();
 
-    private Account mAccount;
-    private TextView mTextPreview;
-    private TextLoadAsyncTask mTextLoadTask;
 
-    private String mOriginalText;
-
-    private Handler mHandler;
-    private SearchView mSearchView;
-    private RelativeLayout mMultiView;
+    protected SearchView mSearchView;
+    protected String mSearchQuery = "";
+    protected boolean mSearchOpen;
+    protected TextView mTextPreview;
+    protected Handler mHandler;
+    protected RelativeLayout mMultiView;
+    protected String mOriginalText;
 
     private TextView mMultiListMessage;
     private TextView mMultiListHeadline;
     private ImageView mMultiListIcon;
     private ProgressBar mMultiListProgress;
 
-
-    private String mSearchQuery = "";
-    private boolean mSearchOpen;
-
     @Inject UserAccountManager accountManager;
-
-    /**
-     * Creates an empty fragment for previews.
-     *
-     * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically
-     * (for instance, when the device is turned a aside).
-     *
-     * DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful
-     * construction
-     */
-    public PreviewTextFragment() {
-        super();
-        mAccount = null;
-    }
 
     /**
      * {@inheritDoc}
@@ -171,59 +126,6 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         }
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-
-        OCFile file = getFile();
-
-        Bundle args = getArguments();
-
-        if (file == null) {
-            file = args.getParcelable(FileDisplayActivity.EXTRA_FILE);
-        }
-
-        if (mAccount == null) {
-            mAccount = args.getParcelable(FileDisplayActivity.EXTRA_ACCOUNT);
-        }
-
-        if (args.containsKey(FileDisplayActivity.EXTRA_SEARCH_QUERY)) {
-            mSearchQuery = args.getString(FileDisplayActivity.EXTRA_SEARCH_QUERY);
-        }
-        mSearchOpen = args.getBoolean(FileDisplayActivity.EXTRA_SEARCH, false);
-
-        if (savedInstanceState == null) {
-            if (file == null) {
-                throw new IllegalStateException("Instanced with a NULL OCFile");
-            }
-            if (mAccount == null) {
-                throw new IllegalStateException("Instanced with a NULL ownCloud Account");
-            }
-        } else {
-            file = savedInstanceState.getParcelable(EXTRA_FILE);
-            mAccount = savedInstanceState.getParcelable(EXTRA_ACCOUNT);
-        }
-
-        mHandler = new Handler();
-        setFile(file);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putParcelable(PreviewTextFragment.EXTRA_FILE, getFile());
-        outState.putParcelable(PreviewTextFragment.EXTRA_ACCOUNT, mAccount);
-
-        super.onSaveInstanceState(outState);
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -232,11 +134,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         loadAndShowTextPreview();
     }
 
-    private void loadAndShowTextPreview() {
-        mTextLoadTask = new TextLoadAsyncTask(new WeakReference<>(mTextPreview));
-        mTextLoadTask.execute(getFile().getStoragePath());
-    }
-
+    abstract void loadAndShowTextPreview();
 
     @Override
     public boolean onQueryTextSubmit(String query) {
@@ -267,7 +165,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
                         mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
                     }
                 } else {
-                    setText(mTextPreview, mOriginalText, getFile());
+                    setText(mTextPreview, mOriginalText, getContext());
                 }
             }, delay);
         }
@@ -277,7 +175,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         }
     }
 
-    private Spanned getRenderedMarkdownText(Context context, String markdown) {
+    protected static Spanned getRenderedMarkdownText(Context context, String markdown) {
         Prism4j prism4j = new Prism4j(new MarkwonGrammarLocator());
         Prism4jTheme prism4jTheme = Prism4jThemeDefault.create();
         TaskListDrawable drawable = new TaskListDrawable(Color.GRAY, Color.GRAY, Color.WHITE);
@@ -303,262 +201,15 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
     }
 
     /**
-     * Reads the file to preview and shows its contents. Too critical to be anonymous.
-     */
-    private class TextLoadAsyncTask extends AsyncTask<Object, Void, StringWriter> {
-        private static final int PARAMS_LENGTH = 1;
-        private final WeakReference<TextView> mTextViewReference;
-
-        private TextLoadAsyncTask(WeakReference<TextView> textView) {
-            mTextViewReference = textView;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            // not used at the moment
-        }
-
-        @Override
-        protected StringWriter doInBackground(Object... params) {
-            if (params.length != PARAMS_LENGTH) {
-                throw new IllegalArgumentException("The parameter to " + TextLoadAsyncTask.class.getName()
-                        + " must be (1) the file location");
-            }
-            String location = (String) params[0];
-
-            Scanner scanner = null;
-            StringWriter source = new StringWriter();
-            BufferedWriter bufferedWriter = new BufferedWriter(source);
-            Reader reader = null;
-
-            try {
-                File file = new File(location);
-                reader = ReaderFactory.createReaderFromFile(file);
-                scanner = new Scanner(reader);
-
-                while (scanner.hasNextLine()) {
-                    bufferedWriter.append(scanner.nextLine());
-                    if (scanner.hasNextLine()) {
-                        bufferedWriter.append("\n");
-                    }
-                }
-                bufferedWriter.close();
-                IOException exc = scanner.ioException();
-                if (exc != null) {
-                    throw exc;
-                }
-            } catch (IOException e) {
-                Log_OC.e(TAG, e.getMessage(), e);
-                finish();
-            } finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (IOException e) {
-                        Log_OC.e(TAG, e.getMessage(), e);
-                        finish();
-                    }
-                }
-                if (scanner != null) {
-                    scanner.close();
-                }
-            }
-            return source;
-        }
-
-        @Override
-        protected void onPostExecute(final StringWriter stringWriter) {
-            final TextView textView = mTextViewReference.get();
-
-            if (textView != null) {
-                mOriginalText = stringWriter.toString();
-                mSearchView.setOnQueryTextListener(PreviewTextFragment.this);
-
-                setText(textView, mOriginalText, getFile());
-
-                if (mSearchOpen) {
-                    mSearchView.setQuery(mSearchQuery, true);
-                }
-                textView.setVisibility(View.VISIBLE);
-            }
-
-            if (mMultiView != null) {
-                mMultiView.setVisibility(View.GONE);
-            }
-
-        }
-
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.item_file, menu);
-
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        menuItem.setVisible(true);
-        mSearchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        mSearchView.setMaxWidth(Integer.MAX_VALUE);
-
-        if (mSearchOpen) {
-            mSearchView.setIconified(false);
-            mSearchView.setQuery(mSearchQuery, false);
-            mSearchView.clearFocus();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-        if (containerActivity.getStorageManager() != null) {
-            Account currentAccount = containerActivity.getStorageManager().getAccount();
-            FileMenuFilter mf = new FileMenuFilter(
-                    getFile(),
-                    currentAccount,
-                containerActivity,
-                    getActivity(),
-                    false
-            );
-            mf.filter(menu,
-                      true,
-                      accountManager.isMediaStreamingSupported(currentAccount));
-        }
-
-        // additional restriction for this fragment
-        FileMenuFilter.hideMenuItems(
-                menu.findItem(R.id.action_rename_file),
-                menu.findItem(R.id.action_select_all),
-                menu.findItem(R.id.action_move),
-                menu.findItem(R.id.action_download_file),
-                menu.findItem(R.id.action_sync_file),
-                menu.findItem(R.id.action_sync_account),
-                menu.findItem(R.id.action_favorite),
-                menu.findItem(R.id.action_unset_favorite)
-        );
-
-        Boolean dualPane = getResources().getBoolean(R.bool.large_land_layout);
-
-        if (!dualPane) {
-            FileMenuFilter.hideMenuItems(menu.findItem(R.id.action_switch_view),
-                    menu.findItem(R.id.action_sort)
-            );
-        }
-
-        if(getFile().isSharedWithMe() && !getFile().canReshare()){
-            FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_send_share_file: {
-                if(getFile().isSharedWithMe() && !getFile().canReshare()){
-                    DisplayUtils.showSnackMessage(getView(), R.string.resharing_is_not_allowed);
-                } else {
-                    containerActivity.getFileOperationsHelper().sendShareFile(getFile());
-                }
-                return true;
-            }
-            case R.id.action_open_file_with: {
-                openFile();
-                return true;
-            }
-            case R.id.action_remove_file: {
-                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
-                dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-                return true;
-            }
-            case R.id.action_see_details: {
-                seeDetails();
-                return true;
-            }
-            case R.id.action_sync_file: {
-                containerActivity.getFileOperationsHelper().syncFile(getFile());
-                return true;
-            }
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    /**
-     * Update the file of the fragment with file value
-     *
-     * @param file The new file to set
-     */
-    public void updateFile(OCFile file) {
-        setFile(file);
-    }
-
-    private void seeDetails() {
-        containerActivity.showDetails(getFile());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log_OC.e(TAG, "onStop");
-        if (mTextLoadTask != null) {
-            mTextLoadTask.cancel(Boolean.TRUE);
-        }
-    }
-
-    /**
-     * Opens the previewed file with an external application.
-     */
-    private void openFile() {
-        containerActivity.getFileOperationsHelper().openFile(getFile());
-        finish();
-    }
-
-    /**
-     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewTextFragment} to be previewed.
-     *
-     * @param file File to test if can be previewed.
-     * @return 'True' if the file can be handled by the fragment.
-     */
-    public static boolean canBePreviewed(OCFile file) {
-        final List<String> unsupportedTypes = new LinkedList<>();
-        unsupportedTypes.add("text/richtext");
-        unsupportedTypes.add("text/rtf");
-        unsupportedTypes.add("text/calendar");
-        unsupportedTypes.add("text/vnd.abc");
-        unsupportedTypes.add("text/vnd.fmi.flexstor");
-        unsupportedTypes.add("text/vnd.rn-realtext");
-        unsupportedTypes.add("text/vnd.wap.wml");
-        unsupportedTypes.add("text/vnd.wap.wmlscript");
-        return file != null && file.isDown() && MimeTypeUtil.isText(file) &&
-                !unsupportedTypes.contains(file.getMimeType()) &&
-                !unsupportedTypes.contains(MimeTypeUtil.getMimeTypeFromPath(file.getRemotePath()));
-    }
-
-    /**
      * Finishes the preview
      */
-    private void finish() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                getActivity().onBackPressed();
-            }
-        });
+    protected void finish() {
+        getActivity().runOnUiThread(() -> getActivity().onBackPressed());
     }
 
-    private void setText(TextView textView, String text, OCFile file) {
-        if (MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN.equals(file.getMimeType())) {
-            textView.setText(getRenderedMarkdownText(getContext(), text));
+    public static void setText(TextView textView, String text, Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN && context != null) {
+            textView.setText(getRenderedMarkdownText(context, text));
         } else {
             textView.setText(text);
         }
