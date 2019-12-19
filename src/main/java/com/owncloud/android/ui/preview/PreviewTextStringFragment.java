@@ -51,10 +51,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 
 public class PreviewTextStringFragment extends PreviewTextFragment {
-    private static final String TAG = PreviewTextStringFragment.class.getSimpleName();
     private static final String EXTRA_FILE = "FILE";
-
-    private FloatingActionButton mFabMain;
 
     @Inject UserAccountManager accountManager;
 
@@ -107,7 +104,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
             throw new RuntimeException("View may not be null");
         }
 
-        mFabMain = view.findViewById(R.id.text_preview_fab);
+        FloatingActionButton mFabMain = view.findViewById(R.id.text_preview_fab);
         mFabMain.setVisibility(View.VISIBLE);
         mFabMain.setEnabled(true);
         mFabMain.setOnClickListener(v -> edit());
