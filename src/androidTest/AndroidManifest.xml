@@ -30,5 +30,5 @@
     package="${applicationId}.test"
     android:sharedUserId="${applicationId}.uid">
 
-    <uses-sdk tools:overrideLibrary="android_libs.ub_uiautomator" />
+    <uses-sdk tools:overrideLibrary="android_libs.ub_uiautomator, tools.fastlane.screengrab" />
 </manifest>
