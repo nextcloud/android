@@ -907,5 +907,6 @@
     <string name="folder">folder</string>
     <string name="file">file</string>
     <string name="share_internal_link">Share internal link</string>
+    <string name="error_opening_link">Error opening link</string>
     <string name="action_edit">Edit</string>
 </resources>
