@@ -32,6 +32,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RenameFileRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -130,8 +131,10 @@ public class RenameFileOperation extends SyncOperation {
 
                 // notify MediaScanner about removed file
                 getStorageManager().deleteFileInMediaScan(oldPath);
-                // notify to scan about new file
-                FileDataStorageManager.triggerMediaScan(newPath);
+                // notify to scan about new file, if it is a media file
+                if (MimeTypeUtil.isMedia(file.getMimeType())) {
+                    FileDataStorageManager.triggerMediaScan(newPath);
+                }
             }
             // else - NOTHING: the link to the local file is kept although the local name
             // can't be updated
