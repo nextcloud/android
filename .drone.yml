@@ -3,7 +3,7 @@ name: generic
 
 steps:
   - name: generic
-    image: nextcloudci/android:android-49
+    image: nextcloudci/android10:android-56 # use always latest android version
     environment:
       GIT_USERNAME:
         from_secret: GIT_USERNAME
@@ -48,11 +48,11 @@ trigger:
 
 ---
 kind: pipeline
-name: gplay
+name: android10
 
 steps:
-  - name: gplay
-    image: nextcloudci/android:android-49
+  - name: test
+    image: nextcloudci/android10:android-56 # use always latest android version
     privileged: true
     environment:
       LOG_USERNAME:
@@ -66,13 +66,13 @@ steps:
       ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - emulator-headless -avd android-27 -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - /opt/android-sdk-linux/emulator/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - ./wait_for_emulator.sh
-      - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" 10 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew installGplayDebugAndroidTest
-      - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" 10 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew combinedTestReport
       - curl -o codecov.sh https://codecov.io/bash
       - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
@@ -108,13 +108,375 @@ trigger:
   event:
     - push
     - pull_request
+
 ---
+
+kind: pipeline
+name: android9
+
+steps:
+  - name: test
+    image: nextcloudci/android9:android-56
+    privileged: true
+    environment:
+      LOG_USERNAME:
+        from_secret: LOG_USERNAME
+      LOG_PASSWORD:
+        from_secret: LOG_PASSWORD
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      GIT_TOKEN:
+        from_secret: GIT_TOKEN
+      ORG_GRADLE_PROJECT_coverage: ''
+    commands:
+      - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
+      - /opt/android-sdk-linux/emulator/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - ./gradlew assembleGplay
+      - ./gradlew assembleGplayDebug
+      - ./wait_for_emulator.sh
+      - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" 9 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew installGplayDebugAndroidTest
+      - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" 9 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+  - name: notify
+    image: drillster/drone-email
+    settings:
+      port: 587
+      from: nextcloud-drone@kaminsky.me
+      recipients_only: true
+      username:
+        from_secret: EMAIL_USERNAME
+      password:
+        from_secret: EMAIL_PASSWORD
+      recipients:
+        from_secret: EMAIL_RECIPIENTS
+      host:
+        from_secret: EMAIL_HOST
+    when:
+      event:
+        - push
+      status:
+        - failure
+      branch:
+        - master
+
+services:
+  - name: server
+    image: nextcloudci/server:server-3
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+    - pull_request
+---
+
+kind: pipeline
+name: android8
+
+steps:
+  - name: test
+    image: nextcloudci/android8:android-56
+    privileged: true
+    environment:
+      LOG_USERNAME:
+        from_secret: LOG_USERNAME
+      LOG_PASSWORD:
+        from_secret: LOG_PASSWORD
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      GIT_TOKEN:
+        from_secret: GIT_TOKEN
+      ORG_GRADLE_PROJECT_coverage: ''
+    commands:
+      - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
+      - /opt/android-sdk-linux/emulator/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - ./gradlew assembleGplay
+      - ./gradlew assembleGplayDebug
+      - ./wait_for_emulator.sh
+      - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" 8 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew installGplayDebugAndroidTest
+      - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" 8 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+  - name: notify
+    image: drillster/drone-email
+    settings:
+      port: 587
+      from: nextcloud-drone@kaminsky.me
+      recipients_only: true
+      username:
+        from_secret: EMAIL_USERNAME
+      password:
+        from_secret: EMAIL_PASSWORD
+      recipients:
+        from_secret: EMAIL_RECIPIENTS
+      host:
+        from_secret: EMAIL_HOST
+    when:
+      event:
+        - push
+      status:
+        - failure
+      branch:
+        - master
+
+services:
+  - name: server
+    image: nextcloudci/server:server-3
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+    - pull_request
+---
+
+kind: pipeline
+name: android7
+
+steps:
+  - name: test
+    image: nextcloudci/android7:android-56
+    privileged: true
+    environment:
+      LOG_USERNAME:
+        from_secret: LOG_USERNAME
+      LOG_PASSWORD:
+        from_secret: LOG_PASSWORD
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      GIT_TOKEN:
+        from_secret: GIT_TOKEN
+      ORG_GRADLE_PROJECT_coverage: ''
+    commands:
+      - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
+      - /opt/android-sdk-linux/emulator/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - ./gradlew assembleGplay
+      - ./gradlew assembleGplayDebug
+      - ./wait_for_emulator.sh
+      - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" 7 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew installGplayDebugAndroidTest
+      - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" 7 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+  - name: notify
+    image: drillster/drone-email
+    settings:
+      port: 587
+      from: nextcloud-drone@kaminsky.me
+      recipients_only: true
+      username:
+        from_secret: EMAIL_USERNAME
+      password:
+        from_secret: EMAIL_PASSWORD
+      recipients:
+        from_secret: EMAIL_RECIPIENTS
+      host:
+        from_secret: EMAIL_HOST
+    when:
+      event:
+        - push
+      status:
+        - failure
+      branch:
+        - master
+
+services:
+  - name: server
+    image: nextcloudci/server:server-3
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+    - pull_request
+---
+
+kind: pipeline
+name: android6
+
+steps:
+  - name: test
+    image: nextcloudci/android6:android-56
+    privileged: true
+    environment:
+      LOG_USERNAME:
+        from_secret: LOG_USERNAME
+      LOG_PASSWORD:
+        from_secret: LOG_PASSWORD
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      GIT_TOKEN:
+        from_secret: GIT_TOKEN
+      ORG_GRADLE_PROJECT_coverage: ''
+    commands:
+      - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
+      - /opt/android-sdk-linux/emulator/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - ./gradlew assembleGplay
+      - ./gradlew assembleGplayDebug
+      - ./wait_for_emulator.sh
+      - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" 6 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew installGplayDebugAndroidTest
+      - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" 6 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+  - name: notify
+    image: drillster/drone-email
+    settings:
+      port: 587
+      from: nextcloud-drone@kaminsky.me
+      recipients_only: true
+      username:
+        from_secret: EMAIL_USERNAME
+      password:
+        from_secret: EMAIL_PASSWORD
+      recipients:
+        from_secret: EMAIL_RECIPIENTS
+      host:
+        from_secret: EMAIL_HOST
+    when:
+      event:
+        - push
+      status:
+        - failure
+      branch:
+        - master
+
+services:
+  - name: server
+    image: nextcloudci/server:server-3
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+    - pull_request
+---
+
+kind: pipeline
+name: android5
+
+steps:
+  - name: test
+    image: nextcloudci/android5:android-56
+    privileged: true
+    environment:
+      LOG_USERNAME:
+        from_secret: LOG_USERNAME
+      LOG_PASSWORD:
+        from_secret: LOG_PASSWORD
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      GIT_TOKEN:
+        from_secret: GIT_TOKEN
+      ORG_GRADLE_PROJECT_coverage: ''
+    commands:
+      - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
+      - /opt/android-sdk-linux/emulator/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - ./gradlew assembleGplay
+      - ./gradlew assembleGplayDebug
+      - ./wait_for_emulator.sh
+      - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" 5 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew installGplayDebugAndroidTest
+      - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" 5 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+  - name: notify
+    image: drillster/drone-email
+    settings:
+      port: 587
+      from: nextcloud-drone@kaminsky.me
+      recipients_only: true
+      username:
+        from_secret: EMAIL_USERNAME
+      password:
+        from_secret: EMAIL_PASSWORD
+      recipients:
+        from_secret: EMAIL_RECIPIENTS
+      host:
+        from_secret: EMAIL_HOST
+    when:
+      event:
+        - push
+      status:
+        - failure
+      branch:
+        - master
+
+services:
+  - name: server
+    image: nextcloudci/server:server-3
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+    - pull_request
+---
+
+kind: pipeline
+name: android4
+
+steps:
+  - name: test
+    image: nextcloudci/android4:android-56
+    privileged: true
+    environment:
+      LOG_USERNAME:
+        from_secret: LOG_USERNAME
+      LOG_PASSWORD:
+        from_secret: LOG_PASSWORD
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      GIT_TOKEN:
+        from_secret: GIT_TOKEN
+      ORG_GRADLE_PROJECT_coverage: ''
+    commands:
+      - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
+      - /opt/android-sdk-linux/emulator/emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - ./gradlew assembleGplay
+      - ./gradlew assembleGplayDebug
+      - ./wait_for_emulator.sh
+      - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" 4 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew installGplayDebugAndroidTest
+      - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" 4 $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+  - name: notify
+    image: drillster/drone-email
+    settings:
+      port: 587
+      from: nextcloud-drone@kaminsky.me
+      recipients_only: true
+      username:
+        from_secret: EMAIL_USERNAME
+      password:
+        from_secret: EMAIL_PASSWORD
+      recipients:
+        from_secret: EMAIL_RECIPIENTS
+      host:
+        from_secret: EMAIL_HOST
+    when:
+      event:
+        - push
+      status:
+        - failure
+      branch:
+        - master
+
+services:
+  - name: server
+    image: nextcloudci/server:server-3
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+    - pull_request
+---
+
 kind: pipeline
 name: analysis
 
 steps:
   - name: analysis
-    image: nextcloudci/android:android-49
+    image: nextcloudci/android10:android-56 # use always latest android version
     environment:
       GIT_USERNAME:
         from_secret: GIT_USERNAME
@@ -163,7 +525,7 @@ name: qa
 
 steps:
   - name: qa
-    image: nextcloudci/android:android-49
+    image: nextcloudci/android10:android-56 # use always latest android version
     privileged: true
     environment:
       LOG_USERNAME:
