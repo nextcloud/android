@@ -67,8 +67,9 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ExternalSiteWebView;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.RichDocumentsWebView;
+import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
 import com.owncloud.android.ui.activity.ShareActivity;
+import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
@@ -98,6 +99,7 @@ import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -278,7 +280,7 @@ public class FileOperationsHelper {
                 Account account = fileActivity.getAccount();
                 OCCapability capability = fileActivity.getStorageManager().getCapability(account.name);
                 if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
-                    android.os.Build.VERSION.SDK_INT >= RichDocumentsWebView.MINIMUM_API &&
+                    android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                     capability.getRichDocumentsDirectEditing().isTrue()) {
                     openFileAsRichDocument(file, fileActivity);
                     return;
@@ -341,12 +343,31 @@ public class FileOperationsHelper {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void openFileAsRichDocument(OCFile file, Context context) {
-        Intent collaboraWebViewIntent = new Intent(context, RichDocumentsWebView.class);
+        Intent collaboraWebViewIntent = new Intent(context, RichDocumentsEditorWebView.class);
         collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Collabora");
         collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
         collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
         context.startActivity(collaboraWebViewIntent);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void openFileWithTextEditor(OCFile file, Context context) {
+        Intent textEditorIntent = new Intent(context, TextEditorWebView.class);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text");
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+        context.startActivity(textEditorIntent);
+    }
+
+    public void openRichWorkspaceWithTextEditor(OCFile file, String url, Context context) {
+        Intent textEditorIntent = new Intent(context, TextEditorWebView.class);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text");
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_URL, url);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+        context.startActivity(textEditorIntent);
     }
 
     @NonNull
