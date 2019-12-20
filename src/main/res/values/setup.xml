@@ -125,8 +125,8 @@
     <string name="irc_weblink" translatable="false">http://webchat.freenode.net?channels=nextcloud-mobile</string>
     <string name="help_link" translatable="false">https://help.nextcloud.com/c/clients/android</string>
     <string name="translation_link" translatable="false">https://www.transifex.com/nextcloud/nextcloud/android/</string>
-    <string name="contributing_link" translatable="false">https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md</string>
-    <string name="report_issue_link" translatable="false">https://github.com/nextcloud/android/issues/new/choose</string>
+    <string name="contributing_link" translatable="false">https://github.com/Infomaniak/ios-infomaniak-drive/blob/master/CONTRIBUTING.md</string>
+    <string name="report_issue_link" translatable="false">https://github.com/Infomaniak/ios-infomaniak-drive/issues/new/choose</string>
 
     <!-- login data links -->
     <string name="login_data_own_scheme" translatable="false">nc</string>
@@ -146,7 +146,7 @@
     <!-- Dev settings -->
     <string name="dev_link">https://download.nextcloud.com/android/dev/nextcloud-dev-</string>
     <string name="dev_latest">https://download.nextcloud.com/android/dev/latest</string>
-    <string name="dev_changelog">https://github.com/nextcloud/android/raw/dev/CHANGELOG.md</string>
+    <string name="dev_changelog">https://github.com/Infomaniak/ios-infomaniak-drive/raw/dev/CHANGELOG.md</string>
 
     <string name="buildNumber" translatable="false"></string>
 </resources>
