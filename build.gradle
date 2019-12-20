@@ -300,7 +300,7 @@ dependencies {
     compileOnly 'com.google.code.findbugs:annotations:2.0.1'
     implementation 'commons-io:commons-io:2.6'
     implementation 'com.github.tobiaskaminsky:android-job:v1.2.6.1' // 'com.github.evernote:android-job:v1.2.5'
-    implementation 'com.jakewharton:butterknife:10.2.0'
+    implementation 'com.jakewharton:butterknife:10.2.1'
     kapt 'com.jakewharton:butterknife-compiler:10.2.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.5'
