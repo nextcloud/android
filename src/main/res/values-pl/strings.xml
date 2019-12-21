@@ -8,6 +8,7 @@
     <string name="account_icon">Ikona konta</string>
     <string name="account_not_found">Nie znaleziono konta</string>
     <string name="action_clear_failed_uploads">Wyczyść nieudane wysyłanie</string>
+    <string name="action_edit">Edytuj</string>
     <string name="action_empty_notifications">Wyczyść wszystkie powiadomienia</string>
     <string name="action_empty_trashbin">Opróżnij kosz</string>
     <string name="action_send_share">Wyślij/Udostępnij</string>

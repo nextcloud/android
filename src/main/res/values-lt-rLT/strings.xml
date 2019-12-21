@@ -8,6 +8,7 @@
     <string name="account_icon">Paskyros piktograma</string>
     <string name="account_not_found">Paskyra nerasta!</string>
     <string name="action_clear_failed_uploads">Išvalyti nepavykusius įkėlimus</string>
+    <string name="action_edit">Taisyti</string>
     <string name="action_empty_notifications">Išvalyti visus pranešimus</string>
     <string name="action_empty_trashbin">Išvalyti šiukšlinę</string>
     <string name="action_send_share">Siųsti/Bendrinti</string>
@@ -72,6 +73,7 @@
     <string name="auth_wtf_reenter_URL">Netikėtas statusas, prašome dar kartą įvesti serverio adresą</string>
     <string name="authentication_exception">Tapatybės nustatymo išimtis</string>
     <string name="auto_upload_path">automatinis paleidimas</string>
+    <string name="autoupload_configure">Konfigūruoti</string>
     <string name="autoupload_create_new_custom_folder">Naujas aplanko nustatymas</string>
     <string name="autoupload_custom_folder">Pritaikyti aplanką</string>
     <string name="autoupload_hide_folder">Slėpti aplanką</string>
@@ -117,6 +119,7 @@
     <string name="conflict_use_server_version">Versija serveryje</string>
     <string name="contaclist_restore_selected">Atkurti pasirinktus adresatus</string>
     <string name="contactlist_account_chooser_title">Pasirinkite failą </string>
+    <string name="contactlist_no_permission">Leidimas nesuteiktas, nieko neimportuota.</string>
     <string name="contacts_automatic_backup">Automatinė atsarginė kopija</string>
     <string name="contacts_backup_button">Atgal į viršų</string>
     <string name="contacts_last_backup">Paskutinė atsarginė kopija</string>
@@ -125,6 +128,7 @@
     <string name="contacts_preferences_backup_scheduled">Atsarginės kopijos darymas suplanuotas ir prasidės netrukus</string>
     <string name="contacts_preferences_import_scheduled">Importas suplanuotas ir prasidės netrukus</string>
     <string name="contacts_preferences_no_file_found">Failas nerastas</string>
+    <string name="contacts_preferences_something_strange_happened">Nepavyko rasti jūsų paskutinės atsarginės kopijos!</string>
     <string name="contacts_read_permission">Reikalingas leidimas skaityti adresatų sąrašą</string>
     <string name="copied_to_clipboard">Nukopijuota į iškarpinę</string>
     <string name="copy_file_error">Klaida kopijuojant failą ar aplanką</string>
@@ -165,6 +169,7 @@
     <string name="downloader_download_succeeded_ticker">Atsisiųsti</string>
     <string name="downloader_not_downloaded_yet">Kol kas neatsisiųsta</string>
     <string name="drawer_close">Užverti šoninę juostą</string>
+    <string name="drawer_community">Bendruomenė</string>
     <string name="drawer_item_activities">Veiklos</string>
     <string name="drawer_item_all_files">Visi failai</string>
     <string name="drawer_item_favorites">Mėgstami</string>
@@ -410,6 +415,7 @@
     <string name="recommend_subject">Išbandykite %1$s savo įrenginyje!</string>
     <string name="recommend_text">Noriu jus paraginti naudoti %1$s savo įrenginyje.\nAtsisiųskite čia: %2$s</string>
     <string name="recommend_urls">%1$s arba %2$s</string>
+    <string name="remote_file_fetch_failed">Nepavyko rasti failo!</string>
     <string name="remove_fail_msg">Ištrynimas nepavyko</string>
     <string name="remove_notification_failed">Nepavyko pašalinti pranešimo.</string>
     <string name="remove_push_notification">Šalinti</string>
@@ -427,6 +433,7 @@
     <string name="saml_authentication_required_text">Reikalingas slaptažodis</string>
     <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
     <string name="scanQR_description">Prisijungti per QR kodą</string>
+    <string name="screenshot_02_listView_heading">Naršyti ir bendrinti</string>
     <string name="search_users_and_groups_hint">Ieškoti naudotojų ar grupių</string>
     <string name="select_all">Pažymėti viską</string>
     <string name="send">Siųsti</string>
@@ -555,6 +562,7 @@
     <string name="upload_list_empty_text_auto_upload">Įkelkite failus arba sinchronizuokite su savo įrenginiais</string>
     <string name="upload_local_storage_not_copied">Nepavyko nukopijuoti failo į vietinę saugyklą</string>
     <string name="upload_lock_failed">Nepavyko užrakinti aplanko</string>
+    <string name="upload_old_android"><![CDATA[Šifravimas įmanomas tik naudojant >= Android 5.0]]></string>
     <string name="upload_query_move_foreign_files">Nepakankamas vietos kiekis neleidžia kopijuoti pasirinktų failų į %1$s aplanką. Ar norėtumėte vietoje to juos perkelti?</string>
     <string name="upload_sync_conflict">Sinchronizavimo konfliktas, išspręskite rankiniu būdu</string>
     <string name="upload_unknown_error">Nežinoma klaida</string>

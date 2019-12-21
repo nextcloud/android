@@ -8,6 +8,7 @@
     <string name="account_icon">Kontoikon</string>
     <string name="account_not_found">Kontot hittades inte!</string>
     <string name="action_clear_failed_uploads">Ta bort misslyckade uppladdningar</string>
+    <string name="action_edit">Redigera</string>
     <string name="action_empty_notifications">Rensa alla aviseringar</string>
     <string name="action_empty_trashbin">Töm papperskorgen</string>
     <string name="action_send_share">Skicka/Dela</string>

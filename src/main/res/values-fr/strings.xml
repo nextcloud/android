@@ -8,6 +8,7 @@
     <string name="account_icon">Icône du compte</string>
     <string name="account_not_found">Compte introuvable !</string>
     <string name="action_clear_failed_uploads">Effacer les envois en erreur</string>
+    <string name="action_edit">Modifier</string>
     <string name="action_empty_notifications">Effacer toutes les notifications</string>
     <string name="action_empty_trashbin">Vider la corbeille</string>
     <string name="action_send_share">Envoyer / Partager</string>
