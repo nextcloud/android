@@ -8,6 +8,7 @@
     <string name="account_icon">Hesap simgesi</string>
     <string name="account_not_found">Hesap bulunamadı!</string>
     <string name="action_clear_failed_uploads">Tamamlanamayan yüklemeler silinsin</string>
+    <string name="action_edit">Düzenle</string>
     <string name="action_empty_notifications">Tüm bildirimleri temizle</string>
     <string name="action_empty_trashbin">Çöp kutusunu boşalt</string>
     <string name="action_send_share">Gönder/Paylaş</string>
