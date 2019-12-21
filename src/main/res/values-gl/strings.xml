@@ -8,6 +8,7 @@
     <string name="account_icon">Icona da conta</string>
     <string name="account_not_found">Non se atopou a conta!</string>
     <string name="action_clear_failed_uploads">Limpar os envíos fallados</string>
+    <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpar todas as notificacións</string>
     <string name="action_empty_trashbin">Cesto do lixo baleiro</string>
     <string name="action_send_share">Enviar/compartir</string>
