@@ -8,6 +8,7 @@
     <string name="account_icon">סמל חשבון</string>
     <string name="account_not_found">החשבון לא נמצא!</string>
     <string name="action_clear_failed_uploads">פינוי העלאות שנכשלו</string>
+    <string name="action_edit">עריכה</string>
     <string name="action_empty_notifications">פינוי כל ההתראות</string>
     <string name="action_empty_trashbin">פינוי סל האשפה</string>
     <string name="action_send_share">שליחה/שיתוף</string>

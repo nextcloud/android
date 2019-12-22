@@ -8,6 +8,7 @@
     <string name="account_icon">Ikona účtu</string>
     <string name="account_not_found">Účet sa nenašiel!</string>
     <string name="action_clear_failed_uploads">Odstrániť zlyhané nahrávania</string>
+    <string name="action_edit">Upraviť</string>
     <string name="action_empty_notifications">Odstrániť všetky upozornenia</string>
     <string name="action_empty_trashbin">Vyprázdni kôš</string>
     <string name="action_send_share">Odoslať/Zdieľať</string>

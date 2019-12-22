@@ -8,6 +8,7 @@
     <string name="account_icon">Ikona korisničkog računa</string>
     <string name="account_not_found">Korisnički račun nije pronađen!</string>
     <string name="action_clear_failed_uploads">Izbriši neuspješne otpreme</string>
+    <string name="action_edit">Uredi</string>
     <string name="action_empty_notifications">Izbriši sve obavijesti</string>
     <string name="action_empty_trashbin">Isprazni koš za smeće</string>
     <string name="action_send_share">Pošalji/podijeli</string>
@@ -76,6 +77,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">nalazi se u izvornoj mapi jer je samo za čitanje</string>
     <string name="auto_upload_on_wifi">Otpremite samo putem nemjerene bežične (Wi-Fi) mreže</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="autoupload_configure">Konfiguriraj</string>
     <string name="autoupload_create_new_custom_folder">Stvorite novu postavku za prilagođenu mapu</string>
     <string name="autoupload_custom_folder">Postavite prilagođenu mapu</string>
     <string name="autoupload_disable_power_save_check">Onemogućite provjeru uštede energije</string>

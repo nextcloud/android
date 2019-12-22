@@ -8,6 +8,7 @@
     <string name="account_icon">Εικονίδιο λογαριασμού</string>
     <string name="account_not_found">Δεν βρέθηκε λογαριασμός!</string>
     <string name="action_clear_failed_uploads">Εκκαθάριση αποτυχημένων μεταφορτώσεων</string>
+    <string name="action_edit">Επεξεργασία</string>
     <string name="action_empty_notifications">Εκκαθάριση ειδοποιήσεων</string>
     <string name="action_empty_trashbin">Άδειασμα κάδου</string>
     <string name="action_send_share">Αποστολή/Κοινή χρήση</string>
