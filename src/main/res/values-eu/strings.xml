@@ -8,6 +8,7 @@
     <string name="account_icon">Kontuaren ikonoa</string>
     <string name="account_not_found">Ez da kontua aurkitu!</string>
     <string name="action_clear_failed_uploads">Erroredun igoerak garbitu</string>
+    <string name="action_edit">Editatu</string>
     <string name="action_empty_notifications">Garbitu jakinarazpen guztiak</string>
     <string name="action_empty_trashbin">Hustu zakarrontzia</string>
     <string name="action_send_share">Bidali/Partekatu</string>

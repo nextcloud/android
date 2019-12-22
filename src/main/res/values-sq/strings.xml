@@ -8,6 +8,7 @@
     <string name="account_icon">Ikona e llogarisë</string>
     <string name="account_not_found">Llogaria nuk u gjet!</string>
     <string name="action_clear_failed_uploads">Pastroni ngarkimet e dështuara</string>
+    <string name="action_edit">Përpuno</string>
     <string name="action_empty_notifications">Pastro të gjithë njoftimet</string>
     <string name="action_empty_trashbin">Boshatis koshin e plehrave</string>
     <string name="action_send_share">Dërgoje/Shpërndaje</string>
@@ -76,6 +77,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">mbajtur në dosjen origjinale, pasi ajo është e vetëm e lexueshme</string>
     <string name="auto_upload_on_wifi">Ngarkoni vetëm Kur Wi-Fi është i pamatur</string>
     <string name="auto_upload_path">/NgarkimAutomatik</string>
+    <string name="autoupload_configure">Konfiguro</string>
     <string name="autoupload_create_new_custom_folder">Krijoni një dosje të re me porosi</string>
     <string name="autoupload_custom_folder">Ndërtoni një dosje me porosi</string>
     <string name="autoupload_disable_power_save_check">Çaktivizoni kontrollin e kursimit të energjisë</string>
