@@ -15,7 +15,7 @@ public class GrantAccess {
     final AndroidDriver<AndroidElement> driver;
 
     @CacheLookup
-    @FindBy(id = "submit")
+    @FindBy(css = "#submit")
     private WebElement grantAcessButton;
 
     public GrantAccess (AndroidDriver<AndroidElement> driver){

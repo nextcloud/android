@@ -35,15 +35,15 @@ public class LoginForm {
 	final AndroidDriver<AndroidElement> driver;
 	
 	@CacheLookup
-	@FindBy(id = "user")
+	@FindBy(css = "#user")
 	private WebElement userNameEdit;
 	
 	@CacheLookup
-	@FindBy(id = "password")
+	@FindBy(css = "#password")
 	private WebElement passwordEdit;
 
 	@CacheLookup
-	@FindBy(id = "submit")
+	@FindBy(css = "#submit")
 	private AndroidElement loginButton;
 
 	
