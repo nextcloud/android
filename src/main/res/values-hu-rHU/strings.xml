@@ -8,6 +8,7 @@
     <string name="account_icon">Fiók ikon</string>
     <string name="account_not_found">A fiók nem található!</string>
     <string name="action_clear_failed_uploads">Sikertelen feltöltések eltávolítása</string>
+    <string name="action_edit">Szerkesztés</string>
     <string name="action_empty_notifications">Összes értesítés törlése</string>
     <string name="action_empty_trashbin">Kuka ürítése</string>
     <string name="action_send_share">Küldés/Megosztás</string>
@@ -76,6 +77,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">megtartva az eredeti mappában, mivel csak olvasható</string>
     <string name="auto_upload_on_wifi">Feltöltés csak forgalomkorlát nélküli Wi-Fin</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="autoupload_configure">Beállítás</string>
     <string name="autoupload_create_new_custom_folder">Új egyéni mappabeállítás létrehozása</string>
     <string name="autoupload_custom_folder">Egyéni mappa beállítása</string>
     <string name="autoupload_disable_power_save_check">Energiagazdálkodási ellenőrzés letiltása</string>

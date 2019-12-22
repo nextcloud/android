@@ -8,6 +8,7 @@
     <string name="account_icon">Account icon</string>
     <string name="account_not_found">Account not found!</string>
     <string name="action_clear_failed_uploads">Clear failed uploads</string>
+    <string name="action_edit">Edit</string>
     <string name="action_empty_notifications">Clear all notifications</string>
     <string name="action_empty_trashbin">Empty trashbin</string>
     <string name="action_send_share">Send/Share</string>

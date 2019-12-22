@@ -8,6 +8,7 @@
     <string name="account_icon">Kontoikon</string>
     <string name="account_not_found">Konto ble ikke funnet!</string>
     <string name="action_clear_failed_uploads">Fjern feilede opplastinger</string>
+    <string name="action_edit">Rediger</string>
     <string name="action_empty_notifications">Slett alle varsel</string>
     <string name="action_empty_trashbin">Tøm papirkurv</string>
     <string name="action_send_share">Send/del</string>
@@ -76,6 +77,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">beholdt i opprinnelig mappe da den kun har leserettigheter</string>
     <string name="auto_upload_on_wifi">Kun last opp på ubegrenset Wi-Fi</string>
     <string name="auto_upload_path">/Auto-opplasting</string>
+    <string name="autoupload_configure">Konfigurer</string>
     <string name="autoupload_create_new_custom_folder">Lag nytt tilpasset mappe-oppsett</string>
     <string name="autoupload_custom_folder">Sett opp en tilpasset mappe</string>
     <string name="autoupload_disable_power_save_check">Deaktivere strømsparing sjekk</string>
@@ -495,6 +497,9 @@
     <string name="prefs_storage_path">Lagrings-sti</string>
     <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
     <string name="prefs_synced_folders_remote_path_title">Mappe på server</string>
+    <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Mørk</string>
+    <string name="prefs_value_theme_light">Lys</string>
     <string name="preview_image_description">Bildeforhåndsvisning</string>
     <string name="preview_image_error_no_local_file">Ingen lokal fil å forhåndsvise</string>
     <string name="preview_image_error_unknown_format">Kunne ikke vise bilde</string>

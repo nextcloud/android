@@ -8,6 +8,7 @@
     <string name="account_icon">アカウントアイコン</string>
     <string name="account_not_found">アカウントが見つかりません！</string>
     <string name="action_clear_failed_uploads">失敗したアップロードのクリア</string>
+    <string name="action_edit">編集</string>
     <string name="action_empty_notifications">全ての通知を削除</string>
     <string name="action_empty_trashbin">ゴミ箱を空にする</string>
     <string name="action_send_share">送信/共有</string>

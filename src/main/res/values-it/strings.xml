@@ -8,6 +8,7 @@
     <string name="account_icon">Icona dell\'account</string>
     <string name="account_not_found">Account non trovato</string>
     <string name="action_clear_failed_uploads">Cancella caricamenti non riusciti</string>
+    <string name="action_edit">Modifica</string>
     <string name="action_empty_notifications">Cancella tutte le notifiche</string>
     <string name="action_empty_trashbin">Svuota cestino</string>
     <string name="action_send_share">Invia/Condividi</string>
