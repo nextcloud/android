@@ -44,6 +44,7 @@ import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -747,5 +748,10 @@ public final class DisplayUtils {
         } else {
             DisplayUtils.showSnackMessage(activity, error);
         }
+    }
+
+    static public void showErrorAndAbort(Context context, String errorMessage) {
+        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
+        ((Activity) context).finish();
     }
 }
