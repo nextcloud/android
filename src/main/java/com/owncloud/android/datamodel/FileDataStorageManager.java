@@ -896,57 +896,46 @@ public class FileDataStorageManager {
     }
 
     private boolean fileExists(String cmp_key, String value) {
-        Cursor c;
-        if (getContentResolver() != null) {
-            c = getContentResolver()
-                    .query(ProviderTableMeta.CONTENT_URI,
-                            null,
-                            cmp_key + AND
-                                    + ProviderTableMeta.FILE_ACCOUNT_OWNER
-                                    + "=?",
-                            new String[]{value, account.name}, null);
+        Cursor cursor = getFileCursorForValue(cmp_key, value);
+        boolean isExists = false;
+
+        if (cursor == null) {
+            Log_OC.e(TAG, "Couldn't determine file existance, assuming non existance");
         } else {
-            try {
-                c = getContentProviderClient().query(
-                        ProviderTableMeta.CONTENT_URI,
-                        null,
-                        cmp_key + AND
-                                + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                        new String[]{value, account.name}, null);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Couldn't determine file existance, assuming non existance: " + e.getMessage(), e);
-                return false;
-            }
+            isExists = cursor.moveToFirst();
+            cursor.close();
         }
-        boolean retval = c.moveToFirst();
-        c.close();
-        return retval;
+
+        return isExists;
     }
 
     private Cursor getFileCursorForValue(String key, String value) {
-        Cursor c;
-        if (getContentResolver() != null) {
-            c = getContentResolver()
-                    .query(ProviderTableMeta.CONTENT_URI,
-                            null,
-                            key + AND
-                                    + ProviderTableMeta.FILE_ACCOUNT_OWNER
-                                    + "=?",
-                            new String[]{value, account.name}, null);
+        Cursor cursor;
+        ContentResolver contentResolver = getContentResolver();
+        String selection = key
+            + AND
+            + ProviderTableMeta.FILE_ACCOUNT_OWNER
+            + "=?";
+
+        if (contentResolver != null) {
+            cursor = contentResolver.query(ProviderTableMeta.CONTENT_URI,
+                                           null,
+                                           selection,
+                                           new String[]{value, account.name},
+                                           null);
         } else {
             try {
-                c = getContentProviderClient().query(
-                        ProviderTableMeta.CONTENT_URI,
-                        null,
-                        key + AND + ProviderTableMeta.FILE_ACCOUNT_OWNER
-                                + "=?", new String[]{value, account.name},
-                        null);
+                cursor = getContentProviderClient().query(ProviderTableMeta.CONTENT_URI,
+                                                          null,
+                                                          selection,
+                                                          new String[]{value, account.name},
+                                                          null);
             } catch (RemoteException e) {
                 Log_OC.e(TAG, "Could not get file details: " + e.getMessage(), e);
-                c = null;
+                cursor = null;
             }
         }
-        return c;
+        return cursor;
     }
 
     @Nullable
