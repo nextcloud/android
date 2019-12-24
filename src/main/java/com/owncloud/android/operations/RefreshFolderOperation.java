@@ -412,7 +412,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         Log_OC.d(TAG, "Remote folder " + mLocalFolder.getRemotePath() + " changed - starting update of local data ");
 
-        List<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
+        ArrayList<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
         mFilesToSyncContents.clear();
 
         // if local folder is encrypted, download fresh metadata

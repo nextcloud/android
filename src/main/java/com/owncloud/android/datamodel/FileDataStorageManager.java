@@ -320,6 +320,17 @@ public class FileDataStorageManager {
         }
     }
 
+    private boolean isFileExists(ArrayList<OCFile> filesExists, OCFile file) {
+        for (Iterator<OCFile> iterator = filesExists.iterator(); iterator.hasNext(); ) {
+            OCFile ocFile = iterator.next();
+            if (file.getFileId() == ocFile.getFileId()
+                || file.getRemotePath().equals(ocFile.getRemotePath())) {
+                iterator.remove();
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Inserts or updates the list of files contained in a given folder.
@@ -331,28 +342,30 @@ public class FileDataStorageManager {
      * @param updatedFiles
      * @param filesToRemove
      */
-    public void saveFolder(OCFile folder, Collection<OCFile> updatedFiles, Collection<OCFile> filesToRemove) {
+    public void saveFolder(OCFile folder, ArrayList<OCFile> updatedFiles, Collection<OCFile> filesToRemove) {
         Log_OC.d(TAG, "Saving folder " + folder.getRemotePath() + " with " + updatedFiles.size()
                 + " children and " + filesToRemove.size() + " files to remove");
 
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(updatedFiles.size());
 
+        ArrayList<OCFile> fileExistList = getFilesExistsID(updatedFiles);
+
         // prepare operations to insert or update files to save in the given folder
         for (OCFile file : updatedFiles) {
             ContentValues cv = createContentValueForFile(file, folder);
 
-            if (fileExists(file.getFileId()) || fileExists(file.getRemotePath())) {
+            if (isFileExists(fileExistList, file)) {
                 long fileId;
-                if (file.getFileId() != -1) {
+                if (file.fileExists()) {
                     fileId = file.getFileId();
                 } else {
                     fileId = getFileByPath(file.getRemotePath()).getFileId();
                 }
                 // updating an existing file
                 operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
-                        .withValues(cv)
+                                   .withValues(cv)
                                    .withSelection(ProviderTableMeta._ID + "=?", new String[]{String.valueOf(fileId)})
-                        .build());
+                                   .build());
             } else {
                 // adding a new file
                 operations.add(ContentProviderOperation.newInsert(ProviderTableMeta.CONTENT_URI).withValues(cv).build());
@@ -909,32 +922,88 @@ public class FileDataStorageManager {
         return isExists;
     }
 
+    private ArrayList<OCFile> getFilesExistsID(ArrayList<OCFile> updatedFiles) {
+        StringBuilder listIDString = new StringBuilder(updatedFiles.size() * 2);
+        StringBuilder listPathString = new StringBuilder(updatedFiles.size() * 2);
+
+        if (updatedFiles.size() > 0) {
+            OCFile file = updatedFiles.get(0);
+            listIDString
+                .append(file.getFileId());
+            listPathString
+                .append("'")
+                .append(file.getRemotePath())
+                .append("'");
+        }
+        for (int i = 1; i < updatedFiles.size(); i++) {
+            OCFile file = updatedFiles.get(i);
+            listIDString
+                .append(",")
+                .append(file.getFileId());
+            listPathString.append(",");
+            listPathString
+                .append("'")
+                .append(file.getRemotePath())
+                .append("'");
+        }
+
+        String selection = ProviderTableMeta.FILE_ACCOUNT_OWNER
+            + " = ? AND ("
+            + ProviderTableMeta._ID
+            + " IN (" + listIDString + ") OR "
+            + ProviderTableMeta.FILE_PATH
+            + " IN (" + listPathString + ") ) ";
+
+        Cursor cursor = getCursorQueryResolver(selection, new String[]{account.name});
+        ArrayList<OCFile> existsFiles = new ArrayList<>();
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    OCFile file = new OCFile(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_PATH)));
+                    file.setFileId(cursor.getLong(cursor.getColumnIndex(ProviderTableMeta._ID)));
+                    existsFiles.add(file);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+
+        return existsFiles;
+    }
+
     private Cursor getFileCursorForValue(String key, String value) {
-        Cursor cursor;
-        ContentResolver contentResolver = getContentResolver();
         String selection = key
             + AND
             + ProviderTableMeta.FILE_ACCOUNT_OWNER
             + "=?";
+        String[] selectionArgs = {value, account.name};
+
+        return getCursorQueryResolver(selection, selectionArgs);
+    }
+
+    private Cursor getCursorQueryResolver(String selection, String[] selectionArgs) {
+        Cursor cursor;
+        ContentResolver contentResolver = getContentResolver();
 
         if (contentResolver != null) {
             cursor = contentResolver.query(ProviderTableMeta.CONTENT_URI,
                                            null,
                                            selection,
-                                           new String[]{value, account.name},
+                                           selectionArgs,
                                            null);
         } else {
             try {
                 cursor = getContentProviderClient().query(ProviderTableMeta.CONTENT_URI,
                                                           null,
                                                           selection,
-                                                          new String[]{value, account.name},
+                                                          selectionArgs,
                                                           null);
             } catch (RemoteException e) {
                 Log_OC.e(TAG, "Could not get file details: " + e.getMessage(), e);
                 cursor = null;
             }
         }
+
         return cursor;
     }
 
