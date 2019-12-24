@@ -381,7 +381,7 @@ public class PreviewImageActivity extends FileActivity implements
         final Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.setAction(FileDisplayActivity.ACTION_DETAILS);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, file);
-        // showDetailsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        showDetailsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(showDetailsIntent);
         finish();
     }
