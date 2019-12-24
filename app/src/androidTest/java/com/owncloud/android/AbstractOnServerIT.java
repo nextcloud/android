@@ -47,6 +47,9 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import static androidx.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertTrue;
+
 
 /**
  * Common base for all integration tests
