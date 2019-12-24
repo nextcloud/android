@@ -265,14 +265,16 @@ public class FileContentProvider extends ContentProvider {
         switch (mUriMatcher.match(uri)) {
             case ROOT_DIRECTORY:
             case SINGLE_FILE:
-                String remotePath = values.getAsString(ProviderTableMeta.FILE_PATH);
-                String accountName = values.getAsString(ProviderTableMeta.FILE_ACCOUNT_OWNER);
                 String[] projection = new String[]{
                     ProviderTableMeta._ID, ProviderTableMeta.FILE_PATH,
                     ProviderTableMeta.FILE_ACCOUNT_OWNER
                 };
                 String where = ProviderTableMeta.FILE_PATH + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
-                String[] whereArgs = new String[]{remotePath, accountName};
+
+                String remotePath = values.getAsString(ProviderTableMeta.FILE_PATH);
+                String accountName = values.getAsString(ProviderTableMeta.FILE_ACCOUNT_OWNER);
+                String[] whereArgs = {remotePath, accountName};
+
                 Cursor doubleCheck = query(db, uri, projection, where, whereArgs, null);
                 // ugly patch; serious refactorization is needed to reduce work in
                 // FileDataStorageManager and bring it to FileContentProvider
@@ -299,9 +301,9 @@ public class FileContentProvider extends ContentProvider {
 
             case SHARES:
                 Uri insertedShareUri;
-                long rowId = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, null, values);
-                if (rowId > 0) {
-                    insertedShareUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, rowId);
+                long idShares = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, null, values);
+                if (idShares > 0) {
+                    insertedShareUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, idShares);
                 } else {
                     throw new SQLException(ERROR + uri);
 
@@ -312,9 +314,9 @@ public class FileContentProvider extends ContentProvider {
 
             case CAPABILITIES:
                 Uri insertedCapUri;
-                long id = db.insert(ProviderTableMeta.CAPABILITIES_TABLE_NAME, null, values);
-                if (id > 0) {
-                    insertedCapUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_CAPABILITIES, id);
+                long idCapabilities = db.insert(ProviderTableMeta.CAPABILITIES_TABLE_NAME, null, values);
+                if (idCapabilities > 0) {
+                    insertedCapUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_CAPABILITIES, idCapabilities);
                 } else {
                     throw new SQLException(ERROR + uri);
                 }
@@ -663,16 +665,16 @@ public class FileContentProvider extends ContentProvider {
         ContentProviderResult[] results = new ContentProviderResult[operations.size()];
         int i = 0;
 
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.beginTransaction();  // it's supposed that transactions can be nested
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+        database.beginTransaction();  // it's supposed that transactions can be nested
         try {
             for (ContentProviderOperation operation : operations) {
                 results[i] = operation.apply(this, results, i);
                 i++;
             }
-            db.setTransactionSuccessful();
+            database.setTransactionSuccessful();
         } finally {
-            db.endTransaction();
+            database.endTransaction();
         }
         Log_OC.d("FileContentProvider", "applied batch in provider " + this);
         return results;
