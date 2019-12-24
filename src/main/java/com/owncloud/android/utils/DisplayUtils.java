@@ -46,6 +46,7 @@ import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -140,13 +141,13 @@ public final class DisplayUtils {
     /**
      * Converts the file size in bytes to human readable output.
      * <ul>
-     *     <li>appends a size suffix, e.g. B, KB, MB etc.</li>
-     *     <li>rounds the size based on the suffix to 0,1 or 2 decimals</li>
+     * <li>appends a size suffix, e.g. B, KB, MB etc.</li>
+     * <li>rounds the size based on the suffix to 0,1 or 2 decimals</li>
      * </ul>
      *
      * @param bytes Input file size
-     * @return something readable like "12 MB", {@link com.owncloud.android.R.string#common_pending} for negative
-     * byte values
+     * @return something readable like "12 MB", {@link com.owncloud.android.R.string#common_pending} for negative byte
+     * values
      */
     public static String bytesToHumanReadable(long bytes) {
         if (bytes < 0) {
@@ -160,13 +161,12 @@ public final class DisplayUtils {
             }
 
             return new BigDecimal(String.valueOf(result)).setScale(
-                    sizeScales[suffixIndex], BigDecimal.ROUND_HALF_UP) + " " + sizeSuffixes[suffixIndex];
+                sizeScales[suffixIndex], BigDecimal.ROUND_HALF_UP) + " " + sizeSuffixes[suffixIndex];
         }
     }
 
     /**
-     * Converts MIME types like "image/jpg" to more end user friendly output
-     * like "JPG image".
+     * Converts MIME types like "image/jpg" to more end user friendly output like "JPG image".
      *
      * @param mimetype MIME type to convert
      * @return A human friendly version of the MIME type, {@link #MIME_TYPE_UNKNOWN} if it can't be converted
@@ -243,7 +243,7 @@ public final class DisplayUtils {
     /**
      * Converts an internationalized domain name (IDN) in an URL to and from ASCII/Unicode.
      *
-     * @param url the URL where the domain name should be converted
+     * @param url     the URL where the domain name should be converted
      * @param toASCII if true converts from Unicode to ASCII, if false converts from ASCII to Unicode
      * @return the URL containing the converted domain name
      */
@@ -287,17 +287,16 @@ public final class DisplayUtils {
                 + convertIdn(accountName.substring(accountName.lastIndexOf('@') + 1), false);
     }
 
-
     /**
      * calculates the relative time string based on the given modification timestamp.
      *
-     * @param context the app's context
+     * @param context               the app's context
      * @param modificationTimestamp the UNIX timestamp of the file modification time in milliseconds.
      * @return a relative time string
      */
     public static CharSequence getRelativeTimestamp(Context context, long modificationTimestamp) {
         return getRelativeDateTimeString(context, modificationTimestamp, DateUtils.SECOND_IN_MILLIS,
-                DateUtils.WEEK_IN_MILLIS, 0);
+                                         DateUtils.WEEK_IN_MILLIS, 0);
     }
 
 
@@ -386,7 +385,7 @@ public final class DisplayUtils {
         }
 
         SpannableStringBuilder sb = new SpannableStringBuilder(text);
-        if(spanText == null) {
+        if (spanText == null) {
             return sb;
         }
 
@@ -523,13 +522,13 @@ public final class DisplayUtils {
 
     private static void downloadPNGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder) {
         Glide
-                .with(context)
-                .load(iconUrl)
-                .centerCrop()
-                .placeholder(placeholder)
-                .error(placeholder)
-                .crossFade()
-                .into(imageView);
+            .with(context)
+            .load(iconUrl)
+            .centerCrop()
+            .placeholder(placeholder)
+            .error(placeholder)
+            .crossFade()
+            .into(imageView);
     }
 
     private static void downloadSVGIcon(CurrentAccountProvider currentAccountProvider,
@@ -542,33 +541,33 @@ public final class DisplayUtils {
                                         int height) {
         GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(context)
             .using(new CustomGlideUriLoader(currentAccountProvider, clientFactory), InputStream.class)
-                .from(Uri.class)
-                .as(SVG.class)
-                .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
-                .sourceEncoder(new StreamEncoder())
-                .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder(height, width)))
-                .decoder(new SvgDecoder(height, width))
-                .placeholder(placeholder)
-                .error(placeholder)
-                .animate(android.R.anim.fade_in);
+            .from(Uri.class)
+            .as(SVG.class)
+            .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
+            .sourceEncoder(new StreamEncoder())
+            .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder(height, width)))
+            .decoder(new SvgDecoder(height, width))
+            .placeholder(placeholder)
+            .error(placeholder)
+            .animate(android.R.anim.fade_in);
 
 
         Uri uri = Uri.parse(iconUrl);
         requestBuilder
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .load(uri)
-                .into(imageView);
+            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+            .load(uri)
+            .into(imageView);
     }
 
     public static Bitmap downloadImageSynchronous(Context context, String imageUrl) {
         try {
             return Glide.with(context)
-                    .load(imageUrl)
-                    .asBitmap()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                    .get();
+                .load(imageUrl)
+                .asBitmap()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                .get();
         } catch (Exception e) {
             Log_OC.e(TAG, "Could not download image " + imageUrl);
             return null;
@@ -590,7 +589,7 @@ public final class DisplayUtils {
     /**
      * Get String data from a InputStream
      *
-     * @param inputStream        The File InputStream
+     * @param inputStream The File InputStream
      */
     public static String getData(InputStream inputStream) {
 
@@ -679,32 +678,32 @@ public final class DisplayUtils {
      */
     public static void showSnackMessage(Context context, View view, @StringRes int messageResource, Object... formatArgs) {
         Snackbar.make(
-                view,
-                String.format(context.getString(messageResource, formatArgs)),
-                Snackbar.LENGTH_LONG)
-                .show();
+            view,
+            String.format(context.getString(messageResource, formatArgs)),
+            Snackbar.LENGTH_LONG)
+            .show();
     }
 
     // Solution inspired by https://stackoverflow.com/questions/34936590/why-isnt-my-vector-drawable-scaling-as-expected
     // Copied from https://raw.githubusercontent.com/nextcloud/talk-android/8ec8606bc61878e87e3ac8ad32c8b72d4680013c/app/src/main/java/com/nextcloud/talk/utils/DisplayUtils.java
     // under GPL3
     public static void useCompatVectorIfNeeded() {
-            try {
-                @SuppressLint("RestrictedApi") AppCompatDrawableManager drawableManager = AppCompatDrawableManager.get();
-                Class<?> inflateDelegateClass = Class.forName("android.support.v7.widget.AppCompatDrawableManager$InflateDelegate");
-                Class<?> vdcInflateDelegateClass = Class.forName("android.support.v7.widget.AppCompatDrawableManager$VdcInflateDelegate");
+        try {
+            @SuppressLint("RestrictedApi") AppCompatDrawableManager drawableManager = AppCompatDrawableManager.get();
+            Class<?> inflateDelegateClass = Class.forName("android.support.v7.widget.AppCompatDrawableManager$InflateDelegate");
+            Class<?> vdcInflateDelegateClass = Class.forName("android.support.v7.widget.AppCompatDrawableManager$VdcInflateDelegate");
 
-                Constructor<?> constructor = vdcInflateDelegateClass.getDeclaredConstructor();
-                constructor.setAccessible(true);
-                Object vdcInflateDelegate = constructor.newInstance();
+            Constructor<?> constructor = vdcInflateDelegateClass.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            Object vdcInflateDelegate = constructor.newInstance();
 
-                Class<?> args[] = {String.class, inflateDelegateClass};
-                Method addDelegate = AppCompatDrawableManager.class.getDeclaredMethod("addDelegate", args);
-                addDelegate.setAccessible(true);
-                addDelegate.invoke(drawableManager, "vector", vdcInflateDelegate);
-            } catch (Exception e) {
-                Log.e(TAG, "Failed to use reflection to enable proper vector scaling");
-            }
+            Class<?> args[] = {String.class, inflateDelegateClass};
+            Method addDelegate = AppCompatDrawableManager.class.getDeclaredMethod("addDelegate", args);
+            addDelegate.setAccessible(true);
+            addDelegate.invoke(drawableManager, "vector", vdcInflateDelegate);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to use reflection to enable proper vector scaling");
+        }
     }
 
     public static int convertDpToPixel(float dp, Context context) {
@@ -717,9 +716,9 @@ public final class DisplayUtils {
     static public void showServerOutdatedSnackbar(Activity activity, int length) {
         Snackbar.make(activity.findViewById(android.R.id.content),
                       R.string.outdated_server, length)
-                .setAction(R.string.dismiss, v -> {
-                })
-                .show();
+            .setAction(R.string.dismiss, v -> {
+            })
+            .show();
     }
 
     static public void startLinkIntent(Activity activity, @StringRes int link) {
@@ -733,5 +732,10 @@ public final class DisplayUtils {
         } else {
             DisplayUtils.showSnackMessage(activity, error);
         }
+    }
+
+    static public void showErrorAndFinishActivity(Activity activity, String errorMessage) {
+        Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show();
+        activity.finish();
     }
 }
