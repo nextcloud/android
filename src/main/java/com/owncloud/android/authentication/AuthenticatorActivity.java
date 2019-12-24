@@ -251,6 +251,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private long mWaitingForOpId = Long.MAX_VALUE;
 
     private boolean webViewLoginMethod;
+    private boolean showWebViewLoginUrl;
     private String webViewUser;
     private String webViewPassword;
     private boolean forceOldLoginMethod;
@@ -315,6 +316,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             showLegacyLogin = false;
         } else {
             webViewLoginMethod = !TextUtils.isEmpty(getResources().getString(R.string.webview_login_url));
+            showWebViewLoginUrl = getResources().getBoolean(R.bool.show_server_url_input);
             showLegacyLogin = true;
         }
 
@@ -1469,43 +1471,66 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * @param result Result of a remote operation performed in this activity
      */
     private void updateAuthStatusIconAndText(RemoteOperationResult result) {
-        mAuthStatusIcon = R.drawable.ic_alert;    // the most common case in the switch below
+        try {
+            mAuthStatusIcon = R.drawable.ic_alert;    // the most common case in the switch below
 
-        switch (result.getCode()) {
-            case OK_SSL:
-                mAuthStatusIcon = R.drawable.ic_lock_white;
-                mAuthStatusText = getResources().getString(R.string.auth_secure_connection);
-                break;
+            switch (result.getCode()) {
+                case OK_SSL:
+                    mAuthStatusIcon = R.drawable.ic_lock_white;
+                    mAuthStatusText = getResources().getString(R.string.auth_secure_connection);
+                    break;
 
-            case OK_NO_SSL:
-            case OK:
-                if (mHostUrlInput.getText().toString().trim().toLowerCase(Locale.ROOT).startsWith(HTTP_PROTOCOL)) {
-                    mAuthStatusText = getResources().getString(R.string.auth_connection_established);
-                    mAuthStatusIcon = R.drawable.ic_ok;
-                } else {
-                    mAuthStatusText = getResources().getString(R.string.auth_nossl_plain_ok_title);
-                    mAuthStatusIcon = R.drawable.ic_lock_open_white;
-                }
-                break;
+                case OK_NO_SSL:
+                case OK:
+                    if(showWebViewLoginUrl) {
+                        if (mHostUrlInput.getText().toString().trim().toLowerCase(Locale.ROOT).startsWith(HTTP_PROTOCOL)) {
+                            mAuthStatusText = getResources().getString(R.string.auth_connection_established);
+                            mAuthStatusIcon = R.drawable.ic_ok;
+                        } else {
+                            mAuthStatusText = getResources().getString(R.string.auth_nossl_plain_ok_title);
+                            mAuthStatusIcon = R.drawable.ic_lock_open_white;
+                        }
+                    }
+                    break;
 
-            case NO_NETWORK_CONNECTION:
-                mAuthStatusIcon = R.drawable.no_network;
-                mAuthStatusText = getResources().getString(R.string.auth_no_net_conn_title);
-                break;
+                case NO_NETWORK_CONNECTION:
+                    mAuthStatusIcon = R.drawable.no_network;
+                    mAuthStatusText = getResources().getString(R.string.auth_no_net_conn_title);
+                    break;
 
-            case SSL_RECOVERABLE_PEER_UNVERIFIED:
-                mAuthStatusText = getResources().getString(R.string.auth_ssl_unverified_server_title);
-                break;
-            case TIMEOUT:
-                mAuthStatusText = getResources().getString(R.string.auth_timeout_title);
-                break;
-            case HOST_NOT_AVAILABLE:
-                mAuthStatusText = getResources().getString(R.string.auth_unknown_host_title);
-                break;
-            case UNHANDLED_HTTP_CODE:
-            default:
-                mAuthStatusText = ErrorMessageAdapter.getErrorCauseMessage(result, null, getResources());
+                case SSL_RECOVERABLE_PEER_UNVERIFIED:
+                    mAuthStatusText = getResources().getString(R.string.auth_ssl_unverified_server_title);
+                    break;
+                case TIMEOUT:
+                    mAuthStatusText = getResources().getString(R.string.auth_timeout_title);
+                    break;
+                case HOST_NOT_AVAILABLE:
+                    mAuthStatusText = getResources().getString(R.string.auth_unknown_host_title);
+                    break;
+                case ACCOUNT_NOT_NEW:
+                    String errorMessage = getString(R.string.auth_account_not_new);
+                    if(webViewLoginMethod && !showWebViewLoginUrl) {
+                        DisplayUtils.showErrorAndAbort(this, errorMessage);
+                    } else {
+                        mAuthStatusText = errorMessage;
+                    }
+                    break;
+                case UNHANDLED_HTTP_CODE:
+                default:
+                    mAuthStatusText = ErrorMessageAdapter.getErrorCauseMessage(result, null, getResources());
+                    mAsyncTask.cancel(true);
+            }
+        } catch(Exception e) {
+            Log_OC.e(TAG, "An error occured during auth status refresh : \n" + e.getMessage());
+            String errorMessage = getString(R.string.auth_unknown_error_title);
+            mAsyncTask.cancel(true);
+            if(webViewLoginMethod && !showWebViewLoginUrl) {
+                DisplayUtils.showErrorAndAbort(this, errorMessage);
+            } else {
+                mAuthStatusText = errorMessage;
+            }
         }
+
     }
 
     private void updateStatusIconFailUserName(int failedStatusText) {
@@ -1571,17 +1596,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (mLoginWebView != null) {
                     mLoginWebView.setVisibility(View.GONE);
                 }
-                setContentView(R.layout.account_setup);
+                    setContentView(R.layout.account_setup);
+                    initOverallUi();
 
-                initOverallUi();
+                    EditText serverAddressField = findViewById(R.id.hostUrlInput);
+                    serverAddressField.setText(mServerInfo.mBaseUrl);
 
-                EditText serverAddressField = findViewById(R.id.hostUrlInput);
-                serverAddressField.setText(mServerInfo.mBaseUrl);
-
-                findViewById(R.id.server_status_text).setVisibility(View.GONE);
-                mAuthStatusView = findViewById(R.id.auth_status_text);
-
-                showAuthStatus();
+                    findViewById(R.id.server_status_text).setVisibility(View.GONE);
+                    mAuthStatusView = findViewById(R.id.auth_status_text);
+                    showAuthStatus();
             }
 
         } else if (result.isServerFail() || result.isException()) {
@@ -1624,17 +1647,23 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     if (mLoginWebView != null) {
                         mLoginWebView.setVisibility(View.GONE);
                     }
-                    setContentView(R.layout.account_setup);
 
-                    initOverallUi();
+                    if(webViewLoginMethod) {
+                        updateAuthStatusIconAndText(result);
+                    } else {
+                        setContentView(R.layout.account_setup);
 
-                    EditText serverAddressField = findViewById(R.id.hostUrlInput);
-                    serverAddressField.setText(mServerInfo.mBaseUrl);
+                        initOverallUi();
 
-                    findViewById(R.id.server_status_text).setVisibility(View.GONE);
-                    mAuthStatusView = findViewById(R.id.auth_status_text);
+                        EditText serverAddressField = findViewById(R.id.hostUrlInput);
+                        serverAddressField.setText(mServerInfo.mBaseUrl);
 
-                    showAuthStatus();
+                        findViewById(R.id.server_status_text).setVisibility(View.GONE);
+                        mAuthStatusView = findViewById(R.id.auth_status_text);
+
+                        showAuthStatus();
+                    }
+
                 }
             } else {
                 updateAuthStatusIconAndText(result);
@@ -1828,17 +1857,22 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-    /**
-     * Updates the content and visibility state of the icon and text associated
-     * to the interactions with the OAuth authorization server.
+     /**
+     * Updates the content and visibility state of the icon and text associated to the interactions
+     * with the OAuth authorization server.
      */
     private void showAuthStatus() {
-        if (mAuthStatusIcon == NO_ICON && EMPTY_STRING.equals(mAuthStatusText)) {
-            mAuthStatusView.setVisibility(View.INVISIBLE);
-        } else {
-            mAuthStatusView.setText(mAuthStatusText);
-            mAuthStatusView.setCompoundDrawablesWithIntrinsicBounds(mAuthStatusIcon, 0, 0, 0);
-            mAuthStatusView.setVisibility(View.VISIBLE);
+        try {
+            if (mAuthStatusIcon == NO_ICON && EMPTY_STRING.equals(mAuthStatusText)) {
+                mAuthStatusView.setVisibility(View.INVISIBLE);
+            } else {
+                mAuthStatusView.setText(mAuthStatusText);
+                mAuthStatusView.setCompoundDrawablesWithIntrinsicBounds(mAuthStatusIcon, 0, 0, 0);
+                mAuthStatusView.setVisibility(View.VISIBLE);
+            }
+        } catch (Exception e) {
+
+            Log_OC.e(TAG, "Error during refresh/change of auth status");
         }
     }
 

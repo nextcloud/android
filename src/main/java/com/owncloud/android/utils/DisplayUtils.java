@@ -746,8 +746,8 @@ public final class DisplayUtils {
         }
     }
 
-    static public void showUnavailableOperationToast(Activity activity) {
-        Toast betaToast = Toast.makeText(activity, activity.getString(R.string.unavailable_operation_beta), Toast.LENGTH_SHORT);
-        betaToast.show();
+    static public void showErrorAndAbort(Context context, String errorMessage) {
+        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
+        ((Activity) context).finish();
     }
 }
