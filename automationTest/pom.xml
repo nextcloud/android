@@ -1,78 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-<groupId>com.owncloud</groupId>
-<artifactId>androidtest</artifactId>
-<version>1.0-SNAPSHOT</version>
+  <groupId>com.owncloud</groupId>
+  <artifactId>androidtest</artifactId>
+  <version>1.0-SNAPSHOT</version>
   <build>
     <pluginManagement>
       <plugins>
-		<plugin>
-  			<groupId>org.apache.maven.plugins</groupId>
-  			<artifactId>maven-surefire-plugin</artifactId>
-  			<version>2.18.1</version>
-  			<configuration>
-    			<includes>
-      				<include>**/*Test**.java</include>
-    			</includes>
-  			</configuration>
-		</plugin>
-		<plugin>
-        	<groupId>org.apache.maven.plugins</groupId>
-        	<artifactId>maven-compiler-plugin</artifactId>
-        	<version>3.3</version>
-        	<configuration>
-          	<source>1.8</source>
-          	<target>1.8</target>
-        </configuration>
-      </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.3</version>
+          <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
-<dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>3.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.selendroid</groupId>
+      <version>0.9.0</version>
+      <artifactId>selendroid-standalone</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.selendroid</groupId>
+      <version>0.9.0</version>
+      <artifactId>selendroid-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.appium</groupId>
+      <artifactId>java-client</artifactId>
+      <version>7.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.3.6</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.android</groupId>
+      <artifactId>android</artifactId>
+      <version>4.1.1.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.vintage</groupId>
+        <artifactId>junit-vintage-engine</artifactId>
+        <version>5.5.2</version>
+    </dependency>
     <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.11</version>
     </dependency>
+    <!-- Report Portal agent implementation for JUnit 4 -->
     <dependency>
-        <groupId>org.seleniumhq.selenium</groupId>
-        <artifactId>selenium-java</artifactId>
-        <version>3.14.0</version>
+        <groupId>com.epam.reportportal</groupId>
+        <artifactId>agent-java-junit5</artifactId>
+        <version>4.0.1</version>
     </dependency>
-    <dependency>
-        <groupId>io.selendroid</groupId>
-        <version>0.9.0</version>
-        <artifactId>selendroid-standalone</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>io.selendroid</groupId>
-        <version>0.9.0</version>
-        <artifactId>selendroid-client</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>io.appium</groupId>
-        <artifactId>java-client</artifactId>
-        <version>7.3.0</version>
-    </dependency>
-    <dependency>
-        <groupId>commons-lang</groupId>
-        <artifactId>commons-lang</artifactId>
-        <version>2.6</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.httpcomponents</groupId>
-        <artifactId>httpclient</artifactId>
-        <version>4.3.6</version>
-    </dependency>
-    <dependency>
-    	<groupId>com.google.android</groupId>
-    	<artifactId>android</artifactId>
-    	<version>4.1.1.4</version>
-    	<scope>provided</scope>
-  </dependency>
-</dependencies>
+  </dependencies>
+  <!-- repositories for report potal -->
+  <repositories>
+    <repository>
+      <id>bintray</id>
+      <url>http://dl.bintray.com/epam/reportportal</url>
+    </repository>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+
 </project>
