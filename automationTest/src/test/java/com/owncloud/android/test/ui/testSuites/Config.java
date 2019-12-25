@@ -23,7 +23,7 @@ package com.owncloud.android.test.ui.testSuites;
 public final class Config {
 
 	//without http or https
-	public static final String URL = "https://10.0.2.2";
+	public static final String URL = "http://server";
 	public static boolean isTrusted = false;
 
 	//without http or https
@@ -31,8 +31,8 @@ public final class Config {
 	public static boolean isTrusted2 = true;
 
 
-	public static final String user = "danny";
-	public static final String password = "danny";
+	public static final String user = "test";
+	public static final String password = "test";
 	public static final String user2 = "owncloudUser2Var";
 	public static final String password2 = "owncloudPassword2Var";
 	public static final String userAccount = user + "@"+ URL;
