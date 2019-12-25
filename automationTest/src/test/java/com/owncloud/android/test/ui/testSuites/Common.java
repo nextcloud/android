@@ -20,7 +20,8 @@
 
 package com.owncloud.android.test.ui.testSuites;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,8 +63,6 @@ public class Common{
 				"com.owncloud.android.ui.activity.FileDisplayActivity");	
 		capabilities.setCapability("appWaitActivity", 
 				"com.nextcloud.client.onboarding.FirstRunActivity");
-		capabilities.setCapability("printPageSourceOnFindFailure", 
-				"true");
 		driver = new AndroidDriver<>(new URL("http://localhost:4723/wd/hub"),capabilities);
 		
 		driver.manage().timeouts().implicitlyWait(waitingTime,

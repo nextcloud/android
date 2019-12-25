@@ -24,29 +24,21 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.AndroidStartScreenRecordingOptions;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.experimental.categories.Category;
-import org.junit.rules.TestName;
-import org.junit.runners.MethodSorters;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.ScreenOrientation;
 
 import java.time.Duration;
 
 import com.owncloud.android.test.ui.actions.Actions;
-import com.owncloud.android.test.ui.groups.*;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginTestSuite{
 	AndroidDriver<AndroidElement> driver;
 	Common common;
 	
-	@Rule public TestName name = new TestName();
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		common=new Common();
 		driver=common.setUpCommonDriver();
@@ -55,7 +47,6 @@ public class LoginTestSuite{
 	}
 	
 	@Test
-	@Category({NoIgnoreTestCategory.class})
 	public void test1LoginPortrait () throws Exception {
 		driver.rotate(ScreenOrientation.PORTRAIT);
 		
@@ -65,9 +56,8 @@ public class LoginTestSuite{
 		common.assertIsInFileListView();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
-		common.takeScreenShotOnFailed(name.getMethodName());
 		driver.removeApp("com.nextcloud.android.qa");
 		driver.quit();
 	}
