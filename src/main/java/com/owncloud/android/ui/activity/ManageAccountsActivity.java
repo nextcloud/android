@@ -266,7 +266,7 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
     }
 
     @Override
-    public void createAccount() {
+    public void startAccountCreation() {
         AccountManager am = AccountManager.get(getApplicationContext());
         am.addAccount(MainApp.getAccountType(this),
                       null,

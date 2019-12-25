@@ -158,7 +158,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (isProviderOrOwnInstallationVisible) {
             actionView.setOnClickListener(v -> accountListAdapterListener.showFirstRunActivity());
         } else {
-            actionView.setOnClickListener(v -> accountListAdapterListener.createAccount());
+            actionView.setOnClickListener(v -> accountListAdapterListener.startAccountCreation());
         }
     }
 
@@ -284,7 +284,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         void showFirstRunActivity();
 
-        void createAccount();
+        void startAccountCreation();
     }
 
     /**
