@@ -24,7 +24,7 @@ public final class Config {
 
 	//without http or https
 	public static final String URL = "http://server";
-	public static boolean isTrusted = false;
+	public static boolean isTrusted = true;
 
 	//without http or https
 	public static final String URL2 = "owncloudServer2Var";
