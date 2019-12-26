@@ -54,7 +54,7 @@
             android:padding="@dimen/standard_half_padding">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/centeredRefreshButton"
+                android:id="@+id/centered_refresh_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -77,7 +77,7 @@
                 android:visibility="gone" />
 
             <FrameLayout
-                android:id="@+id/hostUrlFrame"
+                android:id="@+id/host_url_frame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/zero"
@@ -89,7 +89,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/editText"
+                        android:id="@+id/edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -97,7 +97,7 @@
                         android:textColor="@color/login_text_color" />
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/hostUrlInput"
+                        android:id="@+id/host_url_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
@@ -118,7 +118,7 @@
                 </LinearLayout>
 
                 <ImageButton
-                    android:id="@+id/testServerButton"
+                    android:id="@+id/test_server_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
@@ -133,7 +133,7 @@
                     android:tint="@color/login_btn_tint" />
 
                 <ImageButton
-                    android:id="@+id/embeddedRefreshButton"
+                    android:id="@+id/embedded_refresh_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
@@ -199,7 +199,7 @@
                 android:textColor="@color/login_text_color" />
 
             <ImageButton
-                android:id="@+id/scanQR"
+                android:id="@+id/scan_qr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
@@ -208,7 +208,7 @@
                 android:theme="@style/Button.Login" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonOK"
+                android:id="@+id/button_ok"
                 style="@style/Button.Login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
