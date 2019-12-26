@@ -943,7 +943,7 @@ public class FileDataStorageManager {
             listPathString.append(",");
             listPathString
                 .append("'")
-                .append(file.getRemotePath())
+                .append(file.getRemotePath().replaceAll("'","''"))
                 .append("'");
         }
 
