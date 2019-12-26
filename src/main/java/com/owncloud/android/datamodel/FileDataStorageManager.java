@@ -349,10 +349,11 @@ public class FileDataStorageManager {
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(updatedFiles.size());
 
         ArrayList<OCFile> fileExistList = getFilesExistsID(updatedFiles);
+        ArrayList<ContentValues> newFileInsertList = new ArrayList<>();
 
         // prepare operations to insert or update files to save in the given folder
         for (OCFile file : updatedFiles) {
-            ContentValues cv = createContentValueForFile(file, folder);
+            ContentValues contentValues = createContentValueForFile(file, folder);
 
             if (isFileExists(fileExistList, file)) {
                 long fileId;
@@ -363,12 +364,12 @@ public class FileDataStorageManager {
                 }
                 // updating an existing file
                 operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
-                                   .withValues(cv)
+                                   .withValues(contentValues)
                                    .withSelection(ProviderTableMeta._ID + "=?", new String[]{String.valueOf(fileId)})
                                    .build());
             } else {
                 // adding a new file
-                operations.add(ContentProviderOperation.newInsert(ProviderTableMeta.CONTENT_URI).withValues(cv).build());
+                newFileInsertList.add(contentValues);
             }
         }
 
@@ -416,8 +417,13 @@ public class FileDataStorageManager {
         Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
 
         try {
-            if (getContentResolver() != null) {
-                results = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+            ContentResolver contentResolver = getContentResolver();
+            if (contentResolver != null) {
+                results = contentResolver.applyBatch(MainApp.getAuthority(), operations);
+
+                ContentValues[] newFileContentValues = new ContentValues[newFileInsertList.size()];
+                newFileContentValues = newFileInsertList.toArray(newFileContentValues);
+                int insertNumber = contentResolver.bulkInsert(ProviderTableMeta.CONTENT_URI, newFileContentValues);
 
             } else {
                 results = getContentProviderClient().applyBatch(operations);
@@ -1461,87 +1467,6 @@ public class FileDataStorageManager {
 
     }
 
-    public void updateSharedFiles(Collection<OCFile> sharedFiles) {
-        resetShareFlagsInAllFiles();
-
-        if (sharedFiles != null) {
-            ArrayList<ContentProviderOperation> operations = new ArrayList<>(sharedFiles.size());
-
-            // prepare operations to insert or update files to save in the given folder
-            for (OCFile file : sharedFiles) {
-                ContentValues cv = new ContentValues();
-                cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
-                cv.put(
-                        ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
-                        file.getModificationTimestampAtLastSyncForData()
-                );
-                cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
-                cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
-                cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimeType());
-                cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
-                cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
-                cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
-                if (!file.isFolder()) {
-                    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
-                }
-                cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account.name);
-                cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
-                cv.put(
-                        ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA,
-                        file.getLastSyncDateForData()
-                );
-                cv.put(ProviderTableMeta.FILE_ETAG, file.getEtag());
-                cv.put(ProviderTableMeta.FILE_ETAG_ON_SERVER, file.getEtagOnServer());
-                cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, file.isSharedViaLink() ? 1 : 0);
-                cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, file.isSharedWithSharee() ? 1 : 0);
-                cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, file.getPublicLink());
-                cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
-                cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
-                cv.put(ProviderTableMeta.FILE_FAVORITE, file.isFavorite());
-                cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.isUpdateThumbnailNeeded() ? 1 : 0);
-                cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading() ? 1 : 0);
-                cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
-
-                boolean existsByPath = fileExists(file.getRemotePath());
-                if (existsByPath || fileExists(file.getFileId())) {
-                    // updating an existing file
-                    operations.add(
-                            ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
-                                    withValues(cv).
-                                    withSelection(ProviderTableMeta._ID + "=?",
-                                            new String[]{String.valueOf(file.getFileId())})
-                                    .build());
-
-                } else {
-                    // adding a new file
-                    operations.add(
-                            ContentProviderOperation.newInsert(ProviderTableMeta.CONTENT_URI).
-                                    withValues(cv).
-                                    build()
-                    );
-                }
-            }
-
-            // apply operations in batch
-            if (operations.size() > 0) {
-                @SuppressWarnings("unused")
-                ContentProviderResult[] results = null;
-                Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-                try {
-                    if (getContentResolver() != null) {
-                        results = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-                    } else {
-                        results = getContentProviderClient().applyBatch(operations);
-                    }
-
-                } catch (OperationApplicationException | RemoteException e) {
-                    Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
-                }
-            }
-        }
-
-    }
-
     public void removeShare(OCShare share) {
         Uri share_uri = ProviderTableMeta.CONTENT_URI_SHARE;
         String where = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + AND +
@@ -1589,30 +1514,6 @@ public class FileDataStorageManager {
                 Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
             }
         }
-
-//        // TODO: review if it is needed
-//        // Update shared files
-//        ArrayList<OCFile> sharedFiles = new ArrayList<OCFile>();
-//
-//        for (OCShare share : shares) {
-//            // Get the path
-//            String path = share.getPath();
-//            if (share.isFolder()) {
-//                path = path + FileUtils.PATH_SEPARATOR;
-//            }
-//
-//            // Update OCFile with data from share: ShareByLink, publicLink and
-//            OCFile file = getFileByPath(path);
-//            if (file != null) {
-//                if (share.getShareType().equals(ShareType.PUBLIC_LINK)) {
-//                    file.setShareViaLink(true);
-//                    sharedFiles.add(file);
-//                }
-//            }
-//        }
-//
-//        // TODO: Review
-//        updateSharedFiles(sharedFiles);
     }
 
     public void removeSharesForFile(String remotePath) {
