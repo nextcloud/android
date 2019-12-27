@@ -40,6 +40,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Build;
 import android.text.TextUtils;
 
 import com.nextcloud.client.core.Clock;
@@ -239,33 +240,6 @@ public class FileContentProvider extends ContentProvider {
                 return ProviderTableMeta.CONTENT_TYPE_ITEM;
             default:
                 throw new IllegalArgumentException(String.format(Locale.US, "Unknown Uri id: %s", uri));
-        }
-    }
-
-    @Override
-    public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
-        if (isCallerNotAllowed(uri)) {
-            return 0;
-        }
-
-        switch (mUriMatcher.match(uri)) {
-            case ROOT_DIRECTORY:
-            case SINGLE_FILE:
-                SQLiteDatabase database = mDbHelper.getWritableDatabase();
-                database.beginTransaction();
-                int contentInsert;
-                try {
-                    for (ContentValues contentValues : values) {
-                        insert(database, uri, contentValues);
-                    }
-                    database.setTransactionSuccessful();
-                    contentInsert = values.length;
-                } finally {
-                    database.endTransaction();
-                }
-                return contentInsert;
-            default:
-                return super.bulkInsert(uri, values);
         }
     }
 
@@ -666,16 +640,22 @@ public class FileContentProvider extends ContentProvider {
         ContentProviderResult[] results = new ContentProviderResult[operations.size()];
         int i = 0;
 
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.beginTransaction();  // it's supposed that transactions can be nested
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+        database.beginTransaction();  // it's supposed that transactions can be nested
         try {
             for (ContentProviderOperation operation : operations) {
-                results[i] = operation.apply(this, results, i);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && operation.isInsert()) {
+                    ContentValues contentValues = operation.resolveValueBackReferences(results, i);
+                    Uri newUri = insert(database, operation.getUri(), contentValues);
+                    results[i] = new ContentProviderResult(newUri);
+                } else {
+                    results[i] = operation.apply(this, results, i);
+                }
                 i++;
             }
-            db.setTransactionSuccessful();
+            database.setTransactionSuccessful();
         } finally {
-            db.endTransaction();
+            database.endTransaction();
         }
         Log_OC.d("FileContentProvider", "applied batch in provider " + this);
         return results;

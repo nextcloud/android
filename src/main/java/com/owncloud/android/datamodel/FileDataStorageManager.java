@@ -336,7 +336,6 @@ public class FileDataStorageManager {
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(updatedFiles.size());
 
         ArrayList<OCFile> fileExistList = getFilesExistsID(updatedFiles);
-        ArrayList<ContentValues> newFileInsertList = new ArrayList<>();
 
         // prepare operations to insert or update files to save in the given folder
         for (OCFile file : updatedFiles) {
@@ -356,7 +355,7 @@ public class FileDataStorageManager {
                                    .build());
             } else {
                 // adding a new file
-                newFileInsertList.add(contentValues);
+                operations.add(ContentProviderOperation.newInsert(ProviderTableMeta.CONTENT_URI).withValues(contentValues).build());
             }
         }
 
@@ -407,11 +406,6 @@ public class FileDataStorageManager {
             ContentResolver contentResolver = getContentResolver();
             if (contentResolver != null) {
                 results = contentResolver.applyBatch(MainApp.getAuthority(), operations);
-
-                ContentValues[] newFileContentValues = new ContentValues[newFileInsertList.size()];
-                newFileContentValues = newFileInsertList.toArray(newFileContentValues);
-                int insertNumber = contentResolver.bulkInsert(ProviderTableMeta.CONTENT_URI, newFileContentValues);
-
             } else {
                 results = getContentProviderClient().applyBatch(operations);
             }
