@@ -307,19 +307,6 @@ public class FileDataStorageManager {
         return file;
     }
 
-    public void saveNewFile(OCFile newFile) {
-        String remoteParentPath = new File(newFile.getRemotePath()).getParent();
-        remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
-                remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
-        OCFile parent = getFileByPath(remoteParentPath);
-        if (parent != null) {
-            newFile.setParentId(parent.getFileId());
-            saveFile(newFile);
-        } else {
-            throw new IllegalArgumentException("Saving a new file in an unexisting folder");
-        }
-    }
-
     private boolean isFileExists(ArrayList<OCFile> filesExists, OCFile file) {
         for (Iterator<OCFile> iterator = filesExists.iterator(); iterator.hasNext(); ) {
             OCFile ocFile = iterator.next();
@@ -929,50 +916,57 @@ public class FileDataStorageManager {
     }
 
     private ArrayList<OCFile> getFilesExistsID(ArrayList<OCFile> updatedFiles) {
-        StringBuilder listIDString = new StringBuilder(updatedFiles.size() * 2);
-        StringBuilder listPathString = new StringBuilder(updatedFiles.size() * 2);
 
-        if (updatedFiles.size() > 0) {
-            OCFile file = updatedFiles.get(0);
-            listIDString
-                .append(file.getFileId());
-            listPathString
-                .append("'")
-                .append(file.getRemotePath())
-                .append("'");
-        }
-        for (int i = 1; i < updatedFiles.size(); i++) {
-            OCFile file = updatedFiles.get(i);
-            listIDString
-                .append(",")
-                .append(file.getFileId());
-            listPathString.append(",");
-            listPathString
-                .append("'")
-                .append(file.getRemotePath().replaceAll("'","''"))
-                .append("'");
-        }
-
-        String selection = ProviderTableMeta.FILE_ACCOUNT_OWNER
-            + " = ? AND ("
-            + ProviderTableMeta._ID
-            + " IN (" + listIDString + ") OR "
-            + ProviderTableMeta.FILE_PATH
-            + " IN (" + listPathString + ") ) ";
-
-        Cursor cursor = getCursorQueryResolver(selection, new String[]{account.name});
         ArrayList<OCFile> existsFiles = new ArrayList<>();
+        ArrayList<String> listIDString = new ArrayList<>();
+        ArrayList<String> listPathString = new ArrayList<>();
 
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                do {
-                    OCFile file = new OCFile(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_PATH)));
-                    file.setFileId(cursor.getLong(cursor.getColumnIndex(ProviderTableMeta._ID)));
-                    existsFiles.add(file);
-                } while (cursor.moveToNext());
+        int totalSize, processSize, loopSize;
+        totalSize = updatedFiles.size();
+        processSize = 0;
+
+        do {
+            loopSize = Math.min((totalSize - processSize), 499);
+
+            listIDString.clear();
+            listPathString.clear();
+            StringBuilder inList = new StringBuilder(loopSize * 2);
+            for (int i = 0; i < loopSize; i++, processSize++) {
+                OCFile file = updatedFiles.get(processSize);
+                if (i > 0) {
+                    inList.append(",");
+                }
+                inList.append("?");
+                listIDString.add(String.valueOf(file.getFileId()));
+                listPathString.add(file.getRemotePath());
             }
-            cursor.close();
-        }
+
+            String selection = ProviderTableMeta.FILE_ACCOUNT_OWNER
+                + " = ? AND ("
+                + ProviderTableMeta._ID
+                + " IN (" + inList + ") OR "
+                + ProviderTableMeta.FILE_PATH
+                + " IN (" + inList + "))";
+
+            ArrayList<String> selectionArgsList = new ArrayList<>();
+            selectionArgsList.add(account.name);
+            selectionArgsList.addAll(listIDString);
+            selectionArgsList.addAll(listPathString);
+            String[] selectionArgs = selectionArgsList.toArray(new String[0]);
+
+            Cursor cursor = getCursorQueryResolver(selection, selectionArgs);
+
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    do {
+                        OCFile file = new OCFile(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_PATH)));
+                        file.setFileId(cursor.getLong(cursor.getColumnIndex(ProviderTableMeta._ID)));
+                        existsFiles.add(file);
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+            }
+        } while ((totalSize - processSize) > 0);
 
         return existsFiles;
     }
