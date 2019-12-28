@@ -3,6 +3,8 @@ package com.owncloud.android.test.ui.groups;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Categories.CategoryFilter;
@@ -65,12 +67,6 @@ public class FlexibleCategories extends Suite {
   this(builder, clazz, PatternClasspathClassesFinder.getSuiteClasses(
     getTestScanPackage(clazz), getTestClassPrefix(clazz), getTestClassSuffix(clazz),
     getTestMethodAnnotation(clazz)));
-  try {
-   filter(new CategoryFilter(getIncludedCategory(clazz),
-     getExcludedCategory(clazz)));
-  } catch (NoTestsRemainException e) {
-   // Ignore all classes with no matching tests.
-  }
   assertNoCategorizedDescendentsOfUncategorizeableParents(getDescription());
  }
 
@@ -102,14 +98,14 @@ public class FlexibleCategories extends Suite {
   return annotation == null ? Test.class : annotation.value();
  }
 
- private Class<?> getIncludedCategory(Class<?> clazz) {
+ private Set<Class<?>> getIncludedCategory(Class<?> clazz) {
   IncludeCategory annotation= clazz.getAnnotation(IncludeCategory.class);
-  return annotation == null ? null : annotation.value();
+  return annotation == null ? null : new HashSet<>();
  }
 
- private Class<?> getExcludedCategory(Class<?> clazz) {
+ private Set<Class<?>> getExcludedCategory(Class<?> clazz) {
   ExcludeCategory annotation= clazz.getAnnotation(ExcludeCategory.class);
-  return annotation == null ? null : annotation.value();
+  return annotation == null ? null : new HashSet<>();
  }
 
  private void assertNoCategorizedDescendentsOfUncategorizeableParents(Description description) throws InitializationError {
