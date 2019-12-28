@@ -59,21 +59,20 @@ public class Actions {
 					throws InterruptedException {
 		FirstRun firstRun = new FirstRun(driver);
 		ConnectionTest connectionTest = firstRun.ChooseLogin();
-		CertificatePopUp certificatePopUp = connectionTest.ServerConnectionOK(url);
+		connectionTest.ServerConnectionOK(url);
 		AuthOptions authOptions = null;
-		if(!isTrusted){
+		if(isTrusted){
+			authOptions = new AuthOptions(driver);
+		} else {
+			CertificatePopUp certificatePopUp = new CertificatePopUp(driver);
 			WebDriverWait wait = new WebDriverWait(driver, 30);
-			
-			//sometimes the certificate has been already accept 
-			//and it doesn't appear again
 			try {
 				wait.until(ExpectedConditions
 						.visibilityOf(certificatePopUp.getOkButtonElement()));
 				authOptions = certificatePopUp.clickOnOkButton();
 			}catch (NoSuchElementException e) {
-
+				
 			}
-
 		}
 		LoginForm loginForm = authOptions.SinginWithWeb();
 		GrantAccess grantAcess = loginForm.login(user,password);
