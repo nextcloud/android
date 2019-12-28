@@ -27,6 +27,7 @@ import io.appium.java_client.android.AndroidStartScreenRecordingOptions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.ScreenOrientation;
 
 import java.time.Duration;
@@ -57,7 +58,8 @@ public class LoginTestSuite{
 	}
 
 	@AfterEach
-	public void tearDown() throws Exception {
+	public void tearDown(TestInfo testInfo) throws Exception {
+		common.takeScreenShotOnFailed(testInfo.getTestMethod().toString());
 		driver.removeApp("com.nextcloud.android.qa");
 		driver.quit();
 	}
