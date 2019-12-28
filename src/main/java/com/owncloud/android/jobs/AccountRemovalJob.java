@@ -61,14 +61,13 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PushUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import static android.content.Context.ACCOUNT_SERVICE;
 import static com.owncloud.android.ui.activity.ManageAccountsActivity.PENDING_FOR_REMOVAL;
@@ -93,7 +92,7 @@ public class AccountRemovalJob extends Job implements AccountManagerCallback<Boo
 
     @NonNull
     @Override
-    protected Result onRunJob(@NotNull Params params) {
+    protected Result onRunJob(@NonNull Params params) {
         Context context = MainApp.getAppContext();
         PersistableBundleCompat bundle = params.getExtras();
         Account account = userAccountManager.getAccountByName(bundle.getString(ACCOUNT, ""));

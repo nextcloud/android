@@ -8,6 +8,7 @@
     <string name="account_icon">Ikona účtu</string>
     <string name="account_not_found">Účet sa nenašiel!</string>
     <string name="action_clear_failed_uploads">Odstrániť zlyhané nahrávania</string>
+    <string name="action_edit">Upraviť</string>
     <string name="action_empty_notifications">Odstrániť všetky upozornenia</string>
     <string name="action_empty_trashbin">Vyprázdni kôš</string>
     <string name="action_send_share">Odoslať/Zdieľať</string>
@@ -76,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechané v pôvodnom priečinku, pretože je iba na čítanie</string>
     <string name="auto_upload_on_wifi">Nahrávaj iba na neobmedzenom Wi-Fi</string>
     <string name="auto_upload_path">/AutomatickéNahrávanie</string>
+    <string name="autoupload_configure">Nastaviť</string>
     <string name="autoupload_create_new_custom_folder">Nastavenie vytvorenia vlastného priečinku</string>
     <string name="autoupload_custom_folder">Nastaviť vlastný priečinok</string>
     <string name="autoupload_disable_power_save_check">Vypnúť kontrolu úspory energie</string>
+    <string name="autoupload_hide_folder">Skryť priečinok</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Zatvoriť</string>
     <string name="battery_optimization_disable">Zakázať</string>
@@ -263,6 +266,7 @@
     <string name="fallback_weblogin_text">Vrátiť sa k pôvodnému spôsobu prihlásenia</string>
     <string name="favorite">Pridať do obľúbených</string>
     <string name="favorite_icon">Obľúbené</string>
+    <string name="file">súbor</string>
     <string name="file_delete">Zmazať</string>
     <string name="file_detail_activity_error">Chyba pri načítavaní aktivít pre súbor</string>
     <string name="file_details_no_content">Nepodarilo sa načítať podrobnosti</string>
@@ -332,6 +336,7 @@
     <string name="first_run_2_text">Bezpečná kolaborácia&amp;výmena súborov</string>
     <string name="first_run_3_text">Jednoduché použitie web mailu, kalendára &amp; kontaktov</string>
     <string name="first_run_4_text">Zdieľanie obrazovky, online meetingy &amp; web konferencie</string>
+    <string name="folder">priečinok</string>
     <string name="folder_already_exists">Priečinok už existuje</string>
     <string name="folder_confirm_create">Vytvoriť</string>
     <string name="folder_icon">Ikona priečinku</string>
@@ -500,6 +505,10 @@
     <string name="prefs_storage_path">Cesta úložiska</string>
     <string name="prefs_synced_folders_local_path_title">Lokálny priečinok</string>
     <string name="prefs_synced_folders_remote_path_title">Vzdialený priečinok</string>
+    <string name="prefs_theme_title">Motív vzhľadu</string>
+    <string name="prefs_value_theme_dark">Tmavý</string>
+    <string name="prefs_value_theme_light">Svetlý</string>
+    <string name="prefs_value_theme_system">Nasledovať systém</string>
     <string name="preview_image_description">Ukážka obrazu</string>
     <string name="preview_image_error_no_local_file">Nepodarilo sa zobraziť lokálny súbor</string>
     <string name="preview_image_error_unknown_format">Nemožno zobraziť obrázok</string>
@@ -531,13 +540,17 @@
     <string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
     <string name="scanQR_description">Prihlásiť sa pomocou QR kódu</string>
     <string name="screenshot_01_gridView_heading">Chránte vaše údaje</string>
+    <string name="screenshot_01_gridView_subline">Nástroje pre produktivitu s vlastným hosťovaním</string>
     <string name="screenshot_02_listView_heading">Prehliadajte a zdieľajte</string>
     <string name="screenshot_02_listView_subline">všetky akcie na dosah ruky</string>
+    <string name="screenshot_03_drawer_heading">Aktivity, sprístupnenia, ...</string>
     <string name="screenshot_03_drawer_subline">všetko rýchlo prístupné</string>
     <string name="screenshot_04_accounts_heading">Všetky vaše účty</string>
     <string name="screenshot_04_accounts_subline">na jednom mieste</string>
     <string name="screenshot_05_autoUpload_heading">Automatické nahrávanie</string>
     <string name="screenshot_05_autoUpload_subline">vašich fotiek a videí</string>
+    <string name="screenshot_06_davdroid_heading">Kalendár a kontakty</string>
+    <string name="screenshot_06_davdroid_subline">Synchronizácia s DAVx5</string>
     <string name="search_users_and_groups_hint">Vyhľadať používateľov alebo skupiny</string>
     <string name="select_all">Vybrať všetko</string>
     <string name="select_template">Vybrať šablónu</string>
@@ -555,6 +568,8 @@
     <string name="share_file">Sprístupni %1$s</string>
     <string name="share_get_public_link_button">Získať odkaz</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
+    <string name="share_internal_link">Sprístupniť interný odkaz</string>
+    <string name="share_internal_link_text">Funguje len pre používateľov s prístupom k tomuto %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( na %2$s )</string>
     <string name="share_link_empty_password">Musíte vložiť heslo</string>
     <string name="share_link_file_error">Pri pokuse o sprístupnenie tohto súboru alebo priečinka došlo k chybe</string>
@@ -665,7 +680,7 @@
     <string name="synced_folders_configure_folders">Nastavenie priečinkov</string>
     <string name="synced_folders_loading_folders">Načítavanie priečinkov…</string>
     <string name="synced_folders_new_info">Okamžité nahrávanie bolo kompletne prepracované.  Zmente si nastavenie automatického nahrávania cez hlavné menu.\n\nUžite si nové a rozšírene možnosti automatického nahrávania.</string>
-    <string name="synced_folders_no_results">Neboli nájdené žiadne multimediálne priečinky.</string>
+    <string name="synced_folders_no_results">Nenašli sa žiadne priečinky s médiami</string>
     <string name="synced_folders_preferences">Nastavenie automatického nahrávania</string>
     <string name="synced_folders_preferences_folder_path">Pre %1$s</string>
     <string name="synced_folders_type">Typ</string>
@@ -801,6 +816,12 @@
         <item quantity="few">%1$d súbory</item>
         <item quantity="many">%1$d súborov</item>
         <item quantity="other">%1$d súborov</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Zobraziť %1$d skrytý priečinok</item>
+        <item quantity="few">Zobraziť %1$d skryté priečinky</item>
+        <item quantity="many">Zobraziť %1$d skrytých priečinkov</item>
+        <item quantity="other">Zobraziť %1$d skrytých priečinkov</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d vybratý</item>

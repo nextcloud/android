@@ -8,6 +8,7 @@
     <string name="account_icon">Icona dell\'account</string>
     <string name="account_not_found">Account non trovato</string>
     <string name="action_clear_failed_uploads">Cancella caricamenti non riusciti</string>
+    <string name="action_edit">Modifica</string>
     <string name="action_empty_notifications">Cancella tutte le notifiche</string>
     <string name="action_empty_trashbin">Svuota cestino</string>
     <string name="action_send_share">Invia/Condividi</string>
@@ -76,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">lasciato nella cartella originale, poiché è in sola lettura</string>
     <string name="auto_upload_on_wifi">Carica solo su Wi-Fi senza limitazioni</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="autoupload_configure">Configura</string>
     <string name="autoupload_create_new_custom_folder">Crea nuova configurazione di cartella personalizzata</string>
     <string name="autoupload_custom_folder">Configura una cartella personalizzata</string>
     <string name="autoupload_disable_power_save_check">Disabilita controllo di risparmio energetico</string>
+    <string name="autoupload_hide_folder">Nascondi cartella</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Chiudi</string>
     <string name="battery_optimization_disable">Disabilita</string>
@@ -505,6 +508,7 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_value_theme_dark">Scuro</string>
     <string name="prefs_value_theme_light">Chiaro</string>
+    <string name="prefs_value_theme_system">Segui il sistema</string>
     <string name="preview_image_description">Anteprima dell\'immagine</string>
     <string name="preview_image_error_no_local_file">Non esiste un file locale per l\'anteprima</string>
     <string name="preview_image_error_unknown_format">Impossibile mostrare l\'immagine</string>
@@ -676,7 +680,7 @@
     <string name="synced_folders_configure_folders">Configura cartelle</string>
     <string name="synced_folders_loading_folders">Caricamento cartelle…</string>
     <string name="synced_folders_new_info">Il caricamento istantaneo è stato riscritto completamente. Riconfigura il caricamento automatico dal menu principale.\n\nGoditi il nuovo ed esteso caricamento automatico.</string>
-    <string name="synced_folders_no_results">Nessuna cartella di file multimediali trovata.</string>
+    <string name="synced_folders_no_results">Nessuna cartella multimediale trovata</string>
     <string name="synced_folders_preferences">Preferenze per il caricamento automatico</string>
     <string name="synced_folders_preferences_folder_path">Per %1$s</string>
     <string name="synced_folders_type">Tipo</string>
@@ -804,6 +808,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d file</item>
         <item quantity="other">%1$d file</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Mostra %1$d cartella nascosta</item>
+        <item quantity="other">Mostra %1$d cartelle nascoste</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>

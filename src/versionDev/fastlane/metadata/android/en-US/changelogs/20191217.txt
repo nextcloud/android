@@ -1,0 +1,10 @@
+8daa9a278 Merge pull request #5014 from nextcloud/android-10-scoped-storage-workaround
+1919a6647 Opt-out of scoped storage
+1656f64ad Merge pull request #5012 from nextcloud/darkThemePref
+74ab9a05d Merge pull request #5013 from nextcloud/addLibCommit
+0ad578599 add library commit hash for reproducable builds
+b065e9b85 fix dark theme preference for dev version: use different preference name
+14a7493c7 [tx-robot] updated from transifex
+a6eb5dd52 [tx-robot] updated from transifex
+669b269e6 daily dev 20191214
+library commit: 5fbc39c7b7cc8be8fce137e9b21bbb56dd27fb18

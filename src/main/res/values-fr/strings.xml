@@ -8,6 +8,7 @@
     <string name="account_icon">Icône du compte</string>
     <string name="account_not_found">Compte introuvable !</string>
     <string name="action_clear_failed_uploads">Effacer les envois en erreur</string>
+    <string name="action_edit">Modifier</string>
     <string name="action_empty_notifications">Effacer toutes les notifications</string>
     <string name="action_empty_trashbin">Vider la corbeille</string>
     <string name="action_send_share">Envoyer / Partager</string>
@@ -76,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
     <string name="auto_upload_path">/EnvoiAuto</string>
+    <string name="autoupload_configure">Configurer</string>
     <string name="autoupload_create_new_custom_folder">Créer une nouvelle configuration de dossier personnalisé</string>
     <string name="autoupload_custom_folder">Configurer un dossier personnalisé</string>
     <string name="autoupload_disable_power_save_check">Désactiver l\'économie de batterie</string>
+    <string name="autoupload_hide_folder">Masquer le dossier</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Fermer</string>
     <string name="battery_optimization_disable">Désactiver</string>
@@ -507,6 +510,7 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_theme_title">Thème</string>
     <string name="prefs_value_theme_dark">Sombre</string>
     <string name="prefs_value_theme_light">Clair</string>
+    <string name="prefs_value_theme_system">Selon le système</string>
     <string name="preview_image_description">Prévisualisation de l\'image</string>
     <string name="preview_image_error_no_local_file">Il n\'y a aucun fichier local à prévisualiser</string>
     <string name="preview_image_error_unknown_format">L\'image ne peut pas être affichée</string>
@@ -538,6 +542,7 @@ Attention la suppression est irréversible.</string>
     <string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
     <string name="scanQR_description">Connexion par code QR</string>
     <string name="screenshot_01_gridView_heading">Protection de vos données</string>
+    <string name="screenshot_01_gridView_subline">productivité auto-hébergée</string>
     <string name="screenshot_02_listView_heading">Parcourir et partager</string>
     <string name="screenshot_02_listView_subline">toutes les actions à portée de main</string>
     <string name="screenshot_03_drawer_heading">Activité, partages, …</string>
@@ -677,7 +682,7 @@ Attention la suppression est irréversible.</string>
     <string name="synced_folders_configure_folders">Configurer les dossiers</string>
     <string name="synced_folders_loading_folders">Chargement des dossiers…</string>
     <string name="synced_folders_new_info">L\'envoi immédiat a été complètement refondu. Merci de reconfigurer vos envois automatiques depuis le Menu principal.\n\nProfitez des capacités nouvelles et étendues des envois automatiques.</string>
-    <string name="synced_folders_no_results">Aucun dossier média trouvé.</string>
+    <string name="synced_folders_no_results">Aucun dossier média trouvé</string>
     <string name="synced_folders_preferences">Préférences d\'envois automatiques</string>
     <string name="synced_folders_preferences_folder_path">Pour %1$s</string>
     <string name="synced_folders_type">Type</string>
@@ -805,6 +810,10 @@ Attention la suppression est irréversible.</string>
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d fichier</item>
         <item quantity="other">%1$d fichiers</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">%1$d dossier masqué affiché</item>
+        <item quantity="other">%1$d dossiers masqués affichés</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>

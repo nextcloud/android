@@ -8,6 +8,7 @@
     <string name="account_icon">Kontoikon</string>
     <string name="account_not_found">Konto ble ikke funnet!</string>
     <string name="action_clear_failed_uploads">Fjern feilede opplastinger</string>
+    <string name="action_edit">Rediger</string>
     <string name="action_empty_notifications">Slett alle varsel</string>
     <string name="action_empty_trashbin">Tøm papirkurv</string>
     <string name="action_send_share">Send/del</string>
@@ -76,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">beholdt i opprinnelig mappe da den kun har leserettigheter</string>
     <string name="auto_upload_on_wifi">Kun last opp på ubegrenset Wi-Fi</string>
     <string name="auto_upload_path">/Auto-opplasting</string>
+    <string name="autoupload_configure">Konfigurer</string>
     <string name="autoupload_create_new_custom_folder">Lag nytt tilpasset mappe-oppsett</string>
     <string name="autoupload_custom_folder">Sett opp en tilpasset mappe</string>
     <string name="autoupload_disable_power_save_check">Deaktivere strømsparing sjekk</string>
+    <string name="autoupload_hide_folder">Skjul mappe</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Lukk</string>
     <string name="battery_optimization_disable">Deaktiver</string>
@@ -260,6 +263,7 @@
     <string name="fallback_weblogin_text">Gå tilbake til gammel innloggingsmetode</string>
     <string name="favorite">Legg til i favoritter</string>
     <string name="favorite_icon">Favoritt</string>
+    <string name="file">fil</string>
     <string name="file_delete">Slett</string>
     <string name="file_details_no_content">Klarte ikke å laste inn detaljer</string>
     <string name="file_icon">Fil</string>
@@ -328,6 +332,7 @@
     <string name="first_run_2_text">Sikkert samarbeid &amp; fil utveksling</string>
     <string name="first_run_3_text">Brukervennlig e-post på web, kalender &amp; kontakter </string>
     <string name="first_run_4_text">Deling av skjerm, online møter &amp; samtaler på web</string>
+    <string name="folder">mappe</string>
     <string name="folder_already_exists">Mappe finnes allerede</string>
     <string name="folder_confirm_create">Opprett</string>
     <string name="folder_icon">Mappeikon</string>
@@ -492,6 +497,9 @@
     <string name="prefs_storage_path">Lagrings-sti</string>
     <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
     <string name="prefs_synced_folders_remote_path_title">Mappe på server</string>
+    <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Mørk</string>
+    <string name="prefs_value_theme_light">Lys</string>
     <string name="preview_image_description">Bildeforhåndsvisning</string>
     <string name="preview_image_error_no_local_file">Ingen lokal fil å forhåndsvise</string>
     <string name="preview_image_error_unknown_format">Kunne ikke vise bilde</string>
@@ -648,7 +656,6 @@
     <string name="synced_folders_configure_folders">Sett opp mapper</string>
     <string name="synced_folders_loading_folders">Laster inn mapper…</string>
     <string name="synced_folders_new_info">Umiddelbar opplasting er fullstendig omarbeidet. Du må sette opp auto-opplasting på nytt fra hovedmenyen.\n\nKos deg med den nye og utvidede auto-opplastingen.</string>
-    <string name="synced_folders_no_results">Ingen mediamapper funnet.</string>
     <string name="synced_folders_preferences">Alternativer for auto-opplasting</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <string name="synced_folders_type">Type</string>

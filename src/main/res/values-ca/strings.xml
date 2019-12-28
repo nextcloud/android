@@ -8,6 +8,7 @@
     <string name="account_icon">Icona del compte</string>
     <string name="account_not_found">No s\'ha trobat el compte!</string>
     <string name="action_clear_failed_uploads">Neteja les pujades fallides</string>
+    <string name="action_edit">Edita</string>
     <string name="action_empty_notifications">Neteja totes les notificacions</string>
     <string name="action_empty_trashbin">Buida la paperera</string>
     <string name="action_send_share">Envia/Comparteix</string>
@@ -76,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">manté a la carpeta original, ja que és només de lectura</string>
     <string name="auto_upload_on_wifi">Només carrega quan hi hagi Wi-Fi sense límits</string>
     <string name="auto_upload_path">/Càrrega automàtica</string>
+    <string name="autoupload_configure">Configura</string>
     <string name="autoupload_create_new_custom_folder">Creeu la configuració per la nova carpeta personalitzada</string>
     <string name="autoupload_custom_folder">Configureu una carpeta personalitzada</string>
     <string name="autoupload_disable_power_save_check">Desactiva la comprovació d\'estalvi energètic</string>
+    <string name="autoupload_hide_folder">Amaga la carpeta</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Tanca</string>
     <string name="battery_optimization_disable">Desactiva</string>
@@ -675,7 +678,6 @@
     <string name="synced_folders_configure_folders">Configureu les carpetes</string>
     <string name="synced_folders_loading_folders">S\'està carregant les carpetes…</string>
     <string name="synced_folders_new_info">La càrrega instantània s\'ha renovat completament. Torneu a configurar la vostra càrrega automàtica des de dins del menú principal.\n\nGaudiu de la nova càrrega automàtica amb més funcionalitats.</string>
-    <string name="synced_folders_no_results">No s\'han trobat carpetes amb contingut multimèdia</string>
     <string name="synced_folders_preferences">Preferències de la càrrega automàtica</string>
     <string name="synced_folders_preferences_folder_path">Per %1$s</string>
     <string name="synced_folders_type">Tipus</string>
@@ -803,6 +805,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d fitxer</item>
         <item quantity="other">%1$d fitxers</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Mostra %1$d carpeta oculta</item>
+        <item quantity="other">Mostra %1$d carpetes ocultes</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionat</item>

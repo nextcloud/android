@@ -37,7 +37,6 @@ import android.os.Process;
 import android.text.TextUtils;
 import android.util.Pair;
 
-import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -51,7 +50,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.operations.CopyFileOperation;
@@ -75,8 +73,6 @@ import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
-
-import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
 
@@ -137,8 +133,6 @@ public class OperationsService extends Service {
     private ConcurrentMap<Integer, Pair<RemoteOperation, RemoteOperationResult>>
             mUndispatchedFinishedOperations = new ConcurrentHashMap<>();
 
-    @Inject UserAccountManager accountManager;
-
     private static class Target {
         public Uri mServerUrl;
         public Account mAccount;
@@ -164,7 +158,7 @@ public class OperationsService extends Service {
         HandlerThread thread = new HandlerThread("Operations thread",
                 Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
-        mOperationsHandler = new ServiceHandler(thread.getLooper(), this, accountManager);
+        mOperationsHandler = new ServiceHandler(thread.getLooper(), this);
         mOperationsBinder = new OperationsServiceBinder(mOperationsHandler);
 
         // Separated worker thread for download of folders (WIP)
@@ -400,16 +394,14 @@ public class OperationsService extends Service {
         private Target mLastTarget;
         private OwnCloudClient mOwnCloudClient;
         private FileDataStorageManager mStorageManager;
-        private UserAccountManager accountManager;
 
 
-        public ServiceHandler(Looper looper, OperationsService service, UserAccountManager accountManager) {
+        public ServiceHandler(Looper looper, OperationsService service) {
             super(looper);
             if (service == null) {
                 throw new IllegalArgumentException("Received invalid NULL in parameter 'service'");
             }
             mService = service;
-            this.accountManager = accountManager;
         }
 
         @Override
@@ -442,9 +434,6 @@ public class OperationsService extends Service {
                             OwnCloudAccount ocAccount = new OwnCloudAccount(mLastTarget.mAccount, mService);
                             mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                                     getClientFor(ocAccount, mService);
-
-                            OwnCloudVersion version = accountManager.getServerVersion(mLastTarget.mAccount);
-                            mOwnCloudClient.setOwnCloudVersion(version);
 
                             mStorageManager = new FileDataStorageManager(
                                 mLastTarget.mAccount,

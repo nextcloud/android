@@ -8,6 +8,7 @@
     <string name="account_icon">账户图标</string>
     <string name="account_not_found">账户未找到</string>
     <string name="action_clear_failed_uploads">清除失败上传任务</string>
+    <string name="action_edit">编辑</string>
     <string name="action_empty_notifications">清除所有通知</string>
     <string name="action_empty_trashbin">清空回收站</string>
     <string name="action_send_share">共享</string>
@@ -76,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">保持为原始的文件夹，即使它是只读的</string>
     <string name="auto_upload_on_wifi">仅通过无流量限制的 Wi-Fi 上传</string>
     <string name="auto_upload_path">/自动上传</string>
+    <string name="autoupload_configure">配置</string>
     <string name="autoupload_create_new_custom_folder">创建新的自定义文件夹设定</string>
     <string name="autoupload_custom_folder">设置一个自定义文件夹</string>
     <string name="autoupload_disable_power_save_check">禁用节能检查</string>
+    <string name="autoupload_hide_folder">隐藏文件夹</string>
     <string name="avatar">头像</string>
     <string name="battery_optimization_close">关闭</string>
     <string name="battery_optimization_disable">禁用</string>
@@ -505,6 +508,7 @@
     <string name="prefs_theme_title">主题</string>
     <string name="prefs_value_theme_dark">深色</string>
     <string name="prefs_value_theme_light">浅色</string>
+    <string name="prefs_value_theme_system">追踪系统</string>
     <string name="preview_image_description">图片预览</string>
     <string name="preview_image_error_no_local_file">没有可预览的本地文件</string>
     <string name="preview_image_error_unknown_format">无法显示图像</string>
@@ -679,7 +683,7 @@
     <string name="synced_folders_configure_folders">配置文件夹</string>
     <string name="synced_folders_loading_folders">正在加载文件夹…</string>
     <string name="synced_folders_new_info">即时上传已经完全改版。 从主菜单中重新配置自动上传。\ n \ n享受新的扩展自动上传。</string>
-    <string name="synced_folders_no_results">没有发现媒体文件夹</string>
+    <string name="synced_folders_no_results">未找到媒体文件夹</string>
     <string name="synced_folders_preferences">自动上传的首选项</string>
     <string name="synced_folders_preferences_folder_path">从 %1$s</string>
     <string name="synced_folders_type">类型</string>
@@ -803,6 +807,9 @@
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="other">%1$d文件</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="other">显示 %1$d 个隐藏文件夹</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="other">%d选定</item>

@@ -8,6 +8,7 @@
     <string name="account_icon">Accountpictogram</string>
     <string name="account_not_found">Account niet gevonden!</string>
     <string name="action_clear_failed_uploads">Wis mislukte uploads</string>
+    <string name="action_edit">Bewerken</string>
     <string name="action_empty_notifications">Handel alle meldingen af</string>
     <string name="action_empty_trashbin">Legen prullebak</string>
     <string name="action_send_share">Versturen/Delen</string>
@@ -76,6 +77,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">bewaard worden in originele map, omdat die Alleen-lezen is</string>
     <string name="auto_upload_on_wifi">Upload alleen met Wi-Fi</string>
     <string name="auto_upload_path">/AutomatischUploaden</string>
+    <string name="autoupload_configure">Configureren</string>
     <string name="autoupload_create_new_custom_folder">Maak aangepaste nieuwe map aan</string>
     <string name="autoupload_custom_folder">Instellen aangepaste map</string>
     <string name="autoupload_disable_power_save_check">Uitschakelen stroombesparingscontrole</string>
@@ -672,7 +674,6 @@
     <string name="synced_folders_configure_folders">Mappen instellen</string>
     <string name="synced_folders_loading_folders">Mappen laden…</string>
     <string name="synced_folders_new_info">Automatisch uploaden is helemaal herzien. Herconfigureer je auto-uploadfunctie in het hoofdmenu.\n\nVeel plezier met de nieuwe en meer uitgebreide auto-upload.</string>
-    <string name="synced_folders_no_results">Geen mediamappen gevonden.</string>
     <string name="synced_folders_preferences">Voorkeuren voor automatisch uploaden</string>
     <string name="synced_folders_preferences_folder_path">Voor %1$s</string>
     <string name="synced_folders_type">Type</string>

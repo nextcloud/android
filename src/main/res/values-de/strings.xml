@@ -8,6 +8,7 @@
     <string name="account_icon">Konto-Icon</string>
     <string name="account_not_found">Kein Konto gefunden</string>
     <string name="action_clear_failed_uploads">Fehlgeschlagene Uploads entfernen</string>
+    <string name="action_edit">Bearbeiten</string>
     <string name="action_empty_notifications">Alle Benachrichtigungen löschen</string>
     <string name="action_empty_trashbin">Dateien endgültig löschen</string>
     <string name="action_send_share">Senden/Teilen</string>
@@ -76,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
     <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="autoupload_configure">Einrichten</string>
     <string name="autoupload_create_new_custom_folder">Erstellen Sie ein Setup für den eigenen Ordner</string>
     <string name="autoupload_custom_folder">Erstellen Sie einen eigenen Ordner</string>
     <string name="autoupload_disable_power_save_check">Energiesparmodus deaktivieren</string>
+    <string name="autoupload_hide_folder">Ordner verstecken</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Schliessen</string>
     <string name="battery_optimization_disable">Deaktivieren</string>
@@ -505,6 +508,7 @@
     <string name="prefs_theme_title">Design</string>
     <string name="prefs_value_theme_dark">Dunkel</string>
     <string name="prefs_value_theme_light">Hell</string>
+    <string name="prefs_value_theme_system">Systemvorgaben verwenden</string>
     <string name="preview_image_description">Bildvorschau</string>
     <string name="preview_image_error_no_local_file">Keine lokale Datei für die Vorschau vorhanden</string>
     <string name="preview_image_error_unknown_format">Bild kann nicht angezeigt werden</string>
@@ -677,7 +681,7 @@
     <string name="synced_folders_configure_folders">Ordner konfigurieren</string>
     <string name="synced_folders_loading_folders">Lade Ordner…</string>
     <string name="synced_folders_new_info">Die Sofort-Uploads wurden vollständig überarbeitet. Konfiguriere Sie Ihren automatischen Uploader im Hauptmenü.\n\nGenießen Sie den verbesserten Auto-Upload.</string>
-    <string name="synced_folders_no_results">Keine Medien-Ordner gefunden.</string>
+    <string name="synced_folders_no_results">Keine Medien-Ordner gefunden</string>
     <string name="synced_folders_preferences">Einstellungen für automatisches Hochladen</string>
     <string name="synced_folders_preferences_folder_path">Für %1$s</string>
     <string name="synced_folders_type">Typ</string>
@@ -805,6 +809,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d Datei</item>
         <item quantity="other">%1$d Dateien</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Zeige %1$dversteckten Ordner</item>
+        <item quantity="other">Zeige %1$d versteckte Ordner</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>

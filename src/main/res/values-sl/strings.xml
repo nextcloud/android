@@ -8,6 +8,7 @@
     <string name="account_icon">ikona računa</string>
     <string name="account_not_found">Računa ni mogoče najti!</string>
     <string name="action_clear_failed_uploads">Počisti dnevnik spodletelih pošiljanj</string>
+    <string name="action_edit">Uredi</string>
     <string name="action_empty_notifications">Počisti vsa obvestila</string>
     <string name="action_empty_trashbin">izprazni smeti</string>
     <string name="action_send_share">Pošlji/Omogoči souporabo</string>
@@ -76,6 +77,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">ohranjeno v izvorni mapi, ker je ta le za branje</string>
     <string name="auto_upload_on_wifi">Pošiljaj le na nemerjeni povezavi Wi-Fi</string>
     <string name="auto_upload_path">/SamodejnoPošiljanje</string>
+    <string name="autoupload_configure">Nastavi</string>
     <string name="autoupload_create_new_custom_folder">Ustvari novo nastavitveno mapo po meri</string>
     <string name="autoupload_custom_folder">Nastavitev mape po meri</string>
     <string name="autoupload_disable_power_save_check">Onemogoči preverjanje porabe energije</string>
@@ -533,6 +535,7 @@
     <string name="set_as">Nastavi kot</string>
     <string name="set_picture_as">Uporabi sliko kot</string>
     <string name="setup_btn_connect">Poveži</string>
+    <string name="share">Souporaba</string>
     <string name="share_add_user_or_group">Dodaj uporabnika ali skupino</string>
     <string name="share_dialog_title">Souporaba</string>
     <string name="share_email_clarification">%1$s (e-pošta)</string>
@@ -573,6 +576,8 @@
     <string name="share_with_edit_title">Omogoči souporabo z %1$s</string>
     <string name="share_with_title">Omogoči souporabo …</string>
     <string name="share_with_user_section_title">Omogoči souporabo s skupino ali z uporabnikom</string>
+    <string name="shared_icon_share">souporaba</string>
+    <string name="shared_icon_shared">v souporabi</string>
     <string name="signup_with_provider">Prijava prek ponudnika</string>
     <string name="sort_by">Razvrsti</string>
     <string name="sort_by_modification_date_ascending">najprej najnovejše</string>
@@ -634,7 +639,6 @@
     <string name="synced_folders_configure_folders">Nastavi mape</string>
     <string name="synced_folders_loading_folders">Poteka nalaganje map …</string>
     <string name="synced_folders_new_info">Možnost Hipnega pošiljanja je bila v celoti predelana. Nastavitve je treba ponovno prilagoditi v glavnem meniju.\n\nUživajte v razširjenih možnostih samodejnega pošiljanja.</string>
-    <string name="synced_folders_no_results">Map s predstavno vsebino ni mogoče najti.</string>
     <string name="synced_folders_preferences">Nastavitve za samodejno pošiljanje</string>
     <string name="synced_folders_preferences_folder_path">Za %1$s</string>
     <string name="synced_folders_type">Vrsta</string>
@@ -645,6 +649,7 @@
     <string name="timeout_richDocuments">Nalaganje poteka nepričakovano dolgo ...</string>
     <string name="trashbin_activity_title">Izbrisane datoteke</string>
     <string name="trashbin_empty_headline">Ni izbrisanih datotek</string>
+    <string name="trashbin_empty_message">Izbrisane datoteke je mogoče tudi povrniti.</string>
     <string name="trashbin_file_not_deleted">Datoteke %1$s ni mogoče izbrisati!</string>
     <string name="trashbin_file_not_restored">Datoteke %1$s ni mogoče obnoviti!</string>
     <string name="trashbin_loading_failed">Nalaganje smeti je spodletelo!</string>

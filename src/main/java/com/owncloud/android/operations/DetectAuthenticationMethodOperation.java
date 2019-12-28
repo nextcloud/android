@@ -30,6 +30,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpStatus;
 
 import java.util.ArrayList;
@@ -119,7 +120,7 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         Log_OC.d(TAG, "Authentication method found: " + authenticationMethodToString(authMethod));
 
         if (authMethod != AuthenticationMethod.UNKNOWN) {
-            result = new RemoteOperationResult(true, result.getHttpCode(), result.getHttpPhrase(), null);
+            result = new RemoteOperationResult(true, result.getHttpCode(), result.getHttpPhrase(), new Header[0]);
         }
         ArrayList<Object> data = new ArrayList<>();
         data.add(authMethod);

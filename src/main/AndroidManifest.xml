@@ -96,6 +96,7 @@
         android:installLocation="internalOnly"
         android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity"
         android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
         tools:ignore="UnusedAttribute">
 
         <uses-library
@@ -132,7 +133,10 @@
         <activity android:name=".ui.activity.ExternalSiteWebView"
                   android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
-            android:name=".ui.activity.RichDocumentsWebView"
+            android:name=".ui.activity.RichDocumentsEditorWebView"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".ui.activity.TextEditorWebView"
             android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity android:name=".ui.activity.ContactsPreferenceActivity"
             android:launchMode="singleInstance"/>

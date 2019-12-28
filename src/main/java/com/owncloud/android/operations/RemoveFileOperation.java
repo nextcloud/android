@@ -33,6 +33,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 
 /**
@@ -91,8 +92,10 @@ public class RemoveFileOperation extends SyncOperation {
 
         fileToRemove = getStorageManager().getFileByPath(remotePath);
 
-        // store resized image
-        ThumbnailsCacheManager.generateResizedImage(fileToRemove);
+        if (MimeTypeUtil.isImage(fileToRemove.getMimeType())) {
+            // store resized image
+            ThumbnailsCacheManager.generateResizedImage(fileToRemove);
+        }
 
         boolean localRemovalFailed = false;
         if (!onlyLocalCopy) {

@@ -1,7 +1,20 @@
 # This is the minimum version number required.
 fastlane_version "2.58.0"
 
+## config
+# add following to your shell rc:
+# export FASTLANE_NEXTCLOUD_STORE_FILE=""
+# export FASTLANE_NEXTCLOUD_STORE_PASSWORD=""
+# export FASTLANE_NEXTCLOUD_KEY_ALIAS=""
+# export FASTLANE_NEXTCLOUD_KEY_PASSWORD=""
+# export FASTLANE_NEXTCLOUD_GITHUB_API_TOKEN=""
+
+skip_docs
+
+## public lanes
+
 lane :screenshotsPhone do
+    beautifyPhone()
     build_for_screengrab()
 
     screengrab(
@@ -12,14 +25,98 @@ lane :screenshotsPhone do
 end
 
 lane :screenshotsTablet do
+    beautifyPhone()
     build_for_screengrab()
 
     screengrab(
-    device_type: "sevenInch",
-    app_apk_path: APK_LOCATION,
-    tests_apk_path: TEST_APK_LOCATION
+        device_type: "sevenInch",
+        app_apk_path: APK_LOCATION,
+        tests_apk_path: TEST_APK_LOCATION
     )
 end
+
+desc "Release phase 1: make gplay/generic for RC, then test it"
+lane :releasePhase1_RC do
+    disableLogger()
+    makeReleases()
+    enableLogger()
+end
+
+desc "Release phase 1: make gplay/generic for FINAL, then test it"
+lane :releasePhase1_Final do
+    makeReleases()
+end
+
+desc "Release phase 2 for RC: checks, tag, upload gplay to playstore with values from build.gradle"
+lane :releasePhase2_RC do |options|
+    info = androidVersion
+    checkChangelog(info)
+    checkLibrary_RC()
+    checkIfScreenshotsExist()
+    checkIfAPKexists()
+    tag(info)
+    uploadToPlaystore_RC(info)
+    createGithubRelease(info)
+    fdroidMergeRequest(info)
+    createChangelogPullRequestRC(info)
+end
+
+desc "Release phase 2 for FINAL: checks, tag, upload gplay to playstore with values from build.gradle"
+lane :releasePhase2_Final do |options|
+    info = androidVersion
+    checkChangelog(info)
+    checkLibrary_Final()
+    checkIfScreenshotsExist()
+    checkIfAPKexists()
+    tag(info)
+    uploadToPlaystore_Final(info)
+    createGithubRelease_Final(info)
+    fdroidMergeRequest_Final(info)
+    createChangelogPullRequest_Final(info)
+end
+
+desc "Makes gplay and generic releases in ../releases/"
+lane :makeReleases do
+    sh("mkdir -p ../release")
+    sh("rm -rf ../release/*")
+    sh("rm -rf ../build")
+
+    SignedRelease(flavor:"Generic")
+    sh("mv ../build/outputs/apk/generic/release/*.apk ../release/")
+    sh("rename 'generic-release' 'nextcloud' ../release/generic-release*")
+
+    SignedRelease(flavor:"Gplay")
+    sh("cp ../build/outputs/apk/gplay/release/*.apk ../release/")
+end
+
+desc "Create GPlay release"
+lane :createGplayRelease do |options|
+    SignedRelease(flavor:"Gplay")
+    sh("mv ../build/outputs/apk/gplay/release/*.apk ../release/")
+end
+
+desc "Create Generic release"
+lane :createGenericRelease do |options|
+    SignedRelease(flavor:"Generic")
+    sh("mv ../build/outputs/apk/generic/release/*.apk ../release/")
+end
+
+desc "Create Dev release"
+lane :createDevRelease do |options|
+    SignedRelease(flavor:"VersionDev")
+    sh("mv ../build/outputs/apk/versionDev/release/*.apk ../release/")
+end
+
+desc "Beautify phone for screenshots: set time, remove other icons, no charging"
+lane :beautifyPhone do
+    sh("adb shell settings put global sysui_demo_allowed 1")
+    sh("adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm 1200")
+    sh("adb shell am broadcast -a com.android.systemui.demo -e command network -e mobile show -e level 4 -e datatype false")
+    sh("adb shell am broadcast -a com.android.systemui.demo -e command notifications -e visible false")
+    sh("adb shell am broadcast -a com.android.systemui.demo -e command battery -e plugged false -e level 100")
+end
+
+## private lanes
 
 desc "Build debug and test APK for screenshots"
 private_lane :build_for_screengrab do
@@ -36,4 +133,167 @@ private_lane :build_for_screengrab do
       build_type: 'DebugAndroidTest'
     )
     TEST_APK_LOCATION = lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS].select{ |i| i[/androidTest/] }[0]
+end
+
+private_lane :createChangelogPullRequest_RC do |options|
+    sh("createChangelogPullRequestRC " +  options["tag"] + " \"" + options["versionName"] + "\" " + options["versionCode"] + " \"" + options["branch"] + "\" ")
+end
+
+private_lane :createChangelogPullRequest_Final do |options|
+    sh("createChangelogPullRequestFinal " +  options["tag"] + " \"" + options["versionName"] + "\" " + options["versionCode"] + " \"" + options["branch"] + "\" ")
+end
+
+private_lane :checkIfAPKexists do |options|
+    sh("if [ $(/bin/ls -1 ../release | wc -l) -ne 2 ]; then echo 'APKs do not exist ../release/; aborting!' ; exit 1 ;
+     fi")
+end
+
+desc "compute version"
+private_lane :androidVersion do |options|
+    File.open("../build.gradle","r") do |f|
+        text = f.read
+
+        # everything between Document and Authors
+        major = text.match(/def versionMajor = ([0-9]*)$/)
+        minor = text.match(/def versionMinor = ([0-9]*)$/)
+        patch = text.match(/def versionPatch = ([0-9]*)$/)
+        build = text.match(/def versionBuild = ([0-9]*).*$/)
+
+        majorInt = major[1].to_i
+        minorInt = minor[1].to_i
+        patchInt = patch[1].to_i
+        buildInt = build[1].to_i
+
+        versionCode = majorInt * 10000000 + minorInt * 10000 + patchInt * 100 + buildInt
+
+        if buildInt > 89
+            name = major[1] + "." + minor[1] + "." + patch[1]
+            tag = "stable-" + major[1] + "." + minor[1] + "." + patch[1]
+            branch = "stable-" + major[1] + "." + minor[1]
+        elsif buildInt > 50
+            name = major[1] + "." + minor[1] + "." + patch[1] + " RC" + (buildInt - 50).to_s
+            tag = "rc-" + major[1] + "." + minor[1] + "." + patch[1] + "-" + format('%02d', (buildInt - 50))
+            branch = "stable-" + major[1] + "." + minor[1]
+        else
+            name = major[1] + "." + minor[1] + "." + patch[1] + " Alpha " + format('%02d', (buildInt + 1))
+            tag = "/"
+            branch = "stable-" + major[1] + "." + minor[1]
+        end
+
+        print "VersionCode: " + versionCode.to_s + "\n"
+        print "Name: " + name + "\n"
+        print "Tag: " + tag + "\n"
+        print "Branch: " + branch + "\n"
+        print "\ndisable IPv6 to upload to Gplay!!!\n"
+
+        answer = prompt(text: "is this okay?", boolean: true)
+
+        if !answer
+            exit
+        end
+
+        { "versionCode" => versionCode.to_s, "versionName" => name, "tag" => tag, "branch" => branch }
+    end
+end
+
+desc "check if library is set correctly"
+private_lane :checkLibrary_RC do
+    sh(" if [ $(egrep 'androidLibraryVersion.*master.*' ../build.gradle -c) -eq 1 ] ; then echo 'Library is set to master tag; aborting!' ; exit 1 ; fi")
+end
+
+desc "check if library is set correctly: must NOT contain master nor rc"
+private_lane :checkLibrary_Final do
+    sh(" if [ $(grep 'androidLibraryVersion' ../build.gradle | egrep 'master|rc' -c) -eq 1 ] ; then echo 'Library is still set to rc tag; aborting!' ; exit 1 ; fi")
+end
+
+desc "check if screenshots exists and exit"
+private_lane :checkIfScreenshotsExist do
+    sh(" if [ -e  metadata/android/*/images ] ; then echo 'Screenshots in fastlane folder exist; aborting!' ; exit 1 ; fi")
+end
+
+private_lane :tag do |options|
+    add_git_tag(
+        tag: options["tag"],
+        sign: true
+    )
+    push_git_tags(
+        tag: options["tag"])
+end
+
+private_lane :disableLogger do
+    sh("sed -i s'#<bool name=\"logger_enabled\">false</bool>#<bool name=\"logger_enabled\">true</bool>#' ../src/main/res/values/setup.xml")
+end
+
+private_lane :enableLogger do
+    sh("sed -i s'#<bool name=\"logger_enabled\">true</bool>#<bool name=\"logger_enabled\">false</bool>#' ../src/main/res/values/setup.xml")
+end
+
+desc "Upload to play store"
+private_lane :uploadToPlaystore_RC do |options|
+    upload_to_play_store(
+        skip_upload_images: true,
+        track: 'beta',
+        apk: "release/gplay-release-" + options["versionCode"] + ".apk"
+    )
+end
+
+desc "Upload to play store"
+private_lane :uploadToPlaystore_Final do |options|
+    upload_to_play_store(
+        skip_upload_images: true,
+        apk: "release/gplay-release-" + options["versionCode"] + ".apk"
+    )
+end
+
+private_lane :SignedRelease do |options|
+    gradle(
+        task: 'assemble',
+        flavor: options[:flavor],
+        build_type: 'Release',
+        print_command: false,
+        properties: {
+              "android.injected.signing.store.file" => ENV["FASTLANE_NEXTCLOUD_STORE_FILE"],
+              "android.injected.signing.store.password" => ENV["FASTLANE_NEXTCLOUD_STORE_PASSWORD"],
+              "android.injected.signing.key.alias" => ENV["FASTLANE_NEXTCLOUD_KEY_ALIAS"],
+              "android.injected.signing.key.password" => ENV["FASTLANE_NEXTCLOUD_KEY_PASSWORD"],
+            }
+        )
+end
+
+private_lane :createGithubRelease_RC do |options|
+    set_github_release(
+        repository_name: "nextcloud/android",
+        api_token: ENV["FASTLANE_NEXTCLOUD_GITHUB_API_TOKEN"],
+        name: options["versionName"],
+        tag_name: options["tag"],
+        is_prerelease: true,
+        description: (File.read("metadata/android/en-US/changelogs/" + options["versionCode"] + ".txt") rescue "No changelog provided"),
+        upload_assets: [ "release/gplay-release-" + options["versionCode"] + ".apk", "release/nextcloud-" +
+        options["versionCode"] + ".apk" ]
+    )
+end
+
+private_lane :createGithubRelease_Final do |options|
+    set_github_release(
+        repository_name: "nextcloud/android",
+        api_token: ENV["FASTLANE_NEXTCLOUD_GITHUB_API_TOKEN"],
+        name: options["versionName"],
+        tag_name: options["tag"],
+        description: (File.read("metadata/android/en-US/changelogs/" + options["versionCode"] + ".txt") rescue "No changelog provided"),
+        upload_assets: [ "release/gplay-release-" + options["versionCode"] + ".apk", "release/nextcloud-" +
+        options["versionCode"] + ".apk" ]
+    )
+end
+
+private_lane :fdroidMergeRequest_RC do |options|
+   sh("fdroidMergeRequestRC " +  options["tag"] + " \"" + options["versionName"] + "\" " + options["versionCode"])
+end
+
+private_lane :fdroidMergeRequest_Final do |options|
+   sh("fdroidMergeRequestFinal " +  options["tag"] + " \"" + options["versionName"] + "\" " + options["versionCode"])
+end
+
+private_lane :checkChangelog do |options|
+    sh(" if [ ! -e  metadata/android/en-US/changelogs/" + options["versionCode"] + ".txt ] ; then echo 'Changelog fastlane/metadata/android/en-US/changelogs/" + options["versionCode"] + ".txt does not exist' ; exit 1 ; fi")
+    sh(" if [ $(wc -m metadata/android/en-US/changelogs/" + options["versionCode"] + ".txt | cut -d' ' -f1) -ge 500 ] ; then echo 'Changlog more than 500 chars' ; exit 1 ; fi")
 end

@@ -8,6 +8,7 @@
     <string name="account_icon">帳號圖示</string>
     <string name="account_not_found">沒有找到任何帳戶</string>
     <string name="action_clear_failed_uploads">清除失敗的上傳</string>
+    <string name="action_edit">退出</string>
     <string name="action_empty_notifications">清除所有通知訊息</string>
     <string name="action_empty_trashbin">清空回收桶</string>
     <string name="action_send_share">傳送/分享</string>
@@ -76,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
     <string name="auto_upload_on_wifi">僅在未計量的Wi-Fi上傳</string>
     <string name="auto_upload_path">自動上傳</string>
+    <string name="autoupload_configure">設定</string>
     <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>
     <string name="autoupload_custom_folder">設定自訂資料夾</string>
     <string name="autoupload_disable_power_save_check">停用省電功能</string>
+    <string name="autoupload_hide_folder">隱藏資料夾</string>
     <string name="avatar">頭像</string>
     <string name="battery_optimization_close">關閉</string>
     <string name="battery_optimization_disable">停用</string>
@@ -262,6 +265,7 @@
     <string name="fallback_weblogin_text">還原舊的登入方式</string>
     <string name="favorite">加到我的最愛</string>
     <string name="favorite_icon">我的最愛</string>
+    <string name="file">檔案</string>
     <string name="file_delete">刪除</string>
     <string name="file_detail_activity_error">檢所檔案活動時發生錯誤</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
@@ -331,6 +335,7 @@
     <string name="first_run_2_text">安全地協作 &amp; 傳輸檔案</string>
     <string name="first_run_3_text">容易使用的Webmail,行事曆&amp;聯絡人</string>
     <string name="first_run_4_text">分享螢幕畫面，線上會議&amp;研討會</string>
+    <string name="folder">資料夾</string>
     <string name="folder_already_exists">文件夾已存在</string>
     <string name="folder_confirm_create">建立</string>
     <string name="folder_icon">資料夾圖示</string>
@@ -499,6 +504,9 @@
     <string name="prefs_storage_path">儲存路徑</string>
     <string name="prefs_synced_folders_local_path_title">本地資料夾</string>
     <string name="prefs_synced_folders_remote_path_title">遠端資料夾</string>
+    <string name="prefs_theme_title">佈景主題</string>
+    <string name="prefs_value_theme_dark">暗色</string>
+    <string name="prefs_value_theme_light">亮色</string>
     <string name="preview_image_description">圖片預覽</string>
     <string name="preview_image_error_no_local_file">沒有可供預覽的本地檔案</string>
     <string name="preview_image_error_unknown_format">無法顯示圖像</string>
@@ -660,7 +668,6 @@
     <string name="synced_folders_configure_folders">設定資料夾</string>
     <string name="synced_folders_loading_folders">載入資料夾…</string>
     <string name="synced_folders_new_info">即時上傳已經完全改版，請在選單中重新設定自動上傳。\n\n享受全新且強大的自動上傳。</string>
-    <string name="synced_folders_no_results">沒有發現媒體檔案</string>
     <string name="synced_folders_preferences">自動上傳偏好</string>
     <string name="synced_folders_type">類型</string>
     <string name="synced_icon">已同步</string>

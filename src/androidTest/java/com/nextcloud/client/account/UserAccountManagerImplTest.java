@@ -41,7 +41,7 @@ public class UserAccountManagerImplTest extends AbstractIT {
 
         boolean success = sut.migrateUserId();
         assertTrue(success);
-        
+
         Bundle arguments = androidx.test.platform.app.InstrumentationRegistry.getArguments();
         String userId = arguments.getString("TEST_SERVER_USERNAME");
 

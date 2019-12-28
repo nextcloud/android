@@ -22,42 +22,56 @@ package com.owncloud.android.ui.asynctasks;
 
 import android.accounts.Account;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Handler;
-import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.owncloud.android.R;
+import com.nextcloud.android.lib.resources.directediting.DirectEditingOpenFileRemoteOperation;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
+import com.owncloud.android.lib.common.Editor;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RichDocumentsUrlOperation;
-import com.owncloud.android.ui.activity.RichDocumentsWebView;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.ui.activity.EditorWebView;
+import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
+import com.owncloud.android.ui.activity.TextEditorWebView;
 
 import java.lang.ref.WeakReference;
 
-import androidx.annotation.RequiresApi;
-
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-public class LoadUrlTask extends AsyncTask<String, Void, String> {
+public class LoadUrlTask extends AsyncTask<Void, Void, String> {
 
     private Account account;
-    private WeakReference<RichDocumentsWebView> richDocumentsWebViewWeakReference;
+    private WeakReference<EditorWebView> editorWebViewWeakReference;
+    private OCFile file;
 
-    public LoadUrlTask(RichDocumentsWebView richDocumentsWebView, Account account) {
+    public LoadUrlTask(EditorWebView editorWebView, Account account, OCFile file) {
         this.account = account;
-        this.richDocumentsWebViewWeakReference = new WeakReference<>(richDocumentsWebView);
+        this.editorWebViewWeakReference = new WeakReference<>(editorWebView);
+        this.file = file;
     }
 
     @Override
-    protected String doInBackground(String... fileId) {
-        if (richDocumentsWebViewWeakReference.get() == null) {
+    protected String doInBackground(Void... voids) {
+        final EditorWebView editorWebView = editorWebViewWeakReference.get();
+
+        if (editorWebView == null) {
             return "";
         }
-        RichDocumentsUrlOperation richDocumentsUrlOperation = new RichDocumentsUrlOperation(fileId[0]);
-        RemoteOperationResult result = richDocumentsUrlOperation.execute(account,
-                                                                         richDocumentsWebViewWeakReference.get());
+
+        RemoteOperationResult result;
+
+
+        if (editorWebView instanceof RichDocumentsEditorWebView) {
+            result = new RichDocumentsUrlOperation(file.getLocalId()).execute(account, editorWebView);
+        } else if (editorWebView instanceof TextEditorWebView) {
+            Editor editor = FileMenuFilter.getEditor(editorWebView.getContentResolver(), account, file.getMimeType());
+
+            if (editor == null) {
+                return "";
+            }
+
+            result = new DirectEditingOpenFileRemoteOperation(file.getRemotePath(), editor.id)
+                .execute(account, editorWebViewWeakReference.get());
+        } else {
+            return "";
+        }
 
         if (!result.isSuccess()) {
             return "";
@@ -68,30 +82,12 @@ public class LoadUrlTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String url) {
-        RichDocumentsWebView richDocumentsWebView = richDocumentsWebViewWeakReference.get();
+        EditorWebView editorWebView = editorWebViewWeakReference.get();
 
-        if (richDocumentsWebView == null) {
+        if (editorWebView == null) {
             return;
         }
 
-        if (!url.isEmpty()) {
-            richDocumentsWebView.getWebview().loadUrl(url);
-
-            new Handler().postDelayed(() -> {
-                if (richDocumentsWebView.getWebview().getVisibility() != View.VISIBLE) {
-                    Snackbar snackbar = DisplayUtils.createSnackbar(richDocumentsWebView.findViewById(android.R.id.content),
-                                                                    R.string.timeout_richDocuments, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.fallback_weblogin_back, v -> richDocumentsWebView.closeView());
-
-                    ThemeUtils.colorSnackbar(richDocumentsWebView.getApplicationContext(),snackbar);
-                    richDocumentsWebView.setLoadingSnackbar(snackbar);
-                    snackbar.show();
-                }
-            }, 10 * 1000);
-        } else {
-            Toast.makeText(richDocumentsWebView.getApplicationContext(),
-                           R.string.richdocuments_failed_to_load_document, Toast.LENGTH_LONG).show();
-            richDocumentsWebView.finish();
-        }
+        editorWebView.onUrlLoaded(url);
     }
 }

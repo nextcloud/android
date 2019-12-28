@@ -109,8 +109,7 @@
                         android:paddingEnd="@dimen/alternate_padding_right"
                         android:paddingRight="@dimen/alternate_padding_right"
                         android:textColor="@color/login_text_color"
-                        android:textColorHint="@color/login_text_hint_color"
-                        android:theme="@style/Nextcloud.EditText.Login">
+                        android:textColorHint="@color/login_text_hint_color">
 
                         <requestFocus />
 

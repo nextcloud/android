@@ -8,6 +8,7 @@
     <string name="account_icon">Значок учётной записи</string>
     <string name="account_not_found">Учётная запись не найдена!</string>
     <string name="action_clear_failed_uploads">Убрать неудавшиеся</string>
+    <string name="action_edit">Редактировать</string>
     <string name="action_empty_notifications">Удалить все уведомления</string>
     <string name="action_empty_trashbin">Очистить корзину</string>
     <string name="action_send_share">Отправить / Открыть доступ</string>
@@ -76,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
     <string name="auto_upload_on_wifi">Необходимо безлимитное подключение Wi-Fi </string>
     <string name="auto_upload_path">/Автозагрузка</string>
+    <string name="autoupload_configure">Настроить</string>
     <string name="autoupload_create_new_custom_folder">Создать новую настройку пользовательского каталога</string>
     <string name="autoupload_custom_folder">Задать пользовательский каталог</string>
     <string name="autoupload_disable_power_save_check">Отключить проверку энергосбережения</string>
+    <string name="autoupload_hide_folder">Скрыть папку</string>
     <string name="avatar">Аватар</string>
     <string name="battery_optimization_close">Закрыть</string>
     <string name="battery_optimization_disable">Отключить</string>
@@ -263,6 +266,7 @@
     <string name="fallback_weblogin_text">Использовать прежний метод авторизации</string>
     <string name="favorite">Добавить в избранное</string>
     <string name="favorite_icon">Избранное</string>
+    <string name="file">файл</string>
     <string name="file_delete">Удалить</string>
     <string name="file_detail_activity_error">Ошибка получения истории событий, связанных с файлом</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>
@@ -332,6 +336,7 @@
     <string name="first_run_2_text">Защищённое совместная работа &amp;обмен файлами</string>
     <string name="first_run_3_text">Простые в использовании приложения для работы с почтой, календарями и контактами</string>
     <string name="first_run_4_text">Доступ к изображению на экране, онлайн общение и веб-конференции</string>
+    <string name="folder">папка</string>
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="folder_confirm_create">Создать</string>
     <string name="folder_icon">Значок папки</string>
@@ -413,6 +418,7 @@
     <string name="new_notification">Новое уведомление</string>
     <string name="new_version_was_created">Новая версия создана</string>
     <string name="no_browser_available">Отсутствует приложение, которое может обрабатывать переход по ссылкам</string>
+    <string name="no_mutliple_accounts_allowed">Разрешено использование только одной учётной записи</string>
     <string name="no_pdf_app_available">Отсутствует приложение, которое может отображать формат PDF</string>
     <string name="note_confirm">Отправить</string>
     <string name="note_could_not_sent">Не удалось отправить примечание</string>
@@ -499,6 +505,10 @@
     <string name="prefs_storage_path">Путь к хранилищу</string>
     <string name="prefs_synced_folders_local_path_title">Папка на устройстве</string>
     <string name="prefs_synced_folders_remote_path_title">Папка на сервере</string>
+    <string name="prefs_theme_title">Стиль оформления</string>
+    <string name="prefs_value_theme_dark">Тёмный</string>
+    <string name="prefs_value_theme_light">Светлый</string>
+    <string name="prefs_value_theme_system">Как в системе</string>
     <string name="preview_image_description">Предпросмотр</string>
     <string name="preview_image_error_no_local_file">Отсутствует локальный файл для создания миниатюры</string>
     <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
@@ -510,6 +520,7 @@
     <string name="recommend_subject">Испытайте %1$s на своём устройстве!</string>
     <string name="recommend_text">Хочу посоветовать использовать %1$s на твоём устройстве!\nСкачай здесь: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="remote_file_fetch_failed">Не удалось найти файл.</string>
     <string name="remove_fail_msg">Ошибка при удалении</string>
     <string name="remove_notification_failed">Не удалось скрыть уведомление.</string>
     <string name="remove_push_notification">Удалить</string>
@@ -529,10 +540,15 @@
     <string name="saml_authentication_wrong_pass">Неправильный пароль</string>
     <string name="scanQR_description">Войти с использованием QR кода</string>
     <string name="screenshot_01_gridView_heading">Защита Ваших данных</string>
+    <string name="screenshot_02_listView_heading">Простой поиск и обмен файлами</string>
+    <string name="screenshot_02_listView_subline">быстрый доступ ко всем функциям</string>
+    <string name="screenshot_03_drawer_heading">События, опубликованные ресурсы…</string>
     <string name="screenshot_04_accounts_heading">Все ваши учётные записи</string>
     <string name="screenshot_04_accounts_subline">в одном месте</string>
     <string name="screenshot_05_autoUpload_heading">Автоматическая загрузка</string>
     <string name="screenshot_05_autoUpload_subline">ваших фото &amp; видео</string>
+    <string name="screenshot_06_davdroid_heading">Календарь и контакты</string>
+    <string name="screenshot_06_davdroid_subline">Синхронизация с DAVx5</string>
     <string name="search_users_and_groups_hint">Поиск пользователей и групп</string>
     <string name="select_all">Выбрать все</string>
     <string name="select_template">Выбрать шаблон</string>
@@ -550,6 +566,8 @@
     <string name="share_file">Общий ресурс «%1$s»</string>
     <string name="share_get_public_link_button">Получить ссылку</string>
     <string name="share_group_clarification">%1$s (группа)</string>
+    <string name="share_internal_link">Опубликовать внутреннюю ссылку</string>
+    <string name="share_internal_link_text">Только для пользователей этого сервера %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
     <string name="share_link_empty_password">Необходимо ввести пароль</string>
     <string name="share_link_file_error">При попытке поделиться этим файлом или каталогом произошла ошибка</string>
@@ -657,7 +675,6 @@
     <string name="synced_folders_configure_folders">Настроить каталоги</string>
     <string name="synced_folders_loading_folders">Получение списка папок…</string>
     <string name="synced_folders_new_info">Моментальная загрузка была полностью переделана. Используйте главное меню для перенастройки автоматической загрузки. Извините за неудобства.\n\nВам понравятся новые расширенные возможности!</string>
-    <string name="synced_folders_no_results">Не найдены каталоги с медиа(файлами).</string>
     <string name="synced_folders_preferences">Настройки автозагрузки</string>
     <string name="synced_folders_preferences_folder_path">Для %1$s</string>
     <string name="synced_folders_type">Тип</string>
@@ -793,6 +810,12 @@
         <item quantity="few">%1$d файла</item>
         <item quantity="many">%1$d файлов</item>
         <item quantity="other">%1$d файла</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Показать %1$d скрытую папку</item>
+        <item quantity="few">Показать %1$d скрытых папки</item>
+        <item quantity="many">Показать %1$d скрытых папок</item>
+        <item quantity="other">Показать %1$d скрытой папки</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d выбран</item>

@@ -8,6 +8,7 @@
     <string name="account_icon">Icona da conta</string>
     <string name="account_not_found">Non se atopou a conta!</string>
     <string name="action_clear_failed_uploads">Limpar os envíos fallados</string>
+    <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpar todas as notificacións</string>
     <string name="action_empty_trashbin">Cesto do lixo baleiro</string>
     <string name="action_send_share">Enviar/compartir</string>
@@ -76,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
     <string name="auto_upload_on_wifi">Enviar só con WiFi sen límite de datos</string>
     <string name="auto_upload_path">/EnvíoAutomático</string>
+    <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Crear un cartafol personalizado novo</string>
     <string name="autoupload_custom_folder">Estabelecer un cartafol personalizado</string>
     <string name="autoupload_disable_power_save_check">Desactivar a verificación de aforro de enerxía</string>
+    <string name="autoupload_hide_folder">Agochar o cartafol</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Pechar</string>
     <string name="battery_optimization_disable">Desactivar</string>
@@ -506,6 +509,7 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_value_theme_dark">Escuro</string>
     <string name="prefs_value_theme_light">Claro</string>
+    <string name="prefs_value_theme_system">Seguir o sistema</string>
     <string name="preview_image_description">Vista previa da imaxe</string>
     <string name="preview_image_error_no_local_file">Non hai ficheiro local que ver</string>
     <string name="preview_image_error_unknown_format">Non é posíbel amosar a imaxe</string>
@@ -670,14 +674,14 @@
     <string name="sync_folder_failed_content">A sincronización do cartafol %1$s non se completou</string>
     <string name="sync_foreign_files_forgotten_explanation">A partires da versión 1.3.16, os ficheiros enviados dende este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un único ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados con versións anteriores desta aplicación foron copiados no cartafol %2$s. Porén, un erro impediu que se completara esta operación durante a sincronización da conta. Pode deixar o(s) ficheiro(s) tal e como está(n) e eliminar a ligazón cara a %3$s ou mover o(s) ficheiro(s) para o cartafol %1$s e manter a ligazón cara a %4$s.\n\nEmbaixo amósanse os ficheiros locais e os ficheiros remotos en %5$s aos que foron enlazados.</string>
     <string name="sync_foreign_files_forgotten_ticker">Esquecéronse algúns ficheiros locais</string>
-    <string name="sync_in_progress">Obtendo a versión mais recente do ficheiro.</string>
+    <string name="sync_in_progress">Recuperando a versión mais recente do ficheiro.</string>
     <string name="sync_status_button">Botón do estado da sincronización</string>
     <string name="sync_string_files">Ficheiros</string>
     <string name="synced_folder_settings_button">Botón de axustes</string>
     <string name="synced_folders_configure_folders">Configurar os cartafoles</string>
     <string name="synced_folders_loading_folders">Cargando cartafoles…</string>
     <string name="synced_folders_new_info">O envío automático foi renovado completamente. Reconfigure os seus envíos instantáneos no menú principal.\n\nGoce das novas e ampliadas capacidades do envío automático!</string>
-    <string name="synced_folders_no_results">Non se atopan cartafoles multimedia.</string>
+    <string name="synced_folders_no_results">Non se atopan cartafoles multimedia</string>
     <string name="synced_folders_preferences">Preferencias de envío automático</string>
     <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <string name="synced_folders_type">Tipo</string>
@@ -805,6 +809,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d ficheiro</item>
         <item quantity="other">%1$d ficheiros</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Amosar %1$d ficheiro agochado</item>
+        <item quantity="other">Amosar %1$d ficheiros agochados</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>

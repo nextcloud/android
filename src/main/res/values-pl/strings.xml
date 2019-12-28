@@ -8,6 +8,7 @@
     <string name="account_icon">Ikona konta</string>
     <string name="account_not_found">Nie znaleziono konta</string>
     <string name="action_clear_failed_uploads">Wyczyść nieudane wysyłanie</string>
+    <string name="action_edit">Edytuj</string>
     <string name="action_empty_notifications">Wyczyść wszystkie powiadomienia</string>
     <string name="action_empty_trashbin">Opróżnij kosz</string>
     <string name="action_send_share">Wyślij/Udostępnij</string>
@@ -76,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">zachowany w oryginalnym katalogu, jak jest tylko do odczytu</string>
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
-    <string name="autoupload_create_new_custom_folder">Stwórz nowy własny katalog</string>
+    <string name="autoupload_configure">Konfiguruj</string>
+    <string name="autoupload_create_new_custom_folder">Utwórz nową niestandardową konfigurację katalogu</string>
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
     <string name="autoupload_disable_power_save_check">Wyłącz kontrolę oszczędzania energii</string>
+    <string name="autoupload_hide_folder">Ukryj katalog</string>
     <string name="avatar">Awatar</string>
     <string name="battery_optimization_close">Zamknij</string>
     <string name="battery_optimization_disable">Wyłącz</string>
@@ -173,10 +176,10 @@
     <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć katalogu</string>
     <string name="create_file_from_template">Tworzenie pliku z szablonu…</string>
-    <string name="create_new_document">Stwórz nowy dokument</string>
+    <string name="create_new_document">Utwórz nowy dokument</string>
     <string name="create_new_folder">Utwórz nowy katalog</string>
-    <string name="create_new_presentation">Stwórz nową prezentację</string>
-    <string name="create_new_spreadsheet">Stwórz nowy arkusz kalkulacyjny</string>
+    <string name="create_new_presentation">Utwórz nową prezentację</string>
+    <string name="create_new_spreadsheet">Utwórz nowy arkusz kalkulacyjny</string>
     <string name="credentials_disabled">Poświadczenia wyłączone</string>
     <string name="date_unknown">Nieznane</string>
     <string name="default_credentials_wrong">Błedne poświadczenia</string>
@@ -369,7 +372,7 @@
     <string name="local_folder_list_empty">Nie ma kolejnych katalogów.</string>
     <string name="log_send_mail_subject">%1$s logi aplikacji Android</string>
     <string name="log_send_no_mail_app">Brak aplikacji do wysyłania logów. Zainstaluj klienta poczty e-mail.</string>
-    <string name="login">Zaloguj</string>
+    <string name="login">Zaloguj się</string>
     <string name="logs_menu_delete">Usuń dziennik</string>
     <string name="logs_menu_refresh">Odśwież</string>
     <string name="logs_menu_search">Przeszukaj dziennik</string>
@@ -505,6 +508,7 @@
     <string name="prefs_theme_title">Motyw</string>
     <string name="prefs_value_theme_dark">Ciemny</string>
     <string name="prefs_value_theme_light">Jasny</string>
+    <string name="prefs_value_theme_system">Śledź system</string>
     <string name="preview_image_description">Podgląd</string>
     <string name="preview_image_error_no_local_file">Brak lokalnego pliku do podglądu</string>
     <string name="preview_image_error_unknown_format">Nie można wyświetlić obrazu</string>
@@ -676,7 +680,7 @@
     <string name="synced_folders_configure_folders">Skonfiguruj katalogi</string>
     <string name="synced_folders_loading_folders">Pobieram katalogi…</string>
     <string name="synced_folders_new_info">Automatyczne wysyłanie zostało całkowicie zmienione. Ponownie skonfiguruj automatyczne wysyłanie z menu głównego.\n\nCiesz się nowym i rozszerzonym automatycznym wysyłaniem.</string>
-    <string name="synced_folders_no_results">Nie znaleziono katalogów multimedialnych.</string>
+    <string name="synced_folders_no_results">Nie znaleziono katalogów multimedialnych</string>
     <string name="synced_folders_preferences">Preferencje automatycznego wysyłania</string>
     <string name="synced_folders_preferences_folder_path">Dla %1$s</string>
     <string name="synced_folders_type">Typ</string>
@@ -812,6 +816,12 @@
         <item quantity="few">%1$d pliki</item>
         <item quantity="many">%1$d plików</item>
         <item quantity="other">%1$d plików</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Pokaż %1$d katalog ukryty</item>
+        <item quantity="few">Pokaż %1$d katalogi ukryte</item>
+        <item quantity="many">Pokaż %1$d katalogów ukrytych</item>
+        <item quantity="other">Pokaż %1$d katalogów ukrytych</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d wybrany</item>

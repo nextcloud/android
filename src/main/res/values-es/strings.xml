@@ -8,6 +8,7 @@
     <string name="account_icon">Icono de la cuenta</string>
     <string name="account_not_found">¡Cuenta no encontrada!</string>
     <string name="action_clear_failed_uploads">Borrar cargas fallidas</string>
+    <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpiar todas las notificaciones</string>
     <string name="action_empty_trashbin">Vaciar papelera</string>
     <string name="action_send_share">Mandar/Compartir</string>
@@ -76,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">se mantiene en la carpeta original, pues es de solo lectura</string>
     <string name="auto_upload_on_wifi">Subir sólo con conexión Wi-Fi sin límite de datos</string>
     <string name="auto_upload_path">/CargaAutomática</string>
+    <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Crear nueva configuración de una carpeta especifica </string>
     <string name="autoupload_custom_folder">Configure una carpeta especifica </string>
     <string name="autoupload_disable_power_save_check">Desactivar comprobación de ahorro de energía</string>
+    <string name="autoupload_hide_folder">Ocultar carpeta</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Cerrar</string>
     <string name="battery_optimization_disable">Desactivar</string>
@@ -505,6 +508,7 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_value_theme_dark">Oscuro</string>
     <string name="prefs_value_theme_light">Claro</string>
+    <string name="prefs_value_theme_system">Sistema de seguimiento</string>
     <string name="preview_image_description">Previsualización de imagen</string>
     <string name="preview_image_error_no_local_file">No hay archivo local para previsualizar</string>
     <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
@@ -676,7 +680,7 @@
     <string name="synced_folders_configure_folders">Configurar carpetas</string>
     <string name="synced_folders_loading_folders">Cargando carpetas…</string>
     <string name="synced_folders_new_info">Carga instantánea ha sido modificado por completo. Re-configura tu carga automática desde el menú principal. \n\nDisfruta la nueva y extendida carga automática.</string>
-    <string name="synced_folders_no_results">Ningún archivo multimedia encontrado.</string>
+    <string name="synced_folders_no_results">No se han encontrado carpetas de medios</string>
     <string name="synced_folders_preferences">Preferencias de subida automática</string>
     <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <string name="synced_folders_type">Tipo</string>
@@ -804,6 +808,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d archivo</item>
         <item quantity="other">%1$d archivos</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Mostrar %1$d carpeta oculta</item>
+        <item quantity="other">Mostrar %1$d carpetas ocultas</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>

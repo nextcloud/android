@@ -8,6 +8,7 @@
     <string name="account_icon">Tilikuvake</string>
     <string name="account_not_found">Tiliä ei löydy!</string>
     <string name="action_clear_failed_uploads">Tyhjennä epäonnistuneet lähetykset</string>
+    <string name="action_edit">Muokkaa</string>
     <string name="action_empty_notifications">Hylkää kaikki ilmoitukset</string>
     <string name="action_empty_trashbin">Tyhjennä roskakori</string>
     <string name="action_send_share">Lähetä/jaa</string>
@@ -76,6 +77,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">Säilytetty alkuperäisessä kansiossa, koska se on vain luku</string>
     <string name="auto_upload_on_wifi">Lähetä vain Wi-Fi-yhteydellä</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="autoupload_configure">Asetukset</string>
     <string name="autoupload_create_new_custom_folder">Luo uusi kansioasetus</string>
     <string name="autoupload_custom_folder">Määritä oma kansio</string>
     <string name="autoupload_disable_power_save_check">Poista virransäästövalinta käytöstä</string>
@@ -262,6 +264,7 @@
     <string name="fallback_weblogin_text">Palaa vanhaan kirjautumistapaan</string>
     <string name="favorite">Lisää suosikkeihin</string>
     <string name="favorite_icon">Suosikki</string>
+    <string name="file">tiedosto</string>
     <string name="file_delete">Poista</string>
     <string name="file_details_no_content">Lisätietoja ei voitu lataa.</string>
     <string name="file_icon">Tiedosto</string>
@@ -330,6 +333,7 @@
     <string name="first_run_2_text">Turvallista yhteistyötä ja tiedostonvaihtoa</string>
     <string name="first_run_3_text">Helppokäyttöinen selaimessa toimiva sähköposti, kalenteri ja yhteystiedot</string>
     <string name="first_run_4_text">Näytönjakaminen, verkkotapaamiset ja web-konfrenssit</string>
+    <string name="folder">kansio</string>
     <string name="folder_already_exists">Kansio on jo olemassa</string>
     <string name="folder_confirm_create">Luo</string>
     <string name="folder_icon">Kansiokuvake</string>
@@ -499,6 +503,9 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="prefs_storage_path">Tallennustilan polku</string>
     <string name="prefs_synced_folders_local_path_title">Paikallinen kansio</string>
     <string name="prefs_synced_folders_remote_path_title">Etäkansio</string>
+    <string name="prefs_theme_title">Teema</string>
+    <string name="prefs_value_theme_dark">Tumma</string>
+    <string name="prefs_value_theme_light">Vaalea</string>
     <string name="preview_image_description">Kuvan esikatselu</string>
     <string name="preview_image_error_no_local_file">Paikallista tiedostoa ei ole esikatselua varten</string>
     <string name="preview_image_error_unknown_format">Kuvan näyttäminen ei onnistunut</string>
@@ -663,7 +670,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="synced_folders_configure_folders">Määritä kansiot</string>
     <string name="synced_folders_loading_folders">Ladataan kansioita…</string>
     <string name="synced_folders_new_info">Heti lähetettävien tiedostojen lähetys on uudistettu täysin. Muuta automaattisen lähetyksen asetuksia päävalikossa vastaamaan nykyistä toimintaa.\n\nNauti uudesta ja monipuolisemmasta toiminnosta.</string>
-    <string name="synced_folders_no_results">Mediakansioita ei löytynyt.</string>
     <string name="synced_folders_preferences">Automaattisen lähetyksen asetukset</string>
     <string name="synced_folders_preferences_folder_path">%1$s varten</string>
     <string name="synced_folders_type">Tyyppi</string>

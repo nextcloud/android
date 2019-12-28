@@ -29,10 +29,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.model.RichObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
@@ -238,7 +238,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     }
 
     @Override
-    public void showActivities(List<Object> activities, OwnCloudClient client, int lastGiven) {
+    public void showActivities(List<Object> activities, NextcloudClient client, int lastGiven) {
         boolean clear = false;
         if (this.lastGiven == UNDEFINED) {
             clear = true;
@@ -248,12 +248,8 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
         // Hide the recyclerView if list is empty
         if (adapter.isEmpty()) {
+            showEmptyContent(noResultsHeadline, noResultsMessage);
             recyclerView.setVisibility(View.INVISIBLE);
-
-            emptyContentMessage.setText(noResultsMessage);
-            emptyContentHeadline.setText(noResultsHeadline);
-            emptyContentMessage.setVisibility(View.VISIBLE);
-            emptyContentHeadline.setVisibility(View.VISIBLE);
         } else {
             emptyContentMessage.setVisibility(View.INVISIBLE);
             emptyContentHeadline.setVisibility(View.INVISIBLE);
@@ -308,6 +304,9 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
             emptyContentProgressBar.setVisibility(View.GONE);
             emptyContentIcon.setVisibility(View.VISIBLE);
+            emptyContentHeadline.setVisibility(View.VISIBLE);
+            emptyContentMessage.setVisibility(View.VISIBLE);
+
         }
     }
 
