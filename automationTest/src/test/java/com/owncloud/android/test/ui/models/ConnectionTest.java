@@ -28,11 +28,9 @@ public class ConnectionTest {
 		PageFactory.initElements(new AppiumFieldDecorator(driver,Duration.ofSeconds(10, 1)), this);
     }
 
-    public CertificatePopUp ServerConnectionOK(String hostUrl){
+    public void ServerConnectionOK(String hostUrl){
         hostUrlInput.clear();
         hostUrlInput.sendKeys(hostUrl + "\n");
-        connectButton.click();
-		CertificatePopUp certificatePopUp = new CertificatePopUp(driver);
-		return certificatePopUp;
+		connectButton.click();
     }
 }

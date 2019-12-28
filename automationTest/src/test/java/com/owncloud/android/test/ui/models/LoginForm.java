@@ -43,7 +43,7 @@ public class LoginForm {
 	private WebElement passwordEdit;
 
 	@CacheLookup
-	@FindBy(css = "#submit")
+	@FindBy(css = "#submit-form") 
 	private AndroidElement loginButton;
 
 	
@@ -62,11 +62,11 @@ public class LoginForm {
 
 	private void typeUserName (String usr) {
 		userNameEdit.clear();
-		userNameEdit.sendKeys(usr + "\n");
+		userNameEdit.sendKeys(usr);
 	}
 
 	private void typePassword (String password) {
 		passwordEdit.clear();
-		passwordEdit.sendKeys(password + "\n");
+		passwordEdit.sendKeys(password);
 	}
 }
