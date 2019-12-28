@@ -34,6 +34,7 @@ public class SettingsView {
 	final AndroidDriver<AndroidElement> driver;
 
 	@CacheLookup
+	//TODO: fix tag name
 	@AndroidFindBy(tagName = "danny")
 	private AndroidElement accountElement;
 
