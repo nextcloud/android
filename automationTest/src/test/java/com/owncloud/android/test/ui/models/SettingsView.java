@@ -34,7 +34,7 @@ public class SettingsView {
 	final AndroidDriver<AndroidElement> driver;
 
 	@CacheLookup
-	@AndroidFindBy(tagName = Config.userAccount)
+	@AndroidFindBy(tagName = "danny")
 	private AndroidElement accountElement;
 
 	@CacheLookup
