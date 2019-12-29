@@ -20,9 +20,6 @@
 
 package com.owncloud.android.test.ui.testSuites;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 public final class Config {
 
 	//without http or https
