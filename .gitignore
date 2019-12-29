@@ -35,9 +35,13 @@ build
 .attach_pid*
 fastlane/Fastfile
 *.hprof
+<<<<<<< HEAD
 .classpath
 .settings/
 .project
+=======
+<<<<<<< HEAD
+>>>>>>>   implement login testcase1
 
 # fastlane specific
 **/fastlane/report.xml
@@ -50,4 +54,6 @@ fastlane/Fastfile
 
 # scan temporary files
 **/fastlane/test_output
->>>>>>> 0c3b8fce89e3e5675d0e8d52925b4c0f69e5cf51
+.classpath
+.settings/
+.project

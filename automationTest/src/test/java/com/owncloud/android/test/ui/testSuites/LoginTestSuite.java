@@ -27,7 +27,10 @@ import io.appium.java_client.android.AndroidStartScreenRecordingOptions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+<<<<<<< HEAD
 import org.junit.jupiter.api.TestInfo;
+=======
+>>>>>>>   implement login testcase1
 import org.openqa.selenium.ScreenOrientation;
 
 import java.time.Duration;
