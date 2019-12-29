@@ -35,7 +35,7 @@ public class SettingsView {
 
 	@CacheLookup
 	//TODO: fix tag name
-	@AndroidFindBy(tagName = "danny")
+	@AndroidFindBy(name = Config.userAccount)
 	private AndroidElement accountElement;
 
 	@CacheLookup

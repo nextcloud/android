@@ -26,7 +26,7 @@ import java.net.UnknownHostException;
 public final class Config {
 
 	//without http or https
-	public static final String URL = GetServerIP();
+	public static final String URL = "http://server";
 	public static boolean isTrusted = true;
 
 	//without http or https
@@ -54,16 +54,4 @@ public final class Config {
 	public static final String passcode2 = "passcode2";
 	public static final String passcode3 = "passcode3";
 	public static final String passcode4 = "passcode4";
-
-	private static String GetServerIP(){
-		String hostAddress = ""; 
-        try {
-            InetAddress address = InetAddress.getByName("server");
-            hostAddress = address.getHostAddress();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-		return hostAddress;
-	}
-
 }
