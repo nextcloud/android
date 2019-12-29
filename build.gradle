@@ -451,9 +451,9 @@ detekt {
 }
 
 tasks.whenTaskAdded { task ->
-    if (task.name == 'compileQaDebugSources') {
+    if (task.name == 'compileGplayDebugSources') {
         task.dependsOn(enableWebViewDebug) 
-    } else if (task.name == "mergeQaDebugJniLibFolders"){
+    } else if (task.name == "mergeGplayDebugJniLibFolders"){
         task.finalizedBy(disableWebViewDebug) 
     }
 }
