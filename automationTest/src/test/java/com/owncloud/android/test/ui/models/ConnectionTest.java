@@ -20,7 +20,7 @@ public class ConnectionTest {
 	
 	@CacheLookup
 	@AndroidFindBy(uiAutomator ="new UiSelector()" 
-			+ ".resourceId(\"com.nextcloud.android.qa:id/testServerButton\")")
+			+ ".resourceId(\"com.nextcloud.client:id/testServerButton\")")
     private AndroidElement connectButton;
     
     public ConnectionTest (AndroidDriver<AndroidElement> driver){

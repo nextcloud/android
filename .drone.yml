@@ -67,9 +67,14 @@ steps:
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
       - emulator-headless -avd android-27 -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
+      - apt-get install -y build-essential maven
+      - curl -sL https://deb.nodesource.com/setup_10.x | bash
+      - apt-get install -y nodejs
+      - npm install -g appium  -unsafe-perm=true -allow-root
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - scripts/wait_for_emulator.sh
+      - cp build/outputs/apk/gplay/debug/gplay-debug-*.apk automationTest/src/test/resources/nextcloud.apk
       - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew installGplayDebugAndroidTest
       - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN

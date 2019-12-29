@@ -33,7 +33,7 @@ public class CertificatePopUp {
 	final AndroidDriver<AndroidElement> driver;	
 	
 	@AndroidFindBy(uiAutomator = "new UiSelector()" 
-	+ ".resourceId(\"com.nextcloud.android.qa:id/ok\")")
+	+ ".resourceId(\"com.nextcloud.client:id/ok\")")
 	private AndroidElement okButton;
 	
 	public CertificatePopUp (AndroidDriver<AndroidElement> driver) {
