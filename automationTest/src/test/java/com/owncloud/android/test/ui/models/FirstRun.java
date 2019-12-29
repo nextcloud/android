@@ -14,7 +14,7 @@ public class FirstRun {
 
     @CacheLookup
     @AndroidFindBy(uiAutomator = "new UiSelector()" 
-        + ".resourceId(\"com.nextcloud.client:id/login\")")
+        + ".resourceId(\"com.nextcloud.android.qa:id/login\")")
     private AndroidElement loginButton;
 
     public FirstRun (AndroidDriver driver){

@@ -35,6 +35,7 @@ build
 .attach_pid*
 fastlane/Fastfile
 *.hprof
+<<<<<<< HEAD
 
 # fastlane specific
 **/fastlane/report.xml
@@ -47,3 +48,8 @@ fastlane/Fastfile
 
 # scan temporary files
 **/fastlane/test_output
+=======
+.classpath
+.settings/
+.project
+>>>>>>> increase wait time for pageFactory

@@ -20,12 +20,12 @@ public class ConnectionTest {
 	
 	@CacheLookup
 	@AndroidFindBy(uiAutomator ="new UiSelector()" 
-			+ ".resourceId(\"com.nextcloud.client:id/testServerButton\")")
+			+ ".resourceId(\"com.nextcloud.android.qa:id/testServerButton\")")
     private AndroidElement connectButton;
     
     public ConnectionTest (AndroidDriver driver){
         this.driver = driver;
-		PageFactory.initElements(new AppiumFieldDecorator(driver,5, TimeUnit.SECONDS), this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver,10, TimeUnit.SECONDS), this);
     }
 
     public CertificatePopUp ServerConnectionOK(String hostUrl){

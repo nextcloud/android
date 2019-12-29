@@ -268,7 +268,7 @@ android {
 dependencies {
     // dependencies for app building
     implementation 'androidx.multidex:multidex:2.0.1'
-//    implementation project('nextcloud-android-library')
+    // implementation project('nextcloud-android-library')
     genericImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     gplayImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     versionDevImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
@@ -365,13 +365,13 @@ dependencies {
     androidTestImplementation 'tools.fastlane:screengrab:1.2.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-//    jacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
-//    jacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
-//    androidJacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
-//    androidJacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
-//    androidJacocoAnt "org.jacoco:org.jacoco.core:${jacocoVersion}"
-//    androidJacocoAnt "org.jacoco:org.jacoco.report:${jacocoVersion}"
-//    androidJacocoAnt "org.jacoco:org.jacoco.agent:${jacocoVersion}"
+    //    jacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
+    //    jacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
+    //    androidJacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
+    //    androidJacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
+    //    androidJacocoAnt "org.jacoco:org.jacoco.core:${jacocoVersion}"
+    //    androidJacocoAnt "org.jacoco:org.jacoco.report:${jacocoVersion}"
+    //    androidJacocoAnt "org.jacoco:org.jacoco.agent:${jacocoVersion}"
 
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 }
@@ -433,4 +433,53 @@ detekt {
     }
     config = files("detekt.yml")
     input = files("src/")
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'compileQaDebugSources') {
+        task.dependsOn(enableWebViewDebug) 
+    } else if (task.name == "mergeQaDebugJniLibFolders"){
+        task.finalizedBy(disableWebViewDebug) 
+    }
+}
+
+
+task enableWebViewDebug {
+    doLast{
+        ant.replaceregexp(
+            match:'android.widget.TextView;', 
+            replace:'android.widget.TextView; import android.webkit.WebView;', 
+            flags:'g', 
+            byline:true) {
+            fileset(dir: 'src/main/java/com/nextcloud/client/onboarding/', includes: 'FirstRunActivity.java')
+        }
+
+        ant.replaceregexp(
+            match:'Button loginButton', 
+            replace:'WebView.setWebContentsDebuggingEnabled(true); Button loginButton', 
+            flags:'g', 
+            byline:true) {
+            fileset(dir: 'src/main/java/com/nextcloud/client/onboarding/', includes: 'FirstRunActivity.java')
+        }
+    }
+}
+
+task disableWebViewDebug {
+    doLast{
+        ant.replaceregexp(
+            match:'WebView.setWebContentsDebuggingEnabled.*Button loginButton', 
+            replace:'Button loginButton', 
+            flags:'g', 
+            byline:true) {
+            fileset(dir: 'src/main/java/com/nextcloud/client/onboarding/', includes: 'FirstRunActivity.java')
+        }
+        ant.replaceregexp(
+            match:'android.widget.TextView.*import android.webkit.WebView;', 
+            replace:'android.widget.TextView;', 
+            flags:'g', 
+            byline:true) {
+            fileset(dir: 'src/main/java/com/nextcloud/client/onboarding/', includes: 'FirstRunActivity.java')
+        }
+
+    }
 }

@@ -62,7 +62,7 @@ public class LoginTestSuite{
 	@After
 	public void tearDown() throws Exception {
 		common.takeScreenShotOnFailed(name.getMethodName());
-		driver.removeApp("com.nextcloud.client");
+		driver.removeApp("com.nextcloud.android.qa");
 		driver.quit();
 	}
 	
