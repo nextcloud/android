@@ -58,7 +58,7 @@ public class Common{
 		capabilities.setCapability("automationName", "UiAutomator2");
 		capabilities.setCapability("deviceName", "test");
 		capabilities.setCapability("app",app.getAbsolutePath());
-		capabilities.setCapability("appPackage", "com.nextcloud.android.qa");
+		capabilities.setCapability("appPackage", "com.nextcloud.client");
 		capabilities.setCapability("appActivity", 
 				"com.owncloud.android.ui.activity.FileDisplayActivity");	
 		capabilities.setCapability("appWaitActivity", 
