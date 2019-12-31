@@ -538,13 +538,17 @@
     <string name="saml_authentication_wrong_pass">Onjuist wachtwoord</string>
     <string name="scanQR_description">Inloggen via QR code</string>
     <string name="screenshot_01_gridView_heading">Beschermt jouw gegevens</string>
+    <string name="screenshot_01_gridView_subline">eigen-hosting productiviteit</string>
     <string name="screenshot_02_listView_heading">Blader en deel</string>
     <string name="screenshot_02_listView_subline">alle taken onder je vindertoppen</string>
+    <string name="screenshot_03_drawer_heading">Activiteiten, delen, ...</string>
     <string name="screenshot_03_drawer_subline">alles snel toegankelijk</string>
     <string name="screenshot_04_accounts_heading">Al je accounts</string>
     <string name="screenshot_04_accounts_subline">op één plek</string>
     <string name="screenshot_05_autoUpload_heading">Automatisch uploaden</string>
     <string name="screenshot_05_autoUpload_subline">voor je foto\'s &amp; video\'s</string>
+    <string name="screenshot_06_davdroid_heading">Agenda&amp; contactpersonen</string>
+    <string name="screenshot_06_davdroid_subline">Sync met DAVx5</string>
     <string name="search_users_and_groups_hint">Zoeken naar gebruikers en groepen</string>
     <string name="select_all">Alles selecteren</string>
     <string name="select_template">Kies sjabloon</string>
@@ -674,6 +678,7 @@
     <string name="synced_folders_configure_folders">Mappen instellen</string>
     <string name="synced_folders_loading_folders">Mappen laden…</string>
     <string name="synced_folders_new_info">Automatisch uploaden is helemaal herzien. Herconfigureer je auto-uploadfunctie in het hoofdmenu.\n\nVeel plezier met de nieuwe en meer uitgebreide auto-upload.</string>
+    <string name="synced_folders_no_results">Geen mediamappen gevonden</string>
     <string name="synced_folders_preferences">Voorkeuren voor automatisch uploaden</string>
     <string name="synced_folders_preferences_folder_path">Voor %1$s</string>
     <string name="synced_folders_type">Type</string>

@@ -208,6 +208,7 @@
     <string name="drawer_community">社群</string>
     <string name="drawer_current_account">目前帳戶</string>
     <string name="drawer_end_account">最後帳號</string>
+    <string name="drawer_header_background">側滑選單背景圖片</string>
     <string name="drawer_item_activities">活動</string>
     <string name="drawer_item_all_files">所有檔案</string>
     <string name="drawer_item_favorites">最愛</string>
@@ -507,6 +508,7 @@
     <string name="prefs_theme_title">佈景主題</string>
     <string name="prefs_value_theme_dark">暗色</string>
     <string name="prefs_value_theme_light">亮色</string>
+    <string name="prefs_value_theme_system">跟隨系統</string>
     <string name="preview_image_description">圖片預覽</string>
     <string name="preview_image_error_no_local_file">沒有可供預覽的本地檔案</string>
     <string name="preview_image_error_unknown_format">無法顯示圖像</string>
@@ -519,6 +521,7 @@
     <string name="recommend_text">我想邀請您在您的裝置也使用%1$s
 請從這裡下載:%2$s</string>
     <string name="recommend_urls">%1$s或%2$s</string>
+    <string name="remote_file_fetch_failed">找不到文件！</string>
     <string name="remove_fail_msg">刪除失敗</string>
     <string name="remove_notification_failed">移除通知失敗</string>
     <string name="remove_push_notification">移除</string>
