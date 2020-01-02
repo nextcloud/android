@@ -305,7 +305,7 @@ public class UploadsStorageManager extends Observable {
                     } else {
                         list[c.getPosition()] = upload;
                     }
-                } while (c.moveToNext());
+                } while (c.moveToNext() && !c.isAfterLast());
             }
             c.close();
         } else {
