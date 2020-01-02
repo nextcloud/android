@@ -153,9 +153,9 @@ public class FileDataStorageManager {
     }
 
 
-    public List<OCFile> getFolderContent(OCFile f, boolean onlyOnDevice) {
-        if (f != null && f.isFolder() && f.getFileId() != -1) {
-            return getFolderContent(f.getFileId(), onlyOnDevice);
+    public List<OCFile> getFolderContent(OCFile ocFile, boolean onlyOnDevice) {
+        if (ocFile != null && ocFile.isFolder() && ocFile.fileExists()) {
+            return getFolderContent(ocFile.getFileId(), onlyOnDevice);
         } else {
             return new ArrayList<>();
         }
@@ -841,49 +841,28 @@ public class FileDataStorageManager {
     }
 
     private List<OCFile> getFolderContent(long parentId, boolean onlyOnDevice) {
+        List<OCFile> folderContent = new ArrayList<>();
 
-        List<OCFile> ret = new ArrayList<>();
+        Uri requestURI = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, String.valueOf(parentId));
 
-        Uri req_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, String.valueOf(parentId));
-        Cursor c;
+        String selection = ProviderTableMeta.FILE_PARENT + "=?";
+        String[] selectionArgs = {String.valueOf(parentId)};
 
-        if (getContentProviderClient() != null) {
-            try {
-                c = getContentProviderClient().query(
-                        req_uri,
-                        null,
-                        ProviderTableMeta.FILE_PARENT + "=?",
-                        new String[]{String.valueOf(parentId)},
-                        null
-                );
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, e.getMessage(), e);
-                return ret;
-            }
-        } else {
-            c = getContentResolver().query(
-                    req_uri,
-                    null,
-                    ProviderTableMeta.FILE_PARENT + "=?",
-                    new String[]{String.valueOf(parentId)},
-                    null
-            );
-        }
+        Cursor cursor = getCursorQueryResolver(requestURI, selection, selectionArgs);
 
-        if (c != null) {
-            if (c.moveToFirst()) {
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
                 do {
-                    OCFile child = createFileInstance(c);
+                    OCFile child = createFileInstance(cursor);
                     if (!onlyOnDevice || child.existsOnDevice()) {
-                        ret.add(child);
+                        folderContent.add(child);
                     }
-                } while (c.moveToNext());
+                } while (cursor.moveToNext());
             }
-
-            c.close();
+            cursor.close();
         }
 
-        return ret;
+        return folderContent;
     }
 
 
@@ -948,7 +927,7 @@ public class FileDataStorageManager {
             selectionArgsList.addAll(listPathString);
             String[] selectionArgs = selectionArgsList.toArray(new String[0]);
 
-            Cursor cursor = getCursorQueryResolver(selection, selectionArgs);
+            Cursor cursor = getCursorQueryResolver(ProviderTableMeta.CONTENT_URI, selection, selectionArgs);
 
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
@@ -972,28 +951,28 @@ public class FileDataStorageManager {
             + "=?";
         String[] selectionArgs = {value, account.name};
 
-        return getCursorQueryResolver(selection, selectionArgs);
+        return getCursorQueryResolver(ProviderTableMeta.CONTENT_URI, selection, selectionArgs);
     }
 
-    private Cursor getCursorQueryResolver(String selection, String[] selectionArgs) {
+    private Cursor getCursorQueryResolver(Uri requestURI, String selection, String[] selectionArgs) {
         Cursor cursor;
         ContentResolver contentResolver = getContentResolver();
 
         if (contentResolver != null) {
-            cursor = contentResolver.query(ProviderTableMeta.CONTENT_URI,
+            cursor = contentResolver.query(requestURI,
                                            null,
                                            selection,
                                            selectionArgs,
                                            null);
         } else {
             try {
-                cursor = getContentProviderClient().query(ProviderTableMeta.CONTENT_URI,
+                cursor = getContentProviderClient().query(requestURI,
                                                           null,
                                                           selection,
                                                           selectionArgs,
                                                           null);
             } catch (RemoteException e) {
-                Log_OC.e(TAG, "Could not get file details: " + e.getMessage(), e);
+                Log_OC.e(TAG, e.getMessage(), e);
                 cursor = null;
             }
         }
@@ -1562,59 +1541,87 @@ public class FileDataStorageManager {
      * @return
      */
     private ArrayList<ContentProviderOperation> prepareInsertShares(
-            List<OCShare> shares, ArrayList<ContentProviderOperation> operations) {
+        List<OCShare> shares, ArrayList<ContentProviderOperation> operations) {
 
         if (shares != null) {
-            ContentValues cv;
+            ContentValues contentValues;
             // prepare operations to insert or update files to save in the given folder
             for (OCShare share : shares) {
-                cv = new ContentValues();
-                cv.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
-                cv.put(ProviderTableMeta.OCSHARES_ITEM_SOURCE, share.getItemSource());
-                cv.put(ProviderTableMeta.OCSHARES_SHARE_TYPE, share.getShareType().getValue());
-                cv.put(ProviderTableMeta.OCSHARES_SHARE_WITH, share.getShareWith());
-                cv.put(ProviderTableMeta.OCSHARES_PATH, share.getPath());
-                cv.put(ProviderTableMeta.OCSHARES_PERMISSIONS, share.getPermissions());
-                cv.put(ProviderTableMeta.OCSHARES_SHARED_DATE, share.getSharedDate());
-                cv.put(ProviderTableMeta.OCSHARES_EXPIRATION_DATE, share.getExpirationDate());
-                cv.put(ProviderTableMeta.OCSHARES_TOKEN, share.getToken());
-                cv.put(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME, share.getSharedWithDisplayName());
-                cv.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0);
-                cv.put(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId());
-                cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getRemoteId());
-                cv.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, account.name);
-                cv.put(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED, share.isPasswordProtected() ? 1 : 0);
-                cv.put(ProviderTableMeta.OCSHARES_NOTE, share.getNote());
-                cv.put(ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD, share.isHideFileDownload());
+                contentValues = new ContentValues();
+                contentValues.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
+                contentValues.put(ProviderTableMeta.OCSHARES_ITEM_SOURCE, share.getItemSource());
+                contentValues.put(ProviderTableMeta.OCSHARES_SHARE_TYPE, share.getShareType().getValue());
+                contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH, share.getShareWith());
+                contentValues.put(ProviderTableMeta.OCSHARES_PATH, share.getPath());
+                contentValues.put(ProviderTableMeta.OCSHARES_PERMISSIONS, share.getPermissions());
+                contentValues.put(ProviderTableMeta.OCSHARES_SHARED_DATE, share.getSharedDate());
+                contentValues.put(ProviderTableMeta.OCSHARES_EXPIRATION_DATE, share.getExpirationDate());
+                contentValues.put(ProviderTableMeta.OCSHARES_TOKEN, share.getToken());
+                contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME, share.getSharedWithDisplayName());
+                contentValues.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0);
+                contentValues.put(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId());
+                contentValues.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getRemoteId());
+                contentValues.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, account.name);
+                contentValues.put(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED, share.isPasswordProtected() ? 1 : 0);
+                contentValues.put(ProviderTableMeta.OCSHARES_NOTE, share.getNote());
+                contentValues.put(ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD, share.isHideFileDownload());
 
                 // adding a new share resource
-                operations.add(ContentProviderOperation.newInsert(
-                        ProviderTableMeta.CONTENT_URI_SHARE).withValues(cv).build());
+                operations.add(ContentProviderOperation
+                                   .newInsert(ProviderTableMeta.CONTENT_URI_SHARE)
+                                   .withValues(contentValues)
+                                   .build());
             }
         }
         return operations;
     }
 
     private ArrayList<ContentProviderOperation> prepareRemoveSharesInFolder(
-            OCFile folder, ArrayList<ContentProviderOperation> preparedOperations) {
+        OCFile folder, ArrayList<ContentProviderOperation> preparedOperations) {
+
         if (folder != null) {
-            String where = ProviderTableMeta.OCSHARES_PATH + AND
-                    + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
-            String[] whereArgs = new String[]{"", account.name};
+            List<OCFile> folderContent = getFolderContent(folder, false);
 
-            List<OCFile> files = getFolderContent(folder, false);
+            ArrayList<String> listPathString = new ArrayList<>();
 
-            for (OCFile file : files) {
-                whereArgs[0] = file.getRemotePath();
+            int totalSize, processSize, loopSize;
+            totalSize = folderContent.size();
+            processSize = 0;
+
+            do {
+                loopSize = Math.min((totalSize - processSize), 998);
+
+                listPathString.clear();
+                StringBuilder inList = new StringBuilder(folderContent.size() * 2);
+                for (int i = 0; i < loopSize; i++, processSize++) {
+                    OCFile file = folderContent.get(processSize);
+                    if (i > 0) {
+                        inList.append(",");
+                    }
+                    inList.append("?");
+
+                    listPathString.add(file.getRemotePath());
+                }
+
+                String selection = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + AND
+                    + ProviderTableMeta.OCSHARES_PATH
+                    + " IN (" + inList + ")";
+
+                ArrayList<String> selectionArgsList = new ArrayList<>();
+                selectionArgsList.add(account.name);
+                selectionArgsList.addAll(listPathString);
+                String[] selectionArgs = selectionArgsList.toArray(new String[0]);
+
                 preparedOperations.add(
-                        ContentProviderOperation.newDelete(ProviderTableMeta.CONTENT_URI_SHARE).
-                                withSelection(where, whereArgs).
-                                build()
+                    ContentProviderOperation
+                        .newDelete(ProviderTableMeta.CONTENT_URI_SHARE)
+                        .withSelection(selection, selectionArgs)
+                        .build()
                 );
-            }
+            } while ((totalSize - processSize) > 0);
         }
-        return preparedOperations;
 
+        return preparedOperations;
     }
 
     private ArrayList<ContentProviderOperation> prepareRemoveSharesInFile(
