@@ -449,6 +449,10 @@ public class RefreshFolderOperation extends RemoteOperation {
             // retrieve local data for the read file
             localFile = localFilesMap.remove(remoteFile.getRemotePath());
 
+            if (localFile == null) {
+                localFile = mStorageManager.getFileByPath(updatedFile.getRemotePath());
+            }
+
             // add to updatedFile data about LOCAL STATE (not existing in server)
             updatedFile.setLastSyncDateForProperties(mCurrentSyncTime);
 

@@ -631,6 +631,30 @@ public class FileContentProvider extends ContentProvider {
         }
     }
 
+    @Override
+    public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
+        if (isCallerNotAllowed(uri)) {
+            return 0;
+        }
+
+        if (mUriMatcher.match(uri) == VIRTUAL) {
+            SQLiteDatabase database = mDbHelper.getWritableDatabase();
+            database.beginTransaction();
+            int contentInsert;
+            try {
+                for (ContentValues contentValues : values) {
+                    insert(database, uri, contentValues);
+                }
+                database.setTransactionSuccessful();
+                contentInsert = values.length;
+            } finally {
+                database.endTransaction();
+            }
+            return contentInsert;
+        }
+        return super.bulkInsert(uri, values);
+    }
+
     @NonNull
     @Override
     public ContentProviderResult[] applyBatch(@NonNull ArrayList<ContentProviderOperation> operations)
