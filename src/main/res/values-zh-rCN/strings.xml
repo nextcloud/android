@@ -450,7 +450,7 @@
     <string name="pass_code_enter_pass_code">请输入安全码</string>
     <string name="pass_code_mismatch">安全码不一致</string>
     <string name="pass_code_reenter_your_pass_code">请再次输入安全码</string>
-    <string name="pass_code_remove_your_pass_code">清空密码</string>
+    <string name="pass_code_remove_your_pass_code">删除安全码</string>
     <string name="pass_code_removed">密码已移除</string>
     <string name="pass_code_stored">已存储的安全码</string>
     <string name="pass_code_wrong">安全码不正确</string>
