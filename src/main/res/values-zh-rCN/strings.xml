@@ -4,9 +4,9 @@
     <string name="about_title">关于</string>
     <string name="about_version">版本 %1$s</string>
     <string name="about_version_with_build">版本 %1$s，构建 #%2$s</string>
-    <string name="account_creation_failed"> 帐户创建已失败</string>
-    <string name="account_icon">账户图标</string>
-    <string name="account_not_found">账户未找到</string>
+    <string name="account_creation_failed">账号创建已失败</string>
+    <string name="account_icon">账号图标</string>
+    <string name="account_not_found">找不到账号！</string>
     <string name="action_clear_failed_uploads">清除失败上传任务</string>
     <string name="action_edit">编辑</string>
     <string name="action_empty_notifications">清除所有通知</string>
@@ -26,7 +26,7 @@
     <string name="actionbar_send_file">发送</string>
     <string name="actionbar_settings">设置</string>
     <string name="actionbar_sort">排序</string>
-    <string name="actionbar_sync">刷新帐户</string>
+    <string name="actionbar_sync">刷新账号</string>
     <string name="active_user">活跃用户</string>
     <string name="activities_no_results_headline">暂无动态</string>
     <string name="activities_no_results_message">暂无新增、修改和分享的事件</string>
@@ -34,11 +34,11 @@
     <string name="activity_chooser_title">发送链接到…</string>
     <string name="activity_icon">激活</string>
     <string name="add_to_cloud">添加到%1$s</string>
-    <string name="associated_account_not_found">相关帐户未找到！</string>
+    <string name="associated_account_not_found">相关账号未找到！</string>
     <string name="auth_access_failed">访问已失败: %1$s</string>
-    <string name="auth_account_does_not_exist">设备上不存在本帐户</string>
-    <string name="auth_account_not_new">设备上已经存在相同用户和服务器的帐户</string>
-    <string name="auth_account_not_the_same">输入用户与此帐户的用户不符</string>
+    <string name="auth_account_does_not_exist">该账号尚未添加到此设备上</string>
+    <string name="auth_account_not_new">设备上已经存在用于同一用户和服务器的账号</string>
+    <string name="auth_account_not_the_same">输入的用户与此账号的用户不匹配</string>
     <string name="auth_bad_oc_version_title">无法识别的服务器版本</string>
     <string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
     <string name="auth_check_server">检查服务器</string>
@@ -69,7 +69,7 @@
     <string name="auth_unknown_error_http_title">发生了未知的HTTP错误</string>
     <string name="auth_unknown_error_title">发生未知错误！</string>
     <string name="auth_unknown_host_title">找不到主机</string>
-    <string name="auth_unsupported_multiaccount">%1$s不支持多个账户</string>
+    <string name="auth_unsupported_multiaccount">%1$s 不支持多个账号</string>
     <string name="auth_username">用户名</string>
     <string name="auth_wrong_connection_title">无法建立连接</string>
     <string name="auth_wtf_reenter_URL">意外状态，请重新输入服务器地址</string>
@@ -101,7 +101,7 @@
     <string name="common_back">返回</string>
     <string name="common_cancel">取消</string>
     <string name="common_cancel_sync">取消同步</string>
-    <string name="common_choose_account">选择账户</string>
+    <string name="common_choose_account">选择账号</string>
     <string name="common_delete">删除</string>
     <string name="common_error">错误</string>
     <string name="common_error_out_memory">内存不足</string>
@@ -115,7 +115,7 @@
     <string name="common_save">保存</string>
     <string name="common_send">发送</string>
     <string name="common_share">共享</string>
-    <string name="common_switch_account">切换账户</string>
+    <string name="common_switch_account">切换账号</string>
     <string name="common_unknown">未知</string>
     <string name="common_yes">是</string>
     <string name="community_beta_headline">测试开发版本</string>
@@ -149,7 +149,7 @@
     <string name="conflict_use_local_version">本地版本</string>
     <string name="conflict_use_server_version">服务器版本</string>
     <string name="contaclist_restore_selected">恢复选中的联系人</string>
-    <string name="contactlist_account_chooser_title">选择导入帐户</string>
+    <string name="contactlist_account_chooser_title">选择要导入的账号</string>
     <string name="contactlist_item_icon">联系人列表的用户图标</string>
     <string name="contactlist_no_permission">未授予权限，没有文件被导入</string>
     <string name="contacts_automatic_backup">自动备份</string>
@@ -184,7 +184,7 @@
     <string name="date_unknown">未知</string>
     <string name="default_credentials_wrong">凭据不正确</string>
     <string name="delete_account">删除账号</string>
-    <string name="delete_account_warning">是否删除账户 %s 同时删除本地文件？\n\n一经删除无法撤销。</string>
+    <string name="delete_account_warning">删除账号 %s 并删除所有本地文件吗？\n\n一经删除无法撤销。</string>
     <string name="delete_entries">删除条目</string>
     <string name="deselect_all">全部取消选择</string>
     <string name="dev_version_new_version_available">新版本可用</string>
@@ -206,8 +206,8 @@
     <string name="downloader_not_downloaded_yet">尚未下载</string>
     <string name="drawer_close">关闭侧边栏</string>
     <string name="drawer_community">社区</string>
-    <string name="drawer_current_account">当前账户</string>
-    <string name="drawer_end_account">最后一个账户</string>
+    <string name="drawer_current_account">当前账号</string>
+    <string name="drawer_end_account">最后一个账号</string>
     <string name="drawer_header_background">抽屉标题的背景图片</string>
     <string name="drawer_item_activities">动态</string>
     <string name="drawer_item_all_files">全部文件</string>
@@ -222,9 +222,9 @@
     <string name="drawer_item_trashbin">已删除的文件</string>
     <string name="drawer_item_uploads_list">上传</string>
     <string name="drawer_item_videos">视频</string>
-    <string name="drawer_logout">退出</string>
+    <string name="drawer_logout">登出</string>
     <string name="drawer_manage_accounts">管理账号</string>
-    <string name="drawer_middle_account">移动端账户</string>
+    <string name="drawer_middle_account">中间账号</string>
     <string name="drawer_open">打开侧边栏</string>
     <string name="drawer_quota">%1$s 中 %2$s 已使用</string>
     <string name="drawer_quota_unlimited">%1$s 已使用</string>
@@ -311,8 +311,8 @@
     <string name="file_migration_ok_finished">完成</string>
     <string name="file_migration_override_data_folder">代替</string>
     <string name="file_migration_preparing">正在准备迁移…</string>
-    <string name="file_migration_restoring_accounts_configuration">正在重新配置账户设置…</string>
-    <string name="file_migration_saving_accounts_configuration">账户安全配置</string>
+    <string name="file_migration_restoring_accounts_configuration">正在还原账号配置…</string>
+    <string name="file_migration_saving_accounts_configuration">正在保存账号配置…</string>
     <string name="file_migration_source_not_readable">您确认更改存储目录到%1$s吗？注意：此操作后一切数据均需重新下载</string>
     <string name="file_migration_source_not_readable_title">源目录不可读！</string>
     <string name="file_migration_updating_index">更新目录中…</string>
@@ -383,7 +383,7 @@
     <string name="logs_title">日志</string>
     <string name="maintenance_mode">服务器处于维护模式</string>
     <string name="manage_space_clear_data">清除数据</string>
-    <string name="manage_space_description">来自%1$s数据的设置，数据库和服务器证书将被永久删除。 \ n \ n下载的文件将保持不变。\ n \ n此过程可能需要一段时间。</string>
+    <string name="manage_space_description">来自%1$s数据的设置，数据库和服务器证书将被永久删除。\n\n下载的文件将保持不变。\n\n此过程可能需要一段时间。</string>
     <string name="manage_space_title">管理空间</string>
     <string name="media_err_invalid_progressive_playback">该媒体文件无法被转换成流</string>
     <string name="media_err_io">无法读取媒体文件</string>
@@ -396,12 +396,12 @@
     <string name="media_play_pause_description">播放暂停按钮</string>
     <string name="media_rewind_description">倒带按钮</string>
     <string name="media_state_playing">%1$s (播放)</string>
-    <string name="menu_item_sort_by_date_newest_first">按时间顺序</string>
-    <string name="menu_item_sort_by_date_oldest_first">按时间倒序</string>
+    <string name="menu_item_sort_by_date_newest_first">新文件在前</string>
+    <string name="menu_item_sort_by_date_oldest_first">旧文件在前</string>
     <string name="menu_item_sort_by_name_a_z">按名称顺序</string>
     <string name="menu_item_sort_by_name_z_a">按名称倒序</string>
-    <string name="menu_item_sort_by_size_biggest_first">文件从大到小排序</string>
-    <string name="menu_item_sort_by_size_smallest_first">文件从小到大排序</string>
+    <string name="menu_item_sort_by_size_biggest_first">大文件在前</string>
+    <string name="menu_item_sort_by_size_smallest_first">小文件在前</string>
     <string name="move_file_error">尝试移动该文件或文件夹时发生错误</string>
     <string name="move_file_invalid_into_descendent">将文件夹移动到其自己的底层文件夹中是不可能的</string>
     <string name="move_file_invalid_overwrite">该文件已存在于目标文件夹中</string>
@@ -451,17 +451,17 @@
     <string name="pass_code_mismatch">安全码不一致</string>
     <string name="pass_code_reenter_your_pass_code">请再次输入安全码</string>
     <string name="pass_code_remove_your_pass_code">删除安全码</string>
-    <string name="pass_code_removed">密码已移除</string>
-    <string name="pass_code_stored">已存储的安全码</string>
+    <string name="pass_code_removed">安全码已删除</string>
+    <string name="pass_code_stored">安全码已存储</string>
     <string name="pass_code_wrong">安全码不正确</string>
     <string name="permission_allow">允许</string>
     <string name="permission_deny">禁止</string>
     <string name="permission_storage_access">上传和下载文件所需的其他权限。</string>
     <string name="picture_set_as_no_app">找不到可以设置图片的应用程序</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">点位符.txt</string>
+    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">占位符</string>
+    <string name="placeholder_sentence">这是一个占位符</string>
     <string name="placeholder_timestamp">2012/05/18 下午12:23 </string>
     <string name="power_save_check_dialog_message">禁用节能检查可能会导致在低电池电量状态下仍然上传文件！</string>
     <string name="pref_behaviour_entries_delete_file">删除</string>
@@ -469,9 +469,9 @@
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
     <string name="prefs_add_account">添加账号</string>
     <string name="prefs_calendar_contacts">同步日历 &amp; 联系人</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">DAVx5（以前称为DAVdroid）无法解析该帐户的服务器地址</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">DAVx5（前身为 DAVdroid）无法解析该账号的服务器地址</string>
     <string name="prefs_calendar_contacts_no_store_error">F-droid 和 Google Play 都没有安装</string>
-    <string name="prefs_calendar_contacts_summary">为当前帐户设置 DAVx5（以前称为DAVdroid）(v1.3.0+)</string>
+    <string name="prefs_calendar_contacts_summary">为当前账号设置 DAVx5（前身为 DAVdroid）(v1.3.0+)</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日历 &amp; 联系人同步设置</string>
     <string name="prefs_category_about">关于</string>
     <string name="prefs_category_details">详细信息</string>
@@ -486,18 +486,18 @@
     <string name="prefs_gpl_v2">GNU 通用公共许可证，版本2</string>
     <string name="prefs_help">帮助</string>
     <string name="prefs_imprint">版本说明</string>
-    <string name="prefs_instant_behaviour_dialogTitle">原文件将会被…</string>
-    <string name="prefs_instant_behaviour_title">原始文件将会…</string>
+    <string name="prefs_instant_behaviour_dialogTitle">原始文件将会被…</string>
+    <string name="prefs_instant_behaviour_title">原始文件将会被…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">基于年和月存于子文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
     <string name="prefs_license">许可证</string>
-    <string name="prefs_lock">应用程序密码</string>
+    <string name="prefs_lock">应用程序安全码</string>
     <string name="prefs_lock_device_credentials_enabled">设备凭证已启用</string>
     <string name="prefs_lock_device_credentials_not_setup">没有安装设备凭证</string>
     <string name="prefs_lock_none">没有</string>
     <string name="prefs_lock_title">保护应用程序</string>
     <string name="prefs_lock_using_device_credentials">设备凭证</string>
-    <string name="prefs_lock_using_passcode">密码</string>
+    <string name="prefs_lock_using_passcode">安全码</string>
     <string name="prefs_manage_accounts">管理账号</string>
     <string name="prefs_recommend">推荐给朋友</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
@@ -515,7 +515,7 @@
     <string name="preview_sorry">抱歉</string>
     <string name="privacy">隐私</string>
     <string name="push_notifications_not_implemented">由于依赖于专有的Google Play服务，推送通知被禁用。</string>
-    <string name="push_notifications_old_login">由于过期的登录会话，没有推送通知。 请考虑重新添加您的帐户。</string>
+    <string name="push_notifications_old_login">由于登录会话已过期，因此没有推送通知。 请考虑重新添加您的账号。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
     <string name="recommend_subject">在你的设备上尝试%1$s！</string>
     <string name="recommend_text">我想邀请你在你的设备上使用%1$s。\n这里下载：%2$s</string>
@@ -611,14 +611,14 @@
     <string name="shared_with_you_by">您已通过 %1$s 共享</string>
     <string name="sharee_add_failed">新建分享失败</string>
     <string name="signup_with_provider">与提供商签约</string>
-    <string name="single_sign_on_request_token" formatted="true">是否允许%1$s访问您的Nextcloud 帐户%2$s？</string>
+    <string name="single_sign_on_request_token" formatted="true">是否允许%1$s访问您的 Nextcloud 账号%2$s？</string>
     <string name="sort_by">排序方式</string>
-    <string name="sort_by_modification_date_ascending">按时间顺序</string>
-    <string name="sort_by_modification_date_descending">按时间倒序</string>
-    <string name="sort_by_name_ascending">按名字升序排序</string>
-    <string name="sort_by_name_descending">按名字降序排序</string>
-    <string name="sort_by_size_ascending">文件从小到大排序</string>
-    <string name="sort_by_size_descending">文件从大到小排序</string>
+    <string name="sort_by_modification_date_ascending">新文件在前</string>
+    <string name="sort_by_modification_date_descending">旧文件在前</string>
+    <string name="sort_by_name_ascending">按名称顺序</string>
+    <string name="sort_by_name_descending">按名称倒序</string>
+    <string name="sort_by_size_ascending">小文件在前</string>
+    <string name="sort_by_size_descending">大文件在前</string>
     <string name="ssl_validator_btn_details_hide">隐藏</string>
     <string name="ssl_validator_btn_details_see">详细信息</string>
     <string name="ssl_validator_header">服务器身份无法验证</string>
@@ -629,7 +629,7 @@
     <string name="ssl_validator_label_OU">组织单元：</string>
     <string name="ssl_validator_label_ST">州省：</string>
     <string name="ssl_validator_label_certificate_fingerprint">证书指纹：</string>
-    <string name="ssl_validator_label_issuer">授权 由：</string>
+    <string name="ssl_validator_label_issuer">授权自：</string>
     <string name="ssl_validator_label_signature">签名：</string>
     <string name="ssl_validator_label_signature_algorithm">算法：</string>
     <string name="ssl_validator_label_subject">授权给：</string>
@@ -653,7 +653,7 @@
     <string name="storage_movies">影片</string>
     <string name="storage_music">音乐</string>
     <string name="storage_pictures">图片</string>
-    <string name="store_full_desc">让您掌控全局的自托管生产力平台。\n\n特色：\n* 简单，现代的界面，搭配您服务器的主题\n* 上传文件到您的 Nextcloud 服务器\n* 与他人分享您的文件\n* 为您最喜欢的文件及文件夹保持同步\n* 在您的服务器上的所有文件夹中进行搜索\n* 自动上传通过您的设备所拍摄的照片和视频\n* 获得最新的通知\n* 多账户支持\n* 通过使用指纹或者 PIN 来安全访问到您的数据\n* 集成了 DAVx5（原名DAVdroid） 来快速设置日历 &amp;联系人同步\n\n请通过 https://github.com/nextcloud/android/issues 报告任何问题，并在 https://help.nextcloud.com/c/clients/android 讨论此应用程序\n\n刚刚接触 Nextcloud？Nextcloud 是一个私人文件同步 &amp;分享和交流服务端软件。它是自由软件，您可以自己组建或者花钱购买某一公司提供的服务。这样，您就可以操作您的照片，日历，联系方式，文档和其他所有内容.\n\n通过 https://nextcloud.com 查看 Nextcloud</string>
+    <string name="store_full_desc">让您掌控全局的自托管生产力平台。\n\n特色：\n* 简单，现代的界面，搭配您服务器的主题\n* 上传文件到您的 Nextcloud 服务器\n* 与他人分享您的文件\n* 为您最喜欢的文件及文件夹保持同步\n* 在您的服务器上的所有文件夹中进行搜索\n* 自动上传通过您的设备所拍摄的照片和视频\n* 获得最新的通知\n* 多账号支持\n* 通过使用指纹或者 PIN 来安全访问到您的数据\n* 集成了 DAVx5（原名DAVdroid） 来快速设置日历 &amp;联系人同步\n\n请通过 https://github.com/nextcloud/android/issues 报告任何问题，并在 https://help.nextcloud.com/c/clients/android 讨论此应用程序\n\n刚刚接触 Nextcloud？Nextcloud 是一个私人文件同步 &amp;分享和交流服务端软件。它是自由软件，您可以自己组建或者花钱购买某一公司提供的服务。这样，您就可以操作您的照片，日历，联系方式，文档和其他所有内容.\n\n通过 https://nextcloud.com 查看 Nextcloud</string>
     <string name="store_full_dev_desc">让您掌控全局的自托管生产力平台。
 这是官方开发版本，每天都会对新的未经测试的功能进行取样，这些功能可能导致不稳定和数据丢失。此应用主要面向愿意测试以及在发现bug时能提交报告的用户。请不要用于生产性工作！
 
@@ -674,7 +674,7 @@
     <string name="sync_fail_ticker_unauthorized">同步失败，请重新登录</string>
     <string name="sync_file_nothing_to_do_msg">文件内容已同步</string>
     <string name="sync_folder_failed_content">无法完成 %1$s 文件夹的同步</string>
-    <string name="sync_foreign_files_forgotten_explanation">从 1.3.16 版本起，从本设备上传的文件将被复制到 %1$s 文件夹 来避免由单一文件在多个账户之间同步导致的文件丢失。\n\n由于本次变化，所有旧版本应用所上传的文件都被复制到了 %2$s 文件夹。然而，在账户同步过程中发生错误阻止了本次操作的完成。您可以选择留下此文件并删除指向%3$s的链接，或者选择将文件移动到 %1$s 文件夹并保留指向%4$s 的链接.\n\n以下列出的是本地文件和他们所链接至 %5$s 中的远程文件。</string>
+    <string name="sync_foreign_files_forgotten_explanation">从 1.3.16 版本起，从本设备上传的文件将被复制到 %1$s 文件夹 来避免由单一文件在多个账号之间同步导致的文件丢失。\n\n由于本次变化，所有旧版本应用所上传的文件都被复制到了 %2$s 文件夹。然而，在账号同步过程中发生错误阻止了本次操作的完成。您可以选择留下此文件并删除指向%3$s的链接，或者选择将文件移动到 %1$s 文件夹并保留指向%4$s 的链接.\n\n以下列出的是本地文件和他们所链接至 %5$s 中的远程文件。</string>
     <string name="sync_foreign_files_forgotten_ticker">某些本地文件已被遗忘</string>
     <string name="sync_in_progress">获取文件的最新版本</string>
     <string name="sync_status_button">同步状态按钮</string>
@@ -712,7 +712,7 @@
     <string name="update_link_forbidden_permissions">更新共享</string>
     <string name="updating_share_failed">更新分享失败</string>
     <string name="upload_cannot_create_file">无法新建本地文件</string>
-    <string name="upload_chooser_title">从…上传</string>
+    <string name="upload_chooser_title">上传自...</string>
     <string name="upload_content_from_other_apps">上传来自其它应用的内容</string>
     <string name="upload_direct_camera_upload">从相机上传</string>
     <string name="upload_file_dialog_filename">文件名</string>
@@ -756,7 +756,7 @@
     <string name="uploader_upload_succeeded_content_single">%1$s 已上传</string>
     <string name="uploader_wrn_no_account_quit_btn_text">退出</string>
     <string name="uploader_wrn_no_account_setup_btn_text">安装</string>
-    <string name="uploader_wrn_no_account_text">设备上没有 %1$s 账号。请先创建一个账号。</string>
+    <string name="uploader_wrn_no_account_text">您的设备上没有账号 %1$s。 请先设置一个账号。</string>
     <string name="uploader_wrn_no_account_title">未找到账号</string>
     <string name="uploads_view_group_current_uploads">当前</string>
     <string name="uploads_view_group_failed_uploads">加载失败，等待重启</string>
