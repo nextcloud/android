@@ -348,8 +348,8 @@
     <string name="forbidden_permissions_delete">删除该文件</string>
     <string name="forbidden_permissions_move">移动该文件</string>
     <string name="forbidden_permissions_rename">重命名该文件</string>
-    <string name="foreground_service_download">文件下载中…</string>
-    <string name="foreground_service_upload">文件上传中…</string>
+    <string name="foreground_service_download">正在下载文件…</string>
+    <string name="foreground_service_upload">正在上传文件... </string>
     <string name="foreign_files_fail">某些文件无法移动</string>
     <string name="foreign_files_local_text">本地: %1$s</string>
     <string name="foreign_files_move">移动全部</string>
