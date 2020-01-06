@@ -1307,7 +1307,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_INDEFINITE);
             }
 
-            webViewLoginMethod = mServerInfo.mVersion.isWebLoginSupported() && !forceOldLoginMethod;
+            webViewLoginMethod = !forceOldLoginMethod;
 
             if (webViewUser != null && !webViewUser.isEmpty() &&
                     webViewPassword != null && !webViewPassword.isEmpty()) {
