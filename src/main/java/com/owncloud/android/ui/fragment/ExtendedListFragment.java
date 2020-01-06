@@ -53,7 +53,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -305,14 +304,10 @@ public class ExtendedListFragment extends Fragment implements
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        User user = accountManager.getUser();
-                        if (user.getServer().getVersion().isSearchSupported()) {
-                            EventBus.getDefault().post(new SearchEvent(query,
-                                SearchRemoteOperation.SearchType.FILE_SEARCH, SearchEvent.UnsetType.NO_UNSET));
-                        } else {
-                            OCFileListAdapter fileListListAdapter = (OCFileListAdapter) adapter;
-                            fileListListAdapter.getFilter().filter(query);
-                        }
+                        EventBus.getDefault().post(new SearchEvent(query,
+                                                                   SearchRemoteOperation.SearchType.FILE_SEARCH,
+                                                                   SearchEvent.UnsetType.NO_UNSET));
+
                     }
                 }, delay);
             } else if (adapter instanceof LocalFileListAdapter) {
