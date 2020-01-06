@@ -77,6 +77,7 @@ public class FileDataStorageManager {
 
     private static final String AND = " = ? AND ";
     private static final String FAILED_TO_INSERT_MSG = "Fail to insert file to database ";
+    private static final String FAILED_TO_UPDATE_MSG = "Fail to update file to database ";
     private static final String SENDING_TO_FILECONTENTPROVIDER_MSG = "Sending %d operations to FileContentProvider";
     private static final String EXCEPTION_MSG = "Exception in batch of operations ";
 
@@ -128,6 +129,46 @@ public class FileDataStorageManager {
 
     private Cursor executeQuery(Uri uri, String selection, String[] selectionArgs, String errorMessage) {
         return executeQuery(uri, null, selection, selectionArgs, null, errorMessage);
+    }
+
+    private void applyBatch(ArrayList<ContentProviderOperation> operations, String errorMessage) {
+        Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
+        if (!operations.isEmpty()) {
+            try {
+                if (getContentResolver() != null) {
+                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+                } else {
+                    getContentProviderClient().applyBatch(operations);
+                }
+            } catch (OperationApplicationException | RemoteException e) {
+                Log_OC.e(TAG, errorMessage + e.getMessage(), e);
+            }
+        }
+    }
+
+    private void applyBatch(ArrayList<ContentProviderOperation> operations) {
+        applyBatch(operations, EXCEPTION_MSG);
+    }
+
+    private int updateFiles(Uri contentUri, ContentValues contentValues, String where, String[] selectionArgs,
+                            String errorMessage) {
+        int updated = 0;
+        if (getContentResolver() != null) {
+            updated = getContentResolver().update(contentUri,
+                                                  contentValues,
+                                                  where,
+                                                  selectionArgs);
+        } else {
+            try {
+                updated = getContentProviderClient().update(contentUri,
+                                                            contentValues,
+                                                            where,
+                                                            selectionArgs);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, errorMessage + e.getMessage(), e);
+            }
+        }
+        return updated;
     }
 
     public OCFile getFileByPath(String path) {
@@ -270,19 +311,7 @@ public class FileDataStorageManager {
             String where = ProviderTableMeta._ID + " = ?";
             String[] selectionArgs = {String.valueOf(ocFile.getFileId())};
 
-            if (getContentResolver() != null) {
-                getContentResolver().update(contentUri, contentValues,
-                                            where,
-                                            selectionArgs);
-            } else {
-                try {
-                    getContentProviderClient().update(contentUri,
-                                                      contentValues, where,
-                                                      selectionArgs);
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
-                }
-            }
+            updateFiles(contentUri, contentValues, where, selectionArgs, FAILED_TO_UPDATE_MSG);
         } else {
             Uri resultUri = null;
             if (getContentResolver() != null) {
@@ -760,15 +789,7 @@ public class FileDataStorageManager {
             cursor.close();
 
             /// 3. apply updates in batch
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-                } else {
-                    getContentProviderClient().applyBatch(operations);
-                }
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Fail to update " + ocFile.getFileId() + " and descendants in database", e);
-            }
+            applyBatch(operations, "Fail to update " + ocFile.getFileId() + " and descendants in database");
 
             /// 4. move in local file system
             String originalLocalPath = FileStorageUtils.getDefaultSavePathFor(account.name, ocFile);
@@ -851,11 +872,7 @@ public class FileDataStorageManager {
             cursor.close();
 
             /// 3. apply updates in batch
-            if (getContentResolver() != null) {
-                getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-            } else {
-                getContentProviderClient().applyBatch(operations);
-            }
+            applyBatch(operations);
         }
     }
 
@@ -1075,21 +1092,7 @@ public class FileDataStorageManager {
             String where = ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + " = ?";
             String[] selectionArgs = {String.valueOf(share.getRemoteId())};
 
-            if (getContentResolver() != null) {
-                getContentResolver().update(contentUriShare,
-                                            contentValues,
-                                            where,
-                                            selectionArgs);
-            } else {
-                try {
-                    getContentProviderClient().update(contentUriShare,
-                                                      contentValues,
-                                                      where,
-                                                      selectionArgs);
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
-                }
-            }
+            updateFiles(contentUriShare, contentValues, where, selectionArgs, FAILED_TO_UPDATE_MSG);
         } else {
             Uri resultUri = null;
             if (getContentResolver() != null) {
@@ -1264,15 +1267,7 @@ public class FileDataStorageManager {
         String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PARENT + " = ?";
         String[] whereArgs = new String[]{account.name, String.valueOf(folder.getFileId())};
 
-        if (getContentResolver() != null) {
-            getContentResolver().update(ProviderTableMeta.CONTENT_URI, contentValues, where, whereArgs);
-        } else {
-            try {
-                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, contentValues, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in resetShareFlagsInFolder " + e.getMessage(), e);
-            }
-        }
+        updateFiles(ProviderTableMeta.CONTENT_URI, contentValues, where, whereArgs, "Exception in resetShareFlagsInFolder ");
     }
 
     private void resetShareFlagInAFile(String filePath) {
@@ -1283,15 +1278,7 @@ public class FileDataStorageManager {
         String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + " = ?";
         String[] whereArgs = new String[]{account.name, filePath};
 
-        if (getContentResolver() != null) {
-            getContentResolver().update(ProviderTableMeta.CONTENT_URI, contentValues, where, whereArgs);
-        } else {
-            try {
-                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, contentValues, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in resetShareFlagsInFolder " + e.getMessage(), e);
-            }
-        }
+        updateFiles(ProviderTableMeta.CONTENT_URI, contentValues, where, whereArgs, "Exception in resetShareFlagInAFile ");
     }
 
     private void cleanShares() {
@@ -1354,18 +1341,7 @@ public class FileDataStorageManager {
         }
 
         // apply operations in batch
-        if (operations.size() > 0) {
-            Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-                } else {
-                    getContentProviderClient().applyBatch(operations);
-                }
-            } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
-            }
-        }
+        applyBatch(operations);
     }
 
     public void removeShare(OCShare share) {
@@ -1401,39 +1377,14 @@ public class FileDataStorageManager {
         operations = prepareInsertShares(shares, operations);
 
         // apply operations in batch
-        if (operations.size() > 0) {
-            Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-                } else {
-                    getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
-            }
-        }
+        applyBatch(operations);
     }
 
     public void removeSharesForFile(String remotePath) {
         resetShareFlagInAFile(remotePath);
         ArrayList<ContentProviderOperation> operations = prepareRemoveSharesInFile(remotePath, new ArrayList<>());
         // apply operations in batch
-        if (!operations.isEmpty()) {
-            Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-
-                } else {
-                    getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
-            }
-        }
+        applyBatch(operations);
     }
 
 
@@ -1446,19 +1397,7 @@ public class FileDataStorageManager {
         operations = prepareInsertShares(shares, operations);
 
         // apply operations in batch
-        if (operations.size() > 0) {
-            Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-                } else {
-                    getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
-            }
-        }
+        applyBatch(operations);
 
     }
 
@@ -1667,16 +1606,7 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, etagInConflict);
         String where = ProviderTableMeta._ID + " = ?";
         String[] selectionArgs = {String.valueOf(ocFile.getFileId())};
-        int updated = 0;
-        if (getContentResolver() != null) {
-            updated = getContentResolver().update(contentUriFile, contentValues, where, selectionArgs);
-        } else {
-            try {
-                updated = getContentProviderClient().update(contentUriFile, contentValues, where, selectionArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage(), e);
-            }
-        }
+        int updated = updateFiles(contentUriFile, contentValues, where, selectionArgs, "Failed saving conflict in database ");
 
         Log_OC.d(TAG, "Number of files updated with CONFLICT: " + updated);
 
@@ -1700,25 +1630,7 @@ public class FileDataStorageManager {
                     }
                     stringBuilder.append("?)");
 
-                    if (getContentResolver() != null) {
-                        getContentResolver().update(
-                            contentUriFile,
-                            contentValues,
-                            stringBuilder.toString(),
-                            ancestorIds.toArray(new String[]{})
-                        );
-                    } else {
-                        try {
-                            getContentProviderClient().update(
-                                contentUriFile,
-                                contentValues,
-                                stringBuilder.toString(),
-                                ancestorIds.toArray(new String[]{})
-                            );
-                        } catch (RemoteException e) {
-                            Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage(), e);
-                        }
-                    }
+                    updateFiles(contentUriFile, contentValues, stringBuilder.toString(), ancestorIds.toArray(new String[]{}), "Failed saving conflict in database ");
                 } // else ocFile is ROOT folder, no parent to set in conflict
 
             } else {
@@ -1755,25 +1667,11 @@ public class FileDataStorageManager {
                         where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND +
                             ProviderTableMeta.FILE_PATH + " = ?";
                         selectionArgs = new String[]{account.name, parentPath};
-                        if (getContentResolver() != null) {
-                            getContentResolver().update(
-                                contentUriFile,
-                                contentValues,
-                                where,
-                                selectionArgs
-                            );
-                        } else {
-                            try {
-                                getContentProviderClient().update(
-                                    contentUriFile,
+                        updateFiles(contentUriFile,
                                     contentValues,
                                     where,
-                                    selectionArgs
-                                );
-                            } catch (RemoteException e) {
-                                Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage(), e);
-                            }
-                        }
+                                    selectionArgs,
+                                    "Failed saving conflict in database ");
 
                     } else {
                         Log_OC.d(TAG, "STILL " + descendentsInConflict.getCount() + " in " + parentPath);
@@ -1799,15 +1697,7 @@ public class FileDataStorageManager {
         if (capabilityExists(account.name)) {
             String where = ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME + " = ?";
             String[] selectionArgs = {account.name};
-            if (getContentResolver() != null) {
-                getContentResolver().update(contentUriCapabilities, contentValues, where, selectionArgs);
-            } else {
-                try {
-                    getContentProviderClient().update(contentUriCapabilities, contentValues, where, selectionArgs);
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, "Failed saveCapabilities update" + e.getMessage(), e);
-                }
-            }
+            updateFiles(contentUriCapabilities, contentValues, where, selectionArgs, "Failed saveCapabilities update");
         } else {
             Uri resultUri = null;
             if (getContentResolver() != null) {
