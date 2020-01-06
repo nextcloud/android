@@ -497,6 +497,7 @@
     <string name="share_send_note">Бележка за получателя</string>
     <string name="share_via_link_edit_permission_label">Разреши редактиране</string>
     <string name="share_via_link_expiration_date_label">Срок на валидност</string>
+    <string name="share_via_link_hide_download">Скрий свалянето</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрий показването на файлове</string>
     <string name="share_via_link_menu_password_label">Защитено с парола (%1$s)</string>
     <string name="share_via_link_password_label">Защити с парола</string>

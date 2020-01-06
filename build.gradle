@@ -60,7 +60,7 @@ configurations {
 
 ext {
     jacocoVersion = "0.8.2"
-    daggerVersion = "2.25.3"
+    daggerVersion = "2.25.4"
     markwonVersion =  "4.2.0"
     prismVersion = "2.0.0"
     androidLibraryVersion = "master-SNAPSHOT"
@@ -350,7 +350,7 @@ dependencies {
     kapt "io.noties:prism4j-bundler:$prismVersion"
 
     // dependencies for local unit tests
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.2.4'
     testImplementation 'androidx.test:core:1.2.0'
     testImplementation 'org.powermock:powermock-core:2.0.4'
