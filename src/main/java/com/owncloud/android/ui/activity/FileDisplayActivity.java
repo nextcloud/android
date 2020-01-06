@@ -2371,7 +2371,7 @@ public class FileDisplayActivity extends FileActivity
             args.putBoolean(EXTRA_SEARCH, searchOpen);
             args.putString(EXTRA_SEARCH_QUERY, searchQuery);
             Fragment textPreviewFragment = Fragment.instantiate(getApplicationContext(),
-                    PreviewTextFragment.class.getName(), args);
+                                                                PreviewTextFileFragment.class.getName(), args);
             setSecondFragment(textPreviewFragment);
             updateFragmentsVisibility(true);
             updateActionBarTitleAndHomeButton(file);

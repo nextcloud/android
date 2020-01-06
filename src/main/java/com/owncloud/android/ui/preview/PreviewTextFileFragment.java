@@ -215,7 +215,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                 mOriginalText = stringWriter.toString();
                 mSearchView.setOnQueryTextListener(PreviewTextFileFragment.this);
 
-                setText(textView, mOriginalText, getContext());
+                setText(textView, mOriginalText, getFile(), requireActivity());
 
                 if (mSearchOpen) {
                     mSearchView.setQuery(mSearchQuery, true);
@@ -226,9 +226,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             if (mMultiView != null) {
                 mMultiView.setVisibility(View.GONE);
             }
-
         }
-
     }
 
     /**
