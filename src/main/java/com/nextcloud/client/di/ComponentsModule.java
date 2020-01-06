@@ -141,8 +141,7 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract PreviewMediaFragment previewMediaFragment();
     @ContributesAndroidInjector abstract PreviewTextFragment previewTextFragment();
 
-    @ContributesAndroidInjector
-    abstract PreviewTextFileFragment previewTextFileFragment();
+    @ContributesAndroidInjector abstract PreviewTextFileFragment previewTextFileFragment();
     @ContributesAndroidInjector abstract PreviewTextStringFragment previewTextStringFragment();
     @ContributesAndroidInjector abstract PhotoFragment photoFragment();
 
