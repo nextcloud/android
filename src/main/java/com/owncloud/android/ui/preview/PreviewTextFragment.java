@@ -38,7 +38,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -202,13 +201,8 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
                 @Override
                 public void configureConfiguration(@NonNull MarkwonConfiguration.Builder builder) {
                     builder.linkResolver((view, link) -> {
-                        try {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                            DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_browser_available);
-                        } catch (Throwable throwable) {
-                            Toast.makeText(activity, R.string.error_opening_link, Toast.LENGTH_SHORT).show();
-                        }
-
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                        DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_browser_available);
                     });
                 }
             })
