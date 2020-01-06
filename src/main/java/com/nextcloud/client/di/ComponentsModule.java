@@ -76,6 +76,7 @@ import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
@@ -139,6 +140,9 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract ContactListFragment chooseContactListFragment();
     @ContributesAndroidInjector abstract PreviewMediaFragment previewMediaFragment();
     @ContributesAndroidInjector abstract PreviewTextFragment previewTextFragment();
+
+    @ContributesAndroidInjector
+    abstract PreviewTextFileFragment previewTextFileFragment();
     @ContributesAndroidInjector abstract PreviewTextStringFragment previewTextStringFragment();
     @ContributesAndroidInjector abstract PhotoFragment photoFragment();
 
