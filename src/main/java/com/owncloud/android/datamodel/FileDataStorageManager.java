@@ -439,7 +439,8 @@ public class FileDataStorageManager {
 
         // prepare operations to insert or update files to save in the given folder
         for (OCFile ocFile : updatedFiles) {
-            ContentValues contentValues = createContentValueForFile(ocFile, folder);
+            ContentValues contentValues = createContentValueForFile(ocFile);
+            contentValues.put(ProviderTableMeta.FILE_PARENT, folder.getFileId());
 
             if (isFileExists(fileExistList, ocFile)) {
                 long fileId;
@@ -492,6 +493,7 @@ public class FileDataStorageManager {
 
         // update metadata of folder
         ContentValues contentValues = createContentValueForFile(folder);
+        contentValues.put(ProviderTableMeta.FILE_PARENT, folder.getParentId());
 
         operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
                            .withValues(contentValues)
@@ -528,75 +530,38 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
                           ocFile.getModificationTimestampAtLastSyncForData());
         contentValues.put(ProviderTableMeta.FILE_CREATION, ocFile.getCreationTimestamp());
-        contentValues.put(ProviderTableMeta.FILE_CONTENT_TYPE, ocFile.getMimeType());
-        contentValues.put(ProviderTableMeta.FILE_NAME, ocFile.getFileName());
-        contentValues.put(ProviderTableMeta.FILE_PATH, ocFile.getRemotePath());
-        contentValues.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account.name);
-        contentValues.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, ocFile.getLastSyncDateForProperties());
-        contentValues.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, ocFile.getLastSyncDateForData());
-        contentValues.put(ProviderTableMeta.FILE_ETAG, ocFile.getEtag());
-        contentValues.put(ProviderTableMeta.FILE_ETAG_ON_SERVER, ocFile.getEtagOnServer());
-        contentValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, ocFile.isSharedViaLink() ? 1 : 0);
-        contentValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, ocFile.isSharedWithSharee() ? 1 : 0);
-        contentValues.put(ProviderTableMeta.FILE_PUBLIC_LINK, ocFile.getPublicLink());
-        contentValues.put(ProviderTableMeta.FILE_PERMISSIONS, ocFile.getPermissions());
-        contentValues.put(ProviderTableMeta.FILE_REMOTE_ID, ocFile.getRemoteId());
-        contentValues.put(ProviderTableMeta.FILE_FAVORITE, ocFile.isFavorite());
-        contentValues.put(ProviderTableMeta.FILE_IS_ENCRYPTED, ocFile.isEncrypted());
-        contentValues.put(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT, ocFile.getUnreadCommentsCount());
-        contentValues.put(ProviderTableMeta.FILE_OWNER_ID, ocFile.getOwnerId());
-        contentValues.put(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME, ocFile.getOwnerDisplayName());
-        contentValues.put(ProviderTableMeta.FILE_NOTE, ocFile.getNote());
-        contentValues.put(ProviderTableMeta.FILE_SHAREES, new Gson().toJson(ocFile.getSharees()));
-        contentValues.put(ProviderTableMeta.FILE_RICH_WORKSPACE, ocFile.getRichWorkspace());
-
-        contentValues.put(ProviderTableMeta.FILE_CONTENT_LENGTH, 0);  // FileContentProvider calculates the right size
-        contentValues.put(ProviderTableMeta.FILE_PARENT, ocFile.getParentId());
-
-        return contentValues;
-    }
-
-    private ContentValues createContentValueForFile(OCFile ocFile, OCFile parentFolder) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProviderTableMeta.FILE_MODIFIED, ocFile.getModificationTimestamp());
-        contentValues.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
-                          ocFile.getModificationTimestampAtLastSyncForData());
-        contentValues.put(ProviderTableMeta.FILE_CREATION, ocFile.getCreationTimestamp());
-        contentValues.put(ProviderTableMeta.FILE_CONTENT_TYPE, ocFile.getMimeType());
-        contentValues.put(ProviderTableMeta.FILE_NAME, ocFile.getFileName());
-        contentValues.put(ProviderTableMeta.FILE_PATH, ocFile.getRemotePath());
-        contentValues.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account.name);
-        contentValues.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, ocFile.getLastSyncDateForProperties());
-        contentValues.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, ocFile.getLastSyncDateForData());
-        contentValues.put(ProviderTableMeta.FILE_ETAG, ocFile.getEtag());
-        contentValues.put(ProviderTableMeta.FILE_ETAG_ON_SERVER, ocFile.getEtagOnServer());
-        contentValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, ocFile.isSharedViaLink() ? 1 : 0);
-        contentValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, ocFile.isSharedWithSharee() ? 1 : 0);
-        contentValues.put(ProviderTableMeta.FILE_PUBLIC_LINK, ocFile.getPublicLink());
-        contentValues.put(ProviderTableMeta.FILE_PERMISSIONS, ocFile.getPermissions());
-        contentValues.put(ProviderTableMeta.FILE_REMOTE_ID, ocFile.getRemoteId());
-        contentValues.put(ProviderTableMeta.FILE_FAVORITE, ocFile.isFavorite());
-        contentValues.put(ProviderTableMeta.FILE_IS_ENCRYPTED, ocFile.isEncrypted());
-        contentValues.put(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT, ocFile.getUnreadCommentsCount());
-        contentValues.put(ProviderTableMeta.FILE_OWNER_ID, ocFile.getOwnerId());
-        contentValues.put(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME, ocFile.getOwnerDisplayName());
-        contentValues.put(ProviderTableMeta.FILE_NOTE, ocFile.getNote());
-        contentValues.put(ProviderTableMeta.FILE_SHAREES, new Gson().toJson(ocFile.getSharees()));
-        contentValues.put(ProviderTableMeta.FILE_RICH_WORKSPACE, ocFile.getRichWorkspace());
-
         contentValues.put(ProviderTableMeta.FILE_CONTENT_LENGTH, ocFile.getFileLength());
-        contentValues.put(ProviderTableMeta.FILE_PARENT, parentFolder.getFileId());
-
+        contentValues.put(ProviderTableMeta.FILE_CONTENT_TYPE, ocFile.getMimeType());
+        contentValues.put(ProviderTableMeta.FILE_NAME, ocFile.getFileName());
+        contentValues.put(ProviderTableMeta.FILE_PATH, ocFile.getRemotePath());
+        contentValues.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account.name);
+        contentValues.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, ocFile.getLastSyncDateForProperties());
+        contentValues.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, ocFile.getLastSyncDateForData());
+        contentValues.put(ProviderTableMeta.FILE_ETAG, ocFile.getEtag());
+        contentValues.put(ProviderTableMeta.FILE_ETAG_ON_SERVER, ocFile.getEtagOnServer());
+        contentValues.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, ocFile.getEtagInConflict());
+        contentValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, ocFile.isSharedViaLink() ? 1 : 0);
+        contentValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, ocFile.isSharedWithSharee() ? 1 : 0);
+        contentValues.put(ProviderTableMeta.FILE_PUBLIC_LINK, ocFile.getPublicLink());
+        contentValues.put(ProviderTableMeta.FILE_PERMISSIONS, ocFile.getPermissions());
+        contentValues.put(ProviderTableMeta.FILE_REMOTE_ID, ocFile.getRemoteId());
+        contentValues.put(ProviderTableMeta.FILE_FAVORITE, ocFile.isFavorite());
+        contentValues.put(ProviderTableMeta.FILE_IS_ENCRYPTED, ocFile.isEncrypted());
+        contentValues.put(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT, ocFile.getUnreadCommentsCount());
+        contentValues.put(ProviderTableMeta.FILE_OWNER_ID, ocFile.getOwnerId());
+        contentValues.put(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME, ocFile.getOwnerDisplayName());
+        contentValues.put(ProviderTableMeta.FILE_NOTE, ocFile.getNote());
+        contentValues.put(ProviderTableMeta.FILE_SHAREES, new Gson().toJson(ocFile.getSharees()));
+        contentValues.put(ProviderTableMeta.FILE_RICH_WORKSPACE, ocFile.getRichWorkspace());
 
         if (!ocFile.isFolder()) {
             contentValues.put(ProviderTableMeta.FILE_STORAGE_PATH, ocFile.getStoragePath());
+            contentValues.put(ProviderTableMeta.FILE_ENCRYPTED_NAME, ocFile.getEncryptedFileName());
+            contentValues.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, ocFile.isUpdateThumbnailNeeded());
+            contentValues.put(ProviderTableMeta.FILE_IS_DOWNLOADING, ocFile.isDownloading());
+            contentValues.put(ProviderTableMeta.FILE_MOUNT_TYPE, ocFile.getMountType().ordinal());
+            contentValues.put(ProviderTableMeta.FILE_HAS_PREVIEW, ocFile.isPreviewAvailable() ? 1 : 0);
         }
-        contentValues.put(ProviderTableMeta.FILE_ENCRYPTED_NAME, ocFile.getEncryptedFileName());
-        contentValues.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, ocFile.isUpdateThumbnailNeeded());
-        contentValues.put(ProviderTableMeta.FILE_IS_DOWNLOADING, ocFile.isDownloading());
-        contentValues.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, ocFile.getEtagInConflict());
-        contentValues.put(ProviderTableMeta.FILE_MOUNT_TYPE, ocFile.getMountType().ordinal());
-        contentValues.put(ProviderTableMeta.FILE_HAS_PREVIEW, ocFile.isPreviewAvailable() ? 1 : 0);
 
         return contentValues;
     }
