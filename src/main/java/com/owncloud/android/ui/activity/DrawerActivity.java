@@ -1369,7 +1369,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     /**
-     * Get list of users suitable for displaying in navigation drawer heder.
+     * Get list of users suitable for displaying in navigation drawer header.
      * First item is always current {@link User}. Remaining items are other
      * users possible to switch to.
      *
