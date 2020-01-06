@@ -171,6 +171,40 @@ public class FileDataStorageManager {
         return updated;
     }
 
+    private Uri insertFile(Uri uri, ContentValues values) {
+        Uri resultUri = null;
+        if (getContentResolver() != null) {
+            resultUri = getContentResolver().insert(uri, values);
+        } else {
+            try {
+                resultUri = getContentProviderClient().insert(uri, values);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
+            }
+        }
+
+        return resultUri;
+    }
+
+    private int deleteFiles(Uri uri, String where, String[] whereArgs, String errorMessage) {
+        int deleted = 0;
+        if (getContentResolver() != null) {
+            deleted = getContentResolver().delete(uri, where, whereArgs);
+        } else {
+            try {
+                deleted = getContentProviderClient().delete(uri, where, whereArgs);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, errorMessage + e.getMessage(), e);
+            }
+        }
+
+        return deleted;
+    }
+
+    private int deleteFiles(Uri uri, String where, String[] whereArgs) {
+        return deleteFiles(uri, where, whereArgs, "");
+    }
+
     public OCFile getFileByPath(String path) {
         Cursor cursor = getFileCursorForValue(ProviderTableMeta.FILE_PATH, path);
         OCFile ocFile = null;
@@ -313,16 +347,7 @@ public class FileDataStorageManager {
 
             updateFiles(contentUri, contentValues, where, selectionArgs, FAILED_TO_UPDATE_MSG);
         } else {
-            Uri resultUri = null;
-            if (getContentResolver() != null) {
-                resultUri = getContentResolver().insert(ProviderTableMeta.CONTENT_URI_FILE, contentValues);
-            } else {
-                try {
-                    resultUri = getContentProviderClient().insert(ProviderTableMeta.CONTENT_URI_FILE, contentValues);
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
-                }
-            }
+            Uri resultUri = insertFile(ProviderTableMeta.CONTENT_URI_FILE, contentValues);
             if (resultUri != null) {
                 long newId = Long.parseLong(resultUri.getPathSegments().get(1));
                 ocFile.setFileId(newId);
@@ -596,17 +621,8 @@ public class FileDataStorageManager {
                     Uri fileUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, ocFile.getFileId());
                     String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + " = ?";
                     String[] whereArgs = new String[]{account.name, ocFile.getRemotePath()};
-                    int deleted = 0;
+                    int deleted = deleteFiles(fileUri, where, whereArgs);
 
-                    if (getContentResolver() != null) {
-                        deleted = getContentResolver().delete(fileUri, where, whereArgs);
-                    } else {
-                        try {
-                            deleted = getContentProviderClient().delete(fileUri, where, whereArgs);
-                        } catch (RemoteException e) {
-                            Log_OC.d(TAG, e.getMessage(), e);
-                        }
-                    }
                     success = deleted > 0;
                 }
 
@@ -654,16 +670,7 @@ public class FileDataStorageManager {
         // for recursive deletion
         String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + " = ?";
         String[] whereArgs = {account.name, folder.getRemotePath()};
-        int deleted = 0;
-        if (getContentResolver() != null) {
-            deleted = getContentResolver().delete(folderUri, where, whereArgs);
-        } else {
-            try {
-                deleted = getContentProviderClient().delete(folderUri, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.d(TAG, e.getMessage(), e);
-            }
-        }
+        int deleted = deleteFiles(folderUri, where, whereArgs);
 
         return deleted > 0;
     }
@@ -1094,16 +1101,7 @@ public class FileDataStorageManager {
 
             updateFiles(contentUriShare, contentValues, where, selectionArgs, FAILED_TO_UPDATE_MSG);
         } else {
-            Uri resultUri = null;
-            if (getContentResolver() != null) {
-                resultUri = getContentResolver().insert(contentUriShare, contentValues);
-            } else {
-                try {
-                    resultUri = getContentProviderClient().insert(contentUriShare, contentValues);
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
-                }
-            }
+            Uri resultUri = insertFile(contentUriShare, contentValues);
             if (resultUri != null) {
                 long new_id = Long.parseLong(resultUri.getPathSegments().get(1));
                 share.setId(new_id);
@@ -1286,15 +1284,7 @@ public class FileDataStorageManager {
         String where = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + " = ?";
         String[] whereArgs = new String[]{account.name};
 
-        if (getContentResolver() != null) {
-            getContentResolver().delete(contentUriShare, where, whereArgs);
-        } else {
-            try {
-                getContentProviderClient().delete(contentUriShare, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in cleanShares" + e.getMessage(), e);
-            }
-        }
+        deleteFiles(contentUriShare, where, whereArgs, "Exception in cleanShares ");
     }
 
     public void saveShares(Collection<OCShare> shares) {
@@ -1349,15 +1339,8 @@ public class FileDataStorageManager {
         String where = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + AND +
             ProviderTableMeta._ID + " = ?";
         String[] whereArgs = {account.name, Long.toString(share.getId())};
-        if (getContentResolver() != null) {
-            getContentResolver().delete(contentUriShare, where, whereArgs);
-        } else {
-            try {
-                getContentProviderClient().delete(contentUriShare, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.d(TAG, e.getMessage(), e);
-            }
-        }
+
+        deleteFiles(contentUriShare, where, whereArgs);
     }
 
     public void saveSharesDB(List<OCShare> shares) {
@@ -1699,16 +1682,7 @@ public class FileDataStorageManager {
             String[] selectionArgs = {account.name};
             updateFiles(contentUriCapabilities, contentValues, where, selectionArgs, "Failed saveCapabilities update");
         } else {
-            Uri resultUri = null;
-            if (getContentResolver() != null) {
-                resultUri = getContentResolver().insert(contentUriCapabilities, contentValues);
-            } else {
-                try {
-                    resultUri = getContentProviderClient().insert(contentUriCapabilities, contentValues);
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
-                }
-            }
+            Uri resultUri = insertFile(contentUriCapabilities, contentValues);
 
             if (resultUri != null) {
                 long newId = Long.parseLong(resultUri.getPathSegments().get(1));
@@ -1926,15 +1900,7 @@ public class FileDataStorageManager {
         String where = ProviderTableMeta.VIRTUAL_TYPE + " = ?";
         String[] selectionArgs = {String.valueOf(type)};
 
-        if (getContentResolver() != null) {
-            getContentResolver().delete(contentUriVirtual, where, selectionArgs);
-        } else {
-            try {
-                getContentProviderClient().delete(contentUriVirtual, where, selectionArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "deleteVirtuals" + e.getMessage(), e);
-            }
-        }
+        deleteFiles(contentUriVirtual, where, selectionArgs, "deleteVirtuals ");
     }
 
     public void saveVirtuals(List<ContentValues> values) {
@@ -1995,15 +1961,7 @@ public class FileDataStorageManager {
             + ProviderTableMeta.FILE_PATH + "= ?";
         String[] whereArgs = new String[]{account.name, OCFile.ROOT_PATH};
 
-        if (getContentResolver() != null) {
-            getContentResolver().delete(contentUriDir, where, whereArgs);
-        } else {
-            try {
-                getContentProviderClient().delete(contentUriDir, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in deleteAllFiles for account " + account.name + ": " + e.getMessage(), e);
-            }
-        }
+        deleteFiles(contentUriDir, where, whereArgs, "Exception in deleteAllFiles for account " + account.name + ": ");
     }
 
     private String getString(Cursor cursor, String columnName) {
