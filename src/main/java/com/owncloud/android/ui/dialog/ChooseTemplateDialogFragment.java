@@ -235,9 +235,9 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
 
         @Override
         protected void onPostExecute(String url) {
-            ChooseTemplateDialogFragment fragment = chooseTemplateDialogFragmentWeakReference.get();
+            final ChooseTemplateDialogFragment fragment = chooseTemplateDialogFragmentWeakReference.get();
 
-            if (fragment != null) {
+            if (fragment != null && fragment.isAdded()) {
                 if (url.isEmpty()) {
                     DisplayUtils.showSnackMessage(fragment.listView, "Error creating file from template");
                 } else {
@@ -247,7 +247,6 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
                     collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
                     collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TEMPLATE, Parcels.wrap(template));
                     fragment.startActivity(collaboraWebViewIntent);
-
                     fragment.dismiss();
                 }
             } else {
