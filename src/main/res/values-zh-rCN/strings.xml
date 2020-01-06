@@ -29,7 +29,7 @@
     <string name="actionbar_sync">刷新账号</string>
     <string name="active_user">活跃用户</string>
     <string name="activities_no_results_headline">暂无动态</string>
-    <string name="activities_no_results_message">暂无新增、修改和分享的事件</string>
+    <string name="activities_no_results_message">暂无新增、修改和共享的事件</string>
     <string name="activity_chooser_send_file_title">发送</string>
     <string name="activity_chooser_title">发送链接到…</string>
     <string name="activity_icon">激活</string>
@@ -433,7 +433,7 @@
     <string name="notification_channel_general_name">通用提醒</string>
     <string name="notification_channel_media_description">音乐播放器进度</string>
     <string name="notification_channel_media_name">多媒体播放器</string>
-    <string name="notification_channel_push_description">显示服务器推送的通知，包括：在评论中被提及、收到新的远程分享、管理员发布的公告等</string>
+    <string name="notification_channel_push_description">显示服务器推送的通知，包括：在评论中被提及、收到新的远程共享、管理员发布的公告等</string>
     <string name="notification_channel_push_name">推送通知</string>
     <string name="notification_channel_upload_description">显示上传进度 </string>
     <string name="notification_channel_upload_name">上传提醒频道</string>
@@ -541,7 +541,7 @@
     <string name="scanQR_description">通过扫描二维码登录</string>
     <string name="screenshot_01_gridView_heading">保护您的数据</string>
     <string name="screenshot_01_gridView_subline">自托管生产力</string>
-    <string name="screenshot_02_listView_heading">浏览与分享</string>
+    <string name="screenshot_02_listView_heading">浏览与共享</string>
     <string name="screenshot_02_listView_subline">所有操控尽在您的指尖</string>
     <string name="screenshot_03_drawer_heading">活动，共享，...</string>
     <string name="screenshot_03_drawer_subline">快速访问所有数据</string>
@@ -565,7 +565,7 @@
     <string name="share_dialog_title">共享</string>
     <string name="share_email_clarification">%1$s (邮件)</string>
     <string name="share_expiration_date_label">过期 %1$s</string>
-    <string name="share_file">分享 %1$s</string>
+    <string name="share_file">共享 %1$s</string>
     <string name="share_get_public_link_button">获取链接</string>
     <string name="share_group_clarification">%1$s (组)</string>
     <string name="share_internal_link">共享内部链接</string>
@@ -579,7 +579,7 @@
     <string name="share_link_password_title">输入密码</string>
     <string name="share_no_expiration_date_label">设置过期日期</string>
     <string name="share_no_password_title">设置密码</string>
-    <string name="share_no_users">目前没有文件向您分享。</string>
+    <string name="share_no_users">目前没有文件对您共享。</string>
     <string name="share_password_title">密码已受保护</string>
     <string name="share_privilege_can_edit">可编辑</string>
     <string name="share_privilege_can_edit_change">可以修改</string>
@@ -598,12 +598,12 @@
     <string name="share_via_link_menu_password_label">密码保护 (%1$s)</string>
     <string name="share_via_link_password_label">密码保护</string>
     <string name="share_via_link_password_title">安全</string>
-    <string name="share_via_link_section_title">分享链接</string>
+    <string name="share_via_link_section_title">共享链接</string>
     <string name="share_via_link_send_link_label">发送链接</string>
     <string name="share_via_link_unset_password">未安装的</string>
-    <string name="share_with_edit_title">与 %1$s 分享</string>
-    <string name="share_with_title">分享给…</string>
-    <string name="share_with_user_section_title">分享给其他用户或组</string>
+    <string name="share_with_edit_title">与 %1$s 共享</string>
+    <string name="share_with_title">共享给…</string>
+    <string name="share_with_user_section_title">共享给其他用户或组</string>
     <string name="shared_avatar_desc">共享用户的头像</string>
     <string name="shared_icon_share">共享</string>
     <string name="shared_icon_shared">已共享</string>
@@ -653,7 +653,7 @@
     <string name="storage_movies">影片</string>
     <string name="storage_music">音乐</string>
     <string name="storage_pictures">图片</string>
-    <string name="store_full_desc">让您掌控全局的自托管生产力平台。\n\n特色：\n* 简单，现代的界面，搭配您服务器的主题\n* 上传文件到您的 Nextcloud 服务器\n* 与他人分享您的文件\n* 为您最喜欢的文件及文件夹保持同步\n* 在您的服务器上的所有文件夹中进行搜索\n* 自动上传通过您的设备所拍摄的照片和视频\n* 获得最新的通知\n* 多账号支持\n* 通过使用指纹或者 PIN 来安全访问到您的数据\n* 集成了 DAVx5（原名DAVdroid） 来快速设置日历 &amp;联系人同步\n\n请通过 https://github.com/nextcloud/android/issues 报告任何问题，并在 https://help.nextcloud.com/c/clients/android 讨论此应用程序\n\n刚刚接触 Nextcloud？Nextcloud 是一个私人文件同步 &amp;分享和交流服务端软件。它是自由软件，您可以自己组建或者花钱购买某一公司提供的服务。这样，您就可以操作您的照片，日历，联系方式，文档和其他所有内容.\n\n通过 https://nextcloud.com 查看 Nextcloud</string>
+    <string name="store_full_desc">让您掌控全局的自托管生产力平台。\n\n特色：\n* 简单，现代的界面，搭配您服务器的主题\n* 上传文件到您的 Nextcloud 服务器\n* 与他人共享您的文件\n* 为您最喜欢的文件及文件夹保持同步\n* 在您的服务器上的所有文件夹中进行搜索\n* 自动上传通过您的设备所拍摄的照片和视频\n* 获得最新的通知\n* 多账号支持\n* 通过使用指纹或者 PIN 来安全访问到您的数据\n* 集成了 DAVx5（原名DAVdroid） 来快速设置日历 &amp;联系人同步\n\n请通过 https://github.com/nextcloud/android/issues 报告任何问题，并在 https://help.nextcloud.com/c/clients/android 讨论此应用程序\n\n刚刚接触 Nextcloud？Nextcloud 是一个私人文件同步 &amp;共享和交流服务端软件。它是自由软件，您可以自己组建或者花钱购买某一公司提供的服务。这样，您就可以操作您的照片，日历，联系方式，文档和其他所有内容.\n\n通过 https://nextcloud.com 查看 Nextcloud</string>
     <string name="store_full_dev_desc">让您掌控全局的自托管生产力平台。
 这是官方开发版本，每天都会对新的未经测试的功能进行取样，这些功能可能导致不稳定和数据丢失。此应用主要面向愿意测试以及在发现bug时能提交报告的用户。请不要用于生产性工作！
 
@@ -663,8 +663,8 @@
     <string name="stream">分享给…</string>
     <string name="stream_not_possible_headline">内部流无效</string>
     <string name="stream_not_possible_message">请下载媒体或者使用外部应用代替。</string>
-    <string name="subject_shared_with_you">已与你分享“%1$s”</string>
-    <string name="subject_user_shared_with_you">%1$s和你分享了“%2$s”</string>
+    <string name="subject_shared_with_you">已与你共享 “%1$s”</string>
+    <string name="subject_user_shared_with_you">%1$s 已和你共享了“%2$s”</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
     <string name="sync_current_folder_was_removed">文件夹%1$s不再存在</string>
     <string name="sync_fail_content">无法完成 %1$s 的同步</string>
