@@ -19,11 +19,12 @@
 
 package com.owncloud.android.ui.preview;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
@@ -42,9 +43,12 @@ import android.widget.Toast;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -53,12 +57,9 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import io.noties.markwon.AbstractMarkwonPlugin;
-import io.noties.markwon.LinkResolver;
-import io.noties.markwon.LinkResolverDef;
 import io.noties.markwon.Markwon;
 import io.noties.markwon.MarkwonConfiguration;
 import io.noties.markwon.core.MarkwonTheme;
-import io.noties.markwon.core.spans.LinkSpan;
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin;
 import io.noties.markwon.ext.tables.TablePlugin;
 import io.noties.markwon.ext.tasklist.TaskListDrawable;
@@ -172,7 +173,7 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
                         mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
                     }
                 } else {
-                    setText(mTextPreview, mOriginalText, getContext());
+                    setText(mTextPreview, mOriginalText, getFile(), requireActivity());
                 }
             }, delay);
         }
@@ -182,19 +183,20 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
         }
     }
 
-    protected static Spanned getRenderedMarkdownText(Context context, String markdown) {
+    protected static Spanned getRenderedMarkdownText(Activity activity, String markdown) {
         Prism4j prism4j = new Prism4j(new MarkwonGrammarLocator());
         Prism4jTheme prism4jTheme = Prism4jThemeDefault.create();
         TaskListDrawable drawable = new TaskListDrawable(Color.GRAY, Color.GRAY, Color.WHITE);
-        drawable.setColorFilter(ThemeUtils.primaryColor(context, true), PorterDuff.Mode.SRC_ATOP);
+        drawable.setColorFilter(ThemeUtils.primaryColor(activity, true), PorterDuff.Mode.SRC_ATOP);
 
-        final Markwon markwon = Markwon.builder(context)
+        final Markwon markwon = Markwon.builder(activity)
             .usePlugin(new AbstractMarkwonPlugin() {
                 @Override
                 public void configureTheme(@NonNull MarkwonTheme.Builder builder) {
                     TextPaint textPaint = new TextPaint();
-                    textPaint.setColorFilter(new PorterDuffColorFilter(ThemeUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP));
-                    builder.linkColor(ThemeUtils.primaryColor(context, true));
+                    textPaint.setColorFilter(new PorterDuffColorFilter(ThemeUtils.primaryColor(activity),
+                                                                       PorterDuff.Mode.SRC_ATOP));
+                    builder.linkColor(ThemeUtils.primaryColor(activity, true));
                 }
 
                 @Override
@@ -202,15 +204,15 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
                     builder.linkResolver((view, link) -> {
                         try {
                             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                            DisplayUtils.startIntentIfAppAvailable(intent, getActivity(), R.string.no_browser_available);
+                            DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_browser_available);
                         } catch (Throwable throwable) {
-                            Toast.makeText(context, R.string.error_opening_link, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, R.string.error_opening_link, Toast.LENGTH_SHORT).show();
                         }
 
                     });
                 }
             })
-            .usePlugin(TablePlugin.create(context))
+            .usePlugin(TablePlugin.create(activity))
             .usePlugin(TaskListPlugin.create(drawable))
             .usePlugin(StrikethroughPlugin.create())
             .usePlugin(HtmlPlugin.create())
@@ -227,12 +229,16 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
         getActivity().runOnUiThread(() -> getActivity().onBackPressed());
     }
 
-    private void setText(TextView textView, String text, OCFile file) {
-        if (MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN.equals(file.getMimeType())
-        android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN
-            && context != null) {
+    public static void setText(TextView textView, String text, OCFile file, Activity activity) {
+        setText(textView, text, file, activity, false);
+    }
+
+    public static void setText(TextView textView, String text, OCFile file, Activity activity, boolean ignoreMimetype) {
+        if ((MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN.equals(file.getMimeType()) || ignoreMimetype) &&
+            android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN
+            && activity != null) {
             textView.setMovementMethod(LinkMovementMethod.getInstance());
-            textView.setText(getRenderedMarkdownText(getContext(), text));
+            textView.setText(getRenderedMarkdownText(activity, text));
         } else {
             textView.setText(text);
         }
