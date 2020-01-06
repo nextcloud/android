@@ -101,9 +101,6 @@ public interface UserAccountManager extends CurrentAccountProvider {
     @NonNull
     OwnCloudVersion getServerVersion(Account account);
 
-    @Deprecated
-    boolean isSearchSupported(@Nullable Account account);
-
     /**
      * Check if user's account supports media streaming. This is a property of server where user has his account.
      *
