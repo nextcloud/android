@@ -76,7 +76,6 @@ public class FileDataStorageManager {
     private static final String TAG = FileDataStorageManager.class.getSimpleName();
 
     private static final String AND = " = ? AND ";
-    private static final String FAILED_TO_INSERT_MSG = "Fail to insert file to database ";
     private static final String FAILED_TO_UPDATE_MSG = "Fail to update file to database ";
     private static final String SENDING_TO_FILECONTENTPROVIDER_MSG = "Sending %d operations to FileContentProvider";
     private static final String EXCEPTION_MSG = "Exception in batch of operations ";
@@ -131,23 +130,26 @@ public class FileDataStorageManager {
         return executeQuery(uri, null, selection, selectionArgs, null, errorMessage);
     }
 
-    private void applyBatch(ArrayList<ContentProviderOperation> operations, String errorMessage) {
+    private ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations, String errorMessage) {
         Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
+        ContentProviderResult[] contentProviderResults = null;
         if (!operations.isEmpty()) {
             try {
                 if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+                    contentProviderResults = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
                 } else {
-                    getContentProviderClient().applyBatch(operations);
+                    contentProviderResults = getContentProviderClient().applyBatch(operations);
                 }
             } catch (OperationApplicationException | RemoteException e) {
                 Log_OC.e(TAG, errorMessage + e.getMessage(), e);
             }
         }
+
+        return contentProviderResults;
     }
 
-    private void applyBatch(ArrayList<ContentProviderOperation> operations) {
-        applyBatch(operations, EXCEPTION_MSG);
+    private ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations) {
+        return applyBatch(operations, EXCEPTION_MSG);
     }
 
     private int updateFiles(Uri contentUri, ContentValues contentValues, String where, String[] selectionArgs,
@@ -179,7 +181,7 @@ public class FileDataStorageManager {
             try {
                 resultUri = getContentProviderClient().insert(uri, values);
             } catch (RemoteException e) {
-                Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
+                Log_OC.e(TAG, "Fail to insert file to database " + e.getMessage(), e);
             }
         }
 
@@ -497,20 +499,7 @@ public class FileDataStorageManager {
                            .build());
 
         // apply operations in batch
-        ContentProviderResult[] results = null;
-        Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-
-        try {
-            ContentResolver contentResolver = getContentResolver();
-            if (contentResolver != null) {
-                results = contentResolver.applyBatch(MainApp.getAuthority(), operations);
-            } else {
-                results = getContentProviderClient().applyBatch(operations);
-            }
-
-        } catch (OperationApplicationException | RemoteException e) {
-            Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
-        }
+        ContentProviderResult[] results = applyBatch(operations);
 
         // update new id in file objects for insertions
         if (results != null) {
@@ -1540,42 +1529,23 @@ public class FileDataStorageManager {
 
     public void deleteFileInMediaScan(String path) {
         String mimetypeString = FileStorageUtils.getMimeTypeFromName(path);
-        ContentResolver contentResolver = getContentResolver();
-
         String[] selectionArgs = {path};
-        if (contentResolver != null) {
-            if (MimeTypeUtil.isImage(mimetypeString)) {
-                // Images
-                contentResolver.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                                       MediaStore.Images.Media.DATA + " = ?", selectionArgs);
-            } else if (MimeTypeUtil.isAudio(mimetypeString)) {
-                // Audio
-                contentResolver.delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                                       MediaStore.Audio.Media.DATA + " = ?", selectionArgs);
-            } else if (MimeTypeUtil.isVideo(mimetypeString)) {
-                // Video
-                contentResolver.delete(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                                       MediaStore.Video.Media.DATA + " = ?", selectionArgs);
-            }
-        } else {
-            ContentProviderClient contentProviderClient = getContentProviderClient();
-            try {
-                if (MimeTypeUtil.isImage(mimetypeString)) {
-                    // Images
-                    contentProviderClient.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                                                 MediaStore.Images.Media.DATA + " = ?", selectionArgs);
-                } else if (MimeTypeUtil.isAudio(mimetypeString)) {
-                    // Audio
-                    contentProviderClient.delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                                                 MediaStore.Audio.Media.DATA + " = ?", selectionArgs);
-                } else if (MimeTypeUtil.isVideo(mimetypeString)) {
-                    // Video
-                    contentProviderClient.delete(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                                                 MediaStore.Video.Media.DATA + " = ?", selectionArgs);
-                }
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception deleting media file in MediaStore " + e.getMessage(), e);
-            }
+
+        if (MimeTypeUtil.isImage(mimetypeString)) {
+            deleteFiles(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        MediaStore.Images.Media.DATA + " = ?",
+                        selectionArgs,
+                        "Exception deleting media file in MediaStore ");
+        } else if (MimeTypeUtil.isAudio(mimetypeString)) {
+            deleteFiles(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                        MediaStore.Audio.Media.DATA + " = ?",
+                        selectionArgs,
+                        "Exception deleting media file in MediaStore ");
+        } else if (MimeTypeUtil.isVideo(mimetypeString)) {
+            deleteFiles(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                        MediaStore.Video.Media.DATA + " = ?",
+                        selectionArgs,
+                        "Exception deleting media file in MediaStore ");
         }
     }
 
