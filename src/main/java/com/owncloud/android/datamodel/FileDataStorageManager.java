@@ -550,7 +550,7 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.FILE_SHAREES, new Gson().toJson(ocFile.getSharees()));
         contentValues.put(ProviderTableMeta.FILE_RICH_WORKSPACE, ocFile.getRichWorkspace());
 
-        contentValues.put(ProviderTableMeta.FILE_CONTENT_LENGTH, 0);
+        contentValues.put(ProviderTableMeta.FILE_CONTENT_LENGTH, 0);  // FileContentProvider calculates the right size
         contentValues.put(ProviderTableMeta.FILE_PARENT, ocFile.getParentId());
 
         return contentValues;
