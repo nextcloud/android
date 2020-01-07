@@ -21,6 +21,7 @@
 
 package com.owncloud.android.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
@@ -39,6 +40,7 @@ class TextEditorWebView : EditorWebView() {
     @Inject
     lateinit var deviceInfo: DeviceInfo
 
+    @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used >= Lollipop
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

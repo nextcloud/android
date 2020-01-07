@@ -1041,9 +1041,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     return true;
                 }
                 case R.id.action_edit: {
-                    Account account = ((FileActivity) mContainerActivity).getUserAccountManager()
-                        .getUser().toPlatformAccount();
-
                     // should not be necessary, as menu item is filtered, but better play safe
                     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
