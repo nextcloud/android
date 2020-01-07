@@ -43,6 +43,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -105,6 +106,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -116,6 +118,7 @@ import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import kotlin.collections.CollectionsKt;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -190,7 +193,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * accounts for the (max) three displayed accounts in the drawer header.
      */
-    private Account[] mAvatars = new Account[3];
+    private List<User> mAvatars = Collections.emptyList();
 
     /**
      * container layout of the quota view.
@@ -371,9 +374,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                                                                                getContentResolver());
         OCCapability capability = storageManager.getCapability(user.getAccountName());
 
-        boolean hasSearchSupport = user.getServer().getVersion().isSearchSupported();
-
-        DrawerMenuUtil.filterSearchMenuItems(menu, user.toPlatformAccount(), getResources(), hasSearchSupport);
+        DrawerMenuUtil.filterSearchMenuItems(menu, user.toPlatformAccount(), getResources(), true);
         DrawerMenuUtil.filterTrashbinMenuItem(menu, user.toPlatformAccount(), capability, accountManager);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
 
@@ -689,27 +690,33 @@ public abstract class DrawerActivity extends ToolbarActivity
             if (persistingAccounts.size() > 0) {
                 repopulateAccountList(persistingAccounts);
                 setAccountInDrawer(accountManager.getUser());
-                populateDrawerOwnCloudAccounts();
+                mAvatars = getUserAvatars();
 
                 // activate second/end account avatar
-                if (mAvatars[1] != null) {
-                    View accountEndView = findNavigationViewChildById(R.id.drawer_account_end);
-                    accountEndView.setTag(mAvatars[1].name);
-
-                    DisplayUtils.setAvatar(mAvatars[1], this, mOtherAccountAvatarRadiusDimension, getResources(),
-                            accountEndView, this);
+                final User secondUser = mAvatars.size() > 1 ? mAvatars.get(1) : null;
+                if (secondUser != null) {
+                    mAccountEndAccountAvatar.setTag(secondUser.getAccountName());
+                    DisplayUtils.setAvatar(secondUser.toPlatformAccount(),
+                                           this,
+                                           mOtherAccountAvatarRadiusDimension,
+                                           getResources(),
+                                           mAccountEndAccountAvatar,
+                                           this);
                     mAccountEndAccountAvatar.setVisibility(View.VISIBLE);
                 } else {
                     mAccountEndAccountAvatar.setVisibility(View.GONE);
                 }
 
                 // activate third/middle account avatar
-                if (mAvatars[2] != null) {
-                    View accountMiddleView = findNavigationViewChildById(R.id.drawer_account_middle);
-                    accountMiddleView.setTag(mAvatars[2].name);
-
-                    DisplayUtils.setAvatar(mAvatars[2], this, mOtherAccountAvatarRadiusDimension, getResources(),
-                            accountMiddleView, this);
+                final User thirdUser = mAvatars.size() > 2 ? mAvatars.get(2) : null;
+                if (thirdUser != null) {
+                    mAccountMiddleAccountAvatar.setTag(thirdUser.getAccountName());
+                    DisplayUtils.setAvatar(thirdUser.toPlatformAccount(),
+                                           this,
+                                           mOtherAccountAvatarRadiusDimension,
+                                           getResources(),
+                                           mAccountMiddleAccountAvatar,
+                                           this);
                     mAccountMiddleAccountAvatar.setVisibility(View.VISIBLE);
                 } else {
                     mAccountMiddleAccountAvatar.setVisibility(View.GONE);
@@ -1360,33 +1367,22 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     /**
-     * populates the avatar drawer array with the first three ownCloud {@link Account}s while the first element is
-     * always the current account.
+     * Get list of users suitable for displaying in navigation drawer header.
+     * First item is always current {@link User}. Remaining items are other
+     * users possible to switch to.
+     *
+     * @return List of available users
      */
-    private void populateDrawerOwnCloudAccounts() {
-        mAvatars = new Account[3];
-        Account[] accountsAll = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
-
-        ArrayList<Account> persistingAccounts = new ArrayList<>();
-
-        for (Account acc: accountsAll) {
-            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(acc,
-                    ManageAccountsActivity.PENDING_FOR_REMOVAL);
-
-            if (!pendingForRemoval) {
-                persistingAccounts.add(acc);
-            }
-        }
-
-        User user = accountManager.getUser();
-        mAvatars[0] = user.toPlatformAccount();
-        int j = 0;
-        for (int i = 1; i <= 2 && i < persistingAccounts.size() && j < persistingAccounts.size(); j++) {
-            if (!user.equals(persistingAccounts.get(j))) {
-                mAvatars[i] = persistingAccounts.get(j);
-                i++;
-            }
-        }
+    @NonNull
+    private List<User> getUserAvatars() {
+        User currentUser = accountManager.getUser();
+        List<User> availableUsers = CollectionsKt.filter(accountManager.getAllUsers(), user ->
+            !TextUtils.equals(user.getAccountName(), currentUser.getAccountName()) &&
+            !arbitraryDataProvider.getBooleanValue(user.toPlatformAccount(),
+                                                   ManageAccountsActivity.PENDING_FOR_REMOVAL)
+        );
+        availableUsers.add(0, currentUser);
+        return availableUsers;
     }
 
     @Override

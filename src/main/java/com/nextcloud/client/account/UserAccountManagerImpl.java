@@ -307,11 +307,6 @@ public class UserAccountManagerImpl implements UserAccountManager {
     }
 
     @Override
-    public boolean isSearchSupported(Account account) {
-        return account != null && getServerVersion(account).isSearchSupported();
-    }
-
-    @Override
     public boolean isMediaStreamingSupported(Account account) {
         return account != null && getServerVersion(account).isMediaStreamingSupported();
     }
