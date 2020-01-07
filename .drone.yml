@@ -37,11 +37,11 @@ steps:
       status:
         - failure
       branch:
-        - master
+        - stable-3.10
 
 trigger:
   branch:
-    - master
+    - stable-3.10
   event:
     - pull_request
     - push
@@ -97,7 +97,7 @@ steps:
       status:
         - failure
       branch:
-        - master
+        - stable-3.10
 
 services:
   - name: server
@@ -105,7 +105,7 @@ services:
 
 trigger:
   branch:
-    - master
+    - stable-3.10
   event:
     - push
     - pull_request
@@ -150,11 +150,11 @@ steps:
       status:
         - failure
       branch:
-        - master
+        - stable-3.10
 
 trigger:
   branch:
-    - master
+    - stable-3.10
   event:
     - push
     - pull_request

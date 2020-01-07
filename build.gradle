@@ -61,9 +61,9 @@ configurations {
 ext {
     jacocoVersion = "0.8.2"
     daggerVersion = "2.25.4"
-    markwonVersion =  "4.2.0"
+    markwonVersion = "4.2.0"
     prismVersion = "2.0.0"
-    androidLibraryVersion = "master-SNAPSHOT"
+    androidLibraryVersion = "rc-2.0.0-01"
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -86,7 +86,7 @@ repositories {
 def versionMajor = 3
 def versionMinor = 10
 def versionPatch = 0
-def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionBuild = 51 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
     for (String arg : tr.args) {
