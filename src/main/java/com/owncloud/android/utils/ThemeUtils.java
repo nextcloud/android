@@ -180,9 +180,13 @@ public final class ThemeUtils {
      * @return int font color to use
      * adapted from https://github.com/nextcloud/server/blob/master/apps/theming/lib/Util.php#L90-L102
      */
-    public static int fontColor(Context context) {
+    public static int fontColor(Context context, boolean replaceWhite) {
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            return Color.WHITE;
+            if (replaceWhite) {
+                return Color.BLACK;
+            } else {
+                return Color.WHITE;
+            }
         }
 
         try {
@@ -194,6 +198,10 @@ public final class ThemeUtils {
                 return Color.BLACK;
             }
         }
+    }
+
+    public static int fontColor(Context context) {
+        return fontColor(context, false);
     }
 
     /**
@@ -230,7 +238,7 @@ public final class ThemeUtils {
                 actionBar.setTitle(title);
             } else {
                 Spannable text = new SpannableString(title);
-                text.setSpan(new ForegroundColorSpan(fontColor(context)),
+                text.setSpan(new ForegroundColorSpan(fontColor(context, true)),
                              0,
                              text.length(),
                              Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -298,7 +306,7 @@ public final class ThemeUtils {
             } else {
                 String title = context.getString(titleId);
                 Spannable text = new SpannableString(title);
-                text.setSpan(new ForegroundColorSpan(fontColor(context)),
+                text.setSpan(new ForegroundColorSpan(fontColor(context, true)),
                              0,
                              text.length(),
                              Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -529,7 +537,7 @@ public final class ThemeUtils {
      */
     public static void themeSearchView(SearchView searchView, boolean themedBackground, Context context) {
         // hacky as no default way is provided
-        int fontColor = ThemeUtils.fontColor(context);
+        int fontColor = ThemeUtils.fontColor(context, true);
         SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
         themeEditText(context, editText, themedBackground);
 
