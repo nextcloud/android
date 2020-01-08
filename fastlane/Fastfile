@@ -56,9 +56,9 @@ lane :releasePhase2_RC do |options|
     checkIfAPKexists()
     tag(info)
     uploadToPlaystore_RC(info)
-    createGithubRelease(info)
-    fdroidMergeRequest(info)
-    createChangelogPullRequestRC(info)
+    createGithubRelease_RC(info)
+    fdroidMergeRequest_RC(info)
+    createChangelogPullRequest_RC(info)
 end
 
 desc "Release phase 2 for FINAL: checks, tag, upload gplay to playstore with values from build.gradle"
