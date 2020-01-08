@@ -20,6 +20,8 @@
 
 package com.owncloud.android.ui.fragment;
 
+import com.owncloud.android.lib.common.Creator;
+
 /**
  * Actions interface to be implemented by any class that makes use of
  * {@link com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog}.
@@ -59,4 +61,9 @@ public interface OCFileListBottomSheetActions {
      * offers direct camera upload to the current folder.
      */
     void directCameraUpload();
+
+    /**
+     * open template selection for creator @link Creator
+     */
+    void showTemplate(Creator creator);
 }

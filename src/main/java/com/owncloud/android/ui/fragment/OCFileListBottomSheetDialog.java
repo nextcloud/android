@@ -20,19 +20,28 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.gson.Gson;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.DeviceInfo;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.lib.common.Creator;
+import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import butterknife.BindView;
@@ -60,6 +69,9 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
     @BindView(R.id.templates)
     public View templates;
 
+    @BindView(R.id.creators)
+    public LinearLayout creators;
+
     @BindView(R.id.menu_direct_camera_upload)
     public View cameraView;
 
@@ -67,14 +79,17 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
     private OCFileListBottomSheetActions actions;
     private FileActivity fileActivity;
     private DeviceInfo deviceInfo;
+    private User user;
 
     public OCFileListBottomSheetDialog(FileActivity fileActivity,
                                        OCFileListBottomSheetActions actions,
-                                       DeviceInfo deviceInfo) {
+                                       DeviceInfo deviceInfo,
+                                       User user) {
         super(fileActivity);
         this.actions = actions;
         this.fileActivity = fileActivity;
         this.deviceInfo = deviceInfo;
+        this.user = user;
     }
 
     @Override
@@ -103,6 +118,37 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
             capability.getRichDocumentsTemplatesAvailable().isTrue()) {
             templates.setVisibility(View.VISIBLE);
+        }
+
+        String json = new ArbitraryDataProvider(getContext().getContentResolver())
+            .getValue(user.toPlatformAccount(), ArbitraryDataProvider.DIRECT_EDITING);
+
+        if (!json.isEmpty()) {
+            DirectEditing directEditing = new Gson().fromJson(json, DirectEditing.class);
+
+            if (!directEditing.getCreators().isEmpty()) {
+                creators.setVisibility(View.VISIBLE);
+
+                LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                for (Creator creator : directEditing.getCreators().values()) {
+                    View creatorView = vi.inflate(R.layout.file_list_actions_bottom_sheet_creator, null);
+                    ((TextView) creatorView.findViewById(R.id.creator_name)).setText(creator.getName());
+                    ImageView thumbnail = creatorView.findViewById(R.id.creator_thumbnail);
+
+                    thumbnail.setImageDrawable(MimeTypeUtil.getFileTypeIcon(creator.getMimetype(),
+                                                                            creator.getExtension(),
+                                                                            user.toPlatformAccount(),
+                                                                            getContext()));
+
+                    creatorView.setOnClickListener(v -> {
+                        actions.showTemplate(creator);
+                        dismiss();
+                    });
+
+                    creators.addView(creatorView);
+                }
+            }
         }
 
         if (!deviceInfo.hasCamera(getContext())) {
