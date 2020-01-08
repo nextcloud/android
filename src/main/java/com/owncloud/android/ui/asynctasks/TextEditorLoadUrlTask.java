@@ -24,25 +24,25 @@ import android.accounts.Account;
 import android.os.AsyncTask;
 
 import com.nextcloud.android.lib.resources.directediting.DirectEditingOpenFileRemoteOperation;
+import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.Editor;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RichDocumentsUrlOperation;
 import com.owncloud.android.ui.activity.EditorWebView;
-import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
-import com.owncloud.android.ui.activity.TextEditorWebView;
 
 import java.lang.ref.WeakReference;
 
-public class LoadUrlTask extends AsyncTask<Void, Void, String> {
+public class TextEditorLoadUrlTask extends AsyncTask<Void, Void, String> {
 
     private Account account;
     private WeakReference<EditorWebView> editorWebViewWeakReference;
     private OCFile file;
+    private User user;
 
-    public LoadUrlTask(EditorWebView editorWebView, Account account, OCFile file) {
-        this.account = account;
+    public TextEditorLoadUrlTask(EditorWebView editorWebView, User user, OCFile file) {
+        this.user = user;
+        this.account = user.toPlatformAccount();
         this.editorWebViewWeakReference = new WeakReference<>(editorWebView);
         this.file = file;
     }
@@ -55,23 +55,15 @@ public class LoadUrlTask extends AsyncTask<Void, Void, String> {
             return "";
         }
 
-        RemoteOperationResult result;
+        Editor editor = FileMenuFilter.getEditor(editorWebView.getContentResolver(), user, file.getMimeType());
 
-
-        if (editorWebView instanceof RichDocumentsEditorWebView) {
-            result = new RichDocumentsUrlOperation(file.getLocalId()).execute(account, editorWebView);
-        } else if (editorWebView instanceof TextEditorWebView) {
-            Editor editor = FileMenuFilter.getEditor(editorWebView.getContentResolver(), account, file.getMimeType());
-
-            if (editor == null) {
-                return "";
-            }
-
-            result = new DirectEditingOpenFileRemoteOperation(file.getRemotePath(), editor.id)
-                .execute(account, editorWebViewWeakReference.get());
-        } else {
+        if (editor == null) {
             return "";
         }
+
+        RemoteOperationResult result = new DirectEditingOpenFileRemoteOperation(file.getRemotePath(), editor.id)
+            .execute(account, editorWebViewWeakReference.get());
+
 
         if (!result.isSuccess()) {
             return "";

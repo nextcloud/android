@@ -263,7 +263,9 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                 currentAccount,
                 containerActivity,
                 getActivity(),
-                false
+                false,
+                deviceInfo,
+                accountManager.getUser()
             );
             mf.filter(menu,
                       true,
