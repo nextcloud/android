@@ -8,14 +8,13 @@ import android.accounts.OperationCanceledException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.java.util.Optional;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -54,6 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      */
     private boolean themeChangePending;
     private boolean paused;
+    protected boolean enableAccountHandling = true;
 
     @Inject UserAccountManager accountManager;
     @Inject AppPreferences preferences;
@@ -72,8 +72,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Account account = accountManager.getCurrentAccount();
-        setAccount(account, false);
+
+        if (enableAccountHandling) {
+            Account account = accountManager.getCurrentAccount();
+            setAccount(account, false);
+        }
     }
 
     @Override
@@ -175,10 +178,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     protected void swapToDefaultAccount() {
         // default to the most recently used account
         Account newAccount = accountManager.getCurrentAccount();
+
         if (newAccount == null) {
             /// no account available: force account creation
             createAccount(true);
-            finish();
+
+            if (enableAccountHandling) {
+                finish();
+            }
         } else {
             currentAccount = newAccount;
         }
