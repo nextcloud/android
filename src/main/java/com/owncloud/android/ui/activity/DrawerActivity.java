@@ -254,7 +254,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         setupDrawerToggle();
 
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
@@ -294,7 +294,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.fontColor(this));
+        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.fontColor(this, true));
     }
 
     /**
@@ -305,7 +305,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
 
         mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toggle);
-        mAccountChooserToggle.setColorFilter(ThemeUtils.fontColor(this));
+        mAccountChooserToggle.setColorFilter(ThemeUtils.fontColor(this, true));
 
         if (getResources().getBoolean(R.bool.allow_profile_click)) {
             mAccountChooserToggle.setImageResource(R.drawable.ic_down);
