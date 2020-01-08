@@ -84,7 +84,7 @@ repositories {
 
 // semantic versioning for version code
 def versionMajor = 3
-def versionMinor = 10
+def versionMinor = 11
 def versionPatch = 0
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
@@ -177,8 +177,8 @@ android {
             versionDev {
                 applicationId "com.nextcloud.android.beta"
                 dimension "default"
-                versionCode 20200107
-                versionName "20200107"
+                versionCode 20200108
+                versionName "20200108"
             }
 
             qa {

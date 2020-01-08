@@ -19,7 +19,12 @@
  */
 package com.nextcloud.client.appinfo;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+
 import com.owncloud.android.BuildConfig;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 class AppInfoImpl implements AppInfo {
 
@@ -31,5 +36,21 @@ class AppInfoImpl implements AppInfo {
     @Override
     public boolean isDebugBuild() {
         return BuildConfig.DEBUG;
+    }
+
+    @Override
+    public String getAppVersion(Context context) {
+        try {
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            if (pInfo != null) {
+                return pInfo.versionName;
+            } else {
+                return "n/a";
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log_OC.e(this, "Trying to get packageName", e.getCause());
+
+            return "n/a";
+        }
     }
 }

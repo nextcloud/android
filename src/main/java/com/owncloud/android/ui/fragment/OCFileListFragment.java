@@ -58,6 +58,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.files.FileMenuFilter;
+import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -74,6 +75,7 @@ import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
+import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
@@ -396,9 +398,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
      */
     private void registerFabListener() {
         FileActivity activity = (FileActivity) getActivity();
-        getFabMain().setOnClickListener(v -> {
-            new OCFileListBottomSheetDialog(activity, this, deviceInfo).show();
-        });
+        getFabMain().setOnClickListener(v -> new OCFileListBottomSheetDialog(activity,
+                                                                             this,
+                                                                             deviceInfo,
+                                                                             accountManager.getUser())
+            .show());
     }
 
     @Override
@@ -470,7 +474,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                Collections.singleton(file),
                                                currentAccount,
                                                mContainerActivity, getActivity(),
-                                               true);
+                                               true,
+                                               deviceInfo,
+                                               accountManager.getUser());
         mf.filter(popup.getMenu(),
                   true,
                   accountManager.isMediaStreamingSupported(currentAccount));
@@ -484,25 +490,34 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void newDocument() {
-        ChooseTemplateDialogFragment.newInstance(mFile, ChooseTemplateDialogFragment.Type.DOCUMENT)
+        ChooseRichDocumentsTemplateDialogFragment.newInstance(mFile,
+                                                              ChooseRichDocumentsTemplateDialogFragment.Type.DOCUMENT)
                 .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
     }
 
     @Override
     public void newSpreadsheet() {
-        ChooseTemplateDialogFragment.newInstance(mFile, ChooseTemplateDialogFragment.Type.SPREADSHEET)
+        ChooseRichDocumentsTemplateDialogFragment.newInstance(mFile,
+                                                              ChooseRichDocumentsTemplateDialogFragment.Type.SPREADSHEET)
                 .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
     }
 
     @Override
     public void newPresentation() {
-        ChooseTemplateDialogFragment.newInstance(mFile, ChooseTemplateDialogFragment.Type.PRESENTATION)
+        ChooseRichDocumentsTemplateDialogFragment.newInstance(mFile,
+                                                              ChooseRichDocumentsTemplateDialogFragment.Type.PRESENTATION)
                 .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
     }
 
     @Override
     public void onHeaderClicked() {
         ((FileDisplayActivity) mContainerActivity).startRichWorkspacePreview(getCurrentFile());
+    }
+
+    @Override
+    public void showTemplate(Creator creator) {
+        ChooseTemplateDialogFragment.newInstance(mFile, creator).show(requireActivity().getSupportFragmentManager(),
+                                                                      DIALOG_CREATE_DOCUMENT);
     }
 
     /**
@@ -614,12 +629,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mode.setTitle(title);
             Account currentAccount = ((FileActivity) getActivity()).getAccount();
             FileMenuFilter mf = new FileMenuFilter(
-                    mAdapter.getFiles().size(),
-                    checkedFiles,
-                    currentAccount,
-                    mContainerActivity,
-                    getActivity(),
-                    false
+                mAdapter.getFiles().size(),
+                checkedFiles,
+                currentAccount,
+                mContainerActivity,
+                getActivity(),
+                false,
+                deviceInfo,
+                accountManager.getUser()
             );
 
             mf.filter(menu,
@@ -954,7 +971,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             // stream media preview on >= NC14
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
                         } else if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
-                                                                    account.toPlatformAccount(),
+                                                                    accountManager.getUser(),
                                                                     file.getMimeType()) &&
                             android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
@@ -1024,13 +1041,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     return true;
                 }
                 case R.id.action_edit: {
-                    Account account = ((FileActivity) mContainerActivity).getUserAccountManager()
-                        .getUser().toPlatformAccount();
-
                     // should not be necessary, as menu item is filtered, but better play safe
                     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
-                                                             account,
+                                                             accountManager.getUser(),
                                                              singleFile.getMimeType())) {
                             mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile,
                                                                                                 getContext());

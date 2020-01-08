@@ -27,7 +27,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.widget.ImageView;
@@ -39,8 +38,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.asynctasks.LoadUrlTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
@@ -53,32 +50,30 @@ import lombok.Setter;
 
 public abstract class EditorWebView extends ExternalSiteWebView {
     @Getter @Setter protected Snackbar loadingSnackbar;
-    protected OCFile file;
+
+    protected String fileName;
+    protected String mimeType;
 
     @BindView(R.id.progressBar2)
     ProgressBar progressBar;
 
     @BindView(R.id.thumbnail)
-    ImageView thumbnail;
+    ImageView thumbnailView;
 
     @BindView(R.id.filename)
-    TextView fileName;
+    TextView fileNameTextView;
 
     private Unbinder unbinder;
 
     private static final String TAG = EditorWebView.class.getSimpleName();
 
-    protected void loadUrl(String url, OCFile file) {
-        if (TextUtils.isEmpty(url)) {
-            new LoadUrlTask(this, getAccount(), file).execute();
-        } else {
-            webview.loadUrl(url);
-        }
+    protected void loadUrl(String url) {
+        webview.loadUrl(url);
     }
 
     protected void hideLoading() {
-        thumbnail.setVisibility(View.GONE);
-        fileName.setVisibility(View.GONE);
+        thumbnailView.setVisibility(View.GONE);
+        fileNameTextView.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         webview.setVisibility(View.VISIBLE);
 
@@ -127,19 +122,29 @@ public abstract class EditorWebView extends ExternalSiteWebView {
 
         unbinder = ButterKnife.bind(this);
 
-        file = getIntent().getParcelableExtra(ExternalSiteWebView.EXTRA_FILE);
+        setFile(getIntent().getParcelableExtra(ExternalSiteWebView.EXTRA_FILE));
+
+        if (getFile() == null) {
+            Toast.makeText(getApplicationContext(),
+                           R.string.richdocuments_failed_to_load_document, Toast.LENGTH_LONG).show();
+            finish();
+        }
+
+        if (getFile() != null) {
+            fileName = getFile().getFileName();
+        }
 
         initLoadingScreen();
     }
 
     protected void initLoadingScreen() {
-        setThumbnail(file, thumbnail);
-        fileName.setText(file.getFileName());
+        setThumbnailView();
+        fileNameTextView.setText(fileName);
     }
 
     private void openShareDialog() {
         Intent intent = new Intent(this, ShareActivity.class);
-        intent.putExtra(FileActivity.EXTRA_FILE, file);
+        intent.putExtra(FileActivity.EXTRA_FILE, getFile());
         intent.putExtra(FileActivity.EXTRA_ACCOUNT, getAccount());
         startActivity(intent);
     }
@@ -152,12 +157,15 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         super.onDestroy();
     }
 
-    protected void setThumbnail(OCFile file, ImageView thumbnailView) {
+    protected void setThumbnailView() {
         // Todo minimize: only icon by mimetype
-
+        OCFile file = getFile();
         if (file.isFolder()) {
             thumbnailView.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
-                                                                              file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType(),
+                                                                              file.isSharedWithSharee(),
+                                                                          file.isSharedViaLink(),
+                                                                          file.isEncrypted(),
+                                                                          file.getMountType(),
                                                                           this));
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
@@ -171,30 +179,6 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                         thumbnailView.setImageBitmap(withOverlay);
                     } else {
                         thumbnailView.setImageBitmap(thumbnail);
-                    }
-                } else {
-                    // generate new thumbnail
-                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
-                        try {
-                            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
-                                                                                   getStorageManager(), getAccount());
-
-                            if (thumbnail == null) {
-                                if (MimeTypeUtil.isVideo(file)) {
-                                    thumbnail = ThumbnailsCacheManager.mDefaultVideo;
-                                } else {
-                                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                                }
-                            }
-                            final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(getResources(), thumbnail, task);
-                            thumbnailView.setImageDrawable(asyncDrawable);
-                            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
-                                                                                                  file.getRemoteId()));
-                        } catch (IllegalArgumentException e) {
-                            Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
-                        }
                     }
                 }
 

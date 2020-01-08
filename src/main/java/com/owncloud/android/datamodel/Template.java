@@ -22,6 +22,8 @@ package com.owncloud.android.datamodel;
 
 import org.parceler.Parcel;
 
+import java.util.Locale;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +40,20 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Template {
     public enum Type {
-        DOCUMENT, SPREADSHEET, PRESENTATION
+        DOCUMENT, SPREADSHEET, PRESENTATION, UNKNOWN
+    }
+
+    public static Type parse(String type) {
+        switch (type.toLowerCase(Locale.US)) {
+            case "document":
+                return Type.DOCUMENT;
+            case "spreadsheet":
+                return Type.SPREADSHEET;
+            case "presentation":
+                return Type.PRESENTATION;
+            default:
+                return Type.UNKNOWN;
+        }
     }
 
     public int id;

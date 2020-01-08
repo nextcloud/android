@@ -329,7 +329,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             OCFileListHeaderViewHolder headerViewHolder = (OCFileListHeaderViewHolder) holder;
             String text = currentDirectory.getRichWorkspace();
 
-            PreviewTextFragment.setText(headerViewHolder.headerText, text, getItem(position), activity);
+            PreviewTextFragment.setText(headerViewHolder.headerText, text, null, activity, true, true);
             headerViewHolder.headerView.setOnClickListener(v -> ocFileListFragmentInterface.onHeaderClicked());
         } else {
             OCFileListGridImageViewHolder gridViewHolder = (OCFileListGridImageViewHolder) holder;
@@ -673,11 +673,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public OCFile getItem(int position) {
-        if (shouldShowHeader()) {
-            return mFiles.get(position - 1);
-        } else {
-            return mFiles.get(position);
+        int newPosition = position;
+
+        if (shouldShowHeader() && position > 0) {
+            newPosition = position - 1;
         }
+
+        return mFiles.get(newPosition);
     }
 
     private boolean shouldShowHeader() {

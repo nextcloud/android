@@ -40,6 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -54,6 +55,7 @@ import com.owncloud.android.utils.ThemeUtils;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import io.noties.markwon.AbstractMarkwonPlugin;
 import io.noties.markwon.Markwon;
@@ -95,6 +97,7 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
     private ProgressBar mMultiListProgress;
 
     @Inject UserAccountManager accountManager;
+    @Inject DeviceInfo deviceInfo;
 
     /**
      * {@inheritDoc}
@@ -172,7 +175,7 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
                         mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
                     }
                 } else {
-                    setText(mTextPreview, mOriginalText, getFile(), requireActivity());
+                    setText(mTextPreview, mOriginalText, getFile(), getActivity());
                 }
             }, delay);
         }
@@ -224,14 +227,22 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
     }
 
     public static void setText(TextView textView, String text, OCFile file, Activity activity) {
-        setText(textView, text, file, activity, false);
+        setText(textView, text, file, activity, false, false);
     }
 
-    public static void setText(TextView textView, String text, OCFile file, Activity activity, boolean ignoreMimetype) {
-        if ((MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN.equals(file.getMimeType()) || ignoreMimetype) &&
+    public static void setText(TextView textView,
+                               String text,
+                               @Nullable OCFile file,
+                               Activity activity,
+                               boolean ignoreMimetype,
+                               boolean preview) {
+        if ((ignoreMimetype || file != null && MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN.equals(file.getMimeType())) &&
             android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN
             && activity != null) {
-            textView.setMovementMethod(LinkMovementMethod.getInstance());
+            if (!preview) {
+                // clickable links prevent to open full view of rich workspace
+                textView.setMovementMethod(LinkMovementMethod.getInstance());
+            }
             textView.setText(getRenderedMarkdownText(activity, text));
         } else {
             textView.setText(text);
