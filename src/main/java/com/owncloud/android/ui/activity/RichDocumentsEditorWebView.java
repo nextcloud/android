@@ -251,7 +251,7 @@ public class RichDocumentsEditorWebView extends EditorWebView {
     }
 
     @Override
-    protected void loadUrl(String url) {
+    public void loadUrl(String url) {
         if (TextUtils.isEmpty(url)) {
             new RichDocumentsLoadUrlTask(this, getUser().get(), getFile()).execute();
         } else {
