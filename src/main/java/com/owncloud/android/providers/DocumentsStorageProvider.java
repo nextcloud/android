@@ -573,6 +573,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         Document document = toDocument(documentId);
+        // get parent here, because it is not available anymore after the document was deleted
+        Document parentFolder = document.getParent();
 
         recursiveRevokePermission(document);
 
@@ -583,8 +585,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         if (!result.isSuccess()) {
             throw new FileNotFoundException("Failed to delete document with documentId " + documentId);
         }
-
-        Document parentFolder = document.getParent();
         context.getContentResolver().notifyChange(toNotifyUri(parentFolder), null, false);
     }
 
