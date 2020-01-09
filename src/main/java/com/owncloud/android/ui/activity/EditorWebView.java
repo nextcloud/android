@@ -92,7 +92,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                 if (getWebview().getVisibility() != View.VISIBLE) {
                     Snackbar snackbar = DisplayUtils.createSnackbar(findViewById(android.R.id.content),
                                                                     R.string.timeout_richDocuments, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.fallback_weblogin_back, v -> hideLoading());
+                        .setAction(R.string.fallback_weblogin_back, v -> closeView());
 
                     ThemeUtils.colorSnackbar(getApplicationContext(), snackbar);
                     setLoadingSnackbar(snackbar);
