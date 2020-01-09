@@ -262,6 +262,7 @@
     <string name="fab_label">Ekle ya da yükle</string>
     <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
     <string name="failed_to_print">Dosya yazdırılamadı</string>
+    <string name="failed_to_start_editor">Düzenleyici başlatılamadı</string>
     <string name="fallback_weblogin_back">Geri</string>
     <string name="fallback_weblogin_text">Eski oturum açma yöntemine dön</string>
     <string name="favorite">Sık Kullanılanlara Ekle</string>

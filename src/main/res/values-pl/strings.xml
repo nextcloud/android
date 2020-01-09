@@ -262,6 +262,7 @@
     <string name="fab_label">Dodaj lub wyślij</string>
     <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>
     <string name="failed_to_print">Nie udało się wydrukować pliku</string>
+    <string name="failed_to_start_editor">Nie można uruchomić edytora</string>
     <string name="fallback_weblogin_back">Wróć</string>
     <string name="fallback_weblogin_text">Przywróć starą metodę logowania</string>
     <string name="favorite">Dodaj do ulubionych</string>

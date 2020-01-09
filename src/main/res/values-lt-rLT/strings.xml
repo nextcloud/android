@@ -155,6 +155,7 @@
     <string name="copy_link">Kopijuoti nuorodą</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopijavimas/perkėlimas į šifruotą aplanką šiuo metu nėra palaikomas.</string>
     <string name="copy_to">Kopijuoti į…</string>
+    <string name="could_not_download_image">Nepavyko atsisiųsti viso paveikslo</string>
     <string name="could_not_retrieve_url">Nepavyko atgauti url</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
     <string name="create_file_from_template">Sukuriamas failas iš šablono…</string>
@@ -163,6 +164,7 @@
     <string name="create_new_presentation">Sukurti naują pateiktį</string>
     <string name="create_new_spreadsheet">Sukurti naują skaičiuoklę</string>
     <string name="date_unknown">Nežinoma</string>
+    <string name="default_credentials_wrong">Neteisingi prisijungimo duomenys</string>
     <string name="delete_account">Šalinti paskyrą</string>
     <string name="delete_account_warning">Pašalinti paskyrą %s ir ištrinti visus vietinius failus?\n\nIštrynimo nebegalima bus atšaukti.</string>
     <string name="delete_entries">Ištrinti įrašus</string>
@@ -225,6 +227,7 @@
     <string name="error_cant_bind_to_operations_service">Kritinė klaida: negalima įvykdyti operacijos</string>
     <string name="error_comment_file">Klaida komentuojant failą</string>
     <string name="error_crash_title">%1$s užstrigo</string>
+    <string name="error_retrieving_file">Klaida gaunant failą</string>
     <string name="error_retrieving_templates">Klaida gaunant šablonus</string>
     <string name="error_starting_direct_camera_upload">Klaida paleidžiant kamerą</string>
     <string name="etm_preferences">Nuostatos</string>
@@ -448,6 +451,7 @@
     <string name="rename_server_fail_msg">Pervadinimas neįmanomas, pavadinimas jau užimtas</string>
     <string name="reshare_not_allowed">Bendrinimas iš naujo yra neleidžiamas</string>
     <string name="resharing_is_not_allowed">Bendrinimas iš naujo yra neleidžiamas</string>
+    <string name="resized_image_not_possible">Nėra prieinamas pakeisto dydžio paveikslas.</string>
     <string name="resized_image_not_possible_download">Nėra prieinamas pakeisto dydžio paveikslas. Atsisiųsti pilno dydžio paveikslą?</string>
     <string name="restore">Atkurti failą</string>
     <string name="restore_button_description">Atkurti ištrintą failą</string>
@@ -457,6 +461,7 @@
     <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
     <string name="scanQR_description">Prisijungti per QR kodą</string>
     <string name="screenshot_02_listView_heading">Naršyti ir bendrinti</string>
+    <string name="screenshot_06_davdroid_heading">Kalendorius ir adresatai</string>
     <string name="search_users_and_groups_hint">Ieškoti naudotojų ar grupių</string>
     <string name="select_all">Pažymėti viską</string>
     <string name="send">Siųsti</string>
@@ -494,6 +499,7 @@
     <string name="share_send_note">Pastaba gavėjui</string>
     <string name="share_via_link_edit_permission_label">Leisti redaguoti</string>
     <string name="share_via_link_expiration_date_label">Nustatyti galiojimo pabaigos datą</string>
+    <string name="share_via_link_hide_download">Slėpti atsisiuntimą</string>
     <string name="share_via_link_hide_file_listing_permission_label">Paslėpti failų sąrašą</string>
     <string name="share_via_link_password_label">Apsaugoti slaptažodžiu</string>
     <string name="share_via_link_password_title">Apsaugota</string>
@@ -597,6 +603,7 @@
     <string name="upload_files">Įkelti failus</string>
     <string name="upload_list_empty_headline">Atnaujinimų nerasta</string>
     <string name="upload_list_empty_text_auto_upload">Įkelkite failus arba sinchronizuokite su savo įrenginiais</string>
+    <string name="upload_local_storage_full">Vietinė saugykla pilna</string>
     <string name="upload_local_storage_not_copied">Nepavyko nukopijuoti failo į vietinę saugyklą</string>
     <string name="upload_lock_failed">Nepavyko užrakinti aplanko</string>
     <string name="upload_old_android"><![CDATA[Šifravimas įmanomas tik naudojant >= Android 5.0]]></string>
@@ -661,6 +668,18 @@
     <string name="wait_checking_credentials">Dekriptuojami prisijungimo duomenys</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopijuojamas failas iš privačios saugyklos</string>
     <string name="whats_new_skip">Praleisti</string>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">Nepavyko sinchronizuoti %1$d failo (konfliktai: %2$d)</item>
+        <item quantity="few">Nepavyko sinchronizuoti %1$d failų (konfliktai: %2$d)</item>
+        <item quantity="many">Nepavyko sinchronizuoti %1$d failų (konfliktai: %2$d)</item>
+        <item quantity="other">Nepavyko sinchronizuoti %1$d failo (konfliktai: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Nepavyko nukopijuoti %1$d failo iš aplanko %2$s į</item>
+        <item quantity="few">Nepavyko nukopijuoti %1$d failų iš aplanko %2$s į</item>
+        <item quantity="many">Nepavyko nukopijuoti %1$d failų iš aplanko %2$s į</item>
+        <item quantity="other">Nepavyko nukopijuoti %1$d failo iš aplanko %2$s į</item>
+    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d aplankas</item>
         <item quantity="few">%1$d aplankai</item>
