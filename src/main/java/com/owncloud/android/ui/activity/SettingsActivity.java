@@ -711,8 +711,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
         themePref.setEntryValues(themeValues.toArray(new String[0]));
 
         if (TextUtils.isEmpty(themePref.getEntry())) {
-            themePref.setValue(DarkMode.LIGHT.name());
-            themePref.setSummary(TextUtils.isEmpty(themePref.getEntry()) ? DarkMode.LIGHT.name() : themePref.getEntry());
+            themePref.setValue(DarkMode.SYSTEM.name());
+            themePref.setSummary(TextUtils.isEmpty(themePref.getEntry()) ? DarkMode.SYSTEM.name() : themePref.getEntry());
         }
 
         themePref.setOnPreferenceChangeListener((preference, newValue) -> {

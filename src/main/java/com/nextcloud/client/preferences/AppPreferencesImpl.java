@@ -414,10 +414,10 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public DarkMode getDarkThemeMode() {
         try {
-            return DarkMode.valueOf(preferences.getString(PREF__DARK_THEME, DarkMode.LIGHT.name()));
+            return DarkMode.valueOf(preferences.getString(PREF__DARK_THEME, DarkMode.SYSTEM.name()));
         } catch (ClassCastException e) {
-            preferences.edit().putString(PREF__DARK_THEME, DarkMode.LIGHT.name()).apply();
-            return DarkMode.DARK;
+            preferences.edit().putString(PREF__DARK_THEME, DarkMode.SYSTEM.name()).apply();
+            return DarkMode.SYSTEM;
         }
     }
 
