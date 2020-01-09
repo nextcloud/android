@@ -808,7 +808,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                                                                  url,
                                                                                                  requireContext());
                 } else {
-                    DisplayUtils.showSnackMessage(getView(), "Error");
+                    DisplayUtils.showSnackMessage(getView(), R.string.failed_to_start_editor);
                 }
             }).start();
             return true;
