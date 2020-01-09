@@ -85,6 +85,10 @@ public class FileSortOrder {
      */
     public static List<OCFile> sortCloudFilesByFavourite(List<OCFile> files) {
         Collections.sort(files, (o1, o2) -> {
+            int sortInfomaniak = Utils.sortInfomaniakFolder(o1, o2);
+            if (sortInfomaniak != 0) {
+                return sortInfomaniak;
+            }
             if (o1.isFavorite() && o2.isFavorite()) {
                 return 0;
             } else if (o1.isFavorite()) {
@@ -94,7 +98,7 @@ public class FileSortOrder {
             }
             return 0;
         });
-        // IK change - Will return team space in first position
-        return Utils.setTeamSpaceFirst(files);
+
+        return files;
     }
 }

@@ -5,11 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.utils.Log_OC;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,6 +15,7 @@ import static com.owncloud.android.utils.MimeTypeUtil.getMimeTypeFromPath;
 public class Utils {
 
     private static final String COMMON_DOCUMENTS_NAME = "Common documents"; // Change if needed
+    private static final String SHARED_NAME = "Shared"; // Change if needed
     private static final String IK_TAG = "Infomaniak Error";
 
     /**
@@ -116,29 +113,17 @@ public class Utils {
             mimeType.toLowerCase(Locale.ROOT).startsWith("application/vnd.oasis.opendocument.presentation"));
     }
 
-    /**
-     * Set the "team space" element in head of OCFiles ArrayList
-     *
-     * @param files The ArrayList of files
-     * @return The new ArrayList with teamspace ahead
-     */
-    public static List<OCFile> setTeamSpaceFirst(List<OCFile> files) {
-        try {
-            List<OCFile> newList = new ArrayList<>();
-            Iterator<OCFile> i = files.iterator();
-            while (i.hasNext()) {
-                OCFile currentFile = i.next();
-                if (currentFile.getFileName().equals(COMMON_DOCUMENTS_NAME)) {
-                    newList.add(0, currentFile);
-                    i.remove();
-                }
-            }
-            newList.addAll(files);
-            return newList;
-        } catch (Exception e) {
-            Log_OC.e(IK_TAG, "Unable to set team space first");
-            return files;
+    public static int sortInfomaniakFolder(OCFile file1, OCFile file2) {
+        if (file1.getFileName().equals(COMMON_DOCUMENTS_NAME)) {
+            return -1;
+        } else if (file2.getFileName().equals(COMMON_DOCUMENTS_NAME)) {
+            return 1;
+        } else if (file1.getFileName().equals(SHARED_NAME)) {
+            return -1;
+        } else if (file2.getFileName().equals(SHARED_NAME)) {
+            return 1;
+        } else {
+            return 0;
         }
-
     }
 }
