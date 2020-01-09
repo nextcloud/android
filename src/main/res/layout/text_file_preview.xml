@@ -16,19 +16,18 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+    android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/text_preview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="@dimen/standard_padding"
             android:textIsSelectable="true"
             android:visibility="gone"/>
@@ -57,7 +56,7 @@
             android:layout_marginBottom="@dimen/standard_margin"
             android:layout_marginEnd="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
-            android:contentDescription="@string/fab_label"
+            android:contentDescription="@string/edit_rich_workspace"
             android:visibility="gone" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</ScrollView>
+</RelativeLayout>

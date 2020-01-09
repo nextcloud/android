@@ -908,4 +908,7 @@
     <string name="share_internal_link">Share internal link</string>
     <string name="action_edit">Edit</string>
     <string name="failed_to_start_editor">Failed to start editor</string>
+    <string name="create_rich_workspace">Add folder info</string>
+    <string name="creates_rich_workspace">creates folder info</string>
+    <string name="edit_rich_workspace">edit folder info</string>
 </resources>
