@@ -152,10 +152,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         MaterialButton button;
 
         Resources resources = notificationsActivity.getResources();
-        NotificationExecuteActionTask task = new NotificationExecuteActionTask(client,
-                                                                               holder,
-                                                                               notification,
-                                                                               notificationsActivity);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                                                                          ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(20, 0, 20, 0);
@@ -188,7 +184,11 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
             button.setOnClickListener(v -> {
                 setButtonEnabled(holder, false);
-                task.execute(action);
+                new NotificationExecuteActionTask(client,
+                                                  holder,
+                                                  notification,
+                                                  notificationsActivity)
+                    .execute(action);
             });
 
             holder.buttons.addView(button);
