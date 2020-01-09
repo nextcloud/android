@@ -262,6 +262,7 @@
     <string name="fab_label">Hinzufügen oder hochladen</string>
     <string name="failed_to_download">Datei konnte nicht an den Downloadmanager übergeben werden</string>
     <string name="failed_to_print">Drucken der Datei fehlgeschlagen</string>
+    <string name="failed_to_start_editor">Starten des Editors fehlgeschlagen</string>
     <string name="fallback_weblogin_back">Zurück</string>
     <string name="fallback_weblogin_text">Zur alten Anmeldungsmethode zurückkehren</string>
     <string name="favorite">Zu den Favoriten hinzufügen</string>

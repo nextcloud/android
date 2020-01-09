@@ -261,6 +261,7 @@
     <string name="fab_label">Lägg till eller ladda upp</string>
     <string name="failed_to_download">Misslyckades skicka filen till nedladdningshanteraren</string>
     <string name="failed_to_print">Kunde inte skriva ut filen</string>
+    <string name="failed_to_start_editor">Kunde inte starta editor</string>
     <string name="fallback_weblogin_back">Tillbaka</string>
     <string name="fallback_weblogin_text">Gå tillbaka till gammal inloggningsmetod</string>
     <string name="favorite">Lägg till favoriter</string>
