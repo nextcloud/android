@@ -440,7 +440,6 @@ public class FileDataStorageManager {
         Log_OC.d(TAG, "Saving folder " + folder.getRemotePath() + " with " + updatedFiles.size()
             + " children and " + filesToRemove.size() + " files to remove");
 
-        ArrayList<ContentProviderOperation> operations = new ArrayList<>(updatedFiles.size());
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(updatedFiles.size() + filesToRemove.size());
 
         ArrayList<OCFile> fileExistList = getFilesExistsID(updatedFiles);
