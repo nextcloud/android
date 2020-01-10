@@ -45,6 +45,7 @@ import android.widget.AbsListView;
 import android.widget.PopupMenu;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
@@ -746,20 +747,20 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (menu.findItem(R.id.action_sort) == null) {
                 menuItemOrig = mOriginalMenuItems.get(1);
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                        menuItemOrig.getTitle());
+                         menuItemOrig.getTitle());
             }
 
         } else if (menuItemAddRemoveValue == MenuItemAddRemove.ADD_GRID_AND_SORT) {
             if (menu.findItem(R.id.action_switch_view) == null) {
                 menuItemOrig = mOriginalMenuItems.get(0);
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                        menuItemOrig.getTitle());
+                         menuItemOrig.getTitle());
             }
 
             if (menu.findItem(R.id.action_sort) == null) {
                 menuItemOrig = mOriginalMenuItems.get(1);
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                        menuItemOrig.getTitle());
+                         menuItemOrig.getTitle());
             }
         } else if (menuItemAddRemoveValue == MenuItemAddRemove.REMOVE_SEARCH) {
             menu.removeItem(R.id.action_search);
@@ -767,19 +768,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (menu.findItem(R.id.action_switch_view) == null) {
                 menuItemOrig = mOriginalMenuItems.get(0);
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                        menuItemOrig.getTitle());
+                         menuItemOrig.getTitle());
             }
 
             if (menu.findItem(R.id.action_sort) == null) {
                 menuItemOrig = mOriginalMenuItems.get(1);
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                        menuItemOrig.getTitle());
+                         menuItemOrig.getTitle());
             }
 
             if (menu.findItem(R.id.action_search) == null) {
                 menuItemOrig = mOriginalMenuItems.get(2);
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                        menuItemOrig.getTitle());
+                         menuItemOrig.getTitle());
             }
         } else if (menuItemAddRemoveValue == MenuItemAddRemove.REMOVE_SORT) {
             menu.removeItem(R.id.action_sort);
@@ -789,6 +790,33 @@ public class OCFileListFragment extends ExtendedListFragment implements
             menu.removeItem(R.id.action_switch_view);
             menu.removeItem(R.id.action_search);
         }
+
+        // create rich workspace
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            menu.findItem(R.id.action_create_rich_workspace).setVisible(TextUtils.isEmpty(mFile.getRichWorkspace()));
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (R.id.action_create_rich_workspace == item.getItemId()) {
+            new Thread(() -> {
+                RemoteOperationResult result = new RichWorkspaceDirectEditingRemoteOperation(mFile.getRemotePath())
+                    .execute(accountManager.getUser().toPlatformAccount(), requireContext());
+
+                if (result.isSuccess()) {
+                    String url = (String) result.getSingleData();
+                    mContainerActivity.getFileOperationsHelper().openRichWorkspaceWithTextEditor(mFile,
+                                                                                                 url,
+                                                                                                 requireContext());
+                } else {
+                    DisplayUtils.showSnackMessage(getView(), R.string.failed_to_start_editor);
+                }
+            }).start();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**

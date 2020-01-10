@@ -63,8 +63,6 @@ class TextEditorWebView : EditorWebView() {
     override fun loadUrl(url: String?) {
         if (url.isNullOrEmpty()) {
             TextEditorLoadUrlTask(this, user.get(), file).execute()
-        } else {
-            super.loadUrl(url)
         }
     }
 
