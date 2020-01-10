@@ -262,6 +262,7 @@
     <string name="fab_label">Añadir o subir</string>
     <string name="failed_to_download">Error al enviar el fichero al gestor de descargas</string>
     <string name="failed_to_print">Fallo al imprimir el archivo</string>
+    <string name="failed_to_start_editor">Fallo al inicial el editor</string>
     <string name="fallback_weblogin_back">Volver</string>
     <string name="fallback_weblogin_text">Volver al método de registro antiguo</string>
     <string name="favorite">Añadir a favoritos</string>

@@ -1150,7 +1150,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 } else if (backgroundDefault.isTrue() && backgroundPlain.isFalse()) {
                     // use nc13 background image with themed color
                     Drawable[] drawables = {new ColorDrawable(primaryColor),
-                            getResources().getDrawable(R.drawable.background_nc13)};
+                        getResources().getDrawable(R.drawable.background)};
                     LayerDrawable layerDrawable = new LayerDrawable(drawables);
                     setNavigationHeaderBackground(layerDrawable, navigationHeader);
                 } else {
@@ -1175,8 +1175,8 @@ public abstract class DrawerActivity extends ToolbarActivity
 
                         int backgroundResource;
                         OwnCloudVersion ownCloudVersion = accountManager.getServerVersion(getAccount());
-                        if (ownCloudVersion.compareTo(OwnCloudVersion.nextcloud_13) >= 0) {
-                            backgroundResource = R.drawable.background_nc13;
+                        if (ownCloudVersion.compareTo(OwnCloudVersion.nextcloud_18) >= 0) {
+                            backgroundResource = R.drawable.background_nc18;
                         } else {
                             backgroundResource = R.drawable.background;
                         }

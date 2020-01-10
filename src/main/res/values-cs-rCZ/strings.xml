@@ -262,6 +262,7 @@
     <string name="fab_label">Přidat nebo nahrát</string>
     <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
     <string name="failed_to_print">Soubor se nepodařilo vytisknout</string>
+    <string name="failed_to_start_editor">Editor se nepodařilo spustit</string>
     <string name="fallback_weblogin_back">Zpět</string>
     <string name="fallback_weblogin_text">Vrátit se ke starému způsobu přihlašování</string>
     <string name="favorite">Přidat do oblíbených</string>

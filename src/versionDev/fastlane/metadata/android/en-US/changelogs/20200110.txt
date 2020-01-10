@@ -1,0 +1,9 @@
+8a343be9c Merge pull request #5133 from nextcloud/notificationTask
+6cd1b751e Merge pull request #5121 from nextcloud/newIcon
+9fa406036 Merge pull request #5128 from nextcloud/closeEditor
+4b073e928 task needs to be a new object for every button
+383d892b5 Merge pull request #5017 from grote/5015-dp-remove-npe
+56e6ed588 editor: click on snackbar closes webview for real
+99eb991f1 [tx-robot] updated from transifex
+e0beda807 daily dev 20200109
+library commit: 903d50f8b68fc1005f184259feb2add6c902acfe
