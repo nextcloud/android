@@ -798,7 +798,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         if (mStorageManager == null) {
-            mStorageManager = new FileDataStorageManagerImpl(user.toPlatformAccount(), activity.getContentResolver());
+            mStorageManager = new FileDataStorageManagerImpl(user.toPlatformAccount(), activity);
         }
 
         if (clear) {
