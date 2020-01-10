@@ -23,6 +23,7 @@
         1. Backport pull request
         1. Pull requests that also need changes on library
         1. Adding new files
+        1. Testing
 	1. File naming
         1. Menu files
     1. Translations
@@ -237,6 +238,52 @@ Source code of app:
   along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
 ```
+
+### 6. Testing
+- testing is very important, but is lacking a lot on this project. Starting with 2020 we aim to write tests for every
+  new pull request.
+- Code coverage can be found [here](https://codecov.io/gh/nextcloud/android).
+
+#### 1. Unit tests
+- small, isolated tests, with no need of Android SDK
+- code coverage can be directly shown via right click on test and select "Run Test with Coverage"
+
+#### 2. Instrumented tests
+- tests to see larger code working in correct way
+- tests that require parts of Android SDK
+- best to avoid server communication, see https://github.com/nextcloud/android/pull/3624
+
+- run all tests ```./gradlew createGplayDebugCoverageReport -Pcoverage=true```
+- run selective test class: ```./gradlew createGplayDebugCoverageReport -Pcoverage=true
+  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest```
+- run multiple test classes:
+  -   separate by ","
+  - ```./gradlew createGplayDebugCoverageReport -Pcoverage=true -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest,com.nextcloud.client.FileDisplayActivityIT```
+- run one test in class: ```./gradlew createGplayDebugCoverageReport -Pcoverage=true
+  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest#saveNewFile```
+- JaCoCo results are shown as html: firefox ./build/reports/coverage/gplay/debug/index.html
+
+
+#### 3. UI tests
+We use [shot](https://github.com/Karumi/Shot) for taking screenshots and compare them 
+- check screenshots: ```./gradlew executeScreenshotTests ```
+- update/generate new screenshots: ```scripts/updateScreenshots.sh ``` 
+    - in this script are samples how to only execute a given class/test
+    - this will fire up docker & emulator to ensure that screenshots look the same
+- creating own UI comparision tests: 
+    - add IntentsTestRule for launching activity directly:
+    ```java
+ @Rule public IntentsTestRule<SettingsActivity> activityRule = new IntentsTestRule<>(SettingsActivity.class,
+                                                                                        true,
+                                                                                        false);
+```
+    -  in test method:
+    ```java 
+Activity activity = activityRule.launchActivity(null); 
+…do something, e.g. navigate, create folder, etc. … 
+  Screenshot.snapActivity(activity).record();
+  ```
+    - best practise is to first create test with emulator too see behaviour and then create screenshots
 
 ## File naming
 
