@@ -792,7 +792,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         // create rich workspace
-        menu.findItem(R.id.action_create_rich_workspace).setVisible(TextUtils.isEmpty(mFile.getRichWorkspace()));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            menu.findItem(R.id.action_create_rich_workspace).setVisible(TextUtils.isEmpty(mFile.getRichWorkspace()));
+        }
     }
 
     @Override
