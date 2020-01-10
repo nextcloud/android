@@ -62,6 +62,15 @@
         android:title="@string/select_all"
         android:contentDescription="@string/select_all"/>
 
+    <item
+        android:id="@+id/action_create_rich_workspace"
+        android:icon="@drawable/ic_post_add"
+        android:orderInCategory="2"
+        app:showAsAction="never"
+        android:visible="false"
+        android:title="@string/create_rich_workspace"
+        android:contentDescription="@string/creates_rich_workspace" />
+
     <!-- <item android:id="@+id/search"
     android:title="@string/actionbar_search"
     android:icon="@drawable/ic_action_search"></item> -->
