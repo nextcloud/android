@@ -441,6 +441,7 @@ public class FileDataStorageManager {
             + " children and " + filesToRemove.size() + " files to remove");
 
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(updatedFiles.size());
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>(updatedFiles.size() + filesToRemove.size());
 
         ArrayList<OCFile> fileExistList = getFilesExistsID(updatedFiles);
 
@@ -771,8 +772,7 @@ public class FileDataStorageManager {
         }
     }
 
-    public void migrateStoredFiles(String sourcePath, String destinationPath)
-        throws RemoteException, OperationApplicationException {
+    public void migrateStoredFiles(String sourcePath, String destinationPath) {
         Cursor cursor = executeQuery(ProviderTableMeta.CONTENT_URI_FILE,
                                      ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL",
                                      null,

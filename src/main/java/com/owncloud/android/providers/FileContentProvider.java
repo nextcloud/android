@@ -266,14 +266,39 @@ public class FileContentProvider extends ContentProvider {
         switch (mUriMatcher.match(uri)) {
             case ROOT_DIRECTORY:
             case SINGLE_FILE:
-                Uri insertedFileUri;
-                long idFile = db.insert(ProviderTableMeta.FILE_TABLE_NAME, null, values);
-                if (idFile > 0) {
-                    insertedFileUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, idFile);
+                String[] projection = new String[]{
+                    ProviderTableMeta._ID, ProviderTableMeta.FILE_PATH,
+                    ProviderTableMeta.FILE_ACCOUNT_OWNER
+                };
+                String where = ProviderTableMeta.FILE_PATH + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
+
+                String remotePath = values.getAsString(ProviderTableMeta.FILE_PATH);
+                String accountName = values.getAsString(ProviderTableMeta.FILE_ACCOUNT_OWNER);
+                String[] whereArgs = {remotePath, accountName};
+
+                Cursor doubleCheck = query(db, uri, projection, where, whereArgs, null);
+                // TODO better implementation is needed
+                // ugly patch; serious refactorization is needed to reduce work in
+                // FileDataStorageManager and bring it to FileContentProvider
+                if (doubleCheck.moveToFirst()) {
+                    // file is already inserted; race condition, let's avoid a duplicated entry
+                    Uri insertedFileUri = ContentUris.withAppendedId(
+                        ProviderTableMeta.CONTENT_URI_FILE,
+                        doubleCheck.getLong(doubleCheck.getColumnIndex(ProviderTableMeta._ID))
+                    );
+                    doubleCheck.close();
+
+                    return insertedFileUri;
                 } else {
-                    throw new SQLException(ERROR + uri);
+                    doubleCheck.close();
+
+                    long rowId = db.insert(ProviderTableMeta.FILE_TABLE_NAME, null, values);
+                    if (rowId > 0) {
+                        return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
+                    } else {
+                        throw new SQLException(ERROR + uri);
+                    }
                 }
-                return insertedFileUri;
 
             case SHARES:
                 Uri insertedShareUri;
