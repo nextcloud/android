@@ -404,6 +404,7 @@
     <string name="prefs_imprint">اثر</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">ذخیره زیر پوشه بر اساس سال و ماه</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">استفاده از زیر پوشه</string>
+    <string name="prefs_license">License</string>
     <string name="prefs_lock_none">هیچ‌کدام</string>
     <string name="prefs_manage_accounts">مدیریت حساب ها </string>
     <string name="prefs_recommend">پیشنهاد به دوستان </string>
