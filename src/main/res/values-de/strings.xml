@@ -180,6 +180,8 @@
     <string name="create_new_folder">Neuen Ordner erstellen</string>
     <string name="create_new_presentation">Neue Präsentation erstellen</string>
     <string name="create_new_spreadsheet">Neue Tabelle erstellen</string>
+    <string name="create_rich_workspace">Ordnerinfo hinzufügen</string>
+    <string name="creates_rich_workspace">Ordnerinfo erstellen</string>
     <string name="credentials_disabled">Zugangsdaten ausgeschaltet</string>
     <string name="date_unknown">Unbekannt</string>
     <string name="default_credentials_wrong">Zugangsdaten falsch</string>
@@ -230,6 +232,7 @@
     <string name="drawer_quota_unlimited">%1$s verwendet</string>
     <string name="drawer_synced_folders">Automatisches Hochladen</string>
     <string name="edit_permission_label">bearbeiten</string>
+    <string name="edit_rich_workspace">Ordnerinfo bearbeiten</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_decrypting">Entschlüssele…</string>
