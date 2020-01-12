@@ -180,6 +180,8 @@
     <string name="create_new_folder">Crea una nuova cartella</string>
     <string name="create_new_presentation">Crea nuova presentazione</string>
     <string name="create_new_spreadsheet">Crea nuovo foglio elettronico</string>
+    <string name="create_rich_workspace">Aggiungi informazioni cartella</string>
+    <string name="creates_rich_workspace">crea informazioni cartella</string>
     <string name="credentials_disabled">Credenziali disabilitate</string>
     <string name="date_unknown">Sconosciuta</string>
     <string name="default_credentials_wrong">Credenziali non corrette</string>
@@ -230,6 +232,7 @@
     <string name="drawer_quota_unlimited">%1$s utilizzato</string>
     <string name="drawer_synced_folders">Caricamento automatico</string>
     <string name="edit_permission_label">modifica</string>
+    <string name="edit_rich_workspace">modifica informazioni cartella</string>
     <string name="encrypted">Imposta come cifrato</string>
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
     <string name="end_to_end_encryption_decrypting">Decifratura in corso…</string>

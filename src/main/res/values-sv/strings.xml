@@ -180,6 +180,8 @@
     <string name="create_new_folder">Skapa ny mapp</string>
     <string name="create_new_presentation">Skapa ny presentation</string>
     <string name="create_new_spreadsheet">Skapa nytt kalkylblad</string>
+    <string name="create_rich_workspace">Lägg till mappinfo</string>
+    <string name="creates_rich_workspace">skapar mappinfo</string>
     <string name="credentials_disabled">Inloggningsuppgifter inaktiverade</string>
     <string name="date_unknown">Okänd</string>
     <string name="default_credentials_wrong">Felaktiga inloggningsuppgifter</string>
@@ -229,6 +231,7 @@
     <string name="drawer_quota_unlimited">%1$s använt</string>
     <string name="drawer_synced_folders">Automatisk uppladdning</string>
     <string name="edit_permission_label">redigera</string>
+    <string name="edit_rich_workspace">redigera mappinfo</string>
     <string name="encrypted">Sätt som krypterad</string>
     <string name="end_to_end_encryption_confirm_button">Aktivera kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterar…</string>

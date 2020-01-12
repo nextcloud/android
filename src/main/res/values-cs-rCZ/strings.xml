@@ -180,6 +180,8 @@
     <string name="create_new_folder">Vytvořit novou složku</string>
     <string name="create_new_presentation">Vytvořit novou prezentaci</string>
     <string name="create_new_spreadsheet">Vytvořit nový sešit</string>
+    <string name="create_rich_workspace">Přidat informace o složce</string>
+    <string name="creates_rich_workspace">vytvoří informace o složce</string>
     <string name="credentials_disabled">Přihlašovací údaje znepřístupněny</string>
     <string name="date_unknown">Neznámé</string>
     <string name="default_credentials_wrong">Neplatné přihlašovací údaje</string>
@@ -230,6 +232,7 @@
     <string name="drawer_quota_unlimited">%1$s použito</string>
     <string name="drawer_synced_folders">Automatické nahrávání</string>
     <string name="edit_permission_label">upravit</string>
+    <string name="edit_rich_workspace">upravit informace o složce</string>
     <string name="encrypted">Nastavit jako šifrované</string>
     <string name="end_to_end_encryption_confirm_button">Nastavit šifrování</string>
     <string name="end_to_end_encryption_decrypting">Rozšifrovávání…</string>

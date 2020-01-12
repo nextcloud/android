@@ -180,6 +180,8 @@
     <string name="create_new_folder">Créer un nouveau dossier</string>
     <string name="create_new_presentation">Créer une nouvelle présentation</string>
     <string name="create_new_spreadsheet">Créer une nouvelle feuille de calcul</string>
+    <string name="create_rich_workspace">Ajouter des commentaires au dossier</string>
+    <string name="creates_rich_workspace">ajoute des commentaires au dossier</string>
     <string name="credentials_disabled">Informations d\'identification désactivées</string>
     <string name="date_unknown">Inconnu</string>
     <string name="default_credentials_wrong">Informations d\'identification erronées</string>
@@ -232,6 +234,7 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_quota_unlimited">%1$s utilisé</string>
     <string name="drawer_synced_folders">Envoi automatique</string>
     <string name="edit_permission_label">modifier</string>
+    <string name="edit_rich_workspace">modifier les commentaires du dossier</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_decrypting">Décryptage…</string>
