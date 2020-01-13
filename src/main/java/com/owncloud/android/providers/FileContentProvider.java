@@ -40,6 +40,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Build;
 import android.text.TextUtils;
 
 import com.nextcloud.client.core.Clock;
@@ -265,28 +266,21 @@ public class FileContentProvider extends ContentProvider {
         switch (mUriMatcher.match(uri)) {
             case ROOT_DIRECTORY:
             case SINGLE_FILE:
-                String remotePath = values.getAsString(ProviderTableMeta.FILE_PATH);
-                String accountName = values.getAsString(ProviderTableMeta.FILE_ACCOUNT_OWNER);
                 String[] projection = new String[]{
                     ProviderTableMeta._ID, ProviderTableMeta.FILE_PATH,
                     ProviderTableMeta.FILE_ACCOUNT_OWNER
                 };
                 String where = ProviderTableMeta.FILE_PATH + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
-                String[] whereArgs = new String[]{remotePath, accountName};
+
+                String remotePath = values.getAsString(ProviderTableMeta.FILE_PATH);
+                String accountName = values.getAsString(ProviderTableMeta.FILE_ACCOUNT_OWNER);
+                String[] whereArgs = {remotePath, accountName};
+
                 Cursor doubleCheck = query(db, uri, projection, where, whereArgs, null);
+                // TODO better implementation is needed
                 // ugly patch; serious refactorization is needed to reduce work in
                 // FileDataStorageManager and bring it to FileContentProvider
-                if (doubleCheck == null || !doubleCheck.moveToFirst()) {
-                    if (doubleCheck != null) {
-                        doubleCheck.close();
-                    }
-                    long rowId = db.insert(ProviderTableMeta.FILE_TABLE_NAME, null, values);
-                    if (rowId > 0) {
-                        return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
-                    } else {
-                        throw new SQLException(ERROR + uri);
-                    }
-                } else {
+                if (doubleCheck.moveToFirst()) {
                     // file is already inserted; race condition, let's avoid a duplicated entry
                     Uri insertedFileUri = ContentUris.withAppendedId(
                         ProviderTableMeta.CONTENT_URI_FILE,
@@ -295,13 +289,22 @@ public class FileContentProvider extends ContentProvider {
                     doubleCheck.close();
 
                     return insertedFileUri;
+                } else {
+                    doubleCheck.close();
+
+                    long rowId = db.insert(ProviderTableMeta.FILE_TABLE_NAME, null, values);
+                    if (rowId > 0) {
+                        return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
+                    } else {
+                        throw new SQLException(ERROR + uri);
+                    }
                 }
 
             case SHARES:
                 Uri insertedShareUri;
-                long rowId = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, null, values);
-                if (rowId > 0) {
-                    insertedShareUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, rowId);
+                long idShares = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, null, values);
+                if (idShares > 0) {
+                    insertedShareUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, idShares);
                 } else {
                     throw new SQLException(ERROR + uri);
 
@@ -312,9 +315,9 @@ public class FileContentProvider extends ContentProvider {
 
             case CAPABILITIES:
                 Uri insertedCapUri;
-                long id = db.insert(ProviderTableMeta.CAPABILITIES_TABLE_NAME, null, values);
-                if (id > 0) {
-                    insertedCapUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_CAPABILITIES, id);
+                long idCapabilities = db.insert(ProviderTableMeta.CAPABILITIES_TABLE_NAME, null, values);
+                if (idCapabilities > 0) {
+                    insertedCapUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_CAPABILITIES, idCapabilities);
                 } else {
                     throw new SQLException(ERROR + uri);
                 }
@@ -653,6 +656,30 @@ public class FileContentProvider extends ContentProvider {
         }
     }
 
+    @Override
+    public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
+        if (isCallerNotAllowed(uri)) {
+            return 0;
+        }
+
+        if (mUriMatcher.match(uri) == VIRTUAL) {
+            SQLiteDatabase database = mDbHelper.getWritableDatabase();
+            database.beginTransaction();
+            int contentInsert;
+            try {
+                for (ContentValues contentValues : values) {
+                    insert(database, uri, contentValues);
+                }
+                database.setTransactionSuccessful();
+                contentInsert = values.length;
+            } finally {
+                database.endTransaction();
+            }
+            return contentInsert;
+        }
+        return super.bulkInsert(uri, values);
+    }
+
     @NonNull
     @Override
     public ContentProviderResult[] applyBatch(@NonNull ArrayList<ContentProviderOperation> operations)
@@ -662,16 +689,22 @@ public class FileContentProvider extends ContentProvider {
         ContentProviderResult[] results = new ContentProviderResult[operations.size()];
         int i = 0;
 
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.beginTransaction();  // it's supposed that transactions can be nested
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+        database.beginTransaction();  // it's supposed that transactions can be nested
         try {
             for (ContentProviderOperation operation : operations) {
-                results[i] = operation.apply(this, results, i);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && operation.isInsert()) {
+                    ContentValues contentValues = operation.resolveValueBackReferences(results, i);
+                    Uri newUri = insert(database, operation.getUri(), contentValues);
+                    results[i] = new ContentProviderResult(newUri);
+                } else {
+                    results[i] = operation.apply(this, results, i);
+                }
                 i++;
             }
-            db.setTransactionSuccessful();
+            database.setTransactionSuccessful();
         } finally {
-            db.endTransaction();
+            database.endTransaction();
         }
         Log_OC.d("FileContentProvider", "applied batch in provider " + this);
         return results;

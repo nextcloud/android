@@ -159,7 +159,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (this.user != null) {
             AccountManager platformAccountManager = AccountManager.get(this.activity);
             userId = platformAccountManager.getUserData(this.user.toPlatformAccount(),
-                                                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+                                                        com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
         } else {
             userId = "";
         }
@@ -569,7 +569,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     avatar.setImageDrawable(circularBitmapDrawable);
                 }
             });
-        }
+    }
 
     private void setThumbnail(OCFile file, ImageView thumbnailView) {
         if (file.isFolder()) {
@@ -831,9 +831,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         if (searchType != ExtendedListFragment.SearchType.PHOTO_SEARCH &&
-                searchType != ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER &&
-                searchType != ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH &&
-                searchType != ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER) {
+            searchType != ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER &&
+            searchType != ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH &&
+            searchType != ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER) {
             FileSortOrder sortOrder = preferences.getSortOrderByFolder(folder);
             mFiles = sortOrder.sortCloudFiles(mFiles);
         } else {
@@ -883,6 +883,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
         }
+
         mStorageManager.saveShares(shares);
     }
 
@@ -955,7 +956,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         preferences.setPhotoSearchTimestamp(System.currentTimeMillis());
-        mStorageManager.saveVirtuals(type, contentValues);
+        mStorageManager.saveVirtuals(contentValues);
     }
 
     public void showVirtuals(VirtualFolderType type, boolean onlyImages, FileDataStorageManager storageManager) {

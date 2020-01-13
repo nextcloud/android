@@ -43,6 +43,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,10 +90,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private boolean mRemoteFolderChanged;
 
     private List<OCFile> mFilesForDirectDownload;
-        // to avoid extra PROPFINDs when there was no change in the folder
+    // to avoid extra PROPFINDs when there was no change in the folder
 
     private List<SyncOperation> mFilesToSyncContents;
-        // this will be used for every file when 'folder synchronization' replaces 'folder download'
+    // this will be used for every file when 'folder synchronization' replaces 'folder download'
 
     private final AtomicBoolean mCancellationRequested;
 
@@ -179,7 +180,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             result = new RemoteOperationResult(ResultCode.OK);
 
             Log_OC.i(TAG, "Checked " + mAccount.name + mRemotePath + " : " +
-                    (mRemoteFolderChanged ? "changed" : "not changed"));
+                (mRemoteFolderChanged ? "changed" : "not changed"));
 
         } else {
             // check failed
@@ -188,10 +189,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
             }
             if (result.isException()) {
                 Log_OC.e(TAG, "Checked " + mAccount.name + mRemotePath  + " : " +
-                        result.getLogMessage(), result.getException());
+                    result.getLogMessage(), result.getException());
             } else {
                 Log_OC.e(TAG, "Checked " + mAccount.name + mRemotePath + " : " +
-                        result.getLogMessage());
+                    result.getLogMessage());
             }
 
         }
@@ -213,7 +214,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             synchronizeData(result.getData());
             if (mConflictsFound > 0  || mFailsInFileSyncsFound > 0) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
-                    // should be a different result code, but will do the job
+                // should be a different result code, but will do the job
             }
         } else {
             if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
@@ -230,10 +231,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
         if (storageManager.fileExists(mLocalFolder.getFileId())) {
             String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
             storageManager.removeFolder(
-                    mLocalFolder,
-                    true,
-                    mLocalFolder.isDown() // TODO: debug, I think this is always false for folders
-                            && mLocalFolder.getStoragePath().startsWith(currentSavePath)
+                mLocalFolder,
+                true,
+                mLocalFolder.isDown() // TODO: debug, I think this is always false for folders
+                    && mLocalFolder.getStoragePath().startsWith(currentSavePath)
             );
         }
     }
@@ -252,7 +253,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         remoteFolder.setFileId(mLocalFolder.getFileId());
 
         Log_OC.d(TAG, "Remote folder " + mLocalFolder.getRemotePath()
-                + " changed - starting update of local data ");
+            + " changed - starting update of local data ");
 
         mFilesForDirectDownload.clear();
         mFilesToSyncContents.clear();
@@ -262,7 +263,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         FileDataStorageManager storageManager = getStorageManager();
-        List<OCFile> updatedFiles = new Vector<>(folderAndFiles.size() - 1);
+        ArrayList<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
 
         // get current data about local contents of the folder to synchronize
         List<OCFile> localFiles = storageManager.getFolderContent(mLocalFolder, false);
@@ -311,17 +312,17 @@ public class SynchronizeFolderOperation extends SyncOperation {
             updatedFile.setFileId(localFile.getFileId());
             updatedFile.setLastSyncDateForData(localFile.getLastSyncDateForData());
             updatedFile.setModificationTimestampAtLastSyncForData(
-                    localFile.getModificationTimestampAtLastSyncForData()
+                localFile.getModificationTimestampAtLastSyncForData()
             );
             updatedFile.setStoragePath(localFile.getStoragePath());
             // eTag will not be updated unless file CONTENTS are synchronized
             updatedFile.setEtag(localFile.getEtag());
             if (updatedFile.isFolder()) {
                 updatedFile.setFileLength(localFile.getFileLength());
-                    // TODO move operations about size of folders to FileContentProvider
+                // TODO move operations about size of folders to FileContentProvider
             } else if (mRemoteFolderChanged && MimeTypeUtil.isImage(remoteFile) &&
-                    remoteFile.getModificationTimestamp() !=
-                            localFile.getModificationTimestamp()) {
+                remoteFile.getModificationTimestamp() !=
+                    localFile.getModificationTimestamp()) {
                 updatedFile.setUpdateThumbnailNeeded(true);
                 Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
             }
@@ -336,7 +337,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
     private void classifyFileForLaterSyncOrDownload(OCFile remoteFile, OCFile localFile)
-            throws OperationCancelledException {
+        throws OperationCancelledException {
         if (remoteFile.isFolder()) {
             /// to download children files recursively
             synchronized (mCancellationRequested) {
@@ -349,12 +350,12 @@ public class SynchronizeFolderOperation extends SyncOperation {
         } else {
             /// prepare content synchronization for files (any file, not just favorites)
             SynchronizeFileOperation operation = new SynchronizeFileOperation(
-                    localFile,
-                    remoteFile,
-                    mAccount,
-                    true,
-                    mContext
-                );
+                localFile,
+                remoteFile,
+                mAccount,
+                true,
+                mContext
+            );
             mFilesToSyncContents.add(operation);
         }
     }
@@ -381,11 +382,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 } else {
                     /// this should result in direct upload of files that were locally modified
                     SynchronizeFileOperation operation = new SynchronizeFileOperation(
-                            child,
-                            child.getEtagInConflict() != null ? child : null,
-                            mAccount,
-                            true,
-                            mContext
+                        child,
+                        child.getEtagInConflict() != null ? child : null,
+                        mAccount,
+                        true,
+                        mContext
                     );
                     mFilesToSyncContents.add(operation);
 
@@ -429,7 +430,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * @param filesToSyncContents       Synchronization operations to execute.
      */
     private void startContentSynchronizations(List<SyncOperation> filesToSyncContents)
-            throws OperationCancelledException {
+        throws OperationCancelledException {
 
         Log_OC.v(TAG, "Starting content synchronization... ");
         RemoteOperationResult contentsResult;
@@ -445,10 +446,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     mFailsInFileSyncsFound++;
                     if (contentsResult.getException() != null) {
                         Log_OC.e(TAG, "Error while synchronizing file : "
-                                +  contentsResult.getLogMessage(), contentsResult.getException());
+                            +  contentsResult.getLogMessage(), contentsResult.getException());
                     } else {
                         Log_OC.e(TAG, "Error while synchronizing file : "
-                                + contentsResult.getLogMessage());
+                            + contentsResult.getLogMessage());
                     }
                 }
                 // TODO - use the errors count in notifications
