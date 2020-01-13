@@ -53,6 +53,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import ezvcard.Ezvcard;
+import ezvcard.VCardVersion;
 
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP;
 
@@ -233,7 +235,8 @@ public class ContactsBackupJob extends Job {
 
             vCard = stringBuilder.toString();
 
-            return vCard;
+            // bump to vCard 3.0 format (min version supported by server) since Android OS exports to 2.1
+            return Ezvcard.write(Ezvcard.parse(vCard).all()).version(VCardVersion.V3_0).go();
 
         } catch (IOException e) {
             Log_OC.d(TAG, e.getMessage());
