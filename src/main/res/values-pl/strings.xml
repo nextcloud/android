@@ -180,6 +180,8 @@
     <string name="create_new_folder">Utwórz nowy katalog</string>
     <string name="create_new_presentation">Utwórz nową prezentację</string>
     <string name="create_new_spreadsheet">Utwórz nowy arkusz kalkulacyjny</string>
+    <string name="create_rich_workspace">Dodaj informacje o katalogu</string>
+    <string name="creates_rich_workspace">tworzy informacje o katalogu</string>
     <string name="credentials_disabled">Poświadczenia wyłączone</string>
     <string name="date_unknown">Nieznane</string>
     <string name="default_credentials_wrong">Błedne poświadczenia</string>
@@ -230,6 +232,7 @@
     <string name="drawer_quota_unlimited">Wykorzystane: %1$s</string>
     <string name="drawer_synced_folders">Automatyczne wysyłanie</string>
     <string name="edit_permission_label">edytowanie</string>
+    <string name="edit_rich_workspace">edytuj informacje o katalogu</string>
     <string name="encrypted">Ustaw jako zaszyfrowane</string>
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
