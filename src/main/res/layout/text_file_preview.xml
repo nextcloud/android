@@ -34,6 +34,7 @@
                 android:layout_height="match_parent"
                 android:padding="@dimen/standard_padding"
                 android:textIsSelectable="true"
+                android:textColor="@color/text_color"
                 android:visibility="gone" />
 
             <RelativeLayout
