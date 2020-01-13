@@ -21,8 +21,8 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/headerView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:showDividers="none">
 
@@ -30,7 +30,6 @@
         android:id="@+id/headerText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/min_list_item_size"
         android:padding="@dimen/standard_padding"
-        android:textColor="@color/secondary_text_color" />
+        android:textColor="@color/text_color" />
 </LinearLayout>
