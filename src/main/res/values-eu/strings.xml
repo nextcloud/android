@@ -180,6 +180,8 @@
     <string name="create_new_folder">Sortu karpeta berria</string>
     <string name="create_new_presentation">Sortu aurkezpen berria</string>
     <string name="create_new_spreadsheet">Sortu kalkulu orri berria</string>
+    <string name="create_rich_workspace">Gehitu karpetaren informazioa</string>
+    <string name="creates_rich_workspace">karpetaren informazioa sortzen du</string>
     <string name="credentials_disabled">Kredentzialak desgaituta</string>
     <string name="date_unknown">Ezezaguna</string>
     <string name="default_credentials_wrong">Kredentzial okerrak</string>
@@ -230,6 +232,7 @@
     <string name="drawer_quota_unlimited">%1$s erabilita</string>
     <string name="drawer_synced_folders">Eguneratu automatikoki</string>
     <string name="edit_permission_label">editatu</string>
+    <string name="edit_rich_workspace">editatu karpetaren informazioa</string>
     <string name="encrypted">Ezarri zifratu gisa</string>
     <string name="end_to_end_encryption_confirm_button">Ezarri zifratzea</string>
     <string name="end_to_end_encryption_decrypting">Deszifratzen...</string>
@@ -262,6 +265,7 @@
     <string name="fab_label">Gehitu edo igo</string>
     <string name="failed_to_download">Huts egin du fitxategia deskarga kudeatzailera pasatzean</string>
     <string name="failed_to_print">Huts egin du fitxategia inprimatzean</string>
+    <string name="failed_to_start_editor">Ezin izan da editorea abiatu</string>
     <string name="fallback_weblogin_back">Atzera</string>
     <string name="fallback_weblogin_text">Lehengoratu saioa hasteko metodo zaharrera</string>
     <string name="favorite">Gogokoenetara gehitu</string>

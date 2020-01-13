@@ -81,6 +81,7 @@
     <string name="autoupload_create_new_custom_folder">Maak aangepaste nieuwe map aan</string>
     <string name="autoupload_custom_folder">Instellen aangepaste map</string>
     <string name="autoupload_disable_power_save_check">Uitschakelen stroombesparingscontrole</string>
+    <string name="autoupload_hide_folder">Verberg map</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Sluiten</string>
     <string name="battery_optimization_disable">Uitschakelen</string>
@@ -179,6 +180,8 @@
     <string name="create_new_folder">Nieuwe map aanmaken</string>
     <string name="create_new_presentation">Creëer nieuwe presentatie</string>
     <string name="create_new_spreadsheet">Creëren nieuw werkblad</string>
+    <string name="create_rich_workspace">Toevoegen mapinfo</string>
+    <string name="creates_rich_workspace">creëert mapinfo</string>
     <string name="credentials_disabled">Inloggegevens uitgeschakeld</string>
     <string name="date_unknown">Onbekend</string>
     <string name="default_credentials_wrong">Ongeldige inloggegevens</string>
@@ -229,6 +232,7 @@
     <string name="drawer_quota_unlimited">%1$s gebruikt</string>
     <string name="drawer_synced_folders">Automatisch uploaden</string>
     <string name="edit_permission_label">bewerken</string>
+    <string name="edit_rich_workspace">bewerken mapinfo</string>
     <string name="encrypted">Instellen als versleuteld</string>
     <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
     <string name="end_to_end_encryption_decrypting">Ontcijferen…</string>
@@ -261,6 +265,7 @@
     <string name="fab_label">Toevoegen of uploaden</string>
     <string name="failed_to_download">Kon het bestand niet doorgeven aan de download beheerder</string>
     <string name="failed_to_print">Kon bestand niet afdrukken</string>
+    <string name="failed_to_start_editor">Kon editor niet starten</string>
     <string name="fallback_weblogin_back">Terug</string>
     <string name="fallback_weblogin_text">Terug naar vorige login-methode</string>
     <string name="favorite">Toevoegen aan favorieten</string>
@@ -507,6 +512,7 @@
     <string name="prefs_theme_title">Thema</string>
     <string name="prefs_value_theme_dark">Donker</string>
     <string name="prefs_value_theme_light">Licht</string>
+    <string name="prefs_value_theme_system">Volgsysteem</string>
     <string name="preview_image_description">Voorvertoning van afbeelding</string>
     <string name="preview_image_error_no_local_file">Er is geen lokaal bestand om te bekijken</string>
     <string name="preview_image_error_unknown_format">Kan afbeelding niet tonen</string>
@@ -806,6 +812,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d bestanden</item>
         <item quantity="other">%1$d bestanden</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Tonen %1$d verborgen map</item>
+        <item quantity="other">Tonen %1$d verborgen mappen</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d geselecteerd</item>
