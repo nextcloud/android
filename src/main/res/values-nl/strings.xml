@@ -8,6 +8,7 @@
     <string name="account_icon">Accountpictogram</string>
     <string name="account_not_found">Account niet gevonden!</string>
     <string name="action_clear_failed_uploads">Wis mislukte uploads</string>
+    <string name="action_edit">Bewerken</string>
     <string name="action_empty_notifications">Handel alle meldingen af</string>
     <string name="action_empty_trashbin">Legen prullebak</string>
     <string name="action_send_share">Versturen/Delen</string>
@@ -76,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">bewaard worden in originele map, omdat die Alleen-lezen is</string>
     <string name="auto_upload_on_wifi">Upload alleen met Wi-Fi</string>
     <string name="auto_upload_path">/AutomatischUploaden</string>
+    <string name="autoupload_configure">Configureren</string>
     <string name="autoupload_create_new_custom_folder">Maak aangepaste nieuwe map aan</string>
     <string name="autoupload_custom_folder">Instellen aangepaste map</string>
     <string name="autoupload_disable_power_save_check">Uitschakelen stroombesparingscontrole</string>
+    <string name="autoupload_hide_folder">Verberg map</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Sluiten</string>
     <string name="battery_optimization_disable">Uitschakelen</string>
@@ -177,6 +180,8 @@
     <string name="create_new_folder">Nieuwe map aanmaken</string>
     <string name="create_new_presentation">Creëer nieuwe presentatie</string>
     <string name="create_new_spreadsheet">Creëren nieuw werkblad</string>
+    <string name="create_rich_workspace">Toevoegen mapinfo</string>
+    <string name="creates_rich_workspace">creëert mapinfo</string>
     <string name="credentials_disabled">Inloggegevens uitgeschakeld</string>
     <string name="date_unknown">Onbekend</string>
     <string name="default_credentials_wrong">Ongeldige inloggegevens</string>
@@ -227,6 +232,7 @@
     <string name="drawer_quota_unlimited">%1$s gebruikt</string>
     <string name="drawer_synced_folders">Automatisch uploaden</string>
     <string name="edit_permission_label">bewerken</string>
+    <string name="edit_rich_workspace">bewerken mapinfo</string>
     <string name="encrypted">Instellen als versleuteld</string>
     <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
     <string name="end_to_end_encryption_decrypting">Ontcijferen…</string>
@@ -259,6 +265,7 @@
     <string name="fab_label">Toevoegen of uploaden</string>
     <string name="failed_to_download">Kon het bestand niet doorgeven aan de download beheerder</string>
     <string name="failed_to_print">Kon bestand niet afdrukken</string>
+    <string name="failed_to_start_editor">Kon editor niet starten</string>
     <string name="fallback_weblogin_back">Terug</string>
     <string name="fallback_weblogin_text">Terug naar vorige login-methode</string>
     <string name="favorite">Toevoegen aan favorieten</string>
@@ -505,6 +512,7 @@
     <string name="prefs_theme_title">Thema</string>
     <string name="prefs_value_theme_dark">Donker</string>
     <string name="prefs_value_theme_light">Licht</string>
+    <string name="prefs_value_theme_system">Volgsysteem</string>
     <string name="preview_image_description">Voorvertoning van afbeelding</string>
     <string name="preview_image_error_no_local_file">Er is geen lokaal bestand om te bekijken</string>
     <string name="preview_image_error_unknown_format">Kan afbeelding niet tonen</string>
@@ -536,13 +544,17 @@
     <string name="saml_authentication_wrong_pass">Onjuist wachtwoord</string>
     <string name="scanQR_description">Inloggen via QR code</string>
     <string name="screenshot_01_gridView_heading">Beschermt jouw gegevens</string>
+    <string name="screenshot_01_gridView_subline">eigen-hosting productiviteit</string>
     <string name="screenshot_02_listView_heading">Blader en deel</string>
     <string name="screenshot_02_listView_subline">alle taken onder je vindertoppen</string>
+    <string name="screenshot_03_drawer_heading">Activiteiten, delen, ...</string>
     <string name="screenshot_03_drawer_subline">alles snel toegankelijk</string>
     <string name="screenshot_04_accounts_heading">Al je accounts</string>
     <string name="screenshot_04_accounts_subline">op één plek</string>
     <string name="screenshot_05_autoUpload_heading">Automatisch uploaden</string>
     <string name="screenshot_05_autoUpload_subline">voor je foto\'s &amp; video\'s</string>
+    <string name="screenshot_06_davdroid_heading">Agenda&amp; contactpersonen</string>
+    <string name="screenshot_06_davdroid_subline">Sync met DAVx5</string>
     <string name="search_users_and_groups_hint">Zoeken naar gebruikers en groepen</string>
     <string name="select_all">Alles selecteren</string>
     <string name="select_template">Kies sjabloon</string>
@@ -672,6 +684,7 @@
     <string name="synced_folders_configure_folders">Mappen instellen</string>
     <string name="synced_folders_loading_folders">Mappen laden…</string>
     <string name="synced_folders_new_info">Automatisch uploaden is helemaal herzien. Herconfigureer je auto-uploadfunctie in het hoofdmenu.\n\nVeel plezier met de nieuwe en meer uitgebreide auto-upload.</string>
+    <string name="synced_folders_no_results">Geen mediamappen gevonden</string>
     <string name="synced_folders_preferences">Voorkeuren voor automatisch uploaden</string>
     <string name="synced_folders_preferences_folder_path">Voor %1$s</string>
     <string name="synced_folders_type">Type</string>
@@ -799,6 +812,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d bestanden</item>
         <item quantity="other">%1$d bestanden</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Tonen %1$d verborgen map</item>
+        <item quantity="other">Tonen %1$d verborgen mappen</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d geselecteerd</item>

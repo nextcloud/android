@@ -109,6 +109,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
         // Setup layout
         noteEditText.setText(share.getNote());
+        noteEditText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
         noteEditText.requestFocus();
         ThemeUtils.colorTextInputLayout(noteEditTextInputLayout, accentColor);
 

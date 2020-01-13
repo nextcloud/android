@@ -8,6 +8,7 @@
     <string name="account_icon">Ícone da conta</string>
     <string name="account_not_found">Conta não encontrada!</string>
     <string name="action_clear_failed_uploads">Limpar envios com falha</string>
+    <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpar todas as notificações</string>
     <string name="action_empty_trashbin">Lixeira vazia</string>
     <string name="action_send_share">Enviar/Compartilhar</string>
@@ -261,6 +262,7 @@
     <string name="fab_label">Adicionar ou enviar</string>
     <string name="failed_to_download">Erro ao enviar o arquivo ao gerenciador de downloads</string>
     <string name="failed_to_print">Erro ao imprimir o arquivo</string>
+    <string name="failed_to_start_editor">Erro ao iniciar editor</string>
     <string name="fallback_weblogin_back">Voltar</string>
     <string name="fallback_weblogin_text">Voltar ao antigo método de login</string>
     <string name="favorite">Adicionar aos favoritos</string>

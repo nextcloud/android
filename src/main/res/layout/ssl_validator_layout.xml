@@ -30,9 +30,9 @@
 		android:layout_height="wrap_content"
 		android:text="@string/ssl_validator_header"
 		android:paddingBottom="@dimen/standard_padding"
-		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:textColor="@color/black"
-		 />
+        android:textStyle="bold"
+        android:textColor="@color/text_color"
+		android:textAppearance="?android:attr/textAppearanceMedium" />
 
 	<TextView
 		android:id="@+id/reason_cert_not_trusted"

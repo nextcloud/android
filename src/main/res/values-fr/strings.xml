@@ -8,6 +8,7 @@
     <string name="account_icon">Icône du compte</string>
     <string name="account_not_found">Compte introuvable !</string>
     <string name="action_clear_failed_uploads">Effacer les envois en erreur</string>
+    <string name="action_edit">Modifier</string>
     <string name="action_empty_notifications">Effacer toutes les notifications</string>
     <string name="action_empty_trashbin">Vider la corbeille</string>
     <string name="action_send_share">Envoyer / Partager</string>
@@ -179,6 +180,8 @@
     <string name="create_new_folder">Créer un nouveau dossier</string>
     <string name="create_new_presentation">Créer une nouvelle présentation</string>
     <string name="create_new_spreadsheet">Créer une nouvelle feuille de calcul</string>
+    <string name="create_rich_workspace">Ajouter des commentaires au dossier</string>
+    <string name="creates_rich_workspace">ajoute des commentaires au dossier</string>
     <string name="credentials_disabled">Informations d\'identification désactivées</string>
     <string name="date_unknown">Inconnu</string>
     <string name="default_credentials_wrong">Informations d\'identification erronées</string>
@@ -231,6 +234,7 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_quota_unlimited">%1$s utilisé</string>
     <string name="drawer_synced_folders">Envoi automatique</string>
     <string name="edit_permission_label">modifier</string>
+    <string name="edit_rich_workspace">modifier les commentaires du dossier</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_decrypting">Décryptage…</string>
@@ -263,6 +267,7 @@ Attention la suppression est irréversible.</string>
     <string name="fab_label">Ajouter ou téléverser</string>
     <string name="failed_to_download">Transmission du fichier au gestionnaire de téléchargement échoué</string>
     <string name="failed_to_print">Impossible d\'imprimer le fichier</string>
+    <string name="failed_to_start_editor">Impossible de lancer l\'éditeur</string>
     <string name="fallback_weblogin_back">Retour</string>
     <string name="fallback_weblogin_text">Revenir à l\'ancienne méthode de connexion</string>
     <string name="favorite">Ajouter aux favoris</string>

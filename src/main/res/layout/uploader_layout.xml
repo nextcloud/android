@@ -64,7 +64,7 @@
         android:padding="@dimen/standard_padding">
 
         <com.google.android.material.button.MaterialButton
-            android:theme="@style/OutlinedButton"
+            style="@style/OutlinedButton"
             android:id="@+id/uploader_cancel"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

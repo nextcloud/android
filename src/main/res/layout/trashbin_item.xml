@@ -58,7 +58,7 @@
                 android:ellipsize="middle"
                 android:singleLine="true"
                 tools:text="@string/placeholder_filename"
-                android:textColor="@color/textColor"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/two_line_primary_text_size"/>
 
             <LinearLayout

@@ -34,7 +34,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
@@ -61,6 +60,7 @@ import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -79,7 +79,6 @@ import com.owncloud.android.utils.ThemeUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -149,6 +148,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
     private List<VCard> vCards = new ArrayList<>();
     private OCFile ocFile;
     @Inject UserAccountManager accountManager;
+    @Inject ClientFactory clientFactory;
 
     public static ContactListFragment newInstance(OCFile file, Account account) {
         ContactListFragment frag = new ContactListFragment();
@@ -166,7 +166,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.contactlist_menu, menu);
+        inflater.inflate(R.menu.fragment_contact_list, menu);
     }
 
     @Override
@@ -191,7 +191,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
         recyclerView = view.findViewById(R.id.contactlist_recyclerview);
 
         if (savedInstanceState == null) {
-            contactListAdapter = new ContactListAdapter(accountManager, getContext(), vCards);
+            contactListAdapter = new ContactListAdapter(accountManager, clientFactory, getContext(), vCards);
         } else {
             Set<Integer> checkedItems = new HashSet<>();
             int[] itemsArray = savedInstanceState.getIntArray(CHECKED_ITEMS_ARRAY_KEY);
@@ -496,7 +496,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
             }
         }
 
-        @NotNull
+        @NonNull
         @Override
         public String toString() {
             return displayName;
@@ -589,12 +589,15 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
     private Context context;
 
     private UserAccountManager accountManager;
+    private ClientFactory clientFactory;
 
-    ContactListAdapter(UserAccountManager accountManager, Context context, List<VCard> vCards) {
+    ContactListAdapter(UserAccountManager accountManager, ClientFactory clientFactory, Context context,
+                       List<VCard> vCards) {
         this.vCards = vCards;
         this.context = context;
         this.checkedVCards = new HashSet<>();
         this.accountManager = accountManager;
+        this.clientFactory = clientFactory;
     }
 
     ContactListAdapter(UserAccountManager accountManager,
@@ -699,6 +702,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                 }
             };
             DisplayUtils.downloadIcon(accountManager,
+                                      clientFactory,
                                       context,
                                       url,
                                       target,
@@ -711,13 +715,11 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
     private void setChecked(boolean checked, CheckedTextView checkedTextView) {
         checkedTextView.setChecked(checked);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            if (checked) {
-                checkedTextView.getCheckMarkDrawable()
-                        .setColorFilter(ThemeUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP);
-            } else {
-                checkedTextView.getCheckMarkDrawable().clearColorFilter();
-            }
+        if (checked) {
+            checkedTextView.getCheckMarkDrawable()
+                .setColorFilter(ThemeUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP);
+        } else {
+            checkedTextView.getCheckMarkDrawable().clearColorFilter();
         }
     }
 
@@ -725,19 +727,15 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         holder.getName().setChecked(!holder.getName().isChecked());
 
         if (holder.getName().isChecked()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                holder.getName().getCheckMarkDrawable()
-                        .setColorFilter(ThemeUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP);
-            }
+            holder.getName().getCheckMarkDrawable().setColorFilter(ThemeUtils.primaryColor(context),
+                                                                   PorterDuff.Mode.SRC_ATOP);
 
             checkedVCards.add(verifiedPosition);
             if (checkedVCards.size() == SINGLE_SELECTION) {
                 EventBus.getDefault().post(new VCardToggleEvent(true));
             }
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                holder.getName().getCheckMarkDrawable().clearColorFilter();
-            }
+            holder.getName().getCheckMarkDrawable().clearColorFilter();
 
             checkedVCards.remove(verifiedPosition);
 

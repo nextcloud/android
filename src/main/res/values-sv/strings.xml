@@ -8,6 +8,7 @@
     <string name="account_icon">Kontoikon</string>
     <string name="account_not_found">Kontot hittades inte!</string>
     <string name="action_clear_failed_uploads">Ta bort misslyckade uppladdningar</string>
+    <string name="action_edit">Redigera</string>
     <string name="action_empty_notifications">Rensa alla aviseringar</string>
     <string name="action_empty_trashbin">Töm papperskorgen</string>
     <string name="action_send_share">Skicka/Dela</string>
@@ -179,6 +180,8 @@
     <string name="create_new_folder">Skapa ny mapp</string>
     <string name="create_new_presentation">Skapa ny presentation</string>
     <string name="create_new_spreadsheet">Skapa nytt kalkylblad</string>
+    <string name="create_rich_workspace">Lägg till mappinfo</string>
+    <string name="creates_rich_workspace">skapar mappinfo</string>
     <string name="credentials_disabled">Inloggningsuppgifter inaktiverade</string>
     <string name="date_unknown">Okänd</string>
     <string name="default_credentials_wrong">Felaktiga inloggningsuppgifter</string>
@@ -228,6 +231,7 @@
     <string name="drawer_quota_unlimited">%1$s använt</string>
     <string name="drawer_synced_folders">Automatisk uppladdning</string>
     <string name="edit_permission_label">redigera</string>
+    <string name="edit_rich_workspace">redigera mappinfo</string>
     <string name="encrypted">Sätt som krypterad</string>
     <string name="end_to_end_encryption_confirm_button">Aktivera kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterar…</string>
@@ -260,6 +264,7 @@
     <string name="fab_label">Lägg till eller ladda upp</string>
     <string name="failed_to_download">Misslyckades skicka filen till nedladdningshanteraren</string>
     <string name="failed_to_print">Kunde inte skriva ut filen</string>
+    <string name="failed_to_start_editor">Kunde inte starta editor</string>
     <string name="fallback_weblogin_back">Tillbaka</string>
     <string name="fallback_weblogin_text">Gå tillbaka till gammal inloggningsmetod</string>
     <string name="favorite">Lägg till favoriter</string>
@@ -330,7 +335,7 @@
     <string name="filename_forbidden_charaters_from_server">Filnamnet innehåller minst ett ogiltigt tecken</string>
     <string name="filename_hint">Filnamn</string>
     <string name="files_drop_not_supported">Detta är en Nextcloud-funktion, vänligen uppgradera.</string>
-    <string name="first_run_1_text">Håll din data säker och under din kontroll</string>
+    <string name="first_run_1_text">Håll dina data säker och under din kontroll</string>
     <string name="first_run_2_text">Säkert samarbete och filutbyte</string>
     <string name="first_run_3_text">Lättanvänd webmail, kalender och kontakter</string>
     <string name="first_run_4_text">Skärmdelning, onlinemöten och webbkonferenser</string>
@@ -362,7 +367,7 @@
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
     <string name="io_error">IO-fel</string>
-    <string name="learn_more">Lär dig mer</string>
+    <string name="learn_more">Läs mer</string>
     <string name="link">Länk</string>
     <string name="list_layout">Listad layout</string>
     <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
@@ -538,7 +543,7 @@
     <string name="saml_authentication_required_text">Lösenord krävs</string>
     <string name="saml_authentication_wrong_pass">Fel lösenord</string>
     <string name="scanQR_description">Logga in via QR-kod</string>
-    <string name="screenshot_01_gridView_heading">Skydda din data</string>
+    <string name="screenshot_01_gridView_heading">Skydda dina data</string>
     <string name="screenshot_02_listView_heading">Bläddra och dela</string>
     <string name="screenshot_02_listView_subline">alla åtgärder till hands</string>
     <string name="screenshot_03_drawer_heading">Aktivitet, delningar, …</string>
@@ -571,7 +576,7 @@
     <string name="share_known_remote_clarification">%1$s ( på %2$s )</string>
     <string name="share_link_empty_password">Du måste ange ett lösenord</string>
     <string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp</string>
-    <string name="share_link_file_no_exist">Lyckades ej dela. Vänligen kontrollera om filen existerar</string>
+    <string name="share_link_file_no_exist">Det går inte att dela. Vänligen kontrollera om filen finns</string>
     <string name="share_link_forbidden_permissions">att dela denna fil</string>
     <string name="share_link_optional_password_title">Ange ett valfritt lösenord</string>
     <string name="share_link_password_title">Ange ett lösenord</string>
@@ -698,7 +703,7 @@
     <string name="unset_encrypted">Ta bort som krypterad</string>
     <string name="unset_favorite">Ta bort från favoriter</string>
     <string name="unshare_link_file_error">Ett fel uppstod vid försök att sluta dela denna fil eller mapp</string>
-    <string name="unshare_link_file_no_exist">Lyckades ej sluta dela. Vänligen kontrollera om filen existerar</string>
+    <string name="unshare_link_file_no_exist">Det går inte att sluta dela. Vänligen kontrollera om filen finns</string>
     <string name="unshare_link_forbidden_permissions">att avbryta delningen utav denna fil</string>
     <string name="unsharing_failed">Sluta dela misslyckades</string>
     <string name="untrusted_domain">Åtkomst via opålitlig domän. Se dokumentation för ytterligare information.</string>
@@ -764,7 +769,7 @@
     <string name="uploads_view_upload_status_failed_credentials_error">Fel Inloggningsuppgifter</string>
     <string name="uploads_view_upload_status_failed_file_error">Filfel</string>
     <string name="uploads_view_upload_status_failed_folder_error">Mappfel</string>
-    <string name="uploads_view_upload_status_failed_localfile_error">Lokal fil ej hittad</string>
+    <string name="uploads_view_upload_status_failed_localfile_error">Lokal fil hittades inte</string>
     <string name="uploads_view_upload_status_failed_permission_error">Behörighetsfel</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Otillförlitligt servercertifikat</string>
     <string name="uploads_view_upload_status_service_interrupted">App avslutad</string>

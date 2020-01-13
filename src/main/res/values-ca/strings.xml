@@ -8,6 +8,7 @@
     <string name="account_icon">Icona del compte</string>
     <string name="account_not_found">No s\'ha trobat el compte!</string>
     <string name="action_clear_failed_uploads">Neteja les pujades fallides</string>
+    <string name="action_edit">Edita</string>
     <string name="action_empty_notifications">Neteja totes les notificacions</string>
     <string name="action_empty_trashbin">Buida la paperera</string>
     <string name="action_send_share">Envia/Comparteix</string>
@@ -76,9 +77,11 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">manté a la carpeta original, ja que és només de lectura</string>
     <string name="auto_upload_on_wifi">Només carrega quan hi hagi Wi-Fi sense límits</string>
     <string name="auto_upload_path">/Càrrega automàtica</string>
+    <string name="autoupload_configure">Configura</string>
     <string name="autoupload_create_new_custom_folder">Creeu la configuració per la nova carpeta personalitzada</string>
     <string name="autoupload_custom_folder">Configureu una carpeta personalitzada</string>
     <string name="autoupload_disable_power_save_check">Desactiva la comprovació d\'estalvi energètic</string>
+    <string name="autoupload_hide_folder">Amaga la carpeta</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Tanca</string>
     <string name="battery_optimization_disable">Desactiva</string>
@@ -466,9 +469,9 @@
     <string name="pref_behaviour_entries_move">mogut a la carpeta de l\'aplicació</string>
     <string name="prefs_add_account">Afegeix compte</string>
     <string name="prefs_calendar_contacts">Sincronitza el calendari i els contactes</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">L\'adreça del servidor per al compte no s\'ha pogut resoldre per kSync (conegut anteriorment com a DAVdroid)</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">L\'adreça del servidor per al compte no s\'ha pogut resoldre per DAVx5 (conegut anteriorment com a DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-Droid ni Google Play estan instal·lats</string>
-    <string name="prefs_calendar_contacts_summary">Arranja kSync</string>
+    <string name="prefs_calendar_contacts_summary">Arranja DAVx5 (conegut anterioment com a DAVdroid) (v1.3.0+) per al compte actual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuració de sincronització de contactes de calendari &amp;</string>
     <string name="prefs_category_about">Quant a</string>
     <string name="prefs_category_details">Detalls</string>
@@ -545,7 +548,7 @@
     <string name="screenshot_05_autoUpload_heading">Pujada automàtica</string>
     <string name="screenshot_05_autoUpload_subline">pels vostres vídeos i imatges</string>
     <string name="screenshot_06_davdroid_heading">Calendari i contactes</string>
-    <string name="screenshot_06_davdroid_subline">Sincronitza amb kSync</string>
+    <string name="screenshot_06_davdroid_subline">Sincronitza amb DAVx5</string>
     <string name="search_users_and_groups_hint">Cerca usuaris i grups</string>
     <string name="select_all">Selecciona-ho tot</string>
     <string name="select_template">Selecciona una plantilla</string>
@@ -648,7 +651,7 @@
     <string name="storage_movies">Peŀlícules</string>
     <string name="storage_music">Música</string>
     <string name="storage_pictures">Fotos</string>
-    <string name="store_full_desc">La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades.\n\nCaracterístiques:\n* Interfície fàcil i moderna, adaptada al tema emprat al vostre servidor.\n* Carregueu fitxers al vostre servidor Nextcloud.\n* Compartiu-los amb d\'altres.\n* Mantingueu sincronitzades les teves vostres i fitxers favorits.\n* Cerqueu dins de totes les vostres carpetes al servidor.\n* Càrrega automatitzada de les fotos i vídeos fets al vostre dispositiu.\n* Estigueu al dia amb notificacions.\n* Suport per múltiples comptes.\n* Accés segur a les vostres dades amb empremta digital o PIN.\n* Integració amb l\'aplicació kSync (formalment coneguda com a DAVdroid) per a poder configurar fàcilment la sincronització de contactes i calendaris.\n\nSi us plau, informeu de qualsevol incidència a https://github.com/nextcloud/android/issues i intercanvieu opinions i suggeriments a https://help.nextcloud.com/c/clients/android\n\nSou nou a Nextcloud? Nextcloud és un servidor per compartir, sincronitzar i comunicar fitxers privats. És programari lliure, i per tant podeu allotjar-lo vosaltres mateixos o pagar els serveis d\'algú que us ho faci. D\'aquesta manera tindreu sota el vostre control les vostres fotos, els vostres calendaris, els vostres contactes, els vostres documents i tota la resta.\n\nSi en voleu saber més, feu un cop d\'ull al portal web oficial: https://nextcloud.com</string>
+    <string name="store_full_desc">La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades.\n\nCaracterístiques:\n* Interfície fàcil i moderna, adaptada al tema emprat al vostre servidor.\n* Carregueu fitxers al vostre servidor Nextcloud.\n* Compartiu-los amb d\'altres.\n* Mantingueu sincronitzades les teves vostres i fitxers favorits.\n* Cerqueu dins de totes les vostres carpetes al servidor.\n* Càrrega automatitzada de les fotos i vídeos fets al vostre dispositiu.\n* Estigueu al dia amb notificacions.\n* Suport per múltiples comptes.\n* Accés segur a les vostres dades amb empremta digital o PIN.\n* Integració amb l\'aplicació DAVx5 (formalment coneguda com a DAVdroid) per a poder configurar fàcilment la sincronització de contactes i calendaris.\n\nSi us plau, informeu de qualsevol incidència a https://github.com/nextcloud/android/issues i intercanvieu opinions i suggeriments a https://help.nextcloud.com/c/clients/android\n\nSou nou a Nextcloud? Nextcloud és un servidor per compartir, sincronitzar i comunicar fitxers privats. És programari lliure, i per tant podeu allotjar-lo vosaltres mateixos o pagar els serveis d\'algú que us ho faci. D\'aquesta manera tindreu sota el vostre control les vostres fotos, els vostres calendaris, els vostres contactes, els vostres documents i tota la resta.\n\nSi en voleu saber més, feu un cop d\'ull al portal web oficial: https://nextcloud.com</string>
     <string name="store_full_dev_desc">La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades.\nAquesta és la versió oficial en desenvolupament, que permet provar qualsevol novetat diària, i que per tant pot causar inestabilitat i fins i tot la pèrdua de dades. Aquesta aplicació és pels usuaris que estan disposats a provar i informar d\'incidències. No feu servir aquesta versió de l\'aplicació en el vostre entorn de feina!\n\nAmbdues versions, la de desenvolupament i la normal, són disponibles a F-droid, i poden ser instal·lades al mateix temps.</string>
     <string name="store_short_desc">La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades</string>
     <string name="store_short_dev_desc">La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades (versió de desenvolupament).</string>
@@ -802,6 +805,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d fitxer</item>
         <item quantity="other">%1$d fitxers</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Mostra %1$d carpeta oculta</item>
+        <item quantity="other">Mostra %1$d carpetes ocultes</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionat</item>

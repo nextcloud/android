@@ -176,11 +176,11 @@ class TestPowerManagementService {
         }
 
         @Test
-        fun `battery charging status on API 14-16`() {
+        fun `battery charging status on API 16`() {
             // GIVEN
-            //      device has API level 16 or below
+            //      device has API level 16
             //      battery status sticky intent is available
-            whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+            whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.JELLY_BEAN)
             val powerSources = setOf(
                 BatteryManager.BATTERY_PLUGGED_AC,
                 BatteryManager.BATTERY_PLUGGED_USB
@@ -199,9 +199,9 @@ class TestPowerManagementService {
         }
 
         @Test
-        fun `wireless charging is not supported in API 14-16`() {
+        fun `wireless charging is not supported in API 16`() {
             // GIVEN
-            //      device has API level 16 or below
+            //      device has API level 16
             //      battery status sticky intent is available
             whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.JELLY_BEAN)
 

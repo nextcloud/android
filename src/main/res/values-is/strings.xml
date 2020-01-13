@@ -8,6 +8,7 @@
     <string name="account_icon">Táknmynd fyrir notandaaðgang</string>
     <string name="account_not_found">Notandaaðgangur fannst ekki!</string>
     <string name="action_clear_failed_uploads">Hreinsa lista yfir innsendingar sem mistókust</string>
+    <string name="action_edit">Breyta</string>
     <string name="action_empty_notifications">Hreinsa allar tilkynningar</string>
     <string name="action_empty_trashbin">Tæma ruslafötu</string>
     <string name="action_send_share">Senda/Deila</string>

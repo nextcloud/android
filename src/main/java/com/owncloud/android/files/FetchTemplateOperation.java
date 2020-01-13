@@ -25,7 +25,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
+import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -41,14 +41,14 @@ public class FetchTemplateOperation extends RemoteOperation {
     private static final int SYNC_CONNECTION_TIMEOUT = 5000;
     private static final String TEMPLATE_URL = "/ocs/v2.php/apps/richdocuments/api/v1/templates/";
 
-    private ChooseTemplateDialogFragment.Type type;
+    private ChooseRichDocumentsTemplateDialogFragment.Type type;
 
     // JSON node names
     private static final String NODE_OCS = "ocs";
     private static final String NODE_DATA = "data";
     private static final String JSON_FORMAT = "?format=json";
 
-    public FetchTemplateOperation(ChooseTemplateDialogFragment.Type type) {
+    public FetchTemplateOperation(ChooseRichDocumentsTemplateDialogFragment.Type type) {
         this.type = type;
     }
 
@@ -79,10 +79,11 @@ public class FetchTemplateOperation extends RemoteOperation {
                     JSONObject templateObject = templates.getJSONObject(i);
 
                     templateArray.add(new Template(templateObject.getInt("id"),
-                        templateObject.getString("name"),
-                        templateObject.optString("preview"),
-                        templateObject.getString("type"),
-                        templateObject.getString("extension")));
+                                                   templateObject.getString("name"),
+                                                   templateObject.optString("preview"),
+                                                   Template.parse(templateObject.getString("type")
+                                                                             .toUpperCase(Locale.ROOT)),
+                                                   templateObject.getString("extension")));
                 }
 
                 result = new RemoteOperationResult(true, getMethod);

@@ -43,6 +43,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,10 +58,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.material.navigation.NavigationView;
-import com.nextcloud.client.account.UserAccountManager;
+import com.infomaniak.drive.Utils;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.DarkMode;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -70,7 +74,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.Quota;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.ExternalLinksOperation;
@@ -104,15 +107,19 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import kotlin.collections.CollectionsKt;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -129,8 +136,6 @@ public abstract class DrawerActivity extends ToolbarActivity
     private static final int MENU_ORDER_ACCOUNT_FUNCTION = 2;
     private static final int MENU_ORDER_EXTERNAL_LINKS = 3;
     private static final int MENU_ITEM_EXTERNAL_LINK = 111;
-
-    private static final String AT_CHAR = "@";
     /**
      * menu account avatar radius.
      */
@@ -189,7 +194,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * accounts for the (max) three displayed accounts in the drawer header.
      */
-    private Account[] mAvatars = new Account[3];
+    private List<User> mAvatars = Collections.emptyList();
 
     /**
      * container layout of the quota view.
@@ -217,6 +222,9 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     @Inject
     AppPreferences preferences;
+
+    @Inject
+    ClientFactory clientFactory;
 
     /**
      * Initializes the drawer, its content and highlights the menu item with the given id.
@@ -247,7 +255,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         setupDrawerToggle();
 
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
@@ -287,7 +295,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.fontColor(this));
+        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.fontColor(this, true));
     }
 
     /**
@@ -298,7 +306,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
 
         mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toggle);
-        mAccountChooserToggle.setColorFilter(ThemeUtils.fontColor(this));
+        mAccountChooserToggle.setColorFilter(ThemeUtils.fontColor(this, true));
 
         if (getResources().getBoolean(R.bool.allow_profile_click)) {
             mAccountChooserToggle.setImageResource(R.drawable.ic_down);
@@ -358,21 +366,17 @@ public abstract class DrawerActivity extends ToolbarActivity
             navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
         }
 
-        Account account = accountManager.getCurrentAccount();
+        User account = accountManager.getUser();
         filterDrawerMenu(navigationView.getMenu(), account);
     }
 
-    private void filterDrawerMenu(Menu menu, Account account) {
-        OCCapability capability = null;
-        if (account != null) {
-            FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
-            capability = storageManager.getCapability(account.name);
-        }
+    private void filterDrawerMenu(final Menu menu, @NonNull final User user) {
+            FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(),
+                                                                               getContentResolver());
+        OCCapability capability = storageManager.getCapability(user.getAccountName());
 
-        boolean hasSearchSupport = accountManager.getServerVersion(account).isSearchSupported();
-
-        DrawerMenuUtil.filterSearchMenuItems(menu, account, getResources(), hasSearchSupport);
-        DrawerMenuUtil.filterTrashbinMenuItem(menu, account, capability, accountManager);
+        DrawerMenuUtil.filterSearchMenuItems(menu, user.toPlatformAccount(), getResources(), true);
+        DrawerMenuUtil.filterTrashbinMenuItem(menu, user.toPlatformAccount(), capability, accountManager);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
 
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
@@ -687,28 +691,34 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (mNavigationView != null && mDrawerLayout != null) {
             if (persistingAccounts.size() > 0) {
                 repopulateAccountList(persistingAccounts);
-                setAccountInDrawer(accountManager.getCurrentAccount());
-                populateDrawerOwnCloudAccounts();
+                setAccountInDrawer(accountManager.getUser());
+                mAvatars = getUserAvatars();
 
                 // activate second/end account avatar
-                if (mAvatars[1] != null) {
-                    View accountEndView = findNavigationViewChildById(R.id.drawer_account_end);
-                    accountEndView.setTag(mAvatars[1].name);
-
-                    DisplayUtils.setAvatar(mAvatars[1], this, mOtherAccountAvatarRadiusDimension, getResources(),
-                            accountEndView, this);
+                final User secondUser = mAvatars.size() > 1 ? mAvatars.get(1) : null;
+                if (secondUser != null) {
+                    mAccountEndAccountAvatar.setTag(secondUser.getAccountName());
+                    DisplayUtils.setAvatar(secondUser.toPlatformAccount(),
+                                           this,
+                                           mOtherAccountAvatarRadiusDimension,
+                                           getResources(),
+                                           mAccountEndAccountAvatar,
+                                           this);
                     mAccountEndAccountAvatar.setVisibility(View.VISIBLE);
                 } else {
                     mAccountEndAccountAvatar.setVisibility(View.GONE);
                 }
 
                 // activate third/middle account avatar
-                if (mAvatars[2] != null) {
-                    View accountMiddleView = findNavigationViewChildById(R.id.drawer_account_middle);
-                    accountMiddleView.setTag(mAvatars[2].name);
-
-                    DisplayUtils.setAvatar(mAvatars[2], this, mOtherAccountAvatarRadiusDimension, getResources(),
-                            accountMiddleView, this);
+                final User thirdUser = mAvatars.size() > 2 ? mAvatars.get(2) : null;
+                if (thirdUser != null) {
+                    mAccountMiddleAccountAvatar.setTag(thirdUser.getAccountName());
+                    DisplayUtils.setAvatar(thirdUser.toPlatformAccount(),
+                                           this,
+                                           mOtherAccountAvatarRadiusDimension,
+                                           getResources(),
+                                           mAccountMiddleAccountAvatar,
+                                           this);
                     mAccountMiddleAccountAvatar.setVisibility(View.VISIBLE);
                 } else {
                     mAccountMiddleAccountAvatar.setVisibility(View.GONE);
@@ -793,33 +803,26 @@ public abstract class DrawerActivity extends ToolbarActivity
      * sets the given account name in the drawer in case the drawer is available. The account name is shortened
      * beginning from the @-sign in the username.
      *
-     * @param account the account to be set in the drawer
+     * @param user the account to be set in the drawer
      */
-    protected void setAccountInDrawer(Account account) {
-        if (mDrawerLayout != null && account != null) {
+    protected void setAccountInDrawer(User user) {
+        if (mDrawerLayout != null && user != null) {
             TextView username = (TextView) findNavigationViewChildById(R.id.drawer_username);
             TextView usernameFull = (TextView) findNavigationViewChildById(R.id.drawer_username_full);
 
-            if (usernameFull != null) {
-                String[] splitEmail = account.name.split(AT_CHAR);
-                usernameFull.setText(new StringBuilder().append(splitEmail[0]).append(AT_CHAR).append(splitEmail[1]).toString());
-                usernameFull.setTextColor(ThemeUtils.fontColor(this));
-            }
+            String name = user.getAccountName();
+            usernameFull.setText(DisplayUtils.convertIdn(Utils.getUserEmail(name),
+                                                         false));
+            usernameFull.setTextColor(ThemeUtils.fontColor(this));
 
-            try {
-                OwnCloudAccount oca = new OwnCloudAccount(account, this);
-                username.setText(oca.getDisplayName());
-                username.setTextColor(ThemeUtils.fontColor(this));
-            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-                Log_OC.w(TAG, "Couldn't read display name of account fallback to account name");
-                username.setText(UserAccountManager.getUsername(account));
-            }
+            username.setText(user.toOwnCloudAccount().getDisplayName());
+            username.setTextColor(ThemeUtils.fontColor(this));
 
             View currentAccountView = findNavigationViewChildById(R.id.drawer_current_account);
-            currentAccountView.setTag(account.name);
+            currentAccountView.setTag(name);
 
-            DisplayUtils.setAvatar(account, this, mCurrentAccountAvatarRadiusDimension, getResources(),
-                    currentAccountView, this);
+            DisplayUtils.setAvatar(user.toPlatformAccount(), this, mCurrentAccountAvatarRadiusDimension, getResources(),
+                                   currentAccountView, this);
 
             // check and show quota info if available
             getAndDisplayUserQuota();
@@ -962,6 +965,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     };
 
                     DisplayUtils.downloadIcon(getUserAccountManager(),
+                                              clientFactory,
                                               this,
                                               firstQuota.iconUrl,
                                               target,
@@ -995,7 +999,17 @@ public abstract class DrawerActivity extends ToolbarActivity
                 MenuItem menuItem = mNavigationView.getMenu().getItem(i);
                 if (menuItem.getIcon() != null) {
                     menuItem.getIcon().clearColorFilter();
-                    menuItem.setTitle(Html.fromHtml("<font color='#000000'>" + menuItem.getTitle() + "</font>"));
+                    if (menuItem.getGroupId() != R.id.drawer_menu_accounts
+                        || menuItem.getItemId() == R.id.drawer_menu_account_add
+                        || menuItem.getItemId() == R.id.drawer_menu_account_manage) {
+                        ThemeUtils.tintDrawable(
+                            menuItem.getIcon(), ContextCompat.getColor(this, R.color.drawer_menu_icon));
+                    }
+                    menuItem.setTitle(Html.fromHtml(
+                        "<font color='"
+                            + ThemeUtils.colorToHexString(ContextCompat.getColor(this, R.color.text_color))
+                            + "'>" + menuItem.getTitle()
+                            + "</font>"));
                 }
             }
 
@@ -1018,14 +1032,14 @@ public abstract class DrawerActivity extends ToolbarActivity
         // set user space information
         Thread t = new Thread(new Runnable() {
             public void run() {
-                final Account currentAccount = accountManager.getCurrentAccount();
+                final User user = accountManager.getUser();
 
-                if (currentAccount == null) {
+                if (user.isAnonymous()) {
                     return;
                 }
 
                 final Context context = MainApp.getAppContext();
-                RemoteOperationResult result = new GetUserInfoRemoteOperation().execute(currentAccount, context);
+                RemoteOperationResult result = new GetUserInfoRemoteOperation().execute(user.toPlatformAccount(), context);
 
                 if (result.isSuccess() && result.getData() != null) {
                     final UserInfo userInfo = (UserInfo) result.getData().get(0);
@@ -1074,7 +1088,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             float density = getResources().getDisplayMetrics().density;
             final int size = Math.round(24 * density);
-            int greyColor = getResources().getColor(R.color.standard_grey);
+            int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
                 int id = mNavigationView.getMenu().add(R.id.drawer_menu_external_links,
@@ -1095,6 +1109,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 };
 
                 DisplayUtils.downloadIcon(getUserAccountManager(),
+                                          clientFactory,
                                           this,
                                           link.iconUrl,
                                           target,
@@ -1137,7 +1152,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 } else if (backgroundDefault.isTrue() && backgroundPlain.isFalse()) {
                     // use nc13 background image with themed color
                     Drawable[] drawables = {new ColorDrawable(primaryColor),
-                            getResources().getDrawable(R.drawable.background_nc13)};
+                        getResources().getDrawable(R.drawable.background)};
                     LayerDrawable layerDrawable = new LayerDrawable(drawables);
                     setNavigationHeaderBackground(layerDrawable, navigationHeader);
                 } else {
@@ -1162,8 +1177,8 @@ public abstract class DrawerActivity extends ToolbarActivity
 
                         int backgroundResource;
                         OwnCloudVersion ownCloudVersion = accountManager.getServerVersion(getAccount());
-                        if (ownCloudVersion.compareTo(OwnCloudVersion.nextcloud_13) >= 0) {
-                            backgroundResource = R.drawable.background_nc13;
+                        if (ownCloudVersion.compareTo(OwnCloudVersion.nextcloud_18) >= 0) {
+                            backgroundResource = R.drawable.background_nc18;
                         } else {
                             backgroundResource = R.drawable.background;
                         }
@@ -1269,6 +1284,12 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Override
     protected void onResume() {
         super.onResume();
+        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
+
+            getDelegate().setLocalNightMode(DarkMode.DARK == preferences.getDarkThemeMode() ?
+                                                AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+            getDelegate().applyDayNight();
+        }
         setDrawerMenuItemChecked(mCheckedMenuItem);
     }
 
@@ -1284,7 +1305,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             // current account has changed
             if (data.getBooleanExtra(ManageAccountsActivity.KEY_CURRENT_ACCOUNT_CHANGED, false)) {
-                setAccount(accountManager.getCurrentAccount());
+                setAccount(accountManager.getCurrentAccount(), false);
                 updateAccountList();
                 restart();
             } else {
@@ -1348,34 +1369,22 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     /**
-     * populates the avatar drawer array with the first three ownCloud {@link Account}s while the first element is
-     * always the current account.
+     * Get list of users suitable for displaying in navigation drawer header.
+     * First item is always current {@link User}. Remaining items are other
+     * users possible to switch to.
+     *
+     * @return List of available users
      */
-    private void populateDrawerOwnCloudAccounts() {
-        mAvatars = new Account[3];
-        Account[] accountsAll = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
-
-        ArrayList<Account> persistingAccounts = new ArrayList<>();
-
-        for (Account acc: accountsAll) {
-            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(acc,
-                    ManageAccountsActivity.PENDING_FOR_REMOVAL);
-
-            if (!pendingForRemoval) {
-                persistingAccounts.add(acc);
-            }
-        }
-
-        Account currentAccount = accountManager.getCurrentAccount();
-
-        mAvatars[0] = currentAccount;
-        int j = 0;
-        for (int i = 1; i <= 2 && i < persistingAccounts.size() && j < persistingAccounts.size(); j++) {
-            if (!currentAccount.equals(persistingAccounts.get(j))) {
-                mAvatars[i] = persistingAccounts.get(j);
-                i++;
-            }
-        }
+    @NonNull
+    private List<User> getUserAvatars() {
+        User currentUser = accountManager.getUser();
+        List<User> availableUsers = CollectionsKt.filter(accountManager.getAllUsers(), user ->
+            !TextUtils.equals(user.getAccountName(), currentUser.getAccountName()) &&
+            !arbitraryDataProvider.getBooleanValue(user.toPlatformAccount(),
+                                                   ManageAccountsActivity.PENDING_FOR_REMOVAL)
+        );
+        availableUsers.add(0, currentUser);
+        return availableUsers;
     }
 
     @Override
@@ -1453,11 +1462,10 @@ public abstract class DrawerActivity extends ToolbarActivity
                     getCapabilities.execute(getStorageManager(), getBaseContext());
                 }
 
-                Account account = accountManager.getCurrentAccount();
-
-                if (account != null && getStorageManager() != null &&
-                        getStorageManager().getCapability(account.name) != null &&
-                        getStorageManager().getCapability(account.name).getExternalLinks().isTrue()) {
+                User user = accountManager.getUser();
+                String name = user.getAccountName();
+                if (getStorageManager() != null && getStorageManager().getCapability(name) != null &&
+                        getStorageManager().getCapability(name).getExternalLinks().isTrue()) {
 
                     int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL,
                             FileActivity.APP_OPENED_COUNT);
@@ -1472,7 +1480,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
                         Log_OC.d("ExternalLinks", "update via api");
                         RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
-                        RemoteOperationResult result = getExternalLinksOperation.execute(account, this);
+                        RemoteOperationResult result = getExternalLinksOperation.execute(user.toPlatformAccount(), this);
 
                         if (result.isSuccess() && result.getData() != null) {
                             externalLinksProvider.deleteAllExternalLinks();

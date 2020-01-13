@@ -50,39 +50,7 @@
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
-                android:id="@android:id/progress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <ProgressBar
-                    android:id="@+id/syncedFoldersProgressBar"
-                    android:layout_width="@dimen/synced_folders_progress_bar_layout_width"
-                    android:layout_height="@dimen/synced_folders_progress_bar_layout_height"
-                    android:layout_gravity="center_horizontal"/>
-
-                <TextView
-                    android:id="@+id/progressText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="@dimen/standard_half_margin"
-                    android:text="@string/synced_folders_loading_folders"
-                    android:textSize="26sp"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@android:id/empty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/standard_margin"
-                android:gravity="center"
-                android:text="@string/synced_folders_no_results"
-                android:visibility="gone"/>
+            <include layout="@layout/empty_list" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@android:id/list"

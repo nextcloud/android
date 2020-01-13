@@ -30,7 +30,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -144,7 +143,8 @@ public class SsoGrantPermissionActivity extends BaseActivity {
             int start = text.indexOf(textBlock);
             int end = start + textBlock.length();
             ssb.setSpan(new StyleSpan(Typeface.BOLD), start, end, 0);
-            ssb.setSpan(new ForegroundColorSpan(Color.BLACK), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ssb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.text_color)), start, end,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
         return ssb;

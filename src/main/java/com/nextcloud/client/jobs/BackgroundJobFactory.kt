@@ -26,6 +26,7 @@ import androidx.annotation.RequiresApi
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
+import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.preferences.AppPreferences
@@ -40,6 +41,7 @@ import javax.inject.Provider
 class BackgroundJobFactory @Inject constructor(
     private val preferences: AppPreferences,
     private val contentResolver: ContentResolver,
+    private val clock: Clock,
     private val powerManagerService: PowerManagementService,
     private val backgroundJobManager: Provider<BackgroundJobManager>,
     private val deviceInfo: DeviceInfo
@@ -58,13 +60,14 @@ class BackgroundJobFactory @Inject constructor(
         }
 
         return when (workerClass) {
-            ContentObserverWork::class -> createContentObserverJob(context, workerParameters)
+            ContentObserverWork::class -> createContentObserverJob(context, workerParameters, clock)
             else -> null // falls back to default factory
         }
     }
 
-    private fun createContentObserverJob(context: Context, workerParameters: WorkerParameters): ListenableWorker? {
-        val folderResolver = SyncedFolderProvider(contentResolver, preferences)
+    private fun createContentObserverJob(context: Context, workerParameters: WorkerParameters, clock: Clock):
+        ListenableWorker? {
+        val folderResolver = SyncedFolderProvider(contentResolver, preferences, clock)
         @RequiresApi(Build.VERSION_CODES.N)
         if (deviceInfo.apiLevel >= Build.VERSION_CODES.N) {
             return ContentObserverWork(

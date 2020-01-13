@@ -23,7 +23,6 @@
  */
 package com.owncloud.android.ui.trashbin;
 
-import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -34,7 +33,10 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
@@ -92,6 +94,8 @@ public class TrashbinActivity extends FileActivity implements
     public String noResultsMessage;
 
     @Inject AppPreferences preferences;
+    @Inject CurrentAccountProvider accountProvider;
+    @Inject ClientFactory clientFactory;
     private Unbinder unbinder;
     private TrashbinListAdapter trashbinListAdapter;
     private TrashbinPresenter trashbinPresenter;
@@ -101,29 +105,20 @@ public class TrashbinActivity extends FileActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        final Account currentAccount = getUserAccountManager().getCurrentAccount();
-        final RemoteTrashbinRepository trashRepository = new RemoteTrashbinRepository(this, currentAccount);
+        final User user = accountProvider.getUser();
+        final RemoteTrashbinRepository trashRepository = new RemoteTrashbinRepository(user, clientFactory);
         trashbinPresenter = new TrashbinPresenter(trashRepository, this);
-
         setContentView(R.layout.trashbin_activity);
         unbinder = ButterKnife.bind(this);
-
-        // setup toolbar
         setupToolbar();
-
-        // setup drawer
         setupDrawer(R.id.nav_trashbin);
-
         ThemeUtils.setColoredTitle(getSupportActionBar(), R.string.trashbin_activity_title, this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
         active = true;
-
         setupContent();
     }
 
@@ -142,7 +137,7 @@ public class TrashbinActivity extends FileActivity implements
             getStorageManager(),
             preferences,
             this,
-            getUserAccountManager().getCurrentAccount()
+            getUserAccountManager().getUser()
         );
         recyclerView.setAdapter(trashbinListAdapter);
         recyclerView.setHasFixedSize(true);
@@ -212,7 +207,7 @@ public class TrashbinActivity extends FileActivity implements
     @Override
     public void onOverflowIconClicked(TrashbinFile file, View view) {
         PopupMenu popup = new PopupMenu(this, view);
-        popup.inflate(R.menu.trashbin_actions_menu);
+        popup.inflate(R.menu.item_trashbin);
 
         popup.setOnMenuItemClickListener(item -> {
             trashbinPresenter.removeTrashbinFile(file);
@@ -243,7 +238,7 @@ public class TrashbinActivity extends FileActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.trashbin_options_menu, menu);
+        getMenuInflater().inflate(R.menu.activity_trashbin, menu);
 
         return true;
     }

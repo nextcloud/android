@@ -1,17 +1,43 @@
+3.10.0 RC2 (January, 10, 2020)
+
+- Dark theme (@dan0xii, @AndyScherzinger)
+- Rich workspace (NC18+)
+- collaborative text editor (NC18+)
+- links in Markdown previews clickable (@AndyScherzinger)
+- Show/Hide auto upload list items (@AndyScherzinger)
+- drop 4.0.x support
+- outdated server warning set to NC15
+- latest supported version NC13
+
+For a full list, please see https://github.com/nextcloud/android/milestone/40
+
+3.10.0 RC1 (January, 08, 2020)
+
+- Dark theme (@dan0xii, @AndyScherzinger)
+- Rich workspace (NC18+)
+- collaborative text editor (NC18+)
+- links in Markdown previews clickable (@AndyScherzinger)
+- Show/Hide auto upload list items (@AndyScherzinger)
+- drop 4.0.x support
+- outdated server warning set to NC15
+- latest supported version NC13
+
+For a full list, please see https://github.com/nextcloud/android/milestone/40
+
+3.9.2 (December, 05, 2019)
+
+- HOTFIX: fix login loop
+- Fix crash on opening png images
+- Translation updates
+
+3.9.1 (December, 04, 2019)
+
+- Fix crash on opening png images
+- Translation updates
+
+For a full list, please see https://github.com/nextcloud/android/milestone/43
+
 3.9.0 (November, 12, 2019)
-
-- preview Markdown with syntax highlighting @AndyScherzinger
-- improved DavX5 integration @bitfireAT
-- AutoUpload: allow files to upload into subfolder
-- new media player service @ezaquarii
-- Remote wipe integration
-- Print from within Collabora
-- enhanced SingleSignOn
-- outdated server warning set to NC14
-
-For a full list, please see https://github.com/nextcloud/android/milestone/38
-
-3.9.0 RC1 (October, 28, 2019)
 
 - preview Markdown with syntax highlighting @AndyScherzinger
 - improved DavX5 integration @bitfireAT

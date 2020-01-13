@@ -8,6 +8,7 @@
     <string name="account_icon">Iconița contului</string>
     <string name="account_not_found">Contul nu a fost găsit!</string>
     <string name="action_clear_failed_uploads">Elimină încărcările eșuate</string>
+    <string name="action_edit">Editează</string>
     <string name="action_empty_notifications">Elimină toate notificările</string>
     <string name="action_empty_trashbin">Golește coșul de gunoi</string>
     <string name="action_send_share">Trimitere/Distribuire</string>
@@ -76,6 +77,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">pastrează în directorul original deoarece este disponibil doar pentru citire</string>
     <string name="auto_upload_on_wifi">Se încarcă numai pe Wi-Fi nelimitat</string>
     <string name="auto_upload_path">/AutoÎncărcare</string>
+    <string name="autoupload_configure">Configurează</string>
     <string name="autoupload_create_new_custom_folder">Crează un director personalizat</string>
     <string name="autoupload_custom_folder">Configurează un director personalizat</string>
     <string name="autoupload_disable_power_save_check">Dezactivează verificarea economiei de energie</string>
@@ -122,6 +124,11 @@
     <string name="community_contribute_irc_text">Alătură-te conversației pe IRC:</string>
     <string name="community_contribute_translate_text">aplicația </string>
     <string name="community_contribute_translate_translate">tradu</string>
+    <string name="community_release_candidate_headline">Candidatul pentru lansare</string>
+    <string name="community_testing_bug_text">Ai găsit un bug? Se intamplă ceva ciudat?</string>
+    <string name="community_testing_headline">Ajută-ne să testăm</string>
+    <string name="community_testing_report_text">Raportează o problemă pe Github</string>
+    <string name="community_testing_version_text">Vrei să ne ajuți în testarea următoarei versiuni?</string>
     <string name="configure_new_media_folder_detection_notifications">Configurează</string>
     <string name="confirmation_remove_file_alert">Chiar doriți să ștergeți %1$s?</string>
     <string name="confirmation_remove_files_alert">Doriți să ștergeți elementele selectate?</string>
@@ -157,7 +164,7 @@
     <string name="copy_to">Copiază în…</string>
     <string name="could_not_download_image">Nu s-a putut descărca imaginea completă</string>
     <string name="could_not_retrieve_url">Nu a fost găsit URL-ul</string>
-    <string name="create_dir_fail_msg">Nu s-a putut crea fișierul</string>
+    <string name="create_dir_fail_msg">Nu s-a putut crea directorul</string>
     <string name="create_file_from_template">Crează fișierul după model…</string>
     <string name="create_new_document">Crează document nou</string>
     <string name="create_new_folder">Creează director nou</string>
@@ -232,6 +239,7 @@
     <string name="fallback_weblogin_back">Înapoi</string>
     <string name="favorite">Adăugați la favorite</string>
     <string name="favorite_icon">Favorite</string>
+    <string name="file">file</string>
     <string name="file_delete">Ștergeți</string>
     <string name="file_icon">Fișier</string>
     <string name="file_keep">Păstrare</string>
@@ -292,6 +300,7 @@
     <string name="filename_forbidden_charaters_from_server">Numele fișierului conține cel puțin un caracter invalid</string>
     <string name="filename_hint">Nume fișier</string>
     <string name="files_drop_not_supported">Aceasta este o funcționalitate Nextcloud, vă rugăm să actulizați aplicația.</string>
+    <string name="folder">folder</string>
     <string name="folder_already_exists">Dosar existent</string>
     <string name="folder_confirm_create">Creați</string>
     <string name="folder_list_empty_headline">Niciun dosar aici</string>
@@ -317,6 +326,7 @@
     <string name="instant_upload_on_charging">Se încarcă numai în timpul alimentării cu curent</string>
     <string name="instant_upload_path">/Încărcare instantă</string>
     <string name="learn_more">Află mai mult</string>
+    <string name="link">Legătură</string>
     <string name="list_layout">Aranjare listată</string>
     <string name="local_file_list_empty">În acest folder nu sunt fișiere.</string>
     <string name="local_file_not_found_message">Fișierul nu a fost găsit în sistemul local</string>
@@ -324,7 +334,9 @@
     <string name="log_send_mail_subject">%1$s înregistrările app-ului Android</string>
     <string name="log_send_no_mail_app">Nu s-a găsit nicio aplicație capabilă să trimită înregistrări. Vă rugăm să instalați o aplicație pentru mail.</string>
     <string name="login">Autentificare</string>
+    <string name="logs_menu_refresh">Reîmprospătează</string>
     <string name="logs_status_loading">Se încarcă…</string>
+    <string name="logs_title">Înregistrări</string>
     <string name="maintenance_mode">Server în modul mentenanță</string>
     <string name="manage_space_clear_data">Elimină datele</string>
     <string name="manage_space_description">Setările, bazele de date și certificatele serverului ale %1$s vor fi șterse permanent. \n\nFișierele descărcate vor fi păstrate intacte.\n\nAcest proces poate dura mai mult timp.</string>
@@ -417,6 +429,8 @@
     <string name="prefs_storage_path">Calea către spațiul de depozitare</string>
     <string name="prefs_synced_folders_local_path_title">Dosar local</string>
     <string name="prefs_synced_folders_remote_path_title">Dosar la distanță</string>
+    <string name="prefs_value_theme_dark">Închis</string>
+    <string name="prefs_value_theme_light">Deschis</string>
     <string name="preview_image_description">Previzualizare imagine</string>
     <string name="preview_image_error_no_local_file">Nu există niciun fișier local pentru previzualizare</string>
     <string name="preview_image_error_unknown_format">Imposibil de afișat imaginea</string>
@@ -431,6 +445,8 @@
     <string name="rename_dialog_title">Introduceţi un nou nume</string>
     <string name="rename_local_fail_msg">Nu s-a putut redenumi copia locală, încercați un alt nume</string>
     <string name="rename_server_fail_msg">Redenumirea nu este posibilă, numele este deja luat</string>
+    <string name="reshare_not_allowed">Repartajarea nu este permisă</string>
+    <string name="resharing_is_not_allowed">Repartajarea nu este permisă</string>
     <string name="restore">Restaurează fișier</string>
     <string name="restore_button_description">Restaurează fișier șters</string>
     <string name="saml_authentication_required_text">Parola este necesară</string>
@@ -444,6 +460,7 @@
     <string name="set_as">Setează ca</string>
     <string name="set_picture_as">Folosește imaginea ca</string>
     <string name="setup_btn_connect">Conectare</string>
+    <string name="share">Partajează</string>
     <string name="share_add_user_or_group">Adaugă utilizator sau grup</string>
     <string name="share_dialog_title">Partajare</string>
     <string name="share_email_clarification">%1$s (email)</string>
@@ -471,6 +488,7 @@
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversație)</string>
     <string name="share_search">Nume, ID de cloud federalizat sau adresă de email…</string>
+    <string name="share_send_note">Notă către destinatar</string>
     <string name="share_via_link_edit_permission_label">Permite editarea</string>
     <string name="share_via_link_expiration_date_label">Specifică data expirării</string>
     <string name="share_via_link_hide_download">Ascunde descărcarea</string>
@@ -487,6 +505,12 @@
     <string name="shared_icon_shared">partajat</string>
     <string name="shared_icon_shared_via_link">partajat prin link</string>
     <string name="sort_by">Sortare după</string>
+    <string name="sort_by_modification_date_ascending">Cel mai nou mai întâi</string>
+    <string name="sort_by_modification_date_descending">Cel mai vechi mai întâi</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_size_ascending">Cel mai mic mai întâi</string>
+    <string name="sort_by_size_descending">Cel mai mare mai întâi</string>
     <string name="ssl_validator_btn_details_hide">Ascunde</string>
     <string name="ssl_validator_btn_details_see">Detalii</string>
     <string name="ssl_validator_header">Nu s-a putut verifica identitatea serverului</string>
@@ -536,6 +560,7 @@
     <string name="sync_foreign_files_forgotten_ticker">Unele fisiere locale au fost uitate</string>
     <string name="sync_string_files">Fișiere</string>
     <string name="synced_folders_loading_folders">Încărcare dosare…</string>
+    <string name="synced_folders_preferences_folder_path">Pentru %1$s</string>
     <string name="synced_folders_type">Tip</string>
     <string name="tags">Etichete</string>
     <string name="thumbnail">Miniatură</string>
@@ -559,6 +584,7 @@
     <string name="upload_list_empty_headline">Nu există încărcări disponibile</string>
     <string name="upload_list_empty_text_auto_upload">Încărcați conținut sau activați încărcarea automată.</string>
     <string name="upload_query_move_foreign_files">Nu există spațiu suficient pentru a copia fișierele selectate în dosarul %1$s. Doriți să le mutați în schimb?</string>
+    <string name="upload_unknown_error">Eroare necunoscută</string>
     <string name="uploader_btn_alternative_text">Alege</string>
     <string name="uploader_btn_upload_text">Încărcare</string>
     <string name="uploader_error_message_no_file_to_upload">Datele primite nu includ un fișier valid</string>

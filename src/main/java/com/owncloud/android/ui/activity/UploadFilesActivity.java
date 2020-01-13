@@ -35,7 +35,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -92,7 +91,7 @@ public class UploadFilesActivity extends FileActivity implements
     private boolean mSelectAll;
     private boolean mLocalFolderPickerMode;
     private LocalFileListFragment mFileListFragment;
-    protected Button mUploadBtn;
+    protected MaterialButton mUploadBtn;
     private Spinner mBehaviourSpinner;
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
@@ -178,7 +177,8 @@ public class UploadFilesActivity extends FileActivity implements
         mCancelButton.setOnClickListener(this);
 
         mUploadBtn = findViewById(R.id.upload_files_btn_upload);
-        mUploadBtn.getBackground().setColorFilter(ThemeUtils.primaryColor(this, true), PorterDuff.Mode.SRC_ATOP);
+        mUploadBtn.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+        mUploadBtn.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(this, true)));
         mUploadBtn.setOnClickListener(this);
 
         int localBehaviour = preferences.getUploaderBehaviour();
@@ -254,7 +254,7 @@ public class UploadFilesActivity extends FileActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mOptionsMenu = menu;
-        getMenuInflater().inflate(R.menu.upload_files_picker, menu);
+        getMenuInflater().inflate(R.menu.activity_upload_files, menu);
 
         if(!mLocalFolderPickerMode) {
             MenuItem selectAll = menu.findItem(R.id.action_select_all);

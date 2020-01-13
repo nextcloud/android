@@ -45,6 +45,7 @@ import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -152,6 +153,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Inject AppPreferences preferences;
     @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
+    @Inject DeviceInfo deviceInfo;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -240,7 +242,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (activity != null) {
             activity.setPreviewImageVisibility(View.VISIBLE);
             activity.setProgressBarVisibility(View.GONE);
-            ThemeUtils.setStatusBarColor(activity, activity.getResources().getColor(R.color.black));
+            ThemeUtils.setStatusBarColor(activity, activity.getResources().getColor(R.color.background_color_inverse));
             if (activity.getSupportActionBar() != null) {
                 activity.getSupportActionBar().setTitle(null);
                 activity.getSupportActionBar().setBackgroundDrawable(null);
@@ -300,7 +302,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void onOverflowIconClicked(View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
-        popup.inflate(R.menu.file_details_actions_menu);
+        popup.inflate(R.menu.fragment_file_detail);
         prepareOptionsMenu(popup.getMenu());
 
         popup.setOnMenuItemClickListener(this::optionsItemSelected);
@@ -418,7 +420,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 currentAccount,
                 containerActivity,
                 getActivity(),
-                false
+                false,
+                deviceInfo,
+                accountManager.getUser()
             );
 
             mf.filter(menu,

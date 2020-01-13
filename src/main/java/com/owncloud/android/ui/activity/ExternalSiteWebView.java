@@ -91,6 +91,7 @@ public class ExternalSiteWebView extends FileActivity {
         webview.setFocusable(true);
         webview.setFocusableInTouchMode(true);
         webview.setClickable(true);
+//        webview.addJavascriptInterface(new TestMobileInterface(), "RichDocumentsMobileInterface");
 
         // allow debugging (when building the debug version); see details in
         // https://developers.google.com/web/tools/chrome-devtools/remote-debugging/webviews
@@ -163,6 +164,12 @@ public class ExternalSiteWebView extends FileActivity {
         // enable javascript
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
+
+        // caching disabled in debug mode
+        if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) == 0) {
+            webSettings.setAppCacheEnabled(true);
+            webSettings.setAppCachePath(getCacheDir().getPath());
+        }
     }
 
     private void setupActionBar(String title) {

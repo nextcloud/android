@@ -25,7 +25,6 @@ import android.accounts.Account;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -54,8 +53,6 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ThemeUtils;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -108,7 +105,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
 
     @Override
-    public View onCreateView(@NotNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // use grey as fallback for elements where custom theming is not available
         if (ThemeUtils.themingEnabled(getContext())) {
@@ -176,18 +173,14 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             calendarPickerOpen = true;
         }
 
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
+        int primaryColor = ThemeUtils.primaryColor(getContext());
         int fontColor = ThemeUtils.fontColor(getContext());
 
-        backupNow.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+        backupNow.setBackgroundColor(primaryColor);
         backupNow.setTextColor(fontColor);
 
-        contactsDatePickerBtn.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+        contactsDatePickerBtn.setBackgroundColor(primaryColor);
         contactsDatePickerBtn.setTextColor(fontColor);
-
-        MaterialButton chooseDate = view.findViewById(R.id.contacts_datepicker);
-        chooseDate.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
-        chooseDate.setTextColor(ThemeUtils.fontColor(getContext()));
 
         return view;
     }
@@ -449,7 +442,11 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                 }
             });
 
+            datePickerDialog.setTitle("");
             datePickerDialog.show();
+            // TODO How do we deal with primary colours that are too light or dark
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryColor(getContext()));
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryColor(getContext()));
         } else {
             DisplayUtils.showSnackMessage(getView().findViewById(R.id.contacts_linear_layout),
                     R.string.contacts_preferences_something_strange_happened);
@@ -465,7 +462,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     }
 
     @Override
-    public void onSaveInstanceState(@NotNull Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (datePickerDialog != null) {
             outState.putBoolean(KEY_CALENDAR_PICKER_OPEN, datePickerDialog.isShowing());

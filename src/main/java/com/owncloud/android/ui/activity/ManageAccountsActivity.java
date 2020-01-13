@@ -38,6 +38,7 @@ import android.view.MenuItem;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.owncloud.android.MainApp;
@@ -126,14 +127,11 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
         Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
         originalAccounts = DisplayUtils.toAccountNameSet(Arrays.asList(accountList));
 
-        Account currentAccount = getUserAccountManager().getCurrentAccount();
+        Account currentAccount = getAccount();
 
         if (currentAccount != null) {
             originalCurrentAccount = currentAccount.name;
         }
-
-        setAccount(currentAccount);
-        onAccountSet();
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
@@ -201,11 +199,11 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
      * @return true if account list has changed, false if not
      */
     private boolean hasCurrentAccountChanged() {
-        Account account = getUserAccountManager().getCurrentAccount();
-        if (account == null) {
+        User account = getUserAccountManager().getUser();
+        if (account.isAnonymous()) {
             return true;
         } else {
-            return !account.name.equals(originalCurrentAccount);
+            return !account.getAccountName().equals(originalCurrentAccount);
         }
     }
 
@@ -323,7 +321,8 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
                 }
             }
 
-            if (getUserAccountManager().getCurrentAccount() == null) {
+            User user = getUserAccountManager().getUser();
+            if (user.isAnonymous()) {
                 String accountName = "";
                 Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
                 if (accounts.length != 0) {

@@ -22,25 +22,35 @@
 package com.owncloud.android.files;
 
 import android.accounts.Account;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.os.Build;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.gson.Gson;
+import com.nextcloud.client.account.User;
+import com.nextcloud.client.device.DeviceInfo;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.DirectEditing;
+import com.owncloud.android.lib.common.Editor;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.activity.RichDocumentsWebView;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.NextcloudServer;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile}
@@ -50,45 +60,62 @@ public class FileMenuFilter {
 
     private static final int SINGLE_SELECT_ITEMS = 1;
 
-    private int mNumberOfAllFiles;
-    private Collection<OCFile> mFiles;
-    private ComponentsGetter mComponentsGetter;
-    private Account mAccount;
-    private Context mContext;
-    private boolean mOverflowMenu;
+    private int numberOfAllFiles;
+    private Collection<OCFile> files;
+    private ComponentsGetter componentsGetter;
+    private Account account;
+    private Context context;
+    private boolean overflowMenu;
+    private DeviceInfo deviceInfo;
+    private User user;
 
     /**
      * Constructor
      *
      * @param numberOfAllFiles  Number of all displayed files
-     * @param targetFiles       Collection of {@link OCFile} file targets of the action to filter in the {@link Menu}.
+     * @param files             Collection of {@link OCFile} file targets of the action to filter in the {@link Menu}.
      * @param account           ownCloud {@link Account} holding targetFile.
-     * @param cg                Accessor to app components, needed to access synchronization services
+     * @param componentsGetter  Accessor to app components, needed to access synchronization services
      * @param context           Android {@link Context}, needed to access build setup resources.
      * @param overflowMenu      true if the overflow menu items are being filtered
      */
-    public FileMenuFilter(int numberOfAllFiles, Collection<OCFile> targetFiles, Account account,
-                          ComponentsGetter cg, Context context, boolean overflowMenu) {
-        mNumberOfAllFiles = numberOfAllFiles;
-        mFiles = targetFiles;
-        mAccount = account;
-        mComponentsGetter = cg;
-        mContext = context;
-        mOverflowMenu = overflowMenu;
+    public FileMenuFilter(int numberOfAllFiles,
+                          Collection<OCFile> files,
+                          Account account,
+                          ComponentsGetter componentsGetter,
+                          Context context,
+                          boolean overflowMenu,
+                          DeviceInfo deviceInfo,
+                          User user
+    ) {
+        this.numberOfAllFiles = numberOfAllFiles;
+        this.files = files;
+        this.account = account;
+        this.componentsGetter = componentsGetter;
+        this.context = context;
+        this.overflowMenu = overflowMenu;
+        this.deviceInfo = deviceInfo;
+        this.user = user;
     }
 
     /**
      * Constructor
      *
-     * @param targetFile        {@link OCFile} target of the action to filter in the {@link Menu}.
+     * @param file              {@link OCFile} target of the action to filter in the {@link Menu}.
      * @param account           ownCloud {@link Account} holding targetFile.
-     * @param cg                Accessor to app components, needed to access synchronization services
+     * @param componentsGetter  Accessor to app components, needed to access synchronization services
      * @param context           Android {@link Context}, needed to access build setup resources.
      * @param overflowMenu      true if the overflow menu items are being filtered
      */
-    public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg, Context context,
-                          boolean overflowMenu) {
-        this(1, Collections.singletonList(targetFile), account, cg, context, overflowMenu);
+    public FileMenuFilter(OCFile file,
+                          Account account,
+                          ComponentsGetter componentsGetter,
+                          Context context,
+                          boolean overflowMenu,
+                          DeviceInfo deviceInfo,
+                          User user
+    ) {
+        this(1, Collections.singletonList(file), account, componentsGetter, context, overflowMenu, deviceInfo, user);
     }
 
     /**
@@ -100,7 +127,7 @@ public class FileMenuFilter {
      * @param isMediaSupported      True is media playback is supported for this user
      */
     public void filter(Menu menu, boolean inSingleFileFragment, boolean isMediaSupported) {
-        if (mFiles == null || mFiles.isEmpty()) {
+        if (files == null || files.isEmpty()) {
             hideAll(menu);
         } else {
             List<Integer> toShow = new ArrayList<>();
@@ -169,9 +196,10 @@ public class FileMenuFilter {
                         boolean isMediaSupported,
                         Menu menu) {
         boolean synchronizing = anyFileSynchronizing();
-        OCCapability capability = mComponentsGetter.getStorageManager().getCapability(mAccount.name);
+        OCCapability capability = componentsGetter.getStorageManager().getCapability(account.name);
         boolean endToEndEncryptionEnabled = capability.getEndToEndEncryption().isTrue();
 
+        filterEdit(toShow, toHide, capability);
         filterDownload(toShow, toHide, synchronizing);
         filterRename(toShow, toHide, synchronizing);
         filterMoveCopy(toShow, toHide, synchronizing);
@@ -189,13 +217,12 @@ public class FileMenuFilter {
         filterUnsetEncrypted(toShow, toHide, endToEndEncryptionEnabled);
         filterSetPictureAs(toShow, toHide);
         filterStream(toShow, toHide, isMediaSupported);
-        filterOpenAsRichDocument(toShow, toHide, capability, menu);
     }
 
     private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
         if (containsEncryptedFile() || (!isShareViaLinkAllowed() && !isShareWithUsersAllowed()) ||
-            !isSingleSelection() || !isShareApiEnabled(capability) || !mFiles.iterator().next().canReshare()
-            || mOverflowMenu) {
+            !isSingleSelection() || !isShareApiEnabled(capability) || !files.iterator().next().canReshare()
+            || overflowMenu) {
             toHide.add(R.id.action_send_share_file);
         } else {
             toShow.add(R.id.action_send_share_file);
@@ -211,7 +238,7 @@ public class FileMenuFilter {
     }
 
     private void filterFavorite(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (mFiles.isEmpty() || synchronizing || allFavorites()) {
+        if (files.isEmpty() || synchronizing || allFavorites()) {
             toHide.add(R.id.action_favorite);
         } else {
             toShow.add(R.id.action_favorite);
@@ -219,7 +246,7 @@ public class FileMenuFilter {
     }
 
     private void filterUnfavorite(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (mFiles.isEmpty() || synchronizing || allNotFavorites()) {
+        if (files.isEmpty() || synchronizing || allNotFavorites()) {
             toHide.add(R.id.action_unset_favorite);
         } else {
             toShow.add(R.id.action_unset_favorite);
@@ -227,7 +254,7 @@ public class FileMenuFilter {
     }
 
     private void filterEncrypt(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {
-        if (mFiles.isEmpty() || !isSingleSelection() || isSingleFile() || isEncryptedFolder()
+        if (files.isEmpty() || !isSingleSelection() || isSingleFile() || isEncryptedFolder()
                 || !endToEndEncryptionEnabled) {
             toHide.add(R.id.action_encrypted);
         } else {
@@ -236,7 +263,7 @@ public class FileMenuFilter {
     }
 
     private void filterUnsetEncrypted(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {
-        if (mFiles.isEmpty() || !isSingleSelection() || isSingleFile() || !isEncryptedFolder()
+        if (files.isEmpty() || !isSingleSelection() || isSingleFile() || !isEncryptedFolder()
                 || !endToEndEncryptionEnabled) {
             toHide.add(R.id.action_unset_encrypted);
         } else {
@@ -245,40 +272,70 @@ public class FileMenuFilter {
     }
 
     private void filterSetPictureAs(List<Integer> toShow, List<Integer> toHide) {
-        if (isSingleImage() && !MimeTypeUtil.isSVG(mFiles.iterator().next())) {
+        if (isSingleImage() && !MimeTypeUtil.isSVG(files.iterator().next())) {
             toShow.add(R.id.action_set_as_wallpaper);
         } else {
             toHide.add(R.id.action_set_as_wallpaper);
         }
     }
 
-    private void filterOpenAsRichDocument(List<Integer> toShow,
-                                          List<Integer> toHide,
-                                          OCCapability capability,
-                                          Menu menu) {
-        String mimeType = mFiles.iterator().next().getMimeType();
+    private void filterEdit(List<Integer> toShow,
+                            List<Integer> toHide,
+                            OCCapability capability
+    ) {
+        if (deviceInfo.editorSupported()) {
+            toHide.add(R.id.action_edit);
+            return;
+        }
 
-        if (isSingleFile() && android.os.Build.VERSION.SDK_INT >= RichDocumentsWebView.MINIMUM_API &&
-            (capability.getRichDocumentsMimeTypeList().contains(mimeType) ||
-                capability.getRichDocumentsOptionalMimeTypeList().contains(mimeType)) &&
-            capability.getRichDocumentsDirectEditing().isTrue()) {
+        String mimeType = files.iterator().next().getMimeType();
 
-            String openWith = mContext.getResources().getString(R.string.actionbar_open_as_richdocument_parameter);
-            String productName = capability.getRichDocumentsProductName();
-            MenuItem item = menu.findItem(R.id.action_open_file_as_richdocument);
-
-            if (item != null) {
-                item.setTitle(String.format(openWith, productName));
-            }
-
-            toShow.add(R.id.action_open_file_as_richdocument);
+        if (isRichDocumentEditingSupported(capability, mimeType) || isEditorAvailable(context.getContentResolver(),
+                                                                                      user,
+                                                                                      mimeType)) {
+            toShow.add(R.id.action_edit);
         } else {
-            toHide.add(R.id.action_open_file_as_richdocument);
+            toHide.add(R.id.action_edit);
         }
     }
 
+    public static boolean isEditorAvailable(ContentResolver contentResolver, User user, String mimeType) {
+        return getEditor(contentResolver, user, mimeType) != null;
+    }
+
+    @Nullable
+    public static Editor getEditor(ContentResolver contentResolver, User user, String mimeType) {
+        String json = new ArbitraryDataProvider(contentResolver).getValue(user.toPlatformAccount(),
+                                                                          ArbitraryDataProvider.DIRECT_EDITING);
+
+        if (json.isEmpty()) {
+            return null;
+        }
+
+        DirectEditing directEditing = new Gson().fromJson(json, DirectEditing.class);
+
+        for (Editor editor : directEditing.editors.values()) {
+            if (editor.mimetypes.contains(mimeType) || editor.optionalMimetypes.contains(mimeType)) {
+                return editor;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * This will be replaced by unified editor and can be removed once EOL of corresponding server version.
+     */
+    @NextcloudServer(max = 18)
+    private boolean isRichDocumentEditingSupported(OCCapability capability, String mimeType) {
+        return isSingleFile() && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+            (capability.getRichDocumentsMimeTypeList().contains(mimeType) ||
+                capability.getRichDocumentsOptionalMimeTypeList().contains(mimeType)) &&
+            capability.getRichDocumentsDirectEditing().isTrue();
+    }
+
     private void filterSync(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (mFiles.isEmpty() || (!anyFileDown() && !containsFolder()) || synchronizing) {
+        if (files.isEmpty() || (!anyFileDown() && !containsFolder()) || synchronizing) {
             toHide.add(R.id.action_sync_file);
         } else {
             toShow.add(R.id.action_sync_file);
@@ -286,7 +343,7 @@ public class FileMenuFilter {
     }
 
     private void filterCancelSync(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (mFiles.isEmpty() || !synchronizing) {
+        if (files.isEmpty() || !synchronizing) {
             toHide.add(R.id.action_cancel_sync);
         } else {
             toShow.add(R.id.action_cancel_sync);
@@ -307,7 +364,7 @@ public class FileMenuFilter {
             toHide.add(R.id.action_deselect_all_action_menu);
         } else {
             // Show only if at least one item is selected.
-            if (mFiles.isEmpty() || mOverflowMenu) {
+            if (files.isEmpty() || overflowMenu) {
                 toHide.add(R.id.action_deselect_all_action_menu);
             } else {
                 toShow.add(R.id.action_deselect_all_action_menu);
@@ -318,7 +375,7 @@ public class FileMenuFilter {
     private void filterSelectAll(List<Integer> toShow, List<Integer> toHide, boolean inSingleFileFragment) {
         if (!inSingleFileFragment) {
             // Show only if at least one item isn't selected.
-            if (mFiles.size() >= mNumberOfAllFiles || mOverflowMenu) {
+            if (files.size() >= numberOfAllFiles || overflowMenu) {
                 toHide.add(R.id.action_select_all_action_menu);
             } else {
                 toShow.add(R.id.action_select_all_action_menu);
@@ -330,7 +387,7 @@ public class FileMenuFilter {
     }
 
     private void filterRemove(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (mFiles.isEmpty() || synchronizing || containsEncryptedFolder()) {
+        if (files.isEmpty() || synchronizing || containsEncryptedFolder()) {
             toHide.add(R.id.action_remove_file);
         } else {
             toShow.add(R.id.action_remove_file);
@@ -338,7 +395,7 @@ public class FileMenuFilter {
     }
 
     private void filterMoveCopy(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (mFiles.isEmpty() || synchronizing || containsEncryptedFile() || containsEncryptedFolder()) {
+        if (files.isEmpty() || synchronizing || containsEncryptedFile() || containsEncryptedFolder()) {
             toHide.add(R.id.action_move);
             toHide.add(R.id.action_copy);
         } else {
@@ -356,7 +413,7 @@ public class FileMenuFilter {
     }
 
     private void filterDownload(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (mFiles.isEmpty() || containsFolder() || anyFileDown() || synchronizing) {
+        if (files.isEmpty() || containsFolder() || anyFileDown() || synchronizing) {
             toHide.add(R.id.action_download_file);
         } else {
             toShow.add(R.id.action_download_file);
@@ -364,7 +421,7 @@ public class FileMenuFilter {
     }
 
     private void filterStream(List<Integer> toShow, List<Integer> toHide, boolean isMediaSupported) {
-        if (mFiles.isEmpty() || !isSingleFile() || !isSingleMedia() || !isMediaSupported) {
+        if (files.isEmpty() || !isSingleFile() || !isSingleMedia() || !isMediaSupported) {
             toHide.add(R.id.action_stream_media);
         } else {
             toShow.add(R.id.action_stream_media);
@@ -373,10 +430,10 @@ public class FileMenuFilter {
 
     private boolean anyFileSynchronizing() {
         boolean synchronizing = false;
-        if (mComponentsGetter != null && !mFiles.isEmpty() && mAccount != null) {
-            OperationsServiceBinder opsBinder = mComponentsGetter.getOperationsServiceBinder();
-            FileUploaderBinder uploaderBinder = mComponentsGetter.getFileUploaderBinder();
-            FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
+        if (componentsGetter != null && !files.isEmpty() && account != null) {
+            OperationsServiceBinder opsBinder = componentsGetter.getOperationsServiceBinder();
+            FileUploaderBinder uploaderBinder = componentsGetter.getFileUploaderBinder();
+            FileDownloaderBinder downloaderBinder = componentsGetter.getFileDownloaderBinder();
             synchronizing = anyFileSynchronizing(opsBinder) ||      // comparing local and remote
                             anyFileDownloading(downloaderBinder) ||
                             anyFileUploading(uploaderBinder);
@@ -387,8 +444,8 @@ public class FileMenuFilter {
     private boolean anyFileSynchronizing(OperationsServiceBinder opsBinder) {
         boolean synchronizing = false;
         if (opsBinder != null) {
-            for (Iterator<OCFile> iterator = mFiles.iterator(); !synchronizing && iterator.hasNext(); ) {
-                synchronizing = opsBinder.isSynchronizing(mAccount, iterator.next());
+            for (Iterator<OCFile> iterator = files.iterator(); !synchronizing && iterator.hasNext(); ) {
+                synchronizing = opsBinder.isSynchronizing(account, iterator.next());
             }
         }
         return synchronizing;
@@ -397,8 +454,8 @@ public class FileMenuFilter {
     private boolean anyFileDownloading(FileDownloaderBinder downloaderBinder) {
         boolean downloading = false;
         if (downloaderBinder != null) {
-            for (Iterator<OCFile> iterator = mFiles.iterator(); !downloading && iterator.hasNext(); ) {
-                downloading = downloaderBinder.isDownloading(mAccount, iterator.next());
+            for (Iterator<OCFile> iterator = files.iterator(); !downloading && iterator.hasNext(); ) {
+                downloading = downloaderBinder.isDownloading(account, iterator.next());
             }
         }
         return downloading;
@@ -407,8 +464,8 @@ public class FileMenuFilter {
     private boolean anyFileUploading(FileUploaderBinder uploaderBinder) {
         boolean uploading = false;
         if (uploaderBinder != null) {
-            for (Iterator<OCFile> iterator = mFiles.iterator(); !uploading && iterator.hasNext(); ) {
-                uploading = uploaderBinder.isUploading(mAccount, iterator.next());
+            for (Iterator<OCFile> iterator = files.iterator(); !uploading && iterator.hasNext(); ) {
+                uploading = uploaderBinder.isUploading(account, iterator.next());
             }
         }
         return uploading;
@@ -422,26 +479,26 @@ public class FileMenuFilter {
     }
 
     private boolean isShareWithUsersAllowed() {
-        return mContext != null &&
-                mContext.getResources().getBoolean(R.bool.share_with_users_feature);
+        return context != null &&
+            context.getResources().getBoolean(R.bool.share_with_users_feature);
     }
 
     private boolean isShareViaLinkAllowed() {
-        return mContext != null &&
-                mContext.getResources().getBoolean(R.bool.share_via_link_feature);
+        return context != null &&
+            context.getResources().getBoolean(R.bool.share_via_link_feature);
     }
 
     private boolean isSingleSelection() {
-        return mFiles.size() == SINGLE_SELECT_ITEMS;
+        return files.size() == SINGLE_SELECT_ITEMS;
     }
 
     private boolean isSingleFile() {
-        return isSingleSelection() && !mFiles.iterator().next().isFolder();
+        return isSingleSelection() && !files.iterator().next().isFolder();
     }
 
     private boolean isEncryptedFolder() {
         if (isSingleSelection()) {
-            OCFile file = mFiles.iterator().next();
+            OCFile file = files.iterator().next();
 
             return file.isFolder() && file.isEncrypted();
         } else {
@@ -450,16 +507,16 @@ public class FileMenuFilter {
     }
 
     private boolean isSingleImage() {
-        return isSingleSelection() && MimeTypeUtil.isImage(mFiles.iterator().next());
+        return isSingleSelection() && MimeTypeUtil.isImage(files.iterator().next());
     }
 
     private boolean isSingleMedia() {
-        OCFile file = mFiles.iterator().next();
+        OCFile file = files.iterator().next();
         return isSingleSelection() && (MimeTypeUtil.isVideo(file) || MimeTypeUtil.isAudio(file));
     }
 
     private boolean containsEncryptedFile() {
-        for (OCFile file : mFiles) {
+        for (OCFile file : files) {
             if (!file.isFolder() && file.isEncrypted()) {
                 return true;
             }
@@ -468,7 +525,7 @@ public class FileMenuFilter {
     }
 
     private boolean containsEncryptedFolder() {
-        for (OCFile file : mFiles) {
+        for (OCFile file : files) {
             if (file.isFolder() && file.isEncrypted()) {
                 return true;
             }
@@ -477,7 +534,7 @@ public class FileMenuFilter {
     }
 
     private boolean containsFolder() {
-        for (OCFile file : mFiles) {
+        for (OCFile file : files) {
             if (file.isFolder()) {
                 return true;
             }
@@ -486,7 +543,7 @@ public class FileMenuFilter {
     }
 
     private boolean anyFileDown() {
-        for (OCFile file : mFiles) {
+        for (OCFile file : files) {
             if (file.isDown()) {
                 return true;
             }
@@ -495,7 +552,7 @@ public class FileMenuFilter {
     }
 
     private boolean allFavorites() {
-        for (OCFile file : mFiles) {
+        for (OCFile file : files) {
             if (!file.isFavorite()) {
                 return false;
             }
@@ -504,7 +561,7 @@ public class FileMenuFilter {
     }
 
     private boolean allNotFavorites() {
-        for (OCFile file : mFiles) {
+        for (OCFile file : files) {
             if (file.isFavorite()) {
                 return false;
             }

@@ -24,9 +24,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemoteOperation;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -275,11 +279,37 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateCapabilities() {
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext.getContentResolver());
+        String oldDirectEditingEtag = arbitraryDataProvider.getValue(mAccount,
+                                                                     ArbitraryDataProvider.DIRECT_EDITING_ETAG);
+
         GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation();
         RemoteOperationResult result = getCapabilities.execute(mStorageManager, mContext);
-        if (!result.isSuccess()) {
+        if (result.isSuccess()) {
+            String newDirectEditingEtag = mStorageManager.getCapability(mAccount.name).getDirectEditingEtag();
+
+            if (!oldDirectEditingEtag.equalsIgnoreCase(newDirectEditingEtag)) {
+                updateDirectEditing(arbitraryDataProvider, newDirectEditingEtag);
+            }
+        } else {
             Log_OC.w(TAG, "Update Capabilities unsuccessfully");
         }
+    }
+
+    private void updateDirectEditing(ArbitraryDataProvider arbitraryDataProvider, String newDirectEditingEtag) {
+        RemoteOperationResult result = new DirectEditingObtainRemoteOperation().execute(mAccount, mContext);
+
+        if (result.isSuccess()) {
+            DirectEditing directEditing = (DirectEditing) result.getSingleData();
+            String json = new Gson().toJson(directEditing);
+            arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, ArbitraryDataProvider.DIRECT_EDITING, json);
+        } else {
+            arbitraryDataProvider.deleteKeyForAccount(mAccount.name, ArbitraryDataProvider.DIRECT_EDITING);
+        }
+
+        arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name,
+                                                    ArbitraryDataProvider.DIRECT_EDITING_ETAG,
+                                                    newDirectEditingEtag);
     }
 
     private RemoteOperationResult checkForChanges(OwnCloudClient client) {
@@ -391,6 +421,9 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         // update permission
         mLocalFolder.setPermissions(remoteFolder.getPermissions());
+
+        // update richWorkpace
+        mLocalFolder.setRichWorkspace(remoteFolder.getRichWorkspace());
 
         DecryptedFolderMetadata metadata = getDecryptedFolderMetadata(encryptedAncestor);
 

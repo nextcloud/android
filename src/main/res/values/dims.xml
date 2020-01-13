@@ -133,8 +133,6 @@
     <dimen name="synced_folders_item_type_layout_width">32dp</dimen>
     <dimen name="synced_folders_item_type_layout_height">32dp</dimen>
     <dimen name="synced_folders_item_type_layout_right_end_margin">24dp</dimen>
-    <dimen name="synced_folders_progress_bar_layout_width">72dp</dimen>
-    <dimen name="synced_folders_progress_bar_layout_height">72dp</dimen>
     <dimen name="synced_folders_recycler_view_layout_margin">-3dp</dimen>
     <dimen name="toolbar_user_information_layout_margin">12dp</dimen>
     <dimen name="bottom_sheet_text_size">16sp</dimen>

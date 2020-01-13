@@ -72,6 +72,8 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        enableAccountHandling = false;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_run_activity);
 
@@ -80,6 +82,8 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         setSlideshowSize(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
 
         Button loginButton = findViewById(R.id.login);
+        loginButton.setBackgroundColor(getResources().getColor(R.color.primary));
+        loginButton.setTextColor(getResources().getColor(R.color.white));
 
         loginButton.setOnClickListener(v -> {
             if (getIntent().getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
@@ -92,7 +96,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         });
 
         Button providerButton = findViewById(R.id.signup);
-        providerButton.setBackgroundColor(getResources().getColor(R.color.primary_dark));
+        providerButton.setBackgroundColor(getResources().getColor(R.color.primary));
         providerButton.setTextColor(getResources().getColor(R.color.login_text_color));
         providerButton.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
         providerButton.setOnClickListener(v -> {
@@ -215,16 +219,18 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
                 return;
             }
 
-            setAccount(account);
             userAccountManager.setCurrentOwnCloudAccount(account.name);
-            onAccountSet();
 
             Intent i = new Intent(this, FileDisplayActivity.class);
             i.setAction(FileDisplayActivity.RESTART);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
+
+            finish();
         }
     }
+
+
 
     public static FeatureItem[] getFirstRun() {
         return new FeatureItem[]{

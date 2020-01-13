@@ -69,7 +69,7 @@ class ShowErrorActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.activity_error_show, menu)
+        menuInflater.inflate(R.menu.activity_show_error, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

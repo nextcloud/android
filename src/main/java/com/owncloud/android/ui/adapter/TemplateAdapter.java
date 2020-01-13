@@ -25,6 +25,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,13 +34,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.Template;
-import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
+import com.owncloud.android.lib.common.Template;
+import com.owncloud.android.lib.common.TemplateList;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,22 +51,25 @@ import butterknife.ButterKnife;
  */
 public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHolder> {
 
-    private List<Template> templateList = new ArrayList<>();
+    private TemplateList templateList = new TemplateList();
     private ClickListener clickListener;
     private Context context;
-    private ChooseTemplateDialogFragment.Type type;
     private CurrentAccountProvider currentAccountProvider;
+    private ClientFactory clientFactory;
+    private String mimetype;
 
     public TemplateAdapter(
-        ChooseTemplateDialogFragment.Type type,
+        String mimetype,
         ClickListener clickListener,
         Context context,
-        CurrentAccountProvider currentAccountProvider
+        CurrentAccountProvider currentAccountProvider,
+        ClientFactory clientFactory
     ) {
+        this.mimetype = mimetype;
         this.clickListener = clickListener;
-        this.type = type;
         this.context = context;
         this.currentAccountProvider = currentAccountProvider;
+        this.clientFactory = clientFactory;
     }
 
     @NonNull
@@ -77,20 +80,19 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setData(templateList.get(position));
+        holder.setData(templateList.getTemplateList().get(position));
     }
 
-    public void setTemplateList(List<Template> templateList) {
+    public void setTemplateList(TemplateList templateList) {
         this.templateList = templateList;
     }
 
     @Override
     public int getItemCount() {
-        return templateList.size();
+        return templateList.getTemplateList().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         @BindView(R.id.name)
         public TextView name;
 
@@ -115,32 +117,18 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
         public void setData(Template template) {
             this.template = template;
 
-            int placeholder;
+            Drawable placeholder = MimeTypeUtil.getFileTypeIcon(mimetype,
+                                                                template.getTitle(),
+                                                                currentAccountProvider.getUser().toPlatformAccount(),
+                                                                context);
 
-            switch (type) {
-                case DOCUMENT:
-                    placeholder = R.drawable.file_doc;
-                    break;
-
-                case SPREADSHEET:
-                    placeholder = R.drawable.file_xls;
-                    break;
-
-                case PRESENTATION:
-                    placeholder = R.drawable.file_ppt;
-                    break;
-
-                default:
-                    placeholder = R.drawable.file;
-                    break;
-            }
-
-            Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider)).load(template.getThumbnailLink())
+            Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider, clientFactory))
+                .load(template.getPreview())
                     .placeholder(placeholder)
                     .error(placeholder)
                     .into(thumbnail);
 
-            name.setText(template.getName());
+            name.setText(template.getTitle());
         }
     }
 

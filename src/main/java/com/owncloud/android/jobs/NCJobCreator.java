@@ -29,6 +29,7 @@ import android.content.Context;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -48,6 +49,7 @@ public class NCJobCreator implements JobCreator {
     private final UploadsStorageManager uploadsStorageManager;
     private final ConnectivityService connectivityService;
     private final PowerManagementService powerManagementService;
+    private final Clock clock;
 
     public NCJobCreator(
         Context context,
@@ -55,7 +57,8 @@ public class NCJobCreator implements JobCreator {
         AppPreferences preferences,
         UploadsStorageManager uploadsStorageManager,
         ConnectivityService connectivityServices,
-        PowerManagementService powerManagementService
+        PowerManagementService powerManagementService,
+        Clock clock
     ) {
         this.context = context;
         this.accountManager = accountManager;
@@ -63,6 +66,7 @@ public class NCJobCreator implements JobCreator {
         this.uploadsStorageManager = uploadsStorageManager;
         this.connectivityService = connectivityServices;
         this.powerManagementService = powerManagementService;
+        this.clock = clock;
     }
 
     @Override
@@ -73,19 +77,20 @@ public class NCJobCreator implements JobCreator {
             case ContactsImportJob.TAG:
                 return new ContactsImportJob();
             case AccountRemovalJob.TAG:
-                return new AccountRemovalJob(uploadsStorageManager, accountManager);
+                return new AccountRemovalJob(uploadsStorageManager, accountManager, clock);
             case FilesSyncJob.TAG:
                 return new FilesSyncJob(accountManager,
                                         preferences,
                                         uploadsStorageManager,
                                         connectivityService,
-                                        powerManagementService);
+                                        powerManagementService,
+                                        clock);
             case OfflineSyncJob.TAG:
                 return new OfflineSyncJob(accountManager, connectivityService, powerManagementService);
             case NotificationJob.TAG:
                 return new NotificationJob(context, accountManager);
             case MediaFoldersDetectionJob.TAG:
-                return new MediaFoldersDetectionJob(accountManager);
+                return new MediaFoldersDetectionJob(accountManager, clock);
             default:
                 return null;
         }

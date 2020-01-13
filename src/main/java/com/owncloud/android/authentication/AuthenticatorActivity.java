@@ -92,6 +92,7 @@ import android.widget.Toast;
 
 import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
@@ -178,6 +179,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_SERVER_AUTH_METHOD = "SERVER_AUTH_METHOD";
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
     private static final String KEY_AUTH_TOKEN = "AUTH_TOKEN";
+    private static final String KEY_ONLY_ADD = "onlyAdd";
 
     public static final byte ACTION_CREATE = 0;
     public static final byte ACTION_UPDATE_EXPIRED_TOKEN = 2;       // detected by the app
@@ -260,6 +262,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject AppPreferences preferences;
     @Inject OnboardingService onboarding;
     @Inject DeviceInfo deviceInfo;
+    private boolean onlyAdd = false;
 
     /**
      * {@inheritDoc}
@@ -276,6 +279,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (savedInstanceState == null && !directLogin) {
             onboarding.launchFirstRunIfNeeded(this);
         }
+
+        onlyAdd = getIntent().getBooleanExtra(KEY_ONLY_ADD, false);
 
         // delete cookies for webView
         deleteCookies();
@@ -409,7 +414,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             new Handler().postDelayed(() -> DisplayUtils.createSnackbar(mLoginWebView,
                                                                         R.string.fallback_weblogin_text,
                                                                         Snackbar.LENGTH_INDEFINITE)
-                .setActionTextColor(getResources().getColor(R.color.white))
+                .setActionTextColor(getResources().getColor(R.color.themed_fg))
+                .setBackgroundTint(getResources().getColor(R.color.themed_bg))
+                .setTextColor(getResources().getColor(R.color.themed_fg))
                 .setAction(R.string.fallback_weblogin_back, v -> {
                     mLoginWebView.setVisibility(View.INVISIBLE);
                     webViewLoginMethod = false;
@@ -888,6 +895,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             super.finish();
         }
 
+        onlyAdd = intent.getBooleanExtra(KEY_ONLY_ADD, false);
+
         // Passcode
         PassCodeManager passCodeManager = new PassCodeManager(preferences);
         passCodeManager.onActivityStarted(this);
@@ -1300,7 +1309,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_INDEFINITE);
             }
 
-            webViewLoginMethod = mServerInfo.mVersion.isWebLoginSupported() && !forceOldLoginMethod;
+            webViewLoginMethod = !forceOldLoginMethod;
 
             if (webViewUser != null && !webViewUser.isEmpty() &&
                     webViewPassword != null && !webViewPassword.isEmpty()) {
@@ -1585,10 +1594,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (success) {
                 accountManager.setCurrentOwnCloudAccount(mAccount.name);
 
-                Intent i = new Intent(this, FileDisplayActivity.class);
-                i.setAction(FileDisplayActivity.RESTART);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
+                if (!onlyAdd) {
+                    Intent i = new Intent(this, FileDisplayActivity.class);
+                    i.setAction(FileDisplayActivity.RESTART);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                }
 
                 finish();
             } else {
@@ -1761,8 +1772,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
             /// add the new account as default in preferences, if there is none already
-            Account defaultAccount = accountManager.getCurrentAccount();
-            if (defaultAccount == null) {
+            User defaultAccount = accountManager.getUser();
+            if (defaultAccount.isAnonymous()) {
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
                 editor.putString("select_oc_account", accountName);
                 editor.apply();

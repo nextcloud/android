@@ -206,17 +206,17 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/copyInternalLink"
+                    android:id="@+id/shareInternalLink"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="@string/copy_internal_link" />
+                    android:textColor="@color/text_color"
+                    android:text="@string/share_internal_link" />
 
                 <TextView
-                    android:id="@+id/copyInternalLinkSubline"
+                    android:id="@+id/shareInternalLinkText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/copy_internal_link_subline" />
+                    android:text="@string/share_internal_link_text" />
             </LinearLayout>
 
         </LinearLayout>

@@ -46,6 +46,7 @@ import android.webkit.MimeTypeMap;
 
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -66,8 +67,9 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ExternalSiteWebView;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.RichDocumentsWebView;
+import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
 import com.owncloud.android.ui.activity.ShareActivity;
+import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
@@ -97,6 +99,7 @@ import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -277,7 +280,7 @@ public class FileOperationsHelper {
                 Account account = fileActivity.getAccount();
                 OCCapability capability = fileActivity.getStorageManager().getCapability(account.name);
                 if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
-                    android.os.Build.VERSION.SDK_INT >= RichDocumentsWebView.MINIMUM_API &&
+                    android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                     capability.getRichDocumentsDirectEditing().isTrue()) {
                     openFileAsRichDocument(file, fileActivity);
                     return;
@@ -291,14 +294,14 @@ public class FileOperationsHelper {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Account account = currentAccount.getCurrentAccount();
+                    User user = currentAccount.getUser();
                     FileDataStorageManager storageManager =
-                            new FileDataStorageManager(account, fileActivity.getContentResolver());
+                            new FileDataStorageManager(user.toPlatformAccount(), fileActivity.getContentResolver());
                     // a fresh object is needed; many things could have occurred to the file
                     // since it was registered to observe again, assuming that local files
                     // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
                     SynchronizeFileOperation sfo =
-                            new SynchronizeFileOperation(file, null, account, true, fileActivity);
+                            new SynchronizeFileOperation(file, null, user.toPlatformAccount(), true, fileActivity);
                     RemoteOperationResult result = sfo.execute(storageManager, fileActivity);
                     fileActivity.dismissLoadingDialog();
                     if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
@@ -307,7 +310,7 @@ public class FileOperationsHelper {
                         Intent i = new Intent(fileActivity, ConflictsResolveActivity.class);
                         i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
                         i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
-                        i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
+                        i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
                         fileActivity.startActivity(i);
                     } else {
                         if (!launchables.isEmpty()) {
@@ -323,12 +326,7 @@ public class FileOperationsHelper {
 
                                 openFileWithIntent.setFlags(openFileWithIntent.getFlags() |
                                         Intent.FLAG_ACTIVITY_NEW_TASK);
-                                fileActivity.startActivity(
-                                        Intent.createChooser(
-                                            openFileWithIntent,
-                                            fileActivity.getString(R.string.actionbar_open_with)
-                                        )
-                                );
+                                fileActivity.startActivity(openFileWithIntent);
                             } catch (ActivityNotFoundException exception) {
                                 DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
                             }
@@ -345,12 +343,31 @@ public class FileOperationsHelper {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void openFileAsRichDocument(OCFile file, Context context) {
-        Intent collaboraWebViewIntent = new Intent(context, RichDocumentsWebView.class);
+        Intent collaboraWebViewIntent = new Intent(context, RichDocumentsEditorWebView.class);
         collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Collabora");
         collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
         collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
         context.startActivity(collaboraWebViewIntent);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void openFileWithTextEditor(OCFile file, Context context) {
+        Intent textEditorIntent = new Intent(context, TextEditorWebView.class);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text");
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+        context.startActivity(textEditorIntent);
+    }
+
+    public void openRichWorkspaceWithTextEditor(OCFile file, String url, Context context) {
+        Intent textEditorIntent = new Intent(context, TextEditorWebView.class);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text");
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_URL, url);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+        context.startActivity(textEditorIntent);
     }
 
     @NonNull
@@ -402,10 +419,10 @@ public class FileOperationsHelper {
 
     public void streamMediaFile(OCFile file) {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
-        final Account account = currentAccount.getCurrentAccount();
+        final User user = currentAccount.getUser();
         new Thread(() -> {
             StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
-            RemoteOperationResult result = sfo.execute(account, fileActivity);
+            RemoteOperationResult result = sfo.execute(user.toPlatformAccount(), fileActivity);
 
             fileActivity.dismissLoadingDialog();
 

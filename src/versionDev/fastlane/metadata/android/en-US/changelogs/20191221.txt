@@ -1,0 +1,10 @@
+a28d65c4c Merge pull request #5047 from nextcloud/nickvergessen-patch-1
+70f20b30d Merge pull request #5040 from nextcloud/dependabot/gradle/com.android.support.test.espresso-espresso-intents-3.0.2
+c8f8fbb91 Change order of steps and result of those steps
+89bbb8284 Bump espresso-intents from 2.2.1 to 3.0.2
+4899561eb Merge pull request #5042 from nextcloud/dependabot/gradle/com.jakewharton-butterknife-compiler-10.2.1
+9e61eba51 Bump butterknife-compiler from 10.2.0 to 10.2.1
+aff5c473a Merge pull request #5044 from nextcloud/dependabot/gradle/com.jakewharton-butterknife-10.2.1
+7240022e1 [tx-robot] updated from transifex
+1caf02a0f daily dev 20191220
+library commit: 05edb6f6357d00a5fe1d17bed816690a8c83b741

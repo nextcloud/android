@@ -24,9 +24,6 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
-import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,15 +38,15 @@ import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
-import com.owncloud.android.MainApp;
+import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetActivitiesRemoteOperation;
@@ -72,7 +69,6 @@ import com.owncloud.android.utils.ThemeUtils;
 import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,6 +100,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     private ActivityAndVersionListAdapter adapter;
     private Unbinder unbinder;
     private OwnCloudClient ownCloudClient;
+    private NextcloudClient nextcloudClient;
 
     private OCFile file;
     private Account account;
@@ -149,6 +146,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     private VersionListInterface.CommentCallback callback;
 
     @Inject UserAccountManager accountManager;
+    @Inject ClientFactory clientFactory;
 
     public static FileDetailActivitiesFragment newInstance(OCFile file, Account account) {
         FileDetailActivitiesFragment fragment = new FileDetailActivitiesFragment();
@@ -258,7 +256,9 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 PorterDuff.Mode.SRC_IN);
         emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activity_light_grey));
 
-        adapter = new ActivityAndVersionListAdapter(getContext(), accountManager, this, this, storageManager, capability);
+        adapter = new ActivityAndVersionListAdapter(getContext(), accountManager, this, this,
+                                                    storageManager,
+                                                    capability);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -301,9 +301,9 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         final SwipeRefreshLayout empty = swipeEmptyListRefreshLayout;
         final SwipeRefreshLayout list = swipeListRefreshLayout;
-        final Account currentAccount = accountManager.getCurrentAccount();
+        final User user = accountManager.getUser();
 
-        if (currentAccount == null) {
+        if (user.isAnonymous()) {
             activity.runOnUiThread(() -> {
                 setEmptyContent(getString(R.string.common_error), getString(R.string.file_detail_activity_error));
                 list.setVisibility(View.GONE);
@@ -312,15 +312,11 @@ public class FileDetailActivitiesFragment extends Fragment implements
             return;
         }
 
-        final Context context = MainApp.getAppContext();
-
         Thread t = new Thread(() -> {
-            OwnCloudAccount ocAccount;
             try {
-                ocAccount = new OwnCloudAccount(currentAccount, context);
-                ownCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                        getClientFor(ocAccount, MainApp.getAppContext());
-                ownCloudClient.setOwnCloudVersion(accountManager.getServerVersion(currentAccount));
+                ownCloudClient = clientFactory.create(user);
+                nextcloudClient = clientFactory.createNextcloudClient(user);
+
                 isLoadingActivities = true;
 
                 GetActivitiesRemoteOperation getRemoteNotificationOperation;
@@ -332,7 +328,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 }
 
                 Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
-                final RemoteOperationResult result = getRemoteNotificationOperation.execute(ownCloudClient);
+                final RemoteOperationResult result = nextcloudClient.execute(getRemoteNotificationOperation);
 
                 ArrayList<Object> versions = null;
                 if (restoreFileVersionSupported) {
@@ -385,8 +381,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 }
 
                 hideRefreshLayoutLoader(activity);
-            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException | IOException |
-                OperationCanceledException | AuthenticatorException | NullPointerException e) {
+            } catch (ClientFactory.CreationException e) {
                 Log_OC.e(TAG, "Error fetching file details activities", e);
             }
         });
@@ -409,7 +404,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     }
 
     private void populateList(List<Object> activities, boolean clear) {
-        adapter.setActivityAndVersionItems(activities, ownCloudClient, clear);
+        adapter.setActivityAndVersionItems(activities, nextcloudClient, clear);
     }
 
     private void setEmptyContent(String headline, String message) {

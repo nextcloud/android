@@ -25,7 +25,8 @@
     android:orientation="horizontal"
     android:paddingRight="@dimen/standard_padding"
     android:paddingBottom="@dimen/standard_padding"
-    android:paddingLeft="@dimen/standard_padding">
+    android:paddingLeft="@dimen/standard_padding"
+    android:background="@color/bg_default">
 
     <ImageView
         android:id="@+id/activity_icon"
@@ -34,8 +35,10 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/standard_margin"
         android:alpha="0.5"
-        android:src="@drawable/ic_activity"
-        android:contentDescription="@string/activity_icon"/>
+        android:padding="2dp"
+        android:background="@drawable/round_bgnd_icons"
+        android:contentDescription="@string/activity_icon"
+        android:src="@drawable/ic_activity" />
 
     <LinearLayout
         android:layout_width="match_parent"

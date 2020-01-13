@@ -18,7 +18,7 @@
  */
 package com.owncloud.android.ui.activities.data.activities;
 
-import com.owncloud.android.lib.common.OwnCloudClient;
+import com.nextcloud.common.NextcloudClient;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +42,7 @@ public class RemoteActivitiesRepositoryTest {
     ActivitiesRepository.LoadActivitiesCallback mockedLoadActivitiesCallback;
 
     @Mock
-    OwnCloudClient ownCloudClient;
+    NextcloudClient nextcloudClient;
 
     @Captor
     private ArgumentCaptor<ActivitiesServiceApi.ActivitiesServiceCallback> activitiesServiceCallbackCaptor;
@@ -62,8 +62,8 @@ public class RemoteActivitiesRepositoryTest {
     public void loadActivitiesReturnSuccess() {
         mActivitiesRepository.getActivities(-1, mockedLoadActivitiesCallback);
         verify(serviceApi).getAllActivities(eq(-1), activitiesServiceCallbackCaptor.capture());
-        activitiesServiceCallbackCaptor.getValue().onLoaded(activitiesList, ownCloudClient, -1);
-        verify(mockedLoadActivitiesCallback).onActivitiesLoaded(eq(activitiesList), eq(ownCloudClient), eq(-1));
+        activitiesServiceCallbackCaptor.getValue().onLoaded(activitiesList, nextcloudClient, -1);
+        verify(mockedLoadActivitiesCallback).onActivitiesLoaded(eq(activitiesList), eq(nextcloudClient), eq(-1));
     }
 
     @Test

@@ -24,9 +24,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -39,13 +36,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.jobs.NotificationJob;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -58,8 +56,9 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
-import java.io.IOException;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -109,7 +108,9 @@ public class NotificationsActivity extends FileActivity implements Notifications
     private NotificationListAdapter adapter;
     private Snackbar snackbar;
     private OwnCloudClient client;
-    private Account currentAccount;
+    private Optional<User> optionalUser;
+
+    @Inject ClientFactory clientFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,16 +120,18 @@ public class NotificationsActivity extends FileActivity implements Notifications
         setContentView(R.layout.notifications_layout);
         unbinder = ButterKnife.bind(this);
 
-        currentAccount = getAccount();
+        optionalUser = getUser();
 
         // use account from intent (opened via android notification can have a different account than current one)
         if (getIntent() != null && getIntent().getExtras() != null) {
-            String account = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT);
-
-            if (account != null && (currentAccount == null || !account.equalsIgnoreCase(currentAccount.name))) {
-                accountManager.setCurrentOwnCloudAccount(account);
-                setAccount(getUserAccountManager().getCurrentAccount());
-                currentAccount = getAccount();
+            String accountName = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT);
+            if(accountName != null && optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                if (user.getAccountName().equalsIgnoreCase(accountName)) {
+                    accountManager.setCurrentOwnCloudAccount(accountName);
+                    setUser(getUserAccountManager().getUser());
+                    optionalUser = getUser();
+                }
             }
         }
 
@@ -142,7 +145,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
         setupDrawer(R.id.nav_notifications);
         ThemeUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_item_notifications), this);
 
-        if (currentAccount == null) {
+        if (!optionalUser.isPresent()) {
             // show error
             runOnUiThread(() -> setEmptyContent(noResultsHeadline, getString(R.string.account_not_found)));
             return;
@@ -156,7 +159,6 @@ public class NotificationsActivity extends FileActivity implements Notifications
         swipeEmptyListRefreshLayout.setOnRefreshListener(() -> {
             setLoadingMessage();
             fetchAndSetData();
-
         });
 
         setupPushWarning();
@@ -175,16 +177,16 @@ public class NotificationsActivity extends FileActivity implements Notifications
                 snackbar = Snackbar.make(emptyContentContainer, R.string.push_notifications_not_implemented,
                         Snackbar.LENGTH_INDEFINITE);
             } else {
-                ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
-
-                boolean usesOldLogin = arbitraryDataProvider.getBooleanValue(currentAccount.name,
+                final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+                final String accountName = optionalUser.isPresent() ? optionalUser.get().getAccountName() : "";
+                final boolean usesOldLogin = arbitraryDataProvider.getBooleanValue(accountName,
                                                                      UserAccountManager.ACCOUNT_USES_STANDARD_PASSWORD);
 
                 if (usesOldLogin) {
                     snackbar = Snackbar.make(emptyContentContainer, R.string.push_notifications_old_login,
                             Snackbar.LENGTH_INDEFINITE);
                 } else {
-                    String pushValue = arbitraryDataProvider.getValue(currentAccount.name, PushUtils.KEY_PUSH);
+                    String pushValue = arbitraryDataProvider.getValue(accountName, PushUtils.KEY_PUSH);
 
                     if (pushValue == null || pushValue.isEmpty()) {
                         snackbar = Snackbar.make(emptyContentContainer, R.string.push_notifications_temp_error,
@@ -250,13 +252,11 @@ public class NotificationsActivity extends FileActivity implements Notifications
 
     private void fetchAndSetData() {
         Thread t = new Thread(() -> {
-            if (client == null) {
+            if (client == null && optionalUser.isPresent()) {
                 try {
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(currentAccount, this);
-                    client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, this);
-                    client.setOwnCloudVersion(accountManager.getServerVersion(currentAccount));
-                } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException |
-                    IOException | OperationCanceledException | AuthenticatorException e) {
+                    User user = optionalUser.get();
+                    client = clientFactory.create(user);
+                } catch (ClientFactory.CreationException e) {
                     Log_OC.e(TAG, "Error initializing client", e);
                 }
             }
@@ -303,7 +303,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.notifications_actions_menu, menu);
+        getMenuInflater().inflate(R.menu.activity_notifications, menu);
 
         return true;
     }

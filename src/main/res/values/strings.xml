@@ -56,6 +56,7 @@
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_value_theme_light">Light</string>
     <string name="prefs_value_theme_dark">Dark</string>
+    <string name="prefs_value_theme_system">Follow system</string>
     <string name="prefs_theme_title">Theme</string>
 
 
@@ -553,6 +554,10 @@
     <string name="choose_local_folder">Choose local folder…</string>
     <string name="synced_folders_loading_folders">Loading folders…</string>
     <string name="synced_folders_no_results">No media folders found</string>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Show %1$d hidden folder</item>
+        <item quantity="other">Show %1$d hidden folders</item>
+    </plurals>
     <string name="synced_folders_preferences">Preferences for auto uploading</string>
     <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
@@ -625,6 +630,8 @@
     <!-- Auto upload -->
     <string name="autoupload_custom_folder">Set up a custom folder</string>
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
+    <string name="autoupload_hide_folder">Hide folder</string>
+    <string name="autoupload_configure">Configure</string>
     <string name="synced_folders_configure_folders">Configure folders</string>
 
     <string name="empty" translatable="false" />
@@ -798,7 +805,6 @@
     <string name="stream_not_possible_headline">Internal streaming not possible</string>
     <string name="stream_not_possible_message">Please download media instead or use external app.</string>
     <string name="folder_already_exists">Folder already exists</string>
-    <string name="actionbar_open_as_richdocument_parameter">Open with %1$s</string>
     <string name="notification_icon">Notification icon</string>
     <string name="folder_confirm_create">Create</string>
     <string name="file_delete">Delete</string>
@@ -826,7 +832,6 @@
     <string name="filename_hint">Filename</string>
     <string name="thumbnail">Thumbnail</string>
     <string name="enter_filename">Please enter a filename</string>
-    <string name="create_file_from_template">Creating file from template…</string>
     <string name="error_retrieving_templates">Error retrieving templates</string>
     <string name="battery_optimization_title">Battery optimization</string>
     <string name="battery_optimization_message">Your device may have battery optimization enabled. AutoUpload works only properly if you exclude this app from it.</string>
@@ -863,9 +868,6 @@
     <string name="storage_music">Music</string>
     <string name="storage_documents">Documents</string>
     <string name="storage_downloads">Downloads</string>
-    <string name="io_error">IO error</string>
-    <string name="operation_canceled">Operation has been canceled</string>
-    <string name="authentication_exception">Authentication Exception</string>
     <string name="shared_avatar_desc">Avatar from shared user</string>
     <string name="shared_with_you_by">Shared with you by %1$s</string>
     <string name="reshare_not_allowed">Resharing is not allowed</string>
@@ -902,4 +904,9 @@
     <string name="folder">folder</string>
     <string name="file">file</string>
     <string name="share_internal_link">Share internal link</string>
+    <string name="action_edit">Edit</string>
+    <string name="failed_to_start_editor">Failed to start editor</string>
+    <string name="create_rich_workspace">Add folder info</string>
+    <string name="creates_rich_workspace">creates folder info</string>
+    <string name="edit_rich_workspace">edit folder info</string>
 </resources>

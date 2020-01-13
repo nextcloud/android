@@ -26,6 +26,10 @@
         <ListPreference
             android:title="@string/prefs_storage_path"
             android:key="storage_path"/>
+        <ListPreference
+            android:title="@string/prefs_theme_title"
+            android:key="darkMode"
+            android:summary="%s" />
 	</PreferenceCategory>
 	<PreferenceCategory
 		android:title="@string/drawer_synced_folders"

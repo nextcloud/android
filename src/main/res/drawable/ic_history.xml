@@ -1,12 +1,25 @@
+<!--
+    @author Google LLC
+    Copyright (C) 2018 Google LLC
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
   <path
-      android:pathData="M12.5454,1.0082C8.0505,1.1877 4.1126,4.0779 2.5865,8.3171C2.5455,8.4316 2.4298,8.5013 2.3096,8.484L0.5843,8.224C0.3916,8.1993 0.201,8.2831 0.0888,8.442C-0.0213,8.6038 -0.0297,8.8144 0.0674,8.9844L2.8041,13.7943C2.8829,13.9324 3.0213,14.0259 3.1786,14.0473C3.3359,14.0688 3.4942,14.0157 3.607,13.9038L7.4581,10.0702C7.5957,9.9338 7.6444,9.7312 7.5841,9.547C7.5237,9.3628 7.3646,9.2285 7.1731,9.2003L5.4212,8.9383C5.3419,8.9268 5.2726,8.8786 5.2341,8.8082C5.1955,8.7378 5.1922,8.6534 5.2251,8.5802C6.9094,4.7598 11.1264,2.7447 15.15,3.8374C19.1736,4.93 21.7973,8.803 21.3251,12.9525C20.8529,17.1019 17.4263,20.2838 13.2604,20.4411C12.8042,20.4494 12.3871,20.7008 12.1661,21.1007C11.9451,21.5006 11.9539,21.9882 12.1891,22.3799C12.4243,22.7716 12.8502,23.0078 13.3064,23L13.3544,23C17.2923,22.8785 20.8638,20.6536 22.7139,17.1689C24.5639,13.6841 24.409,9.4737 22.3079,6.1348C20.2068,2.796 16.4815,0.8405 12.5454,1.0102L12.5454,1.0082Z"
-      android:strokeWidth="1"
       android:fillColor="#757575"
-      android:fillType="evenOdd"
-      android:strokeColor="#00000000"/>
+      android:pathData="M12,5V1L7,6l5,5V7c3.31,0 6,2.69 6,6s-2.69,6 -6,6 -6,-2.69 -6,-6H4c0,4.42 3.58,8 8,8s8,-3.58 8,-8 -3.58,-8 -8,-8z"/>
 </vector>

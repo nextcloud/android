@@ -1,0 +1,30 @@
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="16dp"
+        android:height="16dp"
+        android:viewportWidth="16.0"
+        android:viewportHeight="16.0">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="0.2"
+        android:strokeMiterLimit="4"
+        android:pathData="M12.228 1a2.457 2.457 0 0 0-2.46 2.454c0 0.075 0.01 0.15 0.016 0.224L5.05 6.092a2.445 2.445 0 0 0-1.596-0.586A2.453 2.453 0 0 0 1 7.96a2.453 2.453 0 0 0 2.454 2.455 2.45 2.45 0 0 0 1.46-0.477l4.865 2.474c-0.004 0.044-0.01 0.09-0.01 0.134a2.457 2.457 0 1 0 0.804-1.818l-4.696-2.4c 0.02-0.123 0.035-0.25 0.035-0.378 0-0.072-0.01-0.144-0.015-0.214l4.74-2.414A2.457 2.457 0 1 0 12.228 0.99z"/>
+</vector>

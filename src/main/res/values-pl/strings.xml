@@ -8,6 +8,7 @@
     <string name="account_icon">Ikona konta</string>
     <string name="account_not_found">Nie znaleziono konta</string>
     <string name="action_clear_failed_uploads">Wyczyść nieudane wysyłanie</string>
+    <string name="action_edit">Edytuj</string>
     <string name="action_empty_notifications">Wyczyść wszystkie powiadomienia</string>
     <string name="action_empty_trashbin">Opróżnij kosz</string>
     <string name="action_send_share">Wyślij/Udostępnij</string>
@@ -77,7 +78,7 @@
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_configure">Konfiguruj</string>
-    <string name="autoupload_create_new_custom_folder">Stwórz nowy własny katalog</string>
+    <string name="autoupload_create_new_custom_folder">Utwórz nową niestandardową konfigurację katalogu</string>
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
     <string name="autoupload_disable_power_save_check">Wyłącz kontrolę oszczędzania energii</string>
     <string name="autoupload_hide_folder">Ukryj katalog</string>
@@ -175,10 +176,12 @@
     <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć katalogu</string>
     <string name="create_file_from_template">Tworzenie pliku z szablonu…</string>
-    <string name="create_new_document">Stwórz nowy dokument</string>
+    <string name="create_new_document">Utwórz nowy dokument</string>
     <string name="create_new_folder">Utwórz nowy katalog</string>
-    <string name="create_new_presentation">Stwórz nową prezentację</string>
-    <string name="create_new_spreadsheet">Stwórz nowy arkusz kalkulacyjny</string>
+    <string name="create_new_presentation">Utwórz nową prezentację</string>
+    <string name="create_new_spreadsheet">Utwórz nowy arkusz kalkulacyjny</string>
+    <string name="create_rich_workspace">Dodaj informacje o katalogu</string>
+    <string name="creates_rich_workspace">tworzy informacje o katalogu</string>
     <string name="credentials_disabled">Poświadczenia wyłączone</string>
     <string name="date_unknown">Nieznane</string>
     <string name="default_credentials_wrong">Błedne poświadczenia</string>
@@ -229,6 +232,7 @@
     <string name="drawer_quota_unlimited">Wykorzystane: %1$s</string>
     <string name="drawer_synced_folders">Automatyczne wysyłanie</string>
     <string name="edit_permission_label">edytowanie</string>
+    <string name="edit_rich_workspace">edytuj informacje o katalogu</string>
     <string name="encrypted">Ustaw jako zaszyfrowane</string>
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
@@ -261,6 +265,7 @@
     <string name="fab_label">Dodaj lub wyślij</string>
     <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>
     <string name="failed_to_print">Nie udało się wydrukować pliku</string>
+    <string name="failed_to_start_editor">Nie można uruchomić edytora</string>
     <string name="fallback_weblogin_back">Wróć</string>
     <string name="fallback_weblogin_text">Przywróć starą metodę logowania</string>
     <string name="favorite">Dodaj do ulubionych</string>

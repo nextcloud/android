@@ -37,11 +37,11 @@ steps:
       status:
         - failure
       branch:
-        - stable-3.9
+        - stable-3.10
 
 trigger:
   branch:
-    - stable-3.9
+    - stable-3.10
   event:
     - pull_request
     - push
@@ -66,13 +66,14 @@ steps:
       ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - emulator-headless -avd android-27 -no-snapshot -gpu swiftshader_indirect -no-window -no-audio &
+      - emulator-headless -avd android-27 -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
-      - ./wait_for_emulator.sh
+      - scripts/wait_for_emulator.sh
       - ./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew installGplayDebugAndroidTest
       - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew executeScreenshotTests || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "Screenshot" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew combinedTestReport
       - curl -o codecov.sh https://codecov.io/bash
       - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
@@ -96,7 +97,7 @@ steps:
       status:
         - failure
       branch:
-        - stable-3.9
+        - stable-3.10
 
 services:
   - name: server
@@ -104,7 +105,7 @@ services:
 
 trigger:
   branch:
-    - stable-3.9
+    - stable-3.10
   event:
     - push
     - pull_request
@@ -149,11 +150,11 @@ steps:
       status:
         - failure
       branch:
-        - stable-3.9
+        - stable-3.10
 
 trigger:
   branch:
-    - stable-3.9
+    - stable-3.10
   event:
     - push
     - pull_request

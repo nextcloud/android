@@ -194,6 +194,9 @@ public class ExtendedListFragment extends Fragment implements
         searchView.setOnCloseListener(this);
         ThemeUtils.themeSearchView(searchView, true, requireContext());
 
+        SearchView.SearchAutoComplete theTextArea = searchView.findViewById(R.id.search_src_text);
+        theTextArea.setHighlightColor(ThemeUtils.primaryAccentColor(getContext()));
+
         final Handler handler = new Handler();
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
@@ -301,13 +304,10 @@ public class ExtendedListFragment extends Fragment implements
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (accountManager.isSearchSupported(accountManager.getCurrentAccount())) {
-                            EventBus.getDefault().post(new SearchEvent(query,
-                                SearchRemoteOperation.SearchType.FILE_SEARCH, SearchEvent.UnsetType.NO_UNSET));
-                        } else {
-                            OCFileListAdapter fileListListAdapter = (OCFileListAdapter) adapter;
-                            fileListListAdapter.getFilter().filter(query);
-                        }
+                        EventBus.getDefault().post(new SearchEvent(query,
+                                                                   SearchRemoteOperation.SearchType.FILE_SEARCH,
+                                                                   SearchEvent.UnsetType.NO_UNSET));
+
                     }
                 }, delay);
             } else if (adapter instanceof LocalFileListAdapter) {
@@ -329,7 +329,7 @@ public class ExtendedListFragment extends Fragment implements
                 if (activity instanceof FileDisplayActivity) {
                     FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
                     fileDisplayActivity.resetSearchView();
-                    fileDisplayActivity.refreshListOfFilesFragment(true);
+                    fileDisplayActivity.updateListOfFilesFragment(true);
                 } else if (activity instanceof UploadFilesActivity) {
                     LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) adapter;
                     localFileListAdapter.filter(query);
@@ -424,8 +424,8 @@ public class ExtendedListFragment extends Fragment implements
         mEmptyListHeadline = view.findViewById(R.id.empty_list_view_headline);
         mEmptyListIcon = view.findViewById(R.id.empty_list_icon);
         mEmptyListProgress = view.findViewById(R.id.empty_list_progress);
-        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(getContext()),
-                PorterDuff.Mode.SRC_IN);
+        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(getContext(), true),
+                                                                     PorterDuff.Mode.SRC_IN);
     }
 
     /**

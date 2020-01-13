@@ -22,6 +22,6 @@
         android:layout_marginBottom="@dimen/min_list_item_size"
         android:gravity="center"
         android:padding="@dimen/standard_padding"
-        android:textColor="@color/secondaryTextColor" />
+        android:textColor="@color/secondary_text_color" />
 
 </LinearLayout>

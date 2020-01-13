@@ -34,8 +34,6 @@ import com.owncloud.android.ui.asynctasks.PhotoSearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -94,7 +92,7 @@ public class PhotoFragment extends OCFileListFragment {
 
         getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 loadMoreWhenEndReached(recyclerView, dy);
             }
         });
@@ -161,7 +159,7 @@ public class PhotoFragment extends OCFileListFragment {
         if (!photoSearchQueryRunning && !photoSearchNoNew) {
             photoSearchTask = new PhotoSearchTask(getColumnsCount(),
                                                   this,
-                                                  accountManager.getCurrentAccount(),
+                                                  accountManager.getUser(),
                                                   searchRemoteOperation,
                                                   mContainerActivity.getStorageManager())
                 .execute();

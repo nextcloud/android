@@ -23,7 +23,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_gravity="center_horizontal|bottom"
-              android:background="@color/filelist_icon_backgorund"
+              android:background="@color/filelist_icon_background"
               android:gravity="center"
               android:padding="@dimen/standard_half_padding"
               android:visibility="gone">

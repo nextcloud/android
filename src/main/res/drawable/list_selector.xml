@@ -20,8 +20,8 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="@android:integer/config_mediumAnimTime">
 
-    <item android:drawable="@color/owncloud_blue_bright" android:state_pressed="true"/>
-    <item android:drawable="@color/owncloud_blue_bright" android:state_focused="true"/>
-    <item android:drawable="@color/background_color" />
+    <item android:drawable="@color/list_selector_focused_pressed" android:state_pressed="true"/>
+    <item android:drawable="@color/list_selector_focused_pressed" android:state_focused="true"/>
+    <item android:drawable="@color/bg_default" />
 
 </selector>

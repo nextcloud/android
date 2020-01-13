@@ -8,6 +8,7 @@
     <string name="account_icon">أيقونة الحساب </string>
     <string name="account_not_found">الحساب غير موجود </string>
     <string name="action_clear_failed_uploads">أزل مافشل من المرفوعين</string>
+    <string name="action_edit">تعديل</string>
     <string name="action_empty_notifications">أزل جميع التنبيهات</string>
     <string name="action_empty_trashbin">تفريغ سلة المهملات</string>
     <string name="action_send_share">إرسال/مشاركة</string>
@@ -76,6 +77,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">ترك في مجلد الأصل، بسبب كونه للقرائة فقط</string>
     <string name="auto_upload_on_wifi">قم بالرفع عبر شبكة لاسلكية غير محدودة البيانات فقط</string>
     <string name="auto_upload_path">/رفع تلقائي</string>
+    <string name="autoupload_configure">إعداد</string>
     <string name="autoupload_create_new_custom_folder">أنشئ إعداد مجلد خاص جديد</string>
     <string name="autoupload_custom_folder">إعداد مجلد خاص</string>
     <string name="autoupload_disable_power_save_check">تعطيل التحقق من حفظ الطاقة</string>
@@ -230,6 +232,7 @@
     <string name="fallback_weblogin_back">العودة</string>
     <string name="favorite">أضفه إلى المفضلة</string>
     <string name="favorite_icon">المفضلة</string>
+    <string name="file">file</string>
     <string name="file_delete">حذف </string>
     <string name="file_icon">الملف</string>
     <string name="file_list_empty">قم برفع بعض المحتوى أو زامن مع أجهزتك</string>
@@ -261,6 +264,7 @@
     <string name="filename_empty">لا يجوز أن يُترك إسم الملف فارغًا</string>
     <string name="filename_forbidden_characters">رموز ممنوعة: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_hint">اسم الملف</string>
+    <string name="folder">folder</string>
     <string name="folder_already_exists">المجلد موجود مسبقاً</string>
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_icon">أيقونة المجلد</string>
@@ -309,6 +313,7 @@
     <string name="menu_item_sort_by_name_z_a">ى -أ</string>
     <string name="menu_item_sort_by_size_biggest_first">الأكبر أولا</string>
     <string name="menu_item_sort_by_size_smallest_first">الأصغر أولا</string>
+    <string name="move_file_invalid_overwrite">هذا الملف موجود حالياً في المجلد المُّسّتَقبِل</string>
     <string name="move_to">أنقل إلى…</string>
     <string name="new_comment">تعليق جديد…</string>
     <string name="new_media_folder_photos">صورة</string>
@@ -364,6 +369,9 @@
     <string name="prefs_storage_path">مسار التخزين</string>
     <string name="prefs_synced_folders_local_path_title">مجلد محلي</string>
     <string name="prefs_synced_folders_remote_path_title">مجلد عن بعد</string>
+    <string name="prefs_theme_title">المظهر</string>
+    <string name="prefs_value_theme_dark">ليلي</string>
+    <string name="prefs_value_theme_light">فاتح</string>
     <string name="preview_image_description">معاينة الصورة</string>
     <string name="preview_image_error_unknown_format">تعذرت عملية عرض الصورة</string>
     <string name="preview_sorry">آسف</string>
@@ -376,6 +384,8 @@
     <string name="remove_push_notification">حذف</string>
     <string name="remove_success_msg">تم حذفه</string>
     <string name="rename_dialog_title">أدخل اسما جديدا</string>
+    <string name="reshare_not_allowed">لا يسمح بعملية إعادة المشاركة</string>
+    <string name="resharing_is_not_allowed">لا يسمح بعملية إعادة المشاركة</string>
     <string name="restore">استعادة الملف</string>
     <string name="saml_authentication_required_text">كلمة السر مطلوبة</string>
     <string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>
@@ -406,10 +416,14 @@
     <string name="share_link_forbidden_permissions">لمشاركة هذا الملف</string>
     <string name="share_link_optional_password_title">ادخل كلمة سرية اختيارية</string>
     <string name="share_link_password_title">إدخِل كلمة السر</string>
+    <string name="share_no_expiration_date_label">تعيين تاريخ إنتهاء الصلاحية</string>
     <string name="share_no_password_title">تعيين كلمة سرية</string>
     <string name="share_privilege_can_edit">يمكن التحرير</string>
     <string name="share_privilege_can_edit_delete">يمكنه حذفه</string>
     <string name="share_privilege_can_share">يمكن المشاركة</string>
+    <string name="share_privilege_unshare">إلغاء المشاركة</string>
+    <string name="share_via_link_edit_permission_label">السماح بالتعديلات</string>
+    <string name="share_via_link_expiration_date_label">تعيين تاريخ إنتهاء الصلاحية</string>
     <string name="share_via_link_password_label">التأمين بكلمة سرية</string>
     <string name="share_via_link_password_title">مؤَمَّن</string>
     <string name="share_via_link_section_title">شارك الرابط</string>
@@ -418,10 +432,13 @@
     <string name="share_with_title">شارك مع…</string>
     <string name="share_with_user_section_title">شارك مع مستخدمين أو مجموعات</string>
     <string name="shared_icon_share">شارك</string>
+    <string name="shared_icon_shared">المشاركات</string>
     <string name="signup_with_provider">التسجيل عبر مزوّد خدمة</string>
     <string name="sort_by">ترتيب</string>
     <string name="sort_by_modification_date_ascending">الأحدث أولا</string>
     <string name="sort_by_modification_date_descending">الأقدم أولا</string>
+    <string name="sort_by_name_ascending">أ - ى</string>
+    <string name="sort_by_name_descending">ى -أ</string>
     <string name="sort_by_size_ascending">الأصغر حجما أولا</string>
     <string name="sort_by_size_descending">الأكبر حجما أولا</string>
     <string name="ssl_validator_btn_details_hide">إخفاء</string>
@@ -478,12 +495,14 @@
     <string name="thumbnail">صورة مصغّرة</string>
     <string name="trashbin_activity_title">الملفات المحذوفة</string>
     <string name="trashbin_empty_headline">لا يوجد ملفات محذوفة</string>
+    <string name="trashbin_empty_message">سوف تكون قادر على استعادة الملفات المحذوفة من هنا</string>
     <string name="unshare_link_file_error">حدث خطأ ما أثناء محاولة إلغاء مشاركة هذا الملف أو المجلد</string>
     <string name="upload_cannot_create_file">لا يمكن إنشاء ملف محلي</string>
     <string name="upload_chooser_title">الرفع من…</string>
     <string name="upload_direct_camera_upload">حمّل مِن آلة التصوير</string>
     <string name="upload_file_dialog_filename">اسم الملف</string>
     <string name="upload_file_dialog_filetype">نوع الملف</string>
+    <string name="upload_files">حمل الملفات</string>
     <string name="upload_list_empty_headline">لا توجد تحميلات</string>
     <string name="upload_list_empty_text_auto_upload">قم بتحميل بعض الملفات أو قم بتفعيل التحميل التلقائي.</string>
     <string name="upload_unknown_error">خطأ غير معروف</string>

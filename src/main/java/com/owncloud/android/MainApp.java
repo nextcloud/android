@@ -45,6 +45,7 @@ import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.DaggerAppComponent;
@@ -56,6 +57,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.nextcloud.client.preferences.DarkMode;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
@@ -100,6 +102,7 @@ import javax.net.ssl.SSLEngine;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.util.Pair;
 import androidx.multidex.MultiDexApplication;
 import dagger.android.AndroidInjector;
@@ -119,8 +122,8 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
  */
 public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
-    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = OwnCloudVersion.nextcloud_14;
-    public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_12;
+    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = OwnCloudVersion.nextcloud_15;
+    public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_13;
 
     private static final String TAG = MainApp.class.getSimpleName();
     public static final String DOT = ".";
@@ -159,6 +162,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     @Inject
     BackgroundJobManager backgroundJobManager;
+
+    @Inject
+    Clock clock;
 
     private PassCodeManager passCodeManager;
 
@@ -242,6 +248,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @SuppressFBWarnings("ST")
     @Override
     public void onCreate() {
+        setAppTheme(preferences.getDarkThemeMode());
         super.onCreate();
 
         insertConscrypt();
@@ -266,7 +273,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 preferences,
                 uploadsStorageManager,
                 connectivityService,
-                powerManagementService
+                powerManagementService,
+                clock
             )
         );
 
@@ -302,7 +310,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                            accountManager,
                            connectivityService,
                            powerManagementService,
-                           backgroundJobManager);
+                           backgroundJobManager,
+                           clock);
         initContactsBackup(accountManager);
         notificationChannels();
 
@@ -460,23 +469,24 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         final UserAccountManager accountManager,
         final ConnectivityService connectivityService,
         final PowerManagementService powerManagementService,
-        final BackgroundJobManager jobManager
+        final BackgroundJobManager jobManager,
+        final Clock clock
     ) {
         updateToAutoUpload();
-        cleanOldEntries();
-        updateAutoUploadEntries();
+        cleanOldEntries(clock);
+        updateAutoUploadEntries(clock);
 
         if (getAppContext() != null) {
             if (PermissionUtil.checkSelfPermission(getAppContext(),
                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                splitOutAutoUploadEntries();
+                splitOutAutoUploadEntries(clock);
             } else {
                 AppPreferences preferences = AppPreferencesImpl.fromContext(getAppContext());
                 preferences.setAutoUploadSplitEntriesEnabled(true);
             }
         }
 
-        initiateExistingAutoUploadEntries();
+        initiateExistingAutoUploadEntries(clock);
 
         FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext, jobManager);
         FilesSyncHelper.restartJobsIfNeeded(
@@ -683,18 +693,18 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
     }
 
-    private static void updateAutoUploadEntries() {
+    private static void updateAutoUploadEntries(Clock clock) {
         // updates entries to reflect their true paths
         Context context = getAppContext();
         AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         if (!preferences.isAutoUploadPathsUpdateEnabled()) {
             SyncedFolderProvider syncedFolderProvider =
-                new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences);
+                new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences, clock);
             syncedFolderProvider.updateAutoUploadPaths(mContext);
         }
     }
 
-    private static void splitOutAutoUploadEntries() {
+    private static void splitOutAutoUploadEntries(Clock clock) {
         Context context = getAppContext();
         AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         if (!preferences.isAutoUploadSplitEntriesEnabled()) {
@@ -703,7 +713,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             Log_OC.i(TAG, "Migrate synced_folders records for image/video split");
             ContentResolver contentResolver = context.getContentResolver();
 
-            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences);
+            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences, clock);
 
             final List<MediaFolder> imageMediaFolders = MediaProvider.getImageFolders(contentResolver, 1, null, true);
             final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 1, null, true);
@@ -749,12 +759,12 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
     }
 
-    private static void initiateExistingAutoUploadEntries() {
+    private static void initiateExistingAutoUploadEntries(Clock clock) {
         new Thread(() -> {
             AppPreferences preferences = AppPreferencesImpl.fromContext(getAppContext());
             if (!preferences.isAutoUploadInitialized()) {
                 SyncedFolderProvider syncedFolderProvider =
-                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences);
+                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences, clock);
 
                 for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
                     if (syncedFolder.isEnabled()) {
@@ -768,7 +778,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }).start();
     }
 
-    private static void cleanOldEntries() {
+    private static void cleanOldEntries(Clock clock) {
         // previous versions of application created broken entries in the SyncedFolderProvider
         // database, and this cleans all that and leaves 1 (newest) entry per synced folder
 
@@ -777,7 +787,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         if (!preferences.isLegacyClean()) {
             SyncedFolderProvider syncedFolderProvider =
-                new SyncedFolderProvider(context.getContentResolver(), preferences);
+                new SyncedFolderProvider(context.getContentResolver(), preferences, clock);
 
             List<SyncedFolder> syncedFolderList = syncedFolderProvider.getSyncedFolders();
             Map<Pair<String, String>, Long> syncedFolders = new HashMap<>();
@@ -811,4 +821,18 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         return dispatchingAndroidInjector;
     }
 
+
+    public static void setAppTheme(DarkMode mode) {
+        switch (mode) {
+            case LIGHT:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case DARK:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case SYSTEM:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
+        }
+    }
 }

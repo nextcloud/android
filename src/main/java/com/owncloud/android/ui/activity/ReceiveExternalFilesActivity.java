@@ -34,6 +34,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.ColorStateList;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -63,6 +64,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -206,8 +208,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
             Log_OC.i(TAG, "No ownCloud account is available");
             DialogNoAccount dialog = new DialogNoAccount();
             dialog.show(getSupportFragmentManager(), null);
-        } else if (!savedAccount) {
-            setAccount(accounts[0]);
         }
 
         if (!somethingToUpload()) {
@@ -400,6 +400,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             final EditText userInput = view.findViewById(R.id.user_input);
             setFilename(userInput, selectPos);
+            userInput.setHighlightColor(ThemeUtils.primaryColor(getContext()));
             userInput.requestFocus();
 
             final Spinner spinner = view.findViewById(R.id.file_type);
@@ -677,7 +678,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 // there is no need for checking for is there more then one
                 // account at this point
                 // since account setup can set only one account at time
-                setAccount(accounts[0]);
+                setAccount(accounts[0], false);
                 populateDirectoryList();
             }
         }
@@ -748,10 +749,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                 mListView.setAdapter(sa);
             }
-            Button btnChooseFolder = findViewById(R.id.uploader_choose_folder);
-                btnChooseFolder.setOnClickListener(this);
-            btnChooseFolder.getBackground().setColorFilter(ThemeUtils.primaryColor(getAccount(), true, this),
-                        PorterDuff.Mode.SRC_ATOP);
+            MaterialButton btnChooseFolder = findViewById(R.id.uploader_choose_folder);
+            btnChooseFolder.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+            btnChooseFolder.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(this, true)));
+            btnChooseFolder.setOnClickListener(this);
             btnChooseFolder.setTextColor(ThemeUtils.fontColor(this));
 
             if (mFile.canWrite()) {
@@ -1015,7 +1016,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.receive_file_menu, menu);
+        inflater.inflate(R.menu.activity_receive_external_files, menu);
 
         if (!isHaveMultipleAccount()) {
             MenuItem switchAccountMenu = menu.findItem(R.id.action_switch_account);

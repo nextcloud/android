@@ -105,7 +105,7 @@
         android:gravity="center_horizontal"
         android:singleLine="true"
         android:text="@string/placeholder_filename"
-        android:textColor="@color/textColor"
+        android:textColor="@color/text_color"
         android:textSize="@dimen/grid_item_text_size" />
 
 </com.owncloud.android.ui.SquareLinearLayout>

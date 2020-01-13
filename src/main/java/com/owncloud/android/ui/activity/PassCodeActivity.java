@@ -23,7 +23,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.Editable;
@@ -98,7 +97,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         int elementColor = ThemeUtils.elementColor(this);
 
         mBCancel = findViewById(R.id.cancel);
-        mBCancel.getBackground().setColorFilter(elementColor, PorterDuff.Mode.SRC_ATOP);
+        mBCancel.setBackgroundColor(ThemeUtils.primaryColor(this));
 
         mPassCodeHdr = findViewById(R.id.header);
         mPassCodeHdrExplanation = findViewById(R.id.explanation);

@@ -66,7 +66,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -76,6 +75,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -868,7 +868,7 @@ public final class ThumbnailsCacheManager {
             return Math.round(r.getDimension(R.dimen.file_avatar_size));
         }
 
-        private @NotNull
+        private @NonNull
         Drawable doAvatarInBackground() {
             Bitmap avatar;
 
@@ -1173,7 +1173,8 @@ public final class ThumbnailsCacheManager {
         Bitmap resultBitmap = Bitmap.createBitmap(pxW, pxH, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(resultBitmap);
 
-        c.drawColor(MainApp.getAppContext().getResources().getColor(R.color.background_color));
+        // TODO check based on https://github.com/nextcloud/android/pull/3459#discussion_r339935975
+        c.drawColor(MainApp.getAppContext().getResources().getColor(R.color.background_color_png));
         c.drawBitmap(bitmap, 0, 0, null);
 
         return resultBitmap;

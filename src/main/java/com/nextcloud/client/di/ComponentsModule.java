@@ -32,6 +32,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.jobs.NotificationJob;
 import com.owncloud.android.providers.DiskLruImageCacheFileProvider;
+import com.owncloud.android.providers.FileContentProvider;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.services.AccountManagerService;
 import com.owncloud.android.services.OperationsService;
@@ -53,14 +54,16 @@ import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.ui.activity.RequestCredentialsActivity;
-import com.owncloud.android.ui.activity.RichDocumentsWebView;
+import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.activity.SsoGrantPermissionActivity;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
+import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
+import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
@@ -74,7 +77,9 @@ import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
+import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 
@@ -105,15 +110,12 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract ManageAccountsActivity manageAccountsActivity();
     @ContributesAndroidInjector abstract ManageSpaceActivity manageSpaceActivity();
     @ContributesAndroidInjector abstract NotificationsActivity notificationsActivity();
-
-    @ContributesAndroidInjector
-    abstract CommunityActivity participateActivity();
+    @ContributesAndroidInjector abstract CommunityActivity participateActivity();
     @ContributesAndroidInjector abstract PassCodeActivity passCodeActivity();
     @ContributesAndroidInjector abstract PreviewImageActivity previewImageActivity();
     @ContributesAndroidInjector abstract PreviewVideoActivity previewVideoActivity();
     @ContributesAndroidInjector abstract ReceiveExternalFilesActivity receiveExternalFilesActivity();
     @ContributesAndroidInjector abstract RequestCredentialsActivity requestCredentialsActivity();
-    @ContributesAndroidInjector abstract RichDocumentsWebView richDocumentsWebView();
     @ContributesAndroidInjector abstract SettingsActivity settingsActivity();
     @ContributesAndroidInjector abstract ShareActivity shareActivity();
     @ContributesAndroidInjector abstract SsoGrantPermissionActivity ssoGrantPermissionActivity();
@@ -125,6 +127,9 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract WhatsNewActivity whatsNewActivity();
     @ContributesAndroidInjector abstract EtmActivity etmActivity();
 
+    @ContributesAndroidInjector abstract RichDocumentsEditorWebView richDocumentsWebView();
+    @ContributesAndroidInjector abstract TextEditorWebView textEditorWebView();
+
     @ContributesAndroidInjector abstract ExtendedListFragment extendedListFragment();
     @ContributesAndroidInjector abstract FileDetailFragment fileDetailFragment();
     @ContributesAndroidInjector abstract LocalFileListFragment localFileListFragment();
@@ -132,11 +137,16 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FileDetailActivitiesFragment fileDetailActivitiesFragment();
     @ContributesAndroidInjector abstract FileDetailSharingFragment fileDetailSharingFragment();
     @ContributesAndroidInjector abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
+
+    @ContributesAndroidInjector
+    abstract ChooseRichDocumentsTemplateDialogFragment chooseRichDocumentsTemplateDialogFragment();
     @ContributesAndroidInjector abstract PreviewImageFragment previewImageFragment();
     @ContributesAndroidInjector abstract ContactListFragment chooseContactListFragment();
     @ContributesAndroidInjector abstract PreviewMediaFragment previewMediaFragment();
     @ContributesAndroidInjector abstract PreviewTextFragment previewTextFragment();
 
+    @ContributesAndroidInjector abstract PreviewTextFileFragment previewTextFileFragment();
+    @ContributesAndroidInjector abstract PreviewTextStringFragment previewTextStringFragment();
     @ContributesAndroidInjector abstract PhotoFragment photoFragment();
 
     @ContributesAndroidInjector abstract MultipleAccountsDialog multipleAccountsDialog();
@@ -148,6 +158,7 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract BootupBroadcastReceiver bootupBroadcastReceiver();
     @ContributesAndroidInjector abstract NotificationJob.NotificationReceiver notificationJobBroadcastReceiver();
 
+    @ContributesAndroidInjector abstract FileContentProvider fileContentProvider();
     @ContributesAndroidInjector abstract UsersAndGroupsSearchProvider usersAndGroupsSearchProvider();
     @ContributesAndroidInjector abstract DiskLruImageCacheFileProvider diskLruImageCacheFileProvider();
 

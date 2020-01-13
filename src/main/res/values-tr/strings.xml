@@ -8,6 +8,7 @@
     <string name="account_icon">Hesap simgesi</string>
     <string name="account_not_found">Hesap bulunamadı!</string>
     <string name="action_clear_failed_uploads">Tamamlanamayan yüklemeler silinsin</string>
+    <string name="action_edit">Düzenle</string>
     <string name="action_empty_notifications">Tüm bildirimleri temizle</string>
     <string name="action_empty_trashbin">Çöp kutusunu boşalt</string>
     <string name="action_send_share">Gönder/Paylaş</string>
@@ -179,6 +180,8 @@
     <string name="create_new_folder">Klasör ekle</string>
     <string name="create_new_presentation">Yeni sunum</string>
     <string name="create_new_spreadsheet">Yeni çalışma sayfası</string>
+    <string name="create_rich_workspace">Klasör bilgileri ekle</string>
+    <string name="creates_rich_workspace">klasör bilgilerini oluşturur</string>
     <string name="credentials_disabled">Kimlik doğrulama bilgileri kullanılmıyor</string>
     <string name="date_unknown">Bilinmiyor</string>
     <string name="default_credentials_wrong">Kimlik doğrulama bilgileri hatalı</string>
@@ -229,6 +232,7 @@
     <string name="drawer_quota_unlimited">%1$s kullanılıyor</string>
     <string name="drawer_synced_folders">Otomatik yükleme</string>
     <string name="edit_permission_label">düzenle</string>
+    <string name="edit_rich_workspace">klasör bilgilerini düzenle</string>
     <string name="encrypted">Şifrelensin</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_decrypting">Şifre çözülüyor …</string>
@@ -261,6 +265,7 @@
     <string name="fab_label">Ekle ya da yükle</string>
     <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
     <string name="failed_to_print">Dosya yazdırılamadı</string>
+    <string name="failed_to_start_editor">Düzenleyici başlatılamadı</string>
     <string name="fallback_weblogin_back">Geri</string>
     <string name="fallback_weblogin_text">Eski oturum açma yöntemine dön</string>
     <string name="favorite">Sık Kullanılanlara Ekle</string>

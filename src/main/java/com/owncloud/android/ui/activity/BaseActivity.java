@@ -9,8 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -19,33 +23,88 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Base activity with common behaviour for activities dealing with ownCloud {@link Account}s .
  */
 public abstract class BaseActivity extends AppCompatActivity implements Injectable {
+
     private static final String TAG = BaseActivity.class.getSimpleName();
 
     /**
      * ownCloud {@link Account} where the main {@link OCFile} handled by the activity is located.
      */
-    private Account mCurrentAccount;
+    private Account currentAccount;
 
     /**
-     * Capabilities of the server where {@link #mCurrentAccount} lives.
+     * Capabilities of the server where {@link #currentAccount} lives.
      */
-    private OCCapability mCapabilities;
+    private OCCapability capabilities;
 
     /**
      * Access point to the cached database for the current ownCloud {@link Account}.
      */
-    private FileDataStorageManager mStorageManager;
+    private FileDataStorageManager storageManager;
+
+    /**
+     * Tracks whether the activity should be recreate()'d after a theme change
+     */
+    private boolean themeChangePending;
+    private boolean paused;
+    protected boolean enableAccountHandling = true;
 
     @Inject UserAccountManager accountManager;
+    @Inject AppPreferences preferences;
+
+    private AppPreferences.Listener onPreferencesChanged = new AppPreferences.Listener() {
+        @Override
+        public void onDarkThemeModeChanged(DarkMode mode) {
+            onThemeSettingsModeChanged();
+        }
+    };
 
     public UserAccountManager getUserAccountManager() {
         return accountManager;
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (enableAccountHandling) {
+            Account account = accountManager.getCurrentAccount();
+            setAccount(account, false);
+        }
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        preferences.addListener(onPreferencesChanged);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        preferences.removeListener(onPreferencesChanged);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        paused = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        paused = false;
+
+        if (themeChangePending) {
+            recreate();
+        }
     }
 
     @Override
@@ -54,8 +113,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
         Log_OC.v(TAG, "onNewIntent() start");
         Account current = accountManager.getCurrentAccount();
-        if (current != null && mCurrentAccount != null && !mCurrentAccount.name.equals(current.name)) {
-            mCurrentAccount = current;
+        if (current != null && currentAccount != null && !currentAccount.name.equals(current.name)) {
+            currentAccount = current;
         }
         Log_OC.v(TAG, "onNewIntent() stop");
     }
@@ -68,11 +127,19 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     protected void onRestart() {
         Log_OC.v(TAG, "onRestart() start");
         super.onRestart();
-        boolean validAccount = mCurrentAccount != null && accountManager.exists(mCurrentAccount);
+        boolean validAccount = currentAccount != null && accountManager.exists(currentAccount);
         if (!validAccount) {
             swapToDefaultAccount();
         }
         Log_OC.v(TAG, "onRestart() end");
+    }
+
+    private void onThemeSettingsModeChanged() {
+        if (paused) {
+            themeChangePending = true;
+        } else {
+            recreate();
+        }
     }
 
     /**
@@ -87,10 +154,19 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     protected void setAccount(Account account, boolean savedAccount) {
         boolean validAccount = account != null && accountManager.setCurrentOwnCloudAccount(account.name);
         if (validAccount) {
-            mCurrentAccount = account;
+            currentAccount = account;
         } else {
             swapToDefaultAccount();
         }
+
+        if(currentAccount != null) {
+            storageManager = new FileDataStorageManager(currentAccount, getContentResolver());
+            capabilities = storageManager.getCapability(currentAccount.name);
+        }
+    }
+
+    protected void setUser(User user) {
+        setAccount(user.toPlatformAccount(), false);
     }
 
     /**
@@ -102,11 +178,16 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     protected void swapToDefaultAccount() {
         // default to the most recently used account
         Account newAccount = accountManager.getCurrentAccount();
+
         if (newAccount == null) {
             /// no account available: force account creation
             createAccount(true);
+
+            if (enableAccountHandling) {
+                finish();
+            }
         } else {
-            mCurrentAccount = newAccount;
+            currentAccount = newAccount;
         }
     }
 
@@ -128,33 +209,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     }
 
     /**
-     * Called when the ownCloud {@link Account} associated to the Activity was just updated.
-     *
-     * Child classes must grant that state depending on the {@link Account} is updated.
-     */
-    @Deprecated
-    protected void onAccountSet() {
-        if (getAccount() != null) {
-            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-            mCapabilities = mStorageManager.getCapability(mCurrentAccount.name);
-        } else {
-            Log_OC.e(TAG, "onAccountChanged was called with NULL account associated!");
-        }
-    }
-
-    @Deprecated
-    protected void setAccount(Account account) {
-        mCurrentAccount = account;
-    }
-
-    /**
      * Getter for the capabilities of the server where the current OC account lives.
      *
      * @return Capabilities of the server where the current OC account lives. Null if the account is not
      * set yet.
      */
     public OCCapability getCapabilities() {
-        return mCapabilities;
+        return capabilities;
     }
 
     /**
@@ -165,20 +226,19 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      * is located.
      */
     public Account getAccount() {
-        return mCurrentAccount;
+        return currentAccount;
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        if(mCurrentAccount != null) {
-            onAccountSet();
+    public Optional<User> getUser() {
+        if (currentAccount != null) {
+            return accountManager.getUser(currentAccount.name);
+        } else {
+            return Optional.empty();
         }
     }
 
     public FileDataStorageManager getStorageManager() {
-        return mStorageManager;
+        return storageManager;
     }
 
     /**

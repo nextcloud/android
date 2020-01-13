@@ -23,16 +23,15 @@ package com.owncloud.android.ui;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.os.Build;
 import android.preference.SwitchPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
+import com.owncloud.android.R;
 import com.owncloud.android.utils.ThemeUtils;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 
@@ -57,12 +56,11 @@ public class ThemeableSwitchPreference extends SwitchPreference {
     protected void onBindView(View view) {
         super.onBindView(view);
 
-        if (view instanceof ViewGroup && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        if (view instanceof ViewGroup) {
             findSwitch((ViewGroup) view);
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     private void findSwitch(ViewGroup viewGroup) {
         ColorStateList thumbColorStateList = null;
         ColorStateList trackColorStateList = null;
@@ -76,12 +74,14 @@ public class ThemeableSwitchPreference extends SwitchPreference {
                 if(thumbColorStateList == null && trackColorStateList == null) {
                     int color = ThemeUtils.primaryAccentColor(getContext());
                     int trackColor = Color.argb(77, Color.red(color), Color.green(color), Color.blue(color));
+                    int trackColorUnchecked = getContext().getResources().getColor(R.color.switch_track_color_unchecked);
                     thumbColorStateList = new ColorStateList(
                             new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
                             new int[]{color, Color.WHITE});
                     trackColorStateList = new ColorStateList(
-                            new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
-                            new int[]{trackColor, Color.parseColor("#4D000000")});
+                            new int[][]{new int[]{android.R.attr.state_checked},
+                                new int[]{}},
+                            new int[]{trackColor, trackColorUnchecked});
                 }
 
                 // setting the thumb color

@@ -27,6 +27,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -35,10 +36,15 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.UserInfo;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -81,6 +87,20 @@ public class UserAccountManagerImpl implements UserAccountManager {
     }
 
     @Override
+    @NonNull
+    public List<User> getAllUsers() {
+        Account[] accounts = getAccounts();
+        List<User> users = new ArrayList<>(accounts.length);
+        for (Account account : accounts) {
+            User user = createUserFromAccount(account);
+            if (user != null) {
+                users.add(user);
+            }
+        }
+        return users;
+    }
+
+    @Override
     public boolean exists(Account account) {
         Account[] nextcloudAccounts = getAccounts();
 
@@ -103,6 +123,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
         return false;
     }
 
+    @Override
     @Nullable
     public Account getCurrentAccount() {
         Account[] ocAccounts = getAccounts();
@@ -137,6 +158,76 @@ public class UserAccountManagerImpl implements UserAccountManager {
         }
 
         return defaultAccount;
+    }
+
+    /**
+     * Temporary solution to convert platform account to user instance.
+     * It takes null and returns null on error to ease error handling
+     * in legacy code.
+     *
+     * @param account Account instance
+     * @return User instance or null, if conversion failed
+     */
+    @Nullable
+    private User createUserFromAccount(@Nullable Account account) {
+        if (account == null) {
+            return null;
+        }
+
+        OwnCloudAccount ownCloudAccount = null;
+        try {
+            ownCloudAccount = new OwnCloudAccount(account, context);
+        } catch (AccountUtils.AccountNotFoundException ex) {
+            return null;
+        }
+
+        /*
+         * Server version
+         */
+        String serverVersionStr = accountManager.getUserData(account, AccountUtils.Constants.KEY_OC_VERSION);
+        OwnCloudVersion serverVersion;
+        if (serverVersionStr != null) {
+            serverVersion = new OwnCloudVersion(serverVersionStr);
+        } else {
+            serverVersion = MainApp.MINIMUM_SUPPORTED_SERVER_VERSION;
+        }
+
+        /*
+         * Server address
+         */
+        String serverAddressStr = accountManager.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL);
+        if (serverAddressStr == null || serverAddressStr.isEmpty()) {
+            return AnonymousUser.fromContext(context);
+        }
+        URI serverUri = URI.create(serverAddressStr); // TODO: validate
+
+        return new RegisteredUser(
+            account,
+            ownCloudAccount,
+            new Server(serverUri, serverVersion)
+        );
+    }
+
+    /**
+     * Get user. If user cannot be retrieved due to data error, anonymous user is returned instead.
+     *
+     *
+     * @return User instance
+     */
+    @NonNull
+    @Override
+    public User getUser() {
+        Account account = getCurrentAccount();
+        User user = createUserFromAccount(account);
+        return user != null ? user : AnonymousUser.fromContext(context);
+    }
+
+    @Override
+    @NonNull
+    public Optional<User> getUser(CharSequence accountName) {
+        Account account = getAccountByName(accountName.toString());
+        User user =  createUserFromAccount(account);
+        return Optional.of(user);
     }
 
     @Override
@@ -197,6 +288,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
         return result;
     }
 
+    @Deprecated
     @Override
     @NonNull
     public OwnCloudVersion getServerVersion(Account account) {
@@ -215,11 +307,6 @@ public class UserAccountManagerImpl implements UserAccountManager {
     }
 
     @Override
-    public boolean isSearchSupported(Account account) {
-        return account != null && getServerVersion(account).isSearchSupported();
-    }
-
-    @Override
     public boolean isMediaStreamingSupported(Account account) {
         return account != null && getServerVersion(account).isMediaStreamingSupported();
     }
@@ -233,7 +320,8 @@ public class UserAccountManagerImpl implements UserAccountManager {
 
     @Override
     public  boolean accountOwnsFile(OCFile file, Account account) {
-        return !TextUtils.isEmpty(file.getOwnerId()) && account.name.split("@")[0].equals(file.getOwnerId());
+        final String ownerId = file.getOwnerId();
+        return TextUtils.isEmpty(ownerId) || account.name.split("@")[0].equals(ownerId);
     }
 
     public boolean migrateUserId() {

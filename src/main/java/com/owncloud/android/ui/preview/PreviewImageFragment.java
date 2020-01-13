@@ -24,6 +24,7 @@ package com.owncloud.android.ui.preview;
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -36,6 +37,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Process;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -54,6 +57,7 @@ import com.caverock.androidsvg.SVGParseException;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
@@ -69,6 +73,8 @@ import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -127,6 +133,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
+    @Inject DeviceInfo deviceInfo;
 
     /**
      * Public factory method to create a new fragment that previews an image.
@@ -287,7 +294,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                     }
                 }
                 mMultiView.setVisibility(View.GONE);
-                mImageView.setBackgroundColor(getResources().getColor(R.color.black));
+                mImageView.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
                 mImageView.setVisibility(View.VISIBLE);
 
             } else {
@@ -313,16 +320,28 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
      * {@inheritDoc}
      */
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NotNull Menu menu, @NotNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.file_actions_menu, menu);
+        inflater.inflate(R.menu.item_file, menu);
+
+        int nightModeFlag = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        if (Configuration.UI_MODE_NIGHT_NO == nightModeFlag) {
+            for (int i = 0; i < menu.size(); i++) {
+                MenuItem menuItem = menu.getItem(i);
+
+                SpannableString spanString = new SpannableString(menuItem.getTitle().toString());
+                spanString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, spanString.length(), 0);
+                menuItem.setTitle(spanString);
+            }
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareOptionsMenu(@NotNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
         if (containerActivity.getStorageManager() != null && getFile() != null) {
@@ -331,11 +350,13 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
             Account currentAccount = containerActivity.getStorageManager().getAccount();
             FileMenuFilter mf = new FileMenuFilter(
-                    getFile(),
-                    currentAccount,
+                getFile(),
+                currentAccount,
                 containerActivity,
-                    getActivity(),
-                    false
+                getActivity(),
+                false,
+                deviceInfo,
+                accountManager.getUser()
             );
 
             mf.filter(menu,
@@ -607,7 +628,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
             mMultiView.setVisibility(View.GONE);
             if (getResources() != null) {
-                mImageView.setBackgroundColor(getResources().getColor(R.color.black));
+                mImageView.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
             }
             mImageView.setVisibility(View.VISIBLE);
 
@@ -617,7 +638,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     private LayerDrawable generateCheckerboardLayeredDrawable(LoadImage result, Bitmap bitmap) {
         Resources r = getResources();
         Drawable[] layers = new Drawable[2];
-        layers[0] = r.getDrawable(R.color.white);
+        layers[0] = r.getDrawable(R.color.bg_default);
         Drawable bitmapDrawable;
 
         if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType())) {
@@ -681,7 +702,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             mMultiListMessage.setText(message);
             mMultiListIcon.setImageResource(icon);
 
-            mMultiView.setBackgroundColor(Color.BLACK);
+            mMultiView.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
             mMultiListHeadline.setTextColor(getResources().getColor(R.color.standard_grey));
             mMultiListMessage.setTextColor(getResources().getColor(R.color.standard_grey));
 
@@ -766,7 +787,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 Drawable layerOne;
 
                 if (previewImageActivity.isSystemUIVisible()) {
-                    layerOne = getResources().getDrawable(R.color.white);
+                    layerOne = getResources().getDrawable(R.color.bg_default);
                 } else {
                     layerOne = getResources().getDrawable(R.drawable.backrepeat);
                 }

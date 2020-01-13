@@ -34,6 +34,7 @@ import android.os.Looper;
 import android.provider.BaseColumns;
 import android.widget.Toast;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -180,18 +181,14 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
         // need to trust on the AccountUtils to get the current account since the query in the client side is not
         // directly started by our code, but from SearchView implementation
-        Account account = accountManager.getCurrentAccount();
-
-        if (account == null) {
-            throw new IllegalArgumentException("Account may not be null!");
-        }
+        User user = accountManager.getUser();
 
         String userQuery = lastPathSegment.toLowerCase(Locale.ROOT);
 
         // request to the OC server about users and groups matching userQuery
         GetShareesRemoteOperation searchRequest = new GetShareesRemoteOperation(userQuery, REQUESTED_PAGE,
                                                                                 RESULTS_PER_PAGE);
-        RemoteOperationResult result = searchRequest.execute(account, getContext());
+        RemoteOperationResult result = searchRequest.execute(user.toPlatformAccount(), getContext());
         List<JSONObject> names = new ArrayList<>();
 
         if (result.isSuccess()) {
@@ -217,8 +214,10 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             Uri remoteBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_REMOTE).build();
             Uri emailBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_EMAIL).build();
 
-            FileDataStorageManager manager = new FileDataStorageManager(account, getContext().getContentResolver());
-            boolean federatedShareAllowed = manager.getCapability(account.name).getFilesSharingFederationOutgoing()
+            FileDataStorageManager manager = new FileDataStorageManager(user.toPlatformAccount(),
+                                                                        getContext().getContentResolver());
+            boolean federatedShareAllowed = manager.getCapability(user.getAccountName())
+                .getFilesSharingFederationOutgoing()
                 .isTrue();
 
             try {

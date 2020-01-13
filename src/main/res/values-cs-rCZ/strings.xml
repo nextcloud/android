@@ -8,6 +8,7 @@
     <string name="account_icon">Ikona účtu</string>
     <string name="account_not_found">Účet nenalezen!</string>
     <string name="action_clear_failed_uploads">Vyčistit nezdařené nahrávání</string>
+    <string name="action_edit">Upravit</string>
     <string name="action_empty_notifications">Vyčistit všechna oznámení</string>
     <string name="action_empty_trashbin">Vyprázdnit koš</string>
     <string name="action_send_share">Poslat/sdílet</string>
@@ -179,6 +180,8 @@
     <string name="create_new_folder">Vytvořit novou složku</string>
     <string name="create_new_presentation">Vytvořit novou prezentaci</string>
     <string name="create_new_spreadsheet">Vytvořit nový sešit</string>
+    <string name="create_rich_workspace">Přidat informace o složce</string>
+    <string name="creates_rich_workspace">vytvoří informace o složce</string>
     <string name="credentials_disabled">Přihlašovací údaje znepřístupněny</string>
     <string name="date_unknown">Neznámé</string>
     <string name="default_credentials_wrong">Neplatné přihlašovací údaje</string>
@@ -229,6 +232,7 @@
     <string name="drawer_quota_unlimited">%1$s použito</string>
     <string name="drawer_synced_folders">Automatické nahrávání</string>
     <string name="edit_permission_label">upravit</string>
+    <string name="edit_rich_workspace">upravit informace o složce</string>
     <string name="encrypted">Nastavit jako šifrované</string>
     <string name="end_to_end_encryption_confirm_button">Nastavit šifrování</string>
     <string name="end_to_end_encryption_decrypting">Rozšifrovávání…</string>
@@ -261,6 +265,7 @@
     <string name="fab_label">Přidat nebo nahrát</string>
     <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
     <string name="failed_to_print">Soubor se nepodařilo vytisknout</string>
+    <string name="failed_to_start_editor">Editor se nepodařilo spustit</string>
     <string name="fallback_weblogin_back">Zpět</string>
     <string name="fallback_weblogin_text">Vrátit se ke starému způsobu přihlašování</string>
     <string name="favorite">Přidat do oblíbených</string>

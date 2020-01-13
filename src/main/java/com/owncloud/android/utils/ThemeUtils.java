@@ -61,6 +61,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.SwitchCompat;
@@ -126,10 +127,12 @@ public final class ThemeUtils {
     }
 
     public static int primaryColor(Account account, boolean replaceWhite, Context context) {
-        OCCapability capability = getCapability(account, context);
+        if (context == null) {
+            return Color.GRAY;
+        }
 
         try {
-            int color = Color.parseColor(capability.getServerColor());
+            int color = Color.parseColor(getCapability(account, context).getServerColor());
             if (replaceWhite && Color.WHITE == color) {
                 return Color.GRAY;
             } else {
@@ -162,7 +165,7 @@ public final class ThemeUtils {
             float[] hsl = colorToHSL(primaryColor);
 
             if (hsl[INDEX_LUMINATION] > LUMINATION_THRESHOLD) {
-                return context.getResources().getColor(R.color.elementFallbackColor);
+                return context.getResources().getColor(R.color.element_fallback_color);
             } else {
                 return primaryColor;
             }
@@ -177,7 +180,15 @@ public final class ThemeUtils {
      * @return int font color to use
      * adapted from https://github.com/nextcloud/server/blob/master/apps/theming/lib/Util.php#L90-L102
      */
-    public static int fontColor(Context context) {
+    public static int fontColor(Context context, boolean replaceWhite) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            if (replaceWhite) {
+                return Color.BLACK;
+            } else {
+                return Color.WHITE;
+            }
+        }
+
         try {
             return Color.parseColor(getCapability(context).getServerTextColor());
         } catch (Exception e) {
@@ -187,6 +198,10 @@ public final class ThemeUtils {
                 return Color.BLACK;
             }
         }
+    }
+
+    public static int fontColor(Context context) {
+        return fontColor(context, false);
     }
 
     /**
@@ -223,7 +238,7 @@ public final class ThemeUtils {
                 actionBar.setTitle(title);
             } else {
                 Spannable text = new SpannableString(title);
-                text.setSpan(new ForegroundColorSpan(fontColor(context)),
+                text.setSpan(new ForegroundColorSpan(fontColor(context, true)),
                              0,
                              text.length(),
                              Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -291,7 +306,7 @@ public final class ThemeUtils {
             } else {
                 String title = context.getString(titleId);
                 Spannable text = new SpannableString(title);
-                text.setSpan(new ForegroundColorSpan(fontColor(context)),
+                text.setSpan(new ForegroundColorSpan(fontColor(context, true)),
                              0,
                              text.length(),
                              Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -402,11 +417,9 @@ public final class ThemeUtils {
      */
     public static void colorHorizontalSeekBar(SeekBar seekBar, Context context) {
         int color = ThemeUtils.primaryAccentColor(context);
-        colorHorizontalProgressBar(seekBar, color);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-        }
+        colorHorizontalProgressBar(seekBar, color);
+        seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 
     /**
@@ -499,7 +512,9 @@ public final class ThemeUtils {
         int color = ContextCompat.getColor(context, R.color.fg_default);
 
         // Theme the view when it is already on a theme'd background according to dark / light theme
-        if (themedBackground) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            color = Color.WHITE;
+        } else if (themedBackground) {
             if (darkTheme(context)) {
                 color = ContextCompat.getColor(context, R.color.themed_fg);
             } else {
@@ -507,7 +522,6 @@ public final class ThemeUtils {
             }
         }
 
-        editText.setHintTextColor(color);
         editText.setTextColor(color);
         editText.setHighlightColor(context.getResources().getColor(R.color.fg_contrast));
         setEditTextCursorColor(editText, color);
@@ -519,11 +533,11 @@ public final class ThemeUtils {
      *
      * @param searchView       searchView to be changed
      * @param themedBackground true if background is themed, e.g. on action bar; false if background is white
-     * @param context
+     * @param context          the app's context
      */
     public static void themeSearchView(SearchView searchView, boolean themedBackground, Context context) {
         // hacky as no default way is provided
-        int fontColor = ThemeUtils.fontColor(context);
+        int fontColor = ThemeUtils.fontColor(context, true);
         SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
         themeEditText(context, editText, themedBackground);
 

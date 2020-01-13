@@ -53,6 +53,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.media.ErrorFormat;
 import com.nextcloud.client.media.PlayerServiceConnection;
@@ -125,6 +126,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
     private Uri mVideoUri;
     @Inject UserAccountManager accountManager;
+    @Inject DeviceInfo deviceInfo;
 
     /**
      * Creates a fragment to preview a file.
@@ -334,7 +336,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.file_actions_menu, menu);
+        inflater.inflate(R.menu.item_file, menu);
     }
 
     @Override
@@ -348,7 +350,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 currentAccount,
                 containerActivity,
                 getActivity(),
-                false
+                false,
+                deviceInfo,
+                accountManager.getUser()
             );
 
             mf.filter(menu,

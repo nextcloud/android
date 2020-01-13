@@ -26,7 +26,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -79,6 +78,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -135,9 +135,6 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         setContentView(R.layout.user_info_layout);
         unbinder = ButterKnife.bind(this);
 
-        setAccount(getUserAccountManager().getCurrentAccount());
-        onAccountSet();
-
         boolean useBackgroundImage = URLUtil.isValidUrl(
                 getStorageManager().getCapability(account.name).getServerBackground());
 
@@ -159,7 +156,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.user_info_menu, menu);
+        inflater.inflate(R.menu.activity_user_info, menu);
 
         return true;
     }

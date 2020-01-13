@@ -24,7 +24,6 @@
 
 package com.owncloud.android.ui.dialog;
 
-import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -39,30 +38,32 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.EditText;
 
+import com.nextcloud.android.lib.resources.directediting.DirectEditingCreateFileRemoteOperation;
+import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainListOfTemplatesRemoteOperation;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.Template;
-import com.owncloud.android.files.CreateFileFromTemplateOperation;
-import com.owncloud.android.files.FetchTemplateOperation;
-import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.Template;
+import com.owncloud.android.lib.common.TemplateList;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.ui.activity.ExternalSiteWebView;
-import com.owncloud.android.ui.activity.RichDocumentsWebView;
+import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.adapter.TemplateAdapter;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
-import org.parceler.Parcels;
-
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -81,13 +82,14 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
     TemplateAdapter.ClickListener, Injectable {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
-    private static final String ARG_TYPE = "TYPE";
+    private static final String ARG_CREATOR = "CREATOR";
     private static final String TAG = ChooseTemplateDialogFragment.class.getSimpleName();
     private static final String DOT = ".";
 
     private TemplateAdapter adapter;
     private OCFile parentFolder;
-    private OwnCloudClient client;
+    @Inject ClientFactory clientFactory;
+    private Creator creator;
     @Inject CurrentAccountProvider currentAccount;
 
     public enum Type {
@@ -102,11 +104,11 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
     @BindView(R.id.filename)
     EditText fileName;
 
-    public static ChooseTemplateDialogFragment newInstance(OCFile parentFolder, Type type) {
+    public static ChooseTemplateDialogFragment newInstance(OCFile parentFolder, Creator creator) {
         ChooseTemplateDialogFragment frag = new ChooseTemplateDialogFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_PARENT_FOLDER, parentFolder);
-        args.putString(ARG_TYPE, type.name());
+        args.putParcelable(ARG_CREATOR, creator);
         frag.setArguments(args);
         return frag;
 
@@ -140,7 +142,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
         int accentColor = ThemeUtils.primaryAccentColor(getContext());
 
         parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER);
-        Type type = Type.valueOf(arguments.getString(ARG_TYPE));
+        creator = arguments.getParcelable(ARG_CREATOR);
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -151,18 +153,15 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
         fileName.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
 
         try {
-            Account account = currentAccount.getCurrentAccount();
-            OwnCloudAccount ocAccount = new OwnCloudAccount(account, activity);
-            client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, getContext());
-
-            new FetchTemplateTask(this, client).execute(type);
+            User user = currentAccount.getUser();
+            new FetchTemplateTask(this, clientFactory, user, creator).execute();
         } catch (Exception e) {
             Log_OC.e(TAG, "Loading stream url not possible: " + e);
         }
 
         listView.setHasFixedSize(true);
         listView.setLayoutManager(new GridLayoutManager(activity, 2));
-        adapter = new TemplateAdapter(type, this, getContext(), currentAccount);
+        adapter = new TemplateAdapter(creator.getMimetype(), this, getContext(), currentAccount, clientFactory);
         listView.setAdapter(adapter);
 
         // Build the dialog
@@ -182,10 +181,10 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
     }
 
     private void createFromTemplate(Template template, String path) {
-        new CreateFileFromTemplateTask(this, client, template, path).execute();
+        new CreateFileFromTemplateTask(this, clientFactory, currentAccount.getUser(), template, path, creator).execute();
     }
 
-    public void setTemplateList(List<Template> templateList) {
+    public void setTemplateList(TemplateList templateList) {
         adapter.setTemplateList(templateList);
         adapter.notifyDataSetChanged();
     }
@@ -210,44 +209,87 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
     }
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {
-        private OwnCloudClient client;
+        private ClientFactory clientFactory;
         private WeakReference<ChooseTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
         private Template template;
         private String path;
+        private Creator creator;
+        private User user;
+        private OCFile file;
 
-        CreateFileFromTemplateTask(ChooseTemplateDialogFragment chooseTemplateDialogFragment, OwnCloudClient client,
-                                   Template template, String path) {
-            this.client = client;
+        CreateFileFromTemplateTask(ChooseTemplateDialogFragment chooseTemplateDialogFragment,
+                                   ClientFactory clientFactory,
+                                   User user,
+                                   Template template,
+                                   String path,
+                                   Creator creator
+        ) {
+            this.clientFactory = clientFactory;
             this.chooseTemplateDialogFragmentWeakReference = new WeakReference<>(chooseTemplateDialogFragment);
             this.template = template;
             this.path = path;
+            this.creator = creator;
+            this.user = user;
         }
 
         @Override
         protected String doInBackground(Void... voids) {
-            RemoteOperationResult result = new CreateFileFromTemplateOperation(path, template.getId()).execute(client);
+            try {
+                OwnCloudClient client = clientFactory.create(user);
 
-            if (result.isSuccess()) {
-                return result.getData().get(0).toString();
-            } else {
+                RemoteOperationResult result =
+                    new DirectEditingCreateFileRemoteOperation(path,
+                                                               creator.getEditor(),
+                                                               creator.getId(),
+                                                               template.getTitle())
+                        .execute(client);
+
+                if (result.isSuccess()) {
+                    // get file
+                    RemoteOperationResult newFileResult = new ReadFileRemoteOperation(path)
+                            .execute(client);
+
+                    if (newFileResult.isSuccess()) {
+                        OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) newFileResult.getData().get(0));
+
+                        if (chooseTemplateDialogFragmentWeakReference.get() != null) {
+                            FileDataStorageManager storageManager = new FileDataStorageManager(
+                                user.toPlatformAccount(),
+                                chooseTemplateDialogFragmentWeakReference.get().requireContext().getContentResolver());
+                            storageManager.saveFile(temp);
+                            file = storageManager.getFileByPath(path);
+
+                            return result.getData().get(0).toString();
+                        }
+                         else {
+                             return "";
+                        }
+                    } else {
+                        return "";
+                    }
+                } else {
+                    return "";
+                }
+            } catch (ClientFactory.CreationException e) {
+                Log_OC.e(TAG, "Error creating file from template!", e);
                 return "";
             }
         }
 
         @Override
         protected void onPostExecute(String url) {
-            ChooseTemplateDialogFragment fragment = chooseTemplateDialogFragmentWeakReference.get();
+            final ChooseTemplateDialogFragment fragment = chooseTemplateDialogFragmentWeakReference.get();
 
-            if (fragment != null) {
+            if (fragment != null && fragment.isAdded()) {
                 if (url.isEmpty()) {
                     DisplayUtils.showSnackMessage(fragment.listView, "Error creating file from template");
                 } else {
-                    Intent collaboraWebViewIntent = new Intent(MainApp.getAppContext(), RichDocumentsWebView.class);
-                    collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Collabora");
-                    collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, url);
-                    collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                    collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TEMPLATE, Parcels.wrap(template));
-                    fragment.startActivity(collaboraWebViewIntent);
+                    Intent editorWebView = new Intent(MainApp.getAppContext(), TextEditorWebView.class);
+                    editorWebView.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text");
+                    editorWebView.putExtra(ExternalSiteWebView.EXTRA_URL, url);
+                    editorWebView.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
+                    editorWebView.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+                    fragment.startActivity(editorWebView);
 
                     fragment.dismiss();
                 }
@@ -257,44 +299,55 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
         }
     }
 
-    private static class FetchTemplateTask extends AsyncTask<Type, Void, List<Template>> {
+    private static class FetchTemplateTask extends AsyncTask<Void, Void, TemplateList> {
 
-        private OwnCloudClient client;
+        private User user;
+        private ClientFactory clientFactory;
         private WeakReference<ChooseTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
+        private Creator creator;
 
-        FetchTemplateTask(ChooseTemplateDialogFragment chooseTemplateDialogFragment, OwnCloudClient client) {
-            this.client = client;
+        FetchTemplateTask(ChooseTemplateDialogFragment chooseTemplateDialogFragment,
+                          ClientFactory clientFactory,
+                          User user,
+                          Creator creator) {
+            this.user = user;
+            this.clientFactory = clientFactory;
             this.chooseTemplateDialogFragmentWeakReference = new WeakReference<>(chooseTemplateDialogFragment);
+            this.creator = creator;
         }
 
         @Override
-        protected List<Template> doInBackground(Type... type) {
-            FetchTemplateOperation fetchTemplateOperation = new FetchTemplateOperation(type[0]);
-            RemoteOperationResult result = fetchTemplateOperation.execute(client);
+        protected TemplateList doInBackground(Void... voids) {
 
-            if (!result.isSuccess()) {
-                return new ArrayList<>();
+            try {
+                OwnCloudClient client = clientFactory.create(user);
+                RemoteOperationResult result = new DirectEditingObtainListOfTemplatesRemoteOperation(creator.getEditor(),
+                                                                                                     creator.getId())
+                    .execute(client);
+
+                if (!result.isSuccess()) {
+                    return new TemplateList();
+                }
+
+                return (TemplateList) result.getSingleData();
+            } catch (ClientFactory.CreationException e) {
+                Log_OC.e(TAG, "Could not fetch template", e);
+
+                return new TemplateList();
             }
-
-            List<Template> templateList = new ArrayList<>();
-            for (Object object : result.getData()) {
-                templateList.add((Template) object);
-            }
-
-            return templateList;
         }
 
         @Override
-        protected void onPostExecute(List<Template> templateList) {
+        protected void onPostExecute(TemplateList templateList) {
             ChooseTemplateDialogFragment fragment = chooseTemplateDialogFragmentWeakReference.get();
 
-            if (fragment != null) {
-                if (templateList.isEmpty()) {
+            if (fragment != null && fragment.isAdded()) {
+                if (templateList.templates.isEmpty()) {
                     DisplayUtils.showSnackMessage(fragment.listView, R.string.error_retrieving_templates);
                 } else {
                     fragment.setTemplateList(templateList);
 
-                    String name = DOT + templateList.get(0).getExtension();
+                    String name = DOT + templateList.templates.values().iterator().next().getExtension();
                     fragment.fileName.setText(name);
                 }
             } else {

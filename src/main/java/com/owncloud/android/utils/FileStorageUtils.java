@@ -223,6 +223,7 @@ public final class FileStorageUtils {
         file.setOwnerDisplayName(remote.getOwnerDisplayName());
         file.setNote(remote.getNote());
         file.setSharees(new ArrayList<>(Arrays.asList(remote.getSharees())));
+        file.setRichWorkspace(remote.getRichWorkspace());
 
         return file;
     }

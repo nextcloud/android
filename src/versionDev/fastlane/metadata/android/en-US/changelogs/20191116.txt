@@ -1,0 +1,5 @@
+5273e1e7f Merge pull request #4832 from nextcloud/dependabot/gradle/kotlin_version-1.3.60
+bd503a86c [tx-robot] updated from transifex
+20c9ce361 Bump kotlin_version from 1.3.50 to 1.3.60
+3943e1c75 [tx-robot] updated from transifex
+75de7b88d daily dev 20191114

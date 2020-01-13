@@ -22,8 +22,6 @@ package com.owncloud.android.ui.adapter;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
@@ -77,7 +75,7 @@ import butterknife.ButterKnife;
 public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder> {
     private static final String FILE = "file";
     private StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
-    private ForegroundColorSpan foregroundColorSpanBlack = new ForegroundColorSpan(Color.BLACK);
+    private ForegroundColorSpan foregroundColorSpanBlack;
 
     private List<Notification> notificationsList;
     private OwnCloudClient client;
@@ -87,6 +85,8 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         this.notificationsList = new ArrayList<>();
         this.client = client;
         this.notificationsActivity = notificationsActivity;
+        foregroundColorSpanBlack = new ForegroundColorSpan(
+            notificationsActivity.getResources().getColor(R.color.text_color));
     }
 
     public void setNotificationItems(List<Notification> notificationItems) {
@@ -152,10 +152,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         MaterialButton button;
 
         Resources resources = notificationsActivity.getResources();
-        NotificationExecuteActionTask task = new NotificationExecuteActionTask(client,
-                                                                               holder,
-                                                                               notification,
-                                                                               notificationsActivity);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                                                                          ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(20, 0, 20, 0);
@@ -166,15 +162,14 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             int primaryColor = ThemeUtils.primaryColor(notificationsActivity);
 
             if (action.primary) {
-                button.getBackground().setColorFilter(primaryColor, PorterDuff.Mode.SRC_ATOP);
+                button.setBackgroundColor(primaryColor);
                 button.setTextColor(ThemeUtils.fontColor(notificationsActivity));
                 button.setTypeface(button.getTypeface(), Typeface.BOLD);
             } else {
                 button.setStrokeColor(ColorStateList.valueOf(resources.getColor(R.color.grey_200)));
                 button.setStrokeWidth(3);
 
-                button.getBackground().setColorFilter(resources.getColor(R.color.transparent),
-                                                      PorterDuff.Mode.SRC_ATOP);
+                button.setBackgroundColor(resources.getColor(R.color.transparent));
                 button.setTextColor(primaryColor);
                 button.setTypeface(button.getTypeface(), Typeface.BOLD);
             }
@@ -189,7 +184,11 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
             button.setOnClickListener(v -> {
                 setButtonEnabled(holder, false);
-                task.execute(action);
+                new NotificationExecuteActionTask(client,
+                                                  holder,
+                                                  notification,
+                                                  notificationsActivity)
+                    .execute(action);
             });
 
             holder.buttons.addView(button);

@@ -8,6 +8,7 @@
     <string name="account_icon">Icona dell\'account</string>
     <string name="account_not_found">Account non trovato</string>
     <string name="action_clear_failed_uploads">Cancella caricamenti non riusciti</string>
+    <string name="action_edit">Modifica</string>
     <string name="action_empty_notifications">Cancella tutte le notifiche</string>
     <string name="action_empty_trashbin">Svuota cestino</string>
     <string name="action_send_share">Invia/Condividi</string>
@@ -179,6 +180,8 @@
     <string name="create_new_folder">Crea una nuova cartella</string>
     <string name="create_new_presentation">Crea nuova presentazione</string>
     <string name="create_new_spreadsheet">Crea nuovo foglio elettronico</string>
+    <string name="create_rich_workspace">Aggiungi informazioni cartella</string>
+    <string name="creates_rich_workspace">crea informazioni cartella</string>
     <string name="credentials_disabled">Credenziali disabilitate</string>
     <string name="date_unknown">Sconosciuta</string>
     <string name="default_credentials_wrong">Credenziali non corrette</string>
@@ -229,6 +232,7 @@
     <string name="drawer_quota_unlimited">%1$s utilizzato</string>
     <string name="drawer_synced_folders">Caricamento automatico</string>
     <string name="edit_permission_label">modifica</string>
+    <string name="edit_rich_workspace">modifica informazioni cartella</string>
     <string name="encrypted">Imposta come cifrato</string>
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
     <string name="end_to_end_encryption_decrypting">Decifratura in corso…</string>
@@ -261,6 +265,7 @@
     <string name="fab_label">Aggiungi o carica</string>
     <string name="failed_to_download">Passaggio del file al gestore degli scaricamenti non riuscito</string>
     <string name="failed_to_print">Stampa del file non riuscita</string>
+    <string name="failed_to_start_editor">Avvio dell\'editor non riuscito</string>
     <string name="fallback_weblogin_back">Indietro</string>
     <string name="fallback_weblogin_text">Torna al vecchio metodo di accesso</string>
     <string name="favorite">Aggiungi ai preferiti</string>

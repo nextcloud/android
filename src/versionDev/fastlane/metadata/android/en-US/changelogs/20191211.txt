@@ -1,0 +1,13 @@
+5f6dc23a5 Merge pull request #4973 from nextcloud/addFastlane
+1145c3813 Merge pull request #4958 from Infomaniak/fix/see-detail-from-preview-nc
+fd3ff4cbc Merge pull request #4898 from siddharths2710/master
+988e79702 [tx-robot] updated from transifex
+8062340f6 Merge pull request #4657 from nextcloud/bumpSDK
+4b328cbe3 manually increase spotbugs and lint
+1290bbe52 Merge pull request #4918 from Infomaniak/fix/calendar-not-refreshed
+da104fc48 Merge pull request #4962 from Infomaniak/fix/add-activities-empty-icon
+702c4f71f Merge pull request #4954 from nextcloud/dependabot/gradle/com.android.tools.build-gradle-3.5.3
+f7597c147 [tx-robot] updated from transifex
+c27f4cea3 [tx-robot] updated from transifex
+75442575f [tx-robot] updated from transifex
+4576d45ce daily dev 20191207

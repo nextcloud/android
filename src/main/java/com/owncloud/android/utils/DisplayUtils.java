@@ -56,6 +56,7 @@ import com.bumptech.glide.request.target.Target;
 import com.caverock.androidsvg.SVG;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -516,6 +517,7 @@ public final class DisplayUtils {
     }
 
     public static void downloadIcon(CurrentAccountProvider currentAccountProvider,
+                                    ClientFactory clientFactory,
                                     Context context,
                                     String iconUrl,
                                     SimpleTarget imageView,
@@ -524,7 +526,8 @@ public final class DisplayUtils {
                                     int height) {
         try {
             if (iconUrl.endsWith(".svg")) {
-                downloadSVGIcon(currentAccountProvider, context, iconUrl, imageView, placeholder, width, height);
+                downloadSVGIcon(currentAccountProvider, clientFactory, context, iconUrl, imageView, placeholder, width,
+                                height);
             } else {
                 downloadPNGIcon(context, iconUrl, imageView, placeholder);
             }
@@ -545,6 +548,7 @@ public final class DisplayUtils {
     }
 
     private static void downloadSVGIcon(CurrentAccountProvider currentAccountProvider,
+                                        ClientFactory clientFactory,
                                         Context context,
                                         String iconUrl,
                                         SimpleTarget imageView,
@@ -552,7 +556,7 @@ public final class DisplayUtils {
                                         int width,
                                         int height) {
         GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(context)
-            .using(new CustomGlideUriLoader(currentAccountProvider), InputStream.class)
+            .using(new CustomGlideUriLoader(currentAccountProvider, clientFactory), InputStream.class)
                 .from(Uri.class)
                 .as(SVG.class)
                 .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)

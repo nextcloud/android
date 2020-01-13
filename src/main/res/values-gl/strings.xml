@@ -8,6 +8,7 @@
     <string name="account_icon">Icona da conta</string>
     <string name="account_not_found">Non se atopou a conta!</string>
     <string name="action_clear_failed_uploads">Limpar os envíos fallados</string>
+    <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpar todas as notificacións</string>
     <string name="action_empty_trashbin">Cesto do lixo baleiro</string>
     <string name="action_send_share">Enviar/compartir</string>
@@ -261,6 +262,7 @@
     <string name="fab_label">Engadir ou enviar</string>
     <string name="failed_to_download">Produciuse un fallo ao pasar o ficheiro para o xestor de descargas</string>
     <string name="failed_to_print">Produciuse un fallo ao imprimir o ficheiro</string>
+    <string name="failed_to_start_editor">Produciuse un fallo ao iniciar o editor</string>
     <string name="fallback_weblogin_back">Atras</string>
     <string name="fallback_weblogin_text">Volver ao método de acceso antigo</string>
     <string name="favorite">Engadir a favoritos</string>

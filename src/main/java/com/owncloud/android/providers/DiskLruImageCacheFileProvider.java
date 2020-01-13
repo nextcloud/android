@@ -31,6 +31,7 @@ import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -61,8 +62,8 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
     }
 
     private OCFile getFile(Uri uri) {
-        Account account = accountManager.getCurrentAccount();
-        FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(account,
+        User user = accountManager.getUser();
+        FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(user.toPlatformAccount(),
                 MainApp.getAppContext().getContentResolver());
 
         return fileDataStorageManager.getFileByPath(uri.getPath());

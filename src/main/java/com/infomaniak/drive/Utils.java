@@ -126,4 +126,9 @@ public class Utils {
             return 0;
         }
     }
+
+    public static String getUserEmail(String name) {
+        String[] splitEmail = name.split("@");
+        return splitEmail[0] + "@" + splitEmail[1];
+    }
 }
