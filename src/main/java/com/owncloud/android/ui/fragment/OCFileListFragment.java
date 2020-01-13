@@ -793,7 +793,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         // create rich workspace
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            menu.findItem(R.id.action_create_rich_workspace).setVisible(TextUtils.isEmpty(mFile.getRichWorkspace()));
+            if (menu.findItem(R.id.action_create_rich_workspace) != null) {
+                if (mFile != null) {
+                    menu.findItem(R.id.action_create_rich_workspace).setVisible(
+                        TextUtils.isEmpty(mFile.getRichWorkspace()));
+                }
+            }
+
         }
     }
 
