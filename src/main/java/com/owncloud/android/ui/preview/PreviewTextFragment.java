@@ -23,13 +23,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -195,10 +193,8 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
             .usePlugin(new AbstractMarkwonPlugin() {
                 @Override
                 public void configureTheme(@NonNull MarkwonTheme.Builder builder) {
-                    TextPaint textPaint = new TextPaint();
-                    textPaint.setColorFilter(new PorterDuffColorFilter(ThemeUtils.primaryColor(activity),
-                                                                       PorterDuff.Mode.SRC_ATOP));
                     builder.linkColor(ThemeUtils.primaryColor(activity, true));
+                    builder.headingBreakHeight(0);
                 }
 
                 @Override
