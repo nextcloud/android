@@ -30,7 +30,9 @@
         android:orientation="vertical"
         android:paddingTop="@dimen/standard_eigth_padding">
 
+        <!-- IK : Visibility changed to gone until user sharing implementation in kDrive API -->
         <androidx.appcompat.widget.SearchView
+            android:visibility="gone"
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,7 +43,9 @@
             android:hint="@string/share_search"
             style="@style/ownCloud.SearchView"/>
 
+        <!-- IK : Visibility changed to gone until user sharing implementation in kDrive API -->
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/shared_with_you_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
