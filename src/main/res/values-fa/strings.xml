@@ -360,6 +360,7 @@
     <string name="logs_menu_refresh">تازه‌سازی</string>
     <string name="logs_status_loading">بار کردن…</string>
     <string name="logs_title">Logs</string>
+    <string name="manage_space_clear_data">اطلاعات روشن</string>
     <string name="media_err_invalid_progressive_playback">فایل رسانه ای قابل پخش نیست</string>
     <string name="media_err_io">فایل رسانه ای را نمی توان خواند</string>
     <string name="media_err_malformed">The media file has incorrect encoding</string>
@@ -445,6 +446,7 @@
     <string name="share_via_link_expiration_date_label">تنظیم تاریخ انقضا</string>
     <string name="share_via_link_password_label">Protect with password</string>
     <string name="share_via_link_section_title">اشتراک گذاشتن لینک</string>
+    <string name="shared_icon_share">اشتراک گذاری</string>
     <string name="shared_icon_shared">به اشتراک گذاشته شد</string>
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="sort_by">مرتب سازی بر اساس</string>
@@ -478,6 +480,8 @@
     <string name="ssl_validator_reason_cert_not_yet_valid">- زمان اعتبار گواهی نامه سرویس دهنده فرانرسیده است</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL با آدرس هاست موجود در گواهی نامه مطابقت ندارد.</string>
     <string name="storage_description_default">پیش‌گزیده</string>
+    <string name="storage_movies">فیلم ها</string>
+    <string name="storage_music">موسیقی</string>
     <string name="subject_shared_with_you">\"%1$s\" با شما به اشتراک گذاشته شد</string>
     <string name="subject_user_shared_with_you">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>
     <string name="sync_conflicts_in_favourites_ticker">ناسازگاری ها یافت شدند</string>
