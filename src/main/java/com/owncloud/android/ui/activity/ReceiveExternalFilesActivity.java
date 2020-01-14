@@ -757,11 +757,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             if (mFile.canWrite()) {
                 btnChooseFolder.setEnabled(true);
-                ThemeUtils.tintDrawable(btnChooseFolder.getBackground(),
-                                        ThemeUtils.primaryColor(getAccount(), true, this));
+                btnChooseFolder.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(getAccount(),
+                                                                                                     true,
+                                                                                                     this)));
             } else {
                 btnChooseFolder.setEnabled(false);
-                ThemeUtils.tintDrawable(btnChooseFolder.getBackground(), Color.GRAY);
+                btnChooseFolder.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
             }
 
             if (getSupportActionBar() != null) {
