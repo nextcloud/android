@@ -8,7 +8,7 @@
     <string name="account_icon">Iconița contului</string>
     <string name="account_not_found">Contul nu a fost găsit!</string>
     <string name="action_clear_failed_uploads">Elimină încărcările eșuate</string>
-    <string name="action_edit">Editează</string>
+    <string name="action_edit">Editare</string>
     <string name="action_empty_notifications">Elimină toate notificările</string>
     <string name="action_empty_trashbin">Golește coșul de gunoi</string>
     <string name="action_send_share">Trimitere/Distribuire</string>
@@ -81,6 +81,7 @@
     <string name="autoupload_create_new_custom_folder">Crează un director personalizat</string>
     <string name="autoupload_custom_folder">Configurează un director personalizat</string>
     <string name="autoupload_disable_power_save_check">Dezactivează verificarea economiei de energie</string>
+    <string name="autoupload_hide_folder">Ascunde director</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Închidere</string>
     <string name="battery_optimization_disable">Dezactivează</string>
@@ -118,6 +119,7 @@
     <string name="common_unknown">necunoscut</string>
     <string name="common_yes">Da</string>
     <string name="community_beta_headline">Testează versiunea în curs de dezvoltare</string>
+    <string name="community_beta_text">Aceasta include toate funcționalitățile viitoare și conține cele mai noi tehnologii. Pot apărea erori, când acest lucru se întâmplă, vă rugăm să raportați despre asta.</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Ajută pe altii la </string>
     <string name="community_contribute_headline">Contribuie în mod activ</string>
