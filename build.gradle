@@ -63,7 +63,7 @@ ext {
     daggerVersion = "2.25.4"
     markwonVersion = "4.2.0"
     prismVersion = "2.0.0"
-    androidLibraryVersion = "rc-2.0.0-02"
+    androidLibraryVersion = "rc-2.0.0-03"
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -86,7 +86,7 @@ repositories {
 def versionMajor = 3
 def versionMinor = 10
 def versionPatch = 0
-def versionBuild = 52 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionBuild = 53 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
     for (String arg : tr.args) {
