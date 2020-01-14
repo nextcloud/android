@@ -35,8 +35,8 @@
 		<ListView android:id="@android:id/list"
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
-			android:divider="@color/list_divider_background"
-			android:dividerHeight="1dip">
+            android:divider="@color/transparent"
+            android:dividerHeight="0dip">
 		</ListView>
 
 		<include layout="@layout/empty_list"/>
