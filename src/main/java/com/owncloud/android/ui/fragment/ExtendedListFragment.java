@@ -27,6 +27,7 @@ package com.owncloud.android.ui.fragment;
 import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -608,10 +609,13 @@ public class ExtendedListFragment extends Fragment implements
             getActivity().runOnUiThread(() -> {
                 if (enabled) {
                     mFabMain.setEnabled(true);
-                    ThemeUtils.tintDrawable(mFabMain.getBackground(), ThemeUtils.primaryColor(getContext()));
+                    int primaryColor = ThemeUtils.primaryColor(getContext());
+                    mFabMain.setBackgroundTintList(ColorStateList.valueOf(primaryColor));
+                    mFabMain.setRippleColor(primaryColor);
                 } else {
                     mFabMain.setEnabled(false);
-                    ThemeUtils.tintDrawable(mFabMain.getBackground(), Color.GRAY);
+                    mFabMain.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+                    mFabMain.setRippleColor(Color.GRAY);
                 }
             });
         }
