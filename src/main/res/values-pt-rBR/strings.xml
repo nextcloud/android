@@ -180,6 +180,8 @@
     <string name="create_new_folder">Criar nova pasta</string>
     <string name="create_new_presentation">Criar nova apresentação</string>
     <string name="create_new_spreadsheet">Criar nova planilha</string>
+    <string name="create_rich_workspace">Adicionar informação da pasta</string>
+    <string name="creates_rich_workspace">cria informação da pasta</string>
     <string name="credentials_disabled">Credenciais desabilitadas</string>
     <string name="date_unknown">Desconhecido</string>
     <string name="default_credentials_wrong">Credenciais incorretas</string>
@@ -230,6 +232,7 @@
     <string name="drawer_quota_unlimited">%1$s usados</string>
     <string name="drawer_synced_folders">Auto envio</string>
     <string name="edit_permission_label">editar</string>
+    <string name="edit_rich_workspace">edita informação da pasta</string>
     <string name="encrypted">Definir como criptografado</string>
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>
     <string name="end_to_end_encryption_decrypting">Descriptografando…</string>

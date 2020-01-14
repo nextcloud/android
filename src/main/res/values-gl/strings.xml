@@ -180,6 +180,8 @@
     <string name="create_new_folder">Crear un cartafol novo</string>
     <string name="create_new_presentation">Crear unha presentación nova</string>
     <string name="create_new_spreadsheet">Crear unha folla de cálculo nova</string>
+    <string name="create_rich_workspace">Engadir información do  cartafol</string>
+    <string name="creates_rich_workspace"> crear a información do cartafol </string>
     <string name="credentials_disabled">Credenciais eliminadas</string>
     <string name="date_unknown">Descoñecido</string>
     <string name="default_credentials_wrong">Credenciais incorrectas</string>
@@ -230,6 +232,7 @@
     <string name="drawer_quota_unlimited">Usado %1$s</string>
     <string name="drawer_synced_folders">Envío automático</string>
     <string name="edit_permission_label">editar</string>
+    <string name="edit_rich_workspace"> editar a información do cartafol </string>
     <string name="encrypted">Estabelecer como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Estabelecer o cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
