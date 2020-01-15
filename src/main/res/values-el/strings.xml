@@ -180,6 +180,8 @@
     <string name="create_new_folder">Δημιουργία νέου φακέλου</string>
     <string name="create_new_presentation">Δημιουργία νέας παρουσίασης</string>
     <string name="create_new_spreadsheet">Δημιουργία νέου λογιστικού φύλλου</string>
+    <string name="create_rich_workspace">Προσθήκη πληροφοριών φακέλου</string>
+    <string name="creates_rich_workspace">δημιουργεί πληροφορίες φακέλου</string>
     <string name="credentials_disabled">Απενεργοποιημένα διαπιστευτήρια</string>
     <string name="date_unknown">Άγνωστο</string>
     <string name="default_credentials_wrong">Λανθασμένα διαπιστευτήρια</string>
@@ -230,6 +232,7 @@
     <string name="drawer_quota_unlimited">%1$sσε χρήση</string>
     <string name="drawer_synced_folders">Αυτόματη μεταφόρτωση</string>
     <string name="edit_permission_label">επεξεργασία</string>
+    <string name="edit_rich_workspace">επεξεργασία πληροφοριών φακέλου</string>
     <string name="encrypted">Ορισμός ως κρυπτογραφημένου</string>
     <string name="end_to_end_encryption_confirm_button">Ρύθμιση κρυπτογράφησης</string>
     <string name="end_to_end_encryption_decrypting">Γίνεται αποκρυπτογράφηση…</string>
@@ -262,6 +265,7 @@
     <string name="fab_label">Προσθήκη ή μεταφόρτωση</string>
     <string name="failed_to_download">Αποτυχία ενημέρωσης διαχειριστή λήψεων </string>
     <string name="failed_to_print">Απέτυχε να εκτυπώσει το αρχείο</string>
+    <string name="failed_to_start_editor">Ο επεξεργαστής απέτυχε να ξεκινησει</string>
     <string name="fallback_weblogin_back">Πίσω</string>
     <string name="fallback_weblogin_text">Επαναφορά στην παλιά μέθοδο σύνδεσης</string>
     <string name="favorite">Προσθήκη στα αγαπημένα</string>
@@ -508,6 +512,7 @@
     <string name="prefs_theme_title">Θέμα</string>
     <string name="prefs_value_theme_dark">Σκούρο</string>
     <string name="prefs_value_theme_light">Φωτεινό</string>
+    <string name="prefs_value_theme_system">Σύστημα ακόλουθων</string>
     <string name="preview_image_description">Προεπισκόπηση εικόνας</string>
     <string name="preview_image_error_no_local_file">Δεν υπάρχει τοπικό αρχείο για προβολή</string>
     <string name="preview_image_error_unknown_format">Αδυναμία προβολής εικόνας</string>
@@ -539,7 +544,9 @@
     <string name="saml_authentication_wrong_pass">Εσφαλμένο συνθηματικό</string>
     <string name="scanQR_description">Είσοδος μέσω κωδικού QR</string>
     <string name="screenshot_01_gridView_heading">Προστασία των δεδομένων σας</string>
+    <string name="screenshot_01_gridView_subline">αυτόνομη λειτουργία</string>
     <string name="screenshot_02_listView_heading">Περιήγηση και διαμοιρασμός</string>
+    <string name="screenshot_02_listView_subline">όλες τις ενέργειες στα χέρια σας</string>
     <string name="screenshot_03_drawer_heading">Δραστρηριότητα, κοινόχρηστα, ...</string>
     <string name="screenshot_03_drawer_subline">όλα άμεσα προσβάσιμα</string>
     <string name="screenshot_04_accounts_heading">Όλοι οι λογαριασμοί σας</string>
@@ -601,10 +608,12 @@
     <string name="share_with_edit_title">Διαμοιρασμός με %1$s</string>
     <string name="share_with_title">Διαμοιρασμός με…</string>
     <string name="share_with_user_section_title">Διαμοιρασμός με χρήστες και ομάδες</string>
+    <string name="shared_avatar_desc">Εικόνα προφίλ από κοινόχρηστο χρήστη</string>
     <string name="shared_icon_share">διαμοιρασμός</string>
     <string name="shared_icon_shared">διαμοιρασμένα</string>
     <string name="shared_icon_shared_via_link">Διαμοιράστηκε μέσω συνδέσμου</string>
     <string name="shared_with_you_by">Διαμοιράστηκε με εσάς από τον %1$s</string>
+    <string name="sharee_add_failed">Η προσθήκη κοινής χρήσης απέτυχε</string>
     <string name="signup_with_provider">Σύνδεση με πάροχο</string>
     <string name="single_sign_on_request_token" formatted="true">Επιτρέπεται το %1$sνα έχει πρόσβαση στον λογαριασμό σας Nextclound %2$s ?</string>
     <string name="sort_by">Ταξινόμηση κατά</string>
@@ -649,7 +658,11 @@
     <string name="storage_music">Μουσική</string>
     <string name="storage_pictures">Φωτογραφίες</string>
     <string name="store_full_desc">Μια αυτόνομη πλατφόρμα που έχετε τον πλήρη έλεγχο.\n\nFeatures:\n* Εύκολο, μοντέρνο, συμβατό με το θέμα του διακομιστή σας\n* Μεταφόρτωση αρχείων στον Nextclound διακομιστή σας\n* Κοινή χρήση\n* Κρατήστε τα αγαπημένα σας αρχεία και φακέλους συγχρονισμένα\n* Αναζήτηση σε όλ΄ους τους φακέλους στον διακομιστή σας\n* Αυτόματη μεταφόρτωση φωτογραφιών και βίντεο από την συσκευή σας\n* Ενημέρωση με ειδοποιήσεις\n* Υποστήριξη πολλαπλών λογαριασμών\n* Ασφαλή σύνδεση στα δεδομένα σας με χρήση δακτυλικού αποτυπώματος ή κωδικού PIN\n* Συνεργασία με DADVx5 (γνωστό ως DAVdroid) για εύκολη εγκατάσταση και συγχρονισμό ημερολογίου &amp;\n\nΠαρακαλώ αναφέρετε τα σφάλματα στο https://github.com/nextcloud/android/issues και συζητήστε για την εφαρμογή στο https://help.nextcloud.com/c/clients/android\n\n Καινούργιος στο Nextclound? To Nextclound είναι ένας διακομιστής &amp;συγχρονισμού αρχείων κοινόχρηστων και επικοινωνίας. Ένα ελεύθερο λογισμικό, οπου μπορείτε να το υποστηρίξετε μόνοι σας ή επι πληρωμής. Με αυτό τον τρόπο έχετε τον έλεγχο των φωτογραφιών σας, του ημερολογίου σας και των δεδομένων των επαφών σας, των αρχείων σας και οτιδήποτε άλλο.\n\nΕνημερωθείτε για το Nextclound στο https://nextcloud.com</string>
+    <string name="store_full_dev_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο. \nΑυτή είναι η επίσημη αναπτυξιακή έκδοση, περιλαμβάνει καθημερινό δείγμα οποιασδήποτε νέας μη δοκιμασμένης λειτουργικότητας, η οποία μπορεί να προκαλέσει αστάθεια και απώλεια δεδομένων. Η εφαρμογή προορίζεται για χρήστες που θέλουν να δοκιμάσουν και να αναφέρουν σφάλματα. Μην το χρησιμοποιείτε για την κανονική εργασία σας! \n\nΗ επίσημη έκδοση dev και η κανονική έκδοση είναι διαθέσιμες στο F-droid και μπορούν να εγκατασταθούν ταυτόχρονα.</string>
+    <string name="store_short_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο.</string>
+    <string name="store_short_dev_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο (προεπισκόπηση έκδοσης dev)</string>
     <string name="stream">Ροή με...</string>
+    <string name="stream_not_possible_headline">Η εσωτερική ροή δεν είναι δυνατή</string>
     <string name="stream_not_possible_message">Παρακαλούμε να γίνει λήψη των μέσων ή να χρησιμοποιηθεί εξωτερική εφαρμογή</string>
     <string name="subject_shared_with_you">Ο \"%1$s\" διαμοιράστηκε μαζί σας</string>
     <string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
@@ -662,7 +675,9 @@
     <string name="sync_fail_ticker_unauthorized">Ο συγχρονισμός απέτυχε, συνδεθείτε ξανά</string>
     <string name="sync_file_nothing_to_do_msg">Τα περιεχόμενα του αρχείου έχουν ήδη συγχρονιστεί</string>
     <string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
+    <string name="sync_foreign_files_forgotten_explanation">Από την έκδοση 1.3.16, τα αρχεία που μεταφορτώνονται από αυτήν τη συσκευή, αντιγράφονται στον τοπικό %1$s φάκελο για να αποφευχθεί η απώλεια δεδομένων όταν συγχρονίζεται ένα μόνο αρχείο με πολλούς λογαριασμούς. \n\n Λόγω αυτής της αλλαγής, όλα τα αρχεία που φορτώθηκαν με παλαιότερες εκδόσεις αυτής της εφαρμογής αντιγράφηκαν στο φάκελο%2$s. Ωστόσο, ένα σφάλμα εμπόδισε την ολοκλήρωση αυτής της λειτουργίας κατά τη διάρκεια του συγχρονισμού. Μπορείτε είτε να αφήσετε το αρχείο(α) όπως είναι και να διαγράψετε τη σύνδεση %3$s ή να μετακινήσετε το αρχείο(α) στο φάκελο %1$sκαι να διατηρήσετε τον σύνδεσμο %4$s. \n\nΕδώ αναφέρονται τα τοπικά αρχεία και το απομακρυσμένο αρχείο(α) %5$sστο οποίο συνδέονταν.</string>
     <string name="sync_foreign_files_forgotten_ticker">Ορισμένα τοπικά αρχεία ξεχάστηκαν</string>
+    <string name="sync_in_progress">Λήψη της πιο πρόσφατης έκδοσης του αρχείου.</string>
     <string name="sync_status_button">Κουμπί κατάστασης συγχρονισμού</string>
     <string name="sync_string_files">Αρχεία</string>
     <string name="synced_folder_settings_button">Κουμπί ρυθμίσεων</string>
@@ -692,9 +707,11 @@
     <string name="unshare_link_file_no_exist">Αδυναμία αναίρεσης κοινής χρήσης.  Παρακαλώ ελέγξτε αν το αρχείο υπάρχει</string>
     <string name="unshare_link_forbidden_permissions">για να αναιρέσετε το διαμοιρασμό αυτού του αρχείου</string>
     <string name="unsharing_failed">Απέτυχε η αναίρεση διαμοιρασμού</string>
+    <string name="untrusted_domain">Πρόσβαση μέσω μη αξιόπιστου τομέα. Ανατρέξτε στην τεκμηρίωση για περισσότερες πληροφορίες.</string>
     <string name="update_link_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια ενημέρωσης του διαμοιρασμού</string>
     <string name="update_link_file_no_exist">Αδυναμία ενημέρωσης. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει</string>
     <string name="update_link_forbidden_permissions">για να ενημερώσετε αυτό τον διαμοιρασμό</string>
+    <string name="updating_share_failed">Η ενημέρωση της κοινής χρήσης απέτυχε</string>
     <string name="upload_cannot_create_file">Αδυναμία δημιουργίας τοπικού αρχείου</string>
     <string name="upload_chooser_title">Μεταφόρτωση από…</string>
     <string name="upload_content_from_other_apps">Μεταφόρτωση περιεχομένου από άλλες εφαρμογές</string>
@@ -706,6 +723,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Απόσπασμα αρχείου κειμένου(.txt)</string>
     <string name="upload_file_dialog_title">Εισαγωγή ονόματος και τύπου αρχείου μεταφόρτωσης</string>
     <string name="upload_files">Μεταφόρτωση αρχείων</string>
+    <string name="upload_item_action_button">Κουμπί μεταφόρτωσης αντικειμένου</string>
     <string name="upload_list_empty_headline">Μη διαθέσιμες μεταφορτώσεις</string>
     <string name="upload_list_empty_text_auto_upload">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
     <string name="upload_local_storage_full">Η τοπική αποθήκη είναι πλήρης</string>
@@ -776,6 +794,7 @@
     <string name="wait_a_moment">Παρακαλούμε περιμένετε…</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>
+    <string name="what_s_new_image">Ποιά είναι η νέα εικόνα</string>
     <string name="whats_new_skip">Παράλειψη</string>
     <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>
     <plurals name="sync_fail_in_favourites_content">
