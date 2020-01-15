@@ -322,7 +322,7 @@
     <string name="file_migration_updating_index">Actualizando o índice…</string>
     <string name="file_migration_use_data_folder">Usar</string>
     <string name="file_migration_waiting_for_unfinished_sync">Agardando que rematen as sincronizacións…</string>
-    <string name="file_not_found">Ficheiro non atopado</string>
+    <string name="file_not_found">Non se atopou o ficheiro</string>
     <string name="file_not_synced">Non foi posíbel sincronizar o ficheiro. Amosase a última versión dispoñíbel.</string>
     <string name="file_rename">Renomear</string>
     <string name="file_version_restored_error">Produciuse un erro ao restaurar a versión do ficheiro</string>

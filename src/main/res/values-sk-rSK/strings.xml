@@ -180,6 +180,8 @@
     <string name="create_new_folder">Vytvoriť nový priečinok</string>
     <string name="create_new_presentation">Vytvoriť novú prezentáciu</string>
     <string name="create_new_spreadsheet">Vytvoriť novú tabuľku</string>
+    <string name="create_rich_workspace">Pridať informácie o priečinku</string>
+    <string name="creates_rich_workspace">vytvorí informácie o priečinku</string>
     <string name="credentials_disabled">Prihlasovacie údaje zakázané</string>
     <string name="date_unknown">Neznámy</string>
     <string name="default_credentials_wrong">Nesprávne prihlasovacie údaje</string>
@@ -230,6 +232,7 @@
     <string name="drawer_quota_unlimited">%1$s použitých</string>
     <string name="drawer_synced_folders">Automatické nahratie</string>
     <string name="edit_permission_label">upraviť</string>
+    <string name="edit_rich_workspace">upraviť informácie o pričinku</string>
     <string name="encrypted">Nastaviť ako zašifrované</string>
     <string name="end_to_end_encryption_confirm_button">Nastavenie šifrovania</string>
     <string name="end_to_end_encryption_decrypting">Dešifrujem…</string>
@@ -262,6 +265,7 @@
     <string name="fab_label">Pridať alebo nahrať</string>
     <string name="failed_to_download">Nepodarilo sa odovzdať súbor správcovi preberania</string>
     <string name="failed_to_print">Nepodarilo sa vytlačiť súbor</string>
+    <string name="failed_to_start_editor">Nepodarilo sa spustiť editor</string>
     <string name="fallback_weblogin_back">Späť</string>
     <string name="fallback_weblogin_text">Vrátiť sa k pôvodnému spôsobu prihlásenia</string>
     <string name="favorite">Pridať do obľúbených</string>

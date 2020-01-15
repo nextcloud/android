@@ -442,8 +442,10 @@
     <string name="share_privilege_can_edit_delete">می توان حذف کرد</string>
     <string name="share_privilege_can_share">قابل به اشتراک گذاری</string>
     <string name="share_privilege_unshare">لغو اشتراک</string>
+    <string name="share_send_note">توجه داشته باشید به گیرنده</string>
     <string name="share_via_link_edit_permission_label">اجازه‌ی ویرایش</string>
     <string name="share_via_link_expiration_date_label">تنظیم تاریخ انقضا</string>
+    <string name="share_via_link_hide_download">پنهان کردن بارگیری</string>
     <string name="share_via_link_password_label">Protect with password</string>
     <string name="share_via_link_section_title">اشتراک گذاشتن لینک</string>
     <string name="shared_icon_share">اشتراک گذاری</string>
