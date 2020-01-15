@@ -81,6 +81,7 @@
     <string name="autoupload_create_new_custom_folder">Stvorite novu postavku za prilagođenu mapu</string>
     <string name="autoupload_custom_folder">Postavite prilagođenu mapu</string>
     <string name="autoupload_disable_power_save_check">Onemogućite provjeru uštede energije</string>
+    <string name="autoupload_hide_folder">Sakrij mapu</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Zatvori</string>
     <string name="battery_optimization_disable">Onemogući</string>
@@ -507,6 +508,7 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_value_theme_dark">Tamno</string>
     <string name="prefs_value_theme_light">Svijetlo</string>
+    <string name="prefs_value_theme_system">Prati sustav</string>
     <string name="preview_image_description">Pretpregled slike</string>
     <string name="preview_image_error_no_local_file">Nema lokalne datoteke za pretpregled</string>
     <string name="preview_image_error_unknown_format">Nije moguće prikazati sliku</string>
@@ -538,13 +540,17 @@
     <string name="saml_authentication_wrong_pass">Pogrešna zaporka</string>
     <string name="scanQR_description">Prijavite se putem QR koda</string>
     <string name="screenshot_01_gridView_heading">Zaštita podataka</string>
+    <string name="screenshot_01_gridView_subline">samopostavljeno pospješivanje produktivnosti</string>
     <string name="screenshot_02_listView_heading">Pretražujte i dijelite</string>
     <string name="screenshot_02_listView_subline">jednostavan pristup svim mogućnostima i radnjama</string>
+    <string name="screenshot_03_drawer_heading">Aktivnosti, dijeljenja…</string>
     <string name="screenshot_03_drawer_subline">brz pristup svemu</string>
     <string name="screenshot_04_accounts_heading">Svi vaši računi</string>
     <string name="screenshot_04_accounts_subline">na jednom mjestu</string>
     <string name="screenshot_05_autoUpload_heading">Automatsko otpremanje</string>
     <string name="screenshot_05_autoUpload_subline">fotografija i videozapisa</string>
+    <string name="screenshot_06_davdroid_heading">Kalendar i kontakti</string>
+    <string name="screenshot_06_davdroid_subline">Sinkronizacija s DAVx5</string>
     <string name="search_users_and_groups_hint">Pretraži korisnike i grupe</string>
     <string name="select_all">Odaberi sve</string>
     <string name="select_template">Odaberi predložak</string>
@@ -674,6 +680,7 @@
     <string name="synced_folders_configure_folders">Konfiguriraj mape</string>
     <string name="synced_folders_loading_folders">Učitavanje mapa...</string>
     <string name="synced_folders_new_info">Trenutačno otpremanje datoteka potpuno je obnovljeno. Ponovno konfigurirajte automatsko otpremanje iz glavnog izbornika.\n\nUživajte u novoj i proširenoj značajci automatskog otpremanja datoteka.</string>
+    <string name="synced_folders_no_results">Nije pronađena nijedna medijska mapa</string>
     <string name="synced_folders_preferences">Preferencije za automatsko otpremanje</string>
     <string name="synced_folders_preferences_folder_path">Za %1$s</string>
     <string name="synced_folders_type">Vrsta</string>
@@ -805,6 +812,11 @@
         <item quantity="one">Datoteka %1$d</item>
         <item quantity="few">Datoteke %1$d</item>
         <item quantity="other">Datoteke %1$d</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Prikaži %1$d skrivenu mapu</item>
+        <item quantity="few">Prikaži %1$d skrivene mape</item>
+        <item quantity="other">Prikaži %1$d skrivenih mapa</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">Odabrano je %d</item>

@@ -227,7 +227,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
     public Optional<User> getUser(CharSequence accountName) {
         Account account = getAccountByName(accountName.toString());
         User user =  createUserFromAccount(account);
-        return Optional.of(user);
+        return Optional.ofNullable(user);
     }
 
     @Override

@@ -29,7 +29,10 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.PorterDuff;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -331,6 +334,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             PreviewTextFragment.setText(headerViewHolder.headerText, text, null, activity, true, true);
             headerViewHolder.headerView.setOnClickListener(v -> ocFileListFragmentInterface.onHeaderClicked());
+
+            Shader myShader = new LinearGradient(0,
+                                                 400,
+                                                 0,
+                                                 300,
+                                                 Color.WHITE,
+                                                 Color.BLACK,
+                                                 Shader.TileMode.CLAMP);
+
+            headerViewHolder.headerText.getPaint().setShader(myShader);
         } else {
             OCFileListGridImageViewHolder gridViewHolder = (OCFileListGridImageViewHolder) holder;
 

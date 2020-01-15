@@ -81,6 +81,7 @@
     <string name="autoupload_create_new_custom_folder">Ustvari novo nastavitveno mapo po meri</string>
     <string name="autoupload_custom_folder">Nastavitev mape po meri</string>
     <string name="autoupload_disable_power_save_check">Onemogoči preverjanje porabe energije</string>
+    <string name="autoupload_hide_folder">Skrij mapo</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Zapri</string>
     <string name="battery_optimization_disable">Onemogoči</string>
@@ -178,6 +179,8 @@
     <string name="create_new_folder">Ustvari novo mapo</string>
     <string name="create_new_presentation">Ustvari novo predstavitev</string>
     <string name="create_new_spreadsheet">Ustvari novo preglednico</string>
+    <string name="create_rich_workspace">Dodaj podrobnosti mape</string>
+    <string name="creates_rich_workspace">ustvari podrobnosti mape</string>
     <string name="credentials_disabled">Poverila so onemogočena</string>
     <string name="date_unknown">Neznano</string>
     <string name="default_credentials_wrong">Nepravilna poverila</string>
@@ -228,6 +231,7 @@
     <string name="drawer_quota_unlimited">Skupaj %1$s</string>
     <string name="drawer_synced_folders">Samodejno pošiljanje</string>
     <string name="edit_permission_label">uredi</string>
+    <string name="edit_rich_workspace">uredi podrobnosti mape</string>
     <string name="encrypted">Nastavi kot šifrirano</string>
     <string name="end_to_end_encryption_confirm_button">Nastavitev šifriranja</string>
     <string name="end_to_end_encryption_decrypting">Poteka odšifriranje ...</string>
@@ -259,6 +263,7 @@
     <string name="fab_label">Dodaj ali pošlji</string>
     <string name="failed_to_download">Podajanje datoteke na upravljalnik prenosov je spodletelo</string>
     <string name="failed_to_print">Tiskanje datoteke je spodletelo</string>
+    <string name="failed_to_start_editor">Začenjanje urejevalnika je spodletelo</string>
     <string name="fallback_weblogin_back">Nazaj</string>
     <string name="fallback_weblogin_text">Povrni na star način prijave</string>
     <string name="favorite">Dodaj med priljubljene</string>
@@ -499,6 +504,9 @@
     <string name="preview_image_error_no_local_file">Ni krajevne datoteke za predogled</string>
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
     <string name="privacy">Zasebnost</string>
+    <string name="push_notifications_not_implemented">Potisna obvestila so onemogočena zaradi odvisnosti od storitev Google Play.</string>
+    <string name="push_notifications_old_login">Ni mogoče prikazati potisnih obvestil zaradi pretečene prijavne seje. Priporočljivo je ponovno dodati račun med nastavitvami.</string>
+    <string name="push_notifications_temp_error">Potisna obvestila trenutno niso na voljo.</string>
     <string name="recommend_subject">Poskusite %1$s na vaši napravi!</string>
     <string name="recommend_text">Želim priporočiti program %1$s!\nPrejeti ga je mogoče prek: %2$s</string>
     <string name="recommend_urls">%1$s ali %2$s</string>
@@ -527,11 +535,14 @@
     <string name="screenshot_04_accounts_subline">na enem mestu</string>
     <string name="screenshot_05_autoUpload_heading">Samodejno pošiljanje</string>
     <string name="screenshot_05_autoUpload_subline">za vaše slike in posnetke</string>
+    <string name="screenshot_06_davdroid_heading">Koledar in stiki</string>
+    <string name="screenshot_06_davdroid_subline">Uskladi z DAVx5</string>
     <string name="search_users_and_groups_hint">Iskanje uporabnikov in skupin</string>
     <string name="select_all">Izberi vse</string>
-    <string name="select_template">IZbor predloge</string>
+    <string name="select_template">Izbor predloge</string>
     <string name="send">Pošlji</string>
     <string name="send_note">Pošlji sporočilo prejemniku</string>
+    <string name="sendbutton_description">Ikona gumba za pošiljanje</string>
     <string name="set_as">Nastavi kot</string>
     <string name="set_picture_as">Uporabi sliko kot</string>
     <string name="setup_btn_connect">Poveži</string>
@@ -544,6 +555,7 @@
     <string name="share_get_public_link_button">Pridobi povezavo</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_internal_link">Notranja povezava mesta souporabe</string>
+    <string name="share_internal_link_text">Deluje le za uporabnike z dostopom do %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( pri %2$s )</string>
     <string name="share_link_empty_password">Vpisati je treba geslo.</string>
     <string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
@@ -562,6 +574,7 @@
     <string name="share_privilege_can_share">lahko omogoči souporabo</string>
     <string name="share_privilege_unshare">Prekini souporabo</string>
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
+    <string name="share_room_clarification">%1$s (pogovor)</string>
     <string name="share_search">Ime, ID zveznega oblaka ali elektronski naslov ...</string>
     <string name="share_send_note">Sporočilo za prejemnika</string>
     <string name="share_via_link_edit_permission_label">Dovoli urejanje</string>
@@ -622,6 +635,7 @@
     <string name="storage_pictures">Slike</string>
     <string name="stream">Pretakaj s programom ...</string>
     <string name="stream_not_possible_headline">Notranji pretok ni mogoč</string>
+    <string name="stream_not_possible_message">Poskusite prejeti predstavno vsebino, ali pa uporabiti zunanji program.</string>
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
     <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
