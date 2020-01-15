@@ -25,9 +25,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.annotation.SuppressLint;
-import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -233,21 +231,6 @@ public class RichDocumentsEditorWebView extends EditorWebView {
         File targetFile = new File(FileStorageUtils.getTemporalPath(account.getName()) + "/print.pdf");
 
         new PrintAsyncTask(targetFile, url.toString(), new WeakReference<>(this)).execute();
-    }
-
-    private void downloadFile(Uri url) {
-        DownloadManager downloadmanager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-
-        if (downloadmanager == null) {
-            DisplayUtils.showSnackMessage(webview, getString(R.string.failed_to_download));
-            return;
-        }
-
-        DownloadManager.Request request = new DownloadManager.Request(url);
-        request.allowScanningByMediaScanner();
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
-        downloadmanager.enqueue(request);
     }
 
     @Override
