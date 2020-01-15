@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-    <string name="about_android">%1$s Android应用</string>
+    <string name="about_android">%1$s 安卓应用</string>
     <string name="about_title">关于</string>
     <string name="about_version">版本 %1$s</string>
     <string name="about_version_with_build">版本 %1$s，构建 #%2$s</string>
@@ -62,8 +62,8 @@
     <string name="auth_ssl_general_error_title">SSL 初始化失败</string>
     <string name="auth_ssl_unverified_server_title">无法验证 SSL 服务器的身份</string>
     <string name="auth_testing_connection">测试连接</string>
-    <string name="auth_timeout_title">看起来服务器不太给力</string>
-    <string name="auth_trying_to_login">尝试登陆…</string>
+    <string name="auth_timeout_title">服务器花了太长时间才响应</string>
+    <string name="auth_trying_to_login">正在尝试登录…</string>
     <string name="auth_unauthorized">用户名或密码错误</string>
     <string name="auth_unknown_error_exception_title">未知错误：%1$s</string>
     <string name="auth_unknown_error_http_title">发生了未知的HTTP错误</string>
@@ -106,7 +106,7 @@
     <string name="common_error">错误</string>
     <string name="common_error_out_memory">内存不足</string>
     <string name="common_error_unknown">未知错误</string>
-    <string name="common_loading">加载中</string>
+    <string name="common_loading">正在加载…</string>
     <string name="common_no">否</string>
     <string name="common_ok">确定</string>
     <string name="common_pending">待定</string>
@@ -121,7 +121,7 @@
     <string name="community_beta_headline">测试开发版本</string>
     <string name="community_beta_text">这包括所有即将到来的功能，它处于非常流行的边缘。 可能会发生错误/错误，如果及时，请报告您的发现。</string>
     <string name="community_contribute_forum_forum">论坛</string>
-    <string name="community_contribute_forum_text">帮助别人</string>
+    <string name="community_contribute_forum_text">帮助别人，在</string>
     <string name="community_contribute_github_text">查看，修改和编写代码，有关详细信息，请参阅%1$s</string>
     <string name="community_contribute_headline">活跃的候选版</string>
     <string name="community_contribute_irc_text">在 IRC 上加入此聊天</string>
@@ -144,7 +144,7 @@
     <string name="confirmation_remove_folders_alert">确定删除选中项及其内容？</string>
     <string name="confirmation_remove_local">仅本地</string>
     <string name="conflict_keep_both">保留两者</string>
-    <string name="conflict_message">你想保留哪些文件？ 如果您选择这两个版本，本地文件将附加一个号码。</string>
+    <string name="conflict_message">您要保留哪个文件？ 如果您同时选择这两个版本，则本地文件的名称后将附加一个数字。</string>
     <string name="conflict_title">文件冲突</string>
     <string name="conflict_use_local_version">本地版本</string>
     <string name="conflict_use_server_version">服务器版本</string>
@@ -170,7 +170,7 @@
     <string name="copy_internal_link">复制内部链接</string>
     <string name="copy_internal_link_subline">仅适用于有权限访问此文件夹的用户</string>
     <string name="copy_link">复制链接</string>
-    <string name="copy_move_to_encrypted_folder_not_supported">复制/移动到加密的文件夹目前不支持。</string>
+    <string name="copy_move_to_encrypted_folder_not_supported">目前不支持 复制 / 移动到加密的文件夹。</string>
     <string name="copy_to">复制到…</string>
     <string name="could_not_download_image">无法下载完整图片</string>
     <string name="could_not_retrieve_url">无法获取url</string>
@@ -298,7 +298,7 @@
     <string name="file_list_empty_text_videos">上传一些视频或启动自动上传</string>
     <string name="file_list_empty_text_videos_filter">没有视频。</string>
     <string name="file_list_folder">文件夹</string>
-    <string name="file_list_loading">加载中...</string>
+    <string name="file_list_loading">正在加载...</string>
     <string name="file_list_no_app_for_file_type">此文件类型未设置默认打开程序</string>
     <string name="file_list_seconds_ago">几秒前</string>
     <string name="file_migration_checking_destination">正在检查目的地…</string>
@@ -311,15 +311,15 @@
     <string name="file_migration_failed_not_writable">无法写入目标文件</string>
     <string name="file_migration_failed_while_coping">迁移失败</string>
     <string name="file_migration_failed_while_updating_index">更新索引失败</string>
-    <string name="file_migration_migrating">数据迁移中…</string>
+    <string name="file_migration_migrating">正在迁移数据…</string>
     <string name="file_migration_ok_finished">完成</string>
-    <string name="file_migration_override_data_folder">代替</string>
+    <string name="file_migration_override_data_folder">替换</string>
     <string name="file_migration_preparing">正在准备迁移…</string>
     <string name="file_migration_restoring_accounts_configuration">正在还原账号配置…</string>
     <string name="file_migration_saving_accounts_configuration">正在保存账号配置…</string>
     <string name="file_migration_source_not_readable">您确认更改存储目录到%1$s吗？注意：此操作后一切数据均需重新下载</string>
     <string name="file_migration_source_not_readable_title">源目录不可读！</string>
-    <string name="file_migration_updating_index">更新目录中…</string>
+    <string name="file_migration_updating_index">正在更新目录…</string>
     <string name="file_migration_use_data_folder">使用</string>
     <string name="file_migration_waiting_for_unfinished_sync">等待完整同步…</string>
     <string name="file_not_found">无法找到文件</string>
@@ -335,7 +335,7 @@
     <string name="filename_forbidden_characters">禁用字符: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">文件名中存在至少一个非法字符</string>
     <string name="filename_hint">文件名</string>
-    <string name="files_drop_not_supported">这是一个 Nextcloud 的功能，请更新</string>
+    <string name="files_drop_not_supported">这是一个 Nextcloud 的功能，请升级</string>
     <string name="first_run_1_text">保证您的数据安全并处于您的控制之下</string>
     <string name="first_run_2_text">安全协作和文件交换</string>
     <string name="first_run_3_text">易于使用的网页邮件、日历和联系人</string>
@@ -382,7 +382,7 @@
     <string name="logs_menu_search">搜索日志</string>
     <string name="logs_menu_send">用电子邮箱发送日志</string>
     <string name="logs_status_filtered">日志：%1$d kB，查询匹配 %2$d / %3$d 用时 %4$d 毫秒</string>
-    <string name="logs_status_loading">加载中…</string>
+    <string name="logs_status_loading">正在加载…</string>
     <string name="logs_status_not_filtered">日志：%1$d kB，没有筛选</string>
     <string name="logs_title">日志</string>
     <string name="maintenance_mode">服务器处于维护模式</string>
@@ -397,8 +397,8 @@
     <string name="media_err_unsupported">不支持的媒体编码格式</string>
     <string name="media_forward_description">快进按钮</string>
     <string name="media_notif_ticker">%1$s 音乐播放器</string>
-    <string name="media_play_pause_description">播放暂停按钮</string>
-    <string name="media_rewind_description">倒带按钮</string>
+    <string name="media_play_pause_description">播放 / 暂停按钮</string>
+    <string name="media_rewind_description">快退按钮</string>
     <string name="media_state_playing">%1$s (正在播放)</string>
     <string name="menu_item_sort_by_date_newest_first">新文件在前</string>
     <string name="menu_item_sort_by_date_oldest_first">旧文件在前</string>
@@ -409,7 +409,7 @@
     <string name="move_file_error">尝试移动该文件或文件夹时发生错误</string>
     <string name="move_file_invalid_into_descendent">将文件夹移动到其自己的底层文件夹中是不可能的</string>
     <string name="move_file_invalid_overwrite">该文件已存在于目标文件夹中</string>
-    <string name="move_file_not_found">无法移动文件。 请检查是否存在</string>
+    <string name="move_file_not_found">无法移动文件。 请检查该文件是否存在</string>
     <string name="move_to">移动到…</string>
     <string name="network_error_connect_timeout_exception">等待服务器时发生错误。 无法完成操作。</string>
     <string name="network_error_socket_exception">连接到服务器时发生错误。</string>
@@ -430,7 +430,7 @@
     <string name="notification_channel_download_description">显示下载进度</string>
     <string name="notification_channel_download_name">下载提醒频道</string>
     <string name="notification_channel_file_observer_description">监视文件修改</string>
-    <string name="notification_channel_file_observer_name">文件观察者</string>
+    <string name="notification_channel_file_observer_name">文件监视器</string>
     <string name="notification_channel_file_sync_description">显示文件同步进度和结果</string>
     <string name="notification_channel_file_sync_name">文件同步</string>
     <string name="notification_channel_general_description">有新消息时显示通知</string>
@@ -468,7 +468,7 @@
     <string name="placeholder_sentence">这是一个占位符</string>
     <string name="placeholder_timestamp">2012/05/18 下午12:23 </string>
     <string name="power_save_check_dialog_message">禁用节能检查可能会导致在低电池电量状态下仍然上传文件！</string>
-    <string name="pref_behaviour_entries_delete_file">删除</string>
+    <string name="pref_behaviour_entries_delete_file">已删除</string>
     <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
     <string name="prefs_add_account">添加账号</string>
@@ -522,14 +522,14 @@
     <string name="push_notifications_old_login">由于登录会话已过期，因此没有推送通知。 请考虑重新添加您的账号。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
     <string name="recommend_subject">在你的设备上尝试%1$s！</string>
-    <string name="recommend_text">我想邀请你在你的设备上使用%1$s。\n这里下载：%2$s</string>
-    <string name="recommend_urls">%1$s或%2$s</string>
+    <string name="recommend_text">我想邀请你在你的设备上使用 %1$s。\n在这里下载：%2$s</string>
+    <string name="recommend_urls">%1$s 或 %2$s</string>
     <string name="remote_file_fetch_failed">查找文件失败！</string>
     <string name="remove_fail_msg">删除失败</string>
     <string name="remove_notification_failed">移除通知失败</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已删除</string>
-    <string name="rename_dialog_title">请输出新的名字</string>
+    <string name="rename_dialog_title">输入一个新的名称</string>
     <string name="rename_local_fail_msg">本地副本无法重命名，尝试其他名称</string>
     <string name="rename_server_fail_msg">无法重命名，名字已经被占用</string>
     <string name="reshare_not_allowed">不允许再次共享</string>
@@ -556,7 +556,7 @@
     <string name="screenshot_06_davdroid_heading">日历和联系人</string>
     <string name="screenshot_06_davdroid_subline">与DAVx5同步</string>
     <string name="search_users_and_groups_hint">搜索用户和组</string>
-    <string name="select_all">选择全部</string>
+    <string name="select_all">全部选择</string>
     <string name="select_template">选择模板</string>
     <string name="send">发送</string>
     <string name="send_note">发送备注到收件人</string>
@@ -567,13 +567,13 @@
     <string name="share">共享</string>
     <string name="share_add_user_or_group">添加用户或组</string>
     <string name="share_dialog_title">共享</string>
-    <string name="share_email_clarification">%1$s (邮件)</string>
+    <string name="share_email_clarification">%1$s (电子邮件)</string>
     <string name="share_expiration_date_label">过期 %1$s</string>
     <string name="share_file">共享 %1$s</string>
     <string name="share_get_public_link_button">获取链接</string>
-    <string name="share_group_clarification">%1$s (组)</string>
+    <string name="share_group_clarification">%1$s (群组)</string>
     <string name="share_internal_link">共享内部链接</string>
-    <string name="share_internal_link_text">仅适用于有权限访问此%1$s的用户</string>
+    <string name="share_internal_link_text">仅适用于有权限访问 %1$s 的用户</string>
     <string name="share_known_remote_clarification">%1$s ( 在 %2$s )</string>
     <string name="share_link_empty_password">您必须输入密码</string>
     <string name="share_link_file_error">共享文件或目录出错</string>
@@ -604,7 +604,7 @@
     <string name="share_via_link_password_title">安全</string>
     <string name="share_via_link_section_title">共享链接</string>
     <string name="share_via_link_send_link_label">发送链接</string>
-    <string name="share_via_link_unset_password">未安装的</string>
+    <string name="share_via_link_unset_password">未设置</string>
     <string name="share_with_edit_title">与 %1$s 共享</string>
     <string name="share_with_title">共享给…</string>
     <string name="share_with_user_section_title">共享给其他用户或组</string>
@@ -613,7 +613,7 @@
     <string name="shared_icon_shared">已共享</string>
     <string name="shared_icon_shared_via_link">通过链接共享</string>
     <string name="shared_with_you_by">您已通过 %1$s 共享</string>
-    <string name="sharee_add_failed">新建分享失败</string>
+    <string name="sharee_add_failed">新建共享失败</string>
     <string name="signup_with_provider">与提供商签约</string>
     <string name="single_sign_on_request_token" formatted="true">是否允许%1$s访问您的 Nextcloud 账号%2$s？</string>
     <string name="sort_by">排序方式</string>
@@ -625,7 +625,7 @@
     <string name="sort_by_size_descending">大文件在前</string>
     <string name="ssl_validator_btn_details_hide">隐藏</string>
     <string name="ssl_validator_btn_details_see">详细信息</string>
-    <string name="ssl_validator_header">服务器身份无法验证</string>
+    <string name="ssl_validator_header">无法验证服务器身份</string>
     <string name="ssl_validator_label_C">国家：</string>
     <string name="ssl_validator_label_CN">通用名称：</string>
     <string name="ssl_validator_label_L">地区：</string>
@@ -647,7 +647,7 @@
     <string name="ssl_validator_reason_cert_expired">- 服务器证书过期</string>
     <string name="ssl_validator_reason_cert_not_trusted">- 不受信任的服务器证书</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- 服务器证书时间比当前时间还晚</string>
-    <string name="ssl_validator_reason_hostname_not_verified">- 主机名与证书中的记录不匹配</string>
+    <string name="ssl_validator_reason_hostname_not_verified">- 网址与证书中的主机名不匹配</string>
     <string name="storage_camera">相机</string>
     <string name="storage_choose_location">选择存储位置</string>
     <string name="storage_description_default">默认</string>
@@ -686,21 +686,21 @@
     <string name="synced_folder_settings_button">设置按钮</string>
     <string name="synced_folders_configure_folders">配置文件夹</string>
     <string name="synced_folders_loading_folders">正在加载文件夹…</string>
-    <string name="synced_folders_new_info">即时上传已经完全改版。 从主菜单中重新配置自动上传。\ n \ n享受新的扩展自动上传。</string>
+    <string name="synced_folders_new_info">即时上传已被彻底修改。 从主菜单中重新配置自动上传。\n\n请享受新的可扩展的自动上传。</string>
     <string name="synced_folders_no_results">未找到媒体文件夹</string>
     <string name="synced_folders_preferences">自动上传的首选项</string>
-    <string name="synced_folders_preferences_folder_path">从 %1$s</string>
+    <string name="synced_folders_preferences_folder_path">为 %1$s</string>
     <string name="synced_folders_type">类型</string>
     <string name="synced_icon">已同步</string>
     <string name="tags">标签</string>
-    <string name="test_server_button">测试服务连接</string>
+    <string name="test_server_button">测试服务端连接</string>
     <string name="thumbnail">缩略图</string>
-    <string name="timeout_richDocuments">加载持续很久...</string>
+    <string name="timeout_richDocuments">加载需要很长时间...</string>
     <string name="trashbin_activity_title">已删除的文件</string>
-    <string name="trashbin_empty_headline">无已删除文件</string>
+    <string name="trashbin_empty_headline">没有被删除的文件</string>
     <string name="trashbin_empty_message">你可以在此处恢复已删除的文件</string>
-    <string name="trashbin_file_not_deleted">文件 %1$s 无法删除！</string>
-    <string name="trashbin_file_not_restored">文件 %1$s 无法恢复！</string>
+    <string name="trashbin_file_not_deleted">文件 %1$s 无法被删除！</string>
+    <string name="trashbin_file_not_restored">文件 %1$s 无法被恢复！</string>
     <string name="trashbin_loading_failed">加载回收站失败！</string>
     <string name="trashbin_not_emptied">文件无法永久删除！</string>
     <string name="unread_comments">有未读评论</string>
@@ -709,12 +709,12 @@
     <string name="unshare_link_file_error">解除文件或目录共享时出错</string>
     <string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在</string>
     <string name="unshare_link_forbidden_permissions">取消共享该文件</string>
-    <string name="unsharing_failed">取消分享失败</string>
+    <string name="unsharing_failed">取消共享失败</string>
     <string name="untrusted_domain">通过不受信任的域名访问。有关进一步的信息，请参阅文档。</string>
     <string name="update_link_file_error">更新共享时发生错误</string>
     <string name="update_link_file_no_exist">无法上传，请检查文件是否存在</string>
     <string name="update_link_forbidden_permissions">更新共享</string>
-    <string name="updating_share_failed">更新分享失败</string>
+    <string name="updating_share_failed">更新共享失败</string>
     <string name="upload_cannot_create_file">无法新建本地文件</string>
     <string name="upload_chooser_title">上传自...</string>
     <string name="upload_content_from_other_apps">上传来自其它应用的内容</string>
@@ -732,7 +732,7 @@
     <string name="upload_local_storage_full">本地存储已满</string>
     <string name="upload_local_storage_not_copied">文件无法被复制到本地存储</string>
     <string name="upload_lock_failed">锁定文件夹失败</string>
-    <string name="upload_old_android">加密功能仅适用于安卓5.0及以上版本</string>
+    <string name="upload_old_android"><![CDATA[加密功能仅适用于安卓 5.0 及以上版本]]></string>
     <string name="upload_query_move_foreign_files">空间不足将阻止将所选文件复制到%1$s文件夹中。 你想把它们移到那里吗？</string>
     <string name="upload_sync_conflict">同步时发生异常，请手动同步</string>
     <string name="upload_unknown_error">未知错误</string>
@@ -757,13 +757,13 @@
     <string name="uploader_upload_forbidden_permissions">上传到此文件夹</string>
     <string name="uploader_upload_in_progress_content">%1$d%% 正在上传 %2$s</string>
     <string name="uploader_upload_in_progress_ticker">正在上传…</string>
-    <string name="uploader_upload_succeeded_content_single">%1$s 已上传</string>
+    <string name="uploader_upload_succeeded_content_single">已上传了 %1$s</string>
     <string name="uploader_wrn_no_account_quit_btn_text">退出</string>
     <string name="uploader_wrn_no_account_setup_btn_text">安装</string>
     <string name="uploader_wrn_no_account_text">您的设备上没有账号 %1$s。 请先设置一个账号。</string>
-    <string name="uploader_wrn_no_account_title">未找到账号</string>
+    <string name="uploader_wrn_no_account_title">没有找到账号</string>
     <string name="uploads_view_group_current_uploads">当前</string>
-    <string name="uploads_view_group_failed_uploads">加载失败，等待重启</string>
+    <string name="uploads_view_group_failed_uploads">失败 / 等待重启</string>
     <string name="uploads_view_group_finished_uploads">已上传</string>
     <string name="uploads_view_later_waiting_to_upload">等待上传</string>
     <string name="uploads_view_title">上传</string>
@@ -779,15 +779,15 @@
     <string name="uploads_view_upload_status_service_interrupted">应用程式已终止</string>
     <string name="uploads_view_upload_status_succeeded">已完成</string>
     <string name="uploads_view_upload_status_unknown_fail">未知错误</string>
-    <string name="uploads_view_upload_status_virus_detected">检测到病毒。不能完成上传！</string>
-    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">等待退出省电模式</string>
-    <string name="uploads_view_upload_status_waiting_for_charging">等待收费</string>
+    <string name="uploads_view_upload_status_virus_detected">检测到病毒。无法完成上传！</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">等待退出节能模式</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">等待充电</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">等待 Wi-Fi 连接</string>
     <string name="user_icon">用户</string>
     <string name="user_info_address">地址</string>
-    <string name="user_info_email">邮件</string>
+    <string name="user_info_email">电子邮箱</string>
     <string name="user_info_phone">电话号码</string>
-    <string name="user_info_twitter">推特</string>
+    <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">网站</string>
     <string name="user_information_retrieval_error">检索用户信息时报错</string>
     <string name="userinfo_no_info_headline">没有设置个人信息</string>
@@ -795,8 +795,8 @@
     <string name="username">用户名</string>
     <string name="version_dev_download">下载</string>
     <string name="wait_a_moment">请稍等…</string>
-    <string name="wait_checking_credentials">检查保存的证书</string>
-    <string name="wait_for_tmp_copy_from_private_storage">从私有存储中拷贝文件</string>
+    <string name="wait_checking_credentials">正在检查保存的证书</string>
+    <string name="wait_for_tmp_copy_from_private_storage">正在从私有存储中复制文件</string>
     <string name="what_s_new_image">有什么新图片</string>
     <string name="whats_new_skip">跳过</string>
     <string name="whats_new_title">新建%1$s</string>
@@ -807,15 +807,15 @@
         <item quantity="other">未能从%2$s文件夹复制%1$d个文件到</item>
     </plurals>
     <plurals name="file_list__footer__folder">
-        <item quantity="other">%1$d文件夹</item>
+        <item quantity="other">%1$d个文件夹</item>
     </plurals>
     <plurals name="file_list__footer__file">
-        <item quantity="other">%1$d文件</item>
+        <item quantity="other">%1$d个文件</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="other">显示 %1$d 个隐藏文件夹</item>
     </plurals>
     <plurals name="items_selected_count">
-        <item quantity="other">%d选定</item>
+        <item quantity="other">已选择 %d 个</item>
     </plurals>
 </resources>
