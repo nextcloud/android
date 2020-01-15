@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.activity
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
@@ -56,6 +57,10 @@ class TextEditorWebView : EditorWebView() {
         }
 
         webview.addJavascriptInterface(MobileInterface(), "DirectEditingMobileInterface")
+
+        webview.setDownloadListener({ url, userAgent, contentDisposition, mimetype, contentLength ->
+            downloadFile(Uri.parse(url))
+        })
 
         loadUrl(intent.getStringExtra(ExternalSiteWebView.EXTRA_URL))
     }
