@@ -336,6 +336,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        menu.removeItem(R.id.action_search);
         inflater.inflate(R.menu.item_file, menu);
     }
 
