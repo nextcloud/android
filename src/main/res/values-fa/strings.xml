@@ -176,6 +176,7 @@
     <string name="create_new_folder">ساختن پوشه جدید</string>
     <string name="create_new_presentation">ساختن ارائه جدید</string>
     <string name="create_new_spreadsheet">ساختن صفحه گسترده جدید</string>
+    <string name="create_rich_workspace">اطلاعات پوشه را اضافه کنید</string>
     <string name="credentials_disabled">اعتبارنامه غیرفعال شده</string>
     <string name="date_unknown">نامشخص</string>
     <string name="default_credentials_wrong">اعتبارنامه نادرست است</string>
