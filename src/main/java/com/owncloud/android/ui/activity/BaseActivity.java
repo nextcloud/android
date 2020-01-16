@@ -182,10 +182,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         if (newAccount == null) {
             /// no account available: force account creation
             createAccount(true);
-
-            if (enableAccountHandling) {
-                finish();
-            }
         } else {
             currentAccount = newAccount;
         }
