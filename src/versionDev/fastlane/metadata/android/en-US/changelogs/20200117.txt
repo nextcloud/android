@@ -1,0 +1,6 @@
+9bf2cbd26 Merge pull request #5214 from nextcloud/fix/search-in-video-preview
+dc3c030e9 Removed search icon in toolbar during media/video preview
+5d15aa4ad [tx-robot] updated from transifex
+3753a184b [tx-robot] updated from transifex
+5849ba257 daily dev 20200115
+library commit: cb8e616b61b94bad121ed3d720476125c0ff252b
