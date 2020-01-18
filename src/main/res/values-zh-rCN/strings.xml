@@ -201,7 +201,7 @@
     <string name="downloader_download_failed_credentials_error">下载失败，请重新登录</string>
     <string name="downloader_download_failed_ticker">下载失败</string>
     <string name="downloader_download_file_not_found">该文件在服务器上不可用</string>
-    <string name="downloader_download_in_progress_content">%1$d%% 下载中 %2$s</string>
+    <string name="downloader_download_in_progress_content">%1$d%% 正在下载 %2$s</string>
     <string name="downloader_download_in_progress_ticker">正在下载…</string>
     <string name="downloader_download_succeeded_content">已下载了 %1$s</string>
     <string name="downloader_download_succeeded_ticker">已下载</string>
@@ -442,7 +442,7 @@
     <string name="notification_channel_upload_description">显示上传进度 </string>
     <string name="notification_channel_upload_name">上传提醒频道</string>
     <string name="notification_icon">通知图标</string>
-    <string name="notifications_loading_activity">通知加载中…</string>
+    <string name="notifications_loading_activity">正在加载通知…</string>
     <string name="notifications_no_results_headline">没有提示</string>
     <string name="notifications_no_results_message">请稍后核对</string>
     <string name="offline_mode">无网络连接</string>
