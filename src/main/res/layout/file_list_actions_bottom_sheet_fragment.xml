@@ -299,4 +299,36 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/menu_create_rich_workspace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/menu_icon_add_folder_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_post_add"
+            android:tint="@color/primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:text="@string/create_rich_workspace"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/bottom_sheet_text_size"
+            android:contentDescription="@string/creates_rich_workspace" />
+
+    </LinearLayout>
+
 </LinearLayout>

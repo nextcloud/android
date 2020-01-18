@@ -66,4 +66,9 @@ public interface OCFileListBottomSheetActions {
      * open template selection for creator @link Creator
      */
     void showTemplate(Creator creator);
+
+    /**
+     * open editor for rich workspace
+     */
+    void createRichWorkspace();
 }
