@@ -26,6 +26,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -376,14 +377,32 @@ public final class BitmapUtils {
      * @param bitmap the original bitmap
      * @return the circular bitmap
      */
-    public static RoundedBitmapDrawable bitmapToCircularBitmapDrawable(Resources resources, Bitmap bitmap) {
+    public static RoundedBitmapDrawable bitmapToCircularBitmapDrawable(Resources resources,
+                                                                       Bitmap bitmap,
+                                                                       float radius) {
         if (bitmap == null) {
             return null;
         }
 
         RoundedBitmapDrawable roundedBitmap = RoundedBitmapDrawableFactory.create(resources, bitmap);
         roundedBitmap.setCircular(true);
+
+        if (radius != -1) {
+            roundedBitmap.setCornerRadius(20);
+        }
+
         return roundedBitmap;
+    }
+
+    public static RoundedBitmapDrawable bitmapToCircularBitmapDrawable(Resources resources, Bitmap bitmap) {
+        return bitmapToCircularBitmapDrawable(resources, bitmap, -1);
+    }
+
+    public static void setRoundedBitmap(Resources resources, Bitmap bitmap, float radius, ImageView imageView) {
+
+        imageView.setImageDrawable(BitmapUtils.bitmapToCircularBitmapDrawable(resources,
+                                                                              bitmap,
+                                                                              radius));
     }
 
     public static Bitmap drawableToBitmap(Drawable drawable) {

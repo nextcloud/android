@@ -508,7 +508,12 @@ public final class ThumbnailsCacheManager {
                         tagId = String.valueOf(((TrashbinFile) mFile).getRemoteId());
                     }
                     if (String.valueOf(imageView.getTag()).equals(tagId)) {
-                        imageView.setImageBitmap(bitmap);
+                        Resources resources = MainApp.getAppContext().getResources();
+
+                        BitmapUtils.setRoundedBitmap(resources,
+                                                     bitmap,
+                                                     resources.getDimension(R.dimen.file_icon_rounded_corner_radius),
+                                                     imageView);
                     }
                 }
             }
