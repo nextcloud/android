@@ -180,6 +180,8 @@
     <string name="create_new_folder">Создать новую папку</string>
     <string name="create_new_presentation">Создать презентацию</string>
     <string name="create_new_spreadsheet">Создать таблицу</string>
+    <string name="create_rich_workspace">Добавить информацию о папке</string>
+    <string name="creates_rich_workspace">Создание информации о папке</string>
     <string name="credentials_disabled">Учётная запись отключена</string>
     <string name="date_unknown">Неизвестно</string>
     <string name="default_credentials_wrong">Неверные учётные данные</string>
@@ -230,6 +232,7 @@
     <string name="drawer_quota_unlimited">%1$s использовано</string>
     <string name="drawer_synced_folders">Автоматическая передача</string>
     <string name="edit_permission_label">Редактирование</string>
+    <string name="edit_rich_workspace">Изменить информацию о папке</string>
     <string name="encrypted">Зашифровать</string>
     <string name="end_to_end_encryption_confirm_button">Параметры шифрования</string>
     <string name="end_to_end_encryption_decrypting">Расшифровка…</string>
@@ -262,6 +265,7 @@
     <string name="fab_label">Добавить или выгрузить</string>
     <string name="failed_to_download">Не удалось передать файл в диспетчер загрузок</string>
     <string name="failed_to_print">Ошибка печати файла</string>
+    <string name="failed_to_start_editor">Не удалось запустить редактор</string>
     <string name="fallback_weblogin_back">Назад</string>
     <string name="fallback_weblogin_text">Использовать прежний метод авторизации</string>
     <string name="favorite">Добавить в избранное</string>
@@ -675,6 +679,7 @@
     <string name="synced_folders_configure_folders">Настроить каталоги</string>
     <string name="synced_folders_loading_folders">Получение списка папок…</string>
     <string name="synced_folders_new_info">Моментальная загрузка была полностью переделана. Используйте главное меню для перенастройки автоматической загрузки. Извините за неудобства.\n\nВам понравятся новые расширенные возможности!</string>
+    <string name="synced_folders_no_results">Каталоги с медиафайлами не найдены</string>
     <string name="synced_folders_preferences">Настройки автозагрузки</string>
     <string name="synced_folders_preferences_folder_path">Для %1$s</string>
     <string name="synced_folders_type">Тип</string>
