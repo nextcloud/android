@@ -378,6 +378,7 @@
     <string name="menu_item_sort_by_size_smallest_first">کوچک ترین اول</string>
     <string name="move_file_error">خطایی در زمان تلاش برای انتقال این فایل یا پوشه رخ داده است</string>
     <string name="move_file_invalid_overwrite">پرونده در حال حاضر در پوشه مقصد موجود است</string>
+    <string name="new_comment">نظر جدید…</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="note_confirm">ارسال</string>
     <string name="pass_code_configure_your_pass_code">رمز خود را وارد کنید</string>

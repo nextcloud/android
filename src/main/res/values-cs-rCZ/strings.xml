@@ -255,7 +255,7 @@
     <string name="error_cant_bind_to_operations_service">Kritická chyba: operace nelze provést</string>
     <string name="error_comment_file">Chyba při přidávání komentáře k souboru</string>
     <string name="error_crash_title">%1$s zhavarovalo</string>
-    <string name="error_report_issue_action">Report</string>
+    <string name="error_report_issue_action">Hlášení</string>
     <string name="error_report_issue_text">Nahlásit problém? (vyžaduje Github účet)</string>
     <string name="error_retrieving_file">Chyba při získávání souboru</string>
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
@@ -509,7 +509,7 @@
     <string name="prefs_storage_path">Popis umístění úložiště</string>
     <string name="prefs_synced_folders_local_path_title">Místní složka</string>
     <string name="prefs_synced_folders_remote_path_title">Složka na protějšku</string>
-    <string name="prefs_theme_title">Motiv</string>
+    <string name="prefs_theme_title">Motiv vzhledu</string>
     <string name="prefs_value_theme_dark">Tmavý</string>
     <string name="prefs_value_theme_light">Světlý</string>
     <string name="prefs_value_theme_system">Následovat systém</string>
@@ -573,7 +573,7 @@
     <string name="share_get_public_link_button">Získat odkaz</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_internal_link">Sdílet vnitřní odkaz</string>
-    <string name="share_internal_link_text">Bude fungovat pouze pro uživatele s přístupem do tohoto %1$s</string>
+    <string name="share_internal_link_text">Bude fungovat pouze uživatelům, kteří mají přístup k tomuto %1$s</string>
     <string name="share_known_remote_clarification">%1$s (v %2$s)</string>
     <string name="share_link_empty_password">Je třeba zadat heslo</string>
     <string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či složky došlo k chybě</string>
