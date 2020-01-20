@@ -67,6 +67,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.media.MediaControlView;
+import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
@@ -80,6 +81,7 @@ import javax.inject.Inject;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
@@ -264,6 +266,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 extractAndSetCoverArt(file);
             }
         }
+        toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
     /**
@@ -293,7 +296,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         Log_OC.v(TAG, "onSaveInstanceState");
-
+        toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         outState.putParcelable(PreviewMediaFragment.EXTRA_FILE, getFile());
         outState.putParcelable(PreviewMediaFragment.EXTRA_ACCOUNT, mAccount);
 
@@ -617,6 +620,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     public void onStop() {
         Log_OC.v(TAG, "onStop");
         mMediaPlayerServiceConnection.unbind();
+        toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_UNLOCKED);
         super.onStop();
     }
 
@@ -711,6 +715,10 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             mAutoplay = mVideoPreview.isPlaying();
         }
         return mAutoplay;
+    }
+
+    private void toggleDrawerLockMode(ContainerActivity containerActivity, int lockMode) {
+        ((DrawerActivity) containerActivity).setDrawerLockMode(lockMode);
     }
 
 }
