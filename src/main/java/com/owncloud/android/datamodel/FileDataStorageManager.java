@@ -335,7 +335,7 @@ public class FileDataStorageManager {
         return contentValues;
     }
 
-    public boolean saveFile(OCFile ocFile) {
+    public synchronized boolean saveFile(OCFile ocFile) {
         boolean overridden = false;
 
         ContentValues contentValues = createContentValueForFile(ocFile);
@@ -436,7 +436,7 @@ public class FileDataStorageManager {
      * @param updatedFiles
      * @param filesToRemove
      */
-    public void saveFolder(OCFile folder, ArrayList<OCFile> updatedFiles, Collection<OCFile> filesToRemove) {
+    public synchronized void saveFolder(OCFile folder, ArrayList<OCFile> updatedFiles, Collection<OCFile> filesToRemove) {
         Log_OC.d(TAG, "Saving folder " + folder.getRemotePath() + " with " + updatedFiles.size()
             + " children and " + filesToRemove.size() + " files to remove");
 
@@ -1304,7 +1304,6 @@ public class FileDataStorageManager {
 
         // apply operations in batch
         applyBatch(operations);
-
     }
 
     /**
