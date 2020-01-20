@@ -402,7 +402,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         getFabMain().setOnClickListener(v -> new OCFileListBottomSheetDialog(activity,
                                                                              this,
                                                                              deviceInfo,
-                                                                             accountManager.getUser())
+                                                                             accountManager.getUser(),
+                                                                             getCurrentFile())
             .show());
     }
 
@@ -445,6 +446,23 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 ((FileActivity) getActivity()).getAccount(),
                 FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
         );
+    }
+
+    @Override
+    public void createRichWorkspace() {
+        new Thread(() -> {
+            RemoteOperationResult result = new RichWorkspaceDirectEditingRemoteOperation(mFile.getRemotePath())
+                .execute(accountManager.getUser().toPlatformAccount(), requireContext());
+
+            if (result.isSuccess()) {
+                String url = (String) result.getSingleData();
+                mContainerActivity.getFileOperationsHelper().openRichWorkspaceWithTextEditor(mFile,
+                                                                                             url,
+                                                                                             requireContext());
+            } else {
+                DisplayUtils.showSnackMessage(getView(), R.string.failed_to_start_editor);
+            }
+        }).start();
     }
 
     @Override
@@ -790,36 +808,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             menu.removeItem(R.id.action_switch_view);
             menu.removeItem(R.id.action_search);
         }
-
-        // create rich workspace
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-            && menu.findItem(R.id.action_create_rich_workspace) != null
-            && mFile != null) {
-            menu.findItem(R.id.action_create_rich_workspace).setVisible(
-                TextUtils.isEmpty(mFile.getRichWorkspace()));
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (R.id.action_create_rich_workspace == item.getItemId()) {
-            new Thread(() -> {
-                RemoteOperationResult result = new RichWorkspaceDirectEditingRemoteOperation(mFile.getRemotePath())
-                    .execute(accountManager.getUser().toPlatformAccount(), requireContext());
-
-                if (result.isSuccess()) {
-                    String url = (String) result.getSingleData();
-                    mContainerActivity.getFileOperationsHelper().openRichWorkspaceWithTextEditor(mFile,
-                                                                                                 url,
-                                                                                                 requireContext());
-                } else {
-                    DisplayUtils.showSnackMessage(getView(), R.string.failed_to_start_editor);
-                }
-            }).start();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
