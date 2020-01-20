@@ -89,7 +89,14 @@
 			android:id="@+id/license"
 			android:key="license"/>
 		<Preference android:title="@string/about_title" android:id="@+id/about_app" android:key="about_app" />
-        <Preference android:title="@string/about_title" android:id="@+id/nextcloud_brand_app" android:key="nextcloud_brand_app" />
+        <Preference
+            android:key="infomaniak_redistribution"
+            android:summary="@string/prefs_redistribution_text"
+            android:title="@string/prefs_redistribution">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/nextcloud_repo_url" />
+        </Preference>
 
     </PreferenceCategory>
 
