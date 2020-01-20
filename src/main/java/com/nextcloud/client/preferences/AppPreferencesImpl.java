@@ -35,11 +35,16 @@ import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileSortOrder;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import androidx.annotation.Nullable;
 
+import static com.owncloud.android.ui.activity.SettingsActivity.PreferenceKeys.EXCLUDED_AUTOUPLOAD_PATTEN_DEFAULT_VALUES;
 import static com.owncloud.android.ui.fragment.OCFileListFragment.FOLDER_LAYOUT_LIST;
 
 /**
@@ -87,11 +92,20 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__MIGRATED_USER_ID = "migrated_user_id";
     private static final String PREF__PHOTO_SEARCH_TIMESTAMP = "photo_search_timestamp";
     private static final String PREF__POWER_CHECK_DISABLED = "power_check_disabled";
+    public static final String EXCLUDED_AUTOUPLOAD_PATTEN_KEY = "EXCLUDED_AUTOUPLOAD_PATTEN_KEY";
+    public static final Set<String> EXCLUDED_AUTOUPLOAD_PATTEN_DEFAULT_VALUES = new HashSet<>();
 
     private final Context context;
     private final SharedPreferences preferences;
     private final CurrentAccountProvider currentAccountProvider;
     private final ListenerRegistry listeners;
+
+    static {
+        String[] SET_VALUES = new String[] {
+            ".thumbdata*"
+        };
+        EXCLUDED_AUTOUPLOAD_PATTEN_DEFAULT_VALUES.addAll(Arrays.asList(SET_VALUES));
+    }
 
     /**
      * Adapter delegating raw {@link SharedPreferences.OnSharedPreferenceChangeListener} calls
@@ -563,6 +577,16 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public long getPhotoSearchTimestamp() {
         return preferences.getLong(PREF__PHOTO_SEARCH_TIMESTAMP, 0);
+    }
+
+    @Override
+    public void setAutoUploadPatternBlackList(List<String> patternBlackList) {
+        preferences.edit().putStringSet(EXCLUDED_AUTOUPLOAD_PATTEN_KEY, new HashSet<>(patternBlackList)).apply();
+    }
+
+    @Override
+    public List<String> getAutoUploadPatternBlackList() {
+        return new ArrayList<>(preferences.getStringSet(EXCLUDED_AUTOUPLOAD_PATTEN_KEY, EXCLUDED_AUTOUPLOAD_PATTEN_DEFAULT_VALUES));
     }
 
     /**

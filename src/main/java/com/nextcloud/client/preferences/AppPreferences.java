@@ -23,6 +23,8 @@ package com.nextcloud.client.preferences;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.FileSortOrder;
 
+import java.util.List;
+
 import androidx.annotation.Nullable;
 
 /**
@@ -348,4 +350,8 @@ public interface AppPreferences {
     boolean isPowerCheckDisabled();
 
     void setPowerCheckDisabled(boolean value);
+
+    void setAutoUploadPatternBlackList(List<String> patternBlackList);
+
+    List<String> getAutoUploadPatternBlackList();
 }
