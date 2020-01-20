@@ -71,14 +71,14 @@ public abstract class ToolbarActivity extends BaseActivity {
         mProgressBar = findViewById(R.id.progressBar);
         if (mProgressBar != null) {
             mProgressBar.setIndeterminateDrawable(
-                    ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
+                ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
 
             ThemeUtils.colorToolbarProgressBar(this, primaryColor);
         }
         mInfoBox = findViewById(R.id.info_box);
         mInfoBoxMessage = findViewById(R.id.info_box_message);
 
-        mPreviewImage = findViewById(R.id.preview_image);
+        // mPreviewImage = findViewById(R.id.preview_image);
 
         ThemeUtils.colorStatusBar(this, primaryColor);
 
@@ -96,7 +96,6 @@ public abstract class ToolbarActivity extends BaseActivity {
     }
 
     public void setupToolbar() {
-        setupToolbar(false);
     }
 
     /**

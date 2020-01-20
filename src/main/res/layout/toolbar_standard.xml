@@ -1,62 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Nextcloud Android client application
 
-  Copyright (C) 2016 Andy Scherzinger
-  Copyright (C) 2016 Nextcloud
-  Copyright (C) 2016 ownCloud
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-  License as published by the Free Software Foundation; either
-  version 3 of the License, or any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-
-  You should have received a copy of the GNU Affero General Public
-  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
 <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                                            android:id="@+id/appbar"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appbar"
+    android:background="@color/transparent"
+    android:windowContentOverlay="@null"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Theme.MyApp.ActionBar">
 
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="64dp"
+        android:layout_margin="8dp"
+        android:background="@color/transparent"
+        app:cardCornerRadius="8dp"
+        app:cardUseCompatPadding="true"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/homeButton"
+                    android:layout_width="24dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/ic_menu"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/drawer_open" />
+
+                <EditText
+                    android:id="@+id/searchTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Search in Nextcloud…"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/homeButton"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:importantForAutofill="no"
+                    android:inputType="text" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <TextView
+            android:id="@+id/sortButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="@dimen/standard_list_item_size"
+            android:paddingRight="@dimen/standard_list_item_size"
+            android:text="Sort A-Z"
+            android:contentDescription="@string/sort_button_desc" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <ImageView
-            android:id="@+id/preview_image"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/nav_drawer_header_height"
-            android:contentDescription="@string/preview_image_description"
-            android:scaleType="centerCrop"
-            android:visibility="gone" />
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@style/Widget.ownCloud.TopProgressBar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/standard_quarter_margin"
-            android:layout_below="@+id/toolbar"
-            android:layout_margin="@dimen/zero"
-            android:indeterminate="false"
-            android:indeterminateOnly="false"
-            android:padding="@dimen/zero"
-            android:visibility="visible" />
-    </RelativeLayout>
-
-    <include layout="@layout/info_box"/>
+            android:id="@+id/layoutToggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:paddingLeft="@dimen/alternate_padding"
+            android:paddingEnd="@dimen/alternate_padding"
+            android:paddingRight="@dimen/alternate_padding"
+            android:src="@drawable/ic_view_module"
+            android:contentDescription="@string/layout_toggle_button_desc" />
+    </LinearLayout>
 
 </com.google.android.material.appbar.AppBarLayout>
