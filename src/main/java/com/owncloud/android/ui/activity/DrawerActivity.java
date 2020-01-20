@@ -386,7 +386,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_shared, !getResources().getBoolean(R.bool.shared_enabled));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_contacts, !getResources().getBoolean(R.bool.contacts_backup)
                 || !getResources().getBoolean(R.bool.show_drawer_contacts_backup));
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_notifications, !getResources().getBoolean(R.bool.notifications_enabled));
+        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_notifications, !getResources().getBoolean(R.bool.notifications_enabled)); //kDrive
 
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_synced_folders,
                 getResources().getBoolean(R.bool.syncedFolder_light));
@@ -822,7 +822,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             currentAccountView.setTag(name);
 
             DisplayUtils.setAvatar(user.toPlatformAccount(), this, mCurrentAccountAvatarRadiusDimension, getResources(),
-                                   currentAccountView, this);
+                    currentAccountView, this);
 
             // check and show quota info if available
             getAndDisplayUserQuota();

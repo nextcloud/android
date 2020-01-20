@@ -43,7 +43,6 @@ import android.content.res.Resources.NotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.Menu;

@@ -4,10 +4,6 @@
     <bool name="is_beta">false</bool>
     <bool name="dev_version_direct_download_enabled">false</bool>
 
-    <bool name="ik_hide_urlshare_edit_permission">true</bool>
-    <bool name="ik_hide_urlshare_file_download">true</bool>
-    <bool name="ik_hide_urlshare_note_sending">true</bool>
-
     <!-- App name  and other strings-->
     <string name="app_name">kDrive</string>
     <string name="account_type">com.infomaniak.drive</string>     <!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->

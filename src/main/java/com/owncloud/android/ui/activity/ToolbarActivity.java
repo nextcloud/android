@@ -80,7 +80,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         mPreviewImage = findViewById(R.id.preview_image);
 
-        ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor(this));
+        ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor(this)); //kDrive
 
         if (toolbar.getOverflowIcon() != null) {
             ThemeUtils.tintDrawable(toolbar.getOverflowIcon(), fontColor);

@@ -770,7 +770,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                         ThemeUtils.primaryColor(getAccount(), false, this)));
             }
 
-            ThemeUtils.colorStatusBar(this, ThemeUtils.primaryColor(getAccount(), false, this));
+            ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor(getAccount(), this)); //kDrive
 
             ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(getAccount(), false, this));
 

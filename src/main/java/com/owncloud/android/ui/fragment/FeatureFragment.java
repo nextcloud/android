@@ -48,9 +48,7 @@ public class FeatureFragment extends Fragment {
 
         ImageView whatsNewImage = view.findViewById(R.id.whatsNewImage);
         if (item.shouldShowImage()) {
-            // Removed to avoid background tint to exist
-            // whatsNewImage.setImageDrawable(ThemeUtils.tintDrawable(item.getImage(), fontColor));
-            whatsNewImage.setImageDrawable(getResources().getDrawable(item.getImage()));
+            whatsNewImage.setImageDrawable(getResources().getDrawable(item.getImage())); //kDrive
         }
 
         TextView whatsNewTitle = view.findViewById(R.id.whatsNewTitle);

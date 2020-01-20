@@ -72,9 +72,8 @@ internal class OnboardingServiceImpl constructor(
     }
 
     override fun launchFirstRunIfNeeded(activity: Activity): Boolean {
-        val isFistRunSliderVisible = resources.getBoolean(R.bool.show_first_run_slider)
-
-        val canLaunch = isFistRunSliderVisible && isFirstRun && activity is AuthenticatorActivity
+        val isProviderOrOwnInstallationVisible = resources.getBoolean(R.bool.show_first_run_slider) //kDrive
+        val canLaunch = isProviderOrOwnInstallationVisible && isFirstRun && activity is AuthenticatorActivity
         if (canLaunch) {
             val intent = Intent(activity, FirstRunActivity::class.java)
             activity.startActivityForResult(intent, AuthenticatorActivity.REQUEST_CODE_FIRST_RUN)

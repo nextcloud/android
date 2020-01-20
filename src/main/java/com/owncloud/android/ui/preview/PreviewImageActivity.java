@@ -324,21 +324,18 @@ public class PreviewImageActivity extends FileActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean returnValue = false;
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (isDrawerOpen()) {
-                    closeDrawer();
-                } else {
-                    backToDisplayActivity();
-                }
-                returnValue = true;
-                break;
-            case R.id.action_see_details:
-                showDetails(getFile());
-                break;
-            default:
-                returnValue = super.onOptionsItemSelected(item);
-                break;
+        switch(item.getItemId()){
+        case android.R.id.home:
+            if (isDrawerOpen()) {
+                closeDrawer();
+            } else {
+                backToDisplayActivity();
+            }
+            returnValue = true;
+            break;
+        default:
+        	returnValue = super.onOptionsItemSelected(item);
+            break;
         }
 
         return returnValue;
