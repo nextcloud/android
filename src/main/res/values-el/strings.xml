@@ -175,7 +175,7 @@
     <string name="could_not_download_image">Αδυναμία λήψης της πλήρους εικόνας</string>
     <string name="could_not_retrieve_url">Αδυναμία ανάκτησης url</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
-    <string name="create_file_from_template">Δημιουργία αρχείου από πρότυπο...</string>
+    <string name="create_file_from_template">Δημιουργία αρχείου από πρότυπο…</string>
     <string name="create_new_document">Δημιουργία νέου εγγράφου</string>
     <string name="create_new_folder">Δημιουργία νέου φακέλου</string>
     <string name="create_new_presentation">Δημιουργία νέας παρουσίασης</string>
@@ -382,7 +382,7 @@
     <string name="logs_menu_search">Αναζήτηση καταγραφών</string>
     <string name="logs_menu_send">Αποστολή καταγραφών μέσω e-mail</string>
     <string name="logs_status_filtered">Καταγραφές:%1$dkB, ενημερώθηκαν %2$d / %3$dσε %4$d ms</string>
-    <string name="logs_status_loading">Φορτώνει...</string>
+    <string name="logs_status_loading">Φορτώνει…</string>
     <string name="logs_status_not_filtered">Αρχεία καταγραφής: %1$d kb, χωρίς φίλτρο</string>
     <string name="logs_title">Καταγραφές</string>
     <string name="maintenance_mode">Ο διακομιστής είναι σε κατάσταση συντήρησης</string>
@@ -547,7 +547,7 @@
     <string name="screenshot_01_gridView_subline">αυτόνομη λειτουργία</string>
     <string name="screenshot_02_listView_heading">Περιήγηση και διαμοιρασμός</string>
     <string name="screenshot_02_listView_subline">όλες τις ενέργειες στα χέρια σας</string>
-    <string name="screenshot_03_drawer_heading">Δραστρηριότητα, κοινόχρηστα, ...</string>
+    <string name="screenshot_03_drawer_heading">Δραστρηριότητα, κοινόχρηστα, …</string>
     <string name="screenshot_03_drawer_subline">όλα άμεσα προσβάσιμα</string>
     <string name="screenshot_04_accounts_heading">Όλοι οι λογαριασμοί σας</string>
     <string name="screenshot_04_accounts_subline">σε ένα σημείο</string>
@@ -593,7 +593,7 @@
     <string name="share_privilege_unshare">Αναίρεση διαμοιρασμού</string>
     <string name="share_remote_clarification">%1$s (απομακρυσμένα)</string>
     <string name="share_room_clarification">%1$s (συνομιλιία)</string>
-    <string name="share_search">Όνομα, federated cloud ID ή διεύθυνση ηλεκτροικού ταχυδρομείου...</string>
+    <string name="share_search">Όνομα, federated cloud ID ή διεύθυνση ηλεκτροικού ταχυδρομείου…</string>
     <string name="share_send_note">Σημείωση στον παραλήπτη</string>
     <string name="share_via_link_edit_permission_label">Επιτρέπεται η επεξεργασία</string>
     <string name="share_via_link_expiration_date_label">Ορισμός ημερομηνίας λήξης</string>
@@ -661,7 +661,7 @@
     <string name="store_full_dev_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο. \nΑυτή είναι η επίσημη αναπτυξιακή έκδοση, περιλαμβάνει καθημερινό δείγμα οποιασδήποτε νέας μη δοκιμασμένης λειτουργικότητας, η οποία μπορεί να προκαλέσει αστάθεια και απώλεια δεδομένων. Η εφαρμογή προορίζεται για χρήστες που θέλουν να δοκιμάσουν και να αναφέρουν σφάλματα. Μην το χρησιμοποιείτε για την κανονική εργασία σας! \n\nΗ επίσημη έκδοση dev και η κανονική έκδοση είναι διαθέσιμες στο F-droid και μπορούν να εγκατασταθούν ταυτόχρονα.</string>
     <string name="store_short_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο.</string>
     <string name="store_short_dev_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο (προεπισκόπηση έκδοσης dev)</string>
-    <string name="stream">Ροή με...</string>
+    <string name="stream">Ροή με…</string>
     <string name="stream_not_possible_headline">Η εσωτερική ροή δεν είναι δυνατή</string>
     <string name="stream_not_possible_message">Παρακαλούμε να γίνει λήψη των μέσων ή να χρησιμοποιηθεί εξωτερική εφαρμογή</string>
     <string name="subject_shared_with_you">Ο \"%1$s\" διαμοιράστηκε μαζί σας</string>
@@ -692,7 +692,7 @@
     <string name="tags">Ετικέτες</string>
     <string name="test_server_button">Δοκιμή σύνδεσης με διακομιστή</string>
     <string name="thumbnail">Μικρογραφία</string>
-    <string name="timeout_richDocuments">Η φόρτωση διαρκεί πολύ...</string>
+    <string name="timeout_richDocuments">Η φόρτωση διαρκεί πολύ…</string>
     <string name="trashbin_activity_title">Διεγραμμένα αρχεία</string>
     <string name="trashbin_empty_headline">Κανένα διαγεγραμμένο αρχείο</string>
     <string name="trashbin_empty_message">Από εδώ θα μπορείτε να ανακτήσετε τα διαγραμμένα αρχεία</string>

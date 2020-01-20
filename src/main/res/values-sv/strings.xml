@@ -210,6 +210,7 @@
     <string name="drawer_community">Community</string>
     <string name="drawer_current_account">Nuvarande konto</string>
     <string name="drawer_end_account">Sista konto</string>
+    <string name="drawer_header_background">Bakgrundsbild på appskärmsrubriken</string>
     <string name="drawer_item_activities">Aktiviteter</string>
     <string name="drawer_item_all_files">Alla filer</string>
     <string name="drawer_item_favorites">Favoriter</string>
