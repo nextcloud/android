@@ -398,7 +398,6 @@ public class FileDisplayActivity extends FileActivity
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
                     EventBus.getDefault().post(new TokenPushEvent());
-                    syncAndUpdateFolder(true);
                     // toggle on is save since this is the only scenario this code gets accessed
                 } else {
                     // permission denied --> do nothing
