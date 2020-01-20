@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.utils.DisplayUtils;
 
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -130,5 +132,27 @@ public class Utils {
     public static String getUserEmail(String name) {
         String[] splitEmail = name.split("@");
         return splitEmail[0] + "@" + splitEmail[1];
+    }
+
+    public static void launchKSync(Activity activity) {
+        Intent davDroidLoginIntent = activity.getPackageManager().getLaunchIntentForPackage("com.infomaniak.sync");
+        if (davDroidLoginIntent != null) {
+            activity.startActivity(davDroidLoginIntent);
+        } else {
+            // DAVdroid not installed
+            Intent installIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.infomaniak.sync"));
+
+            // launch market(s)
+            if (installIntent.resolveActivity(activity.getPackageManager()) != null) {
+                activity.startActivity(installIntent);
+            } else {
+                // no f-droid market app or Play store installed --> launch browser for f-droid url
+                Intent downloadIntent = new Intent(Intent.ACTION_VIEW,
+                                                   Uri.parse("https://f-droid.org/repository/browse/?fdid=com.infomaniak.sync"));
+                DisplayUtils.startIntentIfAppAvailable(downloadIntent, activity, R.string.no_browser_available);
+
+                DisplayUtils.showSnackMessage(activity, R.string.prefs_calendar_contacts_no_store_error);
+            }
+        }
     }
 }

@@ -43,7 +43,6 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -52,6 +51,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.URLUtil;
 
+import com.infomaniak.drive.Utils;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -473,7 +473,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 final Activity activity = this;
                 pCalendarContacts.setOnPreferenceClickListener(preference -> {
                     try {
-                        launchDavDroidLogin();
+                        Utils.launchKSync(this);
                     } catch (Throwable t) {
                         Log_OC.e(TAG, "Base Uri for account could not be resolved to call DAVdroid!", t);
                         DisplayUtils.showSnackMessage(
@@ -767,7 +767,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void launchDavDroidLogin() {
         Intent davDroidLoginIntent = new Intent();
-        davDroidLoginIntent.setClassName("com.infomaniak.sync", "at.bitfire.davdroid.ui.setup.LoginActivity");
+        davDroidLoginIntent.setClassName("at.bitfire.davdroid", "at.bitfire.davdroid.ui.setup.LoginActivity");
         if (getPackageManager().resolveActivity(davDroidLoginIntent, 0) != null) {
             // arguments
             if (serverBaseUri != null) {
@@ -782,7 +782,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             startActivityForResult(davDroidLoginIntent, ACTION_REQUEST_CODE_DAVDROID_SETUP);
         } else {
             // DAVdroid not installed
-            Intent installIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.infomaniak.sync"));
+            Intent installIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=at.bitfire.davdroid"));
 
             // launch market(s)
             if (installIntent.resolveActivity(getPackageManager()) != null) {
@@ -790,7 +790,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             } else {
                 // no f-droid market app or Play store installed --> launch browser for f-droid url
                 Intent downloadIntent = new Intent(Intent.ACTION_VIEW,
-                                                   Uri.parse("https://f-droid.org/repository/browse/?fdid=com.infomaniak.sync"));
+                        Uri.parse("https://f-droid.org/repository/browse/?fdid=at.bitfire.davdroid"));
                 DisplayUtils.startIntentIfAppAvailable(downloadIntent, this, R.string.no_browser_available);
 
                 DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_no_store_error);
