@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Copiază</string>
     <string name="actionbar_mkdir">Dosar nou</string>
     <string name="actionbar_move">Mutare</string>
-    <string name="actionbar_open_as_richdocument_parameter">Deschideți cu %1$s</string>
     <string name="actionbar_open_with">Deschideţi cu </string>
     <string name="actionbar_search">Caută</string>
     <string name="actionbar_see_details">Detalii</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Nume utilizator</string>
     <string name="auth_wrong_connection_title">Nu s-a putut stabili conexiunea</string>
     <string name="auth_wtf_reenter_URL">Situație neașteptată; vă rugăm să reintroduceți adresa serverului</string>
-    <string name="authentication_exception">Eroare de autentificare</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">pastrează în directorul original deoarece este disponibil doar pentru citire</string>
     <string name="auto_upload_on_wifi">Se încarcă numai pe Wi-Fi nelimitat</string>
     <string name="auto_upload_path">/AutoÎncărcare</string>
@@ -160,14 +158,12 @@
     <string name="copy_file_invalid_into_descendent">Nu se poate copia un dosar intr-un descendent</string>
     <string name="copy_file_invalid_overwrite">Fișierul există deja în dosarul de destinație</string>
     <string name="copy_file_not_found">Nu se poate copia. Vă rugăm să verificați dacă există fișierul</string>
-    <string name="copy_internal_link">Copiază linkul intern</string>
     <string name="copy_link">Link copiat</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copierea/mutarea în directorul criptat nu este suportată.</string>
     <string name="copy_to">Copiază în…</string>
     <string name="could_not_download_image">Nu s-a putut descărca imaginea completă</string>
     <string name="could_not_retrieve_url">Nu a fost găsit URL-ul</string>
     <string name="create_dir_fail_msg">Nu s-a putut crea directorul</string>
-    <string name="create_file_from_template">Crează fișierul după model…</string>
     <string name="create_new_document">Crează document nou</string>
     <string name="create_new_folder">Creează director nou</string>
     <string name="create_new_presentation">Crează prezentare nouă</string>
@@ -378,7 +374,6 @@
     <string name="notifications_no_results_headline">Nu sunt notificări</string>
     <string name="notifications_no_results_message">Te rugăm să încerci mai târziu.</string>
     <string name="offline_mode">Nu există conexiune la internet</string>
-    <string name="operation_canceled">Operația a fost anulată</string>
     <string name="pass_code_configure_your_pass_code">Introdu parola</string>
     <string name="pass_code_configure_your_pass_code_explanation">Parola va fi solicitată de fiecare dată când deschideți aplicația</string>
     <string name="pass_code_enter_pass_code">Vă rugăm introduceți parola</string>

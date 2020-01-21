@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Copia</string>
     <string name="actionbar_mkdir">Crea una carpeta</string>
     <string name="actionbar_move">Mou</string>
-    <string name="actionbar_open_as_richdocument_parameter">Obre amb %1$s</string>
     <string name="actionbar_open_with">Obre amb</string>
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Detalls</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Nom d\'usuari</string>
     <string name="auth_wrong_connection_title">No s\'ha pogut establir la connexió</string>
     <string name="auth_wtf_reenter_URL">Estat inesperat, torneu a introduir l\'adreça del servidor</string>
-    <string name="authentication_exception">Excepció d\'autenticació</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">manté a la carpeta original, ja que és només de lectura</string>
     <string name="auto_upload_on_wifi">Només carrega quan hi hagi Wi-Fi sense límits</string>
     <string name="auto_upload_path">/Càrrega automàtica</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">No és possible copiar una carpeta a cap de les que conté</string>
     <string name="copy_file_invalid_overwrite">El fitxer ja existeix a la carpeta de destinació</string>
     <string name="copy_file_not_found">No es pot copiar. Assegureu-vos que el fitxer existeix</string>
-    <string name="copy_internal_link">Copia l\'enllaç intern</string>
-    <string name="copy_internal_link_subline">Només funciona per a usuaris amb accés a aquesta carpeta</string>
     <string name="copy_link">Copia l\'enllaç</string>
     <string name="copy_move_to_encrypted_folder_not_supported">No hi ha suport actualment per copiar o moure a una carpeta xifrada.</string>
     <string name="copy_to">Copia a…</string>
     <string name="could_not_download_image">No s\'ha pogut descarregar la imatge completa</string>
     <string name="could_not_retrieve_url">No s\'ha pogut recuperar l\'URL</string>
     <string name="create_dir_fail_msg">No s\'ha pogut crear la carpeta</string>
-    <string name="create_file_from_template">S\'està creant el fitxer des d\'una plantilla…</string>
     <string name="create_new_document">Crea un nou document</string>
     <string name="create_new_folder">Crea una nova carpeta</string>
     <string name="create_new_presentation">Crea una nova presentació</string>
@@ -363,7 +358,6 @@
     <string name="host_your_own_server">Allotgeu els vostre propi servidor</string>
     <string name="instant_upload_on_charging">Carrega només durant la càrrega de bateria</string>
     <string name="instant_upload_path">/CàrregaInstantània</string>
-    <string name="io_error">Error d\'entrada/sortida</string>
     <string name="learn_more">Més informació</string>
     <string name="link">Enllaç</string>
     <string name="list_layout">Disposició llistada</string>
@@ -442,7 +436,6 @@
     <string name="notifications_no_results_headline">No hi ha notificacions</string>
     <string name="notifications_no_results_message">Si us plau, comproveu-ho més tard</string>
     <string name="offline_mode">No hi ha connexió a internet</string>
-    <string name="operation_canceled">L\'operació s\'ha cancel·lat</string>
     <string name="outdated_server">El servidor ha arribat al final de la seva vida, si us plau actualitzeu!</string>
     <string name="overflow_menu">Menú més</string>
     <string name="pass_code_configure_your_pass_code">Escriviu el vostre codi d\'accés</string>

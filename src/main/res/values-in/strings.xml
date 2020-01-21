@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Salin</string>
     <string name="actionbar_mkdir">Folder baru</string>
     <string name="actionbar_move">Pindah</string>
-    <string name="actionbar_open_as_richdocument_parameter">Buka dengan %1$s</string>
     <string name="actionbar_open_with">Buka dengan</string>
     <string name="actionbar_search">Cari</string>
     <string name="actionbar_see_details">Rincian</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Nama Pengguna</string>
     <string name="auth_wrong_connection_title">Tidak dapat memulai koneksi</string>
     <string name="auth_wtf_reenter_URL">Masalah tidak terduga; masukkan ulang alamat server</string>
-    <string name="authentication_exception">Pengecualian otentikasi</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">disimpan di folder original karena readonly</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_create_new_custom_folder">Buat kostum folder baru.</string>
@@ -153,7 +151,6 @@
     <string name="copy_link">Salin tautan</string>
     <string name="copy_to">Salin ke…</string>
     <string name="create_dir_fail_msg">Folder tidak dapat dibuat</string>
-    <string name="create_file_from_template">Membuat berkas dari template…</string>
     <string name="create_new_document">Buat dokumen baru</string>
     <string name="create_new_folder">Buat direktori baru</string>
     <string name="create_new_presentation">Buat presentasi baru</string>

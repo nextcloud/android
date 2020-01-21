@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Nova pasta</string>
     <string name="actionbar_move">Mover</string>
-    <string name="actionbar_open_as_richdocument_parameter">Abrir com %1$s</string>
     <string name="actionbar_open_with">Abrir com</string>
     <string name="actionbar_search">Pesquisar</string>
     <string name="actionbar_see_details">Detalhes</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Nome de usuário</string>
     <string name="auth_wrong_connection_title">Não foi possível estabelecer a conexão</string>
     <string name="auth_wtf_reenter_URL">Estado inesperado, informe o endereço do servidor novamente</string>
-    <string name="authentication_exception">Exceção de autenticação</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
     <string name="auto_upload_on_wifi">Enviar só por WiFi não medida</string>
     <string name="auto_upload_path">/AutoEnvio</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">Não é possível copiar uma pasta para uma das suas próprias pastas subjacentes</string>
     <string name="copy_file_invalid_overwrite">O arquivo já está presente na pasta destino</string>
     <string name="copy_file_not_found">Não foi possível copiar. Por favor, verifique se o arquivo existe</string>
-    <string name="copy_internal_link">Copiar link interno</string>
-    <string name="copy_internal_link_subline">Funciona apenas para usuários com acesso a esta pasta</string>
     <string name="copy_link">Copiar link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Ainda não há suporte para cópia/movimentação em pasta criptografada.</string>
     <string name="copy_to">Copiar para…</string>
     <string name="could_not_download_image">Não foi possível baixar a imagem completa</string>
     <string name="could_not_retrieve_url">Não foi possível recuperar a URL</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
-    <string name="create_file_from_template">Criando arquivo a partir do modelo…</string>
     <string name="create_new_document">Criar novo documento</string>
     <string name="create_new_folder">Criar nova pasta</string>
     <string name="create_new_presentation">Criar nova apresentação</string>
@@ -367,7 +362,6 @@
     <string name="host_your_own_server">Hospede seu próprio servidor</string>
     <string name="instant_upload_on_charging">Só enviar quando carregando</string>
     <string name="instant_upload_path">/EnvioAutomático</string>
-    <string name="io_error">Erro de IO</string>
     <string name="learn_more">Saiba mais</string>
     <string name="link">Link</string>
     <string name="list_layout">Layout listado</string>
@@ -446,7 +440,6 @@
     <string name="notifications_no_results_headline">Não há notificações</string>
     <string name="notifications_no_results_message">Por favor, verifique mais tarde.</string>
     <string name="offline_mode">Sem conexão à internet</string>
-    <string name="operation_canceled">Operação cancelada</string>
     <string name="outdated_server">O servidor chegou ao fim da vida. Por favor, atualize!</string>
     <string name="overflow_menu">Mais menus</string>
     <string name="pass_code_configure_your_pass_code">Digite o código de acesso</string>

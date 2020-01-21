@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Copy</string>
     <string name="actionbar_mkdir">New folder</string>
     <string name="actionbar_move">Move</string>
-    <string name="actionbar_open_as_richdocument_parameter">Open with %1$s</string>
     <string name="actionbar_open_with">Open with</string>
     <string name="actionbar_search">Search</string>
     <string name="actionbar_see_details">Details</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Username</string>
     <string name="auth_wrong_connection_title">Could not establish connection</string>
     <string name="auth_wtf_reenter_URL">Unexpected state, please enter the server address again</string>
-    <string name="authentication_exception">Authentication Exception</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">It is not possible to copy a folder into one of its own underlying folders</string>
     <string name="copy_file_invalid_overwrite">The file is already present in the destination folder</string>
     <string name="copy_file_not_found">Unable to copy. Please check whether the file exists</string>
-    <string name="copy_internal_link">Copy internal link</string>
-    <string name="copy_internal_link_subline">Only works for users with access to this folder</string>
     <string name="copy_link">Copy link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
     <string name="copy_to">Copy to…</string>
     <string name="could_not_download_image">Could not download full image</string>
     <string name="could_not_retrieve_url">Could not retrieve url</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
-    <string name="create_file_from_template">Creating file from template…</string>
     <string name="create_new_document">Create new document</string>
     <string name="create_new_folder">Create new folder</string>
     <string name="create_new_presentation">Create new presentation</string>
@@ -367,7 +362,6 @@
     <string name="host_your_own_server">Host your own server</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">IO error</string>
     <string name="learn_more">Learn more</string>
     <string name="link">Link</string>
     <string name="list_layout">Listed layout</string>
@@ -446,7 +440,6 @@
     <string name="notifications_no_results_headline">No notifications</string>
     <string name="notifications_no_results_message">Please check back later.</string>
     <string name="offline_mode">No internet connection</string>
-    <string name="operation_canceled">Operation has been canceled</string>
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="overflow_menu">More menu</string>
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>

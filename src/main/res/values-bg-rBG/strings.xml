@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Копиране</string>
     <string name="actionbar_mkdir">Нова папка</string>
     <string name="actionbar_move">Преместване</string>
-    <string name="actionbar_open_as_richdocument_parameter">Отвори с %1$s</string>
     <string name="actionbar_open_with">Отвори с</string>
     <string name="actionbar_search">Търсене</string>
     <string name="actionbar_see_details">Подробности</string>
@@ -72,7 +71,6 @@
     <string name="auth_username">Потребител</string>
     <string name="auth_wrong_connection_title">Не може да се осъществи връзка</string>
     <string name="auth_wtf_reenter_URL">Неочаквано състояние. Моля, въведете адреса на сървъра отново</string>
-    <string name="authentication_exception">Грешка при удостоверяването</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Запази в оригиналната папка със статус \"само за четене\"</string>
     <string name="auto_upload_on_wifi">Качване само от Wi-Fi мрежа</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -162,7 +160,6 @@
     <string name="copy_link">Копиране на връзката</string>
     <string name="copy_to">Копирай в…</string>
     <string name="create_dir_fail_msg">Не може да се създаде папка</string>
-    <string name="create_file_from_template">Създаване на файл от шаблон…</string>
     <string name="create_new_document">Нов документ</string>
     <string name="create_new_folder">Създай нова папка</string>
     <string name="create_new_presentation">Нова презентация</string>

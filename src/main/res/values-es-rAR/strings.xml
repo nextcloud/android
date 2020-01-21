@@ -18,7 +18,6 @@
     <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
     <string name="actionbar_move">Mover</string>
-    <string name="actionbar_open_as_richdocument_parameter">Abrir con %1$s</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -72,7 +71,6 @@
     <string name="auth_username">Nombre de usuario</string>
     <string name="auth_wrong_connection_title">No fue posible establecer la conexión</string>
     <string name="auth_wtf_reenter_URL">Estado inesperado, favor de reingresar la dirección del servidor</string>
-    <string name="authentication_exception">Excepción de autenticación</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantenido en la carpeta original, ya que es de solo lectura.</string>
     <string name="auto_upload_on_wifi">Cargar sólo en Wi-Fi sin medidor</string>
     <string name="auto_upload_path">/SubidasAutomáticas</string>
@@ -165,15 +163,12 @@
     <string name="copy_file_invalid_into_descendent">No es posible copiar una carpeta dentro de una de sus sub carpetas</string>
     <string name="copy_file_invalid_overwrite">El archivo ya existe en la carpeta destino</string>
     <string name="copy_file_not_found">Falla al copiar. Favor de revisar si existe el archivo</string>
-    <string name="copy_internal_link">Copiar enlace interno</string>
-    <string name="copy_internal_link_subline">Solo funciona para usuarios con acceso a esta carpeta</string>
     <string name="copy_link">Copiar link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover a la carpeta encriptada actualmente no es compatible.</string>
     <string name="copy_to">Copiar a…</string>
     <string name="could_not_download_image">No se pudo descargar la imágen completa</string>
     <string name="could_not_retrieve_url"> No se pudo recuperar la URL</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
-    <string name="create_file_from_template">Creando archivo desde plantilla...</string>
     <string name="create_new_document">Crear nuevo documento</string>
     <string name="create_new_folder">Crear nueva carpeta</string>
     <string name="create_new_presentation">Crear nueva presentación</string>
@@ -359,7 +354,6 @@
     <string name="host_your_own_server">Aloje su propio servidor</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_path">/SubidasInstantáneas</string>
-    <string name="io_error">Error IO</string>
     <string name="learn_more">Conozca más</string>
     <string name="link">Link</string>
     <string name="list_layout">Vista enlistada</string>
@@ -436,7 +430,6 @@
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Favor de verificar más tarde. </string>
     <string name="offline_mode">Sin conexión a Internet</string>
-    <string name="operation_canceled">Operación ha sido cancelada</string>
     <string name="outdated_server">El servidor ha llegado al final de su vida útil, por favor actualice!</string>
     <string name="overflow_menu">Más menú</string>
     <string name="pass_code_configure_your_pass_code">Ingrese su código de seguridad</string>

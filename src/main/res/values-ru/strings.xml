@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Копировать</string>
     <string name="actionbar_mkdir">Создать папку</string>
     <string name="actionbar_move">Переместить</string>
-    <string name="actionbar_open_as_richdocument_parameter">Открыть с помощью %1$s</string>
     <string name="actionbar_open_with">Открыть с помощью</string>
     <string name="actionbar_search">Поиск</string>
     <string name="actionbar_see_details">Подробности</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Имя пользователя</string>
     <string name="auth_wrong_connection_title">Не удается установить соединение</string>
     <string name="auth_wtf_reenter_URL">Неожиданное состояние, укажите адрес сервера повторно</string>
-    <string name="authentication_exception">Ошибка аутентификации</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
     <string name="auto_upload_on_wifi">Необходимо безлимитное подключение Wi-Fi </string>
     <string name="auto_upload_path">/Автозагрузка</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">Невозможно копирование каталога в его подкаталог</string>
     <string name="copy_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
     <string name="copy_file_not_found">Не удалось произвести копирование. Проверьте что файл существует</string>
-    <string name="copy_internal_link">Копировать внутреннюю ссылку</string>
-    <string name="copy_internal_link_subline">Работает только для пользователей с доступом к этой папке</string>
     <string name="copy_link">Копировать ссылку</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирование и перемещение в зашифрованные папки пока не поддерживается.</string>
     <string name="copy_to">Копировать…</string>
     <string name="could_not_download_image">Не удалось скачать полноразмерное изображение</string>
     <string name="could_not_retrieve_url">Не удалось получить URL-адрес</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
-    <string name="create_file_from_template">Создание файла на основе шаблона…</string>
     <string name="create_new_document">Создать документ</string>
     <string name="create_new_folder">Создать новую папку</string>
     <string name="create_new_presentation">Создать презентацию</string>
@@ -367,7 +362,6 @@
     <string name="host_your_own_server">Развернуть собственный сервер</string>
     <string name="instant_upload_on_charging">Необходимо подключение внешнего питания</string>
     <string name="instant_upload_path">/Автозагрузка</string>
-    <string name="io_error">Ошибка Ввода/Вывода</string>
     <string name="learn_more">Узнать больше</string>
     <string name="link">Ссылка</string>
     <string name="list_layout">Вид списком</string>
@@ -446,7 +440,6 @@
     <string name="notifications_no_results_headline">Уведомлений нет</string>
     <string name="notifications_no_results_message">Проверьте позже.</string>
     <string name="offline_mode">Отсутствует подключение к Интернет</string>
-    <string name="operation_canceled">Операция отменена</string>
     <string name="outdated_server">Версия сервера Nextcloud  более не поддерживается, требуется её обновление.</string>
     <string name="overflow_menu">Дополнительное меню</string>
     <string name="pass_code_configure_your_pass_code">Введите код</string>

@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Kopiraj</string>
     <string name="actionbar_mkdir">Nova mapa</string>
     <string name="actionbar_move">Premjesti</string>
-    <string name="actionbar_open_as_richdocument_parameter">Otvori s %1$s</string>
     <string name="actionbar_open_with">Otvori s</string>
     <string name="actionbar_search">Traži</string>
     <string name="actionbar_see_details">Pojedinosti</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Korisničko ime</string>
     <string name="auth_wrong_connection_title">Nije moguće uspostaviti vezu</string>
     <string name="auth_wtf_reenter_URL">Neočekivano stanje, ponovno unesite adresu poslužitelja</string>
-    <string name="authentication_exception">Iznimka autentifikacije</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">nalazi se u izvornoj mapi jer je samo za čitanje</string>
     <string name="auto_upload_on_wifi">Otpremite samo putem nemjerene bežične (Wi-Fi) mreže</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">Nije moguće kopirati mapu u jednu od svojih osnovnih mapa</string>
     <string name="copy_file_invalid_overwrite">Datoteka je već prisutna u odredišnoj mapi</string>
     <string name="copy_file_not_found">Nije moguće kopirati. Provjerite postoji li datoteka</string>
-    <string name="copy_internal_link">Kopiraj internu poveznicu</string>
-    <string name="copy_internal_link_subline">Samo za korisnike koji smiju pristupiti ovoj mapi</string>
     <string name="copy_link">Kopiraj poveznicu</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Trenutno nije podržano kopiranje/premještanje u šifriranu mapu.</string>
     <string name="copy_to">Kopiraj u…</string>
     <string name="could_not_download_image">Nije moguće preuzeti cijelu sliku</string>
     <string name="could_not_retrieve_url">Nije moguće dohvatiti URL</string>
     <string name="create_dir_fail_msg">Nije moguće stvoriti mapu</string>
-    <string name="create_file_from_template">Izrada datoteke iz predloška...</string>
     <string name="create_new_document">Stvori novi dokument</string>
     <string name="create_new_folder">Stvori novu mapu</string>
     <string name="create_new_presentation">Stvori novu prezentaciju</string>
@@ -367,7 +362,6 @@
     <string name="host_your_own_server">Postavi vlastiti poslužitelj</string>
     <string name="instant_upload_on_charging">Otpremanje samo tijekom punjenja</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">UI pogreška</string>
     <string name="learn_more">Saznajte više</string>
     <string name="link">Poveznica</string>
     <string name="list_layout">Navedeni izgled</string>
@@ -446,7 +440,6 @@
     <string name="notifications_no_results_headline">Nema obavijesti</string>
     <string name="notifications_no_results_message">Provjerite kasnije.</string>
     <string name="offline_mode">Nema internetske veze</string>
-    <string name="operation_canceled">Radnja je otkazana</string>
     <string name="outdated_server">Poslužitelj je na kraju radnog vijeka, nadogradite ga!</string>
     <string name="overflow_menu">Više izbornika</string>
     <string name="pass_code_configure_your_pass_code">Unesite zaporku</string>

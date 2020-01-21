@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Kopiera</string>
     <string name="actionbar_mkdir">Ny mapp</string>
     <string name="actionbar_move">Flytta</string>
-    <string name="actionbar_open_as_richdocument_parameter">Öppna med %1$s</string>
     <string name="actionbar_open_with">Öppna med</string>
     <string name="actionbar_search">Sök</string>
     <string name="actionbar_see_details">Detaljer</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Användarnamn</string>
     <string name="auth_wrong_connection_title">Kunde inte upprätta anslutning</string>
     <string name="auth_wtf_reenter_URL">Oväntat tillstånd, vänligen ange serveradress igen</string>
-    <string name="authentication_exception">Fel vid autentisering</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">behålls i originalmappen, eftersom den är skrivskyddad</string>
     <string name="auto_upload_on_wifi">Ladda bara upp via obelastad Wi-Fi</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">Det är inte möjligt att kopiera mappen till en av dess undermappar</string>
     <string name="copy_file_invalid_overwrite">Filen finns redan i målmappen</string>
     <string name="copy_file_not_found">Kunde inte kopiera. Vänligen kontrollera om filen existerar.</string>
-    <string name="copy_internal_link">Kopiera intern länk</string>
-    <string name="copy_internal_link_subline">Fungerar bara för användare med tillgång till den här mappen</string>
     <string name="copy_link">Kopiera länk</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiera/flytta till krypterad mapp stöds för närvarande inte.</string>
     <string name="copy_to">Kopiera till…</string>
     <string name="could_not_download_image">Kunde inte ladda ner hela bilden</string>
     <string name="could_not_retrieve_url">Det gick inte att hämta webbadress</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
-    <string name="create_file_from_template">Skapar fil från mall...</string>
     <string name="create_new_document">Skapa nytt dokument</string>
     <string name="create_new_folder">Skapa ny mapp</string>
     <string name="create_new_presentation">Skapa ny presentation</string>
@@ -367,7 +362,6 @@
     <string name="host_your_own_server">Använd egen server</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
-    <string name="io_error">IO-fel</string>
     <string name="learn_more">Läs mer</string>
     <string name="link">Länk</string>
     <string name="list_layout">Listad layout</string>
@@ -446,7 +440,6 @@
     <string name="notifications_no_results_headline">Inga aviseringar</string>
     <string name="notifications_no_results_message">Vänligen kontrollera igen senare.</string>
     <string name="offline_mode">Ingen internetanslutning</string>
-    <string name="operation_canceled">Operationen har avbrutits</string>
     <string name="outdated_server">Servern har nått slutet av livet, vänligen uppgradera!</string>
     <string name="overflow_menu">Mer Meny</string>
     <string name="pass_code_configure_your_pass_code">Skriv in ditt lösenord</string>
