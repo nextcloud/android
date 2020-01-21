@@ -158,7 +158,7 @@ android {
 
         buildTypes {
             debug {
-                testCoverageEnabled true
+                testCoverageEnabled (project.hasProperty('coverage'))
             }
         }
 
