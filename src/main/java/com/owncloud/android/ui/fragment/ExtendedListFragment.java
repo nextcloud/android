@@ -45,9 +45,11 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -60,6 +62,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.ui.EmptyRecyclerView;
@@ -135,7 +138,8 @@ public class ExtendedListFragment extends Fragment implements
 
     private EmptyRecyclerView mRecyclerView;
 
-    protected SearchView searchView;
+    public SearchView searchView;
+    public ImageView closeButton;
     private Handler handler = new Handler(Looper.getMainLooper());
 
     private float mScale = AppPreferencesImpl.DEFAULT_GRID_COLUMN;
@@ -191,6 +195,7 @@ public class ExtendedListFragment extends Fragment implements
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         final MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(item);
+        closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
         ThemeUtils.themeSearchView(searchView, true, requireContext());
@@ -216,20 +221,30 @@ public class ExtendedListFragment extends Fragment implements
             }
         }
 
-        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, final boolean hasFocus) {
+        searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> handler.postDelayed(() -> {
+            if (getActivity() != null && !(getActivity() instanceof FolderPickerActivity)
+                && !(getActivity() instanceof UploadFilesActivity)) {
+                setFabVisible(false);
+            }
+        }, 100));
 
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (getActivity() != null && !(getActivity() instanceof FolderPickerActivity)
-                            && !(getActivity() instanceof UploadFilesActivity)) {
-                            setFabVisible(!hasFocus);
+        // On close -> empty field, show keyboard and
+        closeButton.setOnClickListener(view -> {
+            searchView.setQuery("", true);
+            searchView.onActionViewExpanded();
+            theTextArea.requestFocus();
 
-                        }
-                    }
-                }, 100);
+
+            InputMethodManager inputMethodManager =
+                (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+
+            if (inputMethodManager != null) {
+                inputMethodManager.showSoftInput(searchView,
+                                                 InputMethodManager.SHOW_FORCED);
+/*                inputMethodManager.toggleSoftInputFromWindow(
+                    searchView.getApplicationWindowToken(),
+                    InputMethodManager.SHOW_FORCED, 0);*/
             }
         });
 
@@ -274,6 +289,15 @@ public class ExtendedListFragment extends Fragment implements
     }
 
     public boolean onQueryTextChange(final String query) {
+        // After 300 ms, set the query
+
+
+        if (query.isEmpty()) {
+            closeButton.setVisibility(View.INVISIBLE);
+        } else {
+            closeButton.setVisibility(View.VISIBLE);
+        }
+
         if (getFragmentManager() != null && getFragmentManager().
                 findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT) instanceof ExtendedListFragment) {
             performSearch(query, false);
@@ -285,58 +309,42 @@ public class ExtendedListFragment extends Fragment implements
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        performSearch(query, true);
+        performSearch(query, false);
         return true;
     }
 
-    private void performSearch(final String query, boolean isSubmit) {
+    public void performSearch(final String query, boolean isBackPressed) {
         handler.removeCallbacksAndMessages(null);
-
         RecyclerView.Adapter adapter = getRecyclerView().getAdapter();
 
-        if (!TextUtils.isEmpty(query)) {
-            int delay = 500;
-
-            if (isSubmit) {
-                delay = 0;
-            }
-
-            if (adapter instanceof OCFileListAdapter) {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        EventBus.getDefault().post(new SearchEvent(query,
-                                                                   SearchRemoteOperation.SearchType.FILE_SEARCH,
-                                                                   SearchEvent.UnsetType.NO_UNSET));
-
-                    }
-                }, delay);
-            } else if (adapter instanceof LocalFileListAdapter) {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) adapter;
-                        localFileListAdapter.filter(query);
-                    }
-                }, delay);
-            }
-
-            if (searchView != null && delay == 0) {
-                searchView.clearFocus();
-            }
-        } else {
-            Activity activity;
-            if ((activity = getActivity()) != null) {
-                if (activity instanceof FileDisplayActivity) {
+        Activity activity = getActivity();
+        if (activity != null) {
+            if (activity instanceof FileDisplayActivity) {
+                if (isBackPressed && TextUtils.isEmpty(query)) {
                     FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
                     fileDisplayActivity.resetSearchView();
                     fileDisplayActivity.updateListOfFilesFragment(true);
-                } else if (activity instanceof UploadFilesActivity) {
-                    LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) adapter;
-                    localFileListAdapter.filter(query);
-                } else if (activity instanceof FolderPickerActivity) {
-                    ((FolderPickerActivity) activity).refreshListOfFilesFragment(true);
+                } else {
+                    handler.post(() -> {
+                        if (adapter instanceof OCFileListAdapter) {
+                            EventBus.getDefault().post(new SearchEvent(query,
+                                                                       SearchRemoteOperation.SearchType.FILE_SEARCH,
+                                                                       SearchEvent.UnsetType.NO_UNSET));
+                        } else if (adapter instanceof LocalFileListAdapter) {
+                            LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) adapter;
+                            localFileListAdapter.filter(query);
+                        }
+                    });
+
+                    if (searchView != null) {
+                        searchView.clearFocus();
+                    }
                 }
+            } else if (activity instanceof UploadFilesActivity) {
+                LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) adapter;
+                localFileListAdapter.filter(query);
+            } else if (activity instanceof FolderPickerActivity) {
+                ((FolderPickerActivity) activity).refreshListOfFilesFragment(true);
             }
         }
     }
