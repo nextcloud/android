@@ -2089,9 +2089,11 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i(SQL, "Entering in the #53 add rich workspace to file table");
                 db.beginTransaction();
                 try {
-                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
-                                   ADD_COLUMN + ProviderTableMeta.FILE_RICH_WORKSPACE + " TEXT ");
-
+                    if (!checkIfColumnExists(db, ProviderTableMeta.FILE_TABLE_NAME,
+                                             ProviderTableMeta.FILE_RICH_WORKSPACE)) {
+                        db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                       ADD_COLUMN + ProviderTableMeta.FILE_RICH_WORKSPACE + " TEXT ");
+                    }
                     upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {
