@@ -911,4 +911,6 @@
     <string name="create_rich_workspace">Add folder info</string>
     <string name="creates_rich_workspace">creates folder info</string>
     <string name="edit_rich_workspace">edit folder info</string>
+    <string name="create_new">Create new</string>
+    <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
 </resources>

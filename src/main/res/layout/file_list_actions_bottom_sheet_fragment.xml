@@ -94,16 +94,6 @@
 
     </LinearLayout>
 
-    <View
-        android:id="@+id/dividerCameraUpload"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/standard_half_margin"
-        android:layout_marginRight="@dimen/standard_margin"
-        android:layout_marginBottom="@dimen/standard_half_margin"
-        android:background="@color/list_divider_background" />
-
     <LinearLayout
         android:id="@+id/menu_direct_camera_upload"
         android:layout_width="match_parent"
@@ -153,7 +143,7 @@
         android:paddingLeft="@dimen/standard_padding"
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
@@ -176,6 +166,15 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/standard_half_margin"
+        android:background="@color/list_divider_background" />
+
     <LinearLayout
         android:id="@+id/templates"
         android:layout_width="match_parent"
@@ -183,43 +182,33 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <View
-            android:id="@+id/dividerCreateTemplates"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_half_margin"
-            android:background="@color/list_divider_background"/>
-
         <LinearLayout
             android:id="@+id/menu_new_document"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/standard_padding"
             android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
             android:paddingTop="@dimen/standard_half_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingBottom="@dimen/standard_half_padding"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/menu_icon_new_document"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:contentDescription="@null"
-                android:src="@drawable/file_doc"/>
+                android:src="@drawable/file_doc" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/standard_margin"
                 android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginLeft="@dimen/standard_margin"
                 android:text="@string/create_new_document"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"/>
+                android:textSize="@dimen/bottom_sheet_text_size" />
         </LinearLayout>
 
         <LinearLayout
@@ -227,28 +216,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/standard_padding"
             android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
             android:paddingTop="@dimen/standard_half_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingBottom="@dimen/standard_half_padding"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/menu_icon_new_spreadsheet"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:contentDescription="@null"
-                android:src="@drawable/file_xls"/>
+                android:src="@drawable/file_xls" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/standard_margin"
                 android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginLeft="@dimen/standard_margin"
                 android:text="@string/create_new_spreadsheet"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"/>
+                android:textSize="@dimen/bottom_sheet_text_size" />
         </LinearLayout>
 
         <LinearLayout
@@ -256,37 +245,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/standard_padding"
             android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
             android:paddingTop="@dimen/standard_half_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingBottom="@dimen/standard_half_padding"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/menu_icon_new_presentation"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:contentDescription="@null"
-                android:src="@drawable/file_ppt"/>
+                android:src="@drawable/file_ppt" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/standard_margin"
                 android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginLeft="@dimen/standard_margin"
                 android:text="@string/create_new_presentation"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"/>
+                android:textSize="@dimen/bottom_sheet_text_size" />
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/creators"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone">
 
         <View
             android:layout_width="match_parent"
@@ -296,7 +277,31 @@
             android:layout_marginRight="@dimen/standard_margin"
             android:layout_marginBottom="@dimen/standard_half_margin"
             android:background="@color/list_divider_background" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/creators_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/creators"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/standard_half_margin"
+            android:background="@color/list_divider_background" />
     </LinearLayout>
 
     <LinearLayout
@@ -307,7 +312,7 @@
         android:paddingLeft="@dimen/standard_padding"
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_half_padding"
+        android:paddingBottom="@dimen/standard_padding"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
