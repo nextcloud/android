@@ -74,6 +74,9 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
     @BindView(R.id.creators)
     public LinearLayout creators;
 
+    @BindView(R.id.creators_container)
+    public LinearLayout creatorsContainer;
+
     @BindView(R.id.menu_direct_camera_upload)
     public View cameraView;
 
@@ -135,13 +138,16 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             DirectEditing directEditing = new Gson().fromJson(json, DirectEditing.class);
 
             if (!directEditing.getCreators().isEmpty()) {
-                creators.setVisibility(View.VISIBLE);
+                creatorsContainer.setVisibility(View.VISIBLE);
 
                 LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                 for (Creator creator : directEditing.getCreators().values()) {
                     View creatorView = vi.inflate(R.layout.file_list_actions_bottom_sheet_creator, null);
-                    ((TextView) creatorView.findViewById(R.id.creator_name)).setText(creator.getName());
+                    ((TextView) creatorView.findViewById(R.id.creator_name)).setText(
+                        String.format(fileActivity.getString(R.string.editor_placeholder),
+                                      fileActivity.getString(R.string.create_new),
+                                      creator.getName()));
                     ImageView thumbnail = creatorView.findViewById(R.id.creator_thumbnail);
 
                     thumbnail.setImageDrawable(MimeTypeUtil.getFileTypeIcon(creator.getMimetype(),
