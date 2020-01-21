@@ -20,7 +20,6 @@
     <string name="actionbar_copy">Копирај</string>
     <string name="actionbar_mkdir">Нова фасцикла</string>
     <string name="actionbar_move">Премести</string>
-    <string name="actionbar_open_as_richdocument_parameter">Отвори помоћу %1$s</string>
     <string name="actionbar_open_with">Отвори помоћу</string>
     <string name="actionbar_search">Претрага</string>
     <string name="actionbar_see_details">Детаљи</string>
@@ -74,7 +73,6 @@
     <string name="auth_username">Корисничко име</string>
     <string name="auth_wrong_connection_title">Не могу да успоставим везу</string>
     <string name="auth_wtf_reenter_URL">Неочекивано стање, молимо поново унестите адресу сервера</string>
-    <string name="authentication_exception">Грешка приликом пријављивања</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">задржи у оригиналној фасцикли, пошто је само за читање</string>
     <string name="auto_upload_on_wifi">Отпремај само на бежичним мрежама које не мере проток саобраћаја</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>
@@ -168,15 +166,12 @@
     <string name="copy_file_invalid_into_descendent">Не може да се ископира фасцикла у неку од својих подфасцикли.</string>
     <string name="copy_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
     <string name="copy_file_not_found">Не могу да копирам. Проверите да ли фајл постоји</string>
-    <string name="copy_internal_link">Копирај интерну везу</string>
-    <string name="copy_internal_link_subline">Радиће само за кориснике са приступом овој фасцикли</string>
     <string name="copy_link">Копирај везу</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирање/премештање у шифровану фасциклу није подржано.</string>
     <string name="copy_to">Копирај у…</string>
     <string name="could_not_download_image">Није могуће преузети целу слику</string>
     <string name="could_not_retrieve_url">Не могу да добавим адресу</string>
     <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
-    <string name="create_file_from_template">Направите фајл из шаблона…</string>
     <string name="create_new_document">Направи нови документ</string>
     <string name="create_new_folder">Направи нову фасциклу</string>
     <string name="create_new_presentation">Направи нову презентацију</string>
@@ -364,7 +359,6 @@
     <string name="host_your_own_server">Хостујте сопствени  сервер</string>
     <string name="instant_upload_on_charging">Отпремај само на пуњењу</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">IO грешка</string>
     <string name="learn_more">Сазнајте више</string>
     <string name="link">Веза</string>
     <string name="list_layout">Излистани распоред</string>
@@ -443,7 +437,6 @@
     <string name="notifications_no_results_headline">Нема обавештења</string>
     <string name="notifications_no_results_message">Молимо проверите касније.</string>
     <string name="offline_mode">Нема интернет конекције</string>
-    <string name="operation_canceled">Операција је отказана</string>
     <string name="outdated_server">Сервер је изашао из гаранције, молимо ажурирајте га!</string>
     <string name="overflow_menu">још менија</string>
     <string name="pass_code_configure_your_pass_code">Унесите код за закључавање</string>

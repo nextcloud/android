@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Kopjoni</string>
     <string name="actionbar_mkdir">Dosje e re</string>
     <string name="actionbar_move">Zhvendose</string>
-    <string name="actionbar_open_as_richdocument_parameter">Hapeni me %1$s</string>
     <string name="actionbar_open_with">Hapeni me</string>
     <string name="actionbar_search">Kërkoni</string>
     <string name="actionbar_see_details">Hollësi</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Emër përdoruesi</string>
     <string name="auth_wrong_connection_title">S’u vendos dot lidhja</string>
     <string name="auth_wtf_reenter_URL">Gjendje e papritur; ju lutemi, rijepni adresën e serverit</string>
-    <string name="authentication_exception">Përjashtim nga autentifikimi</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mbajtur në dosjen origjinale, pasi ajo është e vetëm e lexueshme</string>
     <string name="auto_upload_on_wifi">Ngarkoni vetëm Kur Wi-Fi është i pamatur</string>
     <string name="auto_upload_path">/NgarkimAutomatik</string>
@@ -166,15 +164,12 @@
     <string name="copy_file_invalid_into_descendent">S’është e mundur të kopjohet një dosje në një tjetër brenda saj</string>
     <string name="copy_file_invalid_overwrite">Kartela gjendet tashmë te dosja destinacion</string>
     <string name="copy_file_not_found">S’arrin të kopjojë. Ju lutemi, kontrolloni nëse ekziston apo jo skedari</string>
-    <string name="copy_internal_link">Kopjoni lidhjen e brendshme</string>
-    <string name="copy_internal_link_subline">Punon vetëm për përdoruesit që kanë qasje në këtë dosje</string>
     <string name="copy_link">Kopjoje lidhjen</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopjimi/lëvizja në direktorinë e enkriptuar për momentin nuk suportohet.</string>
     <string name="copy_to">Kopjojeni tek…</string>
     <string name="could_not_download_image">Nuk mund të shkarkohet imazhi i plotë</string>
     <string name="could_not_retrieve_url">Url nuk mund të merrej</string>
     <string name="create_dir_fail_msg">S’u krijua dot dosja</string>
-    <string name="create_file_from_template">Duke krijuar skedar nga shablloni...</string>
     <string name="create_new_document">Krijo një dokument te ri</string>
     <string name="create_new_folder">Krijo një dosje të re</string>
     <string name="create_new_presentation">Krijo një prezantim të ri</string>
@@ -362,7 +357,6 @@
     <string name="host_your_own_server">Hostoni serverin tuaj</string>
     <string name="instant_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">Gabim IO</string>
     <string name="learn_more">Mësoni më shumë</string>
     <string name="link">Link</string>
     <string name="list_layout">Strukturë e listuar</string>
@@ -441,7 +435,6 @@
     <string name="notifications_no_results_headline">Asnjë njofim</string>
     <string name="notifications_no_results_message">Ju lutemi kontrolloni përsëri më vonë.</string>
     <string name="offline_mode">Asnjë lidhje interneti</string>
-    <string name="operation_canceled">Operacioni është anuluar</string>
     <string name="outdated_server">Serveri ka arritur fundin e jetës, ju lutemi përmirësojeni!</string>
     <string name="overflow_menu">Më shumë menu</string>
     <string name="pass_code_configure_your_pass_code">Jepni kodkalimin tuaj</string>

@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Αντιγραφή</string>
     <string name="actionbar_mkdir">Νέος φάκελος</string>
     <string name="actionbar_move">Μετακίνηση</string>
-    <string name="actionbar_open_as_richdocument_parameter">Άνοιγμα με %1$s</string>
     <string name="actionbar_open_with">Άνοιγμα με</string>
     <string name="actionbar_search">Αναζήτηση</string>
     <string name="actionbar_see_details">Λεπτομέρειες</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Όνομα χρήστη</string>
     <string name="auth_wrong_connection_title">Αδυναμία δημιουργίας σύνδεσης</string>
     <string name="auth_wtf_reenter_URL">Απροσδόκητη κατάσταση, παρακαλoύμε εισάγετε ξανά τη διεύθυνση του διακομιστή</string>
-    <string name="authentication_exception">Παρατυπία Πιστοποίησης</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">διατηρηθεί στον αρχικό φάκελο, όπως είναι μόνο για ανάγνωση</string>
     <string name="auto_upload_on_wifi">Μεταφόρτωση μόνο μέσω wifi</string>
     <string name="auto_upload_path">/ΑυτόματηΜεταφόρτωση</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">Δεν είναι δυνατό να αντιγραφεί ο φάκελος σε απογονικό</string>
     <string name="copy_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
     <string name="copy_file_not_found">Αδυναμία αντιγραφής. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει</string>
-    <string name="copy_internal_link">Αντιγραφή εσωτερικού συνδέσμου</string>
-    <string name="copy_internal_link_subline">Δουλεύει μόνο για χρήστες με πρόσβαση σε αυτό το φάκελο</string>
     <string name="copy_link">Αντιγραφή συνδέσμου</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Η αντιγραφή/μετακίνηση σε κρυπτογραφημένο φάκελο δεν υποστηρίζεται αυτή τη στιγμή</string>
     <string name="copy_to">Αντιγραφή σε…</string>
     <string name="could_not_download_image">Αδυναμία λήψης της πλήρους εικόνας</string>
     <string name="could_not_retrieve_url">Αδυναμία ανάκτησης url</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
-    <string name="create_file_from_template">Δημιουργία αρχείου από πρότυπο…</string>
     <string name="create_new_document">Δημιουργία νέου εγγράφου</string>
     <string name="create_new_folder">Δημιουργία νέου φακέλου</string>
     <string name="create_new_presentation">Δημιουργία νέας παρουσίασης</string>
@@ -367,7 +362,6 @@
     <string name="host_your_own_server">Φιλοξενήστε το δικό σας διακομιστή</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">Σφάλμα IO</string>
     <string name="learn_more">Μάθετε περισσότερα</string>
     <string name="link">Σύνδεσμος</string>
     <string name="list_layout">Διάταξη λίστας</string>
@@ -446,7 +440,6 @@
     <string name="notifications_no_results_headline">Καμία ειδοποίηση</string>
     <string name="notifications_no_results_message">Παρακαλούμε ελέγξτε ξανά αργότερα. </string>
     <string name="offline_mode">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
-    <string name="operation_canceled">Η λειτουργία ακυρώθηκε</string>
     <string name="outdated_server">Ο διακομιστής έφτασε στο τέλος το χρόνου υποστήριξης, παρακαλούμε αναβαθμίστε!</string>
     <string name="overflow_menu">Περισσότερο μενού</string>
     <string name="pass_code_configure_your_pass_code">Εισάγετε τον κωδικό πρόσβασης</string>

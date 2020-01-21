@@ -19,7 +19,6 @@
     <string name="actionbar_copy">کپی کردن</string>
     <string name="actionbar_mkdir">پوشه جدید</string>
     <string name="actionbar_move">انتقال</string>
-    <string name="actionbar_open_as_richdocument_parameter">بازکردن با %1$s</string>
     <string name="actionbar_open_with">باز کردن با</string>
     <string name="actionbar_search">جستجو</string>
     <string name="actionbar_see_details">جزئیات</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">نام کاربری</string>
     <string name="auth_wrong_connection_title">ارتباط برقرار نشد</string>
     <string name="auth_wtf_reenter_URL">وضیعت غیر منتظره، لطفا آدرس سرور را دوباره وارد کنید</string>
-    <string name="authentication_exception">خطای تصدیق</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">در پوشه اصلی و به صورت فقط خواندنی نگهداری شده است.</string>
     <string name="auto_upload_on_wifi">بارگذلری فقط روی Wi-Fi بی اندازه</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -163,15 +161,12 @@
     <string name="copy_file_invalid_into_descendent">کپی کردن پوشه در یکی از پوشه های زیرین خود امکان پذیر نیست</string>
     <string name="copy_file_invalid_overwrite">پرونده در حال حاضر در پوشه مقصد موجود است</string>
     <string name="copy_file_not_found">امکان کپی وجود ندارد، لطفا وجود فایل را بررسی کنید</string>
-    <string name="copy_internal_link">کپی کردن پیوند داخلی</string>
-    <string name="copy_internal_link_subline">فقط برای کاربران دارای دسترسی به این پوشه کار می کند</string>
     <string name="copy_link">کپی کردن لینک</string>
     <string name="copy_move_to_encrypted_folder_not_supported">کپی کردن / انتقال به پوشه رمزگذاری شده در حال حاضر پشتیبانی نمی شود.</string>
     <string name="copy_to">کپی کردن در...</string>
     <string name="could_not_download_image">تصویر کامل بارگیری نشد</string>
     <string name="could_not_retrieve_url">بازیابی آدرس اینترنتی امکان پذیر نیست</string>
     <string name="create_dir_fail_msg">نمی توان پوشه را ساخت</string>
-    <string name="create_file_from_template">ایجاد فایل از قالب…</string>
     <string name="create_new_document">ساختن سند جدید</string>
     <string name="create_new_folder">ساختن پوشه جدید</string>
     <string name="create_new_presentation">ساختن ارائه جدید</string>
@@ -350,7 +345,6 @@
     <string name="host_your_own_server">میزبان سرور خود</string>
     <string name="instant_upload_on_charging">فقط هنگامی که گوشی شارژ می شود آپلود کنید</string>
     <string name="instant_upload_path">آپلود فوری</string>
-    <string name="io_error">خطای IO</string>
     <string name="learn_more">بیشتر بدانید</string>
     <string name="link">Link</string>
     <string name="list_layout">Listed layout</string>

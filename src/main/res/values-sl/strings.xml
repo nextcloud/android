@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Kopiraj</string>
     <string name="actionbar_mkdir">Nova mapa</string>
     <string name="actionbar_move">Premakni</string>
-    <string name="actionbar_open_as_richdocument_parameter">Odpri s programom %1$s</string>
     <string name="actionbar_open_with">Odpri s programom</string>
     <string name="actionbar_search">Iskanje</string>
     <string name="actionbar_see_details">Podrobnosti</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Uporabniško ime</string>
     <string name="auth_wrong_connection_title">Ni mogoče vzpostaviti povezave</string>
     <string name="auth_wtf_reenter_URL">Nepričakovano stanje. Znova vpiši podatke strežnika.</string>
-    <string name="authentication_exception">Izjema overitve</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ohranjeno v izvorni mapi, ker je ta le za branje</string>
     <string name="auto_upload_on_wifi">Pošiljaj le na nemerjeni povezavi Wi-Fi</string>
     <string name="auto_upload_path">/SamodejnoPošiljanje</string>
@@ -166,15 +164,12 @@
     <string name="copy_file_invalid_into_descendent">Ni mogoče kopirati mape v podrejeno mapo</string>
     <string name="copy_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja</string>
     <string name="copy_file_not_found">Kopiranje ni mogoče. Preverite, ali datoteka obstaja.</string>
-    <string name="copy_internal_link">Kopiraj krajevno povezavo</string>
-    <string name="copy_internal_link_subline">Možnost deluje le za uporabnike, ki imajo dostop do te mape</string>
     <string name="copy_link">Kopiraj povezavo</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiranje/Premikanje predmetov v šifrirano mapo trenutno ni podprto.</string>
     <string name="copy_to">Kopiraj v ...</string>
     <string name="could_not_download_image">Slike ni mogoče prejeti v celoti.</string>
     <string name="could_not_retrieve_url">Naslova URL ni mogoče pridobiti</string>
     <string name="create_dir_fail_msg">Ni mogoče ustvariti mape</string>
-    <string name="create_file_from_template">Poteka ustvarjanje dokumenta iz predloge ...</string>
     <string name="create_new_document">Ustvari nov dokument</string>
     <string name="create_new_folder">Ustvari novo mapo</string>
     <string name="create_new_presentation">Ustvari novo predstavitev</string>
@@ -365,7 +360,6 @@
     <string name="host_your_own_server">Gostite osebni strežnik</string>
     <string name="instant_upload_on_charging">Usklajuj le med polnjenjem naprave</string>
     <string name="instant_upload_path">/Hipno nalaganje</string>
-    <string name="io_error">V/I napaka</string>
     <string name="learn_more">Prikaži več</string>
     <string name="link">Povezava</string>
     <string name="local_file_list_empty">V tej mapi ni datotek.</string>
@@ -442,7 +436,6 @@
     <string name="notifications_no_results_headline">Ni obvestil</string>
     <string name="notifications_no_results_message">Prosim, preveri kasneje</string>
     <string name="offline_mode">Ni vzpostavljene internetne povezave</string>
-    <string name="operation_canceled">Opravilo je preklicano</string>
     <string name="pass_code_configure_your_pass_code">Vnesite kodo PIN programa</string>
     <string name="pass_code_configure_your_pass_code_explanation">Koda bo zahtevana vsakič pred zagonom programa.</string>
     <string name="pass_code_enter_pass_code">Vnesite kodo PIN</string>

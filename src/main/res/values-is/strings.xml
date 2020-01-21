@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Afrita</string>
     <string name="actionbar_mkdir">Ný mappa</string>
     <string name="actionbar_move">Færa</string>
-    <string name="actionbar_open_as_richdocument_parameter">Opna með %1$s</string>
     <string name="actionbar_open_with">Opna með</string>
     <string name="actionbar_search">Leita</string>
     <string name="actionbar_see_details">Nánar</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Notandanafn</string>
     <string name="auth_wrong_connection_title">Gat ekki komið á tengingu</string>
     <string name="auth_wtf_reenter_URL">Óvænt ástand, settu aftur inn vistfang þjónsins</string>
-    <string name="authentication_exception">Frávik við auðkenningu</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">haldið áfram í upprunalegri möppu, því hún er skrifvarin</string>
     <string name="auto_upload_on_wifi">Aðeins senda inn á gjaldfrjálsu WiFi-neti</string>
     <string name="auto_upload_path">/SjálfvirkInnsending</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">Ekki er hægt að afrita möppu inn í eina af undirmöppum sínum</string>
     <string name="copy_file_invalid_overwrite">Skráin er þegar til í móttökumöppunni</string>
     <string name="copy_file_not_found">Get ekki afritað. Athugaðu hvort skráin sé til</string>
-    <string name="copy_internal_link">Afrita innri tengil</string>
-    <string name="copy_internal_link_subline">Virkar bara fyrir notendur sem eiga aðgang að þessari möppu</string>
     <string name="copy_link">Afrita tengil</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Ekki er stuðningur ennþá við afritun/færslu inn í dulritaða möppu.</string>
     <string name="copy_to">Afrita í…</string>
     <string name="could_not_download_image">Gat ekki sótt alla myndina</string>
     <string name="could_not_retrieve_url">Tókst ekki að ná í slóð</string>
     <string name="create_dir_fail_msg">Gat ekki búið til möppu</string>
-    <string name="create_file_from_template">Bý til skrá út frá sniðmáti…</string>
     <string name="create_new_document">Búa til nýtt skjal</string>
     <string name="create_new_folder">Búa til nýja möppu</string>
     <string name="create_new_presentation">Búa til nýja kynningu</string>
@@ -363,7 +358,6 @@
     <string name="host_your_own_server">Hýstu þinn eigin þjón</string>
     <string name="instant_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_path">/BeinInnsending</string>
-    <string name="io_error">Inntaks/úttaksvilla</string>
     <string name="learn_more">Læra meira</string>
     <string name="link">Tengill</string>
     <string name="list_layout">Framsetning sem listi</string>
@@ -442,7 +436,6 @@
     <string name="notifications_no_results_headline">Engar tilkynningar</string>
     <string name="notifications_no_results_message">Athugaðu aftur síðar.</string>
     <string name="offline_mode">Engin internettenging</string>
-    <string name="operation_canceled">Hætt hefur verið við aðgerð</string>
     <string name="outdated_server">Netþjónninn er kominn að endimörkum líftíma síns, endilega uppfærðu hann!</string>
     <string name="overflow_menu">Valmynd með fleiru</string>
     <string name="pass_code_configure_your_pass_code">Settu inn lykilkóða</string>

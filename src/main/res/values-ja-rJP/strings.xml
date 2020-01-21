@@ -19,7 +19,6 @@
     <string name="actionbar_copy">コピー</string>
     <string name="actionbar_mkdir">新しいフォルダー</string>
     <string name="actionbar_move">移動</string>
-    <string name="actionbar_open_as_richdocument_parameter">%1$s で開く</string>
     <string name="actionbar_open_with">次で開く</string>
     <string name="actionbar_search">検索</string>
     <string name="actionbar_see_details">詳細</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">ユーザー名</string>
     <string name="auth_wrong_connection_title">接続を確立できませんでした</string>
     <string name="auth_wtf_reenter_URL">予期しない状態です。サーバーアドレスをもう一度入力してください</string>
-    <string name="authentication_exception">認証除外</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">読み取り専用のため元のフォルダに残しました</string>
     <string name="auto_upload_on_wifi">定額制 Wi-Fi でのみアップロード</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">フォルダをその下のフォルダにコピーすることはできません</string>
     <string name="copy_file_invalid_overwrite">そのファイルは移動先フォルダーにすでに存在します。</string>
     <string name="copy_file_not_found">コピーできません。ファイルがあるか確認してください。</string>
-    <string name="copy_internal_link">内部リンクをコピー</string>
-    <string name="copy_internal_link_subline">このフォルダーにアクセスできるユーザーにのみ機能します</string>
     <string name="copy_link">リンクをコピー</string>
     <string name="copy_move_to_encrypted_folder_not_supported">現在サポートされていない暗号化されたフォルダにコピー/移動します。</string>
     <string name="copy_to">コピー…</string>
     <string name="could_not_download_image">イメージ全体をダウンロードできませんでした</string>
     <string name="could_not_retrieve_url">URL を取得できませんでした</string>
     <string name="create_dir_fail_msg">フォルダーを作成できません</string>
-    <string name="create_file_from_template">テンプレートからファイルを作成する</string>
     <string name="create_new_document">新しい文書を作成する</string>
     <string name="create_new_folder">新しいフォルダーを作成</string>
     <string name="create_new_presentation">新しいプレゼンテーションを作成する</string>
@@ -363,7 +358,6 @@
     <string name="host_your_own_server">自分のサーバーをホストする</string>
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">IOエラー</string>
     <string name="learn_more">もっと見る</string>
     <string name="link">リンク</string>
     <string name="list_layout">リスト表示</string>
@@ -442,7 +436,6 @@
     <string name="notifications_no_results_headline">通知なし</string>
     <string name="notifications_no_results_message">後で確認してください。</string>
     <string name="offline_mode">インターネットに接続されていません</string>
-    <string name="operation_canceled">処理がキャンセルされました</string>
     <string name="outdated_server">サーバーのEOLが終わったので、アップグレードしてください！</string>
     <string name="overflow_menu">その他のメニュー</string>
     <string name="pass_code_configure_your_pass_code">パスコードを入力</string>

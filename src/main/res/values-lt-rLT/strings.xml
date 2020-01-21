@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Kopijuoti</string>
     <string name="actionbar_mkdir">Naujas aplankas</string>
     <string name="actionbar_move">Perkelti</string>
-    <string name="actionbar_open_as_richdocument_parameter">Atverti naudojant %1$s</string>
     <string name="actionbar_open_with">Atverti naudojant</string>
     <string name="actionbar_search">Paieška</string>
     <string name="actionbar_see_details">Išsamiau</string>
@@ -71,7 +70,6 @@
     <string name="auth_username">Naudotojo vardas</string>
     <string name="auth_wrong_connection_title">Nepavyko užmegzti ryšio</string>
     <string name="auth_wtf_reenter_URL">Netikėtas statusas, prašome dar kartą įvesti serverio adresą</string>
-    <string name="authentication_exception">Tapatybės nustatymo išimtis</string>
     <string name="auto_upload_path">automatinis paleidimas</string>
     <string name="autoupload_configure">Konfigūruoti</string>
     <string name="autoupload_create_new_custom_folder">Naujas aplanko nustatymas</string>
@@ -150,15 +148,12 @@
     <string name="copy_file_invalid_into_descendent">Neįmanoma nukopijuoti aplanko į poaplankį</string>
     <string name="copy_file_invalid_overwrite">Failas aplanke jau egzistuoja</string>
     <string name="copy_file_not_found">Nepavyko nukopijuoti. Patikrinkite ar failas egzistuoja</string>
-    <string name="copy_internal_link">Kopijuoti vidinę nuorodą</string>
-    <string name="copy_internal_link_subline">Veikia tik naudotojams, kurie turi prieigą prie šio aplanko</string>
     <string name="copy_link">Kopijuoti nuorodą</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopijavimas/perkėlimas į šifruotą aplanką šiuo metu nėra palaikomas.</string>
     <string name="copy_to">Kopijuoti į…</string>
     <string name="could_not_download_image">Nepavyko atsisiųsti viso paveikslo</string>
     <string name="could_not_retrieve_url">Nepavyko atgauti url</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
-    <string name="create_file_from_template">Sukuriamas failas iš šablono…</string>
     <string name="create_new_document">Sukurti naują dokumentą</string>
     <string name="create_new_folder">Sukurti naują aplanką</string>
     <string name="create_new_presentation">Sukurti naują pateiktį</string>
@@ -320,7 +315,6 @@
     <string name="host_not_available">Serveris neprieinamas</string>
     <string name="instant_upload_on_charging">Įkelti failus tik kai kraunasi</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">IO klaida</string>
     <string name="learn_more">Sužinoti daugiau</string>
     <string name="link">Nuoroda</string>
     <string name="list_layout">Išdėstymas sąraše</string>
@@ -383,7 +377,6 @@
     <string name="notifications_no_results_headline">Pranešimų nėra</string>
     <string name="notifications_no_results_message">Prašome patikrinti vėliau</string>
     <string name="offline_mode">Nėra interneto ryšio</string>
-    <string name="operation_canceled">Operacijos atsisakyta</string>
     <string name="overflow_menu">Daugiau meniu</string>
     <string name="pass_code_configure_your_pass_code">Įveskite užraktą</string>
     <string name="pass_code_configure_your_pass_code_explanation">Užrakto kodas bus reikalaujamas kiekvieną kartą paleidžiant programėlę</string>

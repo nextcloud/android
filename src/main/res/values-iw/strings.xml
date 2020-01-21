@@ -19,7 +19,6 @@
     <string name="actionbar_copy">העתק</string>
     <string name="actionbar_mkdir">תיקייה חדשה</string>
     <string name="actionbar_move">העברה</string>
-    <string name="actionbar_open_as_richdocument_parameter">פתיחה עם %1$s</string>
     <string name="actionbar_open_with">פתיחה על בסיס</string>
     <string name="actionbar_search">חיפוש</string>
     <string name="actionbar_see_details">פרטים</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">שם משתמש</string>
     <string name="auth_wrong_connection_title">לא ניתן ליצור את החיבור</string>
     <string name="auth_wtf_reenter_URL">מצב בלתי צפוי, יש להקליד את כתובת השרת שוב</string>
-    <string name="authentication_exception">חריגת אימות</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">נשאר בתיקייה המקומית כיוון שהיא לקריאה בלבד</string>
     <string name="auto_upload_on_wifi">להעלות רק ברשת אלחוטית ללא מדידת כמות</string>
     <string name="auto_upload_path">/העלאה אוטומטית</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">אי אפשר להעתיק תיקייה לתוך אחת התיקיות שתחתיה</string>
     <string name="copy_file_invalid_overwrite">הקובץ כבר קיים בתיקיית היעד</string>
     <string name="copy_file_not_found">לא ניתן להעתיק. יש לבדוק אם הקובץ קיים</string>
-    <string name="copy_internal_link">העתקת קישור פנימי</string>
-    <string name="copy_internal_link_subline">עובד רק עבוד משתמשים עם גישה לתיקייה הזו</string>
     <string name="copy_link">העתקת קישור</string>
     <string name="copy_move_to_encrypted_folder_not_supported">נכון לעכשיו, אין תמיכה בהעתקה/העברה לתיקייה מוצפנת.</string>
     <string name="copy_to">העתק אל…</string>
     <string name="could_not_download_image">לא ניתן להוריד את התמונה המלאה</string>
     <string name="could_not_retrieve_url">לא ניתן לקבל כתובת</string>
     <string name="create_dir_fail_msg">לא ניתן ליצור תיקייה</string>
-    <string name="create_file_from_template">נוצר קובץ מתבנית…</string>
     <string name="create_new_document">יצירת מסמך חדש</string>
     <string name="create_new_folder">יצירת תיקייה חדשה</string>
     <string name="create_new_presentation">יצירת מצגת חדשה</string>
@@ -363,7 +358,6 @@
     <string name="host_your_own_server">אירוח שרת משלך</string>
     <string name="instant_upload_on_charging">להעלות רק בעת טעינה</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">שגיאת קלט פלט</string>
     <string name="learn_more">לקריאה נוספת</string>
     <string name="link">קישור</string>
     <string name="list_layout">פריסה מוצגת</string>
@@ -442,7 +436,6 @@
     <string name="notifications_no_results_headline">אין התרעות</string>
     <string name="notifications_no_results_message">נא לבדוק שוב מאוחר יותר.</string>
     <string name="offline_mode">אין חיבור לאינטרנט</string>
-    <string name="operation_canceled">הפעולה בוטלה.</string>
     <string name="outdated_server">השרת הגיע לתום חייו, נא לשדרג!</string>
     <string name="overflow_menu">תפריט עוד</string>
     <string name="pass_code_configure_your_pass_code">יש להכניס את הקוד שלך</string>

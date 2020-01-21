@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Novo cartafol</string>
     <string name="actionbar_move">Mover</string>
-    <string name="actionbar_open_as_richdocument_parameter">Abrir con %1$s</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Nome de usuario</string>
     <string name="auth_wrong_connection_title">Non foi posíbel estabelecer a conexión</string>
     <string name="auth_wtf_reenter_URL">Estado non agardado; introduza de novo o enderezo do servidor</string>
-    <string name="authentication_exception">Produciuse unha excepción na autenticación</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
     <string name="auto_upload_on_wifi">Enviar só con WiFi sen límite de datos</string>
     <string name="auto_upload_path">/EnvíoAutomático</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">Non é posíbel copiar un cartafol nun dos seus propios subcartafoles</string>
     <string name="copy_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
     <string name="copy_file_not_found">Non se puido copiar. Comprobe que o ficheiro existe</string>
-    <string name="copy_internal_link">Copiar a ligazón interna</string>
-    <string name="copy_internal_link_subline">Só funciona para usuarios que teñen acceso a este cartafol</string>
     <string name="copy_link">Copiar a ligazón</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover dentro dun cartafol cifrado aínda non está admitido.</string>
     <string name="copy_to">Copiar en…</string>
     <string name="could_not_download_image">Non foi posíbel descargar a imaxe completa</string>
     <string name="could_not_retrieve_url">Non foi posíbel recuperar o URL</string>
     <string name="create_dir_fail_msg">Non foi posíbel crear o cartafol</string>
-    <string name="create_file_from_template">Creando o ficheiro dende un modelo…</string>
     <string name="create_new_document">Crear un documento novo</string>
     <string name="create_new_folder">Crear un cartafol novo</string>
     <string name="create_new_presentation">Crear unha presentación nova</string>
@@ -367,7 +362,6 @@
     <string name="host_your_own_server">Hospede o seu propio servidor</string>
     <string name="instant_upload_on_charging">Enviar só cando estea cargando</string>
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
-    <string name="io_error">Erro de E/S</string>
     <string name="learn_more">Aprender máis</string>
     <string name="link">Ligazón</string>
     <string name="list_layout">Ver como lista</string>
@@ -446,7 +440,6 @@
     <string name="notifications_no_results_headline">Non hai notificacións</string>
     <string name="notifications_no_results_message">Compróbeo máis tarde.</string>
     <string name="offline_mode">Sen conexión coa Internet</string>
-    <string name="operation_canceled">A operación foi cancelada</string>
     <string name="outdated_server">O servidor acadou a fin da súa vida. Actualíceo!</string>
     <string name="overflow_menu">Máis menús</string>
     <string name="pass_code_configure_your_pass_code">Introduza o seu código de seguridade</string>

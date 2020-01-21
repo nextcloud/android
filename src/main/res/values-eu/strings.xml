@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Kopiatu</string>
     <string name="actionbar_mkdir">Karpeta berria</string>
     <string name="actionbar_move">Mugitu</string>
-    <string name="actionbar_open_as_richdocument_parameter">%1$s -rekin ireki</string>
     <string name="actionbar_open_with">Ireki honekin</string>
     <string name="actionbar_search">Bilatu</string>
     <string name="actionbar_see_details">Xehetasunak</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Erabiltzaile izena</string>
     <string name="auth_wrong_connection_title">Ezin da konexioa ezarri</string>
     <string name="auth_wtf_reenter_URL">Egoera ezezaguna, zerbitzariaren helbidea berriz sartu mesedez</string>
-    <string name="authentication_exception">Autentifikazio salbuespena</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Jatorrizko karpetan mantendu da, soilik irakurtzeko delako</string>
     <string name="auto_upload_on_wifi">Igoerak neurketarik gabeko Wi-Fi bidez soilik</string>
     <string name="auto_upload_path">/Auto-karga</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">Ezin da karpeta bat azpikarpeta batera kopiatu</string>
     <string name="copy_file_invalid_overwrite">Fitxategi hau iada existitzen da helburuko karpetan</string>
     <string name="copy_file_not_found">Ezin da kopiatu. Fitxategia existitzen dela egiazta ezazu</string>
-    <string name="copy_internal_link">Kopiatu barne-esteka</string>
-    <string name="copy_internal_link_subline">Bakarrik funtzionatzen du karpeta horretan sartzeko baimena duten erabiltzaileentzat</string>
     <string name="copy_link">Lotura kopiatu</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Une honetan ez da onartzen kopiatzea/mugitzea enkriptatutako karpetara</string>
     <string name="copy_to">Kopiatu hona…</string>
     <string name="could_not_download_image">Ezin izan da irudi osoa jaitsi</string>
     <string name="could_not_retrieve_url">Ezin izan da URLa berreskuratu</string>
     <string name="create_dir_fail_msg">Ezin da karpeta sortu</string>
-    <string name="create_file_from_template">Fitxategia txantiloitik sortzen...</string>
     <string name="create_new_document">Sortu dokumentu berria</string>
     <string name="create_new_folder">Sortu karpeta berria</string>
     <string name="create_new_presentation">Sortu aurkezpen berria</string>
@@ -367,7 +362,6 @@
     <string name="host_your_own_server">Ostatatu zure zerbitzaria</string>
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
     <string name="instant_upload_path">/BerehalakoIgoerak</string>
-    <string name="io_error">S/I akatsa</string>
     <string name="learn_more">Gehiago ikasi</string>
     <string name="link">Esteka</string>
     <string name="list_layout">Zerrenda ikuspegia</string>
@@ -446,7 +440,6 @@
     <string name="notifications_no_results_headline">Jakinarazpenik ez</string>
     <string name="notifications_no_results_message">Itzuli beranduago, mesedez.</string>
     <string name="offline_mode">Internet konexiorik ez</string>
-    <string name="operation_canceled">Eragiketa bertan behera utzi da</string>
     <string name="outdated_server">Zerbitzaria bizitzaren amaierara iritsi da, berritu!</string>
     <string name="overflow_menu">Gehiago menua</string>
     <string name="pass_code_configure_your_pass_code">Sartu zure pasahitza</string>

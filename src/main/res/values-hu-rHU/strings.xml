@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Másolás</string>
     <string name="actionbar_mkdir">Új mappa</string>
     <string name="actionbar_move">Áthelyezés</string>
-    <string name="actionbar_open_as_richdocument_parameter">Megnyitás ezzel %1$s</string>
     <string name="actionbar_open_with">Megnyitás ezzel</string>
     <string name="actionbar_search">Keresés</string>
     <string name="actionbar_see_details">Részletek</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Felhasználónév</string>
     <string name="auth_wrong_connection_title">A kapcsolat létrehozása sikertelen</string>
     <string name="auth_wtf_reenter_URL">Váratlan állapot, adja meg újra a kiszolgáló címét</string>
-    <string name="authentication_exception">Hitelesítési kivétel</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">megtartva az eredeti mappában, mivel csak olvasható</string>
     <string name="auto_upload_on_wifi">Feltöltés csak forgalomkorlát nélküli Wi-Fin</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -166,15 +164,12 @@
     <string name="copy_file_invalid_into_descendent">Nem másolható egy mappa a saját almappájába</string>
     <string name="copy_file_invalid_overwrite">A fájl már létezik a célmappában</string>
     <string name="copy_file_not_found">Nem lehet másolni. Ellenőrizze, hogy létezik-e a fájl</string>
-    <string name="copy_internal_link">Belső hivatkozás másolása</string>
-    <string name="copy_internal_link_subline">Csak azoknál a felhasználóknál működik, akiknek hozzáférése van ehhez a mappához</string>
     <string name="copy_link">Hivatkozás másolása</string>
     <string name="copy_move_to_encrypted_folder_not_supported">A titkosított mappába másolás/áthelyezés jelenleg nem támogatott.</string>
     <string name="copy_to">Másolás ide…</string>
     <string name="could_not_download_image">Nem sikerült letölteni a teljes képet</string>
     <string name="could_not_retrieve_url">Az URL nem kérhető le</string>
     <string name="create_dir_fail_msg">A mappa létrehozása sikertelen</string>
-    <string name="create_file_from_template">Fájl készítése sablonból…</string>
     <string name="create_new_document">Új dokumentum létrehozása</string>
     <string name="create_new_folder">Új mappa létrehozása</string>
     <string name="create_new_presentation">Új bemutató létrehozása</string>
@@ -362,7 +357,6 @@
     <string name="host_your_own_server">Saját kiszolgáló használata</string>
     <string name="instant_upload_on_charging">Feltöltés csak töltés közben</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">IO hiba</string>
     <string name="learn_more">Tudjon meg többet</string>
     <string name="link">Hivatkozás</string>
     <string name="list_layout">Listás elrendezés</string>
@@ -441,7 +435,6 @@
     <string name="notifications_no_results_headline">Nincsenek értesítések</string>
     <string name="notifications_no_results_message">Jöjjön vissza később.</string>
     <string name="offline_mode">Nincs internetkapcsolat</string>
-    <string name="operation_canceled">Művelet megszakítva</string>
     <string name="outdated_server">A kiszolgáló elérte az életciklusa végét, kérjük frissítsen!</string>
     <string name="overflow_menu">További menü</string>
     <string name="pass_code_configure_your_pass_code">Írja be a számkódodat</string>

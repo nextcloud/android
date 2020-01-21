@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Nova pasta</string>
     <string name="actionbar_move">Mover</string>
-    <string name="actionbar_open_as_richdocument_parameter">Abrir com %1$s</string>
     <string name="actionbar_open_with">Abrir com</string>
     <string name="actionbar_search">Procura</string>
     <string name="actionbar_see_details">Detalhes</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Nome de utilizador</string>
     <string name="auth_wrong_connection_title">Não foi possível estabelecer ligação</string>
     <string name="auth_wtf_reenter_URL">Estado inesperado. Digite novamente o endereço do servidor</string>
-    <string name="authentication_exception">Excepção de autenticação</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, dado ser readonly</string>
     <string name="auto_upload_on_wifi">Carregar ficheiros apenas em redes Wi-Fi sem contagem do tráfego</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -165,14 +163,11 @@
     <string name="copy_file_invalid_into_descendent">Não é possível copiar a pasta para uma das suas próprias pastas internas</string>
     <string name="copy_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
     <string name="copy_file_not_found">Não é possível copiar. Por favor, verifique se o ficheiro existe</string>
-    <string name="copy_internal_link">Copiar ligação interna</string>
-    <string name="copy_internal_link_subline">Apenas funciona para utilizadores com acesso a esta pasta</string>
     <string name="copy_link">Copiar hiperligação</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover para pasta encriptada não é actualmente suportado.</string>
     <string name="copy_to">Copiar para…</string>
     <string name="could_not_retrieve_url">Não foi possível obter o URL</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
-    <string name="create_file_from_template">A criar ficheiro a partir de modelo...</string>
     <string name="create_new_document">Criar novo documento</string>
     <string name="create_new_folder">Criar nova pasta</string>
     <string name="create_new_presentation">Criar nova apresentação</string>
@@ -351,7 +346,6 @@
     <string name="host_your_own_server">Hospede o seu próprio servidor</string>
     <string name="instant_upload_on_charging">Carregar ficheiros apenas quando o carregador está ligado</string>
     <string name="instant_upload_path">/Envio Instantâneo </string>
-    <string name="io_error">Erro de IO</string>
     <string name="learn_more">Conheça melhor</string>
     <string name="link">Hiperligação</string>
     <string name="list_layout">Layout listado</string>
@@ -424,7 +418,6 @@
     <string name="notifications_no_results_headline">Sem notificações</string>
     <string name="notifications_no_results_message">Por favor, confirme novamente mais tarde.</string>
     <string name="offline_mode">Sem conexão à Internet</string>
-    <string name="operation_canceled">A operação foi cancelada</string>
     <string name="outdated_server">O servidor chegou ao fim de vida, por favor, actualize-o!</string>
     <string name="overflow_menu">Menu mais</string>
     <string name="pass_code_configure_your_pass_code">Insira o seu código</string>

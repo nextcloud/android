@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Kopyala</string>
     <string name="actionbar_mkdir">Yeni klasör</string>
     <string name="actionbar_move">Taşı</string>
-    <string name="actionbar_open_as_richdocument_parameter">%1$s ile aç</string>
     <string name="actionbar_open_with">Birlikte aç</string>
     <string name="actionbar_search">Arama</string>
     <string name="actionbar_see_details">Ayrıntılar</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Kullanıcı Adı</string>
     <string name="auth_wrong_connection_title">Bağlantı kurulamadı</string>
     <string name="auth_wtf_reenter_URL">Beklenilmeyen durum; Lütfen sunucu adresini yeniden yazın</string>
-    <string name="authentication_exception">Kimlik Doğrulama İstisnası</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">salt okunur olduğundan özgün klasörde kaldı</string>
     <string name="auto_upload_on_wifi">Yalnız kullanıma göre ücretlendirilmeyen kablosuz ağ üzerinden yüklensin</string>
     <string name="auto_upload_path">/OtomatikYükleme</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak kopyalanamaz</string>
     <string name="copy_file_invalid_overwrite">Dosya hedef klasörde zaten var</string>
     <string name="copy_file_not_found">Kopyalanamadı. Lütfen dosyanın var olup olmadığını denetleyin</string>
-    <string name="copy_internal_link">İç bağlantıyı kopyala</string>
-    <string name="copy_internal_link_subline">Yalnız bu klasöre erişebilen kullanıcılar için geçerlidir</string>
     <string name="copy_link">Bağlantıyı kopyala</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
     <string name="copy_to">Şuraya kopyala …</string>
     <string name="could_not_download_image">Tam boyuttaki görsel indirilemedi</string>
     <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
-    <string name="create_file_from_template">Kalıptan dosya oluşturuluyor …</string>
     <string name="create_new_document">Yeni belge</string>
     <string name="create_new_folder">Klasör ekle</string>
     <string name="create_new_presentation">Yeni sunum</string>
@@ -367,7 +362,6 @@
     <string name="host_your_own_server">Kendi sunucunuzu işletin</string>
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
-    <string name="io_error">Giriş Çıkış sorunu</string>
     <string name="learn_more">Ayrıntılı bilgi alın</string>
     <string name="link">Bağlantı</string>
     <string name="list_layout">Liste düzeni</string>
@@ -446,7 +440,6 @@
     <string name="notifications_no_results_headline">Herhangi bir bildirim yok</string>
     <string name="notifications_no_results_message">Daha sonra yeniden bakın.</string>
     <string name="offline_mode">İnternet bağlantısı yok</string>
-    <string name="operation_canceled">İşlem iptal edildi</string>
     <string name="outdated_server">Sunucu ömrünün sonuna geldi, lütfen sürümünü yükseltin!</string>
     <string name="overflow_menu">Diğerleri menüsü</string>
     <string name="pass_code_configure_your_pass_code">Parolanızı yazın</string>

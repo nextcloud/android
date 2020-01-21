@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Kopioi</string>
     <string name="actionbar_mkdir">Uusi kansio</string>
     <string name="actionbar_move">Siirrä</string>
-    <string name="actionbar_open_as_richdocument_parameter">Avaa käyttäen %1$s</string>
     <string name="actionbar_open_with">Avaa sovelluksella</string>
     <string name="actionbar_search">Etsi</string>
     <string name="actionbar_see_details">Tiedot</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Käyttäjätunnus</string>
     <string name="auth_wrong_connection_title">Yhteyden muodostaminen ei onnistunut</string>
     <string name="auth_wtf_reenter_URL">Odottamaton tila, kirjoita palvelimen osoite uudestaan</string>
-    <string name="authentication_exception">Virhe tunnistautumisessa</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Säilytetty alkuperäisessä kansiossa, koska se on vain luku</string>
     <string name="auto_upload_on_wifi">Lähetä vain Wi-Fi-yhteydellä</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -166,15 +164,12 @@
     <string name="copy_file_invalid_into_descendent">Ei ole mahdollista kopioida kansiota yhteen sen alikansiosta.</string>
     <string name="copy_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
     <string name="copy_file_not_found">Kopiointi epäonnistui. Tarkista onko tiedostoa olemassa</string>
-    <string name="copy_internal_link">Kopioi sisäinen linkki</string>
-    <string name="copy_internal_link_subline">Toimii vain käyttäjille, joilla on oikeus tähän kansioon</string>
     <string name="copy_link">Kopioi linkki</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiointi/siirto salattuun kansioon ei ole mahdollista.</string>
     <string name="copy_to">Kopio kohteeseen…</string>
     <string name="could_not_download_image">Koko kuvan lataaminen epäonnistui</string>
     <string name="could_not_retrieve_url">URL:n nouto epännistui</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
-    <string name="create_file_from_template">Luodaan tiedosto mallipohjasta…</string>
     <string name="create_new_document">Luo uusi asiakirja</string>
     <string name="create_new_folder">Luo uusi kansio</string>
     <string name="create_new_presentation">Luo uusi esitys</string>
@@ -360,7 +355,6 @@
     <string name="host_your_own_server">Ylläpidä oma palvelin</string>
     <string name="instant_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">IO Virhe</string>
     <string name="learn_more">Opi lisää</string>
     <string name="link">Linkki</string>
     <string name="list_layout">Luettelonäkymä</string>
@@ -439,7 +433,6 @@
     <string name="notifications_no_results_headline">Ei ilmoituksia</string>
     <string name="notifications_no_results_message">Katso myöhemmin uudestaan.</string>
     <string name="offline_mode">Ei internetyhteyttä</string>
-    <string name="operation_canceled">Toiminto on peruttu</string>
     <string name="outdated_server">Palvelimen elinkaari on päättynyt, päivitä!</string>
     <string name="overflow_menu">Lisää -valikko</string>
     <string name="pass_code_configure_your_pass_code">Anna suojakoodisi</string>
