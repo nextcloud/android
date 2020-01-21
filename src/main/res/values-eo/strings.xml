@@ -70,7 +70,6 @@
     <string name="auth_username">Uzantonomo</string>
     <string name="auth_wrong_connection_title">Ne eblis starigi konekton</string>
     <string name="auth_wtf_reenter_URL">Neatendita stato, bonvolu re-entajpi la serviladreson</string>
-    <string name="authentication_exception">Aŭtentiga escepto</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">konservita en origina dosierujo, ĉar ĝi estas nurlega</string>
     <string name="auto_upload_on_wifi">Nur alŝuti per sendrata („Wi-Fi“) senlima konekto</string>
     <string name="auto_upload_path">/AŭtomataAlŝutado</string>
@@ -161,12 +160,10 @@
     <string name="copy_file_invalid_into_descendent">Ne eblas kopii dosierujon en unu el ĝiaj idoj</string>
     <string name="copy_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
     <string name="copy_file_not_found">Ne eblas kopii. Bonvolu kontroli, ĉu la dosiero ekzistas.</string>
-    <string name="copy_internal_link_subline">Nur validas por uzantoj, kiuj povas aliri al tiu dosierujo</string>
     <string name="copy_link">Kopii ligilon</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopii aŭ movi en ĉifritan dosierujon ne estas subtenata momente.</string>
     <string name="copy_to">Kopii al...</string>
     <string name="create_dir_fail_msg">Ne eblis krei dosierujon</string>
-    <string name="create_file_from_template">Kreado de dosiero el ŝablono...</string>
     <string name="create_new_document">Krei novan dokumenton</string>
     <string name="create_new_folder">Krei novan dosierujon</string>
     <string name="create_new_presentation">Krei novan prezentaĵon</string>
@@ -343,7 +340,6 @@
     <string name="host_your_own_server">Gastigi vian propran servilon</string>
     <string name="instant_upload_on_charging">Nur alŝuti dum ŝargado</string>
     <string name="instant_upload_path">/TujAlŝutado</string>
-    <string name="io_error">En-eliga eraro</string>
     <string name="learn_more">Scii pli</string>
     <string name="link">Ligilo</string>
     <string name="list_layout">Montri liste</string>
@@ -416,7 +412,6 @@
     <string name="notifications_no_results_headline">Neniu sciigo</string>
     <string name="notifications_no_results_message">Bonvolu rekontroli poste.</string>
     <string name="offline_mode">Neniu reta konekto</string>
-    <string name="operation_canceled">La funkcio estis nuligita</string>
     <string name="outdated_server">La servilo nun malaktualas, bonvolu ĝisdatigi ĝin!</string>
     <string name="overflow_menu">Pliaj menuoj</string>
     <string name="pass_code_configure_your_pass_code">Entajpu vian pasvorton</string>

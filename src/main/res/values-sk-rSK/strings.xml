@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Kopírovať</string>
     <string name="actionbar_mkdir">Nový priečinok</string>
     <string name="actionbar_move">Presunúť</string>
-    <string name="actionbar_open_as_richdocument_parameter">Otvoriť pomocou %1$s</string>
     <string name="actionbar_open_with">Otvoriť pomocou</string>
     <string name="actionbar_search">Hľadať</string>
     <string name="actionbar_see_details">Podrobnosti</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Používateľské meno</string>
     <string name="auth_wrong_connection_title">Nepodarilo sa nadviazať spojenie</string>
     <string name="auth_wtf_reenter_URL">Neočakávaný stav, zadajte prosím adresu servera znovu</string>
-    <string name="authentication_exception">Výnimka overenia</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechané v pôvodnom priečinku, pretože je iba na čítanie</string>
     <string name="auto_upload_on_wifi">Nahrávaj iba na neobmedzenom Wi-Fi</string>
     <string name="auto_upload_path">/AutomatickéNahrávanie</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">Nie je možné skopírovať priečinok do samého seba</string>
     <string name="copy_file_invalid_overwrite">Súbor už v cieľovom priečinku existuje</string>
     <string name="copy_file_not_found">Nemožno kopírovať. Overte či súbor ešte existuje</string>
-    <string name="copy_internal_link">Kopírovať interný odkaz</string>
-    <string name="copy_internal_link_subline">Funguje len pre používateľov s prístupom k tomuto priečinku</string>
     <string name="copy_link">Kopíruj odkaz</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírovanie/presun do šifrovaného priečinku v súčasnosti nie je podporované.</string>
     <string name="copy_to">Kopírovať do…</string>
     <string name="could_not_download_image">Nie je možné stiahnuť celý obráz</string>
     <string name="could_not_retrieve_url">Nie je možné získať URL</string>
     <string name="create_dir_fail_msg">Nemožno vytvoriť priečinok</string>
-    <string name="create_file_from_template">Vytvára sa súbor podľa šablóny</string>
     <string name="create_new_document">Vytvoriť nový dokument</string>
     <string name="create_new_folder">Vytvoriť nový priečinok</string>
     <string name="create_new_presentation">Vytvoriť novú prezentáciu</string>
@@ -367,7 +362,6 @@
     <string name="host_your_own_server">Hostiť vlastný server</string>
     <string name="instant_upload_on_charging">Nahrať iba počas nabíjania</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">IO chyba</string>
     <string name="learn_more">Dozvedieť sa viac</string>
     <string name="link">Odkaz</string>
     <string name="list_layout">Náhľad zoznamu</string>
@@ -446,7 +440,6 @@
     <string name="notifications_no_results_headline">Žiadne upozornenia</string>
     <string name="notifications_no_results_message">Prosím skontrolujte znova neskôr.</string>
     <string name="offline_mode">Bez internetového pripojenia</string>
-    <string name="operation_canceled">Operácia bola zrušená</string>
     <string name="outdated_server">Verzia servra už nie je podporovaná, prosím aktualizujte!</string>
     <string name="overflow_menu">Ďalšie menu</string>
     <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>

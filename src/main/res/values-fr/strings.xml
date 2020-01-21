@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Copier</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_move">Déplacer</string>
-    <string name="actionbar_open_as_richdocument_parameter">Ouvrir avec %1$s</string>
     <string name="actionbar_open_with">Ouvrir avec</string>
     <string name="actionbar_search">Rechercher</string>
     <string name="actionbar_see_details">Propriétés</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Nom d\'utilisateur</string>
     <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
     <string name="auth_wtf_reenter_URL">Problème inattendu ; veuillez saisir à nouveau l\'adresse du serveur</string>
-    <string name="authentication_exception">Exception d\'authentification</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
     <string name="auto_upload_path">/EnvoiAuto</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">Il n\'est pas possible de copier un dossier vers un de ses descendants</string>
     <string name="copy_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
     <string name="copy_file_not_found">Impossible de copier. Vérifiez que le fichier existe</string>
-    <string name="copy_internal_link">Copier le lien interne</string>
-    <string name="copy_internal_link_subline">Fonctionne uniquement pour les utilisateurs ayant accès à ce dossier</string>
     <string name="copy_link">Copier le lien</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copier/déplacer dans ce dossier chiffré n\'est pas actuellement supporté</string>
     <string name="copy_to">Copier vers…</string>
     <string name="could_not_download_image">Impossible de télécharger l\'image complète</string>
     <string name="could_not_retrieve_url">Impossible de récupérer l\'URL</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
-    <string name="create_file_from_template">Création du fichier à partir du modèle…</string>
     <string name="create_new_document">Créer une nouveau document</string>
     <string name="create_new_folder">Créer un nouveau dossier</string>
     <string name="create_new_presentation">Créer une nouvelle présentation</string>
@@ -369,7 +364,6 @@ Attention la suppression est irréversible.</string>
     <string name="host_your_own_server">Hébergez votre propre serveur</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">Erreur E/S</string>
     <string name="learn_more">En savoir plus</string>
     <string name="link">Lien</string>
     <string name="list_layout">Affichage en liste</string>
@@ -448,7 +442,6 @@ Attention la suppression est irréversible.</string>
     <string name="notifications_no_results_headline">Aucune notification</string>
     <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
     <string name="offline_mode">Aucune connexion Internet</string>
-    <string name="operation_canceled">L\'opération a été annulée</string>
     <string name="outdated_server">Le serveur est obsolète, veuillez mettre à jour!</string>
     <string name="overflow_menu">Plus de menu</string>
     <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>

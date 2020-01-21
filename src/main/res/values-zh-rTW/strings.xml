@@ -19,7 +19,6 @@
     <string name="actionbar_copy">複製</string>
     <string name="actionbar_mkdir">新資料夾</string>
     <string name="actionbar_move">移動</string>
-    <string name="actionbar_open_as_richdocument_parameter">使用%1$s開啟</string>
     <string name="actionbar_open_with">開啟方式</string>
     <string name="actionbar_search">搜尋</string>
     <string name="actionbar_see_details">詳細資料</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">使用者名稱</string>
     <string name="auth_wrong_connection_title">無法建立連線</string>
     <string name="auth_wtf_reenter_URL">未知的狀態，請重新輸入伺服器位址</string>
-    <string name="authentication_exception">驗證異常</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
     <string name="auto_upload_on_wifi">僅在未計量的Wi-Fi上傳</string>
     <string name="auto_upload_path">自動上傳</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">無法將資料夾複製到自己的子資料夾中。</string>
     <string name="copy_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
     <string name="copy_file_not_found">無法複製，請檢查檔案是否存在</string>
-    <string name="copy_internal_link">複製內部連結</string>
-    <string name="copy_internal_link_subline">只對可以存取此資料夾的使用者生效</string>
     <string name="copy_link">複製連結</string>
     <string name="copy_move_to_encrypted_folder_not_supported">不支援複製移動加密的資料夾</string>
     <string name="copy_to">複製到…</string>
     <string name="could_not_download_image">無法下載完整圖片</string>
     <string name="could_not_retrieve_url">無法存取網址</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
-    <string name="create_file_from_template">建立範本…</string>
     <string name="create_new_document">新增文件</string>
     <string name="create_new_folder">新增資料夾</string>
     <string name="create_new_presentation">新增投影片</string>
@@ -363,7 +358,6 @@
     <string name="host_your_own_server">擁有您自己的伺服器</string>
     <string name="instant_upload_on_charging">只在充電時上傳</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">存取錯誤</string>
     <string name="learn_more">瞭解更多</string>
     <string name="link">連結</string>
     <string name="list_layout">清單顯示</string>
@@ -442,7 +436,6 @@
     <string name="notifications_no_results_headline">沒有通知</string>
     <string name="notifications_no_results_message">請稍候再檢查</string>
     <string name="offline_mode">沒有網路連線</string>
-    <string name="operation_canceled">操作取消</string>
     <string name="outdated_server">伺服器已過期，請升級！</string>
     <string name="overflow_menu">更多</string>
     <string name="pass_code_configure_your_pass_code">輸入通行碼</string>

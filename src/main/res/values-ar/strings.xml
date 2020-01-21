@@ -19,7 +19,6 @@
     <string name="actionbar_copy">أنسخ</string>
     <string name="actionbar_mkdir">مجلد جديد</string>
     <string name="actionbar_move">أنقل</string>
-    <string name="actionbar_open_as_richdocument_parameter">فتح بإستخدام %1$s</string>
     <string name="actionbar_open_with">فتح باستخدام</string>
     <string name="actionbar_search">بحث</string>
     <string name="actionbar_see_details">تفاصيل</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">إسم المستخدم</string>
     <string name="auth_wrong_connection_title">لا يمكن إنشاء إتصال</string>
     <string name="auth_wtf_reenter_URL">حالة غير متوقعة، الرجاء إدخال عنوان الخادم مرة أخرى</string>
-    <string name="authentication_exception">استثناء في المصادقة</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ترك في مجلد الأصل، بسبب كونه للقرائة فقط</string>
     <string name="auto_upload_on_wifi">قم بالرفع عبر شبكة لاسلكية غير محدودة البيانات فقط</string>
     <string name="auto_upload_path">/رفع تلقائي</string>
@@ -166,15 +164,12 @@
     <string name="copy_file_invalid_into_descendent">لا يمكن نسخ مجلد في مجلدات هوَّ يتضمنها</string>
     <string name="copy_file_invalid_overwrite">هذا الملف موجود حالياً في المجلد المُّسّتَقبِل</string>
     <string name="copy_file_not_found">غير قادر على النسخ. يرجى التحقق من وجود الملف</string>
-    <string name="copy_internal_link">انسخ الرابط الداخلي</string>
-    <string name="copy_internal_link_subline">يعمل فقط للمستخدمين الذين لديهم حق الوصول إلى هذا المجلد</string>
     <string name="copy_link">نسخ الرابط</string>
     <string name="copy_move_to_encrypted_folder_not_supported">النسخ أو النقل إلى مجلد مشفر حالياً غير مدعوم.</string>
     <string name="copy_to">انسخه إلى…</string>
     <string name="could_not_download_image">لايمكن تحميل الصورة بأكملها</string>
     <string name="could_not_retrieve_url">لايمكن إسترجاع العنوان</string>
     <string name="create_dir_fail_msg">تعذر إنشاء المُجلّد</string>
-    <string name="create_file_from_template">إنشاء ملف من قالب...</string>
     <string name="create_new_document">أنشئ مستندا جديدا</string>
     <string name="create_new_folder">أنشئ مجلدا جديدا</string>
     <string name="create_new_presentation">إنشئ عرض تقديمي جديد</string>

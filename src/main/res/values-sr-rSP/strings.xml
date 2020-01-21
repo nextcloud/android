@@ -20,7 +20,6 @@
     <string name="actionbar_copy">Kopiraj</string>
     <string name="actionbar_mkdir">Nova fascikla</string>
     <string name="actionbar_move">Premesti</string>
-    <string name="actionbar_open_as_richdocument_parameter">Otvori pomoću %1$s</string>
     <string name="actionbar_open_with">Otvori pomoću</string>
     <string name="actionbar_search">Pretraga</string>
     <string name="actionbar_see_details">Detalji</string>
@@ -74,7 +73,6 @@
     <string name="auth_username">Korisničko ime</string>
     <string name="auth_wrong_connection_title">Ne mogu da uspostavim vezu</string>
     <string name="auth_wtf_reenter_URL">Neočekivano stanje, molimo ponovo unestite adresu servera</string>
-    <string name="authentication_exception">Greška prilikom prijavljivanja</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">zadrži u originalnoj fascikli, pošto je samo za čitanje</string>
     <string name="auto_upload_on_wifi">Otpremaj samo na bežičnim mrežama koje ne mere protok saobraćaja</string>
     <string name="auto_upload_path">/Automatska otpremanja</string>
@@ -168,15 +166,12 @@
     <string name="copy_file_invalid_into_descendent">Ne može da se iskopira fascikla u neku od svojih podfascikli.</string>
     <string name="copy_file_invalid_overwrite">Fajl već postoji u odredišnoj fascikli</string>
     <string name="copy_file_not_found">Ne mogu da kopiram. Proverite da li fajl postoji</string>
-    <string name="copy_internal_link">Kopiraj internu vezu</string>
-    <string name="copy_internal_link_subline">Radiće samo za korisnike sa pristupom ovoj fascikli</string>
     <string name="copy_link">Kopiraj vezu</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiranje/premeštanje u šifrovanu fasciklu nije podržano.</string>
     <string name="copy_to">Kopiraj u…</string>
     <string name="could_not_download_image">Nije moguće preuzeti celu sliku</string>
     <string name="could_not_retrieve_url">Ne mogu da dobavim adresu</string>
     <string name="create_dir_fail_msg">Ne mogu da napravim fasciklu</string>
-    <string name="create_file_from_template">Napravite fajl iz šablona…</string>
     <string name="create_new_document">Napravi novi dokument</string>
     <string name="create_new_folder">Napravi novu fasciklu</string>
     <string name="create_new_presentation">Napravi novu prezentaciju</string>
@@ -364,7 +359,6 @@
     <string name="host_your_own_server">Hostujte sopstveni  server</string>
     <string name="instant_upload_on_charging">Otpremaj samo na punjenju</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">IO greška</string>
     <string name="learn_more">Saznajte više</string>
     <string name="link">Veza</string>
     <string name="list_layout">Izlistani raspored</string>
@@ -443,7 +437,6 @@
     <string name="notifications_no_results_headline">Nema obaveštenja</string>
     <string name="notifications_no_results_message">Molimo proverite kasnije.</string>
     <string name="offline_mode">Nema internet konekcije</string>
-    <string name="operation_canceled">Operacija je otkazana</string>
     <string name="outdated_server">Server je izašao iz garancije, molimo ažurirajte ga!</string>
     <string name="overflow_menu">još menija</string>
     <string name="pass_code_configure_your_pass_code">Unesite kod za zaključavanje</string>

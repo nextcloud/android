@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Kopier</string>
     <string name="actionbar_mkdir">Ny mappe</string>
     <string name="actionbar_move">Flytt</string>
-    <string name="actionbar_open_as_richdocument_parameter">Åpne med %1$s</string>
     <string name="actionbar_open_with">Åpne med</string>
     <string name="actionbar_search">Søk</string>
     <string name="actionbar_see_details">Detaljer</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Brukernavn</string>
     <string name="auth_wrong_connection_title">Klarte ikke å opprette tilkobling</string>
     <string name="auth_wtf_reenter_URL">Uventet tilstand. Legg inn serveradressen på nytt</string>
-    <string name="authentication_exception">Autentiseringsfeil</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">beholdt i opprinnelig mappe da den kun har leserettigheter</string>
     <string name="auto_upload_on_wifi">Kun last opp på ubegrenset Wi-Fi</string>
     <string name="auto_upload_path">/Auto-opplasting</string>
@@ -166,15 +164,12 @@
     <string name="copy_file_invalid_into_descendent">Det er ikke mulig å kopiere en mappe inn i sin egen undermappe</string>
     <string name="copy_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
     <string name="copy_file_not_found">Kan ikke kopiere. Sjekk om filen eksisterer</string>
-    <string name="copy_internal_link">Kopier intern lenke</string>
-    <string name="copy_internal_link_subline">Virker kun for brukere med tilgang til mappen</string>
     <string name="copy_link">Kopier lenke</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiering/flytting til kryptert mappe støttes ikke enda.</string>
     <string name="copy_to">Kopier til…</string>
     <string name="could_not_download_image">Kunne ikke laste ned det fulle bildet</string>
     <string name="could_not_retrieve_url">Kunne ikke få tilbake url</string>
     <string name="create_dir_fail_msg">Mappe kunne ikke opprettes</string>
-    <string name="create_file_from_template">Oppretter fil fra mal...</string>
     <string name="create_new_document">Opprett nytt dokument</string>
     <string name="create_new_folder">Opprett ny mappe</string>
     <string name="create_new_presentation">Opprett ny presentasjon</string>
@@ -359,7 +354,6 @@
     <string name="host_your_own_server">Bruk din egen server</string>
     <string name="instant_upload_on_charging">Bare last opp under lading</string>
     <string name="instant_upload_path">/Direkteopplasting</string>
-    <string name="io_error">IO feil</string>
     <string name="learn_more">Lær mer</string>
     <string name="link">Lenke</string>
     <string name="list_layout">Listevisning</string>
@@ -435,7 +429,6 @@
     <string name="notifications_no_results_headline">Ingen varsler</string>
     <string name="notifications_no_results_message">Kom innom senere og ta en titt.</string>
     <string name="offline_mode">Ingen internettforbindelse</string>
-    <string name="operation_canceled">Operasjonen har blitt avbrutt</string>
     <string name="outdated_server">Server er ikke lengre supportert, ver vennlig å oppgradere!</string>
     <string name="overflow_menu">Mer meny</string>
     <string name="pass_code_configure_your_pass_code">Skriv inn passordet ditt</string>

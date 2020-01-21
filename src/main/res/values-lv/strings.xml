@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Kopēt</string>
     <string name="actionbar_mkdir">Jauna mape</string>
     <string name="actionbar_move">Pārvietot</string>
-    <string name="actionbar_open_as_richdocument_parameter">Atvērt ar %1$s</string>
     <string name="actionbar_open_with">Atvērt ar</string>
     <string name="actionbar_search">Meklēt</string>
     <string name="actionbar_see_details">Detaļas</string>

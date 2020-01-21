@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Copia</string>
     <string name="actionbar_mkdir">Nuova cartella</string>
     <string name="actionbar_move">Sposta</string>
-    <string name="actionbar_open_as_richdocument_parameter">Apri con %1$s</string>
     <string name="actionbar_open_with">Apri con</string>
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Dettagli</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Nome utente</string>
     <string name="auth_wrong_connection_title">Impossibile stabilire la connessione</string>
     <string name="auth_wtf_reenter_URL">Stato inatteso, digita nuovamente l\'indirizzo del server</string>
-    <string name="authentication_exception">Errore di autenticazione</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">lasciato nella cartella originale, poiché è in sola lettura</string>
     <string name="auto_upload_on_wifi">Carica solo su Wi-Fi senza limitazioni</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">Impossibile copiare una cartella in una delle sue cartelle sottostanti</string>
     <string name="copy_file_invalid_overwrite">Il file è già presente nella cartella di destinazione</string>
     <string name="copy_file_not_found">Impossibile copiare. Assicurati che il file esista</string>
-    <string name="copy_internal_link">Copia collegamento interno</string>
-    <string name="copy_internal_link_subline">Funziona solo per gli utenti con accesso a questa cartella</string>
     <string name="copy_link">Copia collegamento</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia/Spostamento in una cartella cifrata attualmente non supportati.</string>
     <string name="copy_to">Copia in…</string>
     <string name="could_not_download_image">Impossibile scaricare l\'immagine completa</string>
     <string name="could_not_retrieve_url">Impossibile recuperare l\'URL</string>
     <string name="create_dir_fail_msg">Impossibile creare la cartella</string>
-    <string name="create_file_from_template">Crea file da modello…</string>
     <string name="create_new_document">Crea nuovo documento</string>
     <string name="create_new_folder">Crea una nuova cartella</string>
     <string name="create_new_presentation">Crea nuova presentazione</string>
@@ -367,7 +362,6 @@
     <string name="host_your_own_server">Ospita il tuo server</string>
     <string name="instant_upload_on_charging">Carica solo durante la ricarica</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">Errore di I/O</string>
     <string name="learn_more">Scopri altro</string>
     <string name="link">Collegamento</string>
     <string name="list_layout">Struttura a elenco</string>
@@ -446,7 +440,6 @@
     <string name="notifications_no_results_headline">Nessuna notifica</string>
     <string name="notifications_no_results_message">Controlla nuovamente più tardi.</string>
     <string name="offline_mode">Nessuna connessione a Internet</string>
-    <string name="operation_canceled">L\'operazione è stata annullata</string>
     <string name="outdated_server">Il server ha raggiunto la fine della sua vita, aggiornalo!</string>
     <string name="overflow_menu">Menu Altro</string>
     <string name="pass_code_configure_your_pass_code">Digita il tuo codice segreto</string>

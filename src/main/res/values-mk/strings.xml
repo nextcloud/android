@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Копирај</string>
     <string name="actionbar_mkdir">Нова папка</string>
     <string name="actionbar_move">Премести</string>
-    <string name="actionbar_open_as_richdocument_parameter">Отвори со %1$s</string>
     <string name="actionbar_open_with">Отвори со</string>
     <string name="actionbar_search">Пребарај</string>
     <string name="actionbar_see_details">Детали:</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Корисничко име</string>
     <string name="auth_wrong_connection_title">Не може да се воспостави конекција</string>
     <string name="auth_wtf_reenter_URL">Неочекувана состојба, внесете ја адресата на серверот повторно</string>
-    <string name="authentication_exception">Исклучок за автентикација</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">се чува во оргиналната папка, како да се само за читање</string>
     <string name="auto_upload_on_wifi">Прикачувај само на неограничена Wi-Fi мрежа</string>
     <string name="auto_upload_path">/Автоматско прикачување</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">Не е возможно да се копира папката во истата таа папка</string>
     <string name="copy_file_invalid_overwrite">Датотеката веќе постои во папката</string>
     <string name="copy_file_not_found">Не можам да се копира. Проверете дали постои датотеката</string>
-    <string name="copy_internal_link">Копирај внатрешен линк</string>
-    <string name="copy_internal_link_subline">Функционира само за корисници со пристап до оваа папка</string>
     <string name="copy_link">Копирај врска</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Не е поддржано копирање/преместување во папка која е шифрирана.</string>
     <string name="copy_to">Копирај во…</string>
     <string name="could_not_download_image">Неможе да се превземе целосната слика</string>
     <string name="could_not_retrieve_url">Неможе да се превземе адресата</string>
     <string name="create_dir_fail_msg">Не множе да креира папка</string>
-    <string name="create_file_from_template">Креирање на датотека од шаблон…</string>
     <string name="create_new_document">Креирај нов документ</string>
     <string name="create_new_folder">Креирај нова папка</string>
     <string name="create_new_presentation">Креирај нова презентација</string>
@@ -363,7 +358,6 @@
     <string name="host_your_own_server">Хостирајте го вашиот сервер</string>
     <string name="instant_upload_on_charging">Прикачувај само додека се полни</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">IO грешка</string>
     <string name="learn_more">Научи повеќе</string>
     <string name="link">Линк</string>
     <string name="list_layout">Listed layout</string>
@@ -442,7 +436,6 @@
     <string name="notifications_no_results_headline">Нема известувања</string>
     <string name="notifications_no_results_message">Ве молиме проверете подоцна.</string>
     <string name="offline_mode">Нема интернет врска</string>
-    <string name="operation_canceled">Операцијата е откажана</string>
     <string name="outdated_server">Серверот го достигна крајот на животот, ве молиме надградете го!</string>
     <string name="overflow_menu">Мени повеќе</string>
     <string name="pass_code_configure_your_pass_code">Венсете го вашиот код</string>
