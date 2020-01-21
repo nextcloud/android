@@ -803,29 +803,26 @@ public class FileDisplayActivity extends FileActivity
         final View mSearchEditFrame = searchView
             .findViewById(androidx.appcompat.R.id.search_edit_frame);
 
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                if (TextUtils.isEmpty(searchView.getQuery().toString())) {
-                    searchView.onActionViewCollapsed();
-                    setDrawerIndicatorEnabled(isDrawerIndicatorAvailable()); // order matters
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                    mDrawerToggle.syncState();
+        searchView.setOnCloseListener(() -> {
+            if (TextUtils.isEmpty(searchView.getQuery().toString())) {
+                searchView.onActionViewCollapsed();
+                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable()); // order matters
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                mDrawerToggle.syncState();
 
-                    if (getListOfFilesFragment() != null) {
-                        getListOfFilesFragment().setSearchFragment(false);
-                        getListOfFilesFragment().refreshDirectory();
-                    }
-                } else {
-                    searchView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            searchView.setQuery("", true);
-                        }
-                    });
+                if (getListOfFilesFragment() != null) {
+                    getListOfFilesFragment().setSearchFragment(false);
+                    getListOfFilesFragment().refreshDirectory();
                 }
-                return true;
+            } else {
+                searchView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchView.setQuery("", true);
+                    }
+                });
             }
+            return true;
         });
 
         ViewTreeObserver vto = mSearchEditFrame.getViewTreeObserver();
@@ -1141,22 +1138,28 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
+    /*
+     * BackPressed priority/hierarchy:
+     *    1. close search view if opened
+     *    2. close drawer if opened
+     *    3. close FAB if open (only if drawer isn't open)
+     *    4. navigate up (only if drawer and FAB aren't open)
+     */
     @Override
     public void onBackPressed() {
         boolean isDrawerOpen = isDrawerOpen();
         boolean isSearchOpen = isSearchOpen();
 
-        /*
-         * BackPressed priority/hierarchy:
-         *    1. close search view if opened
-         *    2. close drawer if opened
-         *    3. close FAB if open (only if drawer isn't open)
-         *    4. navigate up (only if drawer and FAB aren't open)
-         */
+        OCFileListFragment listOfFiles = getListOfFilesFragment();
 
         if (isSearchOpen && searchView != null) {
             searchView.setQuery("", true);
             searchView.onActionViewCollapsed();
+            searchView.clearFocus();
+
+            // Remove the list to the original state
+            listOfFiles.performSearch("", true);
+
             setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
         } else if (isDrawerOpen) {
             // close drawer first
@@ -1164,7 +1167,7 @@ public class FileDisplayActivity extends FileActivity
         } else {
             // all closed
 
-            OCFileListFragment listOfFiles = getListOfFilesFragment();
+            listOfFiles = getListOfFilesFragment();
             if (mDualPane || getSecondFragment() == null) {
                 OCFile currentDir = getCurrentDir();
                 if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
