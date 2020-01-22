@@ -1,0 +1,13 @@
+775753930 Merge pull request #5248 from nextcloud/material110RC2
+c684ec692 Merge pull request #5249 from nextcloud/changelog
+ce2971386 Merge pull request #5270 from nextcloud/addSeparator
+cd6acdd05 Merge pull request #5269 from nextcloud/gradleBump
+fc8a5dd43 Merge pull request #5267 from nextcloud/devDBupdate
+289a83635 OC bottom list improvement - same padding - add "create new" for creators
+4532c5b1c Merge pull request #5268 from nextcloud/runCoverageOnlyOnCI
+368bd325a use newest gradle
+94f17a779 re-enable: coverage only on CI
+491de101a Fix duplicated rich_workspace in dev version
+066a1a342 [tx-robot] updated from transifex
+e9d1c51d7 daily dev 20200121
+library commit: cb8e616b61b94bad121ed3d720476125c0ff252b
