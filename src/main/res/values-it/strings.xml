@@ -555,6 +555,7 @@
     <string name="screenshot_05_autoUpload_subline">per e tue foto e i video</string>
     <string name="screenshot_06_davdroid_heading">Calendario e contatti</string>
     <string name="screenshot_06_davdroid_subline">Sincronizza con DAVx5</string>
+    <string name="search_instruction">Cerca file (minimo 2 caratteri)</string>
     <string name="search_users_and_groups_hint">Cerca utenti e gruppi</string>
     <string name="select_all">Seleziona tutto</string>
     <string name="select_template">Seleziona modello</string>

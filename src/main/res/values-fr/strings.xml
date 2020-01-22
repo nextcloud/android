@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <resources>
+<resources>
     <string name="about_android">Application Android %1$s</string>
     <string name="about_title">À propos de</string>
     <string name="about_version">version %1$s</string>
@@ -307,7 +307,7 @@ Attention la suppression est irréversible.</string>
     <string name="file_migration_cleaning">Nettoyage…</string>
     <string name="file_migration_dialog_title">Mise à jour du chemin de stockage</string>
     <string name="file_migration_directory_already_exists">Le dossier de données existe déjà. Choisissez une des options suivantes :</string>
-    <string name="file_migration_failed_dir_already_exists">Le dossier Nextcloud existe déjà</string>
+    <string name="file_migration_failed_dir_already_exists">Le dossier Infomaniak Drive existe déjà</string>
     <string name="file_migration_failed_not_enough_space">De l\'espace suplémentaire est nécessaire</string>
     <string name="file_migration_failed_not_readable">Impossible de lire le fichier source</string>
     <string name="file_migration_failed_not_writable">Le fichier de destination n\'est pas modifiable</string>
@@ -337,7 +337,7 @@ Attention la suppression est irréversible.</string>
     <string name="filename_forbidden_characters">Caractères interdits : / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Le nom du fichier contient au moins un caractère invalide</string>
     <string name="filename_hint">Nom du fichier</string>
-    <string name="files_drop_not_supported">Il s\'agit d\'une fonctionnalité de Nextcloud, merci de mettre à jour.</string>
+    <string name="files_drop_not_supported">Il s\'agit d\'une fonctionnalité d\'Infomaniak Drive, merci de mettre à jour.</string>
     <string name="first_run_1_text">Sécurisez et contrôlez vos données</string>
     <string name="first_run_2_text">Collaboration &amp; et échange de fichiers sécurisés</string>
     <string name="first_run_3_text">Messagerie web, Agenda et Contacts faciles d\'utilisation</string>
@@ -474,10 +474,8 @@ Attention la suppression est irréversible.</string>
     <string name="pref_behaviour_entries_keep_file">conservé dans le dossier original</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
     <string name="prefs_add_account">Ajouter un compte</string>
-    <string name="prefs_calendar_contacts">Synchroniser les contacts du calendrier&amp;</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">L\'adresse du serveur pour le compte n\'a pas pu être résolu pour DAVx5 (autrefois connu comme DAVdroid)</string>
+    <string name="prefs_calendar_contacts">Synchroniser les contacts du calendrier</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni Google Play Store ou F-Droid ne sont installés</string>
-    <string name="prefs_calendar_contacts_summary">Configurer DAVx5 (autrefois connu comme DAVdroid) (v1.3.0+) pour le compte actuel</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisation de l\'agenda &amp; des contacts configurée</string>
     <string name="prefs_category_about">À propos</string>
     <string name="prefs_category_details">Préférences</string>
@@ -556,7 +554,7 @@ Attention la suppression est irréversible.</string>
     <string name="screenshot_05_autoUpload_heading">Téléversement automatique</string>
     <string name="screenshot_05_autoUpload_subline">pour vos photos &amp; vidéos</string>
     <string name="screenshot_06_davdroid_heading">Agenda &amp; Contacts</string>
-    <string name="screenshot_06_davdroid_subline">Synchroniser avec DAVx5</string>
+    <string name="search_instruction">Rechercher un fichier (2 caractères minimum)</string>
     <string name="search_users_and_groups_hint">Rechercher parmi les utilisateurs et groupes</string>
     <string name="select_all">Tout sélectionner</string>
     <string name="select_template">Sélectionnez un modèle</string>
@@ -617,7 +615,7 @@ Attention la suppression est irréversible.</string>
     <string name="shared_with_you_by">Partagé avec vous par %1$s</string>
     <string name="sharee_add_failed">L\'ajout du partage a échoué</string>
     <string name="signup_with_provider">Se connecter avec un fournisseur</string>
-    <string name="single_sign_on_request_token" formatted="true">Autoriser %1$s à accéder à votre compte Nextcloud  %2$s ?</string>
+    <string name="single_sign_on_request_token" formatted="true">Autoriser %1$s à accéder à votre compte Infomaniak Drive  %2$s ?</string>
     <string name="sort_by">Trier par</string>
     <string name="sort_by_modification_date_ascending">Le plus récent en premier</string>
     <string name="sort_by_modification_date_descending">Le plus ancien en premier</string>
@@ -659,7 +657,6 @@ Attention la suppression est irréversible.</string>
     <string name="storage_movies">Vidéos</string>
     <string name="storage_music">Musique</string>
     <string name="storage_pictures">Images</string>
-    <string name="store_full_desc">La plateforme de productivité auto-hébergée qui vous redonne le contrôle.\n\nFonctionalités: \n* Intuitif, interface moderne, adaptée au thème de votre serveur.\n* Envoyez des fichiers sur votre serveur Nextcloud\n* Partagez avec d\'autres personnes\n* Gardez vos fichiers et dossiers préférés synchronisés\n* Recherchez dans tous les dossiers de votre serveur\n* Envoi automatique des photos et vidéos prises par votre appareil\n* Restez à jour avec les notifications\n* Supporte plusieurs comptes simultanément\n* Accès sécurisé avec votre empreinte digitale ou un PIN\n* Intégration avec DAVx5 (ancien nom : DAVdroid) pour configurer facilement l\'agenda&amp;et synchroniser les contacts\n\nMerci de signaler les problèmes sur https://github.com/nextcloud/android/issues et discutez ce cette application sur https://help.nextcloud.com/c/clients/android\n\nNouveau sur Nextcloud? Nextcloud est un serveur privé de synchronisation de fichiers&amp;de partage et de communications. C\'est un logiciel libre, et vous pouvez l\'héberger vous même ou payer une entreprise pour le faire à votre place. De cette façon, vous avez le contrôle de vos photos, votre agenda et vos données de contacts, vos documents et tout le reste.\n\nApprenez en plus sur Nextcloud sur https://nextcloud.com</string>
     <string name="store_full_dev_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle.\nCeci est la version officielle de développement, qui présente chaque jour quelques-unes des fonctionnalités non-testées les plus récentes, causant parfois des instabilités ou des pertes de données. Cette application s\'adresse aux utilisateurs volontaires souhaitant tester et rapporter les problèmes qui peuvent arriver. Ne l\'utilisez jamais pour un environnement de production!\n\nLes versions officielles et en développement sont disponibles sur F-droid, et peuvent être utilisées en même temps.</string>
     <string name="store_short_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle</string>
     <string name="store_short_dev_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle (version de développement en démonstration)</string>
@@ -823,4 +820,5 @@ Attention la suppression est irréversible.</string>
         <item quantity="one">%d sélectionné</item>
         <item quantity="other">%d sélectionnés</item>
     </plurals>
+
 </resources>
