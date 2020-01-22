@@ -603,12 +603,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
                         thumbnailView.setImageBitmap(withOverlay);
                     } else {
-                        Resources resources = MainApp.getAppContext().getResources();
+                        if (gridView) {
+                            thumbnailView.setImageBitmap(thumbnail);
+                        } else {
+                            Resources resources = MainApp.getAppContext().getResources();
 
-                        BitmapUtils.setRoundedBitmap(resources,
-                                                     thumbnail,
-                                                     resources.getDimension(R.dimen.file_icon_rounded_corner_radius),
-                                                     thumbnailView);
+                            BitmapUtils.setRoundedBitmap(resources,
+                                                         thumbnail,
+                                                         resources.getDimension(R.dimen.file_icon_rounded_corner_radius),
+                                                         thumbnailView);
+                        }
 
                     }
                 } else {
@@ -619,7 +623,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
                                                                                    mStorageManager,
                                                                                    user.toPlatformAccount(),
-                                                                                   asyncTasks);
+                                                                                   asyncTasks,
+                                                                                   !gridView);
 
                             if (thumbnail == null) {
                                 thumbnail = BitmapUtils.drawableToBitmap(
