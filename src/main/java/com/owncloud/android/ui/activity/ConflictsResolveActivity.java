@@ -63,15 +63,15 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            this.conflictUpload = savedInstanceState.getParcelable(EXTRA_CONFLICT_UPLOAD);
-            this.localBehaviour = savedInstanceState.getInt(EXTRA_LOCAL_BEHAVIOUR);
+            conflictUpload = savedInstanceState.getParcelable(EXTRA_CONFLICT_UPLOAD);
+            localBehaviour = savedInstanceState.getInt(EXTRA_LOCAL_BEHAVIOUR);
         } else {
-            this.conflictUpload = getIntent().getParcelableExtra(EXTRA_CONFLICT_UPLOAD);
-            this.localBehaviour = getIntent().getIntExtra(EXTRA_LOCAL_BEHAVIOUR, this.localBehaviour);
+            conflictUpload = getIntent().getParcelableExtra(EXTRA_CONFLICT_UPLOAD);
+            localBehaviour = getIntent().getIntExtra(EXTRA_LOCAL_BEHAVIOUR, localBehaviour);
         }
 
-        if (this.conflictUpload != null) {
-            this.localBehaviour = this.conflictUpload.getLocalAction();
+        if (conflictUpload != null) {
+            localBehaviour = conflictUpload.getLocalAction();
         }
     }
 
@@ -83,30 +83,45 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
 
         OCFile file = getFile();
 
-        // Upload
-        if (decision == Decision.KEEP_LOCAL || decision == Decision.KEEP_BOTH) {
-            FileUploader.NameCollisionPolicy collisionPolicy = FileUploader.NameCollisionPolicy.OVERWRITE;
-            if (decision == Decision.KEEP_BOTH) {
-                collisionPolicy = FileUploader.NameCollisionPolicy.RENAME;
-            }
+        switch (decision) {
+            case KEEP_LOCAL: // Upload
+                FileUploader.uploadUpdateFile(
+                    this,
+                    getAccount(),
+                    file,
+                    localBehaviour,
+                    FileUploader.NameCollisionPolicy.OVERWRITE
+                );
 
-            FileUploader.uploadUpdateFile(this, getAccount(), file, localBehaviour, collisionPolicy);
+                if (conflictUpload != null) {
+                    uploadsStorageManager.removeUpload(conflictUpload);
+                }
+                break;
+            case KEEP_BOTH: // Upload
+                FileUploader.uploadUpdateFile(
+                    this,
+                    getAccount(),
+                    file,
+                    localBehaviour,
+                    FileUploader.NameCollisionPolicy.RENAME
+                );
 
-            if (this.conflictUpload != null) {
-                uploadsStorageManager.removeUpload(this.conflictUpload);
-            }
-        }
-
-        // Download
-        if (decision == Decision.KEEP_SERVER && !this.shouldDeleteLocal()) {
-            // Overwrite local file
-            Intent intent = new Intent(this, FileDownloader.class);
-            intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
-            intent.putExtra(FileDownloader.EXTRA_FILE, file);
-            if (this.conflictUpload != null) {
-                intent.putExtra(FileDownloader.EXTRA_CONFLICT_UPLOAD, this.conflictUpload);
-            }
-            startService(intent);
+                if (conflictUpload != null) {
+                    uploadsStorageManager.removeUpload(conflictUpload);
+                }
+                break;
+            case KEEP_SERVER: // Download
+                if (!this.shouldDeleteLocal()) {
+                    // Overwrite local file
+                    Intent intent = new Intent(this, FileDownloader.class);
+                    intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
+                    intent.putExtra(FileDownloader.EXTRA_FILE, file);
+                    if (conflictUpload != null) {
+                        intent.putExtra(FileDownloader.EXTRA_CONFLICT_UPLOAD, conflictUpload);
+                    }
+                    startService(intent);
+                }
+                break;
         }
 
         finish();
