@@ -147,6 +147,7 @@
     <string name="drawer_close">Закрити бічну панель</string>
     <string name="drawer_current_account">Поточний обліковий запис</string>
     <string name="drawer_end_account">Останній обліковий запис</string>
+    <string name="drawer_header_background">Фонове зображення заголовка скрині</string>
     <string name="drawer_item_activities">Події</string>
     <string name="drawer_item_all_files">Усі файли</string>
     <string name="drawer_item_favorites">Улюблені</string>
@@ -162,6 +163,7 @@
     <string name="drawer_item_videos">Відео</string>
     <string name="drawer_logout">Вихід</string>
     <string name="drawer_manage_accounts">Управління обліковими записами</string>
+    <string name="drawer_middle_account">Проміжний обліковий запис</string>
     <string name="drawer_open">Відкрити бічну панель</string>
     <string name="drawer_quota">%1$s з %2$s використано</string>
     <string name="drawer_quota_unlimited">%1$sвикористано</string>
