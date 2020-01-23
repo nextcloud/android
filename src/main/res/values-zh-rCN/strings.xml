@@ -171,6 +171,7 @@
     <string name="could_not_download_image">无法下载完整图片</string>
     <string name="could_not_retrieve_url">无法获取url</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
+    <string name="create_new">新建</string>
     <string name="create_new_document">新建文档</string>
     <string name="create_new_folder">创建新文件夹</string>
     <string name="create_new_presentation">新建演示</string>
