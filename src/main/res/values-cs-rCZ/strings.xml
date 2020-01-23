@@ -171,6 +171,7 @@
     <string name="could_not_download_image">Nepodařilo se stáhnout celý obrázek</string>
     <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
+    <string name="create_new">Vytvořit nové</string>
     <string name="create_new_document">Vytvořit nový dokument</string>
     <string name="create_new_folder">Vytvořit novou složku</string>
     <string name="create_new_presentation">Vytvořit novou prezentaci</string>

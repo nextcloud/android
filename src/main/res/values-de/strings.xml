@@ -171,6 +171,7 @@
     <string name="could_not_download_image">Originalbild konnte nicht heruntergeladen werden</string>
     <string name="could_not_retrieve_url">Konnte URL nicht abrufen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
+    <string name="create_new">Neu erstellen</string>
     <string name="create_new_document">Neues Dokument erstellen</string>
     <string name="create_new_folder">Neuen Ordner erstellen</string>
     <string name="create_new_presentation">Neue Präsentation erstellen</string>
