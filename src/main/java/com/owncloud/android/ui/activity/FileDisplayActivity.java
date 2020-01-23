@@ -790,13 +790,10 @@ public class FileDisplayActivity extends FileActivity
 
         //focus the SearchView
         if (!TextUtils.isEmpty(searchQuery)) {
-            searchView.post(new Runnable() {
-                @Override
-                public void run() {
-                    searchView.setIconified(false);
-                    searchView.setQuery(searchQuery, true);
-                    searchView.clearFocus();
-                }
+            searchView.post(() -> {
+                searchView.setIconified(false);
+                searchView.setQuery(searchQuery, true);
+                searchView.clearFocus();
             });
         }
 
@@ -815,12 +812,7 @@ public class FileDisplayActivity extends FileActivity
                     getListOfFilesFragment().refreshDirectory();
                 }
             } else {
-                searchView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        searchView.setQuery("", true);
-                    }
-                });
+                searchView.post(() -> searchView.setQuery("", true));
             }
             return true;
         });

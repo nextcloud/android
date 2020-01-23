@@ -219,23 +219,26 @@ public class ExtendedListFragment extends Fragment implements
             }
         }
 
-            searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> handler.postDelayed(() -> {
+        searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> handler.post(() -> {
             if (getActivity() != null && !(getActivity() instanceof FolderPickerActivity)
                 && !(getActivity() instanceof UploadFilesActivity)) {
                 setFabVisible(!hasFocus);
+                if (TextUtils.isEmpty(searchView.getQuery())) {
+                    closeButton.setVisibility(View.INVISIBLE);
+                }
             }
-        }, 100));
+        }));
 
         closeButton.setOnClickListener(view -> {
             searchView.setQuery("", true);
+            searchView.requestFocus();
             searchView.onActionViewExpanded();
-            theTextArea.requestFocus();
 
             InputMethodManager inputMethodManager =
                 (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
             if (inputMethodManager != null) {
-                inputMethodManager.showSoftInput(searchView, InputMethodManager.SHOW_FORCED);
+                inputMethodManager.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT);
             }
         });
 
@@ -282,11 +285,9 @@ public class ExtendedListFragment extends Fragment implements
     public boolean onQueryTextChange(final String query) {
         // After 300 ms, set the query
 
-
+        closeButton.setVisibility(View.VISIBLE);
         if (query.isEmpty()) {
             closeButton.setVisibility(View.INVISIBLE);
-        } else {
-            closeButton.setVisibility(View.VISIBLE);
         }
 
         if (getFragmentManager() != null && getFragmentManager().
