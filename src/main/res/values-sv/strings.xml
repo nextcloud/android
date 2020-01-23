@@ -171,6 +171,7 @@
     <string name="could_not_download_image">Kunde inte ladda ner hela bilden</string>
     <string name="could_not_retrieve_url">Det gick inte att hämta webbadress</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
+    <string name="create_new">Skapa ny</string>
     <string name="create_new_document">Skapa nytt dokument</string>
     <string name="create_new_folder">Skapa ny mapp</string>
     <string name="create_new_presentation">Skapa ny presentation</string>

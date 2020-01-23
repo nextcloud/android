@@ -449,6 +449,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Очікування з\'єднання з WiFi</string>
     <string name="user_icon">Користувач</string>
     <string name="user_info_address">Адреса</string>
+    <string name="user_info_email">Електронна пошта</string>
     <string name="user_info_phone">Номер телефону</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Веб-сайт</string>

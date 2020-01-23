@@ -171,6 +171,7 @@
     <string name="could_not_download_image">No se ha podido descargar la imagen completa</string>
     <string name="could_not_retrieve_url">No se ha podido encontrar la URL</string>
     <string name="create_dir_fail_msg">No se ha podido crear la carpeta</string>
+    <string name="create_new">Crear nuevo</string>
     <string name="create_new_document">Crear nuevo documento</string>
     <string name="create_new_folder">Crear nueva carpeta</string>
     <string name="create_new_presentation">Crear nueva presentación</string>

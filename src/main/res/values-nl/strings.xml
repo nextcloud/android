@@ -171,6 +171,7 @@
     <string name="could_not_download_image">Kan de volledige afbeelding niet downloaden</string>
     <string name="could_not_retrieve_url">Kon url niet ophalen</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
+    <string name="create_new">Creëer nieuw</string>
     <string name="create_new_document">Creëer nieuw document</string>
     <string name="create_new_folder">Nieuwe map aanmaken</string>
     <string name="create_new_presentation">Creëer nieuwe presentatie</string>
