@@ -770,8 +770,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
                         ThemeUtils.primaryColor(getAccount(), false, this)));
             }
 
-            ThemeUtils.colorStatusBar(this, ThemeUtils.primaryColor(getAccount(), false, this));
-
             ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(getAccount(), false, this));
 
             Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
