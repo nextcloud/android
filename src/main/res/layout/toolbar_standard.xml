@@ -40,21 +40,32 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:contentDescription="@string/drawer_open" />
 
-                <EditText
-                    android:id="@+id/searchTextView"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Base.Widget.MaterialComponents.TextInputLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginLeft="32dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:background="@android:color/transparent"
-                    android:hint="Search in Nextcloud…"
+                    app:boxStrokeColor="@color/transparent"
+                    app:boxBackgroundMode="none"
+                    app:hintEnabled="false"
+                    app:errorEnabled="true"
+                    app:helperTextEnabled="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/homeButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:importantForAutofill="no"
-                    android:inputType="text" />
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Search in Nextcloud…"
+                        android:layout_gravity="start"
+                        android:textAlignment="textStart" />
+                </com.google.android.material.textfield.TextInputLayout>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
