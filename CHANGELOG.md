@@ -1,3 +1,5 @@
+## 3.11.0
+
 ## 3.10.0 (January, 17, 2020)
 
 - Dark theme (@dan0xii, @AndyScherzinger)
