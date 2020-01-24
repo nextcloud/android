@@ -1,0 +1,11 @@
+e4f099237 Merge pull request #5203 from nextcloud/directEditingPre5
+04b5b6ae3 Merge pull request #5288 from nextcloud/dependabot/gradle/androidx.work-work-runtime-2.3.0
+fc8c9b7bb Bump work-runtime from 2.2.0 to 2.3.0
+63b5276c8 Merge pull request #5289 from nextcloud/dependabot/gradle/androidx.lifecycle-lifecycle-viewmodel-ktx-2.2.0
+ed2e90bf3 Merge pull request #5286 from nextcloud/dependabot/gradle/androidx.work-work-runtime-ktx-2.3.0
+ce6ce0663 [tx-robot] updated from transifex
+b62d29194 Bump lifecycle-viewmodel-ktx from 2.1.0 to 2.2.0
+d42566be7 Bump work-runtime-ktx from 2.2.0 to 2.3.0
+f783eed9b [tx-robot] updated from transifex
+642682b21 daily dev 20200122
+library commit: cb8e616b61b94bad121ed3d720476125c0ff252b
