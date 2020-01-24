@@ -674,6 +674,10 @@ Attention la suppression est irréversible.</string>
     <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers envoyés depuis cet appareil sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.\n\nEn raison de cette modification, tous les fichiers envoyés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant, une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.\n\nCi-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils étaient liés.</string>
     <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été ignorés</string>
     <string name="sync_in_progress">Récupération de la version la plus récente du fichier.</string>
+    <string name="sync_not_enough_space_dialog_action_choose" translatable="false">Choisir quoi synchroniser</string>
+    <string name="sync_not_enough_space_dialog_action_free_space" translatable="false">Libérer de l\'espace</string>
+    <string name="sync_not_enough_space_dialog_placeholder" translatable="false">%1$s est trop volumineux (%2$s) par rapport à l\'espace disponible sur votre appareil (%3$s).</string>
+    <string name="sync_not_enough_space_dialog_title" translatable="false">%1$s %2$s</string>
     <string name="sync_status_button">Bouton de statut de la synchronisation</string>
     <string name="sync_string_files">Fichiers</string>
     <string name="synced_folder_settings_button">Bouton des paramètres</string>
