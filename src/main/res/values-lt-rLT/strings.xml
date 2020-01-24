@@ -80,6 +80,7 @@
     <string name="battery_optimization_disable">Išjungti</string>
     <string name="certificate_load_problem">Klaida, įkeliant liudijimą.</string>
     <string name="checkbox">Žymimasis langelis</string>
+    <string name="choose_remote_folder">Pasirinkti nuotolinį aplanką…</string>
     <string name="clear_notifications_failed">Nepavyko išvalyti pranešimų.</string>
     <string name="clipboard_label">Tekstas nukopijuotas iš %1$s</string>
     <string name="clipboard_no_text_to_copy">Tekstas nukopijuotas į iškarpinę</string>
@@ -245,6 +246,8 @@
     <string name="file_list_empty_moving">Čia tuščia. Įkelkite ką nors!</string>
     <string name="file_list_empty_recently_added">Neseniai pridėtų failų nerasta</string>
     <string name="file_list_empty_recently_added_filter">Nėra jokių paskiausiai pridėtų failų.</string>
+    <string name="file_list_empty_recently_modified">Nerasta jokių per paskutines 7 dienas modifikuotų failų.</string>
+    <string name="file_list_empty_recently_modified_filter">Per paskutines 7 dienas nebuvo modifikuota jokių failų.</string>
     <string name="file_list_empty_search">Gal tai yra kitame aplanke?</string>
     <string name="file_list_empty_shared">Čia atsiras visi jūsų bendrinami failai ar aplankai</string>
     <string name="file_list_empty_shared_headline">Niekuo nesidalinate</string>
@@ -306,7 +309,9 @@
     <string name="foreground_service_download">Atsisiunčiami failai…</string>
     <string name="foreground_service_upload">Įkeliami failai…</string>
     <string name="foreign_files_fail">Kai kurių failų nepavyko perkelti</string>
+    <string name="foreign_files_local_text">Vietinis: %1$s</string>
     <string name="foreign_files_move">Perkelti visus</string>
+    <string name="foreign_files_remote_text">Nuotolinis: %1$s</string>
     <string name="foreign_files_success">Visi failai buvo perkelti</string>
     <string name="forward">Persiųsti</string>
     <string name="hint_name">Vardas</string>
@@ -488,6 +493,7 @@
     <string name="share_privilege_can_share">gali bendrinti</string>
     <string name="share_privilege_unshare">Nebesidalinti</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
+    <string name="share_room_clarification">%1$s (pokalbis)</string>
     <string name="share_search">Vardas, federacinės debesijos ID arba el. pašto adresas…</string>
     <string name="share_send_note">Pastaba gavėjui</string>
     <string name="share_via_link_edit_permission_label">Leisti redaguoti</string>
