@@ -32,10 +32,14 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.nextcloud.client.device.DeviceInfo;
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.ThemeUtils;
+
+import javax.inject.Inject;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.StringRes;
@@ -46,11 +50,13 @@ import androidx.core.content.ContextCompat;
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar()}.
  */
-public abstract class ToolbarActivity extends BaseActivity {
+public abstract class ToolbarActivity extends BaseActivity implements Injectable {
     private ProgressBar mProgressBar;
     private ImageView mPreviewImage;
     private LinearLayout mInfoBox;
     private TextView mInfoBoxMessage;
+
+    @Inject DeviceInfo deviceInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +100,13 @@ public abstract class ToolbarActivity extends BaseActivity {
     }
 
     public void setupToolbar() {
+        View view = getWindow().getDecorView();
+
+        if (deviceInfo.isDarkModeEnabled(this)) {
+            view.setSystemUiVisibility(view.getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        } else {
+            view.setSystemUiVisibility(view.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
     }
 
     /**
