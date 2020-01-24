@@ -123,7 +123,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         String json = new ArbitraryDataProvider(getContext().getContentResolver())
             .getValue(user.toPlatformAccount(), ArbitraryDataProvider.DIRECT_EDITING);
 
-        if (!json.isEmpty()) {
+        if (!json.isEmpty() && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             DirectEditing directEditing = new Gson().fromJson(json, DirectEditing.class);
 
             if (!directEditing.getCreators().isEmpty()) {
