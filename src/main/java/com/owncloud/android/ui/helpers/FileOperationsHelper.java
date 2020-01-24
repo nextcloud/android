@@ -38,9 +38,11 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.StatFs;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 
@@ -747,12 +749,6 @@ public class FileOperationsHelper {
         sendShareFile(file, !file.canReshare());
     }
 
-    public void syncFiles(Collection<OCFile> files) {
-        for (OCFile file : files) {
-            syncFile(file);
-        }
-    }
-
     public void sendCachedImage(OCFile file, String packageName, String activityName) {
         if (file != null) {
             Context context = MainApp.getAppContext();
@@ -1041,6 +1037,23 @@ public class FileOperationsHelper {
 
     public static String getCapturedImageName() {
         return new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(new Date()) + ".jpg";
+    }
+
+    public static Pair<Boolean, Long> isSpaceEnough(OCFile file) {
+        StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
+        long availableBytesOnDevice;
+        if (android.os.Build.VERSION.SDK_INT >=
+            android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            availableBytesOnDevice = stat.getBlockSizeLong() * stat.getAvailableBlocksLong();
+        }
+        else {
+            availableBytesOnDevice = (long) stat.getBlockSize() * (long) stat.getAvailableBlocks();
+        }
+
+        boolean isSpaceEnough = file.getFileLength() < availableBytesOnDevice;
+
+        return new Pair<>(isSpaceEnough, availableBytesOnDevice);
+
     }
 
 
