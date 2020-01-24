@@ -26,7 +26,10 @@ package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -34,6 +37,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,6 +46,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.PopupMenu;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -89,6 +94,7 @@ import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
@@ -107,6 +113,7 @@ import org.parceler.Parcels;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -1114,7 +1121,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
             case R.id.action_download_file:
             case R.id.action_sync_file: {
-                mContainerActivity.getFileOperationsHelper().syncFiles(checkedFiles);
+                this.syncAndCheckFiles(checkedFiles);
                 exitSelectionMode();
                 return true;
             }
@@ -1718,6 +1725,40 @@ public class OCFileListFragment extends ExtendedListFragment implements
             (!TextUtils.isEmpty(event.getSearchQuery()) ||
                 event.searchType == SearchRemoteOperation.SearchType.SHARED_SEARCH)
             && event.getUnsetType() != null;
+    }
+
+    private void syncAndCheckFiles(Collection<OCFile> files) {
+        for (OCFile file : files) {
+            Pair<Boolean, Long> fileSyncResult= FileOperationsHelper.isSpaceEnough(file);
+            if (fileSyncResult.first) {
+                mContainerActivity.getFileOperationsHelper().syncFile(file);
+            } else {
+                showSpaceErrorDialog(file, fileSyncResult.second);
+            }
+
+        }
+    }
+
+    private void showSpaceErrorDialog(OCFile file, long availableDeviceSpace) {
+
+        String properFileValue = DisplayUtils.bytesToHumanReadable(file.getFileLength());
+        String properDiskValue = DisplayUtils.bytesToHumanReadable(availableDeviceSpace);
+
+        String fileName = file.getFileName();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        // Replace strings by lang-string-xml values
+        builder.setTitle("Not enough space");
+        builder.setMessage(fileName + " is " + properFileValue + " but there is only " + properDiskValue + " " +
+                               "available on device.");
+
+        builder.setPositiveButton("Choose what to synchronize", null);
+        builder.setNeutralButton("Free up space", null);
+        builder.setNegativeButton("Cancel", null);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
