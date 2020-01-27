@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
@@ -17,43 +16,28 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/list_fragment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/list_fragment_layout"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_containing_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:footerDividersEnabled="false"
+        android:visibility="visible">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_containing_list"
+        <com.owncloud.android.ui.EmptyRecyclerView
+            android:id="@+id/list_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:footerDividersEnabled="false"
-            android:visibility="visible">
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <com.owncloud.android.ui.EmptyRecyclerView
-                android:id="@+id/list_root"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <include layout="@layout/empty_list" />
 
-        <include layout="@layout/empty_list"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="@dimen/standard_margin"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginRight="@dimen/standard_margin"
-        android:contentDescription="@string/fab_label"
-        android:visibility="gone" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -31,7 +31,6 @@ import com.owncloud.android.R
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
 import kotlinx.android.synthetic.main.activity_show_error.*
-import kotlinx.android.synthetic.main.toolbar_standard.*
 
 class ShowErrorActivity : AppCompatActivity() {
     companion object {
@@ -44,7 +43,7 @@ class ShowErrorActivity : AppCompatActivity() {
 
         text_view_error.text = intent.getStringExtra(EXTRA_ERROR_TEXT)
 
-        setSupportActionBar(toolbar)
+        // setSupportActionBar(toolbar)
         supportActionBar!!.title = createErrorTitle()
 
         val snackbar = DisplayUtils.createSnackbar(

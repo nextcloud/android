@@ -50,7 +50,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -217,6 +219,7 @@ public class FileDisplayActivity extends FileActivity
     private SearchView searchView;
     private PlayerServiceConnection mPlayerConnection;
     private Account mLastDisplayedAccount;
+    private FloatingActionButton mFabMain;
 
     @Inject
     AppPreferences preferences;
@@ -267,9 +270,35 @@ public class FileDisplayActivity extends FileActivity
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
+        mFabMain = findViewById(R.id.fab_main);
 
-        // Action bar setup
-        getSupportActionBar().setHomeButtonEnabled(true);
+        findViewById(R.id.homeButton).setOnClickListener(l -> {
+            FileFragment second = getSecondFragment();
+            OCFile currentDir = getCurrentDir();
+            if (isDrawerOpen()) {
+                closeDrawer();
+            } else if ((currentDir != null && currentDir.getParentId() != 0) ||
+                (second != null && second.getFile() != null) || isSearchOpen()) {
+                onBackPressed();
+
+            } else {
+                openDrawer();
+            }
+        });
+
+        ImageView toggleButton = findViewById(R.id.layoutToggleButton);
+
+        toggleButton.setOnClickListener(l -> {
+            if (isGridView()) {
+                toggleButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
+                                                                        R.drawable.ic_view_module));
+                getListOfFilesFragment().setListAsPreferred();
+            } else {
+                toggleButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
+                                                                        R.drawable.ic_view_list));
+                getListOfFilesFragment().setGridAsPreferred();
+            }
+        });
 
         // Init Fragment without UI to retain AsyncTask across configuration changes
         FragmentManager fm = getSupportFragmentManager();
@@ -757,6 +786,10 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
+    public FloatingActionButton getFabMain() {
+        return mFabMain;
+    }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = isDrawerOpen();
@@ -851,27 +884,12 @@ public class FileDisplayActivity extends FileActivity
         return super.onCreateOptionsMenu(menu);
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
             case R.id.action_sync_account: {
                 startSynchronization();
-                break;
-            }
-            case android.R.id.home: {
-                FileFragment second = getSecondFragment();
-                OCFile currentDir = getCurrentDir();
-                if (isDrawerOpen()) {
-                    closeDrawer();
-                } else if ((currentDir != null && currentDir.getParentId() != 0) ||
-                        (second != null && second.getFile() != null) || isSearchOpen()) {
-                    onBackPressed();
-
-                } else {
-                    openDrawer();
-                }
                 break;
             }
             case R.id.action_sort: {
@@ -883,18 +901,6 @@ public class FileDisplayActivity extends FileActivity
                     preferences.getSortOrderByFolder(getListOfFilesFragment().getCurrentFile()));
                 mSortingOrderDialogFragment.show(ft, SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
 
-                break;
-            }
-            case R.id.action_switch_view: {
-                if (isGridView()) {
-                    item.setTitle(getString(R.string.action_switch_grid_view));
-                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_view_module));
-                    getListOfFilesFragment().setListAsPreferred();
-                } else {
-                    item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
-                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_view_list));
-                    getListOfFilesFragment().setGridAsPreferred();
-                }
                 break;
             }
             case R.id.action_select_all: {

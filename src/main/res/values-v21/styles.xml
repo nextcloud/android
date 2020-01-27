@@ -67,11 +67,12 @@
         <item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowBackground">@color/bg_default</item>
+        <item name="android:statusBarColor">@android:color/white</item>
     </style>
 
     <style name="Theme.ownCloud.Toolbar.Drawer">
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:colorBackground">@color/bg_default</item>
+        <item name="android:colorBackground">@android:color/white</item>
     </style>
 
     <!-- Launch screen -->

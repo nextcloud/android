@@ -27,9 +27,7 @@ package com.owncloud.android.ui.fragment;
 import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
@@ -123,8 +121,6 @@ public class ExtendedListFragment extends Fragment implements
     protected ImageView mEmptyListIcon;
     protected ProgressBar mEmptyListProgress;
 
-    private FloatingActionButton mFabMain;
-
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
     private ArrayList<Integer> mFirstPositions;
@@ -167,8 +163,8 @@ public class ExtendedListFragment extends Fragment implements
         return mRecyclerView;
     }
 
-    public FloatingActionButton getFabMain() {
-        return mFabMain;
+    protected FloatingActionButton getFabMain() {
+        return ((FileDisplayActivity) requireActivity()).getFabMain();
     }
 
     public void switchToGridView() {
@@ -385,8 +381,7 @@ public class ExtendedListFragment extends Fragment implements
         mRefreshListLayout = v.findViewById(R.id.swipe_containing_list);
         onCreateSwipeToRefresh(mRefreshListLayout);
 
-        mFabMain = v.findViewById(R.id.fab_main);
-        ThemeUtils.tintFloatingActionButton(mFabMain, R.drawable.ic_plus, getContext());
+        ThemeUtils.tintFloatingActionButton(getFabMain(), R.drawable.ic_plus, getContext());
 
         return v;
     }
@@ -588,10 +583,10 @@ public class ExtendedListFragment extends Fragment implements
         if (getActivity() != null) {
             getActivity().runOnUiThread(() -> {
                 if (visible) {
-                    mFabMain.show();
-                    ThemeUtils.tintDrawable(mFabMain.getBackground(), ThemeUtils.primaryColor(getContext()));
+//                    mFabMain.show();
+//                    ThemeUtils.tintDrawable(mFabMain.getBackground(), ThemeUtils.primaryColor(getContext()));
                 } else {
-                    mFabMain.hide();
+//                    mFabMain.hide();
                 }
             });
         }
@@ -608,14 +603,14 @@ public class ExtendedListFragment extends Fragment implements
         if (getActivity() != null) {
             getActivity().runOnUiThread(() -> {
                 if (enabled) {
-                    mFabMain.setEnabled(true);
-                    int primaryColor = ThemeUtils.primaryColor(getContext());
-                    mFabMain.setBackgroundTintList(ColorStateList.valueOf(primaryColor));
-                    mFabMain.setRippleColor(primaryColor);
+//                    mFabMain.setEnabled(true);
+//                    int primaryColor = ThemeUtils.primaryColor(getContext());
+//                    mFabMain.setBackgroundTintList(ColorStateList.valueOf(primaryColor));
+//                    mFabMain.setRippleColor(primaryColor);
                 } else {
-                    mFabMain.setEnabled(false);
-                    mFabMain.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
-                    mFabMain.setRippleColor(Color.GRAY);
+//                    mFabMain.setEnabled(false);
+//                    mFabMain.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+//                    mFabMain.setRippleColor(Color.GRAY);
                 }
             });
         }
