@@ -88,6 +88,7 @@ import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment;
+import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.CommentsEvent;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
@@ -172,6 +173,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private static final String DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT";
 
     private static final int SINGLE_SELECTION = 1;
+    private static final int NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE = 2;
 
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
@@ -1740,25 +1742,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void showSpaceErrorDialog(OCFile file, long availableDeviceSpace) {
+        SyncFileNotEnoughSpaceDialogFragment dialog =
+            SyncFileNotEnoughSpaceDialogFragment.newInstance(file, availableDeviceSpace, mActiveActionMode);
+        dialog.setTargetFragment(this, NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE);
 
-        String properFileValue = DisplayUtils.bytesToHumanReadable(file.getFileLength());
-        String properDiskValue = DisplayUtils.bytesToHumanReadable(availableDeviceSpace);
-
-        String fileName = file.getFileName();
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        // Replace strings by lang-string-xml values
-        builder.setTitle("Not enough space");
-        builder.setMessage(fileName + " is " + properFileValue + " but there is only " + properDiskValue + " " +
-                               "available on device.");
-
-        builder.setPositiveButton("Choose what to synchronize", null);
-        builder.setNeutralButton("Free up space", null);
-        builder.setNegativeButton("Cancel", null);
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        if (getFragmentManager() != null) {
+            dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
+        }
     }
 
     @Override
