@@ -584,7 +584,7 @@
     <string name="share_privilege_can_edit_create">可以创建的</string>
     <string name="share_privilege_can_edit_delete">允许删除</string>
     <string name="share_privilege_can_share">可共享</string>
-    <string name="share_privilege_unshare">未分享</string>
+    <string name="share_privilege_unshare">取消共享</string>
     <string name="share_remote_clarification">%1$s (远程)</string>
     <string name="share_room_clarification">%1$s (对话)</string>
     <string name="share_search">用户名、联合云ID或邮件地址</string>
@@ -700,7 +700,7 @@
     <string name="unread_comments">有未读评论</string>
     <string name="unset_encrypted">不设置加密</string>
     <string name="unset_favorite">从收藏列表移除</string>
-    <string name="unshare_link_file_error">解除文件或目录共享时出错</string>
+    <string name="unshare_link_file_error">尝试取消共享此文件或文件夹时发生错误</string>
     <string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在</string>
     <string name="unshare_link_forbidden_permissions">取消共享该文件</string>
     <string name="unsharing_failed">取消共享失败</string>
