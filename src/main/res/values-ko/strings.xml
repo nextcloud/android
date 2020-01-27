@@ -19,7 +19,6 @@
     <string name="actionbar_copy">복사</string>
     <string name="actionbar_mkdir">새 폴더</string>
     <string name="actionbar_move">이동</string>
-    <string name="actionbar_open_as_richdocument_parameter">다음으로 열기 %1$s</string>
     <string name="actionbar_open_with">다음으로 열기</string>
     <string name="actionbar_search">검색</string>
     <string name="actionbar_see_details">자세한 정보</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">사용자 이름</string>
     <string name="auth_wrong_connection_title">연결할 수 없음</string>
     <string name="auth_wtf_reenter_URL">예상하지 못한 상태, 서버 주소를 다시 입력하십시오</string>
-    <string name="authentication_exception">인증 예외 발생</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">읽기 전용 파일이므로 기존 폴더에 유지됩니다.</string>
     <string name="auto_upload_on_wifi">Wi-Fi에서만 업로드</string>
     <string name="auto_upload_path">/자동 업로드</string>
@@ -167,15 +165,12 @@
     <string name="copy_file_invalid_into_descendent">폴더를 자기 자신의 하위 폴더로 복사할 수 없음</string>
     <string name="copy_file_invalid_overwrite">파일이 대상 폴더에 이미 존재함</string>
     <string name="copy_file_not_found">복사할 수 없습니다. 파일이 존재하는지 확인하십시오</string>
-    <string name="copy_internal_link">내부 링크 복사</string>
-    <string name="copy_internal_link_subline">이 폴더에 액세스하는 사용자에게만 해당됩니다.</string>
     <string name="copy_link">링크 주소 복사</string>
     <string name="copy_move_to_encrypted_folder_not_supported">암호화된 폴더로 복사/이동은 아직 지원하지 않습니다.</string>
     <string name="copy_to">다음으로 복사</string>
     <string name="could_not_download_image">전체 이미지를 다운로드 할 수 없습니다.</string>
     <string name="could_not_retrieve_url">URL을 검색 할 수 없습니다.</string>
     <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
-    <string name="create_file_from_template">템플릿에서 파일을 만드는 중…</string>
     <string name="create_new_document">새 문서 작성</string>
     <string name="create_new_folder">새 폴더 생성</string>
     <string name="create_new_presentation">새 프리젠테이션 작성</string>
@@ -363,7 +358,6 @@
     <string name="host_your_own_server">자체 서버 호스팅</string>
     <string name="instant_upload_on_charging">충전 중에만 업로드</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">입출력 오류</string>
     <string name="learn_more">자세히 알아보기</string>
     <string name="link">링크</string>
     <string name="list_layout">목록 보기</string>
@@ -440,7 +434,6 @@
     <string name="notifications_no_results_headline">알림 없음</string>
     <string name="notifications_no_results_message">나중에 다시 확인하십시오.</string>
     <string name="offline_mode">네트워크에 연결할 수 없음</string>
-    <string name="operation_canceled">작업이 취소되었습니다.</string>
     <string name="outdated_server">서버의 수명이 다된것 같네요, 업그레이드 해주세요!</string>
     <string name="overflow_menu">메뉴 더 보기</string>
     <string name="pass_code_configure_your_pass_code">암호를 입력하십시오</string>

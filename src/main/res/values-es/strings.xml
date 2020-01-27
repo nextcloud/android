@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
     <string name="actionbar_move">Mover</string>
-    <string name="actionbar_open_as_richdocument_parameter">Abrir con %1$s</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Usuario</string>
     <string name="auth_wrong_connection_title">No se ha podido establecer la conexión</string>
     <string name="auth_wtf_reenter_URL">Estado inesperado; por favor, introduce de nuevo la dirección del servidor</string>
-    <string name="authentication_exception">Excepción de autenticación</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">se mantiene en la carpeta original, pues es de solo lectura</string>
     <string name="auto_upload_on_wifi">Subir sólo con conexión Wi-Fi sin límite de datos</string>
     <string name="auto_upload_path">/CargaAutomática</string>
@@ -167,15 +165,13 @@
     <string name="copy_file_invalid_into_descendent">No se puede copiar una carpeta dentro de una de sus propias subcarpetas.</string>
     <string name="copy_file_invalid_overwrite">El fichero ya existe en el directorio de destino</string>
     <string name="copy_file_not_found">No se puede copiar. Revisa si existe el archivo</string>
-    <string name="copy_internal_link">Copiar enlace interno</string>
-    <string name="copy_internal_link_subline">Sólo funciona para usuarios con acceso a esta carpeta</string>
     <string name="copy_link">Copiar enlace</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
     <string name="copy_to">Copiar a…</string>
     <string name="could_not_download_image">No se ha podido descargar la imagen completa</string>
     <string name="could_not_retrieve_url">No se ha podido encontrar la URL</string>
     <string name="create_dir_fail_msg">No se ha podido crear la carpeta</string>
-    <string name="create_file_from_template">Creando archivo desde la plantilla…</string>
+    <string name="create_new">Crear nuevo</string>
     <string name="create_new_document">Crear nuevo documento</string>
     <string name="create_new_folder">Crear nueva carpeta</string>
     <string name="create_new_presentation">Crear nueva presentación</string>
@@ -367,7 +363,6 @@
     <string name="host_your_own_server">Aloja tu propio servidor</string>
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
-    <string name="io_error">Error de entrada/salida</string>
     <string name="learn_more">Aprender más</string>
     <string name="link">Enlace</string>
     <string name="list_layout">Formato de lista</string>
@@ -446,7 +441,6 @@
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor, comprúebalo más tarde.</string>
     <string name="offline_mode">No hay conexión a internet</string>
-    <string name="operation_canceled">La operación se ha cancelado</string>
     <string name="outdated_server">El servidor ha alcanzado su final de vida. ¡Por favor, actualiza!</string>
     <string name="overflow_menu">Más menú</string>
     <string name="pass_code_configure_your_pass_code">Introduce tu código de acceso</string>

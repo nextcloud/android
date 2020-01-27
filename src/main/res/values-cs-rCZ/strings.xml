@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Kopírovat</string>
     <string name="actionbar_mkdir">Nová složka</string>
     <string name="actionbar_move">Přesunout</string>
-    <string name="actionbar_open_as_richdocument_parameter">Otevřít pomocí %1$s</string>
     <string name="actionbar_open_with">Otevřít pomocí</string>
     <string name="actionbar_search">Hledat</string>
     <string name="actionbar_see_details">Podrobnosti</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Uživatelské jméno</string>
     <string name="auth_wrong_connection_title">Nedaří se navázat spojení</string>
     <string name="auth_wtf_reenter_URL">Neočekávaný stav; zadejte znovu adresu serveru</string>
-    <string name="authentication_exception">Výjimka ověření</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechán v původní složce, protože je pouze pro čtení</string>
     <string name="auto_upload_on_wifi">Nahrávat pouze přes neplacené Wi-Fi připojení</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -167,15 +165,13 @@
     <string name="copy_file_invalid_into_descendent">Není možné zkopírovat složku do některé z jejích vlastních podsložek</string>
     <string name="copy_file_invalid_overwrite">Soubor už v cílové složce existuje</string>
     <string name="copy_file_not_found">Nedaří se zkopírovat. Zkontrolujte zda soubor existuje</string>
-    <string name="copy_internal_link">Zkopírovat interní odkaz</string>
-    <string name="copy_internal_link_subline">Funguje pouze pro uživatele, kteří mají přístup k této složce</string>
     <string name="copy_link">Zkopírovat odkaz</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírování/přesouvání do šifrované složky není v tuto chvíli podporováno.</string>
     <string name="copy_to">Zkopírovat do…</string>
     <string name="could_not_download_image">Nepodařilo se stáhnout celý obrázek</string>
     <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
-    <string name="create_file_from_template">Vytváření souboru ze šablony…</string>
+    <string name="create_new">Vytvořit nové</string>
     <string name="create_new_document">Vytvořit nový dokument</string>
     <string name="create_new_folder">Vytvořit novou složku</string>
     <string name="create_new_presentation">Vytvořit novou prezentaci</string>
@@ -367,7 +363,6 @@
     <string name="host_your_own_server">Hostovat svůj vlastní server</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">vst/výstup. chyba</string>
     <string name="learn_more">Zjistit více</string>
     <string name="link">Odkaz</string>
     <string name="list_layout">Zobrazit jako seznam</string>
@@ -446,7 +441,6 @@
     <string name="notifications_no_results_headline">Žádná oznámení</string>
     <string name="notifications_no_results_message">Vraťte se sem později.</string>
     <string name="offline_mode">Bez připojení k Internetu</string>
-    <string name="operation_canceled">Operace byla zrušena</string>
     <string name="outdated_server">Verze aplikace na straně serveru už je příliš stará na to, aby šla nadále používat – přejděte na novou!</string>
     <string name="overflow_menu">Další nabídka</string>
     <string name="pass_code_configure_your_pass_code">Zadejte svůj bezpečnostní kód</string>

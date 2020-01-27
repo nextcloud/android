@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Kopiëren</string>
     <string name="actionbar_mkdir">Nieuwe map</string>
     <string name="actionbar_move">Verplaatsen</string>
-    <string name="actionbar_open_as_richdocument_parameter">Openen met %1$s</string>
     <string name="actionbar_open_with">Openen met</string>
     <string name="actionbar_search">Zoeken</string>
     <string name="actionbar_see_details">Details</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Gebruikersnaam</string>
     <string name="auth_wrong_connection_title">Kon verbinding niet tot stand brengen</string>
     <string name="auth_wtf_reenter_URL">Onverwachte toestand; voer het serveradres opnieuw in</string>
-    <string name="authentication_exception">Authenticatiefout</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">bewaard worden in originele map, omdat die Alleen-lezen is</string>
     <string name="auto_upload_on_wifi">Upload alleen met Wi-Fi</string>
     <string name="auto_upload_path">/AutomatischUploaden</string>
@@ -167,15 +165,13 @@
     <string name="copy_file_invalid_into_descendent">Een map kan niet naar een onderliggende map worden gekopieerd</string>
     <string name="copy_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
     <string name="copy_file_not_found">Kan niet kopiëren. Ga na of het bestand wel bestaat</string>
-    <string name="copy_internal_link">Kopieer interne link</string>
-    <string name="copy_internal_link_subline">Werkt alleen voor gebruikers met toegang tot deze map</string>
     <string name="copy_link">Link kopiëren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
     <string name="copy_to">Kopieer naar…</string>
     <string name="could_not_download_image">Kan de volledige afbeelding niet downloaden</string>
     <string name="could_not_retrieve_url">Kon url niet ophalen</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
-    <string name="create_file_from_template">Creëren bestand vanaf sjabloon…</string>
+    <string name="create_new">Creëer nieuw</string>
     <string name="create_new_document">Creëer nieuw document</string>
     <string name="create_new_folder">Nieuwe map aanmaken</string>
     <string name="create_new_presentation">Creëer nieuwe presentatie</string>
@@ -367,7 +363,6 @@
     <string name="host_your_own_server">Host je eigen server</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="io_error">Fout bij een lees- of schrijfactie</string>
     <string name="learn_more">Meer weten</string>
     <string name="link">Link</string>
     <string name="list_layout">Lijstoverzicht</string>
@@ -446,7 +441,6 @@
     <string name="notifications_no_results_headline">Geen meldingen</string>
     <string name="notifications_no_results_message">Controleer later opnieuw.</string>
     <string name="offline_mode">Geen internet verbinding</string>
-    <string name="operation_canceled">De bewerking werd geannuleerd</string>
     <string name="outdated_server">Deze server is verouderd, graag upgraden!</string>
     <string name="overflow_menu">Meer menu</string>
     <string name="pass_code_configure_your_pass_code">Toegangscode invoeren</string>

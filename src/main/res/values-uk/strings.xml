@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Копіювати</string>
     <string name="actionbar_mkdir">Нова тека</string>
     <string name="actionbar_move">Перемістити</string>
-    <string name="actionbar_open_as_richdocument_parameter">Відкрити за допомогою %1$s</string>
     <string name="actionbar_open_with">Відкрити за допомогою</string>
     <string name="actionbar_search">Пошук</string>
     <string name="actionbar_see_details">Деталі</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Ім\'я користувача</string>
     <string name="auth_wrong_connection_title">Не вдалося встановити з\'єднання</string>
     <string name="auth_wtf_reenter_URL">Неочікуваний статус; будь ласка, введіть адресу сервера знову</string>
-    <string name="authentication_exception">Заперечення аутентифікації</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">залишено в оригінальній теці, так як вона доступна лише для читання</string>
     <string name="auto_upload_on_wifi">Завантаження тільки у нелімітованих мережах WiFi</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -149,6 +147,7 @@
     <string name="drawer_close">Закрити бічну панель</string>
     <string name="drawer_current_account">Поточний обліковий запис</string>
     <string name="drawer_end_account">Останній обліковий запис</string>
+    <string name="drawer_header_background">Фонове зображення заголовка скрині</string>
     <string name="drawer_item_activities">Події</string>
     <string name="drawer_item_all_files">Усі файли</string>
     <string name="drawer_item_favorites">Улюблені</string>
@@ -164,6 +163,7 @@
     <string name="drawer_item_videos">Відео</string>
     <string name="drawer_logout">Вихід</string>
     <string name="drawer_manage_accounts">Управління обліковими записами</string>
+    <string name="drawer_middle_account">Проміжний обліковий запис</string>
     <string name="drawer_open">Відкрити бічну панель</string>
     <string name="drawer_quota">%1$s з %2$s використано</string>
     <string name="drawer_quota_unlimited">%1$sвикористано</string>
@@ -449,6 +449,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Очікування з\'єднання з WiFi</string>
     <string name="user_icon">Користувач</string>
     <string name="user_info_address">Адреса</string>
+    <string name="user_info_email">Електронна пошта</string>
     <string name="user_info_phone">Номер телефону</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Веб-сайт</string>

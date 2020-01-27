@@ -19,7 +19,6 @@
     <string name="actionbar_copy">复制</string>
     <string name="actionbar_mkdir">新建文件夹</string>
     <string name="actionbar_move">移动</string>
-    <string name="actionbar_open_as_richdocument_parameter">用%1$s打开</string>
     <string name="actionbar_open_with">打开方式</string>
     <string name="actionbar_search">搜索</string>
     <string name="actionbar_see_details">详细信息</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">用户名</string>
     <string name="auth_wrong_connection_title">无法建立连接</string>
     <string name="auth_wtf_reenter_URL">意外状态，请重新输入服务器地址</string>
-    <string name="authentication_exception">认证异常</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">保持为原始的文件夹，即使它是只读的</string>
     <string name="auto_upload_on_wifi">仅通过无流量限制的 Wi-Fi 上传</string>
     <string name="auto_upload_path">/自动上传</string>
@@ -95,7 +93,7 @@
     <string name="choose_remote_folder">选择远程文件夹…</string>
     <string name="clear_notifications_failed">清除通知失败</string>
     <string name="clipboard_label">从%1$s复制文本</string>
-    <string name="clipboard_no_text_to_copy">收到没有文字复制到剪贴板</string>
+    <string name="clipboard_no_text_to_copy">没有收到要复制到剪贴板的文本</string>
     <string name="clipboard_text_copied">已复制链接</string>
     <string name="clipboard_unexpected_error">在复制内容到剪贴板时发生了一个预料外的错误</string>
     <string name="common_back">返回</string>
@@ -167,15 +165,13 @@
     <string name="copy_file_invalid_into_descendent">将文件夹复制到其自己的底层文件夹中是不可能的</string>
     <string name="copy_file_invalid_overwrite">该文件已存在于目标文件夹中</string>
     <string name="copy_file_not_found">无法复制文件。请检查文件是否存在</string>
-    <string name="copy_internal_link">复制内部链接</string>
-    <string name="copy_internal_link_subline">仅适用于有权限访问此文件夹的用户</string>
     <string name="copy_link">复制链接</string>
     <string name="copy_move_to_encrypted_folder_not_supported">目前不支持 复制 / 移动到加密的文件夹。</string>
     <string name="copy_to">复制到…</string>
     <string name="could_not_download_image">无法下载完整图片</string>
     <string name="could_not_retrieve_url">无法获取url</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
-    <string name="create_file_from_template">使用模板创建文件中...</string>
+    <string name="create_new">新建</string>
     <string name="create_new_document">新建文档</string>
     <string name="create_new_folder">创建新文件夹</string>
     <string name="create_new_presentation">新建演示</string>
@@ -367,7 +363,6 @@
     <string name="host_your_own_server">自己搭建服务器</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_path">/实时上传</string>
-    <string name="io_error">IO 错误</string>
     <string name="learn_more">学习更多</string>
     <string name="link">链接</string>
     <string name="list_layout">列出的布局</string>
@@ -446,7 +441,6 @@
     <string name="notifications_no_results_headline">没有提示</string>
     <string name="notifications_no_results_message">请稍后核对</string>
     <string name="offline_mode">无网络连接</string>
-    <string name="operation_canceled">操作已取消</string>
     <string name="outdated_server">服务端即将达到使用寿命，请升级！</string>
     <string name="overflow_menu">更多菜单</string>
     <string name="pass_code_configure_your_pass_code">输入安全码</string>
@@ -590,7 +584,7 @@
     <string name="share_privilege_can_edit_create">可以创建的</string>
     <string name="share_privilege_can_edit_delete">允许删除</string>
     <string name="share_privilege_can_share">可共享</string>
-    <string name="share_privilege_unshare">未分享</string>
+    <string name="share_privilege_unshare">取消共享</string>
     <string name="share_remote_clarification">%1$s (远程)</string>
     <string name="share_room_clarification">%1$s (对话)</string>
     <string name="share_search">用户名、联合云ID或邮件地址</string>
@@ -706,7 +700,7 @@
     <string name="unread_comments">有未读评论</string>
     <string name="unset_encrypted">不设置加密</string>
     <string name="unset_favorite">从收藏列表移除</string>
-    <string name="unshare_link_file_error">解除文件或目录共享时出错</string>
+    <string name="unshare_link_file_error">尝试取消共享此文件或文件夹时发生错误</string>
     <string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在</string>
     <string name="unshare_link_forbidden_permissions">取消共享该文件</string>
     <string name="unsharing_failed">取消共享失败</string>

@@ -19,7 +19,6 @@
     <string name="actionbar_copy">Kopieren</string>
     <string name="actionbar_mkdir">Neuer Ordner</string>
     <string name="actionbar_move">Verschieben</string>
-    <string name="actionbar_open_as_richdocument_parameter">Öffnen mit %1$s</string>
     <string name="actionbar_open_with">Öffnen mit</string>
     <string name="actionbar_search">Suche</string>
     <string name="actionbar_see_details">Details</string>
@@ -73,7 +72,6 @@
     <string name="auth_username">Benutzername</string>
     <string name="auth_wrong_connection_title">Verbindung konnte nicht hergestellt werden</string>
     <string name="auth_wtf_reenter_URL">Unerwarteter Zustand, bitte geben Sie die Adresse des Servers erneut ein</string>
-    <string name="authentication_exception">Fehler bei der Authentifizierung</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
     <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -167,15 +165,13 @@
     <string name="copy_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu kopieren</string>
     <string name="copy_file_invalid_overwrite">Die Datei existiert bereits im Zielverzeichnis</string>
     <string name="copy_file_not_found">Kopieren nicht möglich. Bitte prüfen Sie, ob die Datei existiert</string>
-    <string name="copy_internal_link">Internen Link kopieren</string>
-    <string name="copy_internal_link_subline">Funktioniert nur für Nutzer mit Zugriff auf dieses Verzeichnis</string>
     <string name="copy_link">Link kopieren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
     <string name="copy_to">Kopieren nach…</string>
     <string name="could_not_download_image">Originalbild konnte nicht heruntergeladen werden</string>
     <string name="could_not_retrieve_url">Konnte URL nicht abrufen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
-    <string name="create_file_from_template">Erzeuge Datei aus Vorlage…</string>
+    <string name="create_new">Neu erstellen</string>
     <string name="create_new_document">Neues Dokument erstellen</string>
     <string name="create_new_folder">Neuen Ordner erstellen</string>
     <string name="create_new_presentation">Neue Präsentation erstellen</string>
@@ -367,7 +363,6 @@
     <string name="host_your_own_server">Eigenen Server betreiben</string>
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
-    <string name="io_error">IO Fehler</string>
     <string name="learn_more">Mehr</string>
     <string name="link">Link</string>
     <string name="list_layout">Layout der Liste</string>
@@ -446,7 +441,6 @@
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
     <string name="offline_mode">Keine Internetverbindung</string>
-    <string name="operation_canceled">Vorgang abgebrochen</string>
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
     <string name="overflow_menu">Weiteres Menü</string>
     <string name="pass_code_configure_your_pass_code">PIN eingeben</string>

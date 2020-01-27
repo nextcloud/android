@@ -23,6 +23,7 @@
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -104,11 +105,16 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
             throw new RuntimeException("View may not be null");
         }
 
-        FloatingActionButton mFabMain = view.findViewById(R.id.text_preview_fab);
-        mFabMain.setVisibility(View.VISIBLE);
-        mFabMain.setEnabled(true);
-        mFabMain.setOnClickListener(v -> edit());
-        ThemeUtils.tintFloatingActionButton(mFabMain, R.drawable.ic_edit, getContext());
+        FloatingActionButton fabMain = view.findViewById(R.id.text_preview_fab);
+
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            fabMain.setVisibility(View.GONE);
+        } else {
+            fabMain.setVisibility(View.VISIBLE);
+            fabMain.setEnabled(true);
+            fabMain.setOnClickListener(v -> edit());
+            ThemeUtils.tintFloatingActionButton(fabMain, R.drawable.ic_edit, getContext());
+        }
 
         return view;
     }
