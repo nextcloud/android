@@ -1,11 +1,11 @@
 /*
- *   ownCloud Android client application
+ *   Nextcloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
+ *   @author Kilian Périsset
+ *   Copyright (C) 2020 Infomaniak Network SA
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
+ *   it under the terms of the GNU Affero General Public License (GPLv3),
  *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
@@ -20,113 +20,65 @@
 package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
-import android.content.res.Resources;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.storage.StorageManager;
 import android.view.ActionMode;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 
 /**
- *  Dialog requiring confirmation before removing a collection of given OCFiles.
- *
- *  Triggers the removal according to the user response.
+ * Dialog requiring confirmation when a file/folder is too "big" to be synchronized/downloaded on device.
  */
 public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFragment implements
-        ConfirmationDialogFragmentListener {
+    ConfirmationDialogFragmentListener {
 
 
-    private static final String ARG_DIALOG_TITLE = "dialog_title_res";
-    private static final String ARG_DIALOG_MESSAGE = "dialog_message_res";
-    private static final String ARG_FILE_NAME = "dialog_file_name";
-    private static final String ARG_FILE_SIZE = "dialog_file_size";
-    private static final String ARG_DEVICE_FREE_SPACE = "dialog_device_free_space";
+    private static final String ARG_PASSED_FILE = "fragment_parent_caller";
+    private static final int REQUEST_CODE_STORAGE = 20;
 
     private ActionMode actionMode;
-    String properFileSize;
-    String properDiskFreeSpace;
-    String fileName;
+    private OCFile targetFile;
 
     public static SyncFileNotEnoughSpaceDialogFragment newInstance(OCFile file, long availableDeviceSpace,
                                                                    ActionMode actionMode) {
         SyncFileNotEnoughSpaceDialogFragment dialogFragment = newInstance(file, availableDeviceSpace);
-        dialogFragment.setActionMode(actionMode);
         return dialogFragment;
     }
 
 
     public static SyncFileNotEnoughSpaceDialogFragment newInstance(OCFile file, long availableDeviceSpace) {
-        SyncFileNotEnoughSpaceDialogFragment frag = new SyncFileNotEnoughSpaceDialogFragment();
         Bundle args = new Bundle();
+        SyncFileNotEnoughSpaceDialogFragment frag = new SyncFileNotEnoughSpaceDialogFragment();
+        String properFileSize = DisplayUtils.bytesToHumanReadable(file.getFileLength());
+        String properDiskAvailableSpace = DisplayUtils.bytesToHumanReadable(availableDeviceSpace);
 
+        // Defining title, message and resources
+        args.putInt(ARG_TITLE_ID, R.string.sync_not_enough_space_dialog_title);
+        args.putInt(ARG_MESSAGE_RESOURCE_ID, R.string.sync_not_enough_space_dialog_placeholder);
+        args.putStringArray(ARG_MESSAGE_ARGUMENTS, new String[]{file.getFileName(), properFileSize, properDiskAvailableSpace});
+        args.putParcelable(ARG_PASSED_FILE, file);
 
-
-        // ------------------
-        // <EXPORTED>
-        // ------------------
-
-
-/*        String properFileValue = DisplayUtils.bytesToHumanReadable(file.getFileLength());
-        String properDiskValue = DisplayUtils.bytesToHumanReadable(availableDeviceSpace);
-
-        String fileName = file.getFileName();
-
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder();
-
-        // Replace strings by lang-string-xml values
-        builder.setTitle("Not enough space");
-        builder.setMessage(fileName + " is " + properFileValue + " but there is only " + properDiskValue + " " +
-                               "available on device.");
-
-        builder.setPositiveButton("Choose what to synchronize", null);
-        builder.setNeutralButton("Free up space", null);
-        builder.setNegativeButton("Cancel", null);
-
-        android.app.AlertDialog dialog = builder.create();
-        dialog.show();
-     */
-
-        // ------------------
-        // </EXPORTED>
-        // ------------------
-
-        // Here,
-        /*
-            - Title : Not enough space
-            - Base message  : {0} is {1} but there is only {2} available on device. -> applied
-            - Button top - positive : Choose what to synchronize -> applied
-            - Button mid - neutral : Free up space ->
-            - Button bot - negative : Cancel (R.string.common_cancel)
-            - {0} : File name (file.getFileName)
-            - {1} : File size
-            - {2} : Device free space
-         */
-
-        // args.putInt(ARG_MESSAGE_RESOURCE_ID, messageStringId);
-
-
-        args.putInt(ARG_DIALOG_TITLE, R.string.sync_not_enough_space_dialog_title);
-        args.putInt(ARG_DIALOG_MESSAGE, R.string.sync_not_enough_space_dialog_placeholder);
-        args.putInt(ARG_POSITIVE_BTN_RES, R.string.sync_not_enough_space_dialog_action_choose);
-        args.putInt(ARG_NEUTRAL_BTN_RES, R.string.sync_not_enough_space_dialog_action_free_space);
-        args.putInt(ARG_NEGATIVE_BTN_RES, R.string.common_cancel);
-
-        args.putString(ARG_FILE_NAME, file.getFileName());
-        args.putLong(ARG_FILE_SIZE, file.getFileLength());
-        args.putLong(ARG_DEVICE_FREE_SPACE, availableDeviceSpace);
+        // Defining buttons
+        if (file.isFolder()) {
+            args.putInt(ARG_POSITIVE_BTN_RES, R.string.sync_not_enough_space_dialog_action_choose);
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
+            args.putInt(ARG_NEGATIVE_BTN_RES, R.string.sync_not_enough_space_dialog_action_free_space);
+        }
+        args.putInt(ARG_NEUTRAL_BTN_RES, R.string.common_cancel);
 
         frag.setArguments(args);
-
         return frag;
     }
 
@@ -139,8 +91,8 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
 
         if (alertDialog != null) {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
             alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
         }
     }
 
@@ -148,54 +100,45 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
+        Bundle arguments = getArguments();
 
-        if (getArguments() != null) {
-            properDiskFreeSpace = DisplayUtils.bytesToHumanReadable(getArguments().getLong(ARG_DEVICE_FREE_SPACE));
-            properFileSize = DisplayUtils.bytesToHumanReadable(getArguments().getLong(ARG_FILE_SIZE));
-            fileName = getArguments().getString(ARG_FILE_NAME);
+        if (arguments == null) {
+            throw new IllegalArgumentException("Arguments may not be null");
         }
 
-        // mTargetFiles = getArguments().getParcelableArrayList(ARG_TARGET_FILES);
-
+        targetFile = arguments.getParcelable(ARG_PASSED_FILE);
         setOnConfirmationListener(this);
 
         return dialog;
     }
 
     /**
-     * Performs the removal of the target file, both locally and in the server and
-     * finishes the supplied ActionMode if one was given.
+     * (Only if file is a folder), will access the destination folder to allow user to choose what to synchronize
      */
     @Override
     public void onConfirmation(String callerTag) {
-        // ONLY IF FOLDER -> GO TO DESTINATION
+        OCFileListFragment frag = (OCFileListFragment) getTargetFragment();
+        if (frag != null && targetFile != null) {
+            frag.onItemClicked(targetFile);
+        }
     }
 
     /**
-     * Performs the removal of the local copy of the target file
+     * Will abort/cancel the process (is neutral to "hack" android button position ._.)
      */
-    @Override
-    public void onCancel(String callerTag) {
-        // CANCEL -> CLOSE
-    }
-
     @Override
     public void onNeutral(String callerTag) {
-        // WIPE SPACE
-    }
-
-    private void setActionMode(ActionMode actionMode) {
-        this.actionMode = actionMode;
+        // Nothing
     }
 
     /**
-     * This is used when finishing an actionMode,
-     * for example if we want to exit the selection mode
-     * after deleting the target files.
+     * Will access to storage manager in order to empty useless files
+     * @param callerTag
      */
-    private void finishActionMode() {
-        if (actionMode != null) {
-            actionMode.finish();
-        }
+    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
+    @Override
+    public void onCancel(String callerTag) {
+        Intent storageIntent = new Intent(StorageManager.ACTION_MANAGE_STORAGE);
+        startActivityForResult(storageIntent, REQUEST_CODE_STORAGE);
     }
 }
