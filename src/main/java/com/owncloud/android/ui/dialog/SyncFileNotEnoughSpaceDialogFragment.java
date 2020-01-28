@@ -87,7 +87,6 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
         Bundle arguments = getArguments();
 
         if (arguments == null) {
@@ -97,7 +96,7 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
         targetFile = arguments.getParcelable(ARG_PASSED_FILE);
         setOnConfirmationListener(this);
 
-        return dialog;
+        return super.onCreateDialog(savedInstanceState);
     }
 
     /**
