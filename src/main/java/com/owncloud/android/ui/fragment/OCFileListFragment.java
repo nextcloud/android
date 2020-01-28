@@ -26,10 +26,7 @@ package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -46,7 +43,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.PopupMenu;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -1743,7 +1739,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void showSpaceErrorDialog(OCFile file, long availableDeviceSpace) {
         SyncFileNotEnoughSpaceDialogFragment dialog =
-            SyncFileNotEnoughSpaceDialogFragment.newInstance(file, availableDeviceSpace, mActiveActionMode);
+            SyncFileNotEnoughSpaceDialogFragment.newInstance(file, availableDeviceSpace);
         dialog.setTargetFragment(this, NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE);
 
         if (getFragmentManager() != null) {

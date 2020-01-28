@@ -24,15 +24,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.storage.StorageManager;
-import android.view.ActionMode;
-
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -43,19 +40,10 @@ import androidx.appcompat.app.AlertDialog;
 public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFragment implements
     ConfirmationDialogFragmentListener {
 
-
     private static final String ARG_PASSED_FILE = "fragment_parent_caller";
     private static final int REQUEST_CODE_STORAGE = 20;
 
-    private ActionMode actionMode;
     private OCFile targetFile;
-
-    public static SyncFileNotEnoughSpaceDialogFragment newInstance(OCFile file, long availableDeviceSpace,
-                                                                   ActionMode actionMode) {
-        SyncFileNotEnoughSpaceDialogFragment dialogFragment = newInstance(file, availableDeviceSpace);
-        return dialogFragment;
-    }
-
 
     public static SyncFileNotEnoughSpaceDialogFragment newInstance(OCFile file, long availableDeviceSpace) {
         Bundle args = new Bundle();
@@ -133,7 +121,6 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
 
     /**
      * Will access to storage manager in order to empty useless files
-     * @param callerTag
      */
     @RequiresApi(api = Build.VERSION_CODES.N_MR1)
     @Override
