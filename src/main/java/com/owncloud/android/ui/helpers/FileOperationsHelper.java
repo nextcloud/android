@@ -1045,8 +1045,7 @@ public class FileOperationsHelper {
         if (android.os.Build.VERSION.SDK_INT >=
             android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
             availableBytesOnDevice = stat.getBlockSizeLong() * stat.getAvailableBlocksLong();
-        }
-        else {
+        } else {
             availableBytesOnDevice = (long) stat.getBlockSize() * (long) stat.getAvailableBlocks();
         }
 
