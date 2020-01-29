@@ -1,3 +1,5 @@
-9fa16494b Merge pull request #5294 from nextcloud/reliableDev
-2040a3507 daily dev 20200128
+0c3c286c0 Merge remote-tracking branch 'origin/master' into dev
+4a9fc087a Merge pull request #5349 from nextcloud/devBranchMigration
+cfb830668 dev: do not modify master, but push everything to dev branch
+e03b819ef daily dev 20200129
 library commit: 721c01bc369955139daf218377c081d05c82f317

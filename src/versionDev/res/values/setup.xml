@@ -2,7 +2,7 @@
 <resources>
     <!-- Beta indicator -->
     <bool name="is_beta">true</bool>
-    <bool name="dev_version_direct_download_enabled">false</bool>
+    <bool name="dev_version_direct_download_enabled">true</bool>
 
     <!-- App name  and other strings-->
     <string name="app_name">Nextcloud dev</string>
