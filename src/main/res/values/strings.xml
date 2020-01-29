@@ -914,9 +914,9 @@
     <string name="create_new">Create new</string>
     <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
 
-    <string name="sync_not_enough_space_dialog_action_choose" translatable="false">Choose what to sync</string>
-    <string name="sync_not_enough_space_dialog_action_free_space" translatable="false">Free up space</string>
-    <string name="sync_not_enough_space_dialog_placeholder" translatable="false">%1$s is %2$s, but there is only %3$s
+    <string name="sync_not_enough_space_dialog_action_choose">Choose what to sync</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s
         available on device.</string>
-    <string name="sync_not_enough_space_dialog_title" translatable="false">Not enough space</string>
+    <string name="sync_not_enough_space_dialog_title">Not enough space</string>
 </resources>
