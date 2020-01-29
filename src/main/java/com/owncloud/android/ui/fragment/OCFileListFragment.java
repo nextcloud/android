@@ -34,7 +34,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.Pair;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -1727,19 +1726,24 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void syncAndCheckFiles(Collection<OCFile> files) {
         for (OCFile file : files) {
-            Pair<Boolean, Long> fileSyncResult= FileOperationsHelper.isSpaceEnough(file);
-            if (fileSyncResult.first) {
+            // Get the remaining space on device (after file download)
+            long remainingSpaceOnDevice = FileOperationsHelper.getRemainingSpaceOnDevice(file);
+            // Get the total available space on device (before file download)
+            long availableSpaceOnDevice = file.getFileLength() + remainingSpaceOnDevice;
+            // Determine if space is enough to download the file
+            boolean isSpaceEnough = remainingSpaceOnDevice > 0;
+
+            if (isSpaceEnough) {
                 mContainerActivity.getFileOperationsHelper().syncFile(file);
             } else {
-                showSpaceErrorDialog(file, fileSyncResult.second);
+                showSpaceErrorDialog(file, availableSpaceOnDevice);
             }
-
         }
     }
 
-    private void showSpaceErrorDialog(OCFile file, long availableDeviceSpace) {
+    private void showSpaceErrorDialog(OCFile file, long spaceAvailableOnDevice) {
         SyncFileNotEnoughSpaceDialogFragment dialog =
-            SyncFileNotEnoughSpaceDialogFragment.newInstance(file, availableDeviceSpace);
+            SyncFileNotEnoughSpaceDialogFragment.newInstance(file, spaceAvailableOnDevice);
         dialog.setTargetFragment(this, NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE);
 
         if (getFragmentManager() != null) {
