@@ -10,7 +10,7 @@
     <string name="action_clear_failed_uploads">Počisti dnevnik spodletelih pošiljanj</string>
     <string name="action_edit">Uredi</string>
     <string name="action_empty_notifications">Počisti vsa obvestila</string>
-    <string name="action_empty_trashbin">izprazni smeti</string>
+    <string name="action_empty_trashbin">Izprazni smeti</string>
     <string name="action_send_share">Pošlji/Omogoči souporabo</string>
     <string name="action_switch_grid_view">Mrežni pogled</string>
     <string name="action_switch_list_view">Seznamski pogled</string>
@@ -170,6 +170,7 @@
     <string name="could_not_download_image">Slike ni mogoče prejeti v celoti.</string>
     <string name="could_not_retrieve_url">Naslova URL ni mogoče pridobiti</string>
     <string name="create_dir_fail_msg">Ni mogoče ustvariti mape</string>
+    <string name="create_new">Ustvari novo</string>
     <string name="create_new_document">Ustvari nov dokument</string>
     <string name="create_new_folder">Ustvari novo mapo</string>
     <string name="create_new_presentation">Ustvari novo predstavitev</string>
@@ -198,7 +199,7 @@
     <string name="downloader_download_in_progress_content">%1$d%% Prejemanje %2$s</string>
     <string name="downloader_download_in_progress_ticker">Poteka prejemanje …</string>
     <string name="downloader_download_succeeded_content">%1$s: prejeto iz oblaka</string>
-    <string name="downloader_download_succeeded_ticker">Prenešeno</string>
+    <string name="downloader_download_succeeded_ticker">Prejeto</string>
     <string name="downloader_not_downloaded_yet">Prejem še ni zaključen</string>
     <string name="drawer_close">Zapri bočno okno</string>
     <string name="drawer_community">Skupnost</string>

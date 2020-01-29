@@ -35,17 +35,18 @@ mv latest.apk ~/apks/
 lastBuildTime=$(date --date="$(git log -1 --format=%ai $(git tag | grep dev | tail -n1))" +%s)
 changelog=$(git log --after=$lastBuildTime --pretty=oneline --abbrev-commit)
 
-echo "$changelog" > src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
-echo "library commit: $(curl https://api.github.com/repos/nextcloud/android-library/commits/master | jq .sha | sed s'/\"//g')" >> src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
+libraryCommit=$(curl https://api.github.com/repos/nextcloud/android-library/commits/master | jq .sha | sed s'/\"//g')
 
-git add build.gradle
-git add src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
+# changelog
+echo "$changelog" > src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
+echo "library commit: $libraryCommit" >> src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
+
+# build
+sed -i s"# androidLibraryVersion.*#androidLibraryVersion =\"$libraryCommit\"#" build.gradle
+
+git add .
 git commit -m "daily dev $date" -m "$changelog"
 git push
 
 git tag dev-$date
 git push origin dev-$date
-
-# remove all but the latest 5 tags
-git tag|grep dev | sort -r | awk 'NR>5' | xargs -n 1 git push --delete origin
-git tag|grep dev | sort -r | awk 'NR>5' | xargs -n 1 git tag -d

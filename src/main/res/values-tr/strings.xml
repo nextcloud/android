@@ -171,6 +171,7 @@
     <string name="could_not_download_image">Tam boyuttaki görsel indirilemedi</string>
     <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
+    <string name="create_new">Yeni ekle</string>
     <string name="create_new_document">Yeni belge</string>
     <string name="create_new_folder">Klasör ekle</string>
     <string name="create_new_presentation">Yeni sunum</string>
