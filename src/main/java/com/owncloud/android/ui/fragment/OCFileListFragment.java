@@ -1118,7 +1118,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
             case R.id.action_download_file:
             case R.id.action_sync_file: {
-                this.syncAndCheckFiles(checkedFiles);
+                syncAndCheckFiles(checkedFiles);
                 exitSelectionMode();
                 return true;
             }
