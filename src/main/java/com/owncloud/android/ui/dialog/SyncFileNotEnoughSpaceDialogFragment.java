@@ -24,12 +24,14 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.storage.StorageManager;
+
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
