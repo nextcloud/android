@@ -1039,21 +1039,18 @@ public class FileOperationsHelper {
         return new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(new Date()) + ".jpg";
     }
 
-    public static Pair<Boolean, Long> isSpaceEnough(OCFile file) {
+    public static Long getRemainingSpaceOnDevice(OCFile file) {
         StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
         long availableBytesOnDevice;
+
         if (android.os.Build.VERSION.SDK_INT >=
             android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
             availableBytesOnDevice = stat.getBlockSizeLong() * stat.getAvailableBlocksLong();
-        }
-        else {
+        } else {
             availableBytesOnDevice = (long) stat.getBlockSize() * (long) stat.getAvailableBlocks();
         }
 
-        boolean isSpaceEnough = file.getFileLength() < availableBytesOnDevice;
-
-        return new Pair<>(isSpaceEnough, availableBytesOnDevice);
-
+        return availableBytesOnDevice - file.getFileLength();
     }
 
 
