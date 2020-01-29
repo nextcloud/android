@@ -42,7 +42,6 @@ import androidx.appcompat.app.AlertDialog;
 public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFragment implements
     ConfirmationDialogFragmentListener {
 
-
     private static final String ARG_PASSED_FILE = "fragment_parent_caller";
     private static final int REQUEST_CODE_STORAGE = 20;
 
@@ -90,7 +89,6 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
         Bundle arguments = getArguments();
 
         if (arguments == null) {
@@ -100,7 +98,7 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
         targetFile = arguments.getParcelable(ARG_PASSED_FILE);
         setOnConfirmationListener(this);
 
-        return dialog;
+        return super.onCreateDialog(savedInstanceState);
     }
 
     /**
@@ -124,7 +122,6 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
 
     /**
      * Will access to storage manager in order to empty useless files
-     * @param callerTag
      */
     @RequiresApi(api = Build.VERSION_CODES.N_MR1)
     @Override
