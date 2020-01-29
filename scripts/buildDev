@@ -44,8 +44,7 @@ echo "library commit: $libraryCommit" >> src/versionDev/fastlane/metadata/androi
 # build
 sed -i s"# androidLibraryVersion.*#androidLibraryVersion =\"$libraryCommit\"#" build.gradle
 
-git add build.gradle
-git add src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
+git add .
 git commit -m "daily dev $date" -m "$changelog"
 git push
 
