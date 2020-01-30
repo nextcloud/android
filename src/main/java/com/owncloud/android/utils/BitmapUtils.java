@@ -390,7 +390,7 @@ public final class BitmapUtils {
         roundedBitmap.setCircular(true);
 
         if (radius != -1) {
-            roundedBitmap.setCornerRadius(20);
+            roundedBitmap.setCornerRadius(radius);
         }
 
         return roundedBitmap;
