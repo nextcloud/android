@@ -1741,9 +1741,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void showSpaceErrorDialog(OCFile file, long spaceAvailableOnDevice) {
+    private void showSpaceErrorDialog(OCFile file, long availableSpaceOnDevice) {
         SyncFileNotEnoughSpaceDialogFragment dialog =
-            SyncFileNotEnoughSpaceDialogFragment.newInstance(file, spaceAvailableOnDevice);
+            SyncFileNotEnoughSpaceDialogFragment.newInstance(file, availableSpaceOnDevice);
         dialog.setTargetFragment(this, NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE);
 
         if (getFragmentManager() != null) {
