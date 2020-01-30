@@ -520,12 +520,7 @@ public final class ThumbnailsCacheManager {
                     }
                     if (String.valueOf(imageView.getTag()).equals(tagId)) {
                         if (roundedCorners) {
-                            Resources resources = MainApp.getAppContext().getResources();
-
-                            BitmapUtils.setRoundedBitmap(resources,
-                                                         bitmap,
-                                                         resources.getDimension(R.dimen.file_icon_rounded_corner_radius),
-                                                         imageView);
+                            BitmapUtils.setRoundedBitmap(bitmap, imageView);
                         } else {
                             imageView.setImageBitmap(bitmap);
                         }
