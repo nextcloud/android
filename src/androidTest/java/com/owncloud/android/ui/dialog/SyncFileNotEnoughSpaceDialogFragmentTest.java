@@ -35,6 +35,8 @@ import org.junit.Test;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+
 public class SyncFileNotEnoughSpaceDialogFragmentTest extends AbstractIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
                                                                                            true,
@@ -46,7 +48,7 @@ public class SyncFileNotEnoughSpaceDialogFragmentTest extends AbstractIT {
 
 
     @Test
-    public void showNotEnoughSpaceDialogForFolder() throws InterruptedException {
+    public void showNotEnoughSpaceDialogForFolder() {
         FileDisplayActivity test = activityRule.launchActivity(null);
         OCFile ocFile = new OCFile("/Document/");
         ocFile.setFileLength(5000000);
@@ -54,13 +56,13 @@ public class SyncFileNotEnoughSpaceDialogFragmentTest extends AbstractIT {
         SyncFileNotEnoughSpaceDialogFragment dialog = SyncFileNotEnoughSpaceDialogFragment.newInstance(ocFile, 1000);
         dialog.show(test.getListOfFilesFragment().getFragmentManager(), "1");
 
-        Thread.sleep(2000);
+        getInstrumentation().waitForIdleSync();
 
         Screenshot.snap(dialog.getDialog().getWindow().getDecorView()).record();
     }
 
     @Test
-    public void showNotEnoughSpaceDialogForFile() throws InterruptedException {
+    public void showNotEnoughSpaceDialogForFile() {
         FileDisplayActivity test = activityRule.launchActivity(null);
         OCFile ocFile = new OCFile("/Video.mp4");
         ocFile.setFileLength(1000000);
@@ -68,7 +70,7 @@ public class SyncFileNotEnoughSpaceDialogFragmentTest extends AbstractIT {
         SyncFileNotEnoughSpaceDialogFragment dialog = SyncFileNotEnoughSpaceDialogFragment.newInstance(ocFile, 2000);
         dialog.show(test.getListOfFilesFragment().getFragmentManager(), "2");
 
-        Thread.sleep(2000);
+        getInstrumentation().waitForIdleSync();
 
         Screenshot.snap(dialog.getDialog().getWindow().getDecorView()).record();
     }
