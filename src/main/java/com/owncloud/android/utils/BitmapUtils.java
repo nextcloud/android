@@ -28,6 +28,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.apache.commons.codec.binary.Hex;
@@ -425,5 +427,14 @@ public final class BitmapUtils {
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
         return bitmap;
+    }
+
+    public static void setRoundedBitmap(Bitmap thumbnail, ImageView imageView) {
+        Resources resources = MainApp.getAppContext().getResources();
+
+        BitmapUtils.setRoundedBitmap(resources,
+                                     thumbnail,
+                                     resources.getDimension(R.dimen.file_icon_rounded_corner_radius),
+                                     imageView);
     }
 }

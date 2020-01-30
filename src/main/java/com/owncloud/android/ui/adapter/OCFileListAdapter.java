@@ -52,7 +52,6 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -606,14 +605,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         if (gridView) {
                             thumbnailView.setImageBitmap(thumbnail);
                         } else {
-                            Resources resources = MainApp.getAppContext().getResources();
-
-                            BitmapUtils.setRoundedBitmap(resources,
-                                                         thumbnail,
-                                                         resources.getDimension(R.dimen.file_icon_rounded_corner_radius),
-                                                         thumbnailView);
+                            BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
                         }
-
                     }
                 } else {
                     // generate new thumbnail
