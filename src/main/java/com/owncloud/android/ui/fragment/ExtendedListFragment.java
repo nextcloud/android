@@ -49,7 +49,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -62,7 +61,6 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.ui.EmptyRecyclerView;
@@ -94,11 +92,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class ExtendedListFragment extends Fragment implements
-        OnItemClickListener,
-        OnEnforceableRefreshListener,
-        SearchView.OnQueryTextListener,
-        SearchView.OnCloseListener,
-        Injectable {
+    OnItemClickListener,
+    OnEnforceableRefreshListener,
+    SearchView.OnQueryTextListener,
+    SearchView.OnCloseListener,
+    Injectable {
 
     protected static final String TAG = ExtendedListFragment.class.getSimpleName();
 
@@ -294,7 +292,7 @@ public class ExtendedListFragment extends Fragment implements
         }
 
         if (getFragmentManager() != null && getFragmentManager().
-                findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT) instanceof ExtendedListFragment) {
+            findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT) instanceof ExtendedListFragment) {
             performSearch(query, false);
             return true;
         } else {
@@ -371,7 +369,7 @@ public class ExtendedListFragment extends Fragment implements
         mScale = preferences.getGridColumns();
         setGridViewColumns(1f);
 
-        mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(),new ScaleListener());
+        mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(), new ScaleListener());
 
         getRecyclerView().setOnTouchListener((view, motionEvent) -> {
             mScaleGestureDetector.onTouchEvent(motionEvent);
@@ -494,7 +492,7 @@ public class ExtendedListFragment extends Fragment implements
             int top = mTops.remove(mTops.size() - 1);
 
             Log_OC.v(TAG, "Setting selection to position: " + firstPosition + "; top: "
-                    + top + "; index: " + index);
+                + top + "; index: " + index);
 
             scrollToPosition(firstPosition);
         }
@@ -505,7 +503,7 @@ public class ExtendedListFragment extends Fragment implements
 
         if (mRecyclerView != null) {
             int visibleItemCount = linearLayoutManager.findLastCompletelyVisibleItemPosition() -
-                    linearLayoutManager.findFirstCompletelyVisibleItemPosition();
+                linearLayoutManager.findFirstCompletelyVisibleItemPosition();
             linearLayoutManager.scrollToPositionWithOffset(position, (visibleItemCount / 2) * mHeightCell);
         }
     }
@@ -581,7 +579,7 @@ public class ExtendedListFragment extends Fragment implements
 
     /**
      * Sets the 'visibility' state of the FAB contained in the fragment.
-     *
+     * <p>
      * When 'false' is set, FAB visibility is set to View.GONE programmatically.
      *
      * @param visible Desired visibility for the FAB.
@@ -601,7 +599,7 @@ public class ExtendedListFragment extends Fragment implements
 
     /**
      * Sets the 'visibility' state of the FAB contained in the fragment.
-     *
+     * <p>
      * When 'false' is set, FAB is greyed out
      *
      * @param enabled Desired visibility for the FAB.
@@ -624,8 +622,7 @@ public class ExtendedListFragment extends Fragment implements
     }
 
     /**
-    /**
-     * Set message for empty list view.
+     * /** Set message for empty list view.
      */
     public void setMessageForEmptyList(String message) {
         if (mEmptyListContainer != null && mEmptyListMessage != null) {
@@ -687,50 +684,50 @@ public class ExtendedListFragment extends Fragment implements
 
                 if (searchType == SearchType.NO_SEARCH) {
                     setMessageForEmptyList(
-                            R.string.file_list_empty_headline,
-                            R.string.file_list_empty,
-                            R.drawable.ic_list_empty_folder,
-                            true
+                        R.string.file_list_empty_headline,
+                        R.string.file_list_empty,
+                        R.drawable.ic_list_empty_folder,
+                        true
                     );
                 } else if (searchType == SearchType.FILE_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                            R.string.file_list_empty, R.drawable.ic_search_light_grey);
+                                           R.string.file_list_empty, R.drawable.ic_search_light_grey);
                 } else if (searchType == SearchType.FAVORITE_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_favorite_headline,
-                            R.string.file_list_empty_favorites_filter_list, R.drawable.ic_star_light_yellow);
+                                           R.string.file_list_empty_favorites_filter_list, R.drawable.ic_star_light_yellow);
                 } else if (searchType == SearchType.VIDEO_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
-                            R.string.file_list_empty_text_videos, R.drawable.ic_list_empty_video);
+                                           R.string.file_list_empty_text_videos, R.drawable.ic_list_empty_video);
                 } else if (searchType == SearchType.PHOTO_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_photos,
-                            R.string.file_list_empty_text_photos, R.drawable.ic_list_empty_image);
+                                           R.string.file_list_empty_text_photos, R.drawable.ic_list_empty_image);
                 } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                            R.string.file_list_empty_recently_modified, R.drawable.ic_list_empty_recent);
+                                           R.string.file_list_empty_recently_modified, R.drawable.ic_list_empty_recent);
                 } else if (searchType == SearchType.RECENTLY_ADDED_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                            R.string.file_list_empty_recently_added, R.drawable.ic_list_empty_recent);
+                                           R.string.file_list_empty_recently_added, R.drawable.ic_list_empty_recent);
                 } else if (searchType == SearchType.REGULAR_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_search,
-                            R.string.file_list_empty_search, R.drawable.ic_search_light_grey);
+                                           R.string.file_list_empty_search, R.drawable.ic_search_light_grey);
                 } else if (searchType == SearchType.FAVORITE_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                            R.string.file_list_empty_favorites_filter, R.drawable.ic_star_light_yellow);
+                                           R.string.file_list_empty_favorites_filter, R.drawable.ic_star_light_yellow);
                 } else if (searchType == SearchType.VIDEO_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
-                            R.string.file_list_empty_text_videos_filter, R.drawable.ic_list_empty_video);
+                                           R.string.file_list_empty_text_videos_filter, R.drawable.ic_list_empty_video);
                 } else if (searchType == SearchType.PHOTOS_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_photos,
-                            R.string.file_list_empty_text_photos_filter, R.drawable.ic_list_empty_image);
+                                           R.string.file_list_empty_text_photos_filter, R.drawable.ic_list_empty_image);
                 } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                            R.string.file_list_empty_recently_modified_filter, R.drawable.ic_list_empty_recent);
+                                           R.string.file_list_empty_recently_modified_filter, R.drawable.ic_list_empty_recent);
                 } else if (searchType == SearchType.RECENTLY_ADDED_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                            R.string.file_list_empty_recently_added_filter, R.drawable.ic_list_empty_recent);
+                                           R.string.file_list_empty_recently_added_filter, R.drawable.ic_list_empty_recent);
                 } else if (searchType == SearchType.SHARED_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_shared_headline,
-                            R.string.file_list_empty_shared, R.drawable.ic_list_empty_shared);
+                                           R.string.file_list_empty_shared, R.drawable.ic_list_empty_shared);
                 }
             }
         });
