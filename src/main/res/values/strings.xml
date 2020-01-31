@@ -851,7 +851,7 @@
     <string name="upload_unknown_error">Unknown error</string>
     <string name="upload_lock_failed">Locking folder failed</string>
     <string name="upload_local_storage_full">Local storage full</string>
-    <string name="upload_old_android"><![CDATA[Encryption is only possible with >= Android 5.0]]></string>
+    <string name="upload_old_android">Encryption is only possible with &gt;= Android 5.0</string>
     <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
