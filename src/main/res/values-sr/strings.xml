@@ -172,10 +172,13 @@
     <string name="could_not_download_image">Није могуће преузети целу слику</string>
     <string name="could_not_retrieve_url">Не могу да добавим адресу</string>
     <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
+    <string name="create_new">Направи нови</string>
     <string name="create_new_document">Направи нови документ</string>
     <string name="create_new_folder">Направи нову фасциклу</string>
     <string name="create_new_presentation">Направи нову презентацију</string>
     <string name="create_new_spreadsheet">Направи нову табелу</string>
+    <string name="create_rich_workspace">Додај информације о фасцикли</string>
+    <string name="creates_rich_workspace">прави информације о фасцикли</string>
     <string name="credentials_disabled">Акредитиви искључени</string>
     <string name="date_unknown">Непознато</string>
     <string name="default_credentials_wrong">Неисправни акредитиви</string>
@@ -226,6 +229,7 @@
     <string name="drawer_quota_unlimited">%1$s искоришћено</string>
     <string name="drawer_synced_folders">Аутоматска отпремања</string>
     <string name="edit_permission_label">измени</string>
+    <string name="edit_rich_workspace">мења информације о фасцикли</string>
     <string name="encrypted">Постави као шифровано</string>
     <string name="end_to_end_encryption_confirm_button">Подесите шифровање</string>
     <string name="end_to_end_encryption_decrypting">Дешифрујем…</string>
@@ -258,6 +262,7 @@
     <string name="fab_label">Додај или отпреми</string>
     <string name="failed_to_download">Грешка при давању фајла менаџеру преузимања</string>
     <string name="failed_to_print">Неуспело штампање фајла</string>
+    <string name="failed_to_start_editor">Неуспело покретање уређивача</string>
     <string name="fallback_weblogin_back">Назад</string>
     <string name="fallback_weblogin_text">Врати се на стари начин пријаве</string>
     <string name="favorite">Додај у омиљене</string>
