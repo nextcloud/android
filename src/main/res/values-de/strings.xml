@@ -555,7 +555,6 @@
     <string name="screenshot_05_autoUpload_subline">ihrer Fotos &amp; Videos</string>
     <string name="screenshot_06_davdroid_heading">Kalender &amp; Kontakte</string>
     <string name="screenshot_06_davdroid_subline">Synchronisiere mit DAVx5</string>
-    <string name="search_instruction">Eine Datei suchen (mindestens 2 Zeichen)</string>
     <string name="search_users_and_groups_hint">Nutzer und Gruppen suchen</string>
     <string name="select_all">Alle auswählen</string>
     <string name="select_template">Vorlage auswählen</string>
