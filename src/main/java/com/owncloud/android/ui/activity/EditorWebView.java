@@ -23,8 +23,11 @@
 package com.owncloud.android.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -190,6 +193,21 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                                                                             getAccount(), this));
             }
         }
+    }
+
+    protected void downloadFile(Uri url) {
+        DownloadManager downloadmanager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+
+        if (downloadmanager == null) {
+            DisplayUtils.showSnackMessage(webview, getString(R.string.failed_to_download));
+            return;
+        }
+
+        DownloadManager.Request request = new DownloadManager.Request(url);
+        request.allowScanningByMediaScanner();
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+        downloadmanager.enqueue(request);
     }
 
     public class MobileInterface {
