@@ -49,6 +49,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -61,6 +62,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.ui.EmptyRecyclerView;
@@ -229,6 +231,7 @@ public class ExtendedListFragment extends Fragment implements
             }
         }));
 
+        // On close -> empty field, show keyboard and
         closeButton.setOnClickListener(view -> {
             searchView.setQuery("", true);
             searchView.requestFocus();
@@ -327,6 +330,9 @@ public class ExtendedListFragment extends Fragment implements
                         }
                     });
 
+                    if (searchView != null) {
+                        searchView.clearFocus();
+                    }
                 }
             } else if (activity instanceof UploadFilesActivity) {
                 LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) adapter;
