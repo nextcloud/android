@@ -491,7 +491,7 @@
     <string name="share_privilege_can_edit_create">gali kurti</string>
     <string name="share_privilege_can_edit_delete">gali ištrinti</string>
     <string name="share_privilege_can_share">gali bendrinti</string>
-    <string name="share_privilege_unshare">Nebesidalinti</string>
+    <string name="share_privilege_unshare">Nustoti bendrinti</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
     <string name="share_room_clarification">%1$s (pokalbis)</string>
     <string name="share_search">Vardas, federacinės debesijos ID arba el. pašto adresas…</string>
@@ -585,7 +585,7 @@
     <string name="unset_favorite">Šalinti iš mėgstamų</string>
     <string name="unshare_link_file_error">Įvyko klaida bandant nebedalinti šio failu ar aplanku</string>
     <string name="unshare_link_file_no_exist">Nepavyksta nebedalinti. Patikrinkite ar failas egzistuoja</string>
-    <string name="unshare_link_forbidden_permissions">nebesidalinti failu</string>
+    <string name="unshare_link_forbidden_permissions">nustoti bendrinti šį failą</string>
     <string name="unsharing_failed">Nepavyko nustoti bendrinti</string>
     <string name="update_link_file_error">Bandant atnaujinti žymes įvyko klaida</string>
     <string name="update_link_file_no_exist">Nepavyksta nebedalinti. Patikrinkite ar failas egzistuoja</string>
@@ -605,7 +605,6 @@
     <string name="upload_local_storage_full">Vietinė saugykla pilna</string>
     <string name="upload_local_storage_not_copied">Nepavyko nukopijuoti failo į vietinę saugyklą</string>
     <string name="upload_lock_failed">Nepavyko užrakinti aplanko</string>
-    <string name="upload_old_android"><![CDATA[Šifravimas įmanomas tik naudojant >= Android 5.0]]></string>
     <string name="upload_query_move_foreign_files">Nepakankamas vietos kiekis neleidžia kopijuoti pasirinktų failų į %1$s aplanką. Ar norėtumėte vietoje to juos perkelti?</string>
     <string name="upload_sync_conflict">Sinchronizavimo konfliktas, išspręskite rankiniu būdu</string>
     <string name="upload_unknown_error">Nežinoma klaida</string>

@@ -717,7 +717,6 @@
     <string name="upload_local_storage_full">Закончилось свободное место в локальном хранилище</string>
     <string name="upload_local_storage_not_copied">Невозможно скопировать файл в локальное хранилище</string>
     <string name="upload_lock_failed">Не удалось заблокировать папку</string>
-    <string name="upload_old_android"><![CDATA[Шифрование возможно только версии Android 5.0 или старше]]></string>
     <string name="upload_query_move_foreign_files">Недостаточно места для копирования выбранных файлов в папку «%1$s». Выполнить перемещение вместо копирования?</string>
     <string name="upload_sync_conflict">Требуется вмешательство для разрешения конфликта синхронизации</string>
     <string name="upload_unknown_error">Неизвестная ошибка</string>
