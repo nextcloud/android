@@ -1,0 +1,8 @@
+158d06112 Merge remote-tracking branch 'origin/master' into dev
+9c12102d2 Merge pull request #5360 from nextcloud/testDocumentation
+b8d042e17 Basic documentation of how to test add checklist as PR template
+e617e5708 Merge pull request #5358 from nextcloud/transifexFix
+73697963c [tx-robot] updated from transifex
+bd99ee995 No need of CDATA
+a8409b3aa daily dev 20200131
+library commit: 721c01bc369955139daf218377c081d05c82f317
