@@ -724,7 +724,6 @@
     <string name="upload_local_storage_full">Lokaler Speicher voll</string>
     <string name="upload_local_storage_not_copied">Datei konnte nicht in den lokalen Speicher kopiert werden</string>
     <string name="upload_lock_failed">Fehler beim Sperren des Ordners</string>
-    <string name="upload_old_android"><![CDATA[Verschlüsselung ist nur möglich mit >= Android 5.0]]></string>
     <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung, um die ausgewählten Dateien in das Verzeichnis %1$s zu kopieren. Sollen diese stattdessen verschoben werden?</string>
     <string name="upload_sync_conflict">Synchronisierungskonflikt, bitte manuell beheben</string>
     <string name="upload_unknown_error">Unbekannter Fehler</string>

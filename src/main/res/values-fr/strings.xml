@@ -725,7 +725,6 @@ Attention la suppression est irréversible.</string>
     <string name="upload_local_storage_full">Stockage local plein</string>
     <string name="upload_local_storage_not_copied">Le fichier n\'a pas pu être copié sur le stockage local</string>
     <string name="upload_lock_failed">Impossible de verrouiller le dossier</string>
-    <string name="upload_old_android"><![CDATA[L\'encryptage n\'est possible que pour les versions d\'Android 5.0 et plus]]></string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="upload_sync_conflict">Conflit de synchronisation, veuillez le résoudre manuellement</string>
     <string name="upload_unknown_error">Erreur inconnue </string>
