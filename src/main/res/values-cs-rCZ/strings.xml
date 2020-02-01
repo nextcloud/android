@@ -741,7 +741,6 @@ Jak vývojová tak produkční verze je k dispozici na F-droidu a mohou být nai
     <string name="upload_local_storage_full">Místní úložiště je plné</string>
     <string name="upload_local_storage_not_copied">Soubor se nepodařilo zkopírovat na místní úložiště</string>
     <string name="upload_lock_failed">Uzamčení složky se nezdařilo</string>
-    <string name="upload_old_android"><![CDATA[Šifrování je možné pouze na verzi systému Android 5.0 a novější]]></string>
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do složky %1$s není dostatek volného místa. Chcete je tam namísto toho přesunout?</string>
     <string name="upload_sync_conflict">Konflikt synchronizace, vyřešte ručně</string>
     <string name="upload_unknown_error">Neznámá chyba</string>
