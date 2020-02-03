@@ -204,8 +204,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
                 android:contentDescription="@string/scanQR_description"
-                android:src="@drawable/qrcode_scan"
-                android:theme="@style/Button.Login" />
+                android:src="@drawable/qrcode_scan" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonOK"
