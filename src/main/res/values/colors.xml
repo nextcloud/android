@@ -52,7 +52,6 @@
     <!-- Colors -->
     <color name="login_btn_tint">#ffffff</color>
     <color name="login_btn_stroke">#ffffff</color>
-    <color name="login_asset">#ffffff</color>
     <color name="bg_default">#FFFFFF</color>
     <color name="background_color_inverse">#000000</color>
     <color name="primary_button_background_color">@color/color_accent</color>
