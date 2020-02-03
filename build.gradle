@@ -93,7 +93,13 @@ def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
     for (String arg : tr.args) {
         // any gplay, but only exact "build", as e.g. buildGeneric shall not apply gplay.grade
-        if (arg.contains("Gplay") || arg.contains("lint") || arg.contains("ExecuteScreenshot") || arg == "build") {
+        if (arg.contains("Gplay") ||
+            arg.contains("themed") ||
+            arg.contains("ExecuteScreenshot") ||
+            arg.contains("executeScreenshotTests") ||
+            arg.contains("lint") ||
+            arg == "build")
+        {
             apply from: 'gplay.gradle'
             System.console().println("Applying gplay.gradle")
             break
@@ -102,6 +108,10 @@ for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()
 }
 
 
+shot {
+    appId = 'com.nextcloud.client'
+    instrumentationTestTask = 'connectedThemedWhiteDebugAndroidTest'
+}
 
 android {
     lintOptions {
@@ -183,6 +193,11 @@ android {
                 dimension "default"
                 versionCode 1
                 versionName "1"
+            }
+
+            themedWhite {
+                applicationId 'com.nextcloud.client'
+                dimension "default"
             }
         }
 
@@ -277,6 +292,7 @@ dependencies {
     gplayImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     versionDevImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     qaImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
+    themedWhiteImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
 
     kapt 'javax.xml.bind:jaxb-api:2.3.1'
     kapt 'org.glassfish.jaxb:jaxb-core:2.3.0.1'

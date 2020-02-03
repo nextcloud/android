@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colors -->
+    <color name="primary">#ffffff</color>
+    <color name="primary_dark">#cccccc</color>
+    <color name="color_accent">#ffffff</color>
+    <color name="login_text_color">#000000</color>
+    <color name="login_text_hint_color">#000000</color>
+
+    <bool name="show_provider_or_own_installation">false</bool>
+</resources>
+
+
