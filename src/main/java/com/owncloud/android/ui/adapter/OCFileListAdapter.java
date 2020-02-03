@@ -602,7 +602,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
                         thumbnailView.setImageBitmap(withOverlay);
                     } else {
-                        thumbnailView.setImageBitmap(thumbnail);
+                        if (gridView) {
+                            thumbnailView.setImageBitmap(thumbnail);
+                        } else {
+                            BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
+                        }
                     }
                 } else {
                     // generate new thumbnail
@@ -612,7 +616,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
                                                                                    mStorageManager,
                                                                                    user.toPlatformAccount(),
-                                                                                   asyncTasks);
+                                                                                   asyncTasks,
+                                                                                   !gridView);
 
                             if (thumbnail == null) {
                                 thumbnail = BitmapUtils.drawableToBitmap(
