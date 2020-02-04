@@ -42,7 +42,6 @@ import android.os.StatFs;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 
@@ -1040,11 +1039,10 @@ public class FileOperationsHelper {
     }
 
     public static Long getRemainingSpaceOnDevice(OCFile file) {
-        StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
+        StatFs stat = new StatFs(MainApp.getStoragePath());
         long availableBytesOnDevice;
 
-        if (android.os.Build.VERSION.SDK_INT >=
-            android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
             availableBytesOnDevice = stat.getBlockSizeLong() * stat.getAvailableBlocksLong();
         } else {
             availableBytesOnDevice = (long) stat.getBlockSize() * (long) stat.getAvailableBlocks();
