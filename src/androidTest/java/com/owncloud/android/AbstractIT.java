@@ -19,6 +19,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -26,9 +27,12 @@ import org.junit.runner.RunWith;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
+
+import static androidx.test.InstrumentationRegistry.getInstrumentation;
 
 
 /**
@@ -39,7 +43,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 public abstract class AbstractIT {
 
     protected static OwnCloudClient client;
-    static Account account;
+    protected static Account account;
     protected static Context targetContext;
 
     @BeforeClass
@@ -132,5 +136,17 @@ public abstract class AbstractIT {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    protected File getFile(String filename) throws IOException {
+        InputStream inputStream = getInstrumentation().getContext().getAssets().open(filename);
+        File temp = File.createTempFile("file", "file");
+        FileUtils.copyInputStreamToFile(inputStream, temp);
+
+        return temp;
+    }
+
+    protected void waitForIdleSync() {
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
     }
 }
