@@ -1,0 +1,17 @@
+c9d3605ec Merge remote-tracking branch 'origin/master' into dev
+5d868e47f Merge pull request #5363 from nextcloud/fix/lolipop-webview-crash
+0c272ad1d Merge pull request #5231 from nextcloud/roundedCorners
+b787284ab bump spotbugs
+6e202dd94 Merge pull request #5383 from nextcloud/whitePrimaryColor
+66b78e0eb changed to 8dp
+5ac25d545 remove unneeded resource
+176c7f893 Merge pull request #5382 from nextcloud/prLineWrapping
+120a6ca87 PR template: line wrapping
+81c3bcef3 Merge pull request #5381 from nextcloud/movePRtemplate
+622f1f9f6 move pr template
+f8ff0e106 Auth activity with primary white color
+aeee4beba [tx-robot] updated from transifex
+d60133bb8 [tx-robot] updated from transifex
+c3be96884 [tx-robot] updated from transifex
+489b5e051 daily dev 20200201
+library commit: a58c94818c2443a11c84394a53a53e330ba5276f
