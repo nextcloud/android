@@ -136,8 +136,8 @@ public class ExtendedListFragment extends Fragment implements
 
     private EmptyRecyclerView mRecyclerView;
 
-    public SearchView searchView;
-    public ImageView closeButton;
+    protected SearchView searchView;
+    private ImageView closeButton;
     private Handler handler = new Handler(Looper.getMainLooper());
 
     private float mScale = AppPreferencesImpl.DEFAULT_GRID_COLUMN;
