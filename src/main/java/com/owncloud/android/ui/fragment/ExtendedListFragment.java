@@ -691,43 +691,56 @@ public class ExtendedListFragment extends Fragment implements
                     );
                 } else if (searchType == SearchType.FILE_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty, R.drawable.ic_search_light_grey);
+                                           R.string.file_list_empty,
+                                           R.drawable.ic_search_light_grey);
                 } else if (searchType == SearchType.FAVORITE_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_favorite_headline,
-                                           R.string.file_list_empty_favorites_filter_list, R.drawable.ic_star_light_yellow);
+                                           R.string.file_list_empty_favorites_filter_list,
+                                           R.drawable.ic_star_light_yellow);
                 } else if (searchType == SearchType.VIDEO_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
-                                           R.string.file_list_empty_text_videos, R.drawable.ic_list_empty_video);
+                                           R.string.file_list_empty_text_videos,
+                                           R.drawable.ic_list_empty_video);
                 } else if (searchType == SearchType.PHOTO_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_photos,
-                                           R.string.file_list_empty_text_photos, R.drawable.ic_list_empty_image);
+                                           R.string.file_list_empty_text_photos,
+                                           R.drawable.ic_list_empty_image);
                 } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty_recently_modified, R.drawable.ic_list_empty_recent);
+                                           R.string.file_list_empty_recently_modified,
+                                           R.drawable.ic_list_empty_recent);
                 } else if (searchType == SearchType.RECENTLY_ADDED_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty_recently_added, R.drawable.ic_list_empty_recent);
+                                           R.string.file_list_empty_recently_added,
+                                           R.drawable.ic_list_empty_recent);
                 } else if (searchType == SearchType.REGULAR_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_search,
-                                           R.string.file_list_empty_search, R.drawable.ic_search_light_grey);
+                                           R.string.file_list_empty_search,
+                                           R.drawable.ic_search_light_grey);
                 } else if (searchType == SearchType.FAVORITE_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty_favorites_filter, R.drawable.ic_star_light_yellow);
+                                           R.string.file_list_empty_favorites_filter,
+                                           R.drawable.ic_star_light_yellow);
                 } else if (searchType == SearchType.VIDEO_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
-                                           R.string.file_list_empty_text_videos_filter, R.drawable.ic_list_empty_video);
+                                           R.string.file_list_empty_text_videos_filter,
+                                           R.drawable.ic_list_empty_video);
                 } else if (searchType == SearchType.PHOTOS_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_photos,
-                                           R.string.file_list_empty_text_photos_filter, R.drawable.ic_list_empty_image);
+                                           R.string.file_list_empty_text_photos_filter,
+                                           R.drawable.ic_list_empty_image);
                 } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty_recently_modified_filter, R.drawable.ic_list_empty_recent);
+                                           R.string.file_list_empty_recently_modified_filter,
+                                           R.drawable.ic_list_empty_recent);
                 } else if (searchType == SearchType.RECENTLY_ADDED_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty_recently_added_filter, R.drawable.ic_list_empty_recent);
+                                           R.string.file_list_empty_recently_added_filter,
+                                           R.drawable.ic_list_empty_recent);
                 } else if (searchType == SearchType.SHARED_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_shared_headline,
-                                           R.string.file_list_empty_shared, R.drawable.ic_list_empty_shared);
+                                           R.string.file_list_empty_shared,
+                                           R.drawable.ic_list_empty_shared);
                 }
             }
         });
