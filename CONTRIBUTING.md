@@ -5,10 +5,10 @@
 
 
 # Index
-1. [Guidelines](#Guidelines)
+1. [Guidelines](#guidelines)
     1. [Issue reporting](#issue-reporting)
     1. [Labels](#labels)
-        1. Pull request (PR)
+        1. [Pull request](#pull-request)
         1. [Issue](#issue)
         1. [Bug workflow](#bug-workflow)
 1. [Contributing to Source Code](#contributing-to-source-code)
@@ -17,13 +17,13 @@
         1. [Android Studio formatter setup](#android-studio-formatter-setup)
         1. [Build variants](#build-variants)
     1. [Contribution process](#contribution-process)
-        1. [Fork and download android/master repository](#1-fork-and-download-android-master-repository)
-        1. [Create pull request](#2-create-pull-request)
-        1. [Create another pull request](#3-create-another-pull-request)
-        1. [Backport pull request](#4-backport-pull-request)
-        1. [Pull requests that also need changes on library](#5-pull-requests-that-also-need-changes-on-library)
-        1. [Adding new files](#6-adding-new-files)
-      7.   [Testing](#7-testing)
+        1. [Fork and download android repository](#fork-and-download-android-repository)
+        1. [Create pull request](#create-pull-request)
+        1. [Create another pull request](#create-another-pull-request)
+        1. [Backport pull request](#backport-pull-request)
+        1. [Pull requests that also need changes on library](#pull-requests-that-also-need-changes-on-library)
+        1. [Adding new files](#adding-new-files)
+        1. [Testing](#testing)
 	1. [File naming](#file-naming)
         1. [Menu files](#menu-files)
     1. [Translations](#translations)
@@ -123,18 +123,18 @@ There are three build variants
 * For your first contribution start a pull request on master.
 
 
-### 1. Fork and download android/master repository:
+### Fork and download android repository:
 * Please follow [SETUP.md](https://github.com/nextcloud/android/blob/master/SETUP.md) to setup Nextcloud Android app work environment.
 
 
-### 2. Create pull request:
+### Create pull request:
 * Commit your changes locally: ```git commit -a```
 * Push your changes to your GitHub repo: ```git push```
 * Browse to <https://github.com/YOURGITHUBNAME/android/pulls> and issue pull request
 * Enter description and send pull request.
 
 
-### 3. Create another pull request:
+### Create another pull request:
 To make sure your new pull request does not contain commits which are already contained in previous PRs, create a new branch which is a clone of upstream/master.
 
 * ```git fetch upstream```
@@ -143,12 +143,12 @@ To make sure your new pull request does not contain commits which are already co
 * Push branch to server: ```git push -u origin name_of_local_master_branch```
 * Use GitHub to issue PR
 
-### 4. Backport pull request:
+### Backport pull request:
 Use backport-bot via "/backport to stable-version", e.g. "/backport to stable-3.7".
 This will automatically add "backport-request" label to PR and bot will create a new PR to targeted branch once the base PR is merged.
 If automatic backport fails, it will create a comment.
 
-### 5. Pull requests that also need changes on library
+### Pull requests that also need changes on library
 For speeding up developing, we do use a master snapshot of nextcloud-library, provided by jitpack.io.
 This means that if a breaking change is merged on library, master branch of the app will fail.
 To limit this risk please follow this approach:
@@ -162,7 +162,7 @@ Once both PRs are reviewed and ready to merge:
 
 With this approach the "downtime" of not building master is limited to the timestamp between merge lib PR and merging app PR, which is only limited by CI.
 
-### 6. Adding new files
+### Adding new files
 If you create a new file it needs to contain a license header. We encourage you to use the same license (AGPL3+) as we do.
 Copyright of Nextcloud GmbH is optional.
 
@@ -244,16 +244,16 @@ Source code of app:
 -->
 ```
 
-### 6. Testing
+### Testing
 - testing is very important, but is lacking a lot on this project. Starting with 2020 we aim to write tests for every
   new pull request.
 - Code coverage can be found [here](https://codecov.io/gh/nextcloud/android).
 
-#### 1. Unit tests
+#### Unit tests
 - small, isolated tests, with no need of Android SDK
 - code coverage can be directly shown via right click on test and select "Run Test with Coverage"
 
-#### 2. Instrumented tests
+#### Instrumented tests
 - tests to see larger code working in correct way
 - tests that require parts of Android SDK
 - best to avoid server communication, see https://github.com/nextcloud/android/pull/3624
@@ -269,7 +269,7 @@ Source code of app:
 - JaCoCo results are shown as html: firefox ./build/reports/coverage/gplay/debug/index.html
 
 
-#### 3. UI tests
+#### UI tests
 We use [shot](https://github.com/Karumi/Shot) for taking screenshots and compare them 
 - check screenshots: ```./gradlew executeScreenshotTests ```
 - update/generate new screenshots: ```scripts/updateScreenshots.sh ``` 
