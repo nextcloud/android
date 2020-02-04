@@ -23,6 +23,7 @@ package com.nextcloud.client.device
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.os.Build
 import java.util.Locale
 
@@ -37,5 +38,11 @@ class DeviceInfo {
 
     fun editorSupported(): Boolean {
         return apiLevel < Build.VERSION_CODES.LOLLIPOP
+    }
+
+    fun isDarkModeEnabled(context: Context): Boolean {
+        val nightModeFlag: Int = context.getResources().getConfiguration().uiMode and Configuration.UI_MODE_NIGHT_MASK
+
+        return Configuration.UI_MODE_NIGHT_YES == nightModeFlag
     }
 }

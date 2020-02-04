@@ -23,7 +23,6 @@
 package com.owncloud.android.utils;
 
 import android.accounts.Account;
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -35,7 +34,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -330,12 +328,6 @@ public final class ThemeUtils {
 
     }
 
-    public static void setStatusBarColor(Activity activity, @ColorInt int color) {
-        if (activity != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.getWindow().setStatusBarColor(color);
-        }
-    }
-
     /**
      * Adjust lightness of given color
      *
@@ -431,27 +423,6 @@ public final class ThemeUtils {
     public static void colorSnackbar(Context context, Snackbar snackbar) {
         // Changing action button text color
         snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.fg_inverse));
-    }
-
-    /**
-     * Sets the color of the status bar to {@code color} on devices with OS version lollipop or higher.
-     *
-     * @param fragmentActivity fragment activity
-     * @param color            the color
-     */
-    public static void colorStatusBar(FragmentActivity fragmentActivity, @ColorInt int color) {
-        Window window = fragmentActivity.getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && window != null) {
-            window.setStatusBarColor(color);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                View decor = window.getDecorView();
-                if (lightTheme(fragmentActivity.getApplicationContext())) {
-                    decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                } else {
-                    decor.setSystemUiVisibility(0);
-                }
-            }
-        }
     }
 
     /**

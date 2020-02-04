@@ -24,7 +24,6 @@ package com.owncloud.android.ui.preview;
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -324,9 +323,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.item_file, menu);
 
-        int nightModeFlag = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
-        if (Configuration.UI_MODE_NIGHT_NO == nightModeFlag) {
+        if (!deviceInfo.isDarkModeEnabled(requireContext())) {
             for (int i = 0; i < menu.size(); i++) {
                 MenuItem menuItem = menu.getItem(i);
 
