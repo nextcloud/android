@@ -171,6 +171,7 @@
     <string name="could_not_download_image">Не удалось скачать полноразмерное изображение</string>
     <string name="could_not_retrieve_url">Не удалось получить URL-адрес</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
+    <string name="create_new">Создать</string>
     <string name="create_new_document">Создать документ</string>
     <string name="create_new_folder">Создать новую папку</string>
     <string name="create_new_presentation">Создать презентацию</string>
@@ -536,10 +537,12 @@
     <string name="saml_authentication_required_text">Требуется аутентификация</string>
     <string name="saml_authentication_wrong_pass">Неправильный пароль</string>
     <string name="scanQR_description">Войти с использованием QR кода</string>
-    <string name="screenshot_01_gridView_heading">Защита Ваших данных</string>
+    <string name="screenshot_01_gridView_heading">Защита данных</string>
+    <string name="screenshot_01_gridView_subline">размещение на собственных ресурсах</string>
     <string name="screenshot_02_listView_heading">Простой поиск и обмен файлами</string>
     <string name="screenshot_02_listView_subline">быстрый доступ ко всем функциям</string>
     <string name="screenshot_03_drawer_heading">События, опубликованные ресурсы…</string>
+    <string name="screenshot_03_drawer_subline">всё под рукой</string>
     <string name="screenshot_04_accounts_heading">Все ваши учётные записи</string>
     <string name="screenshot_04_accounts_subline">в одном месте</string>
     <string name="screenshot_05_autoUpload_heading">Автоматическая загрузка</string>
@@ -649,6 +652,9 @@
     <string name="storage_music">Музыка</string>
     <string name="storage_pictures">Изображения</string>
     <string name="store_full_desc">Приложение Nextcloud для Android, распространяемое под свободной копилефт лицензией, позволяет получать доступ к файлам на своём сервере Nextcloud с мобильных устройств.\n\nВозможности: \n* Легкий современный интерфейс\n* Передача файлов на сервер Nextcloud\n* Возможность делиться своими файлами с другими\n* Синхронизация файлов и папок\n* Поиск по всем папкам на сервере\n* Автоматическая передача на сервер видео и фотографий, сделанных на мобильном устройстве\n* Поддержка нескольких учётных записей\n* Защита доступа к данным отпечатком пальца или ПИН-кодом\n* Интеграция с DAVx5 (ранее называвшемся DAVdroid) для лёгкой настройки синхронизации календарей и контактов\n\nЗамечания и ошибки: https://github.com/nextcloud/android/issues \nПомощь и обсуждение: https://help.nextcloud.com\n\nНе знакомы с Nextcloud? Nextcloud — это свободное серверное ПО для хранения и совместной работы с файлами, событиями календаря, контактами, документами и пр. с открытым исходным кодом. Вы можете самостоятельно развернуть сервер или поручить компании сделать это для вас. Таким образом, только вы управляете своими фотографиями, своими календарями и записными книжками, своими документами и всем остальным.\n\nПознакомьтесь с Nextcloud на https://nextcloud.com</string>
+    <string name="store_full_dev_desc">Платформа, размещаемая на собственных ресурсах и позволяющая самостоятельно управлять данными.\nЭто разрабатываемая версия официального приложения Nextcloud, содержащая новые возможности, тестирование которых не ещё завершено. Разрабатываемая версия может быть нестабильна и её использование может привести к потере данных. Это приложение предназначено для пользователей, которые хотят познакомиться с новыми возможности и сообщать об обнаруженных ошибках. Не используйте его для работы!\n\nРазрабатываемая версия может быть установлена совместно с официальным приложением Nextcloud, которое также доступно в F-Droid.</string>
+    <string name="store_short_desc">Платформа, размещаемая на собственных ресурсах и позволяющая самостоятельно управлять данными</string>
+    <string name="store_short_dev_desc">Платформа, размещаемая на собственных ресурсах и позволяющая самостоятельно управлять данными (разрабатываемая версия)</string>
     <string name="stream">Потоковое вещание…</string>
     <string name="stream_not_possible_headline">Встроенное потоковое вещание невозможно</string>
     <string name="stream_not_possible_message">Скачайте файл или используйте внешнее приложение.</string>
@@ -717,7 +723,7 @@
     <string name="upload_local_storage_full">Закончилось свободное место в локальном хранилище</string>
     <string name="upload_local_storage_not_copied">Невозможно скопировать файл в локальное хранилище</string>
     <string name="upload_lock_failed">Не удалось заблокировать папку</string>
-    <string name="upload_old_android"><![CDATA[Шифрование возможно только версии Android 5.0 или старше]]></string>
+    <string name="upload_old_android">Шифрование возможно только в &gt; Android 5.0</string>
     <string name="upload_query_move_foreign_files">Недостаточно места для копирования выбранных файлов в папку «%1$s». Выполнить перемещение вместо копирования?</string>
     <string name="upload_sync_conflict">Требуется вмешательство для разрешения конфликта синхронизации</string>
     <string name="upload_unknown_error">Неизвестная ошибка</string>
@@ -731,15 +737,15 @@
     <string name="uploader_error_title_no_file_to_upload">Не выбран файл для передачи на сервер</string>
     <string name="uploader_info_dirname">Имя каталога</string>
     <string name="uploader_top_message">Выбрать каталог для передачи</string>
-    <string name="uploader_upload_failed_content_single">Файл «%1$s» не удалось передать</string>
+    <string name="uploader_upload_failed_content_single">Не удалось передать файл «%1$s»</string>
     <string name="uploader_upload_failed_credentials_error">Ошибка передачи файла, необходимо войти в систему</string>
     <string name="uploader_upload_failed_ticker">Ошибка передачи на сервер</string>
     <string name="uploader_upload_files_behaviour">Параметры передачи:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Переместить файл в каталог %1$s</string>
     <string name="uploader_upload_files_behaviour_not_writable">исходный каталог доступен только для чтения, файл будет только передан на сервер</string>
-    <string name="uploader_upload_files_behaviour_only_upload">Оставить файл в исходном каталоге</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходного каталога</string>
-    <string name="uploader_upload_forbidden_permissions">для отправки в этот каталог</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Оставить файл в исходной папке</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходной папки</string>
+    <string name="uploader_upload_forbidden_permissions">для передачи в эту папку</string>
     <string name="uploader_upload_in_progress_content">%1$d%% «%2$s»</string>
     <string name="uploader_upload_in_progress_ticker">Передача…</string>
     <string name="uploader_upload_succeeded_content_single">Передача файла «%1$s» завершена</string>
@@ -767,7 +773,7 @@
     <string name="uploads_view_upload_status_virus_detected">Обнаружен вирус. Передача не может быть завершена!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Ожидание выхода из режима энергосбережения</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Ожидание зарядки устройства</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">ожидание подключения Wi-Fi</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Ожидание подключения Wi-Fi</string>
     <string name="user_icon">Пользователь</string>
     <string name="user_info_address">Адрес</string>
     <string name="user_info_email">Email</string>
@@ -813,7 +819,7 @@
         <item quantity="one">Показать %1$d скрытую папку</item>
         <item quantity="few">Показать %1$d скрытых папки</item>
         <item quantity="many">Показать %1$d скрытых папок</item>
-        <item quantity="other">Показать %1$d скрытой папки</item>
+        <item quantity="other">Показать %1$d скрытые папки</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d выбран</item>

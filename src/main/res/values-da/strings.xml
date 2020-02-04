@@ -713,7 +713,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="upload_local_storage_full">Lokalt lager fuldt</string>
     <string name="upload_local_storage_not_copied">Filen kunne ikke kopieres til lokalt lager</string>
     <string name="upload_lock_failed">Lås på mappe fejlede</string>
-    <string name="upload_old_android"><![CDATA[Kryptering er kun mulig med >= Android 5.0]]></string>
     <string name="upload_query_move_foreign_files">Utilstrækkelig plads til, at kopiere de valgte filer ind i %1$s mappen. Vil du flytte dem i stedet?</string>
     <string name="upload_sync_conflict">Synkroniserings konflikt, udred venligst manuelt</string>
     <string name="upload_unknown_error">Ukendt fejl</string>

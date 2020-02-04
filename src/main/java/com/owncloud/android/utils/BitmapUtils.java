@@ -26,7 +26,10 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
 
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.apache.commons.codec.binary.Hex;
@@ -376,14 +379,32 @@ public final class BitmapUtils {
      * @param bitmap the original bitmap
      * @return the circular bitmap
      */
-    public static RoundedBitmapDrawable bitmapToCircularBitmapDrawable(Resources resources, Bitmap bitmap) {
+    public static RoundedBitmapDrawable bitmapToCircularBitmapDrawable(Resources resources,
+                                                                       Bitmap bitmap,
+                                                                       float radius) {
         if (bitmap == null) {
             return null;
         }
 
         RoundedBitmapDrawable roundedBitmap = RoundedBitmapDrawableFactory.create(resources, bitmap);
         roundedBitmap.setCircular(true);
+
+        if (radius != -1) {
+            roundedBitmap.setCornerRadius(radius);
+        }
+
         return roundedBitmap;
+    }
+
+    public static RoundedBitmapDrawable bitmapToCircularBitmapDrawable(Resources resources, Bitmap bitmap) {
+        return bitmapToCircularBitmapDrawable(resources, bitmap, -1);
+    }
+
+    public static void setRoundedBitmap(Resources resources, Bitmap bitmap, float radius, ImageView imageView) {
+
+        imageView.setImageDrawable(BitmapUtils.bitmapToCircularBitmapDrawable(resources,
+                                                                              bitmap,
+                                                                              radius));
     }
 
     public static Bitmap drawableToBitmap(Drawable drawable) {
@@ -406,5 +427,14 @@ public final class BitmapUtils {
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
         return bitmap;
+    }
+
+    public static void setRoundedBitmap(Bitmap thumbnail, ImageView imageView) {
+        Resources resources = MainApp.getAppContext().getResources();
+
+        BitmapUtils.setRoundedBitmap(resources,
+                                     thumbnail,
+                                     resources.getDimension(R.dimen.file_icon_rounded_corner_radius),
+                                     imageView);
     }
 }
