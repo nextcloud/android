@@ -39,11 +39,4 @@ import lombok.Setter;
 public class SearchEvent {
     public String searchQuery;
     public SearchRemoteOperation.SearchType searchType;
-    public UnsetType unsetType;
-
-    public enum UnsetType {
-        NO_UNSET,
-        UNSET_DRAWER,
-        UNSET_BOTTOM_NAV_BAR
-    }
 }
