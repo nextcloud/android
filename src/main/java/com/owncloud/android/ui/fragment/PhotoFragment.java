@@ -65,9 +65,7 @@ public class PhotoFragment extends OCFileListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        searchEvent = new SearchEvent("image/%",
-                                      SearchRemoteOperation.SearchType.PHOTO_SEARCH,
-                                      SearchEvent.UnsetType.NO_UNSET);
+        searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
 
         searchRemoteOperation = new SearchRemoteOperation(searchEvent.getSearchQuery(),
                                                           searchEvent.getSearchType(),
