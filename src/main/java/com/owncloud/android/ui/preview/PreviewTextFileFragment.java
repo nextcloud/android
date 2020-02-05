@@ -383,7 +383,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         Log_OC.e(TAG, "onStop");
 
         if (textLoadAsyncTask != null) {
-            textLoadAsyncTask.cancel(Boolean.TRUE);
+            textLoadAsyncTask.cancel(true);
         }
     }
 

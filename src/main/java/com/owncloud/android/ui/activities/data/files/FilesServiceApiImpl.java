@@ -116,13 +116,13 @@ public class FilesServiceApiImpl implements FilesServiceApi {
                         synchFolderOp.execute(ownCloudClient);
                     }
                 }
-                return true;
+                return Boolean.TRUE;
             } catch (ClientFactory.CreationException e) {
                 Log_OC.e(TAG, "Account not found", e);
                 errorMessage = baseActivity.getString(R.string.account_not_found);
             }
 
-            return false;
+            return Boolean.FALSE;
         }
 
         @Override

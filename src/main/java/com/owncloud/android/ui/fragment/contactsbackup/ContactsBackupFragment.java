@@ -225,7 +225,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                     RemoteOperationResult result = operation.execute(account, getContext());
                     return result.isSuccess();
                 } else {
-                    return false;
+                    return Boolean.FALSE;
                 }
             }
 
