@@ -139,9 +139,10 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     @Inject
     protected DispatchingAndroidInjector<Object> dispatchingAndroidInjector;
-
     @Inject
     protected UserAccountManager accountManager;
+    @Inject
+    ConnectivityService connectivityService;
 
     @Inject
     protected UploadsStorageManager uploadsStorageManager;
@@ -149,8 +150,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @Inject
     protected OnboardingService onboarding;
 
-    @Inject
-    ConnectivityService connectivityService;
 
     @Inject PowerManagementService powerManagementService;
 
