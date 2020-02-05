@@ -1551,9 +1551,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             remoteOperation = new GetSharesRemoteOperation();
         }
 
-        remoteOperationAsyncTask = new AsyncTask() {
+        remoteOperationAsyncTask = new AsyncTask<Void, Void, Boolean>() {
             @Override
-            protected Object doInBackground(Object[] params) {
+            protected Boolean doInBackground(Void... voids) {
                 setTitle();
                 if (getContext() != null && !isCancelled()) {
                     RemoteOperationResult remoteOperationResult = remoteOperation.execute(
@@ -1592,12 +1592,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                     return remoteOperationResult.isSuccess();
                 } else {
-                    return false;
+                    return Boolean.FALSE;
                 }
             }
 
             @Override
-            protected void onPostExecute(Object o) {
+            protected void onPostExecute(Boolean bool) {
                 if (!isCancelled()) {
                     mAdapter.notifyDataSetChanged();
                 }
