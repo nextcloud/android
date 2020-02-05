@@ -320,8 +320,7 @@ public class ExtendedListFragment extends Fragment implements
                     handler.post(() -> {
                         if (adapter instanceof OCFileListAdapter) {
                             EventBus.getDefault().post(new SearchEvent(query,
-                                                                       SearchRemoteOperation.SearchType.FILE_SEARCH,
-                                                                       SearchEvent.UnsetType.NO_UNSET));
+                                                                       SearchRemoteOperation.SearchType.FILE_SEARCH));
                         } else if (adapter instanceof LocalFileListAdapter) {
                             LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) adapter;
                             localFileListAdapter.filter(query);
