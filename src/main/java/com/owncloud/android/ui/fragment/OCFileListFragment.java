@@ -86,7 +86,6 @@ import com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.CommentsEvent;
-import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.SearchEvent;
@@ -1384,20 +1383,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void unsetAllMenuItems(final boolean unsetDrawer) {
-        new Handler(Looper.getMainLooper()).post(() -> {
-            if (unsetDrawer) {
-                EventBus.getDefault().post(new DummyDrawerEvent());
-            }
-        });
-
-    }
-
-    public void setTitleFromSearchEvent(SearchEvent event) {
-        prepareCurrentSearch(event);
-        setTitle();
-    }
-
     private void setTitle() {
         // set title
 
@@ -1523,12 +1508,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH, mContainerActivity.getStorageManager(), mFile, true);
 
         setFabVisible(false);
-
-        if (event.getUnsetType() == SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR) {
-            unsetAllMenuItems(false);
-        } else if (event.getUnsetType() == SearchEvent.UnsetType.UNSET_DRAWER) {
-            unsetAllMenuItems(true);
-        }
 
         Runnable switchViewsRunnable = () -> {
             if (isGridViewPreferred(mFile) && !isGridEnabled()) {
@@ -1718,10 +1697,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private boolean isSearchEventSet(SearchEvent event) {
-        return event != null && event.getSearchType() != null &&
+        return event != null &&
+            event.getSearchType() != null &&
             (!TextUtils.isEmpty(event.getSearchQuery()) ||
-                event.searchType == SearchRemoteOperation.SearchType.SHARED_SEARCH)
-            && event.getUnsetType() != null;
+                event.searchType == SearchRemoteOperation.SearchType.SHARED_SEARCH);
     }
 
     private void syncAndCheckFiles(Collection<OCFile> files) {
