@@ -1,4 +1,4 @@
-3.10.1 (February, 05, 2020)
+## 3.10.1 (February, 05, 2020)
 
 - fix crash on self-signed certificates
 - fix openOffice open files with special chars
