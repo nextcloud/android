@@ -1,0 +1,12 @@
+4ce26101b Merge remote-tracking branch 'origin/master' into dev
+f9af611a2 Merge pull request #4878 from nextcloud/ezaquarii/contributions-engineering-practices-section
+fab19e8f7 minor enhancements
+460389579 Added TOC links and Engineering section to CONTRIBUTING.md
+f7d7a0c7a Merge pull request #5378 from nextcloud/dependabot/gradle/markwonVersion-4.2.1
+f7220f461 Merge pull request #5246 from siebica/master
+3d5a40fa0 Merge pull request #5169 from nextcloud/dependabot/gradle/io.gitlab.arturbosch.detekt-detekt-gradle-plugin-1.4.0
+eb903ab48 add UI test for Markdown
+64c253be6 Merge pull request #5089 from cheecodes/master
+ff400e16b [tx-robot] updated from transifex
+55f6aebab daily dev 20200204
+library commit: a58c94818c2443a11c84394a53a53e330ba5276f
