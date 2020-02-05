@@ -243,10 +243,10 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
 
                 } else {
                     // FAIL
-                    return false;
+                    return Boolean.FALSE;
                 }
             }
-            return true;
+            return Boolean.TRUE;
         }
 
         /**
