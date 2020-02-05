@@ -4,11 +4,13 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.facebook.testing.screenshot.Screenshot;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -29,10 +31,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 
+import androidx.test.espresso.contrib.DrawerActions;
+import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import static androidx.test.InstrumentationRegistry.getInstrumentation;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 
 /**
@@ -148,5 +154,17 @@ public abstract class AbstractIT {
 
     protected void waitForIdleSync() {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+    }
+
+    protected void openDrawer(IntentsTestRule activityRule) throws InterruptedException {
+        Activity sut = activityRule.launchActivity(null);
+
+        Thread.sleep(3000);
+
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+
+        waitForIdleSync();
+
+        Screenshot.snapActivity(sut).record();
     }
 }
