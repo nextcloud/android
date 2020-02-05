@@ -1,3 +1,10 @@
+3.10.1 (February, 05, 2020)
+
+- fix crash on self-signed certificates
+- fix openOffice open files with special chars
+
+For a full list, please see https://github.com/nextcloud/android/milestone/45
+
 ## 3.10.0 (January, 17, 2020)
 
 - Dark theme (@dan0xii, @AndyScherzinger)
