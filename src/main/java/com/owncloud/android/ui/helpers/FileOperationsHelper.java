@@ -1038,7 +1038,7 @@ public class FileOperationsHelper {
         return new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(new Date()) + ".jpg";
     }
 
-    public static Long getRemainingSpaceOnDevice(OCFile file) {
+    public static Long getAvailableSpaceOnDevice() {
         StatFs stat = new StatFs(MainApp.getStoragePath());
         long availableBytesOnDevice;
 
@@ -1048,7 +1048,7 @@ public class FileOperationsHelper {
             availableBytesOnDevice = (long) stat.getBlockSize() * (long) stat.getAvailableBlocks();
         }
 
-        return availableBytesOnDevice - file.getFileLength();
+        return availableBytesOnDevice;
     }
 
 

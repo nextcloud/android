@@ -56,7 +56,11 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
         // Defining title, message and resources
         args.putInt(ARG_TITLE_ID, R.string.sync_not_enough_space_dialog_title);
         args.putInt(ARG_MESSAGE_RESOURCE_ID, R.string.sync_not_enough_space_dialog_placeholder);
-        args.putStringArray(ARG_MESSAGE_ARGUMENTS, new String[]{file.getFileName(), properFileSize, properDiskAvailableSpace});
+        args.putStringArray(ARG_MESSAGE_ARGUMENTS,
+                            new String[] {
+                                file.getFileName(),
+                                properFileSize,
+                                properDiskAvailableSpace});
         args.putParcelable(ARG_PASSED_FILE, file);
 
         // Defining buttons
