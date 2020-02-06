@@ -879,7 +879,7 @@
     <string name="retrieving_file">Retrieving file…</string>
     <string name="associated_account_not_found">Associated account not found!</string>
     <string name="error_retrieving_file">Error retrieving file</string>
-    <string name="could_not_retrieve_url">Could not retrieve url</string>
+    <string name="could_not_retrieve_url">Could not retrieve URL</string>
     <string name="failed_to_download">Failed to pass file to download manager</string>
     <string name="failed_to_print">Failed to print file</string>
     <string name="autoupload_disable_power_save_check">Disable power save check</string>
@@ -913,4 +913,10 @@
     <string name="edit_rich_workspace">edit folder info</string>
     <string name="create_new">Create new</string>
     <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
+
+    <string name="sync_not_enough_space_dialog_action_choose">Choose what to sync</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s
+        available on device.</string>
+    <string name="sync_not_enough_space_dialog_title">Not enough space</string>
 </resources>

@@ -430,9 +430,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
                 break;
             case R.id.nav_favorites:
-                handleSearchEvents(new SearchEvent("",
-                                                   SearchRemoteOperation.SearchType.FAVORITE_SEARCH,
-                                                   SearchEvent.UnsetType.NO_UNSET),
+                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH),
                                    menuItem.getItemId());
                 break;
             case R.id.nav_photos:
@@ -472,15 +470,11 @@ public abstract class DrawerActivity extends ToolbarActivity
                 UserInfoActivity.openAccountRemovalConfirmationDialog(getAccount(), getSupportFragmentManager());
                 break;
             case R.id.nav_shared:
-                handleSearchEvents(new SearchEvent("",
-                                                   SearchRemoteOperation.SearchType.SHARED_SEARCH,
-                                                   SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR),
+                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_SEARCH),
                                    menuItem.getItemId());
                 break;
             case R.id.nav_recently_modified:
-                handleSearchEvents(new SearchEvent("",
-                                                   SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH,
-                                                   SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR),
+                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH),
                                    menuItem.getItemId());
                 break;
             default:
@@ -532,9 +526,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void startPhotoSearch(MenuItem menuItem) {
-        SearchEvent searchEvent = new SearchEvent("image/%",
-                                                  SearchRemoteOperation.SearchType.PHOTO_SEARCH,
-                                                  SearchEvent.UnsetType.NO_UNSET);
+        SearchEvent searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
 
         Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
