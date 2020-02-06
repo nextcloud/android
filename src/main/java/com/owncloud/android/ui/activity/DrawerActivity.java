@@ -469,7 +469,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 UserInfoActivity.openAccountRemovalConfirmationDialog(getAccount(), getSupportFragmentManager());
                 break;
             case R.id.nav_shared:
-                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_SEARCH),
+                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER),
                                    menuItem.getItemId());
                 break;
             case R.id.nav_recently_modified:

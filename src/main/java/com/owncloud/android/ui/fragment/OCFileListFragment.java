@@ -191,7 +191,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected SearchType currentSearchType;
     protected boolean searchFragment;
     protected SearchEvent searchEvent;
-    protected AsyncTask remoteOperationAsyncTask;
+    protected AsyncTask<Void, Void, Boolean> remoteOperationAsyncTask;
     protected String mLimitToMimeType;
 
     @Inject DeviceInfo deviceInfo;
@@ -1591,7 +1591,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
         };
 
-        remoteOperationAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, true);
+        remoteOperationAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
