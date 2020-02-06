@@ -34,6 +34,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -153,7 +154,7 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
     /**
      * Get users and groups from the DB to fill in the "share with" list
      *
-     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * Depends on the parent Activity provides a {@link FileDataStorageManagerImpl}
      * instance ready to use. If not ready, does nothing.
      */
     public void refreshUsersOrGroupsListFromDB (){

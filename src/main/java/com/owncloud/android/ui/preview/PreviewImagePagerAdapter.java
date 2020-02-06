@@ -64,9 +64,12 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      * @param parentFolder      Folder where images will be searched for.
      * @param storageManager    Bridge to database.
      */
-    public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder,
-                                    Account account, FileDataStorageManager storageManager,
-                                    boolean onlyOnDevice, AppPreferences preferences) {
+    public PreviewImagePagerAdapter(FragmentManager fragmentManager,
+                                    OCFile parentFolder,
+                                    Account account,
+                                    FileDataStorageManager storageManager,
+                                    boolean onlyOnDevice,
+                                    AppPreferences preferences) {
         super(fragmentManager);
 
         if (fragmentManager == null) {

@@ -37,6 +37,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -177,7 +178,7 @@ public class ContactsBackupJob extends Job {
     private void expireFiles(Integer daysToExpire, String backupFolderString, Account account) {
         // -1 disables expiration
         if (daysToExpire > -1) {
-            FileDataStorageManager storageManager = new FileDataStorageManager(account, getContext().getContentResolver());
+            FileDataStorageManager storageManager = new FileDataStorageManagerImpl(account, getContext());
             OCFile backupFolder = storageManager.getFileByPath(backupFolderString);
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DAY_OF_YEAR, -daysToExpire);

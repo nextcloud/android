@@ -32,15 +32,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -55,6 +49,14 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Adapter to show a user/group/email/remote in Sharing list in file details view.
@@ -82,7 +84,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         this.userId = userId;
 
         accentColor = ThemeUtils.primaryAccentColor(context);
-        capabilities = new FileDataStorageManager(account, context.getContentResolver()).getCapability(account.name);
+        capabilities = new FileDataStorageManagerImpl(account, context).getCapability(account.name);
         avatarRadiusDimension = context.getResources().getDimension(R.dimen.user_icon_radius);
     }
 

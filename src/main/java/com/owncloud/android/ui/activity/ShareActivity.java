@@ -29,6 +29,7 @@ import android.text.TextUtils;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -238,7 +239,7 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
     }
 
     /**
-     * Updates the view, reading data from {@link com.owncloud.android.datamodel.FileDataStorageManager}.
+     * Updates the view, reading data from {@link FileDataStorageManagerImpl}.
      */
     private void refreshSharesFromStorageManager() {
 

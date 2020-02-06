@@ -34,23 +34,23 @@ public interface ComponentsGetter {
      */
     public FileDownloaderBinder getFileDownloaderBinder();
 
-    
+
     /**
      * To be invoked when the parent activity is fully created to get a reference
      * to the FileUploader service API.
      */
     public FileUploaderBinder getFileUploaderBinder();
 
-    
+
     /**
      * To be invoked when the parent activity is fully created to get a reference
      * to the OperationsSerivce service API.
      */
     public OperationsServiceBinder getOperationsServiceBinder();
 
-    
+
     public FileDataStorageManager getStorageManager();
-    
+
     public FileOperationsHelper getFileOperationsHelper();
 
 

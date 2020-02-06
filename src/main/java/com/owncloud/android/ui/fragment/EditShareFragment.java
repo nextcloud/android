@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -112,7 +113,7 @@ public class EditShareFragment extends Fragment {
             mAccount = getArguments().getParcelable(ARG_ACCOUNT);
         }
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(mAccount, getContext().getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManagerImpl(mAccount, getContext());
         mCapabilities = storageManager.getCapability(mAccount.name);
     }
 
@@ -152,7 +153,7 @@ public class EditShareFragment extends Fragment {
     /**
      * Get known server capabilities from DB
      * <p/>
-     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * Depends on the parent Activity provides a {@link FileDataStorageManagerImpl}
      * instance ready to use. If not ready, does nothing.
      */
     public void refreshCapabilitiesFromDB() {
@@ -418,7 +419,7 @@ public class EditShareFragment extends Fragment {
     /**
      * Get {@link OCShare} instance from DB and updates the UI.
      *
-     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * Depends on the parent Activity provides a {@link FileDataStorageManagerImpl}
      * instance ready to use. If not ready, does nothing.
      */
     public void refreshUiFromDB() {
@@ -431,7 +432,7 @@ public class EditShareFragment extends Fragment {
     /**
      * Get {@link OCShare} instance from DB and updates the UI.
      *
-     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * Depends on the parent Activity provides a {@link FileDataStorageManagerImpl}
      * instance ready to use. If not ready, does nothing.
      *
      * @param editShareView     Root view in the fragment.

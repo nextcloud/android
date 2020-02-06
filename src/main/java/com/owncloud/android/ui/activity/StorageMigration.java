@@ -33,6 +33,7 @@ import android.view.View;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -433,7 +434,7 @@ public class StorageMigration {
         }
 
         private void updateIndex(Context context) throws MigrationException {
-            FileDataStorageManager manager = new FileDataStorageManager(null, context.getContentResolver());
+            FileDataStorageManager manager = new FileDataStorageManagerImpl(null, context);
 
             try {
                 manager.migrateStoredFiles(mStorageSource, mStorageTarget);

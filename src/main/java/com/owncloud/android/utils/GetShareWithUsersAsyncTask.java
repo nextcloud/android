@@ -25,6 +25,7 @@ import android.util.Pair;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -58,7 +59,7 @@ public class GetShareWithUsersAsyncTask extends AsyncTask<Object, Void, Pair<Rem
         if (params != null && params.length == 3) {
             OCFile file = (OCFile) params[0];
             Account account = (Account) params[1];
-            FileDataStorageManager fileDataStorageManager = (FileDataStorageManager) params[2];
+            FileDataStorageManager fileDataStorageManager = (FileDataStorageManagerImpl) params[2];
 
             try {
                 // Get shares request

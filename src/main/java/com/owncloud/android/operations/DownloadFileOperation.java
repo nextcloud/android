@@ -28,6 +28,7 @@ import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -171,7 +172,7 @@ public class DownloadFileOperation extends RemoteOperation {
 
             // decrypt file
             if (file.isEncrypted() && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(account, context.getContentResolver());
+                FileDataStorageManager fileDataStorageManager = new FileDataStorageManagerImpl(account, context);
 
                 OCFile parent = fileDataStorageManager.getFileByPath(file.getParentRemotePath());
 

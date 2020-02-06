@@ -47,6 +47,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -253,9 +254,9 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
                         OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) newFileResult.getData().get(0));
 
                         if (chooseTemplateDialogFragmentWeakReference.get() != null) {
-                            FileDataStorageManager storageManager = new FileDataStorageManager(
+                            FileDataStorageManager storageManager = new FileDataStorageManagerImpl(
                                 user.toPlatformAccount(),
-                                chooseTemplateDialogFragmentWeakReference.get().requireContext().getContentResolver());
+                                chooseTemplateDialogFragmentWeakReference.get().requireContext());
                             storageManager.saveFile(temp);
                             file = storageManager.getFileByPath(path);
 

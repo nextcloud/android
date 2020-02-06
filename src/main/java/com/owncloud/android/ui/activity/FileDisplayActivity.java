@@ -62,6 +62,7 @@ import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.files.services.FileDownloader;
@@ -2651,7 +2652,7 @@ public class FileDisplayActivity extends FileActivity
         FileDataStorageManager storageManager = getStorageManager();
 
         if (storageManager == null) {
-            storageManager = new FileDataStorageManager(newAccount, getContentResolver());
+            storageManager = new FileDataStorageManagerImpl(newAccount, this);
         }
 
         FetchRemoteFileTask fetchRemoteFileTask = new FetchRemoteFileTask(newAccount,

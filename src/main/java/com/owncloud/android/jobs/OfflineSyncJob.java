@@ -34,6 +34,7 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -92,8 +93,7 @@ public class OfflineSyncJob extends Job {
             Account[] accounts = userAccountManager.getAccounts();
 
             for (Account account : accounts) {
-                FileDataStorageManager storageManager = new FileDataStorageManager(account,
-                        getContext().getContentResolver());
+                FileDataStorageManager storageManager = new FileDataStorageManagerImpl(account, getContext());
 
                 OCFile ocRoot = storageManager.getFileByPath(ROOT_PATH);
 

@@ -42,6 +42,7 @@ import android.widget.TextView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -587,7 +588,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     /**
      * Get known server capabilities from DB
      * <p/>
-     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * Depends on the parent Activity provides a {@link FileDataStorageManagerImpl}
      * instance ready to use. If not ready, does nothing.
      */
     public void refreshCapabilitiesFromDB() {
@@ -599,7 +600,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     /**
      * Get users and groups from the DB to fill in the "share with" list.
      * <p/>
-     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * Depends on the parent Activity provides a {@link FileDataStorageManagerImpl}
      * instance ready to use. If not ready, does nothing.
      */
     public void refreshUsersOrGroupsListFromDB() {
@@ -662,7 +663,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
      * <p/>
      * Takes into account server capabilities before reading database.
      * <p/>
-     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * Depends on the parent Activity provides a {@link FileDataStorageManagerImpl}
      * instance ready to use. If not ready, does nothing.
      */
     public void refreshPublicShareFromDB() {

@@ -20,7 +20,6 @@
 
 package com.owncloud.android.providers;
 
-import android.accounts.Account;
 import android.app.SearchManager;
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -38,6 +37,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManagerImpl;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation;
@@ -214,8 +214,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             Uri remoteBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_REMOTE).build();
             Uri emailBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_EMAIL).build();
 
-            FileDataStorageManager manager = new FileDataStorageManager(user.toPlatformAccount(),
-                                                                        getContext().getContentResolver());
+            FileDataStorageManager manager = new FileDataStorageManagerImpl(user.toPlatformAccount(), getContext());
             boolean federatedShareAllowed = manager.getCapability(user.getAccountName())
                 .getFilesSharingFederationOutgoing()
                 .isTrue();

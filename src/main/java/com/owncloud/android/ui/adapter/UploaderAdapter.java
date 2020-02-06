@@ -50,14 +50,16 @@ public class UploaderAdapter extends SimpleAdapter {
     private LayoutInflater inflater;
 
     public UploaderAdapter(Context context,
-                           List<? extends Map<String, ?>> data, int resource, String[] from,
-                           int[] to, FileDataStorageManager storageManager, Account account) {
+                           List<? extends Map<String, ?>> data,
+                           int resource, String[] from,
+                           int[] to,
+                           FileDataStorageManager storageManager,
+                           Account account) {
         super(context, data, resource, from, to);
         mAccount = account;
         mStorageManager = storageManager;
         mContext = context;
-        inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
