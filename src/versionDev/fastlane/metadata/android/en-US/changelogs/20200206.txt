@@ -1,0 +1,28 @@
+ac971ae36 Merge remote-tracking branch 'origin/master' into dev
+94abac7f7 Merge pull request #5403 from nextcloud/dependabot/gradle/io.gitlab.arturbosch.detekt-detekt-gradle-plugin-1.5.1
+8890770fb Bump detekt-gradle-plugin from 1.5.0 to 1.5.1
+823808e37 Merge pull request #5407 from nextcloud/changelog-master-stable-3.10.1
+c7669fe9d Merge pull request #5393 from nextcloud/removeUnsetType
+e8d00fd81 proper headline formatting
+c5be0ad7e Merge pull request #5399 from nextcloud/extractArbitraryDataSet
+a0de3e5ad Add changelog for 3.10.1
+0936945b3 Merge pull request #5328 from nextcloud/fix/not-enough-space-dialog
+c7d2b0e80 Merge pull request #5404 from nextcloud/uploadReportVerbose
+7e4711a23 github comment if preliminary step failed
+778fec9e2 extract openDrawer test into AbstractIT rebased
+3a78c1b9d add more UI tests
+e118f9a51 Remove UnsetType as we do not have bottom bar anymore…
+c7ea6458b extract ArbitraryDataSet class cleanup
+7c84a9f92 Merge pull request #5296 from nextcloud/fix/defective-search
+f9a47e6b3 Formated the code
+c64e90e8c Merge pull request #5401 from nextcloud/needlesslyBoxing
+84adb9eaa Merge pull request #5400 from nextcloud/rakekniven-patch-1
+0d0a4a319 Drone: update FindBugs results to reflect reduced error/warning count [skip ci]
+d7918c59c Merge commit '1bf079d2cd85fe4770716bbf02790651290d66c1'
+1bf079d2c NAB_NEEDLESS_BOOLEAN_CONSTANT_CONVERSION: Method needlessly boxes a boolean constant
+e19b58178 l10n: Grammar: url -> URL
+75c0871e6 Merge pull request #5395 from nextcloud/dependabot/gradle/org.greenrobot-eventbus-3.2.0
+ebba5ea4e Merge pull request #5396 from nextcloud/dependabot/gradle/io.gitlab.arturbosch.detekt-detekt-gradle-plugin-1.5.0
+a2e327bdc [tx-robot] updated from transifex
+a5d0fe936 daily dev 20200205
+library commit: a58c94818c2443a11c84394a53a53e330ba5276f
