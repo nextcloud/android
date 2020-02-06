@@ -80,7 +80,7 @@ public class FileDisplayActivityIT extends AbstractIT {
     }
 
     @Test
-    public void showShares() throws InterruptedException {
+    public void showShares() {
         assertTrue(new CreateFolderRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareToGroup/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareViaLink/", true).execute(client).isSuccess());
@@ -118,8 +118,7 @@ public class FileDisplayActivityIT extends AbstractIT {
         getInstrumentation().waitForIdleSync();
 
         EventBus.getDefault().post(new SearchEvent("",
-                                                   SearchRemoteOperation.SearchType.SHARED_FILTER,
-                                                   SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR));
+                                                   SearchRemoteOperation.SearchType.SHARED_FILTER));
 
         getInstrumentation().waitForIdleSync();
 
