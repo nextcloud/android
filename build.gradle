@@ -314,7 +314,7 @@ dependencies {
     implementation 'com.github.tobiaskaminsky:qrcodescanner:0.1.2.2' // 'com.github.blikoon:QRCodeScanner:0.1.2'
     implementation 'com.google.android:flexbox:2.0.1'
     implementation 'org.parceler:parceler-api:1.1.13'
-    kapt 'org.parceler:parceler:1.1.12'
+    kapt 'org.parceler:parceler:1.1.13'
     implementation('com.github.bumptech.glide:glide:3.8.0') {
         exclude group: "com.android.support"
     }
