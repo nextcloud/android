@@ -334,7 +334,7 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
     compileOnly "org.projectlombok:lombok:1.18.12"
-    annotationProcessor "org.projectlombok:lombok:1.18.10"
+    annotationProcessor "org.projectlombok:lombok:1.18.12"
 
     ktlint "com.pinterest:ktlint:0.36.0"
     implementation 'org.conscrypt:conscrypt-android:2.2.1'
