@@ -1,0 +1,7 @@
+66c25fa25 Merge remote-tracking branch 'origin/master' into dev
+f415cd966 Merge pull request #5420 from nextcloud/dependabot/gradle/org.parceler-parceler-1.1.13
+2b2800bc7 Bump parceler from 1.1.12 to 1.1.13
+98d751880 Merge pull request #5418 from nextcloud/dependabot/gradle/org.parceler-parceler-api-1.1.13
+8ce35e3f5 manually bump lint
+6fbe0b595 daily dev 20200207
+library commit: 12393d684c5ed45c17b908a64a630733bdf754ed
