@@ -4,9 +4,12 @@
  * @author Andy Scherzinger
  * @author Bartek Przybylski
  * @author David A. Velasco
+ * @author Chris Narkiewicz <hello@ezaquarii.com>
+ *
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2016 Andy Scherzinger
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -55,6 +58,7 @@ import com.bumptech.glide.request.target.Target;
 import com.caverock.androidsvg.SVG;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -275,39 +279,18 @@ public final class DisplayUtils {
     }
 
     /**
-     * creates the display string for an account.
+     * Creates the display string for a user.
      *
-     * @param context the actual activity
-     * @param savedAccount the actual, saved account
-     * @param accountName the account name
-     * @param fallbackString String to be used in case of an error
      * @return the display string for the given account data
      */
-    public static String getAccountNameDisplayText(Context context, Account savedAccount, String accountName, String
-            fallbackString) {
-        try {
-            return new OwnCloudAccount(savedAccount, context).getDisplayName()
-                    + "@"
-                    + convertIdn(accountName.substring(accountName.lastIndexOf('@') + 1), false);
-        } catch (Exception e) {
-            Log_OC.w(TAG, "Couldn't get display name for account, using old style");
-            return fallbackString;
-        }
+    public static String getAccountNameDisplayText(User user) {
+        final OwnCloudAccount ocs = user.toOwnCloudAccount();
+        final String accountName = user.getAccountName();
+        return ocs.getDisplayName()
+                + "@"
+                + convertIdn(accountName.substring(accountName.lastIndexOf('@') + 1), false);
     }
 
-    /**
-     * converts an array of accounts into a set of account names.
-     *
-     * @param accountList the account array
-     * @return set of account names
-     */
-    public static Set<String> toAccountNameSet(Collection<Account> accountList) {
-        Set<String> actualAccounts = new HashSet<>(accountList.size());
-        for (Account account : accountList) {
-            actualAccounts.add(account.name);
-        }
-        return actualAccounts;
-    }
 
     /**
      * calculates the relative time string based on the given modification timestamp.
@@ -431,46 +414,46 @@ public final class DisplayUtils {
     /**
      * fetches and sets the avatar of the given account in the passed callContext
      *
-     * @param account        the account to be used to connect to server
+     * @param user        the account to be used to connect to server
      * @param avatarRadius   the avatar radius
      * @param resources      reference for density information
      * @param callContext    which context is called to set the generated avatar
      */
-    public static void setAvatar(@NonNull Account account, AvatarGenerationListener listener,
+    public static void setAvatar(@NonNull User user, AvatarGenerationListener listener,
                                  float avatarRadius, Resources resources, Object callContext, Context context) {
 
         AccountManager accountManager = AccountManager.get(context);
-        String userId = accountManager.getUserData(account,
+        String userId = accountManager.getUserData(user.toPlatformAccount(),
                 com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
-        setAvatar(account, userId, listener, avatarRadius, resources, callContext, context);
+        setAvatar(user, userId, listener, avatarRadius, resources, callContext, context);
     }
 
     /**
      * fetches and sets the avatar of the given account in the passed callContext
      *
-     * @param account        the account to be used to connect to server
+     * @param user        the account to be used to connect to server
      * @param userId         the userId which avatar should be set
      * @param avatarRadius   the avatar radius
      * @param resources      reference for density information
      * @param callContext    which context is called to set the generated avatar
      */
-    public static void setAvatar(@NonNull Account account, @NonNull String userId, AvatarGenerationListener listener,
+    public static void setAvatar(@NonNull User user, @NonNull String userId, AvatarGenerationListener listener,
                                  float avatarRadius, Resources resources, Object callContext, Context context) {
-        setAvatar(account, userId, userId, listener, avatarRadius, resources, callContext, context);
+        setAvatar(user, userId, userId, listener, avatarRadius, resources, callContext, context);
     }
 
     /**
      * fetches and sets the avatar of the given account in the passed callContext
      *
-     * @param account      the account to be used to connect to server
+     * @param user         the account to be used to connect to server
      * @param userId       the userId which avatar should be set
      * @param displayName  displayName used to generate avatar with first char, only used as fallback
      * @param avatarRadius the avatar radius
      * @param resources    reference for density information
      * @param callContext  which context is called to set the generated avatar
      */
-    public static void setAvatar(@NonNull Account account,
+    public static void setAvatar(@NonNull User user,
                                  @NonNull String userId,
                                  String displayName,
                                  AvatarGenerationListener listener,
@@ -479,12 +462,13 @@ public final class DisplayUtils {
                                  Object callContext,
                                  Context context) {
         if (callContext instanceof View) {
-            ((View) callContext).setContentDescription(String.valueOf(account.hashCode()));
+            ((View) callContext).setContentDescription(String.valueOf(user.toPlatformAccount().hashCode()));
         }
 
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
 
-        String serverName = account.name.substring(account.name.lastIndexOf('@') + 1);
+        final String accountName = user.getAccountName();
+        String serverName = accountName.substring(accountName.lastIndexOf('@') + 1);
         String eTag = arbitraryDataProvider.getValue(userId + "@" + serverName, ThumbnailsCacheManager.AVATAR);
         String avatarKey = "a_" + userId + "_" + serverName + "_" + eTag;
 
@@ -505,8 +489,14 @@ public final class DisplayUtils {
         // check for new avatar, eTag is compared, so only new one is downloaded
         if (ThumbnailsCacheManager.cancelPotentialAvatarWork(userId, callContext)) {
             final ThumbnailsCacheManager.AvatarGenerationTask task =
-                new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, account, resources,
-                                                                avatarRadius, userId, serverName, context);
+                new ThumbnailsCacheManager.AvatarGenerationTask(listener,
+                                                                callContext,
+                                                                user.toPlatformAccount(),
+                                                                resources,
+                                                                avatarRadius,
+                                                                userId,
+                                                                serverName,
+                                                                context);
 
             final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
                 new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, avatar, task);
