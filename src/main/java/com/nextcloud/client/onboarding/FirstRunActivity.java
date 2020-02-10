@@ -72,8 +72,6 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        enableAccountHandling = false;
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_run_activity);
 

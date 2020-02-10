@@ -22,6 +22,7 @@ package com.nextcloud.client.account;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -375,5 +376,16 @@ public class UserAccountManagerImpl implements UserAccountManager {
 
     private String getAccountType() {
         return context.getString(R.string.account_type);
+    }
+
+    @Override
+    public void startAccountCreation(final Activity activity) {
+        accountManager.addAccount(getAccountType(),
+                                  null,
+                                  null,
+                                  null,
+                                  activity,
+                                  null,
+                                  null);
     }
 }
