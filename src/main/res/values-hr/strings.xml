@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Trenutno nije podržano kopiranje/premještanje u šifriranu mapu.</string>
     <string name="copy_to">Kopiraj u…</string>
     <string name="could_not_download_image">Nije moguće preuzeti cijelu sliku</string>
-    <string name="could_not_retrieve_url">Nije moguće dohvatiti URL</string>
     <string name="create_dir_fail_msg">Nije moguće stvoriti mapu</string>
     <string name="create_new_document">Stvori novi dokument</string>
     <string name="create_new_folder">Stvori novu mapu</string>

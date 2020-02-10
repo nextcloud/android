@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Une honetan ez da onartzen kopiatzea/mugitzea enkriptatutako karpetara</string>
     <string name="copy_to">Kopiatu hona…</string>
     <string name="could_not_download_image">Ezin izan da irudi osoa jaitsi</string>
-    <string name="could_not_retrieve_url">Ezin izan da URLa berreskuratu</string>
     <string name="create_dir_fail_msg">Ezin da karpeta sortu</string>
     <string name="create_new">Sortu berria</string>
     <string name="create_new_document">Sortu dokumentu berria</string>
