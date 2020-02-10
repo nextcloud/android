@@ -28,5 +28,14 @@ typealias OnErrorCallback = (Throwable) -> Unit
  * It is provided as an alternative for heavy, platform specific and virtually untestable [android.os.AsyncTask]
  */
 interface AsyncRunner {
+
+    /**
+     * Post a background task and return immediately returning task cancellation interface.
+     *
+     * @param task Task function returning result T; error shall be signalled by throwing an exception.
+     * @param onResult Callback called when task function returns a result
+     * @param onError Callback called when task function throws an exception
+     * @return Cancellable interface, allowing to cancel running task.
+     */
     fun <T> post(task: () -> T, onResult: OnResultCallback<T>? = null, onError: OnErrorCallback? = null): Cancellable
 }

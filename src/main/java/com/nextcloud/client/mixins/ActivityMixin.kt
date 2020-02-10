@@ -2,7 +2,8 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,22 +18,23 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.core
+package com.nextcloud.client.mixins
+
+import android.content.Intent
+import android.os.Bundle
 
 /**
- * Interface allowing cancellation of a running task.
- * Once must be careful when cancelling a non-idempotent task,
- * as cancellation does not guarantee a task termination.
- * One trivial case would be a task finished and cancelled
- * before result delivery.
- *
- * @see [com.nextcloud.client.core.AsyncRunner]
+ * Interface allowing to implement part of [android.app.Activity] logic as
+ * a mix-in.
  */
-interface Cancellable {
-
-    /**
-     * Cancel running task. Task termination is not guaranteed, but the result
-     * shall not be delivered.
-     */
-    fun cancel()
+interface ActivityMixin {
+    fun onNewIntent(intent: Intent) { /* no-op */ }
+    fun onSaveInstanceState(outState: Bundle) { /* no-op */ }
+    fun onCreate(savedInstanceState: Bundle?) { /* no-op */ }
+    fun onRestart() { /* no-op */ }
+    fun onStart() { /* no-op */ }
+    fun onResume() { /* no-op */ }
+    fun onPause() { /* no-op */ }
+    fun onStop() { /* no-op */ }
+    fun onDestroy() { /* no-op */ }
 }
