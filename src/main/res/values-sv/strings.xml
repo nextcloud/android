@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiera/flytta till krypterad mapp stöds för närvarande inte.</string>
     <string name="copy_to">Kopiera till…</string>
     <string name="could_not_download_image">Kunde inte ladda ner hela bilden</string>
-    <string name="could_not_retrieve_url">Det gick inte att hämta webbadress</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
     <string name="create_new">Skapa ny</string>
     <string name="create_new_document">Skapa nytt dokument</string>

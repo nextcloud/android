@@ -168,7 +168,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiointi/siirto salattuun kansioon ei ole mahdollista.</string>
     <string name="copy_to">Kopio kohteeseen…</string>
     <string name="could_not_download_image">Koko kuvan lataaminen epäonnistui</string>
-    <string name="could_not_retrieve_url">URL:n nouto epännistui</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
     <string name="create_new_document">Luo uusi asiakirja</string>
     <string name="create_new_folder">Luo uusi kansio</string>

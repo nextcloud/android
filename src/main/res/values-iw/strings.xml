@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">נכון לעכשיו, אין תמיכה בהעתקה/העברה לתיקייה מוצפנת.</string>
     <string name="copy_to">העתק אל…</string>
     <string name="could_not_download_image">לא ניתן להוריד את התמונה המלאה</string>
-    <string name="could_not_retrieve_url">לא ניתן לקבל כתובת</string>
     <string name="create_dir_fail_msg">לא ניתן ליצור תיקייה</string>
     <string name="create_new_document">יצירת מסמך חדש</string>
     <string name="create_new_folder">יצירת תיקייה חדשה</string>

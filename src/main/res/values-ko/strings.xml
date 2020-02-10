@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">암호화된 폴더로 복사/이동은 아직 지원하지 않습니다.</string>
     <string name="copy_to">다음으로 복사</string>
     <string name="could_not_download_image">전체 이미지를 다운로드 할 수 없습니다.</string>
-    <string name="could_not_retrieve_url">URL을 검색 할 수 없습니다.</string>
     <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
     <string name="create_new_document">새 문서 작성</string>
     <string name="create_new_folder">새 폴더 생성</string>

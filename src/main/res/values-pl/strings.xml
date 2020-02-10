@@ -130,7 +130,7 @@
     <string name="community_rc_fdroid">Pobierz wersję w wydaniu RC z F-Droid</string>
     <string name="community_rc_play_store">Pobierz wersję w wydaniu RC ze sklepu Google Play</string>
     <string name="community_release_candidate_headline">Release Candidate</string>
-    <string name="community_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącej wersji i oczekuje się od niej, że będzie stabilna. Testowanie indywidualnej konfiguracji przez użytkownika może w tym pomóc. Aby przetestować, zarejestruj się w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
+    <string name="community_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącej nowej wersji, od której oczekuje się, że będzie stabilna. Testowanie indywidualnej konfiguracji przez użytkownika może w tym pomóc. Aby przetestować, zarejestruj się w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
     <string name="community_testing_bug_text">Znalazłeś błąd? Jest coś, co chciałbyś poprawić?</string>
     <string name="community_testing_headline">Pomóż nam testować</string>
     <string name="community_testing_report_text">Zgłoś problem na GitHub</string>
@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiuj/przenieś do zaszyfrowanego katalogu, który nie jest obecnie obsługiwany.</string>
     <string name="copy_to">Kopiuj do…</string>
     <string name="could_not_download_image">Nie można pobrać pełnego obrazu</string>
-    <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć katalogu</string>
     <string name="create_new">Utwórz nowy</string>
     <string name="create_new_document">Utwórz nowy dokument</string>

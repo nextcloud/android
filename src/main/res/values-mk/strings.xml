@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Не е поддржано копирање/преместување во папка која е шифрирана.</string>
     <string name="copy_to">Копирај во…</string>
     <string name="could_not_download_image">Неможе да се превземе целосната слика</string>
-    <string name="could_not_retrieve_url">Неможе да се превземе адресата</string>
     <string name="create_dir_fail_msg">Не множе да креира папка</string>
     <string name="create_new_document">Креирај нов документ</string>
     <string name="create_new_folder">Креирај нова папка</string>

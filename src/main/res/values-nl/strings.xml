@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
     <string name="copy_to">Kopieer naar…</string>
     <string name="could_not_download_image">Kan de volledige afbeelding niet downloaden</string>
-    <string name="could_not_retrieve_url">Kon url niet ophalen</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
     <string name="create_new">Creëer nieuw</string>
     <string name="create_new_document">Creëer nieuw document</string>

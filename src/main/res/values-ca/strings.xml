@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">No hi ha suport actualment per copiar o moure a una carpeta xifrada.</string>
     <string name="copy_to">Copia a…</string>
     <string name="could_not_download_image">No s\'ha pogut descarregar la imatge completa</string>
-    <string name="could_not_retrieve_url">No s\'ha pogut recuperar l\'URL</string>
     <string name="create_dir_fail_msg">No s\'ha pogut crear la carpeta</string>
     <string name="create_new_document">Crea un nou document</string>
     <string name="create_new_folder">Crea una nova carpeta</string>

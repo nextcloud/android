@@ -168,7 +168,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopjimi/lëvizja në direktorinë e enkriptuar për momentin nuk suportohet.</string>
     <string name="copy_to">Kopjojeni tek…</string>
     <string name="could_not_download_image">Nuk mund të shkarkohet imazhi i plotë</string>
-    <string name="could_not_retrieve_url">Url nuk mund të merrej</string>
     <string name="create_dir_fail_msg">S’u krijua dot dosja</string>
     <string name="create_new_document">Krijo një dokument te ri</string>
     <string name="create_new_folder">Krijo një dosje të re</string>

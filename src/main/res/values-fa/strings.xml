@@ -120,6 +120,7 @@
     <string name="community_beta_text">این شامل تمام ویژگی های آینده است و در لبه خونریزی شدید (خطرناک) قرار دارد. اشکالات / خطاها ممکن است رخ دهد ، در صورت وقوع ، لطفاً یافته های خود را گزارش دهید.</string>
     <string name="community_contribute_forum_forum">انجمن</string>
     <string name="community_contribute_forum_text">به دیگران کمک کنید</string>
+    <string name="community_contribute_github_text">بررسی ، اصلاح و نوشتن کد ، ببینید %1$s برای جزئیات بیشتر</string>
     <string name="community_contribute_headline">فعالانه مشارکت نمایید</string>
     <string name="community_contribute_irc_text">در IRC به تالار گفتمان بپیوندید:</string>
     <string name="community_contribute_translate_text">برنامه</string>
@@ -168,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">کپی کردن / انتقال به پوشه رمزگذاری شده در حال حاضر پشتیبانی نمی شود.</string>
     <string name="copy_to">کپی کردن در...</string>
     <string name="could_not_download_image">تصویر کامل بارگیری نشد</string>
-    <string name="could_not_retrieve_url">بازیابی آدرس اینترنتی امکان پذیر نیست</string>
     <string name="create_dir_fail_msg">نمی توان پوشه را ساخت</string>
     <string name="create_new">ایجاد جدید</string>
     <string name="create_new_document">ساختن سند جدید</string>
@@ -323,6 +323,7 @@
     <string name="file_version_restored_error">خطا در بازیابی نسخه پرونده!</string>
     <string name="file_version_restored_successfully">نسخه پرونده با موفقیت بازیابی شد.</string>
     <string name="filedetails_download">دانلود</string>
+    <string name="filedetails_renamed_in_upload_msg">سند تغییر نام داده شد %1$s در هنگام بارگذاری</string>
     <string name="filedetails_sync_file">همگام سازی</string>
     <string name="filedisplay_no_file_selected">هیچ فایلی انتخاب نشده</string>
     <string name="filename_empty">نام پرونده نمی تواند خالی باشد</string>
@@ -331,12 +332,16 @@
     <string name="filename_hint">نام فایل</string>
     <string name="files_drop_not_supported">این یک ویژگی Nextcloud در نسخه های بعد است ، لطفاً ارتقا دهید.</string>
     <string name="first_run_1_text">یک خانه امن برای تمام اطلاعات شما</string>
+    <string name="first_run_2_text">همکاری ایمن &amp; تبادل پرونده</string>
+    <string name="first_run_3_text">آسان برای استفاده از ایمیل وب ، تقویم &amp; مخاطبین</string>
+    <string name="first_run_4_text">اشتراک گذاری صفحه ، جلسات آنلاین &amp; کنفرانس های وب</string>
     <string name="folder">folder</string>
     <string name="folder_already_exists">پوشه از قبل موجود است</string>
     <string name="folder_confirm_create">ایجاد کردن</string>
     <string name="folder_icon">آیکون پوشه</string>
     <string name="folder_list_empty_headline">هیچ  پوشه ای اینجا وجود ندارد</string>
     <string name="folder_picker_choose_button_text">انتخاب کردن</string>
+    <string name="forbidden_permissions">شما مجاز نیستید%s</string>
     <string name="forbidden_permissions_copy">کپی این فایل</string>
     <string name="forbidden_permissions_create">برای ساختن این پرونده</string>
     <string name="forbidden_permissions_delete">برای حذف این فایل</string>
@@ -345,7 +350,9 @@
     <string name="foreground_service_download">در حال بارگیری فایل ها ...</string>
     <string name="foreground_service_upload">بارگذاری پرونده ها ...</string>
     <string name="foreign_files_fail">برخی از پرونده ها قابل انتقال نیستند</string>
+    <string name="foreign_files_local_text">محلی: %1$s</string>
     <string name="foreign_files_move">انتقال همه</string>
+    <string name="foreign_files_remote_text">از راه دور:%1$s</string>
     <string name="foreign_files_success">همه فایل ها انتقال یافتند</string>
     <string name="forward">فرستادن</string>
     <string name="hint_name">نام</string>
@@ -361,21 +368,33 @@
     <string name="local_file_list_empty">هیچ فایلی در این پوشه نیست.</string>
     <string name="local_file_not_found_message">پرونده در سیستم پرونده محلی یافت نمی شود</string>
     <string name="local_folder_list_empty">هیچ پوشه ای وجود ندارد</string>
+    <string name="log_send_mail_subject">%1$s تاریخچه های برنامه های اندروید</string>
+    <string name="log_send_no_mail_app">هیچ برنامه ای برای ارسال تاریخچه یافت نشد. لطفاً یک سرویس گیرنده ایمیل نصب کنید.</string>
     <string name="login">Log in</string>
+    <string name="logs_menu_delete">حذف تاریخچه ها</string>
     <string name="logs_menu_refresh">تازه‌سازی</string>
+    <string name="logs_menu_search">جستجو تاریخچه ها</string>
+    <string name="logs_menu_send">ارسال وقایع با ایمیل</string>
+    <string name="logs_status_filtered">وقایع: %1$d kB, پرس و جو مطابقت دارد %2$d / %3$d in %4$d ms</string>
     <string name="logs_status_loading">بار کردن…</string>
+    <string name="logs_status_not_filtered">وقایع: %1$d kB, بدون فیلتر</string>
     <string name="logs_title">Logs</string>
     <string name="maintenance_mode">سرور در حالت تعمیر و نگهداری</string>
     <string name="manage_space_clear_data">اطلاعات روشن</string>
+    <string name="manage_space_description">   تنظیمات ، پایگاه داده و گواهینامه های سرور از 
+%1$sداده ها به طور دائم حذف می شوند.فایلهای بارگیری نشده دست نخورده باقی می مانند. این فرآیند می تواند مدتی طول بکشد.</string>
     <string name="manage_space_title">مدیریت فضا</string>
     <string name="media_err_invalid_progressive_playback">فایل رسانه ای قابل پخش نیست</string>
     <string name="media_err_io">فایل رسانه ای را نمی توان خواند</string>
     <string name="media_err_malformed">The media file has incorrect encoding</string>
     <string name="media_err_timeout">تلاش برای پخش فایل به پایان رسیده است</string>
+    <string name="media_err_unknown">دستگاه پخش رسانه ای داخلی قادر به پخش پرونده رسانه نیست</string>
     <string name="media_err_unsupported">کدک رسانه پشتیبانی نشده است.</string>
     <string name="media_forward_description">دکمه رو به جلو سریع</string>
+    <string name="media_notif_ticker">%1$s پخش کننده موسیقی</string>
     <string name="media_play_pause_description">دکمه پخش یا توقف</string>
     <string name="media_rewind_description">دکمه عقبگرد</string>
+    <string name="media_state_playing">%1$s (بازی کردن)</string>
     <string name="menu_item_sort_by_date_newest_first">تازه ترین ها اول </string>
     <string name="menu_item_sort_by_date_oldest_first">قدیمی ترین ها اول </string>
     <string name="menu_item_sort_by_name_a_z">الف تا ی</string>
@@ -383,6 +402,7 @@
     <string name="menu_item_sort_by_size_biggest_first">بزرگترین اول</string>
     <string name="menu_item_sort_by_size_smallest_first">کوچک ترین اول</string>
     <string name="move_file_error">خطایی در زمان تلاش برای انتقال این فایل یا پوشه رخ داده است</string>
+    <string name="move_file_invalid_into_descendent">جابجایی یک پوشه در یکی از پوشه های زیرین خود امکان پذیر نیست</string>
     <string name="move_file_invalid_overwrite">پرونده در حال حاضر در پوشه مقصد موجود است</string>
     <string name="move_file_not_found">انتقال پرونده امکان پذیر نیست. لطفاً بررسی کنید که آیا وجود دارد یا خیر</string>
     <string name="move_to">انتقال به ...</string>
@@ -413,6 +433,7 @@
     <string name="notification_channel_media_description">پیشرفت پخش کننده موسیقی </string>
     <string name="notification_channel_media_name">دستگاه پخش رسانه ای</string>
     <string name="notification_channel_push_description">نمایش اعلانهای ارسال شده توسط سرور: موارد ذکر شده در نظرات ، دریافت اشتراک از راه دور ، اطلاعیه های ارسال شده توسط مدیر و غیره</string>
+    <string name="notification_channel_push_name">ارسال اعلانات</string>
     <string name="notification_channel_upload_description">پیشرفت بارگذاری را نشان می دهد</string>
     <string name="notification_channel_upload_name">کانال اعلان را بارگذاری کنید</string>
     <string name="notification_icon">نماد اعلان</string>
@@ -472,6 +493,7 @@
     <string name="prefs_lock_device_credentials_enabled">اعتبار دستگاه فعال شد</string>
     <string name="prefs_lock_device_credentials_not_setup">هیچ اعتبار دستگاهی تنظیم نشده است.</string>
     <string name="prefs_lock_none">هیچ‌کدام</string>
+    <string name="prefs_lock_title">استفاده از برنامه را محافظت کنید</string>
     <string name="prefs_lock_using_device_credentials">اعتبار دستگاه</string>
     <string name="prefs_lock_using_passcode">کد عبور</string>
     <string name="prefs_manage_accounts">مدیریت حساب ها </string>
@@ -484,13 +506,18 @@
     <string name="prefs_theme_title">زمینه</string>
     <string name="prefs_value_theme_dark">تیره</string>
     <string name="prefs_value_theme_light">روشن</string>
+    <string name="prefs_value_theme_system"> سیستم  پی‌گیری</string>
     <string name="preview_image_description">پیش نمایش تصویر</string>
     <string name="preview_image_error_no_local_file">هیچ فایل محلی برای پیش نمایش وجود ندارد</string>
     <string name="preview_image_error_unknown_format">نشان دادن تصویر نامقدور</string>
     <string name="preview_sorry">ببخشید</string>
     <string name="privacy">حریم خصوصی</string>
+    <string name="push_notifications_not_implemented">ارسال اعلانات به دلیل وابستگی به خدمات اختصاصی Google Play غیرفعال شده است.</string>
+    <string name="push_notifications_old_login">ارسال اعلانات به دلیل جلسه ورود به سیستم منسوخ شده است. لطفاً دوباره حساب خود را اضافه کنید.</string>
     <string name="push_notifications_temp_error">دریافت کننده اعلانات  در حال حاضر در دسترس نیست.</string>
     <string name="recommend_subject">%1$sروی دستگاه خود امتحان کنید!</string>
+    <string name="recommend_text">می خواهم از شما دعوت کنم تا استفاده کنید  %1$sدر دستگاه شما.دریافت از اینجا: %2$s</string>
+    <string name="recommend_urls">%1$sیا %2$s</string>
     <string name="remote_file_fetch_failed">یافتن پرونده انجام نشد</string>
     <string name="remove_fail_msg">حذف انجام نشد</string>
     <string name="remove_notification_failed">حذف اعلان انجام نشد.</string>
@@ -642,6 +669,7 @@
     <string name="sync_fail_ticker_unauthorized">همگام‌سازی شکست خورد. دوباره وارد شوید</string>
     <string name="sync_file_nothing_to_do_msg">محتوای فایل قبلا همگام شده</string>
     <string name="sync_folder_failed_content">همگام سازی %1$s پوشه کامل نشد</string>
+    <string name="sync_foreign_files_forgotten_explanation">طبق نسخه 1.3.16 ، فایلهای آپلود شده از این دستگاه در محلی کپی می شوند %1$s پوشه ای برای جلوگیری از از دست رفتن داده ها هنگام همگام سازی یک فایل واحد با چندین حساب.  با توجه به این تغییر ، تمام پرونده های آپلود شده با نسخه های قبلی این برنامه در داخل کپی شدند%2$s پوشه با این حال ، یک خطا مانع از انجام این عمل در حین همگام سازی حساب می شود. شما ممکن است فایل (های) را مانند گذشته ترک کنید و پیوند را حذف کنید %3$s, یا پرونده (ها) را وارد کنید %1$s پوشه را نگهدارید و پیوند را حفظ کنید %4$s..در لیست پرونده های محلی و پرونده (های) از راه دور موجود است %5$s آنها با آنها در ارتباط بودند.</string>
     <string name="sync_foreign_files_forgotten_ticker">بعضی از فایلهای محلی فراموش شده اند</string>
     <string name="sync_in_progress">واکشی جدیدترین نسخه پرونده.</string>
     <string name="sync_status_button">دکمه همگام سازی وضعیت</string>
@@ -652,14 +680,18 @@
     <string name="synced_folders_new_info">بارگذاری فوری کاملاً بازسازی شده است. بارگذاری مجدد خودکار خود را از طریق فهرست اصلی دوباره تنظیم کنید. \ n \ n از آپلود خودکار جدید و گسترده لذت ببرید.</string>
     <string name="synced_folders_no_results">هیچ پوشه رسانه ای یافت نشد</string>
     <string name="synced_folders_preferences">تنظیمات برگزیده در بارگذاری خودکار</string>
+    <string name="synced_folders_preferences_folder_path">برای %1$s</string>
     <string name="synced_folders_type">Type</string>
     <string name="synced_icon">همگام سازی</string>
     <string name="tags">برچسب‌ها</string>
+    <string name="test_server_button">اتصال به سرور را آزمایش کنید</string>
     <string name="thumbnail">بند انگشتی</string>
     <string name="timeout_richDocuments">بارگیری بسیار طول می کشد ...</string>
     <string name="trashbin_activity_title">فایل های حذف شده</string>
     <string name="trashbin_empty_headline">هیچ فایل حذف شده وجود ندارد</string>
     <string name="trashbin_empty_message">شما قادر خواهید بود فایل های حذف شده را از اینجا بازیابی کنید</string>
+    <string name="trashbin_file_not_deleted">فایل%1$s نمی تواند حذف شود!</string>
+    <string name="trashbin_file_not_restored">فایل %1$s نمی تواند بازیابی شود</string>
     <string name="trashbin_loading_failed">بارگیری سطل زباله انجام نشد!</string>
     <string name="trashbin_not_emptied">نمی توان پرونده ها را برای همیشه حذف کرد!</string>
     <string name="unread_comments">نظرات خوانده نشده وجود دارد</string>
@@ -670,6 +702,7 @@
     <string name="unshare_link_forbidden_permissions">حذف اشتراک‌گذاری این فایل</string>
     <string name="unsharing_failed">اشتراک گذاری ناموفق بود</string>
     <string name="untrusted_domain">دسترسی از طریق دامنه غیر قابل اعتماد. لطفا برای اطلاعات بیشتر به اسناد مراجعه کنید.</string>
+    <string name="update_link_file_error">هنگام تلاش برای به روز رسانی اشتراک ، خطایی روی داد</string>
     <string name="update_link_file_no_exist">به روزرسانی امکان پذیر نیست. لطفاً بررسی کنید که آیا پرونده وجود دارد یا خیر</string>
     <string name="update_link_forbidden_permissions">برای به روزرسانی این اشتراک</string>
     <string name="updating_share_failed">بروزرسانی اشتراک گذاری انجام نشد</string>
@@ -679,6 +712,7 @@
     <string name="upload_direct_camera_upload">بارگیری از دوربین</string>
     <string name="upload_file_dialog_filename">نام فایل</string>
     <string name="upload_file_dialog_filetype">نوع فایل</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">پرونده میانبر Google Maps(%s)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">پرونده میانبر اینترنت(%s)</string>
     <string name="upload_file_dialog_filetype_snippet_text">فایل متنی Snippet (.txt)</string>
     <string name="upload_file_dialog_title">نام و نوع فایل را وارد کنید تا بارگذاری شود</string>
@@ -689,6 +723,8 @@
     <string name="upload_local_storage_full">فضای محلی پر است</string>
     <string name="upload_local_storage_not_copied">پرونده را نمی توان در حافظه محلی کپی کرد</string>
     <string name="upload_lock_failed">قفل پوشه انجام نشد</string>
+    <string name="upload_old_android">رمزگذاری فقط با  &gt;= Android 5.0 امکان پذیر است</string>
+    <string name="upload_query_move_foreign_files">فضای کافی مانع کپی کردن پرونده های انتخاب شده در داخل نمی شود%1$s پوشه آیا می خواهید به جای آنها آنها را به آنجا منتقل کنید؟</string>
     <string name="upload_sync_conflict">برخورد در همگام سازی ، لطفاً به صورت دستی برطرف کنید</string>
     <string name="upload_unknown_error">خطای نامشخص</string>
     <string name="uploader_btn_alternative_text">انتخاب کنید</string>
@@ -752,6 +788,31 @@
     <string name="wait_a_moment">یک لحظه صبر کنید ...</string>
     <string name="wait_checking_credentials">بررسی اعتبارهای ذخیره شده</string>
     <string name="wait_for_tmp_copy_from_private_storage">کپی کردن فایل از حافظه خصوصی</string>
+    <string name="what_s_new_image">تصاویر جدید</string>
     <string name="whats_new_skip">پرش</string>
     <string name="whats_new_title">جدید در %1$s</string>
-    </resources>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="one">امکان همگام سازی وجود ندارد %1$dفایل  (برخورد ها: %2$d)</item>
+        <item quantity="other">امکان همگام سازی وجود ندارد %1$d فایل ها(درگیری ها: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">کپی نشد %1$d فایل از %2$s به پوشه</item>
+        <item quantity="other">کپی نشد %1$d فایل ها از %2$s به پوشه</item>
+    </plurals>
+    <plurals name="file_list__footer__folder">
+        <item quantity="one">%1$d پوشه</item>
+        <item quantity="other">%1$d پوشه ها</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d فایل</item>
+        <item quantity="other">%1$d فایل ها</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">نشان %1$d پوشه مخفی شده </item>
+        <item quantity="other">نشان دادن %1$d پوشه های مخفی شده</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d انتخاب شده</item>
+        <item quantity="other">%d انتخاب شده</item>
+    </plurals>
+</resources>
