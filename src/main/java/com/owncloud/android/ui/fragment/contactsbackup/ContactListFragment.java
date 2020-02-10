@@ -535,7 +535,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
 
     }
 
-    private AsyncTask loadContactsTask = new AsyncTask<Void, Void, Boolean>() {
+    private AsyncTask<Void, Void, Boolean> loadContactsTask = new AsyncTask<Void, Void, Boolean>() {
 
         @Override
         protected void onPreExecute() {
