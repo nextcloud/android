@@ -20,11 +20,10 @@
 
 package com.owncloud.android.utils;
 
-import android.accounts.Account;
 import android.content.res.Resources;
 import android.view.Menu;
 
-import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -39,10 +38,10 @@ public final class DrawerMenuUtil {
     }
 
     public static void filterSearchMenuItems(Menu menu,
-                                             Account account,
+                                             User user,
                                              Resources resources,
                                              boolean hasSearchSupport) {
-        if (account != null && !hasSearchSupport) {
+        if (!user.isAnonymous() && !hasSearchSupport) {
             filterMenuItems(menu, R.id.nav_photos, R.id.nav_favorites, R.id.nav_videos);
         }
 
@@ -58,18 +57,16 @@ public final class DrawerMenuUtil {
             if (!resources.getBoolean(R.bool.videos_enabled)) {
                 menu.removeItem(R.id.nav_videos);
             }
-        } else if (account != null) {
+        } else if (!user.isAnonymous()) {
             filterMenuItems(menu, R.id.nav_recently_added, R.id.nav_recently_modified, R.id.nav_videos);
         }
     }
 
-    public static void filterTrashbinMenuItem(Menu menu,
-                                              @Nullable Account account,
-                                              @Nullable OCCapability capability,
-                                              UserAccountManager accountManager) {
-        if (account != null && capability != null &&
-                (accountManager.getServerVersion(account).compareTo(OwnCloudVersion.nextcloud_14) < 0 ||
-                        capability.getFilesUndelete().isFalse() || capability.getFilesUndelete().isUnknown())) {
+    public static void filterTrashbinMenuItem(Menu menu, User user, @Nullable OCCapability capability) {
+        if (!user.isAnonymous() &&
+            user.getServer().getVersion().compareTo(OwnCloudVersion.nextcloud_14) < 0 ||
+            capability != null && capability.getFilesUndelete().isFalse() ||
+            capability != null && capability.getFilesUndelete().isUnknown()) {
             filterMenuItems(menu, R.id.nav_trashbin);
         }
     }

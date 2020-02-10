@@ -373,8 +373,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                                                                                getContentResolver());
         OCCapability capability = storageManager.getCapability(user.getAccountName());
 
-        DrawerMenuUtil.filterSearchMenuItems(menu, user.toPlatformAccount(), getResources(), true);
-        DrawerMenuUtil.filterTrashbinMenuItem(menu, user.toPlatformAccount(), capability, accountManager);
+        DrawerMenuUtil.filterSearchMenuItems(menu, user, getResources(), true);
+        DrawerMenuUtil.filterTrashbinMenuItem(menu, user, capability);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
 
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
