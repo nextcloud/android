@@ -167,7 +167,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover a la carpeta encriptada actualmente no es compatible.</string>
     <string name="copy_to">Copiar a…</string>
     <string name="could_not_download_image">No se pudo descargar la imágen completa</string>
-    <string name="could_not_retrieve_url"> No se pudo recuperar la URL</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
     <string name="create_new_document">Crear nuevo documento</string>
     <string name="create_new_folder">Crear nueva carpeta</string>

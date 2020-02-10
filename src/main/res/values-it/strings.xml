@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copia/Spostamento in una cartella cifrata attualmente non supportati.</string>
     <string name="copy_to">Copia in…</string>
     <string name="could_not_download_image">Impossibile scaricare l\'immagine completa</string>
-    <string name="could_not_retrieve_url">Impossibile recuperare l\'URL</string>
     <string name="create_dir_fail_msg">Impossibile creare la cartella</string>
     <string name="create_new">Crea nuovo</string>
     <string name="create_new_document">Crea nuovo documento</string>

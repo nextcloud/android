@@ -9,7 +9,7 @@
     <string name="account_not_found">Účet nenalezen!</string>
     <string name="action_clear_failed_uploads">Vyčistit nezdařené nahrávání</string>
     <string name="action_edit">Upravit</string>
-    <string name="action_empty_notifications">Vyčistit všechna oznámení</string>
+    <string name="action_empty_notifications">Vyčistit všechna upozornění</string>
     <string name="action_empty_trashbin">Vyprázdnit koš</string>
     <string name="action_send_share">Poslat/sdílet</string>
     <string name="action_switch_grid_view">Zobrazení v mřížce</string>
@@ -91,7 +91,7 @@
     <string name="checkbox">Zatržítko</string>
     <string name="choose_local_folder">Zvolte místní složku…</string>
     <string name="choose_remote_folder">Zvolte složku na protějšku…</string>
-    <string name="clear_notifications_failed">Oznámení se nepodařilo vyčistit.</string>
+    <string name="clear_notifications_failed">Upozornění se nepodařilo vyčistit.</string>
     <string name="clipboard_label">Text zkopírován z %1$s</string>
     <string name="clipboard_no_text_to_copy">Neobdržen žádný text pro zkopírování do schránky</string>
     <string name="clipboard_text_copied">Odkaz zkopírován</string>
@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírování/přesouvání do šifrované složky není v tuto chvíli podporováno.</string>
     <string name="copy_to">Zkopírovat do…</string>
     <string name="could_not_download_image">Nepodařilo se stáhnout celý obrázek</string>
-    <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
     <string name="create_new">Vytvořit nové</string>
     <string name="create_new_document">Vytvořit nový dokument</string>
@@ -191,7 +190,7 @@
     <string name="digest_algorithm_not_available">Tento algoritmus vytváření otisku (digest) není na vašem telefonu dostupný.</string>
     <string name="disable_new_media_folder_detection_notifications">Vypnout</string>
     <string name="dismiss">Zavřít</string>
-    <string name="dismiss_notification_description">Zahodit oznámení</string>
+    <string name="dismiss_notification_description">Zahodit upozornění</string>
     <string name="download_latest_dev_version">Stáhnout si nejnovější vývojářskou verzi</string>
     <string name="downloader_download_failed_content">Nepodařilo se stáhnout %1$s</string>
     <string name="downloader_download_failed_credentials_error">Stahování se nezdařilo, přihlaste se znovu</string>
@@ -211,7 +210,7 @@
     <string name="drawer_item_all_files">Všechny soubory</string>
     <string name="drawer_item_favorites">Oblíbené</string>
     <string name="drawer_item_home">Domů</string>
-    <string name="drawer_item_notifications">Oznámení</string>
+    <string name="drawer_item_notifications">Upozornění</string>
     <string name="drawer_item_on_device">Na přístroji</string>
     <string name="drawer_item_photos">Fotky</string>
     <string name="drawer_item_recently_added">Nedávno přidané</string>
@@ -414,7 +413,7 @@
     <string name="new_media_folder_detected">Zjištěna nová složka s médii %1$s.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
-    <string name="new_notification">Nové oznámení</string>
+    <string name="new_notification">Nové upozornění</string>
     <string name="new_version_was_created">Byla vytvořena nová verze</string>
     <string name="no_browser_available">Není k dispozici aplikace pro práci s odkazy</string>
     <string name="no_mutliple_accounts_allowed">Povolen je pouze jeden účet</string>
@@ -423,7 +422,7 @@
     <string name="note_could_not_sent">Poznámku se nepodařilo odeslat</string>
     <string name="notification_action_failed">Akci se nepodařilo provést.</string>
     <string name="notification_channel_download_description">Zobrazuje ukazatel postupu stahování</string>
-    <string name="notification_channel_download_name">Kanál oznamování o stažení</string>
+    <string name="notification_channel_download_name">Kanál pro upozorňování na stažení</string>
     <string name="notification_channel_file_observer_description">Monitoruje změny souborů</string>
     <string name="notification_channel_file_observer_name">Pozorování souborů</string>
     <string name="notification_channel_file_sync_description">Zobrazuje průběh a výsledek synchronizace souborů</string>
@@ -432,13 +431,13 @@
     <string name="notification_channel_general_name">Obecná oznámení</string>
     <string name="notification_channel_media_description">Průběh přehrávače hudby</string>
     <string name="notification_channel_media_name">Přehrávač médií</string>
-    <string name="notification_channel_push_description">Zobrazit push oznámení poslaná serverem: Zmínění v komentářích, příjem nových vzdálených sdílení, oznámení vydané správcem, atd.</string>
-    <string name="notification_channel_push_name">Vyskakovací oznámení</string>
+    <string name="notification_channel_push_description">Zobrazit push upozornění poslaná serverem: Zmínění v komentářích, příjem nových vzdálených sdílení, oznámení vydané správcem, atd.</string>
+    <string name="notification_channel_push_name">Push upozorňování</string>
     <string name="notification_channel_upload_description">Zobrazuje ukazatel postupu nahrávání</string>
-    <string name="notification_channel_upload_name">Kanál oznamování o nahrání</string>
+    <string name="notification_channel_upload_name">Kanál pro upozorňování na nahrání</string>
     <string name="notification_icon">Ikona oznámení</string>
-    <string name="notifications_loading_activity">Načítání oznámení…</string>
-    <string name="notifications_no_results_headline">Žádná oznámení</string>
+    <string name="notifications_loading_activity">Načítání upozornění…</string>
+    <string name="notifications_no_results_headline">Žádná upozornění</string>
     <string name="notifications_no_results_message">Vraťte se sem později.</string>
     <string name="offline_mode">Bez připojení k Internetu</string>
     <string name="outdated_server">Verze aplikace na straně serveru už je příliš stará na to, aby šla nadále používat – přejděte na novou!</string>
@@ -479,8 +478,8 @@
     <string name="prefs_daily_contacts_sync_summary">Každodenní záloha vašich kontaktů</string>
     <string name="prefs_e2e_mnemonic">E2E mnemotechnické</string>
     <string name="prefs_e2e_no_device_credentials">Pro zobrazení mnemotechnické, zapněte přihlašovací údaje zařízení.</string>
-    <string name="prefs_enable_media_scan_notifications">Zobrazit oznámení skenování médií</string>
-    <string name="prefs_enable_media_scan_notifications_summary">Oznamovat nalezení nových složek s médii</string>
+    <string name="prefs_enable_media_scan_notifications">Zobrazit upozornění ze skenování médií</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Upozorňovat na nové složky s médii</string>
     <string name="prefs_gpl_v2">GNU General Public License, verze 2</string>
     <string name="prefs_help">Nápověda</string>
     <string name="prefs_imprint">Imprint</string>
@@ -512,15 +511,15 @@
     <string name="preview_image_error_unknown_format">Obrázek se nedaří zobrazit</string>
     <string name="preview_sorry">Je nám líto</string>
     <string name="privacy">Soukromí</string>
-    <string name="push_notifications_not_implemented">Push oznámení zakázáno kvůli závislostem na proprietárních službách Google Play.</string>
-    <string name="push_notifications_old_login">Žádné push oznámení kvůli zastaralé relaci přihlášení. Zvažte opětovné přidání svého účtu.</string>
-    <string name="push_notifications_temp_error">Push oznámení momentálně nejsou k dispozici.</string>
+    <string name="push_notifications_not_implemented">Push upozorňování je vypnuto kvůli závislostem na proprietárních službách Google Play.</string>
+    <string name="push_notifications_old_login">Žádná push upozornění kvůli zastaralé relaci přihlášení. Zvažte odebrání a opětovné přidání svého účtu.</string>
+    <string name="push_notifications_temp_error">Push upozornění momentálně nejsou k dispozici.</string>
     <string name="recommend_subject">Vyzkoušejte %1$s ve svém zařízení!</string>
     <string name="recommend_text">Rád(a) bych Vás/Tě pozval(a) k používání %1$s na vašem/tvém zařízení.\nKe stažení zde: %2$s</string>
     <string name="recommend_urls">%1$s nebo %2$s</string>
     <string name="remote_file_fetch_failed">Nepodařilo se najít soubor!</string>
     <string name="remove_fail_msg">Odstranění se nezdařilo</string>
-    <string name="remove_notification_failed">Oznámení se nepodařilo odebrat.</string>
+    <string name="remove_notification_failed">Upozornění se nepodařilo odebrat.</string>
     <string name="remove_push_notification">Odebrat</string>
     <string name="remove_success_msg">Smazáno</string>
     <string name="rename_dialog_title">Zadejte nový název</string>
@@ -651,23 +650,26 @@
     <string name="storage_movies">Videa</string>
     <string name="storage_music">Hudba</string>
     <string name="storage_pictures">Obrázky</string>
-    <string name="store_full_desc">Software, který můžete nasadit na vlastní server a ten organizuje ukládání a synchronizaci souborů. Díky doplňkům jde o kompletní groupwarové řešení.
+    <string name="store_full_desc">U vás hostovaná platforma pro produktivitu, která ponechává kontrolu vám
+
 Funkce:
-* Soubory nahrané do nexcloudu lze snadno sdílet s ostatními.
-* Přístup odkudkoli přes webové a mobilní rozhraní.
-* Synchronizace s počítačem umožňující offline práci.
-* Vaše data jsou na vašem serveru a máte nad nimi plnou kontrolu.
-* Jde o svobodný software, který snadno můžete sami hostovat a volně si ho přizplsobit.  V případě potřeby je ale k dispozici komerční podpora.
-* Vyhledávání napříč soubory.
-* Synchronizace kontaktů a zpráv.
-* Sdílení kalendářů do mobilu (DAVx5/DAVdroid)
-* Neomezený počet uživatelů, autoupload fotek přímo z mobilu, oznámení, 
-* Klienti pro WIndows, MacOS, iOS, Android, web.
-* Mnoho dalších doplňků s dalšími funkcemi.
+* Snadno použitelné moderní rozhraní, s motivem vzhledu sladěným s tím nastaveným na serveru
+* Nahrávání souborů na vámi využívaný Nextcloud server
+* Jejich sdílení s ostatními
+* Udržování vašich oblíbených souborů a složek synchronizovaných
+* Vyhledávání napříč všemi složkami na vámi využívaném serveru
+* Automatické nahrávání fotek a videí pořízených vaším zařízením
+* Budete v obraze díky upozorněním
+* Podpora vícero účtů
+* Zabezpečení přístupu k vašim datům otiskem prstu nebo PIN kódem
+*  Propojení s aplikací DAVx5 (dříve známé jako DAVdroid) pro snadné nastavení synchronizace kalendáře a kontaktů
 
-Díky Nextcloudu budete mít kompletní privátní řešení pro všechy vaše soubory, fotky, kalendáře a kontakty. 
 
-Připomínky  zasílejte na https://github.com/nextcloud/android/issues, diskutovat lze na https://help.nextcloud.com/c/clients a vše ostatní najdete na  https://nextcloud.com </string>
+Veškeré problémy prosíme hlaste na https://github.com/nextcloud/android/issues, diskutovat lze na https://help.nextcloud.com/c/clients/android
+
+Ještě Nextcloud neznáte? Je to server pro komunikaci, synchronizaci a sdílení vašich dat. Jedná se o svobodný software, který můžete provozovat sami, nebo si jako službu koupit u jiné společnosti. Díky tomu máte kontrolu nad svými fotkami, kalendářem, kontakty i dokumenty a vším ostatním.
+
+Další informace o Nextcloud naleznete na  https://nextcloud.com</string>
     <string name="store_full_dev_desc">Kompletní privátní řešení pro všechy vaše soubory, fotky, kalendáře a kontakty. 
 Toto je oficiální vývojová verze aktualizovaná denně. Obsahuje nejnovější fukcionaliti, ale může být nestabilní a ohrozit vaše data. Je pro uživatele, kteří jsou ochotni testovat a hlásit chyby na které narazí. Nepoužívejte ji pro svoje produkční prostředí.
 Jak vývojová tak produkční verze je k dispozici na F-droidu a mohou být nainstalovány souběžně.</string>

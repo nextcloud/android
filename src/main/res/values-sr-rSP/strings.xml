@@ -170,7 +170,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiranje/premeštanje u šifrovanu fasciklu nije podržano.</string>
     <string name="copy_to">Kopiraj u…</string>
     <string name="could_not_download_image">Nije moguće preuzeti celu sliku</string>
-    <string name="could_not_retrieve_url">Ne mogu da dobavim adresu</string>
     <string name="create_dir_fail_msg">Ne mogu da napravim fasciklu</string>
     <string name="create_new_document">Napravi novi dokument</string>
     <string name="create_new_folder">Napravi novu fasciklu</string>

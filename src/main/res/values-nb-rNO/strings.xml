@@ -168,7 +168,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiering/flytting til kryptert mappe støttes ikke enda.</string>
     <string name="copy_to">Kopier til…</string>
     <string name="could_not_download_image">Kunne ikke laste ned det fulle bildet</string>
-    <string name="could_not_retrieve_url">Kunne ikke få tilbake url</string>
     <string name="create_dir_fail_msg">Mappe kunne ikke opprettes</string>
     <string name="create_new_document">Opprett nytt dokument</string>
     <string name="create_new_folder">Opprett ny mappe</string>

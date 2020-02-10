@@ -153,7 +153,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopijavimas/perkėlimas į šifruotą aplanką šiuo metu nėra palaikomas.</string>
     <string name="copy_to">Kopijuoti į…</string>
     <string name="could_not_download_image">Nepavyko atsisiųsti viso paveikslo</string>
-    <string name="could_not_retrieve_url">Nepavyko atgauti url</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
     <string name="create_new">Sukurti naują</string>
     <string name="create_new_document">Sukurti naują dokumentą</string>
