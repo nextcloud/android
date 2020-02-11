@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírovanie/presun do šifrovaného priečinku v súčasnosti nie je podporované.</string>
     <string name="copy_to">Kopírovať do…</string>
     <string name="could_not_download_image">Nie je možné stiahnuť celý obráz</string>
-    <string name="could_not_retrieve_url">Nie je možné získať URL</string>
     <string name="create_dir_fail_msg">Nemožno vytvoriť priečinok</string>
     <string name="create_new_document">Vytvoriť nový dokument</string>
     <string name="create_new_folder">Vytvoriť nový priečinok</string>

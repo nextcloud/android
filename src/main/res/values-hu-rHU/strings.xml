@@ -168,7 +168,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">A titkosított mappába másolás/áthelyezés jelenleg nem támogatott.</string>
     <string name="copy_to">Másolás ide…</string>
     <string name="could_not_download_image">Nem sikerült letölteni a teljes képet</string>
-    <string name="could_not_retrieve_url">Az URL nem kérhető le</string>
     <string name="create_dir_fail_msg">A mappa létrehozása sikertelen</string>
     <string name="create_new_document">Új dokumentum létrehozása</string>
     <string name="create_new_folder">Új mappa létrehozása</string>

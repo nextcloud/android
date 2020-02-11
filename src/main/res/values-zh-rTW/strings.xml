@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">不支援複製移動加密的資料夾</string>
     <string name="copy_to">複製到…</string>
     <string name="could_not_download_image">無法下載完整圖片</string>
-    <string name="could_not_retrieve_url">無法存取網址</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
     <string name="create_new_document">新增文件</string>
     <string name="create_new_folder">新增資料夾</string>

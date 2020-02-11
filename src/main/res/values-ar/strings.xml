@@ -168,7 +168,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">النسخ أو النقل إلى مجلد مشفر حالياً غير مدعوم.</string>
     <string name="copy_to">انسخه إلى…</string>
     <string name="could_not_download_image">لايمكن تحميل الصورة بأكملها</string>
-    <string name="could_not_retrieve_url">لايمكن إسترجاع العنوان</string>
     <string name="create_dir_fail_msg">تعذر إنشاء المُجلّد</string>
     <string name="create_new_document">أنشئ مستندا جديدا</string>
     <string name="create_new_folder">أنشئ مجلدا جديدا</string>

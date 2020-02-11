@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">現在サポートされていない暗号化されたフォルダにコピー/移動します。</string>
     <string name="copy_to">コピー…</string>
     <string name="could_not_download_image">イメージ全体をダウンロードできませんでした</string>
-    <string name="could_not_retrieve_url">URL を取得できませんでした</string>
     <string name="create_dir_fail_msg">フォルダーを作成できません</string>
     <string name="create_new">新規作成</string>
     <string name="create_new_document">新しい文書を作成する</string>

@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Копирование и перемещение в зашифрованные папки пока не поддерживается.</string>
     <string name="copy_to">Копировать…</string>
     <string name="could_not_download_image">Не удалось скачать полноразмерное изображение</string>
-    <string name="could_not_retrieve_url">Не удалось получить URL-адрес</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
     <string name="create_new">Создать</string>
     <string name="create_new_document">Создать документ</string>
@@ -587,7 +586,7 @@
     <string name="share_privilege_unshare">Закрыть доступ</string>
     <string name="share_remote_clarification">%1$s (на сервере)</string>
     <string name="share_room_clarification">%1$s (беседа)</string>
-    <string name="share_search">Имя, ID облачного хранилища или адрес email…</string>
+    <string name="share_search">Имя, ID межсерверного обмена или адрес эл.почты…</string>
     <string name="share_send_note">Примечание для получателя</string>
     <string name="share_via_link_edit_permission_label">Разрешить редактирование</string>
     <string name="share_via_link_expiration_date_label">Установить срок действия</string>

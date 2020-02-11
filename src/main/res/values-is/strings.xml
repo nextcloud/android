@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Ekki er stuðningur ennþá við afritun/færslu inn í dulritaða möppu.</string>
     <string name="copy_to">Afrita í…</string>
     <string name="could_not_download_image">Gat ekki sótt alla myndina</string>
-    <string name="could_not_retrieve_url">Tókst ekki að ná í slóð</string>
     <string name="create_dir_fail_msg">Gat ekki búið til möppu</string>
     <string name="create_new_document">Búa til nýtt skjal</string>
     <string name="create_new_folder">Búa til nýja möppu</string>

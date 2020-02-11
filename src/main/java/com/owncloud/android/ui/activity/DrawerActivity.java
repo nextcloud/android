@@ -28,7 +28,6 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AccountManagerFuture;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -374,8 +373,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                                                                                getContentResolver());
         OCCapability capability = storageManager.getCapability(user.getAccountName());
 
-        DrawerMenuUtil.filterSearchMenuItems(menu, user.toPlatformAccount(), getResources(), true);
-        DrawerMenuUtil.filterTrashbinMenuItem(menu, user.toPlatformAccount(), capability, accountManager);
+        DrawerMenuUtil.filterSearchMenuItems(menu, user, getResources(), true);
+        DrawerMenuUtil.filterTrashbinMenuItem(menu, user, capability);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
 
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
@@ -510,7 +509,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
                     startActivity(firstRunIntent);
                 } else {
-                    createAccount(false);
+                    startAccountCreation();
                 }
                 break;
 
@@ -1350,13 +1349,6 @@ public abstract class DrawerActivity extends ToolbarActivity
      * restart helper method which is called after a changing the current account.
      */
     protected abstract void restart();
-
-    @Override
-    protected void onAccountCreationSuccessful(AccountManagerFuture<Bundle> future) {
-        super.onAccountCreationSuccessful(future);
-        updateAccountList();
-        restart();
-    }
 
     /**
      * Get list of users suitable for displaying in navigation drawer header.

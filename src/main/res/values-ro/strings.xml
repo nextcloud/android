@@ -162,7 +162,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copierea/mutarea în directorul criptat nu este suportată.</string>
     <string name="copy_to">Copiază în…</string>
     <string name="could_not_download_image">Nu s-a putut descărca imaginea completă</string>
-    <string name="could_not_retrieve_url">Nu a fost găsit URL-ul</string>
     <string name="create_dir_fail_msg">Nu s-a putut crea directorul</string>
     <string name="create_new_document">Crează document nou</string>
     <string name="create_new_folder">Creează director nou</string>

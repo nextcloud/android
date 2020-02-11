@@ -169,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
     <string name="copy_to">Şuraya kopyala …</string>
     <string name="could_not_download_image">Tam boyuttaki görsel indirilemedi</string>
-    <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
     <string name="create_new">Yeni ekle</string>
     <string name="create_new_document">Yeni belge</string>
@@ -723,7 +722,7 @@
     <string name="upload_local_storage_full">Yerel depolama alanı doldu</string>
     <string name="upload_local_storage_not_copied">Dosya yerel depolamaya kopyalanamadı</string>
     <string name="upload_lock_failed">Klasör kilitlenemedi</string>
-    <string name="upload_old_android">Şifreleme sadece &gt;=Android 5.0 ile mümkündür</string>
+    <string name="upload_old_android">Şifreleme yalnız &gt;=Android 5.0 üzerinde kullanılabilir </string>
     <string name="upload_query_move_foreign_files">Seçilmiş dosyaları %1$s klasörüne kopyalamak için yeterli boş alan yok. Bu dosyaları kopyalamak yerine taşımak ister misiniz?</string>
     <string name="upload_sync_conflict">Eşitleme çakışması, lütfen sorunu el ile çözün</string>
     <string name="upload_unknown_error">Bilinmeyen sorun</string>
