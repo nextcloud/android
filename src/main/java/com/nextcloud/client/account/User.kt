@@ -21,9 +21,10 @@
 package com.nextcloud.client.account
 
 import android.accounts.Account
+import android.os.Parcelable
 import com.owncloud.android.lib.common.OwnCloudAccount
 
-interface User {
+interface User : Parcelable {
     val accountName: String
     val server: Server
     val isAnonymous: Boolean
@@ -51,4 +52,11 @@ interface User {
      */
     @Deprecated("Temporary workaround")
     fun toOwnCloudAccount(): OwnCloudAccount
+
+    /**
+     * Compare account names, case insensitive.
+     *
+     * @return true if account names are same, false otherwise
+     */
+    fun nameEquals(user: User?): Boolean
 }

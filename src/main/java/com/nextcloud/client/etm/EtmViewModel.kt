@@ -19,23 +19,53 @@
  */
 package com.nextcloud.client.etm
 
+import android.accounts.Account
+import android.accounts.AccountManager
 import android.content.SharedPreferences
+import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.nextcloud.client.etm.pages.EtmAccountsFragment
 import com.nextcloud.client.etm.pages.EtmPreferencesFragment
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.accounts.AccountUtils
 import javax.inject.Inject
 
 class EtmViewModel @Inject constructor(
-    private val defaultPreferences: SharedPreferences
+    private val defaultPreferences: SharedPreferences,
+    private val platformAccountManager: AccountManager,
+    private val resources: Resources
 ) : ViewModel() {
+
+    companion object {
+        val ACCOUNT_USER_DATA_KEYS = listOf(
+            // AccountUtils.Constants.KEY_COOKIES, is disabled
+            AccountUtils.Constants.KEY_DISPLAY_NAME,
+            AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
+            AccountUtils.Constants.KEY_OC_BASE_URL,
+            AccountUtils.Constants.KEY_OC_VERSION,
+            AccountUtils.Constants.KEY_USER_ID
+        )
+    }
+
+    /**
+     * This data class holds all relevant account information that is
+     * otherwise kept in separate collections.
+     */
+    data class AccountData(val account: Account, val userData: Map<String, String?>)
+
     val currentPage: LiveData<EtmMenuEntry?> = MutableLiveData()
     val pages: List<EtmMenuEntry> = listOf(
         EtmMenuEntry(
             iconRes = R.drawable.ic_settings,
             titleRes = R.string.etm_preferences,
             pageClass = EtmPreferencesFragment::class
+        ),
+        EtmMenuEntry(
+            iconRes = R.drawable.ic_user,
+            titleRes = R.string.etm_accounts,
+            pageClass = EtmAccountsFragment::class
         )
     )
 
@@ -44,6 +74,16 @@ class EtmViewModel @Inject constructor(
             .map { it.key to "${it.value}" }
             .sortedBy { it.first }
             .toMap()
+    }
+
+    val accounts: List<AccountData> get() {
+        val accountType = resources.getString(R.string.account_type)
+        return platformAccountManager.getAccountsByType(accountType).map { account ->
+            val userData: Map<String, String?> = ACCOUNT_USER_DATA_KEYS.map { key ->
+                key to platformAccountManager.getUserData(account, key)
+            }.toMap()
+            AccountData(account, userData)
+        }
     }
 
     init {
