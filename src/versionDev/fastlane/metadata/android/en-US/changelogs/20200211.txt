@@ -1,0 +1,13 @@
+92ddf10d0 Merge remote-tracking branch 'origin/master' into dev
+5905b1c5a Merge pull request #5432 from nextcloud/ezaquarii/migrate-drawer-menu-utils-to-new-user-model
+4be18adc2 Merge pull request #5064 from nextcloud/ezaquarii/extract-account-logic-from-base-activity-into-mixin
+619b5d05d Merge pull request #5419 from nextcloud/dependabot/gradle/org.projectlombok-lombok-1.18.12
+2d6e73dd3 Merge pull request #5414 from nextcloud/fixContactCrash
+1bb04aa29 also increase annotationProcessor
+6048243f4 Fix crash: Caused by: java.lang.ClassCastException: java.lang.Object[] cannot be cast to java.lang.Void[]
+0027df9d0 [tx-robot] updated from transifex
+6dd5d925a Merge pull request #5443 from nextcloud/fixTransifex
+b4db9d07a do not break line on transifex
+b5fb9c137 Migrate drawer menu utilities to new user model
+a906a14b1 daily dev 20200208
+library commit: 5eae23144e4567b39499b26fdc61271b8fff17f2
