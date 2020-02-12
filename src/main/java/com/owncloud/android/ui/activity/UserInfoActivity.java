@@ -53,7 +53,6 @@ import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.jobs.AccountRemovalJob;
 import com.owncloud.android.lib.common.UserInfo;
@@ -126,13 +125,15 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
 
-        final Account account = Parcels.unwrap(bundle.getParcelable(KEY_ACCOUNT));
-        Optional<User> optionalUser = accountManager.getUser(account != null ? account.name : "");
-        if(!optionalUser.isPresent()) {
+        if (bundle == null) {
             finish();
             return;
-        } else {
-            user = optionalUser.get();
+        }
+
+        user = bundle.getParcelable(KEY_ACCOUNT);
+        if(user == null) {
+            finish();
+            return;
         }
 
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_USER_DATA)) {
@@ -145,7 +146,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         unbinder = ButterKnife.bind(this);
 
         boolean useBackgroundImage = URLUtil.isValidUrl(
-                getStorageManager().getCapability(account.name).getServerBackground());
+                getStorageManager().getCapability(user.getAccountName()).getServerBackground());
 
         setupToolbar(useBackgroundImage);
         updateActionBarTitleAndHomeButtonByString("");

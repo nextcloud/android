@@ -460,7 +460,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     @Override
     public void onClick(User user) {
         final Intent intent = new Intent(this, UserInfoActivity.class);
-        intent.putExtra(UserInfoActivity.KEY_ACCOUNT, Parcels.wrap(user));
+        intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);
         OwnCloudAccount oca = user.toOwnCloudAccount();
         intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
         startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);

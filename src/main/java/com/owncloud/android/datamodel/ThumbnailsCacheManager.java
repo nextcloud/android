@@ -824,9 +824,14 @@ public final class ThumbnailsCacheManager {
         private Context mContext;
 
 
-        public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener, Object callContext,
-                                    Account account, Resources resources, float avatarRadius, String userId,
-                                    String serverName, Context context) {
+        public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener,
+                                    Object callContext,
+                                    Account account,
+                                    Resources resources,
+                                    float avatarRadius,
+                                    String userId,
+                                    String serverName,
+                                    Context context) {
             mAvatarGenerationListener = new WeakReference<>(avatarGenerationListener);
             mCallContext = callContext;
             mAccount = account;
@@ -865,7 +870,8 @@ public final class ThumbnailsCacheManager {
                 AvatarGenerationListener listener = mAvatarGenerationListener.get();
                 if (listener != null) {
                     AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(mCallContext);
-                    if (this == avatarWorkerTask && listener.shouldCallGeneratedCallback(mUserId, mCallContext)) {
+                    String accountName = mUserId + "@" + mServerName;
+                    if (this == avatarWorkerTask && listener.shouldCallGeneratedCallback(accountName, mCallContext)) {
                         listener.avatarGenerated(drawable, mCallContext);
                     }
                 }
