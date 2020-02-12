@@ -2,8 +2,11 @@
  *   Nextcloud Android client application
  *
  *   @author Andy Scherzinger
+ *   @author Chris Narkiewicz <hello@ezaquarii.com>
+ *
  *   Copyright (C) 2016 Andy Scherzinger
  *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -23,54 +26,60 @@ package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 
+import com.nextcloud.client.account.User;
+
 /**
  * Container implementation to add {@link Account}s and the add action to the list.
  */
-public class AccountListItem {
+public class UserListItem {
     static final int TYPE_ACCOUNT = 0;
     static final int TYPE_ACTION_ADD = 1;
 
-    private Account mAccount;
-    private int mType;
-    private boolean mEnabled;
+    private User user;
+    private int type;
+    private boolean enabled;
 
     /**
      * creates an account list item containing an {@link Account}.
      *
-     * @param account the account
+     * @param user the account
      */
-    public AccountListItem(Account account) {
-        mAccount = account;
-        mType = TYPE_ACCOUNT;
-        mEnabled = true;
+    public UserListItem(User user) {
+        this.user = user;
+        this.type = TYPE_ACCOUNT;
+        this.enabled = true;
     }
 
-    public AccountListItem(Account account, boolean enabled) {
-        mAccount = account;
-        mType = TYPE_ACCOUNT;
-        mEnabled = enabled;
+    public UserListItem(User user, boolean enabled) {
+        this.user = user;
+        this.type = TYPE_ACCOUNT;
+        this.enabled = enabled;
     }
 
     /**
      * creates an account list item flagged as add-action.
      */
-    public AccountListItem() {
-        mType = TYPE_ACTION_ADD;
+    public UserListItem() {
+        type = TYPE_ACTION_ADD;
     }
 
     public Account getAccount() {
-        return mAccount;
+        return user.toPlatformAccount();
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public int getType() {
-        return mType;
+        return type;
     }
 
     public void setEnabled(boolean bool) {
-        mEnabled = bool;
+        enabled = bool;
     }
 
     public boolean isEnabled() {
-        return mEnabled;
+        return enabled;
     }
 }

@@ -2,7 +2,8 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
- * @author Chris Narkiewicz
+ * @author Chris Narkiewicz <hello@ezaquarii.com>
+ *
  * Copyright (C) 2018 Tobias Kaminsky
  * Copyright (C) 2018 Nextcloud
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
@@ -27,6 +28,7 @@ import android.accounts.Account;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -40,9 +42,11 @@ import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -235,14 +239,11 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         itemViewHolder.date.setText(dateString);
 
         // account
-        Account account = accountManager.getAccountByName(item.getAccountName());
+        final Optional<User> optionalUser = accountManager.getUser(item.getAccountName());
         if (showUser) {
             itemViewHolder.account.setVisibility(View.VISIBLE);
-            if (account != null) {
-                itemViewHolder.account.setText(DisplayUtils.getAccountNameDisplayText(parentActivity,
-                                                                                      account,
-                                                                                      account.name,
-                                                                                      item.getAccountName()));
+            if (optionalUser.isPresent()) {
+                itemViewHolder.account.setText(DisplayUtils.getAccountNameDisplayText(optionalUser.get()));
             } else {
                 itemViewHolder.account.setText(item.getAccountName());
             }
@@ -454,8 +455,14 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         .getColor(R.color.bg_default));
             }
         } else {
-            itemViewHolder.thumbnail.setImageDrawable(MimeTypeUtil.getFileTypeIcon(item.getMimeType(), fileName,
-                                                                                   account, parentActivity));
+            if (optionalUser.isPresent()) {
+                final User user = optionalUser.get();
+                final Drawable icon = MimeTypeUtil.getFileTypeIcon(item.getMimeType(),
+                                                                   fileName,
+                                                                   user.toPlatformAccount(),
+                                                                   parentActivity);
+                itemViewHolder.thumbnail.setImageDrawable(icon);
+            }
         }
     }
 

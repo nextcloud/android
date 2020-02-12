@@ -3,8 +3,11 @@
  *  Nextcloud Android client application
  *
  *  @author Tobias Kaminsky
+ *  @author Chris Narkiewicz <hello@ezaquarii.com>
+ *
  *  Copyright (C) 2019 Tobias Kaminsky
  *  Copyright (C) 2019 Nextcloud GmbH
+ *  Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published by
@@ -23,7 +26,6 @@
 
 package com.owncloud.android.ui.dialog;
 
-import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -34,12 +36,13 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
-import com.owncloud.android.ui.adapter.AccountListAdapter;
-import com.owncloud.android.ui.adapter.AccountListItem;
+import com.owncloud.android.ui.adapter.UserListAdapter;
+import com.owncloud.android.ui.adapter.UserListItem;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
@@ -57,7 +60,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MultipleAccountsDialog extends DialogFragment implements Injectable, AccountListAdapter.ClickListener {
+public class MultipleAccountsDialog extends DialogFragment implements Injectable, UserListAdapter.ClickListener {
     @BindView(R.id.list)
     RecyclerView listView;
 
@@ -87,12 +90,12 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
         DrawableCompat.setTint(tintedCheck, tint);
 
 
-        AccountListAdapter adapter = new AccountListAdapter(parent,
-                                         accountManager,
-                                         getAccountListItems(),
-                                         tintedCheck,
-                                         this,
-                                         false);
+        UserListAdapter adapter = new UserListAdapter(parent,
+                                                      accountManager,
+                                                      getAccountListItems(),
+                                                      tintedCheck,
+                                                      this,
+                                                      false);
 
         listView.setHasFixedSize(true);
         listView.setLayoutManager(new LinearLayoutManager(activity));
@@ -117,21 +120,21 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
      *
      * @return list of account list items
      */
-    private List<AccountListItem> getAccountListItems() {
-        Account[] accountList = accountManager.getAccounts();
-        List<AccountListItem> adapterAccountList = new ArrayList<>(accountList.length);
-        for (Account account : accountList) {
-            adapterAccountList.add(new AccountListItem(account));
+    private List<UserListItem> getAccountListItems() {
+        List<User> users = accountManager.getAllUsers();
+        List<UserListItem> adapterUserList = new ArrayList<>(users.size());
+        for (User user : users) {
+            adapterUserList.add(new UserListItem(user));
         }
 
-        return adapterAccountList;
+        return adapterUserList;
     }
 
     @Override
-    public void onClick(Account account) {
+    public void onClick(User user) {
         final ReceiveExternalFilesActivity parentActivity = (ReceiveExternalFilesActivity) getActivity();
         if (parentActivity != null) {
-            parentActivity.changeAccount(account);
+            parentActivity.changeAccount(user.toPlatformAccount());
         }
         dismiss();
     }

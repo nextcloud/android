@@ -30,11 +30,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import androidx.test.runner.lifecycle.Stage;
 
 import static androidx.test.InstrumentationRegistry.getInstrumentation;
 import static androidx.test.espresso.Espresso.onView;
@@ -51,6 +54,8 @@ public abstract class AbstractIT {
     protected static OwnCloudClient client;
     protected static Account account;
     protected static Context targetContext;
+
+    private Activity currentActivity;
 
     @BeforeClass
     public static void beforeAll() {
@@ -166,5 +171,19 @@ public abstract class AbstractIT {
         waitForIdleSync();
 
         Screenshot.snapActivity(sut).record();
+    }
+
+    protected Activity getCurrentActivity() {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(() -> {
+            Collection<Activity> resumedActivities = ActivityLifecycleMonitorRegistry
+                .getInstance()
+                .getActivitiesInStage(Stage.RESUMED);
+
+            if (resumedActivities.iterator().hasNext()) {
+                currentActivity = resumedActivities.iterator().next();
+            }
+        });
+
+        return currentActivity;
     }
 }

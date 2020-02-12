@@ -2,9 +2,9 @@
  * ownCloud Android client application
  *
  * @author Andy Scherzinger
- * @author Chris Narkiewicz
+ * @author Chris Narkiewicz  <hello@ezaquarii.com>
  * Copyright (C) 2016 ownCloud Inc.
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * <p/>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -41,6 +41,7 @@ import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.onboarding.FirstRunActivity;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -51,11 +52,10 @@ import com.owncloud.android.jobs.AccountRemovalJob;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
-import com.owncloud.android.ui.adapter.AccountListAdapter;
-import com.owncloud.android.ui.adapter.AccountListItem;
+import com.owncloud.android.ui.adapter.UserListAdapter;
+import com.owncloud.android.ui.adapter.UserListItem;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -63,7 +63,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -74,16 +75,16 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static com.owncloud.android.ui.adapter.AccountListAdapter.KEY_DISPLAY_NAME;
-import static com.owncloud.android.ui.adapter.AccountListAdapter.KEY_USER_INFO_REQUEST_CODE;
+import static com.owncloud.android.ui.adapter.UserListAdapter.KEY_DISPLAY_NAME;
+import static com.owncloud.android.ui.adapter.UserListAdapter.KEY_USER_INFO_REQUEST_CODE;
 
 /**
  * An Activity that allows the user to manage accounts.
  */
-public class ManageAccountsActivity extends FileActivity implements AccountListAdapter.AccountListAdapterListener,
+public class ManageAccountsActivity extends FileActivity implements UserListAdapter.Listener,
     AccountManagerCallback<Boolean>,
     ComponentsGetter,
-    AccountListAdapter.ClickListener {
+    UserListAdapter.ClickListener {
     private static final String TAG = ManageAccountsActivity.class.getSimpleName();
 
     public static final String KEY_ACCOUNT_LIST_CHANGED = "ACCOUNT_LIST_CHANGED";
@@ -97,11 +98,11 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
     private RecyclerView recyclerView;
     private final Handler handler = new Handler();
     private String accountName;
-    private AccountListAdapter accountListAdapter;
+    private UserListAdapter userListAdapter;
     private ServiceConnection downloadServiceConnection;
     private ServiceConnection uploadServiceConnection;
-    private Set<String> originalAccounts;
-    private String originalCurrentAccount;
+    private Set<String> originalUsers;
+    private String originalCurrentUser;
     private Drawable tintedCheck;
 
     private ArbitraryDataProvider arbitraryDataProvider;
@@ -124,27 +125,26 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
         setupToolbar();
         updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.prefs_manage_accounts));
 
-        Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
-        originalAccounts = DisplayUtils.toAccountNameSet(Arrays.asList(accountList));
+        List<User> users = accountManager.getAllUsers();
+        originalUsers = toAccountNames(users);
 
-        Account currentAccount = getAccount();
-
-        if (currentAccount != null) {
-            originalCurrentAccount = currentAccount.name;
+        Optional<User> currentUser = getUser();
+        if (currentUser.isPresent()) {
+            originalCurrentUser = currentUser.get().getAccountName();
         }
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
         multipleAccountsSupported = getResources().getBoolean(R.bool.multiaccount_support);
 
-        accountListAdapter = new AccountListAdapter(this,
-                                                    accountManager,
-                                                    getAccountListItems(),
-                                                    tintedCheck,
-                                                    this,
-                                                    multipleAccountsSupported);
+        userListAdapter = new UserListAdapter(this,
+                                              accountManager,
+                                              getUserListItems(),
+                                              tintedCheck,
+                                              this,
+                                              multipleAccountsSupported);
 
-        recyclerView.setAdapter(accountListAdapter);
+        recyclerView.setAdapter(userListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         initializeComponentGetters();
     }
@@ -155,9 +155,12 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
         if (resultCode == KEY_DELETE_CODE && data != null) {
             Bundle bundle = data.getExtras();
             if (bundle != null && bundle.containsKey(UserInfoActivity.KEY_ACCOUNT)) {
-                Account account = Parcels.unwrap(bundle.getParcelable(UserInfoActivity.KEY_ACCOUNT));
-                accountName = account.name;
-                performAccountRemoval(account);
+                final Account account = Parcels.unwrap(bundle.getParcelable(UserInfoActivity.KEY_ACCOUNT));
+                if (account != null) {
+                    User user = accountManager.getUser(account.name).orElseThrow(RuntimeException::new);
+                    accountName = account.name;
+                    performAccountRemoval(user);
+                }
             }
         }
     }
@@ -178,19 +181,25 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
      * @return true if account list has changed, false if not
      */
     private boolean hasAccountListChanged() {
-        Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
-
-        ArrayList<Account> newList = new ArrayList<>();
-        for (Account account : accountList) {
-            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(account, PENDING_FOR_REMOVAL);
+        List<User> users = accountManager.getAllUsers();
+        List<User> newList = new ArrayList<>();
+        for (User user : users) {
+            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(user.toPlatformAccount(), PENDING_FOR_REMOVAL);
 
             if (!pendingForRemoval) {
-                newList.add(account);
+                newList.add(user);
             }
         }
+        Set<String> actualAccounts = toAccountNames(newList);
+        return !originalUsers.equals(actualAccounts);
+    }
 
-        Set<String> actualAccounts = DisplayUtils.toAccountNameSet(newList);
-        return !originalAccounts.equals(actualAccounts);
+    private static Set<String> toAccountNames(Collection<User> users) {
+        Set<String> accountNames = new HashSet<>(users.size());
+        for (User user : users) {
+            accountNames.add(user.getAccountName());
+        }
+        return accountNames;
     }
 
     /**
@@ -199,11 +208,11 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
      * @return true if account list has changed, false if not
      */
     private boolean hasCurrentAccountChanged() {
-        User account = getUserAccountManager().getUser();
-        if (account.isAnonymous()) {
+        User user = getUserAccountManager().getUser();
+        if (user.isAnonymous()) {
             return true;
         } else {
-            return !account.getAccountName().equals(originalCurrentAccount);
+            return !user.getAccountName().equals(originalCurrentUser);
         }
     }
 
@@ -223,25 +232,20 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
         }
     }
 
-    /**
-     * creates the account list items list including the add-account action in case multiaccount_support is enabled.
-     *
-     * @return list of account list items
-     */
-    private List<AccountListItem> getAccountListItems() {
-        Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
-        List<AccountListItem> adapterAccountList = new ArrayList<>(accountList.length);
-        for (Account account : accountList) {
-            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(account, PENDING_FOR_REMOVAL);
-            adapterAccountList.add(new AccountListItem(account, !pendingForRemoval));
+    private List<UserListItem> getUserListItems() {
+        List<User> users = accountManager.getAllUsers();
+        List<UserListItem> userListItems = new ArrayList<>(users.size());
+        for (User user : users) {
+            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(user.toPlatformAccount(),
+                                                                              PENDING_FOR_REMOVAL);
+            userListItems.add(new UserListItem(user, !pendingForRemoval));
         }
 
-        // Add Create Account item at the end of account list if multi-account is enabled
         if (getResources().getBoolean(R.bool.multiaccount_support)) {
-            adapterAccountList.add(new AccountListItem());
+            userListItems.add(new UserListItem());
         }
 
-        return adapterAccountList;
+        return userListItems;
     }
 
     @Override
@@ -279,16 +283,16 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
                                   Bundle result = future.getResult();
                                   String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
                                   accountManager.setCurrentOwnCloudAccount(name);
-                                  accountListAdapter = new AccountListAdapter(
+                                  userListAdapter = new UserListAdapter(
                                       this,
                                       accountManager,
-                                      getAccountListItems(),
+                                      getUserListItems(),
                                       tintedCheck,
                                       this,
                                       multipleAccountsSupported
                                   );
-                                  recyclerView.setAdapter(accountListAdapter);
-                                  runOnUiThread(() -> accountListAdapter.notifyDataSetChanged());
+                                  recyclerView.setAdapter(userListAdapter);
+                                  runOnUiThread(() -> userListAdapter.notifyDataSetChanged());
                               } catch (OperationCanceledException e) {
                                   Log_OC.d(TAG, "Account creation canceled");
                               } catch (Exception e) {
@@ -300,10 +304,10 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAccountRemovedEvent(AccountRemovedEvent event) {
-        List<AccountListItem> accountListItemArray = getAccountListItems();
-        accountListAdapter.clear();
-        accountListAdapter.addAll(accountListItemArray);
-        accountListAdapter.notifyDataSetChanged();
+        List<UserListItem> userListItemArray = getUserListItems();
+        userListAdapter.clear();
+        userListAdapter.addAll(userListItemArray);
+        userListAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -331,16 +335,16 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
                 accountManager.setCurrentOwnCloudAccount(accountName);
             }
 
-            List<AccountListItem> accountListItemArray = getAccountListItems();
-            if (accountListItemArray.size() > SINGLE_ACCOUNT) {
-                accountListAdapter = new AccountListAdapter(this,
-                                                            accountManager,
-                                                            accountListItemArray,
-                                                            tintedCheck,
-                                                            this,
-                                                            multipleAccountsSupported
+            List<UserListItem> userListItemArray = getUserListItems();
+            if (userListItemArray.size() > SINGLE_ACCOUNT) {
+                userListAdapter = new UserListAdapter(this,
+                                                      accountManager,
+                                                      userListItemArray,
+                                                      tintedCheck,
+                                                      this,
+                                                      multipleAccountsSupported
                 );
-                recyclerView.setAdapter(accountListAdapter);
+                recyclerView.setAdapter(userListAdapter);
             } else {
                 onBackPressed();
             }
@@ -387,34 +391,34 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
         return new ManageAccountsServiceConnection();
     }
 
-    private void performAccountRemoval(Account account) {
+    private void performAccountRemoval(User user) {
         // disable account in recycler view
-        for (int i = 0; i < accountListAdapter.getItemCount(); i++) {
-            AccountListItem item = accountListAdapter.getItem(i);
+        for (int i = 0; i < userListAdapter.getItemCount(); i++) {
+            UserListItem item = userListAdapter.getItem(i);
 
-            if (item != null && item.getAccount().equals(account)) {
+            if (item != null && item.getUser().getAccountName().equalsIgnoreCase(user.getAccountName())) {
                 item.setEnabled(false);
                 break;
             }
 
-            accountListAdapter.notifyDataSetChanged();
+            userListAdapter.notifyDataSetChanged();
         }
 
         // store pending account removal
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
-        arbitraryDataProvider.storeOrUpdateKeyValue(account.name, PENDING_FOR_REMOVAL, String.valueOf(true));
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), PENDING_FOR_REMOVAL, String.valueOf(true));
 
         // Cancel transfers
         if (mUploaderBinder != null) {
-            mUploaderBinder.cancel(account);
+            mUploaderBinder.cancel(user.toPlatformAccount());
         }
         if (mDownloaderBinder != null) {
-            mDownloaderBinder.cancel(account);
+            mDownloaderBinder.cancel(user.toPlatformAccount());
         }
 
         // schedule job
         PersistableBundleCompat bundle = new PersistableBundleCompat();
-        bundle.putString(AccountRemovalJob.ACCOUNT, account.name);
+        bundle.putString(AccountRemovalJob.ACCOUNT, user.getAccountName());
 
         new JobRequest.Builder(AccountRemovalJob.TAG)
                 .startNow()
@@ -424,12 +428,12 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
                 .schedule();
 
         // immediately select a new account
-        Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
+        List<User> users = accountManager.getAllUsers();
 
         String newAccountName = "";
-        for (Account acc: accounts) {
-            if (!account.name.equalsIgnoreCase(acc.name)) {
-                newAccountName = acc.name;
+        for (User u : users) {
+            if (!u.getAccountName().equalsIgnoreCase(u.getAccountName())) {
+                newAccountName = u.getAccountName();
                 break;
             }
         }
@@ -443,7 +447,7 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
         }
 
         // only one to be (deleted) account remaining
-        if (accounts.length < MIN_MULTI_ACCOUNT_SIZE) {
+        if (users.size() < MIN_MULTI_ACCOUNT_SIZE) {
             Intent resultIntent = new Intent();
             resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, true);
             resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, true);
@@ -454,15 +458,11 @@ public class ManageAccountsActivity extends FileActivity implements AccountListA
     }
 
     @Override
-    public void onClick(Account account) {
+    public void onClick(User user) {
         final Intent intent = new Intent(this, UserInfoActivity.class);
-        intent.putExtra(UserInfoActivity.KEY_ACCOUNT, Parcels.wrap(account));
-        try {
-            OwnCloudAccount oca = new OwnCloudAccount(account, MainApp.getAppContext());
-            intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
-        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            Log_OC.d(TAG, "Failed to find NC account");
-        }
+        intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);
+        OwnCloudAccount oca = user.toOwnCloudAccount();
+        intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
         startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
     }
 

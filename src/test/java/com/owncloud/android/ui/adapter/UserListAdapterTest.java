@@ -37,9 +37,9 @@ import static org.mockito.Mockito.when;
 /**
  * Class used to test the AccountList Adapter
  */
-public class AccountListAdapterTest {
+public class UserListAdapterTest {
 
-    private AccountListAdapter accountListAdapter;
+    private UserListAdapter userListAdapter;
     private ManageAccountsActivity manageAccountsActivity;
 
     /**
@@ -58,13 +58,13 @@ public class AccountListAdapterTest {
      */
     @Test
     public void test_getItemCountEmptyList() {
-        accountListAdapter = new AccountListAdapter(manageAccountsActivity,
-                                                    null,
-                                                    new ArrayList<>(),
-                                                    null,
-                                                    null,
-                                                    true);
-        assertEquals(0, accountListAdapter.getItemCount());
+        userListAdapter = new UserListAdapter(manageAccountsActivity,
+                                              null,
+                                              new ArrayList<>(),
+                                              null,
+                                              null,
+                                              true);
+        assertEquals(0, userListAdapter.getItemCount());
     }
 
     /**
@@ -72,18 +72,18 @@ public class AccountListAdapterTest {
      */
     @Test
     public void test_getItemCountNormalCase() {
-        List<AccountListItem> accounts = new ArrayList<>();
-        accounts.add(new AccountListItem());
-        accounts.add(new AccountListItem());
+        List<UserListItem> accounts = new ArrayList<>();
+        accounts.add(new UserListItem());
+        accounts.add(new UserListItem());
 
-        accountListAdapter = new AccountListAdapter(manageAccountsActivity,
-                                                    null,
-                                                    accounts,
-                                                    null,
-                                                    null,
-                                                    true);
+        userListAdapter = new UserListAdapter(manageAccountsActivity,
+                                              null,
+                                              accounts,
+                                              null,
+                                              null,
+                                              true);
 
-        assertEquals(2, accountListAdapter.getItemCount());
+        assertEquals(2, userListAdapter.getItemCount());
     }
 
     /**
@@ -95,19 +95,19 @@ public class AccountListAdapterTest {
         when(manageAccountsActivity.getResources().getDimension(R.dimen.list_item_avatar_icon_radius))
             .thenReturn(new Float(0.1));
 
-        List<AccountListItem> accounts = new ArrayList<>();
-        accountListAdapter = new AccountListAdapter(manageAccountsActivity,
-                                                    null,
-                                                    accounts,
-                                                    null,
-                                                    null,
-                                                    true);
+        List<UserListItem> accounts = new ArrayList<>();
+        userListAdapter = new UserListAdapter(manageAccountsActivity,
+                                              null,
+                                              accounts,
+                                              null,
+                                              null,
+                                              true);
 
-        AccountListItem accountListItem1 = new AccountListItem();
-        AccountListItem accountListItem2 = new AccountListItem();
-        accounts.add(accountListItem1);
-        accounts.add(accountListItem2);
+        UserListItem userListItem1 = new UserListItem();
+        UserListItem userListItem2 = new UserListItem();
+        accounts.add(userListItem1);
+        accounts.add(userListItem2);
 
-        assertEquals(accountListItem2, accountListAdapter.getItem(1));
+        assertEquals(userListItem2, userListAdapter.getItem(1));
     }
 }
