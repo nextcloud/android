@@ -169,6 +169,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírování/přesouvání do šifrované složky není v tuto chvíli podporováno.</string>
     <string name="copy_to">Zkopírovat do…</string>
     <string name="could_not_download_image">Nepodařilo se stáhnout celý obrázek</string>
+    <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
     <string name="create_new">Vytvořit nové</string>
     <string name="create_new_document">Vytvořit nový dokument</string>
@@ -692,6 +693,10 @@ Jak vývojová tak produkční verze je k dispozici na F-droidu a mohou být nai
     <string name="sync_foreign_files_forgotten_explanation">Od verze 1.3.16, soubory nahrané z tohoto zařízení jsou zkopírovány do místní složky %1$s, aby se zabránilo ztrátě dat, když je jeden soubor synchronizován s vícero účty.\n\nKvůli této změně byly všechny soubory, nahrané starší verzí zkopírovány do složky %2$s. Nicméně, chyba při synchronizaci účtu zabránila dokončení této operace. Buď tyto soubory můžete ponechat, jak jsou a smazat odkaz na %3$s, nebo je přesunout do složky %1$s ponechat odkaz na %4$s.\n\nNíže jsou vypsány místní soubory a vzdálené soubory v %5$s na který byly odkazovány.</string>
     <string name="sync_foreign_files_forgotten_ticker">Některé místní soubory byly zapomenuty</string>
     <string name="sync_in_progress">Stahuje se nejnovější verzi souboru.</string>
+    <string name="sync_not_enough_space_dialog_action_choose">Zvolte, co synchronizovat</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Uvolnit prostor</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s má %2$s, ale na zařízení je k dispozici pouze %3$s.</string>
+    <string name="sync_not_enough_space_dialog_title">Nedostatek místa</string>
     <string name="sync_status_button">Tlačítko Stav synchronizace</string>
     <string name="sync_string_files">Soubory</string>
     <string name="synced_folder_settings_button">Tlačítko Nastavení</string>

@@ -7,11 +7,11 @@
     <string name="account_creation_failed">Ha fallado la creación de la cuenta</string>
     <string name="account_icon">Icono de la cuenta</string>
     <string name="account_not_found">¡Cuenta no encontrada!</string>
-    <string name="action_clear_failed_uploads">Borrar cargas fallidas</string>
+    <string name="action_clear_failed_uploads">Quitar cargas fallidas</string>
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpiar todas las notificaciones</string>
     <string name="action_empty_trashbin">Vaciar papelera</string>
-    <string name="action_send_share">Mandar/Compartir</string>
+    <string name="action_send_share">Enviar/Compartir</string>
     <string name="action_switch_grid_view">Vista en cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
     <string name="actionbar_contacts">Copia de seguridad de contactos</string>
@@ -96,7 +96,7 @@
     <string name="clipboard_no_text_to_copy">No se ha recibido ningún mensaje para copiar al portapapeles</string>
     <string name="clipboard_text_copied">Enlace copiado</string>
     <string name="clipboard_unexpected_error">Error inesperado al copiar al portapapeles</string>
-    <string name="common_back">Volver</string>
+    <string name="common_back">Atrás</string>
     <string name="common_cancel">Cancelar</string>
     <string name="common_cancel_sync">Cancelar sincronización</string>
     <string name="common_choose_account">Elige una cuenta</string>
@@ -155,7 +155,7 @@
     <string name="contacts_last_backup">Última copia de seguridad</string>
     <string name="contacts_preference_backup_never">nunca</string>
     <string name="contacts_preference_choose_date">Escoge fecha</string>
-    <string name="contacts_preferences_backup_scheduled">Copia de seguridad programada. Comenzará en breve</string>
+    <string name="contacts_preferences_backup_scheduled">La copia de seguridad programada comenzará en breve</string>
     <string name="contacts_preferences_import_scheduled">Importación programada. Comenzará en breve</string>
     <string name="contacts_preferences_no_file_found">No se ha encontrado ningún archivo</string>
     <string name="contacts_preferences_something_strange_happened">¡No podemos encontrar tu última copia de seguridad!</string>
@@ -169,6 +169,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
     <string name="copy_to">Copiar a…</string>
     <string name="could_not_download_image">No se ha podido descargar la imagen completa</string>
+    <string name="could_not_retrieve_url">No se ha podido recuperar la URL</string>
     <string name="create_dir_fail_msg">No se ha podido crear la carpeta</string>
     <string name="create_new">Crear nuevo</string>
     <string name="create_new_document">Crear nuevo documento</string>
@@ -261,7 +262,7 @@
     <string name="failed_to_download">Error al enviar el fichero al gestor de descargas</string>
     <string name="failed_to_print">Fallo al imprimir el archivo</string>
     <string name="failed_to_start_editor">Fallo al inicial el editor</string>
-    <string name="fallback_weblogin_back">Volver</string>
+    <string name="fallback_weblogin_back">Atrás</string>
     <string name="fallback_weblogin_text">Volver al método de registro antiguo</string>
     <string name="favorite">Añadir a favoritos</string>
     <string name="favorite_icon">Favorito</string>
@@ -372,7 +373,7 @@
     <string name="log_send_no_mail_app">No se ha encontrado ninguna app para enviar los registros. Por favor, instala un cliente de correo electrónico.</string>
     <string name="login">Iniciar sesión</string>
     <string name="logs_menu_delete">Eliminar registros</string>
-    <string name="logs_menu_refresh">Volver a cargar</string>
+    <string name="logs_menu_refresh">Recargar</string>
     <string name="logs_menu_search">Buscar registros</string>
     <string name="logs_menu_send">Enviar los registros por correo electrónico</string>
     <string name="logs_status_filtered">Registros: %1$d kB, la búsqueda coincide con %2$d/%3$d en %4$d ms</string>
@@ -441,7 +442,7 @@
     <string name="notifications_no_results_message">Por favor, comprúebalo más tarde.</string>
     <string name="offline_mode">No hay conexión a internet</string>
     <string name="outdated_server">El servidor ha alcanzado su final de vida. ¡Por favor, actualiza!</string>
-    <string name="overflow_menu">Más menú</string>
+    <string name="overflow_menu">Menú</string>
     <string name="pass_code_configure_your_pass_code">Introduce tu código de acceso</string>
     <string name="pass_code_configure_your_pass_code_explanation">Se solicitará el código de acceso cada vez que se inicie la aplicación</string>
     <string name="pass_code_enter_pass_code">Por favor introduzca su código de acceso</string>
@@ -671,6 +672,10 @@
     <string name="sync_foreign_files_forgotten_explanation">A partir de la versión 1.3.16, los archivos subidos desde este dispositivo se copian en la carpeta local %1$s para evitar la pérdida de datos cuando se sincroniza un único archivo con varias cuentas.\n\nDebido a este cambio, todos los archivos subidos con versiones anteriores de esta aplicación fueron copiados a la carpeta %2$s. Sin embargo, un error impidió que se completara esta operación durante la sincronización de la cuenta. Puede dejar los archivos tal cual como están y eliminar el enlace hacia %3$s o mover los archivos a la carpeta %1$s y mantener el enlace hacia %4$s.\n\nDebajo se muestran los archivos locales y los archivos remotos en %5$s a los que fueron enlazados.</string>
     <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales se han ignorado</string>
     <string name="sync_in_progress">Recuperando la versión más reciente del archivo</string>
+    <string name="sync_not_enough_space_dialog_action_choose">Escoge qué sincronizar</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Liberar espacio</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s es de %2$s, pero solo hay %3$s disponible en el dispositivo.</string>
+    <string name="sync_not_enough_space_dialog_title">Espacio insuficiente</string>
     <string name="sync_status_button">Botón de estado de la sincronización</string>
     <string name="sync_string_files">Archivos</string>
     <string name="synced_folder_settings_button">Botón de configuración</string>
@@ -695,7 +700,7 @@
     <string name="trashbin_not_emptied">No se ha podido eliminar permanentemente el archivo.</string>
     <string name="unread_comments">Hay comentarios no leídos</string>
     <string name="unset_encrypted">Desconfigurar cifrado</string>
-    <string name="unset_favorite">Eliminar de favoritos</string>
+    <string name="unset_favorite">Quitar de favoritos</string>
     <string name="unshare_link_file_error">Ha ocurrido  un error al tratar de dejar de compartir este archivo o carpeta</string>
     <string name="unshare_link_file_no_exist">No se puede dejar de compartir. Revise si el archivo existe</string>
     <string name="unshare_link_forbidden_permissions">para descompartir este archivo</string>
