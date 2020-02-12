@@ -154,6 +154,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     @Inject PowerManagementService powerManagementService;
 
+
     @Inject
     Logger logger;
 
