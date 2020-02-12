@@ -3,12 +3,12 @@
  *
  * @author Andy Scherzinger
  * @author Tobias Kaminsky
- * @author Chris Narkiewicz
+ * @author Chris Narkiewicz  <hello@ezaquarii.com>
  * Copyright (C) 2016 Andy Scherzinger
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2016 Nextcloud
  * Copyright (C) 2016 ownCloud Inc.
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -63,6 +63,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -466,7 +467,10 @@ public abstract class DrawerActivity extends ToolbarActivity
             case R.id.nav_logout:
                 mCheckedMenuItem = -1;
                 menuItem.setChecked(false);
-                UserInfoActivity.openAccountRemovalConfirmationDialog(getAccount(), getSupportFragmentManager());
+                final Optional<User> optionalUser = getUser();
+                if (optionalUser.isPresent()) {
+                    UserInfoActivity.openAccountRemovalConfirmationDialog(optionalUser.get(), getSupportFragmentManager());
+                }
                 break;
             case R.id.nav_shared:
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_SEARCH),
@@ -664,16 +668,15 @@ public abstract class DrawerActivity extends ToolbarActivity
      * updates the account list in the drawer.
      */
     public void updateAccountList() {
-        Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
+        List<User> users = accountManager.getAllUsers();
+        ArrayList<User> persistingAccounts = new ArrayList<>();
 
-        ArrayList<Account> persistingAccounts = new ArrayList<>();
-
-        for (Account acc: accounts) {
-            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(acc,
+        for (User user: users) {
+            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(user.toPlatformAccount(),
                     ManageAccountsActivity.PENDING_FOR_REMOVAL);
 
             if (!pendingForRemoval) {
-                persistingAccounts.add(acc);
+                persistingAccounts.add(user);
             }
         }
 
@@ -687,7 +690,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 final User secondUser = mAvatars.size() > 1 ? mAvatars.get(1) : null;
                 if (secondUser != null) {
                     mAccountEndAccountAvatar.setTag(secondUser.getAccountName());
-                    DisplayUtils.setAvatar(secondUser.toPlatformAccount(),
+                    DisplayUtils.setAvatar(secondUser,
                                            this,
                                            mOtherAccountAvatarRadiusDimension,
                                            getResources(),
@@ -702,7 +705,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 final User thirdUser = mAvatars.size() > 2 ? mAvatars.get(2) : null;
                 if (thirdUser != null) {
                     mAccountMiddleAccountAvatar.setTag(thirdUser.getAccountName());
-                    DisplayUtils.setAvatar(thirdUser.toPlatformAccount(),
+                    DisplayUtils.setAvatar(thirdUser,
                                            this,
                                            mOtherAccountAvatarRadiusDimension,
                                            getResources(),
@@ -722,34 +725,35 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * re-populates the account list.
      *
-     * @param accounts list of accounts
+     * @param users list of users
      */
-    private void repopulateAccountList(List<Account> accounts) {
+    private void repopulateAccountList(List<User> users) {
         // remove all accounts from list
         mNavigationView.getMenu().removeGroup(R.id.drawer_menu_accounts);
 
         // add all accounts to list
-        for (Account account: accounts) {
+        for (User user: users) {
             try {
                 // show all accounts except the currently active one and those pending for removal
 
-                if (!getAccount().name.equals(account.name)) {
+                if (!getAccount().name.equals(user.getAccountName())) {
                     MenuItem accountMenuItem = mNavigationView.getMenu().add(
                         R.id.drawer_menu_accounts,
-                        account.hashCode(),
+                        user.hashCode(),
                         MENU_ORDER_ACCOUNT,
-                        DisplayUtils.getAccountNameDisplayText(this, account, account.name, account.name))
-                        .setIcon(TextDrawable.createAvatar(account, mMenuAccountAvatarRadiusDimension));
-                    DisplayUtils.setAvatar(account, this, mMenuAccountAvatarRadiusDimension, getResources(),
+                        DisplayUtils.getAccountNameDisplayText(user))
+                        .setIcon(TextDrawable.createAvatar(user.toPlatformAccount(),
+                                                           mMenuAccountAvatarRadiusDimension));
+                    DisplayUtils.setAvatar(user, this, mMenuAccountAvatarRadiusDimension, getResources(),
                                            accountMenuItem, this);
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for account menu item.", e);
                 mNavigationView.getMenu().add(
                     R.id.drawer_menu_accounts,
-                    account.hashCode(),
+                    user.hashCode(),
                     MENU_ORDER_ACCOUNT,
-                    DisplayUtils.getAccountNameDisplayText(this, account, account.name, account.name))
+                    DisplayUtils.getAccountNameDisplayText(user))
                     .setIcon(R.drawable.ic_user);
             }
         }
@@ -810,7 +814,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             View currentAccountView = findNavigationViewChildById(R.id.drawer_current_account);
             currentAccountView.setTag(name);
 
-            DisplayUtils.setAvatar(user.toPlatformAccount(), this, mCurrentAccountAvatarRadiusDimension, getResources(),
+            DisplayUtils.setAvatar(user, this, mCurrentAccountAvatarRadiusDimension, getResources(),
                     currentAccountView, this);
 
             // check and show quota info if available
