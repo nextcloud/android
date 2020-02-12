@@ -219,6 +219,7 @@
     <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
     <string name="error_cant_bind_to_operations_service">Критична грешка: операциите не могат да бъдат изпълнени</string>
     <string name="error_comment_file">Грешка при коментиране на файл</string>
+    <string name="etm_accounts">Профили</string>
     <string name="etm_preferences">Предпочитания</string>
     <string name="fab_label">Добави или качи</string>
     <string name="fallback_weblogin_back">Назад</string>
