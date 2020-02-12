@@ -243,6 +243,7 @@
     <string name="error_retrieving_file">Erro ao obter o ficheiro</string>
     <string name="error_retrieving_templates">Erro ao obter modelos</string>
     <string name="error_starting_direct_camera_upload">Erro ao iniciar câmara</string>
+    <string name="etm_accounts">Contas</string>
     <string name="fab_label">Adicionar ou enviar</string>
     <string name="failed_to_download">Falhou a passagem do ficheiro ao gestor de transferências</string>
     <string name="fallback_weblogin_back">Anterior</string>

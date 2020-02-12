@@ -246,6 +246,7 @@
     <string name="error_report_issue_action">Reporte</string>
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
+    <string name="etm_accounts">Cuentas</string>
     <string name="etm_preferences">Preferencias</string>
     <string name="etm_title">Modo de prueba de ingeniería</string>
     <string name="fab_label">Añadir o subir</string>

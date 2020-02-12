@@ -250,6 +250,7 @@
     <string name="error_retrieving_file">Tiedoston noudossa tapahtui virhe</string>
     <string name="error_retrieving_templates">Tapahtui virhe mallien lataamisessa</string>
     <string name="error_starting_direct_camera_upload">Virhe kameraa käynnistäessä</string>
+    <string name="etm_accounts">Tilit</string>
     <string name="etm_preferences">Asetukset</string>
     <string name="etm_title">Kehittäjän testitila</string>
     <string name="fab_label">Lisää tai lähetä</string>

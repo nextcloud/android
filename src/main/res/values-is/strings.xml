@@ -251,6 +251,7 @@
     <string name="error_retrieving_file">Villa við að ná í skrá</string>
     <string name="error_retrieving_templates">Villa við að ná í sniðmát</string>
     <string name="error_starting_direct_camera_upload">Villa við að ræsa myndavél</string>
+    <string name="etm_accounts">Accounts</string>
     <string name="etm_preferences">Kjörstillingar</string>
     <string name="etm_title">Verkfræðilegur prófunarhamur</string>
     <string name="fab_label">Bæta við eða senda inn</string>

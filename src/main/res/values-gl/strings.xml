@@ -256,6 +256,7 @@
     <string name="error_retrieving_file">Produciuse un erro ao recuperar o ficheiro</string>
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
     <string name="error_starting_direct_camera_upload">Produciuse un erro ao iniciar a cámara</string>
+    <string name="etm_accounts">Contas</string>
     <string name="etm_preferences">Preferencias</string>
     <string name="etm_title">Modo de proba de enxeñería</string>
     <string name="fab_label">Engadir ou enviar</string>

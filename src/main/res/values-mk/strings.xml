@@ -251,6 +251,7 @@
     <string name="error_retrieving_file">Грешка при превземањето на датотеката</string>
     <string name="error_retrieving_templates">Грешка при превземањето на шаблоните</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартување на камерата</string>
+    <string name="etm_accounts">Сметки</string>
     <string name="etm_preferences">Перформанси</string>
     <string name="etm_title">Инженерски мод за тестирање</string>
     <string name="fab_label">Додади или прикачи</string>

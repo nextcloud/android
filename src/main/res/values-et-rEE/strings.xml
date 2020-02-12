@@ -160,6 +160,7 @@
     <string name="encrypted">Määra krüpteerituks</string>
     <string name="end_to_end_encryption_dialog_close">Sulge</string>
     <string name="error__upload__local_file_not_copied">%1$s ei suudetud kopeerida kohalikku kataloogi %2$s</string>
+    <string name="etm_accounts">Kontod</string>
     <string name="fallback_weblogin_back">Tagasi</string>
     <string name="favorite">Lisa lemmikutesse</string>
     <string name="favorite_icon">Lemmik</string>

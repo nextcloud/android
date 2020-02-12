@@ -195,6 +195,7 @@
     <string name="error__upload__local_file_not_copied">%1$s nevar kopēt uz %2$s lokālo mapi</string>
     <string name="error_cant_bind_to_operations_service">Kritiska kļūda: Nevar veikt darbības</string>
     <string name="error_comment_file">Kļūda komentējot datni</string>
+    <string name="etm_accounts">Konti</string>
     <string name="fallback_weblogin_back">Atpakaļ</string>
     <string name="favorite">Pievienot favorītiem</string>
     <string name="favorite_icon">Favorīts</string>
