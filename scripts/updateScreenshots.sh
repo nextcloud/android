@@ -11,7 +11,7 @@ if ( [[ $(emulator -list-avds | grep uiComparison -c) -eq 0 ]] ); then
     (sleep 5; echo "no") | avdmanager create avd -n uiComparison -c 100M -k "system-images;android-27;google_apis;x86" --abi "google_apis/x86"
 fi
 
-emulator -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 1>/dev/null &
+emulator -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 -writable-system 1>/dev/null &
 PID=$(echo $!)
 
 ## server
@@ -24,10 +24,14 @@ if [[ $IP = "" ]]; then
     exit 1
 fi
 
-## run on server
-cp gradle.properties gradle.properties_
-sed -i s"/server/$IP/" gradle.properties
+# set server to ip address
 scripts/wait_for_emulator.sh
+adb root
+adb remount
+adb shell "sed -i '/server/d' /system/etc/hosts"
+adb shell "echo \"$IP server\" >> /system/etc/hosts"
+
+## run on server
 scripts/wait_for_server.sh ${IP}
 
 ## update all screenshots
@@ -44,8 +48,6 @@ scripts/wait_for_server.sh ${IP}
 #-Precord \
 #-Pandroid.testInstrumentationRunnerArguments.class=\
 #com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragmentTest#showNotEnoughSpaceDialogForFile
-
-mv gradle.properties_ gradle.properties
 
 # tidy up
 kill $PID
