@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiranje/Premikanje predmetov v šifrirano mapo trenutno ni podprto.</string>
     <string name="copy_to">Kopiraj v ...</string>
     <string name="could_not_download_image">Slike ni mogoče prejeti v celoti.</string>
+    <string name="could_not_retrieve_url">Naslova URL ni mogoče pridobiti</string>
     <string name="create_dir_fail_msg">Ni mogoče ustvariti mape</string>
     <string name="create_new">Ustvari novo</string>
     <string name="create_new_document">Ustvari nov dokument</string>
@@ -235,6 +236,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Mapa ni prazna.</string>
     <string name="end_to_end_encryption_generating_keys">Poteka ustvarjanje novih ključev ...</string>
     <string name="end_to_end_encryption_keywords_description">Vseh 12 besed skupaj predstavlja izredno močno geslo, s katerim imate le vi možnost ogleda in uporabe šifriranih datotek. Geslo si zapišite in shranite nekje na varnem.</string>
+    <string name="end_to_end_encryption_not_enabled">Na strežniku je celovito šifriranje »end-to-end« onemogočeno.</string>
     <string name="end_to_end_encryption_not_supported">Šifriranje deluje le na različici KitKat (4.4) in višjih.</string>
     <string name="end_to_end_encryption_passphrase_title">Zabeležite si vaših 12 besed gesla za šifriranje</string>
     <string name="end_to_end_encryption_password">Geslo …</string>
@@ -253,6 +255,7 @@
     <string name="error_retrieving_file">Pridobivanje datoteke je spodletelo</string>
     <string name="error_retrieving_templates">Napaka pridobivanja predlog</string>
     <string name="error_starting_direct_camera_upload">Napaka začenjanja kamere</string>
+    <string name="etm_accounts">Računi</string>
     <string name="etm_preferences">Nastavitve</string>
     <string name="etm_title">Inženirski preizkusni način</string>
     <string name="fab_label">Dodaj ali pošlji</string>
@@ -362,6 +365,7 @@
     <string name="instant_upload_path">/Hipno nalaganje</string>
     <string name="learn_more">Prikaži več</string>
     <string name="link">Povezava</string>
+    <string name="list_layout">Izpisana razporeditev</string>
     <string name="local_file_list_empty">V tej mapi ni datotek.</string>
     <string name="local_file_not_found_message">Na krajevnem sistemu datoteke ni mogoče najti</string>
     <string name="local_folder_list_empty">Ni drugih map.</string>
@@ -428,6 +432,7 @@
     <string name="notification_channel_general_name">Splošna obvestila</string>
     <string name="notification_channel_media_description">Napredek glasbenega predvajalnika</string>
     <string name="notification_channel_media_name">Predvajalnik predstavnih datotek</string>
+    <string name="notification_channel_push_description">Pokaži potisna obvestila, ki jih pošilja strežnik. Omembe in opombe, obvestila o novih povezavah, objave skrbnika in podobno.</string>
     <string name="notification_channel_push_name">Potisna obvestila</string>
     <string name="notification_channel_upload_description">Pokaži napredek pošiljanja</string>
     <string name="notification_channel_upload_name">Kanal obvestil pošiljanja</string>
@@ -459,6 +464,7 @@
     <string name="pref_behaviour_entries_move">premaknjeno v mapo programa</string>
     <string name="prefs_add_account">Dodaj račun</string>
     <string name="prefs_calendar_contacts">Uskladi koledar in stike</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Strežniškega naslova računa za DAVx5 (posodobljena različica DAVdroid) ni mogoče razrešiti</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni nameščenega ne programa F-Droid ne Google Play</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Nastavitev sinhronizacije koledarja&amp; stikov</string>
     <string name="prefs_category_about">O projektu</string>
@@ -466,6 +472,8 @@
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
     <string name="prefs_daily_contacts_sync_summary">Dnevno usklajevanje stikov</string>
+    <string name="prefs_e2e_mnemonic">Mnemonično E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Za prikaz mnemonike izberite poverila naprave.</string>
     <string name="prefs_enable_media_scan_notifications">Pokaži obvestila iskanja predstavnih vsebin</string>
     <string name="prefs_enable_media_scan_notifications_summary">Obvesti o na novo zaznanih mapah s predstavno vsebino</string>
     <string name="prefs_gpl_v2">Splošno Javno dovoljenje GNU GPL, različice 2</string>
@@ -493,6 +501,7 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_value_theme_dark">Temna</string>
     <string name="prefs_value_theme_light">Svetla</string>
+    <string name="prefs_value_theme_system">Sledi sistemu</string>
     <string name="preview_image_description">Predogled slike</string>
     <string name="preview_image_error_no_local_file">Ni krajevne datoteke za predogled</string>
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
@@ -514,6 +523,7 @@
     <string name="reshare_not_allowed">Osveževanje ni dovoljena</string>
     <string name="resharing_is_not_allowed">Osveževanje ni dovoljeno</string>
     <string name="resized_image_not_possible">Slika prilagojene velikosti ni na voljo.</string>
+    <string name="resized_image_not_possible_download">Slika prilagojene velikosti ni na voljo. Ali želite prejeti sliko polne velikosti?</string>
     <string name="restore">Obnovi datoteko</string>
     <string name="restore_button_description">Obnovi izbrisano datoteko</string>
     <string name="retrieving_file">Poteka pridobivanje datoteke ...</string>
@@ -522,8 +532,11 @@
     <string name="saml_authentication_wrong_pass">Napačno geslo</string>
     <string name="scanQR_description">Prijava s kodo QR</string>
     <string name="screenshot_01_gridView_heading">Zaščita podatkov</string>
+    <string name="screenshot_01_gridView_subline">samo-gostujoče produktivno okolje</string>
     <string name="screenshot_02_listView_heading">Brskanje in souporaba</string>
+    <string name="screenshot_02_listView_subline">vsa dejanja na dosegu roke</string>
     <string name="screenshot_03_drawer_heading">Dejavnosti, souporaba ...</string>
+    <string name="screenshot_03_drawer_subline">hitra in enostavna dostopnost</string>
     <string name="screenshot_04_accounts_heading">Vsi vaši računi</string>
     <string name="screenshot_04_accounts_subline">na enem mestu</string>
     <string name="screenshot_05_autoUpload_heading">Samodejno pošiljanje</string>
@@ -579,11 +592,14 @@
     <string name="share_via_link_password_title">Varovano</string>
     <string name="share_via_link_section_title">Omogoči souporabo prek povezave</string>
     <string name="share_via_link_send_link_label">Pošlji povezavo</string>
+    <string name="share_via_link_unset_password">Odstrani izbor</string>
     <string name="share_with_edit_title">Omogoči souporabo z %1$s</string>
     <string name="share_with_title">Omogoči souporabo …</string>
     <string name="share_with_user_section_title">Omogoči souporabo s skupino ali z uporabnikom</string>
     <string name="shared_icon_share">souporaba</string>
     <string name="shared_icon_shared">v souporabi</string>
+    <string name="shared_icon_shared_via_link">v souporabi prek povezave</string>
+    <string name="sharee_add_failed">Dodajanje souporabnika je spodletelo</string>
     <string name="signup_with_provider">Prijava prek ponudnika</string>
     <string name="sort_by">Razvrsti</string>
     <string name="sort_by_modification_date_ascending">najprej najnovejše</string>
@@ -626,6 +642,8 @@
     <string name="storage_movies">Video</string>
     <string name="storage_music">Glasba</string>
     <string name="storage_pictures">Slike</string>
+    <string name="store_short_desc">Samo-gostujoče produkcijsko okolje pod vašim nadzorom.</string>
+    <string name="store_short_dev_desc">Samo-gostujoče produkcijsko okolje pod vašim nadzorom. (razvojna predogledna različica)</string>
     <string name="stream">Pretakaj s programom ...</string>
     <string name="stream_not_possible_headline">Notranji pretok ni mogoč</string>
     <string name="stream_not_possible_message">Poskusite prejeti predstavno vsebino, ali pa uporabiti zunanji program.</string>
@@ -639,13 +657,20 @@
     <string name="sync_fail_ticker">Usklajevanje je spodletelo</string>
     <string name="sync_fail_ticker_unauthorized">Usklajevanje je spodletelo; zahtevana je ponovna prijava.</string>
     <string name="sync_file_nothing_to_do_msg">Vsebina datoteke je že usklajena</string>
+    <string name="sync_folder_failed_content">Usklajevanja mape %1$s ni mogoče dokončati!</string>
+    <string name="sync_foreign_files_forgotten_explanation">Od različice 1.3.16 se poslane datoteke kopirajo v krajevno mapo %1$s za preprečevanje izgube podatkov, ko se ena datoteka usklajuje z več računi.\n\nZaradi te spremembe so bile vse datoteke, kopirane s predhodno različico programa, že kopirane v  %2$s. Vendar pa je prišlo do napake, ki preprečuje dokončanje opravila med usklajevanjem. Lahko pustite datoteke kot so in izbrišete povezavo %3$s, ali pa premaknete datoteke v %1$s in ohranite povezavo do %4$s.\n\nSpodaj je seznam krajevnih datotek in povezave oddaljenih datotek v %5$s.</string>
     <string name="sync_foreign_files_forgotten_ticker">Nekatere krajevne datoteke so spregledane</string>
+    <string name="sync_in_progress">Poteka pridobivanje zadnje različice datoteke.</string>
+    <string name="sync_not_enough_space_dialog_action_choose">Izbor predmetov za usklajevanje</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Izpraznite prostor</string>
+    <string name="sync_not_enough_space_dialog_title">Ni dovolj prostora</string>
     <string name="sync_status_button">Gumb stanja usklajevanja</string>
     <string name="sync_string_files">Datoteke</string>
     <string name="synced_folder_settings_button">Gumb nastavitev</string>
     <string name="synced_folders_configure_folders">Nastavi mape</string>
     <string name="synced_folders_loading_folders">Poteka nalaganje map …</string>
     <string name="synced_folders_new_info">Možnost Hipnega pošiljanja je bila v celoti predelana. Nastavitve je treba ponovno prilagoditi v glavnem meniju.\n\nUživajte v razširjenih možnostih samodejnega pošiljanja.</string>
+    <string name="synced_folders_no_results">Ni najdenih map s predstavnimi datotekami</string>
     <string name="synced_folders_preferences">Nastavitve za samodejno pošiljanje</string>
     <string name="synced_folders_preferences_folder_path">Za %1$s</string>
     <string name="synced_folders_type">Vrsta</string>
@@ -661,28 +686,36 @@
     <string name="trashbin_file_not_restored">Datoteke %1$s ni mogoče obnoviti!</string>
     <string name="trashbin_loading_failed">Nalaganje smeti je spodletelo!</string>
     <string name="trashbin_not_emptied">Datotek ni mogoče trajno izbrisati!</string>
+    <string name="unread_comments">Obstajajo so neprebrane opombe</string>
     <string name="unset_encrypted">Odstrani šifriranje</string>
     <string name="unset_favorite">Odstrani iz priljubljenih</string>
     <string name="unshare_link_file_error">Prišlo je do napake med poskusom odstranjevanja souporabe te datoteke ali mape</string>
     <string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
     <string name="unshare_link_forbidden_permissions">za preklic souporabe datoteke.</string>
+    <string name="unsharing_failed">Odstranjevanje souporabe je spodletelo</string>
+    <string name="untrusted_domain">Zaznan je dostop prek domene, ki ni zaupanja vredna. Več podrobnosti je zapisanih v dokumentaciji.</string>
     <string name="update_link_file_error">Prišlo je do napake med posodabljanjem mesta souporabe</string>
     <string name="update_link_file_no_exist">Posodobitev ni mogoča. Preveri, ali datoteka obstaja.</string>
     <string name="update_link_forbidden_permissions">za posodobitev mesta souporabe</string>
+    <string name="updating_share_failed">Posodabljanje mesta souporabe je spodletelo</string>
     <string name="upload_cannot_create_file">Krajevne datoteke ni mogoče ustvariti</string>
     <string name="upload_chooser_title">Pošlji iz …</string>
     <string name="upload_content_from_other_apps">Pošlji vsebino iz drugih programov</string>
+    <string name="upload_direct_camera_upload">Pošlji s kamere</string>
     <string name="upload_file_dialog_filename">Ime datoteke</string>
     <string name="upload_file_dialog_filetype">Vrsta datoteke</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps bližnjica(%s)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Internetna bližnjica(%s)</string>
+    <string name="upload_file_dialog_filetype_snippet_text">datoteka izrezka(.txt)</string>
     <string name="upload_file_dialog_title">Ime in zvrst datoteke za pošiljanje</string>
     <string name="upload_files">Pošlji datoteke</string>
     <string name="upload_list_empty_headline">Ni pripravljenih datotek za pošiljanje</string>
     <string name="upload_list_empty_text_auto_upload">Pošljite kakšno vsebino, ali pa omogočite samodejno nalaganje.</string>
     <string name="upload_local_storage_full">Krajevna shramba je polna</string>
+    <string name="upload_local_storage_not_copied">Datoteke ni mogoče kopirati v krajevno shrambo</string>
     <string name="upload_lock_failed">Zaklepanje mape je spodletelo</string>
     <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali želiš datoteke premakniti na novo mesto?</string>
+    <string name="upload_sync_conflict">Zaznan je spor usklajevanja, ki ga je treba razrešiti ročno</string>
     <string name="upload_unknown_error">Neznana napaka</string>
     <string name="uploader_btn_alternative_text">Izberi</string>
     <string name="uploader_btn_upload_text">Pošlji</string>
@@ -699,6 +732,7 @@
     <string name="uploader_upload_failed_ticker">Pošiljanje je spodletelo</string>
     <string name="uploader_upload_files_behaviour">Možnost pošiljanja:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Premakni datoteko v mapo %1$s.</string>
+    <string name="uploader_upload_files_behaviour_not_writable">izvorna mapa je le za branje; datoteka bo le poslana</string>
     <string name="uploader_upload_files_behaviour_only_upload">Ohrani datoteko v izvorni mapi</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Izbriši datoteko iz izvorne mape</string>
     <string name="uploader_upload_forbidden_permissions">za pošiljanje v to mapo</string>
@@ -734,6 +768,7 @@
     <string name="user_info_phone">Telefonska številka</string>
     <string name="user_info_twitter">Račun Twitter</string>
     <string name="user_info_website">Spletna stran</string>
+    <string name="user_information_retrieval_error">Napaka pridobivanja podatkov uporabnika</string>
     <string name="userinfo_no_info_headline">Osebni podatki še niso vpisani</string>
     <string name="username">Uporabniško ime</string>
     <string name="version_dev_download">Prejmi</string>
@@ -759,6 +794,12 @@
         <item quantity="two">%1$d datoteki</item>
         <item quantity="few">%1$d datoteke</item>
         <item quantity="other">%1$d datotek</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Pokaži %1$d skrito mapo</item>
+        <item quantity="two">Pokaži %1$d skriti mapi</item>
+        <item quantity="few">Pokaži %1$d skrite mape</item>
+        <item quantity="other">Pokaži %1$d skritih map</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d izbrana</item>

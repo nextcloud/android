@@ -226,6 +226,7 @@
     <string name="error_retrieving_file">Klaida gaunant failą</string>
     <string name="error_retrieving_templates">Klaida gaunant šablonus</string>
     <string name="error_starting_direct_camera_upload">Klaida paleidžiant kamerą</string>
+    <string name="etm_accounts">Paskyros</string>
     <string name="etm_preferences">Nuostatos</string>
     <string name="failed_to_download">Nepavyko perduoti failo į atsiuntimų tvarkytuvę</string>
     <string name="failed_to_print">Nepavyko spausdinti failo</string>

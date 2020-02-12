@@ -252,6 +252,7 @@
     <string name="error_retrieving_file">Greška pri dobavljanju fajla</string>
     <string name="error_retrieving_templates">Greška pri učitavanju šablona</string>
     <string name="error_starting_direct_camera_upload">Greška pri startovanju kamere</string>
+    <string name="etm_accounts">Nalozi</string>
     <string name="etm_preferences">Postavke</string>
     <string name="etm_title">Inženjerski test režim</string>
     <string name="fab_label">Dodaj ili otpremi</string>
