@@ -1,0 +1,6 @@
+e1d684255 Merge remote-tracking branch 'origin/master' into dev
+f520f2f9a Merge pull request #5436 from nextcloud/ezaquarii/make-user-model-parcelable
+25cbeb4bd Merge pull request #5422 from nextcloud/gplayScreenshots
+87eb8e0d1 [tx-robot] updated from transifex
+644b91dce daily dev 20200211
+library commit: 5eae23144e4567b39499b26fdc61271b8fff17f2
