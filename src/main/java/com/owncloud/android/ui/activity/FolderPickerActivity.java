@@ -331,22 +331,22 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     }
 
     protected OCFile getCurrentFolder() {
-        OCFile currentStateFile = getFile();
-        OCFile finalFolder;
+        OCFile currentFile = getFile();
+        OCFile finalFolder = null;
 
         // If the file is null, take the root folder to avoid any error in functions depending on this one
-        if (currentStateFile == null) {
-            finalFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
-        } else {
-            if (currentStateFile.isFolder()) {
-                finalFolder = currentStateFile;
-            } else {
-                String parentPath = currentStateFile
+        if (currentFile != null) {
+            if (currentFile.isFolder()) {
+                finalFolder = currentFile;
+            } else if(currentFile.getRemotePath() != null) {
+                String parentPath = currentFile
                         .getRemotePath()
-                        .substring(0, currentStateFile.getRemotePath()
-                        .lastIndexOf(currentStateFile.getFileName()));
+                        .substring(0, currentFile.getRemotePath()
+                        .lastIndexOf(currentFile.getFileName()));
                 finalFolder = getStorageManager().getFileByPath(parentPath);
             }
+        } else {
+            finalFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
         }
         return finalFolder;
     }
