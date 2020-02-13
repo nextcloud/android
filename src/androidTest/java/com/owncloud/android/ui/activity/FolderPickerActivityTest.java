@@ -37,8 +37,6 @@ public class FolderPickerActivityTest {
     public void getParentFolder_isNotRootFolderTest() {
         // Arrange
         FolderPickerActivity targetActivity = activityRule.getActivity();
-
-
         OCFile origin = new OCFile("/test/");
         origin.setFileId(1);
         origin.setRemotePath("/test/");
@@ -57,7 +55,6 @@ public class FolderPickerActivityTest {
     public void getParentFolder_isRootFolderTest() {
         // Arrange
         FolderPickerActivity targetActivity = activityRule.getActivity();
-
         OCFile origin = new OCFile("/");
         origin.setFileId(1);
         origin.setRemotePath("/");
