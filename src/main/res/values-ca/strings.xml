@@ -251,6 +251,7 @@
     <string name="error_retrieving_file">S\'ha produït un error mentre es recuperava el fitxer</string>
     <string name="error_retrieving_templates">S\'ha produït un error recuperant les plantilles</string>
     <string name="error_starting_direct_camera_upload">S\'ha produït un error iniciant la càmera</string>
+    <string name="etm_accounts">Comptes</string>
     <string name="etm_preferences">Preferències</string>
     <string name="etm_title">Mode de proves d\'enginyeria</string>
     <string name="fab_label">Afegeix o carrega</string>
