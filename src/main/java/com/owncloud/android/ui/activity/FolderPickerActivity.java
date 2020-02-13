@@ -59,11 +59,8 @@ import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.ThemeUtils;
-
 import java.util.ArrayList;
-
 import javax.inject.Inject;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -302,7 +299,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         boolean retval = true;
         switch (item.getItemId()) {
             case R.id.action_create_dir: {
-                CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(getCurrentFolder());
+                OCFile currentFolder = getCurrentFolder();
+                CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(currentFolder);
                 dialog.show(getSupportFragmentManager(), CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
                 break;
             }
@@ -333,16 +331,24 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     }
 
     protected OCFile getCurrentFolder() {
-        OCFile file = getFile();
-        if (file != null) {
-            if (file.isFolder()) {
-                return file;
-            } else if (getStorageManager() != null) {
-                String parentPath = file.getRemotePath().substring(0, file.getRemotePath().lastIndexOf(file.getFileName()));
-                return getStorageManager().getFileByPath(parentPath);
+        OCFile currentStateFile = getFile();
+        OCFile finalFolder;
+
+        // If the file is null, take the root folder to avoid any error in functions depending on this one
+        if (currentStateFile == null) {
+            finalFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
+        } else {
+            if (currentStateFile.isFolder()) {
+                finalFolder = currentStateFile;
+            } else {
+                String parentPath = currentStateFile
+                        .getRemotePath()
+                        .substring(0, currentStateFile.getRemotePath()
+                        .lastIndexOf(currentStateFile.getFileName()));
+                finalFolder = getStorageManager().getFileByPath(parentPath);
             }
         }
-        return null;
+        return finalFolder;
     }
 
     public void refreshListOfFilesFragment(boolean fromSearch) {
