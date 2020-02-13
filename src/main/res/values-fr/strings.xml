@@ -258,6 +258,7 @@ Attention la suppression est irréversible.</string>
     <string name="error_retrieving_file">Erreur de téléchargement</string>
     <string name="error_retrieving_templates">Erreur lors de la récupération des modèles</string>
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
+    <string name="etm_accounts">Comptes</string>
     <string name="etm_preferences">Préférences</string>
     <string name="etm_title">Mode test</string>
     <string name="fab_label">Ajouter ou téléverser</string>

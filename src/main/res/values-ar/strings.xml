@@ -222,6 +222,7 @@
     <string name="enter_filename">يرجى إدخال اسم الملف</string>
     <string name="error__upload__local_file_not_copied">%1$s تعذر نسخه %2$s للمجلد المحلي</string>
     <string name="error_report_issue_action">ابلغ عنه</string>
+    <string name="etm_accounts">الحسابات</string>
     <string name="etm_preferences">الخيارات</string>
     <string name="fallback_weblogin_back">العودة</string>
     <string name="favorite">أضفه إلى المفضلة</string>

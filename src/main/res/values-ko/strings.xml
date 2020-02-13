@@ -251,6 +251,7 @@
     <string name="error_retrieving_file">파일 가져오는 중 오류 발생</string>
     <string name="error_retrieving_templates">템플릿 검색 중 오류 발생</string>
     <string name="error_starting_direct_camera_upload">카메라 시작 중 오류 발생</string>
+    <string name="etm_accounts">Accounts</string>
     <string name="etm_preferences">환경 설정</string>
     <string name="etm_title">엔지니어링 테스트 모드</string>
     <string name="fab_label">추가 또는 업로드</string>

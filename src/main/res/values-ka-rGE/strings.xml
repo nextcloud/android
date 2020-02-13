@@ -195,6 +195,7 @@
     <string name="end_to_end_encryption_wrong_password">შეცდომა დეშიფრაციისას. არასწორი პაროლი?</string>
     <string name="error__upload__local_file_not_copied">%1$s ვერ კოპირდება %2$s ლოკალურ დირექტორიაში</string>
     <string name="error_cant_bind_to_operations_service">კრიტიკული შეცდომა: ოპერაციების განხორციელება შეუძლებელია</string>
+    <string name="etm_accounts">ანგარიშები</string>
     <string name="fallback_weblogin_back">უკან</string>
     <string name="fallback_weblogin_text">უკან ძველი ავტორიზაციის მეთოდისკენ</string>
     <string name="favorite">რჩეულებში დამატება</string>

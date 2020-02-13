@@ -233,6 +233,7 @@
     <string name="error__upload__local_file_not_copied">%1$s nu a putut fi copiat in dosarul local %2$s </string>
     <string name="error_cant_bind_to_operations_service">Eroare critică: nu se pot executa operațiunile</string>
     <string name="error_report_issue_action">Raport</string>
+    <string name="etm_accounts">Conturi</string>
     <string name="fallback_weblogin_back">Înapoi</string>
     <string name="favorite">Adăugați la favorite</string>
     <string name="favorite_icon">Favorite</string>

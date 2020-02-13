@@ -256,6 +256,7 @@
     <string name="error_retrieving_file">Błąd podczas pobierania pliku</string>
     <string name="error_retrieving_templates">Błąd podczas pobierania szablonów</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania kamery</string>
+    <string name="etm_accounts">Konta</string>
     <string name="etm_preferences">Preferencje</string>
     <string name="etm_title">Tryb Testowy Techniczny</string>
     <string name="fab_label">Dodaj lub wyślij</string>

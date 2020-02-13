@@ -255,6 +255,7 @@
     <string name="error_retrieving_file">Errorea fitxategia berreskuratzen</string>
     <string name="error_retrieving_templates">Errorea txantiloiak eskuratzean</string>
     <string name="error_starting_direct_camera_upload">Akatsa kamera abiaraztean</string>
+    <string name="etm_accounts">Kontuak</string>
     <string name="etm_preferences">Hobespenak</string>
     <string name="etm_title">Ingeniaritzako froga modua </string>
     <string name="fab_label">Gehitu edo igo</string>

@@ -256,6 +256,7 @@
     <string name="error_retrieving_file">Chyba při získávání souboru</string>
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
+    <string name="etm_accounts">Účty</string>
     <string name="etm_preferences">Předvolby</string>
     <string name="etm_title">Vývojářský testovací režim</string>
     <string name="fab_label">Přidat nebo nahrát</string>
