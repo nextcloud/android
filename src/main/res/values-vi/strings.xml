@@ -141,6 +141,7 @@
     <string name="end_to_end_encryption_wrong_password">Lỗi khi giải mã. Sai mật khẩu?</string>
     <string name="error_cant_bind_to_operations_service">Lỗi nghiêm trọng: Không thể thực hiện thao tác</string>
     <string name="error_comment_file">Lỗi khi bình luận tập tin</string>
+    <string name="etm_accounts">Tài khoản</string>
     <string name="fab_label">Thêm hoặc tải lên</string>
     <string name="fallback_weblogin_back">Quay lại</string>
     <string name="favorite">Thêm vào ưa thích</string>
