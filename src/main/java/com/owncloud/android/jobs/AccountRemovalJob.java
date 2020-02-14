@@ -49,7 +49,6 @@ import com.owncloud.android.datamodel.PushConfigurationState;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -68,7 +67,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import static android.content.Context.ACCOUNT_SERVICE;
 import static com.owncloud.android.ui.activity.ManageAccountsActivity.PENDING_FOR_REMOVAL;
@@ -121,7 +119,7 @@ public class AccountRemovalJob extends Job {
 
         User user = optionalUser.get();
         // disable contact backup job
-        ContactsPreferenceActivity.cancelContactBackupJobForAccount(context, user.toPlatformAccount());
+        ContactsPreferenceActivity.cancelContactBackupJobForAccount(context, user);
 
         final boolean userRemoved = userAccountManager.removeUser(user);
         if (userRemoved) {
