@@ -250,6 +250,7 @@
     <string name="error_retrieving_file">Fejl ved modtagelse af fil</string>
     <string name="error_retrieving_templates">Fejl ved indlæsning af modeller</string>
     <string name="error_starting_direct_camera_upload">Fejl ved start af kamera</string>
+    <string name="etm_accounts">Konti</string>
     <string name="etm_preferences">Indstillinger</string>
     <string name="etm_title">Udviklers test tilstand</string>
     <string name="fab_label">Tilføj eller send</string>
