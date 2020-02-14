@@ -191,7 +191,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected SearchType currentSearchType;
     protected boolean searchFragment;
     protected SearchEvent searchEvent;
-    protected AsyncTask remoteOperationAsyncTask;
+    protected AsyncTask<Void, Void, Boolean> remoteOperationAsyncTask;
     protected String mLimitToMimeType;
 
     @Inject DeviceInfo deviceInfo;
@@ -386,6 +386,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                 case RECENTLY_MODIFIED_SEARCH:
                     currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
+                    break;
+
+                case SHARED_FILTER:
+                    currentSearchType = SearchType.SHARED_FILTER;
                     break;
 
                 default:
@@ -1587,7 +1591,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
         };
 
-        remoteOperationAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, true);
+        remoteOperationAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
@@ -1700,7 +1704,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return event != null &&
             event.getSearchType() != null &&
             (!TextUtils.isEmpty(event.getSearchQuery()) ||
-                event.searchType == SearchRemoteOperation.SearchType.SHARED_SEARCH);
+                event.searchType == SearchRemoteOperation.SearchType.SHARED_SEARCH ||
+                event.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER);
     }
 
     private void syncAndCheckFiles(Collection<OCFile> files) {
