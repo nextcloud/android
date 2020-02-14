@@ -81,7 +81,7 @@ public class FileDisplayActivityIT extends AbstractIT {
 
     @Test
     public void showShares() {
-        assertTrue(new CreateFolderRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
+        assertTrue(new CreateFolderRemoteOperation("/shareToAdmin/", false).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareToGroup/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareViaLink/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/noShare/", true).execute(client).isSuccess());
