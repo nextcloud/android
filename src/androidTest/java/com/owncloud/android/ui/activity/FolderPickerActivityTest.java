@@ -1,5 +1,26 @@
 package com.owncloud.android.ui.activity;
 
+/*
+ * Nextcloud Android client application
+ *
+ * @author Kilian Périsset
+ * Copyright (C) 2019 Kilian Périsset (Infomaniak Network SA)
+ * Copyright (C) 2019 Nextcloud GmbH
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import com.owncloud.android.datamodel.OCFile;
 
 import org.junit.Assert;
@@ -19,7 +40,7 @@ public class FolderPickerActivityTest {
         new ActivityTestRule<>(FolderPickerActivity.class);
 
     @Test
-    public void getFile_NoDifferenceTest() {
+    public void getActivityFile() {
         // Arrange
         FolderPickerActivity targetActivity = activityRule.getActivity();
         OCFile origin = new OCFile("/test/file.test");
@@ -34,7 +55,7 @@ public class FolderPickerActivityTest {
     }
 
     @Test
-    public void getParentFolder_isNotRootFolderTest() {
+    public void getParentFolder_isNotRootFolder() {
         // Arrange
         FolderPickerActivity targetActivity = activityRule.getActivity();
         OCFile origin = new OCFile("/test/");
@@ -52,7 +73,7 @@ public class FolderPickerActivityTest {
     }
 
     @Test
-    public void getParentFolder_isRootFolderTest() {
+    public void getParentFolder_isRootFolder() {
         // Arrange
         FolderPickerActivity targetActivity = activityRule.getActivity();
         OCFile origin = new OCFile("/");

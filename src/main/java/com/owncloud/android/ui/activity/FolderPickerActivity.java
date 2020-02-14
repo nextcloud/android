@@ -43,6 +43,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -59,6 +60,8 @@ import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.ThemeUtils;
+
+import java.io.File;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import androidx.appcompat.app.ActionBar;
@@ -299,8 +302,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         boolean retval = true;
         switch (item.getItemId()) {
             case R.id.action_create_dir: {
-                OCFile currentFolder = getCurrentFolder();
-                CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(currentFolder);
+                CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(getCurrentFolder());
                 dialog.show(getSupportFragmentManager(), CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
                 break;
             }
@@ -333,20 +335,18 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     protected OCFile getCurrentFolder() {
         OCFile currentFile = getFile();
         OCFile finalFolder = null;
+        FileDataStorageManager storageManager = getStorageManager();
 
         // If the file is null, take the root folder to avoid any error in functions depending on this one
         if (currentFile != null) {
             if (currentFile.isFolder()) {
                 finalFolder = currentFile;
-            } else if(currentFile.getRemotePath() != null) {
-                String parentPath = currentFile
-                        .getRemotePath()
-                        .substring(0, currentFile.getRemotePath()
-                        .lastIndexOf(currentFile.getFileName()));
-                finalFolder = getStorageManager().getFileByPath(parentPath);
+            } else if (currentFile.getRemotePath() != null) {
+                long parentId = currentFile.getParentId();
+                finalFolder = storageManager.getFileById(parentId);
             }
         } else {
-            finalFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
+            finalFolder = storageManager.getFileByPath(OCFile.ROOT_PATH);
         }
         return finalFolder;
     }
