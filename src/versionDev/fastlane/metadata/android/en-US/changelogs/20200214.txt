@@ -1,0 +1,6 @@
+706ae93a3 Merge remote-tracking branch 'origin/master' into dev
+045a7aa9e Merge pull request #5466 from nextcloud/squareIcon
+eefeda930 Add square google icon
+7156aaff2 [tx-robot] updated from transifex
+57ce989a5 daily dev 20200213
+library commit: cece3b5214b09bcaac5c3f890ea67b344ed06424
