@@ -28,8 +28,17 @@ import android.app.Activity;
 import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
+import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
+import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
+import com.owncloud.android.lib.resources.shares.CreateShareRemoteOperation;
+import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.events.SearchEvent;
 
+import org.greenrobot.eventbus.EventBus;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -40,6 +49,8 @@ import androidx.test.rule.GrantPermissionRule;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static junit.framework.TestCase.assertTrue;
 
 
 public class FileDisplayActivityIT extends AbstractIT {
@@ -65,6 +76,53 @@ public class FileDisplayActivityIT extends AbstractIT {
         Activity sut = activityRule.launchActivity(null);
 
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+
+        Screenshot.snapActivity(sut).record();
+    }
+
+    @Test
+    public void showShares() {
+        assertTrue(new ExistenceCheckRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
+        assertTrue(new CreateFolderRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
+        assertTrue(new CreateFolderRemoteOperation("/shareToGroup/", true).execute(client).isSuccess());
+        assertTrue(new CreateFolderRemoteOperation("/shareViaLink/", true).execute(client).isSuccess());
+        assertTrue(new CreateFolderRemoteOperation("/noShare/", true).execute(client).isSuccess());
+
+        // share folder to user "admin"
+        assertTrue(new CreateShareRemoteOperation("/shareToAdmin/",
+                                                  ShareType.USER,
+                                                  "admin",
+                                                  false,
+                                                  "",
+                                                  OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER)
+                       .execute(client).isSuccess());
+
+        // share folder via public link
+        assertTrue(new CreateShareRemoteOperation("/shareViaLink/",
+                                                  ShareType.PUBLIC_LINK,
+                                                  "",
+                                                  true,
+                                                  "",
+                                                  OCShare.READ_PERMISSION_FLAG)
+                       .execute(client).isSuccess());
+
+        // share folder to group
+        Assert.assertTrue(new CreateShareRemoteOperation("/shareToGroup/",
+                                                         ShareType.GROUP,
+                                                         "users",
+                                                         false,
+                                                         "",
+                                                         OCShare.DEFAULT_PERMISSION)
+                              .execute(client).isSuccess());
+
+        Activity sut = activityRule.launchActivity(null);
+
+        getInstrumentation().waitForIdleSync();
+
+        EventBus.getDefault().post(new SearchEvent("",
+                                                   SearchRemoteOperation.SearchType.SHARED_FILTER));
+
+        getInstrumentation().waitForIdleSync();
 
         Screenshot.snapActivity(sut).record();
     }

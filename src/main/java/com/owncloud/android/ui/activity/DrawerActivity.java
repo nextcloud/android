@@ -473,7 +473,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
                 break;
             case R.id.nav_shared:
-                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_SEARCH),
+                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER),
                                    menuItem.getItemId());
                 break;
             case R.id.nav_recently_modified:

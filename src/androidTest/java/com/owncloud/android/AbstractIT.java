@@ -17,11 +17,16 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
+import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -42,6 +47,7 @@ import androidx.test.runner.lifecycle.Stage;
 import static androidx.test.InstrumentationRegistry.getInstrumentation;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -101,6 +107,22 @@ public abstract class AbstractIT {
             e.printStackTrace();
         }
     }
+
+    @After
+    public void after() {
+        RemoteOperationResult result = new ReadFolderRemoteOperation("/").execute(client);
+        assertTrue(result.getLogMessage(), result.isSuccess());
+
+        for (Object object : result.getData()) {
+            RemoteFile remoteFile = (RemoteFile) object;
+
+            if (!remoteFile.getRemotePath().equals("/")) {
+                assertTrue(new RemoveFileRemoteOperation(remoteFile.getRemotePath())
+                               .execute(client).isSuccess());
+            }
+        }
+    }
+
 
     FileDataStorageManager getStorageManager() {
         return new FileDataStorageManager(account, targetContext.getContentResolver());

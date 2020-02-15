@@ -169,6 +169,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
     <string name="copy_to">Şuraya kopyala …</string>
     <string name="could_not_download_image">Tam boyuttaki görsel indirilemedi</string>
+    <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
     <string name="create_new">Yeni ekle</string>
     <string name="create_new_document">Yeni belge</string>
@@ -672,6 +673,10 @@
     <string name="sync_foreign_files_forgotten_explanation">1.3.16 sürümünden sonra, veri kaybının önlenebilmesi için bu aygıttan yüklenen dosyalar, bir dosya birden fazla hesapla eşitlendiğinde %1$s yerel klasörüne kopyalanır.\n\nBu değişiklikten dolayı, bu uygulamanın yüklenmiş tüm önceki sürümündeki dosyalar %2$s klasörüne kopyalandı. Ancak hesap eşitlemesi sırasında bu işlemin tamamlanmasını engelleyen bir sorun çıktı. Dosyaları olduğu gibi bırakabilir ve %3$s bağlantısını kaldırabilir ya da dosyaları %1$s klasörüne taşıyıp %4$s bağlantısını koruyabilirsiniz.\n\nYerel dosyaları ve bağlı oldukları %5$s içindeki uzak dosyaların listesini aşağıda görebilirsiniz.</string>
     <string name="sync_foreign_files_forgotten_ticker">Bazı yerel dosyalar unutulmuş</string>
     <string name="sync_in_progress">Lütfen dosyanın en son sürümü alınırken bekleyin.</string>
+    <string name="sync_not_enough_space_dialog_action_choose">Eşitlenecek ögeleri seçin</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Yer aç</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s, %2$s, ancak aygıt üzerinde yalnız %3$s yer var.</string>
+    <string name="sync_not_enough_space_dialog_title">Yeterli alan yok</string>
     <string name="sync_status_button">Eşitleme durumu düğmesi</string>
     <string name="sync_string_files">Dosyalar</string>
     <string name="synced_folder_settings_button">Ayarlar düğmesi</string>

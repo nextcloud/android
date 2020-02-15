@@ -15,7 +15,7 @@ emulator -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-window -no
 PID=$(echo $!)
 
 ## server
-docker run --name=uiComparison nextcloudci/server 1>/dev/null &
+docker run --name=uiComparison nextcloudci/server:server-17 1>/dev/null &
 sleep 5
 IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' uiComparison)
 
@@ -28,9 +28,19 @@ fi
 cp gradle.properties gradle.properties_
 sed -i s"/server/$IP/" gradle.properties
 scripts/wait_for_emulator.sh
-scripts/wait_for_server.sh ${IP}
 
-## update all screenshots
+# setup test server
+docker exec uiComparison /bin/sh -c "/usr/local/bin/initnc.sh"
+docker exec uiComparison /bin/sh -c "su www-data -c \"OC_PASS=user1 php /var/www/html/occ user:add --password-from-env --display-name='User One' user1\""
+docker exec uiComparison /bin/sh -c "su www-data -c \"OC_PASS=user2 php /var/www/html/occ user:add --password-from-env --display-name='User Two' user2\""
+docker exec uiComparison /bin/sh -c "su www-data -c \"OC_PASS=user3 php /var/www/html/occ user:add --password-from-env --display-name='User Three' user3\""
+docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ user:setting user2 files quota 1G\""
+docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ group:add users\""
+docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ group:adduser users user1\""
+docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ group:adduser users user2\""
+docker exec uiComparison /bin/sh -c "/usr/local/bin/run.sh"
+
+## update/create all screenshots
 ./gradlew executeScreenshotTests -Precord
 
 ## update screenshots in a class

@@ -568,6 +568,7 @@
     <string name="sync_file_nothing_to_do_msg">Failo turinys jau sunchronizuotas</string>
     <string name="sync_foreign_files_forgotten_ticker">Keli vietiniai failai buvo užmiršti</string>
     <string name="sync_in_progress">Gaunama paskiausia failo versija.</string>
+    <string name="sync_not_enough_space_dialog_title">Trūksta vietos</string>
     <string name="sync_string_files">Failai</string>
     <string name="synced_folder_settings_button">Nustatymų mygtukas</string>
     <string name="synced_folders_configure_folders">Konfigūruokite aplankus</string>
