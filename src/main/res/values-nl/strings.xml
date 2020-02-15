@@ -169,6 +169,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
     <string name="copy_to">Kopieer naar…</string>
     <string name="could_not_download_image">Kan de volledige afbeelding niet downloaden</string>
+    <string name="could_not_retrieve_url">Kon URL niet ophalen</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
     <string name="create_new">Creëer nieuw</string>
     <string name="create_new_document">Creëer nieuw document</string>
@@ -672,6 +673,9 @@
     <string name="sync_foreign_files_forgotten_explanation">Sinds versie 1.3.16: bestanden geüpload vanaf dit apparaat zijn gekopieerd in de lokale %1$s directory om zoekraken van bestanden te voorkomen indien een enkel bestand wordt gesynchroniseerd met meerdere accounts. \n\n Door deze verandering zijn alle bestanden geüpload met een eerdere versie van deze app gekopieerd  naar de %2$s directory.  Let wel: door een fout is deze actie niet uitgevoerd tijdens account synchronisatie. Je kunt deze bestanden laten waar ze zijn en verwijder de verwijzingen naar %3$s, of verplaats de bestanden naar de %1$s directory en behoud de verwijzing naar %4$s. \n\n Hieronder zijn de lokale bestanden weergegeven en de remote bestanden in %5$s waar ze naar verwijzen.</string>
     <string name="sync_foreign_files_forgotten_ticker">Een paar lokale bestanden werden vergeten</string>
     <string name="sync_in_progress">Meest recente versie van het bestand wordt opgehaald.</string>
+    <string name="sync_not_enough_space_dialog_action_choose">Selectieve synchronisatie</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Ruimte vrijmaken</string>
+    <string name="sync_not_enough_space_dialog_title">Onvoldoende ruimte</string>
     <string name="sync_status_button">Sync status knop</string>
     <string name="sync_string_files">Bestanden</string>
     <string name="synced_folder_settings_button">Instellingen knop</string>
