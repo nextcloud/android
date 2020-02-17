@@ -27,6 +27,7 @@ package com.owncloud.android.ui.dialog;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -241,35 +242,36 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
                     new DirectEditingCreateFileRemoteOperation(path,
                                                                creator.getEditor(),
                                                                creator.getId(),
-                                                               template.getTitle())
-                        .execute(client);
-
-                if (result.isSuccess()) {
-                    // get file
-                    RemoteOperationResult newFileResult = new ReadFileRemoteOperation(path)
-                            .execute(client);
-
-                    if (newFileResult.isSuccess()) {
-                        OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) newFileResult.getData().get(0));
-
-                        if (chooseTemplateDialogFragmentWeakReference.get() != null) {
-                            FileDataStorageManager storageManager = new FileDataStorageManager(
-                                user.toPlatformAccount(),
-                                chooseTemplateDialogFragmentWeakReference.get().requireContext().getContentResolver());
-                            storageManager.saveFile(temp);
-                            file = storageManager.getFileByPath(path);
-
-                            return result.getData().get(0).toString();
-                        }
-                         else {
-                             return "";
-                        }
-                    } else {
-                        return "";
-                    }
-                } else {
+                                                               template.getTitle()).execute(client);
+                if (!result.isSuccess()) {
                     return "";
                 }
+
+                RemoteOperationResult newFileResult = new ReadFileRemoteOperation(path).execute(client);
+                if (!newFileResult.isSuccess()) {
+                    return "";
+                }
+
+                OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) newFileResult.getData().get(0));
+
+                final ChooseTemplateDialogFragment fragment = chooseTemplateDialogFragmentWeakReference.get();
+                if (fragment == null) {
+                    return "";
+                }
+
+                final Context context = fragment.getContext();
+                if (context == null) {
+                    // fragment has been detached
+                    return "";
+                }
+
+                FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(),
+                                                                                   context.getContentResolver());
+                storageManager.saveFile(temp);
+                file = storageManager.getFileByPath(path);
+
+                return result.getData().get(0).toString();
+
             } catch (ClientFactory.CreationException e) {
                 Log_OC.e(TAG, "Error creating file from template!", e);
                 return "";
