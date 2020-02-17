@@ -49,6 +49,14 @@ public interface UserAccountManager extends CurrentAccountProvider {
     void removeAllAccounts();
 
     /**
+     * Remove registered user.
+     *
+     * @param user user to remove
+     * @return true if account was removed successfully, false otherwise
+     */
+    boolean removeUser(User user);
+
+    /**
      * Get configured NextCloud's user accounts.
      *
      * @return Array of accounts or empty array, if accounts are not configured.

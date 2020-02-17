@@ -29,6 +29,7 @@ import android.os.Bundle;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.nextcloud.client.account.User;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -133,15 +134,15 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         }
     }
 
-    public static void cancelContactBackupJobForAccount(Context context, Account account) {
-        Log_OC.d(TAG, "disabling contacts backup job for account: " + account.name);
+    public static void cancelContactBackupJobForAccount(Context context, User user) {
+        Log_OC.d(TAG, "disabling contacts backup job for account: " + user.getAccountName());
 
         JobManager jobManager = JobManager.create(context);
         Set<JobRequest> jobs = jobManager.getAllJobRequestsForTag(ContactsBackupJob.TAG);
 
         for (JobRequest jobRequest : jobs) {
             PersistableBundleCompat extras = jobRequest.getExtras();
-            if (extras.getString(ContactsBackupJob.ACCOUNT, "").equalsIgnoreCase(account.name)) {
+            if (extras.getString(ContactsBackupJob.ACCOUNT, "").equalsIgnoreCase(user.getAccountName())) {
                 jobManager.cancel(jobRequest.getJobId());
             }
         }
