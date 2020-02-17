@@ -250,8 +250,13 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         mSyncInProgress = true;
 
         // perform folder synchronization
-        RemoteOperation refreshFolderOperation = new RefreshFolderOperation(folder, currentSyncTime, false,
-                                                                            ignoreETag, getStorageManager(), getAccount(), getApplicationContext());
+        RemoteOperation refreshFolderOperation = new RefreshFolderOperation(folder,
+                                                                            currentSyncTime,
+                                                                            false,
+                                                                            ignoreETag,
+                                                                            getStorageManager(),
+                                                                            getAccount(),
+                                                                            getApplicationContext());
 
         refreshFolderOperation.execute(getAccount(), this, null, null);
         setIndeterminate(true);
@@ -501,7 +506,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
                         if (currentDir == null) {
                             // current folder was removed from the server
-                            DisplayUtils.showSnackMessage(getActivity(), R.string.sync_current_folder_was_removed,
+                            DisplayUtils.showSnackMessage(getActivity(),
+                                                          R.string.sync_current_folder_was_removed,
                                                           getCurrentFolder().getFileName());
                             browseToRoot();
                         } else {

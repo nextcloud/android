@@ -34,7 +34,7 @@ import androidx.test.rule.ActivityTestRule;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class FolderPickerActivityTest {
+public class FolderPickerActivityIT {
     @Rule
     public ActivityTestRule<FolderPickerActivity> activityRule =
         new ActivityTestRule<>(FolderPickerActivity.class);
@@ -85,6 +85,36 @@ public class FolderPickerActivityTest {
         // Act
         targetActivity.setFile(origin);
         OCFile target = targetActivity.getCurrentFolder();
+
+        // Assert
+        Assert.assertEquals(origin, target);
+    }
+
+    @Test
+    public void nullFile() {
+        // Arrange
+        FolderPickerActivity targetActivity = activityRule.getActivity();
+        OCFile rootFolder = targetActivity.getStorageManager().getFileByPath(OCFile.ROOT_PATH);
+
+        // Act
+        targetActivity.setFile(null);
+        OCFile target = targetActivity.getCurrentFolder();
+
+        // Assert
+        Assert.assertEquals(rootFolder, target);
+    }
+
+    @Test
+    public void getParentFolder() {
+        // Arrange
+        FolderPickerActivity targetActivity = activityRule.getActivity();
+        OCFile origin = new OCFile("/test/file.test");
+        origin.setRemotePath("/test/file.test");
+
+        OCFile target = new OCFile("/test/");
+
+        // Act
+        targetActivity.setFile(origin);
 
         // Assert
         Assert.assertEquals(origin, target);
