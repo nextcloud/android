@@ -63,7 +63,11 @@ internal data class RegisteredUser(
     }
 
     override fun nameEquals(user: User?): Boolean {
-        return user?.accountName.equals(accountName, true)
+        return nameEquals(user?.accountName)
+    }
+
+    override fun nameEquals(accountName: CharSequence?): Boolean {
+        return accountName?.toString().equals(this.accountName, true)
     }
 
     override fun describeContents() = 0
