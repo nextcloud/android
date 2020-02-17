@@ -23,8 +23,6 @@
  */
 package com.owncloud.android.jobs;
 
-
-import android.accounts.Account;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -38,6 +36,7 @@ import android.text.TextUtils;
 
 import com.evernote.android.job.Job;
 import com.google.gson.Gson;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -47,6 +46,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaFoldersModel;
 import com.owncloud.android.datamodel.MediaProvider;
+import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
@@ -138,32 +138,41 @@ public class MediaFoldersDetectionJob extends Job {
                 videoMediaFolderPaths.removeAll(mediaFoldersModel.getVideoMediaFolders());
 
                 if (!imageMediaFolderPaths.isEmpty() || !videoMediaFolderPaths.isEmpty()) {
-                    Account[] accounts = userAccountManager.getAccounts();
-                    List<Account> accountList = new ArrayList<>();
-                    for (Account account : accounts) {
-                        if (!arbitraryDataProvider.getBooleanValue(account, ManageAccountsActivity.PENDING_FOR_REMOVAL)) {
-                            accountList.add(account);
+                    List<User> allUsers = userAccountManager.getAllUsers();
+                    List<User> activeUsers = new ArrayList<>();
+                    for (User account : allUsers) {
+                        if (!arbitraryDataProvider.getBooleanValue(account.toPlatformAccount(),
+                                                                   ManageAccountsActivity.PENDING_FOR_REMOVAL)) {
+                            activeUsers.add(account);
                         }
                     }
 
-                    for (Account account : accountList) {
+                    for (User user : activeUsers) {
                         for (String imageMediaFolder : imageMediaFolderPaths) {
-                            if (syncedFolderProvider.findByLocalPathAndAccount(imageMediaFolder, account) == null) {
-                                sendNotification(String.format(context.getString(R.string.new_media_folder_detected),
-                                    context.getString(R.string.new_media_folder_photos)),
-                                    imageMediaFolder.substring(imageMediaFolder.lastIndexOf('/') + 1
-                                    ),
-                                    account, imageMediaFolder, 1);
+                            final SyncedFolder folder = syncedFolderProvider.findByLocalPathAndAccount(imageMediaFolder,
+                                                                                                       user.toPlatformAccount());
+                            if (folder == null) {
+                                String contentTitle = String.format(context.getString(R.string.new_media_folder_detected),
+                                                                    context.getString(R.string.new_media_folder_photos));
+                                sendNotification(contentTitle,
+                                                imageMediaFolder.substring(imageMediaFolder.lastIndexOf('/') + 1),
+                                                user,
+                                                imageMediaFolder,
+                                                 1);
                             }
                         }
 
                         for (String videoMediaFolder : videoMediaFolderPaths) {
-                            if (syncedFolderProvider.findByLocalPathAndAccount(videoMediaFolder, account) == null) {
-                                sendNotification(String.format(context.getString(R.string.new_media_folder_detected),
-                                    context.getString(R.string.new_media_folder_videos)),
-                                    videoMediaFolder.substring(videoMediaFolder.lastIndexOf('/') + 1
-                                    ),
-                                    account, videoMediaFolder, 2);
+                            final SyncedFolder folder = syncedFolderProvider.findByLocalPathAndAccount(videoMediaFolder,
+                                                                                                       user.toPlatformAccount());
+                            if (folder == null) {
+                                String contentTitle = String.format(context.getString(R.string.new_media_folder_detected),
+                                                                    context.getString(R.string.new_media_folder_videos));
+                                sendNotification(contentTitle,
+                                                 videoMediaFolder.substring(videoMediaFolder.lastIndexOf('/') + 1),
+                                                 user,
+                                                 videoMediaFolder,
+                                                 2);
                             }
                         }
                     }
@@ -179,14 +188,14 @@ public class MediaFoldersDetectionJob extends Job {
         return Result.SUCCESS;
     }
 
-    private void sendNotification(String contentTitle, String subtitle, Account account, String path, int type) {
+    private void sendNotification(String contentTitle, String subtitle, User user, String path, int type) {
         int notificationId = randomId.nextInt();
 
         Context context = getContext();
         Intent intent = new Intent(getContext(), SyncedFoldersActivity.class);
         intent.putExtra(NOTIFICATION_ID, notificationId);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(NotificationJob.KEY_NOTIFICATION_ACCOUNT, account.name);
+        intent.putExtra(NotificationJob.KEY_NOTIFICATION_ACCOUNT, user.getAccountName());
         intent.putExtra(KEY_MEDIA_FOLDER_PATH, path);
         intent.putExtra(KEY_MEDIA_FOLDER_TYPE, type);
         intent.putExtra(SyncedFoldersActivity.EXTRA_SHOW_SIDEBAR, true);
@@ -197,7 +206,7 @@ public class MediaFoldersDetectionJob extends Job {
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.notification_icon))
             .setColor(ThemeUtils.primaryColor(getContext()))
-            .setSubText(account.name)
+            .setSubText(user.getAccountName())
             .setContentTitle(contentTitle)
             .setContentText(subtitle)
             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
