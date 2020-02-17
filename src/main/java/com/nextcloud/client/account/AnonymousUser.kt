@@ -2,8 +2,8 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz <hello@ezaquarii.com>
- * Copyright (C) 2019 Chris Narkiewicz
- * Copyright (C) 2019 Nextcloud GmbH
+ * Copyright (C) 2020 Chris Narkiewicz
+ * Copyright (C) 2020 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -70,6 +70,10 @@ internal data class AnonymousUser(private val accountType: String) : User, Parce
 
     override fun nameEquals(user: User?): Boolean {
         return user?.accountName.equals(accountName, true)
+    }
+
+    override fun nameEquals(accountName: CharSequence?): Boolean {
+        return accountName?.toString().equals(this.accountType, true)
     }
 
     override fun describeContents() = 0

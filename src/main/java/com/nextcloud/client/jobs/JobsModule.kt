@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +23,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import androidx.work.Configuration
 import androidx.work.WorkManager
+import com.nextcloud.client.core.Clock
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -32,7 +33,7 @@ class JobsModule {
 
     @Provides
     @Singleton
-    fun backgroundJobManager(context: Context, factory: BackgroundJobFactory): BackgroundJobManager {
+    fun workManager(context: Context, factory: BackgroundJobFactory): WorkManager {
         val configuration = Configuration.Builder()
             .setWorkerFactory(factory)
             .build()
@@ -44,7 +45,12 @@ class JobsModule {
         }
 
         WorkManager.initialize(contextWrapper, configuration)
-        val wm = WorkManager.getInstance(context)
-        return BackgroundJobManagerImpl(wm)
+        return WorkManager.getInstance(context)
+    }
+
+    @Provides
+    @Singleton
+    fun backgroundJobManager(workManager: WorkManager, clock: Clock): BackgroundJobManager {
+        return BackgroundJobManagerImpl(workManager, clock)
     }
 }

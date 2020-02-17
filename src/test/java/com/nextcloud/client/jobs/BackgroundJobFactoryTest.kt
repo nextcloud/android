@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,18 +17,20 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.nextcloud.client.jobs
 
 import android.content.ContentResolver
 import android.content.Context
+import android.content.res.Resources
 import android.os.Build
 import androidx.work.WorkerParameters
+import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nhaarman.mockitokotlin2.whenever
+import com.owncloud.android.datamodel.ArbitraryDataProvider
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Before
@@ -63,6 +65,15 @@ class BackgroundJobFactoryTest {
     @Mock
     private lateinit var clock: Clock
 
+    @Mock
+    private lateinit var accountManager: UserAccountManager
+
+    @Mock
+    private lateinit var resources: Resources
+
+    @Mock
+    private lateinit var dataProvider: ArbitraryDataProvider
+
     private lateinit var factory: BackgroundJobFactory
 
     @Before
@@ -74,12 +85,15 @@ class BackgroundJobFactoryTest {
             clock,
             powerManagementService,
             Provider { backgroundJobManager },
-            deviceInfo
+            deviceInfo,
+            accountManager,
+            resources,
+            dataProvider
         )
     }
 
     @Test
-    fun `worker is created on api level 24+`() {
+    fun worker_is_created_on_api_level_24() {
         // GIVEN
         //      api level is > 24
         //      content URI trigger is supported
@@ -95,7 +109,7 @@ class BackgroundJobFactoryTest {
     }
 
     @Test
-    fun `worker is not created below api level 24`() {
+    fun worker_is_not_created_below_api_level_24() {
         // GIVEN
         //      api level is < 24
         //      content URI trigger is not supported

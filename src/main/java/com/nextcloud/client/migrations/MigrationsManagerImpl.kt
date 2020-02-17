@@ -19,70 +19,42 @@
  */
 package com.nextcloud.client.migrations
 
-import android.content.SharedPreferences
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.migrations.MigrationsManager.Status
-import java.util.TreeSet
 
 internal class MigrationsManagerImpl(
     private val appInfo: AppInfo,
-    private val migrationsDb: SharedPreferences,
+    private val migrationsDb: MigrationsDb,
     private val asyncRunner: AsyncRunner,
     private val migrations: Collection<Migrations.Step>
 ) : MigrationsManager {
 
-    companion object {
-        const val DB_KEY_LAST_MIGRATED_VERSION = "last_migrated_version"
-        const val DB_KEY_APPLIED_MIGRATIONS = "applied_migrations"
-        const val DB_KEY_FAILED = "failed"
-        const val DB_KEY_FAILED_MIGRATION_ID = "failed_migration_id"
-        const val DB_KEY_FAILED_MIGRATION_ERROR_MESSAGE = "failed_migration_error"
-    }
+    override val status: LiveData<Status> = MutableLiveData<Status>(Status.UNKNOWN)
 
-    override val status: LiveData<Status>
-
-    init {
-        this.status = MutableLiveData<Status>(Status.UNKNOWN)
-    }
-
-    fun getAppliedMigrations(): List<Int> {
-        val appliedIdsStr: Set<String> = migrationsDb.getStringSet(DB_KEY_APPLIED_MIGRATIONS, null) ?: TreeSet()
-        return appliedIdsStr.mapNotNull {
-            try {
-                it.toInt()
-            } catch (_: NumberFormatException) {
-                null
-            }
-        }.sorted()
-    }
-
-    fun addAppliedMigration(vararg migrations: Int) {
-        val oldApplied = migrationsDb.getStringSet(DB_KEY_APPLIED_MIGRATIONS, null) ?: TreeSet()
-        val newApplied = TreeSet<String>().apply {
-            addAll(oldApplied)
-            addAll(migrations.map { it.toString() })
+    override val info: List<MigrationInfo> get() {
+        val applied = migrationsDb.getAppliedMigrations()
+        return migrations.map {
+            MigrationInfo(id = it.id, description = it.description, applied = applied.contains(it.id))
         }
-        migrationsDb.edit().putStringSet(DB_KEY_APPLIED_MIGRATIONS, newApplied).apply()
     }
 
     @Throws(MigrationError::class)
     @Suppress("ReturnCount")
     override fun startMigration(): Int {
 
-        if (migrationsDb.getBoolean(DB_KEY_FAILED, false)) {
+        if (migrationsDb.isFailed) {
             (status as MutableLiveData<Status>).value = Status.FAILED
             return 0
         }
-        val lastMigratedVersion = migrationsDb.getInt(DB_KEY_LAST_MIGRATED_VERSION, -1)
-        if (lastMigratedVersion >= appInfo.versionCode) {
+        if (migrationsDb.lastMigratedVersion >= appInfo.versionCode) {
             (status as MutableLiveData<Status>).value = Status.APPLIED
             return 0
         }
-        val applied = getAppliedMigrations()
+        val applied = migrationsDb.getAppliedMigrations()
         val toApply = migrations.filter { !applied.contains(it.id) }
         if (toApply.isEmpty()) {
             onMigrationSuccess()
@@ -105,8 +77,8 @@ internal class MigrationsManagerImpl(
         migrations.forEach {
             @Suppress("TooGenericExceptionCaught") // migration code is free to throw anything
             try {
-                it.function.run()
-                addAppliedMigration(it.id)
+                it.run()
+                migrationsDb.addAppliedMigration(it.id)
             } catch (t: Throwable) {
                 if (it.mandatory) {
                     throw MigrationError(id = it.id, message = t.message ?: t.javaClass.simpleName)
@@ -121,18 +93,13 @@ internal class MigrationsManagerImpl(
             is MigrationError -> error.id
             else -> -1
         }
-        migrationsDb
-            .edit()
-            .putBoolean(DB_KEY_FAILED, true)
-            .putString(DB_KEY_FAILED_MIGRATION_ERROR_MESSAGE, error.message)
-            .putInt(DB_KEY_FAILED_MIGRATION_ID, id)
-            .apply()
+        migrationsDb.setFailed(id, error.message ?: error.javaClass.simpleName)
         (status as MutableLiveData<Status>).value = Status.FAILED
     }
 
     @MainThread
     private fun onMigrationSuccess() {
-        migrationsDb.edit().putInt(DB_KEY_LAST_MIGRATED_VERSION, appInfo.versionCode).apply()
+        migrationsDb.lastMigratedVersion = appInfo.versionCode
         (status as MutableLiveData<Status>).value = Status.APPLIED
     }
 }

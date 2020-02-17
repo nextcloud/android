@@ -74,4 +74,27 @@ class MockSharedPreferencesTest {
         editor.apply()
         assertEquals("a value", mock.getString("key", "default"))
     }
+
+    @Test
+    fun getAll() {
+        // GIVEN
+        //      few properties are stored in shared preferences
+        mock.edit()
+            .putInt("int", 1)
+            .putBoolean("bool", true)
+            .putString("string", "value")
+            .putStringSet("stringSet", setOf("alpha", "bravo"))
+            .apply()
+        assertEquals(4, mock.store.size)
+
+        // WHEN
+        //      all properties are retrieved
+        val all = mock.all
+
+        // THEN
+        //      returned map is a different instance
+        //      map is equal to internal storage
+        assertNotSame(all, mock.store)
+        assertEquals(all, mock.store)
+    }
 }
