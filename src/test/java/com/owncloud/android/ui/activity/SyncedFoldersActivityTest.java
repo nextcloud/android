@@ -164,6 +164,7 @@ public class SyncedFoldersActivityTest {
                                            true,
                                            true,
                                            true,
+                                           true,
                                            "test@nextcloud.com",
                                            1,
                                            enabled,

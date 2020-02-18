@@ -43,6 +43,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -87,6 +89,7 @@ public class FileDownloader extends Service
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
+    public static final String EXTRA_CONFLICT_UPLOAD = "CONFLICT_UPLOAD";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
 
     private static final int FOREGROUND_SERVICE_ID = 412;
@@ -110,7 +113,10 @@ public class FileDownloader extends Service
 
     private Notification mNotification;
 
+    private OCUpload conflictUpload;
+
     @Inject UserAccountManager accountManager;
+    @Inject UploadsStorageManager uploadsStorageManager;
 
     public static String getDownloadAddedMessage() {
         return FileDownloader.class.getName() + DOWNLOAD_ADDED_MESSAGE;
@@ -195,6 +201,7 @@ public class FileDownloader extends Service
             final String behaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
             String activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME);
             String packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME);
+            this.conflictUpload = intent.getParcelableExtra(FileDownloader.EXTRA_CONFLICT_UPLOAD);
             AbstractList<String> requestedDownloads = new Vector<String>();
             try {
                 DownloadFileOperation newDownload = new DownloadFileOperation(account, file, behaviour, activityName,
@@ -634,6 +641,10 @@ public class FileDownloader extends Service
 
                 // Remove success notification
                 if (downloadResult.isSuccess()) {
+                    if (this.conflictUpload != null) {
+                        uploadsStorageManager.removeUpload(this.conflictUpload);
+                    }
+
                     // Sleep 2 seconds, so show the notification before remove it
                     NotificationUtils.cancelWithDelay(mNotificationManager,
                             R.string.downloader_download_succeeded_ticker, 2000);

@@ -219,8 +219,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
     }
 
     private void requestUpload(Account account, String localPath, String remotePath, int behaviour, String mimeType) {
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        requester.uploadNewFile(
+        FileUploader.uploadNewFile(
             mAppContext,
             account,
             localPath,
@@ -230,7 +229,8 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
             false,      // do not create parent folder if not existent
             UploadFileOperation.CREATED_BY_USER,
             false,
-             false
+            false,
+            FileUploader.NameCollisionPolicy.ASK_USER
         );
     }
 

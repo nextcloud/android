@@ -158,18 +158,18 @@ public class UriUploader {
      * @param remotePath    Absolute path in the current OC account to set to the uploaded file.
      */
     private void requestUpload(String localPath, String remotePath) {
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        requester.uploadNewFile(
-                mActivity,
-                mAccount,
-                localPath,
-                remotePath,
-                mBehaviour,
-                null,       // MIME type will be detected from file name
-                false,      // do not create parent folder if not existent
-                UploadFileOperation.CREATED_BY_USER,
-                false,
-                false
+        FileUploader.uploadNewFile(
+            mActivity,
+            mAccount,
+            localPath,
+            remotePath,
+            mBehaviour,
+            null,       // MIME type will be detected from file name
+            false,      // do not create parent folder if not existent
+            UploadFileOperation.CREATED_BY_USER,
+            false,
+            false,
+            FileUploader.NameCollisionPolicy.ASK_USER
         );
     }
 
