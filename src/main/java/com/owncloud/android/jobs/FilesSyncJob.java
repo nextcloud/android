@@ -131,7 +131,7 @@ public class FilesSyncJob extends Job {
                                             userAccountManager,
                                             connectivityService,
                                             powerManagementService);
-        FilesSyncHelper.insertAllDBEntries(preferences, clock, skipCustom);
+        FilesSyncHelper.insertAllDBEntries(preferences, clock, skipCustom, false);
 
         // Create all the providers we'll need
         final ContentResolver contentResolver = context.getContentResolver();
@@ -141,12 +141,11 @@ public class FilesSyncJob extends Job {
         Locale currentLocale = context.getResources().getConfiguration().locale;
         SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale);
         sFormatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if ((syncedFolder.isEnabled()) && (!skipCustom || MediaFolderType.CUSTOM != syncedFolder.getType())) {
                 syncFolder(context, resources, lightVersion, filesystemDataProvider, currentLocale, sFormatter,
-                        requester, syncedFolder);
+                           syncedFolder);
             }
         }
 
@@ -157,10 +156,15 @@ public class FilesSyncJob extends Job {
         return Result.SUCCESS;
     }
 
-    private void syncFolder(Context context, Resources resources, boolean lightVersion,
-                            FilesystemDataProvider filesystemDataProvider, Locale currentLocale,
-                            SimpleDateFormat sFormatter, FileUploader.UploadRequester requester,
-                            SyncedFolder syncedFolder) {
+    private void syncFolder(
+        Context context,
+        Resources resources,
+        boolean lightVersion,
+        FilesystemDataProvider filesystemDataProvider,
+        Locale currentLocale,
+        SimpleDateFormat sFormatter,
+        SyncedFolder syncedFolder
+    ) {
         String remotePath;
         boolean subfolderByDate;
         Integer uploadAction;
@@ -203,24 +207,24 @@ public class FilesSyncJob extends Job {
                 remotePath = syncedFolder.getRemotePath();
             }
 
-            requester.uploadFileWithOverwrite(
-                    context,
-                    user.toPlatformAccount(),
-                    file.getAbsolutePath(),
-                    FileStorageUtils.getInstantUploadFilePath(
+            FileUploader.uploadNewFile(
+                context,
+                user.toPlatformAccount(),
+                file.getAbsolutePath(),
+                FileStorageUtils.getInstantUploadFilePath(
                         file,
                         currentLocale,
                         remotePath,
                         syncedFolder.getLocalPath(),
                         lastModificationTime,
                         subfolderByDate),
-                    uploadAction,
-                    mimeType,
-                    true,           // create parent folder if not existent
-                    UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
-                    needsWifi,
-                    needsCharging,
-                    true
+                uploadAction,
+                mimeType,
+                true,           // create parent folder if not existent
+                UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
+                needsWifi,
+                needsCharging,
+                FileUploader.NameCollisionPolicy.ASK_USER
             );
 
             filesystemDataProvider.updateFilesystemFileAsSentForUpload(path,

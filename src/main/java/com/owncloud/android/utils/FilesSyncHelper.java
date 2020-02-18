@@ -79,13 +79,13 @@ public final class FilesSyncHelper {
         // utility class -> private constructor
     }
 
-    public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
+    public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder, boolean syncNow) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
 
         final long enabledTimestampMs = syncedFolder.getEnabledTimestampMs();
 
-        if (syncedFolder.isEnabled() && enabledTimestampMs >= 0) {
+        if (syncedFolder.isEnabled() && (syncedFolder.isExisting() || enabledTimestampMs >= 0)) {
             MediaFolderType mediaType = syncedFolder.getType();
             if (mediaType == MediaFolderType.IMAGE) {
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.INTERNAL_CONTENT_URI
@@ -106,7 +106,7 @@ public final class FilesSyncHelper {
                         @Override
                         public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
                             File file = path.toFile();
-                            if (attrs.lastModifiedTime().toMillis() >= enabledTimestampMs) {
+                            if (syncedFolder.isExisting() || attrs.lastModifiedTime().toMillis() >= enabledTimestampMs) {
                                 filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
                                                                               attrs.lastModifiedTime().toMillis(),
                                                                               file.isDirectory(), syncedFolder);
@@ -124,17 +124,26 @@ public final class FilesSyncHelper {
                     Log_OC.e(TAG, "Something went wrong while indexing files for auto upload", e);
                 }
             }
+
+            if (syncNow) {
+                new JobRequest.Builder(FilesSyncJob.TAG)
+                    .setExact(1_000L)
+                    .setUpdateCurrent(false)
+                    .build()
+                    .schedule();
+            }
         }
     }
 
-    public static void insertAllDBEntries(AppPreferences preferences, Clock clock, boolean skipCustom) {
+    public static void insertAllDBEntries(AppPreferences preferences, Clock clock, boolean skipCustom,
+                                          boolean syncNow) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences, clock);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled() && (MediaFolderType.CUSTOM != syncedFolder.getType() || !skipCustom)) {
-                insertAllDBEntriesForSyncedFolder(syncedFolder);
+            if (syncedFolder.isEnabled() && (!skipCustom || syncedFolder.getType() != MediaFolderType.CUSTOM)) {
+                insertAllDBEntriesForSyncedFolder(syncedFolder, syncNow);
             }
         }
     }
@@ -171,7 +180,7 @@ public final class FilesSyncHelper {
             while (cursor.moveToNext()) {
                 contentPath = cursor.getString(column_index_data);
                 isFolder = new File(contentPath).isDirectory();
-                if (cursor.getLong(column_index_date_modified) >= enabledTimestampMs / 1000.0) {
+                if (syncedFolder.isExisting() || cursor.getLong(column_index_date_modified) >= enabledTimestampMs / 1000.0) {
                     filesystemDataProvider.storeOrUpdateFileValue(contentPath,
                                                                   cursor.getLong(column_index_date_modified), isFolder,
                                                                   syncedFolder);
@@ -186,8 +195,6 @@ public final class FilesSyncHelper {
                                            final ConnectivityService connectivityService,
                                            final PowerManagementService powerManagementService) {
         final Context context = MainApp.getAppContext();
-
-        FileUploader.UploadRequester uploadRequester = new FileUploader.UploadRequester();
 
         boolean accountExists;
 
@@ -212,13 +219,15 @@ public final class FilesSyncHelper {
         new Thread(() -> {
             if (connectivityService.getActiveNetworkType() != JobRequest.NetworkType.ANY &&
                     !connectivityService.isInternetWalled()) {
-                uploadRequester.retryFailedUploads(context,
-                                                   null,
-                                                   uploadsStorageManager,
-                                                   connectivityService,
-                                                   accountManager,
-                                                   powerManagementService,
-                                                   null);
+                FileUploader.retryFailedUploads(
+                    context,
+                    null,
+                    uploadsStorageManager,
+                    connectivityService,
+                    accountManager,
+                    powerManagementService,
+                    null
+                );
             }
         }).start();
     }

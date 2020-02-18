@@ -39,6 +39,7 @@ public class SyncedFolder implements Serializable, Cloneable {
     @Getter @Setter private String remotePath;
     @Getter @Setter private boolean wifiOnly;
     @Getter @Setter private boolean chargingOnly;
+    @Getter @Setter private boolean existing;
     @Getter @Setter private boolean subfolderByDate;
     @Getter @Setter private String account;
     @Getter @Setter private int uploadAction;
@@ -54,6 +55,7 @@ public class SyncedFolder implements Serializable, Cloneable {
      * @param remotePath      remote path
      * @param wifiOnly        upload on wifi only flag
      * @param chargingOnly    upload on charging only
+     * @param existing        upload existing files
      * @param subfolderByDate create sub-folders by date (month)
      * @param account         the account owning the synced folder
      * @param uploadAction    the action to be done after the upload
@@ -66,6 +68,7 @@ public class SyncedFolder implements Serializable, Cloneable {
                         String remotePath,
                         boolean wifiOnly,
                         boolean chargingOnly,
+                        boolean existing,
                         boolean subfolderByDate,
                         String account,
                         int uploadAction,
@@ -73,8 +76,8 @@ public class SyncedFolder implements Serializable, Cloneable {
                         long timestampMs,
                         MediaFolderType type,
                         boolean hidden) {
-        this(UNPERSISTED_ID, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction,
-             enabled, timestampMs, type, hidden);
+        this(UNPERSISTED_ID, localPath, remotePath, wifiOnly, chargingOnly, existing, subfolderByDate, account,
+             uploadAction, enabled, timestampMs, type, hidden);
     }
 
     /**
@@ -87,6 +90,7 @@ public class SyncedFolder implements Serializable, Cloneable {
                            String remotePath,
                            boolean wifiOnly,
                            boolean chargingOnly,
+                           boolean existing,
                            boolean subfolderByDate,
                            String account,
                            int uploadAction,
@@ -99,6 +103,7 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.remotePath = remotePath;
         this.wifiOnly = wifiOnly;
         this.chargingOnly = chargingOnly;
+        this.existing = existing;
         this.subfolderByDate = subfolderByDate;
         this.account = account;
         this.uploadAction = uploadAction;

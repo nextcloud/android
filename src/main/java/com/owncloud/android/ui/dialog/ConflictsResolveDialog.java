@@ -43,44 +43,48 @@ public class ConflictsResolveDialog extends DialogFragment {
     public enum Decision {
         CANCEL,
         KEEP_BOTH,
-        OVERWRITE,
-        SERVER
+        KEEP_LOCAL,
+        KEEP_SERVER,
     }
 
-    OnConflictDecisionMadeListener mListener;
+    private final OnConflictDecisionMadeListener listener;
+    private final boolean canKeepServer;
 
-    public static ConflictsResolveDialog newInstance(OnConflictDecisionMadeListener listener) {
-        ConflictsResolveDialog f = new ConflictsResolveDialog();
-        f.mListener = listener;
-        return f;
+    public ConflictsResolveDialog(OnConflictDecisionMadeListener listener, boolean canKeepServer) {
+        this.listener = listener;
+        this.canKeepServer = canKeepServer;
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new AlertDialog.Builder(requireActivity(), R.style.Theme_ownCloud_Dialog)
-                .setIcon(R.drawable.ic_warning)
-                .setTitle(R.string.conflict_title)
-                .setMessage(getString(R.string.conflict_message))
-                .setPositiveButton(R.string.conflict_use_local_version,
-                        (dialog, which) -> {
-                            if (mListener != null) {
-                                mListener.conflictDecisionMade(Decision.OVERWRITE);
-                            }
-                        })
-                .setNeutralButton(R.string.conflict_keep_both,
-                        (dialog, which) -> {
-                            if (mListener != null) {
-                                mListener.conflictDecisionMade(Decision.KEEP_BOTH);
-                            }
-                        })
-                .setNegativeButton(R.string.conflict_use_server_version,
-                        (dialog, which) -> {
-                            if (mListener != null) {
-                                mListener.conflictDecisionMade(Decision.SERVER);
-                            }
-                        })
-                .create();
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.Theme_ownCloud_Dialog)
+            .setIcon(R.drawable.ic_warning)
+            .setTitle(R.string.conflict_title)
+            .setMessage(getString(R.string.conflict_message))
+            .setPositiveButton(R.string.conflict_use_local_version,
+                               (dialog, which) -> {
+                                   if (listener != null) {
+                                       listener.conflictDecisionMade(Decision.KEEP_LOCAL);
+                                   }
+                               })
+            .setNeutralButton(R.string.conflict_keep_both,
+                              (dialog, which) -> {
+                                  if (listener != null) {
+                                      listener.conflictDecisionMade(Decision.KEEP_BOTH);
+                                  }
+                              });
+
+        if (this.canKeepServer) {
+            builder.setNegativeButton(R.string.conflict_use_server_version,
+                                      (dialog, which) -> {
+                                          if (listener != null) {
+                                              listener.conflictDecisionMade(Decision.KEEP_SERVER);
+                                          }
+                                      });
+        }
+
+        return builder.create();
     }
 
     public void showDialog(AppCompatActivity activity) {
@@ -96,8 +100,8 @@ public class ConflictsResolveDialog extends DialogFragment {
 
     @Override
     public void onCancel(DialogInterface dialog) {
-        if (mListener != null) {
-            mListener.conflictDecisionMade(Decision.CANCEL);
+        if (listener != null) {
+            listener.conflictDecisionMade(Decision.CANCEL);
         }
     }
 

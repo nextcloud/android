@@ -120,7 +120,7 @@ public class UploadIT extends AbstractIT {
             account,
             null,
             ocUpload,
-            false,
+            FileUploader.NameCollisionPolicy.DEFAULT,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             false,
@@ -140,17 +140,17 @@ public class UploadIT extends AbstractIT {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/empty.txt",
                 "/testUpload/2/3/4/1.txt", account.name);
         UploadFileOperation newUpload = new UploadFileOperation(
-                storageManager,
-                connectivityServiceMock,
-                powerManagementServiceMock,
-                account,
-                null,
-                ocUpload,
-                false,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
-                targetContext,
-                false,
-                false
+            storageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            account,
+            null,
+            ocUpload,
+            FileUploader.NameCollisionPolicy.DEFAULT,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            false,
+            false
         );
         newUpload.addRenameUploadListener(() -> {
             // dummy
