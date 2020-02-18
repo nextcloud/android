@@ -52,6 +52,8 @@ import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesServiceApiImpl;
 import com.owncloud.android.ui.activities.data.files.RemoteFilesRepository;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
 
 import javax.inject.Singleton;
@@ -163,5 +165,11 @@ class AppModule {
     @Provides
     AudioManager audioManager(Context context) {
         return (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+    }
+
+    @Provides
+    @Singleton
+    EventBus eventBus() {
+        return EventBus.getDefault();
     }
 }

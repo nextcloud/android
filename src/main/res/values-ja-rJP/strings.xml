@@ -169,6 +169,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">現在サポートされていない暗号化されたフォルダにコピー/移動します。</string>
     <string name="copy_to">コピー…</string>
     <string name="could_not_download_image">イメージ全体をダウンロードできませんでした</string>
+    <string name="could_not_retrieve_url">URL を取得できませんでした</string>
     <string name="create_dir_fail_msg">フォルダーを作成できません</string>
     <string name="create_new">新規作成</string>
     <string name="create_new_document">新しい文書を作成する</string>
@@ -672,6 +673,10 @@
     <string name="sync_foreign_files_forgotten_explanation">バージョン1.3.16以降、デバイスからアップロードされたファイルは %1$s ローカルフォルダーにコピーされ、単一のファイルが複数のアカウントと同期されているときにデータが失われるのを防ぎます。\n\nこの変更により、以前にこのアプリでアップロードしたすべてのファイルが %2$s フォルダーにコピーされました。しかし、アカウント同期中にエラーが発生したため操作を完了できませんでした。操作を完了させるには、ファイルをそのまま保持する場合は %3$sとのリンクを削除し、 %4$sとのリンクを保持する場合は %1$s フォルダーにファイルを移動させてください。\n\n以下にローカルファイルと リンクしている %5$s のリモートファイルのリストを表示します。</string>
     <string name="sync_foreign_files_forgotten_ticker">一部のローカルファイルが忘れられています</string>
     <string name="sync_in_progress">最新のファイルを取得しています。</string>
+    <string name="sync_not_enough_space_dialog_action_choose">同期フォルダーを選択</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">空き容量</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s が %2$sである必要がありますが、このデバイスでは、領域が%3$s しかありません。</string>
+    <string name="sync_not_enough_space_dialog_title">十分な空き容量がありません</string>
     <string name="sync_status_button">同期ステータスボタン</string>
     <string name="sync_string_files">ファイル</string>
     <string name="synced_folder_settings_button">設定ボタン</string>
@@ -723,6 +728,7 @@
     <string name="upload_local_storage_full">ローカルストレージに空きがありません</string>
     <string name="upload_local_storage_not_copied">ローカルストレージへにファイルをコピーできませんでした</string>
     <string name="upload_lock_failed">フォルダのロックに失敗しました</string>
+    <string name="upload_old_android">暗号化は、Android 5.0以降で使えます。</string>
     <string name="upload_query_move_foreign_files">十分な空き容量が無い場合、選択したファイルは%1$sにコピーできません。コピーせず移動にしますか？</string>
     <string name="upload_sync_conflict">同期の競合が発生しました。手動で解決してください。</string>
     <string name="upload_unknown_error">不明なエラー</string>
