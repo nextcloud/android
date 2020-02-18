@@ -1,0 +1,8 @@
+2b26a5176 Merge remote-tracking branch 'origin/master' into dev
+4616b0d40 Merge pull request #5447 from nextcloud/ezaquarii/migrate-jobs-to-new-user-model
+20b910a64 Merge pull request #5442 from nextcloud/ezaquarii/fix-crash-on-text-file-creation
+0977c3791 Fix crash during text file creation
+5c74f2b1b [tx-robot] updated from transifex
+27fabe745 [tx-robot] updated from transifex
+60295480b daily dev 20200215
+library commit: cece3b5214b09bcaac5c3f890ea67b344ed06424
