@@ -39,10 +39,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -60,6 +61,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.ThemeUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -195,8 +197,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     }
 
     /**
-     * Show a text message on screen view for notifying user if content is
-     * loading or folder is empty
+     * Show a text message on screen view for notifying user if content is loading or folder is empty
      */
     private void setBackgroundText() {
         OCFileListFragment listFragment = getListOfFilesFragment();
@@ -249,8 +250,13 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         mSyncInProgress = true;
 
         // perform folder synchronization
-        RemoteOperation refreshFolderOperation = new RefreshFolderOperation(folder, currentSyncTime, false,
-            ignoreETag, getStorageManager(), getAccount(), getApplicationContext());
+        RemoteOperation refreshFolderOperation = new RefreshFolderOperation(folder,
+                                                                            currentSyncTime,
+                                                                            false,
+                                                                            ignoreETag,
+                                                                            getStorageManager(),
+                                                                            getAccount(),
+                                                                            getApplicationContext());
 
         refreshFolderOperation.execute(getAccount(), this, null, null);
         setIndeterminate(true);
@@ -333,16 +339,22 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     }
 
     protected OCFile getCurrentFolder() {
-        OCFile file = getFile();
-        if (file != null) {
-            if (file.isFolder()) {
-                return file;
-            } else if (getStorageManager() != null) {
-                String parentPath = file.getRemotePath().substring(0, file.getRemotePath().lastIndexOf(file.getFileName()));
-                return getStorageManager().getFileByPath(parentPath);
+        OCFile currentFile = getFile();
+        OCFile finalFolder = null;
+        FileDataStorageManager storageManager = getStorageManager();
+
+        // If the file is null, take the root folder to avoid any error in functions depending on this one
+        if (currentFile != null) {
+            if (currentFile.isFolder()) {
+                finalFolder = currentFile;
+            } else if (currentFile.getRemotePath() != null) {
+                String parentPath = new File(currentFile.getRemotePath()).getParent();
+                finalFolder = storageManager.getFileByPath(parentPath);
             }
+        } else {
+            finalFolder = storageManager.getFileByPath(OCFile.ROOT_PATH);
         }
-        return null;
+        return finalFolder;
     }
 
     public void refreshListOfFilesFragment(boolean fromSearch) {
@@ -443,8 +455,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
 
     /**
-     * Updates the view associated to the activity after the finish of an operation trying
-     * to create a new folder.
+     * Updates the view associated to the activity after the finish of an operation trying to create a new folder.
      *
      * @param operation Creation operation performed.
      * @param result    Result of the creation.
@@ -495,8 +506,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
                         if (currentDir == null) {
                             // current folder was removed from the server
-                            DisplayUtils.showSnackMessage(getActivity(), R.string.sync_current_folder_was_removed,
-                                getCurrentFolder().getFileName());
+                            DisplayUtils.showSnackMessage(getActivity(),
+                                                          R.string.sync_current_folder_was_removed,
+                                                          getCurrentFolder().getFileName());
                             browseToRoot();
                         } else {
                             if (currentFile == null && !getFile().isFolder()) {
