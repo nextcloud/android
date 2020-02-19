@@ -285,8 +285,10 @@ public class UploadFileOperation extends SyncOperation {
         return mLocalBehaviour;
     }
 
-    public void setRemoteFolderToBeCreated() {
+    public UploadFileOperation setRemoteFolderToBeCreated() {
         mRemoteFolderToBeCreated = true;
+
+        return this;
     }
 
     public boolean wasRenamed() {
@@ -348,8 +350,10 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    public void addRenameUploadListener(OnRenameListener listener) {
+    public UploadFileOperation addRenameUploadListener(OnRenameListener listener) {
         mRenameUploadListener = listener;
+
+        return this;
     }
 
     public Context getContext() {
@@ -946,7 +950,9 @@ public class UploadFileOperation extends SyncOperation {
                     mWasRenamed = true;
                     createNewOCFile(mRemotePath);
                     Log_OC.d(TAG, "File renamed as " + mRemotePath);
-                    mRenameUploadListener.onRenameUpload();
+                    if (mRenameUploadListener != null) {
+                        mRenameUploadListener.onRenameUpload();
+                    }
                     break;
                 case OVERWRITE:
                     Log_OC.d(TAG, "Overwriting file");

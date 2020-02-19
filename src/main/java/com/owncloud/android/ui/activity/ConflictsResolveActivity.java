@@ -36,6 +36,9 @@ import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionM
 
 import javax.inject.Inject;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 
 /**
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external
@@ -58,6 +61,10 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     private OCUpload conflictUpload;
     private int localBehaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
 
+
+    // TODO rotate when conflict dialog open
+    // TODO cancel leads to white activity?!
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,14 +83,21 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     }
 
     @Override
-    public void conflictDecisionMade(Decision decision) {
-        if (decision == Decision.CANCEL) {
-            return;
-        }
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
+        outState.putParcelable(EXTRA_CONFLICT_UPLOAD, conflictUpload);
+        outState.putInt(EXTRA_LOCAL_BEHAVIOUR, localBehaviour);
+    }
+
+    @Override
+    public void conflictDecisionMade(Decision decision) {
         OCFile file = getFile();
 
         switch (decision) {
+            case CANCEL:
+                // nothing to do
+                break;
             case KEEP_LOCAL: // Upload
                 FileUploader.uploadUpdateFile(
                     this,
@@ -137,12 +151,21 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 finish();
             } else {
                 // Check whether the file is contained in the current Account
-                if (getStorageManager().fileExists(file.getRemotePath())) {
-                    ConflictsResolveDialog dialog = new ConflictsResolveDialog(this, !this.shouldDeleteLocal());
-                    dialog.showDialog(this);
-                } else {
-                    // Account was changed to a different one - just finish
-                    finish();
+                Fragment prev = getSupportFragmentManager().findFragmentByTag("conflictDialog");
+
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                if (prev == null) {
+                    if (getStorageManager().fileExists(file.getRemotePath())) {
+                        ConflictsResolveDialog dialog = new ConflictsResolveDialog(this,
+                                                                                   getFile(),
+                                                                                   conflictUpload,
+                                                                                   getUser()
+                        );
+                        dialog.show(fragmentTransaction, "conflictDialog");
+                    } else {
+                        // Account was changed to a different one - just finish
+                        finish();
+                    }
                 }
             }
         } else {
