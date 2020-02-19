@@ -432,6 +432,7 @@
     <string name="upload_file_dialog_filename">Ім\'я файлу</string>
     <string name="upload_file_dialog_filetype">Тип файлу</string>
     <string name="upload_files">Завантажити файли</string>
+    <string name="upload_list_delete">Видалити</string>
     <string name="upload_list_empty_headline">Немає доступних вивантажень.</string>
     <string name="upload_query_move_foreign_files">Нестача місця не дозволяє скопіювати файли до каталогу%1$s. Чи бажаєте перемістити їх замість копіювання?</string>
     <string name="upload_unknown_error">Невідома помилка</string>

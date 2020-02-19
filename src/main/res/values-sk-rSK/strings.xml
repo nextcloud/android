@@ -723,6 +723,7 @@
     <string name="upload_file_dialog_title">Zadaj meno a typ súboru na nahratie</string>
     <string name="upload_files">Nahrať súbory</string>
     <string name="upload_item_action_button">Tlačítko akcie Nahrať položku</string>
+    <string name="upload_list_delete">Zmazať</string>
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nejaký obsah alebo si zapnite automatické nahrávanie.</string>
     <string name="upload_local_storage_full">Lokálne úložište je plné</string>

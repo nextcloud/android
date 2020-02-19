@@ -706,6 +706,7 @@
     <string name="upload_file_dialog_title">Vendos emrin dhe tipin e dokumentit të aploduar </string>
     <string name="upload_files">Ngarko skedarët</string>
     <string name="upload_item_action_button">Butoni i veprimit të ngarkimit të një artikulli</string>
+    <string name="upload_list_delete">Delete</string>
     <string name="upload_list_empty_headline">Nuk ka asnjë ngarkim në gjëndje</string>
     <string name="upload_list_empty_text_auto_upload">Ngarko disa përmbajtje ose aktivizo ngarkimin direkt. </string>
     <string name="upload_local_storage_full">Magazinimi lokal është plot</string>

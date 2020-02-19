@@ -724,6 +724,7 @@
     <string name="upload_file_dialog_title">Унесите име и тип фајла за отпремање</string>
     <string name="upload_files">Отпреми фајлове</string>
     <string name="upload_item_action_button">Дугме отпремања ставке</string>
+    <string name="upload_list_delete">Избриши</string>
     <string name="upload_list_empty_headline">Нема доступних отпремања</string>
     <string name="upload_list_empty_text_auto_upload">Отпремите неки садржај или укључите аутоматско отпремање.</string>
     <string name="upload_local_storage_full">Локално складиште пуно</string>

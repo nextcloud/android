@@ -744,6 +744,7 @@ Jak vývojová tak produkční verze je k dispozici na F-droidu a mohou být nai
     <string name="upload_file_dialog_title">Název a typ vstupního souboru k nahrání</string>
     <string name="upload_files">Nahrát soubory</string>
     <string name="upload_item_action_button">Tlačítko akce Nahrát položku</string>
+    <string name="upload_list_delete">Smazat</string>
     <string name="upload_list_empty_headline">Nic k nahrání</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nějaký obsah nebo zapněte automatické nahrávání.</string>
     <string name="upload_local_storage_full">Místní úložiště je plné</string>

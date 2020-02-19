@@ -723,6 +723,7 @@
     <string name="upload_file_dialog_title">アップロードするファイル名とファイルタイプを入力</string>
     <string name="upload_files">アップロードファイル</string>
     <string name="upload_item_action_button">アイテムアクションのアップロードボタン</string>
+    <string name="upload_list_delete">削除</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
     <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="upload_local_storage_full">ローカルストレージに空きがありません</string>
