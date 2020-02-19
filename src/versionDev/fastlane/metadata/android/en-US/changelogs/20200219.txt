@@ -1,0 +1,16 @@
+3f62afabf Merge remote-tracking branch 'origin/master' into dev
+5d428fe9a Merge pull request #4788 from nextcloud/instantupload_all
+49f3a6725 ConflictsResolveActivity: code style and readability improvements
+6540e3ef7 Upload list conflicts: replace trash icon with menu and add resolve action
+a4ff1f11d Customize upload sync conflict notification strings
+e77ffa00a Fix synced folder layout form control widgets alignment
+91ef307e7 Fix database migration of field forceOverwrite to NameCollisionPolicy
+52d089b18 FileUploader: fix codacy issues and SpotBugs
+ec27f840a FileUploader: code cleanup
+7713a28a4 FileUploader: require explicit NameCollisionPolicy and change default used value
+6783e8ab4 Make file uploads ask the user what to do when the file already exists on remote
+213002f44 Make newly created synced folders auto upload existing files by default
+1b7bd72c4 ADD: [instantupload] setting to also upload existing files
+c24345316 Merge pull request #5465 from nextcloud/fix/create-folder-crash-autosync
+d178cde22 daily dev 20200218
+library commit: cece3b5214b09bcaac5c3f890ea67b344ed06424
