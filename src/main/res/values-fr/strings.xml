@@ -725,6 +725,7 @@ Attention la suppression est irréversible.</string>
     <string name="upload_file_dialog_title">Spécifiez le nom et le type du fichier à envoyer</string>
     <string name="upload_files">Téléverser des fichiers</string>
     <string name="upload_item_action_button">Bouton d\'action d\'upload</string>
+    <string name="upload_list_delete">Supprimer</string>
     <string name="upload_list_empty_headline">Aucun historique d\'envoi</string>
     <string name="upload_list_empty_text_auto_upload">Envoyez du contenu ou activez l\'envoi automatique.</string>
     <string name="upload_local_storage_full">Stockage local plein</string>

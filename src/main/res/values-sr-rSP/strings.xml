@@ -714,6 +714,7 @@
     <string name="upload_file_dialog_title">Unesite ime i tip fajla za otpremanje</string>
     <string name="upload_files">Otpremi fajlove</string>
     <string name="upload_item_action_button">Dugme otpremanja stavke</string>
+    <string name="upload_list_delete">Obriši</string>
     <string name="upload_list_empty_headline">Nema dostupnih otpremanja</string>
     <string name="upload_list_empty_text_auto_upload">Otpremite neki sadržaj ili uključite automatsko otpremanje.</string>
     <string name="upload_local_storage_full">Lokalno skladište puno</string>

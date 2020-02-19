@@ -704,6 +704,7 @@
     <string name="upload_file_dialog_title">업로드할 파일 이름과 형식 입력</string>
     <string name="upload_files">파일 업로드</string>
     <string name="upload_item_action_button">항목 업로드 동작 단추</string>
+    <string name="upload_list_delete">삭제</string>
     <string name="upload_list_empty_headline">업로드 없음</string>
     <string name="upload_list_empty_text_auto_upload">콘텐츠를 업로드하거나 자동 업로드를 활성화하십시오.</string>
     <string name="upload_local_storage_full">로컬 저장소가 가득 참</string>

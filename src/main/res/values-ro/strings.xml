@@ -586,6 +586,7 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Fișier scurtătură pe Google Maps (%s)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Fișier scurtătură pe Internet (%s)</string>
     <string name="upload_file_dialog_filetype_snippet_text">Fragment de fișier (.txt)</string>
+    <string name="upload_list_delete">Șterge</string>
     <string name="upload_list_empty_headline">Nu există încărcări disponibile</string>
     <string name="upload_list_empty_text_auto_upload">Încărcați conținut sau activați încărcarea automată.</string>
     <string name="upload_query_move_foreign_files">Nu există spațiu suficient pentru a copia fișierele selectate în dosarul %1$s. Doriți să le mutați în schimb?</string>

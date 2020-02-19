@@ -515,6 +515,7 @@
     <string name="upload_file_dialog_title">ატვირთვისთვის შეიყვანეთ ფაილის სახელი და სახეობა</string>
     <string name="upload_files">ფაილების ატვირთვა</string>
     <string name="upload_item_action_button">ელემენტის ატვირთვის ქმედების ღილაკი</string>
+    <string name="upload_list_delete">წაშლა</string>
     <string name="upload_list_empty_headline">არც ერთი ატვირთვა არაა ხელმისაწვდომი.</string>
     <string name="upload_list_empty_text_auto_upload">ატვირთეთ რაიმე ან გაააქტიურეთ ავტო-ატვირთვა.</string>
     <string name="upload_query_move_foreign_files">არასაკმარისი ადგილი აფერხებს არჩეული ფაილების კოპირებას %1$s დირექტორიაში. გსურთ სანაცვლოდ მათი გადატანა?</string>

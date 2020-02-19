@@ -699,6 +699,7 @@
     <string name="upload_file_dialog_title">Ingrese el nombre y el tipo del archivo a cargar</string>
     <string name="upload_files">Subiendo archivos</string>
     <string name="upload_item_action_button">Subir botón de acción del elemento</string>
+    <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">No hay cargas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Cargue algún contenido o active la carga automática</string>
     <string name="upload_local_storage_full">Memoria interna llena</string>

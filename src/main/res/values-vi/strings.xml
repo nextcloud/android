@@ -414,6 +414,7 @@
     <string name="upload_file_dialog_filename">Tên tập tin</string>
     <string name="upload_file_dialog_filetype">Định dạng</string>
     <string name="upload_files">Tải lên tập tin</string>
+    <string name="upload_list_delete">Xóa</string>
     <string name="upload_list_empty_headline">Không có tải lên nào có sẵn</string>
     <string name="upload_list_empty_text_auto_upload">Tải lên một vài nội dung hoặc kích hoạt tải lên tự động</string>
     <string name="upload_unknown_error">Lỗi chưa biết</string>

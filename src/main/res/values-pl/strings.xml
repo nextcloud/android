@@ -723,6 +723,7 @@
     <string name="upload_file_dialog_title">Wprowadź nazwę i typ pliku do wysłania</string>
     <string name="upload_files">Wyślij plik</string>
     <string name="upload_item_action_button">Przycisk wysyłania elementu</string>
+    <string name="upload_list_delete">Usuń</string>
     <string name="upload_list_empty_headline">Brak wysłanych plików</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij pliki lub włącz automatyczne wysyłanie.</string>
     <string name="upload_local_storage_full">Pamięć lokalna pełna</string>

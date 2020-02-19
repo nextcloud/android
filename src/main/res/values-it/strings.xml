@@ -723,6 +723,7 @@
     <string name="upload_file_dialog_title">Digita il nome e il tipo di file da caricare</string>
     <string name="upload_files">Carica file</string>
     <string name="upload_item_action_button">Pulsante azione Carica elemento</string>
+    <string name="upload_list_delete">Elimina</string>
     <string name="upload_list_empty_headline">Nessun caricamento disponibile</string>
     <string name="upload_list_empty_text_auto_upload">Carica alcuni contenuti o attiva il caricamento automatico.</string>
     <string name="upload_local_storage_full">Archiviazione locale piena</string>

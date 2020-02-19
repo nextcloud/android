@@ -718,6 +718,7 @@
     <string name="upload_file_dialog_title">Имя и типа файла для автозагрузки </string>
     <string name="upload_files">Отправить файлы</string>
     <string name="upload_item_action_button">Кнопка «выгрузить объект»</string>
+    <string name="upload_list_delete">Удалить</string>
     <string name="upload_list_empty_headline">Нет файлов, ожидающих передачу на сервер.</string>
     <string name="upload_list_empty_text_auto_upload">Сохраните здесь что-нибудь или включите автоматическую передачу файлов!</string>
     <string name="upload_local_storage_full">Закончилось свободное место в локальном хранилище</string>

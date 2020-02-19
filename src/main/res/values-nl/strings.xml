@@ -722,6 +722,7 @@
     <string name="upload_file_dialog_title">Opgeven upload bestandsnaam en bestandstype</string>
     <string name="upload_files">Bestanden uploaden</string>
     <string name="upload_item_action_button">Upload object actie knop</string>
+    <string name="upload_list_delete">Verwijderen</string>
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
     <string name="upload_list_empty_text_auto_upload">Upload enkele gegevens of activeer auto-upload.</string>
     <string name="upload_local_storage_full">Lokale opslag vol</string>

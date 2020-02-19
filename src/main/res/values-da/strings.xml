@@ -708,6 +708,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="upload_file_dialog_title">Indtast filnavn og filtype at sende</string>
     <string name="upload_files">Send filer</string>
     <string name="upload_item_action_button">Send artikel knap</string>
+    <string name="upload_list_delete">Slet</string>
     <string name="upload_list_empty_headline">Ingen uploads tilgængelige</string>
     <string name="upload_list_empty_text_auto_upload">Upload noget indhold eller aktiver auto upload.</string>
     <string name="upload_local_storage_full">Lokalt lager fuldt</string>

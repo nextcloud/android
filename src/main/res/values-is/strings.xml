@@ -723,6 +723,7 @@
     <string name="upload_file_dialog_title">Settu inn skráarheiti og skráategund fyrir innsendingu</string>
     <string name="upload_files">Senda inn skrár</string>
     <string name="upload_item_action_button">Aðgerðarhnappur til að senda inn atriði</string>
+    <string name="upload_list_delete">Eyða</string>
     <string name="upload_list_empty_headline">Engar innsendingar tiltækar</string>
     <string name="upload_list_empty_text_auto_upload">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
     <string name="upload_local_storage_full">Staðvær gagnageymsla er full</string>

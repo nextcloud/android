@@ -550,6 +550,7 @@
     <string name="upload_file_dialog_title">Ingresa el nombre y el tipo del archivo a cargar</string>
     <string name="upload_files">Cargar archivos</string>
     <string name="upload_item_action_button">Botón de cargar elemento</string>
+    <string name="upload_list_delete">Borrar</string>
     <string name="upload_list_empty_headline">No hay cargas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Carga algún contenido o activa la carga automática</string>
     <string name="upload_query_move_foreign_files">El espacio insuficiente evita que se copien los archivos seleccionados dentro de la carpeta %1$s. ¿Te gustaría moverlos ahí en su lugar?</string>

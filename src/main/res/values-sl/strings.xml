@@ -709,6 +709,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">datoteka izrezka(.txt)</string>
     <string name="upload_file_dialog_title">Ime in zvrst datoteke za pošiljanje</string>
     <string name="upload_files">Pošlji datoteke</string>
+    <string name="upload_list_delete">Izbriši</string>
     <string name="upload_list_empty_headline">Ni pripravljenih datotek za pošiljanje</string>
     <string name="upload_list_empty_text_auto_upload">Pošljite kakšno vsebino, ali pa omogočite samodejno nalaganje.</string>
     <string name="upload_local_storage_full">Krajevna shramba je polna</string>

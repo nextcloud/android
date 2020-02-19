@@ -723,6 +723,7 @@
     <string name="upload_file_dialog_title">Introduce el nombre y tipo de archivo para subir</string>
     <string name="upload_files">Subir archivos</string>
     <string name="upload_item_action_button">Botón de acción de subida de objeto</string>
+    <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">No hay subidas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Sube algún contenido o active la subida automática.</string>
     <string name="upload_local_storage_full">Almacenamiento local lleno</string>

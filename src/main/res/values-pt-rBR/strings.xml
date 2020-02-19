@@ -723,6 +723,7 @@
     <string name="upload_file_dialog_title">Indique o nome e tipo de arquivo a enviar</string>
     <string name="upload_files">Enviar arquivos</string>
     <string name="upload_item_action_button">Enviar botão de ação do item</string>
+    <string name="upload_list_delete">Excluir</string>
     <string name="upload_list_empty_headline">Nenhum envio disponível</string>
     <string name="upload_list_empty_text_auto_upload">Envie algum conteúdo ou ative o envio automático.</string>
     <string name="upload_local_storage_full">O armazenamento local está cheio.</string>

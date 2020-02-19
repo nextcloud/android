@@ -710,6 +710,7 @@
     <string name="upload_file_dialog_title">Introduïu el nom del fitxer i el seu tipus per carregar-lo</string>
     <string name="upload_files">Carrega fitxers</string>
     <string name="upload_item_action_button">Botó d\'acció de càrrega d\'element</string>
+    <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">No hi ha càrregues disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Carregueu algun contingut o activeu la càrrega automàtica.</string>
     <string name="upload_local_storage_full">L\'emmagatzematge local és ple</string>
