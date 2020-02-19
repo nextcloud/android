@@ -41,6 +41,7 @@ public class SyncedFolderParcelable implements Parcelable {
     @Getter @Setter private String remotePath;
     @Getter @Setter private boolean wifiOnly = false;
     @Getter @Setter private boolean chargingOnly = false;
+    @Getter @Setter private boolean existing = true;
     @Getter @Setter private boolean enabled = false;
     @Getter @Setter private boolean subfolderByDate = false;
     @Getter private Integer uploadAction;
@@ -57,6 +58,7 @@ public class SyncedFolderParcelable implements Parcelable {
         remotePath = syncedFolderDisplayItem.getRemotePath();
         wifiOnly = syncedFolderDisplayItem.isWifiOnly();
         chargingOnly = syncedFolderDisplayItem.isChargingOnly();
+        existing = syncedFolderDisplayItem.isExisting();
         enabled = syncedFolderDisplayItem.isEnabled();
         subfolderByDate = syncedFolderDisplayItem.isSubfolderByDate();
         type = syncedFolderDisplayItem.getType();
@@ -73,6 +75,7 @@ public class SyncedFolderParcelable implements Parcelable {
         remotePath = read.readString();
         wifiOnly = read.readInt()!= 0;
         chargingOnly = read.readInt() != 0;
+        existing = read.readInt() != 0;
         enabled = read.readInt() != 0;
         subfolderByDate = read.readInt() != 0;
         type = MediaFolderType.getById(read.readInt());
@@ -90,6 +93,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeString(remotePath);
         dest.writeInt(wifiOnly ? 1 : 0);
         dest.writeInt(chargingOnly ? 1 : 0);
+        dest.writeInt(existing ? 1 : 0);
         dest.writeInt(enabled ? 1 : 0);
         dest.writeInt(subfolderByDate ? 1 : 0);
         dest.writeInt(type.getId());

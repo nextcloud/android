@@ -31,7 +31,7 @@ import com.owncloud.android.MainApp;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 53;
+    public static final int DB_VERSION = 54;
 
     private ProviderMeta() {
         // No instance
@@ -208,7 +208,7 @@ public class ProviderMeta {
         public static final String UPLOADS_STATUS = "status";
         public static final String UPLOADS_LOCAL_BEHAVIOUR = "local_behaviour";
         public static final String UPLOADS_UPLOAD_TIME = "upload_time";
-        public static final String UPLOADS_FORCE_OVERWRITE = "force_overwrite";
+        public static final String UPLOADS_NAME_COLLISION_POLICY = "name_collision_policy";
         public static final String UPLOADS_IS_CREATE_REMOTE_FOLDER = "is_create_remote_folder";
         public static final String UPLOADS_UPLOAD_END_TIMESTAMP = "upload_end_timestamp";
         public static final String UPLOADS_LAST_RESULT = "last_result";
@@ -223,6 +223,7 @@ public class ProviderMeta {
         public static final String SYNCED_FOLDER_REMOTE_PATH = "remote_path";
         public static final String SYNCED_FOLDER_WIFI_ONLY = "wifi_only";
         public static final String SYNCED_FOLDER_CHARGING_ONLY = "charging_only";
+        public static final String SYNCED_FOLDER_EXISTING = "existing";
         public static final String SYNCED_FOLDER_ENABLED = "enabled";
         public static final String SYNCED_FOLDER_ENABLED_TIMESTAMP_MS = "enabled_timestamp_ms";
         public static final String SYNCED_FOLDER_TYPE = "type";

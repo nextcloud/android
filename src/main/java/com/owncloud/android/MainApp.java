@@ -773,7 +773,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
                 for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
                     if (syncedFolder.isEnabled()) {
-                        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder);
+                        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, true);
                     }
                 }
 
