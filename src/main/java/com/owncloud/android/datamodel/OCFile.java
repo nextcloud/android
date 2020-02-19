@@ -160,6 +160,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         ownerDisplayName = source.readString();
         mountType = (WebdavEntry.MountType) source.readSerializable();
         richWorkspace = source.readString();
+        previewAvailable = source.readInt() == 1;
     }
 
     @Override
@@ -193,6 +194,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeString(ownerDisplayName);
         dest.writeSerializable(mountType);
         dest.writeString(richWorkspace);
+        dest.writeInt(previewAvailable ? 1 : 0);
     }
 
     public String getDecryptedRemotePath() {
