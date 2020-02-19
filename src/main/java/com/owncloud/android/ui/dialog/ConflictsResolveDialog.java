@@ -78,14 +78,6 @@ public class ConflictsResolveDialog extends DialogFragment {
         KEEP_SERVER,
     }
 
-    public ConflictsResolveDialog() {
-        // needed by Android
-        existingFile = null;
-        newFile = null;
-        listener = null;
-        user = null;
-    }
-
     public ConflictsResolveDialog(OnConflictDecisionMadeListener listener,
                                   OCFile file,
                                   OCUpload conflictUpload, Optional<User> user) {
@@ -99,8 +91,6 @@ public class ConflictsResolveDialog extends DialogFragment {
     public void onStart() {
         super.onStart();
 
-        int color = ThemeUtils.primaryAccentColor(getContext());
-
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog == null || user == null) {
@@ -108,6 +98,7 @@ public class ConflictsResolveDialog extends DialogFragment {
             return;
         }
 
+        int color = ThemeUtils.primaryAccentColor(getContext());
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
     }
@@ -144,7 +135,7 @@ public class ConflictsResolveDialog extends DialogFragment {
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view)
-            .setPositiveButton(R.string.common_ok, ((dialog, which) -> {
+            .setPositiveButton(R.string.common_ok, (dialog, which) -> {
                 if (listener != null) {
                     CheckBox newFile = view.findViewById(R.id.new_checkbox);
                     CheckBox existingFile = view.findViewById(R.id.existing_checkbox);
@@ -157,12 +148,12 @@ public class ConflictsResolveDialog extends DialogFragment {
                         listener.conflictDecisionMade(Decision.KEEP_SERVER);
                     }
                 }
-            }))
-            .setNegativeButton(R.string.common_cancel, ((dialog, which) -> {
+            })
+            .setNegativeButton(R.string.common_cancel, (dialog, which) -> {
                 if (listener != null) {
                     listener.conflictDecisionMade(Decision.CANCEL);
                 }
-            }))
+            })
             .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.conflict_message_headline),
                                                  accentColor));
 
