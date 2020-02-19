@@ -702,6 +702,7 @@
     <string name="upload_file_dialog_title">輸入上傳的檔名和類型</string>
     <string name="upload_files">上傳檔案</string>
     <string name="upload_item_action_button">上傳動作按鈕</string>
+    <string name="upload_list_delete">刪除</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
     <string name="upload_list_empty_text_auto_upload">上傳一些聯絡人或者啟用自動上傳</string>
     <string name="upload_local_storage_full">本地儲存空間已無空間</string>

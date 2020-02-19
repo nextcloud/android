@@ -688,6 +688,7 @@
     <string name="upload_file_dialog_title">Legg inn filnavn og -type for opplasting</string>
     <string name="upload_files">Last opp filer</string>
     <string name="upload_item_action_button">Last opp element handlingsknapp</string>
+    <string name="upload_list_delete">Slett</string>
     <string name="upload_list_empty_headline">Ingen opplastinger tilgjengelig</string>
     <string name="upload_list_empty_text_auto_upload">Last opp noe innhold eller aktiver automatisk opplasting!</string>
     <string name="upload_local_storage_full">Lokal lagring full</string>

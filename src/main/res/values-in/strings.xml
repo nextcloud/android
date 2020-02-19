@@ -541,6 +541,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Potongan berkas teks(.txt)</string>
     <string name="upload_file_dialog_title">Masukkan nama berkas dan tipe berkas untuk diunggah</string>
     <string name="upload_files">Unggah berkas</string>
+    <string name="upload_list_delete">Hapus</string>
     <string name="upload_list_empty_headline">Tidak ada unggahan yang tersedia</string>
     <string name="upload_list_empty_text_auto_upload">Unggah beberapa foto atau aktifkan unggah otomatis.</string>
     <string name="upload_query_move_foreign_files">Ruang tidak cukup untuk menyalin berkas terpilih ke folder %1$s. Apakah Anda ingin memindahkannya?</string>

@@ -719,6 +719,7 @@
     <string name="upload_file_dialog_title">نام و نوع فایل را وارد کنید تا بارگذاری شود</string>
     <string name="upload_files">بارگذاری فایل ها</string>
     <string name="upload_item_action_button">دکمه عملکرد مورد را بارگذاری کنید</string>
+    <string name="upload_list_delete">حذف</string>
     <string name="upload_list_empty_headline">هیچ بارگذاری وجود ندارد</string>
     <string name="upload_list_empty_text_auto_upload">تعدادی عکس آپلود کنید یا آپلود خودکار را فعال کنید</string>
     <string name="upload_local_storage_full">فضای محلی پر است</string>

@@ -724,6 +724,7 @@
     <string name="upload_file_dialog_title">Dateinamen und -typ zum Hochladen eingeben</string>
     <string name="upload_files">Dateien hochladen</string>
     <string name="upload_item_action_button">Button, um Objekt hochzuladen</string>
+    <string name="upload_list_delete">Löschen</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text_auto_upload">Laden Sie Inhalte hoch oder aktivieren Sie den Auto Upload.</string>
     <string name="upload_local_storage_full">Lokaler Speicher voll</string>

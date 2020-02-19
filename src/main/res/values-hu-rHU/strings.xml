@@ -79,6 +79,7 @@
     <string name="autoupload_create_new_custom_folder">Új egyéni mappabeállítás létrehozása</string>
     <string name="autoupload_custom_folder">Egyéni mappa beállítása</string>
     <string name="autoupload_disable_power_save_check">Energiagazdálkodási ellenőrzés letiltása</string>
+    <string name="autoupload_hide_folder">Mappa elrejtése</string>
     <string name="avatar">Avatár</string>
     <string name="battery_optimization_close">Bezárás</string>
     <string name="battery_optimization_disable">Letiltás</string>
@@ -168,11 +169,15 @@
     <string name="copy_move_to_encrypted_folder_not_supported">A titkosított mappába másolás/áthelyezés jelenleg nem támogatott.</string>
     <string name="copy_to">Másolás ide…</string>
     <string name="could_not_download_image">Nem sikerült letölteni a teljes képet</string>
+    <string name="could_not_retrieve_url">Az URL nem kérhető le</string>
     <string name="create_dir_fail_msg">A mappa létrehozása sikertelen</string>
+    <string name="create_new">Új létrehozása</string>
     <string name="create_new_document">Új dokumentum létrehozása</string>
     <string name="create_new_folder">Új mappa létrehozása</string>
     <string name="create_new_presentation">Új bemutató létrehozása</string>
     <string name="create_new_spreadsheet">Új munkafüzet létrehozása</string>
+    <string name="create_rich_workspace">Mappainformációk hozzáadása</string>
+    <string name="creates_rich_workspace">létrehozza a mappainformációkat</string>
     <string name="credentials_disabled">Hitelesítő adatok letiltva</string>
     <string name="date_unknown">Ismeretlen</string>
     <string name="default_credentials_wrong">Hibás hitelesítési adatok</string>
@@ -223,6 +228,7 @@
     <string name="drawer_quota_unlimited">%1$s használt</string>
     <string name="drawer_synced_folders">Automatikus feltöltés</string>
     <string name="edit_permission_label">szerkesztés</string>
+    <string name="edit_rich_workspace">mappainformációk szerkesztése</string>
     <string name="encrypted">Titkosítás bekapcsolása</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_decrypting">Visszafejtés…</string>
@@ -256,6 +262,7 @@
     <string name="fab_label">Hozzáadás vagy feltöltés</string>
     <string name="failed_to_download">Nem sikerült átadni a fájlt a letöltéskezelőnek</string>
     <string name="failed_to_print">A fájl nyomtatása sikertelen</string>
+    <string name="failed_to_start_editor">A szerkesztő indítása sikertelen</string>
     <string name="fallback_weblogin_back">Vissza</string>
     <string name="fallback_weblogin_text">Visszatérés a régi bejelentkezési módhoz</string>
     <string name="favorite">Hozzáadás a kedvencekhez </string>
@@ -500,6 +507,7 @@
     <string name="prefs_theme_title">Téma</string>
     <string name="prefs_value_theme_dark">Sötét</string>
     <string name="prefs_value_theme_light">Világos</string>
+    <string name="prefs_value_theme_system">Rendszer követése</string>
     <string name="preview_image_description">Kép előnézete</string>
     <string name="preview_image_error_no_local_file">Nincs helyi fájl az előnézethez</string>
     <string name="preview_image_error_unknown_format">A kép nem jeleníthető meg</string>
@@ -531,13 +539,17 @@
     <string name="saml_authentication_wrong_pass">Hibás jelszó</string>
     <string name="scanQR_description">Belépés QR-kóddal</string>
     <string name="screenshot_01_gridView_heading">Az adatai védelme</string>
+    <string name="screenshot_01_gridView_subline">saját üzemeltetésű irodai platform</string>
     <string name="screenshot_02_listView_heading">Tallózás és megosztás</string>
     <string name="screenshot_02_listView_subline">minden művelet karnyújtásnyira</string>
+    <string name="screenshot_03_drawer_heading">Tevékenységek, megosztások, …</string>
     <string name="screenshot_03_drawer_subline">minden gyorsan elérhető</string>
     <string name="screenshot_04_accounts_heading">Az összes fiókja</string>
     <string name="screenshot_04_accounts_subline">egy helyen</string>
     <string name="screenshot_05_autoUpload_heading">Automatikus feltöltés</string>
     <string name="screenshot_05_autoUpload_subline">a képeinek és videóinak</string>
+    <string name="screenshot_06_davdroid_heading">Naptár és névjegyek</string>
+    <string name="screenshot_06_davdroid_subline">Szinkronizálás DAVx5-tel</string>
     <string name="search_users_and_groups_hint">Felhasználók és csoportok keresése</string>
     <string name="select_all">Összes kiválasztása</string>
     <string name="select_template">Válasszon sablont</string>
@@ -679,12 +691,17 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="sync_foreign_files_forgotten_explanation">Az 1.3.16-os verziótól kezdve, az erről az eszközről feltöltött fájlok a következő mappába kerülnek az adatvesztés elkerülésére érdekében, ha több fiókkal is szinkronizál egy fájlt: %1$s.\n\nEzen változás miatt, minden a korábbi verzió által feltöltött verzió ebbe a mappába került: %2$s. Viszont egy a fiók szinkronizálásakor történt hiba megakadályozta a művelet befejezését. Úgy hagyhatja a fájlokat, vagy törölheti a következő hivatkozást: %3$s, vagy áthelyezheti a fájlokat ebbe a mappába: %1$s, és meghagyhatja a hivatkozást itt: %4$s.\n\nLent láthatja a helyi fájlok és mappák listáját itt: %5$s, ahova hivatkozva voltak.</string>
     <string name="sync_foreign_files_forgotten_ticker">Néhány helyi fájl figyelmen kívül lett hagyva</string>
     <string name="sync_in_progress">A fájl legfrissebb verziójának lekérése.</string>
+    <string name="sync_not_enough_space_dialog_action_choose">Szinkronizálandó elemek kiválasztása</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Terület felszabadítása</string>
+    <string name="sync_not_enough_space_dialog_placeholder">A(z) %1$s %2$s méretű, de csak %3$s hely érhető el az eszközön.</string>
+    <string name="sync_not_enough_space_dialog_title">Nincs elég hely.</string>
     <string name="sync_status_button">Szinkronizálás állapota gomb</string>
     <string name="sync_string_files">Fájlok</string>
     <string name="synced_folder_settings_button">Beállítások gomb</string>
     <string name="synced_folders_configure_folders">Mappák beállítása</string>
     <string name="synced_folders_loading_folders">Mappák betöltése…</string>
     <string name="synced_folders_new_info">Az azonnali feltöltés teljesen át lett dolgozva. Állítsa be újra az automatikus feltöltést a főmenüben.\n\nÉlvezze az új és kibővített automatikus feltöltést.</string>
+    <string name="synced_folders_no_results">Nem találhatók médiamappák.</string>
     <string name="synced_folders_preferences">Automatikus feltöltés beállításai</string>
     <string name="synced_folders_preferences_folder_path">Neki: %1$s</string>
     <string name="synced_folders_type">Típus</string>
@@ -729,6 +746,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="upload_local_storage_full">A helyi tároló megtelt</string>
     <string name="upload_local_storage_not_copied">A fájlt nem lehet a helyi tárolóra másolni</string>
     <string name="upload_lock_failed">A mappa zárolása sikertelen</string>
+    <string name="upload_old_android">A titkosítás csak 5.0-s vagy újabb Android esetén lehetséges</string>
     <string name="upload_query_move_foreign_files">Nincs elég hely a fájlok ebbe a mappába másolásához: %1$s. Áthelyezi inkább őket?</string>
     <string name="upload_sync_conflict">Szinkronizálási ütközés, javítsa kézzel</string>
     <string name="upload_unknown_error">Ismeretlen hiba</string>
@@ -811,6 +829,10 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d fájl</item>
         <item quantity="other">%1$d fájl</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">%1$d rejtett mappa megjelenítése</item>
+        <item quantity="other">%1$d rejtett mappa megjelenítése</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d kiválasztva</item>

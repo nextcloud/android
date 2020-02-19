@@ -726,6 +726,7 @@
     <string name="upload_file_dialog_title">输入要上传的文件名和文件类型</string>
     <string name="upload_files">上传文件</string>
     <string name="upload_item_action_button">上传项操作按钮</string>
+    <string name="upload_list_delete">删除</string>
     <string name="upload_list_empty_headline">没有可以上传的</string>
     <string name="upload_list_empty_text_auto_upload">上传一些内容或启用自动上传。</string>
     <string name="upload_local_storage_full">本地存储已满</string>

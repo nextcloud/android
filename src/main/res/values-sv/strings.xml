@@ -723,6 +723,7 @@
     <string name="upload_file_dialog_title">Mata in filnamn och filtyp att ladda upp</string>
     <string name="upload_files">Ladda upp filer</string>
     <string name="upload_item_action_button">Ladda upp objekthändelse-knapp</string>
+    <string name="upload_list_delete">Radera</string>
     <string name="upload_list_empty_headline">Inga nerladdningar tillgängliga</string>
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>
     <string name="upload_local_storage_full">Lokal lagring full</string>
