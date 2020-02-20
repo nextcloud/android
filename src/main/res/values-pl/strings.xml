@@ -362,6 +362,7 @@
     <string name="hint_password">Hasło</string>
     <string name="host_not_available">Serwer jest niedostępny</string>
     <string name="host_your_own_server">Hostuj własny serwer</string>
+    <string name="instant_upload_existing">Prześlij również istniejące pliki</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="learn_more">Dowiedz się więcej</string>
@@ -726,6 +727,7 @@
     <string name="upload_list_delete">Usuń</string>
     <string name="upload_list_empty_headline">Brak wysłanych plików</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij pliki lub włącz automatyczne wysyłanie.</string>
+    <string name="upload_list_resolve_conflict">Rozwiązać konflikt</string>
     <string name="upload_local_storage_full">Pamięć lokalna pełna</string>
     <string name="upload_local_storage_not_copied">Nie można skopiować pliku do lokalnej pamięci</string>
     <string name="upload_lock_failed">Nie udało się zablokować katalogu</string>
@@ -745,6 +747,8 @@
     <string name="uploader_top_message">Wybierz katalog do wysłania</string>
     <string name="uploader_upload_failed_content_single">Nie udało się wysłać %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Wysyłanie nie powiodło się, zaloguj się ponownie</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Konflikt przesyłania pliku</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Wybierz, którą wersję zachować z %1$s</string>
     <string name="uploader_upload_failed_ticker">Wysyłanie nie powiodło się</string>
     <string name="uploader_upload_files_behaviour">Opcja wysłania:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Przenieś plik do katalogu %1$s</string>
@@ -773,6 +777,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Nie odnaleziono pliku lokalnego</string>
     <string name="uploads_view_upload_status_failed_permission_error">Błąd uprawnień</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certyfikat serwera nie jest zaufany</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Pobieram wersję serwera…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikacja została zatrzymana</string>
     <string name="uploads_view_upload_status_succeeded">Ukończono</string>
     <string name="uploads_view_upload_status_unknown_fail">Nieznany błąd</string>
