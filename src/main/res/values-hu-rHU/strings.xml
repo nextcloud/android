@@ -741,6 +741,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="upload_file_dialog_title">Add meg a feltöltendő fájl nevét és a típusát</string>
     <string name="upload_files">Fájlok feltöltése</string>
     <string name="upload_item_action_button">Elem feltöltése műveletgomb</string>
+    <string name="upload_list_delete">Törlés</string>
     <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
     <string name="upload_list_empty_text_auto_upload">Töltsön fel valamilyen tartalmat, vagy aktiválja az automatikus feltöltést.</string>
     <string name="upload_local_storage_full">A helyi tároló megtelt</string>

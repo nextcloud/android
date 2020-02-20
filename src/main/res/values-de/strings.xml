@@ -362,6 +362,7 @@
     <string name="hint_password">Passwort</string>
     <string name="host_not_available">Server nicht verfügbar</string>
     <string name="host_your_own_server">Eigenen Server betreiben</string>
+    <string name="instant_upload_existing">Vorhandene Dateien ebenfalls hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
     <string name="learn_more">Mehr</string>
@@ -727,6 +728,7 @@
     <string name="upload_list_delete">Löschen</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text_auto_upload">Laden Sie Inhalte hoch oder aktivieren Sie den Auto Upload.</string>
+    <string name="upload_list_resolve_conflict">Konflikt lösen</string>
     <string name="upload_local_storage_full">Lokaler Speicher voll</string>
     <string name="upload_local_storage_not_copied">Datei konnte nicht in den lokalen Speicher kopiert werden</string>
     <string name="upload_lock_failed">Fehler beim Sperren des Ordners</string>
@@ -746,6 +748,8 @@
     <string name="uploader_top_message">Hochladeordner auswählen</string>
     <string name="uploader_upload_failed_content_single">Konnte %1$s nicht hochladen</string>
     <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, bitte erneut anmelden</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Dateikonflikt beim Hochladen</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Wählen Sie, welche Version von %1$s behalten werden soll</string>
     <string name="uploader_upload_failed_ticker">Hochladen fehlgeschlagen</string>
     <string name="uploader_upload_files_behaviour">Upload Option:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Datei in Ordner %1$s verschieben</string>
@@ -774,6 +778,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Lokale Datei nicht gefunden</string>
     <string name="uploads_view_upload_status_failed_permission_error">Berechtigungsfehler</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Serverzertifikat ist nicht vertrauenswürdig</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Serverversion wird abgerufen …</string>
     <string name="uploads_view_upload_status_service_interrupted">App beendet</string>
     <string name="uploads_view_upload_status_succeeded">Fertiggestellt</string>
     <string name="uploads_view_upload_status_unknown_fail">Unbekannter Fehler</string>

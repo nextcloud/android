@@ -362,6 +362,7 @@
     <string name="hint_password">Senha</string>
     <string name="host_not_available">Servidor indisponível</string>
     <string name="host_your_own_server">Hospede seu próprio servidor</string>
+    <string name="instant_upload_existing">Carregar arquivos existentes também</string>
     <string name="instant_upload_on_charging">Só enviar quando carregando</string>
     <string name="instant_upload_path">/EnvioAutomático</string>
     <string name="learn_more">Saiba mais</string>
@@ -726,6 +727,7 @@
     <string name="upload_list_delete">Excluir</string>
     <string name="upload_list_empty_headline">Nenhum envio disponível</string>
     <string name="upload_list_empty_text_auto_upload">Envie algum conteúdo ou ative o envio automático.</string>
+    <string name="upload_list_resolve_conflict">Resolver conflito</string>
     <string name="upload_local_storage_full">O armazenamento local está cheio.</string>
     <string name="upload_local_storage_not_copied">O arquivo não pôde ser copiado para o armazenamento local</string>
     <string name="upload_lock_failed">Falha ao bloquear pasta</string>
@@ -745,6 +747,8 @@
     <string name="uploader_top_message">Escolher pasta para envio</string>
     <string name="uploader_upload_failed_content_single">Não foi possível enviar %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Envio falhou. Logue-se novamente</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Conflito no envio de arquivo</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Escolha qual versão manter de %1$s</string>
     <string name="uploader_upload_failed_ticker">Falha no envio</string>
     <string name="uploader_upload_files_behaviour">Opção de envio:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover arquivo para a pasta %1$s</string>
@@ -773,6 +777,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Arquivo local não encontrado</string>
     <string name="uploads_view_upload_status_failed_permission_error">Erro de permissão</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificado de servidor não confiável</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Buscando versão do servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicativo finalizado</string>
     <string name="uploads_view_upload_status_succeeded">Concluído</string>
     <string name="uploads_view_upload_status_unknown_fail">Erro desconhecido</string>

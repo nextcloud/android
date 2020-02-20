@@ -362,6 +362,7 @@
     <string name="hint_password">Wachtwoord</string>
     <string name="host_not_available">Server niet beschikbaar</string>
     <string name="host_your_own_server">Host je eigen server</string>
+    <string name="instant_upload_existing">Upload ook bestaande bestanden</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="learn_more">Meer weten</string>
@@ -675,6 +676,7 @@
     <string name="sync_in_progress">Meest recente versie van het bestand wordt opgehaald.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Selectieve synchronisatie</string>
     <string name="sync_not_enough_space_dialog_action_free_space">Ruimte vrijmaken</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, maar er is alleen %3$sbeschikbaar op het apparaat.</string>
     <string name="sync_not_enough_space_dialog_title">Onvoldoende ruimte</string>
     <string name="sync_status_button">Sync status knop</string>
     <string name="sync_string_files">Bestanden</string>
@@ -725,6 +727,7 @@
     <string name="upload_list_delete">Verwijderen</string>
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
     <string name="upload_list_empty_text_auto_upload">Upload enkele gegevens of activeer auto-upload.</string>
+    <string name="upload_list_resolve_conflict">Los conflict op</string>
     <string name="upload_local_storage_full">Lokale opslag vol</string>
     <string name="upload_local_storage_not_copied">Bestand kan niet naar de lokale opschlag gekopieerd worden</string>
     <string name="upload_lock_failed">Vergrendeling van de map mislukt</string>
@@ -744,6 +747,8 @@
     <string name="uploader_top_message">Kies een uploadmap</string>
     <string name="uploader_upload_failed_content_single">Kon %1$s niet uploaden</string>
     <string name="uploader_upload_failed_credentials_error">Uploaden mislukt, je moet opnieuw inloggen</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Bestandsupload-conflict</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Kies welke versie bewaard wordt van %1$s</string>
     <string name="uploader_upload_failed_ticker">Uploaden mislukt</string>
     <string name="uploader_upload_files_behaviour">Uploadoptie:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Verplaats bestand naar %1$s-map</string>
@@ -772,6 +777,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Lokaal bestand niet gevonden</string>
     <string name="uploads_view_upload_status_failed_permission_error">Permissiefout</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Niet vertrouwd servercertificaat</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Server versie ophalen...</string>
     <string name="uploads_view_upload_status_service_interrupted">App afgesloten</string>
     <string name="uploads_view_upload_status_succeeded">Voltooid</string>
     <string name="uploads_view_upload_status_unknown_fail">Onbekende fout</string>

@@ -362,6 +362,7 @@
     <string name="hint_password">Contrasinal</string>
     <string name="host_not_available">Servidor non dispoñíbel</string>
     <string name="host_your_own_server">Hospede o seu propio servidor</string>
+    <string name="instant_upload_existing">Envíar tamén os ficheiros existentes</string>
     <string name="instant_upload_on_charging">Enviar só cando estea cargando</string>
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
     <string name="learn_more">Aprender máis</string>
@@ -727,6 +728,7 @@
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">Non hai envíos dispoñíbeis</string>
     <string name="upload_list_empty_text_auto_upload">Envíe algún contido ou active o envío automático.</string>
+    <string name="upload_list_resolve_conflict">Resolver conflitos</string>
     <string name="upload_local_storage_full">O almacenamento local está cheo</string>
     <string name="upload_local_storage_not_copied">Non foi posíbel copiar o ficheiro no almacenamento local</string>
     <string name="upload_lock_failed">Produciuse un fallo ao bloquear o cartafol</string>
@@ -746,6 +748,8 @@
     <string name="uploader_top_message">Seleccione o cartafol de envío</string>
     <string name="uploader_upload_failed_content_single">Non foi posíbel enviar: %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Produciuse un fallo no envío, acceda de novo.</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Conflitos no envío de ficheiros</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Escolla a versión para conservar de %1$s</string>
     <string name="uploader_upload_failed_ticker">Produciuse un fallo no envío</string>
     <string name="uploader_upload_files_behaviour">Opción de envío:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover o ficheiro para o cartafol %1$s</string>
@@ -774,6 +778,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Non se atopou o ficheiro local</string>
     <string name="uploads_view_upload_status_failed_permission_error"> Produciuse un erro de permisos</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">O certificado do servidor non é fiábel</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Obtendo a versión do servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicación finalizada</string>
     <string name="uploads_view_upload_status_succeeded">Completado</string>
     <string name="uploads_view_upload_status_unknown_fail">Produciuse un erro descoñecido</string>
