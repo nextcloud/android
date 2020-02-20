@@ -335,15 +335,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             PreviewTextFragment.setText(headerViewHolder.headerText, text, null, activity, true, true);
             headerViewHolder.headerView.setOnClickListener(v -> ocFileListFragmentInterface.onHeaderClicked());
 
-            Shader myShader = new LinearGradient(0,
-                                                 400,
-                                                 0,
-                                                 300,
-                                                 Color.WHITE,
-                                                 Color.BLACK,
-                                                 Shader.TileMode.CLAMP);
+            Shader shader = new LinearGradient(0,
+                                               headerViewHolder.headerText.getHeight()-20,
+                                               0,
+                                               headerViewHolder.headerText.getHeight() - 100,
+                                               activity.getResources().getColor(R.color.bg_default),
+                                               activity.getResources().getColor(R.color.text_color),
+                                               Shader.TileMode.CLAMP
+            );
 
-            headerViewHolder.headerText.getPaint().setShader(myShader);
+            headerViewHolder.headerText.getPaint().setShader(shader);
         } else {
             OCFileListGridImageViewHolder gridViewHolder = (OCFileListGridImageViewHolder) holder;
 
