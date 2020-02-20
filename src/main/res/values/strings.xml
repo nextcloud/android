@@ -327,10 +327,6 @@
     <string name="instant_upload_existing">Also upload existing files</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutoUpload</string>
-    <string name="conflict_title">File conflict</string>
-    <string name="conflict_keep_both">Keep both</string>
-    <string name="conflict_use_local_version">local version</string>
-    <string name="conflict_use_server_version">server version</string>
 
     <string name="preview_sorry">Sorry</string>
     <string name="preview_image_description">Image preview</string>
