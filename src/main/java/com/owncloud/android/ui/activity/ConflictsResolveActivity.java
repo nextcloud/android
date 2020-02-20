@@ -23,7 +23,10 @@ package com.owncloud.android.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.nextcloud.client.account.User;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
@@ -144,32 +147,39 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     @Override
     protected void onStart() {
         super.onStart();
-        if (getAccount() != null) {
-            OCFile file = getFile();
-            if (getFile() == null) {
-                Log_OC.e(TAG, "No file received");
-                finish();
-            } else {
-                // Check whether the file is contained in the current Account
-                Fragment prev = getSupportFragmentManager().findFragmentByTag("conflictDialog");
-
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                if (prev == null) {
-                    if (getStorageManager().fileExists(file.getRemotePath())) {
-                        ConflictsResolveDialog dialog = new ConflictsResolveDialog(this,
-                                                                                   getFile(),
-                                                                                   conflictUpload,
-                                                                                   getUser()
-                        );
-                        dialog.show(fragmentTransaction, "conflictDialog");
-                    } else {
-                        // Account was changed to a different one - just finish
-                        finish();
-                    }
-                }
-            }
-        } else {
+        if (getAccount() == null) {
             finish();
+        }
+
+        OCFile file = getFile();
+        if (getFile() == null) {
+            Log_OC.e(TAG, "No file received");
+            finish();
+        }
+
+        Optional<User> userOptional = getUser();
+
+        if (!userOptional.isPresent()) {
+            Toast.makeText(this, "Error creating conflict dialog!", Toast.LENGTH_LONG).show();
+            finish();
+        }
+
+        // Check whether the file is contained in the current Account
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("conflictDialog");
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (prev == null) {
+            if (getStorageManager().fileExists(file.getRemotePath())) {
+                ConflictsResolveDialog dialog = new ConflictsResolveDialog(this,
+                                                                           getFile(),
+                                                                           conflictUpload,
+                                                                           userOptional.get()
+                );
+                dialog.show(fragmentTransaction, "conflictDialog");
+            } else {
+                // Account was changed to a different one - just finish
+                finish();
+            }
         }
     }
 
