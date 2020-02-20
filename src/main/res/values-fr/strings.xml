@@ -364,6 +364,7 @@ Attention la suppression est irréversible.</string>
     <string name="hint_password">Mot de passe</string>
     <string name="host_not_available">Serveur indisponible</string>
     <string name="host_your_own_server">Hébergez votre propre serveur</string>
+    <string name="instant_upload_existing">Téléverser aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="learn_more">En savoir plus</string>
@@ -728,6 +729,7 @@ Attention la suppression est irréversible.</string>
     <string name="upload_list_delete">Supprimer</string>
     <string name="upload_list_empty_headline">Aucun historique d\'envoi</string>
     <string name="upload_list_empty_text_auto_upload">Envoyez du contenu ou activez l\'envoi automatique.</string>
+    <string name="upload_list_resolve_conflict">Résoudre le conflit</string>
     <string name="upload_local_storage_full">Stockage local plein</string>
     <string name="upload_local_storage_not_copied">Le fichier n\'a pas pu être copié sur le stockage local</string>
     <string name="upload_lock_failed">Impossible de verrouiller le dossier</string>
@@ -747,6 +749,8 @@ Attention la suppression est irréversible.</string>
     <string name="uploader_top_message">Sélectionnez le dossier d\'envoi</string>
     <string name="uploader_upload_failed_content_single">Impossible d\'envoyer %1$s</string>
     <string name="uploader_upload_failed_credentials_error">L\'envoi a échoué, reconnectez-vous</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Conflit de fichier lors du téléversement</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Sélectionnez la version de %1$s à conserver</string>
     <string name="uploader_upload_failed_ticker">Échec de l\'envoi</string>
     <string name="uploader_upload_files_behaviour">Option d\'envoi :</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Déplacer le fichier dans le dossier %1$s</string>
@@ -775,6 +779,7 @@ Attention la suppression est irréversible.</string>
     <string name="uploads_view_upload_status_failed_localfile_error">Fichier local non trouvé</string>
     <string name="uploads_view_upload_status_failed_permission_error">Erreur de permissions</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificat du serveur non approuvé</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Récupération de la version serveur …</string>
     <string name="uploads_view_upload_status_service_interrupted">L\'application s\'est arrêtée</string>
     <string name="uploads_view_upload_status_succeeded">Terminé</string>
     <string name="uploads_view_upload_status_unknown_fail">Erreur inconnue </string>

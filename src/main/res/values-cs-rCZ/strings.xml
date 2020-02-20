@@ -362,6 +362,7 @@
     <string name="hint_password">Heslo</string>
     <string name="host_not_available">Server není k dispozici</string>
     <string name="host_your_own_server">Hostovat svůj vlastní server</string>
+    <string name="instant_upload_existing">Také nahrát existující soubory</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="learn_more">Zjistit více</string>
@@ -747,6 +748,7 @@ Jak vývojová tak produkční verze je k dispozici na F-droidu a mohou být nai
     <string name="upload_list_delete">Smazat</string>
     <string name="upload_list_empty_headline">Nic k nahrání</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nějaký obsah nebo zapněte automatické nahrávání.</string>
+    <string name="upload_list_resolve_conflict">Vyřešit konflikt</string>
     <string name="upload_local_storage_full">Místní úložiště je plné</string>
     <string name="upload_local_storage_not_copied">Soubor se nepodařilo zkopírovat na místní úložiště</string>
     <string name="upload_lock_failed">Uzamčení složky se nezdařilo</string>
@@ -766,6 +768,8 @@ Jak vývojová tak produkční verze je k dispozici na F-droidu a mohou být nai
     <string name="uploader_top_message">Vybrat složku pro nahrávání</string>
     <string name="uploader_upload_failed_content_single">Nepodařilo se nahrát %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Nahrání se nezdařilo, znovu se přihlaste</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Konflikt při nahrávání souboru</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Zvolte kterou verzi %1$s ponechat</string>
     <string name="uploader_upload_failed_ticker">Odesílání se nezdařilo</string>
     <string name="uploader_upload_files_behaviour">Předvolba nahrávání:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Přesunout soubor do složky %1$s</string>
@@ -794,6 +798,7 @@ Jak vývojová tak produkční verze je k dispozici na F-droidu a mohou být nai
     <string name="uploads_view_upload_status_failed_localfile_error">Místní soubor nenalezen</string>
     <string name="uploads_view_upload_status_failed_permission_error">Chyba oprávnění</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Nedůvěryhodný certifikát serveru</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Získávání verze serveru…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikace ukončena</string>
     <string name="uploads_view_upload_status_succeeded">Dokončeno</string>
     <string name="uploads_view_upload_status_unknown_fail">Neznámá chyba</string>

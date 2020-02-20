@@ -466,6 +466,7 @@
     <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
     <string name="scanQR_description">Prisijungti per QR kodą</string>
     <string name="screenshot_02_listView_heading">Naršyti ir bendrinti</string>
+    <string name="screenshot_03_drawer_heading">Veikla, viešiniai, …</string>
     <string name="screenshot_06_davdroid_heading">Kalendorius ir adresatai</string>
     <string name="search_users_and_groups_hint">Ieškoti naudotojų ar grupių</string>
     <string name="select_all">Pažymėti viską</string>

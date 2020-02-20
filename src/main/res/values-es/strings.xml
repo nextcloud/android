@@ -362,6 +362,7 @@
     <string name="hint_password">Contraseña</string>
     <string name="host_not_available">Servidor no disponible</string>
     <string name="host_your_own_server">Aloja tu propio servidor</string>
+    <string name="instant_upload_existing">Subir también archivos existentes</string>
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
     <string name="learn_more">Aprender más</string>
@@ -726,6 +727,7 @@
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">No hay subidas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Sube algún contenido o active la subida automática.</string>
+    <string name="upload_list_resolve_conflict">Resolver conflicto</string>
     <string name="upload_local_storage_full">Almacenamiento local lleno</string>
     <string name="upload_local_storage_not_copied">No se ha podido copiar el archivo al almacenamiento local</string>
     <string name="upload_lock_failed">Fallo al bloquear la carpeta</string>
@@ -745,6 +747,8 @@
     <string name="uploader_top_message">Elegir carpeta de subida</string>
     <string name="uploader_upload_failed_content_single">No se ha podido subir %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Subida fallida, vuelve a iniciar sesión</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Conflicto en la subida del archivo</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Elija qué versión mantener %1$s</string>
     <string name="uploader_upload_failed_ticker">Error en la subida</string>
     <string name="uploader_upload_files_behaviour">Opción de subida:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover el archivo a la carpeta de %1$s</string>
@@ -773,6 +777,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Archivo local no encontrado</string>
     <string name="uploads_view_upload_status_failed_permission_error">Error de permisos</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">El certificado del servidor no es de confianza</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Obteniendo la versión del servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">La aplicación se ha interrumpido</string>
     <string name="uploads_view_upload_status_succeeded">Completado</string>
     <string name="uploads_view_upload_status_unknown_fail">Error desconocido</string>
