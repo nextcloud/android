@@ -26,7 +26,6 @@ import android.content.Intent;
 
 import com.facebook.testing.screenshot.Screenshot;
 import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.nextcloud.java.util.Optional;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -84,10 +83,10 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         ConflictsResolveDialog dialog = new ConflictsResolveDialog(listener,
                                                                    existingFile,
                                                                    newUpload,
-                                                                   Optional.of(UserAccountManagerImpl
-                                                                                   .fromContext(targetContext)
-                                                                                   .getUser()
-                                                                   ));
+                                                                   UserAccountManagerImpl
+                                                                       .fromContext(targetContext)
+                                                                       .getUser()
+        );
         dialog.showDialog(sut);
 
         getInstrumentation().waitForIdleSync();
@@ -136,10 +135,10 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         ConflictsResolveDialog dialog = new ConflictsResolveDialog(listener,
                                                                    existingFile,
                                                                    newUpload,
-                                                                   Optional.of(UserAccountManagerImpl
-                                                                                   .fromContext(targetContext)
-                                                                                   .getUser()
-                                                                   ));
+                                                                   UserAccountManagerImpl
+                                                                       .fromContext(targetContext)
+                                                                       .getUser()
+        );
         dialog.showDialog(sut);
 
         getInstrumentation().waitForIdleSync();
@@ -177,10 +176,10 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         ConflictsResolveDialog dialog = new ConflictsResolveDialog(listener,
                                                                    existingFile,
                                                                    newUpload,
-                                                                   Optional.of(UserAccountManagerImpl
-                                                                                   .fromContext(targetContext)
-                                                                                   .getUser()
-                                                                   ));
+                                                                   UserAccountManagerImpl
+                                                                       .fromContext(targetContext)
+                                                                       .getUser()
+        );
         dialog.showDialog(sut);
 
         getInstrumentation().waitForIdleSync();
@@ -218,10 +217,10 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         ConflictsResolveDialog dialog = new ConflictsResolveDialog(listener,
                                                                    existingFile,
                                                                    newUpload,
-                                                                   Optional.of(UserAccountManagerImpl
-                                                                                   .fromContext(targetContext)
-                                                                                   .getUser()
-                                                                   ));
+                                                                   UserAccountManagerImpl
+                                                                       .fromContext(targetContext)
+                                                                       .getUser()
+        );
         dialog.showDialog(sut);
 
         getInstrumentation().waitForIdleSync();
@@ -263,10 +262,10 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         ConflictsResolveDialog dialog = new ConflictsResolveDialog(listener,
                                                                    existingFile,
                                                                    newUpload,
-                                                                   Optional.of(UserAccountManagerImpl
-                                                                                   .fromContext(targetContext)
-                                                                                   .getUser()
-                                                                   ));
+                                                                   UserAccountManagerImpl
+                                                                       .fromContext(targetContext)
+                                                                       .getUser()
+        );
         dialog.showDialog(sut);
 
         getInstrumentation().waitForIdleSync();
@@ -308,10 +307,10 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         ConflictsResolveDialog dialog = new ConflictsResolveDialog(listener,
                                                                    existingFile,
                                                                    newUpload,
-                                                                   Optional.of(UserAccountManagerImpl
-                                                                                   .fromContext(targetContext)
-                                                                                   .getUser()
-                                                                   ));
+                                                                   UserAccountManagerImpl
+                                                                       .fromContext(targetContext)
+                                                                       .getUser()
+        );
         dialog.showDialog(sut);
 
         getInstrumentation().waitForIdleSync();

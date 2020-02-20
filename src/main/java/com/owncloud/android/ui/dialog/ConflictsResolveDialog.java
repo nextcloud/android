@@ -23,7 +23,6 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,19 +32,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.BitmapUtils;
+import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -71,6 +67,10 @@ public class ConflictsResolveDialog extends DialogFragment {
     private User user;
     private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
 
+    private static final String KEY_FILE = "file";
+    private static final String KEY_OCFILE = "ocfile";
+    private static final String KEY_USER = "user";
+
     public enum Decision {
         CANCEL,
         KEEP_BOTH,
@@ -80,11 +80,11 @@ public class ConflictsResolveDialog extends DialogFragment {
 
     public ConflictsResolveDialog(OnConflictDecisionMadeListener listener,
                                   OCFile file,
-                                  OCUpload conflictUpload, Optional<User> user) {
+                                  OCUpload conflictUpload, User user) {
         this.listener = listener;
         this.existingFile = file;
         this.newFile = new File(conflictUpload.getLocalPath());
-        this.user = user.get();
+        this.user = user;
     }
 
     @Override
@@ -93,7 +93,7 @@ public class ConflictsResolveDialog extends DialogFragment {
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        if (alertDialog == null || user == null) {
+        if (alertDialog == null) {
             Toast.makeText(getContext(), "Failed to create conflict dialog", Toast.LENGTH_LONG).show();
             return;
         }
@@ -108,9 +108,9 @@ public class ConflictsResolveDialog extends DialogFragment {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            newFile = (File) savedInstanceState.getSerializable("file");
-            existingFile = savedInstanceState.getParcelable("ocfile");
-            user = savedInstanceState.getParcelable("user");
+            newFile = (File) savedInstanceState.getSerializable(KEY_FILE);
+            existingFile = savedInstanceState.getParcelable(KEY_OCFILE);
+            user = savedInstanceState.getParcelable(KEY_USER);
             listener = (OnConflictDecisionMadeListener) getActivity();
         }
     }
@@ -119,9 +119,9 @@ public class ConflictsResolveDialog extends DialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putSerializable("file", newFile);
-        outState.putParcelable("ocfile", existingFile);
-        outState.putParcelable("user", user);
+        outState.putSerializable(KEY_FILE, newFile);
+        outState.putParcelable(KEY_OCFILE, existingFile);
+        outState.putParcelable(KEY_USER, user);
     }
 
     @NonNull
@@ -166,7 +166,7 @@ public class ConflictsResolveDialog extends DialogFragment {
 
         ImageView newThumbnail = view.findViewById(R.id.new_thumbnail);
         newThumbnail.setTag(newFile.hashCode());
-        setThumbnail(newFile, newThumbnail);
+        LocalFileListAdapter.setThumbnail(newFile, newThumbnail, getContext());
 
         // set info for existing file
         TextView existingSize = view.findViewById(R.id.existing_size);
@@ -178,7 +178,14 @@ public class ConflictsResolveDialog extends DialogFragment {
 
         ImageView existingThumbnail = view.findViewById(R.id.existing_thumbnail);
         existingThumbnail.setTag(existingFile.getFileId());
-        setThumbnail(existingFile, view.findViewById(R.id.existing_thumbnail));
+        OCFileListAdapter.setThumbnail(existingFile,
+                                       view.findViewById(R.id.existing_thumbnail),
+                                       user,
+                                       new FileDataStorageManager(user.toPlatformAccount(),
+                                                                  requireContext().getContentResolver()),
+                                       asyncTasks,
+                                       false,
+                                       getContext());
 
         return builder.create();
     }
@@ -195,7 +202,7 @@ public class ConflictsResolveDialog extends DialogFragment {
     }
 
     @Override
-    public void onCancel(@NotNull DialogInterface dialog) {
+    public void onCancel(@NonNull DialogInterface dialog) {
         if (listener != null) {
             listener.conflictDecisionMade(Decision.CANCEL);
         }
@@ -203,122 +210,6 @@ public class ConflictsResolveDialog extends DialogFragment {
 
     public interface OnConflictDecisionMadeListener {
         void conflictDecisionMade(Decision decision);
-    }
-
-    private void setThumbnail(OCFile file, ImageView thumbnailView) {
-        if (file.isFolder()) {
-            thumbnailView.setImageDrawable(MimeTypeUtil
-                                               .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
-                                                                  file.isSharedViaLink(),
-                                                                  file.isEncrypted(),
-                                                                  file.getMountType(),
-                                                                  getContext()));
-        } else {
-            if (file.getRemoteId() != null && file.isPreviewAvailable()) {
-                // Thumbnail in cache?
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
-                );
-
-                if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
-                    if (MimeTypeUtil.isVideo(file)) {
-                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
-                        thumbnailView.setImageBitmap(withOverlay);
-                    } else {
-                        BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
-                    }
-                } else {
-                    // generate new thumbnail
-                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
-                        try {
-                            FileDataStorageManager storageManager =
-                                new FileDataStorageManager(user.toPlatformAccount(),
-                                                           requireContext().getContentResolver());
-                            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
-                                                                                   storageManager,
-                                                                                   user.toPlatformAccount(),
-                                                                                   asyncTasks,
-                                                                                   true);
-
-                            if (thumbnail == null) {
-                                thumbnail = BitmapUtils.drawableToBitmap(
-                                    MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
-                                                                 file.getFileName(),
-                                                                 user.toPlatformAccount(),
-                                                                 getContext()));
-                            }
-                            final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(getResources(),
-                                                                                  thumbnail, task);
-                            thumbnailView.setImageDrawable(asyncDrawable);
-                            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
-                                                                                                  file.getRemoteId()));
-                        } catch (IllegalArgumentException e) {
-                            Log_OC.d(this, "ThumbnailGenerationTask : " + e.getMessage());
-                        }
-                    }
-                }
-
-                if ("image/png".equalsIgnoreCase(file.getMimeType())) {
-                    thumbnailView.setBackgroundColor(getResources().getColor(R.color.bg_default));
-                }
-            } else {
-                thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
-                                                                            file.getFileName(),
-                                                                            user.toPlatformAccount(),
-                                                                            getContext()));
-            }
-        }
-    }
-
-    private void setThumbnail(File file, ImageView thumbnailView) {
-        if (file.isDirectory()) {
-            thumbnailView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(getContext()));
-        } else {
-            thumbnailView.setImageResource(R.drawable.file);
-
-            /* Cancellation needs do be checked and done before changing the drawable in fileIcon, or
-             * {@link ThumbnailsCacheManager#cancelPotentialThumbnailWork} will NEVER cancel any task.
-             */
-            boolean allowedToCreateNewThumbnail = ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView);
-
-
-            // get Thumbnail if file is image
-            if (MimeTypeUtil.isImage(file)) {
-                // Thumbnail in Cache?
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.hashCode()
-                );
-                if (thumbnail != null) {
-                    thumbnailView.setImageBitmap(thumbnail);
-                } else {
-
-                    // generate new Thumbnail
-                    if (allowedToCreateNewThumbnail) {
-                        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                            new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView);
-                        if (MimeTypeUtil.isVideo(file)) {
-                            thumbnail = ThumbnailsCacheManager.mDefaultVideo;
-                        } else {
-                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                        }
-                        final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                            new ThumbnailsCacheManager.AsyncThumbnailDrawable(
-                                getResources(),
-                                thumbnail,
-                                task
-                            );
-                        thumbnailView.setImageDrawable(asyncDrawable);
-                        task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, null));
-                        Log_OC.v(this, "Executing task to generate a new thumbnail");
-
-                    } // else, already being generated, don't restart it
-                }
-            } else {
-                thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(null, file.getName(), getContext()));
-            }
-        }
     }
 
     @Override
