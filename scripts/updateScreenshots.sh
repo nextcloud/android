@@ -38,16 +38,18 @@ docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ user
 docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ group:add users\""
 docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ group:adduser users user1\""
 docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ group:adduser users user2\""
+docker exec uiComparison /bin/sh -c "su www-data -c \"git clone -b master https://github.com/nextcloud/text.git /var/www/html/apps/text/\""
+docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ app:enable text\""
 docker exec uiComparison /bin/sh -c "/usr/local/bin/run.sh"
 
 ## update/create all screenshots
-./gradlew executeScreenshotTests -Precord
+#./gradlew executeScreenshotTests -Precord
 
 ## update screenshots in a class
-#./gradlew executeScreenshotTests \
-#-Precord \
-#-Pandroid.testInstrumentationRunnerArguments.class=\
-#com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragmentTest
+./gradlew executeScreenshotTests \
+-Precord \
+-Pandroid.testInstrumentationRunnerArguments.class=\
+com.owncloud.android.ui.fragment.OCFileListFragmentIT
 
 ## update single screenshot within a class
 #./gradlew executeScreenshotTests \

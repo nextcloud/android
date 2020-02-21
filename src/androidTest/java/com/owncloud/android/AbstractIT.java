@@ -124,7 +124,7 @@ public abstract class AbstractIT {
     }
 
 
-    FileDataStorageManager getStorageManager() {
+    protected FileDataStorageManager getStorageManager() {
         return new FileDataStorageManager(account, targetContext.getContentResolver());
     }
 
