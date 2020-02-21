@@ -362,6 +362,7 @@
     <string name="hint_password">Lösenord</string>
     <string name="host_not_available">Server inte tillgänglig</string>
     <string name="host_your_own_server">Använd egen server</string>
+    <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
     <string name="learn_more">Läs mer</string>
@@ -540,6 +541,7 @@
     <string name="saml_authentication_wrong_pass">Fel lösenord</string>
     <string name="scanQR_description">Logga in via QR-kod</string>
     <string name="screenshot_01_gridView_heading">Skydda dina data</string>
+    <string name="screenshot_01_gridView_subline">egenhyst produktivitet</string>
     <string name="screenshot_02_listView_heading">Bläddra och dela</string>
     <string name="screenshot_02_listView_subline">alla åtgärder till hands</string>
     <string name="screenshot_03_drawer_heading">Aktivitet, delningar, …</string>
@@ -723,8 +725,10 @@
     <string name="upload_file_dialog_title">Mata in filnamn och filtyp att ladda upp</string>
     <string name="upload_files">Ladda upp filer</string>
     <string name="upload_item_action_button">Ladda upp objekthändelse-knapp</string>
+    <string name="upload_list_delete">Radera</string>
     <string name="upload_list_empty_headline">Inga nerladdningar tillgängliga</string>
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>
+    <string name="upload_list_resolve_conflict">Lös konflikt</string>
     <string name="upload_local_storage_full">Lokal lagring full</string>
     <string name="upload_local_storage_not_copied">Filen kunde inte kopieras till lokal lagringsplats</string>
     <string name="upload_lock_failed">Misslyckades låsa mappen</string>
@@ -744,6 +748,8 @@
     <string name="uploader_top_message">Välj mapp för uppladdning</string>
     <string name="uploader_upload_failed_content_single">Kunde inte ladda upp %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Uppladdningen misslyckades, logga in igen</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Konflikt vid filuppladdning</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Välj vilken version att spara av %1$s</string>
     <string name="uploader_upload_failed_ticker">Misslyckad uppladdning</string>
     <string name="uploader_upload_files_behaviour">Uppladdningsalternativ:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytta filen till %1$s mappen</string>
@@ -772,6 +778,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Lokal fil hittades inte</string>
     <string name="uploads_view_upload_status_failed_permission_error">Behörighetsfel</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Otillförlitligt servercertifikat</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Hämtar serverversion</string>
     <string name="uploads_view_upload_status_service_interrupted">App avslutad</string>
     <string name="uploads_view_upload_status_succeeded">Slutförande</string>
     <string name="uploads_view_upload_status_unknown_fail">Okänt fel</string>

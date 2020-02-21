@@ -498,6 +498,7 @@
     <string name="upload_file_dialog_filename">اسم الملف</string>
     <string name="upload_file_dialog_filetype">نوع الملف</string>
     <string name="upload_files">حمل الملفات</string>
+    <string name="upload_list_delete">حذف </string>
     <string name="upload_list_empty_headline">لا توجد تحميلات</string>
     <string name="upload_list_empty_text_auto_upload">قم بتحميل بعض الملفات أو قم بتفعيل التحميل التلقائي.</string>
     <string name="upload_unknown_error">خطأ غير معروف</string>

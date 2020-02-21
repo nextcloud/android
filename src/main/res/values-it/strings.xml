@@ -362,6 +362,7 @@
     <string name="hint_password">Password</string>
     <string name="host_not_available">Server non disponibile</string>
     <string name="host_your_own_server">Ospita il tuo server</string>
+    <string name="instant_upload_existing">Carica anche i file esistenti</string>
     <string name="instant_upload_on_charging">Carica solo durante la ricarica</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="learn_more">Scopri altro</string>
@@ -723,8 +724,10 @@
     <string name="upload_file_dialog_title">Digita il nome e il tipo di file da caricare</string>
     <string name="upload_files">Carica file</string>
     <string name="upload_item_action_button">Pulsante azione Carica elemento</string>
+    <string name="upload_list_delete">Elimina</string>
     <string name="upload_list_empty_headline">Nessun caricamento disponibile</string>
     <string name="upload_list_empty_text_auto_upload">Carica alcuni contenuti o attiva il caricamento automatico.</string>
+    <string name="upload_list_resolve_conflict">Risolvi conflitto</string>
     <string name="upload_local_storage_full">Archiviazione locale piena</string>
     <string name="upload_local_storage_not_copied">Il file non può essere copiato nell\'archiviazione locale</string>
     <string name="upload_lock_failed">Blocco della cartella non riuscito</string>
@@ -744,6 +747,8 @@
     <string name="uploader_top_message">Scegli la cartella di caricamento</string>
     <string name="uploader_upload_failed_content_single">Impossibile caricare %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Caricamento non riuscito, effettua nuovamente l\'accesso</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Conflitto caricamento file</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Scegli quale versione mantenere di %1$s</string>
     <string name="uploader_upload_failed_ticker">Caricamento non riuscito</string>
     <string name="uploader_upload_files_behaviour">Opzione di caricamento:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Sposta il file nella cartella %1$s</string>
@@ -772,6 +777,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">File locale non trovato</string>
     <string name="uploads_view_upload_status_failed_permission_error">Errore di permessi</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificato server non fidato</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Recupero versione del server…</string>
     <string name="uploads_view_upload_status_service_interrupted">Applicazione terminata</string>
     <string name="uploads_view_upload_status_succeeded">Completati</string>
     <string name="uploads_view_upload_status_unknown_fail">Errore sconosciuto</string>

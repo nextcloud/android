@@ -723,6 +723,7 @@
     <string name="upload_file_dialog_title">Yüklenecek dosya adını ve dosya türünü belirtin</string>
     <string name="upload_files">Dosyaları yükle</string>
     <string name="upload_item_action_button">Öge yükleme işlemi düğmesi</string>
+    <string name="upload_list_delete">Sil</string>
     <string name="upload_list_empty_headline">Herhangi bir yükleme yok</string>
     <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
     <string name="upload_local_storage_full">Yerel depolama alanı doldu</string>

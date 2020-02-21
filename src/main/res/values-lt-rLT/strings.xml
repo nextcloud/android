@@ -466,6 +466,7 @@
     <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
     <string name="scanQR_description">Prisijungti per QR kodą</string>
     <string name="screenshot_02_listView_heading">Naršyti ir bendrinti</string>
+    <string name="screenshot_03_drawer_heading">Veikla, viešiniai, …</string>
     <string name="screenshot_06_davdroid_heading">Kalendorius ir adresatai</string>
     <string name="search_users_and_groups_hint">Ieškoti naudotojų ar grupių</string>
     <string name="select_all">Pažymėti viską</string>
@@ -608,6 +609,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Ištraukos tekstinis failas(.txt)</string>
     <string name="upload_file_dialog_title">Įrašykite failo pavadinimą ir tipą įkėlimui</string>
     <string name="upload_files">Įkelti failus</string>
+    <string name="upload_list_delete">Ištrinti</string>
     <string name="upload_list_empty_headline">Atnaujinimų nerasta</string>
     <string name="upload_list_empty_text_auto_upload">Įkelkite failus arba sinchronizuokite su savo įrenginiais</string>
     <string name="upload_local_storage_full">Vietinė saugykla pilna</string>

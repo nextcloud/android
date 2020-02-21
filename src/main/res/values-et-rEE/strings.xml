@@ -404,6 +404,7 @@
     <string name="upload_content_from_other_apps">Lae üles sisu teistest rakendustest</string>
     <string name="upload_file_dialog_filename">Faili nimi</string>
     <string name="upload_files">Failide üleslaadimine</string>
+    <string name="upload_list_delete">Kustuta</string>
     <string name="upload_list_empty_text_auto_upload">Lae üles mõned failid või lülita sisse automaatne üleslaadimine.</string>
     <string name="upload_unknown_error">Tundmatu viga</string>
     <string name="uploader_btn_alternative_text">Vali</string>

@@ -718,6 +718,7 @@
     <string name="upload_file_dialog_title">Sartu igoko den fitxategi-izena eta fitxategi mota</string>
     <string name="upload_files">Igo fitxategiak</string>
     <string name="upload_item_action_button">Kargatu elementuaren ekintza botoia</string>
+    <string name="upload_list_delete">Ezabatu</string>
     <string name="upload_list_empty_headline">Ezin dira fitxategiak igo</string>
     <string name="upload_list_empty_text_auto_upload">Edukiak igo edo auto-igotzea aktiba ezazu.</string>
     <string name="upload_local_storage_full">Biltegiratze lokala beteta</string>
