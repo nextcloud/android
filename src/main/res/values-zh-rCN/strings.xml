@@ -362,6 +362,7 @@
     <string name="hint_password">密码</string>
     <string name="host_not_available">服务器不可用</string>
     <string name="host_your_own_server">自己搭建服务器</string>
+    <string name="instant_upload_existing">同时上传现有文件</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_path">/实时上传</string>
     <string name="learn_more">学习更多</string>
@@ -729,6 +730,7 @@
     <string name="upload_list_delete">删除</string>
     <string name="upload_list_empty_headline">没有可以上传的</string>
     <string name="upload_list_empty_text_auto_upload">上传一些内容或启用自动上传。</string>
+    <string name="upload_list_resolve_conflict">解决冲突</string>
     <string name="upload_local_storage_full">本地存储已满</string>
     <string name="upload_local_storage_not_copied">文件无法被复制到本地存储</string>
     <string name="upload_lock_failed">锁定文件夹失败</string>
@@ -748,6 +750,8 @@
     <string name="uploader_top_message">选择上传文件夹</string>
     <string name="uploader_upload_failed_content_single">无法上传 %1$s</string>
     <string name="uploader_upload_failed_credentials_error">上传失败，请重新登录</string>
+    <string name="uploader_upload_failed_sync_conflict_error">文件上传冲突</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">选择要保留的版本 %1$s</string>
     <string name="uploader_upload_failed_ticker">上传失败</string>
     <string name="uploader_upload_files_behaviour">上传选项：</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">移动文件到%1$s文件夹</string>
@@ -776,6 +780,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">本地文件未找到</string>
     <string name="uploads_view_upload_status_failed_permission_error">权限错误</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">不受信任的服务器证书</string>
+    <string name="uploads_view_upload_status_fetching_server_version">正在获取服务器版本…</string>
     <string name="uploads_view_upload_status_service_interrupted">应用程式已终止</string>
     <string name="uploads_view_upload_status_succeeded">已完成</string>
     <string name="uploads_view_upload_status_unknown_fail">未知错误</string>
