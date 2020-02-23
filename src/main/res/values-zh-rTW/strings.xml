@@ -8,7 +8,7 @@
     <string name="account_icon">帳號圖示</string>
     <string name="account_not_found">沒有找到任何帳戶</string>
     <string name="action_clear_failed_uploads">清除失敗的上傳</string>
-    <string name="action_edit">退出</string>
+    <string name="action_edit">編輯</string>
     <string name="action_empty_notifications">清除所有通知訊息</string>
     <string name="action_empty_trashbin">清空回收桶</string>
     <string name="action_send_share">傳送/分享</string>
@@ -169,7 +169,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">不支援複製移動加密的資料夾</string>
     <string name="copy_to">複製到…</string>
     <string name="could_not_download_image">無法下載完整圖片</string>
-    <string name="could_not_retrieve_url">不能取得URL</string>
+    <string name="could_not_retrieve_url">不能取得網址</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
     <string name="create_new">建立新的</string>
     <string name="create_new_document">新增文件</string>
@@ -256,7 +256,7 @@
     <string name="error_retrieving_file">檢索檔案時發生錯誤</string>
     <string name="error_retrieving_templates">取得範本時發生錯誤</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
-    <string name="etm_accounts">帳戶</string>
+    <string name="etm_accounts">帳號</string>
     <string name="etm_preferences">設定</string>
     <string name="etm_title">工程測試模式</string>
     <string name="fab_label">新增或上傳</string>
@@ -269,7 +269,7 @@
     <string name="favorite_icon">我的最愛</string>
     <string name="file">檔案</string>
     <string name="file_delete">刪除</string>
-    <string name="file_detail_activity_error">檢所檔案活動時發生錯誤</string>
+    <string name="file_detail_activity_error">取得檔案活動時發生錯誤</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
     <string name="file_icon">檔案</string>
     <string name="file_keep">保留</string>
@@ -334,7 +334,7 @@
     <string name="filename_hint">檔名</string>
     <string name="files_drop_not_supported">這是 Nextcloud 的功能，請更新</string>
     <string name="first_run_1_text">在您的控制下維持資料的安全</string>
-    <string name="first_run_2_text">安全地協作 &amp; 傳輸檔案</string>
+    <string name="first_run_2_text">安全地協作及傳輸檔案</string>
     <string name="first_run_3_text">容易使用的Webmail,行事曆&amp;聯絡人</string>
     <string name="first_run_4_text">分享螢幕畫面，線上會議&amp;研討會</string>
     <string name="folder">資料夾</string>
@@ -380,7 +380,7 @@
     <string name="logs_menu_send">藉由e-mail傳送紀錄</string>
     <string name="logs_status_filtered">記錄：%1$dkB，符合查詢%2$d/%3$d，耗時%4$dms</string>
     <string name="logs_status_loading">載入中…</string>
-    <string name="logs_status_not_filtered">記錄檔: %1$d KB（不篩選）</string>
+    <string name="logs_status_not_filtered">記錄檔: %1$d kB（不篩選）</string>
     <string name="logs_title">紀錄檔</string>
     <string name="maintenance_mode">伺服器正處於維護模式</string>
     <string name="manage_space_clear_data">清除資料</string>
@@ -419,7 +419,7 @@
     <string name="new_notification">新的通知</string>
     <string name="new_version_was_created">新版本已建立</string>
     <string name="no_browser_available">沒有應用程式可以開啟連結</string>
-    <string name="no_mutliple_accounts_allowed">只可使用一個帳戶</string>
+    <string name="no_mutliple_accounts_allowed">只可使用一個帳號</string>
     <string name="no_pdf_app_available">沒有應用程式可以開啟 PDF</string>
     <string name="note_confirm">傳送</string>
     <string name="note_could_not_sent">傳送留言失敗</string>
@@ -480,7 +480,7 @@
     <string name="prefs_category_more">更多</string>
     <string name="prefs_daily_contacts_sync_summary">每日備份通訊錄</string>
     <string name="prefs_e2e_mnemonic">端到端助記碼</string>
-    <string name="prefs_e2e_no_device_credentials">裝置若要顯示註記請啟用裝置憑證</string>
+    <string name="prefs_e2e_no_device_credentials">裝置若要顯示助記碼請啟用裝置憑證。</string>
     <string name="prefs_enable_media_scan_notifications">顯示媒體掃描通知</string>
     <string name="prefs_enable_media_scan_notifications_summary">發現新的多媒體資料夾時通知</string>
     <string name="prefs_gpl_v2">GNU產生公開授權，第2版</string>
@@ -521,7 +521,7 @@
     <string name="recommend_text">我想邀請您在您的裝置也使用%1$s
 請從這裡下載:%2$s</string>
     <string name="recommend_urls">%1$s或%2$s</string>
-    <string name="remote_file_fetch_failed">找不到文件！</string>
+    <string name="remote_file_fetch_failed">找不到檔案！</string>
     <string name="remove_fail_msg">刪除失敗</string>
     <string name="remove_notification_failed">移除通知失敗</string>
     <string name="remove_push_notification">移除</string>
@@ -541,14 +541,17 @@
     <string name="saml_authentication_wrong_pass">密碼錯誤</string>
     <string name="scanQR_description">使用 QR Code 登入</string>
     <string name="screenshot_01_gridView_heading">保護您的資料</string>
+    <string name="screenshot_01_gridView_subline">自建且具生產力</string>
     <string name="screenshot_02_listView_heading">瀏覽與分享</string>
     <string name="screenshot_02_listView_subline">全在您一指之間</string>
+    <string name="screenshot_03_drawer_heading">活動、分享…</string>
     <string name="screenshot_03_drawer_subline">可快速存取所有資源</string>
     <string name="screenshot_04_accounts_heading">您所有的帳戶</string>
     <string name="screenshot_04_accounts_subline">在一個地方</string>
     <string name="screenshot_05_autoUpload_heading">自動上傳</string>
     <string name="screenshot_05_autoUpload_subline">您的照片&amp;影片</string>
-    <string name="screenshot_06_davdroid_subline">跟DAVx5同步</string>
+    <string name="screenshot_06_davdroid_heading">日曆及聯絡人</string>
+    <string name="screenshot_06_davdroid_subline">跟 DAVx5 同步</string>
     <string name="search_users_and_groups_hint">搜尋使用者或群組</string>
     <string name="select_all">全選</string>
     <string name="select_template">選擇範本</string>
@@ -567,6 +570,7 @@
     <string name="share_get_public_link_button">取得連結</string>
     <string name="share_group_clarification">%1$s （群組）</string>
     <string name="share_internal_link">分享內部鏈結</string>
+    <string name="share_internal_link_text">只適用於有權存取 %1$s 的使用者</string>
     <string name="share_known_remote_clarification">%1$s （在 %2$s ）</string>
     <string name="share_link_empty_password">您必須輸入密碼</string>
     <string name="share_link_file_error">在分享檔案或資料夾時發生了錯誤</string>
@@ -650,6 +654,8 @@
     <string name="storage_movies">電影</string>
     <string name="storage_music">音樂</string>
     <string name="storage_pictures">圖片</string>
+    <string name="store_short_desc">讓你能完全掌控、自建且具生產力的平台</string>
+    <string name="store_short_dev_desc">讓你能完全掌控、自建且具生產力的平台（開發者預覽版）</string>
     <string name="stream">串流…</string>
     <string name="stream_not_possible_headline">不可能使用內部串流</string>
     <string name="stream_not_possible_message">請改為下載媒體或使用外部應用程式。</string>
@@ -667,8 +673,9 @@
     <string name="sync_foreign_files_forgotten_explanation">於1.3.16版本中，此裝置已上傳的檔案會複製到本地%1$s資料夾，以防止多重帳號同步單一檔案時造成遺失。透過此應用程式更早的版本上傳的檔案則複製到%2$s資料夾。但是在同步時出現錯誤會阻礙此操作完成，你可以選擇無視此檔案並移除%3$s的連結，或者移動此檔案到%1$s資料夾並保留%4$s的連結，下面列出%5$s中本地與遠端檔案之間的連結。</string>
     <string name="sync_foreign_files_forgotten_ticker">有些本地端的檔案已遺失</string>
     <string name="sync_in_progress">取得檔案最近的版本</string>
-    <string name="sync_not_enough_space_dialog_action_choose">選擇同步的項目</string>
+    <string name="sync_not_enough_space_dialog_action_choose">選擇同步項目</string>
     <string name="sync_not_enough_space_dialog_action_free_space">釋放空間</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s 是 %2$s，但裝置上只能使用 %3$s。</string>
     <string name="sync_not_enough_space_dialog_title">沒有足夠空間</string>
     <string name="sync_status_button">同步狀態按鈕</string>
     <string name="sync_string_files">檔案</string>
@@ -723,6 +730,7 @@
     <string name="upload_local_storage_full">本地儲存空間已無空間</string>
     <string name="upload_local_storage_not_copied">無法複製檔案到本地資料夾</string>
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
+    <string name="upload_old_android">加密功能只適用於 Android 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空間不足以將選擇的檔案複製到 %1$s 資料夾，是否要改成移動它們？</string>
     <string name="upload_sync_conflict">同步發生衝突，請手動處理</string>
     <string name="upload_unknown_error">未知的錯誤</string>
@@ -739,6 +747,7 @@
     <string name="uploader_upload_failed_content_single">上傳 %1$s 無法完成</string>
     <string name="uploader_upload_failed_credentials_error">上傳失敗，再重新登入</string>
     <string name="uploader_upload_failed_sync_conflict_error">檔案上傳衝突</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">請選擇 %1$s 要留下的版本</string>
     <string name="uploader_upload_failed_ticker">上傳失敗</string>
     <string name="uploader_upload_files_behaviour">上傳選項：</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">移動檔案到 %1$s 資料夾</string>
