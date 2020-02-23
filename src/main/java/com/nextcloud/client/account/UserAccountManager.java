@@ -90,6 +90,8 @@ public interface UserAccountManager extends CurrentAccountProvider {
 
     /**
      * Verifies that every account has userId set
+     *
+     * @return true if any account was migrated, false if no account was migrated
      */
     boolean migrateUserId();
 
