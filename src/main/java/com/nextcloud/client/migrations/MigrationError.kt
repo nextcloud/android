@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,28 +17,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.appinfo;
+package com.nextcloud.client.migrations
 
-import android.content.Context;
-
-/**
- * This class provides general, static information about application
- * build.
- *
- * All methods should be thread-safe.
- */
-public interface AppInfo {
-
-    /**
-     * Get application version code as formatted string.
-     *
-     * @return Formatted version code as defined in AndroidManifest.xml
-     */
-    String getFormattedVersionCode();
-
-    int getVersionCode();
-
-    boolean isDebugBuild();
-
-    String getAppVersion(Context context);
+class MigrationError(val id: Int, message: String, cause: Throwable?) : RuntimeException(message, cause) {
+    constructor(id: Int, message: String) : this(id, message, null)
 }
