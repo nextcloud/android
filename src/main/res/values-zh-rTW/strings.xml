@@ -3,7 +3,7 @@
     <string name="about_android">%1$s Android 應用程式</string>
     <string name="about_title">關於</string>
     <string name="about_version">版本 %1$s</string>
-    <string name="about_version_with_build">版本 %1$sbuild # %2$s</string>
+    <string name="about_version_with_build">版本 %1$s，組建 #%2$s</string>
     <string name="account_creation_failed">帳號建立失敗</string>
     <string name="account_icon">帳號圖示</string>
     <string name="account_not_found">沒有找到任何帳戶</string>
@@ -176,7 +176,7 @@
     <string name="create_new_folder">新增資料夾</string>
     <string name="create_new_presentation">新增投影片</string>
     <string name="create_new_spreadsheet">新增資料表</string>
-    <string name="create_rich_workspace">增加資料夾資訊</string>
+    <string name="create_rich_workspace">新增資料夾資訊</string>
     <string name="creates_rich_workspace">建立資料夾資訊</string>
     <string name="credentials_disabled">認證方式已取消</string>
     <string name="date_unknown">未知</string>
@@ -256,7 +256,7 @@
     <string name="error_retrieving_file">檢索檔案時發生錯誤</string>
     <string name="error_retrieving_templates">取得範本時發生錯誤</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
-    <string name="etm_accounts">帳號</string>
+    <string name="etm_accounts">帳戶</string>
     <string name="etm_preferences">設定</string>
     <string name="etm_title">工程測試模式</string>
     <string name="fab_label">新增或上傳</string>
@@ -419,7 +419,7 @@
     <string name="new_notification">新的通知</string>
     <string name="new_version_was_created">新版本已建立</string>
     <string name="no_browser_available">沒有應用程式可以開啟連結</string>
-    <string name="no_mutliple_accounts_allowed">只可使用一個帳號</string>
+    <string name="no_mutliple_accounts_allowed">只可使用一個帳戶</string>
     <string name="no_pdf_app_available">沒有應用程式可以開啟 PDF</string>
     <string name="note_confirm">傳送</string>
     <string name="note_could_not_sent">傳送留言失敗</string>
