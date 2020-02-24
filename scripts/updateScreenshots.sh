@@ -43,13 +43,13 @@ docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ app:
 docker exec uiComparison /bin/sh -c "/usr/local/bin/run.sh"
 
 ## update/create all screenshots
-#./gradlew executeScreenshotTests -Precord
+./gradlew executeScreenshotTests -Precord
 
 ## update screenshots in a class
-./gradlew executeScreenshotTests \
--Precord \
--Pandroid.testInstrumentationRunnerArguments.class=\
-com.owncloud.android.ui.fragment.OCFileListFragmentIT
+#./gradlew executeScreenshotTests \
+#-Precord \
+#-Pandroid.testInstrumentationRunnerArguments.class=\
+#com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragmentTest
 
 ## update single screenshot within a class
 #./gradlew executeScreenshotTests \
