@@ -132,5 +132,13 @@ class OCFileListFragmentIT : AbstractIT() {
         sut.onActivity { activity ->
             com.facebook.testing.screenshot.Screenshot.snapActivity(activity).setName("richworkspaces_dark").record()
         }
+
+        // switch back to light mode
+        preferences.darkThemeMode = DarkMode.LIGHT
+        MainApp.setAppTheme(DarkMode.LIGHT)
+
+        sut.onActivity { activity -> activity.onBackPressed() }
+
+        sut.recreate()
     }
 }
