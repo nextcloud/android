@@ -1041,7 +1041,7 @@ public class FileOperationsHelper {
         intent.setAction(FileDisplayActivity.OPEN_FILE);
         //intent.putExtra(FileDisplayActivity.KEY_FILE_ID, file.getRemoteId());
         intent.putExtra(FileActivity.EXTRA_FILE, file.getRemotePath());
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         final String shortcutId = "nextcloud_shortcut_" + file.getRemoteId();
 
