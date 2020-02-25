@@ -920,6 +920,7 @@
     <string name="upload_list_delete">Delete</string>
     <string name="create_new">Create new</string>
     <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
+    <string name="add_shortcut_to_home">Add to home screen</string>
 
     <string name="sync_not_enough_space_dialog_action_choose">Choose what to sync</string>
     <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
