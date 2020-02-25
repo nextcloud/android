@@ -1053,32 +1053,17 @@ public class FileOperationsHelper {
             iconId = MimeTypeUtil.getFileTypeIconId(file.getMimeType(), file.getFileName());
         }
 
-        ShortcutInfo shortcut = new ShortcutInfo.Builder(fileActivity, shortcutId)
-            .setShortLabel(file.getFileName())
-            .setLongLabel("Open " + file.getFileName())
-            .setIcon(Icon.createWithResource(fileActivity, iconId))
-            .setIntent(intent)
-            .build();
-
-        shortcutManager.addDynamicShortcuts(Arrays.asList(shortcut));
-
-
         if (shortcutManager.isRequestPinShortcutSupported()) {
-            // Assumes there's already a shortcut with the ID "my-shortcut".
-            // The shortcut must be enabled.
-            ShortcutInfo pinShortcutInfo =
-                new ShortcutInfo.Builder(fileActivity, shortcutId).build();
+            ShortcutInfo pinShortcutInfo = new ShortcutInfo.Builder(fileActivity, shortcutId)
+                .setShortLabel(file.getFileName())
+                .setLongLabel("Open " + file.getFileName())
+                .setIcon(Icon.createWithResource(fileActivity, iconId))
+                .setIntent(intent)
+                .build();
 
-            // Create the PendingIntent object only if your app needs to be notified
-            // that the user allowed the shortcut to be pinned. Note that, if the
-            // pinning operation fails, your app isn't notified. We assume here that the
-            // app has implemented a method called createShortcutResultIntent() that
-            // returns a broadcast intent.
             Intent pinnedShortcutCallbackIntent =
                 shortcutManager.createShortcutResultIntent(pinShortcutInfo);
 
-            // Configure the intent so that your app's broadcast receiver gets
-            // the callback successfully.For details, see PendingIntent.getBroadcast().
             PendingIntent successCallback = PendingIntent.getBroadcast(fileActivity, /* request code */ 0,
                 pinnedShortcutCallbackIntent, /* flags */ 0);
 
