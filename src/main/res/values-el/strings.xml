@@ -362,6 +362,7 @@
     <string name="hint_password">Συνθηματικό</string>
     <string name="host_not_available">Μη διαθέσιμος διακομιστής</string>
     <string name="host_your_own_server">Φιλοξενήστε το δικό σας διακομιστή</string>
+    <string name="instant_upload_existing">Επίσης μεταφόρτωση υπαρχόντων αρχείων</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="learn_more">Μάθετε περισσότερα</string>
@@ -726,6 +727,7 @@
     <string name="upload_list_delete">Διαγραφή</string>
     <string name="upload_list_empty_headline">Μη διαθέσιμες μεταφορτώσεις</string>
     <string name="upload_list_empty_text_auto_upload">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
+    <string name="upload_list_resolve_conflict">Επίλυση διενέξεων</string>
     <string name="upload_local_storage_full">Η τοπική αποθήκη είναι πλήρης</string>
     <string name="upload_local_storage_not_copied">Το αρχείο δεν μπορεί να αντιγραφεί σε τοπικό αποθηκευτικό χώρο</string>
     <string name="upload_lock_failed">Το κλείδωμα του φακέλου απέτυχε</string>
@@ -745,6 +747,8 @@
     <string name="uploader_top_message">Επιλογή φακέλου μεταφόρτωσης</string>
     <string name="uploader_upload_failed_content_single">Η μεταφόρτωση του %1$s δεν ήταν δυνατόν να ολοκληρωθεί</string>
     <string name="uploader_upload_failed_credentials_error">Η μεταφόρτωση απέτυχε, συνδεθείτε ξανά</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Διένεξη αρχείου μεταφόρτωσης</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Επιλέξτε ποια έκδοση θα κρατήσετε %1$s</string>
     <string name="uploader_upload_failed_ticker">Η μεταφόρτωση απέτυχε</string>
     <string name="uploader_upload_files_behaviour">Επιλογή μεταφόρτωσης:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Μετακίνηση αρχείου στον φάκελο %1$s</string>
@@ -773,6 +777,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Δεν βρέθηκε το τοπικό αρχείο</string>
     <string name="uploads_view_upload_status_failed_permission_error">Σφάλμα δικαιωμάτων</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted"> Μη αξιόπιστο πιστοποιητικό διακομιστή</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Ανάγνωση έκδοσης διακομιστή...</string>
     <string name="uploads_view_upload_status_service_interrupted">Η εφαρμογή τερματίστηκε</string>
     <string name="uploads_view_upload_status_succeeded">Ολοκληρωμένες</string>
     <string name="uploads_view_upload_status_unknown_fail">Άγνωστο σφάλμα</string>

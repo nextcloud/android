@@ -15,7 +15,7 @@ Eigenschaften:
 * Bleiben Sie auf dem Laufenden durch Benachrichtigungen
 * Mehrere Konten gleichzeitig
 * Geschützter Zugriff durch Fingerabdruck oder PIN
-* Integration mit DAVx5 (ehemals DAVdroid) für einfaches Konfigurieren der Kalender- & Kontakte-Synchronisation
+* Integration mit DAVx5 (ehemals DAVdroid) für einfaches Konfigurieren der Kalender- & Kontakte-Synchronisierung
 
 Bitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues oder diskutieren Sie über die App auf https://help.nextcloud.com/c/clients/android
 
