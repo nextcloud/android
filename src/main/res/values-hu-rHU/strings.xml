@@ -362,6 +362,7 @@
     <string name="hint_password">Jelszó</string>
     <string name="host_not_available">A kiszolgáló nem érhető el</string>
     <string name="host_your_own_server">Saját kiszolgáló használata</string>
+    <string name="instant_upload_existing">A meglévő fájlokat is töltse fel</string>
     <string name="instant_upload_on_charging">Feltöltés csak töltés közben</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="learn_more">Tudjon meg többet</string>
@@ -744,6 +745,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="upload_list_delete">Törlés</string>
     <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
     <string name="upload_list_empty_text_auto_upload">Töltsön fel valamilyen tartalmat, vagy aktiválja az automatikus feltöltést.</string>
+    <string name="upload_list_resolve_conflict">Ütközés feloldása</string>
     <string name="upload_local_storage_full">A helyi tároló megtelt</string>
     <string name="upload_local_storage_not_copied">A fájlt nem lehet a helyi tárolóra másolni</string>
     <string name="upload_lock_failed">A mappa zárolása sikertelen</string>
@@ -763,6 +765,8 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="uploader_top_message">Válasszon feltöltési mappát</string>
     <string name="uploader_upload_failed_content_single">%1$s feltöltése sikertelen.</string>
     <string name="uploader_upload_failed_credentials_error">Feltöltés sikertelen, újra be kell jelentkeznie.</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Fájlfeltöltési ütközés</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Válasszon, hogy a(z) %1$s melyik verzióját tartja meg</string>
     <string name="uploader_upload_failed_ticker">A feltöltés sikertelen</string>
     <string name="uploader_upload_files_behaviour">Feltöltési lehetőség:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">A fájl áthelyezése a(z) %1$s mappába</string>
@@ -791,6 +795,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="uploads_view_upload_status_failed_localfile_error">Helyi fájl nem található</string>
     <string name="uploads_view_upload_status_failed_permission_error">Jogosultsághiba</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">A kiszolgáló tanúsítványa nem megbízható</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Kiszolgálóverzió lekérése…</string>
     <string name="uploads_view_upload_status_service_interrupted">Az alkalmazás leállt</string>
     <string name="uploads_view_upload_status_succeeded">Befejezve</string>
     <string name="uploads_view_upload_status_unknown_fail">Ismeretlen hiba</string>
