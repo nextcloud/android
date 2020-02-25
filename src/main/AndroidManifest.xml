@@ -111,11 +111,13 @@
             android:theme="@style/Theme.ownCloud.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="NC_OPEN_FILE" />
             </intent-filter>
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/users_and_groups_searchable"/>

@@ -163,6 +163,7 @@ public class FileDisplayActivity extends FileActivity
     public static final String RESTART = "RESTART";
     public static final String ALL_FILES = "ALL_FILES";
     public static final String PHOTO_SEARCH = "PHOTO_SEARCH";
+    public static final String OPEN_FILE = "NC_OPEN_FILE";
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
@@ -329,6 +330,10 @@ public class FileDisplayActivity extends FileActivity
 
         upgradeNotificationForInstantUpload();
         checkOutdatedServer();
+
+        if (OPEN_FILE.equals(getIntent().getAction())) {
+            onOpenFileIntent(getIntent());
+        }
     }
 
     private Activity getActivity() {
@@ -511,6 +516,8 @@ public class FileDisplayActivity extends FileActivity
             showDetails(file);
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             handleOpenFileViaIntent(intent);
+        } else if (OPEN_FILE.equals(intent.getAction())) {
+            onOpenFileIntent(intent);
         } else if (RESTART.equals(intent.getAction())) {
             finish();
             startActivity(intent);
@@ -566,6 +573,15 @@ public class FileDisplayActivity extends FileActivity
                 transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
                 transaction.commit();
             }
+    }
+
+    private void onOpenFileIntent(Intent intent) {
+        String extra = intent.getStringExtra(EXTRA_FILE);
+        OCFile file = getStorageManager().getFileByPath(extra);
+
+        getSupportFragmentManager().executePendingTransactions();
+        OCFileListFragment fileListFragment = getListOfFilesFragment();
+        fileListFragment.onItemClicked(file);
     }
 
     private void doShareWith(String shareeName, ShareType shareType) {
