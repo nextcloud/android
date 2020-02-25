@@ -139,7 +139,7 @@
 
     <item
         android:id="@+id/action_add_shortcut_to_desktop"
-        android:title="Add shortcut to desktop"
+        android:title="@string/add_shortcut_to_home"
         app:showAsAction="never"
         android:showAsAction="never" />
 
