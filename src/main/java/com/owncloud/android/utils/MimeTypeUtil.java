@@ -161,6 +161,13 @@ public final class MimeTypeUtil {
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink,
                                              boolean isEncrypted, Account account, WebdavEntry.MountType mountType,
                                              Context context) {
+        int drawableId = getFolderTypeIconId(isSharedViaUsers, isSharedViaLink, isEncrypted, mountType);
+
+        return ThemeUtils.tintDrawable(drawableId, ThemeUtils.elementColor(account, context));
+    }
+
+    public static int getFolderTypeIconId(boolean isSharedViaUsers, boolean isSharedViaLink,
+                                             boolean isEncrypted, WebdavEntry.MountType mountType) {
         int drawableId;
 
         if (isSharedViaLink) {
@@ -177,7 +184,7 @@ public final class MimeTypeUtil {
             drawableId = R.drawable.folder;
         }
 
-        return ThemeUtils.tintDrawable(drawableId, ThemeUtils.elementColor(account, context));
+        return drawableId;
     }
 
     public static Drawable getDefaultFolderIcon(Context context) {

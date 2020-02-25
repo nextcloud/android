@@ -137,4 +137,10 @@
         app:showAsAction="never"
         android:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_add_shortcut_to_desktop"
+        android:title="Add shortcut to desktop"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
 </menu>

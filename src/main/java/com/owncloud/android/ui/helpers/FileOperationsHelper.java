@@ -29,12 +29,16 @@ package com.owncloud.android.ui.helpers;
 import android.Manifest;
 import android.accounts.Account;
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
+import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -68,6 +72,7 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ExternalSiteWebView;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.activity.TextEditorWebView;
@@ -77,6 +82,7 @@ import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
 
@@ -1026,6 +1032,46 @@ public class FileOperationsHelper {
                 }
             }
         }
+    }
+
+    public void addShortcutToDesktop(OCFile file) {
+        ShortcutManager shortcutManager = fileActivity.getSystemService(ShortcutManager.class);
+
+        final Intent intent = new Intent(fileActivity, FileDisplayActivity.class);
+        intent.setAction(FileDisplayActivity.OPEN_FILE);
+        //intent.putExtra(FileDisplayActivity.KEY_FILE_ID, file.getRemoteId());
+        intent.putExtra(FileActivity.EXTRA_FILE, file.getRemotePath());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        final String shortcutId = "nextcloud_shortcut_" + file.getRemoteId();
+
+        int iconId;
+        if (file.isFolder()) {
+            iconId = MimeTypeUtil.getFolderTypeIconId(file.isSharedWithMe() ||
+                file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType());
+        } else {
+            iconId = MimeTypeUtil.getFileTypeIconId(file.getMimeType(), file.getFileName());
+        }
+
+        if (shortcutManager.isRequestPinShortcutSupported()) {
+            ShortcutInfo pinShortcutInfo = new ShortcutInfo.Builder(fileActivity, shortcutId)
+                .setShortLabel(file.getFileName())
+                .setLongLabel("Open " + file.getFileName())
+                .setIcon(Icon.createWithResource(fileActivity, iconId))
+                .setIntent(intent)
+                .build();
+
+            Intent pinnedShortcutCallbackIntent =
+                shortcutManager.createShortcutResultIntent(pinShortcutInfo);
+
+            PendingIntent successCallback = PendingIntent.getBroadcast(fileActivity, /* request code */ 0,
+                pinnedShortcutCallbackIntent, /* flags */ 0);
+
+            shortcutManager.requestPinShortcut(pinShortcutInfo,
+                successCallback.getIntentSender());
+        }
+
+
     }
 
     public static File createImageFile(Activity activity) {
