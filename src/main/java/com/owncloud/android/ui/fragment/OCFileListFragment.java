@@ -1109,8 +1109,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, false);
                     return true;
                 }
-                case R.id.action_add_shortcut_to_desktop: {
-                    mContainerActivity.getFileOperationsHelper().addShortcutToDesktop(singleFile);
+                case R.id.action_add_shortcut_to_homescreen: {
+                    mContainerActivity.getFileOperationsHelper().addShortcutToHomescreen(singleFile);
                     return true;
                 }
             }
