@@ -38,6 +38,14 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Build;
@@ -57,6 +65,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.StreamMediaFileOperation;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -1050,18 +1059,26 @@ public class FileOperationsHelper {
 
             final String shortcutId = "nextcloud_shortcut_" + file.getRemoteId();
 
-            int iconId;
-            if (file.isFolder()) {
-                iconId = MimeTypeUtil.getFolderTypeIconId(file.isSharedWithMe() ||
-                    file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType());
+            Icon icon;
+
+            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
+            if (thumbnail != null) {
+                thumbnail = bitmapToAdaptiveBitmap(thumbnail, fileActivity);
+                icon = Icon.createWithAdaptiveBitmap(thumbnail);
+            } else if (file.isFolder()) {
+                icon = Icon.createWithResource(fileActivity,
+                    MimeTypeUtil.getFolderTypeIconId(file.isSharedWithMe() ||
+                    file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType()));
             } else {
-                iconId = MimeTypeUtil.getFileTypeIconId(file.getMimeType(), file.getFileName());
+                icon = Icon.createWithResource(fileActivity,
+                    MimeTypeUtil.getFileTypeIconId(file.getMimeType(), file.getFileName()));
             }
 
             final ShortcutInfo pinShortcutInfo = new ShortcutInfo.Builder(fileActivity, shortcutId)
                 .setShortLabel(file.getFileName())
                 .setLongLabel("Open " + file.getFileName())
-                .setIcon(Icon.createWithResource(fileActivity, iconId))
+                .setIcon(icon)
                 .setIntent(intent)
                 .build();
 
@@ -1074,8 +1091,21 @@ public class FileOperationsHelper {
             shortcutManager.requestPinShortcut(pinShortcutInfo,
                 successCallback.getIntentSender());
         }
+    }
 
+    private static Bitmap bitmapToAdaptiveBitmap(final Bitmap orig, final Context context) {
+        final float screenDensity = context.getResources().getDisplayMetrics().density;
+        final int adaptiveIconSize = Math.round(108 * screenDensity);
+        final int adaptiveIconOuterSides = Math.round(18 * screenDensity);
 
+        Drawable drawable = new BitmapDrawable(context.getResources(), orig);
+
+        final Bitmap bitmap = Bitmap.createBitmap(adaptiveIconSize, adaptiveIconSize, Bitmap.Config.ARGB_8888);
+        final Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(adaptiveIconOuterSides, adaptiveIconOuterSides, adaptiveIconSize - adaptiveIconOuterSides,
+            adaptiveIconSize - adaptiveIconOuterSides);
+        drawable.draw(canvas);
+        return bitmap;
     }
 
     public static File createImageFile(Activity activity) {
