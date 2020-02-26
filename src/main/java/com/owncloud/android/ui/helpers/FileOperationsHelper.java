@@ -1034,6 +1034,11 @@ public class FileOperationsHelper {
         }
     }
 
+    /**
+     * Adds a pinned shortcut to the home screen that points to the passed file/folder.
+     *
+     * @param file The file/folder to which a pinned shortcut should be added to the home screen.
+     */
     public void addShortcutToHomescreen(OCFile file) {
         final ShortcutManager shortcutManager = fileActivity.getSystemService(ShortcutManager.class);
 
