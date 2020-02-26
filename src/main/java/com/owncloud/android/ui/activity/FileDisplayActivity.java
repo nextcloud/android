@@ -332,6 +332,7 @@ public class FileDisplayActivity extends FileActivity
         checkOutdatedServer();
 
         if (OPEN_FILE.equals(getIntent().getAction())) {
+            getSupportFragmentManager().executePendingTransactions();
             onOpenFileIntent(getIntent());
         }
     }
@@ -579,7 +580,6 @@ public class FileDisplayActivity extends FileActivity
         String extra = intent.getStringExtra(EXTRA_FILE);
         OCFile file = getStorageManager().getFileByPath(extra);
 
-        getSupportFragmentManager().executePendingTransactions();
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         fileListFragment.onItemClicked(file);
     }
