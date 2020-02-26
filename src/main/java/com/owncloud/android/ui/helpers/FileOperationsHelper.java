@@ -1034,38 +1034,37 @@ public class FileOperationsHelper {
         }
     }
 
-    public void addShortcutToDesktop(OCFile file) {
-        ShortcutManager shortcutManager = fileActivity.getSystemService(ShortcutManager.class);
-
-        final Intent intent = new Intent(fileActivity, FileDisplayActivity.class);
-        intent.setAction(FileDisplayActivity.OPEN_FILE);
-        //intent.putExtra(FileDisplayActivity.KEY_FILE_ID, file.getRemoteId());
-        intent.putExtra(FileActivity.EXTRA_FILE, file.getRemotePath());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        final String shortcutId = "nextcloud_shortcut_" + file.getRemoteId();
-
-        int iconId;
-        if (file.isFolder()) {
-            iconId = MimeTypeUtil.getFolderTypeIconId(file.isSharedWithMe() ||
-                file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType());
-        } else {
-            iconId = MimeTypeUtil.getFileTypeIconId(file.getMimeType(), file.getFileName());
-        }
+    public void addShortcutToHomescreen(OCFile file) {
+        final ShortcutManager shortcutManager = fileActivity.getSystemService(ShortcutManager.class);
 
         if (shortcutManager.isRequestPinShortcutSupported()) {
-            ShortcutInfo pinShortcutInfo = new ShortcutInfo.Builder(fileActivity, shortcutId)
+            final Intent intent = new Intent(fileActivity, FileDisplayActivity.class);
+            intent.setAction(FileDisplayActivity.OPEN_FILE);
+            intent.putExtra(FileActivity.EXTRA_FILE, file.getRemotePath());
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            final String shortcutId = "nextcloud_shortcut_" + file.getRemoteId();
+
+            int iconId;
+            if (file.isFolder()) {
+                iconId = MimeTypeUtil.getFolderTypeIconId(file.isSharedWithMe() ||
+                    file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType());
+            } else {
+                iconId = MimeTypeUtil.getFileTypeIconId(file.getMimeType(), file.getFileName());
+            }
+
+            final ShortcutInfo pinShortcutInfo = new ShortcutInfo.Builder(fileActivity, shortcutId)
                 .setShortLabel(file.getFileName())
                 .setLongLabel("Open " + file.getFileName())
                 .setIcon(Icon.createWithResource(fileActivity, iconId))
                 .setIntent(intent)
                 .build();
 
-            Intent pinnedShortcutCallbackIntent =
+            final Intent pinnedShortcutCallbackIntent =
                 shortcutManager.createShortcutResultIntent(pinShortcutInfo);
 
-            PendingIntent successCallback = PendingIntent.getBroadcast(fileActivity, /* request code */ 0,
-                pinnedShortcutCallbackIntent, /* flags */ 0);
+            final PendingIntent successCallback = PendingIntent.getBroadcast(fileActivity,0,
+                pinnedShortcutCallbackIntent,0);
 
             shortcutManager.requestPinShortcut(pinShortcutInfo,
                 successCallback.getIntentSender());
