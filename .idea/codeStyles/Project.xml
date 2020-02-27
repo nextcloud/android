@@ -29,9 +29,6 @@
     </option>
     <option name="RIGHT_MARGIN" value="120" />
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="true" />
-    <AndroidXmlCodeStyleSettings>
-      <option name="ARRANGEMENT_SETTINGS_MIGRATED_TO_191" value="true" />
-    </AndroidXmlCodeStyleSettings>
     <JavaCodeStyleSettings>
       <option name="IMPORT_LAYOUT_TABLE">
         <value>
