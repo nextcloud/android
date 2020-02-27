@@ -141,13 +141,13 @@ public final class DisplayUtils {
     /**
      * Converts the file size in bytes to human readable output.
      * <ul>
-     * <li>appends a size suffix, e.g. B, KB, MB etc.</li>
-     * <li>rounds the size based on the suffix to 0,1 or 2 decimals</li>
+     *     <li>appends a size suffix, e.g. B, KB, MB etc.</li>
+     *     <li>rounds the size based on the suffix to 0,1 or 2 decimals</li>
      * </ul>
      *
      * @param bytes Input file size
-     * @return something readable like "12 MB", {@link com.owncloud.android.R.string#common_pending} for negative byte
-     * values
+     * @return something readable like "12 MB", {@link com.owncloud.android.R.string#common_pending} for negative
+     * byte values
      */
     public static String bytesToHumanReadable(long bytes) {
         if (bytes < 0) {
@@ -166,7 +166,8 @@ public final class DisplayUtils {
     }
 
     /**
-     * Converts MIME types like "image/jpg" to more end user friendly output like "JPG image".
+     * Converts MIME types like "image/jpg" to more end user friendly output
+     * like "JPG image".
      *
      * @param mimetype MIME type to convert
      * @return A human friendly version of the MIME type, {@link #MIME_TYPE_UNKNOWN} if it can't be converted
@@ -243,7 +244,7 @@ public final class DisplayUtils {
     /**
      * Converts an internationalized domain name (IDN) in an URL to and from ASCII/Unicode.
      *
-     * @param url     the URL where the domain name should be converted
+     * @param url the URL where the domain name should be converted
      * @param toASCII if true converts from Unicode to ASCII, if false converts from ASCII to Unicode
      * @return the URL containing the converted domain name
      */
@@ -287,10 +288,11 @@ public final class DisplayUtils {
                 + convertIdn(accountName.substring(accountName.lastIndexOf('@') + 1), false);
     }
 
+
     /**
      * calculates the relative time string based on the given modification timestamp.
      *
-     * @param context               the app's context
+     * @param context the app's context
      * @param modificationTimestamp the UNIX timestamp of the file modification time in milliseconds.
      * @return a relative time string
      */
@@ -589,7 +591,7 @@ public final class DisplayUtils {
     /**
      * Get String data from a InputStream
      *
-     * @param inputStream The File InputStream
+     * @param inputStream        The File InputStream
      */
     public static String getData(InputStream inputStream) {
 

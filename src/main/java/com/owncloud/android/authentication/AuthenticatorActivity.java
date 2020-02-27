@@ -1511,11 +1511,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mAuthStatusText = getResources().getString(R.string.auth_unknown_host_title);
                 break;
             case ACCOUNT_NOT_NEW:
-                String errorMessage = getString(R.string.auth_account_not_new);
+                mAuthStatusText = getString(R.string.auth_account_not_new);
                 if (webViewLoginMethod && !showWebViewLoginUrl) {
-                    DisplayUtils.showErrorAndFinishActivity(this, errorMessage);
-                } else {
-                    mAuthStatusText = errorMessage;
+                    DisplayUtils.showErrorAndFinishActivity(this, mAuthStatusText);
                 }
                 break;
             case UNHANDLED_HTTP_CODE:
