@@ -434,7 +434,7 @@
 
     <string name="prefs_category_details">Details</string>
 
-    <string name="sync_folder_failed_content">Sync of %1$s folder could not be completed</string>
+    <string name="sync_folder_failed_content">Sync of folder %1$s could not be completed</string>
 
     <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
     <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
