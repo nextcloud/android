@@ -1045,47 +1045,49 @@ public class FileOperationsHelper {
      * @param file The file/folder to which a pinned shortcut should be added to the home screen.
      */
     public void addShortcutToHomescreen(OCFile file) {
-        final ShortcutManager shortcutManager = fileActivity.getSystemService(ShortcutManager.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            final ShortcutManager shortcutManager = fileActivity.getSystemService(ShortcutManager.class);
 
-        if (shortcutManager.isRequestPinShortcutSupported()) {
-            final Intent intent = new Intent(fileActivity, FileDisplayActivity.class);
-            intent.setAction(FileDisplayActivity.OPEN_FILE);
-            intent.putExtra(FileActivity.EXTRA_FILE, file.getRemotePath());
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            if (shortcutManager.isRequestPinShortcutSupported()) {
+                final Intent intent = new Intent(fileActivity, FileDisplayActivity.class);
+                intent.setAction(FileDisplayActivity.OPEN_FILE);
+                intent.putExtra(FileActivity.EXTRA_FILE, file.getRemotePath());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-            final String shortcutId = "nextcloud_shortcut_" + file.getRemoteId();
+                final String shortcutId = "nextcloud_shortcut_" + file.getRemoteId();
 
-            Icon icon;
+                Icon icon;
 
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
-            if (thumbnail != null) {
-                thumbnail = bitmapToAdaptiveBitmap(thumbnail, fileActivity);
-                icon = Icon.createWithAdaptiveBitmap(thumbnail);
-            } else if (file.isFolder()) {
-                icon = Icon.createWithResource(fileActivity,
-                    MimeTypeUtil.getFolderTypeIconId(file.isSharedWithMe() ||
-                    file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType()));
-            } else {
-                icon = Icon.createWithResource(fileActivity,
-                    MimeTypeUtil.getFileTypeIconId(file.getMimeType(), file.getFileName()));
+                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
+                if (thumbnail != null) {
+                    thumbnail = bitmapToAdaptiveBitmap(thumbnail, fileActivity);
+                    icon = Icon.createWithAdaptiveBitmap(thumbnail);
+                } else if (file.isFolder()) {
+                    icon = Icon.createWithResource(fileActivity,
+                        MimeTypeUtil.getFolderTypeIconId(file.isSharedWithMe() ||
+                            file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), file.getMountType()));
+                } else {
+                    icon = Icon.createWithResource(fileActivity,
+                        MimeTypeUtil.getFileTypeIconId(file.getMimeType(), file.getFileName()));
+                }
+
+                final ShortcutInfo pinShortcutInfo = new ShortcutInfo.Builder(fileActivity, shortcutId)
+                    .setShortLabel(file.getFileName())
+                    .setLongLabel("Open " + file.getFileName())
+                    .setIcon(icon)
+                    .setIntent(intent)
+                    .build();
+
+                final Intent pinnedShortcutCallbackIntent =
+                    shortcutManager.createShortcutResultIntent(pinShortcutInfo);
+
+                final PendingIntent successCallback = PendingIntent.getBroadcast(fileActivity, 0,
+                    pinnedShortcutCallbackIntent, 0);
+
+                shortcutManager.requestPinShortcut(pinShortcutInfo,
+                    successCallback.getIntentSender());
             }
-
-            final ShortcutInfo pinShortcutInfo = new ShortcutInfo.Builder(fileActivity, shortcutId)
-                .setShortLabel(file.getFileName())
-                .setLongLabel("Open " + file.getFileName())
-                .setIcon(icon)
-                .setIntent(intent)
-                .build();
-
-            final Intent pinnedShortcutCallbackIntent =
-                shortcutManager.createShortcutResultIntent(pinShortcutInfo);
-
-            final PendingIntent successCallback = PendingIntent.getBroadcast(fileActivity,0,
-                pinnedShortcutCallbackIntent,0);
-
-            shortcutManager.requestPinShortcut(pinShortcutInfo,
-                successCallback.getIntentSender());
         }
     }
 

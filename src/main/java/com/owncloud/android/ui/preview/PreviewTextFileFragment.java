@@ -40,6 +40,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
+import com.owncloud.android.ui.helpers.MenuHelper;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
@@ -235,7 +236,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     @Override
     public void onCreateOptionsMenu(@NotNull Menu menu, @NotNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.item_file, menu);
+        MenuHelper.inflateItemFileMenu(inflater, menu);
 
         MenuItem menuItem = menu.findItem(R.id.action_search);
         menuItem.setVisible(true);

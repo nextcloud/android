@@ -90,6 +90,7 @@ import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.owncloud.android.ui.helpers.MenuHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
@@ -494,7 +495,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onOverflowIconClicked(OCFile file, View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
-        popup.inflate(R.menu.item_file);
+        MenuHelper.inflateItemFileMenu(popup.getMenuInflater(), popup.getMenu());
         Account currentAccount = ((FileActivity) getActivity()).getAccount();
         FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
                                                Collections.singleton(file),
@@ -630,7 +631,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mActiveActionMode = mode;
 
             MenuInflater inflater = getActivity().getMenuInflater();
-            inflater.inflate(R.menu.item_file, menu);
+            MenuHelper.inflateItemFileMenu(inflater, menu);
             mode.invalidate();
 
             //set gray color
@@ -1110,7 +1111,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     return true;
                 }
                 case R.id.action_add_shortcut_to_homescreen: {
-                    mContainerActivity.getFileOperationsHelper().addShortcutToHomescreen(singleFile);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                        mContainerActivity.getFileOperationsHelper().addShortcutToHomescreen(singleFile);
+                    }
                     return true;
                 }
             }

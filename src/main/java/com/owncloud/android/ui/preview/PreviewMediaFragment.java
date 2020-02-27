@@ -72,6 +72,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.helpers.MenuHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.lang.ref.WeakReference;
@@ -340,7 +341,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.removeItem(R.id.action_search);
-        inflater.inflate(R.menu.item_file, menu);
+        MenuHelper.inflateItemFileMenu(inflater, menu);
     }
 
     @Override
