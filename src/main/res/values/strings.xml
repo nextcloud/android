@@ -905,7 +905,8 @@
     <string name="file_detail_activity_error">Error retrieving activities for file</string>
     <string name="no_mutliple_accounts_allowed">Only one account allowed</string>
     <string name="remote_file_fetch_failed">Failed to find file!</string>
-    <string name="share_internal_link_text">Only works for users with access to this %1$s</string>
+    <string name="share_internal_link_to_folder_text">Only works for users with access to this folder</string>
+    <string name="share_internal_link_to_file_text">Only works for users with access to this file</string>
     <string name="folder">folder</string>
     <string name="file">file</string>
     <string name="share_internal_link">Share internal link</string>
