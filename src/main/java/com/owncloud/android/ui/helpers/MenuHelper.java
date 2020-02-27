@@ -4,14 +4,16 @@ import android.os.Build;
 import android.view.Menu;
 import android.view.MenuInflater;
 
-import androidx.annotation.MenuRes;
-
 import com.owncloud.android.R;
 
 /**
  * Collection of helper functions for handling menus.
  */
-public class MenuHelper {
+public final class MenuHelper {
+
+    private MenuHelper() {
+
+    }
 
     /**
      * Inflates the item file menu and handles menu items according to SDK version.
