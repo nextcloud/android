@@ -31,22 +31,19 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.UpdateShareRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
-import lombok.Getter;
-import lombok.Setter;
-
 
 /**
  * Updates an existing public share for a given file
  */
 public class UpdateShareViaLinkOperation extends SyncOperation {
 
-    @Getter private String path;
-    @Getter @Setter private String password;
+    private String path;
+    private String password;
     /** Enable upload permissions to update in Share resource. */
-    @Setter private Boolean publicUploadOnFolder;
-    @Setter private Boolean publicUploadOnFile;
-    @Setter private Boolean hideFileDownload;
-    @Setter private long expirationDateInMillis;
+    private Boolean publicUploadOnFolder;
+    private Boolean publicUploadOnFile;
+    private Boolean hideFileDownload;
+    private long expirationDateInMillis;
 
     /**
      * Constructor
@@ -107,5 +104,33 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
             file.setSharedViaLink(true);
             getStorageManager().saveFile(file);
         }
+    }
+
+    public String getPath() {
+        return this.path;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPublicUploadOnFolder(Boolean publicUploadOnFolder) {
+        this.publicUploadOnFolder = publicUploadOnFolder;
+    }
+
+    public void setPublicUploadOnFile(Boolean publicUploadOnFile) {
+        this.publicUploadOnFile = publicUploadOnFile;
+    }
+
+    public void setHideFileDownload(Boolean hideFileDownload) {
+        this.hideFileDownload = hideFileDownload;
+    }
+
+    public void setExpirationDateInMillis(long expirationDateInMillis) {
+        this.expirationDateInMillis = expirationDateInMillis;
     }
 }

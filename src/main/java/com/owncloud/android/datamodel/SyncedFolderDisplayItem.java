@@ -23,15 +23,10 @@ package com.owncloud.android.datamodel;
 
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * Display item specialization for synced folder objects to be displayed in a list/grid view adding further
  * information to be displayed in the UI but not part of the persisted underlying {@link SyncedFolder} object.
  */
-@Getter
-@Setter
 public class SyncedFolderDisplayItem extends SyncedFolder {
     private List<String> filePaths;
     private String folderName;
@@ -94,5 +89,29 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
         super(id, localPath, remotePath, wifiOnly, chargingOnly, existing, subfolderByDate, account, uploadAction,
               enabled, timestampMs, type, hidden);
         this.folderName = folderName;
+    }
+
+    public List<String> getFilePaths() {
+        return this.filePaths;
+    }
+
+    public String getFolderName() {
+        return this.folderName;
+    }
+
+    public long getNumberOfFiles() {
+        return this.numberOfFiles;
+    }
+
+    public void setFilePaths(List<String> filePaths) {
+        this.filePaths = filePaths;
+    }
+
+    public void setFolderName(String folderName) {
+        this.folderName = folderName;
+    }
+
+    public void setNumberOfFiles(long numberOfFiles) {
+        this.numberOfFiles = numberOfFiles;
     }
 }
