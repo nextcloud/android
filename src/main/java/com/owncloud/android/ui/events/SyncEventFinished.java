@@ -23,14 +23,16 @@ import android.content.Intent;
 
 import org.parceler.Parcel;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 @Parcel
-@NoArgsConstructor
-@AllArgsConstructor
 public class SyncEventFinished {
     public Intent intent;
+
+    public SyncEventFinished(Intent intent) {
+        this.intent = intent;
+    }
+
+    public SyncEventFinished() {
+    }
 
     public Intent getIntent() {
         return intent;
