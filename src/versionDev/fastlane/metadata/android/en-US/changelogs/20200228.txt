@@ -1,0 +1,13 @@
+3facd6c20 Merge remote-tracking branch 'origin/master' into dev
+d88dac628 Merge pull request #5536 from nextcloud/changeFolderString
+42d1dafaf Change to better english
+43dfa7a77 Merge pull request #5528 from nextcloud/dependabot/gradle/io.gitlab.arturbosch.detekt-detekt-gradle-plugin-1.6.0
+4481af43f Merge pull request #5529 from nextcloud/dependabot/gradle/org.mockito-mockito-core-3.3.1
+36dbdf5f6 Merge pull request #5527 from nextcloud/dependabot/gradle/markwonVersion-4.2.2
+cd893c685 Bump mockito-core from 3.3.0 to 3.3.1
+8b14e8a8b Bump detekt-gradle-plugin from 1.5.1 to 1.6.0
+82d0ad98d Bump markwonVersion from 4.2.1 to 4.2.2
+eb94a66b2 [tx-robot] updated from transifex
+543e25667 [tx-robot] updated from transifex
+97c53b38c daily dev 20200225
+library commit: e39dced62407163e0c0cf5cb5662a73d8d3c1ce5
