@@ -75,6 +75,7 @@ public class RichDocumentsEditorWebView extends EditorWebView {
     private static final String URL = "URL";
     private static final String TYPE = "Type";
     private static final String PRINT = "print";
+    private static final String SLIDESHOW = "slideshow";
     private static final String NEW_NAME = "NewName";
 
     private Unbinder unbinder;
@@ -91,7 +92,6 @@ public class RichDocumentsEditorWebView extends EditorWebView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         unbinder = ButterKnife.bind(this);
 
@@ -242,6 +242,14 @@ public class RichDocumentsEditorWebView extends EditorWebView {
         }
     }
 
+    private void showSlideShow(Uri url) {
+        Intent intent = new Intent(this, ExternalSiteWebView.class);
+        intent.putExtra(ExternalSiteWebView.EXTRA_URL, url.toString());
+        intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+        intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_TOOLBAR, false);
+        startActivity(intent);
+    }
+
     private class RichDocumentsMobileInterface extends MobileInterface {
         @JavascriptInterface
         public void insertGraphic() {
@@ -260,10 +268,18 @@ public class RichDocumentsEditorWebView extends EditorWebView {
 
                 Uri url = Uri.parse(downloadJson.getString(URL));
 
-                if (downloadJson.getString(TYPE).equalsIgnoreCase(PRINT)) {
-                    printFile(url);
-                } else {
-                    downloadFile(url);
+                switch (downloadJson.getString(TYPE)) {
+                    case PRINT:
+                        printFile(url);
+                        break;
+
+                    case SLIDESHOW:
+                        showSlideShow(url);
+                        break;
+
+                    default:
+                        downloadFile(url);
+                        break;
                 }
             } catch (JSONException e) {
                 Log_OC.e(this, "Failed to parse download json message: " + e);
