@@ -1,9 +1,13 @@
 #!/bin/bash
 date=$(date +%Y%m%d)
+libraryCommit=$(curl https://api.github.com/repos/nextcloud/android-library/commits/master | jq .sha | sed s'/\"//g')
 
 # use current date for version code/name
 sed -i "/versionDev/,/\}/ s/versionCode .*/versionCode $date/" build.gradle
 sed -i "/versionDev/,/\}/ s/versionName .*/versionName \"$date\"/" build.gradle
+
+# change library
+sed -i s"#androidLibraryVersion.*#androidLibraryVersion =\"$libraryCommit\"#" build.gradle
 
 # build signed apk
 ./gradlew assembleVersionDevRelease >> /tmp/dev.log 2>&1
@@ -60,9 +64,6 @@ fi
 
 # changelog
 echo "$changelog" > src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
-
-# build
-sed -i s"# androidLibraryVersion.*#androidLibraryVersion =\"$libraryCommit\"#" build.gradle
 
 git add .
 git commit -m "daily dev $date" -m "$changelog"
