@@ -669,7 +669,6 @@
     <string name="sync_fail_ticker">同步失敗</string>
     <string name="sync_fail_ticker_unauthorized">同步失敗，需重新登入。</string>
     <string name="sync_file_nothing_to_do_msg">檔案已同步</string>
-    <string name="sync_folder_failed_content">%1$s 資料夾的同步作業未完成</string>
     <string name="sync_foreign_files_forgotten_explanation">於1.3.16版本中，此裝置已上傳的檔案會複製到本地%1$s資料夾，以防止多重帳號同步單一檔案時造成遺失。透過此應用程式更早的版本上傳的檔案則複製到%2$s資料夾。但是在同步時出現錯誤會阻礙此操作完成，你可以選擇無視此檔案並移除%3$s的連結，或者移動此檔案到%1$s資料夾並保留%4$s的連結，下面列出%5$s中本地與遠端檔案之間的連結。</string>
     <string name="sync_foreign_files_forgotten_ticker">有些本地端的檔案已遺失</string>
     <string name="sync_in_progress">取得檔案最近的版本</string>
