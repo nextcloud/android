@@ -667,7 +667,6 @@
     <string name="sync_fail_ticker">Sinkronizacija nije uspjela</string>
     <string name="sync_fail_ticker_unauthorized">Sinkronizacija nije uspjela, ponovno se prijavite</string>
     <string name="sync_file_nothing_to_do_msg">Sadržaj datoteke već je sinkroniziran</string>
-    <string name="sync_folder_failed_content">Sinkronizacija mape %1$s nije dovršena</string>
     <string name="sync_foreign_files_forgotten_explanation">Počevši od inačice 1.3.16, datoteke otpremljene s ovog uređaja kopiraju se u lokalnu mapu %1$s radi sprječavanja gubitka podataka kada se jedna datoteka sinkronizira s više računa.\n\nZbog ove promjene, datoteke otpremljene u starijim inačicama aplikacije kopirane su u mapu %2$s. Međutim, navedena radnja nije dovršena tijekom sinkronizacije računa zbog pogreške u radu. Možete ostaviti datoteku (datoteke) nepromijenjenom i izbrisati poveznicu na %3$s ili premjestiti datoteku (datoteke) u mapu %1$s i zadržati poveznicu na %4$s.\n\nU nastavku su navedene lokalne datoteke i udaljene datoteke u %5$s s kojima su povezane.</string>
     <string name="sync_foreign_files_forgotten_ticker">Neke lokalne datoteke su zaboravljene</string>
     <string name="sync_in_progress">Dohvaćanje najnovije inačice datoteke.</string>

@@ -362,6 +362,7 @@
     <string name="hint_password">Parola</string>
     <string name="host_not_available">Sunucu kullanılamıyor</string>
     <string name="host_your_own_server">Kendi sunucunuzu işletin</string>
+    <string name="instant_upload_existing">Var olan dosyalar da yüklensin</string>
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
     <string name="learn_more">Ayrıntılı bilgi alın</string>
@@ -669,7 +670,6 @@
     <string name="sync_fail_ticker">Eşitlenemedi</string>
     <string name="sync_fail_ticker_unauthorized">Eşitlenemedi, yeniden oturum açmalısınız</string>
     <string name="sync_file_nothing_to_do_msg">Dosya içerikleri zaten eşitlenmiş</string>
-    <string name="sync_folder_failed_content">%1$s klasörünün eşitlemesi tamamlanamadı</string>
     <string name="sync_foreign_files_forgotten_explanation">1.3.16 sürümünden sonra, veri kaybının önlenebilmesi için bu aygıttan yüklenen dosyalar, bir dosya birden fazla hesapla eşitlendiğinde %1$s yerel klasörüne kopyalanır.\n\nBu değişiklikten dolayı, bu uygulamanın yüklenmiş tüm önceki sürümündeki dosyalar %2$s klasörüne kopyalandı. Ancak hesap eşitlemesi sırasında bu işlemin tamamlanmasını engelleyen bir sorun çıktı. Dosyaları olduğu gibi bırakabilir ve %3$s bağlantısını kaldırabilir ya da dosyaları %1$s klasörüne taşıyıp %4$s bağlantısını koruyabilirsiniz.\n\nYerel dosyaları ve bağlı oldukları %5$s içindeki uzak dosyaların listesini aşağıda görebilirsiniz.</string>
     <string name="sync_foreign_files_forgotten_ticker">Bazı yerel dosyalar unutulmuş</string>
     <string name="sync_in_progress">Lütfen dosyanın en son sürümü alınırken bekleyin.</string>
@@ -726,6 +726,7 @@
     <string name="upload_list_delete">Sil</string>
     <string name="upload_list_empty_headline">Herhangi bir yükleme yok</string>
     <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
+    <string name="upload_list_resolve_conflict">Çakışmayı çöz</string>
     <string name="upload_local_storage_full">Yerel depolama alanı doldu</string>
     <string name="upload_local_storage_not_copied">Dosya yerel depolamaya kopyalanamadı</string>
     <string name="upload_lock_failed">Klasör kilitlenemedi</string>
@@ -745,6 +746,8 @@
     <string name="uploader_top_message">Yüklenecek klasörü seçin</string>
     <string name="uploader_upload_failed_content_single">%1$s yüklemesi tamamlanamadı</string>
     <string name="uploader_upload_failed_credentials_error">Yüklenemedi, yeniden oturum açmalısınız</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Dosya yükleme çakışması</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Saklanacak %1$s sürümünü seçin</string>
     <string name="uploader_upload_failed_ticker">Yüklenemedi</string>
     <string name="uploader_upload_files_behaviour">Yükleme seçeneği:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Dosya %1$s klasörüne taşınsın</string>
@@ -773,6 +776,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Yerel dosya bulunamadı</string>
     <string name="uploads_view_upload_status_failed_permission_error">İzin sorunu</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Sunucu sertifikasına güvenilmiyor</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Sunucu sürümü alınıyor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Uygulama sonlandırıldı</string>
     <string name="uploads_view_upload_status_succeeded">Tamamlandı</string>
     <string name="uploads_view_upload_status_unknown_fail">Bilinmeyen sorun</string>

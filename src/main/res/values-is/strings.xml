@@ -669,7 +669,6 @@
     <string name="sync_fail_ticker">Samstilling mistókst</string>
     <string name="sync_fail_ticker_unauthorized">Samstilling mistókst, skráðu þig inn aftur</string>
     <string name="sync_file_nothing_to_do_msg">Efni skrár er þegar samstillt</string>
-    <string name="sync_folder_failed_content">Ekki var hægt að ljúka samstillingu á %1$s möppunni</string>
     <string name="sync_foreign_files_forgotten_explanation">Frá og með útgáfu 1.3.16, eru skrár sem sendar eru inn frá þessu tæki afritaðar inn í staðværu %1$s möppuna, til að koma í veg fyrir gagnatap þegar stök skrá er samstillt við marga notendaaðganga.\n\nVegna þessarar breytingar, hafa allar skrár sem innsendar voru með eldri útgáfum þessa forrits nú verið afritaðar inn í %2$s möppuna. Hinsvegar kom villa í veg fyrir að hægt væri að ljúka aðgerðinni á meðan samstilling fór fram á notandaaðgangnum. Þú getur annað hvort látið skrána/skrárnar vera eins og þær eru nú og fjarlægt tengilinn í %3$s, eða fært skrána/skrárnar inn í %1$s möppuna og haldið tenglinum í %4$s.\n\nHér fyrir neðan eru staðværu skrárnar taldar upp, ásamt þeim fjartengdu skrám í %5$s sem þær voru tengdar.</string>
     <string name="sync_foreign_files_forgotten_ticker">Sumar staðværar skrár gleymdust</string>
     <string name="sync_in_progress">Sæki nýjustu útgáfu myndarinnar.</string>

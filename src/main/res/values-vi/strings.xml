@@ -390,7 +390,6 @@
     <string name="sync_fail_ticker">Lỗi đồng bộ</string>
     <string name="sync_fail_ticker_unauthorized">Đồng bộ lỗi, đăng nhập lại</string>
     <string name="sync_file_nothing_to_do_msg">Nội dung tập tin đã đồng bộ</string>
-    <string name="sync_folder_failed_content">Đồng bộ thư mục %1$s không thể hoàn tất</string>
     <string name="sync_foreign_files_forgotten_ticker">Một số tập tin cục bộ bị quên</string>
     <string name="sync_status_button">Nút trạng thái đồng bộ</string>
     <string name="sync_string_files">Tập tin</string>

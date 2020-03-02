@@ -673,7 +673,6 @@
     <string name="sync_fail_ticker">同步失败</string>
     <string name="sync_fail_ticker_unauthorized">同步失败，请重新登录</string>
     <string name="sync_file_nothing_to_do_msg">文件内容已同步</string>
-    <string name="sync_folder_failed_content">无法完成 %1$s 文件夹的同步</string>
     <string name="sync_foreign_files_forgotten_explanation">从 1.3.16 版本起，从本设备上传的文件将被复制到 %1$s 文件夹 来避免由单一文件在多个账号之间同步导致的文件丢失。\n\n由于本次变化，所有旧版本应用所上传的文件都被复制到了 %2$s 文件夹。然而，在账号同步过程中发生错误阻止了本次操作的完成。您可以选择留下此文件并删除指向%3$s的链接，或者选择将文件移动到 %1$s 文件夹并保留指向%4$s 的链接.\n\n以下列出的是本地文件和他们所链接至 %5$s 中的远程文件。</string>
     <string name="sync_foreign_files_forgotten_ticker">某些本地文件已被遗忘</string>
     <string name="sync_in_progress">获取文件的最新版本</string>
