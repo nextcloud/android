@@ -662,7 +662,6 @@
     <string name="sync_fail_ticker">סנכרון נכשל</string>
     <string name="sync_fail_ticker_unauthorized">הסנכרון נכשל, יש להיכנס שוב</string>
     <string name="sync_file_nothing_to_do_msg">תוכן הקובץ כבר מסונכרן</string>
-    <string name="sync_folder_failed_content">לא ניתן להשלים את הסנכרון של התיקייה %1$s</string>
     <string name="sync_foreign_files_forgotten_explanation">החל מגרסה 1.3.16, קבצים שנשלחים מהמכשיר הזה מועתקים אל התיקייה המקומית %1$s כדי למנוע אבדן נתונים במקרה שקובץ אחד מסונכרן בין כמה חשבונות.\n\nעקב השינוי הזה, כל הקבצים שנשלחו בעזרת גרסאות קודמות של היישומון הועתקו לתיקייה %2$s. עם זאת, שגיאה מנעה את השלמת הפעולה הזאת במהלך סנכרון החשבון. באפשרותך להשאיר את הקובץ או הקבצים כמו שהם ולמחוק את הקישור אל %3$s, או להעביר את הקבצים אל התיקייה %1$s ולשמור את הקישור אל %4$s.\n\nלהלן כל הקבצים המקומיים והמרוחקים שתחת %5$s שאליהם הם מקושרים.</string>
     <string name="sync_foreign_files_forgotten_ticker">חלק מהקבצים המקומיים נשכחו</string>
     <string name="sync_in_progress">מתקבלת הגרסה העדכנית ביותר של הקובץ.</string>

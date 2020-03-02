@@ -490,7 +490,6 @@
     <string name="sync_fail_ticker">Sinhronizācija neizdevās</string>
     <string name="sync_fail_ticker_unauthorized">Sinhronizācija neizdevās, piesakieties vēlreiz</string>
     <string name="sync_file_nothing_to_do_msg">Datnes saturs jau ir sinhronizēts</string>
-    <string name="sync_folder_failed_content">Nevarēja pabeigt %1$s mapju sinhronizēšanu</string>
     <string name="sync_foreign_files_forgotten_ticker">Dažas lokālās datnes tika aizmirstas</string>
     <string name="sync_string_files">Datnes</string>
     <string name="synced_folders_loading_folders">Ielādē mapes…</string>

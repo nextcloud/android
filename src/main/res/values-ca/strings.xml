@@ -661,7 +661,6 @@
     <string name="sync_fail_ticker">La sincronització ha fallat</string>
     <string name="sync_fail_ticker_unauthorized">La Sincronització ha fallat, torneu a iniciar la sessió</string>
     <string name="sync_file_nothing_to_do_msg">Contingut del fitxer ja sincronitzat</string>
-    <string name="sync_folder_failed_content">No s\'ha pogut completar la sincronització de la carpeta %1$s</string>
     <string name="sync_foreign_files_forgotten_explanation">A partir de la versió 1.3.16, els fitxers carregats des d\'un dispositiu es copien a la carpeta local %1$s per evitar la pèrdua de dades quan un únic fitxer es sincronitza entre múltiples comptes.\n\nA causa d\'aquest canvi, tots els fitxers carregats amb versions anteriors d\'aquesta aplicació s\'han copiat a la carpeta %2$s. Tot i així, un error ha impedit completar aquesta operació durant la sincronització de comptes. Podeu deixar el(s) fitxer(s) tal com està(n) i suprimir l\'enllaç a %3$s, o moure\'l(s) a la carpeta %1$s i conservar l\'enllaç cap a %4$s.\n\nA continuació es mostren el(s) fitxer(s) local(s) i el(s) remot(s) a %5$s, on hi estaven enllaçats.</string>
     <string name="sync_foreign_files_forgotten_ticker">S\'han oblidat alguns fitxers locals</string>
     <string name="sync_in_progress">S\'està obtenint la versió més recent del fitxer.</string>

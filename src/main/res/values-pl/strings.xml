@@ -130,7 +130,7 @@
     <string name="community_rc_fdroid">Pobierz wersję w wydaniu RC z F-Droid</string>
     <string name="community_rc_play_store">Pobierz wersję w wydaniu RC ze sklepu Google Play</string>
     <string name="community_release_candidate_headline">Release Candidate</string>
-    <string name="community_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącej nowej wersji, od której oczekuje się, że będzie stabilna. Testowanie indywidualnej konfiguracji przez użytkownika może w tym pomóc. Aby przetestować, zarejestruj się w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
+    <string name="community_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącej nowej wersji, od której oczekuje się, że będzie stabilna. Może to zapewnić testowanie indywidualnej konfiguracji. Aby przetestować, zarejestruj się w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
     <string name="community_testing_bug_text">Znalazłeś błąd? Jest coś, co chciałbyś poprawić?</string>
     <string name="community_testing_headline">Pomóż nam testować</string>
     <string name="community_testing_report_text">Zgłoś problem na GitHub</string>
@@ -540,7 +540,7 @@
     <string name="saml_authentication_wrong_pass">Złe hasło</string>
     <string name="scanQR_description">Zaloguj się za pomocą kodu QR</string>
     <string name="screenshot_01_gridView_heading">Ochrona Twoich danych</string>
-    <string name="screenshot_01_gridView_subline">produkcyjny samo-hostujący</string>
+    <string name="screenshot_01_gridView_subline">oprogramowanie biurowe uruchamiane na własnym hostingu</string>
     <string name="screenshot_02_listView_heading">Przeglądaj i udostępniaj</string>
     <string name="screenshot_02_listView_subline">wszystkie działania na wyciągnięcie ręki</string>
     <string name="screenshot_03_drawer_heading">Aktywność, udostępnienia...</string>
@@ -653,10 +653,10 @@
     <string name="storage_movies">Filmy</string>
     <string name="storage_music">Muzyka</string>
     <string name="storage_pictures">Obrazy</string>
-    <string name="store_full_desc">Samo-hostująca platforma produkcyjna, która zapewnia kontrolę.\n\nFunkcje:\n* Łatwy, nowoczesny interfejs, dostosowany do wyglądu Twojego serwera\n* Wysyłanie plików na serwer Nextcloud\n* Udostępnianie ich innym\n* Synchronizacja ulubionych plików i katalogów\n* Przeszukiwanie wszystkich katalogów na serwerze\n* Automatyczne przesyłanie zdjęć i filmów zrobionych przez urządzenie\n* Otrzymywanie na bieżąco powiadomień\n* Obsługa wielu kont\n* Bezpieczny dostęp do danych za pomocą odcisku palca lub kodu PIN\n* Integracja z DAVx5 (wcześniej znany jako DAVdroid) dla łatwej konfiguracji kalendarza &amp; Synchronizacja kontaktów\n\nZgłoś wszystkie problemy na https://github.com/nextcloud/android/issues i omów tę aplikację na https://help.nextcloud.com/c/clients/android\n\nNie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji plików &amp; i komunikacji. Jest darmowym oprogramowaniem, które możesz hostować samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i nad wszystkim innym.\n\nSprawdź Nextcloud na https://nextcloud.com</string>
-    <string name="store_full_dev_desc">Samo-hostująca platforma produkcyjna, która zapewnia kontrolę.\nJest to oficjalna wersja deweloperska, zawierająca codzienną próbkę każdej nowej niesprawdzonej funkcji, która może powodować niestabilność i utratę danych. Aplikacja jest przeznaczona dla użytkowników chcących przetestować i zgłosić błędy w przypadku ich wystąpienia. Nie używaj jej do ciągłej pracy!\n\nZarówno oficjalna wersja dev jak i zwykła są dostępne na F-droid i mogą być instalowane równocześnie.</string>
-    <string name="store_short_desc">Samo-hostująca platforma produkcyjna, która zapewnia kontrolę</string>
-    <string name="store_short_dev_desc">Samo-hostująca platforma produkcyjna, która zapewnia kontrolę (wersja deweloperska)</string>
+    <string name="store_full_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.\n\nFunkcje:\n* Łatwy, nowoczesny interfejs, dostosowany do wyglądu Twojego serwera\n* Wysyłanie plików na serwer Nextcloud\n* Udostępnianie ich innym\n* Synchronizacja ulubionych plików i katalogów\n* Przeszukiwanie wszystkich katalogów na serwerze\n* Automatyczne przesyłanie zdjęć i filmów zrobionych przez urządzenie\n* Otrzymywanie na bieżąco powiadomień\n* Obsługa wielu kont\n* Bezpieczny dostęp do danych za pomocą odcisku palca lub kodu PIN\n* Integracja z DAVx5 (wcześniej znany jako DAVdroid) dla łatwej konfiguracji kalendarza &amp; Synchronizacja kontaktów\n\nZgłoś wszystkie problemy na https://github.com/nextcloud/android/issues i omów tę aplikację na https://help.nextcloud.com/c/clients/android\n\nNie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji plików &amp; i komunikacji. Jest darmowym oprogramowaniem, które możesz hostować samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i nad wszystkim innym.\n\nSprawdź Nextcloud na https://nextcloud.com</string>
+    <string name="store_full_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.\nJest to oficjalna wersja deweloperska, zawierająca codzienną próbkę każdej nowej niesprawdzonej funkcji, która może powodować niestabilność i utratę danych. Aplikacja jest przeznaczona dla użytkowników chcących przetestować i zgłosić błędy w przypadku ich wystąpienia. Nie używaj jej do ciągłej pracy!\n\nZarówno oficjalna wersja dev jak i zwykła są dostępne na F-droid i mogą być instalowane równocześnie.</string>
+    <string name="store_short_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę</string>
+    <string name="store_short_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę (wersja deweloperska)</string>
     <string name="stream">Przesyłaj strumieniowo...</string>
     <string name="stream_not_possible_headline">Wewnętrzne przesyłanie strumieniowe nie jest możliwe</string>
     <string name="stream_not_possible_message">Pobierz plik lub użyj zewnętrznej aplikacji.</string>
@@ -670,7 +670,6 @@
     <string name="sync_fail_ticker">Nieudana synchronizacja </string>
     <string name="sync_fail_ticker_unauthorized">Nieudana synchronizacja, zaloguj się ponownie</string>
     <string name="sync_file_nothing_to_do_msg">Zawartość pliku została już synchronizowana</string>
-    <string name="sync_folder_failed_content">Synchronizacja katalogu %1$s nie może być zakończona</string>
     <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki wysyłane z tego urządzenia są kopiowane do lokalnego katalogu %1$s, aby zapobiec utracie danych gdy pojedynczy plik jest synchronizowany z wieloma kontami.\n\nZ powodu tej zmiany, wszystkie pliki wysłane za pomocą poprzedniej wersji tej aplikacji zostały przeniesione do katalogu %2$s. Jednakże błąd uniemożliwiał dokończenie tej operacji podczas synchronizacji konta. Możesz albo pozostawić plik(i) tak jak jest i usunąć link do %3$s lub przenieść plik(i) do katalogu %1$s i pozostawić link do %4$s.\n\nPoniżej plik(i) lokalny i plik(i) zdalny w %5$s, które były powiązane.</string>
     <string name="sync_foreign_files_forgotten_ticker">Niektóre lokalne pliki zostały zagubione.</string>
     <string name="sync_in_progress">Pobieranie najnowszej wersji pliku.</string>

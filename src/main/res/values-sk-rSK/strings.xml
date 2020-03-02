@@ -669,7 +669,6 @@
     <string name="sync_fail_ticker">Synchronizácia neúspešná</string>
     <string name="sync_fail_ticker_unauthorized">Synchronizácia neúspešná, je potrebné sa znovu prihlásiť</string>
     <string name="sync_file_nothing_to_do_msg">Obsah súboru je zosynchronizovaný</string>
-    <string name="sync_folder_failed_content">Synchronizáciu adresára  %1$s nie je možné dokončiť</string>
     <string name="sync_foreign_files_forgotten_explanation">Od verzie 1.3.16 sú súbory nahrané z tohoto zariadenia kopírované do lokálneho priečinka %1$s, aby sa zabránilo strate dát pri synchronizácii jedného súboru s viacerými účtami.\n\nVšetky súbory nahraté predchádzajúcimi verziami aplikácie boli z tohoto dôvodu prekopírované do priečinka %2$s. Bohužiaľ sa objavila chyba zabraňujúca dokončeniu tejto operácie v priebehu synchronizácie účtu. Buď môžete súbor(y) ponechať ako sú a odobrať odkaz z priečinka %3$s, alebo presunúť súbor(y) do priečinka %1$s a zachovať odkaz na %4$s.\n\nNižšie je uvedený lokálny súbor(y) a vzdialený súbor(y) v %5$s, s ktorým je prepojený.</string>
     <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>
     <string name="sync_in_progress">Načítavam najnovšiu verziu súboru.</string>
