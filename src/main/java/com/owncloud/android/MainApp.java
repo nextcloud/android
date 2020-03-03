@@ -53,6 +53,7 @@ import com.nextcloud.client.errorhandling.ExceptionHandler;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.logger.LegacyLoggerAdapter;
 import com.nextcloud.client.logger.Logger;
+import com.nextcloud.client.migrations.MigrationsManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -93,6 +94,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -169,6 +171,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     @Inject
     EventBus eventBus;
+
+    @Inject
+    MigrationsManager migrationsManager;
 
     private PassCodeManager passCodeManager;
 
@@ -261,14 +266,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         registerActivityLifecycleCallbacks(new ActivityInjector());
 
-        Thread t = new Thread(() -> {
-            // best place, before any access to AccountManager or database
-            if (!preferences.isUserIdMigrated()) {
-                final boolean migrated = accountManager.migrateUserId();
-                preferences.setMigratedUserId(migrated);
-            }
-        });
-        t.start();
+        int startedMigrationsCount = migrationsManager.startMigration();
+        logger.i(TAG, String.format(Locale.US, "Started %d migrations", startedMigrationsCount));
 
         JobManager.create(this).addJobCreator(
             new NCJobCreator(
