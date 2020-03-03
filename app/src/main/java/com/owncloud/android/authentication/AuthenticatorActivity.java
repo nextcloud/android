@@ -61,9 +61,11 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.ClientCertRequest;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebResourceRequest;
@@ -126,6 +128,7 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Locale;
@@ -147,6 +150,7 @@ import de.cotech.hw.fido.WebViewFidoBridge;
 import de.cotech.hw.fido.ui.FidoDialogOptions;
 import de.cotech.hw.fido2.WebViewWebauthnBridge;
 import de.cotech.hw.fido2.ui.WebauthnDialogOptions;
+import de.ritscher.ssl.InteractiveKeyManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.owncloud.android.utils.PermissionUtil.PERMISSIONS_CAMERA;
@@ -464,6 +468,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (!customError.isEmpty()) {
                     accountSetupWebviewBinding.loginWebview.loadData(customError, "text/html; charset=UTF-8", null);
                 }
+
+                if (errorCode >= 400 && errorCode < 500) {
+                    URI uri = URI.create(failingUrl);
+                    Log_OC.w(TAG, "WebView failed with error code " + errorCode + "; remove key chain aliases");
+                    new InteractiveKeyManager(view.getContext()).removeKeys(uri.getHost(), uri.getPort());
+                }
+            }
+
+            @Override
+            public void onReceivedClientCertRequest(WebView view, ClientCertRequest request) {
+                new InteractiveKeyManager(view.getContext()).handleWebViewClientCertRequest(request);
             }
         });
     }

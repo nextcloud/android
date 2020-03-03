@@ -496,6 +496,11 @@
             android:name=".ui.preview.PreviewBitmapActivity"
             android:exported="false"
             android:theme="@style/Theme.ownCloud.OverlayGrey" />
+
+        <!-- InteractiveKeyManager -->
+        <activity
+            android:name="de.ritscher.ssl.SelectKeyStoreActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" />
     </application>
 
     <queries>

@@ -225,7 +225,8 @@ dependencies {
     // dependencies for app building
     implementation 'androidx.multidex:multidex:2.0.1'
 //    implementation project('nextcloud-android-library')
-    implementation("com.github.nextcloud:android-library:$androidLibraryVersion") {
+    implementation 'com.github.stephanritscher:InteractiveKeyManager:0.1'
+    implementation ("com.github.stephanritscher:nextcloud-android-library:$androidLibraryVersion") {
         exclude group: 'org.ogce', module: 'xpp3' // unused in Android and brings wrong Junit version
     }
 
