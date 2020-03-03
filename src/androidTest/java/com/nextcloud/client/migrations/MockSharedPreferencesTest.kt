@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.migrations.android
+package com.nextcloud.client.migrations
 
 import org.junit.Before
 import org.junit.Test
@@ -26,8 +26,8 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotSame
 import org.junit.Assert.assertTrue
 
-@Suppress("MagicNumber", "FunctionNaming")
-class TestMockSharedPreferences {
+@Suppress("MagicNumber")
+class MockSharedPreferencesTest {
 
     private lateinit var mock: MockSharedPreferences
 
@@ -37,7 +37,7 @@ class TestMockSharedPreferences {
     }
 
     @Test
-    fun get_set_string_set() {
+    fun getSetStringSet() {
         val value = setOf("alpha", "bravo", "charlie")
         mock.edit().putStringSet("key", value).apply()
         val copy = mock.getStringSet("key", mutableSetOf())
@@ -46,7 +46,7 @@ class TestMockSharedPreferences {
     }
 
     @Test
-    fun get_set_int() {
+    fun getSetInt() {
         val value = 42
         val editor = mock.edit()
         editor.putInt("key", value)
@@ -56,7 +56,7 @@ class TestMockSharedPreferences {
     }
 
     @Test
-    fun get_set_boolean() {
+    fun getSetBoolean() {
         val value = true
         val editor = mock.edit()
         editor.putBoolean("key", value)
@@ -66,7 +66,7 @@ class TestMockSharedPreferences {
     }
 
     @Test
-    fun get_set_string() {
+    fun getSetString() {
         val value = "a value"
         val editor = mock.edit()
         editor.putString("key", value)
