@@ -63,6 +63,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
 
     private OCUpload conflictUpload;
     private int localBehaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+    protected OnConflictDecisionMadeListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,59 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
         if (conflictUpload != null) {
             localBehaviour = conflictUpload.getLocalAction();
         }
+
+        listener = new OnConflictDecisionMadeListener() {
+            @Override
+            public void conflictDecisionMade(Decision decision) {
+                OCFile file = getFile();
+
+                switch (decision) {
+                    case CANCEL:
+                        // nothing to do
+                        break;
+                    case KEEP_LOCAL: // Upload
+                        FileUploader.uploadUpdateFile(
+                            getBaseContext(),
+                            getAccount(),
+                            file,
+                            localBehaviour,
+                            FileUploader.NameCollisionPolicy.OVERWRITE
+                                                     );
+
+                        if (conflictUpload != null) {
+                            uploadsStorageManager.removeUpload(conflictUpload);
+                        }
+                        break;
+                    case KEEP_BOTH: // Upload
+                        FileUploader.uploadUpdateFile(
+                            getBaseContext(),
+                            getAccount(),
+                            file,
+                            localBehaviour,
+                            FileUploader.NameCollisionPolicy.RENAME
+                                                     );
+
+                        if (conflictUpload != null) {
+                            uploadsStorageManager.removeUpload(conflictUpload);
+                        }
+                        break;
+                    case KEEP_SERVER: // Download
+                        if (!shouldDeleteLocal()) {
+                            // Overwrite local file
+                            Intent intent = new Intent(getBaseContext(), FileDownloader.class);
+                            intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
+                            intent.putExtra(FileDownloader.EXTRA_FILE, file);
+                            if (conflictUpload != null) {
+                                intent.putExtra(FileDownloader.EXTRA_CONFLICT_UPLOAD, conflictUpload);
+                            }
+                            startService(intent);
+                        }
+                        break;
+                }
+
+                finish();
+            }
+        };
     }
 
     @Override
@@ -91,53 +145,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
 
     @Override
     public void conflictDecisionMade(Decision decision) {
-        OCFile file = getFile();
-
-        switch (decision) {
-            case CANCEL:
-                // nothing to do
-                break;
-            case KEEP_LOCAL: // Upload
-                FileUploader.uploadUpdateFile(
-                    this,
-                    getAccount(),
-                    file,
-                    localBehaviour,
-                    FileUploader.NameCollisionPolicy.OVERWRITE
-                );
-
-                if (conflictUpload != null) {
-                    uploadsStorageManager.removeUpload(conflictUpload);
-                }
-                break;
-            case KEEP_BOTH: // Upload
-                FileUploader.uploadUpdateFile(
-                    this,
-                    getAccount(),
-                    file,
-                    localBehaviour,
-                    FileUploader.NameCollisionPolicy.RENAME
-                );
-
-                if (conflictUpload != null) {
-                    uploadsStorageManager.removeUpload(conflictUpload);
-                }
-                break;
-            case KEEP_SERVER: // Download
-                if (!this.shouldDeleteLocal()) {
-                    // Overwrite local file
-                    Intent intent = new Intent(this, FileDownloader.class);
-                    intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
-                    intent.putExtra(FileDownloader.EXTRA_FILE, file);
-                    if (conflictUpload != null) {
-                        intent.putExtra(FileDownloader.EXTRA_CONFLICT_UPLOAD, conflictUpload);
-                    }
-                    startService(intent);
-                }
-                break;
-        }
-
-        finish();
+        listener.conflictDecisionMade(decision);
     }
 
     @Override
