@@ -32,18 +32,21 @@ import javax.inject.Inject
 class Migrations @Inject constructor(
     private val userAccountManager: UserAccountManager
 ) {
+
     /**
      * @param id Step id; id must be unique
      * @param description Human readable migration step description
      * @param function Migration runnable object
+     * @param mandatory If true, failing migration will cause an exception; if false, it will be skipped and repeated
+     *                  again on next startup
      */
-    data class Step(val id: Int, val description: String, val function: Runnable)
+    data class Step(val id: Int, val description: String, val function: Runnable, val mandatory: Boolean = true)
 
     /**
      * List of migration steps. Those steps will be loaded and run by [MigrationsManager]
      */
     val steps: List<Step> = listOf(
-        Step(0, "migrate user id", Runnable { migrateUserId() })
+        Step(0, "migrate user id", Runnable { migrateUserId() }, false)
     ).sortedBy { it.id }
 
     fun migrateUserId() {
