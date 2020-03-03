@@ -30,6 +30,9 @@
         android:id="@+id/headerText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_padding"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/zero"
         android:textColor="@color/text_color" />
 </LinearLayout>
