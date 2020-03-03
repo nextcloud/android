@@ -19,6 +19,7 @@
  */
 package com.nextcloud.client.migrations
 
+import androidx.test.annotation.UiThreadTest
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.core.ManualAsyncRunner
@@ -31,15 +32,12 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import org.robolectric.RobolectricTestRunner
 import java.lang.RuntimeException
 import java.util.LinkedHashSet
 
-@RunWith(RobolectricTestRunner::class)
-class TestMigrationsManager {
+class MigrationsManagerTest {
 
     companion object {
         const val OLD_APP_VERSION = 41
@@ -83,7 +81,7 @@ class TestMigrationsManager {
     }
 
     @Test
-    fun `inital status is unknown`() {
+    fun inital_status_is_unknown() {
         // GIVEN
         //      migration manager has not been used yets
 
@@ -93,7 +91,7 @@ class TestMigrationsManager {
     }
 
     @Test
-    fun `applied migrations are returned in order`() {
+    fun applied_migrations_are_returned_in_order() {
         // GIVEN
         //      some migrations are marked as applied
         //      migration ids are stored in random order
@@ -117,7 +115,7 @@ class TestMigrationsManager {
 
     @Test
     @Suppress("MagicNumber")
-    fun `registering new applied migration preserves old ids`() {
+    fun registering_new_applied_migration_preserves_old_ids() {
         // WHEN
         //     some applied migrations are registered
         val appliedMigrationIds = setOf("0", "1", "2")
@@ -135,7 +133,8 @@ class TestMigrationsManager {
     }
 
     @Test
-    fun `migrations are scheduled on background thread`() {
+    @UiThreadTest
+    fun migrations_are_scheduled_on_background_thread() {
         // GIVEN
         //      migrations can be applied
         assertEquals(0, migrationsManager.getAppliedMigrations().size)
@@ -153,7 +152,8 @@ class TestMigrationsManager {
     }
 
     @Test
-    fun `applied migrations are recorded`() {
+    @UiThreadTest
+    fun applied_migrations_are_recorded() {
         // GIVEN
         //      no migrations are applied yet
         //      current app version is newer then last recorded migrated version
@@ -178,7 +178,8 @@ class TestMigrationsManager {
     }
 
     @Test
-    fun `migration error is recorded`() {
+    @UiThreadTest
+    fun migration_error_is_recorded() {
         // GIVEN
         //      no migrations applied yet
 
@@ -208,7 +209,8 @@ class TestMigrationsManager {
     }
 
     @Test
-    fun `migrations are not run if already run for an app version`() {
+    @UiThreadTest
+    fun migrations_are_not_run_if_already_run_for_an_app_version() {
         // GIVEN
         //      migrations were already run for the current app version
         whenever(appInfo.versionCode).thenReturn(NEW_APP_VERSION)
@@ -229,7 +231,8 @@ class TestMigrationsManager {
     }
 
     @Test
-    fun `new app version is marked as migrated if no new migrations are available`() {
+    @UiThreadTest
+    fun new_app_version_is_marked_as_migrated_if_no_new_migrations_are_available() {
         //  GIVEN
         //      migrations were applied in previous version
         //      new version has no new migrations
@@ -253,7 +256,8 @@ class TestMigrationsManager {
     }
 
     @Test
-    fun `optional migration failure does not trigger a migration failure`() {
+    @UiThreadTest
+    fun optional_migration_failure_does_not_trigger_a_migration_failure() {
         // GIVEN
         //      pending migrations
         //      mandatory migrations are passing
