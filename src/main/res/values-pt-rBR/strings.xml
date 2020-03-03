@@ -670,6 +670,7 @@
     <string name="sync_fail_ticker">Falha na sincronização</string>
     <string name="sync_fail_ticker_unauthorized">Sincronização falhou, logue-se novamente</string>
     <string name="sync_file_nothing_to_do_msg">Conteúdo do arquivo já foi sincronizado</string>
+    <string name="sync_folder_failed_content">Não foi possível concluir a sincronização da pasta %1$s</string>
     <string name="sync_foreign_files_forgotten_explanation">A partir da versão 1.3.16, os arquivos enviados a partir deste dispositivo são copiados para a pasta local %1$s para evitar a perda de dados quando um único arquivo é sincronizado com várias contas.\n\nDevido à esta alteração, todos os arquivos enviados com versões anteriores deste aplicativo foram copiados para a pasta %2$s. No entanto, um erro impediu a conclusão desta operação durante a sincronização da conta. Você pode ou deixar o(s) arquivo(s) assim mesmo e excluir o link para %3$s ou mover o(s) arquivo(s) para a pasta %1$s e manter o link para %4$s.\n\nAbaixo estão listados os arquivos locais e o(s) arquivo(s) remoto(s) em %5$s para onde eles estão linkados.</string>
     <string name="sync_foreign_files_forgotten_ticker">Alguns arquivos locais foram esquecidos</string>
     <string name="sync_in_progress">Obtendo a versão mais recente do arquivo.</string>

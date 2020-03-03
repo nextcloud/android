@@ -671,6 +671,7 @@
     <string name="sync_fail_ticker">Synkronisering misslyckades</string>
     <string name="sync_fail_ticker_unauthorized">Synkroniseringen misslyckades, logga in igen</string>
     <string name="sync_file_nothing_to_do_msg">Filinnehåll redan synkroniserat</string>
+    <string name="sync_folder_failed_content">Synkronisering av mapp %1$s kunde inte slutföras</string>
     <string name="sync_foreign_files_forgotten_explanation">Från och med version 1.3.16 kopieras filer som laddas upp från den här enheten till den lokala %1$smappen för att förhindra dataförlust när en enda fil synkroniseras med flera konton.\n\nPå grund av denna ändring är alla filer som är uppladdade med en tidigare version av denna app kopierade till %2$smappen. Ett fel förhindrade dock slutförandet av denna operation under kontosynkronisering. Du kan antingen lämna filen/filerna och ta bort länken till %3$s, eller flytta filen/filerna till %1$s mappen och behålla länken till %4$s.\n\nListat nedan är de lokala och externa filen/filerna %5$s som de var länkade till.</string>
     <string name="sync_foreign_files_forgotten_ticker">Vissa lokala filer glömdes</string>
     <string name="sync_in_progress">Hämtar den nyaste versionen av filen.</string>
