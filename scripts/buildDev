@@ -7,7 +7,7 @@ sed -i "/versionDev/,/\}/ s/versionCode .*/versionCode $date/" build.gradle
 sed -i "/versionDev/,/\}/ s/versionName .*/versionName \"$date\"/" build.gradle
 
 # change library
-sed -i s"#androidLibraryVersion.*#androidLibraryVersion =\"$libraryCommit\"#" build.gradle
+sed -i s"#androidLibraryVersion\ =.*#androidLibraryVersion =\"$libraryCommit\"#" build.gradle
 
 # build signed apk
 ./gradlew assembleVersionDevRelease >> /tmp/dev.log 2>&1
