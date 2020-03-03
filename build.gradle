@@ -390,7 +390,6 @@ dependencies {
 //    androidJacocoAnt "org.jacoco:org.jacoco.agent:${jacocoVersion}"
 
     implementation "com.github.stateless4j:stateless4j:2.6.0"
-    testImplementation "org.robolectric:robolectric:4.3.1"
     androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     androidTestImplementation "org.mockito:mockito-android:3.3.0"
 }
