@@ -27,6 +27,7 @@ import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -64,9 +65,11 @@ class TestMigrationsManager {
         MockitoAnnotations.initMocks(this)
         val migrationStep1: Runnable = mock()
         val migrationStep2: Runnable = mock()
+        val migrationStep3: Runnable = mock()
         migrations = listOf(
-            Migrations.Step(0, "first migration", migrationStep1),
-            Migrations.Step(1, "second migration", migrationStep2)
+            Migrations.Step(0, "first migration", migrationStep1, true),
+            Migrations.Step(1, "second migration", migrationStep2, true),
+            Migrations.Step(2, "third optional migration", migrationStep3, false)
         )
         asyncRunner = ManualAsyncRunner()
         migrationsDb = MockSharedPreferences()
@@ -169,7 +172,8 @@ class TestMigrationsManager {
         //      applied migrations are recorded
         //      new app version code is recorded
         assertEquals(migrations.size, count)
-        assertEquals(setOf("0", "1"), migrationsDb.store.get(MigrationsManagerImpl.DB_KEY_APPLIED_MIGRATIONS))
+        val allAppliedIds = migrations.map { it.id.toString() }.toSet()
+        assertEquals(allAppliedIds, migrationsDb.store.get(MigrationsManagerImpl.DB_KEY_APPLIED_MIGRATIONS))
         assertEquals(NEW_APP_VERSION, migrationsDb.store.get(MigrationsManagerImpl.DB_KEY_LAST_MIGRATED_VERSION))
     }
 
@@ -181,7 +185,7 @@ class TestMigrationsManager {
         // WHEN
         //      migrations are applied
         //      one migration throws
-        val lastMigration = migrations.last()
+        val lastMigration = migrations.findLast { it.mandatory } ?: throw IllegalStateException("Test fixture error")
         val errorMessage = "error message"
         whenever(lastMigration.function.run()).thenThrow(RuntimeException(errorMessage))
         migrationsManager.startMigration()
@@ -246,5 +250,35 @@ class TestMigrationsManager {
             NEW_APP_VERSION,
             migrationsDb.getInt(MigrationsManagerImpl.DB_KEY_LAST_MIGRATED_VERSION, -1)
         )
+    }
+
+    @Test
+    fun `optional migration failure does not trigger a migration failure`() {
+        // GIVEN
+        //      pending migrations
+        //      mandatory migrations are passing
+        //      one migration is optional and fails
+        val optionalFailingMigration = migrations.first { !it.mandatory }
+        whenever(optionalFailingMigration.function.run()).thenThrow(RuntimeException())
+
+        // WHEN
+        //      migration is started
+        val startedCount = migrationsManager.startMigration()
+        asyncRunner.runOne()
+        assertEquals(migrations.size, startedCount)
+
+        // THEN
+        //      mandatory migrations are marked as applied
+        //      optional failed migration is not marked
+        //      no error
+        //      status is applied
+        //      failed migration is available during next migration
+        val appliedMigrations = migrations.filter { it.mandatory }
+            .map { it.id.toString() }
+            .toSet()
+        assertTrue("Fixture error", appliedMigrations.isNotEmpty())
+        assertEquals(appliedMigrations, migrationsDb.store.get(MigrationsManagerImpl.DB_KEY_APPLIED_MIGRATIONS))
+        assertFalse(migrationsDb.getBoolean(MigrationsManagerImpl.DB_KEY_FAILED, false))
+        assertEquals(MigrationsManager.Status.APPLIED, migrationsManager.status.value)
     }
 }

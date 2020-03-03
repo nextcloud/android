@@ -106,10 +106,12 @@ internal class MigrationsManagerImpl(
             @Suppress("TooGenericExceptionCaught") // migration code is free to throw anything
             try {
                 it.function.run()
+                addAppliedMigration(it.id)
             } catch (t: Throwable) {
-                throw MigrationError(id = it.id, message = t.message ?: t.javaClass.simpleName)
+                if (it.mandatory) {
+                    throw MigrationError(id = it.id, message = t.message ?: t.javaClass.simpleName)
+                }
             }
-            addAppliedMigration(it.id)
         }
     }
 
