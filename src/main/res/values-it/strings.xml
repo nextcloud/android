@@ -670,6 +670,7 @@
     <string name="sync_fail_ticker">Sincronizzazione non riuscita</string>
     <string name="sync_fail_ticker_unauthorized">Sincronizzazione non riuscita, effettua nuovamente l\'accesso</string>
     <string name="sync_file_nothing_to_do_msg">Contenuti del file già sincronizzati</string>
+    <string name="sync_folder_failed_content">La sincronizzazione della cartella %1$s non può essere completata</string>
     <string name="sync_foreign_files_forgotten_explanation">Dalla versone 1.3.16, i file caricati da questo dispositivo sono copiati nella cartella locale %1$s per evitare perdite di dati quando un singolo file è sincronizzato con più account.\n\nA causa di questa modifica, tutti i file caricati con versioni precedenti di questa applicazione sono stati copiati nella cartella %2$s. Tuttavia, un errore ha impedito il completamento di questa operazione durante la sincronizzazione dell\'account. Puoi sia lasciare i file come sono ed eliminare il collegamento a %3$s, o spostare i file nella cartella %1$s e mantenere il collegamento a %4$s.\n\nSotto sono elencati i file locali e i file remoti in %5$sai quali erano collegati.</string>
     <string name="sync_foreign_files_forgotten_ticker">Alcuni file locali sono stati trascurati</string>
     <string name="sync_in_progress">Recupero della versione più recente del file in corso.</string>

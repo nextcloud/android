@@ -691,6 +691,7 @@ Jak vývojová tak produkční verze je k dispozici na F-droidu a mohou být nai
     <string name="sync_fail_ticker">Synchronizace se nezdařila</string>
     <string name="sync_fail_ticker_unauthorized">Synchronizace se nezdařila, přihlaste se znovu</string>
     <string name="sync_file_nothing_to_do_msg">Obsah souboru už je synchronizován</string>
+    <string name="sync_folder_failed_content">Synchronizaci složky %1$s se nedaří dokončit</string>
     <string name="sync_foreign_files_forgotten_explanation">Od verze 1.3.16, soubory nahrané z tohoto zařízení jsou zkopírovány do místní složky %1$s, aby se zabránilo ztrátě dat, když je jeden soubor synchronizován s vícero účty.\n\nKvůli této změně byly všechny soubory, nahrané starší verzí zkopírovány do složky %2$s. Nicméně, chyba při synchronizaci účtu zabránila dokončení této operace. Buď tyto soubory můžete ponechat, jak jsou a smazat odkaz na %3$s, nebo je přesunout do složky %1$s ponechat odkaz na %4$s.\n\nNíže jsou vypsány místní soubory a vzdálené soubory v %5$s na který byly odkazovány.</string>
     <string name="sync_foreign_files_forgotten_ticker">Některé místní soubory byly zapomenuty</string>
     <string name="sync_in_progress">Stahuje se nejnovější verzi souboru.</string>
