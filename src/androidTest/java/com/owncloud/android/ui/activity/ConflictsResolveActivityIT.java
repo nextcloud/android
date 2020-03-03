@@ -42,6 +42,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -76,17 +77,12 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
-        ConflictsResolveDialog.OnConflictDecisionMadeListener listener = decision -> {
-
-        };
-
-        ConflictsResolveDialog dialog = new ConflictsResolveDialog(listener,
-                                                                   existingFile,
-                                                                   newUpload,
-                                                                   UserAccountManagerImpl
-                                                                       .fromContext(targetContext)
-                                                                       .getUser()
-        );
+        ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
+                                                                           newUpload,
+                                                                           UserAccountManagerImpl
+                                                                               .fromContext(targetContext)
+                                                                               .getUser()
+                                                                          );
         dialog.showDialog(sut);
 
         getInstrumentation().waitForIdleSync();
@@ -132,24 +128,23 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         };
 
-        ConflictsResolveDialog dialog = new ConflictsResolveDialog(listener,
-                                                                   existingFile,
-                                                                   newUpload,
-                                                                   UserAccountManagerImpl
-                                                                       .fromContext(targetContext)
-                                                                       .getUser()
-        );
+        ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
+                                                                           newUpload,
+                                                                           UserAccountManagerImpl
+                                                                               .fromContext(targetContext)
+                                                                               .getUser()
+                                                                          );
         dialog.showDialog(sut);
+        dialog.listener = listener;
 
         getInstrumentation().waitForIdleSync();
-
-        Thread.sleep(10000);
+        Thread.sleep(2000);
 
         Screenshot.snap(dialog.getDialog().getWindow().getDecorView()).record();
     }
 
     @Test
-    public void cancel() {
+    public void cancel() throws InterruptedException {
         returnCode = false;
 
         OCUpload newUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt",
@@ -168,21 +163,13 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
-        ConflictsResolveDialog.OnConflictDecisionMadeListener listener = decision -> {
+        sut.listener = decision -> {
             assertEquals(decision, ConflictsResolveDialog.Decision.CANCEL);
             returnCode = true;
         };
 
-        ConflictsResolveDialog dialog = new ConflictsResolveDialog(listener,
-                                                                   existingFile,
-                                                                   newUpload,
-                                                                   UserAccountManagerImpl
-                                                                       .fromContext(targetContext)
-                                                                       .getUser()
-        );
-        dialog.showDialog(sut);
-
         getInstrumentation().waitForIdleSync();
+        Thread.sleep(2000);
 
         onView(withText("Cancel")).perform(click());
 
@@ -209,24 +196,16 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
-        ConflictsResolveDialog.OnConflictDecisionMadeListener listener = decision -> {
+        sut.listener = decision -> {
             assertEquals(decision, ConflictsResolveDialog.Decision.KEEP_SERVER);
             returnCode = true;
         };
-
-        ConflictsResolveDialog dialog = new ConflictsResolveDialog(listener,
-                                                                   existingFile,
-                                                                   newUpload,
-                                                                   UserAccountManagerImpl
-                                                                       .fromContext(targetContext)
-                                                                       .getUser()
-        );
-        dialog.showDialog(sut);
 
         getInstrumentation().waitForIdleSync();
 
         onView(withId(R.id.existing_checkbox)).perform(click());
 
+        DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
         Screenshot.snap(dialog.getDialog().getWindow().getDecorView()).record();
 
         onView(withText("OK")).perform(click());
@@ -254,24 +233,16 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
-        ConflictsResolveDialog.OnConflictDecisionMadeListener listener = decision -> {
+        sut.listener = decision -> {
             assertEquals(decision, ConflictsResolveDialog.Decision.KEEP_SERVER);
             returnCode = true;
         };
-
-        ConflictsResolveDialog dialog = new ConflictsResolveDialog(listener,
-                                                                   existingFile,
-                                                                   newUpload,
-                                                                   UserAccountManagerImpl
-                                                                       .fromContext(targetContext)
-                                                                       .getUser()
-        );
-        dialog.showDialog(sut);
 
         getInstrumentation().waitForIdleSync();
 
         onView(withId(R.id.new_checkbox)).perform(click());
 
+        DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
         Screenshot.snap(dialog.getDialog().getWindow().getDecorView()).record();
 
         onView(withText("OK")).perform(click());
@@ -299,25 +270,17 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
-        ConflictsResolveDialog.OnConflictDecisionMadeListener listener = decision -> {
+        sut.listener = decision -> {
             assertEquals(decision, ConflictsResolveDialog.Decision.KEEP_SERVER);
             returnCode = true;
         };
-
-        ConflictsResolveDialog dialog = new ConflictsResolveDialog(listener,
-                                                                   existingFile,
-                                                                   newUpload,
-                                                                   UserAccountManagerImpl
-                                                                       .fromContext(targetContext)
-                                                                       .getUser()
-        );
-        dialog.showDialog(sut);
 
         getInstrumentation().waitForIdleSync();
 
         onView(withId(R.id.existing_checkbox)).perform(click());
         onView(withId(R.id.new_checkbox)).perform(click());
 
+        DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
         Screenshot.snap(dialog.getDialog().getWindow().getDecorView()).record();
 
         onView(withText("OK")).perform(click());

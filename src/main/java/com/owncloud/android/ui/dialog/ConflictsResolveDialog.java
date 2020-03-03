@@ -64,7 +64,7 @@ public class ConflictsResolveDialog extends DialogFragment {
 
     private OCFile existingFile;
     private File newFile;
-    private OnConflictDecisionMadeListener listener;
+    public OnConflictDecisionMadeListener listener;
     private User user;
     private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
 
