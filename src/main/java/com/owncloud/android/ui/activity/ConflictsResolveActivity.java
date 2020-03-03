@@ -64,10 +64,6 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     private OCUpload conflictUpload;
     private int localBehaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
 
-
-    // TODO rotate when conflict dialog open
-    // TODO cancel leads to white activity?!
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,18 +164,18 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
         Fragment prev = getSupportFragmentManager().findFragmentByTag("conflictDialog");
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if (prev == null) {
-            if (getStorageManager().fileExists(file.getRemotePath())) {
-                ConflictsResolveDialog dialog = new ConflictsResolveDialog(this,
-                                                                           getFile(),
-                                                                           conflictUpload,
-                                                                           userOptional.get()
-                );
-                dialog.show(fragmentTransaction, "conflictDialog");
-            } else {
-                // Account was changed to a different one - just finish
-                finish();
-            }
+        if (prev != null) {
+            fragmentTransaction.remove(prev);
+        }
+
+        if (getStorageManager().fileExists(file.getRemotePath())) {
+            ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(getFile(),
+                                                                               conflictUpload,
+                                                                               userOptional.get());
+            dialog.show(fragmentTransaction, "conflictDialog");
+        } else {
+            // Account was changed to a different one - just finish
+            finish();
         }
     }
 

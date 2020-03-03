@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -67,8 +68,8 @@ public class ConflictsResolveDialog extends DialogFragment {
     private User user;
     private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
 
-    private static final String KEY_FILE = "file";
-    private static final String KEY_OCFILE = "ocfile";
+    private static final String KEY_NEW_FILE = "file";
+    private static final String KEY_EXISTING_FILE = "ocfile";
     private static final String KEY_USER = "user";
 
     public enum Decision {
@@ -78,13 +79,27 @@ public class ConflictsResolveDialog extends DialogFragment {
         KEEP_SERVER,
     }
 
-    public ConflictsResolveDialog(OnConflictDecisionMadeListener listener,
-                                  OCFile file,
-                                  OCUpload conflictUpload, User user) {
-        this.listener = listener;
-        this.existingFile = file;
-        this.newFile = new File(conflictUpload.getLocalPath());
-        this.user = user;
+    public static ConflictsResolveDialog newInstance(OCFile existingFile, OCUpload conflictUpload, User user) {
+        ConflictsResolveDialog dialog = new ConflictsResolveDialog();
+
+        Bundle args = new Bundle();
+        args.putParcelable(KEY_EXISTING_FILE, existingFile);
+        args.putSerializable(KEY_NEW_FILE, new File(conflictUpload.getLocalPath()));
+        args.putParcelable(KEY_USER, user);
+        dialog.setArguments(args);
+
+        return dialog;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        try {
+            listener = (OnConflictDecisionMadeListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Activity of this dialog must implement OnConflictDecisionMadeListener");
+        }
     }
 
     @Override
@@ -108,10 +123,15 @@ public class ConflictsResolveDialog extends DialogFragment {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            newFile = (File) savedInstanceState.getSerializable(KEY_FILE);
-            existingFile = savedInstanceState.getParcelable(KEY_OCFILE);
+            existingFile = savedInstanceState.getParcelable(KEY_EXISTING_FILE);
+            newFile = (File) savedInstanceState.getSerializable(KEY_NEW_FILE);
             user = savedInstanceState.getParcelable(KEY_USER);
-            listener = (OnConflictDecisionMadeListener) getActivity();
+        } else if (getArguments() != null) {
+            existingFile = getArguments().getParcelable(KEY_EXISTING_FILE);
+            newFile = (File) getArguments().getSerializable(KEY_NEW_FILE);
+            user = getArguments().getParcelable(KEY_USER);
+        } else {
+            Toast.makeText(getContext(), "Failed to create conflict dialog", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -119,8 +139,8 @@ public class ConflictsResolveDialog extends DialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putSerializable(KEY_FILE, newFile);
-        outState.putParcelable(KEY_OCFILE, existingFile);
+        outState.putParcelable(KEY_EXISTING_FILE, existingFile);
+        outState.putSerializable(KEY_NEW_FILE, newFile);
         outState.putParcelable(KEY_USER, user);
     }
 
