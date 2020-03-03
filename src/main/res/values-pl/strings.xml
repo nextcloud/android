@@ -239,7 +239,7 @@
     <string name="end_to_end_encryption_keywords_description">Wszystkie 12 słów utworzy bardzo trudne hasło, które pozwoli na przeglądanie i korzystanie z zaszyfrowanych plików. Zapisz je i przechowuj w bezpiecznym miejscu.</string>
     <string name="end_to_end_encryption_not_enabled">Szyfrowanie end-to-end wyłączone po stronie serwera.</string>
     <string name="end_to_end_encryption_not_supported">Szyfrowanie działa tylko na androidzie KitKat(4.4) lub nowszym.</string>
-    <string name="end_to_end_encryption_passphrase_title">Zapisz 12 słów hasła szyfrowania.</string>
+    <string name="end_to_end_encryption_passphrase_title">Zapisz swoje 12-sto znakowe hasło szyfrujące</string>
     <string name="end_to_end_encryption_password">Hasło…</string>
     <string name="end_to_end_encryption_retrieving_keys">Pobieranie kluczy…</string>
     <string name="end_to_end_encryption_storing_keys">Przechowywanie kluczy</string>
@@ -670,6 +670,7 @@
     <string name="sync_fail_ticker">Nieudana synchronizacja </string>
     <string name="sync_fail_ticker_unauthorized">Nieudana synchronizacja, zaloguj się ponownie</string>
     <string name="sync_file_nothing_to_do_msg">Zawartość pliku została już synchronizowana</string>
+    <string name="sync_folder_failed_content">Synchronizacja katalogu %1$s nie może być zakończona</string>
     <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki wysyłane z tego urządzenia są kopiowane do lokalnego katalogu %1$s, aby zapobiec utracie danych gdy pojedynczy plik jest synchronizowany z wieloma kontami.\n\nZ powodu tej zmiany, wszystkie pliki wysłane za pomocą poprzedniej wersji tej aplikacji zostały przeniesione do katalogu %2$s. Jednakże błąd uniemożliwiał dokończenie tej operacji podczas synchronizacji konta. Możesz albo pozostawić plik(i) tak jak jest i usunąć link do %3$s lub przenieść plik(i) do katalogu %1$s i pozostawić link do %4$s.\n\nPoniżej plik(i) lokalny i plik(i) zdalny w %5$s, które były powiązane.</string>
     <string name="sync_foreign_files_forgotten_ticker">Niektóre lokalne pliki zostały zagubione.</string>
     <string name="sync_in_progress">Pobieranie najnowszej wersji pliku.</string>
