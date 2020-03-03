@@ -20,11 +20,13 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                                            android:id="@+id/appbar"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:viewBindingIgnore="true"
+    android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
 
     <RelativeLayout
         android:layout_width="match_parent"
