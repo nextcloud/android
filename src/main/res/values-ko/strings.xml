@@ -662,7 +662,6 @@
     <string name="sync_fail_ticker">동기화 실패</string>
     <string name="sync_fail_ticker_unauthorized">동기화 실패, 다시 로그인하십시오</string>
     <string name="sync_file_nothing_to_do_msg">파일 내용이 이미 동기화됨</string>
-    <string name="sync_folder_failed_content">%1$s 폴더의 동기화를 완료할 수 없음</string>
     <string name="sync_foreign_files_forgotten_explanation">버전 1.3.16부터 단일 파일을 여러 계정과 동기화 시 자료 손실을 방지하기 위하여 이 장치에서 업로드된 파일은 로컬 %1$s 폴더에 일단 복사됩니다.\n\n이 변경 사항으로 인하여 이전 버전 앱에서 업로드한 모든 파일을 %2$s 폴더로 복사했습니다. 하지만 계정 동기화 중 오류가 발생하여 이 작업이 중단되었습니다. 파일을 그대로 두고 %3$s 연결을 삭제하거나, 파일을 %1$s 폴더로 이동하고 %4$s 연결을 그대로 유지할 수 있습니다.\n\n아래의 목록은 로컬 파일과 연결된 %5$s에 있는 원격 파일 목록입니다.</string>
     <string name="sync_foreign_files_forgotten_ticker">일부 로컬 파일이 사라짐</string>
     <string name="sync_in_progress">이 파일의 최신 버전을 가져옵니다.</string>

@@ -669,7 +669,6 @@
     <string name="sync_fail_ticker">同期の失敗</string>
     <string name="sync_fail_ticker_unauthorized">同期失敗、要 再ログイン</string>
     <string name="sync_file_nothing_to_do_msg">ファイルコンテンツはすでに同期されています</string>
-    <string name="sync_folder_failed_content">%1$sフォルダの同期を完了できませんでした</string>
     <string name="sync_foreign_files_forgotten_explanation">バージョン1.3.16以降、デバイスからアップロードされたファイルは %1$s ローカルフォルダーにコピーされ、単一のファイルが複数のアカウントと同期されているときにデータが失われるのを防ぎます。\n\nこの変更により、以前にこのアプリでアップロードしたすべてのファイルが %2$s フォルダーにコピーされました。しかし、アカウント同期中にエラーが発生したため操作を完了できませんでした。操作を完了させるには、ファイルをそのまま保持する場合は %3$sとのリンクを削除し、 %4$sとのリンクを保持する場合は %1$s フォルダーにファイルを移動させてください。\n\n以下にローカルファイルと リンクしている %5$s のリモートファイルのリストを表示します。</string>
     <string name="sync_foreign_files_forgotten_ticker">一部のローカルファイルが忘れられています</string>
     <string name="sync_in_progress">最新のファイルを取得しています。</string>

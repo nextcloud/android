@@ -653,7 +653,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="sync_fail_ticker">Synkronointi epäonnistui</string>
     <string name="sync_fail_ticker_unauthorized">Synkronointi epäonnistui, kirjaudu sisään uudelleen</string>
     <string name="sync_file_nothing_to_do_msg">Tiedoston sisältö on jo synkronoitu</string>
-    <string name="sync_folder_failed_content">Kansion %1$s synkronointia ei voitu suorittaa loppuun</string>
     <string name="sync_foreign_files_forgotten_explanation">Versiosta 1.3.16 lähtien, tästä laitteesta lähetetyt tiedostot kopioidaan paikalliseen %1$s kansioon, jotta estetään datan häviäminen synkronoitaessa yksittäistä tiedostoa usealle tilille.\n\nTästä muutoksesta johtuen, kaikki aiemmilla versioilla lähetetyt tiedostot on kopioitu %2$s kansioon. Virhe esti tämän toiminnon viimeistelemisen synkronoinnin aikana. Voit joko jättää tiedostot kuten ne ovat ja poistaa linkin %3$s, tai siirtää tiedostot %1$s kansioon ja säilyttää linkin %4$s. \n\nAlla on listattu paikalliset ja ulkoiset tiedostot %5$s:ssa, johon ne olivat linkitettynä. </string>
     <string name="sync_foreign_files_forgotten_ticker">Jotkin paikalliset tiedostot unohtuivat</string>
     <string name="sync_in_progress">Noudetaan tiedoston viimeisin versio.</string>

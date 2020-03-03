@@ -667,7 +667,6 @@
     <string name="sync_fail_ticker">Sync failed</string>
     <string name="sync_fail_ticker_unauthorized">Sync failed, log in again</string>
     <string name="sync_file_nothing_to_do_msg">File contents already synchronised</string>
-    <string name="sync_folder_failed_content">Sync of %1$s folder could not be completed</string>
     <string name="sync_foreign_files_forgotten_explanation">As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded with earlier versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and delete the link to %3$s, or move the file(s) into the %1$s folder and retain the link to %4$s.\n\nListed below are the local file(s), and the remote file(s) in %5$s they were linked to.</string>
     <string name="sync_foreign_files_forgotten_ticker">Some local files were forgotten</string>
     <string name="sync_in_progress">Fetching most recent version of the file.</string>
