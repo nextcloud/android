@@ -1,0 +1,5 @@
+fix dev lib replacement
+dev: change library before building
+Show slideshow as new activity
+Update translations
+Update Nextcloud Android library
