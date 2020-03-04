@@ -21,6 +21,7 @@ package com.nextcloud.client.migrations
 
 import com.nextcloud.client.account.UserAccountManager
 import javax.inject.Inject
+import kotlin.IllegalStateException
 
 /**
  * This class collects all migration steps and provides API to supply those
@@ -50,6 +51,9 @@ class Migrations @Inject constructor(
     ).sortedBy { it.id }
 
     fun migrateUserId() {
-        userAccountManager.migrateUserId()
+        val allAccountsHaveUserId = userAccountManager.migrateUserId()
+        if (!allAccountsHaveUserId) {
+            throw IllegalStateException("Failed to set user id for all accounts")
+        }
     }
 }
