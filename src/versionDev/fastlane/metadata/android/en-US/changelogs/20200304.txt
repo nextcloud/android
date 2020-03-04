@@ -1,0 +1,4 @@
+switch back to light mode after test
+remove unneeded strings
+Disable old login method
+Update Nextcloud Android library
