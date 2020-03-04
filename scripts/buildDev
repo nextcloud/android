@@ -1,5 +1,6 @@
 #!/bin/bash
 date=$(date +%Y%m%d)
+oldLibraryCommit=$(grep "androidLibraryVersion\ =" build.gradle)
 libraryCommit=$(curl https://api.github.com/repos/nextcloud/android-library/commits/master | jq .sha | sed s'/\"//g')
 
 # use current date for version code/name
@@ -50,10 +51,8 @@ if echo "$changelog" | grep -q 'tx-robot'; then
 	changelog="${changelog}"$'\nUpdate translations'
 fi
 
-libraryCommit=$(curl https://api.github.com/repos/nextcloud/android-library/commits/master | jq .sha | sed s'/\"//g')
-
 # Check if the library was updated
-if ! grep -q libraryCommit build.gradle; then
+if ! echo $oldLibraryCommit | grep -q $libraryCommit; then
 	changelog="${changelog}"$'\nUpdate Nextcloud Android library'
 fi
 
