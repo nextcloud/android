@@ -905,9 +905,8 @@
     <string name="file_detail_activity_error">Error retrieving activities for file</string>
     <string name="no_mutliple_accounts_allowed">Only one account allowed</string>
     <string name="remote_file_fetch_failed">Failed to find file!</string>
-    <string name="share_internal_link_text">Only works for users with access to this %1$s</string>
-    <string name="folder">folder</string>
-    <string name="file">file</string>
+    <string name="share_internal_link_to_folder_text">Internal share link only works for users with access to this folder</string>
+    <string name="share_internal_link_to_file_text">Internal share link only works for users with access to this file</string>
     <string name="share_internal_link">Share internal link</string>
     <string name="action_edit">Edit</string>
     <string name="failed_to_start_editor">Failed to start editor</string>
@@ -925,4 +924,6 @@
     <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s available on device.</string>
     <string name="sync_not_enough_space_dialog_title">Not enough space</string>
+
+    <string name="invalid_url">Invalid URL</string>
 </resources>
