@@ -365,6 +365,7 @@
     <string name="instant_upload_existing">Subir también archivos existentes</string>
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
+    <string name="invalid_url">URL no válida</string>
     <string name="learn_more">Aprender más</string>
     <string name="link">Enlace</string>
     <string name="list_layout">Formato de lista</string>
@@ -570,6 +571,8 @@
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_internal_link">Compartir enlace interno</string>
     <string name="share_internal_link_text">Sólo funciona para usuarios con acceso a esto %1$s</string>
+    <string name="share_internal_link_to_file_text">Los links compartidos internos solo funcionan para los usuarios con acceso a este archivo</string>
+    <string name="share_internal_link_to_folder_text">Los links compartidos internos solo funcionan para los usuarios con acceso a esta carpeta</string>
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
     <string name="share_link_empty_password">Debes introducir una contraseña</string>
     <string name="share_link_file_error">Ha ocurrido un error al tratar de compartir este archivo o carpeta</string>
