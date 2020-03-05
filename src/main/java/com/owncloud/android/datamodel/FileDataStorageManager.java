@@ -1692,15 +1692,20 @@ public class FileDataStorageManager {
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
+            + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? ) ";
-        String[] whereArgs = new String[]{filePath, accountName,
-                Integer.toString(ShareType.USER.getValue()),
-                Integer.toString(ShareType.GROUP.getValue()),
-                Integer.toString(ShareType.EMAIL.getValue()),
-                Integer.toString(ShareType.FEDERATED.getValue()),
-                Integer.toString(ShareType.ROOM.getValue())};
+        String[] whereArgs = new String[]{
+            filePath,
+            accountName,
+            Integer.toString(ShareType.USER.getValue()),
+            Integer.toString(ShareType.GROUP.getValue()),
+            Integer.toString(ShareType.EMAIL.getValue()),
+            Integer.toString(ShareType.FEDERATED.getValue()),
+            Integer.toString(ShareType.ROOM.getValue()),
+            Integer.toString(ShareType.CIRCLE.getValue())
+        };
 
-        Cursor cursor = null;
+        Cursor cursor;
         if (getContentResolver() != null) {
             cursor = getContentResolver().query(ProviderTableMeta.CONTENT_URI_SHARE, null, where, whereArgs, null);
         } else {

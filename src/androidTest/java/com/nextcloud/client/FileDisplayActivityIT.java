@@ -29,10 +29,12 @@ import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.shares.CreateShareRemoteOperation;
+import com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.CreateFolderOperation;
@@ -40,6 +42,8 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.events.SearchEvent;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -85,12 +89,13 @@ public class FileDisplayActivityIT extends AbstractIT {
     }
 
     @Test
-    public void showShares() {
+    public void showShares() throws JSONException {
         assertTrue(new ExistenceCheckRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareToGroup/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareViaLink/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/noShare/", true).execute(client).isSuccess());
+        assertTrue(new CreateFolderRemoteOperation("/shareToCircle/", true).execute(client).isSuccess());
 
         // share folder to user "admin"
         assertTrue(new CreateShareRemoteOperation("/shareToAdmin/",
@@ -119,12 +124,27 @@ public class FileDisplayActivityIT extends AbstractIT {
                                                          OCShare.DEFAULT_PERMISSION)
                               .execute(client).isSuccess());
 
+        // share folder to circle
+        // get share
+        RemoteOperationResult searchResult = new GetShareesRemoteOperation("publicCircle", 1, 50).execute(client);
+        assertTrue(searchResult.getLogMessage(), searchResult.isSuccess());
+
+        JSONObject resultJson = (JSONObject) searchResult.getData().get(0);
+        String circleId = resultJson.getJSONObject("value").getString("shareWith");
+
+        assertTrue(new CreateShareRemoteOperation("/shareToCircle/",
+                                                  ShareType.CIRCLE,
+                                                  circleId,
+                                                  false,
+                                                  "",
+                                                  OCShare.DEFAULT_PERMISSION)
+                       .execute(client).isSuccess());
+
         Activity sut = activityRule.launchActivity(null);
 
         getInstrumentation().waitForIdleSync();
 
-        EventBus.getDefault().post(new SearchEvent("",
-                                                   SearchRemoteOperation.SearchType.SHARED_FILTER));
+        EventBus.getDefault().post(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER));
 
         getInstrumentation().waitForIdleSync();
 
@@ -150,8 +170,6 @@ public class FileDisplayActivityIT extends AbstractIT {
         assertTrue(new CreateFolderOperation("/test/", true).execute(client, getStorageManager()).isSuccess());
 
         // navigate into it
-        // sut.onActivity(activity -> activity.onBrowsedDownTo(getStorageManager().getFileByPath("/test/")));
-        //sut.onBrowsedDownTo(getStorageManager().getFileByPath("/test/"));
         OCFile test = getStorageManager().getFileByPath("/test/");
         sut.setFile(test);
         sut.startSyncFolderOperation(test, false);
@@ -168,7 +186,5 @@ public class FileDisplayActivityIT extends AbstractIT {
         // then should be in root again
         Thread.sleep(2000);
         assertEquals(getStorageManager().getFileByPath("/"), sut.getCurrentDir());
-
-
     }
 }

@@ -97,6 +97,8 @@ public abstract class AbstractIT {
             createDummyFiles();
 
             waitForServer(client, baseUrl);
+
+            deleteAllFiles(); // makes sure that no file/folder is in root
         } catch (OperationCanceledException e) {
             e.printStackTrace();
         } catch (AuthenticatorException e) {
@@ -110,6 +112,10 @@ public abstract class AbstractIT {
 
     @After
     public void after() {
+        deleteAllFiles();
+    }
+
+    public static void deleteAllFiles() {
         RemoteOperationResult result = new ReadFolderRemoteOperation("/").execute(client);
         assertTrue(result.getLogMessage(), result.isSuccess());
 
