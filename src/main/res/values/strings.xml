@@ -327,11 +327,6 @@
     <string name="instant_upload_existing">Also upload existing files</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutoUpload</string>
-    <string name="conflict_title">File conflict</string>
-    <string name="conflict_message">Which files do you want to keep? If you select both versions, the local file will have a number appended to its name.</string>
-    <string name="conflict_keep_both">Keep both</string>
-    <string name="conflict_use_local_version">local version</string>
-    <string name="conflict_use_server_version">server version</string>
 
     <string name="preview_sorry">Sorry</string>
     <string name="preview_image_description">Image preview</string>
@@ -924,6 +919,11 @@
     <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s available on device.</string>
     <string name="sync_not_enough_space_dialog_title">Not enough space</string>
-
+    <string name="conflict_message_headline">Which files do you want to keep?</string>
+    <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
+    <string name="conflict_new_file">New file</string>
+    <string name="conflict_already_existing_file">Already existing file</string>
+    <string name="thumbnail_for_new_file_desc">Thumbnail for new file</string>
+    <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
     <string name="invalid_url">Invalid URL</string>
 </resources>
