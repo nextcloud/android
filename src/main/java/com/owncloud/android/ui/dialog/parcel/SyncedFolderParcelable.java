@@ -27,29 +27,24 @@ import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.FileUploader;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 /**
  * Parcelable for {@link SyncedFolderDisplayItem} objects to transport them from/to dialog fragments.
  */
-@NoArgsConstructor
 public class SyncedFolderParcelable implements Parcelable {
-    @Getter @Setter private String folderName;
-    @Getter @Setter private String localPath;
-    @Getter @Setter private String remotePath;
-    @Getter @Setter private boolean wifiOnly = false;
-    @Getter @Setter private boolean chargingOnly = false;
-    @Getter @Setter private boolean existing = true;
-    @Getter @Setter private boolean enabled = false;
-    @Getter @Setter private boolean subfolderByDate = false;
-    @Getter private Integer uploadAction;
-    @Getter @Setter private MediaFolderType type;
-    @Getter @Setter private boolean hidden = false;
-    @Getter @Setter private long id;
-    @Getter @Setter private String account;
-    @Getter @Setter private int section;
+    private String folderName;
+    private String localPath;
+    private String remotePath;
+    private boolean wifiOnly = false;
+    private boolean chargingOnly = false;
+    private boolean existing = true;
+    private boolean enabled = false;
+    private boolean subfolderByDate = false;
+    private Integer uploadAction;
+    private MediaFolderType type;
+    private boolean hidden = false;
+    private long id;
+    private String account;
+    private int section;
 
     public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
         id = syncedFolderDisplayItem.getId();
@@ -83,6 +78,9 @@ public class SyncedFolderParcelable implements Parcelable {
         uploadAction = read.readInt();
         section = read.readInt();
         hidden = read.readInt() != 0;
+    }
+
+    public SyncedFolderParcelable() {
     }
 
     @Override
@@ -146,5 +144,113 @@ public class SyncedFolderParcelable implements Parcelable {
                 this.uploadAction = FileUploader.LOCAL_BEHAVIOUR_DELETE;
                 break;
         }
+    }
+
+    public String getFolderName() {
+        return this.folderName;
+    }
+
+    public String getLocalPath() {
+        return this.localPath;
+    }
+
+    public String getRemotePath() {
+        return this.remotePath;
+    }
+
+    public boolean isWifiOnly() {
+        return this.wifiOnly;
+    }
+
+    public boolean isChargingOnly() {
+        return this.chargingOnly;
+    }
+
+    public boolean isExisting() {
+        return this.existing;
+    }
+
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
+    public boolean isSubfolderByDate() {
+        return this.subfolderByDate;
+    }
+
+    public Integer getUploadAction() {
+        return this.uploadAction;
+    }
+
+    public MediaFolderType getType() {
+        return this.type;
+    }
+
+    public boolean isHidden() {
+        return this.hidden;
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public String getAccount() {
+        return this.account;
+    }
+
+    public int getSection() {
+        return this.section;
+    }
+
+    public void setFolderName(String folderName) {
+        this.folderName = folderName;
+    }
+
+    public void setLocalPath(String localPath) {
+        this.localPath = localPath;
+    }
+
+    public void setRemotePath(String remotePath) {
+        this.remotePath = remotePath;
+    }
+
+    public void setWifiOnly(boolean wifiOnly) {
+        this.wifiOnly = wifiOnly;
+    }
+
+    public void setChargingOnly(boolean chargingOnly) {
+        this.chargingOnly = chargingOnly;
+    }
+
+    public void setExisting(boolean existing) {
+        this.existing = existing;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setSubfolderByDate(boolean subfolderByDate) {
+        this.subfolderByDate = subfolderByDate;
+    }
+
+    public void setType(MediaFolderType type) {
+        this.type = type;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public void setSection(int section) {
+        this.section = section;
     }
 }

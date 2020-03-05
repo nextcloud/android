@@ -43,8 +43,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
-import lombok.Getter;
-import lombok.Setter;
 import third_parties.daveKoeller.AlphanumComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
@@ -57,41 +55,41 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     private static final String TAG = OCFile.class.getSimpleName();
 
-    @Getter @Setter private long fileId; // android internal ID of the file
-    @Getter @Setter private long parentId;
-    @Getter @Setter private long fileLength;
-    @Getter @Setter private long creationTimestamp; // UNIX timestamp of the time the file was created
-    @Getter @Setter private long modificationTimestamp; // UNIX timestamp of the file modification time
+    private long fileId; // android internal ID of the file
+    private long parentId;
+    private long fileLength;
+    private long creationTimestamp; // UNIX timestamp of the time the file was created
+    private long modificationTimestamp; // UNIX timestamp of the file modification time
     /** UNIX timestamp of the modification time, corresponding to the value returned by the server
      * in the last synchronization of THE CONTENTS of this file.
      */
-    @Getter @Setter private long modificationTimestampAtLastSyncForData;
-    @Setter private String remotePath;
+    private long modificationTimestampAtLastSyncForData;
+    private String remotePath;
     private String localPath;
-    @Getter @Setter private String mimeType;
-    @Getter private boolean needsUpdatingWhileSaving;
-    @Getter @Setter private long lastSyncDateForProperties;
-    @Getter @Setter private long lastSyncDateForData;
-    @Getter @Setter private boolean previewAvailable;
-    @Getter private String etag;
-    @Getter private String etagOnServer;
-    @Getter @Setter private boolean sharedViaLink;
-    @Getter @Setter private String publicLink;
-    @Getter @Setter private String permissions;
-    @Getter @Setter private String remoteId; // The fileid namespaced by the instance fileId, globally unique
-    @Getter @Setter private boolean updateThumbnailNeeded;
-    @Getter @Setter private boolean downloading;
-    @Getter @Setter private String etagInConflict; // Only saves file etag in the server, when there is a conflict
-    @Getter @Setter private boolean sharedWithSharee;
-    @Getter @Setter private boolean favorite;
-    @Getter @Setter private boolean encrypted;
-    @Getter @Setter private WebdavEntry.MountType mountType;
-    @Getter @Setter private int unreadCommentsCount;
-    @Getter @Setter private String ownerId;
-    @Getter @Setter private String ownerDisplayName;
-    @Getter @Setter String note;
-    @Getter @Setter private List<ShareeUser> sharees;
-    @Getter @Setter private String richWorkspace;
+    private String mimeType;
+    private boolean needsUpdatingWhileSaving;
+    private long lastSyncDateForProperties;
+    private long lastSyncDateForData;
+    private boolean previewAvailable;
+    private String etag;
+    private String etagOnServer;
+    private boolean sharedViaLink;
+    private String publicLink;
+    private String permissions;
+    private String remoteId; // The fileid namespaced by the instance fileId, globally unique
+    private boolean updateThumbnailNeeded;
+    private boolean downloading;
+    private String etagInConflict; // Only saves file etag in the server, when there is a conflict
+    private boolean sharedWithSharee;
+    private boolean favorite;
+    private boolean encrypted;
+    private WebdavEntry.MountType mountType;
+    private int unreadCommentsCount;
+    private String ownerId;
+    private String ownerDisplayName;
+    String note;
+    private List<ShareeUser> sharees;
+    private String richWorkspace;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call
@@ -106,7 +104,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * Cached after first call, until changed.
      */
     private Uri exposedFileUri;
-    @Getter @Setter private String encryptedFileName;
+    private String encryptedFileName;
 
 
     /**
@@ -534,4 +532,244 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
             return new OCFile[size];
         }
     };
+
+    public long getFileId() {
+        return this.fileId;
+    }
+
+    public long getParentId() {
+        return this.parentId;
+    }
+
+    public long getFileLength() {
+        return this.fileLength;
+    }
+
+    public long getCreationTimestamp() {
+        return this.creationTimestamp;
+    }
+
+    public long getModificationTimestamp() {
+        return this.modificationTimestamp;
+    }
+
+    public long getModificationTimestampAtLastSyncForData() {
+        return this.modificationTimestampAtLastSyncForData;
+    }
+
+    public String getMimeType() {
+        return this.mimeType;
+    }
+
+    public boolean isNeedsUpdatingWhileSaving() {
+        return this.needsUpdatingWhileSaving;
+    }
+
+    public long getLastSyncDateForProperties() {
+        return this.lastSyncDateForProperties;
+    }
+
+    public long getLastSyncDateForData() {
+        return this.lastSyncDateForData;
+    }
+
+    public boolean isPreviewAvailable() {
+        return this.previewAvailable;
+    }
+
+    public String getEtag() {
+        return this.etag;
+    }
+
+    public String getEtagOnServer() {
+        return this.etagOnServer;
+    }
+
+    public boolean isSharedViaLink() {
+        return this.sharedViaLink;
+    }
+
+    public String getPublicLink() {
+        return this.publicLink;
+    }
+
+    public String getPermissions() {
+        return this.permissions;
+    }
+
+    public String getRemoteId() {
+        return this.remoteId;
+    }
+
+    public boolean isUpdateThumbnailNeeded() {
+        return this.updateThumbnailNeeded;
+    }
+
+    public boolean isDownloading() {
+        return this.downloading;
+    }
+
+    public String getEtagInConflict() {
+        return this.etagInConflict;
+    }
+
+    public boolean isSharedWithSharee() {
+        return this.sharedWithSharee;
+    }
+
+    public boolean isFavorite() {
+        return this.favorite;
+    }
+
+    public boolean isEncrypted() {
+        return this.encrypted;
+    }
+
+    public WebdavEntry.MountType getMountType() {
+        return this.mountType;
+    }
+
+    public int getUnreadCommentsCount() {
+        return this.unreadCommentsCount;
+    }
+
+    public String getOwnerId() {
+        return this.ownerId;
+    }
+
+    public String getOwnerDisplayName() {
+        return this.ownerDisplayName;
+    }
+
+    public String getNote() {
+        return this.note;
+    }
+
+    public List<ShareeUser> getSharees() {
+        return this.sharees;
+    }
+
+    public String getRichWorkspace() {
+        return this.richWorkspace;
+    }
+
+    public String getEncryptedFileName() {
+        return this.encryptedFileName;
+    }
+
+    public void setFileId(long fileId) {
+        this.fileId = fileId;
+    }
+
+    public void setParentId(long parentId) {
+        this.parentId = parentId;
+    }
+
+    public void setFileLength(long fileLength) {
+        this.fileLength = fileLength;
+    }
+
+    public void setCreationTimestamp(long creationTimestamp) {
+        this.creationTimestamp = creationTimestamp;
+    }
+
+    public void setModificationTimestamp(long modificationTimestamp) {
+        this.modificationTimestamp = modificationTimestamp;
+    }
+
+    public void setModificationTimestampAtLastSyncForData(long modificationTimestampAtLastSyncForData) {
+        this.modificationTimestampAtLastSyncForData = modificationTimestampAtLastSyncForData;
+    }
+
+    public void setRemotePath(String remotePath) {
+        this.remotePath = remotePath;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
+
+    public void setLastSyncDateForProperties(long lastSyncDateForProperties) {
+        this.lastSyncDateForProperties = lastSyncDateForProperties;
+    }
+
+    public void setLastSyncDateForData(long lastSyncDateForData) {
+        this.lastSyncDateForData = lastSyncDateForData;
+    }
+
+    public void setPreviewAvailable(boolean previewAvailable) {
+        this.previewAvailable = previewAvailable;
+    }
+
+    public void setSharedViaLink(boolean sharedViaLink) {
+        this.sharedViaLink = sharedViaLink;
+    }
+
+    public void setPublicLink(String publicLink) {
+        this.publicLink = publicLink;
+    }
+
+    public void setPermissions(String permissions) {
+        this.permissions = permissions;
+    }
+
+    public void setRemoteId(String remoteId) {
+        this.remoteId = remoteId;
+    }
+
+    public void setUpdateThumbnailNeeded(boolean updateThumbnailNeeded) {
+        this.updateThumbnailNeeded = updateThumbnailNeeded;
+    }
+
+    public void setDownloading(boolean downloading) {
+        this.downloading = downloading;
+    }
+
+    public void setEtagInConflict(String etagInConflict) {
+        this.etagInConflict = etagInConflict;
+    }
+
+    public void setSharedWithSharee(boolean sharedWithSharee) {
+        this.sharedWithSharee = sharedWithSharee;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    public void setEncrypted(boolean encrypted) {
+        this.encrypted = encrypted;
+    }
+
+    public void setMountType(WebdavEntry.MountType mountType) {
+        this.mountType = mountType;
+    }
+
+    public void setUnreadCommentsCount(int unreadCommentsCount) {
+        this.unreadCommentsCount = unreadCommentsCount;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setOwnerDisplayName(String ownerDisplayName) {
+        this.ownerDisplayName = ownerDisplayName;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public void setSharees(List<ShareeUser> sharees) {
+        this.sharees = sharees;
+    }
+
+    public void setRichWorkspace(String richWorkspace) {
+        this.richWorkspace = richWorkspace;
+    }
+
+    public void setEncryptedFileName(String encryptedFileName) {
+        this.encryptedFileName = encryptedFileName;
+    }
 }

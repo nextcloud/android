@@ -46,7 +46,6 @@ import java.io.InputStream;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import lombok.Getter;
 
 /**
  * This activity shows an URL as a web view
@@ -64,7 +63,7 @@ public class ExternalSiteWebView extends FileActivity {
     protected boolean showToolbar = true;
     protected int webViewLayout = R.layout.externalsite_webview;
     private int menuItemId;
-    @Getter protected WebView webview;
+    protected WebView webview;
     private boolean showSidebar;
     String url;
 
@@ -234,5 +233,9 @@ public class ExternalSiteWebView extends FileActivity {
         super.onPostCreate(savedInstanceState);
         setDrawerMenuItemChecked(menuItemId);
 
+    }
+
+    public WebView getWebview() {
+        return this.webview;
     }
 }

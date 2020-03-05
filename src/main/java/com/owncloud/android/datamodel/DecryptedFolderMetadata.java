@@ -24,16 +24,9 @@ package com.owncloud.android.datamodel;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * Decrypted class representation of metadata json of folder metadata.
  */
-@Getter
-@Setter
-@AllArgsConstructor
 public class DecryptedFolderMetadata {
     private Metadata metadata;
     private Map<String, DecryptedFile> files;
@@ -43,8 +36,27 @@ public class DecryptedFolderMetadata {
         this.files = new HashMap<>();
     }
 
-    @Getter
-    @Setter
+    public DecryptedFolderMetadata(Metadata metadata, Map<String, DecryptedFile> files) {
+        this.metadata = metadata;
+        this.files = files;
+    }
+
+    public Metadata getMetadata() {
+        return this.metadata;
+    }
+
+    public Map<String, DecryptedFile> getFiles() {
+        return this.files;
+    }
+
+    public void setMetadata(Metadata metadata) {
+        this.metadata = metadata;
+    }
+
+    public void setFiles(Map<String, DecryptedFile> files) {
+        this.files = files;
+    }
+
     public static class Metadata {
         private Map<Integer, String> metadataKeys; // each keys is encrypted on its own, decrypt on use
         private Sharing sharing;
@@ -54,36 +66,140 @@ public class DecryptedFolderMetadata {
         public String toString() {
             return String.valueOf(version);
         }
+
+        public Map<Integer, String> getMetadataKeys() {
+            return this.metadataKeys;
+        }
+
+        public Sharing getSharing() {
+            return this.sharing;
+        }
+
+        public int getVersion() {
+            return this.version;
+        }
+
+        public void setMetadataKeys(Map<Integer, String> metadataKeys) {
+            this.metadataKeys = metadataKeys;
+        }
+
+        public void setSharing(Sharing sharing) {
+            this.sharing = sharing;
+        }
+
+        public void setVersion(int version) {
+            this.version = version;
+        }
     }
 
-    @Getter
-    @Setter
     public static class Encrypted {
         private Map<Integer, String> metadataKeys;
+
+        public Map<Integer, String> getMetadataKeys() {
+            return this.metadataKeys;
+        }
+
+        public void setMetadataKeys(Map<Integer, String> metadataKeys) {
+            this.metadataKeys = metadataKeys;
+        }
     }
 
-    @Getter
-    @Setter
     public static class Sharing {
         private Map<String, String> recipient;
         private String signature;
+
+        public Map<String, String> getRecipient() {
+            return this.recipient;
+        }
+
+        public String getSignature() {
+            return this.signature;
+        }
+
+        public void setRecipient(Map<String, String> recipient) {
+            this.recipient = recipient;
+        }
+
+        public void setSignature(String signature) {
+            this.signature = signature;
+        }
     }
 
-    @Getter
-    @Setter
     public static class DecryptedFile {
         private Data encrypted;
         private String initializationVector;
         private String authenticationTag;
         private int metadataKey;
+
+        public Data getEncrypted() {
+            return this.encrypted;
+        }
+
+        public String getInitializationVector() {
+            return this.initializationVector;
+        }
+
+        public String getAuthenticationTag() {
+            return this.authenticationTag;
+        }
+
+        public int getMetadataKey() {
+            return this.metadataKey;
+        }
+
+        public void setEncrypted(Data encrypted) {
+            this.encrypted = encrypted;
+        }
+
+        public void setInitializationVector(String initializationVector) {
+            this.initializationVector = initializationVector;
+        }
+
+        public void setAuthenticationTag(String authenticationTag) {
+            this.authenticationTag = authenticationTag;
+        }
+
+        public void setMetadataKey(int metadataKey) {
+            this.metadataKey = metadataKey;
+        }
     }
 
-    @Getter
-    @Setter
     public static class Data {
         private String key;
         private String filename;
         private String mimetype;
         private int version;
+
+        public String getKey() {
+            return this.key;
+        }
+
+        public String getFilename() {
+            return this.filename;
+        }
+
+        public String getMimetype() {
+            return this.mimetype;
+        }
+
+        public int getVersion() {
+            return this.version;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public void setFilename(String filename) {
+            this.filename = filename;
+        }
+
+        public void setMimetype(String mimetype) {
+            this.mimetype = mimetype;
+        }
+
+        public void setVersion(int version) {
+            this.version = version;
+        }
     }
 }
