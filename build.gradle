@@ -295,7 +295,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.exifinterface:exifinterface:1.1.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-    implementation "androidx.work:work-runtime:2.3.2"
+    implementation "androidx.work:work-runtime:2.3.3"
     implementation "androidx.work:work-runtime-ktx:2.3.2"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:2.0.1'
