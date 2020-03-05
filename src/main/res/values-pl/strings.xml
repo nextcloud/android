@@ -130,7 +130,7 @@
     <string name="community_rc_fdroid">Pobierz wersję w wydaniu RC z F-Droid</string>
     <string name="community_rc_play_store">Pobierz wersję w wydaniu RC ze sklepu Google Play</string>
     <string name="community_release_candidate_headline">Release Candidate</string>
-    <string name="community_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącej nowej wersji, od której oczekuje się, że będzie stabilna. Może to zapewnić testowanie indywidualnej konfiguracji. Aby przetestować, zarejestruj się w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
+    <string name="community_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącej nowej wersji, od której oczekuje się, że będzie stabilna. Można to zapewnić poprzez testowanie indywidualnej konfiguracji. Aby przetestować, zarejestruj się w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
     <string name="community_testing_bug_text">Znalazłeś błąd? Jest coś, co chciałbyś poprawić?</string>
     <string name="community_testing_headline">Pomóż nam testować</string>
     <string name="community_testing_report_text">Zgłoś problem na GitHub</string>
@@ -365,6 +365,7 @@
     <string name="instant_upload_existing">Prześlij również istniejące pliki</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="invalid_url">Błędny adres URL</string>
     <string name="learn_more">Dowiedz się więcej</string>
     <string name="link">Odnośnik</string>
     <string name="list_layout">Wygląd listy</string>
@@ -570,6 +571,8 @@
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_internal_link">Udostępnij link wewnętrzny</string>
     <string name="share_internal_link_text">Działa tylko dla użytkowników mających dostęp do %1$s</string>
+    <string name="share_internal_link_to_file_text">Wewnętrzny link udostępniania działa tylko dla użytkowników z dostępem do tego pliku</string>
+    <string name="share_internal_link_to_folder_text">Wewnętrzny link udostępniania działa tylko dla użytkowników z dostępem do tego katalogu</string>
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
     <string name="share_link_empty_password">Musisz wprowadzić hasło</string>
     <string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub katalogu</string>
