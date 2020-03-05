@@ -34,14 +34,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import lombok.Getter;
-
 /**
  * Creates a new private share for a given file.
  */
 public class CreateShareWithShareeOperation extends SyncOperation {
 
-    @Getter private String path;
+    private String path;
     private String shareeName;
     private ShareType shareType;
     private int permissions;
@@ -105,5 +103,9 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             file.setSharedWithSharee(true);    // TODO - this should be done by the FileContentProvider, as part of getStorageManager().saveShare(share)
             getStorageManager().saveFile(file);
         }
+    }
+
+    public String getPath() {
+        return this.path;
     }
 }

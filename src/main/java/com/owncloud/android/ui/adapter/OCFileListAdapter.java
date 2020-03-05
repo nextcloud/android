@@ -99,7 +99,6 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lombok.Setter;
 
 /**
  * This Adapter populates a RecyclerView with all files and folders in a Nextcloud instance.
@@ -137,7 +136,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private boolean onlyOnDevice;
     private boolean showShareAvatar = false;
-    @Setter private OCFile highlightedItem;
+    private OCFile highlightedItem;
 
     public OCFileListAdapter(
         Activity activity,
@@ -1050,6 +1049,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
         return ((ImageView) callContext).getTag().equals(tag);
+    }
+
+    public void setHighlightedItem(OCFile highlightedItem) {
+        this.highlightedItem = highlightedItem;
     }
 
     private class FilesFilter extends Filter {

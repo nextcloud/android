@@ -30,10 +30,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
-
 public class Response {
-    @Getter
     private InputStream body;
     private Header[] headers;
 
@@ -61,5 +58,9 @@ public class Response {
 
         Gson gson = new Gson();
         return gson.toJson(arrayList);
+    }
+
+    public InputStream getBody() {
+        return this.body;
     }
 }

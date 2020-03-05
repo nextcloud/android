@@ -48,11 +48,9 @@ import com.owncloud.android.utils.ThemeUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import lombok.Getter;
-import lombok.Setter;
 
 public abstract class EditorWebView extends ExternalSiteWebView {
-    @Getter @Setter protected Snackbar loadingSnackbar;
+    protected Snackbar loadingSnackbar;
 
     protected String fileName;
     protected String mimeType;
@@ -208,6 +206,14 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
         downloadmanager.enqueue(request);
+    }
+
+    public Snackbar getLoadingSnackbar() {
+        return this.loadingSnackbar;
+    }
+
+    public void setLoadingSnackbar(Snackbar loadingSnackbar) {
+        this.loadingSnackbar = loadingSnackbar;
     }
 
     public class MobileInterface {

@@ -19,25 +19,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-
-package com.owncloud.android.datamodel;
-
-import lombok.Getter;
+package com.owncloud.android.datamodel
 
 /**
- * Data set for {@link ArbitraryDataProvider}
+ * Data set for [ArbitraryDataProvider]
  */
-@Getter
-class ArbitraryDataSet {
-    private int id;
-    private String cloudId;
-    private String key;
-    private String value;
-
-    ArbitraryDataSet(int id, String cloudId, String key, String value) {
-        this.id = id;
-        this.cloudId = cloudId;
-        this.key = key;
-        this.value = value;
-    }
-}
+internal class ArbitraryDataSet(val id: Int, val cloudId: String, val key: String, val value: String)
