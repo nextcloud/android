@@ -1,0 +1,3 @@
+update dev changelog recognition for updating library
+Update translations
+Update Nextcloud Android library
