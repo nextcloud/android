@@ -1,3 +1,12 @@
+## 3.11.0 RC1 (March, 05, 2020)
+
+- not enough space dialog @Shagequi
+- fix shared search
+- upload existing images in auto upload @koying @ArisuOngaku @AndyScherzinger
+- allow deep links @Charon77
+
+For a full list, please see https://github.com/nextcloud/android/milestone/41
+
 ## 3.10.1 (February, 05, 2020)
 
 - fix crash on self-signed certificates
