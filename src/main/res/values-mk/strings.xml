@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Само локално</string>
     <string name="conflict_keep_both">Задржи ги и двете</string>
     <string name="conflict_message">Кои датотеки сакате да ги зачувате? Ако сакате да ги чувате двете верзии, на локалната датотека ќе биде додаден број на нејзиното име.</string>
+    <string name="conflict_message_headline">Кои датотеки сакате да ги задржите?</string>
     <string name="conflict_title">Конфликт во датотека</string>
     <string name="conflict_use_local_version">верзија на уредот</string>
     <string name="conflict_use_server_version">верзија на серверот</string>

@@ -123,6 +123,7 @@
     <string name="confirmation_remove_local">Tikai lokālos</string>
     <string name="conflict_keep_both">Paturēt abas</string>
     <string name="conflict_message">Kuras datnes vālaties paturēt? Ja izvēlēsieties abas versijas, lokālai datnei nosaukumam tiks pievienots numurs.</string>
+    <string name="conflict_message_headline">Kuras datnes vēlies paturēt?</string>
     <string name="conflict_title">Datne konfliktē</string>
     <string name="conflict_use_local_version">lokālā versija</string>
     <string name="conflict_use_server_version">servera versija</string>

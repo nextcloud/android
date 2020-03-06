@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
     <string name="conflict_keep_both">Διατήρηση και των δύο</string>
     <string name="conflict_message">Ποια αρχεία θέλετε να διατηρήσετε; Αν επιλέξετε και τις δύο εκδόσεις, θα προστεθεί ένας αριθμός στο όνομα του τοπικού αρχείου.</string>
+    <string name="conflict_message_headline">Ποια αρχεία θέλετε να κρατήσετε;</string>
     <string name="conflict_title">Διένεξη αρχείων</string>
     <string name="conflict_use_local_version">τοπική έκδοση</string>
     <string name="conflict_use_server_version">έκδοση διακομιστή</string>
@@ -365,6 +366,7 @@
     <string name="instant_upload_existing">Επίσης μεταφόρτωση υπαρχόντων αρχείων</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="invalid_url">Μη έγκυρη διεύθυνση URL</string>
     <string name="learn_more">Μάθετε περισσότερα</string>
     <string name="link">Σύνδεσμος</string>
     <string name="list_layout">Διάταξη λίστας</string>
@@ -570,6 +572,8 @@
     <string name="share_group_clarification">%1$s (ομάδα)</string>
     <string name="share_internal_link">Κοινή χρήση εσωτερικού συνδέσμου</string>
     <string name="share_internal_link_text">Λειτουργεί μόνο για χρήστες με πρόσβαση στο %1$s</string>
+    <string name="share_internal_link_to_file_text">Οι εσωτερικοί κοινόχρηστοι σύνδεσμοι λειτουργούν μόνο για χρήστες με πρόσβαση στο αρχείο</string>
+    <string name="share_internal_link_to_folder_text">Οι εσωτερικοί κοινόχρηστοι σύνδεσμοι λειτουργούν μόνο για χρήστες με πρόσβαση στο φάκελο</string>
     <string name="share_known_remote_clarification">%1$s ( στο %2$s )</string>
     <string name="share_link_empty_password">Πρέπει να εισάγετε ένα συνθηματικό</string>
     <string name="share_link_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
@@ -670,6 +674,7 @@
     <string name="sync_fail_ticker">Αποτυχία συγχρονισμού</string>
     <string name="sync_fail_ticker_unauthorized">Ο συγχρονισμός απέτυχε, συνδεθείτε ξανά</string>
     <string name="sync_file_nothing_to_do_msg">Τα περιεχόμενα του αρχείου έχουν ήδη συγχρονιστεί</string>
+    <string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
     <string name="sync_foreign_files_forgotten_explanation">Από την έκδοση 1.3.16, τα αρχεία που μεταφορτώνονται από αυτήν τη συσκευή, αντιγράφονται στον τοπικό %1$s φάκελο για να αποφευχθεί η απώλεια δεδομένων όταν συγχρονίζεται ένα μόνο αρχείο με πολλούς λογαριασμούς. \n\n Λόγω αυτής της αλλαγής, όλα τα αρχεία που φορτώθηκαν με παλαιότερες εκδόσεις αυτής της εφαρμογής αντιγράφηκαν στο φάκελο%2$s. Ωστόσο, ένα σφάλμα εμπόδισε την ολοκλήρωση αυτής της λειτουργίας κατά τη διάρκεια του συγχρονισμού. Μπορείτε είτε να αφήσετε το αρχείο(α) όπως είναι και να διαγράψετε τη σύνδεση %3$s ή να μετακινήσετε το αρχείο(α) στο φάκελο %1$sκαι να διατηρήσετε τον σύνδεσμο %4$s. \n\nΕδώ αναφέρονται τα τοπικά αρχεία και το απομακρυσμένο αρχείο(α) %5$sστο οποίο συνδέονταν.</string>
     <string name="sync_foreign_files_forgotten_ticker">Ορισμένα τοπικά αρχεία ξεχάστηκαν</string>
     <string name="sync_in_progress">Λήψη της πιο πρόσφατης έκδοσης του αρχείου.</string>
