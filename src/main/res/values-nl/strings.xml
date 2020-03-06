@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Alleen lokaal</string>
     <string name="conflict_keep_both">Beide bewaren</string>
     <string name="conflict_message">Welke bestanden wil je bewaren? Als je beide versies selecteert zal het lokale bestand een volgnummer aan de naam toegevoegd krijgen.</string>
+    <string name="conflict_message_headline">Welke bestanden wil je bewaren?</string>
     <string name="conflict_title">Bestandsconflict</string>
     <string name="conflict_use_local_version">lokale versie</string>
     <string name="conflict_use_server_version">serverversie</string>

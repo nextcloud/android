@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">仅本地</string>
     <string name="conflict_keep_both">保留两者</string>
     <string name="conflict_message">您要保留哪个文件？ 如果您同时选择这两个版本，则本地文件的名称后将附加一个数字。</string>
+    <string name="conflict_message_headline">请选择需要保留的文件？</string>
     <string name="conflict_title">文件冲突</string>
     <string name="conflict_use_local_version">本地版本</string>
     <string name="conflict_use_server_version">服务器版本</string>

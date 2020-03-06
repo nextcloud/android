@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Csak a helyi példány</string>
     <string name="conflict_keep_both">Mindkettő megtartása</string>
     <string name="conflict_message">Melyik fájlt akarja megtartani? Ha mindkettőt kiválasztja, akkor a helyi nevéhez egy szám lesz fűzve.</string>
+    <string name="conflict_message_headline">Mely fájlokat akarja megtartani?</string>
     <string name="conflict_title">Fájl ütközés</string>
     <string name="conflict_use_local_version">helyi verzió</string>
     <string name="conflict_use_server_version">kiszolgáló verziója</string>
