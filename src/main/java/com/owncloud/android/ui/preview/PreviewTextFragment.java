@@ -232,8 +232,7 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
                                Activity activity,
                                boolean ignoreMimetype,
                                boolean preview) {
-        if ((ignoreMimetype || file != null && MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN.equals(file.getMimeType())) &&
-            android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN
+        if ((ignoreMimetype || file != null && MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN.equals(file.getMimeType()))
             && activity != null) {
             if (!preview) {
                 // clickable links prevent to open full view of rich workspace
