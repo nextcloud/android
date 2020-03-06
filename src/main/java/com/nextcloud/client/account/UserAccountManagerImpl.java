@@ -22,10 +22,10 @@ package com.nextcloud.client.account;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -292,10 +292,10 @@ public class UserAccountManagerImpl implements UserAccountManager {
     public boolean setCurrentOwnCloudAccount(int hashCode) {
         boolean result = false;
         if (hashCode != 0) {
-            for (final Account account : getAccounts()) {
-                if (hashCode == account.hashCode()) {
+            for (final User user : getAllUsers()) {
+                if (hashCode == user.hashCode()) {
                     SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, account.name);
+                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, user.getAccountName());
                     appPrefs.apply();
                     result = true;
                     break;
