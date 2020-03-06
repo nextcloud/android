@@ -23,7 +23,10 @@ package com.owncloud.android.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.nextcloud.client.account.User;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
@@ -35,6 +38,9 @@ import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener;
 
 import javax.inject.Inject;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 
 /**
@@ -57,6 +63,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
 
     private OCUpload conflictUpload;
     private int localBehaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+    protected OnConflictDecisionMadeListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,79 +80,109 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
         if (conflictUpload != null) {
             localBehaviour = conflictUpload.getLocalAction();
         }
+
+        listener = new OnConflictDecisionMadeListener() {
+            @Override
+            public void conflictDecisionMade(Decision decision) {
+                OCFile file = getFile();
+
+                switch (decision) {
+                    case CANCEL:
+                        // nothing to do
+                        break;
+                    case KEEP_LOCAL: // Upload
+                        FileUploader.uploadUpdateFile(
+                            getBaseContext(),
+                            getAccount(),
+                            file,
+                            localBehaviour,
+                            FileUploader.NameCollisionPolicy.OVERWRITE
+                                                     );
+
+                        if (conflictUpload != null) {
+                            uploadsStorageManager.removeUpload(conflictUpload);
+                        }
+                        break;
+                    case KEEP_BOTH: // Upload
+                        FileUploader.uploadUpdateFile(
+                            getBaseContext(),
+                            getAccount(),
+                            file,
+                            localBehaviour,
+                            FileUploader.NameCollisionPolicy.RENAME
+                                                     );
+
+                        if (conflictUpload != null) {
+                            uploadsStorageManager.removeUpload(conflictUpload);
+                        }
+                        break;
+                    case KEEP_SERVER: // Download
+                        if (!shouldDeleteLocal()) {
+                            // Overwrite local file
+                            Intent intent = new Intent(getBaseContext(), FileDownloader.class);
+                            intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
+                            intent.putExtra(FileDownloader.EXTRA_FILE, file);
+                            if (conflictUpload != null) {
+                                intent.putExtra(FileDownloader.EXTRA_CONFLICT_UPLOAD, conflictUpload);
+                            }
+                            startService(intent);
+                        }
+                        break;
+                }
+
+                finish();
+            }
+        };
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable(EXTRA_CONFLICT_UPLOAD, conflictUpload);
+        outState.putInt(EXTRA_LOCAL_BEHAVIOUR, localBehaviour);
     }
 
     @Override
     public void conflictDecisionMade(Decision decision) {
-        if (decision == Decision.CANCEL) {
-            return;
-        }
-
-        OCFile file = getFile();
-
-        switch (decision) {
-            case KEEP_LOCAL: // Upload
-                FileUploader.uploadUpdateFile(
-                    this,
-                    getAccount(),
-                    file,
-                    localBehaviour,
-                    FileUploader.NameCollisionPolicy.OVERWRITE
-                );
-
-                if (conflictUpload != null) {
-                    uploadsStorageManager.removeUpload(conflictUpload);
-                }
-                break;
-            case KEEP_BOTH: // Upload
-                FileUploader.uploadUpdateFile(
-                    this,
-                    getAccount(),
-                    file,
-                    localBehaviour,
-                    FileUploader.NameCollisionPolicy.RENAME
-                );
-
-                if (conflictUpload != null) {
-                    uploadsStorageManager.removeUpload(conflictUpload);
-                }
-                break;
-            case KEEP_SERVER: // Download
-                if (!this.shouldDeleteLocal()) {
-                    // Overwrite local file
-                    Intent intent = new Intent(this, FileDownloader.class);
-                    intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
-                    intent.putExtra(FileDownloader.EXTRA_FILE, file);
-                    if (conflictUpload != null) {
-                        intent.putExtra(FileDownloader.EXTRA_CONFLICT_UPLOAD, conflictUpload);
-                    }
-                    startService(intent);
-                }
-                break;
-        }
-
-        finish();
+        listener.conflictDecisionMade(decision);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (getAccount() != null) {
-            OCFile file = getFile();
-            if (getFile() == null) {
-                Log_OC.e(TAG, "No file received");
-                finish();
-            } else {
-                // Check whether the file is contained in the current Account
-                if (getStorageManager().fileExists(file.getRemotePath())) {
-                    ConflictsResolveDialog dialog = new ConflictsResolveDialog(this, !this.shouldDeleteLocal());
-                    dialog.showDialog(this);
-                } else {
-                    // Account was changed to a different one - just finish
-                    finish();
-                }
-            }
+        if (getAccount() == null) {
+            finish();
+        }
+
+        OCFile file = getFile();
+        if (getFile() == null) {
+            Log_OC.e(TAG, "No file received");
+            finish();
+        }
+
+        Optional<User> userOptional = getUser();
+
+        if (!userOptional.isPresent()) {
+            Toast.makeText(this, "Error creating conflict dialog!", Toast.LENGTH_LONG).show();
+            finish();
+        }
+
+        // Check whether the file is contained in the current Account
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("conflictDialog");
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (prev != null) {
+            fragmentTransaction.remove(prev);
+        }
+
+        if (getStorageManager().fileExists(file.getRemotePath())) {
+            ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(getFile(),
+                                                                               conflictUpload,
+                                                                               userOptional.get());
+            dialog.show(fragmentTransaction, "conflictDialog");
         } else {
+            // Account was changed to a different one - just finish
             finish();
         }
     }

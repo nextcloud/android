@@ -39,25 +39,21 @@ import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundExce
 
 import java.io.IOException;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * Base synchronization adapter for ownCloud designed to be subclassed for different
  * resource types, like FileSync, ConcatsSync, CalendarSync, etc..
- * 
+ *
  * Implements the standard {@link AbstractThreadedSyncAdapter}.
  */
 abstract class AbstractOwnCloudSyncAdapter extends
         AbstractThreadedSyncAdapter {
 
-    @Getter @Setter private AccountManager accountManager;
-    @Getter @Setter private Account account;
-    @Getter @Setter private ContentProviderClient contentProviderClient;
-    @Getter @Setter private FileDataStorageManager storageManager;
+    private AccountManager accountManager;
+    private Account account;
+    private ContentProviderClient contentProviderClient;
+    private FileDataStorageManager storageManager;
 
-    @Getter(AccessLevel.PROTECTED) private OwnCloudClient client;
+    private OwnCloudClient client;
 
     AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -75,5 +71,41 @@ abstract class AbstractOwnCloudSyncAdapter extends
         OwnCloudAccount ocAccount = new OwnCloudAccount(account, getContext());
         client = OwnCloudClientManagerFactory.getDefaultSingleton().
                 getClientFor(ocAccount, getContext());
+    }
+
+    public AccountManager getAccountManager() {
+        return this.accountManager;
+    }
+
+    public Account getAccount() {
+        return this.account;
+    }
+
+    public ContentProviderClient getContentProviderClient() {
+        return this.contentProviderClient;
+    }
+
+    public FileDataStorageManager getStorageManager() {
+        return this.storageManager;
+    }
+
+    protected OwnCloudClient getClient() {
+        return this.client;
+    }
+
+    public void setAccountManager(AccountManager accountManager) {
+        this.accountManager = accountManager;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public void setContentProviderClient(ContentProviderClient contentProviderClient) {
+        this.contentProviderClient = contentProviderClient;
+    }
+
+    public void setStorageManager(FileDataStorageManager storageManager) {
+        this.storageManager = storageManager;
     }
 }

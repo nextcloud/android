@@ -67,11 +67,8 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import lombok.Getter;
-import lombok.Setter;
 
 
-@Getter
 public class FileDataStorageManager {
     private static final String TAG = FileDataStorageManager.class.getSimpleName();
 
@@ -85,7 +82,7 @@ public class FileDataStorageManager {
 
     private ContentResolver contentResolver;
     private ContentProviderClient contentProviderClient;
-    @Setter private Account account;
+    private Account account;
 
     public FileDataStorageManager(Account account, ContentResolver cr) {
         contentProviderClient = null;
@@ -2293,5 +2290,21 @@ public class FileDataStorageManager {
 
     private CapabilityBooleanType getBoolean(Cursor cursor, String columnName) {
         return CapabilityBooleanType.fromValue(cursor.getInt(cursor.getColumnIndex(columnName)));
+    }
+
+    public ContentResolver getContentResolver() {
+        return this.contentResolver;
+    }
+
+    public ContentProviderClient getContentProviderClient() {
+        return this.contentProviderClient;
+    }
+
+    public Account getAccount() {
+        return this.account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

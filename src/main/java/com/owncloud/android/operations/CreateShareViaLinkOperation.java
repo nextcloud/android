@@ -34,18 +34,18 @@ import com.owncloud.android.operations.common.SyncOperation;
 
 import java.util.ArrayList;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * Creates a new public share for a given file
  */
-@AllArgsConstructor
-@Getter
 public class CreateShareViaLinkOperation extends SyncOperation {
 
     private String path;
     private String password;
+
+    public CreateShareViaLinkOperation(String path, String password) {
+        this.path = path;
+        this.password = password;
+    }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
@@ -116,5 +116,13 @@ public class CreateShareViaLinkOperation extends SyncOperation {
             file.setSharedViaLink(true);
             getStorageManager().saveFile(file);
         }
+    }
+
+    public String getPath() {
+        return this.path;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 }
