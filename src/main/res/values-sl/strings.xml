@@ -142,6 +142,7 @@
     <string name="confirmation_remove_local">Le krajevno</string>
     <string name="conflict_keep_both">Ohrani obe</string>
     <string name="conflict_message">Katere datoteke želiš ohraniti? Če izbereš obe različici, bo lokalni datoteki dodatna k imenu še številka.</string>
+    <string name="conflict_message_headline">Katere datoteke želite ohraniti?</string>
     <string name="conflict_title">Neskladje datotek</string>
     <string name="conflict_use_local_version">krajevna različica</string>
     <string name="conflict_use_server_version">različica strežnika</string>
@@ -361,8 +362,10 @@
     <string name="hint_password">Geslo</string>
     <string name="host_not_available">Strežnik ni na voljo</string>
     <string name="host_your_own_server">Gostite osebni strežnik</string>
+    <string name="instant_upload_existing">Pošlji tudi obstoječe datoteke</string>
     <string name="instant_upload_on_charging">Usklajuj le med polnjenjem naprave</string>
     <string name="instant_upload_path">/Hipno nalaganje</string>
+    <string name="invalid_url">Neveljaven naslov URL</string>
     <string name="learn_more">Prikaži več</string>
     <string name="link">Povezava</string>
     <string name="list_layout">Izpisana razporeditev</string>
@@ -441,6 +444,7 @@
     <string name="notifications_no_results_headline">Ni obvestil</string>
     <string name="notifications_no_results_message">Prosim, preveri kasneje</string>
     <string name="offline_mode">Ni vzpostavljene internetne povezave</string>
+    <string name="outdated_server">Strežnik je dosegel konec podpore. Posodobite ga!</string>
     <string name="pass_code_configure_your_pass_code">Vnesite kodo PIN programa</string>
     <string name="pass_code_configure_your_pass_code_explanation">Koda bo zahtevana vsakič pred zagonom programa.</string>
     <string name="pass_code_enter_pass_code">Vnesite kodo PIN</string>
@@ -466,9 +470,11 @@
     <string name="prefs_calendar_contacts">Uskladi koledar in stike</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Strežniškega naslova računa za DAVx5 (posodobljena različica DAVdroid) ni mogoče razrešiti</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni nameščenega ne programa F-Droid ne Google Play</string>
+    <string name="prefs_calendar_contacts_summary">Nastavitev DAVx5 (prej znan kot DAVdroid) (v1.3.0+) za trenutni račun</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Nastavitev sinhronizacije koledarja&amp; stikov</string>
     <string name="prefs_category_about">O projektu</string>
     <string name="prefs_category_details">Podrobnosti</string>
+    <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
     <string name="prefs_daily_contacts_sync_summary">Dnevno usklajevanje stikov</string>
@@ -711,9 +717,11 @@
     <string name="upload_list_delete">Izbriši</string>
     <string name="upload_list_empty_headline">Ni pripravljenih datotek za pošiljanje</string>
     <string name="upload_list_empty_text_auto_upload">Pošljite kakšno vsebino, ali pa omogočite samodejno nalaganje.</string>
+    <string name="upload_list_resolve_conflict">Razreši spor</string>
     <string name="upload_local_storage_full">Krajevna shramba je polna</string>
     <string name="upload_local_storage_not_copied">Datoteke ni mogoče kopirati v krajevno shrambo</string>
     <string name="upload_lock_failed">Zaklepanje mape je spodletelo</string>
+    <string name="upload_old_android">Šifriranje je podprto z različico &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali želiš datoteke premakniti na novo mesto?</string>
     <string name="upload_sync_conflict">Zaznan je spor usklajevanja, ki ga je treba razrešiti ročno</string>
     <string name="upload_unknown_error">Neznana napaka</string>
@@ -729,6 +737,7 @@
     <string name="uploader_top_message">Izberi mapo za pošiljanje</string>
     <string name="uploader_upload_failed_content_single">Ni mogoče poslati %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Pošiljanje je spodletelo; zahtevana je ponovna prijava.</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Spor pošiljanja datotek</string>
     <string name="uploader_upload_failed_ticker">Pošiljanje je spodletelo</string>
     <string name="uploader_upload_files_behaviour">Možnost pošiljanja:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Premakni datoteko v mapo %1$s.</string>
@@ -770,6 +779,7 @@
     <string name="user_info_website">Spletna stran</string>
     <string name="user_information_retrieval_error">Napaka pridobivanja podatkov uporabnika</string>
     <string name="userinfo_no_info_headline">Osebni podatki še niso vpisani</string>
+    <string name="userinfo_no_info_text">Dodajte ime, slike in podrobnosti na profilno stran.</string>
     <string name="username">Uporabniško ime</string>
     <string name="version_dev_download">Prejmi</string>
     <string name="wait_a_moment">Počakajte trenutek …</string>

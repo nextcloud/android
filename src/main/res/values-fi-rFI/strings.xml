@@ -142,6 +142,7 @@
     <string name="confirmation_remove_local">Vain paikallisen</string>
     <string name="conflict_keep_both">Säilytä molemmat</string>
     <string name="conflict_message">Mitkä tiedostot haluat säilyttää? Jos valitset kummatkin versiot, paikallisen version tiedoston nimeen lisätään numero.</string>
+    <string name="conflict_message_headline">Mitkä tiedostot haluat säilyttää?</string>
     <string name="conflict_title">Tiedoston ristiriita</string>
     <string name="conflict_use_local_version">paikallinen versio</string>
     <string name="conflict_use_server_version">palvelimen versio</string>

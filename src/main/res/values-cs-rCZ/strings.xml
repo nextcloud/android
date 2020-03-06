@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Pouze místní</string>
     <string name="conflict_keep_both">Ponechat oba</string>
     <string name="conflict_message">Které soubory chcete ponechat? Pokud zvolíte obě verze, zkopírovaný soubor bude mít název doplněný o číslo.</string>
+    <string name="conflict_message_headline">Které soubory chcete ponechat?</string>
     <string name="conflict_title">Konflikt souboru</string>
     <string name="conflict_use_local_version">místní verze</string>
     <string name="conflict_use_server_version">verze na serveru</string>

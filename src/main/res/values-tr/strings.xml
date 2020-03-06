@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Yalnız yerel</string>
     <string name="conflict_keep_both">İkisi de tutulsun</string>
     <string name="conflict_message">Hangi dosyaları tutmak istiyorsunuz? Her ikisini de tutmayı seçerseniz yerel dosyanın adına bir sayı eklenecek.</string>
+    <string name="conflict_message_headline">Hangi dosyaları saklamak istiyorsunuz?</string>
     <string name="conflict_title">Dosya çakışması</string>
     <string name="conflict_use_local_version">yerel sürümü</string>
     <string name="conflict_use_server_version">sunucu sürümünü</string>
