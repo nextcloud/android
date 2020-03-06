@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">فقط محلی</string>
     <string name="conflict_keep_both">نگهداشتن هر دو</string>
     <string name="conflict_message">کدام فایل ها را می خواهید نگه دارید؟ اگر هر دو نسخه را انتخاب کنید ، فایل محلی شماره ای به نام آن اضافه خواهد شد.</string>
+    <string name="conflict_message_headline">کدام فایل ها را می خواهید نگه دارید ؟</string>
     <string name="conflict_title">تضاد در فایل</string>
     <string name="conflict_use_local_version">نسخه‌ی محلی</string>
     <string name="conflict_use_server_version">نسخه سرور</string>

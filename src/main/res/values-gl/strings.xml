@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Só local</string>
     <string name="conflict_keep_both">Conservar ambos</string>
     <string name="conflict_message">Que ficheiros quere conservar? Se selecciona ámbalas dúas versións, engadiráselle un número ao nome do ficheiro local.</string>
+    <string name="conflict_message_headline">Que ficheiros quere conservar?</string>
     <string name="conflict_title">Conflito de ficheiro</string>
     <string name="conflict_use_local_version">versión local</string>
     <string name="conflict_use_server_version">versión no servidor</string>

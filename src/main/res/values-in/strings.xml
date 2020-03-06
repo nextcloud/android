@@ -127,6 +127,7 @@
     <string name="confirmation_remove_local">Lokal saja</string>
     <string name="conflict_keep_both">Biarkan keduannya</string>
     <string name="conflict_message">Berkas mana yang ingin Anda simpan? Jika Anda memilih kedua versi, berkas lokal akan memiliki angka yang ditambahkan di akhir namanya.</string>
+    <string name="conflict_message_headline">Berkas mana yang ingin anda pertahankan?</string>
     <string name="conflict_title">Berkas konflik</string>
     <string name="conflict_use_local_version">versi lokal</string>
     <string name="conflict_use_server_version">versi server</string>

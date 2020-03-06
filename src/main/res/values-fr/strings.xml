@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Local seulement</string>
     <string name="conflict_keep_both">Conserver les deux</string>
     <string name="conflict_message">Quels fichiers voulez-vous conserver ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
+    <string name="conflict_message_headline">Quels fichiers souhaitez-vous conserver ?</string>
     <string name="conflict_title">Conflit de fichiers</string>
     <string name="conflict_use_local_version">version locale</string>
     <string name="conflict_use_server_version">version serveur</string>
@@ -367,6 +368,7 @@ Attention la suppression est irréversible.</string>
     <string name="instant_upload_existing">Téléverser aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="invalid_url">URL invalide</string>
     <string name="learn_more">En savoir plus</string>
     <string name="link">Lien</string>
     <string name="list_layout">Affichage en liste</string>
@@ -572,6 +574,8 @@ Attention la suppression est irréversible.</string>
     <string name="share_group_clarification">%1$s (groupe)</string>
     <string name="share_internal_link">Partager le lien interne</string>
     <string name="share_internal_link_text">Fonctionne uniquement pour les utilisateurs ayant accès à ce %1$s</string>
+    <string name="share_internal_link_to_file_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce fichier</string>
+    <string name="share_internal_link_to_folder_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce dossier</string>
     <string name="share_known_remote_clarification">%1$s (sur %2$s)</string>
     <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
     <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>

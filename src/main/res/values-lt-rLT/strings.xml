@@ -128,6 +128,7 @@
     <string name="confirmation_remove_local">Tik vietiniai</string>
     <string name="conflict_keep_both">Palikti abu</string>
     <string name="conflict_message">Kurį failą renkates? Jeigu renkates abu failus, suteikite kitą vardą (pavadinimą)</string>
+    <string name="conflict_message_headline">Kuriuos failus norite pasilikti?</string>
     <string name="conflict_title">Failų konfliktas</string>
     <string name="conflict_use_local_version">Vietinė versija</string>
     <string name="conflict_use_server_version">Versija serveryje</string>

@@ -105,6 +105,7 @@
     <string name="confirmation_remove_local">Ainult kohalik</string>
     <string name="conflict_keep_both">Säilita mõlemad</string>
     <string name="conflict_message">Millist faili sa soovid säilitada? Kui valid mõlemad versioonid, siis lisatakse kohaliku faili nimele number.</string>
+    <string name="conflict_message_headline">Milliseid faile sa soovid alles hoida?</string>
     <string name="conflict_title">Failikonflikt</string>
     <string name="conflict_use_local_version">kohalik versioon</string>
     <string name="conflict_use_server_version">serveri versioon</string>
