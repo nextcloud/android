@@ -89,7 +89,11 @@ public interface UserAccountManager extends CurrentAccountProvider {
     boolean exists(Account account);
 
     /**
-     * Verifies that every account has userId set
+     * Verifies that every account has userId set and sets the user id if not.
+     * This migration is idempotent and can be run multiple times until
+     * all accounts are migrated.
+     *
+     * @return true if migration was successful, false if any account failed to be migrated
      */
     boolean migrateUserId();
 
