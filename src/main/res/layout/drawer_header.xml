@@ -62,7 +62,6 @@
                 android:layout_height="@dimen/nav_drawer_header_avatar_other_accounts_size"
                 android:layout_gravity="end"
                 android:layout_marginEnd="@dimen/nav_drawer_header_avatar_second_account_margin"
-                android:layout_marginRight="@dimen/nav_drawer_header_avatar_second_account_margin"
                 android:src="@drawable/account_circle_white"
                 android:onClick="onAccountDrawerClick"
                 android:contentDescription="@string/drawer_middle_account"/>
@@ -91,9 +90,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:paddingEnd="@dimen/standard_half_padding"
-                android:paddingRight="@dimen/standard_half_padding"
-                android:paddingStart="@dimen/zero"
-                android:paddingLeft="@dimen/zero">
+                android:paddingStart="@dimen/zero">
 
                 <TextView
                     android:id="@+id/drawer_username"

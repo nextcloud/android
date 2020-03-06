@@ -36,7 +36,6 @@
         android:layout_height="@dimen/notification_icon_height"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="@dimen/notification_icon_layout_right_end_margin"
-        android:layout_marginRight="@dimen/notification_icon_layout_right_end_margin"
         android:padding="2dp"
         android:alpha="0.5"
         android:background="@drawable/round_bgnd_icons"
@@ -48,7 +47,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignTop="@id/notification_icon"
-        android:layout_toRightOf="@id/notification_icon"
         android:layout_toEndOf="@id/notification_icon">
 
         <LinearLayout
@@ -87,7 +85,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/alternate_half_margin"
-            android:layout_marginLeft="@dimen/notification_list_item_grid_layout_left_start_margin"
             android:layout_marginStart="@dimen/notification_list_item_grid_layout_left_start_margin"
             android:columnCount="3"
             android:orientation="horizontal"/>

@@ -180,15 +180,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mUploadOnWifiCheckbox = view.findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
         ThemeUtils.tintCheckbox(mUploadOnWifiCheckbox, accentColor);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            view.findViewById(R.id.setting_instant_upload_on_charging_container).setVisibility(View.GONE);
-        } else {
-            view.findViewById(R.id.setting_instant_upload_on_charging_container).setVisibility(View.VISIBLE);
-
-            mUploadOnChargingCheckbox = view.findViewById(
-                    R.id.setting_instant_upload_on_charging_checkbox);
-            ThemeUtils.tintCheckbox(mUploadOnChargingCheckbox, accentColor);
-        }
+        mUploadOnChargingCheckbox = view.findViewById(R.id.setting_instant_upload_on_charging_checkbox);
+        ThemeUtils.tintCheckbox(mUploadOnChargingCheckbox, accentColor);
 
         mUploadExistingCheckbox = view.findViewById(R.id.setting_instant_upload_existing_checkbox);
         ThemeUtils.tintCheckbox(mUploadExistingCheckbox, accentColor);

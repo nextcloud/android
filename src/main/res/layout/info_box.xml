@@ -32,7 +32,6 @@
         android:id="@+id/info_box_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_information_outline"
         android:drawablePadding="@dimen/standard_half_padding"
         android:drawableStart="@drawable/ic_information_outline"
         android:gravity="center"

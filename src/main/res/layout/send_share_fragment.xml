@@ -55,10 +55,8 @@
                 android:contentDescription="@string/share"
                 android:src="@drawable/shared_via_users"
                 android:paddingTop="@dimen/share_people_icon_layout_padding"
-                android:paddingRight="@dimen/share_people_icon_layout_padding"
                 android:paddingEnd="@dimen/share_people_icon_layout_padding"
                 android:paddingBottom="@dimen/share_people_icon_layout_padding"
-                android:paddingLeft="@dimen/standard_half_padding"
                 android:paddingStart="@dimen/standard_half_padding"
                 android:background="@drawable/round_bgnd"/>
 

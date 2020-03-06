@@ -34,9 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_toStartOf="@id/upload_list_action"
-        android:layout_toLeftOf="@id/upload_list_action"
         android:ellipsize="middle"
         android:padding="@dimen/standard_half_padding"
         android:textColor="@color/color_accent"
@@ -47,13 +45,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:contentDescription="@string/delete_entries"
         android:paddingStart="@dimen/standard_half_padding"
-        android:paddingLeft="@dimen/standard_half_padding"
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingEnd="@dimen/zero"
-        android:paddingRight="@dimen/zero"
         android:paddingBottom="@dimen/standard_half_padding"
         android:src="@drawable/nav_trashbin" />
 </RelativeLayout>

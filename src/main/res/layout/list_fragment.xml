@@ -48,10 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_marginBottom="@dimen/standard_margin"
         android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginRight="@dimen/standard_margin"
         android:contentDescription="@string/fab_label"
         android:visibility="gone" />
 

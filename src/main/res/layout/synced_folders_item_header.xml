@@ -25,8 +25,6 @@
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/alternate_half_padding"
     android:paddingEnd="@dimen/zero"
-    android:paddingLeft="@dimen/standard_padding"
-    android:paddingRight="@dimen/zero"
     android:paddingStart="@dimen/standard_padding"
     android:paddingTop="@dimen/alternate_half_padding">
 
@@ -35,10 +33,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/buttonBar"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/buttonBar"
-        android:layout_toLeftOf="@+id/buttonBar"
         android:layout_toStartOf="@+id/buttonBar"
         tools:ignore="UseCompoundDrawables">
 
@@ -48,7 +44,6 @@
             android:layout_height="@dimen/synced_folders_item_type_layout_height"
             android:layout_gravity="start|center_vertical"
             android:layout_marginEnd="@dimen/synced_folders_item_type_layout_right_end_margin"
-            android:layout_marginRight="@dimen/synced_folders_item_type_layout_right_end_margin"
             android:contentDescription="@string/synced_folders_type"
             android:src="@drawable/image_32dp" />
 
@@ -68,8 +63,7 @@
         android:id="@+id/buttonBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentEnd="true">
 
         <ImageButton
             android:id="@+id/syncStatusButton"
@@ -92,8 +86,6 @@
             android:focusable="true"
             android:paddingBottom="@dimen/standard_half_padding"
             android:paddingEnd="@dimen/standard_padding"
-            android:paddingLeft="@dimen/standard_half_padding"
-            android:paddingRight="@dimen/standard_padding"
             android:paddingStart="@dimen/standard_half_padding"
             android:paddingTop="@dimen/standard_half_padding"
             android:src="@drawable/ic_dots_vertical" />
