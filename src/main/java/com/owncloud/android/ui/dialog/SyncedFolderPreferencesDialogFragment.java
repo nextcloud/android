@@ -409,32 +409,16 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                     }
                 });
 
-        view.findViewById(R.id.remote_folder_container).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent action = new Intent(getActivity(), FolderPickerActivity.class);
-                getActivity().startActivityForResult(action, REQUEST_CODE__SELECT_REMOTE_FOLDER);
-            }
+        view.findViewById(R.id.remote_folder_container).setOnClickListener(v -> {
+            Intent action = new Intent(getActivity(), FolderPickerActivity.class);
+            getActivity().startActivityForResult(action, REQUEST_CODE__SELECT_REMOTE_FOLDER);
         });
 
-        mRemoteFolderSummary.setOnClickListener(textView -> {
-            mRemoteFolderSummary.setEllipsize(null);
-            mRemoteFolderSummary.setMaxLines(Integer.MAX_VALUE);
-        });
-
-        view.findViewById(R.id.local_folder_container).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent action = new Intent(getActivity(), UploadFilesActivity.class);
-                action.putExtra(UploadFilesActivity.KEY_LOCAL_FOLDER_PICKER_MODE, true);
-                action.putExtra(REQUEST_CODE_KEY, REQUEST_CODE__SELECT_LOCAL_FOLDER);
-                getActivity().startActivityForResult(action, REQUEST_CODE__SELECT_LOCAL_FOLDER);
-            }
-        });
-
-        mLocalFolderSummary.setOnClickListener(textView -> {
-            mLocalFolderSummary.setEllipsize(null);
-            mLocalFolderSummary.setMaxLines(Integer.MAX_VALUE);
+        view.findViewById(R.id.local_folder_container).setOnClickListener(v -> {
+            Intent action = new Intent(getActivity(), UploadFilesActivity.class);
+            action.putExtra(UploadFilesActivity.KEY_LOCAL_FOLDER_PICKER_MODE, true);
+            action.putExtra(REQUEST_CODE_KEY, REQUEST_CODE__SELECT_LOCAL_FOLDER);
+            getActivity().startActivityForResult(action, REQUEST_CODE__SELECT_LOCAL_FOLDER);
         });
 
         view.findViewById(R.id.sync_enabled).setOnClickListener(new OnClickListener() {
