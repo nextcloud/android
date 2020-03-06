@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<?xml version="1.0" encoding="UTF-8"?><!--
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
@@ -79,8 +78,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingEnd="@dimen/standard_quarter_padding"
-                    android:paddingLeft="@dimen/zero"
-                    android:paddingRight="@dimen/standard_quarter_padding"
                     android:paddingStart="@dimen/zero"
                     android:text="@string/info_separator"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
@@ -110,8 +107,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/zero"
-            android:paddingLeft="@dimen/standard_half_padding"
-            android:paddingRight="@dimen/zero"
             android:paddingStart="@dimen/standard_half_padding">
 
             <ImageView
@@ -123,8 +118,6 @@
                 android:contentDescription="@string/restore_button_description"
                 android:focusable="false"
                 android:paddingEnd="@dimen/list_item_share_right_margin"
-                android:paddingLeft="@dimen/standard_half_padding"
-                android:paddingRight="@dimen/list_item_share_right_margin"
                 android:paddingStart="@dimen/standard_half_padding"
                 android:src="@drawable/ic_history"/>
 
@@ -134,13 +127,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/restore"
-                android:layout_toRightOf="@id/restore"
                 android:clickable="false"
                 android:contentDescription="@string/checkbox"
                 android:focusable="false"
                 android:paddingEnd="@dimen/alternate_padding"
-                android:paddingLeft="@dimen/standard_half_padding"
-                android:paddingRight="@dimen/alternate_padding"
                 android:paddingStart="@dimen/standard_half_padding"
                 android:src="@drawable/ic_checkbox_blank_outline"/>
 
@@ -150,7 +140,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/customCheckbox"
-                android:layout_toRightOf="@id/customCheckbox"
                 android:clickable="true"
                 android:contentDescription="@string/overflow_menu"
                 android:focusable="true"

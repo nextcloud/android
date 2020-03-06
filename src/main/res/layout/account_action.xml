@@ -32,7 +32,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/list_item_avatar_icon_margin"
         android:layout_marginStart="@dimen/list_item_avatar_text_margin"
         android:src="@drawable/ic_account_plus"
         android:contentDescription="@string/prefs_add_account"/>
@@ -44,11 +43,9 @@
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:paddingEnd="@dimen/standard_padding"
-        android:paddingLeft="28dp"
-        android:paddingRight="@dimen/standard_padding"
         android:paddingStart="28dp"
         android:text="@string/prefs_add_account"
         android:textColor="@color/primary"
         android:textSize="@dimen/two_line_primary_text_size" />
 
-</LinearLayout>         
+</LinearLayout>

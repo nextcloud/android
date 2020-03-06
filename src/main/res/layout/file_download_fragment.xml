@@ -19,19 +19,19 @@
     android:id="@+id/fileDownloadLL"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical" 
+    android:orientation="vertical"
 	android:layout_gravity="center"
 	android:gravity="center_vertical"
 	android:padding="@dimen/file_download_fragment_layout_padding">
-	
-	<TextView 
-	    android:id="@+id/progressText" 
+
+    <TextView
+        android:id="@+id/progressText"
 	    android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:textColor="@color/dark_background_text_color"
 		android:text="@string/downloader_not_downloaded_yet"
 		android:layout_marginBottom="@dimen/alternate_fragment_margin" />
-	
+
     <LinearLayout
         android:id="@+id/fdProgressBlock"
 		android:layout_width="match_parent"
@@ -40,7 +40,7 @@
 		android:layout_marginTop="@dimen/fragment_margin"
 		android:layout_marginBottom="@dimen/alternate_fragment_margin"
 		android:orientation="horizontal">
-	    				
+
 		<ProgressBar android:id="@+id/progressBar"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
@@ -53,15 +53,14 @@
 			android:id="@+id/cancelBtn"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="@dimen/fragment_margin"
-			android:layout_marginStart="@dimen/fragment_margin"
+            android:layout_marginStart="@dimen/fragment_margin"
 			android:src="@drawable/ic_action_cancel_grey"
 			android:background="@android:color/transparent"
 			android:contentDescription="@string/common_cancel"/>
 
 	</LinearLayout>
-			
-	<ImageView
+
+    <ImageView
 		android:id="@+id/error_image"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -69,15 +68,15 @@
 		android:layout_gravity="center_horizontal"
 		android:contentDescription="@string/downloader_download_failed_ticker"
 		android:src="@drawable/image_fail" />
-										
-	<TextView 
-	    android:id="@+id/errorText" 
+
+    <TextView
+        android:id="@+id/errorText"
 	    android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
 		android:layout_margin="@dimen/file_download_fragment_display_text_margin"
 		android:textColor="@color/dark_background_text_color"
 		android:text="@string/downloader_download_failed_ticker" />
-	
+
 </LinearLayout>
 
