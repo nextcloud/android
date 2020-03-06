@@ -44,7 +44,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_toRightOf="@id/activity_icon"
         android:layout_toEndOf="@id/activity_icon">
 
         <TextView
@@ -53,8 +52,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:paddingEnd="@dimen/zero"
-            android:paddingLeft="@dimen/activity_icon_layout_right_end_margin"
-            android:paddingRight="@dimen/zero"
             android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
             android:paddingTop="@dimen/standard_padding"
             tools:text="@string/placeholder_filename"
@@ -65,8 +62,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/zero"
-            android:paddingLeft="@dimen/activity_icon_layout_right_end_margin"
-            android:paddingRight="@dimen/zero"
             android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
             android:ellipsize="end"
             tools:text="@string/placeholder_sentence"
@@ -77,11 +72,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/alternate_half_margin"
-            android:layout_marginLeft="@dimen/activity_list_item_grid_layout_left_start_margin"
             android:layout_marginStart="@dimen/activity_list_item_grid_layout_left_start_margin"
             android:paddingEnd="@dimen/zero"
-            android:paddingLeft="@dimen/activity_icon_layout_right_end_margin"
-            android:paddingRight="@dimen/zero"
             android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
             android:columnCount="3" />
 
@@ -92,8 +84,6 @@
             android:layout_gravity="end"
             android:ellipsize="end"
             android:paddingEnd="@dimen/zero"
-            android:paddingLeft="@dimen/activity_icon_layout_right_end_margin"
-            android:paddingRight="@dimen/zero"
             android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
             tools:text="@string/placeholder_sentence"
             android:textColor="?android:attr/textColorSecondary"/>

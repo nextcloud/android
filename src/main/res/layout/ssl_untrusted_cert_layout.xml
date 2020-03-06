@@ -41,11 +41,9 @@
 		android:layout_height="wrap_content"
 		android:layout_weight="0"
 		android:layout_gravity="start"
-		android:paddingLeft="@dimen/standard_half_padding"
-		android:paddingStart="@dimen/standard_half_padding"
+        android:paddingStart="@dimen/standard_half_padding"
 		android:paddingEnd="@dimen/zero"
-		android:paddingRight="@dimen/zero"
-		android:text="@string/ssl_validator_reason_cert_not_trusted"
+        android:text="@string/ssl_validator_reason_cert_not_trusted"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
 
@@ -55,11 +53,9 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="start"
-		android:paddingLeft="@dimen/standard_half_padding"
-		android:paddingStart="@dimen/standard_half_padding"
+        android:paddingStart="@dimen/standard_half_padding"
 		android:paddingEnd="@dimen/zero"
-		android:paddingRight="@dimen/zero"
-		android:text="@string/ssl_validator_reason_cert_expired"
+        android:text="@string/ssl_validator_reason_cert_expired"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
 
@@ -68,11 +64,9 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="start"
-		android:paddingLeft="@dimen/standard_half_padding"
-		android:paddingStart="@dimen/standard_half_padding"
+        android:paddingStart="@dimen/standard_half_padding"
 		android:paddingEnd="@dimen/zero"
-		android:paddingRight="@dimen/zero"
-		android:text="@string/ssl_validator_reason_cert_not_yet_valid"
+        android:text="@string/ssl_validator_reason_cert_not_yet_valid"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
 
@@ -80,11 +74,9 @@
 		android:id="@+id/reason_hostname_not_verified"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:paddingLeft="@dimen/standard_half_padding"
-		android:paddingStart="@dimen/standard_half_padding"
+        android:paddingStart="@dimen/standard_half_padding"
 		android:paddingEnd="@dimen/zero"
-		android:paddingRight="@dimen/zero"
-		android:text="@string/ssl_validator_reason_hostname_not_verified"
+        android:text="@string/ssl_validator_reason_hostname_not_verified"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
 
@@ -92,10 +84,8 @@
 		android:id="@+id/reason_no_info_about_error"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:paddingLeft="@dimen/standard_half_padding"
-		android:paddingStart="@dimen/standard_half_padding"
-		android:paddingRight="@dimen/zero"
-		android:paddingEnd="@dimen/zero"
+        android:paddingStart="@dimen/standard_half_padding"
+        android:paddingEnd="@dimen/zero"
 		android:text="@string/ssl_validator_no_info_about_error"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
@@ -121,11 +111,9 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_gravity="start"
-				android:paddingLeft="@dimen/ssl_untrusted_cert_layout_padding"
-				android:paddingStart="@dimen/ssl_untrusted_cert_layout_padding"
+                android:paddingStart="@dimen/ssl_untrusted_cert_layout_padding"
 				android:paddingEnd="@dimen/zero"
-				android:paddingRight="@dimen/zero"
-				android:text="@string/ssl_validator_null_cert"
+                android:text="@string/ssl_validator_null_cert"
 				android:textAppearance="?android:attr/textAppearanceSmall" />
 
 				<TextView

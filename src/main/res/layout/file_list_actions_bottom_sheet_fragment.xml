@@ -57,7 +57,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
             android:text="@string/upload_files"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
@@ -88,7 +87,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
             android:text="@string/upload_content_from_other_apps"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
@@ -119,7 +117,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
             android:text="@string/upload_direct_camera_upload"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
@@ -160,7 +157,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
             android:text="@string/create_new_folder"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
@@ -206,7 +202,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/standard_margin"
-                android:layout_marginLeft="@dimen/standard_margin"
                 android:text="@string/create_new_document"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
@@ -235,7 +230,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/standard_margin"
-                android:layout_marginLeft="@dimen/standard_margin"
                 android:text="@string/create_new_spreadsheet"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
@@ -264,7 +258,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/standard_margin"
-                android:layout_marginLeft="@dimen/standard_margin"
                 android:text="@string/create_new_presentation"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
@@ -329,7 +322,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
             android:text="@string/create_rich_workspace"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size"
