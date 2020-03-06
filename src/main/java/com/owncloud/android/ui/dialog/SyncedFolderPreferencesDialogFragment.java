@@ -179,7 +179,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
         mUploadOnWifiCheckbox = view.findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
         ThemeUtils.tintCheckbox(mUploadOnWifiCheckbox, accentColor);
-        
+
         mUploadOnChargingCheckbox = view.findViewById(R.id.setting_instant_upload_on_charging_checkbox);
         ThemeUtils.tintCheckbox(mUploadOnChargingCheckbox, accentColor);
 
