@@ -71,7 +71,6 @@
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:text="@string/common_cancel"
-            android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_marginEnd="@dimen/standard_half_margin"
             app:cornerRadius="@dimen/button_corner_radius" />
 

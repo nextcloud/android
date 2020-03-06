@@ -55,8 +55,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/toolbar_user_information_layout_margin"
                 android:layout_marginEnd="@dimen/standard_half_margin"
-                android:layout_marginLeft="@dimen/toolbar_user_information_layout_margin"
-                android:layout_marginRight="@dimen/standard_half_margin"
                 android:layout_marginStart="@dimen/toolbar_user_information_layout_margin"
                 android:gravity="bottom"
                 android:orientation="horizontal"
@@ -82,7 +80,6 @@
                     android:layout_marginLeft="@dimen/standard_half_margin"
                     android:layout_marginRight="@dimen/standard_half_margin"
                     android:layout_toEndOf="@id/avatar_container"
-                    android:layout_toRightOf="@id/avatar_container"
                     android:orientation="vertical">
 
                     <TextView
