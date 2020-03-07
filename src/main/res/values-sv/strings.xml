@@ -141,9 +141,12 @@
     <string name="confirmation_remove_folder_alert">Vill du verkligen ta bort %1$s och dess innehåll?</string>
     <string name="confirmation_remove_folders_alert">Vill du verkligen radera de valda objekten och dess innehåll?</string>
     <string name="confirmation_remove_local">Endast lokalt</string>
+    <string name="conflict_already_existing_file">Filen finns redan</string>
     <string name="conflict_keep_both">Behåll båda</string>
     <string name="conflict_message">Vilka filer vill du behålla? Om du väljer båda versioner kommer den lokala filen att ha ett nummer kopplat till dess namn.</string>
+    <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
     <string name="conflict_message_headline">Vilka filer vill du behålla?</string>
+    <string name="conflict_new_file">Ny fil</string>
     <string name="conflict_title">Filkonflikt</string>
     <string name="conflict_use_local_version">lokala versionen</string>
     <string name="conflict_use_server_version">serverversionen</string>
@@ -366,6 +369,7 @@
     <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
+    <string name="invalid_url">Ogiltig URL</string>
     <string name="learn_more">Läs mer</string>
     <string name="link">Länk</string>
     <string name="list_layout">Listad layout</string>
@@ -572,6 +576,8 @@
     <string name="share_group_clarification">%1$s (grupp)</string>
     <string name="share_internal_link">Dela intern länk</string>
     <string name="share_internal_link_text">Fungerar bara för användare med tillgång till den här %1$s</string>
+    <string name="share_internal_link_to_file_text">Intern länkdelning fungerar bara för användare med åtkomst till den här filen</string>
+    <string name="share_internal_link_to_folder_text">Intern länkdelning fungerar bara för användare med åtkomst till den här mappen</string>
     <string name="share_known_remote_clarification">%1$s ( på %2$s )</string>
     <string name="share_link_empty_password">Du måste ange ett lösenord</string>
     <string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp</string>
@@ -694,6 +700,8 @@
     <string name="tags">Taggar</string>
     <string name="test_server_button">Testa serveranslutning</string>
     <string name="thumbnail">Ikon</string>
+    <string name="thumbnail_for_existing_file_description">Miniatyrbild för befintlig fil</string>
+    <string name="thumbnail_for_new_file_desc">Miniatyrbild för ny fil</string>
     <string name="timeout_richDocuments">Laddning tar väldigt länge...</string>
     <string name="trashbin_activity_title">Raderade filer</string>
     <string name="trashbin_empty_headline">Inga raderade filer</string>
