@@ -140,9 +140,12 @@
     <string name="confirmation_remove_folder_alert">Ali res želite izbrisati %1$s skupaj z vsebino?</string>
     <string name="confirmation_remove_folders_alert">Ali zares želite izbrisati izbrane predmete in vsebino?</string>
     <string name="confirmation_remove_local">Le krajevno</string>
+    <string name="conflict_already_existing_file">Obstoječe datoteke</string>
     <string name="conflict_keep_both">Ohrani obe</string>
     <string name="conflict_message">Katere datoteke želiš ohraniti? Če izbereš obe različici, bo lokalni datoteki dodatna k imenu še številka.</string>
+    <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
     <string name="conflict_message_headline">Katere datoteke želite ohraniti?</string>
+    <string name="conflict_new_file">Nova datoteka</string>
     <string name="conflict_title">Neskladje datotek</string>
     <string name="conflict_use_local_version">krajevna različica</string>
     <string name="conflict_use_server_version">različica strežnika</string>
@@ -463,6 +466,7 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">To je vsebnik predmetov</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="power_save_check_dialog_message">Onemogočanje varčevanja lahko povzroči pošiljanje datotek, ko je napetost baterije že nizka!</string>
     <string name="pref_behaviour_entries_delete_file">izbrisano</string>
     <string name="pref_behaviour_entries_keep_file">ohranjeno v izvorni mapi</string>
     <string name="pref_behaviour_entries_move">premaknjeno v mapo programa</string>
@@ -538,7 +542,7 @@
     <string name="saml_authentication_wrong_pass">Napačno geslo</string>
     <string name="scanQR_description">Prijava s kodo QR</string>
     <string name="screenshot_01_gridView_heading">Zaščita podatkov</string>
-    <string name="screenshot_01_gridView_subline">samo-gostujoče produktivno okolje</string>
+    <string name="screenshot_01_gridView_subline">samo-gostujoče produkcijsko okolje</string>
     <string name="screenshot_02_listView_heading">Brskanje in souporaba</string>
     <string name="screenshot_02_listView_subline">vsa dejanja na dosegu roke</string>
     <string name="screenshot_03_drawer_heading">Dejavnosti, souporaba ...</string>
@@ -607,6 +611,7 @@
     <string name="shared_icon_shared_via_link">v souporabi prek povezave</string>
     <string name="sharee_add_failed">Dodajanje souporabnika je spodletelo</string>
     <string name="signup_with_provider">Prijava prek ponudnika</string>
+    <string name="single_sign_on_request_token" formatted="true">Ali dovolite uporabniku %1$s dostop do računa Nextcloud %2$s?</string>
     <string name="sort_by">Razvrsti</string>
     <string name="sort_by_modification_date_ascending">najprej najnovejše</string>
     <string name="sort_by_modification_date_descending">najprej najstarejše</string>
@@ -663,6 +668,7 @@
     <string name="sync_fail_ticker">Usklajevanje je spodletelo</string>
     <string name="sync_fail_ticker_unauthorized">Usklajevanje je spodletelo; zahtevana je ponovna prijava.</string>
     <string name="sync_file_nothing_to_do_msg">Vsebina datoteke je že usklajena</string>
+    <string name="sync_folder_failed_content">Usklajevanja mape %1$s ni mogoče dokončati!</string>
     <string name="sync_foreign_files_forgotten_explanation">Od različice 1.3.16 se poslane datoteke kopirajo v krajevno mapo %1$s za preprečevanje izgube podatkov, ko se ena datoteka usklajuje z več računi.\n\nZaradi te spremembe so bile vse datoteke, kopirane s predhodno različico programa, že kopirane v  %2$s. Vendar pa je prišlo do napake, ki preprečuje dokončanje opravila med usklajevanjem. Lahko pustite datoteke kot so in izbrišete povezavo %3$s, ali pa premaknete datoteke v %1$s in ohranite povezavo do %4$s.\n\nSpodaj je seznam krajevnih datotek in povezave oddaljenih datotek v %5$s.</string>
     <string name="sync_foreign_files_forgotten_ticker">Nekatere krajevne datoteke so spregledane</string>
     <string name="sync_in_progress">Poteka pridobivanje zadnje različice datoteke.</string>
@@ -683,6 +689,8 @@
     <string name="tags">Oznake</string>
     <string name="test_server_button">Preizkusi povezavo s strežnikom</string>
     <string name="thumbnail">Sličica</string>
+    <string name="thumbnail_for_existing_file_description">Sličica obstoječe datoteke</string>
+    <string name="thumbnail_for_new_file_desc">Sličica za novo datoteko</string>
     <string name="timeout_richDocuments">Nalaganje poteka nepričakovano dolgo ...</string>
     <string name="trashbin_activity_title">Izbrisane datoteke</string>
     <string name="trashbin_empty_headline">Ni izbrisanih datotek</string>
@@ -765,6 +773,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Krajevne datoteke ni mogoče najti</string>
     <string name="uploads_view_upload_status_failed_permission_error">Napaka dovoljenj</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Potrdilo strežnika ni vredno zaupanja</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Poteka pridobivanje različice strežnika ...</string>
     <string name="uploads_view_upload_status_service_interrupted">Program je vsiljeno končan</string>
     <string name="uploads_view_upload_status_succeeded">Končano</string>
     <string name="uploads_view_upload_status_unknown_fail">Neznana napaka</string>
@@ -785,6 +794,7 @@
     <string name="wait_a_moment">Počakajte trenutek …</string>
     <string name="wait_checking_credentials">Poteka preverjanje shranjenih poveril</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
+    <string name="what_s_new_image">Kaj je nova slika</string>
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo v %1$s</string>
     <plurals name="sync_fail_in_favourites_content">
