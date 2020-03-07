@@ -1,0 +1,15 @@
+remove unused dimens value
+remove unneeded call
+use correct dimens id
+remove sdk17 checks
+Remove outdated right/left as now only start/end is needed
+change minimum supported Android version to 4.2
+Properly signal error when user id migration fails
+Enabled migration manager in MainApp
+Removed MigrationManager Robolectric tests
+Support for optional migrations
+Migrations manager
+remove ununsed raw files
+remove unused class
+Update translations
+Update 3rd-party dependencies
