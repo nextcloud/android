@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">מקומי בלבד</string>
     <string name="conflict_keep_both">להשאיר את שניהם</string>
     <string name="conflict_message">איזה קבצים לשמור? אם יבחרו שתי הגרסאות, הקובץ המקומי יקבל מספר שיצורף לשמו.</string>
+    <string name="conflict_message_headline">אילו קבצים ברצונך לשמור?</string>
     <string name="conflict_title">התנגשות בין קבצים</string>
     <string name="conflict_use_local_version">גרסה מקומית</string>
     <string name="conflict_use_server_version">גרסת שרת</string>

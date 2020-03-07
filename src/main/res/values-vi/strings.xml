@@ -82,6 +82,7 @@
     <string name="confirmation_remove_files_alert">Bạn thực sự muốn xóa mục lựa chọn này?</string>
     <string name="confirmation_remove_local">Chỉ cục bộ</string>
     <string name="conflict_keep_both">Giữ cho cả hai</string>
+    <string name="conflict_message_headline">Bạn muốn tiếp tục với những tập tin nào?</string>
     <string name="conflict_use_server_version">phiên bản máy chủ</string>
     <string name="contactlist_item_icon">Sử dụng biểu tượng cho danh mục liên hệ</string>
     <string name="contacts_preference_backup_never">không thay đổi</string>

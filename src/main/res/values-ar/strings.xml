@@ -142,6 +142,7 @@
     <string name="confirmation_remove_local">محليا فقط</string>
     <string name="conflict_keep_both">الاحتفاظ بالنسختين</string>
     <string name="conflict_message">أي ملفات تود أن تحفظها؟ عند إختيارك للنسختين من الملفات، سيضاف رقم في آخر إسم النسخة المحلية.</string>
+    <string name="conflict_message_headline">ماهي الملفات التي ترغب في إبقاءها ؟</string>
     <string name="conflict_title">تعارُض الملف</string>
     <string name="conflict_use_local_version">النسخة المحلية</string>
     <string name="conflict_use_server_version">نسخة السيرفر</string>

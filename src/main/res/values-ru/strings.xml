@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Только локально</string>
     <string name="conflict_keep_both">Сохранить оба</string>
     <string name="conflict_message">Какие файлы вы хотите сохранить? Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
+    <string name="conflict_message_headline">Какие файлы вы хотите сохранить?</string>
     <string name="conflict_title">Конфликт файлов</string>
     <string name="conflict_use_local_version">Версию на устройстве</string>
     <string name="conflict_use_server_version">Версия сервера</string>
