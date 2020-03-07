@@ -31,7 +31,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
         <ImageView
@@ -40,9 +39,7 @@
             android:layout_height="@dimen/user_icon_size"
             android:layout_gravity="top|start"
             android:layout_marginBottom="@dimen/account_item_layout_user_image_margin"
-            android:layout_marginLeft="@dimen/account_item_layout_user_image_left_start_margin"
             android:layout_marginStart="@dimen/account_item_layout_user_image_left_start_margin"
-            android:layout_marginRight="@dimen/account_item_layout_user_image_margin"
             android:layout_marginEnd="@dimen/account_item_layout_user_image_margin"
             android:layout_marginTop="@dimen/account_item_layout_user_image_margin"
             android:src="@drawable/folder"
@@ -63,11 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_toEndOf="@id/avatar_container"
-        android:layout_toRightOf="@id/avatar_container"
         android:orientation="vertical"
         android:paddingEnd="@dimen/zero"
-        android:paddingLeft="3dp"
-        android:paddingRight="@dimen/zero"
         android:paddingStart="3dp">
 
         <TextView
@@ -75,8 +69,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginTop="@dimen/standard_quarter_margin"
             android:ellipsize="end"
@@ -91,8 +83,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/standard_quarter_margin"
             android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_marginStart="@dimen/standard_margin"
             android:ellipsize="end"
             android:gravity="top"

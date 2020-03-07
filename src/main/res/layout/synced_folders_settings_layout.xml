@@ -108,7 +108,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/local_folder_title"
                         android:layout_alignStart="@id/local_folder_title"
-                        android:layout_alignLeft="@id/local_folder_title"
                         android:ellipsize="middle"
                         android:maxLines="2"
                         android:text="@string/choose_local_folder"
@@ -160,7 +159,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/remote_folder_title"
                         android:layout_alignStart="@id/remote_folder_title"
-                        android:layout_alignLeft="@id/remote_folder_title"
                         android:ellipsize="middle"
                         android:maxLines="2"
                         android:text="@string/choose_remote_folder"
@@ -330,7 +328,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/setting_instant_upload_path_use_subfolders_label"
                         android:layout_alignStart="@id/setting_instant_upload_path_use_subfolders_label"
-                        android:layout_alignLeft="@id/setting_instant_upload_path_use_subfolders_label"
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:text="@string/prefs_instant_upload_path_use_subfolders_summary"
@@ -398,14 +395,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:text="@string/common_delete" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentEnd="true">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/cancel"

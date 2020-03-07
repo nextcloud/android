@@ -135,8 +135,6 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:paddingEnd="@dimen/zero"
-        android:paddingLeft="@dimen/standard_half_padding"
-        android:paddingRight="@dimen/zero"
         android:paddingStart="@dimen/standard_half_padding">
 
         <ImageButton

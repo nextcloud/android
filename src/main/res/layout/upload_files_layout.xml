@@ -84,7 +84,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_weight="1"
             android:text="@string/common_cancel"
             style="@style/OutlinedButton"

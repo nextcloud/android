@@ -34,8 +34,7 @@
 		android:layout_height="@dimen/user_icon_size_independent"
 		android:layout_gravity="center_vertical"
 		android:layout_marginEnd="@dimen/standard_padding"
-		android:layout_marginRight="@dimen/standard_padding"
-		android:contentDescription="@string/activity_icon" />
+        android:contentDescription="@string/activity_icon" />
 
 	<TextView
 		android:id="@+id/title"

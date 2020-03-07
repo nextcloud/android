@@ -142,6 +142,7 @@
     <string name="confirmation_remove_local">Kun lokal</string>
     <string name="conflict_keep_both">Behold begge</string>
     <string name="conflict_message">Hvilke filer ønsker du at beholde? Hvis du vælger begge versioner, så vil den lokale fil få et tal tilføjet til sit navn.</string>
+    <string name="conflict_message_headline">Hvilke filer ønsker du at beholde?</string>
     <string name="conflict_title">Filkonflikt</string>
     <string name="conflict_use_local_version">lokal version</string>
     <string name="conflict_use_server_version">serverversion</string>

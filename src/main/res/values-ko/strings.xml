@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">로컬만</string>
     <string name="conflict_keep_both">모두 저장</string>
     <string name="conflict_message">어떤 파일을 저장하시겠습니까? 모두 저장을 선택하면 로컬 버전의 파일 이름에 숫자를 추가합니다.</string>
+    <string name="conflict_message_headline">어느 파일을 유지하시겠습니까?</string>
     <string name="conflict_title">파일 충돌</string>
     <string name="conflict_use_local_version">로컬 버전</string>
     <string name="conflict_use_server_version">서버 버전</string>

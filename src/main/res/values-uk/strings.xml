@@ -133,6 +133,7 @@
     <string name="confirmation_remove_folder_alert">Ви справді бажаєте вилучити %1$s та його вміст?</string>
     <string name="confirmation_remove_local">Лише локально</string>
     <string name="conflict_keep_both">Залишити обидва</string>
+    <string name="conflict_message_headline">Які файли ви хочете залишити?</string>
     <string name="conflict_title">Конфлікт файлу</string>
     <string name="conflict_use_local_version">Локальна версія</string>
     <string name="conflict_use_server_version">Версія сервера</string>

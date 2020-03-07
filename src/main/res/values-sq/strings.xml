@@ -142,6 +142,7 @@
     <string name="confirmation_remove_local">Vetëm vendorja</string>
     <string name="conflict_keep_both">Mbaji të dyja</string>
     <string name="conflict_message">Cilat kartela doni të mbani? Nëse përzgjidhni të dy versionet, skedarit vendorë do t\’i shtohet një numër te emri.</string>
+    <string name="conflict_message_headline">Cilat kartela doni të mbani?</string>
     <string name="conflict_title">Përplasje skedarësh</string>
     <string name="conflict_use_local_version">versionin vendor</string>
     <string name="conflict_use_server_version">versionin e shërbyesit</string>

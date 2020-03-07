@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Bertakoa bakarrik</string>
     <string name="conflict_keep_both">Mantendu biak</string>
     <string name="conflict_message">Zeintzuk fitxategi mantendu nahi dituzu? Bi bertsioak hautatzen badituzu, lokaleko fitxategiaren izenenari zenbaki bat atxikituko zaio.</string>
+    <string name="conflict_message_headline">Ze fitxategi mantendu nahi dituzu?</string>
     <string name="conflict_title">Fitxategi gatazka</string>
     <string name="conflict_use_local_version">bertsio lokala</string>
     <string name="conflict_use_server_version">zerbitzariaren bertsioa</string>
@@ -364,6 +365,7 @@
     <string name="host_your_own_server">Ostatatu zure zerbitzaria</string>
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
     <string name="instant_upload_path">/BerehalakoIgoerak</string>
+    <string name="invalid_url">URL baliogabea</string>
     <string name="learn_more">Gehiago ikasi</string>
     <string name="link">Esteka</string>
     <string name="list_layout">Zerrenda ikuspegia</string>
