@@ -141,9 +141,12 @@
     <string name="confirmation_remove_folder_alert">Quer realmente excluir %1$s e seu conteúdo?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="confirmation_remove_local">Somente local</string>
+    <string name="conflict_already_existing_file">Arquivo já existe</string>
     <string name="conflict_keep_both">Manter ambos</string>
     <string name="conflict_message">Quais arquivos você quer manter? Se você selecionar ambos, o arquivo local terá um número adicionado ao seu nome.</string>
+    <string name="conflict_message_description">Se você selecionar as duas versões, o arquivo local terá um número anexado ao seu nome.</string>
     <string name="conflict_message_headline">Quais arquivos você quer manter?</string>
+    <string name="conflict_new_file">Novo arquivo</string>
     <string name="conflict_title">Conflito de arquivo</string>
     <string name="conflict_use_local_version">versão local</string>
     <string name="conflict_use_server_version">versão do servidor</string>
@@ -696,6 +699,8 @@
     <string name="tags">Rótulos</string>
     <string name="test_server_button">Teste de conexão ao servidor</string>
     <string name="thumbnail">Miniatura</string>
+    <string name="thumbnail_for_existing_file_description">Miniatura para arquivo existente</string>
+    <string name="thumbnail_for_new_file_desc">Miniatura para arquivo novo</string>
     <string name="timeout_richDocuments">O carregamento demora muito…</string>
     <string name="trashbin_activity_title">Arquivos excluídos</string>
     <string name="trashbin_empty_headline">Nenhum arquivo excluído</string>

@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Local only</string>
     <string name="conflict_keep_both">Keep both</string>
     <string name="conflict_message">Which files do you want to keep? If you select both versions, the local file will have a number appended to its name.</string>
+    <string name="conflict_message_headline">Which files do you wish to keep?</string>
     <string name="conflict_title">File conflict</string>
     <string name="conflict_use_local_version">local version</string>
     <string name="conflict_use_server_version">server version</string>

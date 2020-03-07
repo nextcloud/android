@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Iba lokálne</string>
     <string name="conflict_keep_both">Ponechať oba</string>
     <string name="conflict_message">Ktoré súbory si prajate ponachať? Pokiaľ to budú obe verzie, lokálnej pribudne k názvu číslo.</string>
+    <string name="conflict_message_headline">Ktoré súbory chcete ponechať?</string>
     <string name="conflict_title">Konflikt súborov</string>
     <string name="conflict_use_local_version">lokálnu verziu</string>
     <string name="conflict_use_server_version">serverovú verziu</string>

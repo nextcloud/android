@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Samo lokalno</string>
     <string name="conflict_keep_both">Zadrži obje</string>
     <string name="conflict_message">Koje datoteke želite zadržati? Ako odaberete obje inačice, lokalna će datoteka uz naziv imati i broj.</string>
+    <string name="conflict_message_headline">Koje datoteke želite zadržati?</string>
     <string name="conflict_title">Nepodudaranje datoteka</string>
     <string name="conflict_use_local_version">lokalna inačica</string>
     <string name="conflict_use_server_version">inačica poslužitelja</string>
