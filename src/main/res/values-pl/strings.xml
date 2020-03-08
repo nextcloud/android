@@ -141,9 +141,12 @@
     <string name="confirmation_remove_folder_alert">Czy na pewno chcesz usunąć %1$s wraz z zawartością?</string>
     <string name="confirmation_remove_folders_alert">Czy na pewno chcesz usunąć wybrane elementy i ich zawartość?</string>
     <string name="confirmation_remove_local">Tylko lokalnie</string>
+    <string name="conflict_already_existing_file">Już istniejący plik</string>
     <string name="conflict_keep_both">Zatrzymaj oba</string>
     <string name="conflict_message">Które pliki chcesz zachować? Jeżeli wybierzesz obie wersje, do nazwy pliku lokalnego zostanie dodana liczba.</string>
+    <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do lokalnego pliku będzie dodany numer.</string>
     <string name="conflict_message_headline">Które pliki chcesz zachować?</string>
+    <string name="conflict_new_file">Nowy plik</string>
     <string name="conflict_title">Konflikt pliku</string>
     <string name="conflict_use_local_version">wersja lokalna</string>
     <string name="conflict_use_server_version">wersja zdalna</string>
@@ -696,6 +699,8 @@
     <string name="tags">Etykiety</string>
     <string name="test_server_button">Sprawdź połączenie z serwerem</string>
     <string name="thumbnail">Miniatura</string>
+    <string name="thumbnail_for_existing_file_description">Miniaturka dla istniejącego pliku</string>
+    <string name="thumbnail_for_new_file_desc">Miniaturka dla nowego pliku</string>
     <string name="timeout_richDocuments">Ładowanie potrwa długo...</string>
     <string name="trashbin_activity_title">Usunięte pliki</string>
     <string name="trashbin_empty_headline">Brak usuniętych plików</string>
