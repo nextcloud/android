@@ -144,7 +144,7 @@
     <string name="conflict_already_existing_file">Už existující soubor</string>
     <string name="conflict_keep_both">Ponechat oba</string>
     <string name="conflict_message">Které soubory chcete ponechat? Pokud zvolíte obě verze, zkopírovaný soubor bude mít název doplněný o číslo.</string>
-    <string name="conflict_message_description">Pokud zvolíte obě verze, místnímu souboru bude k názvu připojeno číslo.</string>
+    <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>
     <string name="conflict_message_headline">Které soubory chcete ponechat?</string>
     <string name="conflict_new_file">Nový soubor</string>
     <string name="conflict_title">Konflikt souboru</string>
