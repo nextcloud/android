@@ -88,6 +88,7 @@
     <string name="battery_optimization_title">Optimizacija baterije</string>
     <string name="certificate_load_problem">Prišlo je do težav med nalaganjem potrdila.</string>
     <string name="changelog_dev_version">Dnevnik razvojne različice</string>
+    <string name="checkbox">Izbirno polje</string>
     <string name="choose_local_folder">Izberi krajevno mapo ...</string>
     <string name="choose_remote_folder">Izberi oddaljeno mapo ...</string>
     <string name="clear_notifications_failed">Počiščenje obvestil je spodletelo.</string>
@@ -140,7 +141,7 @@
     <string name="confirmation_remove_folder_alert">Ali res želite izbrisati %1$s skupaj z vsebino?</string>
     <string name="confirmation_remove_folders_alert">Ali zares želite izbrisati izbrane predmete in vsebino?</string>
     <string name="confirmation_remove_local">Le krajevno</string>
-    <string name="conflict_already_existing_file">Obstoječe datoteke</string>
+    <string name="conflict_already_existing_file">Obstoječa datoteka</string>
     <string name="conflict_keep_both">Ohrani obe</string>
     <string name="conflict_message">Katere datoteke želiš ohraniti? Če izbereš obe različici, bo lokalni datoteki dodatna k imenu še številka.</string>
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
