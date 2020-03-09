@@ -187,9 +187,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         if (fileDisplayActivity == null) {
             throw new IllegalArgumentException("FileActivity may not be null");
         }
-
-        fileOperationsHelper = fileDisplayActivity.getFileOperationsHelper();
-        fileDataStorageManager = fileDisplayActivity.getStorageManager();
     }
 
     @Override
@@ -205,9 +202,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         View view = inflater.inflate(R.layout.file_details_sharing_fragment, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        if (fileDataStorageManager == null) {
-            fileDataStorageManager = new FileDataStorageManager(account, fileDisplayActivity.getContentResolver());
-        }
+        fileOperationsHelper = fileDisplayActivity.getFileOperationsHelper();
+        fileDataStorageManager = fileDisplayActivity.getStorageManager();
 
         setupView();
 
@@ -233,7 +229,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (!(getActivity() instanceof FileActivity)) {
             throw new IllegalArgumentException("Calling activity must be of type FileActivity");
