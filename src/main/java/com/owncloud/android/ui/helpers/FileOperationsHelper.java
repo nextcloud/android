@@ -1038,10 +1038,18 @@ public class FileOperationsHelper {
         return new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(new Date()) + ".jpg";
     }
 
+    /**
+     * @return -1 if no space could computed, otherwise available space in bytes
+     */
     public static Long getAvailableSpaceOnDevice() {
-        StatFs stat = new StatFs(MainApp.getStoragePath());
-        long availableBytesOnDevice;
+        StatFs stat;
+        try {
+            stat = new StatFs(MainApp.getStoragePath());
+        } catch (NullPointerException | IllegalArgumentException e) {
+            return -1L;
+        }
 
+        long availableBytesOnDevice;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
             availableBytesOnDevice = stat.getBlockSizeLong() * stat.getAvailableBlocksLong();
         } else {
@@ -1050,6 +1058,5 @@ public class FileOperationsHelper {
 
         return availableBytesOnDevice;
     }
-
 
 }
