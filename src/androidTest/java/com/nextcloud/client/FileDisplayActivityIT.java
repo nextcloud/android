@@ -28,12 +28,14 @@ import android.app.Activity;
 import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.shares.CreateShareRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.events.SearchEvent;
 
@@ -43,6 +45,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import androidx.test.espresso.contrib.DrawerActions;
+import androidx.test.espresso.contrib.NavigationViewActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
@@ -50,6 +53,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 
@@ -135,5 +139,36 @@ public class FileDisplayActivityIT extends AbstractIT {
         onView(withId(R.id.drawer_active_user)).perform(click());
 
         Screenshot.snapActivity(sut).record();
+    }
+
+    @Test
+    public void allFiles() throws InterruptedException {
+        // ActivityScenario<FileDisplayActivity> sut = ActivityScenario.launch(FileDisplayActivity.class);
+        FileDisplayActivity sut = activityRule.launchActivity(null);
+
+        // given test folder
+        assertTrue(new CreateFolderOperation("/test/", true).execute(client, getStorageManager()).isSuccess());
+
+        // navigate into it
+        // sut.onActivity(activity -> activity.onBrowsedDownTo(getStorageManager().getFileByPath("/test/")));
+        //sut.onBrowsedDownTo(getStorageManager().getFileByPath("/test/"));
+        OCFile test = getStorageManager().getFileByPath("/test/");
+        sut.setFile(test);
+        sut.startSyncFolderOperation(test, false);
+
+        assertEquals(getStorageManager().getFileByPath("/test/"), sut.getCurrentDir());
+
+        // open drawer
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+
+        // click "all files"
+        onView(withId(R.id.nav_view))
+            .perform(NavigationViewActions.navigateTo(R.id.nav_all_files));
+
+        // then should be in root again
+        Thread.sleep(2000);
+        assertEquals(getStorageManager().getFileByPath("/"), sut.getCurrentDir());
+
+
     }
 }

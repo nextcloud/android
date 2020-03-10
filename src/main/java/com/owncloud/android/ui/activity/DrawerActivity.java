@@ -409,14 +409,13 @@ public abstract class DrawerActivity extends ToolbarActivity
             case R.id.nav_all_files:
                 if (this instanceof FileDisplayActivity) {
                     if (((FileDisplayActivity) this).getListOfFilesFragment() instanceof PhotoFragment) {
-                        // showFiles(false);
                         Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
                         intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
                         intent.setAction(FileDisplayActivity.ALL_FILES);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     } else {
-                        showFiles(false);
+                        ((FileDisplayActivity) this).browseToRoot();
                         EventBus.getDefault().post(new ChangeMenuEvent());
                     }
                 } else {
@@ -1217,7 +1216,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, mIsAccountChooserActive);
@@ -1225,7 +1224,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
         mIsAccountChooserActive = savedInstanceState.getBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, false);
@@ -1257,7 +1256,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         if (mDrawerToggle != null) {
             mDrawerToggle.onConfigurationChanged(newConfig);
