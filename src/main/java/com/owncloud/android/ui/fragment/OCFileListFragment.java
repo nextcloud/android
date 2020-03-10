@@ -1710,11 +1710,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void syncAndCheckFiles(Collection<OCFile> files) {
         for (OCFile file : files) {
-            // Get the remaining space on device (after file download)
+            // Get the remaining space on device
             long availableSpaceOnDevice = FileOperationsHelper.getAvailableSpaceOnDevice();
 
-            // Determine if space is enough to download the file
-            boolean isSpaceEnough = availableSpaceOnDevice > file.getFileLength();
+            // Determine if space is enough to download the file, -1 available space if there in error while computing
+            boolean isSpaceEnough = true;
+            if (availableSpaceOnDevice >= 0) {
+                isSpaceEnough = availableSpaceOnDevice > file.getFileLength();
+            }
 
             if (isSpaceEnough) {
                 mContainerActivity.getFileOperationsHelper().syncFile(file);
