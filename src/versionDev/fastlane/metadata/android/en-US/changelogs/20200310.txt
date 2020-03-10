@@ -1,0 +1,2 @@
+Fix NPE on restoring file detail sharing fragment
+Update translations
