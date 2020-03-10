@@ -72,6 +72,7 @@ If your issue appears to be a bug, and hasn't been reported, open a new issue.
 
 
 ### Bug workflow
+Every bug should be triaged in approved/needs info in a given time.
 * approved: at least one other is able to reproduce it
 * needs info: something unclear, or not able to reproduce
   * if no response within 1 months, bug will be closed
