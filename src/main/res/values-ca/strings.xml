@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Només local</string>
     <string name="conflict_keep_both">Mantén-los ambdós</string>
     <string name="conflict_message">Quins fitxers voleu mantenir? Si seleccioneu ambdues versions, el fitxer local tindrà un número afegit al seu nom.</string>
+    <string name="conflict_message_headline">Quins fitxers voleu conservar?</string>
     <string name="conflict_title">Conflicte de fitxers</string>
     <string name="conflict_use_local_version">Versió local</string>
     <string name="conflict_use_server_version">versió del servidor</string>

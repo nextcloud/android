@@ -141,8 +141,12 @@
     <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et ses contenus ?</string>
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
+    <string name="conflict_already_existing_file">Fichier déjà existant</string>
     <string name="conflict_keep_both">Conserver les deux</string>
     <string name="conflict_message">Quels fichiers voulez-vous conserver ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
+    <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
+    <string name="conflict_message_headline">Quels fichiers souhaitez-vous conserver ?</string>
+    <string name="conflict_new_file">Nouveau fichier</string>
     <string name="conflict_title">Conflit de fichiers</string>
     <string name="conflict_use_local_version">version locale</string>
     <string name="conflict_use_server_version">version serveur</string>
@@ -697,6 +701,8 @@ Attention la suppression est irréversible.</string>
     <string name="tags">Étiquettes</string>
     <string name="test_server_button">Tester la connexion du serveur</string>
     <string name="thumbnail">Miniature</string>
+    <string name="thumbnail_for_existing_file_description">Vignette pour fichier existant</string>
+    <string name="thumbnail_for_new_file_desc">Vignette pour nouveau fichier</string>
     <string name="timeout_richDocuments">Le chargement est très long ...</string>
     <string name="trashbin_activity_title">Fichiers supprimés</string>
     <string name="trashbin_empty_headline">Aucun fichier supprimé</string>
