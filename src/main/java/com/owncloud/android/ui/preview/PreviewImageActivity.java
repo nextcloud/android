@@ -64,6 +64,7 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -203,7 +204,7 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(KEY_WAITING_FOR_BINDER, mRequestWaitingForBinder);
         outState.putBoolean(KEY_SYSTEM_VISIBLE, isSystemUIVisible());

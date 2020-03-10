@@ -86,6 +86,7 @@ import java.lang.ref.WeakReference;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -253,7 +254,7 @@ public abstract class FileActivity extends DrawerActivity
      * {@inheritDoc}
      */
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileActivity.EXTRA_FILE, mFile);
         outState.putBoolean(FileActivity.EXTRA_FROM_NOTIFICATION, mFromNotification);

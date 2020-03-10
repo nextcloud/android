@@ -395,7 +395,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (userInfo != null) {
             outState.putParcelable(KEY_USER_DATA, Parcels.wrap(userInfo));
