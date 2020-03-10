@@ -31,6 +31,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +74,7 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Observer;
 
 import androidx.annotation.NonNull;
 import butterknife.BindView;
@@ -93,6 +96,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private Clock clock;
     private UploadGroup[] uploadGroups;
     private boolean showUser;
+
+    private Observer uploadDbObserver;
+    private final Handler mainHandler;
 
     @Override
     public int getSectionCount() {
@@ -214,6 +220,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         showUser = accountManager.getAccounts().length > 1;
 
         loadUploadItemsFromDb();
+
+        this.mainHandler = new Handler(Looper.getMainLooper());
+        uploadDbObserver = (o, arg) -> this.mainHandler.post(this::loadUploadItemsFromDb);
+        uploadsStorageManager.addObserver(uploadDbObserver);
     }
 
     @Override
@@ -748,6 +758,13 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             DisplayUtils.showSnackMessage(parentActivity, R.string.file_list_no_app_for_file_type);
             Log_OC.i(TAG, "Could not find app for sending log history.");
         }
+    }
+
+    /**
+     * Must be called when parent view is destroyed
+     */
+    public void onDestroy() {
+        uploadsStorageManager.deleteObserver(this.uploadDbObserver);
     }
 
     static class HeaderViewHolder extends SectionedViewHolder {
