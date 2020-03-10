@@ -47,10 +47,10 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.anyOf;
 import static org.junit.Assert.assertEquals;
 
 public class DrawerActivityIT extends AbstractIT {
-    private static String account2Name;
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
                                                                                            true,
                                                                                            false);
@@ -59,6 +59,8 @@ public class DrawerActivityIT extends AbstractIT {
     public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
     private static Account account2;
+    private static String account2Name;
+    private static String account2DisplayName;
 
     @BeforeClass
     public static void beforeClass() {
@@ -81,7 +83,8 @@ public class DrawerActivityIT extends AbstractIT {
 
         final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
         account2 = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
-        account2Name = "User One@" + baseUrl;
+        account2Name = loginName + baseUrl;
+        account2DisplayName = "User One@" + baseUrl;
     }
 
     @Test
@@ -93,7 +96,7 @@ public class DrawerActivityIT extends AbstractIT {
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         onView(withId(R.id.drawer_active_user)).perform(click());
 
-        onView(withText(account2Name)).perform(click());
+        onView(anyOf(withText(account2Name), withText(account2DisplayName))).perform(click());
 
         waitForIdleSync();
 
