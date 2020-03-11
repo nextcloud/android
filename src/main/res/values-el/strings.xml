@@ -141,9 +141,12 @@
     <string name="confirmation_remove_folder_alert">Θέλετε σίγουρα να διαγράψετε το %1$s και τα περιεχόμενά του;</string>
     <string name="confirmation_remove_folders_alert">Θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα και τα περιεχόμενά τους;</string>
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
+    <string name="conflict_already_existing_file">Το αρχείο υπάρχει ήδη</string>
     <string name="conflict_keep_both">Διατήρηση και των δύο</string>
     <string name="conflict_message">Ποια αρχεία θέλετε να διατηρήσετε; Αν επιλέξετε και τις δύο εκδόσεις, θα προστεθεί ένας αριθμός στο όνομα του τοπικού αρχείου.</string>
+    <string name="conflict_message_description">Εάν επιλέξετε και τις δύο εκδόσεις, στο όνομα του τοπικού αρχείου θα προστεθεί ένας αριθμός.</string>
     <string name="conflict_message_headline">Ποια αρχεία θέλετε να κρατήσετε;</string>
+    <string name="conflict_new_file">Νέο αρχείο</string>
     <string name="conflict_title">Διένεξη αρχείων</string>
     <string name="conflict_use_local_version">τοπική έκδοση</string>
     <string name="conflict_use_server_version">έκδοση διακομιστή</string>
@@ -696,6 +699,8 @@
     <string name="tags">Ετικέτες</string>
     <string name="test_server_button">Δοκιμή σύνδεσης με διακομιστή</string>
     <string name="thumbnail">Μικρογραφία</string>
+    <string name="thumbnail_for_existing_file_description">Μικρογραφία υπάρχοντος αρχείου</string>
+    <string name="thumbnail_for_new_file_desc">Μικρογραφία νέου αρχείου</string>
     <string name="timeout_richDocuments">Η φόρτωση διαρκεί πολύ…</string>
     <string name="trashbin_activity_title">Διεγραμμένα αρχεία</string>
     <string name="trashbin_empty_headline">Κανένα διαγεγραμμένο αρχείο</string>
