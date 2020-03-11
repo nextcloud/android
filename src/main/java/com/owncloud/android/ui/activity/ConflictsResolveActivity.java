@@ -39,6 +39,7 @@ import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionM
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -136,7 +137,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putParcelable(EXTRA_CONFLICT_UPLOAD, conflictUpload);
