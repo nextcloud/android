@@ -26,7 +26,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -574,9 +573,8 @@ public abstract class DrawerActivity extends ToolbarActivity
      * @param hashCode HashCode of account to be set
      */
     private void accountClicked(int hashCode) {
-        final Account currentAccount = accountManager.getCurrentAccount();
-        if (currentAccount != null && currentAccount.hashCode() != hashCode &&
-            accountManager.setCurrentOwnCloudAccount(hashCode)) {
+        final User currentUser = accountManager.getUser();
+        if (currentUser.hashCode() != hashCode && accountManager.setCurrentOwnCloudAccount(hashCode)) {
             fetchExternalLinks(true);
             restart();
         }
@@ -606,7 +604,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      * @param view the clicked ImageView
      */
     public void onAccountDrawerClick(View view) {
-        accountClicked(Integer.parseInt(view.getContentDescription().toString()));
+        accountClicked((int) view.getTag());
     }
 
     /**
@@ -687,7 +685,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 // activate second/end account avatar
                 final User secondUser = mAvatars.size() > 1 ? mAvatars.get(1) : null;
                 if (secondUser != null) {
-                    mAccountEndAccountAvatar.setTag(secondUser.getAccountName());
+                    mAccountEndAccountAvatar.setTag(secondUser.hashCode());
                     DisplayUtils.setAvatar(secondUser,
                                            this,
                                            mOtherAccountAvatarRadiusDimension,
@@ -702,7 +700,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 // activate third/middle account avatar
                 final User thirdUser = mAvatars.size() > 2 ? mAvatars.get(2) : null;
                 if (thirdUser != null) {
-                    mAccountMiddleAccountAvatar.setTag(thirdUser.getAccountName());
+                    mAccountMiddleAccountAvatar.setTag(thirdUser.hashCode());
                     DisplayUtils.setAvatar(thirdUser,
                                            this,
                                            mOtherAccountAvatarRadiusDimension,
