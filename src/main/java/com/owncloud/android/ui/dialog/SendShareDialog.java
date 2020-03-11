@@ -166,7 +166,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
 
         RecyclerView sendButtonsView = view.findViewById(R.id.send_button_recycler_view);
         sendButtonsView.setHasFixedSize(true);
-        sendButtonsView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        sendButtonsView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         sendButtonsView.setAdapter(new SendButtonAdapter(sendButtonDataList, clickListener));
 
         return view;
