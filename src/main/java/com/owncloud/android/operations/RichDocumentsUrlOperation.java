@@ -27,7 +27,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.NextcloudServer;
 
 import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.Utf8PostMethod;
 import org.json.JSONObject;
 
 /**
@@ -60,10 +60,10 @@ public class RichDocumentsUrlOperation extends RemoteOperation {
     @NextcloudServer(max = 18)
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result;
-        PostMethod postMethod = null;
+        Utf8PostMethod postMethod = null;
 
         try {
-            postMethod = new PostMethod(client.getBaseUri() + DOCUMENT_URL + JSON_FORMAT);
+            postMethod = new Utf8PostMethod(client.getBaseUri() + DOCUMENT_URL + JSON_FORMAT);
             postMethod.setParameter(FILE_ID, fileID);
 
             // remote request

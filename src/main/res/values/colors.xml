@@ -79,6 +79,7 @@
     <color name="drawer_menu_icon">#757575</color>
     <color name="bg_fallback_highlight">#616161</color>
     <color name="switch_track_color_unchecked">#4D000000</color>
+    <color name="drawer_active_item_background">#80000000</color>
 
     <!-- Excluded from future app dark theme -->
     <color name="themed_fg">#FFFFFF</color>
