@@ -588,7 +588,9 @@ public class ExtendedListFragment extends Fragment implements
             getActivity().runOnUiThread(() -> {
                 if (visible) {
                     mFabMain.show();
-                    ThemeUtils.tintDrawable(mFabMain.getBackground(), ThemeUtils.primaryColor(getContext()));
+                    int primaryColor = ThemeUtils.primaryColor(getContext());
+                    mFabMain.setBackgroundTintList(ColorStateList.valueOf(primaryColor));
+                    mFabMain.setRippleColor(primaryColor);
                 } else {
                     mFabMain.hide();
                 }
