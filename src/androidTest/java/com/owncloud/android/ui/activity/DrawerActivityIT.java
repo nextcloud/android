@@ -83,7 +83,7 @@ public class DrawerActivityIT extends AbstractIT {
 
         final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
         account2 = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
-        account2Name = loginName + baseUrl;
+        account2Name = loginName + "@" + baseUrl;
         account2DisplayName = "User One@" + baseUrl;
     }
 
