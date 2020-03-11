@@ -132,13 +132,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         // set home button properties
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
-        }
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        if (toolbar != null && toolbar.getNavigationIcon() != null) {
-            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor(this));
         }
     }
 

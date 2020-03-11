@@ -113,7 +113,6 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -293,7 +292,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.fontColor(this, true));
+        mDrawerToggle.setDrawerSlideAnimationEnabled(true);
     }
 
     /**
@@ -771,7 +770,6 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     /**
      * Updates title bar and home buttons (state and icon).
-     * <p/>
      * Assumes that navigation drawer is NOT visible.
      */
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
@@ -779,15 +777,16 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         // set home button properties
         if (mDrawerToggle != null && chosenFile != null) {
-            mDrawerToggle.setDrawerIndicatorEnabled(isRoot(chosenFile));
-        } else if (mDrawerToggle != null){
+            if (isRoot(chosenFile)) {
+                mDrawerToggle.setDrawerIndicatorEnabled(true);
+            } else {
+                mDrawerToggle.setDrawerIndicatorEnabled(false);
+                Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
+                upArrow.setColorFilter(ThemeUtils.fontColor(this), PorterDuff.Mode.SRC_ATOP);
+                mDrawerToggle.setHomeAsUpIndicator(upArrow);
+            }
+        } else if (mDrawerToggle != null) {
             mDrawerToggle.setDrawerIndicatorEnabled(false);
-        }
-
-        if (mDrawerToggle != null) {
-            DrawerArrowDrawable icon = mDrawerToggle.getDrawerArrowDrawable();
-            icon.setColorFilter(ThemeUtils.fontColor(this), PorterDuff.Mode.SRC_ATOP);
-            mDrawerToggle.setDrawerArrowDrawable(icon);
         }
     }
 
