@@ -1,0 +1,5 @@
+All files shows root again annotated functions with correct NonNull
+Improve readability on active drawer item
+Use UTF8 PostMethod everywhere
+Update contributing.md
+Update translations
