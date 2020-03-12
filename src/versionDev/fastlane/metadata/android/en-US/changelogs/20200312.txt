@@ -1,0 +1,4 @@
+v3.12.-Alpha1
+Fix border of disabled FAB
+Update translations
+Update Nextcloud Android library
