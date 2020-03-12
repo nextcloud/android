@@ -509,12 +509,9 @@ public final class ThemeUtils {
     public static void themeEditText(Context context, EditText editText, boolean themedBackground) {
         if (editText == null) { return; }
 
-        int color = ContextCompat.getColor(context, R.color.fg_default);
+        int color = ContextCompat.getColor(context, R.color.text_color);
 
-        // Theme the view when it is already on a theme'd background according to dark / light theme
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            color = Color.WHITE;
-        } else if (themedBackground) {
+        if (themedBackground) {
             if (darkTheme(context)) {
                 color = ContextCompat.getColor(context, R.color.themed_fg);
             } else {
