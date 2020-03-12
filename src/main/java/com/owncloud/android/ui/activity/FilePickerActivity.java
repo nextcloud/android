@@ -25,17 +25,14 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.owncloud.android.R;
-import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.utils.FileSortOrder;
 
 import androidx.fragment.app.FragmentTransaction;
 
 /**
  * File picker of remote files
  */
-public class FilePickerActivity extends FolderPickerActivity implements
-    SortingOrderDialogFragment.OnSortingOrderListener {
+public class FilePickerActivity extends FolderPickerActivity {
 
     @Override
     public void onClick(View v) {
@@ -56,10 +53,5 @@ public class FilePickerActivity extends FolderPickerActivity implements
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, listOfFiles, TAG_LIST_OF_FOLDERS);
         transaction.commit();
-    }
-
-    @Override
-    public void onSortingOrderChosen(FileSortOrder selection) {
-        getListOfFilesFragment().sortFiles(selection);
     }
 }

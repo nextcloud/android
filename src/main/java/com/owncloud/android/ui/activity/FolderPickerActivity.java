@@ -59,6 +59,7 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
@@ -72,7 +73,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity,
-    OnClickListener, OnEnforceableRefreshListener, Injectable {
+    OnClickListener,
+    OnEnforceableRefreshListener,
+    Injectable,
+    SortingOrderDialogFragment.OnSortingOrderListener {
 
     public static final String EXTRA_FOLDER = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_FOLDER";
     public static final String EXTRA_FILES = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_FILES";
@@ -600,5 +604,10 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
     public boolean isDoNotEnterEncryptedFolder() {
         return mDoNotEnterEncryptedFolder;
+    }
+
+    @Override
+    public void onSortingOrderChosen(FileSortOrder selection) {
+        getListOfFilesFragment().sortFiles(selection);
     }
 }
