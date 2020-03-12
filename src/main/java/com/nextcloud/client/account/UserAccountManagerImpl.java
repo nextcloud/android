@@ -292,10 +292,10 @@ public class UserAccountManagerImpl implements UserAccountManager {
     public boolean setCurrentOwnCloudAccount(int hashCode) {
         boolean result = false;
         if (hashCode != 0) {
-            for (final Account account : getAccounts()) {
-                if (hashCode == account.hashCode()) {
+            for (final User user : getAllUsers()) {
+                if (hashCode == user.hashCode()) {
                     SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, account.name);
+                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, user.getAccountName());
                     appPrefs.apply();
                     result = true;
                     break;
