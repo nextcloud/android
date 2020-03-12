@@ -36,17 +36,16 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.jobs.ContactsBackupJob;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
@@ -62,6 +61,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -75,7 +76,7 @@ import third_parties.daveKoeller.AlphanumComparator;
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP;
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP;
 
-public class ContactsBackupFragment extends FileFragment implements DatePickerDialog.OnDateSetListener {
+public class ContactsBackupFragment extends FileFragment implements DatePickerDialog.OnDateSetListener, Injectable {
     public static final String TAG = ContactsBackupFragment.class.getSimpleName();
 
     @BindView(R.id.contacts_automatic_backup)
@@ -89,6 +90,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
     @BindView(R.id.contacts_backup_now)
     public MaterialButton backupNow;
+
+    @Inject BackgroundJobManager backgroundJobManager;
 
     private Date selectedDate;
     private boolean calendarPickerOpen;
@@ -322,40 +325,36 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     }
 
     private void startContactsBackupJob() {
-        final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
-
-        PersistableBundleCompat bundle = new PersistableBundleCompat();
-        bundle.putString(ContactsBackupJob.ACCOUNT, contactsPreferenceActivity.getAccount().name);
-        bundle.putBoolean(ContactsBackupJob.FORCE, true);
-
-        new JobRequest.Builder(ContactsBackupJob.TAG)
-                .setExtras(bundle)
-                .startNow()
-                .setUpdateCurrent(false)
-                .build()
-                .schedule();
-
-        DisplayUtils.showSnackMessage(getView().findViewById(R.id.contacts_linear_layout),
-                R.string.contacts_preferences_backup_scheduled);
+        ContactsPreferenceActivity activity = (ContactsPreferenceActivity)getActivity();
+        if (activity != null) {
+            Optional<User> optionalUser = activity.getUser();
+            if (optionalUser.isPresent()) {
+                backgroundJobManager.startImmediateContactsBackup(optionalUser.get());
+                DisplayUtils.showSnackMessage(getView().findViewById(R.id.contacts_linear_layout),
+                                              R.string.contacts_preferences_backup_scheduled);
+            }
+        }
     }
 
-    private void setAutomaticBackup(final boolean bool) {
+    private void setAutomaticBackup(final boolean enabled) {
 
-        final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
-
-        if (bool) {
-            ContactsPreferenceActivity.startContactBackupJob(contactsPreferenceActivity.getAccount());
+        final ContactsPreferenceActivity activity = (ContactsPreferenceActivity) getActivity();
+        if (activity == null) {
+            return;
+        }
+        Optional<User> optionalUser = activity.getUser();
+        if (!optionalUser.isPresent()) {
+            return;
+        }
+        User user = optionalUser.get();
+        if (enabled) {
+            backgroundJobManager.schedulePeriodicContactsBackup(user);
         } else {
-            Optional<User> user = contactsPreferenceActivity.getUser();
-
-            if (user.isPresent()) {
-                ContactsPreferenceActivity.cancelContactBackupJobForAccount(contactsPreferenceActivity,
-                                                                            user.get());
-            }
+            backgroundJobManager.cancelPeriodicContactsBackup(user);
         }
 
         arbitraryDataProvider.storeOrUpdateKeyValue(account.name, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
-                String.valueOf(bool));
+                String.valueOf(enabled));
     }
 
     private boolean checkAndAskForContactsReadPermission() {
