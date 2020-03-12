@@ -141,9 +141,12 @@
     <string name="confirmation_remove_folder_alert">Wil je %1$s en de inhoud ervan werkelijk verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="confirmation_remove_local">Alleen lokaal</string>
+    <string name="conflict_already_existing_file">Al bestaand bestand</string>
     <string name="conflict_keep_both">Beide bewaren</string>
     <string name="conflict_message">Welke bestanden wil je bewaren? Als je beide versies selecteert zal het lokale bestand een volgnummer aan de naam toegevoegd krijgen.</string>
+    <string name="conflict_message_description">Als je beide versies selecteerde, zal het lokale bestand een nummer aan de naam toegevoegd krijgen.</string>
     <string name="conflict_message_headline">Welke bestanden wil je bewaren?</string>
+    <string name="conflict_new_file">Nieuw bestand</string>
     <string name="conflict_title">Bestandsconflict</string>
     <string name="conflict_use_local_version">lokale versie</string>
     <string name="conflict_use_server_version">serverversie</string>
@@ -366,6 +369,7 @@
     <string name="instant_upload_existing">Upload ook bestaande bestanden</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="invalid_url">Ongeldige URL</string>
     <string name="learn_more">Meer weten</string>
     <string name="link">Link</string>
     <string name="list_layout">Lijstoverzicht</string>
@@ -571,6 +575,8 @@
     <string name="share_group_clarification">%1$s (groep)</string>
     <string name="share_internal_link">Deel interne link</string>
     <string name="share_internal_link_text">Dit werkt enkel voor gebruikers met toegang tot %1$s</string>
+    <string name="share_internal_link_to_file_text">Interne link voor delen werkt alleen voor gebruikers met toegang tot dit bestand</string>
+    <string name="share_internal_link_to_folder_text">Interne link voor delen werkt alleen voor gebruikers met toegang tot deze map</string>
     <string name="share_known_remote_clarification">%1$s ( op %2$s )</string>
     <string name="share_link_empty_password">Je moet een wachtwoord opgeven</string>
     <string name="share_link_file_error">Er trad een fout op bij je poging dit bestand of deze map te delen</string>
@@ -671,6 +677,7 @@
     <string name="sync_fail_ticker">Synchronisatie mislukt</string>
     <string name="sync_fail_ticker_unauthorized">Synchronisatie mislukt, log opnieuw in</string>
     <string name="sync_file_nothing_to_do_msg">Bestandsinhoud is al gesynchroniseerd</string>
+    <string name="sync_folder_failed_content">Synchroniseren van %1$s folder kon niet worden afgerond</string>
     <string name="sync_foreign_files_forgotten_explanation">Sinds versie 1.3.16: bestanden geüpload vanaf dit apparaat zijn gekopieerd in de lokale %1$s directory om zoekraken van bestanden te voorkomen indien een enkel bestand wordt gesynchroniseerd met meerdere accounts. \n\n Door deze verandering zijn alle bestanden geüpload met een eerdere versie van deze app gekopieerd  naar de %2$s directory.  Let wel: door een fout is deze actie niet uitgevoerd tijdens account synchronisatie. Je kunt deze bestanden laten waar ze zijn en verwijder de verwijzingen naar %3$s, of verplaats de bestanden naar de %1$s directory en behoud de verwijzing naar %4$s. \n\n Hieronder zijn de lokale bestanden weergegeven en de remote bestanden in %5$s waar ze naar verwijzen.</string>
     <string name="sync_foreign_files_forgotten_ticker">Een paar lokale bestanden werden vergeten</string>
     <string name="sync_in_progress">Meest recente versie van het bestand wordt opgehaald.</string>
@@ -692,6 +699,8 @@
     <string name="tags">Labels</string>
     <string name="test_server_button">Test server verbinding</string>
     <string name="thumbnail">Miniatuurweergave</string>
+    <string name="thumbnail_for_existing_file_description">Miniatuurafbeelding van bestaande bestand</string>
+    <string name="thumbnail_for_new_file_desc">Miniatuurafbeelding voor nieuw bestand</string>
     <string name="timeout_richDocuments">Het laden duurt erg lang...</string>
     <string name="trashbin_activity_title">Verwijderde bestanden</string>
     <string name="trashbin_empty_headline">Geen verwijderde bestanden</string>

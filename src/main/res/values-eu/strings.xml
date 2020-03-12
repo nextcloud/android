@@ -100,7 +100,7 @@
     <string name="common_cancel">Ezeztatu</string>
     <string name="common_cancel_sync">Sinkronizazioa eten</string>
     <string name="common_choose_account">Hautatu kontua</string>
-    <string name="common_delete">Borratu</string>
+    <string name="common_delete">Ezabatu</string>
     <string name="common_error">Errorea</string>
     <string name="common_error_out_memory">Ez dago memoria nahikorik</string>
     <string name="common_error_unknown">Errore ezezaguna</string>
@@ -137,9 +137,9 @@
     <string name="community_testing_version_text">Lagundu nahi gaituzu hurrengo bertsioa probatzen?</string>
     <string name="configure_new_media_folder_detection_notifications">Konfiguratu</string>
     <string name="confirmation_remove_file_alert">Ziur zaude %1$s ezabatu nahi duzula?</string>
-    <string name="confirmation_remove_files_alert">Hautatutako elementuak benetan borratu nahi dituzu?</string>
+    <string name="confirmation_remove_files_alert">Ziur zaude hautatutako elementuak ezabatu nahi dituzula?</string>
     <string name="confirmation_remove_folder_alert">Ziur zaude %1$s eta bere edukia ezabatu nahi duzula?</string>
-    <string name="confirmation_remove_folders_alert">Hautatutako elementuak eta bere edukiak benetan borratu nahi dituzu?</string>
+    <string name="confirmation_remove_folders_alert">Ziur zaude hautatutako elementuak eta beren edukiak ezabatu nahi dituzula?</string>
     <string name="confirmation_remove_local">Bertakoa bakarrik</string>
     <string name="conflict_keep_both">Mantendu biak</string>
     <string name="conflict_message">Zeintzuk fitxategi mantendu nahi dituzu? Bi bertsioak hautatzen badituzu, lokaleko fitxategiaren izenenari zenbaki bat atxikituko zaio.</string>
@@ -385,7 +385,7 @@
     <string name="logs_title">Erregistroak</string>
     <string name="maintenance_mode">Zerbitzaria mantentze moduan dago</string>
     <string name="manage_space_clear_data">Datuak garbitu</string>
-    <string name="manage_space_description">Ezarpenak, %1$sren datubase eta zerbitzariaren ziurtagiriak betirako borratuko dira.\n\n Jaitsitako fitxategiak ez dira ikutuko.\n\n Prozesu honek denbora behar du</string>
+    <string name="manage_space_description">%1$s(r)en ezarpenak, datu-basea eta zerbitzariaren ziurtagiriak betirako ezabatuko dira.\n\n Deskargatutako fitxategiak ez dira ukituko.\n\n Prozesu honek denbora behar du.</string>
     <string name="manage_space_title">Tokia kudeatu</string>
     <string name="media_err_invalid_progressive_playback">Media fitxategia ezin da jariotu</string>
     <string name="media_err_io">Ezin da media fitxategia irakurri</string>
@@ -465,7 +465,7 @@
     <string name="placeholder_sentence">Hau leku-marka da</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="power_save_check_dialog_message">Energia aurrezteko kontrola ezgaitzeak fitxategiak kargatzea ekar dezake bateria baxuan dagoenean!</string>
-    <string name="pref_behaviour_entries_delete_file">Borratua</string>
+    <string name="pref_behaviour_entries_delete_file">ezabatua</string>
     <string name="pref_behaviour_entries_keep_file">Karpeta originalean gorde</string>
     <string name="pref_behaviour_entries_move">Aplikazioaren karpetara mugitu</string>
     <string name="prefs_add_account">Gehitu kontua</string>
