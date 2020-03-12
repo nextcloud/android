@@ -23,6 +23,13 @@ import android.content.SharedPreferences
 import java.lang.UnsupportedOperationException
 import java.util.TreeMap
 
+/**
+ * This shared preferences implementation uses in-memory value store
+ * and it can be used in tests without using global, file-backed storage,
+ * improving test isolation.
+ *
+ * The implementation is not thread-safe.
+ */
 @Suppress("TooManyFunctions")
 class MockSharedPreferences : SharedPreferences {
 
@@ -33,7 +40,7 @@ class MockSharedPreferences : SharedPreferences {
         override fun clear(): SharedPreferences.Editor = throw UnsupportedOperationException()
 
         override fun putLong(key: String?, value: Long): SharedPreferences.Editor =
-            throw UnsupportedOperationException()
+            throw UnsupportedOperationException("Implement as needed")
 
         override fun putInt(key: String?, value: Int): SharedPreferences.Editor {
             editorStore.put(key, value)
@@ -55,7 +62,7 @@ class MockSharedPreferences : SharedPreferences {
         override fun commit(): Boolean = true
 
         override fun putFloat(key: String?, value: Float): SharedPreferences.Editor =
-            throw UnsupportedOperationException()
+            throw UnsupportedOperationException("Implement as needed")
 
         override fun apply() = store.putAll(editorStore)
 
@@ -76,8 +83,8 @@ class MockSharedPreferences : SharedPreferences {
 
     override fun getInt(key: String?, defValue: Int): Int = store.getOrDefault(key, defValue) as Int
 
-    override fun getAll(): MutableMap<String, *> {
-        throw UnsupportedOperationException()
+    override fun getAll(): MutableMap<String?, Any?> {
+        return HashMap(store)
     }
 
     override fun edit(): SharedPreferences.Editor {

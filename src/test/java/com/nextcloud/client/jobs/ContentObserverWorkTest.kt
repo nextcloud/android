@@ -68,7 +68,7 @@ class ContentObserverWorkTest {
     }
 
     @Test
-    fun `job reschedules self after each run unconditionally`() {
+    fun job_reschedules_self_after_each_run_unconditionally() {
         // GIVEN
         //      nothing to sync
         whenever(params.triggeredContentUris).thenReturn(emptyList())
@@ -84,7 +84,7 @@ class ContentObserverWorkTest {
 
     @Test
     @Ignore("TODO: needs further refactoring")
-    fun `sync is triggered`() {
+    fun sync_is_triggered() {
         // GIVEN
         //      power saving is disabled
         //      some folders are configured for syncing
@@ -102,7 +102,7 @@ class ContentObserverWorkTest {
 
     @Test
     @Ignore("TODO: needs further refactoring")
-    fun `sync is not triggered under power saving mode`() {
+    fun sync_is_not_triggered_under_power_saving_mode() {
         // GIVEN
         //      power saving is enabled
         //      some folders are configured for syncing
@@ -120,7 +120,7 @@ class ContentObserverWorkTest {
 
     @Test
     @Ignore("TODO: needs further refactoring")
-    fun `sync is not triggered if no folder are synced`() {
+    fun sync_is_not_triggered_if_no_folder_are_synced() {
         // GIVEN
         //      power saving is disabled
         //      no folders configured for syncing

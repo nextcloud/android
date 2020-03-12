@@ -6,7 +6,7 @@
  *
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2017 Nextcloud GmbH
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * <p>
  * This program is free software: you can redistribute it and/or modify
@@ -31,6 +31,7 @@ import com.evernote.android.job.JobCreator;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -53,6 +54,7 @@ public class NCJobCreator implements JobCreator {
     private final PowerManagementService powerManagementService;
     private final Clock clock;
     private final EventBus eventBus;
+    private final BackgroundJobManager backgroundJobManager;
 
     public NCJobCreator(
         Context context,
@@ -62,7 +64,8 @@ public class NCJobCreator implements JobCreator {
         ConnectivityService connectivityServices,
         PowerManagementService powerManagementService,
         Clock clock,
-        EventBus eventBus
+        EventBus eventBus,
+        BackgroundJobManager backgroundJobManager
     ) {
         this.context = context;
         this.accountManager = accountManager;
@@ -72,17 +75,20 @@ public class NCJobCreator implements JobCreator {
         this.powerManagementService = powerManagementService;
         this.clock = clock;
         this.eventBus = eventBus;
+        this.backgroundJobManager = backgroundJobManager;
     }
 
     @Override
     public Job create(@NonNull String tag) {
         switch (tag) {
-            case ContactsBackupJob.TAG:
-                return new ContactsBackupJob(accountManager);
             case ContactsImportJob.TAG:
                 return new ContactsImportJob();
             case AccountRemovalJob.TAG:
-                return new AccountRemovalJob(uploadsStorageManager, accountManager, clock, eventBus);
+                return new AccountRemovalJob(uploadsStorageManager,
+                                             accountManager,
+                                             backgroundJobManager,
+                                             clock,
+                                             eventBus);
             case FilesSyncJob.TAG:
                 return new FilesSyncJob(accountManager,
                                         preferences,
