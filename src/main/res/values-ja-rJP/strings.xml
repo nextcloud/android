@@ -258,6 +258,8 @@
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
     <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>
     <string name="etm_accounts">アカウント</string>
+    <string name="etm_background_job_progress">進捗状況</string>
+    <string name="etm_background_jobs">バックグラウンドジョブ</string>
     <string name="etm_preferences">環境設定</string>
     <string name="etm_title">開発者用テストモード</string>
     <string name="fab_label">追加またはアップロード</string>

@@ -209,6 +209,7 @@
     <string name="error_cant_bind_to_operations_service">Kesalahan fatal: tidak dapat melakukan operasi</string>
     <string name="error_retrieving_templates">Error saat mengambil template</string>
     <string name="etm_accounts">Akun</string>
+    <string name="etm_background_jobs">Pekerjaan latar belakang</string>
     <string name="fab_label">Tambahkan atau unggah</string>
     <string name="fallback_weblogin_back">Kembali</string>
     <string name="favorite">Tambah ke favorit</string>

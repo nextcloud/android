@@ -261,6 +261,8 @@
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
     <string name="etm_accounts">Contas</string>
+    <string name="etm_background_job_progress">Progresso</string>
+    <string name="etm_background_jobs">Tarefas em segundo plano</string>
     <string name="etm_preferences">Preferências</string>
     <string name="etm_title">Modo de Teste de Engenharia</string>
     <string name="fab_label">Adicionar ou enviar</string>

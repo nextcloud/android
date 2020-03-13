@@ -261,6 +261,8 @@
     <string name="error_retrieving_templates">Σφάλμα λήψης προτύπων</string>
     <string name="error_starting_direct_camera_upload">Σφάλμα κατά την εκκίνηση της κάμερας</string>
     <string name="etm_accounts">Λογαριασμοί</string>
+    <string name="etm_background_job_progress">Πρόοδος</string>
+    <string name="etm_background_jobs">Εργασίες παρασκηνίου</string>
     <string name="etm_preferences">Προτιμήσεις</string>
     <string name="etm_title">Κατάσταση Δοκιμών για Τεχνικούς</string>
     <string name="fab_label">Προσθήκη ή μεταφόρτωση</string>

@@ -209,6 +209,7 @@
     <string name="error__upload__local_file_not_copied">%1$s неможливо скопіювати до %2$s</string>
     <string name="error_cant_bind_to_operations_service">Критична помилка: неможливо виконати дії</string>
     <string name="etm_accounts">Облікові записи</string>
+    <string name="etm_background_jobs">Фонові завдання</string>
     <string name="fallback_weblogin_back">Назад</string>
     <string name="favorite">Додати до обраного</string>
     <string name="favorite_icon">Улюблений</string>

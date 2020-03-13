@@ -261,6 +261,8 @@
     <string name="error_retrieving_templates">Fel vid hämtning av mallar</string>
     <string name="error_starting_direct_camera_upload">Fel vid start av kamera</string>
     <string name="etm_accounts">Konton</string>
+    <string name="etm_background_job_progress">Status</string>
+    <string name="etm_background_jobs">Bakgrundsjobb</string>
     <string name="etm_preferences">Inställningar</string>
     <string name="etm_title">Teknisk testläge</string>
     <string name="fab_label">Lägg till eller ladda upp</string>
