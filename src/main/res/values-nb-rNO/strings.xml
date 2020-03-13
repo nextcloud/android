@@ -252,6 +252,7 @@
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
     <string name="etm_accounts">Kontoer</string>
+    <string name="etm_background_jobs">Bakgrunnsjobber</string>
     <string name="etm_preferences">Innstillinger</string>
     <string name="fab_label">Legg til eller last opp</string>
     <string name="failed_to_print">Mislykket å skrive ut filen</string>

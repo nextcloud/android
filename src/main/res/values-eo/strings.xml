@@ -241,6 +241,7 @@
     <string name="error_retrieving_templates">Eraro dum ricevo de ŝablonoj</string>
     <string name="error_starting_direct_camera_upload">Eraro dum ŝargo de la fotilo</string>
     <string name="etm_accounts">Kontoj</string>
+    <string name="etm_background_jobs">Fonaj taskoj</string>
     <string name="fab_label">Aldoni aŭ alŝuti</string>
     <string name="fallback_weblogin_back">Antaŭen</string>
     <string name="fallback_weblogin_text">Reiri al la malnova konektmetodo</string>

@@ -258,6 +258,7 @@
     <string name="error_retrieving_templates">取得範本時發生錯誤</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
     <string name="etm_accounts">帳戶</string>
+    <string name="etm_background_jobs">背景工作</string>
     <string name="etm_preferences">設定</string>
     <string name="etm_title">工程測試模式</string>
     <string name="fab_label">新增或上傳</string>
