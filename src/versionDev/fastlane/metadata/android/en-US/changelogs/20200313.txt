@@ -1,0 +1,8 @@
+Migrate contacts backup job to new background job manager API
+add gradient to preview images in toolbar
+fix crash when sorting in folder picker
+remove unneeded ressource
+adjust share size
+Correct font color in dark mode
+tint back button correctly
+Update translations
