@@ -257,6 +257,8 @@
     <string name="error_retrieving_templates">خطا در بازیابی الگوهای</string>
     <string name="error_starting_direct_camera_upload">خطا در شروع دوربین</string>
     <string name="etm_accounts">حساب‌ها</string>
+    <string name="etm_background_job_progress">پیش رفتن</string>
+    <string name="etm_background_jobs">کارهای پس زمینه</string>
     <string name="etm_preferences">اولویت ها</string>
     <string name="etm_title">حالت تست مهندسی</string>
     <string name="fab_label">اضافه یا بارگذاری کنید</string>

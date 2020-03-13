@@ -254,6 +254,7 @@
     <string name="error_retrieving_templates">קבלת התבניות נכשלה</string>
     <string name="error_starting_direct_camera_upload">הפעלת המצלמה נכשלה</string>
     <string name="etm_accounts">חשבונות</string>
+    <string name="etm_background_jobs">משימות רקע</string>
     <string name="etm_preferences">העדפות</string>
     <string name="etm_title">מצב בדיקת מהנדסים</string>
     <string name="fab_label">הוספה או העלאה</string>

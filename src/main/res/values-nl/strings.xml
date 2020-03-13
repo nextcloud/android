@@ -261,6 +261,8 @@
     <string name="error_retrieving_templates">Fout bij ophalen sjablonen</string>
     <string name="error_starting_direct_camera_upload">Fout bij starten camera</string>
     <string name="etm_accounts">Accounts</string>
+    <string name="etm_background_job_progress">Voortgang</string>
+    <string name="etm_background_jobs">Achtergrondtaken</string>
     <string name="etm_preferences">Voorkeuren</string>
     <string name="etm_title">Engineering Testmodus</string>
     <string name="fab_label">Toevoegen of uploaden</string>

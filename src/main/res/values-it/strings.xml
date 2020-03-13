@@ -261,6 +261,8 @@
     <string name="error_retrieving_templates">Errore durante il recupero dei modelli</string>
     <string name="error_starting_direct_camera_upload">Errore  di avvio della fotocamera</string>
     <string name="etm_accounts">Account</string>
+    <string name="etm_background_job_progress">Avanzamento</string>
+    <string name="etm_background_jobs">Operazioni in background</string>
     <string name="etm_preferences">Preferenze</string>
     <string name="etm_title">Modalità test di progettazione</string>
     <string name="fab_label">Aggiungi o carica</string>

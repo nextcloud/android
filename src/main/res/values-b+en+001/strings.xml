@@ -261,6 +261,7 @@
     <string name="error_retrieving_templates">Error retrieving templates</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="etm_accounts">Accounts</string>
+    <string name="etm_background_jobs">Background jobs</string>
     <string name="etm_preferences">Preferences</string>
     <string name="etm_title">Engineering Test Mode</string>
     <string name="fab_label">Add or upload</string>

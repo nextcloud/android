@@ -258,6 +258,8 @@
     <string name="error_retrieving_templates">检索模板时出错</string>
     <string name="error_starting_direct_camera_upload">开启相机时发生错误</string>
     <string name="etm_accounts">账号</string>
+    <string name="etm_background_job_progress">进度</string>
+    <string name="etm_background_jobs">后台任务</string>
     <string name="etm_preferences">设置偏好</string>
     <string name="etm_title">工程测试模式</string>
     <string name="fab_label">添加或上传</string>

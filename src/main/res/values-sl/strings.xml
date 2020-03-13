@@ -261,6 +261,8 @@
     <string name="error_retrieving_templates">Napaka pridobivanja predlog</string>
     <string name="error_starting_direct_camera_upload">Napaka začenjanja kamere</string>
     <string name="etm_accounts">Računi</string>
+    <string name="etm_background_job_progress">Napredek pošiljanja</string>
+    <string name="etm_background_jobs">Opravila v ozadju</string>
     <string name="etm_preferences">Nastavitve</string>
     <string name="etm_title">Inženirski preizkusni način</string>
     <string name="fab_label">Dodaj ali pošlji</string>
