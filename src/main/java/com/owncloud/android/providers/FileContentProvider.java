@@ -90,7 +90,6 @@ public class FileContentProvider extends ContentProvider {
     private static final String TEXT = " TEXT, ";
     private static final String ALTER_TABLE = "ALTER TABLE ";
     private static final String ADD_COLUMN = " ADD COLUMN ";
-    private static final String REMOVE_COLUMN = " REMOVE COLUMN ";
     private static final String UPGRADE_VERSION_MSG = "OUT of the ADD in onUpgrade; oldVersion == %d, newVersion == %d";
     private static final int SINGLE_PATH_SEGMENT = 1;
     public static final int ARBITRARY_DATA_TABLE_INTRODUCTION_VERSION = 20;
