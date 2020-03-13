@@ -21,7 +21,6 @@
 
 package com.owncloud.android.providers;
 
-import android.accounts.Account;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
