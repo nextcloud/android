@@ -58,6 +58,11 @@ interface MigrationsManager {
     val status: LiveData<Status>
 
     /**
+     * Information about all pending and applied migrations
+     */
+    val info: List<MigrationInfo>
+
+    /**
      * Starts application state migration. Migrations will be run in background thread.
      * Callers can use [status] to monitor migration progress.
      *

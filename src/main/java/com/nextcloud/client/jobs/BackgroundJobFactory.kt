@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,15 +21,18 @@ package com.nextcloud.client.jobs
 
 import android.content.ContentResolver
 import android.content.Context
+import android.content.res.Resources
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
+import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.preferences.AppPreferences
+import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import javax.inject.Inject
 import javax.inject.Provider
@@ -44,7 +47,10 @@ class BackgroundJobFactory @Inject constructor(
     private val clock: Clock,
     private val powerManagerService: PowerManagementService,
     private val backgroundJobManager: Provider<BackgroundJobManager>,
-    private val deviceInfo: DeviceInfo
+    private val deviceInfo: DeviceInfo,
+    private val accountManager: UserAccountManager,
+    private val resources: Resources,
+    private val dataProvider: ArbitraryDataProvider
 ) : WorkerFactory() {
 
     override fun createWorker(
@@ -61,12 +67,16 @@ class BackgroundJobFactory @Inject constructor(
 
         return when (workerClass) {
             ContentObserverWork::class -> createContentObserverJob(context, workerParameters, clock)
+            ContactsBackupWork::class -> createContactsBackupWork(context, workerParameters)
             else -> null // falls back to default factory
         }
     }
 
-    private fun createContentObserverJob(context: Context, workerParameters: WorkerParameters, clock: Clock):
-        ListenableWorker? {
+    private fun createContentObserverJob(
+        context: Context,
+        workerParameters: WorkerParameters,
+        clock: Clock
+    ): ListenableWorker? {
         val folderResolver = SyncedFolderProvider(contentResolver, preferences, clock)
         @RequiresApi(Build.VERSION_CODES.N)
         if (deviceInfo.apiLevel >= Build.VERSION_CODES.N) {
@@ -80,5 +90,16 @@ class BackgroundJobFactory @Inject constructor(
         } else {
             return null
         }
+    }
+
+    private fun createContactsBackupWork(context: Context, params: WorkerParameters): ContactsBackupWork {
+        return ContactsBackupWork(
+            context,
+            params,
+            resources,
+            dataProvider,
+            contentResolver,
+            accountManager
+        )
     }
 }
