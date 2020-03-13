@@ -253,8 +253,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
         try {
             Account currentPlatformAccount = getCurrentAccount();
             return new OwnCloudAccount(currentPlatformAccount, context);
-        } catch (AccountUtils.AccountNotFoundException |
-            IllegalArgumentException ex) {
+        } catch (AccountUtils.AccountNotFoundException | IllegalArgumentException ex) {
             return null;
         }
     }
