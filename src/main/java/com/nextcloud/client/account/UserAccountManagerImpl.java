@@ -253,7 +253,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
         try {
             Account currentPlatformAccount = getCurrentAccount();
             return new OwnCloudAccount(currentPlatformAccount, context);
-        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException |
+        } catch (AccountUtils.AccountNotFoundException |
             IllegalArgumentException ex) {
             return null;
         }
