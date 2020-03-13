@@ -337,7 +337,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:1.18.12"
 
     ktlint "com.pinterest:ktlint:0.36.0"
-    implementation 'org.conscrypt:conscrypt-android:2.2.1'
+    implementation 'org.conscrypt:conscrypt-android:2.4.0'
 
     // dependencies for markdown rendering
     implementation "io.noties.markwon:core:$markwonVersion"
