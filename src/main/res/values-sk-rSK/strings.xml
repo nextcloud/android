@@ -258,6 +258,7 @@
     <string name="error_retrieving_templates">Chyba pri načítaní šablón</string>
     <string name="error_starting_direct_camera_upload">Chyba pri otváraní fotoaparátu</string>
     <string name="etm_accounts">Účty</string>
+    <string name="etm_background_jobs">Úlohy na pozadí</string>
     <string name="etm_preferences">Nastavenia</string>
     <string name="etm_title">Vývojársky testovací režim</string>
     <string name="fab_label">Pridať alebo nahrať</string>

@@ -219,6 +219,7 @@
     <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Error crítico: No se pueden realizar operaciones</string>
     <string name="etm_accounts">Cuentas</string>
+    <string name="etm_background_jobs">Trabajos en segundo plano</string>
     <string name="fallback_weblogin_back">Atrás</string>
     <string name="fallback_weblogin_text">Regresar al antiguo método de inicio de sesión</string>
     <string name="favorite">Agregar a favoritos</string>

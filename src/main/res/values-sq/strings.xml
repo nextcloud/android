@@ -252,6 +252,7 @@
     <string name="error_retrieving_templates">Gabim gjatë marrjes së shablloneve</string>
     <string name="error_starting_direct_camera_upload">Gabim në hapjen e kamerës</string>
     <string name="etm_accounts">Llogaritë</string>
+    <string name="etm_background_jobs">Punët në background</string>
     <string name="etm_preferences">Preferencat</string>
     <string name="etm_title">Provë e mënyrës inxhinierike</string>
     <string name="fab_label">Shtoni ose ngarkoni</string>

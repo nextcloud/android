@@ -261,6 +261,8 @@
     <string name="error_retrieving_templates">Kalıplar alınırken sorun çıktı</string>
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>
     <string name="etm_accounts">Hesaplar</string>
+    <string name="etm_background_job_progress">İlerleme</string>
+    <string name="etm_background_jobs">Arka plan görevleri</string>
     <string name="etm_preferences">Ayarlar</string>
     <string name="etm_title">Mühendislik Sınama Kipi</string>
     <string name="fab_label">Ekle ya da yükle</string>

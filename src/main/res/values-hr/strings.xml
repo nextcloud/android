@@ -256,6 +256,8 @@
     <string name="error_retrieving_templates">Pogreška pri dohvaćanju predložaka</string>
     <string name="error_starting_direct_camera_upload">Pogreška pri pokretanju kamere</string>
     <string name="etm_accounts">Računi</string>
+    <string name="etm_background_job_progress">Napredak</string>
+    <string name="etm_background_jobs">Pozadinski zadaci</string>
     <string name="etm_preferences">Preferencije</string>
     <string name="etm_title">Inženjerski način rada za ispitivanje</string>
     <string name="fab_label">Dodaj ili otpremi</string>
