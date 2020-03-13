@@ -66,8 +66,6 @@ public abstract class EditorWebView extends ExternalSiteWebView {
 
     private Unbinder unbinder;
 
-    private static final String TAG = EditorWebView.class.getSimpleName();
-
     protected void loadUrl(String url) {
         onUrlLoaded(url);
     }
