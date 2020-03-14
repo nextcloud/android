@@ -141,9 +141,12 @@
     <string name="confirmation_remove_folder_alert">Ziur zaude %1$s eta bere edukia ezabatu nahi duzula?</string>
     <string name="confirmation_remove_folders_alert">Ziur zaude hautatutako elementuak eta beren edukiak ezabatu nahi dituzula?</string>
     <string name="confirmation_remove_local">Bertakoa bakarrik</string>
+    <string name="conflict_already_existing_file">Dagoeneko existitzen den fitxategia</string>
     <string name="conflict_keep_both">Mantendu biak</string>
     <string name="conflict_message">Zeintzuk fitxategi mantendu nahi dituzu? Bi bertsioak hautatzen badituzu, lokaleko fitxategiaren izenenari zenbaki bat atxikituko zaio.</string>
+    <string name="conflict_message_description">Bi bertsioak hautatzen badituzu, kopiatutako fitxategiaren izenari zenbaki bat gehituko zaio.</string>
     <string name="conflict_message_headline">Ze fitxategi mantendu nahi dituzu?</string>
+    <string name="conflict_new_file">Fitxategi berria</string>
     <string name="conflict_title">Fitxategi gatazka</string>
     <string name="conflict_use_local_version">bertsio lokala</string>
     <string name="conflict_use_server_version">zerbitzariaren bertsioa</string>
@@ -258,8 +261,18 @@
     <string name="error_retrieving_templates">Errorea txantiloiak eskuratzean</string>
     <string name="error_starting_direct_camera_upload">Akatsa kamera abiaraztean</string>
     <string name="etm_accounts">Kontuak</string>
+    <string name="etm_background_job_name">Lanaren izena</string>
     <string name="etm_background_job_progress">Aurrerapena</string>
+    <string name="etm_background_job_started">Hasi da</string>
+    <string name="etm_background_job_state">Egoera</string>
+    <string name="etm_background_job_user">@string/user_icon</string>
+    <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Atzeko planoko lanak</string>
+    <string name="etm_background_jobs_cancel_all">Lan guztiak ezeztatu</string>
+    <string name="etm_background_jobs_prune">Aktibo ez dauden lanak garbitu</string>
+    <string name="etm_background_jobs_start_test_job">Probako lana hasi</string>
+    <string name="etm_background_jobs_stop_test_job">Probako lana gelditu</string>
+    <string name="etm_migrations">Migrazioak (apparen eguneraketa)</string>
     <string name="etm_preferences">Hobespenak</string>
     <string name="etm_title">Ingeniaritzako froga modua </string>
     <string name="fab_label">Gehitu edo igo</string>
@@ -365,6 +378,7 @@
     <string name="hint_password">Pasahitza</string>
     <string name="host_not_available">Zerbitzaria ez dago eskuragarri</string>
     <string name="host_your_own_server">Ostatatu zure zerbitzaria</string>
+    <string name="instant_upload_existing">Existitzen diren fitxategiak ere igo</string>
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
     <string name="instant_upload_path">/BerehalakoIgoerak</string>
     <string name="invalid_url">URL baliogabea</string>
@@ -573,6 +587,8 @@
     <string name="share_group_clarification">%1$s (taldea)</string>
     <string name="share_internal_link">Partekatu barne-esteka</string>
     <string name="share_internal_link_text">%1$s honetara sartzeko baimena duten erabiltzaileentzat bakarrik funtzionatzen du</string>
+    <string name="share_internal_link_to_file_text">Barneko partekatzeko estekak fitxategi honetarako sarrera duten erabiltzaileentzat bakarrik balio du</string>
+    <string name="share_internal_link_to_folder_text">Barneko partekatzeko estekak karpetarako sarrera duten erabiltzaileentzat bakarrik balio du</string>
     <string name="share_known_remote_clarification">%1$s (%2$s-n)</string>
     <string name="share_link_empty_password">Pasahitz bat sartu behar duzu</string>
     <string name="share_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzerakoan</string>
@@ -673,10 +689,14 @@
     <string name="sync_fail_ticker">Sinkronizazio errorea</string>
     <string name="sync_fail_ticker_unauthorized">Sinkronizazioak huts egin du, hasi saioa berriz</string>
     <string name="sync_file_nothing_to_do_msg">Fitxategi edukiak dagoeneko sinkronizaturik</string>
+    <string name="sync_folder_failed_content">%1$s karpetaren sinkronizazioa ezin izan da osatu</string>
     <string name="sync_foreign_files_forgotten_explanation">1.3.16 bertsiotik abiatuta, gailu horretatik igotzen diren fitxategiak tokiko %1$s  tokiko karpetan kopiatzen dira, hainbat konturekin fitxategi bakarra sinkronizatzen denean datuak gal ez daitezen.\n\nAldaketa horren ondorioz, aplikazio honen aurreko bertsioekin igotako fitxategi guztiak  %2$s karpetara kopiatu dira.  Hala ere, akats batek eragotzi zuen eragiketa hori osatzea kontua sinkronizatu bitartean. Fitxategiak dauden bezala utz ditzakezu, eta fitxategiak karpetara eramateko edo mugitzeko esteka %3$sezabatu, edo fitxategiak %1$s karpetara mugitu eta %4$sesteka mantendu.\n\nAzpian, artxibo lokalak eta %5$s lotura izan zuten urruneko artxiboak erakusten dira.</string>
     <string name="sync_foreign_files_forgotten_ticker">Bertako fitxategi batzuk ahaztu dira</string>
     <string name="sync_in_progress">Fitxategiaren bertsio berriena ekartzen.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Aukeratu zer sinkronizatu</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Lekua egin</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s %2$s da, baina gailuan %3$s bakarrik dago.</string>
+    <string name="sync_not_enough_space_dialog_title">Ez dago leku libre nahikorik</string>
     <string name="sync_status_button">Sinkronizazio egoeraren botoia</string>
     <string name="sync_string_files">Fitxategiak</string>
     <string name="synced_folder_settings_button">Ezarpenak botoia</string>
@@ -691,6 +711,8 @@
     <string name="tags">Etiketak</string>
     <string name="test_server_button">Zerbitzariaren konexioa probatu</string>
     <string name="thumbnail">Aurrebista</string>
+    <string name="thumbnail_for_existing_file_description">Existitzen den fitxategiaren iruditxoa</string>
+    <string name="thumbnail_for_new_file_desc">Fitxategi berriaren iruditxoa</string>
     <string name="timeout_richDocuments">Karga luze jotzen ari da</string>
     <string name="trashbin_activity_title">Ezabatutako fitxategiak</string>
     <string name="trashbin_empty_headline">Ezabatutako fitxategirik ez</string>
@@ -726,9 +748,11 @@
     <string name="upload_list_delete">Ezabatu</string>
     <string name="upload_list_empty_headline">Ezin dira fitxategiak igo</string>
     <string name="upload_list_empty_text_auto_upload">Edukiak igo edo auto-igotzea aktiba ezazu.</string>
+    <string name="upload_list_resolve_conflict">Gatazka ebatzi</string>
     <string name="upload_local_storage_full">Biltegiratze lokala beteta</string>
     <string name="upload_local_storage_not_copied">Ezin izan da fitxategia kopiatu biltegiratze lokalera</string>
     <string name="upload_lock_failed">Karpeta blokeatzeak huts egin du</string>
+    <string name="upload_old_android">Zifratzea &gt;= Android 5.0 bertsioarekin soilik da posible</string>
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>
     <string name="upload_sync_conflict">Sinkronizazio gatazka, ebatzi eskuz</string>
     <string name="upload_unknown_error">Akats ezezaguna</string>
@@ -744,6 +768,8 @@
     <string name="uploader_top_message">Aukeratu karga-karpeta</string>
     <string name="uploader_upload_failed_content_single">Ezin da %1$s igo</string>
     <string name="uploader_upload_failed_credentials_error">Kargatzeak huts egin du, hasi saioa berriz</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Gatazka fitxategia igotzean</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Aukeratu %1$s fitxategiaren zein bertsio gorde nahi duzun</string>
     <string name="uploader_upload_failed_ticker">igotzeak huts egin du</string>
     <string name="uploader_upload_files_behaviour">Kargatze aukera:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mugitu fitxategia %1$s karpetara</string>
@@ -772,6 +798,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Fitxategi lokala ez da topatu</string>
     <string name="uploads_view_upload_status_failed_permission_error">Baimen errorea.</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Zerbitzariaren ziurtagiria ez da fidagarria</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Zerbitzariko bertsioa ekartzen...</string>
     <string name="uploads_view_upload_status_service_interrupted">App-ak bukatu du</string>
     <string name="uploads_view_upload_status_succeeded">Betea</string>
     <string name="uploads_view_upload_status_unknown_fail">Errore ezezaguna</string>
