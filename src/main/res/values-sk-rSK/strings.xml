@@ -141,9 +141,12 @@
     <string name="confirmation_remove_folder_alert">Naozaj chcete odstrániť %1$s a jeho obsah?</string>
     <string name="confirmation_remove_folders_alert">Naozaj chcete odstrániť vybraté položky a ich obsah?</string>
     <string name="confirmation_remove_local">Iba lokálne</string>
+    <string name="conflict_already_existing_file">Súbor už existuje </string>
     <string name="conflict_keep_both">Ponechať oba</string>
     <string name="conflict_message">Ktoré súbory si prajate ponachať? Pokiaľ to budú obe verzie, lokálnej pribudne k názvu číslo.</string>
+    <string name="conflict_message_description">Ak vyberiete obe verzie, miestny súbor bude mať k svojmu názvu pridané číslo.</string>
     <string name="conflict_message_headline">Ktoré súbory chcete ponechať?</string>
+    <string name="conflict_new_file">Nový súbor</string>
     <string name="conflict_title">Konflikt súborov</string>
     <string name="conflict_use_local_version">lokálnu verziu</string>
     <string name="conflict_use_server_version">serverovú verziu</string>
@@ -258,7 +261,18 @@
     <string name="error_retrieving_templates">Chyba pri načítaní šablón</string>
     <string name="error_starting_direct_camera_upload">Chyba pri otváraní fotoaparátu</string>
     <string name="etm_accounts">Účty</string>
+    <string name="etm_background_job_name">Názov úlohy</string>
+    <string name="etm_background_job_progress">Pokrok</string>
+    <string name="etm_background_job_started">Zahájená</string>
+    <string name="etm_background_job_state">Stav</string>
+    <string name="etm_background_job_user">@string/user_icon</string>
+    <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Úlohy na pozadí</string>
+    <string name="etm_background_jobs_cancel_all">Ukončiť všetky úlohy</string>
+    <string name="etm_background_jobs_prune">Zrušiť nečinné úlohy</string>
+    <string name="etm_background_jobs_start_test_job">Začať testovaciu úlohu</string>
+    <string name="etm_background_jobs_stop_test_job">Zastaviť testovaciu úlohu</string>
+    <string name="etm_migrations">Migrácie (aktualizácia aplikácie)</string>
     <string name="etm_preferences">Nastavenia</string>
     <string name="etm_title">Vývojársky testovací režim</string>
     <string name="fab_label">Pridať alebo nahrať</string>
@@ -364,8 +378,10 @@
     <string name="hint_password">Heslo</string>
     <string name="host_not_available">Server nie je dostupný</string>
     <string name="host_your_own_server">Hostiť vlastný server</string>
+    <string name="instant_upload_existing">Nahrať aj existujúce súbory</string>
     <string name="instant_upload_on_charging">Nahrať iba počas nabíjania</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="invalid_url">Neplatná URL</string>
     <string name="learn_more">Dozvedieť sa viac</string>
     <string name="link">Odkaz</string>
     <string name="list_layout">Náhľad zoznamu</string>
@@ -571,6 +587,8 @@
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_internal_link">Sprístupniť interný odkaz</string>
     <string name="share_internal_link_text">Funguje len pre používateľov s prístupom k tomuto %1$s</string>
+    <string name="share_internal_link_to_file_text">Interný odkaz na zdieľanie funguje iba pre používateľov s prístupom k tomuto súboru</string>
+    <string name="share_internal_link_to_folder_text">Interný odkaz na zdieľanie funguje iba pre používateľov s prístupom k tomuto adresáru</string>
     <string name="share_known_remote_clarification">%1$s ( na %2$s )</string>
     <string name="share_link_empty_password">Musíte vložiť heslo</string>
     <string name="share_link_file_error">Pri pokuse o sprístupnenie tohto súboru alebo priečinka došlo k chybe</string>
@@ -671,6 +689,7 @@
     <string name="sync_fail_ticker">Synchronizácia neúspešná</string>
     <string name="sync_fail_ticker_unauthorized">Synchronizácia neúspešná, je potrebné sa znovu prihlásiť</string>
     <string name="sync_file_nothing_to_do_msg">Obsah súboru je zosynchronizovaný</string>
+    <string name="sync_folder_failed_content">Synchronizáciu adresára %1$s sa nedarí dokončiť</string>
     <string name="sync_foreign_files_forgotten_explanation">Od verzie 1.3.16 sú súbory nahrané z tohoto zariadenia kopírované do lokálneho priečinka %1$s, aby sa zabránilo strate dát pri synchronizácii jedného súboru s viacerými účtami.\n\nVšetky súbory nahraté predchádzajúcimi verziami aplikácie boli z tohoto dôvodu prekopírované do priečinka %2$s. Bohužiaľ sa objavila chyba zabraňujúca dokončeniu tejto operácie v priebehu synchronizácie účtu. Buď môžete súbor(y) ponechať ako sú a odobrať odkaz z priečinka %3$s, alebo presunúť súbor(y) do priečinka %1$s a zachovať odkaz na %4$s.\n\nNižšie je uvedený lokálny súbor(y) a vzdialený súbor(y) v %5$s, s ktorým je prepojený.</string>
     <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>
     <string name="sync_in_progress">Načítavam najnovšiu verziu súboru.</string>
@@ -692,6 +711,8 @@
     <string name="tags">Štítky</string>
     <string name="test_server_button">Test serverového pripojenia</string>
     <string name="thumbnail">Náhľad</string>
+    <string name="thumbnail_for_existing_file_description">Náhľad existujúceho súboru</string>
+    <string name="thumbnail_for_new_file_desc">Náhľad nového súboru</string>
     <string name="timeout_richDocuments">Načítanie trvá veľmi dlho…</string>
     <string name="trashbin_activity_title">Zmazané súbory</string>
     <string name="trashbin_empty_headline">Žiadne zmazané súbory</string>
@@ -727,6 +748,7 @@
     <string name="upload_list_delete">Zmazať</string>
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nejaký obsah alebo si zapnite automatické nahrávanie.</string>
+    <string name="upload_list_resolve_conflict">Vyriešiť konflikt</string>
     <string name="upload_local_storage_full">Lokálne úložište je plné</string>
     <string name="upload_local_storage_not_copied">Nepodarilo sa skopírovať súbor na lokálne úložište</string>
     <string name="upload_lock_failed">Uzamknutie priečinka zlyhalo</string>
@@ -746,6 +768,8 @@
     <string name="uploader_top_message">Vyber priečinok pre nahratie</string>
     <string name="uploader_upload_failed_content_single">Nepodarilo sa nahrať %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Nahrávanie neúspešné, je potrebné sa znovu prihlásiť</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Konflikt pri nahrávaní súboru</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Vyberte, ktorú  verziu %1$s si chcete ponechať </string>
     <string name="uploader_upload_failed_ticker">Odoslanie bolo neúspešné</string>
     <string name="uploader_upload_files_behaviour">Možnosti nahratia</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Presunúť súbor do priečinku %1$s</string>
@@ -774,6 +798,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Lokálny súbor nebol nájdený</string>
     <string name="uploads_view_upload_status_failed_permission_error">Chybné oprávnenia.</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Nedôveryhodný certifikát servra</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Načítava sa verzia servera ...</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikácia ukončená</string>
     <string name="uploads_view_upload_status_succeeded">Dokončené</string>
     <string name="uploads_view_upload_status_unknown_fail">Neznáma chyba</string>
