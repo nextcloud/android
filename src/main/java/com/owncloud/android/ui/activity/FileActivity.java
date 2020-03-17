@@ -463,7 +463,7 @@ public abstract class FileActivity extends DrawerActivity
         if (!result.isSuccess()) {
             if (result.getCode() == ResultCode.SYNC_CONFLICT) {
                 Intent i = new Intent(this, ConflictsResolveActivity.class);
-                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, syncedFile);
+                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, syncedFile); // must be new file
                 i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, getAccount());
                 startActivity(i);
             }
