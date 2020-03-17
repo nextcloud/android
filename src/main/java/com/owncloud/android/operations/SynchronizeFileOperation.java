@@ -296,7 +296,7 @@ public class SynchronizeFileOperation extends SyncOperation {
             mAccount,
             file,
             FileUploader.LOCAL_BEHAVIOUR_MOVE,
-            FileUploader.NameCollisionPolicy.ASK_USER
+            FileUploader.NameCollisionPolicy.OVERWRITE
         );
 
         mTransferWasRequested = true;

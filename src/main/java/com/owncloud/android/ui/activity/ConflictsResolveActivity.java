@@ -1,22 +1,18 @@
 /**
- *  ownCloud Android client application
+ * ownCloud Android client application
  *
- *  @author Bartek Przybylski
- *  @author David A. Velasco
- *  Copyright (C) 2012 Bartek Przybylski
- *  Copyright (C) 2016 ownCloud Inc.
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License version 2,
- *  as published by the Free Software Foundation.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  <p/>
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Bartek Przybylski
+ * @author David A. Velasco Copyright (C) 2012 Bartek Przybylski Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
+ * License version 2, as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+ * details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -27,15 +23,20 @@ import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.java.util.Optional;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import javax.inject.Inject;
 
@@ -57,12 +58,15 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
      * Specify the upload local behaviour when there is no CONFLICT_UPLOAD.
      */
     public static final String EXTRA_LOCAL_BEHAVIOUR = "LOCAL_BEHAVIOUR";
+    public static final String EXTRA_EXISTING_FILE = "EXISTING_FILE";
 
     private static final String TAG = ConflictsResolveActivity.class.getSimpleName();
 
     @Inject UploadsStorageManager uploadsStorageManager;
 
     private OCUpload conflictUpload;
+    private OCFile existingFile;
+    private OCFile newFile;
     private int localBehaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
     protected OnConflictDecisionMadeListener listener;
 
@@ -72,9 +76,11 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
 
         if (savedInstanceState != null) {
             conflictUpload = savedInstanceState.getParcelable(EXTRA_CONFLICT_UPLOAD);
+            existingFile = savedInstanceState.getParcelable(EXTRA_EXISTING_FILE);
             localBehaviour = savedInstanceState.getInt(EXTRA_LOCAL_BEHAVIOUR);
         } else {
             conflictUpload = getIntent().getParcelableExtra(EXTRA_CONFLICT_UPLOAD);
+            existingFile = getIntent().getParcelableExtra(EXTRA_EXISTING_FILE);
             localBehaviour = getIntent().getIntExtra(EXTRA_LOCAL_BEHAVIOUR, localBehaviour);
         }
 
@@ -82,10 +88,14 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
             localBehaviour = conflictUpload.getLocalAction();
         }
 
+        // new file was modified locally in file system
+        newFile = getFile();
+
         listener = new OnConflictDecisionMadeListener() {
             @Override
             public void conflictDecisionMade(Decision decision) {
-                OCFile file = getFile();
+                OCFile file = newFile; // local file got changed, so either upload it or replace it again by server
+                // version
 
                 switch (decision) {
                     case CANCEL:
@@ -141,6 +151,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
         super.onSaveInstanceState(outState);
 
         outState.putParcelable(EXTRA_CONFLICT_UPLOAD, conflictUpload);
+        outState.putParcelable(EXTRA_EXISTING_FILE, existingFile);
         outState.putInt(EXTRA_LOCAL_BEHAVIOUR, localBehaviour);
     }
 
@@ -156,17 +167,43 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
             finish();
         }
 
-        OCFile file = getFile();
-        if (getFile() == null) {
+        if (newFile == null) {
             Log_OC.e(TAG, "No file received");
             finish();
         }
 
+        if (existingFile == null) {
+            // fetch info of existing file from server
+            ReadFileRemoteOperation operation = new ReadFileRemoteOperation(newFile.getRemotePath());
+
+            new Thread(() -> {
+                try {
+                    RemoteOperationResult result = operation.execute(getAccount(), this);
+
+                    if (result.isSuccess()) {
+                        existingFile = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+                        existingFile.setLastSyncDateForProperties(System.currentTimeMillis());
+
+                        startDialog();
+                    } else {
+                        showErrorAndFinish();
+                    }
+                } catch (Exception e) {
+                    showErrorAndFinish();
+                }
+
+
+            }).start();
+        } else {
+            startDialog();
+        }
+    }
+
+    private void startDialog() {
         Optional<User> userOptional = getUser();
 
         if (!userOptional.isPresent()) {
-            Toast.makeText(this, "Error creating conflict dialog!", Toast.LENGTH_LONG).show();
-            finish();
+            showErrorAndFinish();
         }
 
         // Check whether the file is contained in the current Account
@@ -177,15 +214,20 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
             fragmentTransaction.remove(prev);
         }
 
-        if (getStorageManager().fileExists(file.getRemotePath())) {
-            ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(getFile(),
-                                                                               conflictUpload,
+        if (existingFile != null && getStorageManager().fileExists(newFile.getRemotePath())) {
+            ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
+                                                                               newFile,
                                                                                userOptional.get());
             dialog.show(fragmentTransaction, "conflictDialog");
         } else {
             // Account was changed to a different one - just finish
-            finish();
+            showErrorAndFinish();
         }
+    }
+
+    private void showErrorAndFinish() {
+        Toast.makeText(this, R.string.conflict_dialog_error, Toast.LENGTH_LONG).show();
+        finish();
     }
 
     /**
