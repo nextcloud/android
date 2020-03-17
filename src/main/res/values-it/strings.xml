@@ -189,7 +189,7 @@
     <string name="delete_account_warning">Rimuovere l\'account %s e tutti i file salvati localmente?\n\nIl processo non può essere annullato.</string>
     <string name="delete_entries">Elimina voci</string>
     <string name="deselect_all">Deseleziona tutto</string>
-    <string name="dev_version_new_version_available">Nuova versione disponibilie</string>
+    <string name="dev_version_new_version_available">Nuova versione disponibile</string>
     <string name="dev_version_no_information_available">Nessuna informazione disponibile.</string>
     <string name="dev_version_no_new_version_available">Nessuna nuova versione disponibile.</string>
     <string name="digest_algorithm_not_available">Questo algoritmo digest non è disponibile sul tuo telefono.</string>
@@ -256,7 +256,7 @@
     <string name="error_comment_file">Errore di commento del file</string>
     <string name="error_crash_title">%1$s si è chiuso inaspettatamente</string>
     <string name="error_report_issue_action">Segnala</string>
-    <string name="error_report_issue_text">Segnalare problemi al sistema di tracciamento? (richiede un account Github)</string>
+    <string name="error_report_issue_text">Segnalare problemi al sistema di tracciamento? (richiede un account GitHub)</string>
     <string name="error_retrieving_file">Errore durante il recupero del file</string>
     <string name="error_retrieving_templates">Errore durante il recupero dei modelli</string>
     <string name="error_starting_direct_camera_upload">Errore  di avvio della fotocamera</string>
@@ -401,7 +401,7 @@
     <string name="logs_title">Log</string>
     <string name="maintenance_mode">Server in manutenzione</string>
     <string name="manage_space_clear_data">Cancella i dati</string>
-    <string name="manage_space_description">Impostazioni, database e certificati del server dai dati di %1$s saranno eliminati definitivamente.\n\ni file scaricati non saranno interessati.\n\nQuesto processo può richiedere del tempo.</string>
+    <string name="manage_space_description">Impostazioni, database e certificati del server dai dati di %1$s saranno eliminati definitivamente.\n\nI file scaricati non saranno interessati.\n\nQuesto processo può richiedere del tempo.</string>
     <string name="manage_space_title">Gestisci lo spazio</string>
     <string name="media_err_invalid_progressive_playback">Il file multimediale non può essere trasmesso</string>
     <string name="media_err_io">Impossibile leggere il file multimediale</string>
@@ -512,7 +512,7 @@
     <string name="prefs_lock_device_credentials_enabled">Credenziali di dispositivo abilitate</string>
     <string name="prefs_lock_device_credentials_not_setup">Non son state configurate credenziali di dispositivo</string>
     <string name="prefs_lock_none">Nessuno</string>
-    <string name="prefs_lock_title">Prtoteggi l\'applicazione utilizzando</string>
+    <string name="prefs_lock_title">Proteggi l\'applicazione utilizzando</string>
     <string name="prefs_lock_using_device_credentials">Credenziali di dispositivo</string>
     <string name="prefs_lock_using_passcode">Codice di sicurezza</string>
     <string name="prefs_manage_accounts">Gestisci account</string>
@@ -532,7 +532,7 @@
     <string name="preview_sorry">Spiacenti</string>
     <string name="privacy">Riservatezza</string>
     <string name="push_notifications_not_implemented">Notifiche push disabilitate a causa delle dipendenze dai servizi proprietari di Google Play.</string>
-    <string name="push_notifications_old_login">Nessuna notifica push a causa della sessione di accesso scaduta. Considera di aggungere nuovamente il tuo account.</string>
+    <string name="push_notifications_old_login">Nessuna notifica push a causa della sessione di accesso scaduta. Considera di aggiungere nuovamente il tuo account.</string>
     <string name="push_notifications_temp_error">Notifiche push attualmente non disponibili.</string>
     <string name="recommend_subject">Prova %1$s sul tuo dispositivo!</string>
     <string name="recommend_text">Vorrei invitarti a utilizzare %1$s sul tuo dispositivo.\nScaricalo qui:%2$s</string>
@@ -690,7 +690,7 @@
     <string name="sync_fail_ticker_unauthorized">Sincronizzazione non riuscita, effettua nuovamente l\'accesso</string>
     <string name="sync_file_nothing_to_do_msg">Contenuti del file già sincronizzati</string>
     <string name="sync_folder_failed_content">La sincronizzazione della cartella %1$s non può essere completata</string>
-    <string name="sync_foreign_files_forgotten_explanation">Dalla versone 1.3.16, i file caricati da questo dispositivo sono copiati nella cartella locale %1$s per evitare perdite di dati quando un singolo file è sincronizzato con più account.\n\nA causa di questa modifica, tutti i file caricati con versioni precedenti di questa applicazione sono stati copiati nella cartella %2$s. Tuttavia, un errore ha impedito il completamento di questa operazione durante la sincronizzazione dell\'account. Puoi sia lasciare i file come sono ed eliminare il collegamento a %3$s, o spostare i file nella cartella %1$s e mantenere il collegamento a %4$s.\n\nSotto sono elencati i file locali e i file remoti in %5$sai quali erano collegati.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Dalla versione 1.3.16, i file caricati da questo dispositivo sono copiati nella cartella locale %1$s per evitare perdite di dati quando un singolo file è sincronizzato con più account.\n\nA causa di questa modifica, tutti i file caricati con versioni precedenti di questa applicazione sono stati copiati nella cartella %2$s. Tuttavia, un errore ha impedito il completamento di questa operazione durante la sincronizzazione dell\'account. Puoi sia lasciare i file come sono ed eliminare il collegamento a %3$s, o spostare i file nella cartella %1$s e mantenere il collegamento a %4$s.\n\nSotto sono elencati i file locali e i file remoti in %5$sai quali erano collegati.</string>
     <string name="sync_foreign_files_forgotten_ticker">Alcuni file locali sono stati trascurati</string>
     <string name="sync_in_progress">Recupero della versione più recente del file in corso.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Scegli cosa sincronizzare</string>
