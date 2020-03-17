@@ -261,6 +261,17 @@
     <string name="error_retrieving_templates">Fout bij ophalen sjablonen</string>
     <string name="error_starting_direct_camera_upload">Fout bij starten camera</string>
     <string name="etm_accounts">Accounts</string>
+    <string name="etm_background_job_name">Job naam</string>
+    <string name="etm_background_job_progress">Voortgang</string>
+    <string name="etm_background_job_started">Gestart</string>
+    <string name="etm_background_job_state">Staat</string>
+    <string name="etm_background_job_user">User Icoon</string>
+    <string name="etm_background_job_uuid">UUID</string>
+    <string name="etm_background_jobs">Achtergrondtaken</string>
+    <string name="etm_background_jobs_cancel_all">Annuleer alle jobs</string>
+    <string name="etm_background_jobs_start_test_job">Start Test Job</string>
+    <string name="etm_background_jobs_stop_test_job">Stop Test Job</string>
+    <string name="etm_migrations">Migratie (app upgrade)</string>
     <string name="etm_preferences">Voorkeuren</string>
     <string name="etm_title">Engineering Testmodus</string>
     <string name="fab_label">Toevoegen of uploaden</string>

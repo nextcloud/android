@@ -261,6 +261,8 @@
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
     <string name="etm_accounts">Cuentas</string>
+    <string name="etm_background_job_progress">Progreso</string>
+    <string name="etm_background_jobs">Trabajos en segundo plano</string>
     <string name="etm_preferences">Preferencias</string>
     <string name="etm_title">Engineering Test</string>
     <string name="fab_label">Añadir o subir</string>

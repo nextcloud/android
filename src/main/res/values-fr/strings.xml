@@ -263,6 +263,16 @@ Attention la suppression est irréversible.</string>
     <string name="error_retrieving_templates">Erreur lors de la récupération des modèles</string>
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
     <string name="etm_accounts">Comptes</string>
+    <string name="etm_background_job_name">Nom de la tâche </string>
+    <string name="etm_background_job_progress">Progression</string>
+    <string name="etm_background_job_started">Démarré</string>
+    <string name="etm_background_job_state">Etat</string>
+    <string name="etm_background_job_user">@string/user_icon</string>
+    <string name="etm_background_job_uuid">UUID</string>
+    <string name="etm_background_jobs">Tâches de fond</string>
+    <string name="etm_background_jobs_cancel_all">Annuler toutes les tâches </string>
+    <string name="etm_background_jobs_start_test_job">Démarrer la tâche de test</string>
+    <string name="etm_background_jobs_stop_test_job">Arrêter la tâche de test</string>
     <string name="etm_preferences">Préférences</string>
     <string name="etm_title">Mode test</string>
     <string name="fab_label">Ajouter ou téléverser</string>
