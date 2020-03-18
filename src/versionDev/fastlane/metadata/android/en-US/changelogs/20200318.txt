@@ -1,0 +1,4 @@
+fix wrong assumption how conflict dialog show work updated tests
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
