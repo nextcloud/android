@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.facebook.testing.screenshot.Screenshot;
+import com.nextcloud.client.RetryTestRule;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -29,7 +30,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.runner.RunWith;
+import org.junit.Rule;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -39,7 +40,6 @@ import java.util.Collection;
 
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
@@ -54,8 +54,9 @@ import static org.junit.Assert.assertTrue;
  * Common base for all integration tests
  */
 
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 public abstract class AbstractIT {
+    @Rule public RetryTestRule retryTestRule = new RetryTestRule();
 
     protected static OwnCloudClient client;
     protected static Account account;
