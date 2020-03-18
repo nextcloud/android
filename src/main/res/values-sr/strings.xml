@@ -261,8 +261,17 @@
     <string name="error_retrieving_templates">Грешка при добављању шаблона</string>
     <string name="error_starting_direct_camera_upload">Грешка при покретању камере</string>
     <string name="etm_accounts">Налози</string>
+    <string name="etm_background_job_name">Назив посла</string>
     <string name="etm_background_job_progress">Напредак</string>
+    <string name="etm_background_job_started">Започет</string>
+    <string name="etm_background_job_state">Стање</string>
+    <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Послови у позадини</string>
+    <string name="etm_background_jobs_cancel_all">Откажи све послове</string>
+    <string name="etm_background_jobs_prune">Уклони неактивне послове</string>
+    <string name="etm_background_jobs_start_test_job">Покрени пробни посао</string>
+    <string name="etm_background_jobs_stop_test_job">Заустави пробни посао</string>
+    <string name="etm_migrations">Пресељења (надоградња апликације)</string>
     <string name="etm_preferences">Поставке</string>
     <string name="etm_title">Инжењерски тест режим</string>
     <string name="fab_label">Додај или отпреми</string>
