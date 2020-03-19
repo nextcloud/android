@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-counter=0
 status=""
+counter=0
+checkcounter=0
 
 until [[ $status = "false" ]]; do
     status=$(curl 2>/dev/null "http://$1/status.php" | jq .maintenance)
+    echo "($checkcounter) $status"
 
     if [[ "$status" =~ "false" || "$status" = "" ]]; then
         let "counter += 1"
@@ -14,5 +16,8 @@ until [[ $status = "false" ]]; do
         fi
     fi
 
+    let "checkcounter += 1"
     sleep 10
 done
+
+echo "($checkcounter) Done"
