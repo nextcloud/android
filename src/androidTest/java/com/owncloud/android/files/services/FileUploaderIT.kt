@@ -42,9 +42,6 @@ import org.junit.Test
 import java.io.File
 
 class FileUploaderIT : AbstractIT() {
-    val SHORT_WAIT: Long = 5000
-    val LONG_WAIT: Long = 20000
-
     var uploadsStorageManager: UploadsStorageManager? = null
 
     val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
@@ -149,7 +146,7 @@ class FileUploaderIT : AbstractIT() {
             false,
             FileUploader.NameCollisionPolicy.DEFAULT)
 
-        Thread.sleep(LONG_WAIT)
+        longSleep()
 
         val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result.isSuccess)
@@ -166,7 +163,7 @@ class FileUploaderIT : AbstractIT() {
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             FileUploader.NameCollisionPolicy.OVERWRITE)
 
-        Thread.sleep(SHORT_WAIT)
+        shortSleep()
 
         val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result2.isSuccess)
@@ -256,7 +253,7 @@ class FileUploaderIT : AbstractIT() {
             false,
             FileUploader.NameCollisionPolicy.DEFAULT)
 
-        Thread.sleep(LONG_WAIT)
+        longSleep()
 
         val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result.isSuccess)
@@ -273,7 +270,7 @@ class FileUploaderIT : AbstractIT() {
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             FileUploader.NameCollisionPolicy.RENAME)
 
-        Thread.sleep(SHORT_WAIT)
+        shortSleep()
 
         val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result2.isSuccess)
@@ -356,7 +353,7 @@ class FileUploaderIT : AbstractIT() {
             false,
             FileUploader.NameCollisionPolicy.DEFAULT)
 
-        Thread.sleep(LONG_WAIT)
+        longSleep()
 
         val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result.isSuccess)
@@ -373,7 +370,7 @@ class FileUploaderIT : AbstractIT() {
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             FileUploader.NameCollisionPolicy.CANCEL)
 
-        Thread.sleep(SHORT_WAIT)
+        shortSleep()
 
         val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result2.isSuccess)
