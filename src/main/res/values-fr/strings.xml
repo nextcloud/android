@@ -142,6 +142,7 @@
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
     <string name="conflict_already_existing_file">Fichier déjà existant</string>
+    <string name="conflict_dialog_error">Une erreur qui crée un dialogue conflictuel !</string>
     <string name="conflict_keep_both">Conserver les deux</string>
     <string name="conflict_message">Quels fichiers voulez-vous conserver ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
@@ -271,8 +272,10 @@ Attention la suppression est irréversible.</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Tâches de fond</string>
     <string name="etm_background_jobs_cancel_all">Annuler toutes les tâches </string>
+    <string name="etm_background_jobs_prune">Prune inactive jobs</string>
     <string name="etm_background_jobs_start_test_job">Démarrer la tâche de test</string>
     <string name="etm_background_jobs_stop_test_job">Arrêter la tâche de test</string>
+    <string name="etm_migrations">Migrations (app mise à jour)</string>
     <string name="etm_preferences">Préférences</string>
     <string name="etm_title">Mode test</string>
     <string name="fab_label">Ajouter ou téléverser</string>
