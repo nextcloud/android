@@ -53,7 +53,7 @@ public class PreviewTextFileFragmentTest extends AbstractIT {
     public void displaySimpleTextFile() throws InterruptedException {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
-        Thread.sleep(3000);
+        shortSleep();
 
         File file = new File(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt");
         OCFile test = new OCFile("/text.md");
@@ -61,7 +61,7 @@ public class PreviewTextFileFragmentTest extends AbstractIT {
         test.setStoragePath(file.getAbsolutePath());
         sut.startTextPreview(test, false);
 
-        Thread.sleep(3000);
+        shortSleep();
 
         Screenshot.snapActivity(sut).record();
     }
@@ -70,7 +70,7 @@ public class PreviewTextFileFragmentTest extends AbstractIT {
     public void displayJavaSnippetFile() throws IOException, InterruptedException {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
-        Thread.sleep(3000);
+        shortSleep();
 
         File file = getFile("java.md");
         OCFile test = new OCFile("/java.md");
@@ -78,7 +78,7 @@ public class PreviewTextFileFragmentTest extends AbstractIT {
         test.setStoragePath(file.getAbsolutePath());
         sut.startTextPreview(test, false);
 
-        Thread.sleep(3000);
+        shortSleep();
 
         Screenshot.snapActivity(sut).record();
     }
