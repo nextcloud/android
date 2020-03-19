@@ -55,6 +55,11 @@ import org.junit.Rule
 import org.junit.Test
 
 class OCFileListFragmentIT : AbstractIT() {
+    companion object {
+        val SECOND_IN_MILLIS = 1000L
+        val RESULT_PER_PAGE = 50
+    }
+
     @get:Rule
     val activityRule = IntentsTestRule(FileDisplayActivity::class.java, true, false)
 
@@ -112,7 +117,7 @@ class OCFileListFragmentIT : AbstractIT() {
         assertTrue(newUpload.execute(client, storageManager).isSuccess)
 
         assertTrue(RefreshFolderOperation(storageManager.getFileByPath("/test/"),
-            System.currentTimeMillis() / 1000,
+            System.currentTimeMillis() / SECOND_IN_MILLIS,
             false,
             true,
             storageManager,
@@ -122,7 +127,7 @@ class OCFileListFragmentIT : AbstractIT() {
         val sut = ActivityScenario.launch(FileDisplayActivity::class.java)
         sut.onActivity { activity -> activity.onBrowsedDownTo(storageManager.getFileByPath("/test/")) }
 
-        Thread.sleep(2000)
+        shortSleep()
 
         sut.onActivity { activity ->
             Screenshot.snapActivity(activity).setName("richworkspaces_light").record()
@@ -138,7 +143,7 @@ class OCFileListFragmentIT : AbstractIT() {
 
         sut.onActivity { activity -> activity.onBrowsedDownTo(storageManager.getFileByPath("/test/")) }
 
-        Thread.sleep(2000)
+        shortSleep()
 
         sut.onActivity { activity ->
             Screenshot.snapActivity(activity).setName("richworkspaces_dark").record()
@@ -170,7 +175,7 @@ class OCFileListFragmentIT : AbstractIT() {
         val sut: FileDisplayActivity = activityRule.launchActivity(null)
         sut.startSyncFolderOperation(storageManager.getFileByPath("/"), true)
 
-        Thread.sleep(2000)
+        shortSleep()
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
         Screenshot.snapActivity(sut).record()
     }
@@ -192,7 +197,7 @@ class OCFileListFragmentIT : AbstractIT() {
         val sut: FileDisplayActivity = activityRule.launchActivity(null)
         sut.startSyncFolderOperation(storageManager.getFileByPath("/"), true)
 
-        Thread.sleep(2000)
+        shortSleep()
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
         Screenshot.snapActivity(sut).record()
     }
@@ -204,7 +209,7 @@ class OCFileListFragmentIT : AbstractIT() {
 
         // share folder to circle
         // get circleId
-        val searchResult = GetShareesRemoteOperation("publicCircle", 1, 50).execute(client)
+        val searchResult = GetShareesRemoteOperation("publicCircle", 1, RESULT_PER_PAGE).execute(client)
         assertTrue(searchResult.logMessage, searchResult.isSuccess)
 
         val resultJson: JSONObject = searchResult.data[0] as JSONObject
@@ -221,7 +226,7 @@ class OCFileListFragmentIT : AbstractIT() {
         val sut: FileDisplayActivity = activityRule.launchActivity(null)
         sut.startSyncFolderOperation(storageManager.getFileByPath("/"), true)
 
-        Thread.sleep(2000)
+        shortSleep()
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
         Screenshot.snapActivity(sut).record()
     }
@@ -243,7 +248,7 @@ class OCFileListFragmentIT : AbstractIT() {
         val sut: FileDisplayActivity = activityRule.launchActivity(null)
         sut.startSyncFolderOperation(storageManager.getFileByPath("/"), true)
 
-        Thread.sleep(2000)
+        shortSleep()
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
         Screenshot.snapActivity(sut).record()
     }

@@ -192,7 +192,7 @@ public abstract class AbstractIT {
     protected void openDrawer(IntentsTestRule activityRule) throws InterruptedException {
         Activity sut = activityRule.launchActivity(null);
 
-        Thread.sleep(3000);
+        shortSleep();
 
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
 
@@ -213,5 +213,21 @@ public abstract class AbstractIT {
         });
 
         return currentActivity;
+    }
+
+    protected void shortSleep() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void longSleep() {
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
