@@ -117,6 +117,9 @@ public class ShareeListAdapter extends RecyclerView.Adapter<ShareeListAdapter.Us
                     name = context.getString(R.string.share_room_clarification, name);
                     setImage(holder, name, R.drawable.ic_chat_bubble);
                     break;
+                case CIRCLE:
+                    holder.avatar.setImageResource(R.drawable.ic_circles);
+                    break;
                 default:
                     setImage(holder, name, R.drawable.ic_user);
                     break;

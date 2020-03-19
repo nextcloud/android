@@ -60,7 +60,7 @@ public class ScreenshotsIT extends AbstractIT {
         openOverflowMenu();
         onView(anyOf(withText(R.string.action_switch_grid_view), withId(R.id.action_switch_view))).perform(click());
 
-        Thread.sleep(1000);
+        shortSleep();
 
         Screengrab.screenshot("01_gridView");
 
@@ -70,12 +70,12 @@ public class ScreenshotsIT extends AbstractIT {
         Assert.assertTrue(true); // if we reach this, everything is ok
     }
 
-    private void openOverflowMenu() throws InterruptedException {
+    private void openOverflowMenu() {
         try {
             Espresso.openContextualActionModeOverflowMenu();
         } catch (NoActivityResumedException e) {
             ActivityScenario.launch(FileDisplayActivity.class);
-            Thread.sleep(1000);
+            shortSleep();
             Espresso.openContextualActionModeOverflowMenu();
         }
     }
@@ -143,12 +143,12 @@ public class ScreenshotsIT extends AbstractIT {
     }
 
     @Test
-    public void davdroidScreenshot() throws InterruptedException {
+    public void davdroidScreenshot() {
         ActivityScenario.launch(SettingsActivity.class);
 
         onData(PreferenceMatchers.withTitle(R.string.prefs_category_more)).perform(ViewActions.scrollTo());
 
-        Thread.sleep(1000);
+        shortSleep();
 
         Screengrab.screenshot("06_davdroid");
 

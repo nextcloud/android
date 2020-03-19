@@ -59,7 +59,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     private boolean returnCode;
 
     @Test
-    public void screenshotTextFiles() throws InterruptedException {
+    public void screenshotTextFiles() {
         OCFile newFile = new OCFile("/newFile.txt");
         newFile.setFileLength(56000);
         newFile.setModificationTimestamp(1522019340);
@@ -88,13 +88,13 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         getInstrumentation().waitForIdleSync();
 
-        Thread.sleep(2000);
+        shortSleep();
 
         Screenshot.snap(dialog.getDialog().getWindow().getDecorView()).record();
     }
 
     @Test
-    public void screenshotImages() throws InterruptedException, IOException {
+    public void screenshotImages() throws IOException {
         FileDataStorageManager storageManager = new FileDataStorageManager(account,
                                                                            targetContext.getContentResolver());
 
@@ -141,13 +141,13 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         dialog.listener = listener;
 
         getInstrumentation().waitForIdleSync();
-        Thread.sleep(2000);
+        shortSleep();
 
         Screenshot.snap(dialog.getDialog().getWindow().getDecorView()).record();
     }
 
     @Test
-    public void cancel() throws InterruptedException {
+    public void cancel() {
         returnCode = false;
 
         OCUpload newUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt",
@@ -179,7 +179,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         };
 
         getInstrumentation().waitForIdleSync();
-        Thread.sleep(2000);
+        shortSleep();
 
         onView(withText("Cancel")).perform(click());
 
