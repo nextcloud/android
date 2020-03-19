@@ -142,6 +142,7 @@
     <string name="confirmation_remove_folders_alert">Quer realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="confirmation_remove_local">Somente local</string>
     <string name="conflict_already_existing_file">Arquivo já existe</string>
+    <string name="conflict_dialog_error">Erro ao criar diálogo de conflito!</string>
     <string name="conflict_keep_both">Manter ambos</string>
     <string name="conflict_message">Quais arquivos você quer manter? Se você selecionar ambos, o arquivo local terá um número adicionado ao seu nome.</string>
     <string name="conflict_message_description">Se você selecionar as duas versões, o arquivo local terá um número anexado ao seu nome.</string>
