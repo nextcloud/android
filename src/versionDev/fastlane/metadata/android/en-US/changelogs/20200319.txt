@@ -1,0 +1,2 @@
+remove outdated background for dev
+Update translations
