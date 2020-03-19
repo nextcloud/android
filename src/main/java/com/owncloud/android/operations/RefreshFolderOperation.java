@@ -412,7 +412,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         Log_OC.d(TAG, "Remote folder " + mLocalFolder.getRemotePath() + " changed - starting update of local data ");
 
-        List<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
+        ArrayList<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
         mFilesToSyncContents.clear();
 
         // if local folder is encrypted, download fresh metadata
@@ -435,20 +435,21 @@ public class RefreshFolderOperation extends RemoteOperation {
         OCFile remoteFile;
         OCFile localFile;
         OCFile updatedFile;
-        RemoteFile r;
+        RemoteFile remote;
 
         for (int i = 1; i < folderAndFiles.size(); i++) {
             /// new OCFile instance with the data from the server
-            r = (RemoteFile) folderAndFiles.get(i);
-            remoteFile = FileStorageUtils.fillOCFile(r);
+            remote = (RemoteFile) folderAndFiles.get(i);
+            remoteFile = FileStorageUtils.fillOCFile(remote);
 
             // new OCFile instance to merge fresh data from server with local state
-            updatedFile = FileStorageUtils.fillOCFile(r);
+            updatedFile = FileStorageUtils.fillOCFile(remote);
             updatedFile.setParentId(mLocalFolder.getFileId());
 
             // retrieve local data for the read file
             localFile = localFilesMap.remove(remoteFile.getRemotePath());
 
+            // TODO better implementation is needed
             if (localFile == null) {
                 localFile = mStorageManager.getFileByPath(updatedFile.getRemotePath());
             }

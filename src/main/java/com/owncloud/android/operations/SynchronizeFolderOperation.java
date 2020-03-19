@@ -43,6 +43,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -262,7 +263,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         FileDataStorageManager storageManager = getStorageManager();
-        List<OCFile> updatedFiles = new Vector<>(folderAndFiles.size() - 1);
+        ArrayList<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
 
         // get current data about local contents of the folder to synchronize
         List<OCFile> localFiles = storageManager.getFolderContent(mLocalFolder, false);
