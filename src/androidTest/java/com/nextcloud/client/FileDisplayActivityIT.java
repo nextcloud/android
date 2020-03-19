@@ -71,10 +71,10 @@ public class FileDisplayActivityIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
-    public void open() throws InterruptedException {
+    public void open() {
         Activity sut = activityRule.launchActivity(null);
 
-        Thread.sleep(3000);
+        shortSleep();
 
         Screenshot.snapActivity(sut).record();
     }
@@ -162,7 +162,7 @@ public class FileDisplayActivityIT extends AbstractIT {
     }
 
     @Test
-    public void allFiles() throws InterruptedException {
+    public void allFiles() {
         // ActivityScenario<FileDisplayActivity> sut = ActivityScenario.launch(FileDisplayActivity.class);
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
@@ -184,7 +184,7 @@ public class FileDisplayActivityIT extends AbstractIT {
             .perform(NavigationViewActions.navigateTo(R.id.nav_all_files));
 
         // then should be in root again
-        Thread.sleep(2000);
+        shortSleep();
         assertEquals(getStorageManager().getFileByPath("/"), sut.getCurrentDir());
     }
 }
