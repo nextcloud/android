@@ -142,6 +142,7 @@
     <string name="confirmation_remove_folders_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Solo local</string>
     <string name="conflict_already_existing_file">Archivo ya existente</string>
+    <string name="conflict_dialog_error">¡Error al crear el diálogo de conflicto!</string>
     <string name="conflict_keep_both">Mantener ambos</string>
     <string name="conflict_message">¿Qué archivos desea mantener? Si selecciona ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
@@ -268,7 +269,7 @@
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Procesos en segundo plano</string>
     <string name="etm_background_jobs_cancel_all">Cancelar todos los trabajos</string>
-    <string name="etm_background_jobs_prune">Cortar trabajos inactivos</string>
+    <string name="etm_background_jobs_prune">Parar trabajos inactivos</string>
     <string name="etm_background_jobs_start_test_job">Iniciar trabajo de prueba</string>
     <string name="etm_background_jobs_stop_test_job">Parar trabajo de prueba</string>
     <string name="etm_migrations">Migraciones (actualizar app)</string>
