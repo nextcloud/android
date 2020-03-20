@@ -30,7 +30,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.PorterDuff;
 import android.graphics.Shader;
@@ -407,7 +406,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                     // use fileOwner if not oneself, then add at first
                     ShareeUser fileOwnerSharee = new ShareeUser(fileOwner, file.getOwnerDisplayName(), ShareType.USER);
-                    if (fileOwner != null && !fileOwner.equals(userId) && !sharees.contains(fileOwnerSharee)) {
+                    if (!TextUtils.isEmpty(fileOwner) &&
+                        !fileOwner.equals(userId) &&
+                        !sharees.contains(fileOwnerSharee)) {
                         sharees.add(fileOwnerSharee);
                     }
 
@@ -421,7 +422,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     int size = 60 * (shareeSize - 1) + w;
 
                     for (int i = 0; i < shareeSize; i++) {
-                        ShareeUser sharee = file.getSharees().get(i);
+                        ShareeUser sharee = sharees.get(i);
 
                         ImageView avatar = new ImageView(activity);
 
@@ -436,6 +437,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
                                     avatar.setImageResource(R.drawable.ic_people);
                                 }
+                            } else if (sharee.getShareType().equals(ShareType.CIRCLE)) {
+                                avatar.setImageResource(R.drawable.ic_circles);
                             } else if (sharee.getUserId().contains("@")) {
                                 showFederatedShareAvatar(sharee.getUserId(), avatarRadius, resources, avatar);
                             } else {
@@ -899,8 +902,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     ShareType newShareType = ocShare.getShareType();
                     if (newShareType == ShareType.PUBLIC_LINK) {
                         file.setSharedViaLink(true);
-                    } else if (newShareType == ShareType.USER || newShareType == ShareType.GROUP ||
-                        newShareType == ShareType.EMAIL || newShareType == ShareType.FEDERATED) {
+                    } else if (newShareType == ShareType.USER ||
+                        newShareType == ShareType.GROUP ||
+                        newShareType == ShareType.EMAIL ||
+                        newShareType == ShareType.FEDERATED ||
+                        newShareType == ShareType.ROOM ||
+                        newShareType == ShareType.CIRCLE) {
                         file.setSharedWithSharee(true);
                     }
 

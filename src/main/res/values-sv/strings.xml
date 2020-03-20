@@ -142,6 +142,7 @@
     <string name="confirmation_remove_folders_alert">Vill du verkligen radera de valda objekten och dess innehåll?</string>
     <string name="confirmation_remove_local">Endast lokalt</string>
     <string name="conflict_already_existing_file">Filen finns redan</string>
+    <string name="conflict_dialog_error">Fel vid skapande av konfliktdialog!</string>
     <string name="conflict_keep_both">Behåll båda</string>
     <string name="conflict_message">Vilka filer vill du behålla? Om du väljer båda versioner kommer den lokala filen att ha ett nummer kopplat till dess namn.</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>

@@ -32,11 +32,13 @@ import android.widget.Switch;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.ThemeUtils;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 
 /**
  * Themeable switch preference
+ * TODO Migrate to androidx
  */
 public class ThemeableSwitchPreference extends SwitchPreference {
 
@@ -72,12 +74,16 @@ public class ThemeableSwitchPreference extends SwitchPreference {
                 Switch switchView = (Switch) child;
 
                 if(thumbColorStateList == null && trackColorStateList == null) {
-                    int color = ThemeUtils.primaryAccentColor(getContext());
-                    int trackColor = Color.argb(77, Color.red(color), Color.green(color), Color.blue(color));
+                    int thumbColor = ThemeUtils.primaryAccentColor(getContext());
+                    if (ThemeUtils.darkTheme(getContext()) &&
+                        AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                        thumbColor = Color.WHITE;
+                    }
+                    int trackColor = Color.argb(77, Color.red(thumbColor), Color.green(thumbColor), Color.blue(thumbColor));
                     int trackColorUnchecked = getContext().getResources().getColor(R.color.switch_track_color_unchecked);
                     thumbColorStateList = new ColorStateList(
                             new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
-                            new int[]{color, Color.WHITE});
+                            new int[]{thumbColor, getContext().getResources().getColor(R.color.switch_thumb_color_unchecked)});
                     trackColorStateList = new ColorStateList(
                             new int[][]{new int[]{android.R.attr.state_checked},
                                 new int[]{}},

@@ -142,6 +142,7 @@
     <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
     <string name="confirmation_remove_local">Pouze místní</string>
     <string name="conflict_already_existing_file">Už existující soubor</string>
+    <string name="conflict_dialog_error">Chyba při vytváření dialogu ke konfliktu!</string>
     <string name="conflict_keep_both">Ponechat oba</string>
     <string name="conflict_message">Které soubory chcete ponechat? Pokud zvolíte obě verze, zkopírovaný soubor bude mít název doplněný o číslo.</string>
     <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>

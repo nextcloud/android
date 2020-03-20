@@ -179,6 +179,7 @@ public class UploadFilesActivity extends FileActivity implements
         mUploadBtn = findViewById(R.id.upload_files_btn_upload);
         mUploadBtn.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
         mUploadBtn.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(this, true)));
+        mUploadBtn.setTextColor(ThemeUtils.fontColor(this, false));
         mUploadBtn.setOnClickListener(this);
 
         int localBehaviour = preferences.getUploaderBehaviour();
@@ -273,6 +274,7 @@ public class UploadFilesActivity extends FileActivity implements
         ImageView searchClose = mSearchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         searchClose.setColorFilter(fontColor);
 
+        ThemeUtils.tintDrawable(menu.findItem(R.id.action_choose_storage_path).getIcon(), fontColor);
 
         return super.onCreateOptionsMenu(menu);
     }

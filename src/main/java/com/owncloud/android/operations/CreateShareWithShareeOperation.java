@@ -45,7 +45,11 @@ public class CreateShareWithShareeOperation extends SyncOperation {
     private int permissions;
 
     private static final List<ShareType> supportedShareTypes = new ArrayList<>(Arrays.asList(ShareType.USER,
-            ShareType.GROUP, ShareType.FEDERATED, ShareType.EMAIL, ShareType.ROOM));
+                                                                                             ShareType.GROUP,
+                                                                                             ShareType.FEDERATED,
+                                                                                             ShareType.EMAIL,
+                                                                                             ShareType.ROOM,
+                                                                                             ShareType.CIRCLE));
 
     /**
      * Constructor.
@@ -74,8 +78,8 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             path,
             shareType,
             shareeName,
-                false,
-                "",
+            false,
+            "",
             permissions
         );
         operation.setGetShareDetails(true);
