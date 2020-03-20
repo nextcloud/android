@@ -1,0 +1,10 @@
+revert to master lib
+Add circle support for searching / displaying
+Fixes "Report a bug" button in community tab
+Adjusted file list banner background colour in dark mode
+Tint buttons in upload
+Dark Mode Improvements
+fix lint to exclude correct freemarker version
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
