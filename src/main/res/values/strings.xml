@@ -891,7 +891,7 @@
     <string name="etm_background_jobs_stop_test_job">Stop test job</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_job_name">Job name</string>
-    <string name="etm_background_job_user">@string/user_icon</string>
+    <string name="etm_background_job_user">User</string>
     <string name="etm_background_job_state">State</string>
     <string name="etm_background_job_started">Started</string>
     <string name="etm_background_job_progress">Progress</string>
