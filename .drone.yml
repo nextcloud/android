@@ -122,8 +122,8 @@ services:
       - apt-get update; apt-get -y install composer
       - su www-data -c "cd /var/www/html/apps/circles; composer install"
       - su www-data -c "php /var/www/html/occ app:enable -f circles"
-      - su www-data -c "occ config:app:set circles --value 1 allow_non_ssl_links"
-      - su www-data -c "occ config:app:set circles --value 1 local_is_non_ssl"
+      - su www-data -c "php /var/www/html/occ config:app:set circles --value 1 allow_non_ssl_links"
+      - su www-data -c "php /var/www/html/occ config:app:set circles --value 1 local_is_non_ssl"
       - su www-data -c "php /var/www/html/occ circles:manage:create test public publicCircle
       - /usr/local/bin/run.sh
 
