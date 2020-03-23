@@ -19,28 +19,56 @@
  */
 package com.owncloud.android.services.firebase;
 
+import android.text.TextUtils;
+
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.preferences.AppPreferences;
+import com.owncloud.android.R;
 import com.owncloud.android.jobs.NotificationJob;
+import com.owncloud.android.utils.PushUtils;
+
+import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
+import dagger.android.AndroidInjection;
 
 public class NCFirebaseMessagingService extends FirebaseMessagingService {
+    @Inject AppPreferences preferences;
+    @Inject UserAccountManager accountManager;
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
-        if (remoteMessage != null && remoteMessage.getData() != null) {
-            PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
-            persistableBundleCompat.putString(NotificationJob.KEY_NOTIFICATION_SUBJECT, remoteMessage.getData().get
-                    (NotificationJob.KEY_NOTIFICATION_SUBJECT));
-            persistableBundleCompat.putString(NotificationJob.KEY_NOTIFICATION_SIGNATURE, remoteMessage.getData().get
-                    (NotificationJob.KEY_NOTIFICATION_SIGNATURE));
-            new JobRequest.Builder(NotificationJob.TAG)
-                    .addExtras(persistableBundleCompat)
-                    .setUpdateCurrent(false)
-                    .startNow()
-                    .build()
-                    .schedule();
+    public void onCreate() {
+        super.onCreate();
+        AndroidInjection.inject(this);
+    }
+
+    @Override
+    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
+        remoteMessage.getData();
+        PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
+        persistableBundleCompat.putString(NotificationJob.KEY_NOTIFICATION_SUBJECT, remoteMessage.getData().get
+            (NotificationJob.KEY_NOTIFICATION_SUBJECT));
+        persistableBundleCompat.putString(NotificationJob.KEY_NOTIFICATION_SIGNATURE, remoteMessage.getData().get
+            (NotificationJob.KEY_NOTIFICATION_SIGNATURE));
+        new JobRequest.Builder(NotificationJob.TAG)
+            .addExtras(persistableBundleCompat)
+            .setUpdateCurrent(false)
+            .startNow()
+            .build()
+            .schedule();
+    }
+
+    @Override
+    public void onNewToken(@NonNull String newToken) {
+        super.onNewToken(newToken);
+
+        if (!TextUtils.isEmpty(getResources().getString(R.string.push_server_url))) {
+            preferences.setPushToken(newToken);
+            PushUtils.pushRegistrationToServer(accountManager, preferences.getPushToken());
         }
     }
 }
