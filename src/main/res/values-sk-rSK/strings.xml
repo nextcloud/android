@@ -142,6 +142,7 @@
     <string name="confirmation_remove_folders_alert">Naozaj chcete odstrániť vybraté položky a ich obsah?</string>
     <string name="confirmation_remove_local">Iba lokálne</string>
     <string name="conflict_already_existing_file">Súbor už existuje </string>
+    <string name="conflict_dialog_error">Chyba pri vytváraní konfliktného dialógového okna!</string>
     <string name="conflict_keep_both">Ponechať oba</string>
     <string name="conflict_message">Ktoré súbory si prajate ponachať? Pokiaľ to budú obe verzie, lokálnej pribudne k názvu číslo.</string>
     <string name="conflict_message_description">Ak vyberiete obe verzie, miestny súbor bude mať k svojmu názvu pridané číslo.</string>
