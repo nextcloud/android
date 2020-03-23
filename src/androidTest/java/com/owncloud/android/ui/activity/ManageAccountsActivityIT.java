@@ -40,22 +40,22 @@ public class ManageAccountsActivityIT extends AbstractIT {
                                                                                         false);
 
     @Test
-    public void open() throws InterruptedException {
+    public void open() {
         Activity sut = activityRule.launchActivity(null);
 
-        Thread.sleep(2000);
+        shortSleep();
 
         Screenshot.snapActivity(sut).record();
     }
 
     @Test
-    public void userInfoDetail() throws InterruptedException {
+    public void userInfoDetail() {
         ManageAccountsActivity sut = activityRule.launchActivity(null);
 
         User user = sut.accountManager.getUser();
         sut.onClick(user);
 
-        Thread.sleep(2000);
+        shortSleep();
 
         Screenshot.snapActivity(getCurrentActivity()).record();
     }

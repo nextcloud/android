@@ -141,8 +141,12 @@
     <string name="confirmation_remove_folder_alert">%1$s klasörünü ve içindekileri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_folders_alert">Seçilmiş ögeleri ve içindekileri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_local">Yalnız yerel</string>
+    <string name="conflict_already_existing_file">Dosya zaten var</string>
     <string name="conflict_keep_both">İkisi de tutulsun</string>
     <string name="conflict_message">Hangi dosyaları tutmak istiyorsunuz? Her ikisini de tutmayı seçerseniz yerel dosyanın adına bir sayı eklenecek.</string>
+    <string name="conflict_message_description">İki sürümü de saklamayı seçerseniz, yerel dosyanın adına bir numara eklenecek.</string>
+    <string name="conflict_message_headline">Hangi dosyaları saklamak istiyorsunuz?</string>
+    <string name="conflict_new_file">Yeni dosya</string>
     <string name="conflict_title">Dosya çakışması</string>
     <string name="conflict_use_local_version">yerel sürümü</string>
     <string name="conflict_use_server_version">sunucu sürümünü</string>
@@ -257,6 +261,17 @@
     <string name="error_retrieving_templates">Kalıplar alınırken sorun çıktı</string>
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>
     <string name="etm_accounts">Hesaplar</string>
+    <string name="etm_background_job_name">Meslek ism</string>
+    <string name="etm_background_job_progress">İlerleme</string>
+    <string name="etm_background_job_started">Başladı</string>
+    <string name="etm_background_job_state">İl</string>
+    <string name="etm_background_job_uuid">UUID</string>
+    <string name="etm_background_jobs">Arka plan görevleri</string>
+    <string name="etm_background_jobs_cancel_all">Tüm işleri iptal et</string>
+    <string name="etm_background_jobs_prune">Aktif olmayan işleri sil</string>
+    <string name="etm_background_jobs_start_test_job">Test işini başlat</string>
+    <string name="etm_background_jobs_stop_test_job">Test işini sonlandır</string>
+    <string name="etm_migrations">Aktarımlar (uygulama yükseltmesi)</string>
     <string name="etm_preferences">Ayarlar</string>
     <string name="etm_title">Mühendislik Sınama Kipi</string>
     <string name="fab_label">Ekle ya da yükle</string>
@@ -365,6 +380,7 @@
     <string name="instant_upload_existing">Var olan dosyalar da yüklensin</string>
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
+    <string name="invalid_url">Adres Geçersiz</string>
     <string name="learn_more">Ayrıntılı bilgi alın</string>
     <string name="link">Bağlantı</string>
     <string name="list_layout">Liste düzeni</string>
@@ -570,6 +586,8 @@
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_internal_link">İç bağlantıyı paylaş</string>
     <string name="share_internal_link_text">Yalnız bu %1$s ögesine erişebilen kullanıcılar için geçerlidir</string>
+    <string name="share_internal_link_to_file_text">İç bağlantı paylaşımı yalnız bu dosyaya erişebilen kullanıcılar için geçerlidir</string>
+    <string name="share_internal_link_to_folder_text">İç bağlantı paylaşımı yalnız bu klasöre erişebilen kullanıcılar için geçerlidir</string>
     <string name="share_known_remote_clarification">%1$s (%2$s üzerinde)</string>
     <string name="share_link_empty_password">Bir parola yazmalısınız</string>
     <string name="share_link_file_error">Bu dosya ya da klasör paylaşılmaya çalışılırken bir sorun çıktı</string>
@@ -692,6 +710,8 @@
     <string name="tags">Etiketler</string>
     <string name="test_server_button">Sunucu bağlantısını sına</string>
     <string name="thumbnail">Küçük görsel</string>
+    <string name="thumbnail_for_existing_file_description">Var olan dosyanın küçük görseli</string>
+    <string name="thumbnail_for_new_file_desc">Yeni dosyanın küçük görseli</string>
     <string name="timeout_richDocuments">Yükleme işlemi çok zaman alıyor …</string>
     <string name="trashbin_activity_title">Silinmiş dosyalar</string>
     <string name="trashbin_empty_headline">Silinmiş bir dosya yok</string>

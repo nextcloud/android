@@ -141,8 +141,13 @@
     <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et ses contenus ?</string>
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
+    <string name="conflict_already_existing_file">Fichier déjà existant</string>
+    <string name="conflict_dialog_error">Une erreur qui crée un dialogue conflictuel !</string>
     <string name="conflict_keep_both">Conserver les deux</string>
     <string name="conflict_message">Quels fichiers voulez-vous conserver ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
+    <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
+    <string name="conflict_message_headline">Quels fichiers souhaitez-vous conserver ?</string>
+    <string name="conflict_new_file">Nouveau fichier</string>
     <string name="conflict_title">Conflit de fichiers</string>
     <string name="conflict_use_local_version">version locale</string>
     <string name="conflict_use_server_version">version serveur</string>
@@ -259,6 +264,17 @@ Attention la suppression est irréversible.</string>
     <string name="error_retrieving_templates">Erreur lors de la récupération des modèles</string>
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
     <string name="etm_accounts">Comptes</string>
+    <string name="etm_background_job_name">Nom de la tâche </string>
+    <string name="etm_background_job_progress">Progression</string>
+    <string name="etm_background_job_started">Démarré</string>
+    <string name="etm_background_job_state">État</string>
+    <string name="etm_background_job_uuid">UUID</string>
+    <string name="etm_background_jobs">Tâches de fond</string>
+    <string name="etm_background_jobs_cancel_all">Annuler toutes les tâches </string>
+    <string name="etm_background_jobs_prune">Prune inactive jobs</string>
+    <string name="etm_background_jobs_start_test_job">Démarrer la tâche de test</string>
+    <string name="etm_background_jobs_stop_test_job">Arrêter la tâche de test</string>
+    <string name="etm_migrations">Migrations (app mise à jour)</string>
     <string name="etm_preferences">Préférences</string>
     <string name="etm_title">Mode test</string>
     <string name="fab_label">Ajouter ou téléverser</string>
@@ -367,6 +383,7 @@ Attention la suppression est irréversible.</string>
     <string name="instant_upload_existing">Téléverser aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="invalid_url">URL invalide</string>
     <string name="learn_more">En savoir plus</string>
     <string name="link">Lien</string>
     <string name="list_layout">Affichage en liste</string>
@@ -572,6 +589,8 @@ Attention la suppression est irréversible.</string>
     <string name="share_group_clarification">%1$s (groupe)</string>
     <string name="share_internal_link">Partager le lien interne</string>
     <string name="share_internal_link_text">Fonctionne uniquement pour les utilisateurs ayant accès à ce %1$s</string>
+    <string name="share_internal_link_to_file_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce fichier</string>
+    <string name="share_internal_link_to_folder_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce dossier</string>
     <string name="share_known_remote_clarification">%1$s (sur %2$s)</string>
     <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
     <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
@@ -694,6 +713,8 @@ Attention la suppression est irréversible.</string>
     <string name="tags">Étiquettes</string>
     <string name="test_server_button">Tester la connexion du serveur</string>
     <string name="thumbnail">Miniature</string>
+    <string name="thumbnail_for_existing_file_description">Vignette pour fichier existant</string>
+    <string name="thumbnail_for_new_file_desc">Vignette pour nouveau fichier</string>
     <string name="timeout_richDocuments">Le chargement est très long ...</string>
     <string name="trashbin_activity_title">Fichiers supprimés</string>
     <string name="trashbin_empty_headline">Aucun fichier supprimé</string>

@@ -141,8 +141,13 @@
     <string name="confirmation_remove_folder_alert">Opravdu chcete odstranit %1$s a jeho obsah?</string>
     <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
     <string name="confirmation_remove_local">Pouze místní</string>
+    <string name="conflict_already_existing_file">Už existující soubor</string>
+    <string name="conflict_dialog_error">Chyba při vytváření dialogu ke konfliktu!</string>
     <string name="conflict_keep_both">Ponechat oba</string>
     <string name="conflict_message">Které soubory chcete ponechat? Pokud zvolíte obě verze, zkopírovaný soubor bude mít název doplněný o číslo.</string>
+    <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>
+    <string name="conflict_message_headline">Které soubory chcete ponechat?</string>
+    <string name="conflict_new_file">Nový soubor</string>
     <string name="conflict_title">Konflikt souboru</string>
     <string name="conflict_use_local_version">místní verze</string>
     <string name="conflict_use_server_version">verze na serveru</string>
@@ -257,6 +262,17 @@
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
     <string name="etm_accounts">Účty</string>
+    <string name="etm_background_job_name">Název úlohy</string>
+    <string name="etm_background_job_progress">Průběh</string>
+    <string name="etm_background_job_started">Zahájeno</string>
+    <string name="etm_background_job_state">Stav</string>
+    <string name="etm_background_job_uuid">UUID</string>
+    <string name="etm_background_jobs">Úlohy na pozadí</string>
+    <string name="etm_background_jobs_cancel_all">Zrušit všechny úlohy</string>
+    <string name="etm_background_jobs_prune">Odstranit neaktivní úlohy</string>
+    <string name="etm_background_jobs_start_test_job">Spustit zkušební úlohu</string>
+    <string name="etm_background_jobs_stop_test_job">Zastavit zkušební úlohu</string>
+    <string name="etm_migrations">Migrace (přechod na novější verzi aplikace)</string>
     <string name="etm_preferences">Předvolby</string>
     <string name="etm_title">Vývojářský testovací režim</string>
     <string name="fab_label">Přidat nebo nahrát</string>
@@ -365,6 +381,7 @@
     <string name="instant_upload_existing">Také nahrát existující soubory</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="invalid_url">Neplatná URL adresa</string>
     <string name="learn_more">Zjistit více</string>
     <string name="link">Odkaz</string>
     <string name="list_layout">Zobrazit jako seznam</string>
@@ -570,6 +587,8 @@
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_internal_link">Sdílet vnitřní odkaz</string>
     <string name="share_internal_link_text">Bude fungovat pouze uživatelům, kteří mají přístup k tomuto %1$s</string>
+    <string name="share_internal_link_to_file_text">Sdílení interním odkazem funguje pouze pro uživatele, kteří mají k tomuto souboru přístup</string>
+    <string name="share_internal_link_to_folder_text">Sdílení interním odkazem funguje pouze pro uživatele, kteří mají k této složce přístup</string>
     <string name="share_known_remote_clarification">%1$s (v %2$s)</string>
     <string name="share_link_empty_password">Je třeba zadat heslo</string>
     <string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či složky došlo k chybě</string>
@@ -713,6 +732,8 @@ Jak vývojová tak produkční verze je k dispozici na F-droidu a mohou být nai
     <string name="tags">Štítky</string>
     <string name="test_server_button">Vyzkoušet připojení k serveru</string>
     <string name="thumbnail">Náhled</string>
+    <string name="thumbnail_for_existing_file_description">Náhled pro existující soubor</string>
+    <string name="thumbnail_for_new_file_desc">Náhled pro nový soubor</string>
     <string name="timeout_richDocuments">Načítání trvá velmi dlouho…</string>
     <string name="trashbin_activity_title">Smazané soubory</string>
     <string name="trashbin_empty_headline">Žádné smazané soubory</string>

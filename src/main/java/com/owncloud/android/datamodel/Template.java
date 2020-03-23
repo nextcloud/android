@@ -24,21 +24,63 @@ import org.parceler.Parcel;
 
 import java.util.Locale;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 /**
  * Template for creating a file from it via RichDocuments app
  */
 
 @Parcel
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Template {
+    public Template(int id, String name, String thumbnailLink, Type type, String extension) {
+        this.id = id;
+        this.name = name;
+        this.thumbnailLink = thumbnailLink;
+        this.type = type;
+        this.extension = extension;
+    }
+
+    public Template() {
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getThumbnailLink() {
+        return this.thumbnailLink;
+    }
+
+    public Type getType() {
+        return this.type;
+    }
+
+    public String getExtension() {
+        return this.extension;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setThumbnailLink(String thumbnailLink) {
+        this.thumbnailLink = thumbnailLink;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
     public enum Type {
         DOCUMENT, SPREADSHEET, PRESENTATION, UNKNOWN
     }

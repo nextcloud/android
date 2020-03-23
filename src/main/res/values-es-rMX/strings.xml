@@ -130,6 +130,7 @@
     <string name="confirmation_remove_local">Sólo local</string>
     <string name="conflict_keep_both">Mantener ambas</string>
     <string name="conflict_message">¿Qué archivos desesa mantener? Si seleccionas ambas versiones, se le agregará un número al nombre del archivo local.</string>
+    <string name="conflict_message_headline">¿Cuales archivos deseas mantener?</string>
     <string name="conflict_title">Conflicto de archivo</string>
     <string name="conflict_use_local_version">versión local</string>
     <string name="conflict_use_server_version">versión de servidor</string>
@@ -218,6 +219,7 @@
     <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Error crítico: No se pueden realizar operaciones</string>
     <string name="etm_accounts">Cuentas</string>
+    <string name="etm_background_jobs">Trabajos en segundo plano</string>
     <string name="fallback_weblogin_back">Atrás</string>
     <string name="fallback_weblogin_text">Regresar al antiguo método de inicio de sesión</string>
     <string name="favorite">Agregar a favoritos</string>

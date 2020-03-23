@@ -141,6 +141,7 @@
     <string name="confirmation_remove_local">Sólo local</string>
     <string name="conflict_keep_both">Mantener ambas</string>
     <string name="conflict_message">¿Qué archivos desea mantener? Si selecciona ambas versiones, se le agregará un número al nombre del archivo local.</string>
+    <string name="conflict_message_headline">¿Cuales archivos desea mantener?</string>
     <string name="conflict_title">Conflicto de archivo</string>
     <string name="conflict_use_local_version">versión local</string>
     <string name="conflict_use_server_version">versión de servidor</string>
@@ -247,6 +248,7 @@
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
     <string name="etm_accounts">Cuentas</string>
+    <string name="etm_background_jobs">Trabajos en segundo plano</string>
     <string name="etm_preferences">Preferencias</string>
     <string name="etm_title">Modo de prueba de ingeniería</string>
     <string name="fab_label">Añadir o subir</string>

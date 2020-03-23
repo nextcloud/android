@@ -135,6 +135,7 @@
     <string name="confirmation_remove_local">Само локално</string>
     <string name="conflict_keep_both">Запазване и на двата</string>
     <string name="conflict_message">Кои файлове желаете да запазите? Ако изберете и двете версии, към името на локалния файл ще бъде добавено число.</string>
+    <string name="conflict_message_headline">Кои файлове желете да запазите?</string>
     <string name="conflict_title">Файлов конфликт</string>
     <string name="conflict_use_local_version">локалната версия</string>
     <string name="conflict_use_server_version">версията на сървъра</string>

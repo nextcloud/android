@@ -24,16 +24,7 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 @Parcel
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 /*
  * Push data from server, https://github.com/nextcloud/notifications/blob/master/docs/push-v2.md#encrypted-subject-data
  */
@@ -46,4 +37,73 @@ public class DecryptedPushMessage {
     public boolean delete;
     @SerializedName("delete-all")
     public boolean deleteAll;
+
+    public DecryptedPushMessage(String app, String type, String subject, String id, int nid, boolean delete, boolean deleteAll) {
+        this.app = app;
+        this.type = type;
+        this.subject = subject;
+        this.id = id;
+        this.nid = nid;
+        this.delete = delete;
+        this.deleteAll = deleteAll;
+    }
+
+    public DecryptedPushMessage() {
+    }
+
+    public String getApp() {
+        return this.app;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public String getSubject() {
+        return this.subject;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public int getNid() {
+        return this.nid;
+    }
+
+    public boolean isDelete() {
+        return this.delete;
+    }
+
+    public boolean isDeleteAll() {
+        return this.deleteAll;
+    }
+
+    public void setApp(String app) {
+        this.app = app;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setNid(int nid) {
+        this.nid = nid;
+    }
+
+    public void setDelete(boolean delete) {
+        this.delete = delete;
+    }
+
+    public void setDeleteAll(boolean deleteAll) {
+        this.deleteAll = deleteAll;
+    }
 }

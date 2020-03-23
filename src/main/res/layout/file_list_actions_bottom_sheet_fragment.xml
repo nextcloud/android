@@ -17,11 +17,12 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:background="@color/bg_default">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/bg_default">
 
     <TextView
         android:id="@+id/add_to_cloud"
@@ -49,14 +50,13 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:src="@drawable/ic_action_upload"
-            android:tint="@color/primary"/>
+            app:tint="@color/primary"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
             android:text="@string/upload_files"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
@@ -80,14 +80,13 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:src="@drawable/ic_import"
-            android:tint="@color/primary"/>
+            app:tint="@color/primary"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
             android:text="@string/upload_content_from_other_apps"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
@@ -111,14 +110,13 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:src="@drawable/ic_camera"
-            android:tint="@color/primary" />
+            app:tint="@color/primary" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
             android:text="@string/upload_direct_camera_upload"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
@@ -152,14 +150,13 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:src="@drawable/ic_action_create_dir"
-            android:tint="@color/primary"/>
+            app:tint="@color/primary"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
             android:text="@string/create_new_folder"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
@@ -205,7 +202,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/standard_margin"
-                android:layout_marginLeft="@dimen/standard_margin"
                 android:text="@string/create_new_document"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
@@ -234,7 +230,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/standard_margin"
-                android:layout_marginLeft="@dimen/standard_margin"
                 android:text="@string/create_new_spreadsheet"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
@@ -263,7 +258,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/standard_margin"
-                android:layout_marginLeft="@dimen/standard_margin"
                 android:text="@string/create_new_presentation"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
@@ -321,14 +315,13 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:src="@drawable/ic_post_add"
-            android:tint="@color/primary" />
+            app:tint="@color/primary" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
             android:text="@string/create_rich_workspace"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size"

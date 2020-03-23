@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">فقط محلی</string>
     <string name="conflict_keep_both">نگهداشتن هر دو</string>
     <string name="conflict_message">کدام فایل ها را می خواهید نگه دارید؟ اگر هر دو نسخه را انتخاب کنید ، فایل محلی شماره ای به نام آن اضافه خواهد شد.</string>
+    <string name="conflict_message_headline">کدام فایل ها را می خواهید نگه دارید ؟</string>
     <string name="conflict_title">تضاد در فایل</string>
     <string name="conflict_use_local_version">نسخه‌ی محلی</string>
     <string name="conflict_use_server_version">نسخه سرور</string>
@@ -256,6 +257,8 @@
     <string name="error_retrieving_templates">خطا در بازیابی الگوهای</string>
     <string name="error_starting_direct_camera_upload">خطا در شروع دوربین</string>
     <string name="etm_accounts">حساب‌ها</string>
+    <string name="etm_background_job_progress">پیش رفتن</string>
+    <string name="etm_background_jobs">کارهای پس زمینه</string>
     <string name="etm_preferences">اولویت ها</string>
     <string name="etm_title">حالت تست مهندسی</string>
     <string name="fab_label">اضافه یا بارگذاری کنید</string>

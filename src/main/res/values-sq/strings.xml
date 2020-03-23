@@ -79,6 +79,7 @@
     <string name="autoupload_create_new_custom_folder">Krijoni një dosje të re me porosi</string>
     <string name="autoupload_custom_folder">Ndërtoni një dosje me porosi</string>
     <string name="autoupload_disable_power_save_check">Çaktivizoni kontrollin e kursimit të energjisë</string>
+    <string name="autoupload_hide_folder">Fshih dosjen</string>
     <string name="avatar">Avatari</string>
     <string name="battery_optimization_close">Mbylleni</string>
     <string name="battery_optimization_disable">Çaktivizoje</string>
@@ -140,8 +141,11 @@
     <string name="confirmation_remove_folder_alert">Doni vërtet të hiqet %1$s dhe përmbajtja e tij?</string>
     <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
     <string name="confirmation_remove_local">Vetëm vendorja</string>
+    <string name="conflict_already_existing_file">Skedar ekzistues</string>
     <string name="conflict_keep_both">Mbaji të dyja</string>
     <string name="conflict_message">Cilat kartela doni të mbani? Nëse përzgjidhni të dy versionet, skedarit vendorë do t\’i shtohet një numër te emri.</string>
+    <string name="conflict_message_description">Nëse zgjidhni të dy versionet, skedari lokal do të ketë një numër të bashkangjitur në emër</string>
+    <string name="conflict_message_headline">Cilat kartela doni të mbani?</string>
     <string name="conflict_title">Përplasje skedarësh</string>
     <string name="conflict_use_local_version">versionin vendor</string>
     <string name="conflict_use_server_version">versionin e shërbyesit</string>
@@ -251,6 +255,7 @@
     <string name="error_retrieving_templates">Gabim gjatë marrjes së shablloneve</string>
     <string name="error_starting_direct_camera_upload">Gabim në hapjen e kamerës</string>
     <string name="etm_accounts">Llogaritë</string>
+    <string name="etm_background_jobs">Punët në background</string>
     <string name="etm_preferences">Preferencat</string>
     <string name="etm_title">Provë e mënyrës inxhinierike</string>
     <string name="fab_label">Shtoni ose ngarkoni</string>

@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">מקומי בלבד</string>
     <string name="conflict_keep_both">להשאיר את שניהם</string>
     <string name="conflict_message">איזה קבצים לשמור? אם יבחרו שתי הגרסאות, הקובץ המקומי יקבל מספר שיצורף לשמו.</string>
+    <string name="conflict_message_headline">אילו קבצים ברצונך לשמור?</string>
     <string name="conflict_title">התנגשות בין קבצים</string>
     <string name="conflict_use_local_version">גרסה מקומית</string>
     <string name="conflict_use_server_version">גרסת שרת</string>
@@ -253,6 +254,7 @@
     <string name="error_retrieving_templates">קבלת התבניות נכשלה</string>
     <string name="error_starting_direct_camera_upload">הפעלת המצלמה נכשלה</string>
     <string name="etm_accounts">חשבונות</string>
+    <string name="etm_background_jobs">משימות רקע</string>
     <string name="etm_preferences">העדפות</string>
     <string name="etm_title">מצב בדיקת מהנדסים</string>
     <string name="fab_label">הוספה או העלאה</string>

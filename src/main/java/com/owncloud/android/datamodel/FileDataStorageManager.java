@@ -67,11 +67,8 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import lombok.Getter;
-import lombok.Setter;
 
 
-@Getter
 public class FileDataStorageManager {
     private static final String TAG = FileDataStorageManager.class.getSimpleName();
 
@@ -85,7 +82,7 @@ public class FileDataStorageManager {
 
     private ContentResolver contentResolver;
     private ContentProviderClient contentProviderClient;
-    @Setter private Account account;
+    private Account account;
 
     public FileDataStorageManager(Account account, ContentResolver cr) {
         contentProviderClient = null;
@@ -1695,15 +1692,20 @@ public class FileDataStorageManager {
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
+            + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? ) ";
-        String[] whereArgs = new String[]{filePath, accountName,
-                Integer.toString(ShareType.USER.getValue()),
-                Integer.toString(ShareType.GROUP.getValue()),
-                Integer.toString(ShareType.EMAIL.getValue()),
-                Integer.toString(ShareType.FEDERATED.getValue()),
-                Integer.toString(ShareType.ROOM.getValue())};
+        String[] whereArgs = new String[]{
+            filePath,
+            accountName,
+            Integer.toString(ShareType.USER.getValue()),
+            Integer.toString(ShareType.GROUP.getValue()),
+            Integer.toString(ShareType.EMAIL.getValue()),
+            Integer.toString(ShareType.FEDERATED.getValue()),
+            Integer.toString(ShareType.ROOM.getValue()),
+            Integer.toString(ShareType.CIRCLE.getValue())
+        };
 
-        Cursor cursor = null;
+        Cursor cursor;
         if (getContentResolver() != null) {
             cursor = getContentResolver().query(ProviderTableMeta.CONTENT_URI_SHARE, null, where, whereArgs, null);
         } else {
@@ -2293,5 +2295,21 @@ public class FileDataStorageManager {
 
     private CapabilityBooleanType getBoolean(Cursor cursor, String columnName) {
         return CapabilityBooleanType.fromValue(cursor.getInt(cursor.getColumnIndex(columnName)));
+    }
+
+    public ContentResolver getContentResolver() {
+        return this.contentResolver;
+    }
+
+    public ContentProviderClient getContentProviderClient() {
+        return this.contentProviderClient;
+    }
+
+    public Account getAccount() {
+        return this.account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

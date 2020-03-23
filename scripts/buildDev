@@ -37,13 +37,14 @@ mv latest.apk ~/apks/
 # remove all but the latest 5 apks
 /bin/ls -t ~/apks/*.apk | awk 'NR>6' | xargs rm -f
 
-lastBuildTime=$(date --date="$(git log -1 --format=%ai $(git tag | grep dev | tail -n1))" +%s)
+lastBuildTag=$(git tag | grep dev | tail -n1)
 # Show only the commit subject in the changelog and filter out:
 #  * Merges
 #  * Dependabot commits
 #  * Commits touching only non-user-facing stuff like tests
 #  * Version bump commits
-changelog=$(git log --no-merges --after=$lastBuildTime --invert-grep --author=dependabot --pretty='format:%s' -- ':!src/androidTest' ':!.*' ':!scripts/analysis' | grep -vE '^daily dev [[:digit:]]{8}$')
+#  * Anything reachable from the previous dev edition tag
+changelog=$(git log --no-merges --invert-grep --author=dependabot --pretty='format:%s' HEAD "^$lastBuildTag" -- ':!src/androidTest' ':!.*' ':!scripts/' ':!screenshots' | grep -vE '^daily dev [[:digit:]]{8}$')
 # Make Transifex updates have a nicer description
 if echo "$changelog" | grep -q 'tx-robot'; then
 	changelog=$(echo "$changelog" | grep -v 'tx-robot')
@@ -57,7 +58,7 @@ if ! echo $oldLibraryCommit | grep -q $libraryCommit; then
 fi
 
 # Collapse dependency updates into a single "Update dependencies" entry
-if git log --after=$lastBuildTime --pretty='format:%an' | grep -q dependabot; then
+if git log --pretty='format:%an' HEAD "^$lastBuildTag" | grep -q dependabot; then
 	changelog="${changelog}"$'\nUpdate 3rd-party dependencies'
 fi
 

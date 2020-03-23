@@ -141,8 +141,13 @@
     <string name="confirmation_remove_folder_alert">Quer realmente excluir %1$s e seu conteúdo?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="confirmation_remove_local">Somente local</string>
+    <string name="conflict_already_existing_file">Arquivo já existe</string>
+    <string name="conflict_dialog_error">Erro ao criar diálogo de conflito!</string>
     <string name="conflict_keep_both">Manter ambos</string>
     <string name="conflict_message">Quais arquivos você quer manter? Se você selecionar ambos, o arquivo local terá um número adicionado ao seu nome.</string>
+    <string name="conflict_message_description">Se você selecionar as duas versões, o arquivo local terá um número anexado ao seu nome.</string>
+    <string name="conflict_message_headline">Quais arquivos você quer manter?</string>
+    <string name="conflict_new_file">Novo arquivo</string>
     <string name="conflict_title">Conflito de arquivo</string>
     <string name="conflict_use_local_version">versão local</string>
     <string name="conflict_use_server_version">versão do servidor</string>
@@ -257,6 +262,17 @@
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
     <string name="etm_accounts">Contas</string>
+    <string name="etm_background_job_name">Nome da tarefa</string>
+    <string name="etm_background_job_progress">Progresso</string>
+    <string name="etm_background_job_started">Iniciou</string>
+    <string name="etm_background_job_state">Estado</string>
+    <string name="etm_background_job_uuid">UUID</string>
+    <string name="etm_background_jobs">Tarefas em segundo plano</string>
+    <string name="etm_background_jobs_cancel_all">Cancelar todas as tarefas</string>
+    <string name="etm_background_jobs_prune">Limpar tarefas inativas</string>
+    <string name="etm_background_jobs_start_test_job">Iniciar tarefa de teste</string>
+    <string name="etm_background_jobs_stop_test_job">Parar tarefa de teste</string>
+    <string name="etm_migrations">Migrações (atualização do aplicativo)</string>
     <string name="etm_preferences">Preferências</string>
     <string name="etm_title">Modo de Teste de Engenharia</string>
     <string name="fab_label">Adicionar ou enviar</string>
@@ -365,6 +381,7 @@
     <string name="instant_upload_existing">Carregar arquivos existentes também</string>
     <string name="instant_upload_on_charging">Só enviar quando carregando</string>
     <string name="instant_upload_path">/EnvioAutomático</string>
+    <string name="invalid_url">URL inválida</string>
     <string name="learn_more">Saiba mais</string>
     <string name="link">Link</string>
     <string name="list_layout">Layout listado</string>
@@ -570,6 +587,8 @@
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_internal_link">Compartilhar o link interno</string>
     <string name="share_internal_link_text">Funciona apenas para usuários com acesso a esta %1$s</string>
+    <string name="share_internal_link_to_file_text">O link de compartilhamento interno só funciona para usuários com acesso a este arquivo</string>
+    <string name="share_internal_link_to_folder_text">O link de compartilhamento interno só funciona para usuários com acesso a esta pasta</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
     <string name="share_link_empty_password">Digite uma senha</string>
     <string name="share_link_file_error">Ocorreu um erro durante a tentativa de compartilhar esse arquivo ou pasta</string>
@@ -692,6 +711,8 @@
     <string name="tags">Rótulos</string>
     <string name="test_server_button">Teste de conexão ao servidor</string>
     <string name="thumbnail">Miniatura</string>
+    <string name="thumbnail_for_existing_file_description">Miniatura para arquivo existente</string>
+    <string name="thumbnail_for_new_file_desc">Miniatura para arquivo novo</string>
     <string name="timeout_richDocuments">O carregamento demora muito…</string>
     <string name="trashbin_activity_title">Arquivos excluídos</string>
     <string name="trashbin_empty_headline">Nenhum arquivo excluído</string>

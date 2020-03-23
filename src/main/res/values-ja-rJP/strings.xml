@@ -143,6 +143,8 @@
     <string name="confirmation_remove_local">ローカルのみ</string>
     <string name="conflict_keep_both">両方を保持</string>
     <string name="conflict_message">どちらのファイルを保存したいですか？両方のバージョンを選択した場合は、ファイル名の後ろに数字を追加したファイルのコピーを作成します。</string>
+    <string name="conflict_message_headline">どちらのファイルを保持しますか？</string>
+    <string name="conflict_new_file">新しいファイル</string>
     <string name="conflict_title">ファイル競合</string>
     <string name="conflict_use_local_version">ローカルのもの</string>
     <string name="conflict_use_server_version">サーバーのバージョン</string>
@@ -257,6 +259,14 @@
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
     <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>
     <string name="etm_accounts">アカウント</string>
+    <string name="etm_background_job_name">ジョブの名前</string>
+    <string name="etm_background_job_progress">進捗状況</string>
+    <string name="etm_background_job_state">状態</string>
+    <string name="etm_background_jobs">バックグラウンドジョブ</string>
+    <string name="etm_background_jobs_cancel_all">すべてのジョブをキャンセル</string>
+    <string name="etm_background_jobs_start_test_job">テストジョブを開始</string>
+    <string name="etm_background_jobs_stop_test_job">テストジョブを中断</string>
+    <string name="etm_migrations">マイグレーション（アプリのアップグレード）</string>
     <string name="etm_preferences">環境設定</string>
     <string name="etm_title">開発者用テストモード</string>
     <string name="fab_label">追加またはアップロード</string>
@@ -364,6 +374,7 @@
     <string name="host_your_own_server">自分のサーバーをホストする</string>
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="invalid_url">無効なURL</string>
     <string name="learn_more">もっと見る</string>
     <string name="link">リンク</string>
     <string name="list_layout">リスト表示</string>
@@ -772,6 +783,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">ローカルファイルがありません</string>
     <string name="uploads_view_upload_status_failed_permission_error">権限エラー</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">信頼できないサーバー証明書</string>
+    <string name="uploads_view_upload_status_fetching_server_version">サーバーのバージョンを取得中…</string>
     <string name="uploads_view_upload_status_service_interrupted">アプリが終了しました</string>
     <string name="uploads_view_upload_status_succeeded">完了</string>
     <string name="uploads_view_upload_status_unknown_fail">不明なエラー</string>

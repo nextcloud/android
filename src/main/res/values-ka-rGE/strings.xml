@@ -118,6 +118,7 @@
     <string name="confirmation_remove_local">მხოლოდ ლოკალური</string>
     <string name="conflict_keep_both">ორივეს შენარჩუნება</string>
     <string name="conflict_message">რომელი ფაილების შენარჩუნება გსურთ? თუ აირჩევთ ორივე ვერისას, ლოკალური ფაილის სახელს წინ დაერთვება ციფრი.</string>
+    <string name="conflict_message_headline">რომელი ფაილების დატოვება გსურთ?</string>
     <string name="conflict_title">ფაილის კონფლიქტი</string>
     <string name="conflict_use_local_version">ლოკალური ვერსია</string>
     <string name="conflict_use_server_version">სერვერის ვერსია</string>
@@ -196,6 +197,7 @@
     <string name="error__upload__local_file_not_copied">%1$s ვერ კოპირდება %2$s ლოკალურ დირექტორიაში</string>
     <string name="error_cant_bind_to_operations_service">კრიტიკული შეცდომა: ოპერაციების განხორციელება შეუძლებელია</string>
     <string name="etm_accounts">ანგარიშები</string>
+    <string name="etm_background_jobs">ფონური საქმეები</string>
     <string name="fallback_weblogin_back">უკან</string>
     <string name="fallback_weblogin_text">უკან ძველი ავტორიზაციის მეთოდისკენ</string>
     <string name="favorite">რჩეულებში დამატება</string>

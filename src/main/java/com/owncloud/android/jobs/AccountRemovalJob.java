@@ -6,7 +6,7 @@
  *
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2017 Nextcloud GmbH.
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,7 +21,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.owncloud.android.jobs;
 
 import android.accounts.Account;
@@ -38,6 +37,7 @@ import com.google.gson.Gson;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
@@ -81,15 +81,18 @@ public class AccountRemovalJob extends Job {
 
     private final UploadsStorageManager uploadsStorageManager;
     private final UserAccountManager userAccountManager;
+    private final BackgroundJobManager backgroundJobManager;
     private final Clock clock;
     private final EventBus eventBus;
 
     public AccountRemovalJob(UploadsStorageManager uploadStorageManager,
                              UserAccountManager accountManager,
+                             BackgroundJobManager backgroundJobManager,
                              Clock clock,
                              EventBus eventBus) {
         this.uploadsStorageManager = uploadStorageManager;
         this.userAccountManager = accountManager;
+        this.backgroundJobManager = backgroundJobManager;
         this.clock = clock;
         this.eventBus = eventBus;
     }
@@ -118,8 +121,7 @@ public class AccountRemovalJob extends Job {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
 
         User user = optionalUser.get();
-        // disable contact backup job
-        ContactsPreferenceActivity.cancelContactBackupJobForAccount(context, user);
+        backgroundJobManager.cancelPeriodicContactsBackup(user);
 
         final boolean userRemoved = userAccountManager.removeUser(user);
         if (userRemoved) {
@@ -133,9 +135,6 @@ public class AccountRemovalJob extends Job {
 
         // delete all database entries
         storageManager.deleteAllFiles();
-
-        // remove contact backup job
-        ContactsPreferenceActivity.cancelContactBackupJobForAccount(context, user);
 
         // disable daily backup
         arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),

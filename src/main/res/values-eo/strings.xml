@@ -138,6 +138,7 @@
     <string name="confirmation_remove_local">Nur loka</string>
     <string name="conflict_keep_both">Konservi ambaŭ</string>
     <string name="conflict_message">Kiujn dosierojn vi volas konservi? Se vi elektos ambaŭ eldonojn, la loka dosiero havos numeron aldonitan al sia nomo.</string>
+    <string name="conflict_message_headline">Kiujn dosierojn vi volas konservi?</string>
     <string name="conflict_title">Dosierkonflikto</string>
     <string name="conflict_use_local_version">loka eldono</string>
     <string name="conflict_use_server_version">servila eldono</string>
@@ -240,6 +241,7 @@
     <string name="error_retrieving_templates">Eraro dum ricevo de ŝablonoj</string>
     <string name="error_starting_direct_camera_upload">Eraro dum ŝargo de la fotilo</string>
     <string name="etm_accounts">Kontoj</string>
+    <string name="etm_background_jobs">Fonaj taskoj</string>
     <string name="fab_label">Aldoni aŭ alŝuti</string>
     <string name="fallback_weblogin_back">Antaŭen</string>
     <string name="fallback_weblogin_text">Reiri al la malnova konektmetodo</string>

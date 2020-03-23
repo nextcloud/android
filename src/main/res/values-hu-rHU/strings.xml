@@ -143,6 +143,8 @@
     <string name="confirmation_remove_local">Csak a helyi példány</string>
     <string name="conflict_keep_both">Mindkettő megtartása</string>
     <string name="conflict_message">Melyik fájlt akarja megtartani? Ha mindkettőt kiválasztja, akkor a helyi nevéhez egy szám lesz fűzve.</string>
+    <string name="conflict_message_headline">Mely fájlokat akarja megtartani?</string>
+    <string name="conflict_new_file">Új fájl</string>
     <string name="conflict_title">Fájl ütközés</string>
     <string name="conflict_use_local_version">helyi verzió</string>
     <string name="conflict_use_server_version">kiszolgáló verziója</string>
@@ -257,6 +259,9 @@
     <string name="error_retrieving_templates">Hiba történt a sablonok lékérésekor</string>
     <string name="error_starting_direct_camera_upload">Hiba a kamera indításakor</string>
     <string name="etm_accounts">Fiókok</string>
+    <string name="etm_background_job_progress">Folyamat</string>
+    <string name="etm_background_job_state">Állapot</string>
+    <string name="etm_background_jobs">Háttérfeladatok</string>
     <string name="etm_preferences">Beállítások</string>
     <string name="etm_title">Mérnöki teszt mód</string>
     <string name="fab_label">Hozzáadás vagy feltöltés</string>

@@ -137,6 +137,7 @@
     <string name="confirmation_remove_local">Doar local</string>
     <string name="conflict_keep_both">Pastreaza amandoua</string>
     <string name="conflict_message">Ce fișiere doriți să păstrați? Dacă selectați ambele versiuni, fișierul local va avea un număr atașat la numele acestuia.</string>
+    <string name="conflict_message_headline">Ce fișiere vrei să păstrezi?</string>
     <string name="conflict_title">Conflict de fișiere</string>
     <string name="conflict_use_local_version">versiunea locală</string>
     <string name="conflict_use_server_version">versiunea de pe server</string>
@@ -234,6 +235,7 @@
     <string name="error_cant_bind_to_operations_service">Eroare critică: nu se pot executa operațiunile</string>
     <string name="error_report_issue_action">Raport</string>
     <string name="etm_accounts">Conturi</string>
+    <string name="etm_background_job_progress">Progres</string>
     <string name="fallback_weblogin_back">Înapoi</string>
     <string name="favorite">Adăugați la favorite</string>
     <string name="favorite_icon">Favorite</string>

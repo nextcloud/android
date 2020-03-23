@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Einungis staðvært</string>
     <string name="conflict_keep_both">Halda báðum</string>
     <string name="conflict_message">Hvaða skrám viltu halda? Ef þú velur báðar útgáfur, þá mun verða bætt tölustaf aftan við heiti afrituðu skrárinnar.</string>
+    <string name="conflict_message_headline">Hvaða skrám vilt þú vilt halda eftir?</string>
     <string name="conflict_title">Árekstur skráa</string>
     <string name="conflict_use_local_version">útgáfu á tölvu</string>
     <string name="conflict_use_server_version">útgáfu á þjóni</string>
@@ -257,6 +258,8 @@
     <string name="error_retrieving_templates">Villa við að ná í sniðmát</string>
     <string name="error_starting_direct_camera_upload">Villa við að ræsa myndavél</string>
     <string name="etm_accounts">Accounts</string>
+    <string name="etm_background_job_progress">Framvinda</string>
+    <string name="etm_background_jobs">Verk í bakgrunni</string>
     <string name="etm_preferences">Kjörstillingar</string>
     <string name="etm_title">Verkfræðilegur prófunarhamur</string>
     <string name="fab_label">Bæta við eða senda inn</string>

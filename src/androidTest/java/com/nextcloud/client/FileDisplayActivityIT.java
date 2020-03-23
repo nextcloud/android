@@ -28,21 +28,28 @@ import android.app.Activity;
 import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.shares.CreateShareRemoteOperation;
+import com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.events.SearchEvent;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
 import androidx.test.espresso.contrib.DrawerActions;
+import androidx.test.espresso.contrib.NavigationViewActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
@@ -50,6 +57,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 
@@ -63,10 +71,10 @@ public class FileDisplayActivityIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
-    public void open() throws InterruptedException {
+    public void open() {
         Activity sut = activityRule.launchActivity(null);
 
-        Thread.sleep(3000);
+        shortSleep();
 
         Screenshot.snapActivity(sut).record();
     }
@@ -81,12 +89,13 @@ public class FileDisplayActivityIT extends AbstractIT {
     }
 
     @Test
-    public void showShares() {
+    public void showShares() throws JSONException {
         assertTrue(new ExistenceCheckRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareToGroup/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareViaLink/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/noShare/", true).execute(client).isSuccess());
+        assertTrue(new CreateFolderRemoteOperation("/shareToCircle/", true).execute(client).isSuccess());
 
         // share folder to user "admin"
         assertTrue(new CreateShareRemoteOperation("/shareToAdmin/",
@@ -115,12 +124,27 @@ public class FileDisplayActivityIT extends AbstractIT {
                                                          OCShare.DEFAULT_PERMISSION)
                               .execute(client).isSuccess());
 
+        // share folder to circle
+        // get share
+        RemoteOperationResult searchResult = new GetShareesRemoteOperation("publicCircle", 1, 50).execute(client);
+        assertTrue(searchResult.getLogMessage(), searchResult.isSuccess());
+
+        JSONObject resultJson = (JSONObject) searchResult.getData().get(0);
+        String circleId = resultJson.getJSONObject("value").getString("shareWith");
+
+        assertTrue(new CreateShareRemoteOperation("/shareToCircle/",
+                                                  ShareType.CIRCLE,
+                                                  circleId,
+                                                  false,
+                                                  "",
+                                                  OCShare.DEFAULT_PERMISSION)
+                       .execute(client).isSuccess());
+
         Activity sut = activityRule.launchActivity(null);
 
         getInstrumentation().waitForIdleSync();
 
-        EventBus.getDefault().post(new SearchEvent("",
-                                                   SearchRemoteOperation.SearchType.SHARED_FILTER));
+        EventBus.getDefault().post(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER));
 
         getInstrumentation().waitForIdleSync();
 
@@ -135,5 +159,32 @@ public class FileDisplayActivityIT extends AbstractIT {
         onView(withId(R.id.drawer_active_user)).perform(click());
 
         Screenshot.snapActivity(sut).record();
+    }
+
+    @Test
+    public void allFiles() {
+        // ActivityScenario<FileDisplayActivity> sut = ActivityScenario.launch(FileDisplayActivity.class);
+        FileDisplayActivity sut = activityRule.launchActivity(null);
+
+        // given test folder
+        assertTrue(new CreateFolderOperation("/test/", true).execute(client, getStorageManager()).isSuccess());
+
+        // navigate into it
+        OCFile test = getStorageManager().getFileByPath("/test/");
+        sut.setFile(test);
+        sut.startSyncFolderOperation(test, false);
+
+        assertEquals(getStorageManager().getFileByPath("/test/"), sut.getCurrentDir());
+
+        // open drawer
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+
+        // click "all files"
+        onView(withId(R.id.nav_view))
+            .perform(NavigationViewActions.navigateTo(R.id.nav_all_files));
+
+        // then should be in root again
+        shortSleep();
+        assertEquals(getStorageManager().getFileByPath("/"), sut.getCurrentDir());
     }
 }

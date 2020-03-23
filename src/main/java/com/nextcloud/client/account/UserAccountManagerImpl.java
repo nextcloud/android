@@ -292,10 +292,10 @@ public class UserAccountManagerImpl implements UserAccountManager {
     public boolean setCurrentOwnCloudAccount(int hashCode) {
         boolean result = false;
         if (hashCode != 0) {
-            for (final Account account : getAccounts()) {
-                if (hashCode == account.hashCode()) {
+            for (final User user : getAllUsers()) {
+                if (hashCode == user.hashCode()) {
                     SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, account.name);
+                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, user.getAccountName());
                     appPrefs.apply();
                     result = true;
                     break;
@@ -342,12 +342,11 @@ public class UserAccountManagerImpl implements UserAccountManager {
     }
 
     public boolean migrateUserId() {
-        boolean success = false;
         Account[] ocAccounts = accountManager.getAccountsByType(MainApp.getAccountType(context));
         String userId;
         String displayName;
         GetUserInfoRemoteOperation remoteUserNameOperation = new GetUserInfoRemoteOperation();
-
+        int failed = 0;
         for (Account account : ocAccounts) {
             String storedUserId = accountManager.getUserData(account, com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
@@ -370,10 +369,12 @@ public class UserAccountManagerImpl implements UserAccountManager {
                 } else {
                     // skip account, try it next time
                     Log_OC.e(TAG, "Error while getting username for account: " + account.name);
+                    failed++;
                     continue;
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error while getting username: " + e.getMessage());
+                failed++;
                 continue;
             }
 
@@ -383,11 +384,9 @@ public class UserAccountManagerImpl implements UserAccountManager {
             accountManager.setUserData(account,
                                        com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID,
                                        userId);
-
-            success = true;
         }
 
-        return success;
+        return failed == 0;
     }
 
     private String getAccountType() {

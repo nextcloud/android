@@ -20,23 +20,36 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                                            android:id="@+id/appbar"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:viewBindingIgnore="true"
+    android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/preview_image"
+        <FrameLayout
+            android:id="@+id/preview_image_frame"
             android:layout_width="match_parent"
             android:layout_height="@dimen/nav_drawer_header_height"
-            android:contentDescription="@string/preview_image_description"
-            android:scaleType="centerCrop"
-            android:visibility="gone" />
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/preview_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/nav_drawer_header_height"
+                android:contentDescription="@string/preview_image_description"
+                android:scaleType="centerCrop" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/nav_drawer_header_height"
+                android:background="@drawable/preview_image_gradient_shape" />
+        </FrameLayout>
 
         <androidx.appcompat.widget.Toolbar
             android:id="@id/toolbar"

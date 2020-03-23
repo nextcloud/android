@@ -27,9 +27,9 @@ package com.owncloud.android.ui.adapter;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.PorterDuff;
 import android.graphics.Shader;
@@ -98,7 +98,6 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lombok.Setter;
 
 /**
  * This Adapter populates a RecyclerView with all files and folders in a Nextcloud instance.
@@ -136,7 +135,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private boolean onlyOnDevice;
     private boolean showShareAvatar = false;
-    @Setter private OCFile highlightedItem;
+    private OCFile highlightedItem;
 
     public OCFileListAdapter(
         Activity activity,
@@ -353,7 +352,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             boolean gridImage = MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file);
 
             gridViewHolder.thumbnail.setTag(file.getFileId());
-            setThumbnail(file, gridViewHolder.thumbnail);
+            setThumbnail(file,
+                         gridViewHolder.thumbnail,
+                         user,
+                         mStorageManager,
+                         asyncTasks,
+                         gridView,
+                         activity);
 
             if (highlightedItem != null && file.getFileId() == highlightedItem.getFileId()) {
                 gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
@@ -401,7 +406,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                     // use fileOwner if not oneself, then add at first
                     ShareeUser fileOwnerSharee = new ShareeUser(fileOwner, file.getOwnerDisplayName(), ShareType.USER);
-                    if (fileOwner != null && !fileOwner.equals(userId) && !sharees.contains(fileOwnerSharee)) {
+                    if (!TextUtils.isEmpty(fileOwner) &&
+                        !fileOwner.equals(userId) &&
+                        !sharees.contains(fileOwnerSharee)) {
                         sharees.add(fileOwnerSharee);
                     }
 
@@ -415,7 +422,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     int size = 60 * (shareeSize - 1) + w;
 
                     for (int i = 0; i < shareeSize; i++) {
-                        ShareeUser sharee = file.getSharees().get(i);
+                        ShareeUser sharee = sharees.get(i);
 
                         ImageView avatar = new ImageView(activity);
 
@@ -430,6 +437,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
                                     avatar.setImageResource(R.drawable.ic_people);
                                 }
+                            } else if (sharee.getShareType().equals(ShareType.CIRCLE)) {
+                                avatar.setImageResource(R.drawable.ic_circles);
                             } else if (sharee.getUserId().contains("@")) {
                                 showFederatedShareAvatar(sharee.getUserId(), avatarRadius, resources, avatar);
                             } else {
@@ -585,12 +594,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             });
         }
 
-    private void setThumbnail(OCFile file, ImageView thumbnailView) {
+    public static void setThumbnail(OCFile file,
+                                    ImageView thumbnailView,
+                                    User user,
+                                    FileDataStorageManager storageManager,
+                                    List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
+                                    boolean gridView,
+                                    Context context) {
         if (file.isFolder()) {
             thumbnailView.setImageDrawable(MimeTypeUtil
                                                .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
                                                                   file.isSharedViaLink(), file.isEncrypted(),
-                                                                  file.getMountType(), activity));
+                                                                  file.getMountType(), context));
         } else {
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?
@@ -615,7 +630,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         try {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
-                                                                                   mStorageManager,
+                                                                                   storageManager,
                                                                                    user.toPlatformAccount(),
                                                                                    asyncTasks,
                                                                                    !gridView);
@@ -625,10 +640,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                  file.getFileName(),
                                                                  user.toPlatformAccount(),
-                                                                 activity));
+                                                                 context));
                             }
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(activity.getResources(),
+                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
                                                                                   thumbnail, task);
                             thumbnailView.setImageDrawable(asyncDrawable);
                             asyncTasks.add(task);
@@ -641,13 +656,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
 
                 if ("image/png".equalsIgnoreCase(file.getMimeType())) {
-                    thumbnailView.setBackgroundColor(activity.getResources().getColor(R.color.bg_default));
+                    thumbnailView.setBackgroundColor(context.getResources().getColor(R.color.bg_default));
                 }
             } else {
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                             file.getFileName(),
                                                                             user.toPlatformAccount(),
-                                                                            activity));
+                                                                            context));
             }
         }
     }
@@ -887,8 +902,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     ShareType newShareType = ocShare.getShareType();
                     if (newShareType == ShareType.PUBLIC_LINK) {
                         file.setSharedViaLink(true);
-                    } else if (newShareType == ShareType.USER || newShareType == ShareType.GROUP ||
-                        newShareType == ShareType.EMAIL || newShareType == ShareType.FEDERATED) {
+                    } else if (newShareType == ShareType.USER ||
+                        newShareType == ShareType.GROUP ||
+                        newShareType == ShareType.EMAIL ||
+                        newShareType == ShareType.FEDERATED ||
+                        newShareType == ShareType.ROOM ||
+                        newShareType == ShareType.CIRCLE) {
                         file.setSharedWithSharee(true);
                     }
 
@@ -1037,6 +1056,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
         return ((ImageView) callContext).getTag().equals(tag);
+    }
+
+    public void setHighlightedItem(OCFile highlightedItem) {
+        this.highlightedItem = highlightedItem;
     }
 
     private class FilesFilter extends Filter {

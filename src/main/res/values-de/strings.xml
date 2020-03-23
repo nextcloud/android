@@ -141,8 +141,13 @@
     <string name="confirmation_remove_folder_alert">Wollen Sie %1$s und deren Inhalte wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Möchten Sie die ausgewählten Elemente und deren inhalt wirklich löschen?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
+    <string name="conflict_already_existing_file">Bereits existierende Datei</string>
+    <string name="conflict_dialog_error">Fehler beim Erstellen des Konfliktdialoges</string>
     <string name="conflict_keep_both">Beide behalten</string>
     <string name="conflict_message">Welche Datei soll behalten werden? Wenn Sie beide Versionen wählen, wird der lokalen Datei eine Zahl am Ende des Dateinamens angefügt.</string>
+    <string name="conflict_message_description">Falls beide Versionen gewählt werden, wird bei der lokalen Datei eine Zahl am Ende des Dateinamens hinzugefügt.</string>
+    <string name="conflict_message_headline">Welche Dateien möchten Sie behalten?</string>
+    <string name="conflict_new_file">Neue Datei</string>
     <string name="conflict_title">Dateikonfilikt</string>
     <string name="conflict_use_local_version">Lokale Version</string>
     <string name="conflict_use_server_version">Serverversion</string>
@@ -257,6 +262,17 @@
     <string name="error_retrieving_templates">Fehler beim Laden der Vorlagen</string>
     <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
     <string name="etm_accounts">Konten</string>
+    <string name="etm_background_job_name">Aufgabenname</string>
+    <string name="etm_background_job_progress">Fortschritt</string>
+    <string name="etm_background_job_started">Gestartet</string>
+    <string name="etm_background_job_state">Status</string>
+    <string name="etm_background_job_uuid">UUID</string>
+    <string name="etm_background_jobs">Hintergrund-Aufgaben</string>
+    <string name="etm_background_jobs_cancel_all">Alle Aufgaben abbrechen</string>
+    <string name="etm_background_jobs_prune">Inaktive Aufgaben bereinigen</string>
+    <string name="etm_background_jobs_start_test_job">Test-Aufgabe starten</string>
+    <string name="etm_background_jobs_stop_test_job">Test-Aufgabe stoppen</string>
+    <string name="etm_migrations">Migrationen (App-Aktualisierung)</string>
     <string name="etm_preferences">Einstellungen</string>
     <string name="etm_title">Technischer Testmodus</string>
     <string name="fab_label">Hinzufügen oder hochladen</string>
@@ -365,6 +381,7 @@
     <string name="instant_upload_existing">Vorhandene Dateien ebenfalls hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
+    <string name="invalid_url">Ungültige URL</string>
     <string name="learn_more">Mehr</string>
     <string name="link">Link</string>
     <string name="list_layout">Layout der Liste</string>
@@ -570,6 +587,8 @@
     <string name="share_group_clarification">%1$s (Gruppe)</string>
     <string name="share_internal_link">Internen Link teilen</string>
     <string name="share_internal_link_text">Funktioniert nur für Benutzer, die Zugriff auf diese(n) %1$s haben</string>
+    <string name="share_internal_link_to_file_text">Der interne Freigabelink funktioniert nur für Benutzer mit Zugriff auf diese Datei</string>
+    <string name="share_internal_link_to_folder_text">Der interne Freigabelink funktioniert nur für Benutzer mit Zugriff auf diesen Ordner</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
     <string name="share_link_empty_password">Sie müssen ein Passwort eingeben</string>
     <string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
@@ -693,6 +712,8 @@
     <string name="tags">Schlagworte</string>
     <string name="test_server_button">Prüfe Server-Verbindung</string>
     <string name="thumbnail">Vorschaubild</string>
+    <string name="thumbnail_for_existing_file_description">Miniaturbild für vorhandene Datei</string>
+    <string name="thumbnail_for_new_file_desc">Miniaturbild für neue Datei</string>
     <string name="timeout_richDocuments">Das Laden dauert sehr lange…</string>
     <string name="trashbin_activity_title">Gelöschte Dateien</string>
     <string name="trashbin_empty_headline">Keine gelöschten Dateien</string>

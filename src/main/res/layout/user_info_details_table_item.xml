@@ -29,8 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/standard_margin"
         android:layout_marginEnd="@dimen/standard_half_margin"
-        android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
-        android:layout_marginRight="@dimen/standard_half_margin"
         android:layout_marginStart="@dimen/standard_icon_list_horizontal_margin"
         android:layout_marginTop="@dimen/standard_margin"
         android:contentDescription="@string/account_icon"
@@ -43,7 +41,6 @@
         android:layout_centerInParent="true"
         android:layout_margin="@dimen/standard_margin"
         android:layout_toEndOf="@id/icon"
-        android:layout_toRightOf="@id/icon"
         android:maxLines="3"
         android:textAppearance="?android:attr/textAppearanceListItem"
         tools:text="+49 123 456 789 12" />
