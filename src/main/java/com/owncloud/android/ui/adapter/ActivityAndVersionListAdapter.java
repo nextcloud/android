@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -62,9 +63,10 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
         ActivityListInterface activityListInterface,
         VersionListInterface.View versionListInterface,
         FileDataStorageManager storageManager,
-        OCCapability capability
+        OCCapability capability,
+        ClientFactory clientFactory
     ) {
-        super(context, currentAccountProvider, activityListInterface, storageManager, capability, true);
+        super(context, currentAccountProvider, activityListInterface, storageManager, capability, clientFactory, true);
 
         this.versionListInterface = versionListInterface;
     }
