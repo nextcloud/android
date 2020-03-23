@@ -28,6 +28,7 @@ import android.graphics.BitmapFactory;
 import com.jakewharton.disklrucache.DiskLruCache;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.BitmapUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -49,7 +50,7 @@ public class DiskLruImageCache {
     private static final String TAG = DiskLruImageCache.class.getSimpleName();
 
     public DiskLruImageCache(File diskCacheDir, int diskCacheSize, CompressFormat compressFormat, int quality)
-            throws IOException {
+        throws IOException {
         mDiskCache = DiskLruCache.open(diskCacheDir, CACHE_VERSION, VALUE_COUNT, diskCacheSize);
         mCompressFormat = compressFormat;
         mCompressQuality = quality;
@@ -103,10 +104,11 @@ public class DiskLruImageCache {
         }
     }
 
-    public Bitmap getBitmap(String key) {
-
+    public Bitmap getScaledBitmap(String key, int width, int height) {
         Bitmap bitmap = null;
         DiskLruCache.Snapshot snapshot = null;
+        InputStream inputStream = null;
+        BufferedInputStream buffIn = null;
         String validKey = convertToValidKey(key);
 
         try {
@@ -114,17 +116,48 @@ public class DiskLruImageCache {
             if (snapshot == null) {
                 return null;
             }
-            final InputStream in = snapshot.getInputStream(0);
-            if (in != null) {
-                final BufferedInputStream buffIn =
-                        new BufferedInputStream(in, IO_BUFFER_SIZE);
-                bitmap = BitmapFactory.decodeStream(buffIn);
+            inputStream = snapshot.getInputStream(0);
+            if (inputStream != null) {
+                buffIn = new BufferedInputStream(inputStream, IO_BUFFER_SIZE);
+
+                // First decode with inJustDecodeBounds=true to check dimensions
+                final BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inScaled = true;
+                options.inPurgeable = true;
+                options.inPreferQualityOverSpeed = false;
+                options.inMutable = false;
+                options.inJustDecodeBounds = true;
+
+                bitmap = BitmapFactory.decodeStream(buffIn, null, options);
+
+                // Calculate inSampleSize
+                options.inSampleSize = BitmapUtils.calculateSampleFactor(options, width, height);
+
+                // Decode bitmap with inSampleSize set
+                options.inJustDecodeBounds = false;
+                bitmap = BitmapFactory.decodeStream(buffIn, null, options);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log_OC.e(TAG, e.getMessage(), e);
         } finally {
             if (snapshot != null) {
                 snapshot.close();
+            }
+
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    // nothing to do
+                }
+            }
+
+            if (buffIn != null) {
+                try {
+                    buffIn.close();
+                } catch (IOException e) {
+                    // nothing to do
+                }
             }
         }
 
@@ -133,7 +166,52 @@ public class DiskLruImageCache {
         }
 
         return bitmap;
+    }
 
+    public Bitmap getBitmap(String key) {
+        Bitmap bitmap = null;
+        DiskLruCache.Snapshot snapshot = null;
+        InputStream in = null;
+        BufferedInputStream buffIn = null;
+        String validKey = convertToValidKey(key);
+
+        try {
+            snapshot = mDiskCache.get(validKey);
+            if (snapshot == null) {
+                return null;
+            }
+            in = snapshot.getInputStream(0);
+            if (in != null) {
+                buffIn = new BufferedInputStream(in, IO_BUFFER_SIZE);
+                bitmap = BitmapFactory.decodeStream(buffIn);
+            }
+        } catch (IOException e) {
+            Log_OC.e(TAG, e.getMessage(), e);
+        } finally {
+            if (snapshot != null) {
+                snapshot.close();
+            }
+            if (buffIn != null) {
+                try {
+                    buffIn.close();
+                } catch (IOException e) {
+                    Log_OC.e(TAG, e.getMessage(), e);
+                }
+            }
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    Log_OC.e(TAG, e.getMessage(), e);
+                }
+            }
+        }
+
+        if (BuildConfig.DEBUG) {
+            Log_OC.d(CACHE_TEST_DISK, bitmap == null ? "not found" : "image read from disk " + validKey);
+        }
+
+        return bitmap;
     }
 
     public boolean containsKey(String key) {
