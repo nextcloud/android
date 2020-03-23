@@ -265,7 +265,6 @@
     <string name="etm_background_job_progress">Edistyminen</string>
     <string name="etm_background_job_started">Käynnistetty</string>
     <string name="etm_background_job_state">Tila</string>
-    <string name="etm_background_job_user">@string/user_icon</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Taustatyöt</string>
     <string name="etm_background_jobs_cancel_all">Peruuta kaikki työt</string>

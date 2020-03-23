@@ -266,7 +266,6 @@
     <string name="etm_background_job_progress">Status</string>
     <string name="etm_background_job_started">Påbörjat</string>
     <string name="etm_background_job_state">Status</string>
-    <string name="etm_background_job_user">@string/user_icon</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Bakgrundsjobb</string>
     <string name="etm_background_jobs_cancel_all">Avbryt alla uppdrag</string>
