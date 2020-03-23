@@ -1,0 +1,3 @@
+Fix for sso Grant/Deny dialog text color in dark mode.
+Wrong string
+Update translations
