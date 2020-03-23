@@ -265,7 +265,6 @@
     <string name="etm_background_job_progress">İlerleme</string>
     <string name="etm_background_job_started">Başladı</string>
     <string name="etm_background_job_state">İl</string>
-    <string name="etm_background_job_user">@string/user_icon</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Arka plan görevleri</string>
     <string name="etm_background_jobs_cancel_all">Tüm işleri iptal et</string>

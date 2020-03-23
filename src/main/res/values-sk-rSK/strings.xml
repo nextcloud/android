@@ -266,7 +266,6 @@
     <string name="etm_background_job_progress">Pokrok</string>
     <string name="etm_background_job_started">Zahájená</string>
     <string name="etm_background_job_state">Stav</string>
-    <string name="etm_background_job_user">@string/user_icon</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Úlohy na pozadí</string>
     <string name="etm_background_jobs_cancel_all">Ukončiť všetky úlohy</string>

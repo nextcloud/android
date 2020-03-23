@@ -265,7 +265,6 @@
     <string name="etm_background_job_progress">Voortgang</string>
     <string name="etm_background_job_started">Gestart</string>
     <string name="etm_background_job_state">Staat</string>
-    <string name="etm_background_job_user">User Icoon</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Achtergrondtaken</string>
     <string name="etm_background_jobs_cancel_all">Annuleer alle jobs</string>
