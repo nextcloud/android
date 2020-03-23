@@ -16,6 +16,11 @@ labels: bug
 ### Actual behaviour
 - Tell us what happens
 
+### Can you reproduce this problem on https://try.nextcloud.com?
+- Please create a test demo account and see if this still happens there.
+- If yes, please open up a bug report
+- If not, please verify server setup and ask for help on forum
+
 ### Environment data
 Android version:
 
