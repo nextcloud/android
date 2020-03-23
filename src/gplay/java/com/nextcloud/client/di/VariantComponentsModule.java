@@ -20,14 +20,15 @@
 package com.nextcloud.client.di;
 
 import com.owncloud.android.authentication.ModifiedAuthenticatorActivity;
-import com.owncloud.android.services.firebase.NCFirebaseInstanceIDService;
+import com.owncloud.android.services.firebase.NCFirebaseMessagingService;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
 abstract class VariantComponentsModule {
-    @ContributesAndroidInjector abstract NCFirebaseInstanceIDService ncFirebaseInstanceIDService();
+    @ContributesAndroidInjector
+    abstract NCFirebaseMessagingService nCFirebaseMessagingService();
 
     @ContributesAndroidInjector
     abstract ModifiedAuthenticatorActivity modifiedAuthenticatorActivity();

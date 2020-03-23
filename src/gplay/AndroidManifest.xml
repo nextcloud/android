@@ -67,13 +67,6 @@
         </service>
 
         <service
-            android:name=".services.firebase.NCFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
-
-        <service
             android:name="com.evernote.android.job.gcm.PlatformGcmService"
             android:enabled="true"
             tools:node="remove">
