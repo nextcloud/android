@@ -429,6 +429,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                         if (i == 0 && sharees.size() > 3) {
                             avatar.setImageResource(R.drawable.ic_people);
+                            ThemeUtils.setIconColor(avatar.getDrawable());
                         } else {
                             if (sharee.getShareType().equals(ShareType.GROUP)) {
                                 try {
@@ -437,9 +438,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 } catch (Exception e) {
                                     Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
                                     avatar.setImageResource(R.drawable.ic_people);
+                                    ThemeUtils.setIconColor(avatar.getDrawable());
                                 }
                             } else if (sharee.getShareType().equals(ShareType.CIRCLE)) {
                                 avatar.setImageResource(R.drawable.ic_circles);
+                                ThemeUtils.setIconColor(avatar.getDrawable());
+
                             } else if (sharee.getUserId().contains("@")) {
                                 showFederatedShareAvatar(sharee.getUserId(), avatarRadius, resources, avatar);
                             } else {
