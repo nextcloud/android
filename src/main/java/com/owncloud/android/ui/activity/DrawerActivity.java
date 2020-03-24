@@ -302,7 +302,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
 
         mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toggle);
-        mAccountChooserToggle.setColorFilter(ThemeUtils.fontColor(this, true));
+        mAccountChooserToggle.setColorFilter(ThemeUtils.fontColor(this, !ThemeUtils.darkTheme(getApplicationContext())));
 
         if (getResources().getBoolean(R.bool.allow_profile_click)) {
             mAccountChooserToggle.setImageResource(R.drawable.ic_down);

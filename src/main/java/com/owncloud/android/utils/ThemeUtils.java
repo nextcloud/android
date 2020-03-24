@@ -627,6 +627,14 @@ public final class ThemeUtils {
         }
     }
 
+    public static Drawable setIconColor(Drawable drawable) {
+        int color = Color.BLACK;
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            color = Color.WHITE;
+        }
+        return tintDrawable(drawable, color);
+    }
+
     /**
      * Lifted from SO.
      * FindBugs surpressed because of lack of public API to alter the cursor color.
