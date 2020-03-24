@@ -142,6 +142,7 @@
     <string name="confirmation_remove_folders_alert">Θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα και τα περιεχόμενά τους;</string>
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
     <string name="conflict_already_existing_file">Το αρχείο υπάρχει ήδη</string>
+    <string name="conflict_dialog_error">Σφάλμα δημιουργίας αναφοράς διένεξης!</string>
     <string name="conflict_keep_both">Διατήρηση και των δύο</string>
     <string name="conflict_message">Ποια αρχεία θέλετε να διατηρήσετε; Αν επιλέξετε και τις δύο εκδόσεις, θα προστεθεί ένας αριθμός στο όνομα του τοπικού αρχείου.</string>
     <string name="conflict_message_description">Εάν επιλέξετε και τις δύο εκδόσεις, στο όνομα του τοπικού αρχείου θα προστεθεί ένας αριθμός.</string>
@@ -265,6 +266,7 @@
     <string name="etm_background_job_progress">Πρόοδος</string>
     <string name="etm_background_job_started">Έναρξη</string>
     <string name="etm_background_job_state">Πολιτεία</string>
+    <string name="etm_background_job_user">Χρήστης</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Εργασίες παρασκηνίου</string>
     <string name="etm_background_jobs_cancel_all">Ακύρωση όλων των εργασιών</string>
