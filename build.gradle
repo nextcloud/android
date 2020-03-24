@@ -32,6 +32,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.jraska.module.graph.assertion" version "0.4.1"
+}
+
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
