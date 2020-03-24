@@ -135,6 +135,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -177,6 +179,8 @@ public class FileDisplayActivity extends FileActivity
     public static final String TAG_PUBLIC_LINK = "PUBLIC_LINK";
     public static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
     public static final String KEY_FILE_ID = "KEY_FILE_ID";
+    public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
+
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
@@ -231,12 +235,10 @@ public class FileDisplayActivity extends FileActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
-
         // Set the default theme to replace the launch screen theme.
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
 
         super.onCreate(savedInstanceState);
-
         /// Load of saved instance state
         if (savedInstanceState != null) {
             mWaitingToPreview = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
@@ -790,42 +792,31 @@ public class FileDisplayActivity extends FileActivity
 
         //focus the SearchView
         if (!TextUtils.isEmpty(searchQuery)) {
-            searchView.post(new Runnable() {
-                @Override
-                public void run() {
-                    searchView.setIconified(false);
-                    searchView.setQuery(searchQuery, true);
-                    searchView.clearFocus();
-                }
+            searchView.post(() -> {
+                searchView.setIconified(false);
+                searchView.setQuery(searchQuery, true);
+                searchView.clearFocus();
             });
         }
 
         final View mSearchEditFrame = searchView
             .findViewById(androidx.appcompat.R.id.search_edit_frame);
 
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                if (TextUtils.isEmpty(searchView.getQuery().toString())) {
-                    searchView.onActionViewCollapsed();
-                    setDrawerIndicatorEnabled(isDrawerIndicatorAvailable()); // order matters
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                    mDrawerToggle.syncState();
+        searchView.setOnCloseListener(() -> {
+            if (TextUtils.isEmpty(searchView.getQuery().toString())) {
+                searchView.onActionViewCollapsed();
+                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable()); // order matters
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                mDrawerToggle.syncState();
 
-                    if (getListOfFilesFragment() != null) {
-                        getListOfFilesFragment().setSearchFragment(false);
-                        getListOfFilesFragment().refreshDirectory();
-                    }
-                } else {
-                    searchView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            searchView.setQuery("", true);
-                        }
-                    });
+                if (getListOfFilesFragment() != null) {
+                    getListOfFilesFragment().setSearchFragment(false);
+                    getListOfFilesFragment().refreshDirectory();
                 }
-                return true;
+            } else {
+                searchView.post(() -> searchView.setQuery("", true));
             }
+            return true;
         });
 
         ViewTreeObserver vto = mSearchEditFrame.getViewTreeObserver();
@@ -1056,8 +1047,7 @@ public class FileDisplayActivity extends FileActivity
                     break;
             }
 
-            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-            requester.uploadNewFile(
+            FileUploader.uploadNewFile(
                 this,
                 getAccount(),
                 filePaths,
@@ -1067,7 +1057,8 @@ public class FileDisplayActivity extends FileActivity
                 false,          // do not create parent folder if not existent
                 UploadFileOperation.CREATED_BY_USER,
                 false,
-                false
+                false,
+                FileUploader.NameCollisionPolicy.ASK_USER
             );
 
         } else {
@@ -1141,22 +1132,28 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
+    /*
+     * BackPressed priority/hierarchy:
+     *    1. close search view if opened
+     *    2. close drawer if opened
+     *    3. close FAB if open (only if drawer isn't open)
+     *    4. navigate up (only if drawer and FAB aren't open)
+     */
     @Override
     public void onBackPressed() {
         boolean isDrawerOpen = isDrawerOpen();
         boolean isSearchOpen = isSearchOpen();
 
-        /*
-         * BackPressed priority/hierarchy:
-         *    1. close search view if opened
-         *    2. close drawer if opened
-         *    3. close FAB if open (only if drawer isn't open)
-         *    4. navigate up (only if drawer and FAB aren't open)
-         */
+        OCFileListFragment listOfFiles = getListOfFilesFragment();
 
         if (isSearchOpen && searchView != null) {
             searchView.setQuery("", true);
             searchView.onActionViewCollapsed();
+            searchView.clearFocus();
+
+            // Remove the list to the original state
+            listOfFiles.performSearch("", true);
+
             setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
         } else if (isDrawerOpen) {
             // close drawer first
@@ -1164,7 +1161,7 @@ public class FileDisplayActivity extends FileActivity
         } else {
             // all closed
 
-            OCFileListFragment listOfFiles = getListOfFilesFragment();
+            listOfFiles = getListOfFilesFragment();
             if (mDualPane || getSecondFragment() == null) {
                 OCFile currentDir = getCurrentDir();
                 if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
@@ -1183,7 +1180,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         // responsibility of restore is preferred in onCreate() before than in
         // onRestoreInstanceState when there are Fragments involved
         Log_OC.v(TAG, "onSaveInstanceState() start");
@@ -2627,27 +2624,51 @@ public class FileDisplayActivity extends FileActivity
     private void handleOpenFileViaIntent(Intent intent) {
         showLoadingDialog(getString(R.string.retrieving_file));
 
-        String accountName = intent.getStringExtra("KEY_ACCOUNT");
+        String userName = intent.getStringExtra(KEY_ACCOUNT);
+        String fileId = intent.getStringExtra(KEY_FILE_ID);
 
-        Account newAccount;
-        if (accountName == null) {
-            newAccount = getAccount();
-        } else {
-            newAccount = getUserAccountManager().getAccountByName(accountName);
+        if (userName == null && fileId == null && intent.getData() != null) {
+            // Handle intent coming from URI
 
-            if (newAccount == null) {
+            Pattern pattern  = Pattern.compile("(.*)/index\\.php/([f])/([0-9]+)$");
+            Matcher matcher = pattern.matcher(intent.getData().toString());
+            if (matcher.matches()) {
+                String uri = matcher.group(1);
+                if ("f".equals(matcher.group(2))) {
+                    fileId = matcher.group(3);
+                    findAccountAndOpenFile(uri, fileId);
+                    return;
+                }
+            } else {
                 dismissLoadingDialog();
-                DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
+                DisplayUtils.showSnackMessage(this, getString(R.string.invalid_url));
                 return;
             }
+        }
+        openFile(userName, fileId);
 
-            setAccount(newAccount, false);
-            updateAccountList();
+    }
+    private void openFile(String userName, String fileId) {
+        Optional<User> optionalNewUser;
+        User user;
+
+        if (userName == null) {
+            optionalNewUser = getUser();
+        } else {
+            optionalNewUser = getUserAccountManager().getUser(userName);
         }
 
-        String fileId = String.valueOf(intent.getStringExtra(KEY_FILE_ID));
+        if (optionalNewUser.isPresent()) {
+            user = optionalNewUser.get();
+            setUser(user);
+            updateAccountList();
+        } else {
+            dismissLoadingDialog();
+            DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
+            return;
+        }
 
-        if ("null".equals(fileId)) {
+        if (fileId == null) {
             dismissLoadingDialog();
             DisplayUtils.showSnackMessage(this, getString(R.string.error_retrieving_file));
             return;
@@ -2656,13 +2677,56 @@ public class FileDisplayActivity extends FileActivity
         FileDataStorageManager storageManager = getStorageManager();
 
         if (storageManager == null) {
-            storageManager = new FileDataStorageManager(newAccount, getContentResolver());
+            storageManager = new FileDataStorageManager(user.toPlatformAccount(), getContentResolver());
         }
 
-        FetchRemoteFileTask fetchRemoteFileTask = new FetchRemoteFileTask(newAccount,
+        FetchRemoteFileTask fetchRemoteFileTask = new FetchRemoteFileTask(user.toPlatformAccount(),
                                                                           fileId,
                                                                           storageManager,
                                                                           this);
         fetchRemoteFileTask.execute();
+
+    }
+
+    private void findAccountAndOpenFile(String uri, String fileId) {
+
+        ArrayList<User> validUsers = new ArrayList<>();
+
+        for (User user : getUserAccountManager().getAllUsers()) {
+            if (user.getServer().getUri().toString().equals(uri)) {
+                validUsers.add(user);
+            }
+        }
+
+        if (validUsers.size() == 0) {
+            dismissLoadingDialog();
+            DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
+            return;
+        }
+
+        if (validUsers.size() == 1) {
+            openFile(validUsers.get(0).getAccountName(), fileId);
+            return;
+        }
+
+        ArrayList<String> validUserNames = new ArrayList<>();
+
+        for (User user : validUsers) {
+            validUserNames.add(user.getAccountName());
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder
+            .setTitle(R.string.common_choose_account)
+            .setItems(validUserNames.toArray(new CharSequence[validUserNames.size()]),
+                      new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    openFile(validUsers.get(which).getAccountName(), fileId);
+                    showLoadingDialog(getString(R.string.retrieving_file));
+                }
+            });
+        AlertDialog dialog = builder.create();
+        dismissLoadingDialog();
+        dialog.show();
     }
 }

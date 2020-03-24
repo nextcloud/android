@@ -40,6 +40,8 @@ import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.User;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -225,7 +227,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                     RemoteOperationResult result = operation.execute(account, getContext());
                     return result.isSuccess();
                 } else {
-                    return false;
+                    return Boolean.FALSE;
                 }
             }
 
@@ -344,8 +346,12 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         if (bool) {
             ContactsPreferenceActivity.startContactBackupJob(contactsPreferenceActivity.getAccount());
         } else {
-            ContactsPreferenceActivity.cancelContactBackupJobForAccount(contactsPreferenceActivity,
-                    contactsPreferenceActivity.getAccount());
+            Optional<User> user = contactsPreferenceActivity.getUser();
+
+            if (user.isPresent()) {
+                ContactsPreferenceActivity.cancelContactBackupJobForAccount(contactsPreferenceActivity,
+                                                                            user.get());
+            }
         }
 
         arbitraryDataProvider.storeOrUpdateKeyValue(account.name, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,

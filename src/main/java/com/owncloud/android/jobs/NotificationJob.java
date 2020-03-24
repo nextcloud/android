@@ -22,7 +22,6 @@
 
 package com.owncloud.android.jobs;
 
-import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
@@ -42,11 +41,12 @@ import android.util.Log;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.gson.Gson;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.DecryptedPushMessage;
 import com.owncloud.android.datamodel.SignatureVerification;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -67,8 +67,8 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.methods.Utf8PostMethod;
 
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -140,7 +140,9 @@ public class NotificationJob extends Job {
                         } else if (decryptedPushMessage.deleteAll) {
                             notificationManager.cancelAll();
                         } else {
-                            fetchCompleteNotification(signatureVerification.getAccount(), decryptedPushMessage);
+                            final User user = accountManager.getUser(signatureVerification.getAccount().name)
+                                    .orElseThrow(RuntimeException::new);
+                            fetchCompleteNotification(user, decryptedPushMessage);
                         }
                     }
                 } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException e1) {
@@ -154,7 +156,7 @@ public class NotificationJob extends Job {
         return Result.SUCCESS;
     }
 
-    private void sendNotification(Notification notification, Account account) {
+    private void sendNotification(Notification notification, User user) {
         SecureRandom randomId = new SecureRandom();
         RichObject file = notification.subjectRichParameters.get("file");
 
@@ -166,7 +168,7 @@ public class NotificationJob extends Job {
             intent.setAction(Intent.ACTION_VIEW);
             intent.putExtra(FileDisplayActivity.KEY_FILE_ID, file.id);
         }
-        intent.putExtra(KEY_NOTIFICATION_ACCOUNT, account.name);
+        intent.putExtra(KEY_NOTIFICATION_ACCOUNT, user.getAccountName());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
@@ -176,9 +178,9 @@ public class NotificationJob extends Job {
             new NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_PUSH)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.notification_icon))
-                .setColor(ThemeUtils.primaryColor(account, false, context))
+                .setColor(ThemeUtils.primaryColor(user.toPlatformAccount(), false, context))
                 .setShowWhen(true)
-                .setSubText(account.name)
+                .setSubText(user.getAccountName())
                 .setContentTitle(notification.getSubject())
                 .setContentText(notification.getMessage())
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
@@ -191,7 +193,7 @@ public class NotificationJob extends Job {
             Intent disableDetection = new Intent(context, NotificationJob.NotificationReceiver.class);
             disableDetection.putExtra(NUMERIC_NOTIFICATION_ID, notification.getNotificationId());
             disableDetection.putExtra(PUSH_NOTIFICATION_ID, pushNotificationId);
-            disableDetection.putExtra(KEY_NOTIFICATION_ACCOUNT, account.name);
+            disableDetection.putExtra(KEY_NOTIFICATION_ACCOUNT, user.getAccountName());
 
             PendingIntent disableIntent = PendingIntent.getBroadcast(context, pushNotificationId, disableDetection,
                                                                      PendingIntent.FLAG_CANCEL_CURRENT);
@@ -204,7 +206,7 @@ public class NotificationJob extends Job {
                 Intent actionIntent = new Intent(context, NotificationJob.NotificationReceiver.class);
                 actionIntent.putExtra(NUMERIC_NOTIFICATION_ID, notification.getNotificationId());
                 actionIntent.putExtra(PUSH_NOTIFICATION_ID, pushNotificationId);
-                actionIntent.putExtra(KEY_NOTIFICATION_ACCOUNT, account.name);
+                actionIntent.putExtra(KEY_NOTIFICATION_ACCOUNT, user.getAccountName());
                 actionIntent.putExtra(KEY_NOTIFICATION_ACTION_LINK, action.link);
                 actionIntent.putExtra(KEY_NOTIFICATION_ACTION_TYPE, action.type);
 
@@ -228,9 +230,9 @@ public class NotificationJob extends Job {
             new NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_PUSH)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.notification_icon))
-                .setColor(ThemeUtils.primaryColor(account, false, context))
+                .setColor(ThemeUtils.primaryColor(user.toPlatformAccount(), false, context))
                 .setShowWhen(true)
-                .setSubText(account.name)
+                .setSubText(user.getAccountName())
                 .setContentTitle(context.getString(R.string.new_notification))
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setAutoCancel(true)
@@ -241,18 +243,18 @@ public class NotificationJob extends Job {
         notificationManager.notify(notification.getNotificationId(), notificationBuilder.build());
     }
 
-    private void fetchCompleteNotification(Account account, DecryptedPushMessage decryptedPushMessage) {
-        Account currentAccount = accountManager.getAccountByName(account.name);
+    private void fetchCompleteNotification(User account, DecryptedPushMessage decryptedPushMessage) {
+        Optional<User> optionalUser = accountManager.getUser(account.getAccountName());
 
-        if (currentAccount == null) {
+        if (!optionalUser.isPresent()) {
             Log_OC.e(this, "Account may not be null");
             return;
         }
+        User user = optionalUser.get();
 
         try {
-            OwnCloudAccount ocAccount = new OwnCloudAccount(currentAccount, context);
             OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                .getClientFor(ocAccount, context);
+                .getClientFor(user.toOwnCloudAccount(), context);
 
             RemoteOperationResult result = new GetNotificationRemoteOperation(decryptedPushMessage.nid)
                 .execute(client);
@@ -295,16 +297,14 @@ public class NotificationJob extends Job {
                     }
 
                     try {
-                        Account currentAccount = accountManager.getAccountByName(accountName);
-
-                        if (currentAccount == null) {
+                        Optional<User> optionalUser = accountManager.getUser(accountName);
+                        if (!optionalUser.isPresent()) {
                             Log_OC.e(this, "Account may not be null");
                             return;
                         }
-
-                        OwnCloudAccount ocAccount = new OwnCloudAccount(currentAccount, context);
+                        User user = optionalUser.get();
                         OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                            .getClientFor(ocAccount, context);
+                            .getClientFor(user.toOwnCloudAccount(), context);
 
                         String actionType = intent.getStringExtra(KEY_NOTIFICATION_ACTION_TYPE);
                         String actionLink = intent.getStringExtra(KEY_NOTIFICATION_ACTION_LINK);
@@ -325,8 +325,7 @@ public class NotificationJob extends Job {
                         } else if (notificationManager != null) {
                             notificationManager.notify(numericNotificationId, oldNotification);
                         }
-                    } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException |
-                        IOException | OperationCanceledException | AuthenticatorException e) {
+                    } catch (IOException | OperationCanceledException | AuthenticatorException e) {
                         Log_OC.e(TAG, "Error initializing client", e);
                     }
                 }).start();
@@ -344,7 +343,7 @@ public class NotificationJob extends Job {
                     break;
 
                 case "POST":
-                    method = new PostMethod(actionLink);
+                    method = new Utf8PostMethod(actionLink);
                     break;
 
                 case "DELETE":

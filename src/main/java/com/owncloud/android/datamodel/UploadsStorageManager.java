@@ -84,7 +84,7 @@ public class UploadsStorageManager extends Observable {
         cv.put(ProviderTableMeta.UPLOADS_FILE_SIZE, ocUpload.getFileSize());
         cv.put(ProviderTableMeta.UPLOADS_STATUS, ocUpload.getUploadStatus().value);
         cv.put(ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR, ocUpload.getLocalAction());
-        cv.put(ProviderTableMeta.UPLOADS_FORCE_OVERWRITE, ocUpload.isForceOverwrite() ? 1 : 0);
+        cv.put(ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY, ocUpload.getNameCollisionPolicy().serialize());
         cv.put(ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER, ocUpload.isCreateRemoteFolder() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_LAST_RESULT, ocUpload.getLastResult().getValue());
         cv.put(ProviderTableMeta.UPLOADS_CREATED_BY, ocUpload.getCreatedBy());
@@ -305,7 +305,7 @@ public class UploadsStorageManager extends Observable {
                     } else {
                         list[c.getPosition()] = upload;
                     }
-                } while (c.moveToNext());
+                } while (c.moveToNext() && !c.isAfterLast());
             }
             c.close();
         } else {
@@ -329,8 +329,8 @@ public class UploadsStorageManager extends Observable {
                     UploadStatus.fromValue(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_STATUS)))
             );
             upload.setLocalAction(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR)));
-            upload.setForceOverwrite(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.UPLOADS_FORCE_OVERWRITE)) == 1);
+            upload.setNameCollisionPolicy(FileUploader.NameCollisionPolicy.deserialize(c.getInt(
+                    c.getColumnIndex(ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY))));
             upload.setCreateRemoteFolder(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER)) == 1);
             upload.setUploadEndTimestamp(c.getLong(c.getColumnIndex(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP)));

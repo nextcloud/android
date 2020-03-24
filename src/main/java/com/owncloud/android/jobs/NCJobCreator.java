@@ -35,6 +35,8 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 
+import org.greenrobot.eventbus.EventBus;
+
 import androidx.annotation.NonNull;
 
 /**
@@ -50,6 +52,7 @@ public class NCJobCreator implements JobCreator {
     private final ConnectivityService connectivityService;
     private final PowerManagementService powerManagementService;
     private final Clock clock;
+    private final EventBus eventBus;
 
     public NCJobCreator(
         Context context,
@@ -58,7 +61,8 @@ public class NCJobCreator implements JobCreator {
         UploadsStorageManager uploadsStorageManager,
         ConnectivityService connectivityServices,
         PowerManagementService powerManagementService,
-        Clock clock
+        Clock clock,
+        EventBus eventBus
     ) {
         this.context = context;
         this.accountManager = accountManager;
@@ -67,6 +71,7 @@ public class NCJobCreator implements JobCreator {
         this.connectivityService = connectivityServices;
         this.powerManagementService = powerManagementService;
         this.clock = clock;
+        this.eventBus = eventBus;
     }
 
     @Override
@@ -77,7 +82,7 @@ public class NCJobCreator implements JobCreator {
             case ContactsImportJob.TAG:
                 return new ContactsImportJob();
             case AccountRemovalJob.TAG:
-                return new AccountRemovalJob(uploadsStorageManager, accountManager, clock);
+                return new AccountRemovalJob(uploadsStorageManager, accountManager, clock, eventBus);
             case FilesSyncJob.TAG:
                 return new FilesSyncJob(accountManager,
                                         preferences,

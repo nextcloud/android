@@ -14,8 +14,8 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.methods.Utf8PostMethod;
 
 import java.io.IOException;
 
@@ -47,7 +47,7 @@ public class NotificationExecuteActionTask extends AsyncTask<Action, Void, Boole
                 break;
 
             case "POST":
-                method = new PostMethod(action.link);
+                method = new Utf8PostMethod(action.link);
                 break;
 
             case "DELETE":
@@ -60,7 +60,7 @@ public class NotificationExecuteActionTask extends AsyncTask<Action, Void, Boole
 
             default:
                 // do nothing
-                return false;
+                return Boolean.FALSE;
         }
 
         method.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
@@ -70,7 +70,7 @@ public class NotificationExecuteActionTask extends AsyncTask<Action, Void, Boole
             status = client.executeMethod(method);
         } catch (IOException e) {
             Log_OC.e(this, "Execution of notification action failed: " + e);
-            return false;
+            return Boolean.FALSE;
         }
 
         return status == HttpStatus.SC_OK || status == HttpStatus.SC_ACCEPTED;

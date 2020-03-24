@@ -410,10 +410,21 @@ public final class ThumbnailsCacheManager {
         private String mImageKey;
         private FileDataStorageManager mStorageManager;
         private GetMethod getMethod;
+        private boolean roundedCorners = false;
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, Account account)
                 throws IllegalArgumentException {
             this(imageView, storageManager, account, null);
+        }
+
+        public ThumbnailGenerationTask(ImageView imageView,
+                                       FileDataStorageManager storageManager,
+                                       Account account,
+                                       List<ThumbnailGenerationTask> asyncTasks,
+                                       boolean roundedCorners)
+            throws IllegalArgumentException {
+            this(imageView, storageManager, account, asyncTasks);
+            this.roundedCorners = roundedCorners;
         }
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
@@ -508,7 +519,11 @@ public final class ThumbnailsCacheManager {
                         tagId = String.valueOf(((TrashbinFile) mFile).getRemoteId());
                     }
                     if (String.valueOf(imageView.getTag()).equals(tagId)) {
-                        imageView.setImageBitmap(bitmap);
+                        if (roundedCorners) {
+                            BitmapUtils.setRoundedBitmap(bitmap, imageView);
+                        } else {
+                            imageView.setImageBitmap(bitmap);
+                        }
                     }
                 }
             }
@@ -809,9 +824,14 @@ public final class ThumbnailsCacheManager {
         private Context mContext;
 
 
-        public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener, Object callContext,
-                                    Account account, Resources resources, float avatarRadius, String userId,
-                                    String serverName, Context context) {
+        public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener,
+                                    Object callContext,
+                                    Account account,
+                                    Resources resources,
+                                    float avatarRadius,
+                                    String userId,
+                                    String serverName,
+                                    Context context) {
             mAvatarGenerationListener = new WeakReference<>(avatarGenerationListener);
             mCallContext = callContext;
             mAccount = account;
@@ -850,7 +870,8 @@ public final class ThumbnailsCacheManager {
                 AvatarGenerationListener listener = mAvatarGenerationListener.get();
                 if (listener != null) {
                     AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(mCallContext);
-                    if (this == avatarWorkerTask && listener.shouldCallGeneratedCallback(mUserId, mCallContext)) {
+                    String accountName = mUserId + "@" + mServerName;
+                    if (this == avatarWorkerTask && listener.shouldCallGeneratedCallback(accountName, mCallContext)) {
                         listener.avatarGenerated(drawable, mCallContext);
                     }
                 }

@@ -30,6 +30,7 @@
     <dimen name="list_item_avatar_icon_radius">20dp</dimen>
     <dimen name="file_icon_size">40dp</dimen>
     <dimen name="file_icon_size_grid">128dp</dimen>
+    <dimen name="file_icon_rounded_corner_radius">8dp</dimen>
     <dimen name="file_avatar_size">128dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
     <dimen name="standard_double_padding">32dp</dimen>
@@ -55,7 +56,7 @@
     <dimen name="account_item_layout_height">72dp</dimen>
     <dimen name="user_icon_size">40dp</dimen>
     <dimen name="user_icon_radius">20dp</dimen>
-    <dimen name="share_icon_size">56dp</dimen>
+    <dimen name="share_icon_size">40dp</dimen>
     <dimen name="alternate_margin">10dp</dimen>
     <dimen name="alternate_half_margin">5dp</dimen>
     <dimen name="alternate_padding">10dp</dimen>
@@ -134,6 +135,7 @@
     <dimen name="synced_folders_item_type_layout_height">32dp</dimen>
     <dimen name="synced_folders_item_type_layout_right_end_margin">24dp</dimen>
     <dimen name="synced_folders_recycler_view_layout_margin">-3dp</dimen>
+    <dimen name="synced_folders_control_width">80dp</dimen>
     <dimen name="toolbar_user_information_layout_margin">12dp</dimen>
     <dimen name="bottom_sheet_text_size">16sp</dimen>
     <dimen name="permission_dialog_text_size">18sp</dimen>

@@ -84,6 +84,7 @@ import com.owncloud.android.utils.ReceiversHelper;
 import com.owncloud.android.utils.SecurityUtils;
 
 import org.conscrypt.Conscrypt;
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.reflect.Method;
 import java.security.NoSuchAlgorithmException;
@@ -165,6 +166,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     @Inject
     Clock clock;
+
+    @Inject
+    EventBus eventBus;
 
     private PassCodeManager passCodeManager;
 
@@ -274,7 +278,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 uploadsStorageManager,
                 connectivityService,
                 powerManagementService,
-                clock
+                clock,
+                eventBus
             )
         );
 
@@ -768,7 +773,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
                 for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
                     if (syncedFolder.isEnabled()) {
-                        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder);
+                        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, true);
                     }
                 }
 

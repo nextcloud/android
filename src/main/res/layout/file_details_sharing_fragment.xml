@@ -219,8 +219,7 @@
                 <TextView
                     android:id="@+id/shareInternalLinkText"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/share_internal_link_text" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
         </LinearLayout>

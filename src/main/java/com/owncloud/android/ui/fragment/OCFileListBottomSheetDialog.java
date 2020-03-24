@@ -23,6 +23,7 @@ package com.owncloud.android.ui.fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.DeviceInfo;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -72,24 +75,33 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
     @BindView(R.id.creators)
     public LinearLayout creators;
 
+    @BindView(R.id.creators_container)
+    public LinearLayout creatorsContainer;
+
     @BindView(R.id.menu_direct_camera_upload)
     public View cameraView;
+
+    @BindView(R.id.menu_create_rich_workspace)
+    public View createRichWorkspace;
 
     private Unbinder unbinder;
     private OCFileListBottomSheetActions actions;
     private FileActivity fileActivity;
     private DeviceInfo deviceInfo;
     private User user;
+    private OCFile file;
 
     public OCFileListBottomSheetDialog(FileActivity fileActivity,
                                        OCFileListBottomSheetActions actions,
                                        DeviceInfo deviceInfo,
-                                       User user) {
+                                       User user,
+                                       OCFile file) {
         super(fileActivity);
         this.actions = actions;
         this.fileActivity = fileActivity;
         this.deviceInfo = deviceInfo;
         this.user = user;
+        this.file = file;
     }
 
     @Override
@@ -111,7 +123,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         ThemeUtils.tintDrawable(iconMakeDir.getDrawable(), primaryColor);
 
         headline.setText(getContext().getResources().getString(R.string.add_to_cloud,
-                ThemeUtils.getDefaultDisplayNameForRootFolder(getContext())));
+                                                               ThemeUtils.getDefaultDisplayNameForRootFolder(getContext())));
 
         OCCapability capability = fileActivity.getCapabilities();
         if (capability.getRichDocuments().isTrue() && capability.getRichDocumentsDirectEditing().isTrue() &&
@@ -127,13 +139,16 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             DirectEditing directEditing = new Gson().fromJson(json, DirectEditing.class);
 
             if (!directEditing.getCreators().isEmpty()) {
-                creators.setVisibility(View.VISIBLE);
+                creatorsContainer.setVisibility(View.VISIBLE);
 
                 LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                 for (Creator creator : directEditing.getCreators().values()) {
                     View creatorView = vi.inflate(R.layout.file_list_actions_bottom_sheet_creator, null);
-                    ((TextView) creatorView.findViewById(R.id.creator_name)).setText(creator.getName());
+                    ((TextView) creatorView.findViewById(R.id.creator_name)).setText(
+                        String.format(fileActivity.getString(R.string.editor_placeholder),
+                                      fileActivity.getString(R.string.create_new),
+                                      creator.getName()));
                     ImageView thumbnail = creatorView.findViewById(R.id.creator_thumbnail);
 
                     thumbnail.setImageDrawable(MimeTypeUtil.getFileTypeIcon(creator.getMimetype(),
@@ -155,9 +170,29 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             cameraView.setVisibility(View.GONE);
         }
 
+        // create rich workspace
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+            FileMenuFilter.isEditorAvailable(getContext().getContentResolver(),
+                                             user,
+                                             MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN) &&
+            file != null) {
+            if (TextUtils.isEmpty(file.getRichWorkspace())) {
+                createRichWorkspace.setVisibility(View.VISIBLE);
+            } else {
+                createRichWorkspace.setVisibility(View.GONE);
+            }
+        } else {
+            createRichWorkspace.setVisibility(View.GONE);
+        }
+
+        createRichWorkspace.setOnClickListener(v -> {
+            actions.createRichWorkspace();
+            dismiss();
+        });
+
         setOnShowListener(d ->
-                BottomSheetBehavior.from((View) view.getParent()).setPeekHeight(view.getMeasuredHeight())
-        );
+                              BottomSheetBehavior.from((View) view.getParent()).setPeekHeight(view.getMeasuredHeight())
+                         );
     }
 
     @OnClick(R.id.menu_mkdir)

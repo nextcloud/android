@@ -38,6 +38,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.StatFs;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -747,12 +748,6 @@ public class FileOperationsHelper {
         sendShareFile(file, !file.canReshare());
     }
 
-    public void syncFiles(Collection<OCFile> files) {
-        for (OCFile file : files) {
-            syncFile(file);
-        }
-    }
-
     public void sendCachedImage(OCFile file, String packageName, String activityName) {
         if (file != null) {
             Context context = MainApp.getAppContext();
@@ -1043,5 +1038,25 @@ public class FileOperationsHelper {
         return new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(new Date()) + ".jpg";
     }
 
+    /**
+     * @return -1 if no space could computed, otherwise available space in bytes
+     */
+    public static Long getAvailableSpaceOnDevice() {
+        StatFs stat;
+        try {
+            stat = new StatFs(MainApp.getStoragePath());
+        } catch (NullPointerException | IllegalArgumentException e) {
+            return -1L;
+        }
+
+        long availableBytesOnDevice;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            availableBytesOnDevice = stat.getBlockSizeLong() * stat.getAvailableBlocksLong();
+        } else {
+            availableBytesOnDevice = (long) stat.getBlockSize() * (long) stat.getAvailableBlocks();
+        }
+
+        return availableBytesOnDevice;
+    }
 
 }

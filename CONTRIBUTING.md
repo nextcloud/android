@@ -5,40 +5,46 @@
 
 
 # Index
-1. Guidelines
-    1. Issue reporting
-    1. Labels
-        1. Pull request (PR)
-        1. Issue
-        1. Bug workflow
-1. Contributing to Source Code
-    1. Developing process
-        1. Branching model
-        1. Android Studio formatter setup
-        1. Build variants
-    1. Contribution process
-        1. Fork and download android/master repository
-        1. Create pull request
-        1. Create another pull request
-        1. Backport pull request
-        1. Pull requests that also need changes on library
-        1. Adding new files
-	1. File naming
-        1. Menu files
-    1. Translations
-1. Releases
-    1. Types
-        1. Stable
-        1. Release Candidate
-        1. Dev
-    1. Version Name and number
-        1. Stable / Release candidate
-        1. Dev
-    1. Release cycle
-    1. Release Process
-        1. Stable Release
-        1. Release Candidate Release
-        1. Development Dev
+1. [Guidelines](#guidelines)
+    1. [Issue reporting](#issue-reporting)
+    1. [Labels](#labels)
+        1. [Pull request](#pull-request)
+        1. [Issue](#issue)
+        1. [Bug workflow](#bug-workflow)
+1. [Contributing to Source Code](#contributing-to-source-code)
+    1. [Developing process](#developing-process)
+        1. [Branching model](#branching-model)
+        1. [Android Studio formatter setup](#android-studio-formatter-setup)
+        1. [Build variants](#build-variants)
+    1. [Contribution process](#contribution-process)
+        1. [Fork and download android repository](#fork-and-download-android-repository)
+        1. [Create pull request](#create-pull-request)
+        1. [Create another pull request](#create-another-pull-request)
+        1. [Backport pull request](#backport-pull-request)
+        1. [Pull requests that also need changes on library](#pull-requests-that-also-need-changes-on-library)
+        1. [Adding new files](#adding-new-files)
+        1. [Testing](#testing)
+	1. [File naming](#file-naming)
+        1. [Menu files](#menu-files)
+    1. [Translations](#translations)
+    1. [Engineering practices](#engineering-practices)
+        1. [Approach to technical debt](#approach-to-technical-debt)
+        1. [Dependency injection](#dependency-injection) 
+        1. [Custom platform APIs](#custom-platform-apis)
+        1. [Testing](#testing)
+1. [Releases](#releases)
+    1. [Types](#types)
+        1. [Stable](#stable)
+        1. [Release Candidate](#release-candidate)
+        1. [Dev](#dev)
+    1. [Version Name and number](#version-name-and-number)
+        1. [Stable / Release candidate](#stable-release-candidate)
+        1. [Dev](#dev)
+    1. [Release cycle](#release-cycle)
+    1. [Release Process](#release-process)
+        1. [Stable Release](#stable-release)
+        1. [Release Candidate Release](#release-candidate-release)
+        1. [Development Dev](#development-dev)
 
 
 # Guidelines
@@ -117,18 +123,18 @@ There are three build variants
 * For your first contribution start a pull request on master.
 
 
-### 1. Fork and download android/master repository:
+### Fork and download android repository:
 * Please follow [SETUP.md](https://github.com/nextcloud/android/blob/master/SETUP.md) to setup Nextcloud Android app work environment.
 
 
-### 2. Create pull request:
+### Create pull request:
 * Commit your changes locally: ```git commit -a```
 * Push your changes to your GitHub repo: ```git push```
 * Browse to <https://github.com/YOURGITHUBNAME/android/pulls> and issue pull request
 * Enter description and send pull request.
 
 
-### 3. Create another pull request:
+### Create another pull request:
 To make sure your new pull request does not contain commits which are already contained in previous PRs, create a new branch which is a clone of upstream/master.
 
 * ```git fetch upstream```
@@ -137,12 +143,12 @@ To make sure your new pull request does not contain commits which are already co
 * Push branch to server: ```git push -u origin name_of_local_master_branch```
 * Use GitHub to issue PR
 
-### 4. Backport pull request:
+### Backport pull request:
 Use backport-bot via "/backport to stable-version", e.g. "/backport to stable-3.7".
 This will automatically add "backport-request" label to PR and bot will create a new PR to targeted branch once the base PR is merged.
 If automatic backport fails, it will create a comment.
 
-### 5. Pull requests that also need changes on library
+### Pull requests that also need changes on library
 For speeding up developing, we do use a master snapshot of nextcloud-library, provided by jitpack.io.
 This means that if a breaking change is merged on library, master branch of the app will fail.
 To limit this risk please follow this approach:
@@ -156,7 +162,7 @@ Once both PRs are reviewed and ready to merge:
 
 With this approach the "downtime" of not building master is limited to the timestamp between merge lib PR and merging app PR, which is only limited by CI.
 
-### 6. Adding new files
+### Adding new files
 If you create a new file it needs to contain a license header. We encourage you to use the same license (AGPL3+) as we do.
 Copyright of Nextcloud GmbH is optional.
 
@@ -238,6 +244,52 @@ Source code of app:
 -->
 ```
 
+### Testing
+- testing is very important, but is lacking a lot on this project. Starting with 2020 we aim to write tests for every
+  new pull request.
+- Code coverage can be found [here](https://codecov.io/gh/nextcloud/android).
+
+#### Unit tests
+- small, isolated tests, with no need of Android SDK
+- code coverage can be directly shown via right click on test and select "Run Test with Coverage"
+
+#### Instrumented tests
+- tests to see larger code working in correct way
+- tests that require parts of Android SDK
+- best to avoid server communication, see https://github.com/nextcloud/android/pull/3624
+
+- run all tests ```./gradlew createGplayDebugCoverageReport -Pcoverage=true```
+- run selective test class: ```./gradlew createGplayDebugCoverageReport -Pcoverage=true
+  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest```
+- run multiple test classes:
+  -   separate by ","
+  - ```./gradlew createGplayDebugCoverageReport -Pcoverage=true -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest,com.nextcloud.client.FileDisplayActivityIT```
+- run one test in class: ```./gradlew createGplayDebugCoverageReport -Pcoverage=true
+  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest#saveNewFile```
+- JaCoCo results are shown as html: firefox ./build/reports/coverage/gplay/debug/index.html
+
+
+#### UI tests
+We use [shot](https://github.com/Karumi/Shot) for taking screenshots and compare them 
+- check screenshots: ```./gradlew executeScreenshotTests ```
+- update/generate new screenshots: ```scripts/updateScreenshots.sh ``` 
+    - in this script are samples how to only execute a given class/test
+    - this will fire up docker & emulator to ensure that screenshots look the same
+- creating own UI comparision tests: 
+    - add IntentsTestRule for launching activity directly:
+    ```java
+ @Rule public IntentsTestRule<SettingsActivity> activityRule = new IntentsTestRule<>(SettingsActivity.class,
+                                                                                        true,
+                                                                                        false);
+```
+    -  in test method:
+    ```java 
+Activity activity = activityRule.launchActivity(null); 
+…do something, e.g. navigate, create folder, etc. … 
+  Screenshot.snapActivity(activity).record();
+  ```
+    - best practise is to first create test with emulator too see behaviour and then create screenshots
+
 ## File naming
 
 The file naming patterns are inspired and based on [Ribot's Android Project And Code Guidelines](https://github.com/ribot/android-guidelines/blob/c1d8c9c904eb31bf01fe24aadb963b74281fe79a/project_and_code_guidelines.md).
@@ -257,11 +309,94 @@ Similar to layout files, menu files should match the name of the component. For 
 A good practice is to not include the word `menu` as part of the name because these files are already located in the `menu` directory. In case a component uses several menus in different places (via popup menus) then the resource name would be extended. For example, if the user profile activity has two popup menus for configuring the users settings and one for the handling group assignments then the file names for the menus would be: `activity_user_profile_user_settings.xml` and `activity_user_profile_group_assignments.xml`.
 
 ## Translations
+
 We manage translations via [Transifex](https://www.transifex.com/nextcloud/nextcloud/android/). So just request joining the translation team for Android on the site and start translating. All translations will then be automatically pushed to this repository, there is no need for any pull request for translations.
 
 If you need to change a translation, do not change it, but give it new key. This way the translation stays backward compatible as we automatically backport translated strings to last versions.
 
 When submitting PRs with changed translations, please only submit changes to values/strings.xml and not changes to translated files. These will be overwritten by next merge of transifex-but and increase PR review.  
+
+## Engineering practices
+
+This section contains some general guideliens for new contributors, based on common issues flagged during code review.
+
+### Approach to technical debt
+
+TL;DR Non-Stop Litter Picking Party!
+
+We recognize the importance of technical debt that can slow down development, make bufixing difficult and
+discourage future contributors.
+
+We are mindful of the [Broken Windows Theory](https://en.wikipedia.org/wiki/Broken_windows_theory) and we'd like
+actively promote and encourage contributors to apply The Scout's Rule: *"Always leave the campground cleaner than 
+you found it"*. Simple, little improvements will sum up and will be very appreciated by Nextcloud team.
+
+We also promise to actively support and mentor contributors that help us to improve code quality, as we understand
+that this process is challenging and requires deep understanding of the application codebase.
+
+### Dependency injection
+
+TL;DR Avoid calling constructors inside constructors.
+
+In effort to modernize the codebase we are applying [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection)
+whenever possible. We use 2 approaches: automatic and manual.
+
+We are using [Dagger 2](https://dagger.dev/) to inject dependencies into major Android components only:
+
+ * `Activity`
+ * `Fragment`
+ * `Service`
+ * `BroadcastReceiver`
+ * `ContentProvider`
+
+This process is fairly automatic, with `@Inject` annotation being sufficient to supply properly initialized
+objects. Android lifecycle callbacks allow us to do most of the work without effort.
+
+For other application sub-components we prefer to use constructor injection and manually provide required dependencies.
+
+This combination allows us to benefit from automation when it provides most value, does not tie rest of the code
+to any specific framework and stimulates continuous code modernization through iterative refactoring of all minor
+elements.
+
+### Custom platform APIs
+
+TL;DR Avoid Android platform APIs.
+
+Nextcloud Android application provides some replacements for native Android APIs to facilitate testing
+and expose higher-level, business-specific APIs.
+
+Generally, whenever you need:
+
+* account management
+* application preferences
+* background task scheduling
+* device hardware information
+* media playback
+* networking
+* logging
+
+we have something more suitable.
+
+Our transition to new APIs is a continuous process. Contributors might be asked by code reviewers to
+refrain from  using specific Android APIs considered problematic and to use Nextcloud APIs instead.
+In extreme cases we might decide to put specific features on hold until we provide platform API
+replacement.
+
+If in doubt, ask Nextcloud developers. App undergoes a process of intense refactoring and situation
+changes frequently.
+
+### Testing
+ 
+TL;DR If we can't write a test for it, it's not good.
+ 
+Test automation is challenging in mobile applications in general. We try to improve in this area
+and thereof we'd ask contributors to be mindful of their code testability:
+
+1. new code submitted to Nextcloud project should be provided with automatic tests
+2. contributions to existing code that is currently not covered by automatic tests
+   should at least not make future efforts more challenging
+3. whenever possible, testability should be improved even if the code is not covered by tests
+
 
 # Releases
 At the moment we are releasing the app in two app stores:

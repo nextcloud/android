@@ -22,6 +22,10 @@ package com.nextcloud.client.account;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -42,6 +46,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +82,18 @@ public class UserAccountManagerImpl implements UserAccountManager {
     public void removeAllAccounts() {
         for (Account account : getAccounts()) {
             accountManager.removeAccount(account, null, null);
+        }
+    }
+
+    @Override
+    public boolean removeUser(User user) {
+        try {
+            AccountManagerFuture<Boolean> result = accountManager.removeAccount(user.toPlatformAccount(),
+                                                                                null,
+                                                                                null);
+            return result.getResult();
+        } catch (OperationCanceledException| AuthenticatorException| IOException ex) {
+            return false;
         }
     }
 
@@ -275,10 +292,10 @@ public class UserAccountManagerImpl implements UserAccountManager {
     public boolean setCurrentOwnCloudAccount(int hashCode) {
         boolean result = false;
         if (hashCode != 0) {
-            for (final Account account : getAccounts()) {
-                if (hashCode == account.hashCode()) {
+            for (final User user : getAllUsers()) {
+                if (hashCode == user.hashCode()) {
                     SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, account.name);
+                    appPrefs.putString(PREF_SELECT_OC_ACCOUNT, user.getAccountName());
                     appPrefs.apply();
                     result = true;
                     break;
@@ -375,5 +392,16 @@ public class UserAccountManagerImpl implements UserAccountManager {
 
     private String getAccountType() {
         return context.getString(R.string.account_type);
+    }
+
+    @Override
+    public void startAccountCreation(final Activity activity) {
+        accountManager.addAccount(getAccountType(),
+                                  null,
+                                  null,
+                                  null,
+                                  activity,
+                                  null,
+                                  null);
     }
 }

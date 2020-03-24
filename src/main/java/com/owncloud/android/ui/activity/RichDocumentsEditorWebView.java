@@ -25,9 +25,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.annotation.SuppressLint;
-import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -77,6 +75,7 @@ public class RichDocumentsEditorWebView extends EditorWebView {
     private static final String URL = "URL";
     private static final String TYPE = "Type";
     private static final String PRINT = "print";
+    private static final String SLIDESHOW = "slideshow";
     private static final String NEW_NAME = "NewName";
 
     private Unbinder unbinder;
@@ -93,7 +92,6 @@ public class RichDocumentsEditorWebView extends EditorWebView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         unbinder = ButterKnife.bind(this);
 
@@ -235,21 +233,6 @@ public class RichDocumentsEditorWebView extends EditorWebView {
         new PrintAsyncTask(targetFile, url.toString(), new WeakReference<>(this)).execute();
     }
 
-    private void downloadFile(Uri url) {
-        DownloadManager downloadmanager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-
-        if (downloadmanager == null) {
-            DisplayUtils.showSnackMessage(webview, getString(R.string.failed_to_download));
-            return;
-        }
-
-        DownloadManager.Request request = new DownloadManager.Request(url);
-        request.allowScanningByMediaScanner();
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
-        downloadmanager.enqueue(request);
-    }
-
     @Override
     public void loadUrl(String url) {
         if (TextUtils.isEmpty(url)) {
@@ -257,6 +240,14 @@ public class RichDocumentsEditorWebView extends EditorWebView {
         } else {
             super.loadUrl(url);
         }
+    }
+
+    private void showSlideShow(Uri url) {
+        Intent intent = new Intent(this, ExternalSiteWebView.class);
+        intent.putExtra(ExternalSiteWebView.EXTRA_URL, url.toString());
+        intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+        intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_TOOLBAR, false);
+        startActivity(intent);
     }
 
     private class RichDocumentsMobileInterface extends MobileInterface {
@@ -277,10 +268,18 @@ public class RichDocumentsEditorWebView extends EditorWebView {
 
                 Uri url = Uri.parse(downloadJson.getString(URL));
 
-                if (downloadJson.getString(TYPE).equalsIgnoreCase(PRINT)) {
-                    printFile(url);
-                } else {
-                    downloadFile(url);
+                switch (downloadJson.getString(TYPE)) {
+                    case PRINT:
+                        printFile(url);
+                        break;
+
+                    case SLIDESHOW:
+                        showSlideShow(url);
+                        break;
+
+                    default:
+                        downloadFile(url);
+                        break;
                 }
             } catch (JSONException e) {
                 Log_OC.e(this, "Failed to parse download json message: " + e);

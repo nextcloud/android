@@ -126,9 +126,9 @@ public class SsoGrantPermissionActivity extends BaseActivity {
             Log.e(TAG, e.getMessage());
         }
 
-        int primaryColor = ThemeUtils.primaryColor(this, true);
-        grantPermissionButton.setTextColor(primaryColor);
-        declinePermissionButton.setTextColor(primaryColor);
+        int fontColor = ThemeUtils.fontColor(getApplicationContext(), !ThemeUtils.darkTheme(getApplicationContext()));
+        grantPermissionButton.setTextColor(fontColor);
+        declinePermissionButton.setTextColor(fontColor);
     }
 
     @Override

@@ -82,19 +82,19 @@ public class PrintAsyncTask extends AsyncTask<Void, Void, Boolean> {
             int status = client.executeMethod(getMethod);
             if (status == HttpStatus.SC_OK) {
                 if (file.exists() && !file.delete()) {
-                    return false;
+                    return Boolean.FALSE;
                 }
 
                 file.getParentFile().mkdirs();
 
                 if (!file.getParentFile().exists()) {
                     Log_OC.d(TAG, file.getParentFile().getAbsolutePath() + " does not exist");
-                    return false;
+                    return Boolean.FALSE;
                 }
 
                 if (!file.createNewFile()) {
                     Log_OC.d(TAG, file.getAbsolutePath() + " could not be created");
-                    return false;
+                    return Boolean.FALSE;
                 }
 
                 BufferedInputStream bis = new BufferedInputStream(getMethod.getResponseBodyAsStream());
@@ -113,7 +113,7 @@ public class PrintAsyncTask extends AsyncTask<Void, Void, Boolean> {
                 }
                 // Check if the file is completed
                 if (transferred != totalToTransfer) {
-                    return false;
+                    return Boolean.FALSE;
                 }
 
                 if (getMethod.getResponseBodyAsStream() != null) {
@@ -124,7 +124,7 @@ public class PrintAsyncTask extends AsyncTask<Void, Void, Boolean> {
             Log_OC.e(TAG, "Error reading file", e);
         }
 
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override

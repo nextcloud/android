@@ -94,7 +94,12 @@ public final class ThemeUtils {
         try {
             float adjust;
             if (darkTheme(context)) {
-                adjust = +0.1f;
+                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                    adjust = +0.5f;
+//                    return adjustLightness(adjust, Color.parseColor(capability.getServerColor()), -1);
+                } else {
+                    adjust = +0.1f;
+                }
             } else {
                 adjust = -0.1f;
             }
@@ -134,13 +139,18 @@ public final class ThemeUtils {
         try {
             int color = Color.parseColor(getCapability(account, context).getServerColor());
             if (replaceWhite && Color.WHITE == color) {
-                return Color.GRAY;
+                return getNeutralGrey(context);
             } else {
                 return color;
             }
         } catch (Exception e) {
             return context.getResources().getColor(R.color.primary);
         }
+    }
+
+    public static int getNeutralGrey(Context context) {
+        return darkTheme(context) ? context.getResources().getColor(R.color.fg_contrast) :
+                                    Color.GRAY;
     }
 
     public static int elementColor(Context context) {
@@ -238,13 +248,17 @@ public final class ThemeUtils {
                 actionBar.setTitle(title);
             } else {
                 Spannable text = new SpannableString(title);
-                text.setSpan(new ForegroundColorSpan(fontColor(context, true)),
+                text.setSpan(new ForegroundColorSpan(fontColor(context, !darkTheme(context))),
                              0,
                              text.length(),
                              Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 actionBar.setTitle(text);
             }
         }
+    }
+
+    public static void setColoredTitle(@Nullable ActionBar actionBar, int titleId, Context context) {
+        setColoredTitle(actionBar, context.getString(titleId), context);
     }
 
     /**
@@ -291,28 +305,6 @@ public final class ThemeUtils {
                      Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
         return text;
-    }
-
-    /**
-     * Set color of title to white/black depending on background color
-     *
-     * @param actionBar actionBar to be used
-     * @param titleId   title to be shown
-     */
-    public static void setColoredTitle(@Nullable ActionBar actionBar, int titleId, Context context) {
-        if (actionBar != null) {
-            if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
-                actionBar.setTitle(titleId);
-            } else {
-                String title = context.getString(titleId);
-                Spannable text = new SpannableString(title);
-                text.setSpan(new ForegroundColorSpan(fontColor(context, true)),
-                             0,
-                             text.length(),
-                             Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                actionBar.setTitle(text);
-            }
-        }
     }
 
     public static String getDefaultDisplayNameForRootFolder(Context context) {
@@ -509,12 +501,9 @@ public final class ThemeUtils {
     public static void themeEditText(Context context, EditText editText, boolean themedBackground) {
         if (editText == null) { return; }
 
-        int color = ContextCompat.getColor(context, R.color.fg_default);
+        int color = ContextCompat.getColor(context, R.color.text_color);
 
-        // Theme the view when it is already on a theme'd background according to dark / light theme
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            color = Color.WHITE;
-        } else if (themedBackground) {
+        if (themedBackground) {
             if (darkTheme(context)) {
                 color = ContextCompat.getColor(context, R.color.themed_fg);
             } else {
@@ -537,7 +526,7 @@ public final class ThemeUtils {
      */
     public static void themeSearchView(SearchView searchView, boolean themedBackground, Context context) {
         // hacky as no default way is provided
-        int fontColor = ThemeUtils.fontColor(context, true);
+        int fontColor = ThemeUtils.fontColor(context, !darkTheme(context));
         SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
         themeEditText(context, editText, themedBackground);
 
@@ -584,7 +573,7 @@ public final class ThemeUtils {
         // setting the track color
         DrawableCompat.setTintList(switchView.getTrackDrawable(), new ColorStateList(
                 new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
-                new int[]{trackColor, Color.parseColor("#4D000000")}));
+                new int[]{trackColor, MainApp.getAppContext().getResources().getColor(R.color.switch_track_color_unchecked)}));
     }
 
     public static Drawable tintDrawable(@DrawableRes int id, int color) {

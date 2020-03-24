@@ -243,7 +243,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         Log_OC.d(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putString(KEY_PARENTS, generatePath(mParents));
@@ -888,19 +888,19 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     public void uploadFile(String tmpName, String filename) {
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        requester.uploadNewFile(
+        FileUploader.uploadNewFile(
             getBaseContext(),
             getAccount(),
-                tmpName,
+            tmpName,
             mFile.getRemotePath() + filename,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             null,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,
-            false
-            );
+            false,
+            FileUploader.NameCollisionPolicy.ASK_USER
+        );
         finish();
     }
 

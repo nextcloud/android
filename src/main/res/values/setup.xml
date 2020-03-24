@@ -24,9 +24,6 @@
     <string name="server_url">https://connect.drive.infomaniak.com</string>
     <bool name="show_server_url_input">false</bool>
     <bool name="show_provider_or_own_installation">false</bool>
-    <bool name="show_first_run_slider">true</bool>
-    <bool name="show_use_old_connection_snackbar">false</bool>
-
     <string name="provider_registration_server">https://shop.infomaniak.com/signup</string>
 
     <!-- Flags to enable/disable some features -->
@@ -84,7 +81,6 @@
     <bool name="license_enabled">true</bool>
     <string name="license_url" translatable="false">https://www.gnu.org/licenses/gpl-2.0.html</string>
     <string name="url_imprint"></string>
-    <string name="mail_feedback">support@infomaniak.com</string>
     <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.infomaniak.drive"</string>
     <string name="url_server_install">https://nextcloud.com/install</string>
 
@@ -108,8 +104,8 @@
     <string name="irc_weblink" translatable="false">http://webchat.freenode.net?channels=nextcloud-mobile</string>
     <string name="help_link" translatable="false">https://help.nextcloud.com/c/clients/android</string>
     <string name="translation_link" translatable="false">https://www.transifex.com/nextcloud/nextcloud/android/</string>
-    <string name="contributing_link" translatable="false">https://github.com/Infomaniak/ios-infomaniak-drive/blob/master/CONTRIBUTING.md</string>
-    <string name="report_issue_link" translatable="false">https://github.com/Infomaniak/ios-infomaniak-drive/issues/new/choose</string>
+    <string name="contributing_link" translatable="false">https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md</string>
+    <string name="report_issue_link" translatable="false">https://github.com/nextcloud/android/issues/new/choose</string>
 
     <!-- login data links -->
     <string name="login_data_own_scheme" translatable="false">nc</string>
@@ -121,17 +117,19 @@
     <!-- Files becomes Home -->
     <bool name="use_home">false</bool>
 
-    <!-- Determine if notifications are enabled in Drawer -->
-    <bool name="notifications_enabled">false</bool>
     <!-- Push server url -->
     <string name="push_server_url" translatable="false"></string>
 
     <!-- Dev settings -->
     <string name="dev_link">https://download.nextcloud.com/android/dev/nextcloud-dev-</string>
     <string name="dev_latest">https://download.nextcloud.com/android/dev/latest</string>
-    <string name="dev_changelog">https://github.com/Infomaniak/ios-infomaniak-drive/raw/dev/CHANGELOG.md</string>
+    <string name="dev_changelog">https://github.com/nextcloud/android/raw/dev/CHANGELOG.md</string>
 
     <string name="buildNumber" translatable="false"></string>
+
+    <!-- kDrive -->
+    <bool name="notifications_enabled">false</bool>
+    <bool name="show_first_run_slider">true</bool>
 </resources>
 
 

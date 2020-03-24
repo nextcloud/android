@@ -2,7 +2,6 @@
 <resources>
     <string name="prefs_calendar_contacts_summary">Set up kSync</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Server address for the account could not be resolved for kSync</string>
-    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Infomaniak Drive\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with kSync (formerly known as DAVdroid) for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
     <string name="screenshot_06_davdroid_subline">Sync with kSync</string>
 
     <string name="intro_title_1">A secure cloud for SMEs and private individuals</string>

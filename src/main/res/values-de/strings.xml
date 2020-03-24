@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <resources>
+<resources>
     <string name="about_android">%1$s Android App</string>
     <string name="about_title">Über</string>
     <string name="about_version">Version %1$s</string>
@@ -488,7 +488,6 @@
     <string name="prefs_add_account">Konto hinzufügen</string>
     <string name="prefs_calendar_contacts">Kalender &amp; Kontakte synchronisieren</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder F-Droid noch Google-Play sind installiert</string>
-    <string name="prefs_calendar_contacts_summary">kSync (v1.3.0+) für aktuelles Konto einrichten</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender- &amp; Adress-Synchronisierung konfigurieren</string>
     <string name="prefs_category_about">Über</string>
     <string name="prefs_category_details">Details</string>

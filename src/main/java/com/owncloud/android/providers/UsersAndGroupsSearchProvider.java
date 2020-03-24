@@ -20,7 +20,6 @@
 
 package com.owncloud.android.providers;
 
-import android.accounts.Account;
 import android.app.SearchManager;
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -90,6 +89,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private String DATA_ROOM;
     private String DATA_REMOTE;
     private String DATA_EMAIL;
+    private String DATA_CIRCLE;
 
     private UriMatcher mUriMatcher;
 
@@ -129,12 +129,14 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         DATA_ROOM = AUTHORITY + ".data.room";
         DATA_REMOTE = AUTHORITY + ".data.remote";
         DATA_EMAIL = AUTHORITY + ".data.email";
+        DATA_CIRCLE = AUTHORITY + ".data.circle";
 
         sShareTypes.put(DATA_USER, ShareType.USER);
         sShareTypes.put(DATA_GROUP, ShareType.GROUP);
         sShareTypes.put(DATA_ROOM, ShareType.ROOM);
         sShareTypes.put(DATA_REMOTE, ShareType.FEDERATED);
         sShareTypes.put(DATA_EMAIL, ShareType.EMAIL);
+        sShareTypes.put(DATA_CIRCLE, ShareType.CIRCLE);
 
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         mUriMatcher.addURI(AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY + "/*", SEARCH);
@@ -213,6 +215,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             Uri roomBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_ROOM).build();
             Uri remoteBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_REMOTE).build();
             Uri emailBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_EMAIL).build();
+            Uri circleBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_CIRCLE).build();
 
             FileDataStorageManager manager = new FileDataStorageManager(user.toPlatformAccount(),
                                                                         getContext().getContentResolver());
@@ -274,6 +277,12 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                             icon = R.drawable.ic_chat_bubble;
                             displayName = getContext().getString(R.string.share_room_clarification, userName);
                             dataUri = Uri.withAppendedPath(roomBaseUri, shareWith);
+                            break;
+
+                        case CIRCLE:
+                            icon = R.drawable.ic_circles;
+                            displayName = userName;
+                            dataUri = Uri.withAppendedPath(circleBaseUri, shareWith);
                             break;
 
                         default:

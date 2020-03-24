@@ -2,7 +2,8 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
- * @author Chris Narkiewicz
+ * @author Chris Narkiewicz <hello@ezaquarii.com>
+ *
  * Copyright (C) 2018 Tobias Kaminsky
  * Copyright (C) 2018 Nextcloud
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
@@ -25,8 +26,10 @@ package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -35,15 +38,21 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.java.util.Optional;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -52,7 +61,10 @@ import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.OCUploadComparator;
 import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -74,9 +86,11 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private ProgressListener progressListener;
     private FileActivity parentActivity;
     private UploadsStorageManager uploadsStorageManager;
+    private FileDataStorageManager storageManager;
     private ConnectivityService connectivityService;
     private PowerManagementService powerManagementService;
     private UserAccountManager accountManager;
+    private Clock clock;
     private UploadGroup[] uploadGroups;
     private boolean showUser;
 
@@ -129,16 +143,15 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     uploadsStorageManager.clearSuccessfulUploads();
                     break;
                 case FAILED:
-                    new Thread(() -> new FileUploader.UploadRequester()
-                        .retryFailedUploads(
-                            parentActivity,
-                            null,
-                            uploadsStorageManager,
-                            connectivityService,
-                            accountManager,
-                            powerManagementService,
-                            null))
-                        .start();
+                    new Thread(() -> FileUploader.retryFailedUploads(
+                        parentActivity,
+                        null,
+                        uploadsStorageManager,
+                        connectivityService,
+                        accountManager,
+                        powerManagementService,
+                        null
+                    )).start();
                     break;
 
                 default:
@@ -157,15 +170,19 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
     public UploadListAdapter(final FileActivity fileActivity,
                              final UploadsStorageManager uploadsStorageManager,
+                             final FileDataStorageManager storageManager,
                              final UserAccountManager accountManager,
                              final ConnectivityService connectivityService,
-                             final PowerManagementService powerManagementService) {
+                             final PowerManagementService powerManagementService,
+                             final Clock clock) {
         Log_OC.d(TAG, "UploadListAdapter");
         this.parentActivity = fileActivity;
         this.uploadsStorageManager = uploadsStorageManager;
+        this.storageManager = storageManager;
         this.accountManager = accountManager;
         this.connectivityService = connectivityService;
         this.powerManagementService = powerManagementService;
+        this.clock = clock;
         uploadGroups = new UploadGroup[3];
 
         shouldShowHeadersForEmptySections(false);
@@ -235,14 +252,11 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         itemViewHolder.date.setText(dateString);
 
         // account
-        Account account = accountManager.getAccountByName(item.getAccountName());
+        final Optional<User> optionalUser = accountManager.getUser(item.getAccountName());
         if (showUser) {
             itemViewHolder.account.setVisibility(View.VISIBLE);
-            if (account != null) {
-                itemViewHolder.account.setText(DisplayUtils.getAccountNameDisplayText(parentActivity,
-                                                                                      account,
-                                                                                      account.name,
-                                                                                      item.getAccountName()));
+            if (optionalUser.isPresent()) {
+                itemViewHolder.account.setText(DisplayUtils.getAccountNameDisplayText(optionalUser.get()));
             } else {
                 itemViewHolder.account.setText(item.getAccountName());
             }
@@ -322,14 +336,22 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             });
 
         } else if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
-            // Delete
-            itemViewHolder.button.setImageResource(R.drawable.ic_action_delete_grey);
+            if (item.getLastResult() == UploadResult.SYNC_CONFLICT) {
+                itemViewHolder.button.setImageResource(R.drawable.ic_dots_vertical);
+                itemViewHolder.button.setOnClickListener(view -> {
+                    if (optionalUser.isPresent()) {
+                        Account account = optionalUser.get().toPlatformAccount();
+                        showItemConflictPopup(
+                            itemViewHolder, item, account, status, view
+                        );
+                    }
+                });
+            } else {
+                // Delete
+                itemViewHolder.button.setImageResource(R.drawable.ic_action_delete_grey);
+                itemViewHolder.button.setOnClickListener(v -> removeUpload(item));
+            }
             itemViewHolder.button.setVisibility(View.VISIBLE);
-            itemViewHolder.button.setOnClickListener(v -> {
-                uploadsStorageManager.removeUpload(item);
-                loadUploadItemsFromDb();
-            });
-
         } else {    // UploadStatus.UPLOAD_SUCCESS
             itemViewHolder.button.setVisibility(View.INVISIBLE);
         }
@@ -338,29 +360,32 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         // click on item
         if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
-            if (UploadResult.CREDENTIAL_ERROR == item.getLastResult()) {
-                itemViewHolder.itemLayout.setOnClickListener(v ->
-                                                                 parentActivity.getFileOperationsHelper().checkCurrentCredentials(
-                                                                     item.getAccount(accountManager)));
-            } else {
-                // not a credentials error
-                itemViewHolder.itemLayout.setOnClickListener(v -> {
-                    File file = new File(item.getLocalPath());
-                    if (file.exists()) {
-                        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-                        requester.retry(parentActivity, accountManager, item);
-                        loadUploadItemsFromDb();
-                    } else {
-                        DisplayUtils.showSnackMessage(
-                                v.getRootView().findViewById(android.R.id.content),
-                                R.string.local_file_not_found_message
-                        );
+            final UploadResult uploadResult = item.getLastResult();
+            itemViewHolder.itemLayout.setOnClickListener(v -> {
+                if (uploadResult == UploadResult.CREDENTIAL_ERROR) {
+                    parentActivity.getFileOperationsHelper().checkCurrentCredentials(item.getAccount(accountManager));
+                    return;
+                } else if (uploadResult == UploadResult.SYNC_CONFLICT && optionalUser.isPresent()) {
+                    Account account = optionalUser.get().toPlatformAccount();
+                    if (checkAndOpenConflictResolutionDialog(itemViewHolder, item, account, status)) {
+                        return;
                     }
-                });
-            }
+                }
+
+                // not a credentials error
+                File file = new File(item.getLocalPath());
+                if (file.exists()) {
+                    FileUploader.retryUpload(parentActivity, item.getAccount(accountManager), item);
+                    loadUploadItemsFromDb();
+                } else {
+                    DisplayUtils.showSnackMessage(
+                        v.getRootView().findViewById(android.R.id.content),
+                        R.string.local_file_not_found_message
+                    );
+                }
+            });
         } else {
-            itemViewHolder.itemLayout.setOnClickListener(v ->
-                    onUploadItemClick(item));
+            itemViewHolder.itemLayout.setOnClickListener(v -> onUploadItemClick(item));
         }
 
         // Set icon or thumbnail
@@ -454,9 +479,99 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         .getColor(R.color.bg_default));
             }
         } else {
-            itemViewHolder.thumbnail.setImageDrawable(MimeTypeUtil.getFileTypeIcon(item.getMimeType(), fileName,
-                                                                                   account, parentActivity));
+            if (optionalUser.isPresent()) {
+                final User user = optionalUser.get();
+                final Drawable icon = MimeTypeUtil.getFileTypeIcon(item.getMimeType(),
+                                                                   fileName,
+                                                                   user.toPlatformAccount(),
+                                                                   parentActivity);
+                itemViewHolder.thumbnail.setImageDrawable(icon);
+            }
         }
+    }
+
+    private boolean checkAndOpenConflictResolutionDialog(ItemViewHolder itemViewHolder, OCUpload item, Account account, String status) {
+        String remotePath = item.getRemotePath();
+        OCFile ocFile = storageManager.getFileByPath(remotePath);
+
+        if (ocFile == null) { // Remote file doesn't exist, try to refresh folder
+            OCFile folder = storageManager.getFileByPath(new File(remotePath).getParent() + "/");
+            if (folder != null && folder.isFolder()) {
+                this.refreshFolder(itemViewHolder, account, folder, (caller, result) -> {
+                    itemViewHolder.status.setText(status);
+                    if (result.isSuccess()) {
+                        OCFile file = storageManager.getFileByPath(remotePath);
+                        if (file != null) {
+                            this.openConflictActivity(file, item);
+                        }
+                    }
+                });
+                return true;
+            }
+
+            // Destination folder doesn't exist anymore
+        }
+
+        if (ocFile != null) {
+            this.openConflictActivity(ocFile, item);
+            return true;
+        }
+
+        // Remote file doesn't exist anymore = there is no more conflict
+        return false;
+    }
+
+    private void showItemConflictPopup(ItemViewHolder itemViewHolder, OCUpload item, Account account, String status, View view) {
+        PopupMenu popup = new PopupMenu(MainApp.getAppContext(), view);
+        popup.inflate(R.menu.upload_list_item_file_conflict);
+        popup.setOnMenuItemClickListener(i -> {
+            switch (i.getItemId()) {
+                case R.id.action_upload_list_resolve_conflict:
+                    checkAndOpenConflictResolutionDialog(itemViewHolder, item, account, status);
+                    break;
+                case R.id.action_upload_list_delete:
+                default:
+                    removeUpload(item);
+                    break;
+            }
+            return true;
+        });
+        popup.show();
+    }
+
+    private void removeUpload(OCUpload item) {
+        uploadsStorageManager.removeUpload(item);
+        loadUploadItemsFromDb();
+    }
+
+    private void refreshFolder(ItemViewHolder view, Account account, OCFile folder, OnRemoteOperationListener listener) {
+        view.itemLayout.setClickable(false);
+        view.status.setText(R.string.uploads_view_upload_status_fetching_server_version);
+        Context context = MainApp.getAppContext();
+        new RefreshFolderOperation(folder,
+                                   clock.getCurrentTime(),
+                                   false,
+                                   false,
+                                   true,
+                                   storageManager,
+                                   account,
+                                   context)
+            .execute(account, context, (caller, result) -> {
+                view.itemLayout.setClickable(true);
+                listener.onRemoteOperationFinish(caller, result);
+            }, parentActivity.getHandler());
+    }
+
+    private void openConflictActivity(OCFile file, OCUpload upload) {
+        file.setStoragePath(upload.getLocalPath());
+
+        Context context = MainApp.getAppContext();
+        Intent i = new Intent(context, ConflictsResolveActivity.class);
+        i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
+        i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, upload.getAccount(accountManager));
+        i.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD, upload);
+        context.startActivity(i);
     }
 
     /**

@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,9 +19,12 @@
  */
 package com.nextcloud.client.etm
 
+import android.accounts.AccountManager
 import android.content.SharedPreferences
+import android.content.res.Resources
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
@@ -54,13 +57,18 @@ class TestEtmViewModel {
         @get:Rule
         val rule = InstantTaskExecutorRule()
 
+        protected lateinit var platformAccountManager: AccountManager
         protected lateinit var sharedPreferences: SharedPreferences
         protected lateinit var vm: EtmViewModel
+        protected lateinit var resources: Resources
 
         @Before
         fun setUpBase() {
             sharedPreferences = mock()
-            vm = EtmViewModel(sharedPreferences)
+            platformAccountManager = mock()
+            resources = mock()
+            whenever(resources.getString(any())).thenReturn("mock-account-type")
+            vm = EtmViewModel(sharedPreferences, platformAccountManager, resources)
         }
     }
 

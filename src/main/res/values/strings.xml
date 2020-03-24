@@ -169,6 +169,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Waiting for Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Waiting to exit power save mode</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Fetching server version…</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="uploads_view_group_header" translatable="false">%1$s (%2$d)</string>
     <string name="downloader_download_in_progress_ticker">Downloading…</string>
@@ -321,13 +322,9 @@
 
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
+    <string name="instant_upload_existing">Also upload existing files</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutoUpload</string>
-    <string name="conflict_title">File conflict</string>
-    <string name="conflict_message">Which files do you want to keep? If you select both versions, the local file will have a number appended to its name.</string>
-    <string name="conflict_keep_both">Keep both</string>
-    <string name="conflict_use_local_version">local version</string>
-    <string name="conflict_use_server_version">server version</string>
 
     <string name="preview_sorry">Sorry</string>
     <string name="preview_image_description">Image preview</string>
@@ -658,6 +655,8 @@
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
 
     <string name="store_short_desc">The self-hosted productivity platform that keeps you in control</string>
+    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
+
     <string name="drawer_current_account">Current account</string>
     <string name="drawer_middle_account">Middle account</string>
     <string name="drawer_end_account">Last account</string>
@@ -880,10 +879,8 @@
     <string name="autoupload_disable_power_save_check">Disable power save check</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>
     <string name="etm_title">Engineering Test Mode</string>
+    <string name="etm_accounts">Accounts</string>
     <string name="etm_preferences">Preferences</string>
-
-    <string name="copy_internal_link">Copy internal link</string>
-    <string name="copy_internal_link_subline">Works only for users with an access to this folder</string>
 
     <string name="logs_status_loading">Loading…</string>
     <string name="logs_status_filtered">Logs: %1$d kB, query matched %2$d / %3$d in %4$d ms</string>
@@ -900,13 +897,31 @@
     <string name="file_detail_activity_error">Error retrieving activities for file</string>
     <string name="no_mutliple_accounts_allowed">Only one account allowed</string>
     <string name="remote_file_fetch_failed">Failed to find file!</string>
-    <string name="share_internal_link_text">Only works for users with access to this %1$s</string>
-    <string name="folder">folder</string>
-    <string name="file">file</string>
+    <string name="share_internal_link_to_folder_text">Internal share link only works for users with access to this folder</string>
+    <string name="share_internal_link_to_file_text">Internal share link only works for users with access to this file</string>
     <string name="share_internal_link">Share internal link</string>
     <string name="action_edit">Edit</string>
     <string name="failed_to_start_editor">Failed to start editor</string>
     <string name="create_rich_workspace">Add folder info</string>
     <string name="creates_rich_workspace">creates folder info</string>
     <string name="edit_rich_workspace">edit folder info</string>
+    <string name="uploader_upload_failed_sync_conflict_error">File upload conflict</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Pick which version to keep of %1$s</string>
+    <string name="upload_list_resolve_conflict">Resolve conflict</string>
+    <string name="upload_list_delete">Delete</string>
+    <string name="create_new">Create new</string>
+    <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
+
+    <string name="sync_not_enough_space_dialog_action_choose">Choose what to sync</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s available on device.</string>
+    <string name="sync_not_enough_space_dialog_title">Not enough space</string>
+    <string name="conflict_message_headline">Which files do you want to keep?</string>
+    <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
+    <string name="conflict_new_file">New file</string>
+    <string name="conflict_already_existing_file">Already existing file</string>
+    <string name="thumbnail_for_new_file_desc">Thumbnail for new file</string>
+    <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
+    <string name="invalid_url">Invalid URL</string>
+    <string name="conflict_dialog_error">Error creating conflict dialog!</string>
 </resources>

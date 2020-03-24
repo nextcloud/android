@@ -2,7 +2,10 @@
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
+ * @author Chris Narkiewicz <hello@ezaquarii.com>
+ *
  * Copyright (C) 2018 Andy Scherzinger
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -40,6 +43,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
@@ -53,7 +57,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.adapter.UserListAdapter;
+import com.owncloud.android.ui.adapter.ShareeListAdapter;
 import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.NoteDialogFragment;
@@ -81,7 +85,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class FileDetailSharingFragment extends Fragment implements UserListAdapter.ShareeListAdapterListener,
+public class FileDetailSharingFragment extends Fragment implements ShareeListAdapter.ShareeListAdapterListener,
     DisplayUtils.AvatarGenerationListener, Injectable {
 
     private static final String ARG_FILE = "FILE";
@@ -183,9 +187,6 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         if (fileDisplayActivity == null) {
             throw new IllegalArgumentException("FileActivity may not be null");
         }
-
-        fileOperationsHelper = fileDisplayActivity.getFileOperationsHelper();
-        fileDataStorageManager = fileDisplayActivity.getStorageManager();
     }
 
     @Override
@@ -201,9 +202,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         View view = inflater.inflate(R.layout.file_details_sharing_fragment, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        if (fileDataStorageManager == null) {
-            fileDataStorageManager = new FileDataStorageManager(account, fileDisplayActivity.getContentResolver());
-        }
+        fileOperationsHelper = fileDisplayActivity.getFileOperationsHelper();
+        fileDataStorageManager = fileDisplayActivity.getStorageManager();
 
         setupView();
 
@@ -213,8 +213,11 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
         internalLinkIcon.getDrawable().mutate().setColorFilter(getResources().getColor(R.color.black),
                                                                PorterDuff.Mode.SRC_IN);
 
-        internalLinkText.setText(getString(R.string.share_internal_link_text, file.isFolder() ?
-            getString(R.string.folder) : getString(R.string.file)));
+        if (file.isFolder()) {
+            internalLinkText.setText(getString(R.string.share_internal_link_to_folder_text));
+        } else {
+            internalLinkText.setText(getString(R.string.share_internal_link_to_file_text));
+        }
 
         return view;
     }
@@ -226,7 +229,7 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (!(getActivity() instanceof FileActivity)) {
             throw new IllegalArgumentException("Calling activity must be of type FileActivity");
@@ -296,7 +299,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
             sharedWithYouUsername.setText(
                 String.format(getString(R.string.shared_with_you_by), file.getOwnerDisplayName()));
 
-            DisplayUtils.setAvatar(account, file.getOwnerId(), this, getResources().getDimension(
+            final User user = accountManager.getUser(account.name).orElseThrow(RuntimeException::new);
+            DisplayUtils.setAvatar(user, file.getOwnerId(), this, getResources().getDimension(
                 R.dimen.file_list_item_avatar_icon_radius), getResources(), sharedWithYouAvatar,
                 getContext());
             sharedWithYouAvatar.setVisibility(View.VISIBLE);
@@ -321,8 +325,8 @@ public class FileDetailSharingFragment extends Fragment implements UserListAdapt
                 com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
             usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(new UserListAdapter(fileDisplayActivity.getSupportFragmentManager(),
-                fileDisplayActivity, shares, account, file, this, userId));
+            usersList.setAdapter(new ShareeListAdapter(fileDisplayActivity.getSupportFragmentManager(),
+                                                       fileDisplayActivity, shares, account, file, this, userId));
             usersList.setLayoutManager(new LinearLayoutManager(getContext()));
             usersList.addItemDecoration(new SimpleListItemDividerDecoration(getContext()));
             noList.setVisibility(View.GONE);

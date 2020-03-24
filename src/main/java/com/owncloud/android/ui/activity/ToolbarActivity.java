@@ -27,6 +27,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -49,6 +50,7 @@ import androidx.core.content.ContextCompat;
 public abstract class ToolbarActivity extends BaseActivity {
     private ProgressBar mProgressBar;
     private ImageView mPreviewImage;
+    private FrameLayout mPreviewImageContainer;
     private LinearLayout mInfoBox;
     private TextView mInfoBoxMessage;
 
@@ -63,7 +65,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      */
     protected void setupToolbar(boolean useBackgroundImage) {
         int primaryColor = ThemeUtils.primaryColor(this, false);
-        int fontColor = ThemeUtils.fontColor(this, true);
+        int fontColor = ThemeUtils.fontColor(this, !ThemeUtils.darkTheme(getApplicationContext()));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -79,6 +81,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         mInfoBoxMessage = findViewById(R.id.info_box_message);
 
         mPreviewImage = findViewById(R.id.preview_image);
+        mPreviewImageContainer = findViewById(R.id.preview_image_frame);
 
         ThemeUtils.colorStatusBar(this, ThemeUtils.primaryDarkColor(this)); //kDrive
 
@@ -132,13 +135,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         // set home button properties
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
-        }
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        if (toolbar != null && toolbar.getNavigationIcon() != null) {
-            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor(this));
         }
     }
 
@@ -197,8 +194,8 @@ public abstract class ToolbarActivity extends BaseActivity {
      * @param visibility visibility of the preview image
      */
     public void setPreviewImageVisibility(int visibility) {
-        if (mPreviewImage != null) {
-            mPreviewImage.setVisibility(visibility);
+        if (mPreviewImage != null && mPreviewImageContainer != null) {
+            mPreviewImageContainer.setVisibility(visibility);
         }
     }
 

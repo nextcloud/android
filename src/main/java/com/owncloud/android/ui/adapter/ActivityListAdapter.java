@@ -107,6 +107,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ActivityListInterface activityListInterface,
         FileDataStorageManager storageManager,
         OCCapability capability,
+        ClientFactory clientFactory,
         boolean isDetailView
     ) {
         this.values = new ArrayList<>();
@@ -115,6 +116,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.activityListInterface = activityListInterface;
         this.storageManager = storageManager;
         this.capability = capability;
+        this.clientFactory = clientFactory;
         px = getThumbnailDimension();
         this.isDetailView = isDetailView;
     }
