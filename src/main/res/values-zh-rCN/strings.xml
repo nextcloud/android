@@ -265,7 +265,6 @@
     <string name="etm_background_job_progress">进度</string>
     <string name="etm_background_job_started">已开始</string>
     <string name="etm_background_job_state">状况</string>
-    <string name="etm_background_job_user">@string/user_icon</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">后台任务</string>
     <string name="etm_background_jobs_cancel_all">取消所有工作</string>

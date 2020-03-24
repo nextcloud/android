@@ -256,9 +256,14 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 PorterDuff.Mode.SRC_IN);
         emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activity_light_grey));
 
-        adapter = new ActivityAndVersionListAdapter(getContext(), accountManager, this, this,
+        adapter = new ActivityAndVersionListAdapter(getContext(),
+                                                    accountManager,
+                                                    this,
+                                                    this,
                                                     storageManager,
-                                                    capability);
+                                                    capability,
+                                                    clientFactory
+        );
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());

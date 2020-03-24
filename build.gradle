@@ -26,7 +26,7 @@ buildscript {
         }
         classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.6'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.6.0"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.7.0"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:3.1.0'
     }
@@ -355,9 +355,9 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.3.3'
     testImplementation 'androidx.test:core:1.2.0'
-    testImplementation 'org.powermock:powermock-core:2.0.5'
-    testImplementation 'org.powermock:powermock-module-junit4:2.0.5'
-    testImplementation 'org.powermock:powermock-api-mockito2:2.0.5'
+    testImplementation 'org.powermock:powermock-core:2.0.6'
+    testImplementation 'org.powermock:powermock-module-junit4:2.0.6'
+    testImplementation 'org.powermock:powermock-api-mockito2:2.0.6'
     testImplementation 'org.json:json:20190722'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
