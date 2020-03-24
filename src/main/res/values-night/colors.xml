@@ -22,6 +22,7 @@
 
     <color name="text_color">#ffffff</color>
     <color name="text_color_inverse">#000000</color>
+    <color name="list_divider_background">#222</color>
 
     <!-- Colors -->
     <color name="bg_default">#151515</color>
@@ -41,5 +42,4 @@
     <color name="switch_thumb_color_unchecked">#2a2a2a</color>
     <color name="switch_track_color_unchecked">#B3FFFFFF</color>
     <color name="drawer_active_item_background">@color/white</color>
-
 </resources>
