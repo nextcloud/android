@@ -1,0 +1,4 @@
+Bump to latest firebase messaging
+fix activity image loading
+Update translations
+Update 3rd-party dependencies
