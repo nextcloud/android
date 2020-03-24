@@ -79,6 +79,7 @@
     <string name="autoupload_create_new_custom_folder">Opret en ny selvvalgt mappe indstilling</string>
     <string name="autoupload_custom_folder">Indstil en selvvalgt mappe</string>
     <string name="autoupload_disable_power_save_check">Deaktiver strømsparecheck</string>
+    <string name="autoupload_hide_folder">Skjul mappe</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Luk</string>
     <string name="battery_optimization_disable">Deaktiver</string>
@@ -140,8 +141,13 @@
     <string name="confirmation_remove_folder_alert">Er du sikker på at du vil slette %1$s med indhold?</string>
     <string name="confirmation_remove_folders_alert">Er du sikker på at du vil slette de valgte artikler med indhold?</string>
     <string name="confirmation_remove_local">Kun lokal</string>
+    <string name="conflict_already_existing_file">Eksisterende photo</string>
+    <string name="conflict_dialog_error">Fejl ved skabelse af konfliktdialog</string>
     <string name="conflict_keep_both">Behold begge</string>
     <string name="conflict_message">Hvilke filer ønsker du at beholde? Hvis du vælger begge versioner, så vil den lokale fil få et tal tilføjet til sit navn.</string>
+    <string name="conflict_message_description">Hvis du vælger begge versioner, vil den lokale fil få tilføjet et nummer til sit navn.</string>
+    <string name="conflict_message_headline">Hvilke filer ønsker du at beholde?</string>
+    <string name="conflict_new_file">Ny fil</string>
     <string name="conflict_title">Filkonflikt</string>
     <string name="conflict_use_local_version">lokal version</string>
     <string name="conflict_use_server_version">serverversion</string>
@@ -168,12 +174,15 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopier/flyt til krypteret mappe endnu ikke understøttet.</string>
     <string name="copy_to">Kopier til...</string>
     <string name="could_not_download_image">Kunne ikke hente hele billedet</string>
-    <string name="could_not_retrieve_url">Kunne ikke hente url</string>
+    <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
     <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
+    <string name="create_new">Opret ny</string>
     <string name="create_new_document">Lav nyt dokument</string>
     <string name="create_new_folder">Opret ny mappe</string>
     <string name="create_new_presentation">Lav ny præsentation</string>
     <string name="create_new_spreadsheet">Lav nyt regneark</string>
+    <string name="create_rich_workspace">Tilføj mappe info</string>
+    <string name="creates_rich_workspace">opretter mappe info</string>
     <string name="credentials_disabled">Brugeroplysninger deaktiverede</string>
     <string name="date_unknown">Ukendt</string>
     <string name="default_credentials_wrong">Ukorrekte brugeroplysninger</string>
@@ -224,6 +233,7 @@
     <string name="drawer_quota_unlimited">%1$s brugt</string>
     <string name="drawer_synced_folders">Auto upload</string>
     <string name="edit_permission_label">redigér</string>
+    <string name="edit_rich_workspace">rediger mappe info</string>
     <string name="encrypted">Angiv som krypteret</string>
     <string name="end_to_end_encryption_confirm_button">Indstil kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer...</string>
@@ -251,11 +261,24 @@
     <string name="error_retrieving_file">Fejl ved modtagelse af fil</string>
     <string name="error_retrieving_templates">Fejl ved indlæsning af modeller</string>
     <string name="error_starting_direct_camera_upload">Fejl ved start af kamera</string>
+    <string name="etm_accounts">Konti</string>
+    <string name="etm_background_job_name">Job navn</string>
+    <string name="etm_background_job_progress">Progress</string>
+    <string name="etm_background_job_started">Startet</string>
+    <string name="etm_background_job_state">Tilstand</string>
+    <string name="etm_background_job_uuid">UUID</string>
+    <string name="etm_background_jobs">Baggrundsjobs</string>
+    <string name="etm_background_jobs_cancel_all">Afbryd alle jobs</string>
+    <string name="etm_background_jobs_prune">Fjern inaktive jobs</string>
+    <string name="etm_background_jobs_start_test_job">Start test job</string>
+    <string name="etm_background_jobs_stop_test_job">Stop test job</string>
+    <string name="etm_migrations">Migrationer (app upgrade)</string>
     <string name="etm_preferences">Indstillinger</string>
     <string name="etm_title">Udviklers test tilstand</string>
     <string name="fab_label">Tilføj eller send</string>
     <string name="failed_to_download">Fejl ved overførsel af fil til download manager</string>
     <string name="failed_to_print">Fejl ved udskrivning af fil</string>
+    <string name="failed_to_start_editor">Kunne ikke starte editor</string>
     <string name="fallback_weblogin_back">Tilbage</string>
     <string name="fallback_weblogin_text">Tilbage til foregående login metode</string>
     <string name="favorite">Tilføj til favoritter</string>
@@ -355,8 +378,10 @@
     <string name="hint_password">Adgangskode</string>
     <string name="host_not_available">Server ikke tilgængelig</string>
     <string name="host_your_own_server">Vær vært for egen server</string>
+    <string name="instant_upload_existing">Send også eksisterende filer</string>
     <string name="instant_upload_on_charging">Upload kun under opladning</string>
     <string name="instant_upload_path">/Øjeblikkelig upload</string>
+    <string name="invalid_url">Ugyldig URL</string>
     <string name="learn_more">Lær mere</string>
     <string name="link">Link</string>
     <string name="list_layout">Liste layout</string>
@@ -502,6 +527,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_value_theme_dark">Mørk</string>
     <string name="prefs_value_theme_light">Lys</string>
+    <string name="prefs_value_theme_system">Følg system</string>
     <string name="preview_image_description">Forhåndsvisning af billede</string>
     <string name="preview_image_error_no_local_file">Der er ingen lokalfil at forhåndsvise</string>
     <string name="preview_image_error_unknown_format">Kunne ikke vise billede</string>
@@ -513,6 +539,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="recommend_subject">Prøv %1$s på din enhed!</string>
     <string name="recommend_text">Jeg ønsker at invitere dig til at bruge %1$s på din smartphone!\nHent den her: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="remote_file_fetch_failed">Kunne ikke finde fil!</string>
     <string name="remove_fail_msg">Sletning fejlede</string>
     <string name="remove_notification_failed">Fjernelse af notifikation fejlede</string>
     <string name="remove_push_notification">Fjern</string>
@@ -532,13 +559,16 @@ Enheds legitimationsoplysninger er sat op
     <string name="saml_authentication_wrong_pass">Forkert kodeord</string>
     <string name="scanQR_description">Login med QR kode</string>
     <string name="screenshot_01_gridView_heading">Beskytter dine data</string>
+    <string name="screenshot_01_gridView_subline">egen-vært produktivitet</string>
     <string name="screenshot_02_listView_heading">Defiler og del</string>
     <string name="screenshot_02_listView_subline">Alle funktioner lige ved hånden</string>
+    <string name="screenshot_03_drawer_heading">Aktivitet, delinger, …</string>
     <string name="screenshot_03_drawer_subline">alt hurtigt tilgængeligt</string>
     <string name="screenshot_04_accounts_heading">Alle dine konti</string>
     <string name="screenshot_04_accounts_subline">på et sted</string>
     <string name="screenshot_05_autoUpload_heading">Automatisk upload</string>
     <string name="screenshot_05_autoUpload_subline">Til dine billeder &amp; videoer</string>
+    <string name="screenshot_06_davdroid_heading">Kalender &amp; kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synkronisér med DAVx5</string>
     <string name="search_users_and_groups_hint">Søg brugere og grupper</string>
     <string name="select_all">Vælg alle</string>
@@ -559,6 +589,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_group_clarification">%1$s (gruppe)</string>
     <string name="share_internal_link">Del internt link</string>
     <string name="share_internal_link_text">Virker kun for brugere med adgang til %1$s</string>
+    <string name="share_internal_link_to_file_text">Internt dele link virker kun for brugere med adgang til denne fil</string>
     <string name="share_known_remote_clarification">%1$s ( ved %2$s)</string>
     <string name="share_link_empty_password">Du skal angive et kodeord</string>
     <string name="share_link_file_error">Der opstod en fejl ved deling af denne fil eller mappe</string>
@@ -659,16 +690,19 @@ Enheds legitimationsoplysninger er sat op
     <string name="sync_fail_ticker">Sync fejlede</string>
     <string name="sync_fail_ticker_unauthorized">Synkronisering fejlede, log ind igen</string>
     <string name="sync_file_nothing_to_do_msg">Filindholdet allerede synkroniseret</string>
-    <string name="sync_folder_failed_content">Synk. af %1$s mappen kunne ikke fuldføres</string>
     <string name="sync_foreign_files_forgotten_explanation">Fra version 1.3.16 bliver filer uploadet fra denne enhed kopieret til den lokale mappe %1$s for at forhindre datatab når en enkelt fil synkroniseres med flere konti.\n\nPå grund af denne ændring er alle filer som var uploadet i tidligere versioner af denne app kopieret til mappen %2$s. Imidlertid forhindrede en fejl færdiggørelsen af denne operation under konto-synkronisering. Du kan enten lade filen (el. filerne) være som de er og fjerne linket til %3$s eller flytte filen (el. filerne) til mappen %1$s og beholde linket til %4$s.\n\nHerunder er en liste med den lokale fil(er), og den/de fjerne fil(er) i %5$s, som de var knyttet til.</string>
     <string name="sync_foreign_files_forgotten_ticker">Visse lokale filer blev glemt</string>
     <string name="sync_in_progress">Henter nyeste version af filen.</string>
+    <string name="sync_not_enough_space_dialog_action_choose">Vælg hvad der skal synkroniseres</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Frigiv plads</string>
+    <string name="sync_not_enough_space_dialog_title">Ikke nok plads</string>
     <string name="sync_status_button">Synkroniserer status knap</string>
     <string name="sync_string_files">Filer</string>
     <string name="synced_folder_settings_button">Indstillinger knap</string>
     <string name="synced_folders_configure_folders">Konfigurer mapper</string>
     <string name="synced_folders_loading_folders">Henter mapper...</string>
     <string name="synced_folders_new_info">Øjeblikkelig send er blevet fundamentalt nylanceret. Omkonfigurer din autoupload fra hovedmenuen.\n\nNyd den nye og udvidede auto upload.</string>
+    <string name="synced_folders_no_results">Ingen medie mapper fundet</string>
     <string name="synced_folders_preferences">indstillinger til auto send</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <string name="synced_folders_type">Type</string>
@@ -676,6 +710,8 @@ Enheds legitimationsoplysninger er sat op
     <string name="tags">Mærkater</string>
     <string name="test_server_button">Test server forbindelsen</string>
     <string name="thumbnail">Miniature</string>
+    <string name="thumbnail_for_existing_file_description">Minitiature til eksistrende fil</string>
+    <string name="thumbnail_for_new_file_desc">Minitiature til ny fil</string>
     <string name="timeout_richDocuments">Indlæsning tager lang tid…</string>
     <string name="trashbin_activity_title">Slettede filer</string>
     <string name="trashbin_empty_headline">Ingen slettede filer</string>
@@ -708,12 +744,14 @@ Enheds legitimationsoplysninger er sat op
     <string name="upload_file_dialog_title">Indtast filnavn og filtype at sende</string>
     <string name="upload_files">Send filer</string>
     <string name="upload_item_action_button">Send artikel knap</string>
+    <string name="upload_list_delete">Slet</string>
     <string name="upload_list_empty_headline">Ingen uploads tilgængelige</string>
     <string name="upload_list_empty_text_auto_upload">Upload noget indhold eller aktiver auto upload.</string>
+    <string name="upload_list_resolve_conflict">Løs konflikt</string>
     <string name="upload_local_storage_full">Lokalt lager fuldt</string>
     <string name="upload_local_storage_not_copied">Filen kunne ikke kopieres til lokalt lager</string>
     <string name="upload_lock_failed">Lås på mappe fejlede</string>
-    <string name="upload_old_android"><![CDATA[Kryptering er kun mulig med >= Android 5.0]]></string>
+    <string name="upload_old_android">Kryptering kun mulig med &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Utilstrækkelig plads til, at kopiere de valgte filer ind i %1$s mappen. Vil du flytte dem i stedet?</string>
     <string name="upload_sync_conflict">Synkroniserings konflikt, udred venligst manuelt</string>
     <string name="upload_unknown_error">Ukendt fejl</string>
@@ -729,6 +767,8 @@ Enheds legitimationsoplysninger er sat op
     <string name="uploader_top_message">Vælg upload mappe</string>
     <string name="uploader_upload_failed_content_single">Kunne ikke uploade %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Overførelse fejlede, log ind igen</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Konflikt ved filforsendelse</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Vælg hvilket version af %1$s at gemme</string>
     <string name="uploader_upload_failed_ticker">Upload fejlede</string>
     <string name="uploader_upload_files_behaviour">Upload muligheder</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flyt file til %1$s mappe</string>
@@ -757,6 +797,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="uploads_view_upload_status_failed_localfile_error">Lokal fil blev ikke fundet</string>
     <string name="uploads_view_upload_status_failed_permission_error">Manglende rettigheder</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Upålideligt server certifikat</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Henter server version …</string>
     <string name="uploads_view_upload_status_service_interrupted">App afsluttet</string>
     <string name="uploads_view_upload_status_succeeded">Fuldført</string>
     <string name="uploads_view_upload_status_unknown_fail">Ukendt fejl</string>
@@ -796,6 +837,10 @@ Enheds legitimationsoplysninger er sat op
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d fil</item>
         <item quantity="other">%1$d filer</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Vis %1$d skjult mappe</item>
+        <item quantity="other">Vis %1$d skjulte mapper</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d valgt</item>

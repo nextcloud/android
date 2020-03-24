@@ -138,6 +138,7 @@
     <string name="confirmation_remove_local">Nur loka</string>
     <string name="conflict_keep_both">Konservi ambaŭ</string>
     <string name="conflict_message">Kiujn dosierojn vi volas konservi? Se vi elektos ambaŭ eldonojn, la loka dosiero havos numeron aldonitan al sia nomo.</string>
+    <string name="conflict_message_headline">Kiujn dosierojn vi volas konservi?</string>
     <string name="conflict_title">Dosierkonflikto</string>
     <string name="conflict_use_local_version">loka eldono</string>
     <string name="conflict_use_server_version">servila eldono</string>
@@ -239,6 +240,8 @@
     <string name="error_comment_file">Eraro dum komentado de la dosiero</string>
     <string name="error_retrieving_templates">Eraro dum ricevo de ŝablonoj</string>
     <string name="error_starting_direct_camera_upload">Eraro dum ŝargo de la fotilo</string>
+    <string name="etm_accounts">Kontoj</string>
+    <string name="etm_background_jobs">Fonaj taskoj</string>
     <string name="fab_label">Aldoni aŭ alŝuti</string>
     <string name="fallback_weblogin_back">Antaŭen</string>
     <string name="fallback_weblogin_text">Reiri al la malnova konektmetodo</string>
@@ -615,7 +618,6 @@
     <string name="sync_fail_ticker">Sinkronigo malsukcesis</string>
     <string name="sync_fail_ticker_unauthorized">Sinkronigo malsukcesis, bonvolu re-ensaluti</string>
     <string name="sync_file_nothing_to_do_msg">Dosierenhavoj jam sinkroniĝis</string>
-    <string name="sync_folder_failed_content">Sinkronigo de dosierujo %1$s ne estis plenumita</string>
     <string name="sync_foreign_files_forgotten_explanation">De la versio 1.3.16, dosieroj alŝutitaj el tiu aparato estas kopiitaj en loka dosierujo %1$s por antaŭmalhelpi perdon de datumoj, kiam unuopa dosiero sinkroniĝas kun pluraj kontoj.\n\nPro tiu ŝanĝo, ĉiuj dosieroj alŝutitaj per antaŭaj versioj de tiu aplikaĵo kopiiĝis en la dosierujo %2$s. Tamen, eraro malebligis plenumigon de tiu operacio dum la konta sinkronigo. Vi povas aŭ lasi la dosiero(j)n, kie ili estas, kaj forigi la ligilon al %3$s, aŭ transigi la dosiero(j)n al la dosierujo %1$s kaj konservi la ligilon al %4$s.\n\nĈi-sube, vi trovos la loka(j)n dosiero(j)n kaj la fora(j)n dosiero(j)n en %5$s, al kiuj ili estis ligitaj.</string>
     <string name="sync_foreign_files_forgotten_ticker">Iuj lokaj dosieroj forgesiĝis</string>
     <string name="sync_in_progress">Prenante plej freŝa versio de la dosiero.</string>
@@ -664,12 +666,12 @@
     <string name="upload_file_dialog_title">Entajpu la alŝutotan dosiernomon kaj ĝian tipon </string>
     <string name="upload_files">Alŝuti dosierojn</string>
     <string name="upload_item_action_button">Butono pri alŝuto</string>
+    <string name="upload_list_delete">Forigi</string>
     <string name="upload_list_empty_headline">Neniu alŝuto disponeblas</string>
     <string name="upload_list_empty_text_auto_upload">Alŝutu ion aŭ aktivigu aŭtomatan alŝuton.</string>
     <string name="upload_local_storage_full">Loka konservejo plenas</string>
     <string name="upload_local_storage_not_copied">Dosiero ne eblis kopiiĝi al loka konservejo</string>
     <string name="upload_lock_failed">Ŝlosado de dosierujo malsukcesis</string>
-    <string name="upload_old_android">Ĉifrado ner eblas kun ⩾ Android 5.0</string>
     <string name="upload_query_move_foreign_files">Nesufiĉa spaco malebligis kopiadon de la elektitaj dosieroj al dosierujo %1$s. Ĉu vi volas movi ilin tien anstataŭe?</string>
     <string name="upload_sync_conflict">Sinkroniga konflikto; bv. solvi ĝin permane</string>
     <string name="upload_unknown_error">Nekonata eraro</string>

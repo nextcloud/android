@@ -124,6 +124,7 @@
     <string name="confirmation_remove_local">Sólo local</string>
     <string name="conflict_keep_both">Mantener ambas</string>
     <string name="conflict_message">¿Qué archivos desesa mantener? Si seleccionas ambas versiones, se le agregará un número al nombre del archivo local.</string>
+    <string name="conflict_message_headline">¿Cuales archivos deseas mantener?</string>
     <string name="conflict_title">Conflicto de archivo</string>
     <string name="conflict_use_local_version">versión local</string>
     <string name="conflict_use_server_version">versión de servidor</string>
@@ -210,6 +211,8 @@
     <string name="end_to_end_encryption_wrong_password">Se presentó un error al decriptar. ¿Contraseña equivocada?</string>
     <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Error crítico: No se pueden realizar operaciones</string>
+    <string name="etm_accounts">Cuentas</string>
+    <string name="etm_background_jobs">Trabajos en segundo plano</string>
     <string name="fallback_weblogin_back">Atrás</string>
     <string name="fallback_weblogin_text">Regresar al antiguo método de inicio de sesión</string>
     <string name="favorite">Agregar a tus favoritos</string>
@@ -512,7 +515,6 @@
     <string name="sync_fail_ticker">Falla en la sincronización</string>
     <string name="sync_fail_ticker_unauthorized">La sincronización falló, inicia sesión de nuevo</string>
     <string name="sync_file_nothing_to_do_msg">Los contenidos del archivo ya han sido sincronizados</string>
-    <string name="sync_folder_failed_content">La sincronización de la carpeta %1$s no pudo ser completada</string>
     <string name="sync_foreign_files_forgotten_explanation">A partir de la versión 1.3.16, los archivos cargados desde este dispositivo serán copiados a la carpeta local %1$spara prevenir perdidas de datos cuando un archivo se sincroniza entre múltiples cuentas. \n\nDerivado de este cambio, todos los archivos cargados con versiones anteriores de la aplicación fueron copiados a la carpeta %2$s. Sin embargo, un error evitó que se completara esta operación durante la sincronizacion de la cuenta. Puedes dejar el(los) archivo(s) como está(n) y eliminar la liga a %3$s, o bien, mover el(los) archivo(s) a la carpeta%1$s y mantener la liga a %4$s.\n\nSe enlistan a continuación los archivos locales así como los archivos remotos en %5$s a donde estaban ligados</string>
     <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales se han perdido</string>
     <string name="sync_in_progress">Obteniendo la versión más reciente del archivo.</string>
@@ -549,6 +551,7 @@
     <string name="upload_file_dialog_title">Ingresa el nombre y el tipo del archivo a cargar</string>
     <string name="upload_files">Cargar archivos</string>
     <string name="upload_item_action_button">Botón de cargar elemento</string>
+    <string name="upload_list_delete">Borrar</string>
     <string name="upload_list_empty_headline">No hay cargas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Carga algún contenido o activa la carga automática</string>
     <string name="upload_query_move_foreign_files">El espacio insuficiente evita que se copien los archivos seleccionados dentro de la carpeta %1$s. ¿Te gustaría moverlos ahí en su lugar?</string>

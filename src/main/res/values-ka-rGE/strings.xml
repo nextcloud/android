@@ -118,6 +118,7 @@
     <string name="confirmation_remove_local">მხოლოდ ლოკალური</string>
     <string name="conflict_keep_both">ორივეს შენარჩუნება</string>
     <string name="conflict_message">რომელი ფაილების შენარჩუნება გსურთ? თუ აირჩევთ ორივე ვერისას, ლოკალური ფაილის სახელს წინ დაერთვება ციფრი.</string>
+    <string name="conflict_message_headline">რომელი ფაილების დატოვება გსურთ?</string>
     <string name="conflict_title">ფაილის კონფლიქტი</string>
     <string name="conflict_use_local_version">ლოკალური ვერსია</string>
     <string name="conflict_use_server_version">სერვერის ვერსია</string>
@@ -195,6 +196,8 @@
     <string name="end_to_end_encryption_wrong_password">შეცდომა დეშიფრაციისას. არასწორი პაროლი?</string>
     <string name="error__upload__local_file_not_copied">%1$s ვერ კოპირდება %2$s ლოკალურ დირექტორიაში</string>
     <string name="error_cant_bind_to_operations_service">კრიტიკული შეცდომა: ოპერაციების განხორციელება შეუძლებელია</string>
+    <string name="etm_accounts">ანგარიშები</string>
+    <string name="etm_background_jobs">ფონური საქმეები</string>
     <string name="fallback_weblogin_back">უკან</string>
     <string name="fallback_weblogin_text">უკან ძველი ავტორიზაციის მეთოდისკენ</string>
     <string name="favorite">რჩეულებში დამატება</string>
@@ -480,7 +483,6 @@
     <string name="sync_fail_ticker">სინქრონიზაცია დასრუდლა წარუმატებლად</string>
     <string name="sync_fail_ticker_unauthorized">სინქ ვერ მოხერხდა, ახლიდან გაიარეთ ავტორიზაცია</string>
     <string name="sync_file_nothing_to_do_msg">ფაილების შემცველობა სინქრონიზირებულია</string>
-    <string name="sync_folder_failed_content">%1$s დირექტორიის სინქ ვერ დასრულდა</string>
     <string name="sync_foreign_files_forgotten_explanation">როდესაც ერთი ფაილი სინქრონიზირებულია რამოდენიმე ანგარიშთან, 1.3.16 ვერსიაში მონაცემების დაკარგვისგან თავის ასარიდებლად, ამ მოწყობილობით ატვირთული ფაილ(ებ)ი კოპირდება %1$s დირექტორიაში.\n\nამ ცვლილების გამო, აპლიკაციის ძველი ვერსიით ატვირთული ყველა ფაილი დაკოპირდა %2$s დირექტორიაში. თუმცა, შეცდომის გამო სინქრონიზაციისას მოხდა ამ ოპერაციის შეჩერება. შეგიძლიათ ფაილ(ებ)ი დატოვოთ ისე როგორც  არის და წაშალოთ ბმული %3$s-სთან, ან გადაიტანოთ ფაილ(ებ)ი %1$s დირექტორიაში და შეინარჩუნოთ ბმული %4$s-ისთვის.\n\nქვემოთ ჩამოწერილია ლოკალური და %5$s-ში არსებული დისტანციური ფაილ(ებ)ი.</string>
     <string name="sync_foreign_files_forgotten_ticker">რამოდენიმე ლოკალური ფაილი გამორჩენილია</string>
     <string name="sync_in_progress">ამოღებულია ფაილის უახლესი ვერსია.</string>
@@ -514,6 +516,7 @@
     <string name="upload_file_dialog_title">ატვირთვისთვის შეიყვანეთ ფაილის სახელი და სახეობა</string>
     <string name="upload_files">ფაილების ატვირთვა</string>
     <string name="upload_item_action_button">ელემენტის ატვირთვის ქმედების ღილაკი</string>
+    <string name="upload_list_delete">წაშლა</string>
     <string name="upload_list_empty_headline">არც ერთი ატვირთვა არაა ხელმისაწვდომი.</string>
     <string name="upload_list_empty_text_auto_upload">ატვირთეთ რაიმე ან გაააქტიურეთ ავტო-ატვირთვა.</string>
     <string name="upload_query_move_foreign_files">არასაკმარისი ადგილი აფერხებს არჩეული ფაილების კოპირებას %1$s დირექტორიაში. გსურთ სანაცვლოდ მათი გადატანა?</string>

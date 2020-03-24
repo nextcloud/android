@@ -141,8 +141,13 @@
     <string name="confirmation_remove_folder_alert">Confirma que quere eliminar %1$s e todo o seu contido?</string>
     <string name="confirmation_remove_folders_alert">Confirma que quere eliminar os elementos seleccionados e o seu contido?</string>
     <string name="confirmation_remove_local">Só local</string>
+    <string name="conflict_already_existing_file">O  ficheiro xa existe</string>
+    <string name="conflict_dialog_error">Produciuse un erro ao crear o diálogo de conflitos!</string>
     <string name="conflict_keep_both">Conservar ambos</string>
     <string name="conflict_message">Que ficheiros quere conservar? Se selecciona ámbalas dúas versións, engadiráselle un número ao nome do ficheiro local.</string>
+    <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
+    <string name="conflict_message_headline">Que ficheiros quere conservar?</string>
+    <string name="conflict_new_file">Novo ficheiro</string>
     <string name="conflict_title">Conflito de ficheiro</string>
     <string name="conflict_use_local_version">versión local</string>
     <string name="conflict_use_server_version">versión no servidor</string>
@@ -256,6 +261,19 @@
     <string name="error_retrieving_file">Produciuse un erro ao recuperar o ficheiro</string>
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
     <string name="error_starting_direct_camera_upload">Produciuse un erro ao iniciar a cámara</string>
+    <string name="etm_accounts">Contas</string>
+    <string name="etm_background_job_name">Nome do traballo</string>
+    <string name="etm_background_job_progress">Progreso</string>
+    <string name="etm_background_job_started">Iniciado</string>
+    <string name="etm_background_job_state">Estado</string>
+    <string name="etm_background_job_user">Usuario</string>
+    <string name="etm_background_job_uuid">UUID</string>
+    <string name="etm_background_jobs">Traballos en segundo plano</string>
+    <string name="etm_background_jobs_cancel_all">Cancelar todos os traballos</string>
+    <string name="etm_background_jobs_prune">Depurar os traballos inactivos</string>
+    <string name="etm_background_jobs_start_test_job">Iniciar o traballo de proba</string>
+    <string name="etm_background_jobs_stop_test_job">Deter o traballo de proba</string>
+    <string name="etm_migrations">Migracións (anovación de aplicación)</string>
     <string name="etm_preferences">Preferencias</string>
     <string name="etm_title">Modo de proba de enxeñería</string>
     <string name="fab_label">Engadir ou enviar</string>
@@ -361,8 +379,10 @@
     <string name="hint_password">Contrasinal</string>
     <string name="host_not_available">Servidor non dispoñíbel</string>
     <string name="host_your_own_server">Hospede o seu propio servidor</string>
+    <string name="instant_upload_existing">Envíar tamén os ficheiros existentes</string>
     <string name="instant_upload_on_charging">Enviar só cando estea cargando</string>
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
+    <string name="invalid_url">URL incorrecto</string>
     <string name="learn_more">Aprender máis</string>
     <string name="link">Ligazón</string>
     <string name="list_layout">Ver como lista</string>
@@ -439,7 +459,7 @@
     <string name="notification_icon">Icona de notificación</string>
     <string name="notifications_loading_activity">Cargando notificacións…</string>
     <string name="notifications_no_results_headline">Non hai notificacións</string>
-    <string name="notifications_no_results_message">Compróbeo máis tarde.</string>
+    <string name="notifications_no_results_message">Compróbeo máis adiante.</string>
     <string name="offline_mode">Sen conexión coa Internet</string>
     <string name="outdated_server">O servidor acadou a fin da súa vida. Actualíceo!</string>
     <string name="overflow_menu">Máis menús</string>
@@ -568,7 +588,9 @@
     <string name="share_get_public_link_button">Obter a ligazón</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_internal_link">Compartir a ligazón interna</string>
-    <string name="share_internal_link_text">Só funciona para usuarios que teñen acceso a este %1$s</string>
+    <string name="share_internal_link_text">Só funciona para usuarios con acceso a este %1$s</string>
+    <string name="share_internal_link_to_file_text">A ligazón de compartición interna só funciona para usuarios con acceso a este ficheiro</string>
+    <string name="share_internal_link_to_folder_text">A ligazón de compartición interna só funciona para usuarios con acceso a este cartafol</string>
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
     <string name="share_link_empty_password">Ten que introducir un contrasinal</string>
     <string name="share_link_file_error">Produciuse un erro ao tentar compartir este ficheiro ou cartafol</string>
@@ -669,10 +691,14 @@
     <string name="sync_fail_ticker">Produciuse un fallo na sincronización</string>
     <string name="sync_fail_ticker_unauthorized">Produciuse un fallo na sincronización, acceda de novo.</string>
     <string name="sync_file_nothing_to_do_msg">Os contidos do ficheiro xa están sincronizados</string>
-    <string name="sync_folder_failed_content">A sincronización do cartafol %1$s non se completou</string>
+    <string name="sync_folder_failed_content">Non foi posíbel completar a sincronización do cartafol %1$s</string>
     <string name="sync_foreign_files_forgotten_explanation">A partires da versión 1.3.16, os ficheiros enviados dende este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un único ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados con versións anteriores desta aplicación foron copiados no cartafol %2$s. Porén, un erro impediu que se completara esta operación durante a sincronización da conta. Pode deixar o(s) ficheiro(s) tal e como está(n) e eliminar a ligazón cara a %3$s ou mover o(s) ficheiro(s) para o cartafol %1$s e manter a ligazón cara a %4$s.\n\nEmbaixo amósanse os ficheiros locais e os ficheiros remotos en %5$s aos que foron enlazados.</string>
     <string name="sync_foreign_files_forgotten_ticker">Esquecéronse algúns ficheiros locais</string>
     <string name="sync_in_progress">Recuperando a versión mais recente do ficheiro.</string>
+    <string name="sync_not_enough_space_dialog_action_choose">Escolla que sincronizar</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Liberar espazo</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s son %2$s, mais só hai %3$sdispoñíbeis no dispositivo.</string>
+    <string name="sync_not_enough_space_dialog_title">Non hai espazo abondo</string>
     <string name="sync_status_button">Botón do estado da sincronización</string>
     <string name="sync_string_files">Ficheiros</string>
     <string name="synced_folder_settings_button">Botón de axustes</string>
@@ -687,6 +713,8 @@
     <string name="tags">Etiquetas</string>
     <string name="test_server_button">Probar a conexión co servidor</string>
     <string name="thumbnail">Miniatura</string>
+    <string name="thumbnail_for_existing_file_description">Miniatura do ficheiro existente</string>
+    <string name="thumbnail_for_new_file_desc">Miniatura do novo ficheiro</string>
     <string name="timeout_richDocuments">A carga tarda moito…</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="trashbin_empty_headline">Non hai ficheiros eliminados</string>
@@ -719,12 +747,14 @@
     <string name="upload_file_dialog_title">Introduza o nome e o tipo do ficheiro a enviar</string>
     <string name="upload_files">Enviar ficheiros</string>
     <string name="upload_item_action_button">Botón da acción do envío de elemento</string>
+    <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">Non hai envíos dispoñíbeis</string>
     <string name="upload_list_empty_text_auto_upload">Envíe algún contido ou active o envío automático.</string>
+    <string name="upload_list_resolve_conflict">Resolver conflitos</string>
     <string name="upload_local_storage_full">O almacenamento local está cheo</string>
     <string name="upload_local_storage_not_copied">Non foi posíbel copiar o ficheiro no almacenamento local</string>
     <string name="upload_lock_failed">Produciuse un fallo ao bloquear o cartafol</string>
-    <string name="upload_old_android"><![CDATA[O cifrado só é posíbel con >= Android 5.0]]></string>
+    <string name="upload_old_android">O cifrado só é posíbel con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. No canto diso, gustaríalle movelos?</string>
     <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>
     <string name="upload_unknown_error">Produciuse un erro descoñecido</string>
@@ -740,6 +770,8 @@
     <string name="uploader_top_message">Seleccione o cartafol de envío</string>
     <string name="uploader_upload_failed_content_single">Non foi posíbel enviar: %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Produciuse un fallo no envío, acceda de novo.</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Conflitos no envío de ficheiros</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Escolla a versión para conservar de %1$s</string>
     <string name="uploader_upload_failed_ticker">Produciuse un fallo no envío</string>
     <string name="uploader_upload_files_behaviour">Opción de envío:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover o ficheiro para o cartafol %1$s</string>
@@ -768,6 +800,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Non se atopou o ficheiro local</string>
     <string name="uploads_view_upload_status_failed_permission_error"> Produciuse un erro de permisos</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">O certificado do servidor non é fiábel</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Obtendo a versión do servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicación finalizada</string>
     <string name="uploads_view_upload_status_succeeded">Completado</string>
     <string name="uploads_view_upload_status_unknown_fail">Produciuse un erro descoñecido</string>

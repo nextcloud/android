@@ -1,3 +1,10 @@
+3.10.1 RC1 (February, 03, 2020)
+
+- fix crash on self-signed certificates
+- fix openOffice open files with special chars
+
+For a full list, please see https://github.com/nextcloud/android/milestone/45
+
 3.10.0 RC3 (January, 14, 2020)
 
 - Dark theme (@dan0xii, @AndyScherzinger)

@@ -170,7 +170,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiranje/premeštanje u šifrovanu fasciklu nije podržano.</string>
     <string name="copy_to">Kopiraj u…</string>
     <string name="could_not_download_image">Nije moguće preuzeti celu sliku</string>
-    <string name="could_not_retrieve_url">Ne mogu da dobavim adresu</string>
     <string name="create_dir_fail_msg">Ne mogu da napravim fasciklu</string>
     <string name="create_new_document">Napravi novi dokument</string>
     <string name="create_new_folder">Napravi novu fasciklu</string>
@@ -253,6 +252,7 @@
     <string name="error_retrieving_file">Greška pri dobavljanju fajla</string>
     <string name="error_retrieving_templates">Greška pri učitavanju šablona</string>
     <string name="error_starting_direct_camera_upload">Greška pri startovanju kamere</string>
+    <string name="etm_accounts">Nalozi</string>
     <string name="etm_preferences">Postavke</string>
     <string name="etm_title">Inženjerski test režim</string>
     <string name="fab_label">Dodaj ili otpremi</string>
@@ -664,7 +664,6 @@
     <string name="sync_fail_ticker">Sinhronizacija nije uspela</string>
     <string name="sync_fail_ticker_unauthorized">Neuspešna sinhronizacija, ponovo se prijavite</string>
     <string name="sync_file_nothing_to_do_msg">Sadržaj je već sinhronizovan</string>
-    <string name="sync_folder_failed_content">Sinhronizacija fascikle %1$s ne može da se dovrši</string>
     <string name="sync_foreign_files_forgotten_explanation">Od verzije 1.3.16, fajlovi otpremljeni sa ovog uređaja se kopiraki u lokalnu fasciklu %1$s da bi se sprečio gubitak podataka kada se isti fajl sinhronizuje sa više naloga.\n\nZbog ove izmene, svi fajlovi koji su otpremljeni sa starijim verzijama ove aplikacije su kopirani u fasciklu %2$s. Ipak, greška je onemogućila završetak ove operacije dok se radila sinhronizacija naloga. Možete ili ostaviti fajl(ove) tu gde jesu i izbrisati vezu ka %3$s, ili pomeriti fajl(ove) u %1$s i zadržati vezu ka %4$s.\n\nIspod su izlistani lokalni fajl(ovi), i udaljeni fajl(ovi) u %5$s na koje su vezani.</string>
     <string name="sync_foreign_files_forgotten_ticker">Neki lokalni fajlovi su zaboravljeni</string>
     <string name="sync_in_progress">Dohvatam najskoriju verziju fajla.</string>
@@ -714,12 +713,12 @@
     <string name="upload_file_dialog_title">Unesite ime i tip fajla za otpremanje</string>
     <string name="upload_files">Otpremi fajlove</string>
     <string name="upload_item_action_button">Dugme otpremanja stavke</string>
+    <string name="upload_list_delete">Obriši</string>
     <string name="upload_list_empty_headline">Nema dostupnih otpremanja</string>
     <string name="upload_list_empty_text_auto_upload">Otpremite neki sadržaj ili uključite automatsko otpremanje.</string>
     <string name="upload_local_storage_full">Lokalno skladište puno</string>
     <string name="upload_local_storage_not_copied">Fajl nije mogao da se kopira na lokalno skladište</string>
     <string name="upload_lock_failed">Neuspelo zaključavanje fascikle</string>
-    <string name="upload_old_android"><![CDATA[Šifrovanje je moguće samo sa >= Android 5.0]]></string>
     <string name="upload_query_move_foreign_files">Nedovoljno mesta da se kopiraju označeni fajlovi u fasciklu %1$s. Da li želite možda da ih umesto kopiranja premestite tamo?</string>
     <string name="upload_sync_conflict">Konflikt prilikom sinhronizacije, razrešite ga ručno</string>
     <string name="upload_unknown_error">Nepoznata greška</string>

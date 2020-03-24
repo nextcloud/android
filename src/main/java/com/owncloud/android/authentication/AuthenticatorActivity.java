@@ -129,6 +129,7 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertL
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -623,6 +624,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         scanQR = findViewById(R.id.scanQR);
         if (deviceInfo.hasCamera(this)) {
             scanQR.setOnClickListener(v -> onScan());
+            ThemeUtils.tintDrawable(scanQR.getDrawable(), getResources().getColor(R.color.login_text_color));
         } else {
             scanQR.setVisibility(View.GONE);
         }

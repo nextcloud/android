@@ -127,6 +127,7 @@
     <string name="confirmation_remove_local">Lokal saja</string>
     <string name="conflict_keep_both">Biarkan keduannya</string>
     <string name="conflict_message">Berkas mana yang ingin Anda simpan? Jika Anda memilih kedua versi, berkas lokal akan memiliki angka yang ditambahkan di akhir namanya.</string>
+    <string name="conflict_message_headline">Berkas mana yang ingin anda pertahankan?</string>
     <string name="conflict_title">Berkas konflik</string>
     <string name="conflict_use_local_version">versi lokal</string>
     <string name="conflict_use_server_version">versi server</string>
@@ -207,6 +208,8 @@
     <string name="error__upload__local_file_not_copied">%1$s tidak dapat disalin ke folder lokal %2$s</string>
     <string name="error_cant_bind_to_operations_service">Kesalahan fatal: tidak dapat melakukan operasi</string>
     <string name="error_retrieving_templates">Error saat mengambil template</string>
+    <string name="etm_accounts">Akun</string>
+    <string name="etm_background_jobs">Pekerjaan latar belakang</string>
     <string name="fab_label">Tambahkan atau unggah</string>
     <string name="fallback_weblogin_back">Kembali</string>
     <string name="favorite">Tambah ke favorit</string>
@@ -540,6 +543,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Potongan berkas teks(.txt)</string>
     <string name="upload_file_dialog_title">Masukkan nama berkas dan tipe berkas untuk diunggah</string>
     <string name="upload_files">Unggah berkas</string>
+    <string name="upload_list_delete">Hapus</string>
     <string name="upload_list_empty_headline">Tidak ada unggahan yang tersedia</string>
     <string name="upload_list_empty_text_auto_upload">Unggah beberapa foto atau aktifkan unggah otomatis.</string>
     <string name="upload_query_move_foreign_files">Ruang tidak cukup untuk menyalin berkas terpilih ke folder %1$s. Apakah Anda ingin memindahkannya?</string>

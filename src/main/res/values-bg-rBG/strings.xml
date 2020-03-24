@@ -135,6 +135,7 @@
     <string name="confirmation_remove_local">Само локално</string>
     <string name="conflict_keep_both">Запазване и на двата</string>
     <string name="conflict_message">Кои файлове желаете да запазите? Ако изберете и двете версии, към името на локалния файл ще бъде добавено число.</string>
+    <string name="conflict_message_headline">Кои файлове желете да запазите?</string>
     <string name="conflict_title">Файлов конфликт</string>
     <string name="conflict_use_local_version">локалната версия</string>
     <string name="conflict_use_server_version">версията на сървъра</string>
@@ -219,6 +220,7 @@
     <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
     <string name="error_cant_bind_to_operations_service">Критична грешка: операциите не могат да бъдат изпълнени</string>
     <string name="error_comment_file">Грешка при коментиране на файл</string>
+    <string name="etm_accounts">Профили</string>
     <string name="etm_preferences">Предпочитания</string>
     <string name="fab_label">Добави или качи</string>
     <string name="fallback_weblogin_back">Назад</string>
@@ -563,7 +565,6 @@
     <string name="sync_fail_ticker">Синхронизацията се провали</string>
     <string name="sync_fail_ticker_unauthorized">Неуспешна синхронизация, моля впишете се отново</string>
     <string name="sync_file_nothing_to_do_msg">Съдържанието на файла е вече синхронизирано</string>
-    <string name="sync_folder_failed_content">Синхронизация на папка %1$s не може да бъде завършена</string>
     <string name="sync_foreign_files_forgotten_explanation">След версия 1.3.16, файлове качени от устройството биват копирани в локалната папка %1$s, за да се предотврати загуба на данни, при синхронизиране на един файл с няколко профили.\n\nПоради това, всички файлове качени с предишни версии на приложението бяха копирани в папка %2$s. За жалост, грешка по време на синхронизацията попречи на операцията да завърши. Можете да оставите файла(овете), както са и да премахнете връзката до %3$s, или да преместите файла(овете) в папка %1$s и да запазите връзката до %4$s.\n\nДолу са изброени локалните файлове, и отдалечените файлове в %5$s, с които са били свързани.</string>
     <string name="sync_foreign_files_forgotten_ticker">Някои локални файлове бяха забравени.</string>
     <string name="sync_in_progress">Търси се най-скорошната версия на файл.</string>
@@ -606,6 +607,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Отрязък от текстов файл (.txt)</string>
     <string name="upload_file_dialog_title">Въведете име на файл и тип на файл за качване</string>
     <string name="upload_files">Качи файлове</string>
+    <string name="upload_list_delete">Изтриване</string>
     <string name="upload_list_empty_headline">Няма файлове</string>
     <string name="upload_list_empty_text_auto_upload">Качете съдържание или активирайте автоматичното качване.</string>
     <string name="upload_local_storage_full">Локалното място за съхранение е пълно</string>

@@ -142,6 +142,7 @@
     <string name="confirmation_remove_local">Kun lokalt</string>
     <string name="conflict_keep_both">Behold begge</string>
     <string name="conflict_message">Hvilke filer ønsker du å beholder? Hvis du velger begge versjonene, får den lokale filen lagt til et tall i navnet.</string>
+    <string name="conflict_message_headline">Hvilke filer vil du beholde?</string>
     <string name="conflict_title">Filkonflikt</string>
     <string name="conflict_use_local_version">lokal versjon</string>
     <string name="conflict_use_server_version">serverversjon</string>
@@ -168,7 +169,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiering/flytting til kryptert mappe støttes ikke enda.</string>
     <string name="copy_to">Kopier til…</string>
     <string name="could_not_download_image">Kunne ikke laste ned det fulle bildet</string>
-    <string name="could_not_retrieve_url">Kunne ikke få tilbake url</string>
     <string name="create_dir_fail_msg">Mappe kunne ikke opprettes</string>
     <string name="create_new_document">Opprett nytt dokument</string>
     <string name="create_new_folder">Opprett ny mappe</string>
@@ -251,6 +251,8 @@
     <string name="error_retrieving_file">Oppstod feil med å få tilbake filen</string>
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
+    <string name="etm_accounts">Kontoer</string>
+    <string name="etm_background_jobs">Bakgrunnsjobber</string>
     <string name="etm_preferences">Innstillinger</string>
     <string name="fab_label">Legg til eller last opp</string>
     <string name="failed_to_print">Mislykket å skrive ut filen</string>
@@ -639,7 +641,6 @@
     <string name="sync_fail_ticker">Synkronisering mislyktes</string>
     <string name="sync_fail_ticker_unauthorized">Synkronisering mislyktes, du må logge inn på nytt</string>
     <string name="sync_file_nothing_to_do_msg">filinnhold er allerede synkronisert</string>
-    <string name="sync_folder_failed_content">Synkronisering av %1$s mappe kunne ikke bli fullført</string>
     <string name="sync_foreign_files_forgotten_explanation">Fra versjon 1.3.16 blir filer som lastes opp fra denne enheten kopiert inn i den lokale mappen %1$s for å forhindre tap av data når samme fil synkroniseres med flere kontoer.\n\nPga. denne endringen ble alle filer som er blitt lastet opp med tidligere versjoner av denne appen, kopiert til mappen %2$s. Imidlertid kunne ikke denne kopieringen fullføres under konto-synkroniseringen pga. en feil. Du kan enten la filen(e) ligge der de ligger og fjerne lenken til %3$s, eller flytte filene til mappe %1$s og beholde lenken til %4$s.\n\nNedenfor finner du en liste over de lokale filene og de eksterne filene i %5$s som de var lenket til.</string>
     <string name="sync_foreign_files_forgotten_ticker">Noen lokale filer ble glemt</string>
     <string name="sync_in_progress">Henter nyligste versjon av filen.</string>
@@ -688,12 +689,12 @@
     <string name="upload_file_dialog_title">Legg inn filnavn og -type for opplasting</string>
     <string name="upload_files">Last opp filer</string>
     <string name="upload_item_action_button">Last opp element handlingsknapp</string>
+    <string name="upload_list_delete">Slett</string>
     <string name="upload_list_empty_headline">Ingen opplastinger tilgjengelig</string>
     <string name="upload_list_empty_text_auto_upload">Last opp noe innhold eller aktiver automatisk opplasting!</string>
     <string name="upload_local_storage_full">Lokal lagring full</string>
     <string name="upload_local_storage_not_copied">Filen kunne ikke kopieres til lokal lagring</string>
     <string name="upload_lock_failed">Låsing av mappe feilet</string>
-    <string name="upload_old_android"><![CDATA[Kryptering er kun mulig med >= Android 5.0]]></string>
     <string name="upload_query_move_foreign_files">Det er ikke nok plass til å kopiere de valgte filene inn i mappen %1$s. Vil du flytte dem i stedet? </string>
     <string name="upload_sync_conflict">Synkroniseringskonflikt, vennligst fiks manuelt</string>
     <string name="upload_unknown_error">Ukjent feil</string>

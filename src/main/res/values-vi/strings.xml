@@ -82,6 +82,7 @@
     <string name="confirmation_remove_files_alert">Bạn thực sự muốn xóa mục lựa chọn này?</string>
     <string name="confirmation_remove_local">Chỉ cục bộ</string>
     <string name="conflict_keep_both">Giữ cho cả hai</string>
+    <string name="conflict_message_headline">Bạn muốn tiếp tục với những tập tin nào?</string>
     <string name="conflict_use_server_version">phiên bản máy chủ</string>
     <string name="contactlist_item_icon">Sử dụng biểu tượng cho danh mục liên hệ</string>
     <string name="contacts_preference_backup_never">không thay đổi</string>
@@ -141,6 +142,7 @@
     <string name="end_to_end_encryption_wrong_password">Lỗi khi giải mã. Sai mật khẩu?</string>
     <string name="error_cant_bind_to_operations_service">Lỗi nghiêm trọng: Không thể thực hiện thao tác</string>
     <string name="error_comment_file">Lỗi khi bình luận tập tin</string>
+    <string name="etm_accounts">Tài khoản</string>
     <string name="fab_label">Thêm hoặc tải lên</string>
     <string name="fallback_weblogin_back">Quay lại</string>
     <string name="favorite">Thêm vào ưa thích</string>
@@ -389,7 +391,6 @@
     <string name="sync_fail_ticker">Lỗi đồng bộ</string>
     <string name="sync_fail_ticker_unauthorized">Đồng bộ lỗi, đăng nhập lại</string>
     <string name="sync_file_nothing_to_do_msg">Nội dung tập tin đã đồng bộ</string>
-    <string name="sync_folder_failed_content">Đồng bộ thư mục %1$s không thể hoàn tất</string>
     <string name="sync_foreign_files_forgotten_ticker">Một số tập tin cục bộ bị quên</string>
     <string name="sync_status_button">Nút trạng thái đồng bộ</string>
     <string name="sync_string_files">Tập tin</string>
@@ -413,6 +414,7 @@
     <string name="upload_file_dialog_filename">Tên tập tin</string>
     <string name="upload_file_dialog_filetype">Định dạng</string>
     <string name="upload_files">Tải lên tập tin</string>
+    <string name="upload_list_delete">Xóa</string>
     <string name="upload_list_empty_headline">Không có tải lên nào có sẵn</string>
     <string name="upload_list_empty_text_auto_upload">Tải lên một vài nội dung hoặc kích hoạt tải lên tự động</string>
     <string name="upload_unknown_error">Lỗi chưa biết</string>

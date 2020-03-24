@@ -141,6 +141,7 @@
     <string name="confirmation_remove_local">Sólo local</string>
     <string name="conflict_keep_both">Mantener ambas</string>
     <string name="conflict_message">¿Qué archivos desea mantener? Si selecciona ambas versiones, se le agregará un número al nombre del archivo local.</string>
+    <string name="conflict_message_headline">¿Cuales archivos desea mantener?</string>
     <string name="conflict_title">Conflicto de archivo</string>
     <string name="conflict_use_local_version">versión local</string>
     <string name="conflict_use_server_version">versión de servidor</string>
@@ -167,7 +168,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover a la carpeta encriptada actualmente no es compatible.</string>
     <string name="copy_to">Copiar a…</string>
     <string name="could_not_download_image">No se pudo descargar la imágen completa</string>
-    <string name="could_not_retrieve_url"> No se pudo recuperar la URL</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
     <string name="create_new_document">Crear nuevo documento</string>
     <string name="create_new_folder">Crear nueva carpeta</string>
@@ -247,6 +247,8 @@
     <string name="error_report_issue_action">Reporte</string>
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
+    <string name="etm_accounts">Cuentas</string>
+    <string name="etm_background_jobs">Trabajos en segundo plano</string>
     <string name="etm_preferences">Preferencias</string>
     <string name="etm_title">Modo de prueba de ingeniería</string>
     <string name="fab_label">Añadir o subir</string>
@@ -649,7 +651,6 @@
     <string name="sync_fail_ticker">Falla en la sincronización</string>
     <string name="sync_fail_ticker_unauthorized">Sincronización fallida, vuelva a iniciar sesión</string>
     <string name="sync_file_nothing_to_do_msg">Los contenidos del archivo ya han sido sincronizados</string>
-    <string name="sync_folder_failed_content">No se pudo completar la sincronización de la carpeta %1$s</string>
     <string name="sync_foreign_files_forgotten_explanation">A partir de la versión 1.3.16, los archivos cargados desde este dispositivo se copian en la carpeta local %1$s para evitar la pérdida de datos cuando se sincroniza un solo archivo con varias cuentas.\n\nDebido a este cambio, todos los archivos cargados con versiones anteriores de esta aplicación se copiaron en la carpeta %2$s. Sin embargo, un error impidió la finalización de esta operación durante la sincronización de la cuenta. Puede dejar los archivos como están y eliminar el enlace a %3$s, o mover los archivos a la carpeta %1$s y conservar el enlace a %4$s.\n\nListado a continuación son los archivos locales y los archivos remotos en %5$s a los que estaban vinculados.</string>
     <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales se han perdido</string>
     <string name="sync_in_progress">Obteniendo la versión más reciente del archivo.</string>
@@ -699,12 +700,12 @@
     <string name="upload_file_dialog_title">Ingrese el nombre y el tipo del archivo a cargar</string>
     <string name="upload_files">Subiendo archivos</string>
     <string name="upload_item_action_button">Subir botón de acción del elemento</string>
+    <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">No hay cargas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Cargue algún contenido o active la carga automática</string>
     <string name="upload_local_storage_full">Memoria interna llena</string>
     <string name="upload_local_storage_not_copied">El archivo no se pudo copiar a la memoria interna</string>
     <string name="upload_lock_failed">La carpeta de bloqueo falló</string>
-    <string name="upload_old_android"><![CDATA[El cifrado sólo es posible con >= Android 5.0]]></string>
     <string name="upload_query_move_foreign_files">El espacio insuficiente evita que se copien los archivos seleccionados dentro de la carpeta %1$s. ¿Le gustaría moverlos ahí en su lugar?</string>
     <string name="upload_sync_conflict">Conflicto de sincronización, por favor resolver manualmente</string>
     <string name="upload_unknown_error">Error desconocido</string>

@@ -137,6 +137,7 @@
     <string name="confirmation_remove_local">Doar local</string>
     <string name="conflict_keep_both">Pastreaza amandoua</string>
     <string name="conflict_message">Ce fișiere doriți să păstrați? Dacă selectați ambele versiuni, fișierul local va avea un număr atașat la numele acestuia.</string>
+    <string name="conflict_message_headline">Ce fișiere vrei să păstrezi?</string>
     <string name="conflict_title">Conflict de fișiere</string>
     <string name="conflict_use_local_version">versiunea locală</string>
     <string name="conflict_use_server_version">versiunea de pe server</string>
@@ -162,7 +163,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copierea/mutarea în directorul criptat nu este suportată.</string>
     <string name="copy_to">Copiază în…</string>
     <string name="could_not_download_image">Nu s-a putut descărca imaginea completă</string>
-    <string name="could_not_retrieve_url">Nu a fost găsit URL-ul</string>
     <string name="create_dir_fail_msg">Nu s-a putut crea directorul</string>
     <string name="create_new_document">Crează document nou</string>
     <string name="create_new_folder">Creează director nou</string>
@@ -234,6 +234,8 @@
     <string name="error__upload__local_file_not_copied">%1$s nu a putut fi copiat in dosarul local %2$s </string>
     <string name="error_cant_bind_to_operations_service">Eroare critică: nu se pot executa operațiunile</string>
     <string name="error_report_issue_action">Raport</string>
+    <string name="etm_accounts">Conturi</string>
+    <string name="etm_background_job_progress">Progres</string>
     <string name="fallback_weblogin_back">Înapoi</string>
     <string name="favorite">Adăugați la favorite</string>
     <string name="favorite_icon">Favorite</string>
@@ -368,7 +370,15 @@
     <string name="new_comment">Comentariu nou…</string>
     <string name="new_media_folder_photos">poză</string>
     <string name="new_notification">Notificare nouă</string>
+    <string name="new_version_was_created">A fost creată o versiune nouă</string>
+    <string name="no_browser_available">Nu există aplicație disponibilă care să acceseze legăturile</string>
+    <string name="no_mutliple_accounts_allowed">Numai un singur cont este permis</string>
+    <string name="no_pdf_app_available">Nu este aplicație disponibilă care să deschidă PDF</string>
     <string name="note_confirm">Trimitere</string>
+    <string name="note_could_not_sent">Nu s-a putut trimite nota</string>
+    <string name="notification_action_failed">Nu s-a putut executa acțiunea</string>
+    <string name="notification_channel_download_description">Arată progresul descărcării</string>
+    <string name="notification_channel_download_name">Canal de notificări descărcări</string>
     <string name="notification_channel_media_name">Player media</string>
     <string name="notifications_loading_activity">Se încarcă notificările…</string>
     <string name="notifications_no_results_headline">Nu sunt notificări</string>
@@ -552,7 +562,6 @@
     <string name="sync_fail_ticker">sincronozare esuata</string>
     <string name="sync_fail_ticker_unauthorized">Sincronizarea a eșuat, autentificați-vă din nou</string>
     <string name="sync_file_nothing_to_do_msg">Continutul fisierului este deja sincronizat</string>
-    <string name="sync_folder_failed_content">Sincronizarea dosarului %1$s nu a putut fi finalizată</string>
     <string name="sync_foreign_files_forgotten_explanation">Conform ediției 1.3.16, fișierele încărcate de pe această platformă sunt copiate în dosarul local %1$s pentru a preveni pierderi de date atunci cînd un singur fișier este sincronizat cu mai multe conturi.\n\nDin cauza acestei schimbări, toate fișierele încărcate în edițiile precedente ale acestui app au fost încărcate in dosarul %2$s. Însă acest proces nu fost completat in timpul sincronizării contului din cauza unei erori. Ai opțiunea de a lăsa fișierul intact (fișierele intacte) și de a transfera sursa în dosarul %3$s sau de a schimba locația fișierului(-elor) în dosarul %1$s și de a păstra sursa în %4$s.\n\nMai jos găsești enumerate fișierul local(fișierele locale) și fișierul separat(fișierele separate) în %5$s cu sursa respectivă.</string>
     <string name="sync_foreign_files_forgotten_ticker">Unele fisiere locale au fost uitate</string>
     <string name="sync_string_files">Fișiere</string>
@@ -578,6 +587,7 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Fișier scurtătură pe Google Maps (%s)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Fișier scurtătură pe Internet (%s)</string>
     <string name="upload_file_dialog_filetype_snippet_text">Fragment de fișier (.txt)</string>
+    <string name="upload_list_delete">Șterge</string>
     <string name="upload_list_empty_headline">Nu există încărcări disponibile</string>
     <string name="upload_list_empty_text_auto_upload">Încărcați conținut sau activați încărcarea automată.</string>
     <string name="upload_query_move_foreign_files">Nu există spațiu suficient pentru a copia fișierele selectate în dosarul %1$s. Doriți să le mutați în schimb?</string>

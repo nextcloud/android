@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Samo lokalno</string>
     <string name="conflict_keep_both">Zadrži obje</string>
     <string name="conflict_message">Koje datoteke želite zadržati? Ako odaberete obje inačice, lokalna će datoteka uz naziv imati i broj.</string>
+    <string name="conflict_message_headline">Koje datoteke želite zadržati?</string>
     <string name="conflict_title">Nepodudaranje datoteka</string>
     <string name="conflict_use_local_version">lokalna inačica</string>
     <string name="conflict_use_server_version">inačica poslužitelja</string>
@@ -169,7 +170,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Trenutno nije podržano kopiranje/premještanje u šifriranu mapu.</string>
     <string name="copy_to">Kopiraj u…</string>
     <string name="could_not_download_image">Nije moguće preuzeti cijelu sliku</string>
-    <string name="could_not_retrieve_url">Nije moguće dohvatiti URL</string>
     <string name="create_dir_fail_msg">Nije moguće stvoriti mapu</string>
     <string name="create_new_document">Stvori novi dokument</string>
     <string name="create_new_folder">Stvori novu mapu</string>
@@ -255,6 +255,9 @@
     <string name="error_retrieving_file">Pogreška pri dohvaćanju datoteke</string>
     <string name="error_retrieving_templates">Pogreška pri dohvaćanju predložaka</string>
     <string name="error_starting_direct_camera_upload">Pogreška pri pokretanju kamere</string>
+    <string name="etm_accounts">Računi</string>
+    <string name="etm_background_job_progress">Napredak</string>
+    <string name="etm_background_jobs">Pozadinski zadaci</string>
     <string name="etm_preferences">Preferencije</string>
     <string name="etm_title">Inženjerski način rada za ispitivanje</string>
     <string name="fab_label">Dodaj ili otpremi</string>
@@ -667,7 +670,6 @@
     <string name="sync_fail_ticker">Sinkronizacija nije uspjela</string>
     <string name="sync_fail_ticker_unauthorized">Sinkronizacija nije uspjela, ponovno se prijavite</string>
     <string name="sync_file_nothing_to_do_msg">Sadržaj datoteke već je sinkroniziran</string>
-    <string name="sync_folder_failed_content">Sinkronizacija mape %1$s nije dovršena</string>
     <string name="sync_foreign_files_forgotten_explanation">Počevši od inačice 1.3.16, datoteke otpremljene s ovog uređaja kopiraju se u lokalnu mapu %1$s radi sprječavanja gubitka podataka kada se jedna datoteka sinkronizira s više računa.\n\nZbog ove promjene, datoteke otpremljene u starijim inačicama aplikacije kopirane su u mapu %2$s. Međutim, navedena radnja nije dovršena tijekom sinkronizacije računa zbog pogreške u radu. Možete ostaviti datoteku (datoteke) nepromijenjenom i izbrisati poveznicu na %3$s ili premjestiti datoteku (datoteke) u mapu %1$s i zadržati poveznicu na %4$s.\n\nU nastavku su navedene lokalne datoteke i udaljene datoteke u %5$s s kojima su povezane.</string>
     <string name="sync_foreign_files_forgotten_ticker">Neke lokalne datoteke su zaboravljene</string>
     <string name="sync_in_progress">Dohvaćanje najnovije inačice datoteke.</string>
@@ -717,12 +719,12 @@
     <string name="upload_file_dialog_title">Unesite naziv datoteke i vrstu datoteke za otpremanje</string>
     <string name="upload_files">Otpremi datoteke</string>
     <string name="upload_item_action_button">Gumb za otpremanje stavke</string>
+    <string name="upload_list_delete">Izbriši</string>
     <string name="upload_list_empty_headline">Nema dostupnih otprema</string>
     <string name="upload_list_empty_text_auto_upload">Otpremite neki sadržaj ili aktivirajte automatsko otpremanje.</string>
     <string name="upload_local_storage_full">Lokalni prostor za pohranu je pun</string>
     <string name="upload_local_storage_not_copied">Datoteku nije moguće kopirati u lokalni prostor za pohranu</string>
     <string name="upload_lock_failed">Zaključavanje mape nije uspjelo</string>
-    <string name="upload_old_android"><![CDATA[Šifriranje je moguće samo na inačici >= Androida 5.0]]></string>
     <string name="upload_query_move_foreign_files">Nedostatak prostora sprječava kopiranje odabranih datoteka u mapu %1$s. Želite li ih premjestiti tamo?</string>
     <string name="upload_sync_conflict">Nepodudaranje tijekom sinkronizacije, ručno otklonite poteškoću</string>
     <string name="upload_unknown_error">Nepoznata pogreška</string>

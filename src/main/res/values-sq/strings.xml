@@ -79,6 +79,7 @@
     <string name="autoupload_create_new_custom_folder">Krijoni një dosje të re me porosi</string>
     <string name="autoupload_custom_folder">Ndërtoni një dosje me porosi</string>
     <string name="autoupload_disable_power_save_check">Çaktivizoni kontrollin e kursimit të energjisë</string>
+    <string name="autoupload_hide_folder">Fshih dosjen</string>
     <string name="avatar">Avatari</string>
     <string name="battery_optimization_close">Mbylleni</string>
     <string name="battery_optimization_disable">Çaktivizoje</string>
@@ -140,8 +141,11 @@
     <string name="confirmation_remove_folder_alert">Doni vërtet të hiqet %1$s dhe përmbajtja e tij?</string>
     <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
     <string name="confirmation_remove_local">Vetëm vendorja</string>
+    <string name="conflict_already_existing_file">Skedar ekzistues</string>
     <string name="conflict_keep_both">Mbaji të dyja</string>
     <string name="conflict_message">Cilat kartela doni të mbani? Nëse përzgjidhni të dy versionet, skedarit vendorë do t\’i shtohet një numër te emri.</string>
+    <string name="conflict_message_description">Nëse zgjidhni të dy versionet, skedari lokal do të ketë një numër të bashkangjitur në emër</string>
+    <string name="conflict_message_headline">Cilat kartela doni të mbani?</string>
     <string name="conflict_title">Përplasje skedarësh</string>
     <string name="conflict_use_local_version">versionin vendor</string>
     <string name="conflict_use_server_version">versionin e shërbyesit</string>
@@ -168,7 +172,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopjimi/lëvizja në direktorinë e enkriptuar për momentin nuk suportohet.</string>
     <string name="copy_to">Kopjojeni tek…</string>
     <string name="could_not_download_image">Nuk mund të shkarkohet imazhi i plotë</string>
-    <string name="could_not_retrieve_url">Url nuk mund të merrej</string>
     <string name="create_dir_fail_msg">S’u krijua dot dosja</string>
     <string name="create_new_document">Krijo një dokument te ri</string>
     <string name="create_new_folder">Krijo një dosje të re</string>
@@ -251,6 +254,8 @@
     <string name="error_retrieving_file">Gabim në marrjen e skedarit</string>
     <string name="error_retrieving_templates">Gabim gjatë marrjes së shablloneve</string>
     <string name="error_starting_direct_camera_upload">Gabim në hapjen e kamerës</string>
+    <string name="etm_accounts">Llogaritë</string>
+    <string name="etm_background_jobs">Punët në background</string>
     <string name="etm_preferences">Preferencat</string>
     <string name="etm_title">Provë e mënyrës inxhinierike</string>
     <string name="fab_label">Shtoni ose ngarkoni</string>
@@ -657,7 +662,6 @@
     <string name="sync_fail_ticker">Sinkronizimi dështoi</string>
     <string name="sync_fail_ticker_unauthorized">Sinkronizimi dështoi, hyni përsëri</string>
     <string name="sync_file_nothing_to_do_msg">Përmbajtja e skedarit tashmë e sinkronizuar</string>
-    <string name="sync_folder_failed_content">Sinkronizimi i i dosjes %1$s nuk u plotësua</string>
     <string name="sync_foreign_files_forgotten_explanation">Nga versioni 1.3.16 e tutje, skedarët e ngarkuar nga kjo pajisje kopjohen te dosja vendore %1$s për të parandaluar humbje të dhënash, kur një skedar i vetëm sinkronizohet me disa llogari.\n\nPër shkak të këtij ndryshimi, të gjithë skedarët e ngarkuar nën versione të mëparshëm të këtij aplikacioni u kopjuan në dosjen %2$s. Por plotësimin e këtij veprimi e pengoi një gabim gjatë sinkronizimit të llogarisë. Ose mund t’i lini kartelat siç janë, dhe të hiqni lidhjen për te %3$s, ose të kaloni skedarët te dosja %1$s dhe të mbani lidhjen për te %4$s.\n\nMë poshtë radhiten skedarët vendor, dhe skedarët e largët te %5$s me të cilët lidhen.</string>
     <string name="sync_foreign_files_forgotten_ticker">Disa kartela vendore u harruan</string>
     <string name="sync_in_progress">Duke ngarkuar versionin më të fundit të skedarit.</string>
@@ -706,12 +710,12 @@
     <string name="upload_file_dialog_title">Vendos emrin dhe tipin e dokumentit të aploduar </string>
     <string name="upload_files">Ngarko skedarët</string>
     <string name="upload_item_action_button">Butoni i veprimit të ngarkimit të një artikulli</string>
+    <string name="upload_list_delete">Delete</string>
     <string name="upload_list_empty_headline">Nuk ka asnjë ngarkim në gjëndje</string>
     <string name="upload_list_empty_text_auto_upload">Ngarko disa përmbajtje ose aktivizo ngarkimin direkt. </string>
     <string name="upload_local_storage_full">Magazinimi lokal është plot</string>
     <string name="upload_local_storage_not_copied">Dosja nuk mund të kopjohej në memorien lokale</string>
     <string name="upload_lock_failed">Deshtoi kyçja e dosjes</string>
-    <string name="upload_old_android"><![CDATA[Enkriptimi është i mundur vetëm me >= Android 5.0]]></string>
     <string name="upload_query_move_foreign_files">Nuk ka hapësirë të mjaftueshme për të kopjuar fotografitë e zgjedhura në %1$s  dosje. Dëshironi ti lëvizni ata në vend që ti kopjoni?</string>
     <string name="upload_sync_conflict">Konflik në sinkronizim, ju lutemi zgjidheni manualisht</string>
     <string name="upload_unknown_error">Gabim i panjohur</string>

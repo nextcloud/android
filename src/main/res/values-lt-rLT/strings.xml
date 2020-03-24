@@ -126,8 +126,11 @@
     <string name="confirmation_remove_folder_alert">Ar tikrai norite ištrinti %1$s ir jo turinį?</string>
     <string name="confirmation_remove_folders_alert">Ar tikrai norite ištrinti pažymėtus elementus ir jų turinį?</string>
     <string name="confirmation_remove_local">Tik vietiniai</string>
+    <string name="conflict_already_existing_file">Jau esamas failas</string>
     <string name="conflict_keep_both">Palikti abu</string>
     <string name="conflict_message">Kurį failą renkates? Jeigu renkates abu failus, suteikite kitą vardą (pavadinimą)</string>
+    <string name="conflict_message_headline">Kuriuos failus norite pasilikti?</string>
+    <string name="conflict_new_file">Naujas failas</string>
     <string name="conflict_title">Failų konfliktas</string>
     <string name="conflict_use_local_version">Vietinė versija</string>
     <string name="conflict_use_server_version">Versija serveryje</string>
@@ -153,8 +156,8 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopijavimas/perkėlimas į šifruotą aplanką šiuo metu nėra palaikomas.</string>
     <string name="copy_to">Kopijuoti į…</string>
     <string name="could_not_download_image">Nepavyko atsisiųsti viso paveikslo</string>
-    <string name="could_not_retrieve_url">Nepavyko atgauti url</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
+    <string name="create_new">Sukurti naują</string>
     <string name="create_new_document">Sukurti naują dokumentą</string>
     <string name="create_new_folder">Sukurti naują aplanką</string>
     <string name="create_new_presentation">Sukurti naują pateiktį</string>
@@ -226,13 +229,19 @@
     <string name="error_retrieving_file">Klaida gaunant failą</string>
     <string name="error_retrieving_templates">Klaida gaunant šablonus</string>
     <string name="error_starting_direct_camera_upload">Klaida paleidžiant kamerą</string>
+    <string name="etm_accounts">Paskyros</string>
+    <string name="etm_background_job_progress">Eiga</string>
+    <string name="etm_background_jobs">Foninės užduotys</string>
     <string name="etm_preferences">Nuostatos</string>
     <string name="failed_to_download">Nepavyko perduoti failo į atsiuntimų tvarkytuvę</string>
+    <string name="failed_to_print">Nepavyko spausdinti failo</string>
+    <string name="failed_to_start_editor">Nepavyko paleisti redaktoriaus</string>
     <string name="fallback_weblogin_back">Atgal</string>
     <string name="favorite">Pridėti į mėgstamus</string>
     <string name="favorite_icon">Mėgstami</string>
     <string name="file">failas</string>
     <string name="file_delete">Ištrinti</string>
+    <string name="file_details_no_content">Nepavyko įkelti išsamesnės informacijos</string>
     <string name="file_icon">Failas</string>
     <string name="file_list_empty">Įkelkite tam tikrą turinį (medžiagą) arba sinchronizuokite su savo įrenginiais.</string>
     <string name="file_list_empty_favorite_headline">Kol kas nėra mėgstamų</string>
@@ -368,6 +377,9 @@
     <string name="new_media_folder_photos">photo</string>
     <string name="new_notification">Naujas pranešimas</string>
     <string name="new_version_was_created">Buvo sukurta nauja versija</string>
+    <string name="no_browser_available">Nėra programėlės, skirtos apdoroti nuorodas</string>
+    <string name="no_mutliple_accounts_allowed">Leidžiama tik viena paskyra</string>
+    <string name="no_pdf_app_available">Nėra programėlės, skirtos apdoroti PDF</string>
     <string name="note_confirm">Siųsti</string>
     <string name="notification_action_failed">Nepavyko įvykdyti veiksmą.</string>
     <string name="notification_channel_download_description">Rodo atsiuntimo eigą</string>
@@ -459,6 +471,7 @@
     <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
     <string name="scanQR_description">Prisijungti per QR kodą</string>
     <string name="screenshot_02_listView_heading">Naršyti ir bendrinti</string>
+    <string name="screenshot_03_drawer_heading">Veikla, viešiniai, …</string>
     <string name="screenshot_06_davdroid_heading">Kalendorius ir adresatai</string>
     <string name="search_users_and_groups_hint">Ieškoti naudotojų ar grupių</string>
     <string name="select_all">Pažymėti viską</string>
@@ -491,7 +504,7 @@
     <string name="share_privilege_can_edit_create">gali kurti</string>
     <string name="share_privilege_can_edit_delete">gali ištrinti</string>
     <string name="share_privilege_can_share">gali bendrinti</string>
-    <string name="share_privilege_unshare">Nebesidalinti</string>
+    <string name="share_privilege_unshare">Nustoti bendrinti</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
     <string name="share_room_clarification">%1$s (pokalbis)</string>
     <string name="share_search">Vardas, federacinės debesijos ID arba el. pašto adresas…</string>
@@ -561,6 +574,7 @@
     <string name="sync_file_nothing_to_do_msg">Failo turinys jau sunchronizuotas</string>
     <string name="sync_foreign_files_forgotten_ticker">Keli vietiniai failai buvo užmiršti</string>
     <string name="sync_in_progress">Gaunama paskiausia failo versija.</string>
+    <string name="sync_not_enough_space_dialog_title">Trūksta vietos</string>
     <string name="sync_string_files">Failai</string>
     <string name="synced_folder_settings_button">Nustatymų mygtukas</string>
     <string name="synced_folders_configure_folders">Konfigūruokite aplankus</string>
@@ -585,7 +599,7 @@
     <string name="unset_favorite">Šalinti iš mėgstamų</string>
     <string name="unshare_link_file_error">Įvyko klaida bandant nebedalinti šio failu ar aplanku</string>
     <string name="unshare_link_file_no_exist">Nepavyksta nebedalinti. Patikrinkite ar failas egzistuoja</string>
-    <string name="unshare_link_forbidden_permissions">nebesidalinti failu</string>
+    <string name="unshare_link_forbidden_permissions">nustoti bendrinti šį failą</string>
     <string name="unsharing_failed">Nepavyko nustoti bendrinti</string>
     <string name="update_link_file_error">Bandant atnaujinti žymes įvyko klaida</string>
     <string name="update_link_file_no_exist">Nepavyksta nebedalinti. Patikrinkite ar failas egzistuoja</string>
@@ -600,12 +614,13 @@
     <string name="upload_file_dialog_filetype_snippet_text">Ištraukos tekstinis failas(.txt)</string>
     <string name="upload_file_dialog_title">Įrašykite failo pavadinimą ir tipą įkėlimui</string>
     <string name="upload_files">Įkelti failus</string>
+    <string name="upload_list_delete">Ištrinti</string>
     <string name="upload_list_empty_headline">Atnaujinimų nerasta</string>
     <string name="upload_list_empty_text_auto_upload">Įkelkite failus arba sinchronizuokite su savo įrenginiais</string>
     <string name="upload_local_storage_full">Vietinė saugykla pilna</string>
     <string name="upload_local_storage_not_copied">Nepavyko nukopijuoti failo į vietinę saugyklą</string>
     <string name="upload_lock_failed">Nepavyko užrakinti aplanko</string>
-    <string name="upload_old_android"><![CDATA[Šifravimas įmanomas tik naudojant >= Android 5.0]]></string>
+    <string name="upload_old_android">Šifravimas įmanomas tik naudojant &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Nepakankamas vietos kiekis neleidžia kopijuoti pasirinktų failų į %1$s aplanką. Ar norėtumėte vietoje to juos perkelti?</string>
     <string name="upload_sync_conflict">Sinchronizavimo konfliktas, išspręskite rankiniu būdu</string>
     <string name="upload_unknown_error">Nežinoma klaida</string>
