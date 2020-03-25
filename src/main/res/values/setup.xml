@@ -129,6 +129,7 @@
 
     <!-- kDrive -->
     <bool name="notifications_enabled">false</bool>
+    <bool name="show_first_run_slider">true</bool>
 </resources>
 
 
