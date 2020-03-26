@@ -1,3 +1,14 @@
+3.11.0 (March, 26, 2020)
+
+- not enough space dialog @Shagequi
+- fix shared search
+- upload existing images in auto upload @koying @ArisuOngaku
+- allow deep links @Charon77
+- support for circle
+- last version supporting Android 4.1
+
+For a full list, please see https://github.com/nextcloud/android/milestone/41
+
 ## 3.10.1 (February, 05, 2020)
 
 - fix crash on self-signed certificates
