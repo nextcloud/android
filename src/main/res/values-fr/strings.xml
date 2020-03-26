@@ -488,7 +488,7 @@ Attention la suppression est irréversible.</string>
     <string name="pref_behaviour_entries_keep_file">conservé dans le dossier original</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
     <string name="prefs_add_account">Ajouter un compte</string>
-    <string name="prefs_calendar_contacts">Synchroniser les contacts du calendrier&amp;</string>
+    <string name="prefs_calendar_contacts">Synchroniser vos contacts et vos calendriers</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni Google Play Store ou F-Droid ne sont installés</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisation de l\'agenda &amp; des contacts configurée</string>
     <string name="prefs_category_about">À propos</string>
