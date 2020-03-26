@@ -266,6 +266,7 @@
     <string name="etm_background_job_progress">Avanzamento</string>
     <string name="etm_background_job_started">Avviata</string>
     <string name="etm_background_job_state">Stato</string>
+    <string name="etm_background_job_user">Utente</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Operazioni in background</string>
     <string name="etm_background_jobs_cancel_all">Annulla tutte le operazioni</string>

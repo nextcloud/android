@@ -266,6 +266,7 @@
     <string name="etm_background_job_progress">Прогресс</string>
     <string name="etm_background_job_started">Начато</string>
     <string name="etm_background_job_state">Состояние</string>
+    <string name="etm_background_job_user">Пользователь</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Фоновые задания</string>
     <string name="etm_background_jobs_cancel_all">Отменить все задания</string>
