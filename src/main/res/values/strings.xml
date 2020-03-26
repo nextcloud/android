@@ -541,6 +541,7 @@
     <string name="copy_to">Copy to…</string>
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="choose_local_folder">Choose local folder…</string>
+    <string name="local_folder_friendly_path">%1$s /%2$s</string>
     <string name="synced_folders_loading_folders">Loading folders…</string>
     <string name="synced_folders_no_results">No media folders found</string>
     <plurals name="synced_folders_show_hidden_folders">

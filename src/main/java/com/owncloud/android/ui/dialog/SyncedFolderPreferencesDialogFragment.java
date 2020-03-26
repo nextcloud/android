@@ -46,6 +46,7 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
@@ -218,7 +219,10 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                                     mSyncedFolder.getLocalPath()),
                             mSyncedFolder.getFolderName(),
                             new StyleSpan(Typeface.BOLD)));
-            mLocalFolderSummary.setText(mSyncedFolder.getLocalPath());
+            mLocalFolderSummary.setText(FileStorageUtils.pathToUserFriendlyDisplay(
+                mSyncedFolder.getLocalPath(),
+                getActivity(),
+                getResources()));
         } else {
             mLocalFolderSummary.setText(R.string.choose_local_folder);
         }
@@ -272,11 +276,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
      * to the underlying activity since the picker is an activity and the result can't get passed to the dialog
      * fragment directly.
      *
-     * @param path the remote path to be set
+     * @param path the local path to be set
      */
     public void setLocalFolderSummary(String path) {
         mSyncedFolder.setLocalPath(path);
-        mLocalFolderSummary.setText(path);
+        mLocalFolderSummary.setText(FileStorageUtils.pathToUserFriendlyDisplay(path, getActivity(), getResources()));
         mLocalFolderPath.setText(
                 DisplayUtils.createTextWithSpan(
                         String.format(
