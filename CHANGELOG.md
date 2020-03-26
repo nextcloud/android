@@ -1,4 +1,4 @@
-3.11.0 (March, 26, 2020)
+## 3.11.0 (March, 26, 2020)
 
 - not enough space dialog @Shagequi
 - fix shared search
