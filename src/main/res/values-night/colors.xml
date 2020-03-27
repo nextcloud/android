@@ -22,7 +22,7 @@
 
     <color name="text_color">#ffffff</color>
     <color name="text_color_inverse">#000000</color>
-    <color name="list_divider_background">#222</color>
+    <color name="list_divider_background">#222222</color>
 
     <!-- Colors -->
     <color name="bg_default">#151515</color>
