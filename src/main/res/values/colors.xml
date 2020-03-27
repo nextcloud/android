@@ -27,7 +27,7 @@
     <color name="text_color">#000000</color>
     <color name="text_color_inverse">#ffffff</color>
     <color name="disabled_text">#ff888888</color>
-    <color name="list_divider_background">#eee</color>
+    <color name="list_divider_background">#eeeeee</color>
     <color name="fg_contrast">#656565</color>
     <color name="fg_inverse">#FFFFFF</color>
     <color name="filelist_icon_background">#DDDDDD</color>
