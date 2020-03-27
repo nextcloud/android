@@ -29,8 +29,6 @@
     <color name="fg_contrast">#717171</color>
     <color name="primary_button_text_color">#000000</color>
 
-    <color name="uploader_list_separator_color">#2a2a2a</color>
-
     <!-- Multiselect backgrounds -->
     <color name="action_mode_status_bar_background">#ECECEC</color>
     <color name="selected_item_background">#757575</color>
