@@ -127,9 +127,9 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/bottom_sheet_menu_item_divider_standard_margin"
+        android:layout_marginStart="@dimen/bottom_sheet_menu_item_divider_standard_margin"
         android:layout_marginTop="@dimen/standard_half_margin"
-        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_half_margin"
         android:background="@color/list_divider_background"/>
 
@@ -166,9 +166,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/bottom_sheet_menu_item_divider_standard_margin"
+        android:layout_marginStart="@dimen/bottom_sheet_menu_item_divider_standard_margin"
         android:layout_marginTop="@dimen/standard_half_margin"
-        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_half_margin"
         android:background="@color/list_divider_background" />
 
@@ -266,9 +266,9 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="@dimen/bottom_sheet_menu_item_divider_standard_margin"
+            android:layout_marginStart="@dimen/bottom_sheet_menu_item_divider_standard_margin"
             android:layout_marginTop="@dimen/standard_half_margin"
-            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
             android:layout_marginBottom="@dimen/standard_half_margin"
             android:background="@color/list_divider_background" />
     </LinearLayout>
@@ -291,9 +291,9 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="@dimen/bottom_sheet_menu_item_divider_standard_margin"
+            android:layout_marginStart="@dimen/bottom_sheet_menu_item_divider_standard_margin"
             android:layout_marginTop="@dimen/standard_half_margin"
-            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
             android:layout_marginBottom="@dimen/standard_half_margin"
             android:background="@color/list_divider_background" />
     </LinearLayout>
