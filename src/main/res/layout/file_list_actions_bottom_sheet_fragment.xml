@@ -129,7 +129,7 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/bottom_sheet_menu_item_divider_standard_margin"
         android:layout_marginTop="@dimen/standard_half_margin"
         android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_half_margin"
@@ -169,7 +169,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/bottom_sheet_menu_item_divider_standard_margin"
         android:layout_marginTop="@dimen/standard_half_margin"
         android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_half_margin"
@@ -272,7 +272,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginLeft="@dimen/bottom_sheet_menu_item_divider_standard_margin"
             android:layout_marginTop="@dimen/standard_half_margin"
             android:layout_marginRight="@dimen/standard_margin"
             android:layout_marginBottom="@dimen/standard_half_margin"
@@ -297,7 +297,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginLeft="@dimen/bottom_sheet_menu_item_divider_standard_margin"
             android:layout_marginTop="@dimen/standard_half_margin"
             android:layout_marginRight="@dimen/standard_margin"
             android:layout_marginBottom="@dimen/standard_half_margin"
