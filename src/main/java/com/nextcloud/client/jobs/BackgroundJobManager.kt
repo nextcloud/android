@@ -66,9 +66,28 @@ interface BackgroundJobManager {
      * Immediately start single contacts backup job.
      * This job will launch independently from periodic contacts backup.
      *
-     * @return Job info with current status, or null if job does not exist anymore
+     * @return Job info with current status; status is null if job does not exist
      */
     fun startImmediateContactsBackup(user: User): LiveData<JobInfo?>
+
+    /**
+     * Immediately start contacts import job. Import job will be started only once.
+     * If new job is started while existing job is running - request will be ignored
+     * and currently running job will continue running.
+     *
+     * @param contactsAccountName Target contacts account name; null for local contacts
+     * @param contactsAccountType Target contacts account type; null for local contacts
+     * @param vCardFilePath Path to file containing all contact entries
+     * @param selectedContacts List of contact indices to import from [vCardFilePath] file
+     *
+     * @return Job info with current status; status is null if job does not exist
+     */
+    fun startImmediateContactsImport(
+        contactsAccountName: String?,
+        contactsAccountType: String?,
+        vCardFilePath: String,
+        selectedContacts: IntArray
+    ): LiveData<JobInfo?>
 
     fun scheduleTestJob()
     fun cancelTestJob()
