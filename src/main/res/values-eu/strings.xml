@@ -266,6 +266,7 @@
     <string name="etm_background_job_progress">Aurrerapena</string>
     <string name="etm_background_job_started">Hasi da</string>
     <string name="etm_background_job_state">Egoera</string>
+    <string name="etm_background_job_user">Erabiltzailea</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Atzeko planoko lanak</string>
     <string name="etm_background_jobs_cancel_all">Lan guztiak ezeztatu</string>
