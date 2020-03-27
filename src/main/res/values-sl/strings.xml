@@ -142,6 +142,7 @@
     <string name="confirmation_remove_folders_alert">Ali zares želite izbrisati izbrane predmete in vsebino?</string>
     <string name="confirmation_remove_local">Le krajevno</string>
     <string name="conflict_already_existing_file">Obstoječa datoteka</string>
+    <string name="conflict_dialog_error">Prišlo je do napake med pogovornega okna spora!</string>
     <string name="conflict_keep_both">Ohrani obe</string>
     <string name="conflict_message">Katere datoteke želiš ohraniti? Če izbereš obe različici, bo lokalni datoteki dodatna k imenu še številka.</string>
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
@@ -261,8 +262,17 @@
     <string name="error_retrieving_templates">Napaka pridobivanja predlog</string>
     <string name="error_starting_direct_camera_upload">Napaka začenjanja kamere</string>
     <string name="etm_accounts">Računi</string>
+    <string name="etm_background_job_name">Ime opravila</string>
     <string name="etm_background_job_progress">Napredek pošiljanja</string>
+    <string name="etm_background_job_started">Začeto</string>
+    <string name="etm_background_job_state">Stanje</string>
+    <string name="etm_background_job_user">Uporabnik</string>
+    <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Opravila v ozadju</string>
+    <string name="etm_background_jobs_cancel_all">Prekliči vse posle</string>
+    <string name="etm_background_jobs_prune">Obreži nedejavna opravila</string>
+    <string name="etm_background_jobs_start_test_job">Začni preizkusno opravilo</string>
+    <string name="etm_background_jobs_stop_test_job">Zaustavi preizkusno opravilo</string>
     <string name="etm_preferences">Nastavitve</string>
     <string name="etm_title">Inženirski preizkusni način</string>
     <string name="fab_label">Dodaj ali pošlji</string>
@@ -575,6 +585,8 @@
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_internal_link">Notranja povezava mesta souporabe</string>
     <string name="share_internal_link_text">Deluje le za uporabnike z dostopom do %1$s</string>
+    <string name="share_internal_link_to_file_text">Notranja povezava mesta souporabe deluje le za uporabnike z dostopom do datoteke.</string>
+    <string name="share_internal_link_to_folder_text">Notranja povezava mesta souporabe deluje le za uporabnike z dostopom do mape.</string>
     <string name="share_known_remote_clarification">%1$s ( pri %2$s )</string>
     <string name="share_link_empty_password">Vpisati je treba geslo.</string>
     <string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
