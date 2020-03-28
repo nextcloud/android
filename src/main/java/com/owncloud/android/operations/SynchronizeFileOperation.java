@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
@@ -48,7 +49,7 @@ public class SynchronizeFileOperation extends SyncOperation {
     private OCFile mLocalFile;
     private String mRemotePath;
     private OCFile mServerFile;
-    private Account mAccount;
+    private User mUser;
     private boolean mSyncFileContents;
     private Context mContext;
     private boolean mTransferWasRequested;
@@ -70,21 +71,21 @@ public class SynchronizeFileOperation extends SyncOperation {
      * Useful for direct synchronization of a single file.
      *
      * @param remotePath       remote path of the file
-     * @param account          ownCloud account holding the file.
+     * @param user             Nextcloud user owning the file.
      * @param syncFileContents When 'true', transference of data will be started by the
      *                         operation if needed and no conflict is detected.
      * @param context          Android context; needed to start transfers.
      */
     public SynchronizeFileOperation(
             String remotePath,
-            Account account,
+            User user,
             boolean syncFileContents,
             Context context) {
 
         mRemotePath = remotePath;
         mLocalFile = null;
         mServerFile = null;
-        mAccount = account;
+        mUser = user;
         mSyncFileContents = syncFileContents;
         mContext = context;
         mAllowUploads = true;
@@ -105,7 +106,7 @@ public class SynchronizeFileOperation extends SyncOperation {
      * @param localFile        Data of file (just) retrieved from local cache/database.
      * @param serverFile       Data of file (just) retrieved from a remote server. If null,
      *                         will be retrieved from network by the operation when executed.
-     * @param account          ownCloud account holding the file.
+     * @param user             Nextcloud user owning the file.
      * @param syncFileContents When 'true', transference of data will be started by the
      *                         operation if needed and no conflict is detected.
      * @param context          Android context; needed to start transfers.
@@ -113,7 +114,7 @@ public class SynchronizeFileOperation extends SyncOperation {
     public SynchronizeFileOperation(
             OCFile localFile,
             OCFile serverFile,
-            Account account,
+            User user,
             boolean syncFileContents,
             Context context) {
 
@@ -130,7 +131,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         } else {
             throw new IllegalArgumentException("Both serverFile and localFile are NULL");
         }
-        mAccount = account;
+        mUser = user;
         mSyncFileContents = syncFileContents;
         mContext = context;
         mAllowUploads = true;
@@ -153,7 +154,7 @@ public class SynchronizeFileOperation extends SyncOperation {
      * @param serverFile       Data of file (just) retrieved from a remote server.
      *                         If null, will be retrieved from network by the operation
      *                         when executed.
-     * @param account          ownCloud account holding the file.
+     * @param user             Nextcloud user owning the file.
      * @param syncFileContents When 'true', transference of data will be started by the
      *                         operation if needed and no conflict is detected.
      * @param allowUploads     When 'false', uploads to the server are not done;
@@ -163,12 +164,12 @@ public class SynchronizeFileOperation extends SyncOperation {
     public SynchronizeFileOperation(
             OCFile localFile,
             OCFile serverFile,
-            Account account,
+            User user,
             boolean syncFileContents,
             boolean allowUploads,
             Context context) {
 
-        this(localFile, serverFile, account, syncFileContents, context);
+        this(localFile, serverFile, user, syncFileContents, context);
         mAllowUploads = allowUploads;
     }
 
@@ -278,7 +279,7 @@ public class SynchronizeFileOperation extends SyncOperation {
 
         }
 
-        Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", file " + mLocalFile.getRemotePath() +
+        Log_OC.i(TAG, "Synchronizing " + mUser.getAccountName() + ", file " + mLocalFile.getRemotePath() +
                 ": " + result.getLogMessage());
 
         return result;
@@ -293,7 +294,7 @@ public class SynchronizeFileOperation extends SyncOperation {
     private void requestForUpload(OCFile file) {
         FileUploader.uploadUpdateFile(
             mContext,
-            mAccount,
+            mUser.toPlatformAccount(),
             file,
             FileUploader.LOCAL_BEHAVIOUR_MOVE,
             FileUploader.NameCollisionPolicy.OVERWRITE
@@ -310,7 +311,7 @@ public class SynchronizeFileOperation extends SyncOperation {
      */
     private void requestForDownload(OCFile file) {
         Intent i = new Intent(mContext, FileDownloader.class);
-        i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
+        i.putExtra(FileDownloader.EXTRA_USER, mUser);
         i.putExtra(FileDownloader.EXTRA_FILE, file);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             mContext.startForegroundService(i);

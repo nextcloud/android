@@ -2151,11 +2151,11 @@ public class FileDisplayActivity extends FileActivity
 
 
     private void requestForDownload() {
-        Account account = getAccount();
+        User user = getUser().orElseThrow(RuntimeException::new);
         //if (!mWaitingToPreview.isDownloading()) {
-        if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
+        if (!mDownloaderBinder.isDownloading(user.toPlatformAccount(), mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
+            i.putExtra(FileDownloader.EXTRA_USER, user);
             i.putExtra(FileDownloader.EXTRA_FILE, mWaitingToPreview);
             startService(i);
         }
@@ -2241,10 +2241,10 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void requestForDownload(OCFile file, String downloadBehaviour, String packageName, String activityName) {
-        Account account = getAccount();
-        if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
+        final User currentUser = getUser().orElseThrow(RuntimeException::new);
+        if (!mDownloaderBinder.isDownloading(currentUser.toPlatformAccount(), mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
+            i.putExtra(FileDownloader.EXTRA_USER, currentUser);
             i.putExtra(FileDownloader.EXTRA_FILE, file);
             i.putExtra(SendShareDialog.PACKAGE_NAME, packageName);
             i.putExtra(SendShareDialog.ACTIVITY_NAME, activityName);
@@ -2405,9 +2405,10 @@ public class FileDisplayActivity extends FileActivity
     }
 
     public void startContactListFragment(OCFile file) {
+        final User user = getUser().orElseThrow(RuntimeException::new);
         Intent intent = new Intent(this, ContactsPreferenceActivity.class);
         intent.putExtra(ContactListFragment.FILE_NAME, Parcels.wrap(file));
-        intent.putExtra(ContactListFragment.ACCOUNT, Parcels.wrap(getAccount()));
+        intent.putExtra(ContactListFragment.USER, user);
         startActivity(intent);
     }
 

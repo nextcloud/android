@@ -157,8 +157,9 @@ public class OfflineSyncJob extends Job {
             for (File file : files) {
                 OCFile ocFile = storageManager.getFileByLocalPath(file.getPath());
                 SynchronizeFileOperation synchronizeFileOperation = new SynchronizeFileOperation(ocFile.getRemotePath(),
-                        user.toPlatformAccount(), true, getContext());
-
+                                                                                                 user,
+                                                                                                 true,
+                                                                                                 getContext());
                 synchronizeFileOperation.execute(storageManager, getContext());
             }
         }

@@ -47,6 +47,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.widget.Toast;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -198,10 +199,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         OCFile ocFile = document.getFile();
         Account account = document.getAccount();
+        final User user = accountManager.getUser(account.name).orElseThrow(RuntimeException::new); // should exist
 
         if (!ocFile.isDown()) {
             Intent i = new Intent(getContext(), FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
+            i.putExtra(FileDownloader.EXTRA_USER, user);
             i.putExtra(FileDownloader.EXTRA_FILE, ocFile);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 context.startForegroundService(i);
@@ -223,8 +225,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             OCFile finalFile = ocFile;
             Thread syncThread = new Thread(() -> {
                 try {
-                    FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
-                    RemoteOperationResult result = new SynchronizeFileOperation(finalFile, null, account,
+                    FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(),
+                                                                                       context.getContentResolver());
+                    RemoteOperationResult result = new SynchronizeFileOperation(finalFile, null, user,
                                                                                 true, context)
                         .execute(storageManager, context);
                     if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
@@ -233,7 +236,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                         Intent i = new Intent(context, ConflictsResolveActivity.class);
                         i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
                         i.putExtra(ConflictsResolveActivity.EXTRA_FILE, finalFile);
-                        i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
+                        i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
                         context.startActivity(i);
                     } else {
                         FileStorageUtils.checkIfFileFinishedSaving(finalFile);
@@ -265,7 +268,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             try {
                 Handler handler = new Handler(context.getMainLooper());
                 return ParcelFileDescriptor.open(file, accessMode, handler, l -> {
-                    RemoteOperationResult result = new SynchronizeFileOperation(newFile, oldFile, account, true,
+                    RemoteOperationResult result = new SynchronizeFileOperation(newFile, oldFile, user, true,
                                                                                 context)
                         .execute(document.getClient(), document.getStorageManager());
 
