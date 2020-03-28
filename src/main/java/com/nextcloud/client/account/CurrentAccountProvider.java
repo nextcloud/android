@@ -21,7 +21,7 @@ public interface CurrentAccountProvider {
     Account getCurrentAccount();
 
     /**
-     * Get currently active user profile. If there is no actice user, anonymous user is returned.
+     * Get currently active user profile. If there is no active user, anonymous user is returned.
      *
      * @return User profile. Profile is never null.
      */

@@ -198,13 +198,13 @@ public class FileOperationsHelper {
 
     public void startSyncForFileAndIntent(OCFile file, Intent intent) {
         new Thread(() -> {
-            Account account = fileActivity.getAccount();
+            User user = fileActivity.getUser().orElseThrow(RuntimeException::new);
             FileDataStorageManager storageManager = new FileDataStorageManager(fileActivity.getAccount(),
                                                                                fileActivity.getContentResolver());
 
             // check if file is in conflict (this is known due to latest folder refresh)
             if (file.isInConflict()) {
-                syncFile(file, account, storageManager);
+                syncFile(file, user, storageManager);
                 EventBus.getDefault().post(new SyncEventFinished(intent));
 
                 return;
@@ -230,22 +230,22 @@ public class FileOperationsHelper {
             // check for changed eTag
             CheckEtagRemoteOperation checkEtagOperation = new CheckEtagRemoteOperation(file.getRemotePath(),
                 file.getEtag());
-            RemoteOperationResult result = checkEtagOperation.execute(account, fileActivity);
+            RemoteOperationResult result = checkEtagOperation.execute(user.toPlatformAccount(), fileActivity);
 
             // eTag changed, sync file
             if (result.getCode() == RemoteOperationResult.ResultCode.ETAG_CHANGED) {
-                syncFile(file, account, storageManager);
+                syncFile(file, user, storageManager);
             }
 
             EventBus.getDefault().post(new SyncEventFinished(intent));
         }).start();
     }
 
-    private void syncFile(OCFile file, Account account, FileDataStorageManager storageManager) {
+    private void syncFile(OCFile file, User user, FileDataStorageManager storageManager) {
         fileActivity.runOnUiThread(() -> fileActivity.showLoadingDialog(fileActivity.getResources()
                 .getString(R.string.sync_in_progress)));
 
-        SynchronizeFileOperation sfo = new SynchronizeFileOperation(file, null, account, true, fileActivity);
+        SynchronizeFileOperation sfo = new SynchronizeFileOperation(file, null, user, true, fileActivity);
         RemoteOperationResult result = sfo.execute(storageManager, fileActivity);
 
         if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
@@ -254,7 +254,7 @@ public class FileOperationsHelper {
             Intent i = new Intent(fileActivity, ConflictsResolveActivity.class);
             i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
             i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
-            i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
+            i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, user);
             fileActivity.startActivity(i);
         } else {
             if (file.isDown()) {
@@ -313,7 +313,7 @@ public class FileOperationsHelper {
                     // since it was registered to observe again, assuming that local files
                     // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
                     SynchronizeFileOperation sfo =
-                            new SynchronizeFileOperation(file, null, user.toPlatformAccount(), true, fileActivity);
+                            new SynchronizeFileOperation(file, null, user, true, fileActivity);
                     RemoteOperationResult result = sfo.execute(storageManager, fileActivity);
                     fileActivity.dismissLoadingDialog();
                     if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {

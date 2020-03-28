@@ -522,8 +522,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         }
 
         if (backupToRestore != null) {
-            Fragment contactListFragment = ContactListFragment.newInstance(backupToRestore,
-                    contactsPreferenceActivity.getAccount());
+            final User user = contactsPreferenceActivity.getUser().orElseThrow(RuntimeException::new);
+            Fragment contactListFragment = ContactListFragment.newInstance(backupToRestore, user);
 
             contactsPreferenceActivity.getSupportFragmentManager().
                     beginTransaction()

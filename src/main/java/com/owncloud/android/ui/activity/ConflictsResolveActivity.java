@@ -130,7 +130,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                         if (!shouldDeleteLocal()) {
                             // Overwrite local file
                             Intent intent = new Intent(getBaseContext(), FileDownloader.class);
-                            intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
+                            intent.putExtra(FileDownloader.EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
                             intent.putExtra(FileDownloader.EXTRA_FILE, file);
                             if (conflictUpload != null) {
                                 intent.putExtra(FileDownloader.EXTRA_CONFLICT_UPLOAD, conflictUpload);

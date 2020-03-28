@@ -36,6 +36,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -393,8 +394,9 @@ public class PreviewImageActivity extends FileActivity implements
             Log_OC.d(TAG, "requestForDownload called without binder to download service");
 
         } else if (!mDownloaderBinder.isDownloading(getAccount(), file)) {
+            final User user = getUser().orElseThrow(RuntimeException::new);
             Intent i = new Intent(this, FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
+            i.putExtra(FileDownloader.EXTRA_USER, user);
             i.putExtra(FileDownloader.EXTRA_FILE, file);
             startService(i);
         }
