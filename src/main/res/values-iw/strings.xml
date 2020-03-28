@@ -141,12 +141,7 @@
     <string name="confirmation_remove_folder_alert">למחוק את %1$s על תוכנו?</string>
     <string name="confirmation_remove_folders_alert">למחוק את הפריטים הנבחרים ואת תוכנם?</string>
     <string name="confirmation_remove_local">מקומי בלבד</string>
-    <string name="conflict_keep_both">להשאיר את שניהם</string>
-    <string name="conflict_message">איזה קבצים לשמור? אם יבחרו שתי הגרסאות, הקובץ המקומי יקבל מספר שיצורף לשמו.</string>
     <string name="conflict_message_headline">אילו קבצים ברצונך לשמור?</string>
-    <string name="conflict_title">התנגשות בין קבצים</string>
-    <string name="conflict_use_local_version">גרסה מקומית</string>
-    <string name="conflict_use_server_version">גרסת שרת</string>
     <string name="contaclist_restore_selected">שחזור אנשי הקשר הנבחרים</string>
     <string name="contactlist_account_chooser_title">נא לבחור חשבון לייבוא</string>
     <string name="contactlist_item_icon">סמן משתמש לרשימת אנשי קשר</string>
@@ -264,7 +259,6 @@
     <string name="fallback_weblogin_text">החזרה לשיטת כניסה ישנה</string>
     <string name="favorite">הוספה למועדפים</string>
     <string name="favorite_icon">סימון כמועדף</string>
-    <string name="file">קובץ</string>
     <string name="file_delete">מחיקה</string>
     <string name="file_detail_activity_error">שגיאה בקבלת הפעילויות לקובץ</string>
     <string name="file_details_no_content">טעינת הפרטים נכשלה</string>
@@ -334,7 +328,6 @@
     <string name="first_run_2_text">שיתוף פעולה והעברת קבצים באופן מאובטח</string>
     <string name="first_run_3_text">אתר מייל, לוח שנה ואנשי קשר נוחים לשימוש</string>
     <string name="first_run_4_text">שיתוף מסך, פגישות מקוונות וכנסים מקוונים</string>
-    <string name="folder">תיקייה</string>
     <string name="folder_already_exists">התיקייה כבר קיימת</string>
     <string name="folder_confirm_create">יצירה</string>
     <string name="folder_icon">סמל תיקייה</string>
@@ -565,7 +558,6 @@
     <string name="share_get_public_link_button">קבלת קישור</string>
     <string name="share_group_clarification">%1$s (קבוצה)</string>
     <string name="share_internal_link">שיתוף קישור פנימי</string>
-    <string name="share_internal_link_text">עובד עבור משתמשים עם גישה ל%1$s הזו</string>
     <string name="share_known_remote_clarification">%1$s ( ב- %2$s )</string>
     <string name="share_link_empty_password">יש להכניס סיסמא</string>
     <string name="share_link_file_error">שגיאה אירעה בזמן ניסיון לשתף קובץ זה או תיקייה זו</string>

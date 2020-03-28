@@ -141,12 +141,7 @@
     <string name="confirmation_remove_folder_alert">آیا واقعا می خواهید %1$s و محتویات آن را حذف کنید؟</string>
     <string name="confirmation_remove_folders_alert">آیا واقعاً می خواهید موارد انتخاب شده و محتوای آنها حذف شود؟</string>
     <string name="confirmation_remove_local">فقط محلی</string>
-    <string name="conflict_keep_both">نگهداشتن هر دو</string>
-    <string name="conflict_message">کدام فایل ها را می خواهید نگه دارید؟ اگر هر دو نسخه را انتخاب کنید ، فایل محلی شماره ای به نام آن اضافه خواهد شد.</string>
     <string name="conflict_message_headline">کدام فایل ها را می خواهید نگه دارید ؟</string>
-    <string name="conflict_title">تضاد در فایل</string>
-    <string name="conflict_use_local_version">نسخه‌ی محلی</string>
-    <string name="conflict_use_server_version">نسخه سرور</string>
     <string name="contaclist_restore_selected">بازیابی مخاطبین انتخاب شده</string>
     <string name="contactlist_account_chooser_title">حساب را برای وارد کردن انتخاب کنید</string>
     <string name="contactlist_item_icon">آیکون کاربر برای لیست تماس</string>
@@ -269,7 +264,6 @@
     <string name="fallback_weblogin_text">به روش ورود به سیستم قدیمی برگردید</string>
     <string name="favorite">Add to favorites</string>
     <string name="favorite_icon">برگزیده</string>
-    <string name="file">file</string>
     <string name="file_delete">حذف</string>
     <string name="file_detail_activity_error">خطا در بازیابی فعالیت ها برای پرونده</string>
     <string name="file_details_no_content">بارگیری جزئیات انجام نشد</string>
@@ -339,7 +333,6 @@
     <string name="first_run_2_text">همکاری ایمن &amp; تبادل پرونده</string>
     <string name="first_run_3_text">آسان برای استفاده از ایمیل وب ، تقویم &amp; مخاطبین</string>
     <string name="first_run_4_text">اشتراک گذاری صفحه ، جلسات آنلاین &amp; کنفرانس های وب</string>
-    <string name="folder">folder</string>
     <string name="folder_already_exists">پوشه از قبل موجود است</string>
     <string name="folder_confirm_create">ایجاد کردن</string>
     <string name="folder_icon">آیکون پوشه</string>
@@ -571,7 +564,6 @@
     <string name="share_get_public_link_button">دریافت لینک</string>
     <string name="share_group_clarification">%1$s (گروه)</string>
     <string name="share_internal_link">پیوند داخلی را به اشتراک بگذارید</string>
-    <string name="share_internal_link_text">فقط برای کاربرانی که دسترسی به این کار دارند ، کار می کند %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( در%2$s )</string>
     <string name="share_link_empty_password">شما باید یک رمزعبور را وارد کنید</string>
     <string name="share_link_file_error">در حین اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>

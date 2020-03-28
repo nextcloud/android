@@ -141,13 +141,8 @@
     <string name="confirmation_remove_folder_alert">本当に %1$s を中身も一緒に削除しますか？</string>
     <string name="confirmation_remove_folders_alert">本当に選択したアイテムとその内容を削除しますか？</string>
     <string name="confirmation_remove_local">ローカルのみ</string>
-    <string name="conflict_keep_both">両方を保持</string>
-    <string name="conflict_message">どちらのファイルを保存したいですか？両方のバージョンを選択した場合は、ファイル名の後ろに数字を追加したファイルのコピーを作成します。</string>
     <string name="conflict_message_headline">どちらのファイルを保持しますか？</string>
     <string name="conflict_new_file">新しいファイル</string>
-    <string name="conflict_title">ファイル競合</string>
-    <string name="conflict_use_local_version">ローカルのもの</string>
-    <string name="conflict_use_server_version">サーバーのバージョン</string>
     <string name="contaclist_restore_selected">選択したアドレス帳を復元</string>
     <string name="contactlist_account_chooser_title">インポートするアカウントを選択</string>
     <string name="contactlist_item_icon">連絡先リストのユーザーアイコン</string>
@@ -277,7 +272,6 @@
     <string name="fallback_weblogin_text">古いログイン方法へ戻す</string>
     <string name="favorite">お気に入りに追加</string>
     <string name="favorite_icon">お気に入り</string>
-    <string name="file">ファイル</string>
     <string name="file_delete">削除</string>
     <string name="file_detail_activity_error">ファイルのアクティビティ取得エラー</string>
     <string name="file_details_no_content">詳細のロードに失敗しました</string>
@@ -347,7 +341,6 @@
     <string name="first_run_2_text">セキュアなコラボレーションとファイル交換</string>
     <string name="first_run_3_text">使いやすいWebメールやカレンダーや連絡先</string>
     <string name="first_run_4_text">画面共有やオンラインミーティングやウェブ会議</string>
-    <string name="folder">フォルダー</string>
     <string name="folder_already_exists">フォルダーはすでに存在します</string>
     <string name="folder_confirm_create">作成</string>
     <string name="folder_icon">フォルダアイコン</string>
@@ -579,7 +572,6 @@
     <string name="share_get_public_link_button">リンクを取得</string>
     <string name="share_group_clarification">%1$s (グループ)</string>
     <string name="share_internal_link">内部リンクを共有</string>
-    <string name="share_internal_link_text">この %1$sにアクセスできるユーザーにのみ機能します</string>
     <string name="share_known_remote_clarification">%1$s ( %2$s で)</string>
     <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
     <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>

@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Само локално</string>
     <string name="conflict_already_existing_file">Већ постојећи фајл</string>
     <string name="conflict_dialog_error">Грешка при прављењу дијалога сукоба!</string>
-    <string name="conflict_keep_both">Задржи оба</string>
-    <string name="conflict_message">Које фајлове желите да сачувате? Ако изаберете обе верзије, локалном фајлу ће бити додат број у назив.</string>
     <string name="conflict_message_description">Ако изаберете обе верзије, локални фајл имаће број придодат свом називу.</string>
     <string name="conflict_message_headline">Које фајлове желите да задржите?</string>
     <string name="conflict_new_file">Нови фајл</string>
-    <string name="conflict_title">Сукоб фајлова</string>
-    <string name="conflict_use_local_version">локална верзија</string>
-    <string name="conflict_use_server_version">верзија сервера</string>
     <string name="contaclist_restore_selected">Поврати означене контакте</string>
     <string name="contactlist_account_chooser_title">Одаберите налог за увоз</string>
     <string name="contactlist_item_icon">Икона корисника за листу контаката</string>
@@ -283,7 +278,6 @@
     <string name="fallback_weblogin_text">Врати се на стари начин пријаве</string>
     <string name="favorite">Додај у омиљене</string>
     <string name="favorite_icon">Омиљени</string>
-    <string name="file">фајлу</string>
     <string name="file_delete">Обриши</string>
     <string name="file_detail_activity_error">Грешка при добављању активности за фајл</string>
     <string name="file_details_no_content">Грешка при учитавању детаља</string>
@@ -353,7 +347,6 @@
     <string name="first_run_2_text">Безбедна сарадња и размена фајлова</string>
     <string name="first_run_3_text">Веб пошта лака за коришћење, календар и контакти</string>
     <string name="first_run_4_text">Дељење екрана, састанци и веб конференције</string>
-    <string name="folder">фасцикли</string>
     <string name="folder_already_exists">Фасцикла већ постоји</string>
     <string name="folder_confirm_create">Направи</string>
     <string name="folder_icon">Икона фасцикле</string>
@@ -586,7 +579,6 @@
     <string name="share_get_public_link_button">Добави везу</string>
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_internal_link">Подели интерну везу</string>
-    <string name="share_internal_link_text">Ради само за корисике који имају приступ %1$s</string>
     <string name="share_internal_link_to_file_text">Интерна веза дељења ради само за кориснике који имају приступ фајлу</string>
     <string name="share_internal_link_to_folder_text">Интерна веза дељења ради само за кориснике који имају приступ фасцикли</string>
     <string name="share_known_remote_clarification">%1$s (на %2$s)</string>

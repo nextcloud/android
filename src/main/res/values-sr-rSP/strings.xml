@@ -142,11 +142,6 @@
     <string name="confirmation_remove_folder_alert">Da li stvarno želite da obrišete %1$s i sav dodatni sadržaj odatle?</string>
     <string name="confirmation_remove_folders_alert">Da li stvarno želite da obrišete označene stavke i sav njihov sadržaj?</string>
     <string name="confirmation_remove_local">Samo lokalno</string>
-    <string name="conflict_keep_both">Zadrži oba</string>
-    <string name="conflict_message">Koje fajlove želite da sačuvate? Ako izaberete obe verzije, lokalnom fajlu će biti dodat broj u naziv.</string>
-    <string name="conflict_title">Konflikt fajlova</string>
-    <string name="conflict_use_local_version">lokalna verzija</string>
-    <string name="conflict_use_server_version">verzija servera</string>
     <string name="contaclist_restore_selected">Povrati označene kontakte</string>
     <string name="contactlist_account_chooser_title">Odaberite naloge za uvoz</string>
     <string name="contactlist_item_icon">Ikona korisnika za listu kontakata</string>
@@ -262,7 +257,6 @@
     <string name="fallback_weblogin_text">Vrati se na stari način prijave</string>
     <string name="favorite">Dodaj u omiljene</string>
     <string name="favorite_icon">Omiljeni</string>
-    <string name="file">Fajl</string>
     <string name="file_delete">Obriši</string>
     <string name="file_detail_activity_error">Greška pri dohvatanju aktivnosti fajla</string>
     <string name="file_details_no_content">Greška pri učitavanju detalja</string>
@@ -332,7 +326,6 @@
     <string name="first_run_2_text">Bezbedna saradnja &amp; i razmena fajlova</string>
     <string name="first_run_3_text">Veb pošta laka za korišćenje, kalendar &amp; kontakti</string>
     <string name="first_run_4_text">Deljenje ekrana, sastanci na internetu &amp; veb konferencije</string>
-    <string name="folder">Folder</string>
     <string name="folder_already_exists">Fascikla već postoji</string>
     <string name="folder_confirm_create">Napravi</string>
     <string name="folder_icon">Ikona fascikle</string>
@@ -563,7 +556,6 @@
     <string name="share_get_public_link_button">Dobavi vezu</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_internal_link">Podeli internu vezu</string>
-    <string name="share_internal_link_text">Radi samo za korisike sa pristupom ovome %1$s</string>
     <string name="share_known_remote_clarification">%1$s (na %2$s)</string>
     <string name="share_link_empty_password">Morate uneti lozinku</string>
     <string name="share_link_file_error">Došlo je do greške prilikom pokušaja deljenja ovog fajla ili fascikle</string>

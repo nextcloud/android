@@ -135,12 +135,7 @@
     <string name="confirmation_remove_folder_alert">Sigur vreți să eliminați %1$s și conținutul său?</string>
     <string name="confirmation_remove_folders_alert">Doriți să ștergeți elementele selectate și conținutul lor?</string>
     <string name="confirmation_remove_local">Doar local</string>
-    <string name="conflict_keep_both">Pastreaza amandoua</string>
-    <string name="conflict_message">Ce fișiere doriți să păstrați? Dacă selectați ambele versiuni, fișierul local va avea un număr atașat la numele acestuia.</string>
     <string name="conflict_message_headline">Ce fișiere vrei să păstrezi?</string>
-    <string name="conflict_title">Conflict de fișiere</string>
-    <string name="conflict_use_local_version">versiunea locală</string>
-    <string name="conflict_use_server_version">versiunea de pe server</string>
     <string name="contaclist_restore_selected">Restaurează contactele selectate</string>
     <string name="contactlist_account_chooser_title">Selectează contul de importat</string>
     <string name="contactlist_no_permission">Nu sunt acordate permisiuni, nu s-a importat nimic.</string>
@@ -239,7 +234,6 @@
     <string name="fallback_weblogin_back">Înapoi</string>
     <string name="favorite">Adăugați la favorite</string>
     <string name="favorite_icon">Favorite</string>
-    <string name="file">file</string>
     <string name="file_delete">Ștergeți</string>
     <string name="file_icon">Fișier</string>
     <string name="file_keep">Păstrare</string>
@@ -300,7 +294,6 @@
     <string name="filename_forbidden_charaters_from_server">Numele fișierului conține cel puțin un caracter invalid</string>
     <string name="filename_hint">Nume fișier</string>
     <string name="files_drop_not_supported">Aceasta este o funcționalitate Nextcloud, vă rugăm să actulizați aplicația.</string>
-    <string name="folder">folder</string>
     <string name="folder_already_exists">Dosar existent</string>
     <string name="folder_confirm_create">Creați</string>
     <string name="folder_list_empty_headline">Niciun dosar aici</string>

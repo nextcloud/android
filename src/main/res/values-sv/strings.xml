@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Endast lokalt</string>
     <string name="conflict_already_existing_file">Filen finns redan</string>
     <string name="conflict_dialog_error">Fel vid skapande av konfliktdialog!</string>
-    <string name="conflict_keep_both">Behåll båda</string>
-    <string name="conflict_message">Vilka filer vill du behålla? Om du väljer båda versioner kommer den lokala filen att ha ett nummer kopplat till dess namn.</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
     <string name="conflict_message_headline">Vilka filer vill du behålla?</string>
     <string name="conflict_new_file">Ny fil</string>
-    <string name="conflict_title">Filkonflikt</string>
-    <string name="conflict_use_local_version">lokala versionen</string>
-    <string name="conflict_use_server_version">serverversionen</string>
     <string name="contaclist_restore_selected">Återställ valda kontakter</string>
     <string name="contactlist_account_chooser_title">Välj konto att importera</string>
     <string name="contactlist_item_icon">Användarikon för kontaktlista</string>
@@ -284,7 +279,6 @@
     <string name="fallback_weblogin_text">Gå tillbaka till gammal inloggningsmetod</string>
     <string name="favorite">Lägg till favoriter</string>
     <string name="favorite_icon">Favoritisera</string>
-    <string name="file">fil</string>
     <string name="file_delete">Radera</string>
     <string name="file_detail_activity_error">Fel vid hämtning av aktiviteter för fil</string>
     <string name="file_details_no_content">Kunde inte ladda detaljer</string>
@@ -354,7 +348,6 @@
     <string name="first_run_2_text">Säkert samarbete och filutbyte</string>
     <string name="first_run_3_text">Lättanvänd webmail, kalender och kontakter</string>
     <string name="first_run_4_text">Skärmdelning, onlinemöten och webbkonferenser</string>
-    <string name="folder">mapp</string>
     <string name="folder_already_exists">Mapp finns redan</string>
     <string name="folder_confirm_create">Skapa</string>
     <string name="folder_icon">Mappikon</string>
@@ -588,7 +581,6 @@
     <string name="share_get_public_link_button">Hämta länk</string>
     <string name="share_group_clarification">%1$s (grupp)</string>
     <string name="share_internal_link">Dela intern länk</string>
-    <string name="share_internal_link_text">Fungerar bara för användare med tillgång till den här %1$s</string>
     <string name="share_internal_link_to_file_text">Intern länkdelning fungerar bara för användare med åtkomst till den här filen</string>
     <string name="share_internal_link_to_folder_text">Intern länkdelning fungerar bara för användare med åtkomst till den här mappen</string>
     <string name="share_known_remote_clarification">%1$s ( på %2$s )</string>

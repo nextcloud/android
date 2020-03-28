@@ -125,12 +125,7 @@
     <string name="confirmation_remove_folder_alert">Apakah anda yakin ingin menghapus %1$s beserta isinya?</string>
     <string name="confirmation_remove_folders_alert">Apa anda yakin ingin menghapus item yang terpilih beserta isinya?</string>
     <string name="confirmation_remove_local">Lokal saja</string>
-    <string name="conflict_keep_both">Biarkan keduannya</string>
-    <string name="conflict_message">Berkas mana yang ingin Anda simpan? Jika Anda memilih kedua versi, berkas lokal akan memiliki angka yang ditambahkan di akhir namanya.</string>
     <string name="conflict_message_headline">Berkas mana yang ingin anda pertahankan?</string>
-    <string name="conflict_title">Berkas konflik</string>
-    <string name="conflict_use_local_version">versi lokal</string>
-    <string name="conflict_use_server_version">versi server</string>
     <string name="contaclist_restore_selected">Memulihkan kontak pilihan.</string>
     <string name="contactlist_account_chooser_title">Pilih akun untuk di impor</string>
     <string name="contactlist_no_permission">Tidak ada perizinan diberikan, tidak ada yang terimpor</string>
@@ -214,7 +209,6 @@
     <string name="fallback_weblogin_back">Kembali</string>
     <string name="favorite">Tambah ke favorit</string>
     <string name="favorite_icon">Favorit</string>
-    <string name="file">file</string>
     <string name="file_delete">Hapus</string>
     <string name="file_icon">Berkas</string>
     <string name="file_keep">Simpan</string>
@@ -274,7 +268,6 @@
     <string name="filename_forbidden_characters">Karakter yang dilarang: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Nama berkas mengandung setidaknya satu karakter yang tidak sah</string>
     <string name="filename_hint">Nama berkas</string>
-    <string name="folder">folder</string>
     <string name="folder_already_exists">Direktori sudah ada</string>
     <string name="folder_confirm_create">Buat</string>
     <string name="folder_list_empty_headline">Tidak ada folder</string>

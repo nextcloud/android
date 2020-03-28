@@ -133,12 +133,7 @@
     <string name="confirmation_remove_folder_alert">Наистина ли желаете %1$s и съдържанието ѝ да бъдат изтрито?</string>
     <string name="confirmation_remove_folders_alert">Наистина ли желаете избраните елементи и съдържанието им да бъдат премахнати?</string>
     <string name="confirmation_remove_local">Само локално</string>
-    <string name="conflict_keep_both">Запазване и на двата</string>
-    <string name="conflict_message">Кои файлове желаете да запазите? Ако изберете и двете версии, към името на локалния файл ще бъде добавено число.</string>
     <string name="conflict_message_headline">Кои файлове желете да запазите?</string>
-    <string name="conflict_title">Файлов конфликт</string>
-    <string name="conflict_use_local_version">локалната версия</string>
-    <string name="conflict_use_server_version">версията на сървъра</string>
     <string name="contaclist_restore_selected">Възстанови избраните контакти</string>
     <string name="contactlist_account_chooser_title">Изберете профил за внасяне</string>
     <string name="contactlist_item_icon">Потребителска икона за списъка с контакти</string>
@@ -227,7 +222,6 @@
     <string name="fallback_weblogin_text">Връщане към стария метод за вписване</string>
     <string name="favorite">Добави към любимите</string>
     <string name="favorite_icon">Любими</string>
-    <string name="file">файл</string>
     <string name="file_delete">Изтрий</string>
     <string name="file_icon">Файл</string>
     <string name="file_keep">Запази</string>
@@ -293,7 +287,6 @@
     <string name="files_drop_not_supported">Това е функционалност на Nextcloud, моля актуализирайте.</string>
     <string name="first_run_1_text">Съхранявате данните си на сигурно място и под ваш контрол</string>
     <string name="first_run_4_text">Споделяне на екрана, online meetings и уеб конференции</string>
-    <string name="folder">папка</string>
     <string name="folder_already_exists">Папката вече съществува</string>
     <string name="folder_confirm_create">Създай</string>
     <string name="folder_icon">Икона на папката</string>

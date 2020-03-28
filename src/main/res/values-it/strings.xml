@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Solo localmente</string>
     <string name="conflict_already_existing_file">File già esistente</string>
     <string name="conflict_dialog_error">Errore di creazione della finestra di conflitto!</string>
-    <string name="conflict_keep_both">Mantieni entrambi</string>
-    <string name="conflict_message">Quali file vuoi mantenere? Se selezioni entrambe le versioni, sarà aggiunto un numero al nome del file locale.</string>
     <string name="conflict_message_description">Se selezioni entrambe le versioni, il file locale ha un numero aggiunto al suo nome.</string>
     <string name="conflict_message_headline">Quali file vuoi mantenere?</string>
     <string name="conflict_new_file">Nuovo file</string>
-    <string name="conflict_title">File in conflitto</string>
-    <string name="conflict_use_local_version">Versione locale</string>
-    <string name="conflict_use_server_version">versione del server</string>
     <string name="contaclist_restore_selected">Ripristina contatti selezionati</string>
     <string name="contactlist_account_chooser_title">Scegli account da importare</string>
     <string name="contactlist_item_icon">Icona utente della lista contatti</string>
@@ -284,7 +279,6 @@
     <string name="fallback_weblogin_text">Torna al vecchio metodo di accesso</string>
     <string name="favorite">Aggiungi ai preferiti</string>
     <string name="favorite_icon">Preferito</string>
-    <string name="file">file</string>
     <string name="file_delete">Elimina</string>
     <string name="file_detail_activity_error">Errore durante il recupero delle attività per i file</string>
     <string name="file_details_no_content">Caricamento dettagli non riuscito</string>
@@ -354,7 +348,6 @@
     <string name="first_run_2_text">Rendi sicuri la collaborazione e lo scambio di file</string>
     <string name="first_run_3_text">Web mail, calendari e contatti di semplice utilizzo</string>
     <string name="first_run_4_text">Condivisione dello schermo, riunioni in linea e conferenze web</string>
-    <string name="folder">cartella</string>
     <string name="folder_already_exists">La cartella esiste già</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_icon">Icona delle cartelle</string>
@@ -587,7 +580,6 @@
     <string name="share_get_public_link_button">Ottieni collegamento</string>
     <string name="share_group_clarification">%1$s (gruppo)</string>
     <string name="share_internal_link">Condividi collegamento interno</string>
-    <string name="share_internal_link_text">Funziona solo per gli utenti con accesso a questo/a %1$s</string>
     <string name="share_internal_link_to_file_text">Il collegamento di condivisione funziona solo per gli utenti con accesso a questo file</string>
     <string name="share_internal_link_to_folder_text">Il collegamento di condivisione funziona solo per gli utenti con accesso a questa cartella</string>
     <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>

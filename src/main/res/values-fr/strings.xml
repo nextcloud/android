@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Local seulement</string>
     <string name="conflict_already_existing_file">Fichier déjà existant</string>
     <string name="conflict_dialog_error">Une erreur qui crée un dialogue conflictuel !</string>
-    <string name="conflict_keep_both">Conserver les deux</string>
-    <string name="conflict_message">Quels fichiers voulez-vous conserver ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
     <string name="conflict_message_headline">Quels fichiers souhaitez-vous conserver ?</string>
     <string name="conflict_new_file">Nouveau fichier</string>
-    <string name="conflict_title">Conflit de fichiers</string>
-    <string name="conflict_use_local_version">version locale</string>
-    <string name="conflict_use_server_version">version serveur</string>
     <string name="contaclist_restore_selected">Restaurer les contacts sélectionnés</string>
     <string name="contactlist_account_chooser_title">Choisissez un compte pour importer</string>
     <string name="contactlist_item_icon">L\'icône de l\'utilisateur pour la liste des contacts</string>
@@ -286,7 +281,6 @@ Attention la suppression est irréversible.</string>
     <string name="fallback_weblogin_text">Revenir à l\'ancienne méthode de connexion</string>
     <string name="favorite">Ajouter aux favoris</string>
     <string name="favorite_icon">Favoris</string>
-    <string name="file">fichier</string>
     <string name="file_delete">Supprimer</string>
     <string name="file_detail_activity_error">Erreur lors de la récupération de l’activité du fichier</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
@@ -356,7 +350,6 @@ Attention la suppression est irréversible.</string>
     <string name="first_run_2_text">Collaboration &amp; et échange de fichiers sécurisés</string>
     <string name="first_run_3_text">Messagerie web, Agenda et Contacts faciles d\'utilisation</string>
     <string name="first_run_4_text">Partage d\'écran et réunion en ligne</string>
-    <string name="folder">dossier</string>
     <string name="folder_already_exists">Le dossier existe déjà</string>
     <string name="folder_confirm_create">Créer</string>
     <string name="folder_icon">Icône de dossier</string>
@@ -589,7 +582,6 @@ Attention la suppression est irréversible.</string>
     <string name="share_get_public_link_button">Partager le lien</string>
     <string name="share_group_clarification">%1$s (groupe)</string>
     <string name="share_internal_link">Partager le lien interne</string>
-    <string name="share_internal_link_text">Fonctionne uniquement pour les utilisateurs ayant accès à ce %1$s</string>
     <string name="share_internal_link_to_file_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce fichier</string>
     <string name="share_internal_link_to_folder_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce dossier</string>
     <string name="share_known_remote_clarification">%1$s (sur %2$s)</string>

@@ -141,12 +141,7 @@
     <string name="confirmation_remove_folder_alert">Želite li zaista izbrisati %1$s i pripadajući sadržaj?</string>
     <string name="confirmation_remove_folders_alert">Želite li zaista izbrisati odabrane stavke i pripadajući sadržaj?</string>
     <string name="confirmation_remove_local">Samo lokalno</string>
-    <string name="conflict_keep_both">Zadrži obje</string>
-    <string name="conflict_message">Koje datoteke želite zadržati? Ako odaberete obje inačice, lokalna će datoteka uz naziv imati i broj.</string>
     <string name="conflict_message_headline">Koje datoteke želite zadržati?</string>
-    <string name="conflict_title">Nepodudaranje datoteka</string>
-    <string name="conflict_use_local_version">lokalna inačica</string>
-    <string name="conflict_use_server_version">inačica poslužitelja</string>
     <string name="contaclist_restore_selected">Vraćanje odabranih kontakata</string>
     <string name="contactlist_account_chooser_title">Odaberite račun za uvoz</string>
     <string name="contactlist_item_icon">Ikona korisnika za popis kontakata</string>
@@ -268,7 +263,6 @@
     <string name="fallback_weblogin_text">Vrati na stari način prijave</string>
     <string name="favorite">Dodaj u favorite</string>
     <string name="favorite_icon">Favorit</string>
-    <string name="file">datoteka</string>
     <string name="file_delete">Izbriši</string>
     <string name="file_detail_activity_error">Pogreška pri dohvaćanju aktivnosti za datoteku</string>
     <string name="file_details_no_content">Učitavanje pojedinosti nije uspjelo</string>
@@ -338,7 +332,6 @@
     <string name="first_run_2_text">Sigurna suradnja i razmjena datoteka</string>
     <string name="first_run_3_text">Jednostavna e-pošta putem interneta, kalendar i kontakti</string>
     <string name="first_run_4_text">Dijeljenje zaslona, sastanci na mreži i web konferencije</string>
-    <string name="folder">mapa</string>
     <string name="folder_already_exists">Mapa već postoji</string>
     <string name="folder_confirm_create">Stvori</string>
     <string name="folder_icon">Ikona mape</string>
@@ -569,7 +562,6 @@
     <string name="share_get_public_link_button">Preuzmi poveznicu</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_internal_link">Dijeli internu poveznicu</string>
-    <string name="share_internal_link_text">Samo za korisnike koji smiju pristupiti %1$s</string>
     <string name="share_known_remote_clarification">%1$s (na %2$s)</string>
     <string name="share_link_empty_password">Morate unijeti zaporku</string>
     <string name="share_link_file_error">Došlo je do pogreške prilikom dijeljenja ove datoteke ili mape</string>
