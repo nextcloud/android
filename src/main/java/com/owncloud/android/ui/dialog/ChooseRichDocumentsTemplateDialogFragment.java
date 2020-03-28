@@ -158,14 +158,12 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         fileName.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
 
         try {
-            Account account = currentAccount.getCurrentAccount();
-            OwnCloudAccount ocAccount = new OwnCloudAccount(account, activity);
-            client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, getContext());
-
-            new FetchTemplateTask(this, client).execute(type);
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Loading stream url not possible: " + e);
+            client = clientFactory.create(currentAccount.getUser());
+        } catch (ClientFactory.CreationException e) {
+            throw new RuntimeException(e); // we'll NPE without the client
         }
+
+        new FetchTemplateTask(this, client).execute(type);
 
         listView.setHasFixedSize(true);
         listView.setLayoutManager(new GridLayoutManager(activity, 2));
