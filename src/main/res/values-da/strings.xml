@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Kun lokal</string>
     <string name="conflict_already_existing_file">Eksisterende photo</string>
     <string name="conflict_dialog_error">Fejl ved skabelse af konfliktdialog</string>
-    <string name="conflict_keep_both">Behold begge</string>
-    <string name="conflict_message">Hvilke filer ønsker du at beholde? Hvis du vælger begge versioner, så vil den lokale fil få et tal tilføjet til sit navn.</string>
     <string name="conflict_message_description">Hvis du vælger begge versioner, vil den lokale fil få tilføjet et nummer til sit navn.</string>
     <string name="conflict_message_headline">Hvilke filer ønsker du at beholde?</string>
     <string name="conflict_new_file">Ny fil</string>
-    <string name="conflict_title">Filkonflikt</string>
-    <string name="conflict_use_local_version">lokal version</string>
-    <string name="conflict_use_server_version">serverversion</string>
     <string name="contaclist_restore_selected">Genskab valgte kontakter</string>
     <string name="contactlist_account_chooser_title">Vælg konto at importere</string>
     <string name="contactlist_item_icon">Bruger ikon til kontaktliste</string>
@@ -283,7 +278,6 @@
     <string name="fallback_weblogin_text">Tilbage til foregående login metode</string>
     <string name="favorite">Tilføj til favoritter</string>
     <string name="favorite_icon">Favorit</string>
-    <string name="file">fil</string>
     <string name="file_delete">Slet</string>
     <string name="file_detail_activity_error">Fejl ved indlæsning af aktiviteter for fil</string>
     <string name="file_details_no_content">Fejl ved indlæsning af detaljer</string>
@@ -353,7 +347,6 @@
     <string name="first_run_2_text">Sikker kollaboration&amp; fil udveksling</string>
     <string name="first_run_3_text">Nemt at bruge web mail, kalender &amp; kontakter</string>
     <string name="first_run_4_text">Skærmdeling, onlinemøder &amp; web konferencer</string>
-    <string name="folder">mappe</string>
     <string name="folder_already_exists">Mappe findes allerede</string>
     <string name="folder_confirm_create">Opret</string>
     <string name="folder_icon">Mappe ikon</string>
@@ -588,7 +581,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_get_public_link_button">Få link</string>
     <string name="share_group_clarification">%1$s (gruppe)</string>
     <string name="share_internal_link">Del internt link</string>
-    <string name="share_internal_link_text">Virker kun for brugere med adgang til %1$s</string>
     <string name="share_internal_link_to_file_text">Internt dele link virker kun for brugere med adgang til denne fil</string>
     <string name="share_known_remote_clarification">%1$s ( ved %2$s)</string>
     <string name="share_link_empty_password">Du skal angive et kodeord</string>

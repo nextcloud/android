@@ -141,12 +141,7 @@
     <string name="confirmation_remove_folder_alert">Ertu viss um að þú viljir eyða %1$s og innihaldi þess?</string>
     <string name="confirmation_remove_folders_alert">Ertu viss um að þú viljir eyða völdum atriðum og innihaldi þeirra?</string>
     <string name="confirmation_remove_local">Einungis staðvært</string>
-    <string name="conflict_keep_both">Halda báðum</string>
-    <string name="conflict_message">Hvaða skrám viltu halda? Ef þú velur báðar útgáfur, þá mun verða bætt tölustaf aftan við heiti afrituðu skrárinnar.</string>
     <string name="conflict_message_headline">Hvaða skrám vilt þú vilt halda eftir?</string>
-    <string name="conflict_title">Árekstur skráa</string>
-    <string name="conflict_use_local_version">útgáfu á tölvu</string>
-    <string name="conflict_use_server_version">útgáfu á þjóni</string>
     <string name="contaclist_restore_selected">Endurheimta valda tengiliði</string>
     <string name="contactlist_account_chooser_title">Veldu aðgang til að flytja inn</string>
     <string name="contactlist_item_icon">Táknmynd notanda fyrir tengiliðalista</string>
@@ -270,7 +265,6 @@
     <string name="fallback_weblogin_text">Fara til baka í gömlu innskráningaraðferðina</string>
     <string name="favorite">Bæta í eftirlæti</string>
     <string name="favorite_icon">Eftirlæti</string>
-    <string name="file">skrá</string>
     <string name="file_delete">Eyða</string>
     <string name="file_detail_activity_error">Villa við að ná í virkni fyrir skrá</string>
     <string name="file_details_no_content">Mistókst að hlaða inn ítarupplýsingum</string>
@@ -340,7 +334,6 @@
     <string name="first_run_2_text">Örugg samvinna og skráaskipti</string>
     <string name="first_run_3_text">Einfaldur og auðveldur vefpóstur, dagatal &amp; tengiliðir</string>
     <string name="first_run_4_text">Skjádeiling, netfundir og vefráðstefnur</string>
-    <string name="folder">mappa</string>
     <string name="folder_already_exists">Mappa er þegar til</string>
     <string name="folder_confirm_create">Búa til</string>
     <string name="folder_icon">Táknmynd fyrir möppu</string>
@@ -571,7 +564,6 @@
     <string name="share_get_public_link_button">Ná í tengil</string>
     <string name="share_group_clarification">%1$s (hópur)</string>
     <string name="share_internal_link">Deila innri tengli</string>
-    <string name="share_internal_link_text">Virkar bara fyrir notendur sem eiga aðgang að þessari %1$s</string>
     <string name="share_known_remote_clarification">%1$s ( á %2$s )</string>
     <string name="share_link_empty_password">Þú verður að setja inn lykilorð</string>
     <string name="share_link_file_error">Villa kom upp við að reyna að deila þessari skrá eða möppu</string>

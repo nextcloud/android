@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Pouze místní</string>
     <string name="conflict_already_existing_file">Už existující soubor</string>
     <string name="conflict_dialog_error">Chyba při vytváření dialogu ke konfliktu!</string>
-    <string name="conflict_keep_both">Ponechat oba</string>
-    <string name="conflict_message">Které soubory chcete ponechat? Pokud zvolíte obě verze, zkopírovaný soubor bude mít název doplněný o číslo.</string>
     <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>
     <string name="conflict_message_headline">Které soubory chcete ponechat?</string>
     <string name="conflict_new_file">Nový soubor</string>
-    <string name="conflict_title">Konflikt souboru</string>
-    <string name="conflict_use_local_version">místní verze</string>
-    <string name="conflict_use_server_version">verze na serveru</string>
     <string name="contaclist_restore_selected">Obnovit vybrané kontakty</string>
     <string name="contactlist_account_chooser_title">Vyberte účet, který chcete importovat</string>
     <string name="contactlist_item_icon">Ikona uživatele v seznamu kontaktů</string>
@@ -284,7 +279,6 @@
     <string name="fallback_weblogin_text">Vrátit se ke starému způsobu přihlašování</string>
     <string name="favorite">Přidat do oblíbených</string>
     <string name="favorite_icon">Oblíbené</string>
-    <string name="file">soubor</string>
     <string name="file_delete">Smazat</string>
     <string name="file_detail_activity_error">Při načítání aktivit u souboru došlo k chybě</string>
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>
@@ -354,7 +348,6 @@
     <string name="first_run_2_text">Zabezpečená spolupráce a výměna souborů</string>
     <string name="first_run_3_text">Snadno použitelný webový e-mailový klient, kalendáře a kontakty</string>
     <string name="first_run_4_text">Sdílení obrazovky, schůzky na dálku a webové konference</string>
-    <string name="folder">složka</string>
     <string name="folder_already_exists">Složka už existuje</string>
     <string name="folder_confirm_create">Vytvořit</string>
     <string name="folder_icon">Ikona složky</string>
@@ -587,7 +580,6 @@
     <string name="share_get_public_link_button">Získat odkaz</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_internal_link">Sdílet vnitřní odkaz</string>
-    <string name="share_internal_link_text">Bude fungovat pouze uživatelům, kteří mají přístup k tomuto %1$s</string>
     <string name="share_internal_link_to_file_text">Sdílení interním odkazem funguje pouze pro uživatele, kteří mají k tomuto souboru přístup</string>
     <string name="share_internal_link_to_folder_text">Sdílení interním odkazem funguje pouze pro uživatele, kteří mají k této složce přístup</string>
     <string name="share_known_remote_clarification">%1$s (v %2$s)</string>

@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
     <string name="conflict_already_existing_file">Το αρχείο υπάρχει ήδη</string>
     <string name="conflict_dialog_error">Σφάλμα δημιουργίας αναφοράς διένεξης!</string>
-    <string name="conflict_keep_both">Διατήρηση και των δύο</string>
-    <string name="conflict_message">Ποια αρχεία θέλετε να διατηρήσετε; Αν επιλέξετε και τις δύο εκδόσεις, θα προστεθεί ένας αριθμός στο όνομα του τοπικού αρχείου.</string>
     <string name="conflict_message_description">Εάν επιλέξετε και τις δύο εκδόσεις, στο όνομα του τοπικού αρχείου θα προστεθεί ένας αριθμός.</string>
     <string name="conflict_message_headline">Ποια αρχεία θέλετε να κρατήσετε;</string>
     <string name="conflict_new_file">Νέο αρχείο</string>
-    <string name="conflict_title">Διένεξη αρχείων</string>
-    <string name="conflict_use_local_version">τοπική έκδοση</string>
-    <string name="conflict_use_server_version">έκδοση διακομιστή</string>
     <string name="contaclist_restore_selected">Επαναφορά επιλεγμένων επαφών</string>
     <string name="contactlist_account_chooser_title">Επιλογή λογαριασμού για εισαγωγή</string>
     <string name="contactlist_item_icon">Εικονίδιο χρήστη για τη λίστα επαφών</string>
@@ -284,7 +279,6 @@
     <string name="fallback_weblogin_text">Επαναφορά στην παλιά μέθοδο σύνδεσης</string>
     <string name="favorite">Προσθήκη στα αγαπημένα</string>
     <string name="favorite_icon">Αγαπημένο</string>
-    <string name="file">αρχείο</string>
     <string name="file_delete">Διαγραφή</string>
     <string name="file_detail_activity_error">Σφάλμα ανάκτησης δραστηριοτήτων για το αρχείο</string>
     <string name="file_details_no_content">Αποτυχία φόρτωσης λεπτομερειών</string>
@@ -354,7 +348,6 @@
     <string name="first_run_2_text">Ασφαλής συνεργασία &amp; ανταλλαγή αρχείων</string>
     <string name="first_run_3_text">Εύχρηστο web mail, ημερολόγιο &amp; επαφές</string>
     <string name="first_run_4_text">Κοινή χρήση οθόνης, ηλεκτρονικές συναντήσεις &amp; συνέδρια</string>
-    <string name="folder">φάκελος</string>
     <string name="folder_already_exists">Ο φάκελος υπάρχει ήδη</string>
     <string name="folder_confirm_create">Δημιουργία</string>
     <string name="folder_icon">Εικονίδιο φακέλου</string>
@@ -587,7 +580,6 @@
     <string name="share_get_public_link_button">Λήψη συνδέσμου</string>
     <string name="share_group_clarification">%1$s (ομάδα)</string>
     <string name="share_internal_link">Κοινή χρήση εσωτερικού συνδέσμου</string>
-    <string name="share_internal_link_text">Λειτουργεί μόνο για χρήστες με πρόσβαση στο %1$s</string>
     <string name="share_internal_link_to_file_text">Οι εσωτερικοί κοινόχρηστοι σύνδεσμοι λειτουργούν μόνο για χρήστες με πρόσβαση στο αρχείο</string>
     <string name="share_internal_link_to_folder_text">Οι εσωτερικοί κοινόχρηστοι σύνδεσμοι λειτουργούν μόνο για χρήστες με πρόσβαση στο φάκελο</string>
     <string name="share_known_remote_clarification">%1$s ( στο %2$s )</string>

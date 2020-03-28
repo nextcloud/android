@@ -81,9 +81,7 @@
     <string name="confirmation_remove_file_alert">Bạn thực sự muốn xóa %1$s?</string>
     <string name="confirmation_remove_files_alert">Bạn thực sự muốn xóa mục lựa chọn này?</string>
     <string name="confirmation_remove_local">Chỉ cục bộ</string>
-    <string name="conflict_keep_both">Giữ cho cả hai</string>
     <string name="conflict_message_headline">Bạn muốn tiếp tục với những tập tin nào?</string>
-    <string name="conflict_use_server_version">phiên bản máy chủ</string>
     <string name="contactlist_item_icon">Sử dụng biểu tượng cho danh mục liên hệ</string>
     <string name="contacts_preference_backup_never">không thay đổi</string>
     <string name="contacts_preference_choose_date">Chọn ngày</string>
@@ -147,7 +145,6 @@
     <string name="fallback_weblogin_back">Quay lại</string>
     <string name="favorite">Thêm vào ưa thích</string>
     <string name="favorite_icon">Ưa thích</string>
-    <string name="file">file</string>
     <string name="file_delete">Xóa</string>
     <string name="file_icon">Tập tin</string>
     <string name="file_keep">Giữ</string>
@@ -190,7 +187,6 @@
     <string name="filename_forbidden_characters">Những kí tự không được dùng: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_hint">Tên tập tin</string>
     <string name="files_drop_not_supported">Đây là một tính năng của Hệ thống, hãy nâng cấp nó.</string>
-    <string name="folder">folder</string>
     <string name="folder_already_exists">Thư mục đã tồn tại</string>
     <string name="folder_confirm_create">Tạo</string>
     <string name="folder_icon">Biểu tượng thư mục</string>

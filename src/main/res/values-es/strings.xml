@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Solo local</string>
     <string name="conflict_already_existing_file">Archivo ya existente</string>
     <string name="conflict_dialog_error">¡Error al crear el diálogo de conflicto!</string>
-    <string name="conflict_keep_both">Mantener ambos</string>
-    <string name="conflict_message">¿Qué archivos desea mantener? Si selecciona ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
     <string name="conflict_message_headline">¿Qué archivos desea mantener?</string>
     <string name="conflict_new_file">Nuevo archivo</string>
-    <string name="conflict_title">Conflicto con archivo</string>
-    <string name="conflict_use_local_version">versión local</string>
-    <string name="conflict_use_server_version">versión del servidor</string>
     <string name="contaclist_restore_selected">Restaurar los contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Escoge la cuenta para importar</string>
     <string name="contactlist_item_icon">Icono de usuario para lista de contactos</string>
@@ -284,7 +279,6 @@
     <string name="fallback_weblogin_text">Volver al método de registro antiguo</string>
     <string name="favorite">Añadir a favoritos</string>
     <string name="favorite_icon">Favorito</string>
-    <string name="file">archivo</string>
     <string name="file_delete">Eliminar</string>
     <string name="file_detail_activity_error">Error al recuperar las actividades del archivo</string>
     <string name="file_details_no_content">Fallo al cargar los detalles</string>
@@ -354,7 +348,6 @@
     <string name="first_run_2_text">Colaboración segura e intercambio de archivos</string>
     <string name="first_run_3_text">Correo web, calendario y contactos fáciles de usar</string>
     <string name="first_run_4_text">Compartir pantalla, reuniones online y conferencias web</string>
-    <string name="folder">carpeta</string>
     <string name="folder_already_exists">La carpeta ya existe</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_icon">Icono de carpeta</string>
@@ -587,7 +580,6 @@
     <string name="share_get_public_link_button">Obtener enlace</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_internal_link">Compartir enlace interno</string>
-    <string name="share_internal_link_text">Sólo funciona para usuarios con acceso a esto %1$s</string>
     <string name="share_internal_link_to_file_text">Los links compartidos internos solo funcionan para los usuarios con acceso a este archivo</string>
     <string name="share_internal_link_to_folder_text">Los links compartidos internos solo funcionan para los usuarios con acceso a esta carpeta</string>
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>

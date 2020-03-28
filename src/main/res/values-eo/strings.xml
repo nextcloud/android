@@ -136,12 +136,7 @@
     <string name="confirmation_remove_folder_alert">Ĉu vi ja volas forigi %1$s kaj ĝian enhavon?</string>
     <string name="confirmation_remove_folders_alert">Ĉu vi ja volas forigi la elektitajn elementojn kaj ilian enhavon?</string>
     <string name="confirmation_remove_local">Nur loka</string>
-    <string name="conflict_keep_both">Konservi ambaŭ</string>
-    <string name="conflict_message">Kiujn dosierojn vi volas konservi? Se vi elektos ambaŭ eldonojn, la loka dosiero havos numeron aldonitan al sia nomo.</string>
     <string name="conflict_message_headline">Kiujn dosierojn vi volas konservi?</string>
-    <string name="conflict_title">Dosierkonflikto</string>
-    <string name="conflict_use_local_version">loka eldono</string>
-    <string name="conflict_use_server_version">servila eldono</string>
     <string name="contaclist_restore_selected">Restaŭri elektitajn kontaktojn</string>
     <string name="contactlist_account_chooser_title">Elekti konton importota</string>
     <string name="contactlist_item_icon">Uzanto-piktogramo por la kontaktlisto</string>
@@ -247,7 +242,6 @@
     <string name="fallback_weblogin_text">Reiri al la malnova konektmetodo</string>
     <string name="favorite">Aldoni al pliŝataĵoj</string>
     <string name="favorite_icon">Pliŝatataj</string>
-    <string name="file">dosiero</string>
     <string name="file_delete">Forigi</string>
     <string name="file_details_no_content">Ŝargo de detaloj malsukcesis</string>
     <string name="file_icon">Dosiero</string>
@@ -316,7 +310,6 @@
     <string name="first_run_2_text">Sekura kunlaborado kaj dosiera interŝanĝo</string>
     <string name="first_run_3_text">Faciluza enreta retpoŝtilo, kalendaro kaj kontaktaro</string>
     <string name="first_run_4_text">Ekrandividado, retkunsidoj kaj reta konferencoj</string>
-    <string name="folder">folder</string>
     <string name="folder_already_exists">La dosierujo jam ekzistas</string>
     <string name="folder_confirm_create">Krei</string>
     <string name="folder_icon">Piktogramo de dosierujo</string>

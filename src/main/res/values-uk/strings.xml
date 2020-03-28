@@ -133,12 +133,8 @@
     <string name="confirmation_remove_folder_alert">Ви справді бажаєте вилучити %1$s та його вміст?</string>
     <string name="confirmation_remove_local">Лише локально</string>
     <string name="conflict_already_existing_file">Файл, який вже наявний</string>
-    <string name="conflict_keep_both">Залишити обидва</string>
     <string name="conflict_message_headline">Які файли ви хочете залишити?</string>
     <string name="conflict_new_file">Новий файл</string>
-    <string name="conflict_title">Конфлікт файлу</string>
-    <string name="conflict_use_local_version">Локальна версія</string>
-    <string name="conflict_use_server_version">Версія сервера</string>
     <string name="contaclist_restore_selected">Відновити вибрані контакти</string>
     <string name="contactlist_account_chooser_title">Виберіть обліковий запис для імпорту</string>
     <string name="contactlist_item_icon">Іконка списку контактів</string>
@@ -252,7 +248,6 @@
     <string name="fallback_weblogin_back">Назад</string>
     <string name="favorite">Додати до обраного</string>
     <string name="favorite_icon">Улюблений</string>
-    <string name="file">file</string>
     <string name="file_delete">Видалити</string>
     <string name="file_icon">Файл</string>
     <string name="file_keep">Зберегти</string>
@@ -289,7 +284,6 @@
     <string name="filename_forbidden_characters">Заборонені символи: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">У назві файлу міститься щонайменше один неправильний символ</string>
     <string name="filename_hint">Ім\'я файлу</string>
-    <string name="folder">folder</string>
     <string name="folder_confirm_create">Створити</string>
     <string name="folder_list_empty_headline">Тут немає папок</string>
     <string name="folder_picker_choose_button_text">Обрати</string>

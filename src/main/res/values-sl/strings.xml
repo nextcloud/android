@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Le krajevno</string>
     <string name="conflict_already_existing_file">Obstoječa datoteka</string>
     <string name="conflict_dialog_error">Prišlo je do napake med pogovornega okna spora!</string>
-    <string name="conflict_keep_both">Ohrani obe</string>
-    <string name="conflict_message">Katere datoteke želiš ohraniti? Če izbereš obe različici, bo lokalni datoteki dodatna k imenu še številka.</string>
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
     <string name="conflict_message_headline">Katere datoteke želite ohraniti?</string>
     <string name="conflict_new_file">Nova datoteka</string>
-    <string name="conflict_title">Neskladje datotek</string>
-    <string name="conflict_use_local_version">krajevna različica</string>
-    <string name="conflict_use_server_version">različica strežnika</string>
     <string name="contaclist_restore_selected">Obnovi izbrane stike</string>
     <string name="contactlist_account_chooser_title">Izberi račun za uvoz</string>
     <string name="contactlist_item_icon">Ikona uporabnika za seznam stikov</string>
@@ -283,7 +278,6 @@
     <string name="fallback_weblogin_text">Povrni na star način prijave</string>
     <string name="favorite">Dodaj med priljubljene</string>
     <string name="favorite_icon">Priljubljeno</string>
-    <string name="file">datoteka</string>
     <string name="file_delete">Izbriši</string>
     <string name="file_detail_activity_error">Napaka pridobivanja dejavnosti za datoteko</string>
     <string name="file_details_no_content">Nalaganje podrobnosti je spodletelo.</string>
@@ -353,7 +347,6 @@
     <string name="first_run_2_text">Varno sodelovanje in izmenjava datotek</string>
     <string name="first_run_3_text">Enostavna uporaba spletne pošte, koledarja in stikov</string>
     <string name="first_run_4_text">Souporaba zaslona, spletni sestanki in konference</string>
-    <string name="folder">mapa</string>
     <string name="folder_already_exists">Mapa že obstaja</string>
     <string name="folder_confirm_create">Ustvari</string>
     <string name="folder_icon">Ikona mape</string>
@@ -584,7 +577,6 @@
     <string name="share_get_public_link_button">Pridobi povezavo</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_internal_link">Notranja povezava mesta souporabe</string>
-    <string name="share_internal_link_text">Deluje le za uporabnike z dostopom do %1$s</string>
     <string name="share_internal_link_to_file_text">Notranja povezava mesta souporabe deluje le za uporabnike z dostopom do datoteke.</string>
     <string name="share_internal_link_to_folder_text">Notranja povezava mesta souporabe deluje le za uporabnike z dostopom do mape.</string>
     <string name="share_known_remote_clarification">%1$s ( pri %2$s )</string>

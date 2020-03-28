@@ -121,12 +121,7 @@
     <string name="confirmation_remove_folder_alert">Vai tiešām vēlaties izdzēst %1$s un tā saturu?</string>
     <string name="confirmation_remove_folders_alert">Vai tiešām vēlies dzēst izvēlētos objektus un to saturu?</string>
     <string name="confirmation_remove_local">Tikai lokālos</string>
-    <string name="conflict_keep_both">Paturēt abas</string>
-    <string name="conflict_message">Kuras datnes vālaties paturēt? Ja izvēlēsieties abas versijas, lokālai datnei nosaukumam tiks pievienots numurs.</string>
     <string name="conflict_message_headline">Kuras datnes vēlies paturēt?</string>
-    <string name="conflict_title">Datne konfliktē</string>
-    <string name="conflict_use_local_version">lokālā versija</string>
-    <string name="conflict_use_server_version">servera versija</string>
     <string name="contaclist_restore_selected">Atjaunot izvēlētos kontaktus</string>
     <string name="contactlist_account_chooser_title">Izvēlieties kontu importēšanai</string>
     <string name="contactlist_no_permission">Nav dota atļauja, importēšana neizdevās</string>
@@ -200,7 +195,6 @@
     <string name="fallback_weblogin_back">Atpakaļ</string>
     <string name="favorite">Pievienot favorītiem</string>
     <string name="favorite_icon">Favorīts</string>
-    <string name="file">datne</string>
     <string name="file_delete">Dzēst</string>
     <string name="file_icon">Datne</string>
     <string name="file_list_empty">Augšupielādē kaut ko vai sinhronizē saturu ar savām ierīcēm!</string>
@@ -261,7 +255,6 @@
     <string name="filename_hint">Datnes nosaukums</string>
     <string name="files_drop_not_supported">Šī ir Nextcloud funkcija, lūdzu atjauniniet.</string>
     <string name="first_run_1_text">Turi savus datus drošībā un zem savas kontroles</string>
-    <string name="folder">folder</string>
     <string name="folder_confirm_create">Izveidot</string>
     <string name="folder_list_empty_headline">Šeit nav mapju</string>
     <string name="folder_picker_choose_button_text">Izvēlieties</string>

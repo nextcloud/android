@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Csak a helyi példány</string>
     <string name="conflict_already_existing_file">Már létező fájl</string>
     <string name="conflict_dialog_error">Hiba a konfliktus párbeszéd létrehozásakor!</string>
-    <string name="conflict_keep_both">Mindkettő megtartása</string>
-    <string name="conflict_message">Melyik fájlt akarja megtartani? Ha mindkettőt kiválasztja, akkor a helyi nevéhez egy szám lesz fűzve.</string>
     <string name="conflict_message_description">Amennyiben mindkét verziót kiválasztja, a helyi fájl neve egy számmal lesz kibővítve.</string>
     <string name="conflict_message_headline">Mely fájlokat akarja megtartani?</string>
     <string name="conflict_new_file">Új fájl</string>
-    <string name="conflict_title">Fájl ütközés</string>
-    <string name="conflict_use_local_version">helyi verzió</string>
-    <string name="conflict_use_server_version">kiszolgáló verziója</string>
     <string name="contaclist_restore_selected">Kiválasztott névjegyek visszaállítása</string>
     <string name="contactlist_account_chooser_title">Válasszon importálandó fiókot</string>
     <string name="contactlist_item_icon">Felhasználó ikon a névjegylistához</string>
@@ -284,7 +279,6 @@
     <string name="fallback_weblogin_text">Visszatérés a régi bejelentkezési módhoz</string>
     <string name="favorite">Hozzáadás a kedvencekhez </string>
     <string name="favorite_icon">Kedvenc</string>
-    <string name="file">fájlhoz</string>
     <string name="file_delete">Törlés</string>
     <string name="file_detail_activity_error">Hiba a fájl tevékenységeinek lekérésekor</string>
     <string name="file_details_no_content">A részletek betöltése sikertelen</string>
@@ -354,7 +348,6 @@
     <string name="first_run_2_text">Biztonságos csoportmunka és fájlmegosztás</string>
     <string name="first_run_3_text">Könnyen használható webes levelezés, naptárkezelés és névjegyek</string>
     <string name="first_run_4_text">Képernyőmegosztás, online megbeszélések és webes konferenciák</string>
-    <string name="folder">mappához</string>
     <string name="folder_already_exists">A mappa már létezik</string>
     <string name="folder_confirm_create">Létrehozás</string>
     <string name="folder_icon">Mappaikon</string>
@@ -587,7 +580,6 @@
     <string name="share_get_public_link_button">Hivatkozás beszerzése</string>
     <string name="share_group_clarification">%1$s (csoport)</string>
     <string name="share_internal_link">Belső hivatkozás megosztása</string>
-    <string name="share_internal_link_text">Csak azoknál a felhasználóknál működik, akiknek hozzáférése van ehhez a %1$s</string>
     <string name="share_internal_link_to_file_text">A belső megosztási link csak azon felhasználók számára működik, amelyeknek van hozzáférésük ehhez a fájlhoz</string>
     <string name="share_internal_link_to_folder_text">A belső megosztási link csak azon felhasználók számára működik, amelyeknek van hozzáférésük ehhez a mappához</string>
     <string name="share_known_remote_clarification">%1$s ( itt: %2$s )</string>
