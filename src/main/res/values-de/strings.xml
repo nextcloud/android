@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Nur lokal</string>
     <string name="conflict_already_existing_file">Bereits existierende Datei</string>
     <string name="conflict_dialog_error">Fehler beim Erstellen des Konfliktdialoges</string>
-    <string name="conflict_keep_both">Beide behalten</string>
-    <string name="conflict_message">Welche Datei soll behalten werden? Wenn Sie beide Versionen wählen, wird der lokalen Datei eine Zahl am Ende des Dateinamens angefügt.</string>
     <string name="conflict_message_description">Falls beide Versionen gewählt werden, wird bei der lokalen Datei eine Zahl am Ende des Dateinamens hinzugefügt.</string>
     <string name="conflict_message_headline">Welche Dateien möchten Sie behalten?</string>
     <string name="conflict_new_file">Neue Datei</string>
-    <string name="conflict_title">Dateikonfilikt</string>
-    <string name="conflict_use_local_version">Lokale Version</string>
-    <string name="conflict_use_server_version">Serverversion</string>
     <string name="contaclist_restore_selected">Ausgewählte Adressen wiederherstellen</string>
     <string name="contactlist_account_chooser_title">Konto für den Import auswählen</string>
     <string name="contactlist_item_icon">Nutzericon für Kontaktliste</string>
@@ -284,7 +279,6 @@
     <string name="fallback_weblogin_text">Zur alten Anmeldungsmethode zurückkehren</string>
     <string name="favorite">Zu den Favoriten hinzufügen</string>
     <string name="favorite_icon">Favoriten</string>
-    <string name="file">Datei</string>
     <string name="file_delete">Löschen</string>
     <string name="file_detail_activity_error">Fehler beim Abrufen der Aktivitäten für die Datei</string>
     <string name="file_details_no_content">Fehler beim Laden der Details</string>
@@ -354,7 +348,6 @@
     <string name="first_run_2_text">Sichere Zusammenarbeit &amp; Dateiaustausch</string>
     <string name="first_run_3_text">Leicht verwendbares Web-Mail, Kalender &amp; Kontakte</string>
     <string name="first_run_4_text">Bildschirm teilen, Online-Meetings&amp; Web-Konferenzen</string>
-    <string name="folder">Ordner</string>
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="folder_confirm_create">Erstellen</string>
     <string name="folder_icon">Ordnersymbol</string>
@@ -587,7 +580,6 @@
     <string name="share_get_public_link_button">Link erhalten</string>
     <string name="share_group_clarification">%1$s (Gruppe)</string>
     <string name="share_internal_link">Internen Link teilen</string>
-    <string name="share_internal_link_text">Funktioniert nur für Benutzer, die Zugriff auf diese(n) %1$s haben</string>
     <string name="share_internal_link_to_file_text">Der interne Freigabelink funktioniert nur für Benutzer mit Zugriff auf diese Datei</string>
     <string name="share_internal_link_to_folder_text">Der interne Freigabelink funktioniert nur für Benutzer mit Zugriff auf diesen Ordner</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>

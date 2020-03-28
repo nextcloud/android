@@ -141,12 +141,7 @@
     <string name="confirmation_remove_folder_alert">%1$s 및 포함된 모든 내용을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_folders_alert">선택한 항목과 포함된 내용을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_local">로컬만</string>
-    <string name="conflict_keep_both">모두 저장</string>
-    <string name="conflict_message">어떤 파일을 저장하시겠습니까? 모두 저장을 선택하면 로컬 버전의 파일 이름에 숫자를 추가합니다.</string>
     <string name="conflict_message_headline">어느 파일을 유지하시겠습니까?</string>
-    <string name="conflict_title">파일 충돌</string>
-    <string name="conflict_use_local_version">로컬 버전</string>
-    <string name="conflict_use_server_version">서버 버전</string>
     <string name="contaclist_restore_selected">선택한 주소록 복원</string>
     <string name="contactlist_account_chooser_title">가져올 계정 선택</string>
     <string name="contactlist_item_icon">연락처 목록 사용자 아이콘</string>
@@ -269,7 +264,6 @@
     <string name="fallback_weblogin_text">이전 로그인 방식으로 변경</string>
     <string name="favorite">즐겨찾기에 추가</string>
     <string name="favorite_icon">즐겨찾기</string>
-    <string name="file">파일</string>
     <string name="file_delete">삭제</string>
     <string name="file_detail_activity_error">파일에 대한 작업 검색 중 오류 발생</string>
     <string name="file_details_no_content">자세한 정보를 불러오는데 실패했습니다.</string>
@@ -339,7 +333,6 @@
     <string name="first_run_2_text">안전한 협력 &amp;파일 교환</string>
     <string name="first_run_3_text">사용하기 쉬운 웹 메일, 달력 &amp; 연락처</string>
     <string name="first_run_4_text">화면 공유, 온라인 회의 &amp; 웹 회의</string>
-    <string name="folder">폴더</string>
     <string name="folder_already_exists">폴더가 이미 존재함</string>
     <string name="folder_confirm_create">생성</string>
     <string name="folder_icon">폴더 아이콘</string>
@@ -565,7 +558,6 @@
     <string name="share_get_public_link_button">링크 얻기</string>
     <string name="share_group_clarification">%1$s(그룹)</string>
     <string name="share_internal_link">내부 링크 공유</string>
-    <string name="share_internal_link_text">이 %1$s에 액세스하는 사용자에게만 해당됩니다.</string>
     <string name="share_known_remote_clarification">%1$s(%2$s에서)</string>
     <string name="share_link_empty_password">암호를 입력해야 합니다</string>
     <string name="share_link_file_error">이 파일이나 폴더를 공유하는 중 오류 발생</string>

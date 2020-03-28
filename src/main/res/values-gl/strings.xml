@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Só local</string>
     <string name="conflict_already_existing_file">O  ficheiro xa existe</string>
     <string name="conflict_dialog_error">Produciuse un erro ao crear o diálogo de conflitos!</string>
-    <string name="conflict_keep_both">Conservar ambos</string>
-    <string name="conflict_message">Que ficheiros quere conservar? Se selecciona ámbalas dúas versións, engadiráselle un número ao nome do ficheiro local.</string>
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
     <string name="conflict_message_headline">Que ficheiros quere conservar?</string>
     <string name="conflict_new_file">Novo ficheiro</string>
-    <string name="conflict_title">Conflito de ficheiro</string>
-    <string name="conflict_use_local_version">versión local</string>
-    <string name="conflict_use_server_version">versión no servidor</string>
     <string name="contaclist_restore_selected">Restaurar os contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Escolla unha conta para importala</string>
     <string name="contactlist_item_icon">Icona do usuario para a lista de contactos</string>
@@ -284,7 +279,6 @@
     <string name="fallback_weblogin_text">Volver ao método de acceso antigo</string>
     <string name="favorite">Engadir a favoritos</string>
     <string name="favorite_icon">Favorito</string>
-    <string name="file">ficheiro</string>
     <string name="file_delete">Eliminar</string>
     <string name="file_detail_activity_error">Produciuse un erro ao recuperar actividades para o ficheiro</string>
     <string name="file_details_no_content">Produciuse un fallo ao cargar os detalles</string>
@@ -354,7 +348,6 @@
     <string name="first_run_2_text">Colaboración segura e intercambio de ficheiros</string>
     <string name="first_run_3_text">Correo web, calendario e contactos doados de usar</string>
     <string name="first_run_4_text">Compartir a pantalla, xuntanzas en liña e conferencias web</string>
-    <string name="folder">cartafol</string>
     <string name="folder_already_exists">Xa existe o cartafol</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_icon">Icona do cartafol</string>
@@ -588,7 +581,6 @@
     <string name="share_get_public_link_button">Obter a ligazón</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_internal_link">Compartir a ligazón interna</string>
-    <string name="share_internal_link_text">Só funciona para usuarios con acceso a este %1$s</string>
     <string name="share_internal_link_to_file_text">A ligazón de compartición interna só funciona para usuarios con acceso a este ficheiro</string>
     <string name="share_internal_link_to_folder_text">A ligazón de compartición interna só funciona para usuarios con acceso a este cartafol</string>
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>

@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Lokala bakarrik</string>
     <string name="conflict_already_existing_file">Dagoeneko existitzen den fitxategia</string>
     <string name="conflict_dialog_error">Errorea gatazkaren elkarrizketa-koadroa sortzean!</string>
-    <string name="conflict_keep_both">Mantendu biak</string>
-    <string name="conflict_message">Ze fitxategi mantendu nahi dituzu? Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
     <string name="conflict_message_description">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
     <string name="conflict_message_headline">Ze fitxategi mantendu nahi dituzu?</string>
     <string name="conflict_new_file">Fitxategi berria</string>
-    <string name="conflict_title">Fitxategi gatazka</string>
-    <string name="conflict_use_local_version">bertsio lokala</string>
-    <string name="conflict_use_server_version">zerbitzariaren bertsioa</string>
     <string name="contaclist_restore_selected">Leheneratu hautatutako kontaktuak</string>
     <string name="contactlist_account_chooser_title">Aukeratu kontu bat inportatzeko</string>
     <string name="contactlist_item_icon">Erabiltzailearen ikonoa kontaktuen zerrendarako</string>
@@ -284,7 +279,6 @@
     <string name="fallback_weblogin_text">Lehengoratu saioa hasteko metodo zaharrera</string>
     <string name="favorite">Gogokoenetara gehitu</string>
     <string name="favorite_icon">Gogokoa</string>
-    <string name="file">fitxategia</string>
     <string name="file_delete">Ezabatu</string>
     <string name="file_detail_activity_error">Errorea fitxategiaren jarduerak berreskuratzen</string>
     <string name="file_details_no_content">Huts egin du zehaztapenak kargatzen</string>
@@ -354,7 +348,6 @@
     <string name="first_run_2_text">Lankidetza &amp; fitxategi partekatze segurua</string>
     <string name="first_run_3_text">Web posta, egutegi &amp; kontaktu erabilerraza</string>
     <string name="first_run_4_text">Pantaila partekatzea, online bilerak &amp;web konferentziak</string>
-    <string name="folder">karpeta</string>
     <string name="folder_already_exists">Karpeta dagoeneko existitzen da</string>
     <string name="folder_confirm_create">Sortu</string>
     <string name="folder_icon">Karpetaren ikonoa</string>
@@ -587,7 +580,6 @@
     <string name="share_get_public_link_button">Esteka lortu</string>
     <string name="share_group_clarification">%1$s (taldea)</string>
     <string name="share_internal_link">Partekatu barne-esteka</string>
-    <string name="share_internal_link_text">%1$s honetara sartzeko baimena duten erabiltzaileentzat bakarrik funtzionatzen du</string>
     <string name="share_internal_link_to_file_text">Barneko partekatzeko estekak fitxategi honetarako sarrera duten erabiltzaileentzat bakarrik balio du</string>
     <string name="share_internal_link_to_folder_text">Barneko partekatzeko estekak karpetarako sarrera duten erabiltzaileentzat bakarrik balio du</string>
     <string name="share_known_remote_clarification">%1$s (%2$s-n)</string>

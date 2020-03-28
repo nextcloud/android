@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Только локально</string>
     <string name="conflict_already_existing_file">Файл уже существует</string>
     <string name="conflict_dialog_error">Не удалось создать диалоговое окно разрешения конфликта синхронизации.</string>
-    <string name="conflict_keep_both">Сохранить оба</string>
-    <string name="conflict_message">Какие файлы вы хотите сохранить? Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
     <string name="conflict_message_description">Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
     <string name="conflict_message_headline">Какие файлы вы хотите сохранить?</string>
     <string name="conflict_new_file">Новый файл</string>
-    <string name="conflict_title">Конфликт файлов</string>
-    <string name="conflict_use_local_version">Версию на устройстве</string>
-    <string name="conflict_use_server_version">Версия сервера</string>
     <string name="contaclist_restore_selected">Восстановить выбранные контакты</string>
     <string name="contactlist_account_chooser_title">Выберите аккаунт для импорта</string>
     <string name="contactlist_item_icon">Значок пользователя в списке контактов</string>
@@ -284,7 +279,6 @@
     <string name="fallback_weblogin_text">Использовать прежний метод авторизации</string>
     <string name="favorite">Добавить в избранное</string>
     <string name="favorite_icon">Избранное</string>
-    <string name="file">файл</string>
     <string name="file_delete">Удалить</string>
     <string name="file_detail_activity_error">Ошибка получения истории событий, связанных с файлом</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>
@@ -354,7 +348,6 @@
     <string name="first_run_2_text">Защищённое совместная работа &amp;обмен файлами</string>
     <string name="first_run_3_text">Простые в использовании приложения для работы с почтой, календарями и контактами</string>
     <string name="first_run_4_text">Доступ к изображению на экране, онлайн общение и веб-конференции</string>
-    <string name="folder">папка</string>
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="folder_confirm_create">Создать</string>
     <string name="folder_icon">Значок папки</string>
@@ -587,7 +580,6 @@
     <string name="share_get_public_link_button">Получить ссылку</string>
     <string name="share_group_clarification">%1$s (группа)</string>
     <string name="share_internal_link">Опубликовать внутреннюю ссылку</string>
-    <string name="share_internal_link_text">Только для пользователей этого сервера %1$s</string>
     <string name="share_internal_link_to_file_text">Внутренние ссылки могут быть использованы только пользователями, у которых есть доступ к этому файлу</string>
     <string name="share_internal_link_to_folder_text">Внутренние ссылки могут быть использованы только пользователями, у которых есть доступ к этой папке</string>
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>

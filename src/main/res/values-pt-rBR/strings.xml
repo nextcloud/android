@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Somente local</string>
     <string name="conflict_already_existing_file">Arquivo já existe</string>
     <string name="conflict_dialog_error">Erro ao criar diálogo de conflito!</string>
-    <string name="conflict_keep_both">Manter ambos</string>
-    <string name="conflict_message">Quais arquivos você quer manter? Se você selecionar ambos, o arquivo local terá um número adicionado ao seu nome.</string>
     <string name="conflict_message_description">Se você selecionar as duas versões, o arquivo local terá um número anexado ao seu nome.</string>
     <string name="conflict_message_headline">Quais arquivos você quer manter?</string>
     <string name="conflict_new_file">Novo arquivo</string>
-    <string name="conflict_title">Conflito de arquivo</string>
-    <string name="conflict_use_local_version">versão local</string>
-    <string name="conflict_use_server_version">versão do servidor</string>
     <string name="contaclist_restore_selected">Restaurar contatos selecionados</string>
     <string name="contactlist_account_chooser_title">Escolha a conta para importar</string>
     <string name="contactlist_item_icon">Ícone de usuário para a lista de contatos</string>
@@ -284,7 +279,6 @@
     <string name="fallback_weblogin_text">Voltar ao antigo método de login</string>
     <string name="favorite">Adicionar aos favoritos</string>
     <string name="favorite_icon">Favorito</string>
-    <string name="file">arquivo</string>
     <string name="file_delete">Excluir</string>
     <string name="file_detail_activity_error">Erro ao recuperar atividades do arquivo</string>
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
@@ -354,7 +348,6 @@
     <string name="first_run_2_text">Colaboração segura &amp; troca de arquivos</string>
     <string name="first_run_3_text">Webmail fácil de usar, calendário &amp; contatos</string>
     <string name="first_run_4_text">Compartilhamento de tela, reuniões online &amp; conferência via web</string>
-    <string name="folder">pasta</string>
     <string name="folder_already_exists">Pasta já existe</string>
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_icon">Ícone de pasta</string>
@@ -587,7 +580,6 @@
     <string name="share_get_public_link_button">Obter link</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_internal_link">Compartilhar o link interno</string>
-    <string name="share_internal_link_text">Funciona apenas para usuários com acesso a esta %1$s</string>
     <string name="share_internal_link_to_file_text">O link de compartilhamento interno só funciona para usuários com acesso a este arquivo</string>
     <string name="share_internal_link_to_folder_text">O link de compartilhamento interno só funciona para usuários com acesso a esta pasta</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>

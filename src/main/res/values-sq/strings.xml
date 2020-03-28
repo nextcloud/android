@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Vetëm vendorja</string>
     <string name="conflict_already_existing_file">Skedar ekzistues</string>
     <string name="conflict_dialog_error">Gabim në krijimin e dialogut për konflikte!</string>
-    <string name="conflict_keep_both">Mbaji të dyja</string>
-    <string name="conflict_message">Cilat kartela doni të mbani? Nëse përzgjidhni të dy versionet, skedarit vendorë do t\’i shtohet një numër te emri.</string>
     <string name="conflict_message_description">Nëse zgjidhni të dy versionet, skedari lokal do të ketë një numër të bashkangjitur në emër</string>
     <string name="conflict_message_headline">Cilat kartela doni të mbani?</string>
     <string name="conflict_new_file">Skedë e re</string>
-    <string name="conflict_title">Përplasje skedarësh</string>
-    <string name="conflict_use_local_version">versionin vendor</string>
-    <string name="conflict_use_server_version">versionin e shërbyesit</string>
     <string name="contaclist_restore_selected">Rikthe kontaktet e zgjedhura</string>
     <string name="contactlist_account_chooser_title">Zgjidh llogarinë që do të importohet</string>
     <string name="contactlist_item_icon">Ikona e përdoruesit për listën e kontakteve</string>
@@ -284,7 +279,6 @@
     <string name="fallback_weblogin_text">Rikthehu në metodën e vjetër te identifikimit</string>
     <string name="favorite">Shtoje tek të parapëlqyerat</string>
     <string name="favorite_icon">E parapëlqyer</string>
-    <string name="file">skedari</string>
     <string name="file_delete">Fshini</string>
     <string name="file_detail_activity_error">Gabim gjatë marrjes së aktiviteteve të skedarit</string>
     <string name="file_details_no_content">Dështoi ngarkimi i detajeve</string>
@@ -354,7 +348,6 @@
     <string name="first_run_2_text">Bashkëpunim i sigurtë &amp;skedar i ndryshuar</string>
     <string name="first_run_3_text">E-mail i thjeshtë për t\'u përdorur në web, kalendari &amp;i kontakteve</string>
     <string name="first_run_4_text">Ndarja e ekranit, takime në internet &amp; konferenca në web</string>
-    <string name="folder">dosja</string>
     <string name="folder_already_exists">Dosja ekziston tashmë</string>
     <string name="folder_confirm_create">Krijo</string>
     <string name="folder_icon">Ikona e dosjes</string>
@@ -587,7 +580,6 @@
     <string name="share_get_public_link_button">Merreni lidhjen</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_internal_link">Shpërnda linkun e brendshëm</string>
-    <string name="share_internal_link_text">Punon vetëm për përdoruesit që kanë akses në %1$s</string>
     <string name="share_internal_link_to_file_text">Lidhja e brendshme të ndarjes funksionon vetëm për përdoruesit që kanë qasje në këtë skedar</string>
     <string name="share_internal_link_to_folder_text">Lidhja e ndarjes së brendshme funksionon vetëm për përdoruesit me qasje në këtë dosje</string>
     <string name="share_known_remote_clarification">%1$s ( te %2$s )</string>
