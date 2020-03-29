@@ -190,7 +190,7 @@
     <string name="dev_version_no_new_version_available">Non hai versión nova dispoñíbel.</string>
     <string name="digest_algorithm_not_available">Este algoritmo de resumo non está dispoñíbel no seu teléfono.</string>
     <string name="disable_new_media_folder_detection_notifications">Desactivar</string>
-    <string name="dismiss">Desbotar</string>
+    <string name="dismiss">Rexeitar</string>
     <string name="dismiss_notification_description">Rexeitar a notificación</string>
     <string name="download_latest_dev_version">Descargar a última versión de desenvolvemento</string>
     <string name="downloader_download_failed_content">Non foi posíbel descargar %1$s</string>
