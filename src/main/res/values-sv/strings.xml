@@ -86,7 +86,7 @@
     <string name="battery_optimization_message">Din enhet kan ha batterioptimering aktiverad. För att auto-uppladdning ska fungera måste du utesluta denna app från batterioptimering.</string>
     <string name="battery_optimization_no_setting">Kan inte starta batterinställningarna direkt. Justera manuellt i inställningarna.</string>
     <string name="battery_optimization_title">Batterioptimering</string>
-    <string name="certificate_load_problem">Certifikatet kan inte laddas</string>
+    <string name="certificate_load_problem">Det uppstod ett problem med att läsa in certifikatet.</string>
     <string name="changelog_dev_version">Ändringslogg utvecklingsversion</string>
     <string name="checkbox">Kryssruta</string>
     <string name="choose_local_folder">Välj lokal mapp…</string>
@@ -104,7 +104,7 @@
     <string name="common_error">Fel</string>
     <string name="common_error_out_memory">Inte tillräckligt med minne</string>
     <string name="common_error_unknown">Okänt fel</string>
-    <string name="common_loading">Laddar…</string>
+    <string name="common_loading">Läser in…</string>
     <string name="common_no">Nej</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Väntar</string>
@@ -125,7 +125,7 @@
     <string name="community_contribute_irc_text">Gå med vår i IRC-chatt:</string>
     <string name="community_contribute_translate_text">appen</string>
     <string name="community_contribute_translate_translate">Översätt</string>
-    <string name="community_dev_direct_download">Hämta utvecklarversion via direkt nedladdning</string>
+    <string name="community_dev_direct_download">Hämta utvecklarversion via direkt</string>
     <string name="community_dev_fdroid">Hämta utvecklarversion från F-droid-appbutiken</string>
     <string name="community_rc_fdroid">Hämta versionskandidat från F-droid-appbutiken</string>
     <string name="community_rc_play_store">Hämta versionskandidat från Google Play-butiken</string>
@@ -168,7 +168,7 @@
     <string name="copy_link">Kopiera länk</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiera/flytta till krypterad mapp stöds för närvarande inte.</string>
     <string name="copy_to">Kopiera till…</string>
-    <string name="could_not_download_image">Kunde inte ladda ner hela bilden</string>
+    <string name="could_not_download_image">Kunde inte hämta hela bilden</string>
     <string name="could_not_retrieve_url">Kunde inte hämta URL</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
     <string name="create_new">Skapa ny</string>
@@ -192,13 +192,13 @@
     <string name="disable_new_media_folder_detection_notifications">Inaktivera</string>
     <string name="dismiss">Avfärda</string>
     <string name="dismiss_notification_description">Avfärda notifiering</string>
-    <string name="download_latest_dev_version">Ladda ner senaste utvecklingsversionen</string>
-    <string name="downloader_download_failed_content">Kunde inte ladda ner %1$s</string>
+    <string name="download_latest_dev_version">Hämta senaste utvecklingsversionen</string>
+    <string name="downloader_download_failed_content">Kunde inte hämta %1$s</string>
     <string name="downloader_download_failed_credentials_error">Hämtningen misslyckades, logga in igen</string>
-    <string name="downloader_download_failed_ticker">Misslyckad nedladdning</string>
+    <string name="downloader_download_failed_ticker">Hämtning misslyckades</string>
     <string name="downloader_download_file_not_found">Filen är inte längre tillgänglig på servern</string>
     <string name="downloader_download_in_progress_content">%1$d%% Hämtar %2$s</string>
-    <string name="downloader_download_in_progress_ticker">Laddar ner…</string>
+    <string name="downloader_download_in_progress_ticker">Hämtar…</string>
     <string name="downloader_download_succeeded_content">%1$s hämtad</string>
     <string name="downloader_download_succeeded_ticker">Hämtad</string>
     <string name="downloader_not_downloaded_yet">Ännu inte hämtade</string>
@@ -272,7 +272,7 @@
     <string name="etm_preferences">Inställningar</string>
     <string name="etm_title">Teknisk testläge</string>
     <string name="fab_label">Lägg till eller ladda upp</string>
-    <string name="failed_to_download">Misslyckades skicka filen till nedladdningshanteraren</string>
+    <string name="failed_to_download">Misslyckades skicka filen till hämtningshanteraren</string>
     <string name="failed_to_print">Kunde inte skriva ut filen</string>
     <string name="failed_to_start_editor">Kunde inte starta editor</string>
     <string name="fallback_weblogin_back">Tillbaka</string>
@@ -281,7 +281,7 @@
     <string name="favorite_icon">Favoritisera</string>
     <string name="file_delete">Radera</string>
     <string name="file_detail_activity_error">Fel vid hämtning av aktiviteter för fil</string>
-    <string name="file_details_no_content">Kunde inte ladda detaljer</string>
+    <string name="file_details_no_content">Kunde inte läsa in detaljer</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behåll</string>
     <string name="file_list_empty">Ladda upp något eller synkronisera med dina enheter</string>
@@ -306,7 +306,7 @@
     <string name="file_list_empty_text_videos">Ladda upp några videor eller aktivera automatisk uppladdning.</string>
     <string name="file_list_empty_text_videos_filter">Inga videor.</string>
     <string name="file_list_folder">mapp</string>
-    <string name="file_list_loading">Laddar…</string>
+    <string name="file_list_loading">Läser in…</string>
     <string name="file_list_no_app_for_file_type">Det finns ingen applikation för att hantera denna filtyp</string>
     <string name="file_list_seconds_ago">sekunder sedan</string>
     <string name="file_migration_checking_destination">Kontrollerar mål…</string>
@@ -325,7 +325,7 @@
     <string name="file_migration_preparing">Förbereder migration…</string>
     <string name="file_migration_restoring_accounts_configuration">Återställer kontokonfigurationn…</string>
     <string name="file_migration_saving_accounts_configuration">Sparar kontokonfiguartion…</string>
-    <string name="file_migration_source_not_readable">Vill du verkligen ändra lagringssökvägen till %1$s?\n\nOBS: All data kommer att laddas ner igen.</string>
+    <string name="file_migration_source_not_readable">Vill du verkligen ändra sökvägen för lagringen till %1$s?\n\nOBS: Alla data kommer att behöva hämtas igen.</string>
     <string name="file_migration_source_not_readable_title">Källmapp inte läsbar!</string>
     <string name="file_migration_updating_index">Uppdaterar index…</string>
     <string name="file_migration_use_data_folder">Använd</string>
@@ -359,7 +359,7 @@
     <string name="forbidden_permissions_delete">att radera denna fil</string>
     <string name="forbidden_permissions_move">att flytta den här filen</string>
     <string name="forbidden_permissions_rename">att döpa om denna fil</string>
-    <string name="foreground_service_download">Laddar ner filer…</string>
+    <string name="foreground_service_download">Hämtar filer…</string>
     <string name="foreground_service_upload">Laddar upp filer…</string>
     <string name="foreign_files_fail">Vissa filer kunde inte flyttas</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
@@ -390,7 +390,7 @@
     <string name="logs_menu_search">Sök i loggar</string>
     <string name="logs_menu_send">Skicka loggar via e-post</string>
     <string name="logs_status_filtered">Loggar: %1$d kB, frågan matchade %2$d / %3$d på %4$d ms</string>
-    <string name="logs_status_loading">Laddar…</string>
+    <string name="logs_status_loading">Läser in…</string>
     <string name="logs_status_not_filtered">Loggar: %1$d kB, inget filter</string>
     <string name="logs_title">Loggar</string>
     <string name="maintenance_mode">Server i underhållsläge</string>
@@ -436,7 +436,7 @@
     <string name="note_could_not_sent">Kunde inte skicka meddelande</string>
     <string name="notification_action_failed">Misslyckades utföra åtgärd.</string>
     <string name="notification_channel_download_description">Visar hämtningsförloppet</string>
-    <string name="notification_channel_download_name">Ladda ner aviseringskanal</string>
+    <string name="notification_channel_download_name">Hämta aviseringskanal</string>
     <string name="notification_channel_file_observer_description">Övervakar filer för ändringar</string>
     <string name="notification_channel_file_observer_name">Filobservatör</string>
     <string name="notification_channel_file_sync_description">Visar filsynkroniserings förlopp och resultat</string>
@@ -530,7 +530,7 @@
     <string name="push_notifications_old_login">Inga push-aviseringar på grund av utgången inloggningssession. Överväg att lägga till ditt konto på nytt.</string>
     <string name="push_notifications_temp_error">Push-aviseringar är inte tillgängligt för tillfället.</string>
     <string name="recommend_subject">Försök%1$s på din enhet!</string>
-    <string name="recommend_text">Jag vill bjuda in dig att använda %1$s på din enhet.\nLadda ner här: %2$s</string>
+    <string name="recommend_text">Jag vill bjuda in dig att använda %1$s på din enhet.\nHämta här: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
     <string name="remote_file_fetch_failed">Kunde inte hitta filen!</string>
     <string name="remove_fail_msg">Radering misslyckades</string>
@@ -547,7 +547,7 @@
     <string name="restore">Återställ fil</string>
     <string name="restore_button_description">Återställ raderad fil</string>
     <string name="retrieving_file">Tar emot fil…</string>
-    <string name="richdocuments_failed_to_load_document">Kunde inte ladda dokument!</string>
+    <string name="richdocuments_failed_to_load_document">Kunde inte läsa in dokument!</string>
     <string name="saml_authentication_required_text">Lösenord krävs</string>
     <string name="saml_authentication_wrong_pass">Fel lösenord</string>
     <string name="scanQR_description">Logga in via QR-kod</string>
@@ -606,7 +606,7 @@
     <string name="share_send_note">Notering till mottagare</string>
     <string name="share_via_link_edit_permission_label">Tillåt redigering</string>
     <string name="share_via_link_expiration_date_label">Välj utgångsdatum</string>
-    <string name="share_via_link_hide_download">Dölj nedladdning</string>
+    <string name="share_via_link_hide_download">Dölj hämtning</string>
     <string name="share_via_link_hide_file_listing_permission_label">Göm fillistning</string>
     <string name="share_via_link_menu_password_label">Lösenordsskydda (%1$s)</string>
     <string name="share_via_link_password_label">Skydda med lösenord</string>
@@ -661,7 +661,7 @@
     <string name="storage_choose_location">Välj lagringsplats</string>
     <string name="storage_description_default">Standard</string>
     <string name="storage_documents">Dokument</string>
-    <string name="storage_downloads">Nedladdningar</string>
+    <string name="storage_downloads">Hämtningar</string>
     <string name="storage_internal_storage">Intern lagring</string>
     <string name="storage_movies">Filmer</string>
     <string name="storage_music">Musik</string>
@@ -672,7 +672,7 @@
     <string name="store_short_dev_desc">Produktivitetsplattformen där du är din egen värd och håller dig i kontroll (dev förhandsversion)</string>
     <string name="stream">Streama med…</string>
     <string name="stream_not_possible_headline">Intern streaming är inte möjlig</string>
-    <string name="stream_not_possible_message">Vänligen ladda ner media istället eller använd en extern app.</string>
+    <string name="stream_not_possible_message">Vänligen hämta media istället eller använd en extern app.</string>
     <string name="subject_shared_with_you">\"%1$s\" har delats med dig</string>
     <string name="subject_user_shared_with_you">%1$s delade \"%2$s\" med dig</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
@@ -695,7 +695,7 @@
     <string name="sync_string_files">Filer</string>
     <string name="synced_folder_settings_button">Inställningar-knapp</string>
     <string name="synced_folders_configure_folders">Konfigurera mappar</string>
-    <string name="synced_folders_loading_folders">Laddar mappar…</string>
+    <string name="synced_folders_loading_folders">Läser in mappar…</string>
     <string name="synced_folders_new_info">Direktuppladdning heter numera Automatisk uppladdning och har blivit totalt omgjort. Vänligen se huvudmenyn för att konfigurera Automatisk uppladdning igen. Ledsen för besväret.\n\nNjut av de nya och förbättrade uppladdningsmöjligheterna!</string>
     <string name="synced_folders_no_results">Inga mediamappar hittades</string>
     <string name="synced_folders_preferences">Inställningar för automatisk uppladdning</string>
@@ -776,7 +776,7 @@
     <string name="uploader_upload_succeeded_content_single">%1$s uppladdad</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Avsluta</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Skapa</string>
-    <string name="uploader_wrn_no_account_text">Det finns inga %1$s-konton på din enhet. Lägg till ett konto först</string>
+    <string name="uploader_wrn_no_account_text">Det finns inga %1$s-konton på din enhet. Vänligen lägg till ett konto först</string>
     <string name="uploader_wrn_no_account_title">Hittade inget konto</string>
     <string name="uploads_view_group_current_uploads">Nuvarande</string>
     <string name="uploads_view_group_failed_uploads">Misslyckades/väntar omstart</string>
