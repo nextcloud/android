@@ -49,10 +49,12 @@ import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.StreamMediaFileOperation;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -278,16 +280,25 @@ public class FileOperationsHelper {
                     queryIntentActivities(openFileWithIntent, PackageManager.GET_RESOLVED_FILTER);
 
             if (launchables.isEmpty()) {
-                Account account = fileActivity.getAccount();
-                OCCapability capability = fileActivity.getStorageManager().getCapability(account.name);
-                if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
-                    android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
-                    capability.getRichDocumentsDirectEditing().isTrue()) {
-                    openFileAsRichDocument(file, fileActivity);
-                    return;
+                Optional<User> optionalUser = fileActivity.getUser();
+
+                if (optionalUser.isPresent() && FileMenuFilter.isEditorAvailable(fileActivity.getContentResolver(),
+                                                                                 optionalUser.get(),
+                                                                                 file.getMimeType()) &&
+                    android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    openFileWithTextEditor(file, fileActivity);
                 } else {
-                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
-                    return;
+                    Account account = fileActivity.getAccount();
+                    OCCapability capability = fileActivity.getStorageManager().getCapability(account.name);
+                    if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
+                        android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                        capability.getRichDocumentsDirectEditing().isTrue()) {
+                        openFileAsRichDocument(file, fileActivity);
+                        return;
+                    } else {
+                        DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
+                        return;
+                    }
                 }
             }
 
