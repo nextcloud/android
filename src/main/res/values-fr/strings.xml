@@ -612,7 +612,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_via_link_menu_password_label">Protéger par un mot de passe (%1$s)</string>
     <string name="share_via_link_password_label">Protéger avec un mot de passe</string>
     <string name="share_via_link_password_title">Sécurisé</string>
-    <string name="share_via_link_section_title">Partager un lien</string>
+    <string name="share_via_link_section_title">Lien de partage</string>
     <string name="share_via_link_send_link_label">Envoyer le lien</string>
     <string name="share_via_link_unset_password">Désactiver</string>
     <string name="share_with_edit_title">Partager avec %1$s</string>

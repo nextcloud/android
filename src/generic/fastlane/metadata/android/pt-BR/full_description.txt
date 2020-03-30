@@ -15,4 +15,5 @@ Características:
 Favor informar todos os problemas em https://github.com/nextcloud/android/issues e discutir este aplicativo em https://help.nextcloud.com/c/clients/android
 
 Novo no Nextcloud? Nextcloud é uma sincronização de arquivos privada para compartilhamento & comunicação. É um software livre e você pode hospedá-lo sozinho ou pagar uma empresa para fazer isso por você. Dessa forma, você controla suas fotos, dados de calendário e de contato, documentos e tudo mais.
-\ nConsulte Nextcloud em https://nextcloud.com
+
+Consulte Nextcloud em https://nextcloud.com
