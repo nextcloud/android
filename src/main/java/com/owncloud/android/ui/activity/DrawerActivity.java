@@ -288,6 +288,9 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
         };
 
+        // proper coloring of drawer menu icon
+        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.toolbarTextColor(this));
+
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
