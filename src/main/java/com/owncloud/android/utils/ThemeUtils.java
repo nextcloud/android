@@ -71,6 +71,7 @@ import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.widget.CompoundButtonCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -412,6 +413,15 @@ public final class ThemeUtils {
 
         colorHorizontalProgressBar(seekBar, color);
         seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    }
+
+    public static void colorSwipeRefreshLayout(Context context, SwipeRefreshLayout swipeRefreshLayout) {
+        int primaryColor = ThemeUtils.primaryColor(context);
+        int darkColor = ThemeUtils.primaryDarkColor(context);
+        int accentColor = ThemeUtils.primaryAccentColor(context);
+
+        swipeRefreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
+        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.bg_elevation_one);
     }
 
     /**
