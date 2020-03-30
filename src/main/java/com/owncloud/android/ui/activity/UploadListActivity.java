@@ -187,6 +187,7 @@ public class UploadListActivity extends FileActivity {
         recyclerView.setAdapter(uploadListAdapter);
 
 
+        ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
         swipeListRefreshLayout.setOnRefreshListener(this::refresh);
 
         loadItems();

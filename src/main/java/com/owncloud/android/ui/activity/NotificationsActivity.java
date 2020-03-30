@@ -140,6 +140,8 @@ public class NotificationsActivity extends FileActivity implements Notifications
 
         swipeEmptyListRefreshLayout = findViewById(R.id.swipe_containing_empty);
         swipeListRefreshLayout = findViewById(R.id.swipe_containing_list);
+        ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
+        ThemeUtils.colorSwipeRefreshLayout(this, swipeEmptyListRefreshLayout);
 
         // setup drawer
         setupDrawer(R.id.nav_notifications);
