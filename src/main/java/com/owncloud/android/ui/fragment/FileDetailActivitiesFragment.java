@@ -175,8 +175,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         setupView();
 
-        onCreateSwipeToRefresh(swipeEmptyListRefreshLayout);
-        onCreateSwipeToRefresh(swipeListRefreshLayout);
+        ThemeUtils.colorSwipeRefreshLayout(getContext(), swipeEmptyListRefreshLayout);
+        ThemeUtils.colorSwipeRefreshLayout(getContext(), swipeListRefreshLayout);
 
         fetchAndSetData(-1);
 
@@ -446,15 +446,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
             }
             isLoadingActivities = false;
         });
-    }
-
-    protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
-        int primaryColor = ThemeUtils.primaryColor(getContext());
-        int darkColor = ThemeUtils.primaryDarkColor(getContext());
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
-
-        // Colors in animations
-        refreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
     }
 
     @Override
