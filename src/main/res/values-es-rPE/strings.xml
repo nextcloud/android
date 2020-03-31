@@ -110,12 +110,7 @@
     <string name="confirmation_remove_folder_alert">¿Realmente quieres eliminar %1$s y sus contenidos? </string>
     <string name="confirmation_remove_folders_alert">¿Reamente deseas eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Sólo local</string>
-    <string name="conflict_keep_both">Mantener ambas</string>
-    <string name="conflict_message">¿Qué archivos desesa mantener? Si seleccionas ambas versiones, se le agregará un número al nombre del archivo local.</string>
     <string name="conflict_message_headline">¿Cuales archivos deseas mantener?</string>
-    <string name="conflict_title">Conflicto de archivo</string>
-    <string name="conflict_use_local_version">versión local</string>
-    <string name="conflict_use_server_version">versión de servidor</string>
     <string name="contaclist_restore_selected">Restaurar los contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Selecciona la cuenta a importar</string>
     <string name="contactlist_no_permission">No se han otorgado privilegios, nada fue importado.</string>
@@ -181,7 +176,6 @@
     <string name="fallback_weblogin_text">Regresar al antiguo método de inicio de sesión</string>
     <string name="favorite">Agregar a tus favoritos</string>
     <string name="favorite_icon">Hacer favorito</string>
-    <string name="file">archivo</string>
     <string name="file_delete">Borrar</string>
     <string name="file_icon">Archivo</string>
     <string name="file_list_empty">Carga algún contenido o sincroniza con tus dispositivos.</string>
@@ -215,7 +209,6 @@
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>
     <string name="filename_forbidden_characters">Caracteres inválidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_hint">Nombre del archivo</string>
-    <string name="folder">carpeta</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_icon">Ícono de carpeta</string>
     <string name="folder_list_empty_headline">No hay carpetas aquí</string>

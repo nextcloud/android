@@ -139,13 +139,8 @@
     <string name="confirmation_remove_folder_alert">Deseja realmente apagar %1$s e o seu conteúdo?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente apagar os itens seleccionados e os seus conteúdos?</string>
     <string name="confirmation_remove_local">Apenas localmente</string>
-    <string name="conflict_keep_both">Manter ambos</string>
-    <string name="conflict_message">Quais os ficheiros que pretende manter? Se seleccionar ambas as versões, o ficheiro local terá um número adicionado ao se nome</string>
     <string name="conflict_message_headline">Quais os ficheiros que pretende manter?</string>
     <string name="conflict_new_file">Ficheiro novo</string>
-    <string name="conflict_title">Conflito de ficheiro</string>
-    <string name="conflict_use_local_version">versão local</string>
-    <string name="conflict_use_server_version">versão servidor</string>
     <string name="contaclist_restore_selected">Restaurar contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Escolher conta a importar</string>
     <string name="contactlist_item_icon">Ícone de utilizador de lista de contactos</string>
@@ -260,7 +255,6 @@
     <string name="fallback_weblogin_text">Reverter para método de início de sessão anterior</string>
     <string name="favorite">Adicionar aos favoritos</string>
     <string name="favorite_icon">Favorito</string>
-    <string name="file">ficheiro</string>
     <string name="file_delete">Apagar</string>
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
     <string name="file_icon">Ficheiro</string>
@@ -329,7 +323,6 @@
     <string name="first_run_2_text">Colaboração &amp; partilha de ficheiros segura</string>
     <string name="first_run_3_text">Email web fácil de utilizar, calendarização &amp; contactos</string>
     <string name="first_run_4_text">Partilha de ecrã, reuniões online &amp; conferências web</string>
-    <string name="folder">pasta</string>
     <string name="folder_already_exists">A pasta já existe</string>
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_icon">Ícone de pasta</string>

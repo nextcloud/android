@@ -142,13 +142,8 @@
     <string name="confirmation_remove_folders_alert">您真的想要刪除所選項目和裡面的內容嗎？</string>
     <string name="confirmation_remove_local">只有本地</string>
     <string name="conflict_already_existing_file">檔案已存在</string>
-    <string name="conflict_keep_both">保留兩者</string>
-    <string name="conflict_message">您想保留哪個檔案?如果選擇兩個版本皆保留,本地檔案會在檔名後方加上編號</string>
     <string name="conflict_message_headline">您要保留哪一個檔案？</string>
     <string name="conflict_new_file">新增檔案</string>
-    <string name="conflict_title">檔案衝突</string>
-    <string name="conflict_use_local_version">本地版本</string>
-    <string name="conflict_use_server_version">伺服器版本</string>
     <string name="contaclist_restore_selected">還原所選的聯絡人</string>
     <string name="contactlist_account_chooser_title">選擇帳戶以匯入</string>
     <string name="contactlist_item_icon">聯絡清單的使用者圖示</string>
@@ -279,7 +274,6 @@
     <string name="fallback_weblogin_text">還原舊的登入方式</string>
     <string name="favorite">加到我的最愛</string>
     <string name="favorite_icon">我的最愛</string>
-    <string name="file">檔案</string>
     <string name="file_delete">刪除</string>
     <string name="file_detail_activity_error">取得檔案活動時發生錯誤</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
@@ -349,7 +343,6 @@
     <string name="first_run_2_text">安全地協作及傳輸檔案</string>
     <string name="first_run_3_text">容易使用的Webmail,行事曆&amp;聯絡人</string>
     <string name="first_run_4_text">分享螢幕畫面，線上會議&amp;研討會</string>
-    <string name="folder">資料夾</string>
     <string name="folder_already_exists">文件夾已存在</string>
     <string name="folder_confirm_create">建立</string>
     <string name="folder_icon">資料夾圖示</string>
@@ -583,7 +576,6 @@
     <string name="share_get_public_link_button">取得連結</string>
     <string name="share_group_clarification">%1$s （群組）</string>
     <string name="share_internal_link">分享內部鏈結</string>
-    <string name="share_internal_link_text">只適用於有權存取 %1$s 的使用者</string>
     <string name="share_internal_link_to_file_text">內部分享連結僅對有權存取這個檔案的使用者有效</string>
     <string name="share_internal_link_to_folder_text">內部分享連結僅對有權存取這個資料夾的使用者有效</string>
     <string name="share_known_remote_clarification">%1$s （在 %2$s ）</string>

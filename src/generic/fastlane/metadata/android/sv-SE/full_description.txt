@@ -14,6 +14,6 @@ Funktioner:
 
 Vänligen rapportera alla problem på https://github.com/nextcloud/android/issues och diskutera denna app på https://help.nextcloud.com/c/clients/android
 
-Ny för Nextcloud? Nextcloud är en privat filsynkronisering& dela och kommunikationsserver. Den är libre-programvara, och du kan vara värd själv eller betala ett företag att göra det åt dig. På så sätt har du kontroll över dina foton, din kalender och kontaktdata, dina dokument och allt annat.
+Ny på Nextcloud? Nextcloud är en privat filsynkroniseringsserver& där du även kan dela med dig av dina dokument till andra. Den är libre-programvara och du kan vara välja att vara din egen värd eller betala ett företag att göra det åt dig. På så sätt har du full kontroll över dina foton, din kalender, dina kontakter, dina dokument och allt annat.
 
 Kolla in Nextcloud på https://nextcloud.com

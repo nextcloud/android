@@ -142,14 +142,9 @@
     <string name="confirmation_remove_folders_alert">هل توَدُّ حقاً حذف العناصر المختارة وما يحتوّه؟</string>
     <string name="confirmation_remove_local">محليا فقط</string>
     <string name="conflict_already_existing_file">الملف موجود بالفعل</string>
-    <string name="conflict_keep_both">الاحتفاظ بالنسختين</string>
-    <string name="conflict_message">أي ملفات تود أن تحفظها؟ عند إختيارك للنسختين من الملفات، سيضاف رقم في آخر إسم النسخة المحلية.</string>
     <string name="conflict_message_description">إذا قمت باختيار كلا الاصدارين, الملف المحلي سيحتوي على رقم ملحق باسم الملف.</string>
     <string name="conflict_message_headline">ماهي الملفات التي ترغب في إبقاءها ؟</string>
     <string name="conflict_new_file">الملف الجديد</string>
-    <string name="conflict_title">تعارُض الملف</string>
-    <string name="conflict_use_local_version">النسخة المحلية</string>
-    <string name="conflict_use_server_version">نسخة السيرفر</string>
     <string name="contaclist_restore_selected">إسترجع جهات الإتصال المختارة</string>
     <string name="contactlist_account_chooser_title">إختر الحساب الذي تود استرجاعه</string>
     <string name="contactlist_item_icon">أيقونة المستخدمين المتواجدين في قائمة جهات الإتصال</string>
@@ -243,7 +238,6 @@
     <string name="fallback_weblogin_back">العودة</string>
     <string name="favorite">أضفه إلى المفضلة</string>
     <string name="favorite_icon">المفضلة</string>
-    <string name="file">file</string>
     <string name="file_delete">حذف </string>
     <string name="file_icon">الملف</string>
     <string name="file_list_empty">قم برفع بعض المحتوى أو زامن مع أجهزتك</string>
@@ -275,7 +269,6 @@
     <string name="filename_empty">لا يجوز أن يُترك إسم الملف فارغًا</string>
     <string name="filename_forbidden_characters">رموز ممنوعة: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_hint">اسم الملف</string>
-    <string name="folder">folder</string>
     <string name="folder_already_exists">المجلد موجود مسبقاً</string>
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_icon">أيقونة المجلد</string>

@@ -142,14 +142,9 @@
     <string name="confirmation_remove_folders_alert">Haluatko varmasti poistaa valitut kohteet ja niiden sisällön?</string>
     <string name="confirmation_remove_local">Vain paikallisen</string>
     <string name="conflict_already_existing_file">Jo olemassa olevat tiedostot</string>
-    <string name="conflict_keep_both">Säilytä molemmat</string>
-    <string name="conflict_message">Mitkä tiedostot haluat säilyttää? Jos valitset kummatkin versiot, paikallisen version tiedoston nimeen lisätään numero.</string>
     <string name="conflict_message_description">Jos valitset molemmat versiot, paikallisen tiedoston nimeen lisätään numero.</string>
     <string name="conflict_message_headline">Mitkä tiedostot haluat säilyttää?</string>
     <string name="conflict_new_file">Uusi tiedosto</string>
-    <string name="conflict_title">Tiedoston ristiriita</string>
-    <string name="conflict_use_local_version">paikallinen versio</string>
-    <string name="conflict_use_server_version">palvelimen versio</string>
     <string name="contaclist_restore_selected">Palauta valitut yhteystiedot</string>
     <string name="contactlist_account_chooser_title">Valitse tuotava tili</string>
     <string name="contactlist_item_icon">Käyttäjäkuvake yhteystietoihin</string>
@@ -282,7 +277,6 @@
     <string name="fallback_weblogin_text">Palaa vanhaan kirjautumistapaan</string>
     <string name="favorite">Lisää suosikkeihin</string>
     <string name="favorite_icon">Suosikki</string>
-    <string name="file">tiedosto</string>
     <string name="file_delete">Poista</string>
     <string name="file_detail_activity_error">Toimintojen palauttaminen tiedostolle epäonnistui</string>
     <string name="file_details_no_content">Lisätietoja ei voitu lataa.</string>
@@ -352,7 +346,6 @@
     <string name="first_run_2_text">Turvallista yhteistyötä ja tiedostonvaihtoa</string>
     <string name="first_run_3_text">Helppokäyttöinen selaimessa toimiva sähköposti, kalenteri ja yhteystiedot</string>
     <string name="first_run_4_text">Näytönjakaminen, verkkotapaamiset ja web-konfrenssit</string>
-    <string name="folder">kansio</string>
     <string name="folder_already_exists">Kansio on jo olemassa</string>
     <string name="folder_confirm_create">Luo</string>
     <string name="folder_icon">Kansiokuvake</string>
@@ -587,7 +580,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share_get_public_link_button">Hanki linkki</string>
     <string name="share_group_clarification">%1$s (ryhmä)</string>
     <string name="share_internal_link">Jaa sisäinen linkki</string>
-    <string name="share_internal_link_text">Toimii vain käyttäjillä, joilla on oikeudet tähän %1$s</string>
     <string name="share_internal_link_to_file_text">Sisäinen jaettu linkki toimii vain käyttäjillä, joilla on oikeudet tähän tiedostoon</string>
     <string name="share_internal_link_to_folder_text">Sisäinen jaettu linkki toimii vain kayttäjillä, joilla on oikeudet tähän kansioon</string>
     <string name="share_known_remote_clarification">%1$s ( %2$s:lla )</string>

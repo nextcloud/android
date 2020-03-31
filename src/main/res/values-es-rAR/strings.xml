@@ -139,12 +139,7 @@
     <string name="confirmation_remove_folder_alert">¿Realmente quieres eliminar %1$s y su contenido?</string>
     <string name="confirmation_remove_folders_alert">¿Realmente desea eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Sólo local</string>
-    <string name="conflict_keep_both">Mantener ambas</string>
-    <string name="conflict_message">¿Qué archivos desea mantener? Si selecciona ambas versiones, se le agregará un número al nombre del archivo local.</string>
     <string name="conflict_message_headline">¿Cuales archivos desea mantener?</string>
-    <string name="conflict_title">Conflicto de archivo</string>
-    <string name="conflict_use_local_version">versión local</string>
-    <string name="conflict_use_server_version">versión de servidor</string>
     <string name="contaclist_restore_selected">Restaurar los contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Seleccione la cuenta a importar</string>
     <string name="contactlist_item_icon">Icono de usuario para la lista de contactos</string>
@@ -259,7 +254,6 @@
     <string name="fallback_weblogin_text">Volver al antiguo método de inicio de sesión</string>
     <string name="favorite">Agregar a favoritos</string>
     <string name="favorite_icon">Favorito</string>
-    <string name="file">archivo</string>
     <string name="file_delete">Borrar</string>
     <string name="file_detail_activity_error">Error al recuperar actividades para el archivo</string>
     <string name="file_details_no_content">Error al cargar los detalles</string>
@@ -329,7 +323,6 @@
     <string name="first_run_2_text">Colaboración segura &amp; intercambio de archivos</string>
     <string name="first_run_3_text">Correo web fácil de usar, calendario &amp; y contactos</string>
     <string name="first_run_4_text">Compartir pantalla, reuniones en línea &amp; y conferencias web</string>
-    <string name="folder">carpeta</string>
     <string name="folder_already_exists">Carpeta ya existente</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_icon">Icono de carpeta</string>

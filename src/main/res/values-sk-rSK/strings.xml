@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Iba lokálne</string>
     <string name="conflict_already_existing_file">Súbor už existuje </string>
     <string name="conflict_dialog_error">Chyba pri vytváraní konfliktného dialógového okna!</string>
-    <string name="conflict_keep_both">Ponechať oba</string>
-    <string name="conflict_message">Ktoré súbory si prajate ponachať? Pokiaľ to budú obe verzie, lokálnej pribudne k názvu číslo.</string>
     <string name="conflict_message_description">Ak vyberiete obe verzie, miestny súbor bude mať k svojmu názvu pridané číslo.</string>
     <string name="conflict_message_headline">Ktoré súbory chcete ponechať?</string>
     <string name="conflict_new_file">Nový súbor</string>
-    <string name="conflict_title">Konflikt súborov</string>
-    <string name="conflict_use_local_version">lokálnu verziu</string>
-    <string name="conflict_use_server_version">serverovú verziu</string>
     <string name="contaclist_restore_selected">Obnoviť vybrané kontakty</string>
     <string name="contactlist_account_chooser_title">Zvoliť účet na importovanie</string>
     <string name="contactlist_item_icon">Používateľská ikona pre zoznam kontaktov</string>
@@ -284,7 +279,6 @@
     <string name="fallback_weblogin_text">Vrátiť sa k pôvodnému spôsobu prihlásenia</string>
     <string name="favorite">Pridať do obľúbených</string>
     <string name="favorite_icon">Obľúbené</string>
-    <string name="file">súbor</string>
     <string name="file_delete">Zmazať</string>
     <string name="file_detail_activity_error">Chyba pri načítavaní aktivít pre súbor</string>
     <string name="file_details_no_content">Nepodarilo sa načítať podrobnosti</string>
@@ -354,7 +348,6 @@
     <string name="first_run_2_text">Bezpečná kolaborácia&amp;výmena súborov</string>
     <string name="first_run_3_text">Jednoduché použitie web mailu, kalendára &amp; kontaktov</string>
     <string name="first_run_4_text">Zdieľanie obrazovky, online meetingy &amp; web konferencie</string>
-    <string name="folder">priečinok</string>
     <string name="folder_already_exists">Priečinok už existuje</string>
     <string name="folder_confirm_create">Vytvoriť</string>
     <string name="folder_icon">Ikona priečinku</string>
@@ -587,7 +580,6 @@
     <string name="share_get_public_link_button">Získať odkaz</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_internal_link">Sprístupniť interný odkaz</string>
-    <string name="share_internal_link_text">Funguje len pre používateľov s prístupom k tomuto %1$s</string>
     <string name="share_internal_link_to_file_text">Interný odkaz na zdieľanie funguje iba pre používateľov s prístupom k tomuto súboru</string>
     <string name="share_internal_link_to_folder_text">Interný odkaz na zdieľanie funguje iba pre používateľov s prístupom k tomuto adresáru</string>
     <string name="share_known_remote_clarification">%1$s ( na %2$s )</string>

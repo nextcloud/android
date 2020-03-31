@@ -143,14 +143,9 @@
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="conflict_already_existing_file">Już istniejący plik</string>
     <string name="conflict_dialog_error">Błąd podczas tworzenia dialogu konfliktu!</string>
-    <string name="conflict_keep_both">Zatrzymaj oba</string>
-    <string name="conflict_message">Które pliki chcesz zachować? Jeżeli wybierzesz obie wersje, do nazwy pliku lokalnego zostanie dodana liczba.</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do lokalnego pliku będzie dodany numer.</string>
     <string name="conflict_message_headline">Które pliki chcesz zachować?</string>
     <string name="conflict_new_file">Nowy plik</string>
-    <string name="conflict_title">Konflikt pliku</string>
-    <string name="conflict_use_local_version">wersja lokalna</string>
-    <string name="conflict_use_server_version">wersja zdalna</string>
     <string name="contaclist_restore_selected">Przywróć wybrane kontakty</string>
     <string name="contactlist_account_chooser_title">Wybierz konto do zaimportiwania</string>
     <string name="contactlist_item_icon">Ikona użytkownika w liście kontaktów</string>
@@ -284,7 +279,6 @@
     <string name="fallback_weblogin_text">Przywróć starą metodę logowania</string>
     <string name="favorite">Dodaj do ulubionych</string>
     <string name="favorite_icon">Ulubiony</string>
-    <string name="file">plik</string>
     <string name="file_delete">Usuń</string>
     <string name="file_detail_activity_error">Błąd podczas pobierania aktywności dla pliku</string>
     <string name="file_details_no_content">Nie udało się załadować szczegółów</string>
@@ -354,7 +348,6 @@
     <string name="first_run_2_text">Bezpieczna współpraca i wymiana plików</string>
     <string name="first_run_3_text">Łatwy w użyciu klient poczty, kalendarz i kontakty</string>
     <string name="first_run_4_text">Udostępnianie ekranu, spotkania i konferencje online</string>
-    <string name="folder">katalog</string>
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_icon">Ikona katalogu</string>
@@ -587,7 +580,6 @@
     <string name="share_get_public_link_button">Pobierz link</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_internal_link">Udostępnij link wewnętrzny</string>
-    <string name="share_internal_link_text">Działa tylko dla użytkowników mających dostęp do %1$s</string>
     <string name="share_internal_link_to_file_text">Wewnętrzny link udostępniania działa tylko dla użytkowników z dostępem do tego pliku</string>
     <string name="share_internal_link_to_folder_text">Wewnętrzny link udostępniania działa tylko dla użytkowników z dostępem do tego katalogu</string>
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
