@@ -185,7 +185,7 @@
     <string name="delete_account_warning">Ali želite odstraniti račun %s z vsemi krajevnimi datotekami?\n\nBrisanja kasneje ni mogoče razveljaviti.</string>
     <string name="delete_entries">Izbriši vnose</string>
     <string name="deselect_all">Odstrani celoten izbor</string>
-    <string name="dev_version_new_version_available">Na voljo je nova različic</string>
+    <string name="dev_version_new_version_available">Na voljo je nova različica</string>
     <string name="dev_version_no_information_available">Podrobnosti niso na voljo.</string>
     <string name="dev_version_no_new_version_available">Ni objavljene nove različice.</string>
     <string name="digest_algorithm_not_available">Ta algoritem na tej napravi ni podprt.</string>
