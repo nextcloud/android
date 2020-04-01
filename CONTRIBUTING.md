@@ -278,17 +278,21 @@ We use [shot](https://github.com/Karumi/Shot) for taking screenshots and compare
     - this will fire up docker & emulator to ensure that screenshots look the same
 - creating own UI comparision tests: 
     - add IntentsTestRule for launching activity directly:
+
     ```java
- @Rule public IntentsTestRule<SettingsActivity> activityRule = new IntentsTestRule<>(SettingsActivity.class,
+    @Rule public IntentsTestRule<SettingsActivity> activityRule = new IntentsTestRule<>(SettingsActivity.class,
                                                                                         true,
                                                                                         false);
-```
+    ```
+
     -  in test method:
+
     ```java 
-Activity activity = activityRule.launchActivity(null); 
-…do something, e.g. navigate, create folder, etc. … 
-  Screenshot.snapActivity(activity).record();
-  ```
+    Activity activity = activityRule.launchActivity(null); 
+    …do something, e.g. navigate, create folder, etc. … 
+     Screenshot.snapActivity(activity).record();
+    ```
+
     - best practise is to first create test with emulator too see behaviour and then create screenshots
 
 ## File naming
