@@ -44,7 +44,7 @@ lastBuildTag=$(git tag | grep dev | tail -n1)
 #  * Commits touching only non-user-facing stuff like tests
 #  * Version bump commits
 #  * Anything reachable from the previous dev edition tag
-changelog=$(git log --no-merges --invert-grep --author=dependabot --pretty='format:%s' HEAD "^$lastBuildTag" -- ':!src/androidTest' ':!.*' ':!scripts/' ':!screenshots' | grep -vE '^daily dev [[:digit:]]{8}$')
+changelog=$(git log --no-merges --invert-grep --author=dependabot --pretty='format:%s' HEAD "^$lastBuildTag" -- ':!src/androidTest' ':!.*' ':!scripts/' ':!screenshots' ':!CHANGELOG.md' | grep -vE '^daily dev [[:digit:]]{8}$')
 # Make Transifex updates have a nicer description
 if echo "$changelog" | grep -q 'tx-robot'; then
 	changelog=$(echo "$changelog" | grep -v 'tx-robot')
