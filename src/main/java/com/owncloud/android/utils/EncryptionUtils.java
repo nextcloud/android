@@ -24,9 +24,7 @@ package com.owncloud.android.utils;
 import android.accounts.Account;
 import android.content.Context;
 import android.os.Build;
-import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Pair;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -38,14 +36,8 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.GetMetadataRemoteOperation;
-import com.owncloud.android.lib.resources.e2ee.LockFileRemoteOperation;
-import com.owncloud.android.lib.resources.e2ee.StoreMetadataRemoteOperation;
-import com.owncloud.android.lib.resources.e2ee.UnlockFileRemoteOperation;
-import com.owncloud.android.lib.resources.e2ee.UpdateMetadataRemoteOperation;
-import com.owncloud.android.operations.UploadException;
 
 import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.httpclient.HttpStatus;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
