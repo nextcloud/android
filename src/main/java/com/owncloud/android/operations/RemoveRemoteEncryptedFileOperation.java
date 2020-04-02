@@ -43,6 +43,16 @@ import com.owncloud.android.utils.EncryptionUtils;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+
 import androidx.annotation.RequiresApi;
 
 /**
@@ -90,8 +100,6 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
 
         String privateKey = arbitraryDataProvider.getValue(account.name, EncryptionUtils.PRIVATE_KEY);
 
-        // unlock
-
         try {
             // Lock folder
             RemoteOperationResult lockFileOperationResult = new LockFileRemoteOperation(parentId).execute(client);
@@ -136,8 +144,9 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
 
             // upload metadata
-            RemoteOperationResult uploadMetadataOperationResult = new UpdateMetadataRemoteOperation(parentId,
-                                                                                                    serializedFolderMetadata, token).execute(client);
+            RemoteOperationResult uploadMetadataOperationResult =
+                new UpdateMetadataRemoteOperation(parentId,
+                                                  serializedFolderMetadata, token).execute(client);
 
             if (!uploadMetadataOperationResult.isSuccess()) {
                 throw new RemoteOperationFailedException("Metadata not uploaded!");
@@ -145,7 +154,14 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
 
             // return success
             return result;
-        } catch (Exception e) {
+        } catch (NoSuchAlgorithmException |
+            IOException |
+            InvalidKeyException |
+            InvalidAlgorithmParameterException |
+            NoSuchPaddingException |
+            BadPaddingException |
+            IllegalBlockSizeException |
+            InvalidKeySpecException e) {
             result = new RemoteOperationResult(e);
             Log_OC.e(TAG, "Remove " + remotePath + ": " + result.getLogMessage(), e);
 
@@ -167,5 +183,4 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
 
         return result;
     }
-
 }

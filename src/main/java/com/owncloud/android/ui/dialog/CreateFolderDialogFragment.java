@@ -138,7 +138,7 @@ public class CreateFolderDialogFragment
             }
 
             String path = mParentFolder.getRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
-            ((ComponentsGetter) getActivity()).getFileOperationsHelper().createFolder(path, false);
+            ((ComponentsGetter) getActivity()).getFileOperationsHelper().createFolder(path);
         }
     }
 }

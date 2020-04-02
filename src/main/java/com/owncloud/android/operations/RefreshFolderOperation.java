@@ -57,6 +57,8 @@ import java.util.Vector;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
+
 
 /**
  *  Remote operation performing the synchronization of the list of files contained
@@ -422,7 +424,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         // update permission
         mLocalFolder.setPermissions(remoteFolder.getPermissions());
 
-        // update richWorkpace
+        // update richWorkspace
         mLocalFolder.setRichWorkspace(remoteFolder.getRichWorkspace());
 
         DecryptedFolderMetadata metadata = getDecryptedFolderMetadata(encryptedAncestor);
@@ -555,8 +557,11 @@ public class RefreshFolderOperation extends RemoteOperation {
         for (OCFile file : localFiles) {
             String remotePath = file.getRemotePath();
 
-            if (metadata != null && !file.isFolder()) {
+            if (metadata != null) {
                 remotePath = file.getParentRemotePath() + file.getEncryptedFileName();
+                if (file.isFolder() && !remotePath.endsWith(PATH_SEPARATOR)) {
+                    remotePath = remotePath + PATH_SEPARATOR;
+                }
             }
             localFilesMap.put(remotePath, file);
         }

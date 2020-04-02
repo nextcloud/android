@@ -24,7 +24,9 @@ package com.owncloud.android.utils;
 import android.accounts.Account;
 import android.content.Context;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Pair;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -36,8 +38,14 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.GetMetadataRemoteOperation;
+import com.owncloud.android.lib.resources.e2ee.LockFileRemoteOperation;
+import com.owncloud.android.lib.resources.e2ee.StoreMetadataRemoteOperation;
+import com.owncloud.android.lib.resources.e2ee.UnlockFileRemoteOperation;
+import com.owncloud.android.lib.resources.e2ee.UpdateMetadataRemoteOperation;
+import com.owncloud.android.operations.UploadException;
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.httpclient.HttpStatus;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -703,5 +711,94 @@ public final class EncryptionUtils {
         String newHash = generateSHA512(compareToken, salt);
 
         return hashWithSalt.equals(newHash);
+    }
+
+    public static String lockFolder(OCFile parentFile, OwnCloudClient client) throws UploadException {
+        // Lock folder
+        LockFileRemoteOperation lockFileOperation = new LockFileRemoteOperation(parentFile.getLocalId());
+        RemoteOperationResult lockFileOperationResult = lockFileOperation.execute(client);
+
+        if (lockFileOperationResult.isSuccess() &&
+            !TextUtils.isEmpty((String) lockFileOperationResult.getData().get(0))) {
+            return (String) lockFileOperationResult.getData().get(0);
+        } else if (lockFileOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
+            throw new UploadException("Forbidden! Please try again later.)");
+        } else {
+            throw new UploadException("Unknown error!");
+        }
+    }
+
+    /**
+     * @param parentFile file metadata should be retrieved for
+     * @return Pair: boolean: true: metadata already exists, false: metadata new created
+     */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public static Pair<Boolean, DecryptedFolderMetadata> retrieveMetadata(OCFile parentFile,
+                                                                          OwnCloudClient client,
+                                                                          String privateKey,
+                                                                          String publicKey) throws UploadException,
+        InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException,
+        IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException, CertificateException {
+        GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(parentFile.getLocalId());
+        RemoteOperationResult getMetadataOperationResult = getMetadataOperation.execute(client);
+
+        DecryptedFolderMetadata metadata;
+
+        if (getMetadataOperationResult.isSuccess()) {
+            // decrypt metadata
+            String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
+
+
+            EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
+                serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadata>() {
+                });
+
+            return new Pair<>(Boolean.TRUE, EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata, privateKey));
+
+        } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND) {
+            // new metadata
+            metadata = new DecryptedFolderMetadata();
+            metadata.setMetadata(new DecryptedFolderMetadata.Metadata());
+            metadata.getMetadata().setMetadataKeys(new HashMap<>());
+            String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
+            String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
+            metadata.getMetadata().getMetadataKeys().put(0, encryptedMetadataKey);
+
+            return new Pair<>(Boolean.FALSE, metadata);
+        } else {
+            // TODO error
+            throw new UploadException("something wrong");
+        }
+    }
+
+    public static void uploadMetadata(OCFile parentFile,
+                                      String serializedFolderMetadata,
+                                      String token,
+                                      OwnCloudClient client,
+                                      boolean metadataExists) throws UploadException {
+        RemoteOperationResult uploadMetadataOperationResult;
+        if (metadataExists) {
+            // update metadata
+            UpdateMetadataRemoteOperation storeMetadataOperation = new UpdateMetadataRemoteOperation(
+                parentFile.getLocalId(), serializedFolderMetadata, token);
+            uploadMetadataOperationResult = storeMetadataOperation.execute(client);
+        } else {
+            // store metadata
+            StoreMetadataRemoteOperation storeMetadataOperation = new StoreMetadataRemoteOperation(
+                parentFile.getLocalId(), serializedFolderMetadata);
+            uploadMetadataOperationResult = storeMetadataOperation.execute(client);
+        }
+
+        if (!uploadMetadataOperationResult.isSuccess()) {
+            throw new UploadException("Storing/updating metadata was not successful");
+        }
+    }
+
+    public static RemoteOperationResult unlockFolder(OCFile parentFolder, OwnCloudClient client, String token) {
+        if (token != null) {
+            return new UnlockFileRemoteOperation(parentFolder.getLocalId(), token).execute(client);
+        } else {
+            return new RemoteOperationResult(new Exception("No token available"));
+        }
     }
 }

@@ -86,7 +86,6 @@ public class OperationsService extends Service {
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_NEWNAME = "NEWNAME";
     public static final String EXTRA_REMOVE_ONLY_LOCAL = "REMOVE_LOCAL_COPY";
-    public static final String EXTRA_CREATE_FULL_PATH = "CREATE_FULL_PATH";
     public static final String EXTRA_SYNC_FILE_CONTENTS = "SYNC_FILE_CONTENTS";
     public static final String EXTRA_RESULT = "RESULT";
     public static final String EXTRA_NEW_PARENT_PATH = "NEW_PARENT_PATH";
@@ -637,8 +636,7 @@ public class OperationsService extends Service {
 
                     case ACTION_CREATE_FOLDER:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        boolean createFullPath = operationIntent.getBooleanExtra(EXTRA_CREATE_FULL_PATH, true);
-                        operation = new CreateFolderOperation(remotePath, createFullPath);
+                        operation = new CreateFolderOperation(remotePath, account, getApplicationContext());
                         break;
 
                     case ACTION_SYNC_FILE:
