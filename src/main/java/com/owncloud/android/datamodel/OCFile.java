@@ -64,6 +64,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      */
     private long modificationTimestampAtLastSyncForData;
     private String remotePath;
+    private String decryptedRemotePath;
     private String localPath;
     private String mimeType;
     private boolean needsUpdatingWhileSaving;
@@ -103,8 +104,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * Cached after first call, until changed.
      */
     private Uri exposedFileUri;
-    private String encryptedFileName;
-
 
     /**
      * Create new {@link OCFile} with given path.
@@ -135,6 +134,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         modificationTimestamp = source.readLong();
         modificationTimestampAtLastSyncForData = source.readLong();
         remotePath = source.readString();
+        decryptedRemotePath = source.readString();
         localPath = source.readString();
         mimeType = source.readString();
         needsUpdatingWhileSaving = source.readInt() == 0;
@@ -152,7 +152,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         sharedWithSharee = source.readInt() == 1;
         favorite = source.readInt() == 1;
         encrypted = source.readInt() == 1;
-        encryptedFileName = source.readString();
         ownerId = source.readString();
         ownerDisplayName = source.readString();
         mountType = (WebdavEntry.MountType) source.readSerializable();
@@ -169,6 +168,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeLong(modificationTimestamp);
         dest.writeLong(modificationTimestampAtLastSyncForData);
         dest.writeString(remotePath);
+        dest.writeString(decryptedRemotePath);
         dest.writeString(localPath);
         dest.writeString(mimeType);
         dest.writeInt(needsUpdatingWhileSaving ? 1 : 0);
@@ -186,7 +186,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeInt(sharedWithSharee ? 1 : 0);
         dest.writeInt(favorite ? 1 : 0);
         dest.writeInt(encrypted ? 1 : 0);
-        dest.writeString(encryptedFileName);
         dest.writeString(ownerId);
         dest.writeString(ownerDisplayName);
         dest.writeSerializable(mountType);
@@ -194,34 +193,50 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeInt(previewAvailable ? 1 : 0);
     }
 
-    public String getDecryptedRemotePath() {
-        return remotePath;
+    public void setDecryptedRemotePath(String path) {
+        decryptedRemotePath = path;
     }
 
     /**
-     * Returns the remote path of the file on ownCloud
+     * Use decrypted remote path for every local file operation Use encrypted remote path for every dav related
+     * operation
+     */
+    public String getDecryptedRemotePath() {
+        // Fallback
+        // TODO test without, on a new created folder
+        if (!isEncrypted() && decryptedRemotePath == null) {
+            decryptedRemotePath = remotePath;
+        }
+
+        if (isFolder()) {
+            if (decryptedRemotePath.endsWith(PATH_SEPARATOR)) {
+                return decryptedRemotePath;
+            } else {
+                return decryptedRemotePath + PATH_SEPARATOR;
+            }
+        } else {
+            return decryptedRemotePath;
+        }
+    }
+
+    /**
+     * Returns the remote path of the file on Nextcloud
+     * (this might be an encrypted file path, if E2E is used)
+     * <p>
+     * Use decrypted remote path for every local file operation.
+     * Use remote path for every dav related operation
      *
      * @return The remote path to the file
      */
     public String getRemotePath() {
-        if (isEncrypted() && !isFolder()) {
-            String parentPath = new File(remotePath).getParent();
-
-            if (parentPath.endsWith(PATH_SEPARATOR)) {
-                return parentPath + getEncryptedFileName();
+        if (isFolder()) {
+            if (remotePath.endsWith(PATH_SEPARATOR)) {
+                return remotePath;
             } else {
-                return parentPath + PATH_SEPARATOR + getEncryptedFileName();
+                return remotePath + PATH_SEPARATOR;
             }
         } else {
-            if (isFolder()) {
-                if (remotePath.endsWith(PATH_SEPARATOR)) {
-                    return remotePath;
-                } else {
-                    return remotePath + PATH_SEPARATOR;
-                }
-            } else {
-                return remotePath;
-            }
+            return remotePath;
         }
     }
 
@@ -241,7 +256,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return true if it is a folder
      */
     public boolean isFolder() {
-        return MimeType.DIRECTORY.equals(mimeType);
+        return MimeType.DIRECTORY.equals(mimeType) || MimeType.WEBDAV_FOLDER.equals(mimeType);
     }
 
 
@@ -346,17 +361,40 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @param storage_path to set
      */
     public void setStoragePath(String storage_path) {
-        localPath = storage_path;
+        if (storage_path == null) {
+            localPath = null;
+        } else {
+            localPath = storage_path.replaceAll("//", "/");
+        }
         localUri = null;
         exposedFileUri = null;
     }
 
     /**
-     * Returns the filename and "/" for the root directory
+     * Returns the decrypted filename and "/" for the root directory
      *
      * @return The name of the file
      */
     public String getFileName() {
+        return getDecryptedFileName();
+    }
+
+    /**
+     * Returns the decrypted filename and "/" for the root directory
+     *
+     * @return The name of the file
+     */
+    public String getDecryptedFileName() {
+        File f = new File(getDecryptedRemotePath());
+        return f.getName().length() == 0 ? ROOT_PATH : f.getName();
+    }
+
+    /**
+     * Returns the encrypted filename and "/" for the root directory
+     *
+     * @return The name of the file
+     */
+    public String getEncryptedFileName() {
         File f = new File(remotePath);
         return f.getName().length() == 0 ? ROOT_PATH : f.getName();
     }
@@ -386,6 +424,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private void resetData() {
         fileId = -1;
         remotePath = null;
+        decryptedRemotePath = null;
         parentId = 0;
         localPath = null;
         mimeType = null;
@@ -408,7 +447,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         sharedWithSharee = false;
         favorite = false;
         encrypted = false;
-        encryptedFileName = null;
         mountType = WebdavEntry.MountType.INTERNAL;
         richWorkspace = "";
     }
@@ -464,8 +502,16 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public String toString() {
         String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, " +
                 "parentId=%s, etag=%s, favourite=%s]";
-        return String.format(asString, fileId, getFileName(), mimeType, isDown(), localPath, remotePath, parentId,
-            etag, favorite);
+        return String.format(asString,
+                             fileId,
+                             getFileName(),
+                             mimeType,
+                             isDown(),
+                             localPath,
+                             remotePath,
+                             parentId,
+                             etag,
+                             favorite);
     }
 
     public void setEtag(String etag) {
@@ -652,10 +698,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.richWorkspace;
     }
 
-    public String getEncryptedFileName() {
-        return this.encryptedFileName;
-    }
-
     public void setFileId(long fileId) {
         this.fileId = fileId;
     }
@@ -766,9 +808,5 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setRichWorkspace(String richWorkspace) {
         this.richWorkspace = richWorkspace;
-    }
-
-    public void setEncryptedFileName(String encryptedFileName) {
-        this.encryptedFileName = encryptedFileName;
     }
 }

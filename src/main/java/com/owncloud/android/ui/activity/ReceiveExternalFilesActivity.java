@@ -38,7 +38,6 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -1106,9 +1105,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                     } else {
                         OCFile currentFile = (mFile == null) ? null :
-                                getStorageManager().getFileByPath(mFile.getRemotePath());
+                            getStorageManager().getFileByPath(mFile.getRemotePath());
                         OCFile currentDir = (getCurrentFolder() == null) ? null :
-                                getStorageManager().getFileByPath(getCurrentFolder().getRemotePath());
+                            getStorageManager().getFileByPath(getCurrentFolder().getRemotePath());
 
                         if (currentDir == null) {
                             // current folder was removed from the server

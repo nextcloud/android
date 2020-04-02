@@ -31,7 +31,7 @@ import com.owncloud.android.MainApp;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 55;
+    public static final int DB_VERSION = 56;
 
     private ProviderMeta() {
         // No instance
@@ -89,6 +89,7 @@ public class ProviderMeta {
         public static final String FILE_CONTENT_TYPE = "content_type";
         public static final String FILE_STORAGE_PATH = "media_path";
         public static final String FILE_PATH = "path";
+        public static final String FILE_PATH_DECRYPTED = "path_decrypted";
         public static final String FILE_ACCOUNT_OWNER = "file_owner";
         public static final String FILE_LAST_SYNC_DATE = "last_sync_date";// _for_properties, but let's keep it as it is
         public static final String FILE_LAST_SYNC_DATE_FOR_DATA = "last_sync_date_for_data";

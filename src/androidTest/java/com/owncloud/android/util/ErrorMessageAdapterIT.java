@@ -25,6 +25,7 @@ import android.accounts.Account;
 import android.content.res.Resources;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -50,7 +51,7 @@ public class ErrorMessageAdapterIT {
 
         String errorMessage = ErrorMessageAdapter.getErrorCauseMessage(
             new RemoteOperationResult(RemoteOperationResult.ResultCode.FORBIDDEN),
-            new RemoveFileOperation(PATH_TO_DELETE, false, account, false, MainApp.getAppContext()),
+            new RemoveFileOperation(new OCFile(PATH_TO_DELETE), false, account, false, MainApp.getAppContext()),
             resources
         );
 

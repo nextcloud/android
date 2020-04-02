@@ -236,7 +236,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         return dialog;
     }
 
-    private class DownloadKeysAsyncTask extends AsyncTask<Void, Void, String> {
+    public class DownloadKeysAsyncTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -316,7 +316,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         }
     }
 
-    private class GenerateNewKeysAsyncTask extends AsyncTask<Void, Void, String> {
+    public class GenerateNewKeysAsyncTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
