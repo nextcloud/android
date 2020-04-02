@@ -43,7 +43,7 @@
     <string name="auth_check_server">Controleer server</string>
     <string name="auth_connection_established">Verbinding tot stand gebracht</string>
     <string name="auth_expired_basic_auth_toast">Voer het huidige wachtwoord in</string>
-    <string name="auth_fail_get_user_name">Je server geeft geen geldige userID terug, neem contact op met je server beheerder</string>
+    <string name="auth_fail_get_user_name">Je server geeft geen geldige userID terug, neem contact op met je serverbeheerder</string>
     <string name="auth_host_address">Serveradres</string>
     <string name="auth_host_url">Serveradres https://…</string>
     <string name="auth_illegal_login_used">Ongeldige login URL gebruikt</string>
