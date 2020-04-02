@@ -607,7 +607,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         } else {
             // Get public share
             publicShare = fileDataStorageManager.getFirstShareByPathAndType(file.getRemotePath(),
-                ShareType.PUBLIC_LINK, "");
+                                                                            ShareType.PUBLIC_LINK, "");
 
             // Update public share section
             updatePublicShareSection();

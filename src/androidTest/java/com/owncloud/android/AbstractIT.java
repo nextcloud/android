@@ -10,19 +10,30 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.evernote.android.job.JobRequest;
 import com.facebook.testing.screenshot.Screenshot;
-import com.nextcloud.client.RetryTestRule;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
+import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
+
+import junit.framework.TestCase;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -30,7 +41,6 @@ import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Rule;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -56,7 +66,7 @@ import static org.junit.Assert.assertTrue;
 
 //@RunWith(AndroidJUnit4.class)
 public abstract class AbstractIT {
-    @Rule public RetryTestRule retryTestRule = new RetryTestRule();
+    // @Rule public RetryTestRule retryTestRule = new RetryTestRule();
 
     protected static OwnCloudClient client;
     protected static Account account;
@@ -99,7 +109,7 @@ public abstract class AbstractIT {
 
             waitForServer(client, baseUrl);
 
-            deleteAllFiles(); // makes sure that no file/folder is in root
+//            deleteAllFiles(); // makes sure that no file/folder is in root
         } catch (OperationCanceledException e) {
             e.printStackTrace();
         } catch (AuthenticatorException e) {
@@ -124,8 +134,18 @@ public abstract class AbstractIT {
             RemoteFile remoteFile = (RemoteFile) object;
 
             if (!remoteFile.getRemotePath().equals("/")) {
+                if (remoteFile.isEncrypted()) {
+                    assertTrue(new ToggleEncryptionRemoteOperation(remoteFile.getLocalId(),
+                                                                   remoteFile.getRemotePath(),
+                                                                   false)
+                                   .execute(client)
+                                   .isSuccess());
+                }
+
                 assertTrue(new RemoveFileRemoteOperation(remoteFile.getRemotePath())
-                               .execute(client).isSuccess());
+                               .execute(client)
+                               .isSuccess()
+                          );
             }
         }
     }
@@ -147,7 +167,7 @@ public abstract class AbstractIT {
         createFile("chunkedFile.txt", 500000);
     }
 
-    private static void createFile(String name, int iteration) throws IOException {
+    public static void createFile(String name, int iteration) throws IOException {
         File file = new File(FileStorageUtils.getSavePath(account.name) + File.separator + name);
         file.createNewFile();
 
@@ -234,5 +254,75 @@ public abstract class AbstractIT {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public OCFile createFolder(String remotePath) {
+        TestCase.assertTrue(new CreateFolderOperation(remotePath, account, targetContext)
+                                .execute(client, getStorageManager())
+                                .isSuccess());
+
+        return getStorageManager().getFileByDecryptedRemotePath(remotePath);
+    }
+
+    public void uploadOCUpload(OCUpload ocUpload) {
+        ConnectivityService connectivityServiceMock = new ConnectivityService() {
+            @Override
+            public boolean isInternetWalled() {
+                return false;
+            }
+
+            @Override
+            public boolean isOnlineWithWifi() {
+                return true;
+            }
+
+            @Override
+            public JobRequest.NetworkType getActiveNetworkType() {
+                return JobRequest.NetworkType.ANY;
+            }
+        };
+
+        PowerManagementService powerManagementServiceMock = new PowerManagementService() {
+            @Override
+            public boolean isPowerSavingEnabled() {
+                return false;
+            }
+
+            @Override
+            public boolean isPowerSavingExclusionAvailable() {
+                return false;
+            }
+
+            @Override
+            public boolean isBatteryCharging() {
+                return false;
+            }
+        };
+
+        UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
+        UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(accountManager,
+                                                                                targetContext.getContentResolver());
+
+        UploadFileOperation newUpload = new UploadFileOperation(
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            account,
+            null,
+            ocUpload,
+            FileUploader.NameCollisionPolicy.DEFAULT,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            false,
+            false
+        );
+        newUpload.addRenameUploadListener(() -> {
+            // dummy
+        });
+
+        newUpload.setRemoteFolderToBeCreated();
+
+        RemoteOperationResult result = newUpload.execute(client, getStorageManager());
+        assertTrue(result.getLogMessage(), result.isSuccess());
     }
 }

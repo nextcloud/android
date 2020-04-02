@@ -163,11 +163,12 @@ public class FileDisplayActivityIT extends AbstractIT {
 
     @Test
     public void allFiles() {
-        // ActivityScenario<FileDisplayActivity> sut = ActivityScenario.launch(FileDisplayActivity.class);
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
         // given test folder
-        assertTrue(new CreateFolderOperation("/test/", true).execute(client, getStorageManager()).isSuccess());
+        assertTrue(new CreateFolderOperation("/test/", account, targetContext)
+                       .execute(client, getStorageManager())
+                       .isSuccess());
 
         // navigate into it
         OCFile test = getStorageManager().getFileByPath("/test/");

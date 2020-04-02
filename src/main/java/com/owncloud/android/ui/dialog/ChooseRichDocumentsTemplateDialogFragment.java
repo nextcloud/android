@@ -22,7 +22,6 @@
 
 package com.owncloud.android.ui.dialog;
 
-import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -48,9 +47,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.files.CreateFileFromTemplateOperation;
 import com.owncloud.android.files.FetchTemplateOperation;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;

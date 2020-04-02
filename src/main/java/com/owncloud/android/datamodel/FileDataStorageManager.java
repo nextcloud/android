@@ -96,8 +96,25 @@ public class FileDataStorageManager {
         this.account = account;
     }
 
+
+    /**
+     * Use getFileByEncryptedRemotePath() or getFileByDecryptedRemotePath()
+     */
+    @Deprecated
     public OCFile getFileByPath(String path) {
-        Cursor c = getFileCursorForValue(ProviderTableMeta.FILE_PATH, path);
+        return getFileByEncryptedRemotePath(path);
+    }
+
+    public OCFile getFileByEncryptedRemotePath(String path) {
+        return getFileByPath(ProviderTableMeta.FILE_PATH, path);
+    }
+
+    public OCFile getFileByDecryptedRemotePath(String path) {
+        return getFileByPath(ProviderTableMeta.FILE_PATH_DECRYPTED, path);
+    }
+
+    private OCFile getFileByPath(String type, String path) {
+        Cursor c = getFileCursorForValue(type, path);
         OCFile file = null;
         if (c.moveToFirst()) {
             file = createFileInstance(c);
@@ -190,8 +207,9 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_ENCRYPTED_NAME, file.getEncryptedFileName());
         cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
         cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
+        cv.put(ProviderTableMeta.FILE_PATH_DECRYPTED, file.getDecryptedRemotePath());
+        cv.put(ProviderTableMeta.FILE_IS_ENCRYPTED, file.isEncrypted());
         if (!file.isFolder()) {
-            cv.put(ProviderTableMeta.FILE_IS_ENCRYPTED, file.isEncrypted());
             cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
         }
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account.name);
@@ -215,10 +233,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_RICH_WORKSPACE, file.getRichWorkspace());
 
         boolean sameRemotePath = fileExists(file.getRemotePath());
-        if (sameRemotePath ||
-                fileExists(file.getFileId())) {  // for renamed files; no more delete and create
-
-
+        if (sameRemotePath || fileExists(file.getFileId())) {  // for renamed files; no more delete and create
             if (sameRemotePath) {
                 OCFile oldFile = getFileByPath(file.getRemotePath());
                 file.setFileId(oldFile.getFileId());
@@ -446,6 +461,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_NAME, folder.getFileName());
         cv.put(ProviderTableMeta.FILE_PARENT, folder.getParentId());
         cv.put(ProviderTableMeta.FILE_PATH, folder.getRemotePath());
+        cv.put(ProviderTableMeta.FILE_PATH_DECRYPTED, folder.getDecryptedRemotePath());
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account.name);
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, folder.getLastSyncDateForProperties());
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, folder.getLastSyncDateForData());
@@ -479,9 +495,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_ENCRYPTED_NAME, file.getEncryptedFileName());
         cv.put(ProviderTableMeta.FILE_PARENT, folder.getFileId());
         cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
-        if (!file.isFolder()) {
-            cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
-        }
+        cv.put(ProviderTableMeta.FILE_PATH_DECRYPTED, file.getDecryptedRemotePath());
+        cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account.name);
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, file.getLastSyncDateForData());
@@ -659,11 +674,11 @@ public class FileDataStorageManager {
             if (getContentProviderClient() != null) {
                 try {
                     c = getContentProviderClient().query(
-                            ProviderTableMeta.CONTENT_URI,
-                            null,
-                            ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + " LIKE ? ",
-                            new String[]{account.name, file.getRemotePath() + "%"},
-                            ProviderTableMeta.FILE_PATH + " ASC "
+                        ProviderTableMeta.CONTENT_URI,
+                        null,
+                        ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + " LIKE ? ",
+                        new String[]{account.name, file.getRemotePath() + "%"},
+                        ProviderTableMeta.FILE_PATH + " ASC "
                     );
                 } catch (RemoteException e) {
                     Log_OC.e(TAG, e.getMessage(), e);
@@ -671,11 +686,11 @@ public class FileDataStorageManager {
 
             } else {
                 c = getContentResolver().query(
-                        ProviderTableMeta.CONTENT_URI,
-                        null,
-                        ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + " LIKE ? ",
-                        new String[]{account.name, file.getRemotePath() + "%"},
-                        ProviderTableMeta.FILE_PATH + " ASC "
+                    ProviderTableMeta.CONTENT_URI,
+                    null,
+                    ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + " LIKE ? ",
+                    new String[]{account.name, file.getRemotePath() + "%"},
+                    ProviderTableMeta.FILE_PATH + " ASC "
                 );
             }
 
@@ -692,8 +707,8 @@ public class FileDataStorageManager {
                     ContentValues cv = new ContentValues(); // keep construction in the loop
                     OCFile child = createFileInstance(c);
                     cv.put(
-                            ProviderTableMeta.FILE_PATH,
-                            targetPath + child.getRemotePath().substring(lengthOfOldPath)
+                        ProviderTableMeta.FILE_PATH,
+                        targetPath + child.getRemotePath().substring(lengthOfOldPath)
                     );
                     if (child.getStoragePath() != null && child.getStoragePath().startsWith(defaultSavePath)) {
                         // update link to downloaded content - but local move is not done here!
@@ -961,9 +976,9 @@ public class FileDataStorageManager {
         OCFile file = null;
         if (c != null) {
             file = new OCFile(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH)));
+            file.setDecryptedRemotePath(getString(c, ProviderTableMeta.FILE_PATH_DECRYPTED));
             file.setFileId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
             file.setParentId(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_PARENT)));
-            file.setEncryptedFileName(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ENCRYPTED_NAME)));
             file.setMimeType(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)));
             file.setStoragePath(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
             if (file.getStoragePath() == null) {
@@ -995,9 +1010,9 @@ public class FileDataStorageManager {
             file.setEtagInConflict(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ETAG_IN_CONFLICT)));
             file.setFavorite(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_FAVORITE)) == 1);
             file.setEncrypted(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_IS_ENCRYPTED)) == 1);
-            if (file.isEncrypted()) {
-                file.setFileName(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_NAME)));
-            }
+//            if (file.isEncrypted()) {
+//                file.setFileName(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_NAME)));
+//            }
             file.setMountType(WebdavEntry.MountType.values()[c.getInt(
                     c.getColumnIndex(ProviderTableMeta.FILE_MOUNT_TYPE))]);
             file.setPreviewAvailable(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_HAS_PREVIEW)) == 1);

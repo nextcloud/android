@@ -42,7 +42,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 public class RemoveFileOperation extends SyncOperation {
 
     private OCFile fileToRemove;
-    private String remotePath;
     private boolean onlyLocalCopy;
     private Account account;
     private boolean inBackground;
@@ -52,14 +51,15 @@ public class RemoveFileOperation extends SyncOperation {
     /**
      * Constructor
      *
-     * @param remotePath            RemotePath of the OCFile instance describing the remote file or
-     *                              folder to remove from the server
-     * @param onlyLocalCopy         When 'true', and a local copy of the file exists, only this is
-     *                              removed.
+     * @param fileToRemove  OCFile instance describing the remote file or folder to remove from the server
+     * @param onlyLocalCopy When 'true', and a local copy of the file exists, only this is removed.
      */
-    public RemoveFileOperation(String remotePath, boolean onlyLocalCopy, Account account, boolean inBackground,
+    public RemoveFileOperation(OCFile fileToRemove,
+                               boolean onlyLocalCopy,
+                               Account account,
+                               boolean inBackground,
                                Context context) {
-        this.remotePath = remotePath;
+        this.fileToRemove = fileToRemove;
         this.onlyLocalCopy = onlyLocalCopy;
         this.account = account;
         this.inBackground = inBackground;
@@ -90,8 +90,6 @@ public class RemoveFileOperation extends SyncOperation {
         RemoteOperationResult result = null;
         RemoteOperation operation;
 
-        fileToRemove = getStorageManager().getFileByPath(remotePath);
-
         if (MimeTypeUtil.isImage(fileToRemove.getMimeType())) {
             // store resized image
             ThumbnailsCacheManager.generateResizedImage(fileToRemove);
@@ -99,20 +97,21 @@ public class RemoveFileOperation extends SyncOperation {
 
         boolean localRemovalFailed = false;
         if (!onlyLocalCopy) {
-
             if (fileToRemove.isEncrypted() &&
                     android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                 OCFile parent = getStorageManager().getFileByPath(fileToRemove.getParentRemotePath());
-                operation = new RemoveRemoteEncryptedFileOperation(remotePath, parent.getLocalId(), account, context,
-                        fileToRemove.getEncryptedFileName());
+                operation = new RemoveRemoteEncryptedFileOperation(fileToRemove.getRemotePath(),
+                                                                   parent.getLocalId(),
+                                                                   account,
+                                                                   context,
+                                                                   fileToRemove.getEncryptedFileName());
             } else {
-                operation = new RemoveFileRemoteOperation(remotePath);
+                operation = new RemoveFileRemoteOperation(fileToRemove.getDecryptedRemotePath());
             }
             result = operation.execute(client);
             if (result.isSuccess() || result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 localRemovalFailed = !(getStorageManager().removeFile(fileToRemove, true, true));
             }
-
         } else {
             localRemovalFailed = !(getStorageManager().removeFile(fileToRemove, false, true));
             if (!localRemovalFailed) {
@@ -126,5 +125,4 @@ public class RemoveFileOperation extends SyncOperation {
 
         return result;
     }
-
 }

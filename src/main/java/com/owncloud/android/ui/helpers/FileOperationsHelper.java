@@ -227,7 +227,7 @@ public class FileOperationsHelper {
 
             // check for changed eTag
             CheckEtagRemoteOperation checkEtagOperation = new CheckEtagRemoteOperation(file.getRemotePath(),
-                file.getEtag());
+                                                                                       file.getEtag());
             RemoteOperationResult result = checkEtagOperation.execute(user.toPlatformAccount(), fileActivity);
 
             // eTag changed, sync file
@@ -766,7 +766,7 @@ public class FileOperationsHelper {
             sendIntent.setComponent(new ComponentName(packageName, activityName));
             sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" +
                     context.getResources().getString(R.string.image_cache_provider_authority) +
-                    file.getRemotePath()));
+                                                                   file.getRemotePath()));
             sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
             sendIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
@@ -797,7 +797,7 @@ public class FileOperationsHelper {
                 } else {
                     uri = Uri.parse(UriUtils.URI_CONTENT_SCHEME +
                             context.getResources().getString(R.string.image_cache_provider_authority) +
-                            file.getRemotePath());
+                                        file.getRemotePath());
                 }
 
                 intent.setDataAndType(uri, file.getMimeType());
@@ -863,7 +863,7 @@ public class FileOperationsHelper {
     public void toggleEncryption(OCFile file, boolean shouldBeEncrypted) {
         if (file.isEncrypted() != shouldBeEncrypted) {
             EventBus.getDefault().post(new EncryptionEvent(file.getLocalId(), file.getRemoteId(), file.getRemotePath(),
-                    shouldBeEncrypted));
+                                                           shouldBeEncrypted));
         }
     }
 
@@ -894,7 +894,7 @@ public class FileOperationsHelper {
             Intent service = new Intent(fileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_REMOVE);
             service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_FILE, file);
             service.putExtra(OperationsService.EXTRA_REMOVE_ONLY_LOCAL, onlyLocalCopy);
             service.putExtra(OperationsService.EXTRA_IN_BACKGROUND, inBackground);
             mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
@@ -906,13 +906,12 @@ public class FileOperationsHelper {
     }
 
 
-    public void createFolder(String remotePath, boolean createFullPath) {
+    public void createFolder(String remotePath) {
         // Create Folder
         Intent service = new Intent(fileActivity, OperationsService.class);
         service.setAction(OperationsService.ACTION_CREATE_FOLDER);
         service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, remotePath);
-        service.putExtra(OperationsService.EXTRA_CREATE_FULL_PATH, createFullPath);
         mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
