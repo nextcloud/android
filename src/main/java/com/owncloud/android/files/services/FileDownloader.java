@@ -292,13 +292,13 @@ public class FileDownloader extends Service
          */
         public void cancel(Account account, OCFile file) {
             Pair<DownloadFileOperation, String> removeResult =
-                    mPendingDownloads.remove(account.name, file.getRemotePath());
+                mPendingDownloads.remove(account.name, file.getRemotePath());
             DownloadFileOperation download = removeResult.first;
             if (download != null) {
                 download.cancel();
             } else {
                 if (mCurrentDownload != null && mCurrentAccount != null &&
-                        mCurrentDownload.getRemotePath().startsWith(file.getRemotePath()) &&
+                    mCurrentDownload.getRemotePath().startsWith(file.getRemotePath()) &&
                         account.name.equals(mCurrentAccount.name)) {
                     mCurrentDownload.cancel();
                 }

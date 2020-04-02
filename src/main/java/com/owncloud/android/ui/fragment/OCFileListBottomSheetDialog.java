@@ -125,16 +125,20 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
                 ThemeUtils.getDefaultDisplayNameForRootFolder(getContext())));
 
         OCCapability capability = fileActivity.getCapabilities();
-        if (capability.getRichDocuments().isTrue() && capability.getRichDocumentsDirectEditing().isTrue() &&
+        if (capability.getRichDocuments().isTrue() &&
+            capability.getRichDocumentsDirectEditing().isTrue() &&
             android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
-            capability.getRichDocumentsTemplatesAvailable().isTrue()) {
+            capability.getRichDocumentsTemplatesAvailable().isTrue() &&
+            !file.isEncrypted()) {
             templates.setVisibility(View.VISIBLE);
         }
 
         String json = new ArbitraryDataProvider(getContext().getContentResolver())
             .getValue(user.toPlatformAccount(), ArbitraryDataProvider.DIRECT_EDITING);
 
-        if (!json.isEmpty() && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (!json.isEmpty() &&
+            android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+            !file.isEncrypted()) {
             DirectEditing directEditing = new Gson().fromJson(json, DirectEditing.class);
 
             if (!directEditing.getCreators().isEmpty()) {
@@ -174,7 +178,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             FileMenuFilter.isEditorAvailable(getContext().getContentResolver(),
                                              user,
                                              MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN) &&
-            file != null) {
+            file != null && !file.isEncrypted()) {
             // richWorkspace
             // == "": no info set -> show button
             // == null: disabled on server side -> hide button

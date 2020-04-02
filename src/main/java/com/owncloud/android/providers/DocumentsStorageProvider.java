@@ -472,7 +472,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         String newDirPath = targetFolder.getRemotePath() + displayName + PATH_SEPARATOR;
         FileDataStorageManager storageManager = targetFolder.getStorageManager();
 
-        RemoteOperationResult result = new CreateFolderOperation(newDirPath, true)
+        RemoteOperationResult result = new CreateFolderOperation(newDirPath,
+                                                                 accountManager.getCurrentAccount(),
+                                                                 getContext())
             .execute(targetFolder.getClient(), storageManager);
 
         if (!result.isSuccess()) {
@@ -581,8 +583,12 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         recursiveRevokePermission(document);
 
-        RemoteOperationResult result = new RemoveFileOperation(document.getRemotePath(), false,
-                                                               document.getAccount(), true, context)
+        OCFile file = document.getStorageManager().getFileByPath(document.getRemotePath());
+        RemoteOperationResult result = new RemoveFileOperation(file,
+                                                               false,
+                                                               document.getAccount(),
+                                                               true,
+                                                               context)
             .execute(document.getClient(), document.getStorageManager());
 
         if (!result.isSuccess()) {

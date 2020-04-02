@@ -1009,17 +1009,18 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             .getCapability(account.getAccountName());
 
                         if (PreviewMediaFragment.canBePreviewed(file) && account.getServer().getVersion()
-                                .isMediaStreamingSupported()) {
+                            .isMediaStreamingSupported() && !file.isEncrypted()) {
                             // stream media preview on >= NC14
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
                         } else if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
                                                                     accountManager.getUser(),
                                                                     file.getMimeType()) &&
+                            !file.isEncrypted() &&
                             android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
                         } else if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
                             android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
-                            capability.getRichDocumentsDirectEditing().isTrue()) {
+                            capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {
                             mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
                         } else {
                             // automatic download, preview on finish

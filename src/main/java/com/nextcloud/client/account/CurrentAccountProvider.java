@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 public interface CurrentAccountProvider {
     /**
      * Get currently active account.
+     * Replaced by getUser()
      *
      * @return Currently selected {@link Account} or first valid {@link Account} registered in OS or null, if not available at all.
      */

@@ -347,7 +347,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
         if (mCancellation && i <files.size()) {
             Log_OC.d(TAG,
-                    "Leaving synchronization before synchronizing " + files.get(i).getRemotePath() +
+                     "Leaving synchronization before synchronizing " + files.get(i).getRemotePath() +
                             " due to cancellation request");
         }
     }

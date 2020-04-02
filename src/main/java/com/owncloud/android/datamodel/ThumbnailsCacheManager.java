@@ -333,7 +333,7 @@ public final class ThumbnailsCacheManager {
                         GetMethod getMethod = null;
                         try {
                             String uri = mClient.getBaseUri() + "/index.php/core/preview.png?file="
-                                    + URLEncoder.encode(file.getRemotePath())
+                                + URLEncoder.encode(file.getRemotePath())
                                     + "&x=" + pxW + "&y=" + pxH + "&a=1&mode=cover&forceIcon=0";
                             getMethod = new GetMethod(uri);
 
@@ -620,7 +620,7 @@ public final class ThumbnailsCacheManager {
                                 String uri;
                                 if (file instanceof OCFile) {
                                     uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
-                                            pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
+                                        pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
                                 } else {
                                     uri = mClient.getBaseUri() + "/index.php/apps/files_trashbin/preview?fileId=" +
                                             file.getLocalId() + "&x=" + pxW + "&y=" + pxH;

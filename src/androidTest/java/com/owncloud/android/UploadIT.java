@@ -30,11 +30,9 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
-import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import org.jetbrains.annotations.NotNull;
@@ -43,8 +41,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-
-import static junit.framework.TestCase.assertTrue;
 
 /**
  * Tests related to file uploads
@@ -95,92 +91,66 @@ public class UploadIT extends AbstractIT {
     @Test
     public void testEmptyUpload() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/empty.txt",
-            "/testUpload/empty.txt", account.name);
+                                         "/testUpload/empty.txt",
+                                         account.name);
 
-        RemoteOperationResult result = testUpload(ocUpload);
-
-        assertTrue(result.toString(), result.isSuccess());
+        uploadOCUpload(ocUpload);
 
         // cleanup
-        new RemoveFileOperation("/testUpload/", false, account, false, targetContext).execute(client, getStorageManager());
+        new RemoveFileOperation(new OCFile("/testUpload/"),
+                                false,
+                                account,
+                                false,
+                                targetContext)
+            .execute(client, getStorageManager());
     }
 
     @Test
     public void testNonEmptyUpload() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt",
-            "/testUpload/nonEmpty.txt", account.name);
+                                         "/testUpload/nonEmpty.txt",
+                                         account.name);
 
-        RemoteOperationResult result = testUpload(ocUpload);
-
-        assertTrue(result.toString(), result.isSuccess());
+        uploadOCUpload(ocUpload);
 
         // cleanup
-        new RemoveFileOperation("/testUpload/", false, account, false, targetContext).execute(client, getStorageManager());
+        new RemoveFileOperation(new OCFile("/testUpload/"),
+                                false,
+                                account,
+                                false,
+                                targetContext)
+            .execute(client, getStorageManager());
     }
 
     @Test
     public void testChunkedUpload() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/chunkedFile.txt",
-            "/testUpload/chunkedFile.txt", account.name);
+                                         "/testUpload/chunkedFile.txt", account.name);
 
-        RemoteOperationResult result = testUpload(ocUpload);
-
-        assertTrue(result.toString(), result.isSuccess());
+        uploadOCUpload(ocUpload);
 
         // cleanup
-        new RemoveFileOperation("/testUpload/", false, account, false, targetContext).execute(client, getStorageManager());
-    }
-
-    public RemoteOperationResult testUpload(OCUpload ocUpload) {
-        UploadFileOperation newUpload = new UploadFileOperation(
-            storageManager,
-            connectivityServiceMock,
-            powerManagementServiceMock,
-            account,
-            null,
-            ocUpload,
-            FileUploader.NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
-            targetContext,
-            false,
-            false
-        );
-        newUpload.addRenameUploadListener(() -> {
-            // dummy
-        });
-
-        newUpload.setRemoteFolderToBeCreated();
-
-        return newUpload.execute(client, getStorageManager());
+        new RemoveFileOperation(new OCFile("/testUpload/"),
+                                false,
+                                account,
+                                false,
+                                targetContext)
+            .execute(client, getStorageManager());
     }
 
     @Test
     public void testUploadInNonExistingFolder() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/empty.txt",
-                "/testUpload/2/3/4/1.txt", account.name);
-        UploadFileOperation newUpload = new UploadFileOperation(
-            storageManager,
-            connectivityServiceMock,
-            powerManagementServiceMock,
-            account,
-            null,
-            ocUpload,
-            FileUploader.NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
-            targetContext,
-            false,
-            false
-        );
-        newUpload.addRenameUploadListener(() -> {
-            // dummy
-        });
+                                         "/testUpload/2/3/4/1.txt", account.name);
 
-        newUpload.setRemoteFolderToBeCreated();
-
-        RemoteOperationResult result = newUpload.execute(client, getStorageManager());
-        assertTrue(result.toString(), result.isSuccess());
+        uploadOCUpload(ocUpload);
 
         // cleanup
-        new RemoveFileOperation("/testUpload/", false, account, false, targetContext).execute(client, getStorageManager());
+        new RemoveFileOperation(new OCFile("/testUpload/"),
+                                false,
+                                account,
+                                false,
+                                targetContext)
+            .execute(client, getStorageManager());
     }
 }

@@ -46,6 +46,7 @@ import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.util.ArrayList;
@@ -56,6 +57,8 @@ import java.util.Vector;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
 
 /**
@@ -241,7 +244,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         if (!mSyncFullAccount) {
             sendLocalBroadcast(
-                    EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result
+                EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result
             );
         }
 
@@ -251,7 +254,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         if (!mSyncFullAccount) {
             sendLocalBroadcast(
-                    EVENT_SINGLE_FOLDER_SHARES_SYNCED, mLocalFolder.getRemotePath(), result
+                EVENT_SINGLE_FOLDER_SHARES_SYNCED, mLocalFolder.getRemotePath(), result
             );
         }
 
@@ -422,7 +425,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         // update permission
         mLocalFolder.setPermissions(remoteFolder.getPermissions());
 
-        // update richWorkpace
+        // update richWorkspace
         mLocalFolder.setRichWorkspace(remoteFolder.getRichWorkspace());
 
         DecryptedFolderMetadata metadata = getDecryptedFolderMetadata(encryptedAncestor);
@@ -475,6 +478,10 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
 
         // save updated contents in local database
+        // update file name for encrypted files
+        if (metadata != null) {
+            updateFileNameForEncryptedFile(metadata, mLocalFolder);
+        }
         mStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
 
         mChildren = updatedFiles;
@@ -492,15 +499,25 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateFileNameForEncryptedFile(@NonNull DecryptedFolderMetadata metadata, OCFile updatedFile) {
-        updatedFile.setEncryptedFileName(updatedFile.getFileName());
         try {
             String decryptedFileName = metadata.getFiles().get(updatedFile.getFileName()).getEncrypted()
                     .getFilename();
             String mimetype = metadata.getFiles().get(updatedFile.getFileName()).getEncrypted().getMimetype();
-            updatedFile.setFileName(decryptedFileName);
+
+            OCFile parentFile = mStorageManager.getFileById(updatedFile.getParentId());
+            String decryptedRemotePath = parentFile.getDecryptedRemotePath() + decryptedFileName;
+
+            if (updatedFile.isFolder()) {
+                decryptedRemotePath += "/";
+            }
+            updatedFile.setDecryptedRemotePath(decryptedRemotePath);
 
             if (mimetype == null || mimetype.isEmpty()) {
-                updatedFile.setMimeType("application/octet-stream");
+                if (updatedFile.isFolder()) {
+                    updatedFile.setMimeType(MimeType.DIRECTORY);
+                } else {
+                    updatedFile.setMimeType("application/octet-stream");
+                }
             } else {
                 updatedFile.setMimeType(mimetype);
             }
@@ -516,7 +533,11 @@ public class RefreshFolderOperation extends RemoteOperation {
             updatedFile.setModificationTimestampAtLastSyncForData(
                     localFile.getModificationTimestampAtLastSyncForData()
             );
-            updatedFile.setStoragePath(localFile.getStoragePath());
+            if (localFile.isEncrypted()) {
+                updatedFile.setStoragePath(mLocalFolder.getRemotePath() + PATH_SEPARATOR + localFile.getFileName());
+            } else {
+                updatedFile.setStoragePath(localFile.getStoragePath());
+            }
 
             // eTag will not be updated unless file CONTENTS are synchronized
             if (!updatedFile.isFolder() && localFile.isDown() &&
@@ -555,8 +576,11 @@ public class RefreshFolderOperation extends RemoteOperation {
         for (OCFile file : localFiles) {
             String remotePath = file.getRemotePath();
 
-            if (metadata != null && !file.isFolder()) {
+            if (metadata != null) {
                 remotePath = file.getParentRemotePath() + file.getEncryptedFileName();
+                if (file.isFolder() && !remotePath.endsWith(PATH_SEPARATOR)) {
+                    remotePath = remotePath + PATH_SEPARATOR;
+                }
             }
             localFilesMap.put(remotePath, file);
         }
