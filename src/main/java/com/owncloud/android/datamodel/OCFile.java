@@ -204,13 +204,24 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return The remote path to the file
      */
     public String getRemotePath() {
-        if (isEncrypted() && !isFolder()) {
+        if (isEncrypted()) {
             String parentPath = new File(remotePath).getParent();
 
-            if (parentPath.endsWith(PATH_SEPARATOR)) {
-                return parentPath + getEncryptedFileName();
+            String name;
+            if (!TextUtils.isEmpty(getEncryptedFileName())) {
+                name = getEncryptedFileName();
             } else {
-                return parentPath + PATH_SEPARATOR + getEncryptedFileName();
+                name = getFileName();
+            }
+
+            if (isFolder() && !name.endsWith(PATH_SEPARATOR)) {
+                name = name + PATH_SEPARATOR;
+            }
+
+            if (parentPath.endsWith(PATH_SEPARATOR)) {
+                return parentPath + name;
+            } else {
+                return parentPath + PATH_SEPARATOR + name;
             }
         } else {
             if (isFolder()) {

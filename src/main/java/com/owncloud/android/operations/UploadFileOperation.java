@@ -28,10 +28,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.Device;
-import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -51,11 +51,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.e2ee.GetMetadataRemoteOperation;
-import com.owncloud.android.lib.resources.e2ee.LockFileRemoteOperation;
-import com.owncloud.android.lib.resources.e2ee.StoreMetadataRemoteOperation;
 import com.owncloud.android.lib.resources.e2ee.UnlockFileRemoteOperation;
-import com.owncloud.android.lib.resources.e2ee.UpdateMetadataRemoteOperation;
 import com.owncloud.android.lib.resources.files.ChunkedFileUploadRemoteOperation;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
@@ -84,7 +80,6 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -459,52 +454,19 @@ public class UploadFileOperation extends SyncOperation {
             }
             /***** E2E *****/
 
-            // Lock folder
-            LockFileRemoteOperation lockFileOperation = new LockFileRemoteOperation(parentFile.getLocalId());
-            RemoteOperationResult lockFileOperationResult = lockFileOperation.execute(client);
-
-            if (lockFileOperationResult.isSuccess()) {
-                token = (String) lockFileOperationResult.getData().get(0);
-                // immediately store it
-                mUpload.setFolderUnlockToken(token);
-                uploadsStorageManager.updateUpload(mUpload);
-            } else if (lockFileOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
-                throw new UploadException("Forbidden! Please try again later.)");
-            } else {
-                throw new UploadException("Unknown error!");
-            }
+            token = EncryptionUtils.lockFolder(parentFile, client);
+            // immediately store it
+            mUpload.setFolderUnlockToken(token);
+            uploadsStorageManager.updateUpload(mUpload);
 
             // Update metadata
-            GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(parentFile.getLocalId());
-            RemoteOperationResult getMetadataOperationResult = getMetadataOperation.execute(client);
+            Pair<Boolean, DecryptedFolderMetadata> metadataPair = EncryptionUtils.retrieveMetadata(parentFile,
+                                                                                                   client,
+                                                                                                   privateKey,
+                                                                                                   publicKey);
 
-            DecryptedFolderMetadata metadata;
-
-            if (getMetadataOperationResult.isSuccess()) {
-                metadataExists = true;
-
-                // decrypt metadata
-                String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
-
-
-                EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
-                        serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadata>() {
-                        });
-
-                metadata = EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata, privateKey);
-
-            } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND) {
-                // new metadata
-                metadata = new DecryptedFolderMetadata();
-                metadata.setMetadata(new DecryptedFolderMetadata.Metadata());
-                metadata.getMetadata().setMetadataKeys(new HashMap<>());
-                String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
-                String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
-                metadata.getMetadata().getMetadataKeys().put(0, encryptedMetadataKey);
-            } else {
-                // TODO error
-                throw new UploadException("something wrong");
-            }
+            metadataExists = metadataPair.first;
+            DecryptedFolderMetadata metadata = metadataPair.second;
 
             /**** E2E *****/
 
@@ -623,7 +585,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             if (result.isSuccess()) {
-                // upload metadata
+                // update metadata
                 DecryptedFolderMetadata.DecryptedFile decryptedFile = new DecryptedFolderMetadata.DecryptedFile();
                 DecryptedFolderMetadata.Data data = new DecryptedFolderMetadata.Data();
                 data.setFilename(mFile.getFileName());
@@ -641,22 +603,11 @@ public class UploadFileOperation extends SyncOperation {
                 String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
 
                 // upload metadata
-                RemoteOperationResult uploadMetadataOperationResult;
-                if (metadataExists) {
-                    // update metadata
-                    UpdateMetadataRemoteOperation storeMetadataOperation = new UpdateMetadataRemoteOperation(
-                        parentFile.getLocalId(), serializedFolderMetadata, token);
-                    uploadMetadataOperationResult = storeMetadataOperation.execute(client);
-                } else {
-                    // store metadata
-                    StoreMetadataRemoteOperation storeMetadataOperation = new StoreMetadataRemoteOperation(
-                        parentFile.getLocalId(), serializedFolderMetadata);
-                    uploadMetadataOperationResult = storeMetadataOperation.execute(client);
-                }
-
-                if (!uploadMetadataOperationResult.isSuccess()) {
-                    throw new UploadException();
-                }
+                EncryptionUtils.uploadMetadata(parentFile,
+                                               serializedFolderMetadata,
+                                               token,
+                                               client,
+                                               metadataExists);
             }
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, mFile.getStoragePath() + " not exists anymore");
@@ -689,7 +640,9 @@ public class UploadFileOperation extends SyncOperation {
 
         if (result.isSuccess()) {
             handleSuccessfulUpload(temporalFile, expectedFile, originalFile, client);
-            RemoteOperationResult unlockFolderResult = unlockFolder(parentFile, client, token);
+            RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parentFile,
+                                                                                    client,
+                                                                                    token);
 
             if (!unlockFolderResult.isSuccess()) {
                 return unlockFolderResult;
@@ -704,14 +657,6 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         return result;
-    }
-
-    private RemoteOperationResult unlockFolder(OCFile parentFolder, OwnCloudClient client, String token) {
-        if (token != null) {
-            return new UnlockFileRemoteOperation(parentFolder.getLocalId(), token).execute(client);
-        } else {
-            return new RemoteOperationResult(new Exception("No token available"));
-        }
     }
 
     private RemoteOperationResult checkConditions(File originalFile) {
@@ -1034,7 +979,7 @@ public class UploadFileOperation extends SyncOperation {
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, false);
         RemoteOperationResult result = operation.execute(client);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mRemoteFolderToBeCreated) {
-            SyncOperation syncOp = new CreateFolderOperation(pathToGrant, true);
+            SyncOperation syncOp = new CreateFolderOperation(pathToGrant, getAccount(), getContext());
             result = syncOp.execute(client, getStorageManager());
         }
         if (result.isSuccess()) {

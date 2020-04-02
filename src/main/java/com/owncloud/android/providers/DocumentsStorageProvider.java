@@ -472,7 +472,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         String newDirPath = targetFolder.getRemotePath() + displayName + PATH_SEPARATOR;
         FileDataStorageManager storageManager = targetFolder.getStorageManager();
 
-        RemoteOperationResult result = new CreateFolderOperation(newDirPath, true)
+        RemoteOperationResult result = new CreateFolderOperation(newDirPath,
+                                                                 accountManager.getCurrentAccount(),
+                                                                 getContext())
             .execute(targetFolder.getClient(), storageManager);
 
         if (!result.isSuccess()) {
