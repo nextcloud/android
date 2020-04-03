@@ -63,7 +63,7 @@ ext {
     daggerVersion = "2.27"
     markwonVersion =  "4.3.1"
     prismVersion = "2.0.0"
-androidLibraryVersion ="c6dff086e5191ec10791aaf89962328451ba65a8"
+androidLibraryVersion ="209d3ee172d19d699f1f6eeee2bf1946cb0b9626"
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -177,8 +177,8 @@ android {
             versionDev {
                 applicationId "com.nextcloud.android.beta"
                 dimension "default"
-                versionCode 20200331
-                versionName "20200331"
+                versionCode 20200403
+                versionName "20200403"
             }
 
             qa {
