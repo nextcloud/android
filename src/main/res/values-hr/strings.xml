@@ -141,7 +141,10 @@
     <string name="confirmation_remove_folder_alert">Želite li zaista izbrisati %1$s i pripadajući sadržaj?</string>
     <string name="confirmation_remove_folders_alert">Želite li zaista izbrisati odabrane stavke i pripadajući sadržaj?</string>
     <string name="confirmation_remove_local">Samo lokalno</string>
+    <string name="conflict_already_existing_file">Datoteka postoji</string>
+    <string name="conflict_message_description">Ako odaberete obje inačice, lokalna će datoteka uz naziv imati i broj.</string>
     <string name="conflict_message_headline">Koje datoteke želite zadržati?</string>
+    <string name="conflict_new_file">Nova datoteka</string>
     <string name="contaclist_restore_selected">Vraćanje odabranih kontakata</string>
     <string name="contactlist_account_chooser_title">Odaberite račun za uvoz</string>
     <string name="contactlist_item_icon">Ikona korisnika za popis kontakata</string>
@@ -165,7 +168,9 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Trenutno nije podržano kopiranje/premještanje u šifriranu mapu.</string>
     <string name="copy_to">Kopiraj u…</string>
     <string name="could_not_download_image">Nije moguće preuzeti cijelu sliku</string>
+    <string name="could_not_retrieve_url">Nije moguće dohvatiti URL</string>
     <string name="create_dir_fail_msg">Nije moguće stvoriti mapu</string>
+    <string name="create_new">Stvori novi</string>
     <string name="create_new_document">Stvori novi dokument</string>
     <string name="create_new_folder">Stvori novu mapu</string>
     <string name="create_new_presentation">Stvori novu prezentaciju</string>
@@ -251,8 +256,18 @@
     <string name="error_retrieving_templates">Pogreška pri dohvaćanju predložaka</string>
     <string name="error_starting_direct_camera_upload">Pogreška pri pokretanju kamere</string>
     <string name="etm_accounts">Računi</string>
+    <string name="etm_background_job_name">Naziv zadatka</string>
     <string name="etm_background_job_progress">Napredak</string>
+    <string name="etm_background_job_started">Pokrenuto</string>
+    <string name="etm_background_job_state">Stanje</string>
+    <string name="etm_background_job_user">@string/user_icon</string>
+    <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Pozadinski zadaci</string>
+    <string name="etm_background_jobs_cancel_all">Otkaži sve zadatke</string>
+    <string name="etm_background_jobs_prune">Pročisti neaktivne zadatke</string>
+    <string name="etm_background_jobs_start_test_job">Pokreni ispitni zadatak</string>
+    <string name="etm_background_jobs_stop_test_job">Zaustavi ispitni zadatak</string>
+    <string name="etm_migrations">Migracije (nadogradnja aplikacije)</string>
     <string name="etm_preferences">Preferencije</string>
     <string name="etm_title">Inženjerski način rada za ispitivanje</string>
     <string name="fab_label">Dodaj ili otpremi</string>
@@ -356,8 +371,10 @@
     <string name="hint_password">Zaporka</string>
     <string name="host_not_available">Poslužitelj nije dostupan</string>
     <string name="host_your_own_server">Postavi vlastiti poslužitelj</string>
+    <string name="instant_upload_existing">Također otpremi postojeće datoteke</string>
     <string name="instant_upload_on_charging">Otpremanje samo tijekom punjenja</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="invalid_url">Neispravan URL</string>
     <string name="learn_more">Saznajte više</string>
     <string name="link">Poveznica</string>
     <string name="list_layout">Navedeni izgled</string>
@@ -562,6 +579,8 @@
     <string name="share_get_public_link_button">Preuzmi poveznicu</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_internal_link">Dijeli internu poveznicu</string>
+    <string name="share_internal_link_to_file_text">Poveznicu za interno dijeljenje mogu rabiti samo korisnici koji smiju pristupiti ovoj datoteci</string>
+    <string name="share_internal_link_to_folder_text">Poveznicu za interno dijeljenje mogu rabiti samo korisnici koji smiju pristupiti ovoj mapi</string>
     <string name="share_known_remote_clarification">%1$s (na %2$s)</string>
     <string name="share_link_empty_password">Morate unijeti zaporku</string>
     <string name="share_link_file_error">Došlo je do pogreške prilikom dijeljenja ove datoteke ili mape</string>
@@ -662,9 +681,14 @@
     <string name="sync_fail_ticker">Sinkronizacija nije uspjela</string>
     <string name="sync_fail_ticker_unauthorized">Sinkronizacija nije uspjela, ponovno se prijavite</string>
     <string name="sync_file_nothing_to_do_msg">Sadržaj datoteke već je sinkroniziran</string>
+    <string name="sync_folder_failed_content">Sinkronizacija mape %1$s nije dovršena</string>
     <string name="sync_foreign_files_forgotten_explanation">Počevši od inačice 1.3.16, datoteke otpremljene s ovog uređaja kopiraju se u lokalnu mapu %1$s radi sprječavanja gubitka podataka kada se jedna datoteka sinkronizira s više računa.\n\nZbog ove promjene, datoteke otpremljene u starijim inačicama aplikacije kopirane su u mapu %2$s. Međutim, navedena radnja nije dovršena tijekom sinkronizacije računa zbog pogreške u radu. Možete ostaviti datoteku (datoteke) nepromijenjenom i izbrisati poveznicu na %3$s ili premjestiti datoteku (datoteke) u mapu %1$s i zadržati poveznicu na %4$s.\n\nU nastavku su navedene lokalne datoteke i udaljene datoteke u %5$s s kojima su povezane.</string>
     <string name="sync_foreign_files_forgotten_ticker">Neke lokalne datoteke su zaboravljene</string>
     <string name="sync_in_progress">Dohvaćanje najnovije inačice datoteke.</string>
+    <string name="sync_not_enough_space_dialog_action_choose">Odaberite što sinkronizirati</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Oslobodite prostora</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s je %2$s, ali samo je %3$s dostupno na uređaju.</string>
+    <string name="sync_not_enough_space_dialog_title">Nema dovoljno prostora</string>
     <string name="sync_status_button">Gumb statusa sinkronizacije</string>
     <string name="sync_string_files">Datoteke</string>
     <string name="synced_folder_settings_button">Gumb postavki</string>
@@ -679,6 +703,8 @@
     <string name="tags">Oznake</string>
     <string name="test_server_button">Testirajte vezu s poslužiteljem</string>
     <string name="thumbnail">Umanjeni prikaz</string>
+    <string name="thumbnail_for_existing_file_description">Umanjeni prikaz postojeće datoteke</string>
+    <string name="thumbnail_for_new_file_desc">Umanjeni prikaz nove datoteke</string>
     <string name="timeout_richDocuments">Učitavanje traje jako dugo...</string>
     <string name="trashbin_activity_title">Izbrisane datoteke</string>
     <string name="trashbin_empty_headline">Nema izbrisanih datoteka</string>
@@ -714,9 +740,11 @@
     <string name="upload_list_delete">Izbriši</string>
     <string name="upload_list_empty_headline">Nema dostupnih otprema</string>
     <string name="upload_list_empty_text_auto_upload">Otpremite neki sadržaj ili aktivirajte automatsko otpremanje.</string>
+    <string name="upload_list_resolve_conflict">Neriješeno nepodudaranje</string>
     <string name="upload_local_storage_full">Lokalni prostor za pohranu je pun</string>
     <string name="upload_local_storage_not_copied">Datoteku nije moguće kopirati u lokalni prostor za pohranu</string>
     <string name="upload_lock_failed">Zaključavanje mape nije uspjelo</string>
+    <string name="upload_old_android">Šifriranje je moguće samo na inačici &gt;= Androida 5.0</string>
     <string name="upload_query_move_foreign_files">Nedostatak prostora sprječava kopiranje odabranih datoteka u mapu %1$s. Želite li ih premjestiti tamo?</string>
     <string name="upload_sync_conflict">Nepodudaranje tijekom sinkronizacije, ručno otklonite poteškoću</string>
     <string name="upload_unknown_error">Nepoznata pogreška</string>
@@ -732,6 +760,8 @@
     <string name="uploader_top_message">Odaberi mapu za otpremu</string>
     <string name="uploader_upload_failed_content_single">Otpremanje %1$s nije uspjelo</string>
     <string name="uploader_upload_failed_credentials_error">Otpremanje nije uspjelo, ponovno se prijavite</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Nepodudaranje pri otpremi datoteke</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Odaberite inačicu %1$s koju želite zadržati</string>
     <string name="uploader_upload_failed_ticker">Otprema nije uspjela</string>
     <string name="uploader_upload_files_behaviour">Mogućnosti otpreme:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Premjesti datoteku u mapu %1$s</string>
@@ -760,6 +790,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Lokalna datoteka nije pronađena</string>
     <string name="uploads_view_upload_status_failed_permission_error">Pogreška dopuštenja</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Nepouzdana vjerodajnica poslužitelja</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Dohvaćanje inačice poslužitelja...</string>
     <string name="uploads_view_upload_status_service_interrupted">Prekinut rad aplikacije</string>
     <string name="uploads_view_upload_status_succeeded">Završeno</string>
     <string name="uploads_view_upload_status_unknown_fail">Nepoznata pogreška</string>

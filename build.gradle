@@ -20,13 +20,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.1'
+        classpath 'com.android.tools.build:gradle:3.6.2'
         classpath('com.dicedmelon.gradle:jacoco-android:0.1.4') {
             exclude group: 'org.codehaus.groovy', module: 'groovy-all'
         }
         classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.6'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.7.2"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.7.3"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:3.1.0'
     }
@@ -61,7 +61,7 @@ configurations {
 ext {
     jacocoVersion = "0.8.2"
     daggerVersion = "2.27"
-    markwonVersion =  "4.3.0"
+    markwonVersion =  "4.3.1"
     prismVersion = "2.0.0"
 androidLibraryVersion ="c6dff086e5191ec10791aaf89962328451ba65a8"
 
@@ -297,9 +297,9 @@ dependencies {
     implementation 'com.jakewharton:disklrucache:2.0.2'
     implementation 'androidx.appcompat:appcompat:1.2.0-alpha03'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.exifinterface:exifinterface:1.1.0'
+    implementation 'androidx.exifinterface:exifinterface:1.2.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-    implementation "androidx.work:work-runtime:2.3.3"
+    implementation "androidx.work:work-runtime:2.3.4"
     implementation "androidx.work:work-runtime-ktx:2.3.3"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:2.0.1'
