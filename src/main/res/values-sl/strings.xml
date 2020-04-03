@@ -142,7 +142,7 @@
     <string name="confirmation_remove_folders_alert">Ali zares želite izbrisati izbrane predmete in vsebino?</string>
     <string name="confirmation_remove_local">Le krajevno</string>
     <string name="conflict_already_existing_file">Obstoječa datoteka</string>
-    <string name="conflict_dialog_error">Prišlo je do napake med pogovornega okna spora!</string>
+    <string name="conflict_dialog_error">Prišlo je do napake med ustvarjanjem pogovornega okna spora!</string>
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
     <string name="conflict_message_headline">Katere datoteke želite ohraniti?</string>
     <string name="conflict_new_file">Nova datoteka</string>
@@ -613,6 +613,7 @@
     <string name="share_with_edit_title">Omogoči souporabo z %1$s</string>
     <string name="share_with_title">Omogoči souporabo …</string>
     <string name="share_with_user_section_title">Omogoči souporabo s skupino ali z uporabnikom</string>
+    <string name="shared_avatar_desc">Sličica uporabnika</string>
     <string name="shared_icon_share">souporaba</string>
     <string name="shared_icon_shared">v souporabi</string>
     <string name="shared_icon_shared_via_link">v souporabi prek povezave</string>
