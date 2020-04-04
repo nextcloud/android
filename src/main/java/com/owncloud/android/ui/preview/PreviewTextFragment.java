@@ -227,11 +227,15 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
     }
 
     public static void setText(TextView textView,
-                               String text,
+                               @Nullable String text,
                                @Nullable OCFile file,
                                Activity activity,
                                boolean ignoreMimetype,
                                boolean preview) {
+        if (text == null) {
+            return;
+        }
+
         if ((ignoreMimetype || file != null && MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN.equals(file.getMimeType()))
             && activity != null) {
             if (!preview) {
