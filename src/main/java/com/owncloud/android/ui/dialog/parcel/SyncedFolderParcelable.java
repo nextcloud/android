@@ -40,6 +40,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private boolean enabled = false;
     private boolean subfolderByDate = false;
     private Integer uploadAction;
+    private FileUploader.NameCollisionPolicy nameCollisionPolicy = FileUploader.NameCollisionPolicy.ASK_USER;
     private MediaFolderType type;
     private boolean hidden = false;
     private long id;
@@ -59,6 +60,8 @@ public class SyncedFolderParcelable implements Parcelable {
         type = syncedFolderDisplayItem.getType();
         account = syncedFolderDisplayItem.getAccount();
         uploadAction = syncedFolderDisplayItem.getUploadAction();
+        nameCollisionPolicy = FileUploader.NameCollisionPolicy.deserialize(
+            syncedFolderDisplayItem.getNameCollisionPolicy());
         this.section = section;
         hidden = syncedFolderDisplayItem.isHidden();
     }
@@ -76,6 +79,7 @@ public class SyncedFolderParcelable implements Parcelable {
         type = MediaFolderType.getById(read.readInt());
         account = read.readString();
         uploadAction = read.readInt();
+        nameCollisionPolicy = FileUploader.NameCollisionPolicy.deserialize(read.readInt());
         section = read.readInt();
         hidden = read.readInt() != 0;
     }
@@ -97,6 +101,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(type.getId());
         dest.writeString(account);
         dest.writeInt(uploadAction);
+        dest.writeInt(nameCollisionPolicy.serialize());
         dest.writeInt(section);
         dest.writeInt(hidden ? 1 : 0);
     }
@@ -182,6 +187,10 @@ public class SyncedFolderParcelable implements Parcelable {
         return this.uploadAction;
     }
 
+    public FileUploader.NameCollisionPolicy getNameCollisionPolicy() {
+        return this.nameCollisionPolicy;
+    }
+
     public MediaFolderType getType() {
         return this.type;
     }
@@ -232,6 +241,10 @@ public class SyncedFolderParcelable implements Parcelable {
 
     public void setSubfolderByDate(boolean subfolderByDate) {
         this.subfolderByDate = subfolderByDate;
+    }
+
+    public void setNameCollisionPolicy(FileUploader.NameCollisionPolicy nameCollisionPolicy) {
+        this.nameCollisionPolicy = nameCollisionPolicy;
     }
 
     public void setType(MediaFolderType type) {
