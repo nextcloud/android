@@ -65,6 +65,7 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    boolean subfolderByDate,
                                    String account,
                                    int uploadAction,
+                                   int nameCollisionPolicy,
                                    boolean enabled,
                                    long timestampMs,
                                    List<String> filePaths,
@@ -73,7 +74,7 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    MediaFolderType type,
                                    boolean hidden) {
         super(id, localPath, remotePath, wifiOnly, chargingOnly, existing, subfolderByDate, account, uploadAction,
-              enabled, timestampMs, type, hidden);
+              nameCollisionPolicy, enabled, timestampMs, type, hidden);
         this.filePaths = filePaths;
         this.folderName = folderName;
         this.numberOfFiles = numberOfFiles;
@@ -88,11 +89,12 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    boolean subfolderByDate,
                                    String account,
                                    int uploadAction,
+                                   int nameCollisionPolicy,
                                    boolean enabled,
                                    long timestampMs,
                                    String folderName, MediaFolderType type, boolean hidden) {
         super(id, localPath, remotePath, wifiOnly, chargingOnly, existing, subfolderByDate, account, uploadAction,
-              enabled, timestampMs, type, hidden);
+              nameCollisionPolicy, enabled, timestampMs, type, hidden);
         this.folderName = folderName;
     }
 }

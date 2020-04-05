@@ -34,35 +34,37 @@ public class SyncedFolder implements Serializable, Cloneable {
     public static final long EMPTY_ENABLED_TIMESTAMP_MS = -1;
     private static final long serialVersionUID = -793476118299906429L;
 
-    @Getter @Setter private long id;
-    @Getter @Setter private String localPath;
-    @Getter @Setter private String remotePath;
-    @Getter @Setter private boolean wifiOnly;
-    @Getter @Setter private boolean chargingOnly;
-    @Getter @Setter private boolean existing;
-    @Getter @Setter private boolean subfolderByDate;
-    @Getter @Setter private String account;
-    @Getter @Setter private int uploadAction;
-    @Getter private boolean enabled;
-    @Getter private long enabledTimestampMs;
-    @Getter @Setter private MediaFolderType type;
-    @Getter @Setter private boolean hidden;
+    private long id;
+    private String localPath;
+    private String remotePath;
+    private boolean wifiOnly;
+    private boolean chargingOnly;
+    private boolean existing;
+    private boolean subfolderByDate;
+    private String account;
+    private int uploadAction;
+    private int nameCollisionPolicy;
+    private boolean enabled;
+    private long enabledTimestampMs;
+    private MediaFolderType type;
+    private boolean hidden;
 
     /**
      * constructor for new, to be persisted entity.
      *
-     * @param localPath       local path
-     * @param remotePath      remote path
-     * @param wifiOnly        upload on wifi only flag
-     * @param chargingOnly    upload on charging only
-     * @param existing        upload existing files
-     * @param subfolderByDate create sub-folders by date (month)
-     * @param account         the account owning the synced folder
-     * @param uploadAction    the action to be done after the upload
-     * @param enabled         flag if synced folder config is active
-     * @param timestampMs     the current timestamp in milliseconds
-     * @param type            the type of the folder
-     * @param hidden          hide item flag
+     * @param localPath           local path
+     * @param remotePath          remote path
+     * @param wifiOnly            upload on wifi only flag
+     * @param chargingOnly        upload on charging only
+     * @param existing            upload existing files
+     * @param subfolderByDate     create sub-folders by date (month)
+     * @param account             the account owning the synced folder
+     * @param uploadAction        the action to be done after the upload
+     * @param nameCollisionPolicy the behaviour to follow if detecting a collision
+     * @param enabled             flag if synced folder config is active
+     * @param timestampMs         the current timestamp in milliseconds
+     * @param type                the type of the folder
+     * @param hidden              hide item flag
      */
     public SyncedFolder(String localPath,
                         String remotePath,
@@ -72,12 +74,13 @@ public class SyncedFolder implements Serializable, Cloneable {
                         boolean subfolderByDate,
                         String account,
                         int uploadAction,
+                        int nameCollisionPolicy,
                         boolean enabled,
                         long timestampMs,
                         MediaFolderType type,
                         boolean hidden) {
         this(UNPERSISTED_ID, localPath, remotePath, wifiOnly, chargingOnly, existing, subfolderByDate, account,
-             uploadAction, enabled, timestampMs, type, hidden);
+             uploadAction, nameCollisionPolicy, enabled, timestampMs, type, hidden);
     }
 
     /**
@@ -94,6 +97,7 @@ public class SyncedFolder implements Serializable, Cloneable {
                            boolean subfolderByDate,
                            String account,
                            int uploadAction,
+                           int nameCollisionPolicy,
                            boolean enabled,
                            long timestampMs,
                            MediaFolderType type,
@@ -107,6 +111,7 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.subfolderByDate = subfolderByDate;
         this.account = account;
         this.uploadAction = uploadAction;
+        this.nameCollisionPolicy = nameCollisionPolicy;
         this.setEnabled(enabled, timestampMs);
         this.type = type;
         this.hidden = hidden;
@@ -126,5 +131,109 @@ public class SyncedFolder implements Serializable, Cloneable {
         } catch (CloneNotSupportedException e) {
             return null;
         }
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public String getLocalPath() {
+        return this.localPath;
+    }
+
+    public String getRemotePath() {
+        return this.remotePath;
+    }
+
+    public boolean isWifiOnly() {
+        return this.wifiOnly;
+    }
+
+    public boolean isChargingOnly() {
+        return this.chargingOnly;
+    }
+
+    public boolean isExisting() {
+        return this.existing;
+    }
+
+    public boolean isSubfolderByDate() {
+        return this.subfolderByDate;
+    }
+
+    public String getAccount() {
+        return this.account;
+    }
+
+    public int getUploadAction() {
+        return this.uploadAction;
+    }
+
+    public int getNameCollisionPolicy() {
+        return this.nameCollisionPolicy;
+    }
+
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
+    public long getEnabledTimestampMs() {
+        return this.enabledTimestampMs;
+    }
+
+    public MediaFolderType getType() {
+        return this.type;
+    }
+
+    public boolean isHidden() {
+        return this.hidden;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setLocalPath(String localPath) {
+        this.localPath = localPath;
+    }
+
+    public void setRemotePath(String remotePath) {
+        this.remotePath = remotePath;
+    }
+
+    public void setWifiOnly(boolean wifiOnly) {
+        this.wifiOnly = wifiOnly;
+    }
+
+    public void setChargingOnly(boolean chargingOnly) {
+        this.chargingOnly = chargingOnly;
+    }
+
+    public void setExisting(boolean existing) {
+        this.existing = existing;
+    }
+
+    public void setSubfolderByDate(boolean subfolderByDate) {
+        this.subfolderByDate = subfolderByDate;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public void setUploadAction(int uploadAction) {
+        this.uploadAction = uploadAction;
+    }
+
+    public void setNameCollisionPolicy(int nameCollisionPolicy) {
+        this.nameCollisionPolicy = nameCollisionPolicy;
+    }
+
+    public void setType(MediaFolderType type) {
+        this.type = type;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 }

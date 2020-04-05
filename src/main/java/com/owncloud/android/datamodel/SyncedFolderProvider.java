@@ -350,6 +350,8 @@ public class SyncedFolderProvider extends Observable {
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT));
             int uploadAction = cursor.getInt(cursor.getColumnIndex(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION));
+            int nameCollisionPolicy = cursor.getInt(cursor.getColumnIndex(
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY));
             boolean enabled = cursor.getInt(cursor.getColumnIndex(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED)) == 1;
             long enabledTimestampMs = cursor.getLong(cursor.getColumnIndex(
@@ -360,8 +362,8 @@ public class SyncedFolderProvider extends Observable {
                 ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN)) == 1;
 
             syncedFolder = new SyncedFolder(id, localPath, remotePath, wifiOnly, chargingOnly, existing,
-                                            subfolderByDate, accountName, uploadAction, enabled, enabledTimestampMs,
-                                            type, hidden);
+                                            subfolderByDate, accountName, uploadAction, nameCollisionPolicy, enabled,
+                                            enabledTimestampMs, type, hidden);
         }
         return syncedFolder;
     }
@@ -385,6 +387,8 @@ public class SyncedFolderProvider extends Observable {
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE, syncedFolder.isSubfolderByDate());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT, syncedFolder.getAccount());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION, syncedFolder.getUploadAction());
+        cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY,
+               syncedFolder.getNameCollisionPolicy());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE, syncedFolder.getType().getId());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN, syncedFolder.isHidden());
 
