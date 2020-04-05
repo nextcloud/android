@@ -49,6 +49,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -832,10 +833,11 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY + " INTEGER, "     // charging only
                        + ProviderTableMeta.SYNCED_FOLDER_EXISTING + " INTEGER, "          // existing
                        + ProviderTableMeta.SYNCED_FOLDER_ENABLED + " INTEGER, "           // enabled
-                       + ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS + " INTEGER, "           // enable date
+                       + ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS + " INTEGER, " // enable date
                        + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + " INTEGER, " // subfolder by date
                        + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + "  TEXT, "             // account
                        + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION + " INTEGER, "     // upload action
+                       + ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY + " INTEGER, " // name collision policy
                        + ProviderTableMeta.SYNCED_FOLDER_TYPE + " INTEGER, "              // type
                        + ProviderTableMeta.SYNCED_FOLDER_HIDDEN + " INTEGER );"           // hidden
         );
@@ -2158,6 +2160,29 @@ public class FileContentProvider extends ContentProvider {
                                    " FROM " + tmpTableName);
                     db.execSQL("DROP TABLE " + tmpTableName);
 
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 55 && newVersion >= 55) {
+                Log_OC.i(SQL, "Entering in the #55 add synced.name_collision_policy.");
+                db.beginTransaction();
+                try {
+                    // Add synced.name_collision_policy
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY + " INTEGER "); // integer
+
+                    // make sure all existing folders set to FileUploader.NameCollisionPolicy.ASK_USER.
+                    db.execSQL("UPDATE " + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME + " SET " +
+                                   ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY + " = " +
+                                   FileUploader.NameCollisionPolicy.ASK_USER.serialize());
                     upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {

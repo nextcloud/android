@@ -40,6 +40,7 @@ public class SyncedFolder implements Serializable, Cloneable {
     private boolean subfolderByDate;
     private String account;
     private int uploadAction;
+    private int nameCollisionPolicy;
     private boolean enabled;
     private long enabledTimestampMs;
     private MediaFolderType type;
@@ -48,18 +49,19 @@ public class SyncedFolder implements Serializable, Cloneable {
     /**
      * constructor for new, to be persisted entity.
      *
-     * @param localPath       local path
-     * @param remotePath      remote path
-     * @param wifiOnly        upload on wifi only flag
-     * @param chargingOnly    upload on charging only
-     * @param existing        upload existing files
-     * @param subfolderByDate create sub-folders by date (month)
-     * @param account         the account owning the synced folder
-     * @param uploadAction    the action to be done after the upload
-     * @param enabled         flag if synced folder config is active
-     * @param timestampMs     the current timestamp in milliseconds
-     * @param type            the type of the folder
-     * @param hidden          hide item flag
+     * @param localPath           local path
+     * @param remotePath          remote path
+     * @param wifiOnly            upload on wifi only flag
+     * @param chargingOnly        upload on charging only
+     * @param existing            upload existing files
+     * @param subfolderByDate     create sub-folders by date (month)
+     * @param account             the account owning the synced folder
+     * @param uploadAction        the action to be done after the upload
+     * @param nameCollisionPolicy the behaviour to follow if detecting a collision
+     * @param enabled             flag if synced folder config is active
+     * @param timestampMs         the current timestamp in milliseconds
+     * @param type                the type of the folder
+     * @param hidden              hide item flag
      */
     public SyncedFolder(String localPath,
                         String remotePath,
@@ -69,12 +71,13 @@ public class SyncedFolder implements Serializable, Cloneable {
                         boolean subfolderByDate,
                         String account,
                         int uploadAction,
+                        int nameCollisionPolicy,
                         boolean enabled,
                         long timestampMs,
                         MediaFolderType type,
                         boolean hidden) {
         this(UNPERSISTED_ID, localPath, remotePath, wifiOnly, chargingOnly, existing, subfolderByDate, account,
-             uploadAction, enabled, timestampMs, type, hidden);
+             uploadAction, nameCollisionPolicy, enabled, timestampMs, type, hidden);
     }
 
     /**
@@ -91,6 +94,7 @@ public class SyncedFolder implements Serializable, Cloneable {
                            boolean subfolderByDate,
                            String account,
                            int uploadAction,
+                           int nameCollisionPolicy,
                            boolean enabled,
                            long timestampMs,
                            MediaFolderType type,
@@ -104,6 +108,7 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.subfolderByDate = subfolderByDate;
         this.account = account;
         this.uploadAction = uploadAction;
+        this.nameCollisionPolicy = nameCollisionPolicy;
         this.setEnabled(enabled, timestampMs);
         this.type = type;
         this.hidden = hidden;
@@ -161,6 +166,10 @@ public class SyncedFolder implements Serializable, Cloneable {
         return this.uploadAction;
     }
 
+    public int getNameCollisionPolicy() {
+        return this.nameCollisionPolicy;
+    }
+
     public boolean isEnabled() {
         return this.enabled;
     }
@@ -211,6 +220,10 @@ public class SyncedFolder implements Serializable, Cloneable {
 
     public void setUploadAction(int uploadAction) {
         this.uploadAction = uploadAction;
+    }
+
+    public void setNameCollisionPolicy(int nameCollisionPolicy) {
+        this.nameCollisionPolicy = nameCollisionPolicy;
     }
 
     public void setType(MediaFolderType type) {
