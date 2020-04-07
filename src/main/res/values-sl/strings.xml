@@ -268,6 +268,7 @@
     <string name="etm_background_jobs_prune">Obreži nedejavna opravila</string>
     <string name="etm_background_jobs_start_test_job">Začni preizkusno opravilo</string>
     <string name="etm_background_jobs_stop_test_job">Zaustavi preizkusno opravilo</string>
+    <string name="etm_migrations">Preselitev (posodobitev programa)</string>
     <string name="etm_preferences">Nastavitve</string>
     <string name="etm_title">Inženirski preizkusni način</string>
     <string name="fab_label">Dodaj ali pošlji</string>
@@ -454,6 +455,7 @@
     <string name="notifications_no_results_message">Prosim, preveri kasneje</string>
     <string name="offline_mode">Ni vzpostavljene internetne povezave</string>
     <string name="outdated_server">Strežnik je dosegel konec podpore. Posodobite ga!</string>
+    <string name="overflow_menu">Meni več</string>
     <string name="pass_code_configure_your_pass_code">Vnesite kodo PIN programa</string>
     <string name="pass_code_configure_your_pass_code_explanation">Koda bo zahtevana vsakič pred zagonom programa.</string>
     <string name="pass_code_enter_pass_code">Vnesite kodo PIN</string>
@@ -617,6 +619,7 @@
     <string name="shared_icon_share">souporaba</string>
     <string name="shared_icon_shared">v souporabi</string>
     <string name="shared_icon_shared_via_link">v souporabi prek povezave</string>
+    <string name="shared_with_you_by">Souporabo omogoča %1$s</string>
     <string name="sharee_add_failed">Dodajanje souporabnika je spodletelo</string>
     <string name="signup_with_provider">Prijava prek ponudnika</string>
     <string name="single_sign_on_request_token" formatted="true">Ali dovolite uporabniku %1$s dostop do računa Nextcloud %2$s?</string>
@@ -661,6 +664,8 @@
     <string name="storage_movies">Video</string>
     <string name="storage_music">Glasba</string>
     <string name="storage_pictures">Slike</string>
+    <string name="store_full_desc">Okolje, ki gostuje, kjer vi želite, in vam omogoča nadzor.\n\n Možnosti:\n* Enostaven za uporabo in sodoben vmesnik, ki je skladen z vašim strežnikom\n* Omogoča nalaganje datotek v oblak Nextcloud\n* Omogoča izmenjavo datotek z drugimi\n* Ohrani vaše datoteke in mape vedno usklajene\n * Podpira iskanje po vseh dodeljenih mapah na strežniku\n * Podpira samodejno nalaganje fotografij in videoposnetkov z naprave\n * Usklajuje in posreduje obvestila\n * Podpora je uporaba več računov\n* Zagotavlja varen dostop do podatkov s prstnim odtisom ali kodo PIN\n * Izvorno podpira sistem DAVx5 (poznan kot DAVdroid) za enostavno nastavitev usklajevanja koledarja in stikov\n\nPoročila o težavah je mogoče poslati na https://github.com/nextcloud/android/isissue in o programu razpravljati na https://help.nextcloud.com/c/clients/android\n\nAli šele spoznavate oblak Nextcloud? To je je zasebni strežnik za usklajevanje in sporočanje. Je brezplačna programska oprema, ki jo lahko namestite na svojem strežniku ali gostujete pri številnih ponudnikih. Vedno imate nadzor nad fotografijami, koledarjem in podatki stikov, nad dokumenti in vsem drugim.\n\nVse o Nextcloud izveste na https://nextcloud.com.</string>
+    <string name="store_full_dev_desc">Okolje, ki vam omogoči nadzor nad datotekami.\nUporabljate uradno razvojno različico, ki omogoča zagon nepreizkušene, dnevno spreminjajoče se kode, ta pa lahko povzroči nestabilnost in izgubo podatkov. Program je namenjen uporabnikom, ki so pripravljeni preizkušati novosti, poročati o težavah in iskati napake. Programa ni priporočljivo uporabiti za resno delo!\n\nObe različici, stabilna in razvojna, sta na voljo na F-droid in ju je mogoče uporabljati nameščeni sočasno.</string>
     <string name="store_short_desc">Samo-gostujoče produkcijsko okolje pod vašim nadzorom.</string>
     <string name="store_short_dev_desc">Samo-gostujoče produkcijsko okolje pod vašim nadzorom. (razvojna predogledna različica)</string>
     <string name="stream">Pretakaj s programom ...</string>
@@ -682,6 +687,7 @@
     <string name="sync_in_progress">Poteka pridobivanje zadnje različice datoteke.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Izbor predmetov za usklajevanje</string>
     <string name="sync_not_enough_space_dialog_action_free_space">Izpraznite prostor</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s je %2$s, vendar je na napravi na voljo le %3$s.</string>
     <string name="sync_not_enough_space_dialog_title">Ni dovolj prostora</string>
     <string name="sync_status_button">Gumb stanja usklajevanja</string>
     <string name="sync_string_files">Datoteke</string>
@@ -730,6 +736,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">datoteka izrezka(.txt)</string>
     <string name="upload_file_dialog_title">Ime in zvrst datoteke za pošiljanje</string>
     <string name="upload_files">Pošlji datoteke</string>
+    <string name="upload_item_action_button">Gumb za pošiljanje</string>
     <string name="upload_list_delete">Izbriši</string>
     <string name="upload_list_empty_headline">Ni pripravljenih datotek za pošiljanje</string>
     <string name="upload_list_empty_text_auto_upload">Pošljite kakšno vsebino, ali pa omogočite samodejno nalaganje.</string>
@@ -754,6 +761,7 @@
     <string name="uploader_upload_failed_content_single">Ni mogoče poslati %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Pošiljanje je spodletelo; zahtevana je ponovna prijava.</string>
     <string name="uploader_upload_failed_sync_conflict_error">Spor pošiljanja datotek</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Izberite, katero različico %1$s želite obdržati.</string>
     <string name="uploader_upload_failed_ticker">Pošiljanje je spodletelo</string>
     <string name="uploader_upload_files_behaviour">Možnost pošiljanja:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Premakni datoteko v mapo %1$s.</string>
@@ -787,6 +795,7 @@
     <string name="uploads_view_upload_status_succeeded">Končano</string>
     <string name="uploads_view_upload_status_unknown_fail">Neznana napaka</string>
     <string name="uploads_view_upload_status_virus_detected">Zaznan je virus! Pošiljanja ni mogoče dokončati!</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Poteka čakanje na konec načina varčevanja</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Čakam polnjenje</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Čakanje na vzpostavitev povezave Wi-Fi …</string>
     <string name="user_icon">Uporabnik</string>
