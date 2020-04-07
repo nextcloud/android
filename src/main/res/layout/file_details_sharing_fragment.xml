@@ -170,7 +170,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_margin"
-            android:paddingRight="@dimen/standard_padding"
+            android:paddingStart="@dimen/zero"
+            android:paddingEnd="@dimen/standard_padding"
             android:orientation="horizontal">
 
             <ImageView
