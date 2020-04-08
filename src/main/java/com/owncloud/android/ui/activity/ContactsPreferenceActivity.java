@@ -23,27 +23,17 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.evernote.android.job.JobManager;
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.support.PersistableBundleCompat;
-import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.jobs.ContactsBackupJob;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactsBackupFragment;
 
 import org.parceler.Parcels;
-
-import java.util.Set;
 
 import javax.inject.Inject;
 
