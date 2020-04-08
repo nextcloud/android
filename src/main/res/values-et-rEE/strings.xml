@@ -103,12 +103,7 @@
     <string name="community_testing_report_text">Teavita probleemist GitHubis</string>
     <string name="community_testing_version_text">Oled huvitatud aitamisest uut versiooni testides?</string>
     <string name="confirmation_remove_local">Ainult kohalik</string>
-    <string name="conflict_keep_both">Säilita mõlemad</string>
-    <string name="conflict_message">Millist faili sa soovid säilitada? Kui valid mõlemad versioonid, siis lisatakse kohaliku faili nimele number.</string>
     <string name="conflict_message_headline">Milliseid faile sa soovid alles hoida?</string>
-    <string name="conflict_title">Failikonflikt</string>
-    <string name="conflict_use_local_version">kohalik versioon</string>
-    <string name="conflict_use_server_version">serveri versioon</string>
     <string name="contacts_automatic_backup">Automaatne varundus</string>
     <string name="contacts_backup_button">Varunda kohe</string>
     <string name="contacts_last_backup">Viimane varukoopia</string>
@@ -165,7 +160,6 @@
     <string name="fallback_weblogin_back">Tagasi</string>
     <string name="favorite">Lisa lemmikutesse</string>
     <string name="favorite_icon">Lemmik</string>
-    <string name="file">file</string>
     <string name="file_delete">Kustuta</string>
     <string name="file_icon">Fail</string>
     <string name="file_list_empty">Lae midagi üles või sünkroniseeri oma seadmetega.</string>
@@ -205,7 +199,6 @@
     <string name="filename_forbidden_characters">Keelatud sümbolid:  / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Faili nimes on vähemalt üks keelatud märk</string>
     <string name="filename_hint">Faili nimi</string>
-    <string name="folder">folder</string>
     <string name="folder_confirm_create">Loo</string>
     <string name="folder_icon">Kausta ikoon</string>
     <string name="folder_list_empty_headline">Siin ei ole kaustu</string>

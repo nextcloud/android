@@ -43,7 +43,7 @@
     <string name="auth_check_server">Controleer server</string>
     <string name="auth_connection_established">Verbinding tot stand gebracht</string>
     <string name="auth_expired_basic_auth_toast">Voer het huidige wachtwoord in</string>
-    <string name="auth_fail_get_user_name">Je server geeft geen geldige userID terug, neem contact op met je server beheerder</string>
+    <string name="auth_fail_get_user_name">Je server geeft geen geldige userID terug, neem contact op met je serverbeheerder</string>
     <string name="auth_host_address">Serveradres</string>
     <string name="auth_host_url">Serveradres https://…</string>
     <string name="auth_illegal_login_used">Ongeldige login URL gebruikt</string>
@@ -142,14 +142,10 @@
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="confirmation_remove_local">Alleen lokaal</string>
     <string name="conflict_already_existing_file">Al bestaand bestand</string>
-    <string name="conflict_keep_both">Beide bewaren</string>
-    <string name="conflict_message">Welke bestanden wil je bewaren? Als je beide versies selecteert zal het lokale bestand een volgnummer aan de naam toegevoegd krijgen.</string>
+    <string name="conflict_dialog_error">Fout bij het maken van conflict dialoog!</string>
     <string name="conflict_message_description">Als je beide versies selecteerde, zal het lokale bestand een nummer aan de naam toegevoegd krijgen.</string>
     <string name="conflict_message_headline">Welke bestanden wil je bewaren?</string>
     <string name="conflict_new_file">Nieuw bestand</string>
-    <string name="conflict_title">Bestandsconflict</string>
-    <string name="conflict_use_local_version">lokale versie</string>
-    <string name="conflict_use_server_version">serverversie</string>
     <string name="contaclist_restore_selected">Herstel de geselecteerde contactpersonen</string>
     <string name="contactlist_account_chooser_title">Kies een account voor import</string>
     <string name="contactlist_item_icon">Contactpersonen pictogram</string>
@@ -265,9 +261,11 @@
     <string name="etm_background_job_progress">Voortgang</string>
     <string name="etm_background_job_started">Gestart</string>
     <string name="etm_background_job_state">Staat</string>
+    <string name="etm_background_job_user">Gebruiker</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Achtergrondtaken</string>
     <string name="etm_background_jobs_cancel_all">Annuleer alle jobs</string>
+    <string name="etm_background_jobs_prune">Inactieve taken opruimen</string>
     <string name="etm_background_jobs_start_test_job">Start Test Job</string>
     <string name="etm_background_jobs_stop_test_job">Stop Test Job</string>
     <string name="etm_migrations">Migratie (app upgrade)</string>
@@ -281,7 +279,6 @@
     <string name="fallback_weblogin_text">Terug naar vorige login-methode</string>
     <string name="favorite">Toevoegen aan favorieten</string>
     <string name="favorite_icon">Favoriet</string>
-    <string name="file">bestand</string>
     <string name="file_delete">Verwijderen</string>
     <string name="file_detail_activity_error">Fout bij ophalen activiteiten van bestand</string>
     <string name="file_details_no_content">Kon details niet laden</string>
@@ -351,7 +348,6 @@
     <string name="first_run_2_text">Beveiligde samenwerking &amp; bestand uitwisseling</string>
     <string name="first_run_3_text">Eenvoudige webmail, agenda &amp; contacten</string>
     <string name="first_run_4_text">Schermdelen, online afspraken &amp; web conferenties</string>
-    <string name="folder">map</string>
     <string name="folder_already_exists">Map bestaat al</string>
     <string name="folder_confirm_create">Aanmaken</string>
     <string name="folder_icon">Map pictogram</string>
@@ -584,7 +580,6 @@
     <string name="share_get_public_link_button">Link ophalen </string>
     <string name="share_group_clarification">%1$s (groep)</string>
     <string name="share_internal_link">Deel interne link</string>
-    <string name="share_internal_link_text">Dit werkt enkel voor gebruikers met toegang tot %1$s</string>
     <string name="share_internal_link_to_file_text">Interne link voor delen werkt alleen voor gebruikers met toegang tot dit bestand</string>
     <string name="share_internal_link_to_folder_text">Interne link voor delen werkt alleen voor gebruikers met toegang tot deze map</string>
     <string name="share_known_remote_clarification">%1$s ( op %2$s )</string>

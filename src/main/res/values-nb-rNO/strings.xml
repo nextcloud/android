@@ -140,12 +140,7 @@
     <string name="confirmation_remove_folder_alert">Ønsker du virkelig å slette %1$s og dets innhold?</string>
     <string name="confirmation_remove_folders_alert">Vil du virkelig fjerne de valgte elementene og dets innhold?</string>
     <string name="confirmation_remove_local">Kun lokalt</string>
-    <string name="conflict_keep_both">Behold begge</string>
-    <string name="conflict_message">Hvilke filer ønsker du å beholder? Hvis du velger begge versjonene, får den lokale filen lagt til et tall i navnet.</string>
     <string name="conflict_message_headline">Hvilke filer vil du beholde?</string>
-    <string name="conflict_title">Filkonflikt</string>
-    <string name="conflict_use_local_version">lokal versjon</string>
-    <string name="conflict_use_server_version">serverversjon</string>
     <string name="contaclist_restore_selected">Gjenopprett valgte kontakter</string>
     <string name="contactlist_account_chooser_title">Velg konto å importere</string>
     <string name="contactlist_item_icon">Brukerikon for kontaktliste</string>
@@ -260,7 +255,6 @@
     <string name="fallback_weblogin_text">Gå tilbake til gammel innloggingsmetode</string>
     <string name="favorite">Legg til i favoritter</string>
     <string name="favorite_icon">Favoritt</string>
-    <string name="file">fil</string>
     <string name="file_delete">Slett</string>
     <string name="file_details_no_content">Klarte ikke å laste inn detaljer</string>
     <string name="file_icon">Fil</string>
@@ -329,7 +323,6 @@
     <string name="first_run_2_text">Sikkert samarbeid &amp; fil utveksling</string>
     <string name="first_run_3_text">Brukervennlig e-post på web, kalender &amp; kontakter </string>
     <string name="first_run_4_text">Deling av skjerm, online møter &amp; samtaler på web</string>
-    <string name="folder">mappe</string>
     <string name="folder_already_exists">Mappe finnes allerede</string>
     <string name="folder_confirm_create">Opprett</string>
     <string name="folder_icon">Mappeikon</string>

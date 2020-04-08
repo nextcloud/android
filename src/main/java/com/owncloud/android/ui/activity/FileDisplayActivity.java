@@ -523,26 +523,28 @@ public class FileDisplayActivity extends FileActivity
                 setIntent(intent);
 
                 SearchEvent searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
-                if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.searchType)) {
-                    Log_OC.d(this, "Switch to photo search fragment");
+                if (searchEvent != null) {
+                    if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.searchType)) {
+                        Log_OC.d(this, "Switch to photo search fragment");
 
-                    PhotoFragment photoFragment = new PhotoFragment(true);
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
-                    photoFragment.setArguments(bundle);
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.left_fragment_container, photoFragment, TAG_LIST_OF_FILES);
-                    transaction.commit();
-                } else {
-                    Log_OC.d(this, "Switch to oc file search fragment");
+                        PhotoFragment photoFragment = new PhotoFragment(true);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+                        photoFragment.setArguments(bundle);
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.left_fragment_container, photoFragment, TAG_LIST_OF_FILES);
+                        transaction.commit();
+                    } else {
+                        Log_OC.d(this, "Switch to oc file search fragment");
 
-                    OCFileListFragment photoFragment = new OCFileListFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
-                    photoFragment.setArguments(bundle);
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.left_fragment_container, photoFragment, TAG_LIST_OF_FILES);
-                    transaction.commit();
+                        OCFileListFragment photoFragment = new OCFileListFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+                        photoFragment.setArguments(bundle);
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.left_fragment_container, photoFragment, TAG_LIST_OF_FILES);
+                        transaction.commit();
+                    }
                 }
             } else if (UsersAndGroupsSearchProvider.ACTION_SHARE_WITH.equals(intent.getAction())) {
                 Uri data = intent.getData();

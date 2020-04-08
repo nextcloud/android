@@ -116,12 +116,7 @@
     <string name="confirmation_remove_folder_alert">ნამდვილად გსურთ %1$s-ის და შემცველობის გაუქმება?</string>
     <string name="confirmation_remove_folders_alert">დარწმუნებული ხართ, რომ გსურთ არჩეული ჩანაწერებისა და მათი შემცველობის გაუქმება?</string>
     <string name="confirmation_remove_local">მხოლოდ ლოკალური</string>
-    <string name="conflict_keep_both">ორივეს შენარჩუნება</string>
-    <string name="conflict_message">რომელი ფაილების შენარჩუნება გსურთ? თუ აირჩევთ ორივე ვერისას, ლოკალური ფაილის სახელს წინ დაერთვება ციფრი.</string>
     <string name="conflict_message_headline">რომელი ფაილების დატოვება გსურთ?</string>
-    <string name="conflict_title">ფაილის კონფლიქტი</string>
-    <string name="conflict_use_local_version">ლოკალური ვერსია</string>
-    <string name="conflict_use_server_version">სერვერის ვერსია</string>
     <string name="contaclist_restore_selected">არჩეული კონტაქტების აღდგენა</string>
     <string name="contactlist_account_chooser_title">იმპორტისთვის აირჩიეთ ანგარიში</string>
     <string name="contactlist_item_icon">მომხმარებლის პიქტოგრამა კონტაქტების სიისთვის</string>
@@ -202,7 +197,6 @@
     <string name="fallback_weblogin_text">უკან ძველი ავტორიზაციის მეთოდისკენ</string>
     <string name="favorite">რჩეულებში დამატება</string>
     <string name="favorite_icon">რჩეული</string>
-    <string name="file">ფაილი</string>
     <string name="file_delete">წაშლა</string>
     <string name="file_icon">ფაილი</string>
     <string name="file_list_empty">ატვირთეთ რამე ან გაუწიეთ თქვნს მოწყობილობას სინქრონიზაცია.</string>
@@ -255,7 +249,6 @@
     <string name="filename_forbidden_charaters_from_server">ფაილის სახელი შეიცავს მინ. 1 არასწორ ნიშანს</string>
     <string name="filename_hint">ფაილის სახელი</string>
     <string name="files_drop_not_supported">ეს Nextcloud ფუნქციაა, გთხოვთ განაახლოთ.</string>
-    <string name="folder">დირექტორია</string>
     <string name="folder_confirm_create">შექმნა</string>
     <string name="folder_icon">დირექტორიის პიქტოგრამა</string>
     <string name="folder_list_empty_headline">აქ დირექტორიები არაა</string>

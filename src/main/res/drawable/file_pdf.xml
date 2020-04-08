@@ -1,12 +1,40 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-  <path
-      android:pathData="M15.586,-0C15.8509,-0.0005 16.1052,0.1042 16.293,0.291L16.293,0.291L21.707,5.705C21.8946,5.8925 22,6.1468 22,6.412L22,6.412L22,22C22,23.1046 21.1046,24 20,24L20,24L4,24C2.8954,24 2,23.1046 2,22L2,22L2,2C2,0.8954 2.8954,-0 4,-0L4,-0L15.586,-0ZM14.965,2L4.5,2C4.2239,2 4,2.2239 4,2.5L4,2.5L4,21.5C4,21.7761 4.2239,22 4.5,22L4.5,22L19.5,22C19.7761,22 20,21.7761 20,21.5L20,21.5L20,7.033C20,6.9006 19.9475,6.7737 19.854,6.68L19.854,6.68L15.318,2.147C15.2245,2.0532 15.0975,2.0003 14.965,2L14.965,2ZM8.7874,5.5883L8.94,5.593C9.4929,5.6571 9.9566,6.0401 10.124,6.571C10.5226,7.6854 10.795,8.8409 10.936,10.016C10.951,10.1387 11.0091,10.2522 11.1,10.336C11.6996,10.8738 12.3546,11.3465 13.054,11.746C13.1688,11.8104 13.3047,11.8259 13.431,11.789C14.6139,11.4551 15.8418,11.309 17.07,11.356C17.6975,11.3607 18.2714,11.7107 18.5628,12.2664C18.8543,12.8221 18.8159,13.4931 18.463,14.012C18.137,14.4721 17.5777,14.7067 17.021,14.617C15.7286,14.4564 14.4687,14.0972 13.286,13.552C13.1621,13.4949 13.0208,13.4881 12.892,13.533C12.2307,13.7809 11.592,14.0854 10.983,14.443C10.866,14.5128 10.7831,14.6279 10.754,14.761C10.4943,15.9332 10.0008,17.041 9.303,18.018C8.9816,18.4732 8.4602,18.7451 7.903,18.748C7.8325,18.748 7.762,18.7438 7.692,18.735C7.1008,18.6708 6.5908,18.2911 6.36,17.743C6.1503,17.1886 6.2659,16.5637 6.66,16.121C7.4105,15.2289 8.278,14.4421 9.239,13.782C9.357,13.7012 9.4357,13.5746 9.456,13.433C9.552,12.6488 9.5731,11.8572 9.519,11.069C9.5118,10.9535 9.4632,10.8445 9.382,10.762C8.6394,9.9819 7.9844,9.1228 7.429,8.2C7.0715,7.6443 7.0684,6.9318 7.421,6.373C7.7394,5.847 8.327,5.5453 8.94,5.593L8.7874,5.5883Z"
-      android:strokeWidth="1"
-      android:fillColor="#F44336"
-      android:fillType="nonZero"
-      android:strokeColor="#00000000"/>
+<!--
+  ~
+  ~ Nextcloud Android client application
+  ~
+  ~ @author Tobias Kaminsky
+  ~ Copyright (C) 2020 Tobias Kaminsky
+  ~ Copyright (C) 2020 Nextcloud GmbH
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program. If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<vector android:height="16dp"
+    android:viewportHeight="16"
+    android:viewportWidth="16"
+    android:width="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <path
+        android:fillColor="#dc5047"
+        android:pathData="m2.5,1c-0.28,0 -0.5,0.22 -0.5,0.5v13c0,0.28 0.22,0.5 0.5,0.5h11c0.28,0 0.5,-0.22 0.5,-0.5v-10.5l-3,-3z" />
+    <path
+        android:fillColor="#fff"
+        android:pathData="m4.9093,8.443v1.057h-0.6181v-3h1.1703q0.3379,0 0.5934,0.1236 0.2576,0.1236 0.3956,0.3523 0.1381,0.2266 0.1381,0.5172 0,0.4409 -0.3029,0.6964 -0.3008,0.2534 -0.8345,0.2534zM4.9093,7.9423h0.5522q0.2452,0 0.3729,-0.1154 0.1298,-0.1154 0.1298,-0.3297 0,-0.2205 -0.1298,-0.3565t-0.3585,-0.1401h-0.5666z" />
+    <path
+        android:fillColor="#fff"
+        android:pathData="m7.011,9.5v-3h0.9231q0.3956,0 0.7067,0.1793 0.3132,0.1772 0.4883,0.5069 0.1751,0.3276 0.1751,0.7459v0.1381q0,0.4183 -0.1731,0.7438 -0.171,0.3255 -0.4842,0.5048 -0.3132,0.1793 -0.7067,0.1813zM7.6291,7.0007v2.0027h0.2988q0.3626,0 0.5543,-0.2369 0.1916,-0.2369 0.1957,-0.6779v-0.1586q0,-0.4574 -0.1896,-0.6923 -0.1896,-0.2369 -0.5543,-0.2369z" />
+    <path
+        android:fillColor="#fff"
+        android:pathData="m11.56,8.274h-1.1868v1.226h-0.6181v-3h1.9533v0.5007h-1.3352v0.7747h1.1868z" />
 </vector>

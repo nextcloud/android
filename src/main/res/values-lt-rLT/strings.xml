@@ -127,13 +127,8 @@
     <string name="confirmation_remove_folders_alert">Ar tikrai norite ištrinti pažymėtus elementus ir jų turinį?</string>
     <string name="confirmation_remove_local">Tik vietiniai</string>
     <string name="conflict_already_existing_file">Jau esamas failas</string>
-    <string name="conflict_keep_both">Palikti abu</string>
-    <string name="conflict_message">Kurį failą renkates? Jeigu renkates abu failus, suteikite kitą vardą (pavadinimą)</string>
     <string name="conflict_message_headline">Kuriuos failus norite pasilikti?</string>
     <string name="conflict_new_file">Naujas failas</string>
-    <string name="conflict_title">Failų konfliktas</string>
-    <string name="conflict_use_local_version">Vietinė versija</string>
-    <string name="conflict_use_server_version">Versija serveryje</string>
     <string name="contaclist_restore_selected">Atkurti pasirinktus adresatus</string>
     <string name="contactlist_account_chooser_title">Pasirinkite failą </string>
     <string name="contactlist_no_permission">Leidimas nesuteiktas, nieko neimportuota.</string>
@@ -239,7 +234,6 @@
     <string name="fallback_weblogin_back">Atgal</string>
     <string name="favorite">Pridėti į mėgstamus</string>
     <string name="favorite_icon">Mėgstami</string>
-    <string name="file">failas</string>
     <string name="file_delete">Ištrinti</string>
     <string name="file_details_no_content">Nepavyko įkelti išsamesnės informacijos</string>
     <string name="file_icon">Failas</string>
@@ -303,7 +297,6 @@
     <string name="first_run_2_text">Saugus bendradarbiavimas ir apsikeitimas failais</string>
     <string name="first_run_3_text">Lengvai naudojamas el. paštas, kalendorius bei adresatai</string>
     <string name="first_run_4_text">Ekrano bendrinimas, internetiniai susitikimai bei konferencijos</string>
-    <string name="folder">aplankas</string>
     <string name="folder_already_exists">Aplankas jau yra</string>
     <string name="folder_confirm_create">Sukurti</string>
     <string name="folder_icon">Aplanko piktograma</string>
@@ -488,7 +481,6 @@
     <string name="share_file">Dalintis %1$s</string>
     <string name="share_get_public_link_button">Gauti nuorodą</string>
     <string name="share_group_clarification">%1$s (grupė)</string>
-    <string name="share_internal_link_text">Veikia tik naudotojams, turintiems prieigą prie šio %1$s</string>
     <string name="share_known_remote_clarification">%1$s (šiame %2$s)</string>
     <string name="share_link_empty_password">Privalote įvesti slaptažodį</string>
     <string name="share_link_file_error">Įvyko klaida bandant dalinti šį failą ar aplanką</string>
