@@ -100,7 +100,7 @@ class ContactsImportWork(
                 }
             }
         } catch (e: Exception) {
-            logger.e(TAG, "${e.message}")
+            logger.e(TAG, "${e.message}", e)
         } finally {
             cursor?.close()
         }
