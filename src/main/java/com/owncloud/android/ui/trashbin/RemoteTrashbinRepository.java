@@ -43,8 +43,6 @@ import androidx.annotation.NonNull;
 
 public class RemoteTrashbinRepository implements TrashbinRepository {
 
-    private static final String TAG = RemoteTrashbinRepository.class.getSimpleName();
-
     private final User user;
     private final ClientFactory clientFactory;
 

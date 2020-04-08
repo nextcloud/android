@@ -207,7 +207,6 @@ public final class MediaProvider {
         String dataPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder();
 
         if (cursorFolders != null) {
-            String folderName;
             String fileSortOrder = MediaStore.Video.Media.DATE_TAKEN + " DESC LIMIT " + itemLimit;
             Cursor cursorVideos;
 
