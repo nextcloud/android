@@ -43,6 +43,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
@@ -252,7 +253,10 @@ public class ShareeListAdapter extends RecyclerView.Adapter<ShareeListAdapter.Us
 
             hideFileListingItem.setVisible(false);
             passwordItem.setVisible(false);
-            expirationDateItem.setVisible(false);
+
+            if (!capabilities.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_18)) {
+                expirationDateItem.setVisible(false);
+            }
         }
 
         SharingMenuHelper.setupExpirationDateMenuItem(

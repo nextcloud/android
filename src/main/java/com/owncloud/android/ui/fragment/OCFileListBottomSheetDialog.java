@@ -23,7 +23,6 @@ package com.owncloud.android.ui.fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -176,10 +175,14 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
                                              user,
                                              MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN) &&
             file != null) {
-            if (TextUtils.isEmpty(file.getRichWorkspace())) {
-                createRichWorkspace.setVisibility(View.VISIBLE);
-            } else {
+            // richWorkspace
+            // == "": no info set -> show button
+            // == null: disabled on server side -> hide button
+            // != "": info set -> hide button
+            if (file.getRichWorkspace() == null || !"".equals(file.getRichWorkspace())) {
                 createRichWorkspace.setVisibility(View.GONE);
+            } else {
+                createRichWorkspace.setVisibility(View.VISIBLE);
             }
         } else {
             createRichWorkspace.setVisibility(View.GONE);
