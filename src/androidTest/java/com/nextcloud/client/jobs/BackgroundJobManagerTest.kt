@@ -67,6 +67,7 @@ import java.util.concurrent.TimeoutException
     BackgroundJobManagerTest.ContentObserver::class,
     BackgroundJobManagerTest.PeriodicContactsBackup::class,
     BackgroundJobManagerTest.ImmediateContactsBackup::class,
+    BackgroundJobManagerTest.ImmediateContactsImport::class,
     BackgroundJobManagerTest.Tags::class
 )
 class BackgroundJobManagerTest {
@@ -287,6 +288,64 @@ class BackgroundJobManagerTest {
         @Test
         fun job_request_has_mandatory_tags() {
             assertHasRequiredTags(request.tags, BackgroundJobManagerImpl.JOB_IMMEDIATE_CONTACTS_BACKUP, user)
+        }
+
+        @Test
+        @UiThreadTest
+        fun job_info_is_obtained_from_work_info() {
+            // GIVEN
+            //      work info is available
+            workInfo.value = buildWorkInfo(0)
+
+            // WHEN
+            //      job info has listener
+            jobInfo.observeForever {}
+
+            // THEN
+            //      converted value is available
+            assertNotNull(jobInfo.value)
+            assertEquals(workInfo.value?.id, jobInfo.value?.id)
+        }
+    }
+
+    class ImmediateContactsImport : Fixture() {
+
+        private lateinit var workInfo: MutableLiveData<WorkInfo>
+        private lateinit var jobInfo: LiveData<JobInfo?>
+        private lateinit var request: OneTimeWorkRequest
+
+        @Before
+        fun setUp() {
+            val requestCaptor: KArgumentCaptor<OneTimeWorkRequest> = argumentCaptor()
+            workInfo = MutableLiveData()
+            whenever(workManager.getWorkInfoByIdLiveData(any())).thenReturn(workInfo)
+            jobInfo = backgroundJobManager.startImmediateContactsImport(
+                contactsAccountName = "name",
+                contactsAccountType = "type",
+                vCardFilePath = "/path/to/vcard/file",
+                selectedContacts = intArrayOf(1, 2, 3)
+            )
+            verify(workManager).enqueueUniqueWork(
+                any(),
+                any(),
+                requestCaptor.capture()
+            )
+            assertEquals(1, requestCaptor.allValues.size)
+            request = requestCaptor.firstValue
+        }
+
+        @Test
+        fun job_is_unique() {
+            verify(workManager).enqueueUniqueWork(
+                eq(BackgroundJobManagerImpl.JOB_IMMEDIATE_CONTACTS_IMPORT),
+                eq(ExistingWorkPolicy.KEEP),
+                argThat(IsOneTimeWorkRequest())
+            )
+        }
+
+        @Test
+        fun job_request_has_mandatory_tags() {
+            assertHasRequiredTags(request.tags, BackgroundJobManagerImpl.JOB_IMMEDIATE_CONTACTS_IMPORT)
         }
 
         @Test

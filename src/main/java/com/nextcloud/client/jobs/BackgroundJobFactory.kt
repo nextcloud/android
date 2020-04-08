@@ -31,6 +31,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
@@ -38,10 +39,10 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 /**
- * This factory is responsible for creating all background jobs and for injecting
- * all jobs dependencies.
+ * This factory is responsible for creating all background jobs and for injecting job dependencies.
  */
 class BackgroundJobFactory @Inject constructor(
+    private val logger: Logger,
     private val preferences: AppPreferences,
     private val contentResolver: ContentResolver,
     private val clock: Clock,
@@ -68,6 +69,7 @@ class BackgroundJobFactory @Inject constructor(
         return when (workerClass) {
             ContentObserverWork::class -> createContentObserverJob(context, workerParameters, clock)
             ContactsBackupWork::class -> createContactsBackupWork(context, workerParameters)
+            ContactsImportWork::class -> createContactsImportWork(context, workerParameters)
             else -> null // falls back to default factory
         }
     }
@@ -100,6 +102,15 @@ class BackgroundJobFactory @Inject constructor(
             dataProvider,
             contentResolver,
             accountManager
+        )
+    }
+
+    private fun createContactsImportWork(context: Context, params: WorkerParameters): ContactsImportWork {
+        return ContactsImportWork(
+            context,
+            params,
+            logger,
+            contentResolver
         )
     }
 }
