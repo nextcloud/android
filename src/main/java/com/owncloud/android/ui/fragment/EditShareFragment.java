@@ -20,7 +20,6 @@
 
 package com.owncloud.android.ui.fragment;
 
-import android.accounts.Account;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,6 +29,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -54,7 +54,7 @@ public class EditShareFragment extends Fragment {
     /** The fragment initialization parameters */
     private static final String ARG_SHARE = "SHARE";
     private static final String ARG_FILE = "FILE";
-    private static final String ARG_ACCOUNT = "ACCOUNT";
+    private static final String ARG_USER = "USER";
 
     /** Ids of CheckBoxes depending on R.id.canEdit CheckBox */
     private static final int sSubordinateCheckBoxIds[] = {
@@ -70,7 +70,7 @@ public class EditShareFragment extends Fragment {
     private OCFile mFile;
 
     /** Account of the shared file, received as a parameter in construction time */
-    private Account mAccount;
+    private User user;
 
     /**
      * Capabilities of the server.
@@ -83,17 +83,17 @@ public class EditShareFragment extends Fragment {
     /**
      * Public factory method to create new EditShareFragment instances.
      *
-     * @param shareToEdit   An {@link OCShare} to show and edit in the fragment
-     * @param sharedFile    The {@link OCFile} bound to 'shareToEdit'
-     * @param account       The ownCloud account holding 'sharedFile'
+     * @param shareToEdit  An {@link OCShare} to show and edit in the fragment
+     * @param sharedFile  The {@link OCFile} bound to 'shareToEdit'
+     * @param user  User holding 'sharedFile'
      * @return A new instance of fragment EditShareFragment.
      */
-    public static EditShareFragment newInstance(OCShare shareToEdit, OCFile sharedFile, Account account) {
+    public static EditShareFragment newInstance(OCShare shareToEdit, OCFile sharedFile, User user) {
         EditShareFragment fragment = new EditShareFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_SHARE, shareToEdit);
         args.putParcelable(ARG_FILE, sharedFile);
-        args.putParcelable(ARG_ACCOUNT, account);
+        args.putParcelable(ARG_USER, user);
         fragment.setArguments(args);
         return fragment;
     }
@@ -109,11 +109,12 @@ public class EditShareFragment extends Fragment {
             mShare = getArguments().getParcelable(ARG_SHARE);
             mFile = getArguments().getParcelable(ARG_FILE);
             /* OC account holding the shared file, received as a parameter in construction time */
-            mAccount = getArguments().getParcelable(ARG_ACCOUNT);
+            user = getArguments().getParcelable(ARG_USER);
         }
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(mAccount, getContext().getContentResolver());
-        mCapabilities = storageManager.getCapability(mAccount.name);
+        FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(),
+                                                                           getContext().getContentResolver());
+        mCapabilities = storageManager.getCapability(user.getAccountName());
     }
 
 
@@ -159,7 +160,7 @@ public class EditShareFragment extends Fragment {
         if (getActivity() instanceof FileActivity) {
             FileActivity fileActivity = (FileActivity) getActivity();
             if (fileActivity.getStorageManager() != null) {
-                mCapabilities = fileActivity.getStorageManager().getCapability(mAccount.name);
+                mCapabilities = fileActivity.getStorageManager().getCapability(user.getAccountName());
             }
         }
     }
