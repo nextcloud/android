@@ -257,7 +257,6 @@ public class ExtendedListFragment extends Fragment implements
 
                 if (currentVisibility != oldVisibility) {
                     if (currentVisibility == View.VISIBLE) {
-
                         setEmptyListMessage(SearchType.REGULAR_FILTER);
                     } else {
                         setEmptyListMessage(SearchType.NO_SEARCH);
