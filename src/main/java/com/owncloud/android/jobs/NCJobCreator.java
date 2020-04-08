@@ -81,8 +81,6 @@ public class NCJobCreator implements JobCreator {
     @Override
     public Job create(@NonNull String tag) {
         switch (tag) {
-            case ContactsImportJob.TAG:
-                return new ContactsImportJob();
             case AccountRemovalJob.TAG:
                 return new AccountRemovalJob(uploadsStorageManager,
                                              accountManager,

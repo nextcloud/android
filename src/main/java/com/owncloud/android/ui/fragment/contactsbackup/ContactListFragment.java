@@ -55,17 +55,15 @@ import android.widget.Toast;
 
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.jobs.ContactsImportJob;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
@@ -149,6 +147,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
     private OCFile ocFile;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
+    @Inject BackgroundJobManager backgroundJobManager;
 
     public static ContactListFragment newInstance(OCFile file, Account account) {
         ContactListFragment frag = new ContactListFragment();
@@ -360,20 +359,11 @@ public class ContactListFragment extends FileFragment implements Injectable {
         }
     }
 
-    private void importContacts(ContactAccount account) {
-        PersistableBundleCompat bundle = new PersistableBundleCompat();
-        bundle.putString(ContactsImportJob.ACCOUNT_NAME, account.name);
-        bundle.putString(ContactsImportJob.ACCOUNT_TYPE, account.type);
-        bundle.putString(ContactsImportJob.VCARD_FILE_PATH, getFile().getStoragePath());
-        bundle.putIntArray(ContactsImportJob.CHECKED_ITEMS_ARRAY, contactListAdapter.getCheckedIntArray());
-
-        new JobRequest.Builder(ContactsImportJob.TAG)
-                .setExtras(bundle)
-                .startNow()
-                .setRequiresCharging(false)
-                .setUpdateCurrent(false)
-                .build()
-                .schedule();
+    private void importContacts(ContactsAccount account) {
+        backgroundJobManager.startImmediateContactsImport(account.name,
+                                                          account.type,
+                                                          getFile().getStoragePath(),
+                                                          contactListAdapter.getCheckedIntArray());
 
         Snackbar.make(recyclerView, R.string.contacts_preferences_import_scheduled, Snackbar.LENGTH_LONG).show();
 
@@ -391,10 +381,10 @@ public class ContactListFragment extends FileFragment implements Injectable {
     }
 
     private void getAccountForImport() {
-        final ArrayList<ContactAccount> accounts = new ArrayList<>();
+        final ArrayList<ContactsAccount> contactsAccounts = new ArrayList<>();
 
         // add local one
-        accounts.add(new ContactAccount("Local contacts", null, null));
+        contactsAccounts.add(new ContactsAccount("Local contacts", null, null));
 
         Cursor cursor = null;
         try {
@@ -409,10 +399,10 @@ public class ContactListFragment extends FileFragment implements Injectable {
                     String name = cursor.getString(cursor.getColumnIndex(ContactsContract.RawContacts.ACCOUNT_NAME));
                     String type = cursor.getString(cursor.getColumnIndex(ContactsContract.RawContacts.ACCOUNT_TYPE));
 
-                    ContactAccount account = new ContactAccount(name, name, type);
+                    ContactsAccount account = new ContactsAccount(name, name, type);
 
-                    if (!accounts.contains(account)) {
-                        accounts.add(account);
+                    if (!contactsAccounts.contains(account)) {
+                        contactsAccounts.add(account);
                     }
                 }
 
@@ -426,16 +416,16 @@ public class ContactListFragment extends FileFragment implements Injectable {
             }
         }
 
-        if (accounts.size() == SINGLE_ACCOUNT) {
-            importContacts(accounts.get(0));
+        if (contactsAccounts.size() == SINGLE_ACCOUNT) {
+            importContacts(contactsAccounts.get(0));
         } else {
-            ArrayAdapter adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, accounts);
+            ArrayAdapter adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, contactsAccounts);
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle(R.string.contactlist_account_chooser_title)
                     .setAdapter(adapter, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            importContacts(accounts.get(which));
+                            importContacts(contactsAccounts.get(which));
                         }
                     }).show();
         }
@@ -475,12 +465,12 @@ public class ContactListFragment extends FileFragment implements Injectable {
         }
     }
 
-    private class ContactAccount {
+    private class ContactsAccount {
         private String displayName;
         private String name;
         private String type;
 
-        ContactAccount(String displayName, String name, String type) {
+        ContactsAccount(String displayName, String name, String type) {
             this.displayName = displayName;
             this.name = name;
             this.type = type;
@@ -488,8 +478,8 @@ public class ContactListFragment extends FileFragment implements Injectable {
 
         @Override
         public boolean equals(Object obj) {
-            if (obj instanceof ContactAccount) {
-                ContactAccount other = (ContactAccount) obj;
+            if (obj instanceof ContactsAccount) {
+                ContactsAccount other = (ContactsAccount) obj;
                 return this.name.equalsIgnoreCase(other.name) && this.type.equalsIgnoreCase(other.type);
             } else {
                 return false;
