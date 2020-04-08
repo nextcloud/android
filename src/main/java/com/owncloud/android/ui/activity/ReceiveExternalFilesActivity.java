@@ -63,6 +63,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.di.Injectable;
@@ -238,6 +239,15 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Override
     protected void onStart() {
         super.onStart();
+
+        if (mAccountManager.getAccountsByType(MainApp.getAccountType(this)).length == 0) {
+            Toast.makeText(this,
+                           String.format(getString(R.string.uploader_wrn_no_account_text),
+                                         getString(R.string.app_name)),
+                           Toast.LENGTH_LONG).show();
+            return;
+        }
+
         initTargetFolder();
         populateDirectoryList();
     }
