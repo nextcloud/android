@@ -583,10 +583,21 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             case R.id.action_create_custom_folder: {
                 Log.d(TAG, "Show custom folder dialog");
                 SyncedFolderDisplayItem emptyCustomFolder = new SyncedFolderDisplayItem(
-                    SyncedFolder.UNPERSISTED_ID, null, null, true, false, true,
-                    false, getAccount().name, FileUploader.LOCAL_BEHAVIOUR_FORGET,
-                    FileUploader.NameCollisionPolicy.ASK_USER.serialize(), false,
-                    clock.getCurrentTime(), null, MediaFolderType.CUSTOM, false);
+                    SyncedFolder.UNPERSISTED_ID,
+                    null,
+                    null,
+                    true,
+                    false,
+                    true,
+                    false,
+                    getAccount().name,
+                    FileUploader.LOCAL_BEHAVIOUR_FORGET,
+                    FileUploader.NameCollisionPolicy.ASK_USER.serialize(),
+                    false,
+                    clock.getCurrentTime(),
+                    null,
+                    MediaFolderType.CUSTOM,
+                    false);
                 onSyncFolderSettingsClick(0, emptyCustomFolder);
             }
 
@@ -715,26 +726,41 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         // so triggering a refresh
         if (MediaFolderType.CUSTOM == syncedFolder.getType() && syncedFolder.getId() == UNPERSISTED_ID) {
             SyncedFolderDisplayItem newCustomFolder = new SyncedFolderDisplayItem(
-                    SyncedFolder.UNPERSISTED_ID, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(),
-                    syncedFolder.isWifiOnly(), syncedFolder.isChargingOnly(),
-                    syncedFolder.isExisting(), syncedFolder.isSubfolderByDate(), syncedFolder.getAccount(),
-                    syncedFolder.getUploadAction(), syncedFolder.getNameCollisionPolicy().serialize(),
-                    syncedFolder.isEnabled(), clock.getCurrentTime(), new File(syncedFolder.getLocalPath()).getName(),
-                    syncedFolder.getType(), syncedFolder.isHidden());
+                SyncedFolder.UNPERSISTED_ID,
+                syncedFolder.getLocalPath(),
+                syncedFolder.getRemotePath(),
+                syncedFolder.isWifiOnly(),
+                syncedFolder.isChargingOnly(),
+                syncedFolder.isExisting(),
+                syncedFolder.isSubfolderByDate(),
+                syncedFolder.getAccount(),
+                syncedFolder.getUploadAction(),
+                syncedFolder.getNameCollisionPolicy().serialize(),
+                syncedFolder.isEnabled(),
+                clock.getCurrentTime(),
+                new File(syncedFolder.getLocalPath()).getName(),
+                syncedFolder.getType(),
+                syncedFolder.isHidden());
 
             saveOrUpdateSyncedFolder(newCustomFolder);
             adapter.addSyncFolderItem(newCustomFolder);
         } else {
             SyncedFolderDisplayItem item = adapter.get(syncedFolder.getSection());
-            updateSyncedFolderItem(item, syncedFolder.getId(), syncedFolder.getLocalPath(),
-                                   syncedFolder.getRemotePath(), syncedFolder.isWifiOnly(),
-                                   syncedFolder.isChargingOnly(), syncedFolder.isExisting(),
-                                   syncedFolder.isSubfolderByDate(), syncedFolder.getUploadAction(),
-                                   syncedFolder.getNameCollisionPolicy().serialize(), syncedFolder.isEnabled());
+            updateSyncedFolderItem(item,
+                                   syncedFolder.getId(),
+                                   syncedFolder.getLocalPath(),
+                                   syncedFolder.getRemotePath(),
+                                   syncedFolder.isWifiOnly(),
+                                   syncedFolder.isChargingOnly(),
+                                   syncedFolder.isExisting(),
+                                   syncedFolder.isSubfolderByDate(),
+                                   syncedFolder.getUploadAction(),
+                                   syncedFolder.getNameCollisionPolicy().serialize(),
+                                   syncedFolder.isEnabled());
 
             saveOrUpdateSyncedFolder(item);
 
-            // TODO test if notifiyItemChanged is suffiecient (should improve performance)
+            // TODO test if notifyItemChanged is sufficient (should improve performance)
             adapter.notifyDataSetChanged();
         }
 
