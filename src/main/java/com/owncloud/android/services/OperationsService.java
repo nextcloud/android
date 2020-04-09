@@ -37,6 +37,9 @@ import android.os.Process;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import com.nextcloud.client.account.User;
+import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -74,6 +77,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
 
+import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
 import dagger.android.AndroidInjection;
 
 public class OperationsService extends Service {
@@ -132,6 +138,8 @@ public class OperationsService extends Service {
 
     private ConcurrentMap<Integer, Pair<RemoteOperation, RemoteOperationResult>>
             mUndispatchedFinishedOperations = new ConcurrentHashMap<>();
+
+    @Inject UserAccountManager accountManager;
 
     private static class Target {
         public Uri mServerUrl;
@@ -644,7 +652,7 @@ public class OperationsService extends Service {
                     case ACTION_SYNC_FILE:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         boolean syncFileContents = operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
-                        operation = new SynchronizeFileOperation(remotePath, account, syncFileContents,
+                        operation = new SynchronizeFileOperation(remotePath, toUser(account), syncFileContents,
                                 getApplicationContext());
                         break;
 
@@ -653,7 +661,7 @@ public class OperationsService extends Service {
                         operation = new SynchronizeFolderOperation(
                                 this,                       // TODO remove this dependency from construction time
                                 remotePath,
-                                account,
+                                toUser(account),
                                 System.currentTimeMillis()  // TODO remove this dependency from construction time
                         );
                         break;
@@ -696,6 +704,20 @@ public class OperationsService extends Service {
         } else {
             return null;
         }
+    }
+
+    /**
+     * This is a temporary compatibility helper to convert legacy {@link Account} instance
+     * to new {@link User} model.
+     *
+     * @param account Account instance
+     * @return User model that corresponds to Account
+     * @throws RuntimeException if account cannot be converted
+     */
+    @NonNull
+    private User toUser(Account account) {
+        Optional<User> optionalUser = accountManager.getUser(account.name);
+        return optionalUser.orElseThrow(RuntimeException::new); // if account is valid, this should never fail
     }
 
     /**
