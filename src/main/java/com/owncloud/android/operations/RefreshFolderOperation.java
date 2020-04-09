@@ -477,6 +477,10 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
 
         // save updated contents in local database
+        // update file name for encrypted files
+//        if (metadata != null) {
+//            updateFileNameForEncryptedFile(metadata, mLocalFolder);
+//        }
         mStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
 
         mChildren = updatedFiles;
@@ -518,7 +522,11 @@ public class RefreshFolderOperation extends RemoteOperation {
             updatedFile.setModificationTimestampAtLastSyncForData(
                     localFile.getModificationTimestampAtLastSyncForData()
             );
-            updatedFile.setStoragePath(localFile.getStoragePath());
+            if (localFile.isEncrypted()) {
+                updatedFile.setStoragePath(mLocalFolder.getStoragePath() + PATH_SEPARATOR + localFile.getFileName());
+            } else {
+                updatedFile.setStoragePath(localFile.getStoragePath());
+            }
 
             // eTag will not be updated unless file CONTENTS are synchronized
             if (!updatedFile.isFolder() && localFile.isDown() &&

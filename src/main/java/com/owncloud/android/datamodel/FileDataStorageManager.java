@@ -190,8 +190,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_ENCRYPTED_NAME, file.getEncryptedFileName());
         cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
         cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
+        cv.put(ProviderTableMeta.FILE_IS_ENCRYPTED, file.isEncrypted());
         if (!file.isFolder()) {
-            cv.put(ProviderTableMeta.FILE_IS_ENCRYPTED, file.isEncrypted());
             cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
         }
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account.name);
@@ -479,9 +479,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_ENCRYPTED_NAME, file.getEncryptedFileName());
         cv.put(ProviderTableMeta.FILE_PARENT, folder.getFileId());
         cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
-        if (!file.isFolder()) {
-            cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
-        }
+        cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account.name);
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, file.getLastSyncDateForData());
