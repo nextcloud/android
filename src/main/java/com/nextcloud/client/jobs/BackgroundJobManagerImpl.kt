@@ -66,6 +66,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_CONTENT_OBSERVER = "content_observer"
         const val JOB_PERIODIC_CONTACTS_BACKUP = "periodic_contacts_backup"
         const val JOB_IMMEDIATE_CONTACTS_BACKUP = "immediate_contacts_backup"
+        const val JOB_IMMEDIATE_CONTACTS_IMPORT = "immediate_contacts_import"
         const val JOB_TEST = "test_job"
 
         const val MAX_CONTENT_TRIGGER_DELAY_MS = 1500L
@@ -223,6 +224,34 @@ internal class BackgroundJobManagerImpl(
 
     override fun cancelPeriodicContactsBackup(user: User) {
         workManager.cancelJob(JOB_PERIODIC_CONTACTS_BACKUP, user)
+    }
+
+    override fun startImmediateContactsImport(
+        contactsAccountName: String?,
+        contactsAccountType: String?,
+        vCardFilePath: String,
+        selectedContacts: IntArray
+    ): LiveData<JobInfo?> {
+
+        val data = Data.Builder()
+            .putString(ContactsImportWork.ACCOUNT_NAME, contactsAccountName)
+            .putString(ContactsImportWork.ACCOUNT_TYPE, contactsAccountType)
+            .putString(ContactsImportWork.VCARD_FILE_PATH, vCardFilePath)
+            .putIntArray(ContactsImportWork.SELECTED_CONTACTS_INDICES, selectedContacts)
+            .build()
+
+        val constraints = Constraints.Builder()
+            .setRequiresCharging(false)
+            .build()
+
+        val request = oneTimeRequestBuilder(ContactsImportWork::class, JOB_IMMEDIATE_CONTACTS_IMPORT)
+            .setInputData(data)
+            .setConstraints(constraints)
+            .build()
+
+        workManager.enqueueUniqueWork(JOB_IMMEDIATE_CONTACTS_IMPORT, ExistingWorkPolicy.KEEP, request)
+
+        return workManager.getJobInfo(request.id)
     }
 
     override fun startImmediateContactsBackup(user: User): LiveData<JobInfo?> {

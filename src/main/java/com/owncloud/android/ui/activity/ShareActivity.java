@@ -176,7 +176,7 @@ public class ShareActivity extends FileActivity implements ShareFragmentListener
     public void showEditShare(OCShare share) {
         // replace current fragment with EditShareFragment on demand
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment editShareFragment = EditShareFragment.newInstance(share, getFile(), getAccount());
+        Fragment editShareFragment = EditShareFragment.newInstance(share, getFile(), accountManager.getUser());
         ft.replace(R.id.share_fragment_container, editShareFragment, TAG_EDIT_SHARE_FRAGMENT);
         ft.addToBackStack(null);    // BACK button will recover the previous fragment
         ft.commit();

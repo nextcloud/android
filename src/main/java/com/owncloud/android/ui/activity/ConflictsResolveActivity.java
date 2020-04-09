@@ -46,8 +46,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 /**
- * Wrapper activity which will be launched if keep-in-sync file will be modified by external
- * application.
+ * Wrapper activity which will be launched if keep-in-sync file will be modified by external application.
  */
 public class ConflictsResolveActivity extends FileActivity implements OnConflictDecisionMadeListener {
     /**
@@ -226,7 +225,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     }
 
     private void showErrorAndFinish() {
-        Toast.makeText(this, R.string.conflict_dialog_error, Toast.LENGTH_LONG).show();
+        runOnUiThread(() -> Toast.makeText(this, R.string.conflict_dialog_error, Toast.LENGTH_LONG).show());
         finish();
     }
 

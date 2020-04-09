@@ -191,6 +191,7 @@ android {
 
         testOptions {
             unitTests.returnDefaultValues = true
+            // comment out if you run androidTests in Android Studio experiencing test runner crashes
             execution 'ANDROIDX_TEST_ORCHESTRATOR'
             animationsDisabled true
         }
@@ -300,7 +301,7 @@ dependencies {
     implementation 'androidx.exifinterface:exifinterface:1.2.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.work:work-runtime:2.3.4"
-    implementation "androidx.work:work-runtime-ktx:2.3.3"
+    implementation "androidx.work:work-runtime-ktx:2.3.4"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:2.0.1'
     implementation 'commons-io:commons-io:2.6'
