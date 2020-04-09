@@ -38,6 +38,7 @@ import android.os.Message;
 import android.os.Process;
 import android.util.Pair;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -80,7 +81,7 @@ import dagger.android.AndroidInjection;
 public class FileDownloader extends Service
         implements OnDatatransferProgressListener, OnAccountsUpdateListener {
 
-    public static final String EXTRA_ACCOUNT = "ACCOUNT";
+    public static final String EXTRA_USER = "USER";
     public static final String EXTRA_FILE = "FILE";
 
     private static final String DOWNLOAD_ADDED_MESSAGE = "DOWNLOAD_ADDED";
@@ -192,11 +193,11 @@ public class FileDownloader extends Service
 
         startForeground(FOREGROUND_SERVICE_ID, mNotification);
 
-        if (intent == null || !intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_FILE)) {
+        if (intent == null || !intent.hasExtra(EXTRA_USER) || !intent.hasExtra(EXTRA_FILE)) {
             Log_OC.e(TAG, "Not enough information provided in intent");
             return START_NOT_STICKY;
         } else {
-            final Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
+            final User user = intent.getParcelableExtra(EXTRA_USER);
             final OCFile file = intent.getParcelableExtra(EXTRA_FILE);
             final String behaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
             String activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME);
@@ -204,12 +205,17 @@ public class FileDownloader extends Service
             this.conflictUpload = intent.getParcelableExtra(FileDownloader.EXTRA_CONFLICT_UPLOAD);
             AbstractList<String> requestedDownloads = new Vector<String>();
             try {
-                DownloadFileOperation newDownload = new DownloadFileOperation(account, file, behaviour, activityName,
-                        packageName, getBaseContext());
+                DownloadFileOperation newDownload = new DownloadFileOperation(user.toPlatformAccount(),
+                                                                              file,
+                                                                              behaviour,
+                                                                              activityName,
+                                                                              packageName,
+                                                                              getBaseContext());
                 newDownload.addDatatransferProgressListener(this);
                 newDownload.addDatatransferProgressListener((FileDownloaderBinder) mBinder);
-                Pair<String, String> putResult = mPendingDownloads.putIfAbsent(
-                        account.name, file.getRemotePath(), newDownload);
+                Pair<String, String> putResult = mPendingDownloads.putIfAbsent(user.getAccountName(),
+                                                                               file.getRemotePath(),
+                                                                               newDownload);
                 if (putResult != null) {
                     String downloadKey = putResult.first;
                     requestedDownloads.add(downloadKey);
@@ -231,7 +237,6 @@ public class FileDownloader extends Service
 
         return START_NOT_STICKY;
     }
-
 
     /**
      * Provides a binder object that clients can use to perform operations on the queue of downloads,
