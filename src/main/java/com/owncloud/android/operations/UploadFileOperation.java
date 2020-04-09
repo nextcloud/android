@@ -560,12 +560,18 @@ public class UploadFileOperation extends SyncOperation {
 
                 mUploadOperation = new ChunkedFileUploadRemoteOperation(encryptedTempFile.getAbsolutePath(),
                                                                         mFile.getParentRemotePath() + encryptedFileName,
-                                                                        mFile.getMimeType(), mFile.getEtagInConflict(),
-                                                                        timeStamp, onWifiConnection);
+                                                                        mFile.getMimeType(),
+                                                                        mFile.getEtagInConflict(),
+                                                                        timeStamp,
+                                                                        onWifiConnection,
+                                                                        token);
             } else {
                 mUploadOperation = new UploadFileRemoteOperation(encryptedTempFile.getAbsolutePath(),
-                        mFile.getParentRemotePath() + encryptedFileName, mFile.getMimeType(),
-                        mFile.getEtagInConflict(), timeStamp);
+                                                                 mFile.getParentRemotePath() + encryptedFileName,
+                                                                 mFile.getMimeType(),
+                                                                 mFile.getEtagInConflict(),
+                                                                 timeStamp,
+                                                                 token);
             }
 
             for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
@@ -775,7 +781,8 @@ public class UploadFileOperation extends SyncOperation {
                 boolean onWifiConnection = connectivityService.isOnlineWithWifi();
 
                 mUploadOperation = new ChunkedFileUploadRemoteOperation(mFile.getStoragePath(),
-                                                                        mFile.getRemotePath(), mFile.getMimeType(),
+                                                                        mFile.getRemotePath(),
+                                                                        mFile.getMimeType(),
                                                                         mFile.getEtagInConflict(),
                                                                         timeStamp, onWifiConnection);
             } else {

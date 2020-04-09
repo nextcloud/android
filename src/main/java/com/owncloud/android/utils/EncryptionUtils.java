@@ -26,6 +26,7 @@ import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Pair;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -44,6 +45,7 @@ import com.owncloud.android.lib.resources.e2ee.UpdateMetadataRemoteOperation;
 import com.owncloud.android.operations.UploadException;
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.httpclient.HttpStatus;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
