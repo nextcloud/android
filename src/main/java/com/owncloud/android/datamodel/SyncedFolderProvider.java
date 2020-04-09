@@ -361,9 +361,20 @@ public class SyncedFolderProvider extends Observable {
             boolean hidden = cursor.getInt(cursor.getColumnIndex(
                 ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN)) == 1;
 
-            syncedFolder = new SyncedFolder(id, localPath, remotePath, wifiOnly, chargingOnly, existing,
-                                            subfolderByDate, accountName, uploadAction, nameCollisionPolicy, enabled,
-                                            enabledTimestampMs, type, hidden);
+            syncedFolder = new SyncedFolder(id,
+                                            localPath,
+                                            remotePath,
+                                            wifiOnly,
+                                            chargingOnly,
+                                            existing,
+                                            subfolderByDate,
+                                            accountName,
+                                            uploadAction,
+                                            nameCollisionPolicy,
+                                            enabled,
+                                            enabledTimestampMs,
+                                            type,
+                                            hidden);
         }
         return syncedFolder;
     }
