@@ -79,8 +79,20 @@ public class SyncedFolder implements Serializable, Cloneable {
                         long timestampMs,
                         MediaFolderType type,
                         boolean hidden) {
-        this(UNPERSISTED_ID, localPath, remotePath, wifiOnly, chargingOnly, existing, subfolderByDate, account,
-             uploadAction, nameCollisionPolicy, enabled, timestampMs, type, hidden);
+        this(UNPERSISTED_ID,
+             localPath,
+             remotePath,
+             wifiOnly,
+             chargingOnly,
+             existing,
+             subfolderByDate,
+             account,
+             uploadAction,
+             nameCollisionPolicy,
+             enabled,
+             timestampMs,
+             type,
+             hidden);
     }
 
     /**

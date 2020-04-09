@@ -172,11 +172,9 @@ public class FilesSyncJob extends Job {
         }
         User user = optionalUser.get();
 
-        ArbitraryDataProvider arbitraryDataProvider;
+        ArbitraryDataProvider arbitraryDataProvider = null;
         if (lightVersion) {
             arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
-        } else {
-            arbitraryDataProvider = null;
         }
 
         String remotePath;
