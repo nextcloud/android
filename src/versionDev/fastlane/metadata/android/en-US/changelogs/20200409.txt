@@ -1,0 +1,22 @@
+Log exception in ContactsImportWork catch block
+codacy: Avoid unused local variables
+codacy: Avoid unused method parameters
+reformat code
+codacy: Unnecessary use of fully qualified name
+codacy: Avoid unused private fields
+codacy: Avoid unused imports
+check if at least one account is set up, before receiving files
+Change pdf icon
+Directly show loading spinner show "no files" only if folder is known to be empty
+Fix crash while showing ConflictDialog
+Rich workspaces: can be null (if disabled), or string (empty or with content)
+Search: only parse search if search event is there
+NC18+: add possibility to set expiration date on user/group shares
+Ninja-fix formatting of CONTRIBUTING.md
+Migrate contacts import job to new API
+Migrate ChooseRichDocumentsTemplateDialogFragment to User
+Migrate EditShareFragment to new User model
+Remove deprecated contacts backup job
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
