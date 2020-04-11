@@ -394,6 +394,7 @@
     <string name="preview_image_error_no_local_file">Відсутній локальний файл для попереднього показу</string>
     <string name="preview_image_error_unknown_format">Неможливо вивести зображення</string>
     <string name="preview_sorry">Перепрошуємо</string>
+    <string name="privacy">Конфіденційність</string>
     <string name="recommend_subject">Спробуйте %1$s на Вашому пристрої!</string>
     <string name="recommend_urls">%1$s або %2$s</string>
     <string name="remove_fail_msg">Помилка під час вилучення</string>
