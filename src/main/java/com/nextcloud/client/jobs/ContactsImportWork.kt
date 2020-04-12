@@ -65,6 +65,7 @@ class ContactsImportWork(
         val vCards = ArrayList<VCard>()
 
         var cursor: Cursor? = null
+        @Suppress("TooGenericExceptionCaught") // legacy code
         try {
             val operations = ContactOperations(applicationContext, contactsAccountName, contactsAccountType)
             vCards.addAll(Ezvcard.parse(file).all())
