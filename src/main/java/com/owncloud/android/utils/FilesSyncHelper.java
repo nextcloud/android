@@ -31,7 +31,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 
-import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
@@ -47,8 +46,6 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.jobs.FilesSyncJob;
-import com.owncloud.android.jobs.OfflineSyncJob;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.lukhnos.nnio.file.FileVisitResult;
@@ -60,8 +57,6 @@ import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
@@ -79,7 +74,9 @@ public final class FilesSyncHelper {
         // utility class -> private constructor
     }
 
-    public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder, boolean syncNow) {
+    public static void insertAllDBEntriesForSyncedFolder(BackgroundJobManager backgroundJobManager,
+                                                         SyncedFolder syncedFolder,
+                                                         boolean syncNow) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
 
@@ -126,16 +123,15 @@ public final class FilesSyncHelper {
             }
 
             if (syncNow) {
-                new JobRequest.Builder(FilesSyncJob.TAG)
-                    .setExact(1_000L)
-                    .setUpdateCurrent(false)
-                    .build()
-                    .schedule();
+                backgroundJobManager.startImmediateFilesSyncJob(false, false);
             }
         }
     }
 
-    public static void insertAllDBEntries(AppPreferences preferences, Clock clock, boolean skipCustom,
+    public static void insertAllDBEntries(AppPreferences preferences,
+                                          Clock clock,
+                                          BackgroundJobManager backgroundJobManager,
+                                          boolean skipCustom,
                                           boolean syncNow) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
@@ -143,7 +139,7 @@ public final class FilesSyncHelper {
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled() && (!skipCustom || syncedFolder.getType() != MediaFolderType.CUSTOM)) {
-                insertAllDBEntriesForSyncedFolder(syncedFolder, syncNow);
+                insertAllDBEntriesForSyncedFolder(backgroundJobManager, syncedFolder, syncNow);
             }
         }
     }
@@ -233,26 +229,9 @@ public final class FilesSyncHelper {
     }
 
     public static void scheduleFilesSyncIfNeeded(Context context, BackgroundJobManager jobManager) {
-        // always run this because it also allows us to perform retries of manual uploads
-        new JobRequest.Builder(FilesSyncJob.TAG)
-                .setPeriodic(900000L, 300000L)
-                .setUpdateCurrent(true)
-                .build()
-                .schedule();
-
+        jobManager.schedulePeriodicFilesSyncJob();
         if (context != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             jobManager.scheduleContentObserverJob();
-        }
-    }
-
-    public static void scheduleOfflineSyncIfNeeded() {
-        Set<JobRequest> jobRequests = JobManager.instance().getAllJobRequestsForTag(OfflineSyncJob.TAG);
-        if (jobRequests.isEmpty()) {
-            new JobRequest.Builder(OfflineSyncJob.TAG)
-                .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(5))
-                .setUpdateCurrent(false)
-                .build()
-                .schedule();
         }
     }
 }

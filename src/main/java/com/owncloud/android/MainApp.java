@@ -41,7 +41,6 @@ import android.text.TextUtils;
 import android.view.WindowManager;
 
 import com.evernote.android.job.JobManager;
-import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -70,7 +69,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
-import com.owncloud.android.jobs.MediaFoldersDetectionJob;
 import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -95,7 +93,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.net.ssl.SSLContext;
@@ -264,10 +261,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             new NCJobCreator(
                 getApplicationContext(),
                 accountManager,
-                preferences,
                 uploadsStorageManager,
-                connectivityService,
-                powerManagementService,
                 clock,
                 eventBus,
                 backgroundJobManager
@@ -311,18 +305,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         initContactsBackup(accountManager, backgroundJobManager);
         notificationChannels();
 
-
-        new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
-            .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(5))
-            .setUpdateCurrent(true)
-            .build()
-            .schedule();
-
-        new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
-            .startNow()
-            .setUpdateCurrent(false)
-            .build()
-            .schedule();
+        backgroundJobManager.scheduleMediaFoldersDetectionJob();
+        backgroundJobManager.startMediaFoldersDetectionJob();
 
         registerGlobalPassCodeProtection();
     }
@@ -465,7 +449,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         final UserAccountManager accountManager,
         final ConnectivityService connectivityService,
         final PowerManagementService powerManagementService,
-        final BackgroundJobManager jobManager,
+        final BackgroundJobManager backgroundJobManager,
         final Clock clock
     ) {
         updateToAutoUpload();
@@ -482,15 +466,16 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             }
         }
 
-        initiateExistingAutoUploadEntries(clock);
+        initiateExistingAutoUploadEntries(backgroundJobManager, clock);
 
-        FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext, jobManager);
+        FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext, backgroundJobManager);
         FilesSyncHelper.restartJobsIfNeeded(
             uploadsStorageManager,
             accountManager,
             connectivityService,
             powerManagementService);
-        FilesSyncHelper.scheduleOfflineSyncIfNeeded();
+
+        backgroundJobManager.scheduleOfflineSync();
 
         ReceiversHelper.registerNetworkChangeReceiver(uploadsStorageManager,
                                                       accountManager,
@@ -755,7 +740,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
     }
 
-    private static void initiateExistingAutoUploadEntries(Clock clock) {
+    private static void initiateExistingAutoUploadEntries(BackgroundJobManager backgroundJobManager, Clock clock) {
         new Thread(() -> {
             AppPreferences preferences = AppPreferencesImpl.fromContext(getAppContext());
             if (!preferences.isAutoUploadInitialized()) {
@@ -764,7 +749,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
                 for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
                     if (syncedFolder.isEnabled()) {
-                        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, true);
+                        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(backgroundJobManager,
+                                                                          syncedFolder,
+                                                                          true);
                     }
                 }
 
