@@ -349,7 +349,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                         pendingRunnable = new Runnable() {
                             @Override
                             public void run() {
-                                selectNavigationItem(menuItem);
+                                onNavigationItemClicked(menuItem);
                             }
                         };
                         return true;
@@ -396,8 +396,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
 
-    private void selectNavigationItem(final MenuItem menuItem) {
-
+    private void onNavigationItemClicked(final MenuItem menuItem) {
         setDrawerMenuItemChecked(menuItem.getItemId());
 
         if (menuItem.getGroupId() == R.id.drawer_menu_accounts) {
@@ -416,6 +415,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                         startActivity(intent);
                     } else {
                         ((FileDisplayActivity) this).browseToRoot();
+                        showFiles(false);
                         EventBus.getDefault().post(new ChangeMenuEvent());
                     }
                 } else {

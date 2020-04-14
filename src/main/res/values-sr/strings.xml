@@ -261,6 +261,7 @@
     <string name="etm_background_job_progress">Напредак</string>
     <string name="etm_background_job_started">Започет</string>
     <string name="etm_background_job_state">Стање</string>
+    <string name="etm_background_job_user">Корисник</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Послови у позадини</string>
     <string name="etm_background_jobs_cancel_all">Откажи све послове</string>
