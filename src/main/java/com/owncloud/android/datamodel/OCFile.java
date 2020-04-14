@@ -252,7 +252,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return true if it is a folder
      */
     public boolean isFolder() {
-        return MimeType.DIRECTORY.equals(mimeType);
+        return MimeType.DIRECTORY.equals(mimeType) || MimeType.WEBDAV_FOLDER.equals(mimeType);
     }
 
 

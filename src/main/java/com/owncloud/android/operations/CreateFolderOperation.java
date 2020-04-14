@@ -35,6 +35,7 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
@@ -157,6 +158,16 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                 newDir.setPermissions(createdRemoteFolder.getPermissions());
                 getStorageManager().saveFile(newDir);
 
+                RemoteOperationResult encryptionOperationResult = new ToggleEncryptionRemoteOperation(
+                    newDir.getLocalId(),
+                    newDir.getRemotePath(),
+                    true)
+                    .execute(client);
+
+                if (!encryptionOperationResult.isSuccess()) {
+                    // TODO ERROR and clean up
+                }
+
                 // Key, always generate new one
                 byte[] key = EncryptionUtils.generateKey();
 
@@ -167,7 +178,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                 DecryptedFolderMetadata.DecryptedFile decryptedFile = new DecryptedFolderMetadata.DecryptedFile();
                 DecryptedFolderMetadata.Data data = new DecryptedFolderMetadata.Data();
                 data.setFilename(filename);
-                data.setMimetype(MimeType.DIRECTORY);
+                data.setMimetype(MimeType.WEBDAV_FOLDER);
                 data.setKey(EncryptionUtils.encodeBytesToBase64String(key));
 
                 decryptedFile.setEncrypted(data);
