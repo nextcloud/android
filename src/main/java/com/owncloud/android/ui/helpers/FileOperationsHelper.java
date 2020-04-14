@@ -254,7 +254,7 @@ public class FileOperationsHelper {
             Intent i = new Intent(fileActivity, ConflictsResolveActivity.class);
             i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
             i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
-            i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, user);
+            i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
             fileActivity.startActivity(i);
         } else {
             if (file.isDown()) {
