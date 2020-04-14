@@ -133,7 +133,7 @@ public class FileMenuFilter {
             List<Integer> toShow = new ArrayList<>();
             List<Integer> toHide = new ArrayList<>();
 
-            filter(toShow, toHide, inSingleFileFragment, isMediaSupported, menu);
+            filter(toShow, toHide, inSingleFileFragment, isMediaSupported);
 
             for (int i : toShow) {
                 showMenuItem(menu.findItem(i));
@@ -193,8 +193,7 @@ public class FileMenuFilter {
     private void filter(List<Integer> toShow,
                         List<Integer> toHide,
                         boolean inSingleFileFragment,
-                        boolean isMediaSupported,
-                        Menu menu) {
+                        boolean isMediaSupported) {
         boolean synchronizing = anyFileSynchronizing();
         OCCapability capability = componentsGetter.getStorageManager().getCapability(account.name);
         boolean endToEndEncryptionEnabled = capability.getEndToEndEncryption().isTrue();

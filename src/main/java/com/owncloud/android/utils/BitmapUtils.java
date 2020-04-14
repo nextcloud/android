@@ -104,7 +104,7 @@ public final class BitmapUtils {
      * @return The largest inSampleSize value that is a power of 2 and keeps both
      *                      height and width larger than reqWidth and reqHeight.
      */
-    private static int calculateSampleFactor(Options options, int reqWidth, int reqHeight) {
+    public static int calculateSampleFactor(Options options, int reqWidth, int reqHeight) {
 
         final int height = options.outHeight;
         final int width = options.outWidth;
