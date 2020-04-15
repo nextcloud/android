@@ -1,0 +1,4 @@
+Don't put User model into ConflictsResolveActivity account extra
+show all files when clicking on show files
+Update translations
+Update Nextcloud Android library
