@@ -53,7 +53,7 @@
     <string name="auth_nossl_plain_ok_title">Säker anslutning inte tillgänglig.</string>
     <string name="auth_not_configured_title">Felaktig konfiguration</string>
     <string name="auth_oauth_error">Behörighet saknas</string>
-    <string name="auth_oauth_error_access_denied">Nekad åtkomst av server</string>
+    <string name="auth_oauth_error_access_denied">Åtkomst nekas av auktoriseringsservern</string>
     <string name="auth_password">Lösenord</string>
     <string name="auth_redirect_non_secure_connection_title">Säker anslutning omdirigerad via en osäker rutt.</string>
     <string name="auth_refresh_button">Uppdatera uppkopplingen</string>
