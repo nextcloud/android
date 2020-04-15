@@ -32,6 +32,8 @@ Nextcloud app version:
 
 Nextcloud server version:
 
+Reverse proxy:
+
 ### Logs
 #### Web server error log
 ```
