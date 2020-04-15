@@ -71,6 +71,8 @@ public class NotificationExecuteActionTask extends AsyncTask<Action, Void, Boole
         } catch (IOException e) {
             Log_OC.e(this, "Execution of notification action failed: " + e);
             return Boolean.FALSE;
+        } finally {
+            method.releaseConnection();
         }
 
         return status == HttpStatus.SC_OK || status == HttpStatus.SC_ACCEPTED;
