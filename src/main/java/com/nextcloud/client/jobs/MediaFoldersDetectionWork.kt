@@ -48,7 +48,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.MediaFoldersModel
 import com.owncloud.android.datamodel.MediaProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.jobs.NotificationJob
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ManageAccountsActivity
 import com.owncloud.android.ui.activity.SyncedFoldersActivity
@@ -175,7 +174,7 @@ class MediaFoldersDetectionWork constructor(
         val intent = Intent(context, SyncedFoldersActivity::class.java)
         intent.putExtra(NOTIFICATION_ID, notificationId)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.putExtra(NotificationJob.KEY_NOTIFICATION_ACCOUNT, user.accountName)
+        intent.putExtra(NotificationWork.KEY_NOTIFICATION_ACCOUNT, user.accountName)
         intent.putExtra(KEY_MEDIA_FOLDER_PATH, path)
         intent.putExtra(KEY_MEDIA_FOLDER_TYPE, type)
         intent.putExtra(SyncedFoldersActivity.EXTRA_SHOW_SIDEBAR, true)

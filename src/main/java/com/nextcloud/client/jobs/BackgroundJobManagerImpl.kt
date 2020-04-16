@@ -73,6 +73,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PERIODIC_OFFLINE_SYNC = "periodic_offline_sync"
         const val JOB_PERIODIC_MEDIA_FOLDER_DETECTION = "periodic_media_folder_detection"
         const val JOB_IMMEDIATE_MEDIA_FOLDER_DETECTION = "immediate_media_folder_detection"
+        const val JOB_NOTIFICATION = "notification"
         const val JOB_TEST = "test_job"
 
         const val MAX_CONTENT_TRIGGER_DELAY_MS = 1500L
@@ -336,6 +337,19 @@ internal class BackgroundJobManagerImpl(
             ExistingWorkPolicy.KEEP,
             request
         )
+    }
+
+    override fun startNotificationJob(subject: String, signature: String) {
+        val data = Data.Builder()
+            .putString(NotificationWork.KEY_NOTIFICATION_SUBJECT, subject)
+            .putString(NotificationWork.KEY_NOTIFICATION_SIGNATURE, signature)
+            .build()
+
+        val request = oneTimeRequestBuilder(NotificationWork::class, JOB_NOTIFICATION)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueue(request)
     }
 
     override fun scheduleTestJob() {

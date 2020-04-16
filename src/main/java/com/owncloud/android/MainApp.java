@@ -259,7 +259,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         JobManager.create(this).addJobCreator(
             new NCJobCreator(
-                getApplicationContext(),
                 accountManager,
                 uploadsStorageManager,
                 clock,
