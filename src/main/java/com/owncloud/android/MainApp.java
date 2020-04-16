@@ -296,7 +296,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 Log_OC.d("Debug", "Failed to disable uri exposure");
             }
         }
-        initSyncOperations(uploadsStorageManager,
+        initSyncOperations(preferences,
+                           uploadsStorageManager,
                            accountManager,
                            connectivityService,
                            powerManagementService,
@@ -445,6 +446,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
     public static void initSyncOperations(
+        final AppPreferences preferences,
         final UploadsStorageManager uploadsStorageManager,
         final UserAccountManager accountManager,
         final ConnectivityService connectivityService,
@@ -461,12 +463,14 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 splitOutAutoUploadEntries(clock);
             } else {
-                AppPreferences preferences = AppPreferencesImpl.fromContext(getAppContext());
                 preferences.setAutoUploadSplitEntriesEnabled(true);
             }
         }
 
-        initiateExistingAutoUploadEntries(backgroundJobManager, clock);
+        if (!preferences.isAutoUploadInitialized()) {
+            backgroundJobManager.startImmediateFilesSyncJob(false, false);
+            preferences.setAutoUploadInit(true);
+        }
 
         FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext, backgroundJobManager);
         FilesSyncHelper.restartJobsIfNeeded(
@@ -738,27 +742,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
             preferences.setAutoUploadSplitEntriesEnabled(true);
         }
-    }
-
-    private static void initiateExistingAutoUploadEntries(BackgroundJobManager backgroundJobManager, Clock clock) {
-        new Thread(() -> {
-            AppPreferences preferences = AppPreferencesImpl.fromContext(getAppContext());
-            if (!preferences.isAutoUploadInitialized()) {
-                SyncedFolderProvider syncedFolderProvider =
-                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences, clock);
-
-                for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-                    if (syncedFolder.isEnabled()) {
-                        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(backgroundJobManager,
-                                                                          syncedFolder,
-                                                                          true);
-                    }
-                }
-
-                preferences.setAutoUploadInit(true);
-            }
-
-        }).start();
     }
 
     private static void cleanOldEntries(Clock clock) {

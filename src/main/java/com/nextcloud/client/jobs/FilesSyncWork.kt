@@ -103,8 +103,8 @@ class FilesSyncWork(
             userAccountManager,
             connectivityService,
             powerManagementService)
-        FilesSyncHelper.insertAllDBEntries(preferences, clock, backgroundJobManager, skipCustom, false)
-        // Create all the providers we'll need
+        FilesSyncHelper.insertAllDBEntries(preferences, clock, skipCustom)
+        // Create all the providers we'll needq
         val filesystemDataProvider = FilesystemDataProvider(contentResolver)
         val syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
         val currentLocale = resources.configuration.locale
