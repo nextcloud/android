@@ -9,8 +9,8 @@ import com.owncloud.android.lib.resources.notifications.models.Notification;
 
 import androidx.annotation.NonNull;
 
-public interface DeckActionOverride {
+public interface DeckApi {
 
     @NonNull
-    Optional<PendingIntent> handleNotification(@NonNull final Notification notification, @NonNull final User user);
+    Optional<PendingIntent> createForwardToDeckActionIntent(@NonNull final Notification notification, @NonNull final User user);
 }

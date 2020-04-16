@@ -23,7 +23,6 @@ package com.nextcloud.client.integration.deck;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.nextcloud.client.account.User;
@@ -32,9 +31,9 @@ import com.owncloud.android.lib.resources.notifications.models.Notification;
 
 import androidx.annotation.NonNull;
 
-public class DeckActionOverrideImpl implements DeckActionOverride {
+public class DeckApiImpl implements DeckApi {
 
-    private static final String TAG = DeckActionOverrideImpl.class.getSimpleName();
+    private static final String TAG = DeckApiImpl.class.getSimpleName();
 
     private static final String APP_NAME = "deck";
     private static final String DECK_APP_ID_BASE = "it.niedermann.nextcloud.deck";
@@ -43,13 +42,13 @@ public class DeckActionOverrideImpl implements DeckActionOverride {
 
     private final Context context;
 
-    public DeckActionOverrideImpl(@NonNull Context context) {
+    public DeckApiImpl(@NonNull Context context) {
         this.context = context;
     }
 
     @NonNull
     @Override
-    public Optional<PendingIntent> handleNotification(@NonNull Notification notification, @NonNull User user) {
+    public Optional<PendingIntent> createForwardToDeckActionIntent(@NonNull Notification notification, @NonNull User user) {
         if (!APP_NAME.equalsIgnoreCase(notification.app)) {
             return Optional.empty();
         }
