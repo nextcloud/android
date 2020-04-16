@@ -20,46 +20,45 @@
 
 package com.nextcloud.client.integration.deck;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.integration.AppCannotHandleNotificationException;
-import com.nextcloud.client.integration.AppNotInstalledException;
-import com.nextcloud.client.integration.NotificationHandler;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 
 import androidx.annotation.NonNull;
 
-public class DeckNotificationHandler implements NotificationHandler {
+public class DeckActionOverrideImpl implements DeckActionOverride {
 
-    private static final String TAG = DeckNotificationHandler.class.getSimpleName();
+    private static final String TAG = DeckActionOverrideImpl.class.getSimpleName();
 
     private static final String APP_NAME = "deck";
     private static final String DECK_APP_ID_BASE = "it.niedermann.nextcloud.deck";
     private static final String[] DECK_APP_ID_FLAVOR_SUFFIXES = new String[]{"", ".play", ".dev"};
     private static final String DECK_ACTIVITY_TO_START = "it.niedermann.nextcloud.deck.ui.PushNotificationActivity";
 
-    private final PackageManager packageManager;
+    private final Context context;
 
-    public DeckNotificationHandler(@NonNull Context context) {
-        this.packageManager = context.getPackageManager();
+    public DeckActionOverrideImpl(@NonNull Context context) {
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public Intent handleNotification(@NonNull Notification notification, @NonNull User user) throws AppNotInstalledException, AppCannotHandleNotificationException {
+    public Optional<PendingIntent> handleNotification(@NonNull Notification notification, @NonNull User user) {
         if (!APP_NAME.equalsIgnoreCase(notification.app)) {
-            throw new AppCannotHandleNotificationException();
+            return Optional.empty();
         }
         final Intent intent = new Intent();
         for (String flavor : DECK_APP_ID_FLAVOR_SUFFIXES) {
             intent.setClassName(DECK_APP_ID_BASE + flavor, DECK_ACTIVITY_TO_START);
-            if (packageManager.resolveActivity(intent, 0) != null) {
+            if (context.getPackageManager().resolveActivity(intent, 0) != null) {
                 Log.i(TAG, "Found deck app flavor \"" + flavor + "\"");
-                return intent
+                return Optional.of(PendingIntent.getActivity(context, 0, intent
                     .putExtra("account", user.getAccountName())
                     .putExtra("link", notification.getLink())
                     .putExtra("objectId", notification.getObjectId())
@@ -69,9 +68,9 @@ public class DeckNotificationHandler implements NotificationHandler {
                     .putExtra("messageRich", notification.getMessageRich())
                     .putExtra("user", notification.getUser())
                     .putExtra("nid", notification.getNotificationId())
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK), PendingIntent.FLAG_ONE_SHOT));
             }
         }
-        throw new AppNotInstalledException();
+        return Optional.empty();
     }
 }
