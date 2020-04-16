@@ -365,6 +365,8 @@ public class NotificationJob extends Job {
                 return client.executeMethod(method);
             } catch (IOException e) {
                 Log_OC.e(TAG, "Execution of notification action failed: " + e);
+            } finally {
+                method.releaseConnection();
             }
             return 0;
         }
