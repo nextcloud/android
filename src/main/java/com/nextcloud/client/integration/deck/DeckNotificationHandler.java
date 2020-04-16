@@ -54,8 +54,9 @@ public class DeckNotificationHandler implements NotificationHandler {
         if (!APP_NAME.equalsIgnoreCase(notification.app)) {
             throw new AppCannotHandleNotificationException();
         }
+        final Intent intent = new Intent();
         for (String flavor : DECK_APP_ID_FLAVOR_SUFFIXES) {
-            final Intent intent = new Intent().setClassName(DECK_APP_ID_BASE + flavor, DECK_ACTIVITY_TO_START);
+            intent.setClassName(DECK_APP_ID_BASE + flavor, DECK_ACTIVITY_TO_START);
             if (packageManager.resolveActivity(intent, 0) != null) {
                 Log.i(TAG, "Found deck app flavor \"" + flavor + "\"");
                 return intent
