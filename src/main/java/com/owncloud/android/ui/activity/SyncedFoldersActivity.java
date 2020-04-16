@@ -637,7 +637,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         }
 
         if (syncedFolderDisplayItem.isEnabled()) {
-            FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolderDisplayItem, true);
+            FilesSyncHelper.startFilesSyncJobNow(null);
 
             showBatteryOptimizationInfo();
         }
@@ -779,7 +779,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             // existing synced folder setup to be updated
             syncedFolderProvider.updateSyncFolder(item);
             if (item.isEnabled()) {
-                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(item, true);
+                FilesSyncHelper.startFilesSyncJobNow(null);
             } else {
                 String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + item.getId();
 
@@ -797,7 +797,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         if (storedId != -1) {
             item.setId(storedId);
             if (item.isEnabled()) {
-                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(item, true);
+                FilesSyncHelper.startFilesSyncJobNow(null);
             } else {
                 String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + item.getId();
                 arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);

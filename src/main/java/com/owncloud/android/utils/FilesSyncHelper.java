@@ -33,6 +33,7 @@ import android.provider.MediaStore;
 
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
@@ -63,6 +64,8 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.Nullable;
+
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
 /**
@@ -79,7 +82,7 @@ public final class FilesSyncHelper {
         // utility class -> private constructor
     }
 
-    public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder, boolean syncNow) {
+    private static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
 
@@ -124,26 +127,33 @@ public final class FilesSyncHelper {
                     Log_OC.e(TAG, "Something went wrong while indexing files for auto upload", e);
                 }
             }
-
-            if (syncNow) {
-                new JobRequest.Builder(FilesSyncJob.TAG)
-                    .setExact(1_000L)
-                    .setUpdateCurrent(false)
-                    .build()
-                    .schedule();
-            }
         }
     }
 
-    public static void insertAllDBEntries(AppPreferences preferences, Clock clock, boolean skipCustom,
-                                          boolean syncNow) {
+    public static void startFilesSyncJobNow(@Nullable PersistableBundleCompat bundle) {
+        JobRequest.Builder builder = new JobRequest.Builder(FilesSyncJob.TAG)
+            .startNow()
+            .setUpdateCurrent(false);
+
+        if (bundle != null) {
+            builder.setExtras(bundle);
+        }
+
+        builder
+            .build()
+            .schedule();
+    }
+
+    public static void insertAllDBEntries(AppPreferences preferences,
+                                          Clock clock,
+                                          boolean skipCustom) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences, clock);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled() && (!skipCustom || syncedFolder.getType() != MediaFolderType.CUSTOM)) {
-                insertAllDBEntriesForSyncedFolder(syncedFolder, syncNow);
+                insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
         }
     }

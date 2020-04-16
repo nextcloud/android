@@ -30,6 +30,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.jobs.FilesSyncJob
 import com.owncloud.android.jobs.MediaFoldersDetectionJob
+import com.owncloud.android.utils.FilesSyncHelper
 
 /**
  * This work is triggered when OS detects change in media folders.
@@ -66,12 +67,7 @@ class ContentObserverWork(
             val persistableBundleCompat = PersistableBundleCompat()
             persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true)
 
-            JobRequest.Builder(FilesSyncJob.TAG)
-                .startNow()
-                .setExtras(persistableBundleCompat)
-                .setUpdateCurrent(false)
-                .build()
-                .schedule()
+            FilesSyncHelper.startFilesSyncJobNow(persistableBundleCompat)
         }
     }
 
