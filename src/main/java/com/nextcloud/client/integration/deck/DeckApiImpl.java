@@ -40,6 +40,16 @@ public class DeckApiImpl implements DeckApi {
     private static final String[] DECK_APP_ID_FLAVOR_SUFFIXES = new String[]{"", ".play", ".dev"};
     private static final String DECK_ACTIVITY_TO_START = "it.niedermann.nextcloud.deck.ui.PushNotificationActivity";
 
+    private static final String EXTRA_ACCOUNT = "account";
+    private static final String EXTRA_LINK = "link";
+    private static final String EXTRA_OBJECT_ID = "objectId";
+    private static final String EXTRA_SUBJECT = "subject";
+    private static final String EXTRA_SUBJECT_RICH = "subjectRich";
+    private static final String EXTRA_MESSAGE = "message";
+    private static final String EXTRA_MESSAGE_RICH = "messageRich";
+    private static final String EXTRA_USER = "user";
+    private static final String EXTRA_NID = "nid";
+
     private final Context context;
 
     public DeckApiImpl(@NonNull Context context) {
@@ -49,27 +59,35 @@ public class DeckApiImpl implements DeckApi {
     @NonNull
     @Override
     public Optional<PendingIntent> createForwardToDeckActionIntent(@NonNull Notification notification, @NonNull User user) {
-        if (!APP_NAME.equalsIgnoreCase(notification.app)) {
-            return Optional.empty();
-        }
-        final Intent intent = new Intent();
-        for (String flavor : DECK_APP_ID_FLAVOR_SUFFIXES) {
-            intent.setClassName(DECK_APP_ID_BASE + flavor, DECK_ACTIVITY_TO_START);
-            if (context.getPackageManager().resolveActivity(intent, 0) != null) {
-                Log.i(TAG, "Found deck app flavor \"" + flavor + "\"");
-                return Optional.of(PendingIntent.getActivity(context, 0, intent
-                    .putExtra("account", user.getAccountName())
-                    .putExtra("link", notification.getLink())
-                    .putExtra("objectId", notification.getObjectId())
-                    .putExtra("subject", notification.getSubject())
-                    .putExtra("subjectRich", notification.getSubjectRich())
-                    .putExtra("message", notification.getMessage())
-                    .putExtra("messageRich", notification.getMessageRich())
-                    .putExtra("user", notification.getUser())
-                    .putExtra("nid", notification.getNotificationId())
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK), PendingIntent.FLAG_ONE_SHOT));
+        if (APP_NAME.equalsIgnoreCase(notification.app)) {
+            final Intent intent = new Intent();
+            for (String flavor : DECK_APP_ID_FLAVOR_SUFFIXES) {
+                intent.setClassName(DECK_APP_ID_BASE + flavor, DECK_ACTIVITY_TO_START);
+                if (context.getPackageManager().resolveActivity(intent, 0) != null) {
+                    Log.i(TAG, "Found deck app flavor \"" + flavor + "\"");
+                    return Optional.of(createPendingIntent(intent, notification, user));
+                }
             }
         }
         return Optional.empty();
+    }
+
+    private PendingIntent createPendingIntent(@NonNull Intent intent, @NonNull Notification notification, @NonNull User user) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return PendingIntent.getActivity(context, 0, putExtrasToIntent(intent, notification, user),
+                                         PendingIntent.FLAG_ONE_SHOT);
+    }
+
+    private Intent putExtrasToIntent(@NonNull Intent intent, @NonNull Notification notification, @NonNull User user) {
+        return intent
+            .putExtra(EXTRA_ACCOUNT, user.getAccountName())
+            .putExtra(EXTRA_LINK, notification.getLink())
+            .putExtra(EXTRA_OBJECT_ID, notification.getObjectId())
+            .putExtra(EXTRA_SUBJECT, notification.getSubject())
+            .putExtra(EXTRA_SUBJECT_RICH, notification.getSubjectRich())
+            .putExtra(EXTRA_MESSAGE, notification.getMessage())
+            .putExtra(EXTRA_MESSAGE_RICH, notification.getMessageRich())
+            .putExtra(EXTRA_USER, notification.getUser())
+            .putExtra(EXTRA_NID, notification.getNotificationId());
     }
 }
