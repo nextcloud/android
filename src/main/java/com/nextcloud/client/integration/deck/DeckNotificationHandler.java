@@ -71,7 +71,6 @@ public class DeckNotificationHandler implements NotificationHandler {
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
         }
-        Log.v(TAG, "Couldn't find any installed deck app.");
         throw new AppNotInstalledException();
     }
 }
