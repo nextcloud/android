@@ -165,13 +165,6 @@ public class FilesSyncJob extends Job {
         SimpleDateFormat sFormatter,
         SyncedFolder syncedFolder
     ) {
-        String remotePath;
-        boolean subfolderByDate;
-        Integer uploadAction;
-        boolean needsCharging;
-        boolean needsWifi;
-        File file;
-        ArbitraryDataProvider arbitraryDataProvider;
         String accountName = syncedFolder.getAccount();
         Optional<User> optionalUser = userAccountManager.getUser(accountName);
         if (!optionalUser.isPresent()) {
@@ -179,12 +172,18 @@ public class FilesSyncJob extends Job {
         }
         User user = optionalUser.get();
 
+        ArbitraryDataProvider arbitraryDataProvider = null;
         if (lightVersion) {
             arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
-        } else {
-            arbitraryDataProvider = null;
         }
 
+        String remotePath;
+        boolean subfolderByDate;
+        Integer uploadAction;
+        FileUploader.NameCollisionPolicy nameCollisionPolicy;
+        boolean needsCharging;
+        boolean needsWifi;
+        File file;
         for (String path : filesystemDataProvider.getFilesForUpload(syncedFolder.getLocalPath(),
                 Long.toString(syncedFolder.getId()))) {
             file = new File(path);
@@ -197,12 +196,15 @@ public class FilesSyncJob extends Job {
                                                                   SettingsActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI);
                 String uploadActionString = resources.getString(R.string.syncedFolder_light_upload_behaviour);
                 uploadAction = getUploadAction(uploadActionString);
+                nameCollisionPolicy = FileUploader.NameCollisionPolicy.ASK_USER;
                 subfolderByDate = resources.getBoolean(R.bool.syncedFolder_light_use_subfolders);
                 remotePath = resources.getString(R.string.syncedFolder_remote_folder);
             } else {
                 needsCharging = syncedFolder.isChargingOnly();
                 needsWifi = syncedFolder.isWifiOnly();
                 uploadAction = syncedFolder.getUploadAction();
+                nameCollisionPolicy = FileUploader.NameCollisionPolicy.deserialize(
+                        syncedFolder.getNameCollisionPolicy());
                 subfolderByDate = syncedFolder.isSubfolderByDate();
                 remotePath = syncedFolder.getRemotePath();
             }
@@ -224,7 +226,7 @@ public class FilesSyncJob extends Job {
                 UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
                 needsWifi,
                 needsCharging,
-                FileUploader.NameCollisionPolicy.ASK_USER
+                nameCollisionPolicy
             );
 
             filesystemDataProvider.updateFilesystemFileAsSentForUpload(path,
