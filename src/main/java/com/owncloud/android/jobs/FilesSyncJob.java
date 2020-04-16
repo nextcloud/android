@@ -131,7 +131,7 @@ public class FilesSyncJob extends Job {
                                             userAccountManager,
                                             connectivityService,
                                             powerManagementService);
-        FilesSyncHelper.insertAllDBEntries(preferences, clock, skipCustom, false);
+        FilesSyncHelper.insertAllDBEntries(preferences, clock, skipCustom);
 
         // Create all the providers we'll need
         final ContentResolver contentResolver = context.getContentResolver();
