@@ -420,6 +420,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 syncedFolder.isSubfolderByDate(),
                 syncedFolder.getAccount(),
                 syncedFolder.getUploadAction(),
+                syncedFolder.getNameCollisionPolicy(),
                 syncedFolder.isEnabled(),
                 clock.getCurrentTime(),
                 filePaths,
@@ -448,6 +449,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 syncedFolder.isSubfolderByDate(),
                 syncedFolder.getAccount(),
                 syncedFolder.getUploadAction(),
+                syncedFolder.getNameCollisionPolicy(),
                 syncedFolder.isEnabled(),
                 clock.getCurrentTime(),
                 mediaFolder.filePaths,
@@ -475,6 +477,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 false,
                 getAccount().name,
                 FileUploader.LOCAL_BEHAVIOUR_FORGET,
+                FileUploader.NameCollisionPolicy.ASK_USER.serialize(),
                 false,
                 clock.getCurrentTime(),
                 mediaFolder.filePaths,
@@ -580,9 +583,21 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             case R.id.action_create_custom_folder: {
                 Log.d(TAG, "Show custom folder dialog");
                 SyncedFolderDisplayItem emptyCustomFolder = new SyncedFolderDisplayItem(
-                    SyncedFolder.UNPERSISTED_ID, null, null, true, false, true,
-                    false, getAccount().name, FileUploader.LOCAL_BEHAVIOUR_FORGET, false,
-                    clock.getCurrentTime(), null, MediaFolderType.CUSTOM, false);
+                    SyncedFolder.UNPERSISTED_ID,
+                    null,
+                    null,
+                    true,
+                    false,
+                    true,
+                    false,
+                    getAccount().name,
+                    FileUploader.LOCAL_BEHAVIOUR_FORGET,
+                    FileUploader.NameCollisionPolicy.ASK_USER.serialize(),
+                    false,
+                    clock.getCurrentTime(),
+                    null,
+                    MediaFolderType.CUSTOM,
+                    false);
                 onSyncFolderSettingsClick(0, emptyCustomFolder);
             }
 
@@ -711,25 +726,41 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         // so triggering a refresh
         if (MediaFolderType.CUSTOM == syncedFolder.getType() && syncedFolder.getId() == UNPERSISTED_ID) {
             SyncedFolderDisplayItem newCustomFolder = new SyncedFolderDisplayItem(
-                    SyncedFolder.UNPERSISTED_ID, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(),
-                    syncedFolder.isWifiOnly(), syncedFolder.isChargingOnly(),
-                    syncedFolder.isExisting(), syncedFolder.isSubfolderByDate(), syncedFolder.getAccount(),
-                    syncedFolder.getUploadAction(), syncedFolder.isEnabled(), clock.getCurrentTime(),
-                    new File(syncedFolder.getLocalPath()).getName(), syncedFolder.getType(), syncedFolder.isHidden());
+                SyncedFolder.UNPERSISTED_ID,
+                syncedFolder.getLocalPath(),
+                syncedFolder.getRemotePath(),
+                syncedFolder.isWifiOnly(),
+                syncedFolder.isChargingOnly(),
+                syncedFolder.isExisting(),
+                syncedFolder.isSubfolderByDate(),
+                syncedFolder.getAccount(),
+                syncedFolder.getUploadAction(),
+                syncedFolder.getNameCollisionPolicy().serialize(),
+                syncedFolder.isEnabled(),
+                clock.getCurrentTime(),
+                new File(syncedFolder.getLocalPath()).getName(),
+                syncedFolder.getType(),
+                syncedFolder.isHidden());
 
             saveOrUpdateSyncedFolder(newCustomFolder);
             adapter.addSyncFolderItem(newCustomFolder);
         } else {
             SyncedFolderDisplayItem item = adapter.get(syncedFolder.getSection());
-            updateSyncedFolderItem(item, syncedFolder.getId(), syncedFolder.getLocalPath(),
-                                   syncedFolder.getRemotePath(), syncedFolder.isWifiOnly(),
-                                   syncedFolder.isChargingOnly(), syncedFolder.isExisting(),
-                                   syncedFolder.isSubfolderByDate(), syncedFolder.getUploadAction(),
+            updateSyncedFolderItem(item,
+                                   syncedFolder.getId(),
+                                   syncedFolder.getLocalPath(),
+                                   syncedFolder.getRemotePath(),
+                                   syncedFolder.isWifiOnly(),
+                                   syncedFolder.isChargingOnly(),
+                                   syncedFolder.isExisting(),
+                                   syncedFolder.isSubfolderByDate(),
+                                   syncedFolder.getUploadAction(),
+                                   syncedFolder.getNameCollisionPolicy().serialize(),
                                    syncedFolder.isEnabled());
 
             saveOrUpdateSyncedFolder(item);
 
-            // TODO test if notifiyItemChanged is suffiecient (should improve performance)
+            // TODO test if notifyItemChanged is sufficient (should improve performance)
             adapter.notifyDataSetChanged();
         }
 
@@ -796,6 +827,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
      * @param existing        also upload existing
      * @param subfolderByDate created sub folders
      * @param uploadAction    upload action
+     * @param nameCollisionPolicy what to do on name collision
      * @param enabled         is sync enabled
      */
     private void updateSyncedFolderItem(SyncedFolderDisplayItem item,
@@ -807,6 +839,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                                                            boolean existing,
                                                            boolean subfolderByDate,
                                                            Integer uploadAction,
+                                                           Integer nameCollisionPolicy,
                                                            boolean enabled) {
         item.setId(id);
         item.setLocalPath(localPath);
@@ -816,6 +849,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         item.setExisting(existing);
         item.setSubfolderByDate(subfolderByDate);
         item.setUploadAction(uploadAction);
+        item.setNameCollisionPolicy(nameCollisionPolicy);
         item.setEnabled(enabled, clock.getCurrentTime());
     }
 

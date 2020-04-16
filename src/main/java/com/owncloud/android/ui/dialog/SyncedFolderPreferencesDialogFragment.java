@@ -39,6 +39,7 @@ import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
@@ -69,17 +70,20 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
     private final static String TAG = SyncedFolderPreferencesDialogFragment.class.getSimpleName();
     private static final String BEHAVIOUR_DIALOG_STATE = "BEHAVIOUR_DIALOG_STATE";
+    private static final String NAME_COLLISION_POLICY_DIALOG_STATE = "NAME_COLLISION_POLICY_DIALOG_STATE";
     private final static float alphaEnabled = 1.0f;
     private final static float alphaDisabled = 0.7f;
 
     protected View mView;
     private CharSequence[] mUploadBehaviorItemStrings;
+    private CharSequence[] mNameCollisionPolicyItemStrings;
     private SwitchCompat mEnabledSwitch;
     private AppCompatCheckBox mUploadOnWifiCheckbox;
     private AppCompatCheckBox mUploadOnChargingCheckbox;
     private AppCompatCheckBox mUploadExistingCheckbox;
     private AppCompatCheckBox mUploadUseSubfoldersCheckbox;
     private TextView mUploadBehaviorSummary;
+    private TextView mNameCollisionPolicySummary;
     private TextView mLocalFolderPath;
     private TextView mLocalFolderSummary;
     private TextView mRemoteFolderSummary;
@@ -88,6 +92,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private MaterialButton mCancel;
     private MaterialButton mSave;
     private boolean behaviourDialogShown;
+    private boolean nameCollisionPolicyDialogShown;
     private AlertDialog behaviourDialog;
 
     public static SyncedFolderPreferencesDialogFragment newInstance(SyncedFolderDisplayItem syncedFolder, int section) {
@@ -124,6 +129,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
         mSyncedFolder = getArguments().getParcelable(SYNCED_FOLDER_PARCELABLE);
         mUploadBehaviorItemStrings = getResources().getTextArray(R.array.pref_behaviour_entries);
+        mNameCollisionPolicyItemStrings = getResources().getTextArray(R.array.pref_name_collision_policy_entries);
     }
 
     @Override
@@ -192,6 +198,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
         mUploadBehaviorSummary = view.findViewById(R.id.setting_instant_behaviour_summary);
 
+        mNameCollisionPolicySummary = view.findViewById(R.id.setting_instant_name_collision_policy_summary);
+
         mCancel = view.findViewById(R.id.cancel);
         ThemeUtils.themeDialogActionButton(mCancel);
 
@@ -228,6 +236,10 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mUploadUseSubfoldersCheckbox.setChecked(mSyncedFolder.isSubfolderByDate());
 
         mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[mSyncedFolder.getUploadActionInteger()]);
+
+        final int nameCollisionPolicyIndex =
+            getSelectionIndexForNameCollisionPolicy(mSyncedFolder.getNameCollisionPolicy());
+        mNameCollisionPolicySummary.setText(mNameCollisionPolicyItemStrings[nameCollisionPolicyIndex]);
     }
 
     /**
@@ -422,6 +434,14 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                         showBehaviourDialog();
                     }
                 });
+
+        view.findViewById(R.id.setting_instant_name_collision_policy_container).setOnClickListener(
+            new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showNameCollisionPolicyDialog();
+                }
+            });
     }
 
     private void showBehaviourDialog() {
@@ -454,6 +474,22 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         behaviourDialog.show();
     }
 
+    private void showNameCollisionPolicyDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setTitle(ThemeUtils.getColoredTitle(
+                getResources().getString(R.string.pref_instant_name_collision_policy_dialogTitle),
+                ThemeUtils.primaryAccentColor(getContext())))
+            .setSingleChoiceItems(getResources().getTextArray(R.array.pref_name_collision_policy_entries),
+                                  getSelectionIndexForNameCollisionPolicy(mSyncedFolder.getNameCollisionPolicy()),
+                                  new OnNameCollisionDialogClickListener())
+            .setOnCancelListener(dialog -> nameCollisionPolicyDialogShown = false);
+
+        nameCollisionPolicyDialogShown = true;
+        behaviourDialog = builder.create();
+        behaviourDialog.show();
+    }
+
     @Override
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -479,6 +515,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putBoolean(BEHAVIOUR_DIALOG_STATE, behaviourDialogShown);
+        outState.putBoolean(NAME_COLLISION_POLICY_DIALOG_STATE, nameCollisionPolicyDialogShown);
 
         super.onSaveInstanceState(outState);
     }
@@ -487,9 +524,14 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         behaviourDialogShown = savedInstanceState != null &&
                 savedInstanceState.getBoolean(BEHAVIOUR_DIALOG_STATE, false);
+        nameCollisionPolicyDialogShown = savedInstanceState != null &&
+            savedInstanceState.getBoolean(NAME_COLLISION_POLICY_DIALOG_STATE, false);
 
         if (behaviourDialogShown) {
             showBehaviourDialog();
+        }
+        if (nameCollisionPolicyDialogShown){
+            showNameCollisionPolicyDialog();
         }
 
         super.onViewStateRestored(savedInstanceState);
@@ -524,6 +566,51 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         public void onClick(View v) {
             dismiss();
             ((OnSyncedFolderPreferenceListener) getActivity()).onDeleteSyncedFolderPreference(mSyncedFolder);
+        }
+    }
+
+    private class OnNameCollisionDialogClickListener implements DialogInterface.OnClickListener {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            mSyncedFolder.setNameCollisionPolicy(getNameCollisionPolicyForSelectionIndex(which));
+
+            mNameCollisionPolicySummary.setText(
+                SyncedFolderPreferencesDialogFragment.this.mNameCollisionPolicyItemStrings[which]);
+            nameCollisionPolicyDialogShown = false;
+            dialog.dismiss();
+        }
+    }
+
+    /**
+     * Get index for name collision selection dialog.
+     * @return 0 if ASK_USER, 1 if OVERWRITE, 2 if RENAME. Otherwise: 0
+     */
+    static private Integer getSelectionIndexForNameCollisionPolicy(FileUploader.NameCollisionPolicy nameCollisionPolicy) {
+        switch (nameCollisionPolicy) {
+            case OVERWRITE:
+                return 1;
+            case RENAME:
+                return 2;
+            case ASK_USER:
+            default:
+                return 0;
+        }
+    }
+
+    /**
+     * Get index for name collision selection dialog.
+     * Inverse of getSelectionIndexForNameCollisionPolicy.
+     * @return ASK_USER if 0, OVERWRITE if 1, RENAME if 2. Otherwise: ASK_USEr
+     */
+    static private FileUploader.NameCollisionPolicy getNameCollisionPolicyForSelectionIndex(int index) {
+        switch (index) {
+            case 1:
+                return FileUploader.NameCollisionPolicy.OVERWRITE;
+            case 2:
+                return FileUploader.NameCollisionPolicy.RENAME;
+            case 0:
+            default:
+                return FileUploader.NameCollisionPolicy.ASK_USER;
         }
     }
 }
