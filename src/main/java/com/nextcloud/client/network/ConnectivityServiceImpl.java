@@ -71,6 +71,8 @@ class ConnectivityServiceImpl implements ConnectivityService {
     @Override
     public boolean isInternetWalled() {
         if (isOnlineWithWifi()) {
+
+            GetMethod get = null;
             try {
                 Server server = accountManager.getUser().getServer();
                 String baseServerAddress = server.getUri().toString();
@@ -84,7 +86,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
                     url = baseServerAddress + "/status.php";
                 }
 
-                GetMethod get = requestBuilder.invoke(url);
+                get = requestBuilder.invoke(url);
                 HttpClient client = clientFactory.createPlainClient();
 
                 int status = client.executeMethod(get);
@@ -108,6 +110,10 @@ class ConnectivityServiceImpl implements ConnectivityService {
                 }
             } catch (IOException e) {
                 logger.e(TAG, "Error checking internet connection", e);
+            } finally {
+                if (get != null) {
+                    get.releaseConnection();
+                }
             }
         } else {
             return getActiveNetworkType() == JobRequest.NetworkType.ANY;

@@ -58,7 +58,7 @@ public class HttpStreamFetcher implements DataFetcher<InputStream> {
         OwnCloudClient client = clientFactory.create(user);
 
         if (client != null) {
-            GetMethod get;
+            GetMethod get = null;
             try {
                 get = new GetMethod(url);
                 get.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
@@ -71,6 +71,10 @@ public class HttpStreamFetcher implements DataFetcher<InputStream> {
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, e.getMessage(), e);
+            } finally {
+                if (get != null) {
+                    get.releaseConnection();
+                }
             }
         }
         return null;
