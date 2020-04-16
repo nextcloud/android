@@ -38,10 +38,9 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.view.MenuItem;
 
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
@@ -50,7 +49,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.jobs.AccountRemovalJob;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
@@ -111,6 +109,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     private ArbitraryDataProvider arbitraryDataProvider;
     private boolean multipleAccountsSupported;
 
+    @Inject BackgroundJobManager backgroundJobManager;
     @Inject UserAccountManager accountManager;
 
     @Override
@@ -431,16 +430,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
             mDownloaderBinder.cancel(user.toPlatformAccount());
         }
 
-        // schedule job
-        PersistableBundleCompat bundle = new PersistableBundleCompat();
-        bundle.putString(AccountRemovalJob.ACCOUNT, user.getAccountName());
-
-        new JobRequest.Builder(AccountRemovalJob.TAG)
-                .startNow()
-                .setExtras(bundle)
-                .setUpdateCurrent(false)
-                .build()
-                .schedule();
+        backgroundJobManager.startAccountRemovalJob(user.getAccountName(), false);
 
         // immediately select a new account
         List<User> users = accountManager.getAllUsers();

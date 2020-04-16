@@ -40,7 +40,6 @@ import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
-import com.evernote.android.job.JobManager;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -69,7 +68,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
-import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -256,16 +254,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         int startedMigrationsCount = migrationsManager.startMigration();
         logger.i(TAG, String.format(Locale.US, "Started %d migrations", startedMigrationsCount));
-
-        JobManager.create(this).addJobCreator(
-            new NCJobCreator(
-                accountManager,
-                uploadsStorageManager,
-                clock,
-                eventBus,
-                backgroundJobManager
-            )
-        );
 
         new SecurityUtils();
         DisplayUtils.useCompatVectorIfNeeded();

@@ -38,6 +38,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
+import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -58,7 +59,8 @@ class BackgroundJobFactory @Inject constructor(
     private val dataProvider: ArbitraryDataProvider,
     private val uploadsStorageManager: UploadsStorageManager,
     private val connectivityService: ConnectivityService,
-    private val notificationManager: NotificationManager
+    private val notificationManager: NotificationManager,
+    private val eventBus: EventBus
 ) : WorkerFactory() {
 
     override fun createWorker(
@@ -81,6 +83,7 @@ class BackgroundJobFactory @Inject constructor(
             OfflineSyncWork::class -> createOfflineSyncWork(context, workerParameters)
             MediaFoldersDetectionWork::class -> createMediaFoldersDetectionWork(context, workerParameters)
             NotificationWork::class -> createNotificationWork(context, workerParameters)
+            AccountRemovalWork::class -> createAccountRemovalWorl(context, workerParameters)
             else -> null // caller falls back to default factory
         }
     }
@@ -170,6 +173,18 @@ class BackgroundJobFactory @Inject constructor(
             params,
             notificationManager,
             accountManager
-            )
+        )
+    }
+
+    private fun createAccountRemovalWorl(context: Context, params: WorkerParameters): AccountRemovalWork {
+        return AccountRemovalWork(
+            context,
+            params,
+            uploadsStorageManager,
+            accountManager,
+            backgroundJobManager.get(),
+            clock,
+            eventBus
+        )
     }
 }
