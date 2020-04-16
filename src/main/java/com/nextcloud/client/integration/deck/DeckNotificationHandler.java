@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.integration.AppCannotHandelNotificationException;
+import com.nextcloud.client.integration.AppNotInstalledException;
 import com.nextcloud.client.integration.NotificationHandler;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 
