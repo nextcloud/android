@@ -1,0 +1,2 @@
+fix https://github.com/nextcloud/android/issues/5457
+Update translations
