@@ -25,6 +25,7 @@
 package com.owncloud.android.jobs;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
@@ -43,7 +44,6 @@ import androidx.annotation.NonNull;
 
 public class NCJobCreator implements JobCreator {
 
-    private final Context context;
     private final UserAccountManager accountManager;
     private final UploadsStorageManager uploadsStorageManager;
     private final Clock clock;
@@ -51,14 +51,12 @@ public class NCJobCreator implements JobCreator {
     private final BackgroundJobManager backgroundJobManager;
 
     public NCJobCreator(
-        Context context,
         UserAccountManager accountManager,
         UploadsStorageManager uploadsStorageManager,
         Clock clock,
         EventBus eventBus,
         BackgroundJobManager backgroundJobManager
     ) {
-        this.context = context;
         this.accountManager = accountManager;
         this.uploadsStorageManager = uploadsStorageManager;
         this.clock = clock;
@@ -68,17 +66,14 @@ public class NCJobCreator implements JobCreator {
 
     @Override
     public Job create(@NonNull String tag) {
-        switch (tag) {
-            case AccountRemovalJob.TAG:
-                return new AccountRemovalJob(uploadsStorageManager,
-                                             accountManager,
-                                             backgroundJobManager,
-                                             clock,
-                                             eventBus);
-            case NotificationJob.TAG:
-                return new NotificationJob(context, accountManager);
-            default:
-                return null;
+        if (TextUtils.equals(tag, AccountRemovalJob.TAG)) {
+            return new AccountRemovalJob(uploadsStorageManager,
+                                         accountManager,
+                                         backgroundJobManager,
+                                         clock,
+                                         eventBus);
+        } else {
+            return null;
         }
     }
 }
