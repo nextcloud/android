@@ -21,4 +21,5 @@
 package com.nextcloud.client.integration;
 
 public class AppNotInstalledException extends Exception {
+    private static final long serialVersionUID = 1L;
 }
