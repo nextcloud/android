@@ -74,9 +74,7 @@ public final class FilesSyncHelper {
         // utility class -> private constructor
     }
 
-    public static void insertAllDBEntriesForSyncedFolder(BackgroundJobManager backgroundJobManager,
-                                                         SyncedFolder syncedFolder,
-                                                         boolean syncNow) {
+    private static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
 
@@ -121,25 +119,19 @@ public final class FilesSyncHelper {
                     Log_OC.e(TAG, "Something went wrong while indexing files for auto upload", e);
                 }
             }
-
-            if (syncNow) {
-                backgroundJobManager.startImmediateFilesSyncJob(false, false);
-            }
         }
     }
 
     public static void insertAllDBEntries(AppPreferences preferences,
                                           Clock clock,
-                                          BackgroundJobManager backgroundJobManager,
-                                          boolean skipCustom,
-                                          boolean syncNow) {
+                                          boolean skipCustom) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences, clock);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled() && (!skipCustom || syncedFolder.getType() != MediaFolderType.CUSTOM)) {
-                insertAllDBEntriesForSyncedFolder(backgroundJobManager, syncedFolder, syncNow);
+                insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
         }
     }
