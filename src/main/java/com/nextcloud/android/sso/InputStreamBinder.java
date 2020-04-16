@@ -143,7 +143,9 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             InputStream exceptionStream = serializeObjectToInputStreamV2(exception, response.getPlainHeadersString());
             InputStream resultStream = new java.io.SequenceInputStream(exceptionStream, response.getBody());
 
-            return ParcelFileDescriptorUtil.pipeFrom(resultStream, thread -> Log.d(TAG, "Done sending result"));
+            return ParcelFileDescriptorUtil.pipeFrom(resultStream,
+                                                     thread -> Log.d(TAG, "Done sending result"),
+                                                     response.getMethod());
         } catch (IOException e) {
             Log_OC.e(TAG, "Error while sending response back to client app", e);
         }
@@ -163,6 +165,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         final InputStream requestBodyInputStream = requestBodyParcelFileDescriptor != null ?
             new ParcelFileDescriptor.AutoCloseInputStream(requestBodyParcelFileDescriptor) : null;
         Exception exception = null;
+        HttpMethodBase httpMethod = null;
         InputStream httpStream = new InputStream() {
             @Override
             public int read() {
@@ -173,7 +176,8 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         try {
             // Start request and catch exceptions
             NextcloudRequest request = deserializeObjectAndCloseStream(is);
-            httpStream = processRequest(request, requestBodyInputStream);
+            httpMethod = processRequest(request, requestBodyInputStream);
+            httpStream = httpMethod.getResponseBodyAsStream();
         } catch (Exception e) {
             Log_OC.e(TAG, "Error during Nextcloud request", e);
             exception = e;
@@ -188,7 +192,9 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             } else {
                 resultStream = exceptionStream;
             }
-            return ParcelFileDescriptorUtil.pipeFrom(resultStream, thread -> Log.d(TAG, "Done sending result"));
+            return ParcelFileDescriptorUtil.pipeFrom(resultStream,
+                                                     thread -> Log.d(TAG, "Done sending result"),
+                                                     httpMethod);
         } catch (IOException e) {
             Log_OC.e(TAG, "Error while sending response back to client app", e);
         }
@@ -309,7 +315,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         return method;
     }
 
-    private InputStream processRequest(final NextcloudRequest request, final InputStream requestBodyInputStream)
+    private HttpMethodBase processRequest(final NextcloudRequest request, final InputStream requestBodyInputStream)
         throws UnsupportedOperationException,
         com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException,
         OperationCanceledException, AuthenticatorException, IOException {
@@ -354,7 +360,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
         // Check if status code is 2xx --> https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_Success
         if (status >= HTTP_STATUS_CODE_OK && status < HTTP_STATUS_CODE_MULTIPLE_CHOICES) {
-            return method.getResponseBodyAsStream();
+            return method;
         } else {
             StringBuilder total = new StringBuilder();
             InputStream inputStream = method.getResponseBodyAsStream();
@@ -419,7 +425,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
         // Check if status code is 2xx --> https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_Success
         if (status >= HTTP_STATUS_CODE_OK && status < HTTP_STATUS_CODE_MULTIPLE_CHOICES) {
-            return new Response(method.getResponseBodyAsStream(), method.getResponseHeaders());
+            return new Response(method);
         } else {
             StringBuilder total = new StringBuilder();
             InputStream inputStream = method.getResponseBodyAsStream();

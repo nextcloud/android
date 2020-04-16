@@ -24,6 +24,8 @@ import android.util.Log;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import org.apache.commons.httpclient.HttpMethodBase;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -32,45 +34,37 @@ public final class ParcelFileDescriptorUtil {
 
     private ParcelFileDescriptorUtil() { }
 
-    public static ParcelFileDescriptor pipeFrom(InputStream inputStream, IThreadListener listener)
+    public static ParcelFileDescriptor pipeFrom(InputStream inputStream,
+                                                IThreadListener listener,
+                                                HttpMethodBase method)
             throws IOException {
         ParcelFileDescriptor[] pipe = ParcelFileDescriptor.createPipe();
         ParcelFileDescriptor readSide = pipe[0];
         ParcelFileDescriptor writeSide = pipe[1];
 
         // start the transfer thread
-        new TransferThread(inputStream, new ParcelFileDescriptor.AutoCloseOutputStream(writeSide),
-                listener)
+        new TransferThread(inputStream,
+                           new ParcelFileDescriptor.AutoCloseOutputStream(writeSide),
+                           listener,
+                           method)
                 .start();
 
         return readSide;
     }
 
-    public static ParcelFileDescriptor pipeTo(OutputStream outputStream, IThreadListener listener)
-            throws IOException {
-        ParcelFileDescriptor[] pipe = ParcelFileDescriptor.createPipe();
-        ParcelFileDescriptor readSide = pipe[0];
-        ParcelFileDescriptor writeSide = pipe[1];
-
-        // start the transfer thread
-        new TransferThread(new ParcelFileDescriptor.AutoCloseInputStream(readSide), outputStream,
-                listener)
-                .start();
-
-        return writeSide;
-    }
-
     public static class TransferThread extends Thread {
         private static final String TAG = TransferThread.class.getCanonicalName();
-        private final InputStream mIn;
-        private final OutputStream mOut;
-        private final IThreadListener mListener;
+        private final InputStream inputStream;
+        private final OutputStream outputStream;
+        private final IThreadListener threadListener;
+        private final HttpMethodBase method;
 
-        TransferThread(InputStream in, OutputStream out, IThreadListener listener) {
+        TransferThread(InputStream in, OutputStream out, IThreadListener listener, HttpMethodBase method) {
             super("ParcelFileDescriptor Transfer Thread");
-            mIn = in;
-            mOut = out;
-            mListener = listener;
+            inputStream = in;
+            outputStream = out;
+            threadListener = listener;
+            this.method = method;
             setDaemon(true);
         }
 
@@ -80,26 +74,30 @@ public final class ParcelFileDescriptorUtil {
             int len;
 
             try {
-                while ((len = mIn.read(buf)) > 0) {
-                    mOut.write(buf, 0, len);
+                while ((len = inputStream.read(buf)) > 0) {
+                    outputStream.write(buf, 0, len);
                 }
-                mOut.flush(); // just to be safe
+                outputStream.flush(); // just to be safe
             } catch (IOException e) {
                 Log.e("TransferThread", "writing failed");
             } finally {
                 try {
-                    mIn.close();
+                    inputStream.close();
                 } catch (IOException e) {
                     Log_OC.e(TAG, e.getMessage());
                 }
                 try {
-                    mOut.close();
+                    outputStream.close();
                 } catch (IOException e) {
                     Log_OC.e(TAG, e.getMessage());
                 }
             }
-            if (mListener != null) {
-                mListener.onThreadFinished(this);
+            if (threadListener != null) {
+                threadListener.onThreadFinished(this);
+            }
+
+            if (method != null) {
+                method.releaseConnection();
             }
         }
     }
