@@ -20,5 +20,5 @@
 
 package com.nextcloud.client.integration;
 
-public class AppCannotHandelNotificationException extends Exception {
+public class AppCannotHandleNotificationException extends Exception {
 }

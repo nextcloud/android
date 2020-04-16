@@ -25,7 +25,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.integration.AppCannotHandelNotificationException;
+import com.nextcloud.client.integration.AppCannotHandleNotificationException;
 import com.nextcloud.client.integration.AppNotInstalledException;
 import com.nextcloud.client.integration.NotificationHandler;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
@@ -46,9 +46,9 @@ public class DeckNotificationHandler implements NotificationHandler {
 
     @NonNull
     @Override
-    public Intent handleNotification(@NonNull Notification notification, @NonNull User user) throws AppNotInstalledException, AppCannotHandelNotificationException {
+    public Intent handleNotification(@NonNull Notification notification, @NonNull User user) throws AppNotInstalledException, AppCannotHandleNotificationException {
         if (!APP_NAME.equalsIgnoreCase(notification.app)) {
-            throw new AppCannotHandelNotificationException();
+            throw new AppCannotHandleNotificationException();
         }
         final String baseDeckApplicationId = "it.niedermann.nextcloud.deck";
         final String activityToStart = "it.niedermann.nextcloud.deck.ui.PushNotificationActivity";
