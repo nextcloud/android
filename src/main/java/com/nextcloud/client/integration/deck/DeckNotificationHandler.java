@@ -22,6 +22,7 @@ package com.nextcloud.client.integration.deck;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.nextcloud.client.account.User;
@@ -37,11 +38,14 @@ public class DeckNotificationHandler implements NotificationHandler {
     private static final String TAG = DeckNotificationHandler.class.getSimpleName();
 
     private static final String APP_NAME = "deck";
+    private static final String DECK_APP_ID_BASE = "it.niedermann.nextcloud.deck";
+    private static final String[] DECK_APP_ID_FLAVOR_SUFFIXES = new String[]{"", ".play", ".dev"};
+    private static final String DECK_ACTIVITY_TO_START = "it.niedermann.nextcloud.deck.ui.PushNotificationActivity";
 
-    private final Context context;
+    private final PackageManager packageManager;
 
     public DeckNotificationHandler(@NonNull Context context) {
-        this.context = context;
+        this.packageManager = context.getPackageManager();
     }
 
     @NonNull
@@ -50,13 +54,9 @@ public class DeckNotificationHandler implements NotificationHandler {
         if (!APP_NAME.equalsIgnoreCase(notification.app)) {
             throw new AppCannotHandleNotificationException();
         }
-        final String baseDeckApplicationId = "it.niedermann.nextcloud.deck";
-        final String activityToStart = "it.niedermann.nextcloud.deck.ui.PushNotificationActivity";
-        final String[] flavors = new String[]{"", ".play", ".dev"};
-        for (String flavor : flavors) {
-            final Intent intent = new Intent().setClassName(baseDeckApplicationId + flavor, activityToStart);
-            if (context.getPackageManager().resolveActivity(
-                intent, 0) != null) {
+        for (String flavor : DECK_APP_ID_FLAVOR_SUFFIXES) {
+            final Intent intent = new Intent().setClassName(DECK_APP_ID_BASE + flavor, DECK_ACTIVITY_TO_START);
+            if (packageManager.resolveActivity(intent, 0) != null) {
                 Log.i(TAG, "Found deck app flavor \"" + flavor + "\"");
                 return intent
                     .putExtra("account", user.getAccountName())
