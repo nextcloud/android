@@ -75,10 +75,11 @@ public class PrintAsyncTask extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... voids) {
         HttpClient client = new HttpClient();
-        GetMethod getMethod = new GetMethod(url);
+        GetMethod getMethod = null;
 
         FileOutputStream fos;
         try {
+            getMethod = new GetMethod(url);
             int status = client.executeMethod(getMethod);
             if (status == HttpStatus.SC_OK) {
                 if (file.exists() && !file.delete()) {
@@ -122,6 +123,10 @@ public class PrintAsyncTask extends AsyncTask<Void, Void, Boolean> {
             }
         } catch (IOException e) {
             Log_OC.e(TAG, "Error reading file", e);
+        } finally {
+            if (getMethod != null) {
+                getMethod.releaseConnection();
+            }
         }
 
         return Boolean.TRUE;

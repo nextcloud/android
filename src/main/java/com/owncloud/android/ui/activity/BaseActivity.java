@@ -34,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      */
     private boolean themeChangePending;
     private boolean paused;
+    protected boolean enableAccountHandling = true;
 
     private MixinRegistry mixinRegistry = new MixinRegistry();
     private SessionMixin sessionMixin;
@@ -59,7 +60,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
                                         getContentResolver(),
                                         accountManager);
         mixinRegistry.add(sessionMixin);
-        mixinRegistry.onCreate(savedInstanceState);
+
+        if (enableAccountHandling) {
+            mixinRegistry.onCreate(savedInstanceState);
+        }
     }
 
     @Override
