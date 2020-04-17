@@ -35,12 +35,13 @@ import androidx.annotation.NonNull;
 public interface DeckApi {
 
     /**
-     * Creates a PendingIntent that can be used in a NotificationBuilder to start the Deck app
+     * Creates a PendingIntent that can be used in a NotificationBuilder to open the notification link in Deck app
      *
-     * @param notification Notification object that should be processed
+     * @param notification Notification Notification that could be forwarded to Deck
      * @param user         The user that is affected by the notification
-     * @return Optional with a PendingIntent or an empty Optional if the notification is not from the
-     * <a href="https://apps.nextcloud.com/apps/deck">Deck server app</a>.
+     * @return If notification can be consumed by Deck, a PendingIntent opening notification link in Deck app; empty
+     * value otherwise
+     * @see <a href="https://apps.nextcloud.com/apps/deck">Deck Server App</a>
      */
     @NonNull
     Optional<PendingIntent> createForwardToDeckActionIntent(@NonNull final Notification notification,
