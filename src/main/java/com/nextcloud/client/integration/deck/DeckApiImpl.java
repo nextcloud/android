@@ -23,7 +23,7 @@ package com.nextcloud.client.integration.deck;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.content.pm.PackageManager;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.java.util.Optional;
@@ -35,10 +35,13 @@ public class DeckApiImpl implements DeckApi {
 
     private static final String TAG = DeckApiImpl.class.getSimpleName();
 
-    private static final String APP_NAME = "deck";
-    private static final String DECK_APP_ID_BASE = "it.niedermann.nextcloud.deck";
-    private static final String[] DECK_APP_ID_FLAVOR_SUFFIXES = new String[]{"", ".play", ".dev"};
-    private static final String DECK_ACTIVITY_TO_START = "it.niedermann.nextcloud.deck.ui.PushNotificationActivity";
+    static final String APP_NAME = "deck";
+    static final String[] DECK_APP_PACKAGES = new String[] {
+        "it.niedermann.nextcloud.deck",
+        "it.niedermann.nextcloud.deck.play",
+        "it.niedermann.nextcloud.deck.dev"
+    };
+    static final String DECK_ACTIVITY_TO_START = "it.niedermann.nextcloud.deck.ui.PushNotificationActivity";
 
     private static final String EXTRA_ACCOUNT = "account";
     private static final String EXTRA_LINK = "link";
@@ -51,9 +54,11 @@ public class DeckApiImpl implements DeckApi {
     private static final String EXTRA_NID = "nid";
 
     private final Context context;
+    private final PackageManager packageManager;
 
-    public DeckApiImpl(@NonNull Context context) {
+    public DeckApiImpl(@NonNull Context context, @NonNull PackageManager packageManager) {
         this.context = context;
+        this.packageManager = packageManager;
     }
 
     @NonNull
@@ -61,9 +66,9 @@ public class DeckApiImpl implements DeckApi {
     public Optional<PendingIntent> createForwardToDeckActionIntent(@NonNull Notification notification, @NonNull User user) {
         if (APP_NAME.equalsIgnoreCase(notification.app)) {
             final Intent intent = new Intent();
-            for (String flavor : DECK_APP_ID_FLAVOR_SUFFIXES) {
-                intent.setClassName(DECK_APP_ID_BASE + flavor, DECK_ACTIVITY_TO_START);
-                if (context.getPackageManager().resolveActivity(intent, 0) != null) {
+            for (String appPackage : DECK_APP_PACKAGES) {
+                intent.setClassName(appPackage, DECK_ACTIVITY_TO_START);
+                if (packageManager.resolveActivity(intent, 0) != null) {
                     return Optional.of(createPendingIntent(intent, notification, user));
                 }
             }
