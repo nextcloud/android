@@ -1,0 +1,6 @@
+code formatting
+Make the name collision policy for auto uploads selectable, fixes #5599.
+Release connections after usage
+[FIX: #5752] Upload files: too much whitespace
+Readd enableAccountHandling for show slider
+Update 3rd-party dependencies
