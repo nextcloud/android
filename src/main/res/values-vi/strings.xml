@@ -498,6 +498,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Chờ kết nối WIFI</string>
     <string name="user_icon">Người dùng</string>
     <string name="user_info_address">Địa chỉ</string>
+    <string name="user_info_email">Email</string>
     <string name="user_info_phone">Số điện thoại</string>
     <string name="user_info_website">Website</string>
     <string name="userinfo_no_info_headline">Không có thông tin cá nhân nào được đặt</string>
