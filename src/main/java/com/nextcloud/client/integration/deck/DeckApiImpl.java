@@ -64,7 +64,6 @@ public class DeckApiImpl implements DeckApi {
             for (String flavor : DECK_APP_ID_FLAVOR_SUFFIXES) {
                 intent.setClassName(DECK_APP_ID_BASE + flavor, DECK_ACTIVITY_TO_START);
                 if (context.getPackageManager().resolveActivity(intent, 0) != null) {
-                    Log.i(TAG, "Found deck app flavor \"" + flavor + "\"");
                     return Optional.of(createPendingIntent(intent, notification, user));
                 }
             }
