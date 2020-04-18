@@ -480,6 +480,11 @@ Attention la suppression est irréversible.</string>
     <string name="pref_behaviour_entries_delete_file">supprimé</string>
     <string name="pref_behaviour_entries_keep_file">conservé dans le dossier original</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Que faire si le fichier existe déjà ?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Me demander à chaque fois</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Écraser la version distante</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Renommer la nouvelle version</string>
+    <string name="pref_instant_name_collision_policy_title">Que faire si le fichier existe déjà ?</string>
     <string name="prefs_add_account">Ajouter un compte</string>
     <string name="prefs_calendar_contacts">Synchroniser les contacts du calendrier&amp;</string>
     <string name="prefs_calendar_contacts_address_resolve_error">L\'adresse du serveur pour le compte n\'a pas pu être résolu pour DAVx5 (autrefois connu comme DAVdroid)</string>

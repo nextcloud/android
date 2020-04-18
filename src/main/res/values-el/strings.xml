@@ -478,6 +478,11 @@
     <string name="pref_behaviour_entries_delete_file">διαγραφεί</string>
     <string name="pref_behaviour_entries_keep_file">διατηρηθεί στον αρχικό φάκελο</string>
     <string name="pref_behaviour_entries_move">μετακινηθεί στον φάκελο εφαρμογών</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Τι κάνετε όταν το αρχείο υπάρχει;</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Ερώτηση πάντα</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Επικάλυψη απομακρυσμένη έκδοσης</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Μετονομασία νέας έκδοσης</string>
+    <string name="pref_instant_name_collision_policy_title">Τι κάνετε όταν το αρχείο υπάρχει;</string>
     <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
     <string name="prefs_calendar_contacts">Συγχρονισμός ημερολογίου &amp; επαφών</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Η διεύθυνση του διακομιστή για τον λογαριασμό δεν επαληθεύεται για DAVx5 (γνωστό και ως DAVdroid)</string>
