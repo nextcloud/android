@@ -478,6 +478,11 @@
     <string name="pref_behaviour_entries_delete_file">eliminado</string>
     <string name="pref_behaviour_entries_keep_file">mantense no cartafol orixinal</string>
     <string name="pref_behaviour_entries_move">movido cara ao cartafol da aplicación</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Que facer se o ficheiro xa existe?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Pregúntarme cada vez</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Sobrescribir a versión remota</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Renomear a versión nova</string>
+    <string name="pref_instant_name_collision_policy_title">Que facer se o ficheiro xa existe?</string>
     <string name="prefs_add_account">Engadir unha conta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario e contactos</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Non foi posíbel resolver o enderezo do servidor para a conta de DAVx5 (anteriormente coñecido como DAVdroid)</string>
