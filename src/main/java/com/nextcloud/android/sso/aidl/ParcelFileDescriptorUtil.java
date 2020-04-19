@@ -57,14 +57,14 @@ public final class ParcelFileDescriptorUtil {
         private final InputStream inputStream;
         private final OutputStream outputStream;
         private final IThreadListener threadListener;
-        private final HttpMethodBase method;
+        private final HttpMethodBase httpMethod;
 
         TransferThread(InputStream in, OutputStream out, IThreadListener listener, HttpMethodBase method) {
             super("ParcelFileDescriptor Transfer Thread");
             inputStream = in;
             outputStream = out;
             threadListener = listener;
-            this.method = method;
+            httpMethod = method;
             setDaemon(true);
         }
 
@@ -79,7 +79,7 @@ public final class ParcelFileDescriptorUtil {
                 }
                 outputStream.flush(); // just to be safe
             } catch (IOException e) {
-                Log.e("TransferThread", "writing failed");
+                Log_OC.e(TAG, "writing failed: " + e.getMessage());
             } finally {
                 try {
                     inputStream.close();
@@ -96,8 +96,9 @@ public final class ParcelFileDescriptorUtil {
                 threadListener.onThreadFinished(this);
             }
 
-            if (method != null) {
-                method.releaseConnection();
+            if (httpMethod != null) {
+                Log_OC.i(TAG, "releaseConnection");
+                httpMethod.releaseConnection();
             }
         }
     }
