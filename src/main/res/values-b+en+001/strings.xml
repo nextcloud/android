@@ -142,6 +142,7 @@
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="confirmation_remove_local">Local only</string>
     <string name="conflict_already_existing_file">Already existing file</string>
+    <string name="conflict_dialog_error">Error creating conflict dialogue!</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
     <string name="conflict_message_headline">Which files do you wish to keep?</string>
     <string name="conflict_new_file">New file</string>
@@ -260,6 +261,7 @@
     <string name="etm_background_job_progress">Progress</string>
     <string name="etm_background_job_started">Started</string>
     <string name="etm_background_job_state">State</string>
+    <string name="etm_background_job_user">User</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Background jobs</string>
     <string name="etm_background_jobs_cancel_all">Cancel all jobs</string>
@@ -476,6 +478,11 @@
     <string name="pref_behaviour_entries_delete_file">deleted</string>
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
     <string name="pref_behaviour_entries_move">moved to app folder</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">What to do if the file already exists?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Ask me every time</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Overwrite remote version</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Rename new version</string>
+    <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
     <string name="prefs_add_account">Add account</string>
     <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Server address for the account could not be resolved for DAVx5 (formerly known as DAVdroid)</string>
