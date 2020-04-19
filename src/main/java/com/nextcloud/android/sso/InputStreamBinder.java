@@ -104,16 +104,6 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         this.accountManager = accountManager;
     }
 
-    private NameValuePair[] convertMapToNVP(Map<String, String> map) {
-        NameValuePair[] nvp = new NameValuePair[map.size()];
-        int i = 0;
-        for (String key : map.keySet()) {
-            nvp[i] = new NameValuePair(key, map.get(key));
-            i++;
-        }
-        return nvp;
-    }
-
     public ParcelFileDescriptor performNextcloudRequestV2(ParcelFileDescriptor input) {
         return performNextcloudRequestAndBodyStreamV2(input, null);
     }
@@ -362,21 +352,19 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         if (status >= HTTP_STATUS_CODE_OK && status < HTTP_STATUS_CODE_MULTIPLE_CHOICES) {
             return method;
         } else {
-            StringBuilder total = new StringBuilder();
             InputStream inputStream = method.getResponseBodyAsStream();
+            String total = "No response body";
+
             // If response body is available
             if (inputStream != null) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                String line = reader.readLine();
-                while (line != null) {
-                    total.append(line).append('\n');
-                    line = reader.readLine();
-                }
-                Log_OC.e(TAG, total.toString());
+                total = inputStreamToString(inputStream);
+                Log_OC.e(TAG, total);
             }
+
+            method.releaseConnection();
             throw new IllegalStateException(EXCEPTION_HTTP_REQUEST_FAILED,
                                             new IllegalStateException(String.valueOf(status),
-                                                                      new IllegalStateException(total.toString())));
+                                                                      new IllegalStateException(total)));
         }
     }
 
@@ -427,21 +415,19 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         if (status >= HTTP_STATUS_CODE_OK && status < HTTP_STATUS_CODE_MULTIPLE_CHOICES) {
             return new Response(method);
         } else {
-            StringBuilder total = new StringBuilder();
             InputStream inputStream = method.getResponseBodyAsStream();
+            String total = "No response body";
+
             // If response body is available
             if (inputStream != null) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                String line = reader.readLine();
-                while (line != null) {
-                    total.append(line).append('\n');
-                    line = reader.readLine();
-                }
-                Log_OC.e(TAG, total.toString());
+                total = inputStreamToString(inputStream);
+                Log_OC.e(TAG, total);
             }
+
+            method.releaseConnection();
             throw new IllegalStateException(EXCEPTION_HTTP_REQUEST_FAILED,
                                             new IllegalStateException(String.valueOf(status),
-                                                                      new IllegalStateException(total.toString())));
+                                                                      new IllegalStateException(total)));
         }
     }
 
@@ -479,5 +465,30 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             result |= a[i] ^ b[i];
         }
         return result == 0;
+    }
+
+    private static String inputStreamToString(InputStream inputStream) {
+        try {
+            StringBuilder total = new StringBuilder();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line = reader.readLine();
+            while (line != null) {
+                total.append(line).append('\n');
+                line = reader.readLine();
+            }
+            return total.toString();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    private static NameValuePair[] convertMapToNVP(Map<String, String> map) {
+        NameValuePair[] nvp = new NameValuePair[map.size()];
+        int i = 0;
+        for (String key : map.keySet()) {
+            nvp[i] = new NameValuePair(key, map.get(key));
+            i++;
+        }
+        return nvp;
     }
 }
