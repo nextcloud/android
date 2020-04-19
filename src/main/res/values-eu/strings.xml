@@ -478,6 +478,11 @@
     <string name="pref_behaviour_entries_delete_file">ezabatua</string>
     <string name="pref_behaviour_entries_keep_file">jatorrizko karpetan mantendu da</string>
     <string name="pref_behaviour_entries_move">aplikazioaren karpetara mugitu da</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Zer egin fitxategia existitzen bada dagoeneko?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Galdetu beti</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Urruneko bertsioa gainidatzi</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Izena aldatu bertsio berriari</string>
+    <string name="pref_instant_name_collision_policy_title">Zer egin fitxategia existitzen bada dagoeneko?</string>
     <string name="prefs_add_account">Gehitu kontua</string>
     <string name="prefs_calendar_contacts">Sinkronizatu egutegia eta kontaktuak</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Kontuaren zerbitzariaren helbidea ezin izan da ebatzi DAVx5-rentzat (lehenago DAVdroid izenarekin ezagutzen zena)</string>
