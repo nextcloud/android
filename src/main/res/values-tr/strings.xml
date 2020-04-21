@@ -478,6 +478,11 @@
     <string name="pref_behaviour_entries_delete_file">silindi</string>
     <string name="pref_behaviour_entries_keep_file">özgün klasöründe korundu</string>
     <string name="pref_behaviour_entries_move">app klasörüne taşındı</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Dosya zaten varsa ne yapılsın?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Her defasında sorulsun</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Uzak sürümün üzerine yazılsın</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Yeni sürümün adı değiştirilsin</string>
+    <string name="pref_instant_name_collision_policy_title">Dosya zaten varsa ne yapılsın?</string>
     <string name="prefs_add_account">Hesap ekle</string>
     <string name="prefs_calendar_contacts">Takvim ve kişiler eşitlensin</string>
     <string name="prefs_calendar_contacts_address_resolve_error">DAVx5 (eski adı DAVdroid) sunucu adı ya da adresi çözümlenemedi</string>
