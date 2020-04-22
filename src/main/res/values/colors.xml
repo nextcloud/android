@@ -20,19 +20,14 @@
 <resources>
 
     <color name="list_selector_focused_pressed">#00ddff</color>
-
     <color name="list_item_lastmod_and_filesize_text">@color/secondary_text_color</color>
-    <color name="black">#000000</color>
-    <color name="white">#ffffff</color>
-    <color name="text_color">#000000</color>
-    <color name="text_color_inverse">#ffffff</color>
+    <color name="text_color">@android:color/black</color>
     <color name="disabled_text">#ff888888</color>
     <color name="list_divider_background">#eee</color>
     <color name="fg_contrast">#656565</color>
     <color name="fg_inverse">#FFFFFF</color>
     <color name="filelist_icon_background">#DDDDDD</color>
     <color name="dark_background_text_color">#EEEEEE</color>
-    <color name="transparent">#00000000</color>
     <color name="secondary_text_color">#a0a0a0</color>
     <color name="highlight_textColor_Warning">#e53935</color>
 
@@ -49,9 +44,9 @@
     <color name="infolevel_warning">#e9322d</color>
 
     <!-- Colors -->
-    <color name="login_btn_tint">#ffffff</color>
-    <color name="login_btn_stroke">#ffffff</color>
-    <color name="bg_default">#FFFFFF</color>
+    <color name="login_btn_tint">@android:color/white</color>
+    <color name="login_btn_stroke">@android:color/white</color>
+    <color name="bg_default">@android:color/white</color>
     <color name="background_color_inverse">#000000</color>
     <color name="primary_button_background_color">@color/color_accent</color>
     <color name="primary_button_text_color">#ffffff</color>
