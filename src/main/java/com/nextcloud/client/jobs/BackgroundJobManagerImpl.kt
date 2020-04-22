@@ -23,6 +23,7 @@ import android.os.Build
 import android.provider.MediaStore
 import androidx.annotation.RequiresApi
 import androidx.work.Constraints
+import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import java.util.concurrent.TimeUnit
@@ -49,6 +50,6 @@ internal class BackgroundJobManagerImpl(private val workManager: WorkManager) : 
             .addTag(TAG_CONTENT_SYNC)
             .build()
 
-        workManager.enqueue(request)
+        workManager.enqueueUniqueWork(TAG_CONTENT_SYNC, ExistingWorkPolicy.REPLACE, request)
     }
 }
