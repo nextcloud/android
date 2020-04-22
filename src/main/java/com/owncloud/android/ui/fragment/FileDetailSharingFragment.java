@@ -210,7 +210,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         // todo extract
         internalLinkIcon.getBackground().setColorFilter(getResources().getColor(R.color.grey_db),
                                                         PorterDuff.Mode.SRC_IN);
-        internalLinkIcon.getDrawable().mutate().setColorFilter(getResources().getColor(R.color.black),
+        internalLinkIcon.getDrawable().mutate().setColorFilter(getResources().getColor(android.R.color.black),
                                                                PorterDuff.Mode.SRC_IN);
 
         if (file.isFolder()) {
