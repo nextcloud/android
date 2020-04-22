@@ -20,13 +20,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.2'
+        classpath 'com.android.tools.build:gradle:3.6.3'
         classpath('com.dicedmelon.gradle:jacoco-android:0.1.4') {
             exclude group: 'org.codehaus.groovy', module: 'groovy-all'
         }
         classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.6'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.7.4"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.8.0"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:3.1.0'
     }
