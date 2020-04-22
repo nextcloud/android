@@ -478,6 +478,11 @@
     <string name="pref_behaviour_entries_delete_file">raderas</string>
     <string name="pref_behaviour_entries_keep_file">behållas i orginalmapp</string>
     <string name="pref_behaviour_entries_move">flyttas till Nextcloud-mapp</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Vad ska göras om filen redan finns?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Fråga mig varje gång</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Skriv över versionen på servern</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Byt namn på ny version</string>
+    <string name="pref_instant_name_collision_policy_title">Vad ska göras om filen redan finns?</string>
     <string name="prefs_add_account">Lägg till konto</string>
     <string name="prefs_calendar_contacts">Synkronisera kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradressen för kontot kunde inte hittas för DAVx5 (tidigare DAVdroid)</string>

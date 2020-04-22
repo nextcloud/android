@@ -24,6 +24,7 @@ package com.owncloud.android.ui.activity;
 
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
+import com.owncloud.android.files.services.FileUploader;
 
 import org.junit.Test;
 
@@ -166,7 +167,8 @@ public class SyncedFoldersActivityTest {
                                            true,
                                            true,
                                            "test@nextcloud.com",
-                                           1,
+                                           FileUploader.LOCAL_BEHAVIOUR_MOVE,
+                                           FileUploader.NameCollisionPolicy.ASK_USER.serialize(),
                                            enabled,
                                            System.currentTimeMillis(),
                                            new ArrayList<String>(),

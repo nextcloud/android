@@ -141,7 +141,11 @@
     <string name="confirmation_remove_folder_alert">למחוק את %1$s על תוכנו?</string>
     <string name="confirmation_remove_folders_alert">למחוק את הפריטים הנבחרים ואת תוכנם?</string>
     <string name="confirmation_remove_local">מקומי בלבד</string>
+    <string name="conflict_already_existing_file">קובץ קיים</string>
+    <string name="conflict_dialog_error">שגיאה ביצירת תיבת דו־שיח סתירה!</string>
+    <string name="conflict_message_description">בבחירה של שתי הגרסאות, יתווסף מספר בסוף שמו של הקובץ המקומי.</string>
     <string name="conflict_message_headline">אילו קבצים ברצונך לשמור?</string>
+    <string name="conflict_new_file">קובץ חדש</string>
     <string name="contaclist_restore_selected">שחזור אנשי הקשר הנבחרים</string>
     <string name="contactlist_account_chooser_title">נא לבחור חשבון לייבוא</string>
     <string name="contactlist_item_icon">סמן משתמש לרשימת אנשי קשר</string>
@@ -167,10 +171,13 @@
     <string name="could_not_download_image">לא ניתן להוריד את התמונה המלאה</string>
     <string name="could_not_retrieve_url">לא ניתן לקבל כתובת</string>
     <string name="create_dir_fail_msg">לא ניתן ליצור תיקייה</string>
+    <string name="create_new">יצירת חדש</string>
     <string name="create_new_document">יצירת מסמך חדש</string>
     <string name="create_new_folder">יצירת תיקייה חדשה</string>
     <string name="create_new_presentation">יצירת מצגת חדשה</string>
     <string name="create_new_spreadsheet">יצירת גיליון חדש</string>
+    <string name="create_rich_workspace">הוספת פרטי תיקייה</string>
+    <string name="creates_rich_workspace">יוצר פרטי תיקייה</string>
     <string name="credentials_disabled">פרטי גישה מושבתים</string>
     <string name="date_unknown">לא ידוע</string>
     <string name="default_credentials_wrong">פרטי הגישה שגויים</string>
@@ -221,6 +228,7 @@
     <string name="drawer_quota_unlimited">%1$s בשימוש</string>
     <string name="drawer_synced_folders">העלאה אוטומטית</string>
     <string name="edit_permission_label">עריכה</string>
+    <string name="edit_rich_workspace">עריכת פרטי תיקייה</string>
     <string name="encrypted">הגדרה כמוצפן</string>
     <string name="end_to_end_encryption_confirm_button">הגדרת הצפנה</string>
     <string name="end_to_end_encryption_decrypting">מתבצע פענוח…</string>
@@ -249,12 +257,24 @@
     <string name="error_retrieving_templates">קבלת התבניות נכשלה</string>
     <string name="error_starting_direct_camera_upload">הפעלת המצלמה נכשלה</string>
     <string name="etm_accounts">חשבונות</string>
+    <string name="etm_background_job_name">שם המשימה</string>
+    <string name="etm_background_job_progress">תהליך</string>
+    <string name="etm_background_job_started">התחלה</string>
+    <string name="etm_background_job_state">מצב</string>
+    <string name="etm_background_job_user">משתמש</string>
+    <string name="etm_background_job_uuid">מזהה ייחודי</string>
     <string name="etm_background_jobs">משימות רקע</string>
+    <string name="etm_background_jobs_cancel_all">ביטול על המשימות</string>
+    <string name="etm_background_jobs_prune">ניקוי משימות בלתי פעילות</string>
+    <string name="etm_background_jobs_start_test_job">התחלת משימת בדיקה</string>
+    <string name="etm_background_jobs_stop_test_job">עצירת משימת בדיקה</string>
+    <string name="etm_migrations">נדידות (שדרוגי יישומים)</string>
     <string name="etm_preferences">העדפות</string>
     <string name="etm_title">מצב בדיקת מהנדסים</string>
     <string name="fab_label">הוספה או העלאה</string>
     <string name="failed_to_download">העברת הקובץ למנהל ההורדות נכשלה</string>
     <string name="failed_to_print">הדפסת הקובץ נכשלה</string>
+    <string name="failed_to_start_editor">התחלת העורך נכשלה</string>
     <string name="fallback_weblogin_back">חזרה</string>
     <string name="fallback_weblogin_text">החזרה לשיטת כניסה ישנה</string>
     <string name="favorite">הוספה למועדפים</string>
@@ -352,8 +372,10 @@
     <string name="hint_password">ססמה</string>
     <string name="host_not_available">השרת אינו זמין</string>
     <string name="host_your_own_server">אירוח שרת משלך</string>
+    <string name="instant_upload_existing">להעלות גם קבצים קיימים</string>
     <string name="instant_upload_on_charging">להעלות רק בעת טעינה</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="invalid_url">כתובת שגויה</string>
     <string name="learn_more">לקריאה נוספת</string>
     <string name="link">קישור</string>
     <string name="list_layout">פריסה מוצגת</string>
@@ -456,6 +478,11 @@
     <string name="pref_behaviour_entries_delete_file">נמחק</string>
     <string name="pref_behaviour_entries_keep_file">נשמר בתיקייה מקורית</string>
     <string name="pref_behaviour_entries_move">הועבר לתיקיית ישומים</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">מה לעשות אם הקובץ כבר קיים?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">לשאול בכל פעם</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">לשכתב על הגרסה המרוחקת</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">לשנות את שם הגרסה החדשה</string>
+    <string name="pref_instant_name_collision_policy_title">מה לעשות אם הקובץ כבר קיים?מה לעשות אם הקובץ קיים?</string>
     <string name="prefs_add_account">הוספת חשבון</string>
     <string name="prefs_calendar_contacts">סנכרון לוח שנה ואנשי קשר</string>
     <string name="prefs_calendar_contacts_address_resolve_error">לא ניתן לפתור את כתובת השרת לחשבון עבור DAVx5 (לשעבר DAVdroid)</string>
@@ -558,6 +585,8 @@
     <string name="share_get_public_link_button">קבלת קישור</string>
     <string name="share_group_clarification">%1$s (קבוצה)</string>
     <string name="share_internal_link">שיתוף קישור פנימי</string>
+    <string name="share_internal_link_to_file_text">קישורי שיתוף פנימיים עובדים רק עבור משתמש עם גישה לקובץ הזה</string>
+    <string name="share_internal_link_to_folder_text">קישורי שיתוף פנימיים עובדים רק עבור משתמש עם גישה לתיקייה הזו</string>
     <string name="share_known_remote_clarification">%1$s ( ב- %2$s )</string>
     <string name="share_link_empty_password">יש להכניס סיסמא</string>
     <string name="share_link_file_error">שגיאה אירעה בזמן ניסיון לשתף קובץ זה או תיקייה זו</string>
@@ -656,11 +685,14 @@
     <string name="sync_fail_ticker">סנכרון נכשל</string>
     <string name="sync_fail_ticker_unauthorized">הסנכרון נכשל, יש להיכנס שוב</string>
     <string name="sync_file_nothing_to_do_msg">תוכן הקובץ כבר מסונכרן</string>
+    <string name="sync_folder_failed_content">לא ניתן להשלים את סנכרון התיקייה %1$s</string>
     <string name="sync_foreign_files_forgotten_explanation">החל מגרסה 1.3.16, קבצים שנשלחים מהמכשיר הזה מועתקים אל התיקייה המקומית %1$s כדי למנוע אבדן נתונים במקרה שקובץ אחד מסונכרן בין כמה חשבונות.\n\nעקב השינוי הזה, כל הקבצים שנשלחו בעזרת גרסאות קודמות של היישומון הועתקו לתיקייה %2$s. עם זאת, שגיאה מנעה את השלמת הפעולה הזאת במהלך סנכרון החשבון. באפשרותך להשאיר את הקובץ או הקבצים כמו שהם ולמחוק את הקישור אל %3$s, או להעביר את הקבצים אל התיקייה %1$s ולשמור את הקישור אל %4$s.\n\nלהלן כל הקבצים המקומיים והמרוחקים שתחת %5$s שאליהם הם מקושרים.</string>
     <string name="sync_foreign_files_forgotten_ticker">חלק מהקבצים המקומיים נשכחו</string>
     <string name="sync_in_progress">מתקבלת הגרסה העדכנית ביותר של הקובץ.</string>
     <string name="sync_not_enough_space_dialog_action_choose">נא לבחור מה לסנכרן</string>
     <string name="sync_not_enough_space_dialog_action_free_space">פינוי מקום</string>
+    <string name="sync_not_enough_space_dialog_placeholder">הגודל של %1$s הוא %2$s, אך יש רק %3$s פנויים במכשיר הזה.</string>
+    <string name="sync_not_enough_space_dialog_title">אין מספיק מקום</string>
     <string name="sync_status_button">כפתור מצב סנכרון</string>
     <string name="sync_string_files">קבצים</string>
     <string name="synced_folder_settings_button">כפתור הגדרות</string>
@@ -675,6 +707,8 @@
     <string name="tags">תגיות</string>
     <string name="test_server_button">בדיקת החיבור לשרת</string>
     <string name="thumbnail">תמונה ממוזערת</string>
+    <string name="thumbnail_for_existing_file_description">תמונה ממוזערת לקובץ קיים</string>
+    <string name="thumbnail_for_new_file_desc">תמונה ממוזערת לקובץ חדש</string>
     <string name="timeout_richDocuments">הטעינה אורכת זמן רב…</string>
     <string name="trashbin_activity_title">קבצים שנמחקו</string>
     <string name="trashbin_empty_headline">אין קבצים שנמחקו</string>
@@ -710,9 +744,11 @@
     <string name="upload_list_delete">מחיקה</string>
     <string name="upload_list_empty_headline">אין העלאות זמינות</string>
     <string name="upload_list_empty_text_auto_upload">יש להעלות תוכן כלשהו או להפעיל העלאה אוטומטית.</string>
+    <string name="upload_list_resolve_conflict">פתירת סתירה</string>
     <string name="upload_local_storage_full">האחסון המקומי מלא</string>
     <string name="upload_local_storage_not_copied">לא ניתן להעתיק קובץ לאחסון המקומי</string>
     <string name="upload_lock_failed">נעילת התיקייה נכשלה</string>
+    <string name="upload_old_android">הצפנה אפשרית רק עם &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">מחסור במקום מונע את העתקת הקבצים הנבחרים לתוך התיקייה %1$s. להעביר אותם לשם במקום?</string>
     <string name="upload_sync_conflict">סתירת סנכרון, נא לפתור ידנית</string>
     <string name="upload_unknown_error">שגיאה בלתי ידועה</string>
@@ -728,6 +764,8 @@
     <string name="uploader_top_message">יש לבחור בתיקיית העלאה</string>
     <string name="uploader_upload_failed_content_single">לא ניתן להעלות %1$s</string>
     <string name="uploader_upload_failed_credentials_error">ההעלאה נכשלה, יש להיכנס שוב</string>
+    <string name="uploader_upload_failed_sync_conflict_error">סתירת העלאת קובץ</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">נא לבחור איזו גרסה של %1$s להשאיר</string>
     <string name="uploader_upload_failed_ticker">ההעלאה נכשלה</string>
     <string name="uploader_upload_files_behaviour">אפשרויות העלאה:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">העברת קובץ לתיקייה %1$s</string>
@@ -756,6 +794,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">קובץ מקומי לא נמצא</string>
     <string name="uploads_view_upload_status_failed_permission_error">שגיאת הרשאה</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">אישור השרת אינו מהימן</string>
+    <string name="uploads_view_upload_status_fetching_server_version">גרסת השרת מתושאלת…</string>
     <string name="uploads_view_upload_status_service_interrupted">היישומון הופסק</string>
     <string name="uploads_view_upload_status_succeeded">הושלם</string>
     <string name="uploads_view_upload_status_unknown_fail">שגיאה בלתי ידועה</string>
@@ -803,6 +842,12 @@
         <item quantity="two">%1$d קבצים</item>
         <item quantity="many">%1$d קבצים</item>
         <item quantity="other">%1$d קבצים</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">הצגת תיקייה (%1$d) מוסתרת</item>
+        <item quantity="two">הצגת %1$d תיקיות מוסתרות</item>
+        <item quantity="many">הצגת %1$d תיקיות מוסתרות</item>
+        <item quantity="other">הצגת %1$d תיקיות מוסתרות</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">נבחר %d</item>

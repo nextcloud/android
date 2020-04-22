@@ -28,7 +28,7 @@
     <string name="actionbar_sync">Actualiser</string>
     <string name="active_user">Utilisateur actif</string>
     <string name="activities_no_results_headline">Aucune activité</string>
-    <string name="activities_no_results_message">Aucun événement d\'ajout, de modification ou de partage pour l\'instant</string>
+    <string name="activities_no_results_message">Aucun ajout, modification, suppression ou partage de fichiers pour l\'instant</string>
     <string name="activity_chooser_send_file_title">Envoyer</string>
     <string name="activity_chooser_title">Envoyer le lien vers…</string>
     <string name="activity_icon">Activité</string>
@@ -480,6 +480,11 @@ Attention la suppression est irréversible.</string>
     <string name="pref_behaviour_entries_delete_file">supprimé</string>
     <string name="pref_behaviour_entries_keep_file">conservé dans le dossier original</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Que faire si le fichier existe déjà ?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Me demander à chaque fois</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Écraser la version distante</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Renommer la nouvelle version</string>
+    <string name="pref_instant_name_collision_policy_title">Que faire si le fichier existe déjà ?</string>
     <string name="prefs_add_account">Ajouter un compte</string>
     <string name="prefs_calendar_contacts">Synchroniser vos contacts et vos calendriers</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni Google Play Store ou F-Droid ne sont installés</string>
@@ -738,7 +743,7 @@ Attention la suppression est irréversible.</string>
     <string name="upload_files">Téléverser des fichiers</string>
     <string name="upload_item_action_button">Bouton d\'action d\'upload</string>
     <string name="upload_list_delete">Supprimer</string>
-    <string name="upload_list_empty_headline">Aucun historique d\'envoi</string>
+    <string name="upload_list_empty_headline">Aucun envoi effectué</string>
     <string name="upload_list_empty_text_auto_upload">Envoyez du contenu ou activez l\'envoi automatique.</string>
     <string name="upload_list_resolve_conflict">Résoudre le conflit</string>
     <string name="upload_local_storage_full">Stockage local plein</string>

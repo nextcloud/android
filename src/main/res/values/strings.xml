@@ -461,6 +461,13 @@
     <string name="pref_behaviour_entries_delete_file">deleted</string>
     <string name="prefs_storage_path">Storage path</string>
 
+    <string name="pref_instant_name_collision_policy_dialogTitle">What to do if the file already exists?</string>
+    <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
+
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Ask me every time</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Rename new version</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Overwrite remote version</string>
+
     <string name="share_dialog_title">Sharing</string>
     <string name="share_file">Share %1$s</string>
     <string name="share_with_user_section_title">Share with users and groups</string>

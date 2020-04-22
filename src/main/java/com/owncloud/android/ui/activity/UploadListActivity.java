@@ -41,7 +41,6 @@ import android.widget.TextView;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
-import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -211,12 +210,7 @@ public class UploadListActivity extends FileActivity {
         if (jobs.isEmpty()) {
             PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
             persistableBundleCompat.putBoolean(FilesSyncJob.OVERRIDE_POWER_SAVING, true);
-            new JobRequest.Builder(FilesSyncJob.TAG)
-                .setExact(1_000L)
-                .setUpdateCurrent(false)
-                .setExtras(persistableBundleCompat)
-                .build()
-                .schedule();
+            FilesSyncHelper.startFilesSyncJobNow(persistableBundleCompat);
         }
 
         // retry failed uploads

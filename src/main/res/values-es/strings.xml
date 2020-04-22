@@ -478,6 +478,11 @@
     <string name="pref_behaviour_entries_delete_file">borrado</string>
     <string name="pref_behaviour_entries_keep_file">dejado en la carpeta original</string>
     <string name="pref_behaviour_entries_move">movido a la carpeta de la app</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">¿Cómo proceder si ya existe el archivo?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Preguntar cada vez</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Sobrescribir la versión remota</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Renombrar la nueva versión</string>
+    <string name="pref_instant_name_collision_policy_title">¿Cómo proceder si ya existe el archivo?</string>
     <string name="prefs_add_account">Agregar cuenta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario y contactos</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-Droid ni Google Play están instalados</string>

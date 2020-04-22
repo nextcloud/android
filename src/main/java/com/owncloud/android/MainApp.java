@@ -768,15 +768,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         new Thread(() -> {
             AppPreferences preferences = AppPreferencesImpl.fromContext(getAppContext());
             if (!preferences.isAutoUploadInitialized()) {
-                SyncedFolderProvider syncedFolderProvider =
-                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences, clock);
-
-                for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-                    if (syncedFolder.isEnabled()) {
-                        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, true);
-                    }
-                }
-
+                FilesSyncHelper.startFilesSyncJobNow(null);
                 preferences.setAutoUploadInit(true);
             }
 
