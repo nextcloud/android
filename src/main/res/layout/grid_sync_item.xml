@@ -27,7 +27,7 @@
     android:background="@drawable/list_selector"
     android:gravity="center_horizontal">
 
-    <com.owncloud.android.ui.SquareImageView
+    <ImageView
         android:id="@+id/thumbnail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
