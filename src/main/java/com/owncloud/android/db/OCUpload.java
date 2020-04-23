@@ -38,6 +38,9 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 
+import androidx.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Stores all information in order to start upload operations. PersistentUploadObject can
  * be stored persistently by {@link UploadsStorageManager}.
@@ -300,6 +303,27 @@ public class OCUpload implements Parcelable {
     @Override
     public int describeContents() {
         return this.hashCode();
+    }
+
+    @SuppressFBWarnings("SEO_SUBOPTIMAL_EXPRESSION_ORDER")
+    public boolean isSame(@Nullable Object obj) {
+        if (!(obj instanceof OCUpload)) {
+            return false;
+        }
+        OCUpload other = (OCUpload) obj;
+        return this.uploadId == other.uploadId &&
+            localPath.equals(other.localPath) &&
+            remotePath.equals(other.remotePath) &&
+            accountName.equals(other.accountName) &&
+            localAction == other.localAction &&
+            nameCollisionPolicy == other.nameCollisionPolicy &&
+            createRemoteFolder == other.createRemoteFolder &&
+            uploadStatus == other.uploadStatus &&
+            lastResult == other.lastResult &&
+            createdBy == other.createdBy &&
+            useWifiOnly == other.useWifiOnly &&
+            whileChargingOnly == other.whileChargingOnly &&
+            folderUnlockToken.equals(other.folderUnlockToken);
     }
 
     @Override
