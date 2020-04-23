@@ -1,0 +1,5 @@
+Formated the code (applied DRY principle)
+Resolved the crash when account is not new (Auth)
+refactorings
+close SSO streams
+Update translations
