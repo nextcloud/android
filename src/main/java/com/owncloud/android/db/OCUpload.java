@@ -38,6 +38,8 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 
+import androidx.annotation.Nullable;
+
 /**
  * Stores all information in order to start upload operations. PersistentUploadObject can
  * be stored persistently by {@link UploadsStorageManager}.
@@ -300,6 +302,29 @@ public class OCUpload implements Parcelable {
     @Override
     public int describeContents() {
         return this.hashCode();
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof OCUpload) {
+            OCUpload other = (OCUpload) obj;
+            return this.uploadId == other.uploadId &&
+                localPath.equals(other.localPath) &&
+                remotePath.equals(other.remotePath) &&
+                accountName.equals(other.accountName) &&
+                localAction == other.localAction &&
+                nameCollisionPolicy == other.nameCollisionPolicy &&
+                createRemoteFolder == other.createRemoteFolder &&
+                uploadStatus == other.uploadStatus &&
+                //uploadEndTimestamp == other.uploadEndTimestamp &&
+                lastResult.equals(other.lastResult) &&
+                createdBy == other.createdBy &&
+                useWifiOnly == other.useWifiOnly &&
+                whileChargingOnly == other.whileChargingOnly &&
+                folderUnlockToken.equals(other.folderUnlockToken);
+        } else {
+            return false;
+        }
     }
 
     @Override
