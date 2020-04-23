@@ -115,8 +115,8 @@
 	<style name="ProgressDialogTheme" parent="ownCloud.Dialog">
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:textColorPrimary">@color/primary</item>
-		<item name="android:windowFrame">@android:color/transparent</item>
-		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:windowFrame">@color/transparent</item>
+		<item name="android:windowBackground">@color/transparent</item>
 		<item name="android:windowTitleBackgroundStyle">@drawable/process_dialog_background</item>
 	</style>
 
@@ -136,13 +136,13 @@
 	</style>
 
     <style name="OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="colorAccent">@android:color/transparent</item>
+        <item name="colorAccent">@color/transparent</item>
         <item name="android:textColor">@color/primary_dark</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="OutlineLoginButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="colorAccent">@android:color/transparent</item>
+        <item name="colorAccent">@color/transparent</item>
         <item name="android:textColor">@color/fg_inverse</item>
         <item name="android:textAllCaps">false</item>
         <item name="strokeColor">@color/login_btn_stroke</item>
@@ -242,7 +242,7 @@
 
 	<style name="NavigationView_ItemTextAppearance">
 		<item name="android:ellipsize">end</item>
-		<item name="android:listDivider">@android:color/transparent</item>
+		<item name="android:listDivider">@color/transparent</item>
         <!-- Color of text and icon when selected -->
         <item name="colorPrimary">@color/drawer_active_item_background</item>
 	</style>
