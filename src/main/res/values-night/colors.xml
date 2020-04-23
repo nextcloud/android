@@ -42,4 +42,7 @@
     <color name="switch_track_color_unchecked">#B3FFFFFF</color>
     <color name="drawer_active_item_background">@color/white</color>
 
+    <!-- App bar -->
+    <color name="appbar">#1E1E1E</color>
+    <color name="fontAppbar">#99FFFFFF</color>
 </resources>

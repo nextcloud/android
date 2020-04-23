@@ -268,17 +268,7 @@ public class ExtendedListFragment extends Fragment implements
             }
         });
 
-        int fontColor = ThemeUtils.fontColor(getContext());
-
         LinearLayout searchBar = searchView.findViewById(R.id.search_bar);
-        TextView searchBadge = searchView.findViewById(R.id.search_badge);
-
-        searchBadge.setTextColor(fontColor);
-        searchBadge.setHintTextColor(fontColor);
-
-        ImageView searchButton = searchView.findViewById(R.id.search_button);
-        searchButton.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_search, fontColor));
-
         searchBar.setLayoutTransition(new LayoutTransition());
     }
 

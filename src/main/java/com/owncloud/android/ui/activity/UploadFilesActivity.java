@@ -213,7 +213,7 @@ public class UploadFilesActivity extends FileActivity implements
             actionBar.setListNavigationCallbacks(mDirectories, this);
 
             Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this)));
+            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontAppbarColor(this)));
         }
 
         // wait dialog

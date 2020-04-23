@@ -152,7 +152,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             ThemeUtils.setColoredTitle(getSupportActionBar(), caption, this);
         }
 
-        setIndeterminate(mSyncInProgress);
+        showProgressBar(mSyncInProgress);
         // always AFTER setContentView(...) ; to work around bug in its implementation
 
         // sets message for empty list of folders
@@ -263,7 +263,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                                                             getApplicationContext());
 
         refreshFolderOperation.execute(getAccount(), this, null, null);
-        setIndeterminate(true);
+        showProgressBar(true);
         setBackgroundText();
     }
 
@@ -404,7 +404,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
             Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
 
-            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this)));
+            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontAppbarColor(this)));
 
             ThemeUtils.setColoredTitle(getSupportActionBar(), atRoot ? caption : currentDir.getFileName(), this);
         }
@@ -550,7 +550,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                     DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
 
-                    setIndeterminate(mSyncInProgress);
+                    showProgressBar(mSyncInProgress);
 
                     setBackgroundText();
                 }

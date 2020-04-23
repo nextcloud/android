@@ -779,7 +779,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             } else {
                 mDrawerToggle.setDrawerIndicatorEnabled(false);
                 Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-                upArrow.setColorFilter(ThemeUtils.fontColor(this), PorterDuff.Mode.SRC_ATOP);
+                upArrow.setColorFilter(ThemeUtils.fontAppbarColor(this), PorterDuff.Mode.SRC_ATOP);
                 mDrawerToggle.setHomeAsUpIndicator(upArrow);
             }
         } else if (mDrawerToggle != null) {

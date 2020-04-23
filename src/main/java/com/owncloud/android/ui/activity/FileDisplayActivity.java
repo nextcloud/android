@@ -328,7 +328,7 @@ public class FileDisplayActivity extends FileActivity
             syncAndUpdateFolder(true);
         }
 
-        setIndeterminate(mSyncInProgress);
+        showProgressBar(mSyncInProgress);
         // always AFTER setContentView(...) in onCreate(); to work around bug in its implementation
 
         upgradeNotificationForInstantUpload();
@@ -1394,7 +1394,7 @@ public class FileDisplayActivity extends FileActivity
                         DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
 
                         Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                        setIndeterminate(mSyncInProgress);
+                        showProgressBar(mSyncInProgress);
 
                         setBackgroundText();
                     }
@@ -1513,7 +1513,7 @@ public class FileDisplayActivity extends FileActivity
                     }
                 }
 
-                setIndeterminate(false);
+                showProgressBar(false);
 
             } finally {
                 if (intent != null) {
@@ -2227,7 +2227,7 @@ public class FileDisplayActivity extends FileActivity
                                         null
                                 );
 
-                                setIndeterminate(true);
+                                showProgressBar(true);//okkk
 
                                 setBackgroundText();
 
