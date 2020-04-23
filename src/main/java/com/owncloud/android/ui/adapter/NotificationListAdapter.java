@@ -170,7 +170,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 button.setStrokeColor(ColorStateList.valueOf(resources.getColor(R.color.grey_200)));
                 button.setStrokeWidth(3);
 
-                button.setBackgroundColor(resources.getColor(android.R.color.transparent));
+                button.setBackgroundColor(resources.getColor(R.color.transparent));
                 button.setTextColor(primaryColor);
                 button.setTypeface(button.getTypeface(), Typeface.BOLD);
             }
