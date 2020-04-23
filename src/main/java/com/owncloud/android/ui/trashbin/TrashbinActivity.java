@@ -224,7 +224,8 @@ public class TrashbinActivity extends FileActivity implements
 
             mDrawerToggle.setDrawerIndicatorEnabled(false);
 
-            Toolbar toolbar = findViewById(R.id.toolbar);
+            // TODO remove?
+            Toolbar toolbar = findViewById(R.id.default_toolbar);
             if (toolbar != null && toolbar.getNavigationIcon() != null) {
                 ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor(this));
             }

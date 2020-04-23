@@ -751,8 +751,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             actionBar.setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryColor(this)));
 
             Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this,
-                                                                                                   !ThemeUtils.darkTheme(this))));
+            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontAppbarColor(this)));
         }
 
         Window window = getWindow();

@@ -44,7 +44,7 @@ class ShowErrorActivity : AppCompatActivity() {
 
         text_view_error.text = intent.getStringExtra(EXTRA_ERROR_TEXT)
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(default_toolbar)
         supportActionBar!!.title = createErrorTitle()
 
         val snackbar = DisplayUtils.createSnackbar(

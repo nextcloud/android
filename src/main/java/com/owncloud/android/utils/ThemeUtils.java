@@ -53,7 +53,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.ui.activity.ToolbarActivity;
 
 import java.lang.reflect.Field;
 
@@ -218,9 +217,8 @@ public final class ThemeUtils {
      * Tests if light color is set
      * @return  true if primaryColor is lighter than MAX_LIGHTNESS
      */
-    public static boolean lightTheme(Context context) {
-        int primaryColor = primaryColor(context);
-        float[] hsl = colorToHSL(primaryColor);
+    public static boolean lightTheme(Context context, int color) {
+        float[] hsl = colorToHSL(color);
 
         return hsl[INDEX_LUMINATION] >= MAX_LIGHTNESS;
     }
@@ -236,6 +234,14 @@ public final class ThemeUtils {
         return hsl[INDEX_LUMINATION] <= 0.55;
     }
 
+    public static int primaryAppbarColor(Context context) {
+        return ContextCompat.getColor(context, R.color.appbar);
+    }
+
+    public static int fontAppbarColor(Context context) {
+        return ContextCompat.getColor(context, R.color.fontAppbar);
+    }
+
     /**
      * Set color of title to white/black depending on background color
      *
@@ -248,7 +254,7 @@ public final class ThemeUtils {
                 actionBar.setTitle(title);
             } else {
                 Spannable text = new SpannableString(title);
-                text.setSpan(new ForegroundColorSpan(fontColor(context, !darkTheme(context))),
+                text.setSpan(new ForegroundColorSpan(fontAppbarColor(context)),
                              0,
                              text.length(),
                              Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -273,7 +279,7 @@ public final class ThemeUtils {
                 actionBar.setSubtitle(title);
             } else {
                 Spannable text = new SpannableString(title);
-                text.setSpan(new ForegroundColorSpan(fontColor(context)),
+                text.setSpan(new ForegroundColorSpan(fontAppbarColor(context)),
                              0,
                              text.length(),
                              Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -294,7 +300,7 @@ public final class ThemeUtils {
         }
 
         Drawable backArrow = context.getResources().getDrawable(R.drawable.ic_arrow_back);
-        supportActionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(context)));
+        supportActionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontAppbarColor(context)));
     }
 
     public static Spanned getColoredTitle(String title, int color) {
@@ -437,7 +443,7 @@ public final class ThemeUtils {
             window.setStatusBarColor(color);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 View decor = window.getDecorView();
-                if (lightTheme(fragmentActivity.getApplicationContext())) {
+                if (lightTheme(fragmentActivity.getApplicationContext(), color)) {
                     decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
                 } else {
                     decor.setSystemUiVisibility(0);
@@ -446,16 +452,8 @@ public final class ThemeUtils {
         }
     }
 
-    /**
-     * Sets the color of the progressbar to {@code color} within the given toolbar.
-     *
-     * @param activity         the toolbar activity instance
-     * @param progressBarColor the color to be used for the toolbar's progress bar
-     */
-    public static void colorToolbarProgressBar(FragmentActivity activity, int progressBarColor) {
-        if (activity instanceof ToolbarActivity) {
-            ((ToolbarActivity) activity).setProgressBarBackgroundColor(progressBarColor);
-        }
+    public static void colorStatusBar(FragmentActivity fragmentActivity) {
+        colorStatusBar(fragmentActivity, primaryAppbarColor(fragmentActivity));
     }
 
     /**
@@ -511,6 +509,10 @@ public final class ThemeUtils {
             }
         }
 
+        setEditTextColor(context, editText, color);
+    }
+
+    private static void setEditTextColor(Context context, EditText editText, int color) {
         editText.setTextColor(color);
         editText.setHighlightColor(context.getResources().getColor(R.color.fg_contrast));
         setEditTextCursorColor(editText, color);
@@ -526,9 +528,10 @@ public final class ThemeUtils {
      */
     public static void themeSearchView(SearchView searchView, boolean themedBackground, Context context) {
         // hacky as no default way is provided
-        int fontColor = ThemeUtils.fontColor(context, !darkTheme(context));
+        int fontColor = ThemeUtils.fontAppbarColor(context);
         SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
-        themeEditText(context, editText, themedBackground);
+        setEditTextColor(context, editText, fontColor);
+        editText.setHintTextColor(fontColor);
 
         ImageView closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         closeButton.setColorFilter(fontColor);

@@ -136,7 +136,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             actionBar.setDisplayHomeAsUpEnabled(true);
 
             Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(getContext())));
+            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontAppbarColor(getContext())));
         }
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
