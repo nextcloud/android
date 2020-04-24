@@ -234,7 +234,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
      * sets up the UI elements and loads all notification items.
      */
     private void setupContent() {
-        emptyContentIcon.setImageResource(R.drawable.ic_notification);
+        emptyContentIcon.setImageResource(R.drawable.ic_notification_light_grey);
         emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(this),
                 PorterDuff.Mode.SRC_IN);
         setLoadingMessage();
@@ -348,7 +348,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
             emptyContentMessage.setVisibility(View.VISIBLE);
 
             emptyContentProgressBar.setVisibility(View.GONE);
-            emptyContentIcon.setImageResource(R.drawable.ic_notification);
+            emptyContentIcon.setImageResource(R.drawable.ic_notification_light_grey);
             emptyContentIcon.setVisibility(View.VISIBLE);
         }
     }
