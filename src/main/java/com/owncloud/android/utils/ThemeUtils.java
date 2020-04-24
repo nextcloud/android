@@ -242,6 +242,10 @@ public final class ThemeUtils {
         return ContextCompat.getColor(context, R.color.fontAppbar);
     }
 
+    public static int fontSecondaryAppbar(Context context) {
+        return ContextCompat.getColor(context, R.color.fontSecondaryAppbar);
+    }
+
     /**
      * Set color of title to white/black depending on background color
      *
@@ -279,7 +283,7 @@ public final class ThemeUtils {
                 actionBar.setSubtitle(title);
             } else {
                 Spannable text = new SpannableString(title);
-                text.setSpan(new ForegroundColorSpan(fontAppbarColor(context)),
+                text.setSpan(new ForegroundColorSpan(fontSecondaryAppbar(context)),
                              0,
                              text.length(),
                              Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -528,10 +532,10 @@ public final class ThemeUtils {
      */
     public static void themeSearchView(SearchView searchView, boolean themedBackground, Context context) {
         // hacky as no default way is provided
-        int fontColor = ThemeUtils.fontAppbarColor(context);
+        int fontColor = fontAppbarColor(context);
         SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
         setEditTextColor(context, editText, fontColor);
-        editText.setHintTextColor(fontColor);
+        editText.setHintTextColor(fontSecondaryAppbar(context));
 
         ImageView closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         closeButton.setColorFilter(fontColor);

@@ -44,5 +44,5 @@
 
     <!-- App bar -->
     <color name="appbar">#1E1E1E</color>
-    <color name="fontAppbar">#99FFFFFF</color>
+    <color name="fontAppbar">@android:color/white</color>
 </resources>
