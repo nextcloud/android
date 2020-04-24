@@ -69,7 +69,6 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.widget.CompoundButtonCompat;
-import androidx.fragment.app.FragmentActivity;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -443,15 +442,18 @@ public final class ThemeUtils {
      */
     public static void colorStatusBar(Activity fragmentActivity, @ColorInt int color) {
         Window window = fragmentActivity.getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && window != null) {
+        boolean isLightTheme = lightTheme(fragmentActivity.getApplicationContext(), color);
+        if (window != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(color);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 View decor = window.getDecorView();
-                if (lightTheme(fragmentActivity.getApplicationContext(), color)) {
+                if (isLightTheme) {
                     decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
                 } else {
                     decor.setSystemUiVisibility(0);
                 }
+            } else if (isLightTheme) {
+                window.setStatusBarColor(Color.BLACK);
             }
         }
     }
