@@ -385,7 +385,7 @@
     <string name="notification_icon">Pranešimo piktograma</string>
     <string name="notifications_loading_activity">Įkeliami pranešimai…</string>
     <string name="notifications_no_results_headline">Pranešimų nėra</string>
-    <string name="notifications_no_results_message">Prašome patikrinti vėliau</string>
+    <string name="notifications_no_results_message">Prašome patikrinti vėliau.</string>
     <string name="offline_mode">Nėra interneto ryšio</string>
     <string name="overflow_menu">Daugiau meniu</string>
     <string name="pass_code_configure_your_pass_code">Įveskite užraktą</string>
