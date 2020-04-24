@@ -402,9 +402,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             actionBar.setDisplayHomeAsUpEnabled(!atRoot);
             actionBar.setHomeButtonEnabled(!atRoot);
 
-            Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-
-            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontAppbarColor(this)));
+            ThemeUtils.tintBackButton(actionBar, this);
 
             ThemeUtils.setColoredTitle(getSupportActionBar(), atRoot ? caption : currentDir.getFileName(), this);
         }

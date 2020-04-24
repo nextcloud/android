@@ -437,7 +437,7 @@ public final class ThemeUtils {
      * @param fragmentActivity fragment activity
      * @param color            the color
      */
-    public static void colorStatusBar(FragmentActivity fragmentActivity, @ColorInt int color) {
+    public static void colorStatusBar(Activity fragmentActivity, @ColorInt int color) {
         Window window = fragmentActivity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && window != null) {
             window.setStatusBarColor(color);
@@ -452,7 +452,7 @@ public final class ThemeUtils {
         }
     }
 
-    public static void colorStatusBar(FragmentActivity fragmentActivity) {
+    public static void colorStatusBar(Activity fragmentActivity) {
         colorStatusBar(fragmentActivity, primaryAppbarColor(fragmentActivity));
     }
 

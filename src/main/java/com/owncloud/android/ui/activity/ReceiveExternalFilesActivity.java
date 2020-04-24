@@ -782,11 +782,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             ThemeUtils.colorStatusBar(this);
 
-            Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-
-            if (actionBar != null) {
-                actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontAppbarColor(this)));
-            }
+            ThemeUtils.tintBackButton(actionBar, this);
 
             Button btnNewFolder = findViewById(R.id.uploader_cancel);
             btnNewFolder.setTextColor(ThemeUtils.primaryColor(this, true));
