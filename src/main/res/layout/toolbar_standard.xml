@@ -51,7 +51,7 @@
         </FrameLayout>
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/default_toolbar"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar" />
@@ -61,7 +61,7 @@
             style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/default_toolbar"
+            android:layout_below="@id/toolbar"
             android:layout_marginTop="-7dp"
             android:layout_marginBottom="-7dp"
             android:indeterminate="true"
