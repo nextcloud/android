@@ -166,7 +166,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
      * sets up the UI elements and loads all activity items.
      */
     private void setupContent() {
-        emptyContentIcon.setImageResource(R.drawable.ic_activity_light_grey);
+        emptyContentIcon.setImageResource(R.drawable.ic_activity);
         emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(this),
                                                                           PorterDuff.Mode.SRC_IN);
 
