@@ -147,8 +147,7 @@ public final class ThemeUtils {
     }
 
     public static int getNeutralGrey(Context context) {
-        return darkTheme(context) ? context.getResources().getColor(R.color.fg_contrast) :
-                                    Color.GRAY;
+        return darkTheme(context) ? context.getResources().getColor(R.color.fg_contrast) : Color.GRAY;
     }
 
     public static int elementColor(Context context) {
@@ -185,8 +184,7 @@ public final class ThemeUtils {
     }
 
     /**
-     * @return int font color to use
-     * adapted from https://github.com/nextcloud/server/blob/master/apps/theming/lib/Util.php#L90-L102
+     * @return int font color to use adapted from https://github.com/nextcloud/server/blob/master/apps/theming/lib/Util.php#L90-L102
      */
     public static int fontColor(Context context, boolean replaceWhite) {
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
@@ -214,7 +212,8 @@ public final class ThemeUtils {
 
     /**
      * Tests if light color is set
-     * @return  true if primaryColor is lighter than MAX_LIGHTNESS
+     *
+     * @return true if primaryColor is lighter than MAX_LIGHTNESS
      */
     public static boolean lightTheme(Context context, int color) {
         float[] hsl = colorToHSL(color);
@@ -224,6 +223,7 @@ public final class ThemeUtils {
 
     /**
      * Tests if dark color is set
+     *
      * @return true if dark theme -> e.g.use light font color, darker accent color
      */
     public static boolean darkTheme(Context context) {
@@ -341,7 +341,7 @@ public final class ThemeUtils {
      * Adjust lightness of given color
      *
      * @param lightnessDelta values -1..+1
-     * @param color original color
+     * @param color          original color
      * @param threshold      0..1 as maximum value, -1 to disable
      * @return color adjusted by lightness
      */
@@ -466,7 +466,7 @@ public final class ThemeUtils {
      * Sets the color of the  TextInputLayout to {@code color} for hint text and box stroke.
      *
      * @param textInputLayout the TextInputLayout instance
-     * @param color the color to be used for the hint text and box stroke
+     * @param color           the color to be used for the hint text and box stroke
      */
     public static void colorTextInputLayout(TextInputLayout textInputLayout, int color) {
         textInputLayout.setBoxStrokeColor(color);
@@ -483,7 +483,7 @@ public final class ThemeUtils {
     }
 
     public static void themeDialogActionButton(MaterialButton button) {
-        if (button == null ) {
+        if (button == null) {
             return;
         }
 
@@ -492,8 +492,8 @@ public final class ThemeUtils {
         int disabledColor = ContextCompat.getColor(context, R.color.disabled_text);
         button.setTextColor(new ColorStateList(
             new int[][]{
-                new int[] { android.R.attr.state_enabled}, // enabled
-                new int[] {-android.R.attr.state_enabled}, // disabled
+                new int[]{android.R.attr.state_enabled}, // enabled
+                new int[]{-android.R.attr.state_enabled}, // disabled
             },
             new int[]{
                 accentColor,
@@ -503,7 +503,9 @@ public final class ThemeUtils {
     }
 
     public static void themeEditText(Context context, EditText editText, boolean themedBackground) {
-        if (editText == null) { return; }
+        if (editText == null) {
+            return;
+        }
 
         int color = ContextCompat.getColor(context, R.color.text_color);
 
@@ -552,14 +554,14 @@ public final class ThemeUtils {
 
     public static void tintCheckbox(AppCompatCheckBox checkBox, int color) {
         CompoundButtonCompat.setButtonTintList(checkBox, new ColorStateList(
-                new int[][]{
-                        new int[]{-android.R.attr.state_checked},
-                        new int[]{android.R.attr.state_checked},
-                },
-                new int[]{
-                        Color.GRAY,
-                        color
-                }
+            new int[][]{
+                new int[]{-android.R.attr.state_checked},
+                new int[]{android.R.attr.state_checked},
+            },
+            new int[]{
+                Color.GRAY,
+                color
+            }
         ));
     }
 
@@ -576,13 +578,13 @@ public final class ThemeUtils {
 
         // setting the thumb color
         DrawableCompat.setTintList(switchView.getThumbDrawable(), new ColorStateList(
-                new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
-                new int[]{color, Color.WHITE}));
+            new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+            new int[]{color, Color.WHITE}));
 
         // setting the track color
         DrawableCompat.setTintList(switchView.getTrackDrawable(), new ColorStateList(
-                new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
-                new int[]{trackColor, MainApp.getAppContext().getResources().getColor(R.color.switch_track_color_unchecked)}));
+            new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+            new int[]{trackColor, MainApp.getAppContext().getResources().getColor(R.color.switch_track_color_unchecked)}));
     }
 
     public static Drawable tintDrawable(@DrawableRes int id, int color) {
@@ -608,7 +610,7 @@ public final class ThemeUtils {
     }
 
     public static void tintFloatingActionButton(FloatingActionButton button, @DrawableRes int
-            drawable, Context context) {
+        drawable, Context context) {
         button.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(context)));
         button.setRippleColor(ThemeUtils.primaryDarkColor(context));
         button.setImageDrawable(ThemeUtils.tintDrawable(drawable, ThemeUtils.fontColor(context)));
@@ -637,12 +639,11 @@ public final class ThemeUtils {
     }
 
     /**
-     * Lifted from SO.
-     * FindBugs surpressed because of lack of public API to alter the cursor color.
+     * Lifted from SO. FindBugs surpressed because of lack of public API to alter the cursor color.
      *
-     * @param editText  TextView to be styled
-     * @param color     The desired cursor colour
-     * @see             <a href="https://stackoverflow.com/a/52564925">StackOverflow url</a>
+     * @param editText TextView to be styled
+     * @param color    The desired cursor colour
+     * @see <a href="https://stackoverflow.com/a/52564925">StackOverflow url</a>
      */
     @SuppressFBWarnings
     public static void setEditTextCursorColor(EditText editText, int color) {
@@ -693,15 +694,11 @@ public final class ThemeUtils {
 
 
     /**
-     * Set the color of the handles when you select text in a
-     * {@link android.widget.EditText} or other view that extends {@link TextView}.
-     * FindBugs surpressed because of lack of public API to alter the {@link TextView} handles color.
+     * Set the color of the handles when you select text in a {@link android.widget.EditText} or other view that extends
+     * {@link TextView}. FindBugs surpressed because of lack of public API to alter the {@link TextView} handles color.
      *
-     * @param view
-     *     The {@link TextView} or a {@link View} that extends {@link TextView}.
-     * @param color
-     *     The color to set for the text handles
-     *
+     * @param view  The {@link TextView} or a {@link View} that extends {@link TextView}.
+     * @param color The color to set for the text handles
      * @see <a href="https://gist.github.com/jaredrummler/2317620559d10ac39b8218a1152ec9d4">External reference</a>
      */
     @SuppressFBWarnings
