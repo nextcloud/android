@@ -89,4 +89,5 @@
     <!-- App bar -->
     <color name="appbar">@android:color/white</color>
     <color name="fontAppbar">#666666</color>
+    <color name="fontSecondaryAppbar">#A5A5A5</color>
 </resources>

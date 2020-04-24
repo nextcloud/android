@@ -753,24 +753,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
             ThemeUtils.tintBackButton(actionBar, this);
         }
-
-        Window window = getWindow();
-        if (window != null) {
-            window.getDecorView().setBackgroundDrawable(new ColorDrawable(ResourcesCompat
-                    .getColor(getResources(), R.color.bg_default, null)));
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.setStatusBarColor(ThemeUtils.primaryColor(this));
-            }
-
-            // For adding content description tag to a title field in the action bar
-            int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
-            View actionBarTitle = window.getDecorView().findViewById(actionBarTitleId);
-
-            if (actionBarTitle != null) {
-                actionBarTitle.setContentDescription(getString(R.string.actionbar_settings));
-            }
-        }
     }
 
     private void launchDavDroidLogin() {
