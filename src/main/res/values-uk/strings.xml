@@ -363,6 +363,7 @@
     <string name="logs_menu_refresh">Оновити</string>
     <string name="logs_status_loading">Завантаження…</string>
     <string name="logs_title">Журнали</string>
+    <string name="maintenance_mode">Сервер у режимі обслуговування</string>
     <string name="manage_space_clear_data">Очистити дані</string>
     <string name="manage_space_title">Керувати простором</string>
     <string name="media_err_invalid_progressive_playback">Неможливо транслювати мультимедійний файл</string>
