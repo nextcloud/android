@@ -746,12 +746,12 @@ public class SettingsActivity extends ThemedPreferenceActivity
         ActionBar actionBar = getDelegate().getSupportActionBar();
 
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
             ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings), this);
-            actionBar.setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryColor(this)));
+            ThemeUtils.colorStatusBar(this);
+            actionBar.setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryAppbarColor(this)));
 
-            Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontAppbarColor(this)));
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            ThemeUtils.tintBackButton(actionBar, this);
         }
 
         Window window = getWindow();
