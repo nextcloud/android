@@ -254,7 +254,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
                 PorterDuff.Mode.SRC_IN);
-        emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activity));
+        emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activity_light_grey));
 
         adapter = new ActivityAndVersionListAdapter(getContext(),
                                                     accountManager,
@@ -414,7 +414,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     private void setEmptyContent(String headline, String message) {
         if (emptyContentContainer != null && emptyContentMessage != null) {
-            emptyContentIcon.setImageDrawable(requireContext().getResources().getDrawable(R.drawable.ic_activity));
+            emptyContentIcon.setImageDrawable(requireContext().getResources().getDrawable(R.drawable.ic_activity_light_grey));
             emptyContentHeadline.setText(headline);
             emptyContentMessage.setText(message);
 
