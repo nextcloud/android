@@ -65,7 +65,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         int primaryColor = ThemeUtils.primaryAppbarColor(this);
         int fontColor = ThemeUtils.fontAppbarColor(this);
 
-        Toolbar toolbar = findViewById(R.id.default_toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mProgressBar = findViewById(R.id.toolbar_progressBar);

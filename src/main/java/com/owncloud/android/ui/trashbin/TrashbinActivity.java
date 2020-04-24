@@ -223,12 +223,6 @@ public class TrashbinActivity extends FileActivity implements
             trashbinPresenter.enterFolder(file.getRemotePath());
 
             mDrawerToggle.setDrawerIndicatorEnabled(false);
-
-            // TODO remove?
-            Toolbar toolbar = findViewById(R.id.default_toolbar);
-            if (toolbar != null && toolbar.getNavigationIcon() != null) {
-                ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor(this));
-            }
         }
     }
 

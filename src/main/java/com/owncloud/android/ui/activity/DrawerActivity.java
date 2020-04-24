@@ -30,7 +30,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -292,6 +291,8 @@ public abstract class DrawerActivity extends ToolbarActivity
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerToggle.setDrawerSlideAnimationEnabled(true);
+        Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
+        mDrawerToggle.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontAppbarColor(this)));
     }
 
     /**
@@ -773,17 +774,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         super.updateActionBarTitleAndHomeButton(chosenFile);
 
         // set home button properties
-        if (mDrawerToggle != null && chosenFile != null) {
-            if (isRoot(chosenFile)) {
+        if (mDrawerToggle != null) {
+            if (chosenFile != null && isRoot(chosenFile)) {
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
             } else {
                 mDrawerToggle.setDrawerIndicatorEnabled(false);
-                Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-                mDrawerToggle.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow,
-                                                                              ThemeUtils.fontAppbarColor(this)));
             }
-        } else if (mDrawerToggle != null) {
-            mDrawerToggle.setDrawerIndicatorEnabled(false);
         }
     }
 
