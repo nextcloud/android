@@ -293,6 +293,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         mDrawerToggle.setDrawerSlideAnimationEnabled(true);
         Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
         mDrawerToggle.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontAppbarColor(this)));
+        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.fontAppbarColor(this));
     }
 
     /**
