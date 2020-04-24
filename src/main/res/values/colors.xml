@@ -34,7 +34,7 @@
     <color name="filelist_icon_background">#DDDDDD</color>
     <color name="dark_background_text_color">#EEEEEE</color>
     <color name="transparent">#00000000</color>
-    <color name="secondary_text_color">#a0a0a0</color>
+    <color name="secondary_text_color">#666666</color>
     <color name="highlight_textColor_Warning">#e53935</color>
 
     <!-- Colors -->
