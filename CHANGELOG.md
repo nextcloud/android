@@ -1,3 +1,14 @@
+## 3.11.1 (April, 23, 2020)
+
+- Crash while browsing files
+- auto upload:
+ - fix wrong conflict detection on custom folder
+ - allow to choose default conflict strategy @fodinabor
+ - fix hanging UI after saving
+- open office files online if no local app installed
+
+For a full list, please see https://github.com/nextcloud/android/milestone/47
+
 ## 3.11.0 (March, 26, 2020)
 
 - not enough space dialog @Shagequi
