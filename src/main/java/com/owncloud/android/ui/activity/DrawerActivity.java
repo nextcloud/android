@@ -995,7 +995,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     }
                     menuItem.setTitle(Html.fromHtml(
                         "<font color='"
-                            + ThemeUtils.colorToHexString(ContextCompat.getColor(this, R.color.text_color))
+                            + ThemeUtils.colorToHexString(ContextCompat.getColor(this, R.color.drawer_text_color))
                             + "'>" + menuItem.getTitle()
                             + "</font>"));
                 }
