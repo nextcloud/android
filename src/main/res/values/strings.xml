@@ -642,7 +642,7 @@
 
     <string name="empty" translatable="false" />
     <string name="test_server_button">Test server connection</string>
-    <string name="info_separator" translatable="false">,</string>
+    <string name="info_separator" translatable="false">&#160;&#x2022;</string>
     <string name="resharing_is_not_allowed">Resharing is not allowed</string>
     <string name="fallback_weblogin_back">Back</string>
     <string name="fallback_weblogin_text">Revert to old login method</string>
