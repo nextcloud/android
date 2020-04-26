@@ -4,10 +4,12 @@
  * @author Mario Danic
  * @author Andy Scherzinger
  * @author Chris Narkiewicz  <hello@ezaquarii.com>
+ * @author Chawki Chouib  <chouibc@gmail.com>
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2017 Andy Scherzinger
  * Copyright (C) 2017 Nextcloud GmbH.
  * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chawki Chouib  <chouibc@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -79,6 +81,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.DialogFragment;
@@ -145,10 +148,25 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         setContentView(R.layout.user_info_layout);
         unbinder = ButterKnife.bind(this);
 
+
+        // Action bar setup
+
         boolean useBackgroundImage = URLUtil.isValidUrl(
                 getStorageManager().getCapability(user.getAccountName()).getServerBackground());
 
         setupToolbar(useBackgroundImage);
+
+
+        // set the back button from action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // check if is not null
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+
+        // set title Action bar
         updateActionBarTitleAndHomeButtonByString("");
 
         mUserInfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount(), true, this)));
