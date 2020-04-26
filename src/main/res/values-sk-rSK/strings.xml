@@ -478,6 +478,11 @@
     <string name="pref_behaviour_entries_delete_file">vymazané</string>
     <string name="pref_behaviour_entries_keep_file">ponechané v pôvodnom priečinku</string>
     <string name="pref_behaviour_entries_move">presunuté do aplikačného priečinka</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Čo urobiť, ak súbor už existuje?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Spýtať sa zakaždým</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Prepísať vzdialenú verziu</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Premenovať novú verziu</string>
+    <string name="pref_instant_name_collision_policy_title">Čo urobiť, ak súbor už existuje?</string>
     <string name="prefs_add_account">Pridať účet</string>
     <string name="prefs_calendar_contacts">Synchronizovať kalendár &amp; kontakty</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Nepodarilo sa zistiť adresu účtu pre DAVx5 (predtým známy ako DAVdroid)</string>
