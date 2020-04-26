@@ -127,8 +127,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
 
         setupToolbar();
 
-        // -- Action bar setup --
-
         // set the back button from action bar
         ActionBar actionBar = getSupportActionBar();
 
@@ -140,8 +138,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
 
         // set title Action bar
         updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.prefs_manage_accounts));
-
-        // -- End action bar setup --
 
         List<User> users = accountManager.getAllUsers();
         originalUsers = toAccountNames(users);
@@ -439,11 +435,11 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         bundle.putString(AccountRemovalJob.ACCOUNT, user.getAccountName());
 
         new JobRequest.Builder(AccountRemovalJob.TAG)
-            .startNow()
-            .setExtras(bundle)
-            .setUpdateCurrent(false)
-            .build()
-            .schedule();
+                .startNow()
+                .setExtras(bundle)
+                .setUpdateCurrent(false)
+                .build()
+                .schedule();
 
         // immediately select a new account
         List<User> users = accountManager.getAllUsers();
