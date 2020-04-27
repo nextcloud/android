@@ -179,9 +179,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected boolean mOnlyFoldersClickable;
     protected boolean mFileSelectable;
 
-    protected int mSystemBarActionModeColor;
-    protected int mSystemBarColor;
-
     protected boolean mHideFab = true;
     protected ActionMode mActiveActionMode;
     protected OCFileListFragment.MultiChoiceModeListener mMultiChoiceModeListener;
@@ -207,8 +204,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mSystemBarActionModeColor = getResources().getColor(R.color.action_mode_status_bar_background);
-        mSystemBarColor = ThemeUtils.primaryColor(getContext());
         mMultiChoiceModeListener = new MultiChoiceModeListener();
 
         if (savedInstanceState != null) {
@@ -629,8 +624,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             inflater.inflate(R.menu.item_file, menu);
             mode.invalidate();
 
-            //set gray color
-            ThemeUtils.colorStatusBar(getActivity(), mSystemBarActionModeColor);
+            //set actionMode color
+            ThemeUtils.colorStatusBar(getActivity(), ThemeUtils.actionModeColor(requireContext()));
 
             // hide FAB in multi selection mode
             setFabVisible(false);

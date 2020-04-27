@@ -245,6 +245,10 @@ public final class ThemeUtils {
         return ContextCompat.getColor(context, R.color.fontSecondaryAppbar);
     }
 
+    public static int actionModeColor(Context context) {
+        return ContextCompat.getColor(context, R.color.action_mode_background);
+    }
+
     /**
      * Set color of title to white/black depending on background color
      *
