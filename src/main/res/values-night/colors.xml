@@ -32,7 +32,7 @@
 
     <!-- Multiselect backgrounds -->
     <color name="action_mode_background">@color/appbar</color>
-    <color name="selected_item_background">#757575</color>
+    <color name="selected_item_background">#373535</color>
 
     <color name="filelist_icon_background">#222222</color>
 
