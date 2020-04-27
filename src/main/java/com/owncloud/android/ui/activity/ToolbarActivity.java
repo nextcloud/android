@@ -163,11 +163,11 @@ public abstract class ToolbarActivity extends BaseActivity {
     /**
      * Change the visibility for the toolbar's progress bar.
      *
-     * @param isVisibility visibility of the progress bar
+     * @param isVisible visibility of the progress bar
      */
-    public void showProgressBar(boolean isVisibility) {
+    public void showProgressBar(boolean isVisible) {
         if (mProgressBar != null) {
-            mProgressBar.setVisibility(isVisibility? View.VISIBLE : View.GONE);
+            mProgressBar.setVisibility(isVisible? View.VISIBLE : View.GONE);
         }
     }
 
