@@ -478,6 +478,11 @@
     <string name="pref_behaviour_entries_delete_file">удалён</string>
     <string name="pref_behaviour_entries_keep_file">оставлен в исходном каталоге</string>
     <string name="pref_behaviour_entries_move">перемещен в каталог приложения</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Действие в случае, если файл уже существует</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Всегда спрашивать</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Перезаписать удалённую версию</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Переименовать новую версию</string>
+    <string name="pref_instant_name_collision_policy_title">Действие в случае, если файл уже существует</string>
     <string name="prefs_add_account">Добавить аккаунт</string>
     <string name="prefs_calendar_contacts">Синхронизировать календарь и контакты</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Не удалось определить адрес сервера этой учётной записи для его передачи в приложение  DAVx5 (ранее называвшееся DAVdroid)</string>
