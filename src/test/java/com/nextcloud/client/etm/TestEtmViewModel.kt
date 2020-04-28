@@ -245,7 +245,7 @@ class TestEtmViewModel {
 
         @Test
         fun `start stop test job actions are delegated to job manager`() {
-            vm.startTestJob()
+            vm.startTestJob(true)
             vm.cancelTestJob()
             inOrder(backgroundJobManager).apply {
                 verify(backgroundJobManager).scheduleTestJob()
