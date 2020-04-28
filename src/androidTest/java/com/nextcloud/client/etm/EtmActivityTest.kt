@@ -27,6 +27,7 @@ import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
 import com.facebook.testing.screenshot.Screenshot
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
 
@@ -35,6 +36,7 @@ class EtmActivityTest : AbstractIT() {
     var activityRule = IntentsTestRule(EtmActivity::class.java, true, false)
 
     @Test
+    @ScreenshotTest
     fun overview() {
         val sut: Activity = activityRule.launchActivity(null)
 
@@ -44,6 +46,7 @@ class EtmActivityTest : AbstractIT() {
     }
 
     @Test
+    @ScreenshotTest
     fun preferences() {
         val sut: EtmActivity = activityRule.launchActivity(null)
 
@@ -53,6 +56,7 @@ class EtmActivityTest : AbstractIT() {
     }
 
     @Test
+    @ScreenshotTest
     fun accounts() {
         val sut: EtmActivity = activityRule.launchActivity(null)
 

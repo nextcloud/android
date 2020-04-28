@@ -91,7 +91,7 @@ def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
     for (String arg : tr.args) {
         // any gplay, but only exact "build", as e.g. buildGeneric shall not apply gplay.grade
-        if (arg.contains("Gplay") || arg.contains("lint") || arg.contains("executeScreenshot") || arg == "build") {
+        if (arg.contains("Gplay") || arg.contains("lint") || arg.contains("ExecuteScreenshot") || arg == "build") {
             apply from: 'gplay.gradle'
             System.console().println("Applying gplay.gradle")
             break
@@ -101,11 +101,6 @@ for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()
 
 spotbugs {
     toolVersion = '3.1.12'
-}
-
-shot {
-    appId = 'com.nextcloud.client'
-    instrumentationTestTask = 'connectedGplayDebugAndroidTest'
 }
 
 android {

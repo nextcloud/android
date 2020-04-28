@@ -29,7 +29,7 @@ steps:
       - ./gradlew installGplayDebugAndroidTest
       - scripts/wait_for_server.sh "server-stable"
       - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable-IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
-      - ./gradlew executeScreenshotTests || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable-Screenshot" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable-Screenshot" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew combinedTestReport
   - name: notify
     image: drillster/drone-email
@@ -58,6 +58,7 @@ services:
     image: nextcloudci/server:server-17 # also change in updateScreenshots.sh
     commands:
       - BRANCH='stable18' /usr/local/bin/initnc.sh
+      - su www-data -c "echo 127.0.0.1 server >> /etc/hosts"
       - su www-data -c "OC_PASS=user1 php /var/www/html/occ user:add --password-from-env --display-name='User One' user1"
       - su www-data -c "OC_PASS=user2 php /var/www/html/occ user:add --password-from-env --display-name='User Two' user2"
       - su www-data -c "OC_PASS=user3 php /var/www/html/occ user:add --password-from-env --display-name='User Three' user3"
@@ -109,7 +110,7 @@ steps:
       - ./gradlew installGplayDebugAndroidTest
       - scripts/wait_for_server.sh "server-master"
       - ./gradlew createGplayDebugCoverageReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master-IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
-      - ./gradlew executeScreenshotTests || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master-Screenshot" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master-Screenshot" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew combinedTestReport
       - curl -o codecov.sh https://codecov.io/bash
       - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
@@ -140,7 +141,7 @@ services:
     image: nextcloudci/server:server-17 # also change in updateScreenshots.sh
     commands:
       - /usr/local/bin/initnc.sh
-      - su www-data -c "php /var/www/html/occ status"
+      - su www-data -c "echo 127.0.0.1 server >> /etc/hosts"
       - su www-data -c "OC_PASS=user1 php /var/www/html/occ user:add --password-from-env --display-name='User One' user1"
       - su www-data -c "OC_PASS=user2 php /var/www/html/occ user:add --password-from-env --display-name='User Two' user2"
       - su www-data -c "OC_PASS=user3 php /var/www/html/occ user:add --password-from-env --display-name='User Three' user3"

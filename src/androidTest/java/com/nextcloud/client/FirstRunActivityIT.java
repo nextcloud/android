@@ -28,6 +28,7 @@ import android.app.Activity;
 import com.facebook.testing.screenshot.Screenshot;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.owncloud.android.AbstractIT;
+import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -46,6 +47,7 @@ public class FirstRunActivityIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
+    @ScreenshotTest
     public void open() {
         Activity sut = activityRule.launchActivity(null);
 
