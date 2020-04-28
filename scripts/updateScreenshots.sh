@@ -52,6 +52,7 @@ docker exec uiComparison /bin/sh -c "su www-data -c \"cd /var/www/html/apps/circ
 docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ app:enable -f circles\""
 docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ config:app:set circles --value 1 allow_non_ssl_links\""
 docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ config:app:set circles --value 1 local_is_non_ssl\""
+docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ config:system:set allow_local_remote_servers --value true --type bool\""
 docker exec uiComparison /bin/sh -c "su www-data -c \"php /var/www/html/occ circles:manage:create test public publicCircle\""
 docker exec uiComparison /bin/sh -c "/usr/local/bin/run.sh"
 
