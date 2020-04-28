@@ -196,7 +196,7 @@ public class ExtendedListFragment extends Fragment implements
         closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
-        ThemeUtils.themeSearchView(searchView, true, requireContext());
+        ThemeUtils.themeSearchView(searchView, requireContext());
 
         SearchView.SearchAutoComplete theTextArea = searchView.findViewById(R.id.search_src_text);
         theTextArea.setHighlightColor(ThemeUtils.primaryAccentColor(getContext()));

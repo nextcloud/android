@@ -1036,7 +1036,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         newFolderMenuItem.setEnabled(mFile.canWrite());
 
         // hacky as no default way is provided
-        ThemeUtils.themeSearchView(searchView, true, this);
+        ThemeUtils.themeSearchView(searchView, this);
 
         return true;
     }

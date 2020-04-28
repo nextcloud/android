@@ -88,7 +88,7 @@ class LogsActivity : ToolbarActivity() {
         (menu.findItem(R.id.action_search).actionView as SearchView).apply {
             setOnQueryTextListener(searchBoxListener)
 
-            ThemeUtils.themeSearchView(this, true, context)
+            ThemeUtils.themeSearchView(this, context)
         }
         return super.onCreateOptionsMenu(menu)
     }
