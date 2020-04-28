@@ -71,8 +71,7 @@
     <color name="color_dark_transparent">#40162233</color>
 
     <!-- Multiselect backgrounds -->
-    <color name="action_mode_background">#757575</color>
-    <color name="action_mode_status_bar_background">#616161</color>
+    <color name="action_mode_background">@color/fontAppbar</color>
     <color name="selected_item_background">#ECECEC</color>
 
     <color name="drawer_menu_icon">#757575</color>
@@ -85,4 +84,9 @@
     <color name="themed_fg">#FFFFFF</color>
     <color name="themed_fg_inverse">#000000</color>
     <color name="themed_bg">#222222</color>
+
+    <!-- App bar -->
+    <color name="appbar">@android:color/white</color>
+    <color name="fontAppbar">#666666</color>
+    <color name="fontSecondaryAppbar">#A5A5A5</color>
 </resources>

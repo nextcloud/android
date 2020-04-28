@@ -746,31 +746,12 @@ public class SettingsActivity extends ThemedPreferenceActivity
         ActionBar actionBar = getDelegate().getSupportActionBar();
 
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
             ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings), this);
-            actionBar.setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryColor(this)));
+            ThemeUtils.colorStatusBar(this);
+            actionBar.setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryAppbarColor(this)));
 
-            Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow,
-                                                                   ThemeUtils.toolbarTextColor(this)));
-        }
-
-        Window window = getWindow();
-        if (window != null) {
-            window.getDecorView().setBackgroundDrawable(new ColorDrawable(ResourcesCompat
-                    .getColor(getResources(), R.color.bg_default, null)));
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.setStatusBarColor(ThemeUtils.primaryColor(this));
-            }
-
-            // For adding content description tag to a title field in the action bar
-            int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
-            View actionBarTitle = window.getDecorView().findViewById(actionBarTitleId);
-
-            if (actionBarTitle != null) {
-                actionBarTitle.setContentDescription(getString(R.string.actionbar_settings));
-            }
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            ThemeUtils.tintBackButton(actionBar, this);
         }
     }
 

@@ -30,7 +30,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -288,13 +287,13 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
         };
 
-        // proper coloring of drawer menu icon
-        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.toolbarTextColor(this));
-
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerToggle.setDrawerSlideAnimationEnabled(true);
+        Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
+        mDrawerToggle.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.appBarPrimaryFontColor(this)));
+        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.appBarPrimaryFontColor(this));
     }
 
     /**
@@ -775,17 +774,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         super.updateActionBarTitleAndHomeButton(chosenFile);
 
         // set home button properties
-        if (mDrawerToggle != null && chosenFile != null) {
-            if (isRoot(chosenFile)) {
+        if (mDrawerToggle != null) {
+            if (chosenFile != null && isRoot(chosenFile)) {
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
             } else {
                 mDrawerToggle.setDrawerIndicatorEnabled(false);
-                Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-                upArrow.setColorFilter(ThemeUtils.fontColor(this), PorterDuff.Mode.SRC_ATOP);
-                mDrawerToggle.setHomeAsUpIndicator(upArrow);
             }
-        } else if (mDrawerToggle != null) {
-            mDrawerToggle.setDrawerIndicatorEnabled(false);
         }
     }
 

@@ -179,11 +179,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected boolean mOnlyFoldersClickable;
     protected boolean mFileSelectable;
 
-    protected int mSystemBarActionModeColor;
-    protected int mSystemBarColor;
-    protected int mProgressBarActionModeColor;
-    protected int mProgressBarColor;
-
     protected boolean mHideFab = true;
     protected ActionMode mActiveActionMode;
     protected OCFileListFragment.MultiChoiceModeListener mMultiChoiceModeListener;
@@ -209,10 +204,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mSystemBarActionModeColor = getResources().getColor(R.color.action_mode_status_bar_background);
-        mSystemBarColor = ThemeUtils.primaryColor(getContext());
-        mProgressBarActionModeColor = getResources().getColor(R.color.action_mode_background);
-        mProgressBarColor = ThemeUtils.primaryColor(getContext());
         mMultiChoiceModeListener = new MultiChoiceModeListener();
 
         if (savedInstanceState != null) {
@@ -633,9 +624,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             inflater.inflate(R.menu.item_file, menu);
             mode.invalidate();
 
-            //set gray color
-            ThemeUtils.colorStatusBar(getActivity(), mSystemBarActionModeColor);
-            ThemeUtils.colorToolbarProgressBar(getActivity(), mProgressBarActionModeColor);
+            //set actionMode color
+            ThemeUtils.colorStatusBar(getActivity(), ThemeUtils.actionModeColor(requireContext()));
 
             // hide FAB in multi selection mode
             setFabVisible(false);
@@ -690,8 +680,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             // reset to previous color
             final FragmentActivity activity = getActivity();
             if (activity != null) {
-                ThemeUtils.colorStatusBar(activity, mSystemBarColor);
-                ThemeUtils.colorToolbarProgressBar(activity, mProgressBarColor);
+                ThemeUtils.colorStatusBar(activity);
             }
 
             // show FAB on multi selection mode exit
@@ -1571,7 +1560,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                 @Override
                                 public void run() {
                                     if (fileDisplayActivity != null) {
-                                        fileDisplayActivity.setIndeterminate(false);
+                                        fileDisplayActivity.showProgressBar(false);
                                     }
                                 }
                             });

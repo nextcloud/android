@@ -196,7 +196,7 @@ public class ExtendedListFragment extends Fragment implements
         closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
-        ThemeUtils.themeSearchView(searchView, true, requireContext());
+        ThemeUtils.themeSearchView(searchView, requireContext());
 
         SearchView.SearchAutoComplete theTextArea = searchView.findViewById(R.id.search_src_text);
         theTextArea.setHighlightColor(ThemeUtils.primaryAccentColor(getContext()));
@@ -268,17 +268,7 @@ public class ExtendedListFragment extends Fragment implements
             }
         });
 
-        int fontColor = ThemeUtils.fontColor(getContext());
-
         LinearLayout searchBar = searchView.findViewById(R.id.search_bar);
-        TextView searchBadge = searchView.findViewById(R.id.search_badge);
-
-        searchBadge.setTextColor(fontColor);
-        searchBadge.setHintTextColor(fontColor);
-
-        ImageView searchButton = searchView.findViewById(R.id.search_button);
-        searchButton.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_search, fontColor));
-
         searchBar.setLayoutTransition(new LayoutTransition());
     }
 

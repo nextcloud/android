@@ -119,7 +119,7 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
             final ToolbarActivity fileDisplayActivity = (ToolbarActivity) photoFragment.getActivity();
 
             if (fileDisplayActivity != null) {
-                fileDisplayActivity.setIndeterminate(false);
+                fileDisplayActivity.showProgressBar(false);
             }
 
             if (!result.isSuccess() && !isCancelled()) {
