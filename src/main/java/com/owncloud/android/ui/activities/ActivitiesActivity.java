@@ -116,7 +116,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         // setup toolbar
         setupToolbar();
 
-        onCreateSwipeToRefresh(swipeListRefreshLayout);
+        ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
 
         // setup drawer
         setupDrawer(R.id.nav_activity);
@@ -137,15 +137,6 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         emptyContentProgressBar.setVisibility(View.GONE);
         emptyContentMessage.setVisibility(View.INVISIBLE);
         emptyContentHeadline.setVisibility(View.INVISIBLE);
-    }
-
-    protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
-        int primaryColor = ThemeUtils.primaryColor(this);
-        int darkColor = ThemeUtils.primaryDarkColor(this);
-        int accentColor = ThemeUtils.primaryAccentColor(this);
-
-        // Colors in animations
-        refreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
     }
 
     @Override
