@@ -69,6 +69,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.widget.CompoundButtonCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -184,7 +185,12 @@ public final class ThemeUtils {
     }
 
     /**
-     * @return int font color to use adapted from https://github.com/nextcloud/server/blob/master/apps/theming/lib/Util.php#L90-L102
+     * returns the font color based on the server side theming and uses black/white as a fallback based on
+     * replaceWhite.
+     *
+     * @param context      the context
+     * @param replaceWhite FLAG to return white/black if server side color isn't available
+     * @return int font color to use
      */
     public static int fontColor(Context context, boolean replaceWhite) {
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
@@ -427,6 +433,15 @@ public final class ThemeUtils {
         seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 
+    public static void colorSwipeRefreshLayout(Context context, SwipeRefreshLayout swipeRefreshLayout) {
+        int primaryColor = ThemeUtils.primaryColor(context);
+        int darkColor = ThemeUtils.primaryDarkColor(context);
+        int accentColor = ThemeUtils.primaryAccentColor(context);
+
+        swipeRefreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
+        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.bg_elevation_one);
+    }
+
     /**
      * set the Nextcloud standard colors for the snackbar.
      *
@@ -640,6 +655,16 @@ public final class ThemeUtils {
         } else {
             return new OCCapability();
         }
+    }
+
+    public static Drawable setIconColor(Drawable drawable) {
+        int color;
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            color = Color.WHITE;
+        } else {
+            color = Color.BLACK;
+        }
+        return tintDrawable(drawable, color);
     }
 
     /**

@@ -304,7 +304,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
 
         mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toggle);
-        mAccountChooserToggle.setColorFilter(ThemeUtils.fontColor(this, true));
 
         if (getResources().getBoolean(R.bool.allow_profile_click)) {
             mAccountChooserToggle.setImageResource(R.drawable.ic_down);
@@ -1269,12 +1268,10 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Override
     protected void onResume() {
         super.onResume();
-        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
-
-            getDelegate().setLocalNightMode(DarkMode.DARK == preferences.getDarkThemeMode() ?
-                                                AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
-            getDelegate().applyDayNight();
-        }
+        // TODO Check whether dark mode has been changed
+        getDelegate().setLocalNightMode(DarkMode.DARK == preferences.getDarkThemeMode() ?
+                                            AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+        getDelegate().applyDayNight();
         setDrawerMenuItemChecked(mCheckedMenuItem);
     }
 
