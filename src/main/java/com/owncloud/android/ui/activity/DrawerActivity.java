@@ -1268,10 +1268,12 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Override
     protected void onResume() {
         super.onResume();
-        // TODO Check whether dark mode has been changed
-        getDelegate().setLocalNightMode(DarkMode.DARK == preferences.getDarkThemeMode() ?
-                                            AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
-        getDelegate().applyDayNight();
+        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
+
+            getDelegate().setLocalNightMode(DarkMode.DARK == preferences.getDarkThemeMode() ?
+                                                AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+            getDelegate().applyDayNight();
+        }
         setDrawerMenuItemChecked(mCheckedMenuItem);
     }
 
