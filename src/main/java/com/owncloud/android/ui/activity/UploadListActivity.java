@@ -45,6 +45,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
@@ -52,7 +53,6 @@ import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.jobs.FilesSyncJob;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -98,6 +98,9 @@ public class UploadListActivity extends FileActivity {
 
     @Inject
     Clock clock;
+
+    @Inject
+    BackgroundJobManager backgroundJobManager;
 
     private UploadListLayoutBinding binding;
 
@@ -182,19 +185,7 @@ public class UploadListActivity extends FileActivity {
     }
 
     private void refresh() {
-        // scan for missing auto uploads files
-        Set<Job> jobs = JobManager.instance().getAllJobsForTag(FilesSyncJob.TAG);
-
-        if (jobs.isEmpty()) {
-            PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
-            persistableBundleCompat.putBoolean(FilesSyncJob.OVERRIDE_POWER_SAVING, true);
-            new JobRequest.Builder(FilesSyncJob.TAG)
-                .setExact(1_000L)
-                .setUpdateCurrent(false)
-                .setExtras(persistableBundleCompat)
-                .build()
-                .schedule();
-        }
+        backgroundJobManager.startImmediateFilesSyncJob(false, true);
 
         // retry failed uploads
         new Thread(() -> FileUploader.retryFailedUploads(
