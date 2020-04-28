@@ -65,7 +65,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      */
     protected void setupToolbar(boolean useBackgroundImage) {
         int primaryColor = ThemeUtils.primaryColor(this, false);
-        int fontColor = ThemeUtils.fontColor(this, !ThemeUtils.darkTheme(getApplicationContext()));
+        int toolbarTextColor = ThemeUtils.toolbarTextColor(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -86,11 +86,11 @@ public abstract class ToolbarActivity extends BaseActivity {
         ThemeUtils.colorStatusBar(this, primaryColor);
 
         if (toolbar.getOverflowIcon() != null) {
-            ThemeUtils.tintDrawable(toolbar.getOverflowIcon(), fontColor);
+            ThemeUtils.tintDrawable(toolbar.getOverflowIcon(), toolbarTextColor);
         }
 
         if (toolbar.getNavigationIcon() != null) {
-            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), fontColor);
+            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), toolbarTextColor);
         }
 
         if (!useBackgroundImage) {

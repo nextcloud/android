@@ -466,6 +466,11 @@
     <string name="pref_behaviour_entries_delete_file">slettet</string>
     <string name="pref_behaviour_entries_keep_file">beholdt i opprinnelig mappe</string>
     <string name="pref_behaviour_entries_move">flyttet til app-mappe</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Hva skal gjøres om filen finnes?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Spør hver gang</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Skriv over versjon på tjener</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Endre navn på ny versjon</string>
+    <string name="pref_instant_name_collision_policy_title">Hva skal gjøres om filen finnes?</string>
     <string name="prefs_add_account">Legg til en konto</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Adresse til server kan ikke nås for DAVx5 (tidligere DAVdroid)</string>
@@ -490,6 +495,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Lagre filer i undermapper basert på år og måned</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Bruk undermapper</string>
     <string name="prefs_license">Lisens</string>
+    <string name="prefs_lock">App tilgangskode</string>
     <string name="prefs_lock_device_credentials_enabled">Enhetens legitimasjon er aktivert</string>
     <string name="prefs_lock_device_credentials_not_setup">Ingen legitimasjon for enhet er satt opp.</string>
     <string name="prefs_lock_none">Ingen</string>
@@ -538,7 +544,9 @@
     <string name="saml_authentication_wrong_pass">Feil passord</string>
     <string name="scanQR_description">Legg inn med QR-kode</string>
     <string name="screenshot_01_gridView_heading">Beskytter din data</string>
+    <string name="screenshot_01_gridView_subline">produktivitet på egen tjener</string>
     <string name="screenshot_02_listView_heading">Bla gjennom og del</string>
+    <string name="screenshot_03_drawer_heading">Aktivitet, delinger...</string>
     <string name="screenshot_04_accounts_heading">Alle kontoene dine</string>
     <string name="screenshot_04_accounts_subline">på et plass</string>
     <string name="screenshot_05_autoUpload_heading">Automatisk opplastning</string>

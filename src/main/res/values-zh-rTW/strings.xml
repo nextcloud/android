@@ -142,6 +142,8 @@
     <string name="confirmation_remove_folders_alert">您真的想要刪除所選項目和裡面的內容嗎？</string>
     <string name="confirmation_remove_local">只有本地</string>
     <string name="conflict_already_existing_file">檔案已存在</string>
+    <string name="conflict_dialog_error">建立衝突訊息時發生錯誤！</string>
+    <string name="conflict_message_description">若您同時選擇兩個版本，本地的檔案會在檔名後附加編號。</string>
     <string name="conflict_message_headline">您要保留哪一個檔案？</string>
     <string name="conflict_new_file">新增檔案</string>
     <string name="contaclist_restore_selected">還原所選的聯絡人</string>
@@ -259,6 +261,7 @@
     <string name="etm_background_job_progress">進度</string>
     <string name="etm_background_job_started">開始於</string>
     <string name="etm_background_job_state">狀態</string>
+    <string name="etm_background_job_user">使用者</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">背景工作</string>
     <string name="etm_background_jobs_cancel_all">取消所有作業</string>

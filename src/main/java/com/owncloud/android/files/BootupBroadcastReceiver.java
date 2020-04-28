@@ -32,6 +32,7 @@ import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -49,6 +50,7 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
 
     private static final String TAG = BootupBroadcastReceiver.class.getSimpleName();
 
+    @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject UploadsStorageManager uploadsStorageManager;
     @Inject ConnectivityService connectivityService;
@@ -67,7 +69,8 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
         AndroidInjection.inject(this, context);
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            MainApp.initSyncOperations(uploadsStorageManager,
+            MainApp.initSyncOperations(preferences,
+                                       uploadsStorageManager,
                                        accountManager,
                                        connectivityService,
                                        powerManagementService,

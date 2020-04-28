@@ -478,6 +478,11 @@
     <string name="pref_behaviour_entries_delete_file">törölt</string>
     <string name="pref_behaviour_entries_keep_file">megtartva az eredeti mappában</string>
     <string name="pref_behaviour_entries_move">áthelyezve az alkalmazásmappába</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Mit tegyen, ha a fájl már létezik?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Kérdezzen rá mindig</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Távoli verzió felülírása</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Új verzió átnevezése</string>
+    <string name="pref_instant_name_collision_policy_title">Mit tegyen, ha a fájl már létezik?</string>
     <string name="prefs_add_account">Fiók hozzáadása</string>
     <string name="prefs_calendar_contacts">Naptár és névjegyek szinkronizálása</string>
     <string name="prefs_calendar_contacts_address_resolve_error">A fiók kiszolgálócíme nem oldható fel a DAVx5 (régi nevén DAVdroid) számára</string>

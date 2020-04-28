@@ -28,7 +28,7 @@
     <color name="drawer_text_color">@color/secondary_text_color</color>
     <color name="text_color_inverse">#ffffff</color>
     <color name="disabled_text">#ff888888</color>
-    <color name="list_divider_background">#eee</color>
+    <color name="list_divider_background">#eeeeee</color>
     <color name="fg_contrast">#656565</color>
     <color name="fg_inverse">#FFFFFF</color>
     <color name="filelist_icon_background">#DDDDDD</color>
@@ -53,6 +53,7 @@
     <color name="login_btn_tint">#ffffff</color>
     <color name="login_btn_stroke">#ffffff</color>
     <color name="bg_default">#FFFFFF</color>
+    <color name="bg_elevation_one">#FFFFFF</color>
     <color name="background_color_inverse">#000000</color>
     <color name="primary_button_background_color">@color/color_accent</color>
     <color name="primary_button_text_color">#ffffff</color>
@@ -64,8 +65,6 @@
     <color name="drawer_shadow">#000000</color>
 
     <color name="background_color_png">#FFFFFF</color>
-
-    <color name="uploader_list_separator_color">#ededed</color>
 
     <!-- special transparent action bar colors for image preview -->
     <color name="color_transparent">#201D2D44</color>
