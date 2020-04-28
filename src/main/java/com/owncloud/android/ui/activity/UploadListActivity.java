@@ -164,6 +164,7 @@ public class UploadListActivity extends FileActivity {
         binding.list.setLayoutManager(lm);
         binding.list.setAdapter(uploadListAdapter);
 
+        ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
         swipeListRefreshLayout.setOnRefreshListener(this::refresh);
 
         loadItems();

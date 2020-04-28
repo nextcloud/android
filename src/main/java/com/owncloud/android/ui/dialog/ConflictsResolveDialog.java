@@ -27,7 +27,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +50,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -151,8 +151,11 @@ public class ConflictsResolveDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.conflict_resolve_dialog, null);
         int accentColor = ThemeUtils.primaryAccentColor(getContext());
 
-        CheckBox newFileCheckbox = view.findViewById(R.id.new_checkbox);
-        CheckBox existingFileCheckbox = view.findViewById(R.id.existing_checkbox);
+        AppCompatCheckBox newFileCheckbox = view.findViewById(R.id.new_checkbox);
+        AppCompatCheckBox existingFileCheckbox = view.findViewById(R.id.existing_checkbox);
+
+        ThemeUtils.tintCheckbox(newFileCheckbox, ThemeUtils.primaryColor(getContext()));
+        ThemeUtils.tintCheckbox(existingFileCheckbox, ThemeUtils.primaryColor(getContext()));
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

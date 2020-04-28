@@ -71,6 +71,7 @@ import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.widget.CompoundButtonCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -187,8 +188,11 @@ public final class ThemeUtils {
     }
 
     /**
+     * returns the font color based on the server side theming and uses black/white as a fallback based on replaceWhite.
+     *
+     * @param context the context
+     * @param replaceWhite FLAG to return white/black if server side color isn't available
      * @return int font color to use
-     * adapted from https://github.com/nextcloud/server/blob/master/apps/theming/lib/Util.php#L90-L102
      */
     public static int fontColor(Context context, boolean replaceWhite) {
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
@@ -199,6 +203,10 @@ public final class ThemeUtils {
             }
         }
 
+        return toolbarTextColor(context);
+    }
+
+    public static int toolbarTextColor(Context context) {
         try {
             return Color.parseColor(getCapability(context).getServerTextColor());
         } catch (Exception e) {
@@ -248,7 +256,7 @@ public final class ThemeUtils {
                 actionBar.setTitle(title);
             } else {
                 Spannable text = new SpannableString(title);
-                text.setSpan(new ForegroundColorSpan(fontColor(context, !darkTheme(context))),
+                text.setSpan(new ForegroundColorSpan(toolbarTextColor(context)),
                              0,
                              text.length(),
                              Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -412,6 +420,15 @@ public final class ThemeUtils {
 
         colorHorizontalProgressBar(seekBar, color);
         seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    }
+
+    public static void colorSwipeRefreshLayout(Context context, SwipeRefreshLayout swipeRefreshLayout) {
+        int primaryColor = ThemeUtils.primaryColor(context);
+        int darkColor = ThemeUtils.primaryDarkColor(context);
+        int accentColor = ThemeUtils.primaryAccentColor(context);
+
+        swipeRefreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
+        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.bg_elevation_one);
     }
 
     /**
@@ -602,7 +619,7 @@ public final class ThemeUtils {
             drawable, Context context) {
         button.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(context)));
         button.setRippleColor(ThemeUtils.primaryDarkColor(context));
-        button.setImageDrawable(ThemeUtils.tintDrawable(drawable, ThemeUtils.fontColor(context)));
+        button.setImageDrawable(ThemeUtils.tintDrawable(drawable, ThemeUtils.toolbarTextColor(context)));
     }
 
     private static OCCapability getCapability(Context context) {
@@ -625,6 +642,14 @@ public final class ThemeUtils {
         } else {
             return new OCCapability();
         }
+    }
+
+    public static Drawable setIconColor(Drawable drawable) {
+        int color = Color.BLACK;
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            color = Color.WHITE;
+        }
+        return tintDrawable(drawable, color);
     }
 
     /**
