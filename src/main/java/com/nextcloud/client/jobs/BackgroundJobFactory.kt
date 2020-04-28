@@ -32,26 +32,31 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.logger.Logger
+import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.UploadsStorageManager
 import javax.inject.Inject
 import javax.inject.Provider
 
 /**
- * This factory is responsible for creating all background jobs and for injecting job dependencies.
+ * This factory is responsible for creating all background jobs and for injecting worker dependencies.
  */
+@Suppress("LongParameterList") // satisfied by DI
 class BackgroundJobFactory @Inject constructor(
     private val logger: Logger,
     private val preferences: AppPreferences,
     private val contentResolver: ContentResolver,
     private val clock: Clock,
-    private val powerManagerService: PowerManagementService,
+    private val powerManagementService: PowerManagementService,
     private val backgroundJobManager: Provider<BackgroundJobManager>,
     private val deviceInfo: DeviceInfo,
     private val accountManager: UserAccountManager,
     private val resources: Resources,
-    private val dataProvider: ArbitraryDataProvider
+    private val dataProvider: ArbitraryDataProvider,
+    private val uploadsStorageManager: UploadsStorageManager,
+    private val connectivityService: ConnectivityService
 ) : WorkerFactory() {
 
     override fun createWorker(
@@ -70,7 +75,10 @@ class BackgroundJobFactory @Inject constructor(
             ContentObserverWork::class -> createContentObserverJob(context, workerParameters, clock)
             ContactsBackupWork::class -> createContactsBackupWork(context, workerParameters)
             ContactsImportWork::class -> createContactsImportWork(context, workerParameters)
-            else -> null // falls back to default factory
+            FilesSyncWork::class -> createFilesSyncWork(context, workerParameters)
+            OfflineSyncWork::class -> createOfflineSyncWork(context, workerParameters)
+            MediaFoldersDetectionWork::class -> createMediaFoldersDetectionWork(context, workerParameters)
+            else -> null // caller falls back to default factory
         }
     }
 
@@ -86,7 +94,7 @@ class BackgroundJobFactory @Inject constructor(
                 context,
                 workerParameters,
                 folderResolver,
-                powerManagerService,
+                powerManagementService,
                 backgroundJobManager.get()
             )
         } else {
@@ -111,6 +119,45 @@ class BackgroundJobFactory @Inject constructor(
             params,
             logger,
             contentResolver
+        )
+    }
+
+    private fun createFilesSyncWork(context: Context, params: WorkerParameters): FilesSyncWork {
+        return FilesSyncWork(
+            context = context,
+            params = params,
+            resources = resources,
+            contentResolver = contentResolver,
+            userAccountManager = accountManager,
+            preferences = preferences,
+            uploadsStorageManager = uploadsStorageManager,
+            connectivityService = connectivityService,
+            powerManagementService = powerManagementService,
+            clock = clock,
+            backgroundJobManager = backgroundJobManager.get()
+        )
+    }
+
+    private fun createOfflineSyncWork(context: Context, params: WorkerParameters): OfflineSyncWork {
+        return OfflineSyncWork(
+            context = context,
+            params = params,
+            contentResolver = contentResolver,
+            userAccountManager = accountManager,
+            connectivityService = connectivityService,
+            powerManagementService = powerManagementService
+        )
+    }
+
+    private fun createMediaFoldersDetectionWork(context: Context, params: WorkerParameters): MediaFoldersDetectionWork {
+        return MediaFoldersDetectionWork(
+            context,
+            params,
+            resources,
+            contentResolver,
+            accountManager,
+            preferences,
+            clock
         )
     }
 }

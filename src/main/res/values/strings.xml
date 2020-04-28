@@ -895,6 +895,7 @@
     <string name="etm_background_jobs_cancel_all">Cancel all jobs</string>
     <string name="etm_background_jobs_prune">Prune inactive jobs</string>
     <string name="etm_background_jobs_start_test_job">Start test job</string>
+    <string name="etm_background_jobs_schedule_test_job">Schedule test job</string>
     <string name="etm_background_jobs_stop_test_job">Stop test job</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_job_name">Job name</string>
