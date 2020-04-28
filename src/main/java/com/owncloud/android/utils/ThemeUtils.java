@@ -219,9 +219,10 @@ public final class ThemeUtils {
     /**
      * Tests if light color is set
      *
+     * @param color the color
      * @return true if primaryColor is lighter than MAX_LIGHTNESS
      */
-    public static boolean lightTheme(Context context, int color) {
+    public static boolean lightTheme(int color) {
         float[] hsl = colorToHSL(color);
 
         return hsl[INDEX_LUMINATION] >= MAX_LIGHTNESS;
@@ -243,11 +244,11 @@ public final class ThemeUtils {
         return ContextCompat.getColor(context, R.color.appbar);
     }
 
-    public static int fontAppbarColor(Context context) {
+    public static int appBarPrimaryFontColor(Context context) {
         return ContextCompat.getColor(context, R.color.fontAppbar);
     }
 
-    public static int fontSecondaryAppbar(Context context) {
+    public static int appBarSecondaryFontColor(Context context) {
         return ContextCompat.getColor(context, R.color.fontSecondaryAppbar);
     }
 
@@ -267,7 +268,7 @@ public final class ThemeUtils {
                 actionBar.setTitle(title);
             } else {
                 Spannable text = new SpannableString(title);
-                text.setSpan(new ForegroundColorSpan(fontAppbarColor(context)),
+                text.setSpan(new ForegroundColorSpan(appBarPrimaryFontColor(context)),
                              0,
                              text.length(),
                              Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -292,7 +293,7 @@ public final class ThemeUtils {
                 actionBar.setSubtitle(title);
             } else {
                 Spannable text = new SpannableString(title);
-                text.setSpan(new ForegroundColorSpan(fontSecondaryAppbar(context)),
+                text.setSpan(new ForegroundColorSpan(appBarSecondaryFontColor(context)),
                              0,
                              text.length(),
                              Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -313,7 +314,7 @@ public final class ThemeUtils {
         }
 
         Drawable backArrow = context.getResources().getDrawable(R.drawable.ic_arrow_back);
-        supportActionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontAppbarColor(context)));
+        supportActionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.appBarPrimaryFontColor(context)));
     }
 
     public static Spanned getColoredTitle(String title, int color) {
@@ -461,7 +462,7 @@ public final class ThemeUtils {
      */
     public static void colorStatusBar(Activity fragmentActivity, @ColorInt int color) {
         Window window = fragmentActivity.getWindow();
-        boolean isLightTheme = lightTheme(fragmentActivity.getApplicationContext(), color);
+        boolean isLightTheme = lightTheme(color);
         if (window != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(color);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -555,10 +556,10 @@ public final class ThemeUtils {
      */
     public static void themeSearchView(SearchView searchView, boolean themedBackground, Context context) {
         // hacky as no default way is provided
-        int fontColor = fontAppbarColor(context);
+        int fontColor = appBarPrimaryFontColor(context);
         SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
         setEditTextColor(context, editText, fontColor);
-        editText.setHintTextColor(fontSecondaryAppbar(context));
+        editText.setHintTextColor(appBarSecondaryFontColor(context));
 
         ImageView closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         closeButton.setColorFilter(fontColor);

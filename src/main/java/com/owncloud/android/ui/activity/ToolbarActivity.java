@@ -63,7 +63,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      */
     protected void setupToolbar(boolean useBackgroundImage) {
         int primaryColor = ThemeUtils.primaryAppbarColor(this);
-        int fontColor = ThemeUtils.fontAppbarColor(this);
+        int fontColor = ThemeUtils.appBarPrimaryFontColor(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
