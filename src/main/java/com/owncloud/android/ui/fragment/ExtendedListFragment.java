@@ -371,7 +371,8 @@ public class ExtendedListFragment extends Fragment implements
 
         // Pull-down to refresh layout
         mRefreshListLayout = v.findViewById(R.id.swipe_containing_list);
-        onCreateSwipeToRefresh(mRefreshListLayout);
+        ThemeUtils.colorSwipeRefreshLayout(getContext(), mRefreshListLayout);
+        mRefreshListLayout.setOnRefreshListener(this);
 
         mFabMain = v.findViewById(R.id.fab_main);
         ThemeUtils.tintFloatingActionButton(mFabMain, R.drawable.ic_plus, getContext());
@@ -761,17 +762,6 @@ public class ExtendedListFragment extends Fragment implements
      */
     public String getEmptyViewText() {
         return (mEmptyListContainer != null && mEmptyListMessage != null) ? mEmptyListMessage.getText().toString() : "";
-    }
-
-    protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
-        int primaryColor = ThemeUtils.primaryColor(getContext());
-        int darkColor = ThemeUtils.primaryDarkColor(getContext());
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
-
-        // Colors in animations
-        // TODO change this to use darker and lighter color, again.
-        refreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
-        refreshLayout.setOnRefreshListener(this);
     }
 
     @Override

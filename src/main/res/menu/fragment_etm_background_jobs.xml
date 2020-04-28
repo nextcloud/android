@@ -43,6 +43,12 @@
         android:showAsAction="never" />
 
     <item
+        android:id="@+id/etm_background_jobs_schedule_test"
+        android:title="@string/etm_background_jobs_schedule_test_job"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
         android:id="@+id/etm_background_jobs_cancel_test"
         android:title="@string/etm_background_jobs_stop_test_job"
         app:showAsAction="never"

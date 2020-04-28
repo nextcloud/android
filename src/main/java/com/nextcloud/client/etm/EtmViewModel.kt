@@ -39,6 +39,7 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.common.accounts.AccountUtils
 import javax.inject.Inject
 
+@Suppress("LongParameterList") // Dependencies Injection
 class EtmViewModel @Inject constructor(
     private val defaultPreferences: SharedPreferences,
     private val platformAccountManager: AccountManager,
@@ -158,8 +159,12 @@ class EtmViewModel @Inject constructor(
         backgroundJobManager.cancelAllJobs()
     }
 
-    fun startTestJob() {
-        backgroundJobManager.scheduleTestJob()
+    fun startTestJob(periodic: Boolean) {
+        if (periodic) {
+            backgroundJobManager.scheduleTestJob()
+        } else {
+            backgroundJobManager.startImmediateTestJob()
+        }
     }
 
     fun cancelTestJob() {
