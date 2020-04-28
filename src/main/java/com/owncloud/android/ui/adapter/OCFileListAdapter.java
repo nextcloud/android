@@ -442,7 +442,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             } else if (sharee.getShareType().equals(ShareType.CIRCLE)) {
                                 avatar.setImageResource(R.drawable.ic_circles);
                                 ThemeUtils.setIconColor(avatar.getDrawable());
-
                             } else if (sharee.getUserId().contains("@")) {
                                 showFederatedShareAvatar(sharee.getUserId(), avatarRadius, resources, avatar);
                             } else {

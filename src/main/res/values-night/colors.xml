@@ -32,8 +32,8 @@
     <color name="bg_elevation_one">#2D2D2D</color>
 
     <!-- Multiselect backgrounds -->
-    <color name="action_mode_status_bar_background">#ECECEC</color>
-    <color name="selected_item_background">#757575</color>
+    <color name="action_mode_background">@color/appbar</color>
+    <color name="selected_item_background">#373535</color>
 
     <color name="filelist_icon_background">#222222</color>
 
@@ -42,4 +42,8 @@
     <color name="switch_thumb_color_unchecked">#2a2a2a</color>
     <color name="switch_track_color_unchecked">#B3FFFFFF</color>
     <color name="drawer_active_item_background">@color/white</color>
+
+    <!-- App bar -->
+    <color name="appbar">#1E1E1E</color>
+    <color name="fontAppbar">@android:color/white</color>
 </resources>
