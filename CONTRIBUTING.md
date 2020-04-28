@@ -272,7 +272,7 @@ Source code of app:
 
 #### UI tests
 We use [shot](https://github.com/Karumi/Shot) for taking screenshots and compare them 
-- check screenshots: ```./gradlew executeScreenshotTests ```
+- check screenshots: ```./gradlew gplayDebugExecuteScreenshotTests ```
 - update/generate new screenshots: ```scripts/updateScreenshots.sh ``` 
     - in this script are samples how to only execute a given class/test
     - this will fire up docker & emulator to ensure that screenshots look the same
