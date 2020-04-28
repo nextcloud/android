@@ -3,8 +3,10 @@
  *
  * @author Andy Scherzinger
  * @author Chris Narkiewicz  <hello@ezaquarii.com>
+ * @author Chawki Chouib  <chouibc@gmail.com>
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chawki Chouib  <chouibc@gmail.com>
  * <p/>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -70,6 +72,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -123,6 +126,17 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         recyclerView = findViewById(R.id.account_list);
 
         setupToolbar();
+
+        // set the back button from action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // check if is not null
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+
+        // set title Action bar
         updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.prefs_manage_accounts));
 
         List<User> users = accountManager.getAllUsers();
