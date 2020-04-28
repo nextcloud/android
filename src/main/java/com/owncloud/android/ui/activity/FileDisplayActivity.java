@@ -2227,7 +2227,7 @@ public class FileDisplayActivity extends FileActivity
                                         null
                                 );
 
-                                showProgressBar(true);//okkk
+                                showProgressBar(true);
 
                                 setBackgroundText();
 
