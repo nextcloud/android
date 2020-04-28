@@ -551,10 +551,9 @@ public final class ThemeUtils {
      * Theme search view
      *
      * @param searchView       searchView to be changed
-     * @param themedBackground true if background is themed, e.g. on action bar; false if background is white
      * @param context          the app's context
      */
-    public static void themeSearchView(SearchView searchView, boolean themedBackground, Context context) {
+    public static void themeSearchView(SearchView searchView, Context context) {
         // hacky as no default way is provided
         int fontColor = appBarPrimaryFontColor(context);
         SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
