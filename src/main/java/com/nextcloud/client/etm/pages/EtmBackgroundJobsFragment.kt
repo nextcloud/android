@@ -130,7 +130,10 @@ class EtmBackgroundJobsFragment : EtmBaseFragment() {
                 vm.pruneJobs(); true
             }
             R.id.etm_background_jobs_start_test -> {
-                vm.startTestJob(); true
+                vm.startTestJob(periodic = false); true
+            }
+            R.id.etm_background_jobs_schedule_test -> {
+                vm.startTestJob(periodic = true); true
             }
             R.id.etm_background_jobs_cancel_test -> {
                 vm.cancelTestJob(); true

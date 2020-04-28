@@ -30,10 +30,7 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
-import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -48,10 +45,7 @@ public class NCJobCreator implements JobCreator {
 
     private final Context context;
     private final UserAccountManager accountManager;
-    private final AppPreferences preferences;
     private final UploadsStorageManager uploadsStorageManager;
-    private final ConnectivityService connectivityService;
-    private final PowerManagementService powerManagementService;
     private final Clock clock;
     private final EventBus eventBus;
     private final BackgroundJobManager backgroundJobManager;
@@ -59,20 +53,14 @@ public class NCJobCreator implements JobCreator {
     public NCJobCreator(
         Context context,
         UserAccountManager accountManager,
-        AppPreferences preferences,
         UploadsStorageManager uploadsStorageManager,
-        ConnectivityService connectivityServices,
-        PowerManagementService powerManagementService,
         Clock clock,
         EventBus eventBus,
         BackgroundJobManager backgroundJobManager
     ) {
         this.context = context;
         this.accountManager = accountManager;
-        this.preferences = preferences;
         this.uploadsStorageManager = uploadsStorageManager;
-        this.connectivityService = connectivityServices;
-        this.powerManagementService = powerManagementService;
         this.clock = clock;
         this.eventBus = eventBus;
         this.backgroundJobManager = backgroundJobManager;
@@ -87,19 +75,8 @@ public class NCJobCreator implements JobCreator {
                                              backgroundJobManager,
                                              clock,
                                              eventBus);
-            case FilesSyncJob.TAG:
-                return new FilesSyncJob(accountManager,
-                                        preferences,
-                                        uploadsStorageManager,
-                                        connectivityService,
-                                        powerManagementService,
-                                        clock);
-            case OfflineSyncJob.TAG:
-                return new OfflineSyncJob(accountManager, connectivityService, powerManagementService);
             case NotificationJob.TAG:
                 return new NotificationJob(context, accountManager);
-            case MediaFoldersDetectionJob.TAG:
-                return new MediaFoldersDetectionJob(accountManager, clock);
             default:
                 return null;
         }
