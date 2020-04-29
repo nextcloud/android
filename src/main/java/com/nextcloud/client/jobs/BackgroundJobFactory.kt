@@ -19,6 +19,7 @@
  */
 package com.nextcloud.client.jobs
 
+import android.app.NotificationManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Resources
@@ -56,7 +57,8 @@ class BackgroundJobFactory @Inject constructor(
     private val resources: Resources,
     private val dataProvider: ArbitraryDataProvider,
     private val uploadsStorageManager: UploadsStorageManager,
-    private val connectivityService: ConnectivityService
+    private val connectivityService: ConnectivityService,
+    private val notificationManager: NotificationManager
 ) : WorkerFactory() {
 
     override fun createWorker(
@@ -78,6 +80,7 @@ class BackgroundJobFactory @Inject constructor(
             FilesSyncWork::class -> createFilesSyncWork(context, workerParameters)
             OfflineSyncWork::class -> createOfflineSyncWork(context, workerParameters)
             MediaFoldersDetectionWork::class -> createMediaFoldersDetectionWork(context, workerParameters)
+            NotificationWork::class -> createNotificationWork(context, workerParameters)
             else -> null // caller falls back to default factory
         }
     }
@@ -159,5 +162,14 @@ class BackgroundJobFactory @Inject constructor(
             preferences,
             clock
         )
+    }
+
+    private fun createNotificationWork(context: Context, params: WorkerParameters): NotificationWork {
+        return NotificationWork(
+            context,
+            params,
+            notificationManager,
+            accountManager
+            )
     }
 }
