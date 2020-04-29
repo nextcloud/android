@@ -4,6 +4,7 @@
  * @author Andy Scherzinger
  * Copyright (C) 2016 Andy Scherzinger
  * Copyright (C) 2016 Nextcloud
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -49,6 +50,7 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.jobs.MediaFoldersDetectionWork;
+import com.nextcloud.client.jobs.NotificationWork;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.BuildConfig;
@@ -63,7 +65,6 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.jobs.NotificationJob;
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
@@ -155,7 +156,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         ButterKnife.bind(this);
 
         if (getIntent() != null && getIntent().getExtras() != null) {
-            final String accountName = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT);
+            final String accountName = getIntent().getExtras().getString(NotificationWork.KEY_NOTIFICATION_ACCOUNT);
             Optional<User> optionalUser = getUser();
             if (optionalUser.isPresent() && accountName != null) {
                 User user = optionalUser.get();

@@ -97,6 +97,8 @@ interface BackgroundJobManager {
     fun scheduleMediaFoldersDetectionJob()
     fun startMediaFoldersDetectionJob()
 
+    fun startNotificationJob(subject: String, signature: String)
+
     fun scheduleTestJob()
     fun startImmediateTestJob()
     fun cancelTestJob()
