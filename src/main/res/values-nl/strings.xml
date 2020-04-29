@@ -152,7 +152,7 @@
     <string name="contactlist_no_permission">Geen permissies, niets geïnporteerd!</string>
     <string name="contacts_automatic_backup">Automatische backup</string>
     <string name="contacts_backup_button">Maak nu een backup</string>
-    <string name="contacts_last_backup">Laatsts backup</string>
+    <string name="contacts_last_backup">Laatste backup</string>
     <string name="contacts_preference_backup_never">nooit</string>
     <string name="contacts_preference_choose_date">Kies datum</string>
     <string name="contacts_preferences_backup_scheduled">Backup ingepland en zal zo starten</string>

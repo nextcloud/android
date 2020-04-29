@@ -780,15 +780,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
                         ThemeUtils.primaryColor(getAccount(), false, this)));
             }
 
-            ThemeUtils.colorStatusBar(this, ThemeUtils.primaryColor(getAccount(), false, this));
+            ThemeUtils.colorStatusBar(this);
 
-            ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(getAccount(), false, this));
-
-            Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-
-            if (actionBar != null) {
-                actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this)));
-            }
+            ThemeUtils.tintBackButton(actionBar, this);
 
             Button btnNewFolder = findViewById(R.id.uploader_cancel);
             btnNewFolder.setTextColor(ThemeUtils.primaryColor(this, true));
@@ -1042,7 +1036,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         newFolderMenuItem.setEnabled(mFile.canWrite());
 
         // hacky as no default way is provided
-        ThemeUtils.themeSearchView(searchView, true, this);
+        ThemeUtils.themeSearchView(searchView, this);
 
         return true;
     }

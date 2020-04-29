@@ -18,18 +18,14 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- General ownCloud app style -->
-    <style name="Theme.ownCloud" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="android:textColorSecondary">@color/secondary_text_color</item>
-        <item name="colorSecondary">@color/secondary_text_color</item>
+    <style name="Theme.ownCloud" parent="BaseTheme.ownCloud">
+        <item name="android:actionModeBackground">@color/action_mode_background</item>
         <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
     </style>
 
-    <style name="FallbackThemingTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase">
+        <item name="android:actionModeBackground">@color/action_mode_background</item>
         <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
-        <item name="android:textColor">@color/text_color</item>
-        <item name="android:textColorSecondary">@color/secondary_text_color</item>
-        <item name="colorSecondary">@color/secondary_text_color</item>
-        <item name="android:alertDialogTheme">@style/FallbackTheming.Dialog</item>
     </style>
 
     <style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
@@ -55,18 +51,9 @@
         <item name="android:windowBackground">@color/bg_default</item>
     </style>
 
-    <style name="Theme.ownCloud.Toolbar">
+    <style name="Theme.ownCloud.Toolbar" parent="BaseTheme.ownCloud.Toolbar">
+        <item name="android:actionModeBackground">@color/action_mode_background</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/color_accent</item>
-        <item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
-        <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
-        <item name="searchViewStyle">@style/ownCloud.SearchView</item>
-        <item name="windowActionModeOverlay">true</item>
-        <item name="android:windowBackground">@color/bg_default</item>
     </style>
 
     <style name="Theme.ownCloud.Toolbar.Drawer">

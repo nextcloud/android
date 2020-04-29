@@ -478,6 +478,7 @@
     <string name="pref_behaviour_entries_delete_file">已删除</string>
     <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">每次问我</string>
     <string name="prefs_add_account">添加账号</string>
     <string name="prefs_calendar_contacts">同步日历和联系人</string>
     <string name="prefs_calendar_contacts_address_resolve_error">DAVx5（前身为 DAVdroid）无法解析该账号的服务器地址</string>

@@ -245,7 +245,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             FileDetailSharingFragmentHelper.setupSearchView(
                 (SearchManager) fileDisplayActivity.getSystemService(Context.SEARCH_SERVICE), searchView,
                 fileDisplayActivity.getComponentName());
-            ThemeUtils.themeSearchView(searchView, false, requireContext());
+            ThemeUtils.themeSearchView(searchView, requireContext());
         } else {
             searchView.setVisibility(View.GONE);
             shareByLinkContainer.setVisibility(View.GONE);

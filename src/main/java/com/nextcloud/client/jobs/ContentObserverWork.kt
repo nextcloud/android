@@ -24,12 +24,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.evernote.android.job.JobRequest
-import com.evernote.android.job.util.support.PersistableBundleCompat
 import com.nextcloud.client.device.PowerManagementService
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.jobs.FilesSyncJob
-import com.owncloud.android.jobs.MediaFoldersDetectionJob
 
 /**
  * This work is triggered when OS detects change in media folders.
@@ -50,7 +46,7 @@ class ContentObserverWork(
     override fun doWork(): Result {
         if (params.triggeredContentUris.size > 0) {
             checkAndStartFileSyncJob()
-            startMediaFolderDetectionJob()
+            backgroundJobManager.startMediaFoldersDetectionJob()
         }
         recheduleSelf()
         return Result.success()
@@ -63,23 +59,7 @@ class ContentObserverWork(
     private fun checkAndStartFileSyncJob() {
         val syncFolders = syncerFolderProvider.countEnabledSyncedFolders() > 0
         if (!powerManagementService.isPowerSavingEnabled && syncFolders) {
-            val persistableBundleCompat = PersistableBundleCompat()
-            persistableBundleCompat.putBoolean(FilesSyncJob.SKIP_CUSTOM, true)
-
-            JobRequest.Builder(FilesSyncJob.TAG)
-                .startNow()
-                .setExtras(persistableBundleCompat)
-                .setUpdateCurrent(false)
-                .build()
-                .schedule()
+            backgroundJobManager.startImmediateFilesSyncJob(true, false)
         }
-    }
-
-    private fun startMediaFolderDetectionJob() {
-        JobRequest.Builder(MediaFoldersDetectionJob.TAG)
-            .startNow()
-            .setUpdateCurrent(false)
-            .build()
-            .schedule()
     }
 }
