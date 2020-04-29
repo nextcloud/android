@@ -3,6 +3,7 @@
  *
  * @author Mario Danic
  * Copyright (C) 2017 Mario Danic
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,15 +22,16 @@ package com.owncloud.android.services.firebase;
 
 import android.text.TextUtils;
 
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.NotificationWork;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
-import com.owncloud.android.jobs.NotificationJob;
 import com.owncloud.android.utils.PushUtils;
+
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -39,6 +41,7 @@ import dagger.android.AndroidInjection;
 public class NCFirebaseMessagingService extends FirebaseMessagingService {
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
+    @Inject BackgroundJobManager backgroundJobManager;
 
     @Override
     public void onCreate() {
@@ -48,18 +51,12 @@ public class NCFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-        remoteMessage.getData();
-        PersistableBundleCompat persistableBundleCompat = new PersistableBundleCompat();
-        persistableBundleCompat.putString(NotificationJob.KEY_NOTIFICATION_SUBJECT, remoteMessage.getData().get
-            (NotificationJob.KEY_NOTIFICATION_SUBJECT));
-        persistableBundleCompat.putString(NotificationJob.KEY_NOTIFICATION_SIGNATURE, remoteMessage.getData().get
-            (NotificationJob.KEY_NOTIFICATION_SIGNATURE));
-        new JobRequest.Builder(NotificationJob.TAG)
-            .addExtras(persistableBundleCompat)
-            .setUpdateCurrent(false)
-            .startNow()
-            .build()
-            .schedule();
+        final Map<String, String> data = remoteMessage.getData();
+        final String subject = data.get(NotificationWork.KEY_NOTIFICATION_SUBJECT);
+        final String signature = data.get(NotificationWork.KEY_NOTIFICATION_SIGNATURE);
+        if (subject != null && signature != null) {
+            backgroundJobManager.startNotificationJob(subject, signature);
+        }
     }
 
     @Override
