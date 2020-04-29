@@ -333,6 +333,7 @@
     <string name="filename_forbidden_characters">Заборонені символи: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">У назві файлу міститься щонайменше один неправильний символ</string>
     <string name="filename_hint">Ім\'я файлу</string>
+    <string name="first_run_1_text">Зберігайте ваші дані у безпечному місці, яке ви можете самі контролювати</string>
     <string name="folder_already_exists">Тека вже існує</string>
     <string name="folder_confirm_create">Створити</string>
     <string name="folder_icon">Іконка теки</string>
@@ -367,7 +368,10 @@
     <string name="local_folder_list_empty">Тут відсутні інші каталоги.</string>
     <string name="log_send_mail_subject">%1$s Android лог додатку</string>
     <string name="login">Увійти</string>
+    <string name="logs_menu_delete">Вилучити журнал</string>
     <string name="logs_menu_refresh">Оновити</string>
+    <string name="logs_menu_search">Шукати у журналі</string>
+    <string name="logs_menu_send">Надіслати журнал ел.поштою</string>
     <string name="logs_status_loading">Завантаження…</string>
     <string name="logs_title">Журнали</string>
     <string name="maintenance_mode">Сервер у режимі обслуговування</string>
@@ -393,8 +397,12 @@
     <string name="move_file_invalid_overwrite">Файл уже присутній в теці призначення</string>
     <string name="move_to">Перемістити до...</string>
     <string name="network_error_socket_exception">Помилка під час з\'єднання з сервером</string>
+    <string name="new_comment">Новий коментар...</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">відео</string>
+    <string name="new_notification">Нове сповіщення</string>
+    <string name="new_version_was_created">Створено нову версію</string>
+    <string name="no_browser_available">Відсутні застосунки для обробки посилань</string>
     <string name="note_confirm">Надіслати</string>
     <string name="notification_channel_file_sync_name">Синхронізація файлів</string>
     <string name="notifications_no_results_headline">Немає сповіщень</string>
