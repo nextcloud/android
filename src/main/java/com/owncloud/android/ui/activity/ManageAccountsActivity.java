@@ -138,6 +138,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
 
         // set title Action bar
         updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.prefs_manage_accounts));
+        ThemeUtils.tintBackButton(actionBar, this);
 
         List<User> users = accountManager.getAllUsers();
         originalUsers = toAccountNames(users);
