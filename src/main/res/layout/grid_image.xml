@@ -16,6 +16,7 @@
 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -25,18 +26,20 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <FrameLayout
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:shimmer_auto_start="false">
 
         <com.owncloud.android.ui.SquareImageView
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@null"
             android:padding="@dimen/standard_eigth_padding"
             android:scaleType="centerCrop"
-            android:src="@drawable/folder"
-            android:contentDescription="@null"/>
+            android:src="@drawable/folder" />
 
 
         <ImageView
@@ -91,6 +94,6 @@
             android:layout_marginRight="@dimen/standard_quarter_margin"
             android:contentDescription="@string/checkbox"
             android:src="@android:drawable/checkbox_off_background" />
-    </FrameLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </LinearLayout>
