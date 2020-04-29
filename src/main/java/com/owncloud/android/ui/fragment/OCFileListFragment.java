@@ -127,6 +127,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import static com.infomaniak.drive.Utils.openOnlyOffice;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 
 /**
@@ -956,7 +957,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     getActivity().setResult(Activity.RESULT_OK, intent);
                     getActivity().finish();
                 } else if (!mOnlyFoldersClickable) { // Click on a file
-                    if (PreviewImageFragment.canBePreviewed(file)) {
+                    if (openOnlyOffice(((FileDisplayActivity) mContainerActivity), accountManager.getUser(), file)) {
+
+                    } else if (PreviewImageFragment.canBePreviewed(file)) {
                         // preview image - it handles the download, if needed
                         if (searchFragment) {
                             VirtualFolderType type;

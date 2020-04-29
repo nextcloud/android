@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.DisplayUtils;
@@ -24,10 +25,11 @@ public class Utils {
      * If open in browser return true
      *
      * @param activity for intent
+     * @param user
      * @param file
      * @return if open
      */
-    public static boolean openOnlyOffice(Activity activity, OCFile file) {
+    public static boolean openOnlyOffice(Activity activity, User user, OCFile file) {
         String type;
         if (isDoc(file)) {
             type = "text";
@@ -39,8 +41,8 @@ public class Utils {
             return false;
         }
 
-        Pattern pattern = Pattern.compile(".+?@(\\d+)\\.connect\\.drive\\.infomaniak\\.com.*");
-        Matcher matcher = pattern.matcher(file.getStoragePath());
+        Pattern pattern = Pattern.compile(".+?(\\d+)\\.connect\\.drive\\.infomaniak\\.com.*");
+        Matcher matcher = pattern.matcher(user.getServer().getUri().toString());
         String driveID;
         if (matcher.find() && matcher.groupCount() == 1) {
             driveID = matcher.group(1);
