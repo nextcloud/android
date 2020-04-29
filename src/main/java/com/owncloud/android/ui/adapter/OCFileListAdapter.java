@@ -30,6 +30,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.PorterDuff;
 import android.graphics.Shader;
@@ -49,6 +50,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -358,7 +360,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                          mStorageManager,
                          asyncTasks,
                          gridView,
-                         activity);
+                         activity,
+                         gridViewHolder.shimmerFrameLayout);
 
             if (highlightedItem != null && file.getFileId() == highlightedItem.getFileId()) {
                 gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
@@ -601,11 +604,28 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
                                     boolean gridView,
                                     Context context) {
+        setThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, null);
+    }
+
+    public static void setThumbnail(OCFile file,
+                                    ImageView thumbnailView,
+                                    User user,
+                                    FileDataStorageManager storageManager,
+                                    List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
+                                    boolean gridView,
+                                    Context context,
+                                    ShimmerFrameLayout shimmerFrameLayout) {
+        if (shimmerFrameLayout != null){
+            shimmerFrameLayout.startShimmer();
+        }
+
+        boolean stopShimmer = false;
         if (file.isFolder()) {
             thumbnailView.setImageDrawable(MimeTypeUtil
                                                .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
                                                                   file.isSharedViaLink(), file.isEncrypted(),
                                                                   file.getMountType(), context));
+            stopShimmer = true;
         } else {
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?
@@ -624,6 +644,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
                         }
                     }
+                    stopShimmer = true;
                 } else {
                     // generate new thumbnail
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
@@ -645,7 +666,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                 new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
                                                                                   thumbnail, task);
+
+                            task.setListener(() -> {
+                                if (shimmerFrameLayout != null) {
+                                    shimmerFrameLayout.hideShimmer();
+                                    thumbnailView.setBackground(null);
+                                }
+                            });
+
                             thumbnailView.setImageDrawable(asyncDrawable);
+                            thumbnailView.setBackgroundColor(Color.GRAY);
                             asyncTasks.add(task);
                             task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
                                                                                                   file.getRemoteId()));
@@ -663,7 +693,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                             file.getFileName(),
                                                                             user.toPlatformAccount(),
                                                                             context));
+                stopShimmer = true;
             }
+        }
+
+        if (stopShimmer && shimmerFrameLayout != null){
+            shimmerFrameLayout.hideShimmer();
+            thumbnailView.setBackground(null);
         }
     }
 
@@ -1183,6 +1219,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     static class OCFileListGridImageViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.thumbnail)
         public ImageView thumbnail;
+
+        @BindView(R.id.shimmer_view_container)
+        public ShimmerFrameLayout shimmerFrameLayout;
 
         @BindView(R.id.favorite_action)
         public ImageView favorite;
