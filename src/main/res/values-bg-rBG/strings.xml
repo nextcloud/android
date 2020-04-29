@@ -141,6 +141,7 @@
     <string name="confirmation_remove_folders_alert">Наистина ли желаете избраните елементи и съдържанието им да бъдат премахнати?</string>
     <string name="confirmation_remove_local">Само локално</string>
     <string name="conflict_already_existing_file">Файла вече съществува</string>
+    <string name="conflict_dialog_error">Грешка при създаване на диалог за конфликт!</string>
     <string name="conflict_message_description">Ако изберете и двете версии, ще бъде добавен номер към името на локалния файл.</string>
     <string name="conflict_message_headline">Кои файлове желете да запазите?</string>
     <string name="conflict_new_file">Нов файл</string>
@@ -190,6 +191,7 @@
     <string name="disable_new_media_folder_detection_notifications">Изключване</string>
     <string name="dismiss">Отхвърляне</string>
     <string name="dismiss_notification_description">Спри известията</string>
+    <string name="download_latest_dev_version">Сваляне на най-новата dev версия</string>
     <string name="downloader_download_failed_content">%1$sне може да бъде изтеглен</string>
     <string name="downloader_download_failed_credentials_error">Неуспешно качване, нужно е да се впишете отново</string>
     <string name="downloader_download_failed_ticker">Изтеглянето е неуспешно.</string>
@@ -200,6 +202,7 @@
     <string name="downloader_download_succeeded_ticker">Изтеглено</string>
     <string name="downloader_not_downloaded_yet">Все още не е изтеглен</string>
     <string name="drawer_close">Затвори страничното меню</string>
+    <string name="drawer_community">Общност</string>
     <string name="drawer_current_account">Текущ профил</string>
     <string name="drawer_end_account">Последен профил</string>
     <string name="drawer_item_activities">Активност</string>
@@ -225,11 +228,21 @@
     <string name="edit_permission_label">редактиране</string>
     <string name="edit_rich_workspace">редактирай информацията за папката</string>
     <string name="encrypted">Включване на криптиране</string>
+    <string name="end_to_end_encryption_confirm_button">Настройки за криптиране</string>
+    <string name="end_to_end_encryption_decrypting">Декриптиране...</string>
     <string name="end_to_end_encryption_dialog_close">Затваряне</string>
+    <string name="end_to_end_encryption_enter_password">Моля въведете парола за декриптиране на личния ключ.</string>
     <string name="end_to_end_encryption_folder_not_empty">Папката не е празна.</string>
     <string name="end_to_end_encryption_generating_keys">Генериране на нови ключове...</string>
+    <string name="end_to_end_encryption_keywords_description">Всички 12 думи заедно правят много силна парола, позволявайки само Вие да преглеждате и използвате вашите криптирани файлове. Моля запишете я и я пазете на сигурно място.</string>
+    <string name="end_to_end_encryption_not_enabled">Криптиране End-to-end е забранено на сървъра.</string>
+    <string name="end_to_end_encryption_not_supported">Криптирането работи само на KitKat(4.4) или по-висока версия.</string>
     <string name="end_to_end_encryption_password">Парола…</string>
+    <string name="end_to_end_encryption_retrieving_keys">Извличане на ключове...</string>
     <string name="end_to_end_encryption_storing_keys">Записване на ключовете</string>
+    <string name="end_to_end_encryption_title">Настройки за криптиране</string>
+    <string name="end_to_end_encryption_unsuccessful">Ключовете не могат да бъдат запазени, моля опитайте отново.</string>
+    <string name="end_to_end_encryption_wrong_password">Грешка при декриптиране. Грешна парола?</string>
     <string name="enter_filename">Въведете име на файла</string>
     <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
     <string name="error_cant_bind_to_operations_service">Критична грешка: операциите не могат да бъдат изпълнени</string>

@@ -478,6 +478,11 @@
     <string name="pref_behaviour_entries_delete_file">Slettet</string>
     <string name="pref_behaviour_entries_keep_file">forblevet i oprindelig mappe</string>
     <string name="pref_behaviour_entries_move">Overført til app mappe</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Hvad skal ske, hvis filen allerede findes?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Spørg mig altid</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Overskriv fjerntliggende version</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Omdøb ny version</string>
+    <string name="pref_instant_name_collision_policy_title">Hvad skal ske, hvis filen allerede findes?</string>
     <string name="prefs_add_account">Tilføj konto</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Server adressen for kontoen kunne ikke findes for DAVx5 (før kendt som DAVdroid)</string>
