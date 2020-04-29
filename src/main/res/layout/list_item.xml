@@ -48,7 +48,8 @@
                 android:id="@+id/thumbnail_shimmer"
                 android:layout_width="@dimen/file_icon_size"
                 android:layout_height="@dimen/file_icon_size"
-                android:background="@color/grey_200"
+                android:layout_marginStart="@dimen/standard_half_margin"
+                android:background="@drawable/shimmer_background"
                 android:visibility="gone" />
 
             <ImageView
