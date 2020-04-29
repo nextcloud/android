@@ -25,6 +25,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.accounts.AccountManager;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -50,6 +51,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.facebook.shimmer.Shimmer;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -361,7 +363,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                          asyncTasks,
                          gridView,
                          activity,
-                         gridViewHolder.shimmerFrameLayout);
+                         gridViewHolder.shimmerFrameLayout,
+                         gridViewHolder.shimmerThumbnail);
 
             if (highlightedItem != null && file.getFileId() == highlightedItem.getFileId()) {
                 gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
@@ -607,7 +610,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
                                     boolean gridView,
                                     Context context) {
-        setThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, null);
+        setThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, null, null);
     }
 
     public static void setThumbnail(OCFile file,
@@ -617,18 +620,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
                                     boolean gridView,
                                     Context context,
-                                    ShimmerFrameLayout shimmerFrameLayout) {
-        if (shimmerFrameLayout != null){
-            shimmerFrameLayout.startShimmer();
-        }
-
-        boolean stopShimmer = false;
+                                    ShimmerFrameLayout shimmerFrameLayout,
+                                    View shimmerThumbnail) {
         if (file.isFolder()) {
             thumbnailView.setImageDrawable(MimeTypeUtil
                                                .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
                                                                   file.isSharedViaLink(), file.isEncrypted(),
                                                                   file.getMountType(), context));
-            stopShimmer = true;
         } else {
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?
@@ -647,7 +645,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
                         }
                     }
-                    stopShimmer = true;
                 } else {
                     // generate new thumbnail
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
@@ -658,6 +655,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                                    user.toPlatformAccount(),
                                                                                    asyncTasks,
                                                                                    !gridView);
+
+                            if (shimmerFrameLayout != null){
+                                if (!shimmerFrameLayout.isShimmerStarted()){
+                                    Shimmer.AlphaHighlightBuilder shimmerBuilder = new Shimmer.AlphaHighlightBuilder();
+                                    shimmerBuilder.setRepeatCount(ValueAnimator.INFINITE);
+                                    shimmerBuilder.setRepeatMode(ValueAnimator.RESTART);
+                                    shimmerFrameLayout.setShimmer(shimmerBuilder.build());
+                                    thumbnailView.setVisibility(View.GONE);
+                                    shimmerThumbnail.setVisibility(View.VISIBLE);
+                                }
+                            }
 
                             if (thumbnail == null) {
                                 thumbnail = BitmapUtils.drawableToBitmap(
@@ -673,12 +681,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             task.setListener(() -> {
                                 if (shimmerFrameLayout != null) {
                                     shimmerFrameLayout.hideShimmer();
-                                    thumbnailView.setBackground(null);
+                                    shimmerThumbnail.setVisibility(View.GONE);
+                                    thumbnailView.setVisibility(View.VISIBLE);
                                 }
                             });
 
                             thumbnailView.setImageDrawable(asyncDrawable);
-                            thumbnailView.setBackgroundColor(Color.GRAY);
                             asyncTasks.add(task);
                             task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
                                                                                                   file.getRemoteId()));
@@ -696,13 +704,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                             file.getFileName(),
                                                                             user.toPlatformAccount(),
                                                                             context));
-                stopShimmer = true;
             }
-        }
-
-        if (stopShimmer && shimmerFrameLayout != null){
-            shimmerFrameLayout.hideShimmer();
-            thumbnailView.setBackground(null);
         }
     }
 
@@ -1222,6 +1224,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     static class OCFileListGridImageViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.thumbnail)
         public ImageView thumbnail;
+
+        @BindView(R.id.thumbnail_shimmer)
+        public View shimmerThumbnail;
 
         @BindView(R.id.shimmer_view_container)
         public ShimmerFrameLayout shimmerFrameLayout;
