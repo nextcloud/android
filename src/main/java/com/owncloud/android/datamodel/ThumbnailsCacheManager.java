@@ -428,6 +428,7 @@ public final class ThumbnailsCacheManager {
         private FileDataStorageManager mStorageManager;
         private GetMethod getMethod;
         private boolean roundedCorners = false;
+        private Listener mListener;
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, Account account)
                 throws IllegalArgumentException {
@@ -545,9 +546,17 @@ public final class ThumbnailsCacheManager {
                 }
             }
 
+            if (mListener !=null){
+                mListener.onSuccess();
+            }
+
             if (mAsyncTasks != null) {
                 mAsyncTasks.remove(this);
             }
+        }
+
+        public void setListener(Listener listener){
+            mListener = listener;
         }
 
         private Bitmap doThumbnailFromOCFileInBackground() {
@@ -694,6 +703,10 @@ public final class ThumbnailsCacheManager {
                 }
             }
             return thumbnail;
+        }
+
+        public interface Listener{
+            void onSuccess();
         }
 
     }
