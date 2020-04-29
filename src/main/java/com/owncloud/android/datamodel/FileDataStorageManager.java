@@ -31,6 +31,7 @@ import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.RemoteException;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -1735,7 +1736,7 @@ public class FileDataStorageManager {
     }
 
     public static void triggerMediaScan(String path) {
-        if (path != null) {
+        if (path != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             intent.setData(Uri.fromFile(new File(path)));
             MainApp.getAppContext().sendBroadcast(intent);
