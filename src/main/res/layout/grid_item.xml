@@ -16,6 +16,7 @@
 
 -->
 <com.owncloud.android.ui.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -24,9 +25,11 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <FrameLayout
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:shimmer_auto_start="false"
         android:layout_gravity="center_horizontal">
 
         <ImageView
@@ -90,7 +93,7 @@
             android:src="@android:drawable/checkbox_off_background"
             android:contentDescription="@string/checkbox"/>
 
-    </FrameLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <TextView
         android:id="@+id/Filename"
