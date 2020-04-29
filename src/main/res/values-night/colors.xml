@@ -20,19 +20,20 @@
 -->
 <resources>
 
-    <color name="text_color">#ffffff</color>
+    <color name="text_color">#E3E3E3</color>
     <color name="text_color_inverse">#000000</color>
+    <color name="secondary_text_color">#A5A5A5</color>
+    <color name="list_divider_background">#222222</color>
 
     <!-- Colors -->
-    <color name="bg_default">#151515</color>
+    <color name="bg_default">#121212</color>
     <color name="fg_contrast">#717171</color>
     <color name="primary_button_text_color">#000000</color>
-
-    <color name="uploader_list_separator_color">#2a2a2a</color>
+    <color name="bg_elevation_one">#2D2D2D</color>
 
     <!-- Multiselect backgrounds -->
-    <color name="action_mode_status_bar_background">#ECECEC</color>
-    <color name="selected_item_background">#757575</color>
+    <color name="action_mode_background">@color/appbar</color>
+    <color name="selected_item_background">#373535</color>
 
     <color name="filelist_icon_background">#222222</color>
 
@@ -42,4 +43,7 @@
     <color name="switch_track_color_unchecked">#B3FFFFFF</color>
     <color name="drawer_active_item_background">@color/white</color>
 
+    <!-- App bar -->
+    <color name="appbar">#1E1E1E</color>
+    <color name="fontAppbar">@android:color/white</color>
 </resources>

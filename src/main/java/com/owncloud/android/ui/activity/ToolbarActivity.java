@@ -38,11 +38,9 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.ThemeUtils;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar()}.
@@ -64,26 +62,22 @@ public abstract class ToolbarActivity extends BaseActivity {
      * want to use the toolbar.
      */
     protected void setupToolbar(boolean useBackgroundImage) {
-        int primaryColor = ThemeUtils.primaryColor(this, false);
-        int fontColor = ThemeUtils.fontColor(this, !ThemeUtils.darkTheme(getApplicationContext()));
+        int primaryColor = ThemeUtils.primaryAppbarColor(this);
+        int fontColor = ThemeUtils.appBarPrimaryFontColor(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mProgressBar = findViewById(R.id.progressBar);
-        if (mProgressBar != null) {
-            mProgressBar.setIndeterminateDrawable(
-                    ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
+        mProgressBar = findViewById(R.id.toolbar_progressBar);
+        setProgressBarBackgroundColor();
 
-            ThemeUtils.colorToolbarProgressBar(this, primaryColor);
-        }
         mInfoBox = findViewById(R.id.info_box);
         mInfoBoxMessage = findViewById(R.id.info_box_message);
 
         mPreviewImage = findViewById(R.id.preview_image);
         mPreviewImageContainer = findViewById(R.id.preview_image_frame);
 
-        ThemeUtils.colorStatusBar(this, primaryColor);
+        ThemeUtils.colorStatusBar(this);
 
         if (toolbar.getOverflowIcon() != null) {
             ThemeUtils.tintDrawable(toolbar.getOverflowIcon(), fontColor);
@@ -167,24 +161,13 @@ public abstract class ToolbarActivity extends BaseActivity {
     }
 
     /**
-     * Change the indeterminate mode for the toolbar's progress bar.
-     *
-     * @param indeterminate <code>true</code> to enable the indeterminate mode
-     */
-    public void setIndeterminate(boolean indeterminate) {
-        if (mProgressBar != null) {
-            mProgressBar.setIndeterminate(indeterminate);
-        }
-    }
-
-    /**
      * Change the visibility for the toolbar's progress bar.
      *
-     * @param visibility visibility of the progress bar
+     * @param isVisible visibility of the progress bar
      */
-    public void setProgressBarVisibility(int visibility) {
+    public void showProgressBar(boolean isVisible) {
         if (mProgressBar != null) {
-            mProgressBar.setVisibility(visibility);
+            mProgressBar.setVisibility(isVisible? View.VISIBLE : View.GONE);
         }
     }
 
@@ -232,10 +215,11 @@ public abstract class ToolbarActivity extends BaseActivity {
      * Set the background to to progress bar of the toolbar. The resource should refer to
      * a Drawable object or 0 to remove the background.#
      *
-     * @param color The identifier of the color.
      */
-    public void setProgressBarBackgroundColor(@ColorInt int color) {
-        mProgressBar.setBackgroundColor(color);
-        mProgressBar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    private void setProgressBarBackgroundColor() {
+        if (mProgressBar != null) {
+            mProgressBar.setBackgroundColor(ThemeUtils.primaryAppbarColor(this));
+            mProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(this), PorterDuff.Mode.SRC_IN);
+        }
     }
 }

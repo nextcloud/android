@@ -142,6 +142,7 @@
     <string name="confirmation_remove_folders_alert">آیا واقعاً می خواهید موارد انتخاب شده و محتوای آنها حذف شود؟</string>
     <string name="confirmation_remove_local">فقط محلی</string>
     <string name="conflict_message_headline">کدام فایل ها را می خواهید نگه دارید ؟</string>
+    <string name="conflict_new_file">فایل جدید</string>
     <string name="contaclist_restore_selected">بازیابی مخاطبین انتخاب شده</string>
     <string name="contactlist_account_chooser_title">حساب را برای وارد کردن انتخاب کنید</string>
     <string name="contactlist_item_icon">آیکون کاربر برای لیست تماس</string>
@@ -253,6 +254,8 @@
     <string name="error_starting_direct_camera_upload">خطا در شروع دوربین</string>
     <string name="etm_accounts">حساب‌ها</string>
     <string name="etm_background_job_progress">پیش رفتن</string>
+    <string name="etm_background_job_state">وضعیت</string>
+    <string name="etm_background_job_user">کاربر</string>
     <string name="etm_background_jobs">کارهای پس زمینه</string>
     <string name="etm_preferences">اولویت ها</string>
     <string name="etm_title">حالت تست مهندسی</string>
@@ -359,6 +362,7 @@
     <string name="host_your_own_server">میزبان سرور خود</string>
     <string name="instant_upload_on_charging">فقط هنگامی که گوشی شارژ می شود آپلود کنید</string>
     <string name="instant_upload_path">آپلود فوری</string>
+    <string name="invalid_url">آدرس اینترنتی اشتباه</string>
     <string name="learn_more">بیشتر بدانید</string>
     <string name="link">Link</string>
     <string name="list_layout">Listed layout</string>

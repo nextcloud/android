@@ -144,6 +144,7 @@ public class TrashbinActivity extends FileActivity implements
         recyclerView.setHasFooter(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
         swipeListRefreshLayout.setOnRefreshListener(this::loadFolder);
 
         loadFolder();
@@ -223,11 +224,6 @@ public class TrashbinActivity extends FileActivity implements
             trashbinPresenter.enterFolder(file.getRemotePath());
 
             mDrawerToggle.setDrawerIndicatorEnabled(false);
-
-            Toolbar toolbar = findViewById(R.id.toolbar);
-            if (toolbar != null && toolbar.getNavigationIcon() != null) {
-                ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), ThemeUtils.fontColor(this));
-            }
         }
     }
 

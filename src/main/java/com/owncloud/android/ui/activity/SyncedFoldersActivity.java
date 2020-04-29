@@ -47,6 +47,8 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.MediaFoldersDetectionWork;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.BuildConfig;
@@ -61,7 +63,6 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.jobs.MediaFoldersDetectionJob;
 import com.owncloud.android.jobs.NotificationJob;
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
@@ -140,6 +141,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     @Inject AppPreferences preferences;
     @Inject PowerManagementService powerManagementService;
     @Inject Clock clock;
+    @Inject BackgroundJobManager backgroundJobManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,11 +165,11 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 }
             }
 
-            path = getIntent().getStringExtra(MediaFoldersDetectionJob.KEY_MEDIA_FOLDER_PATH);
-            type = getIntent().getIntExtra(MediaFoldersDetectionJob.KEY_MEDIA_FOLDER_TYPE, -1);
+            path = getIntent().getStringExtra(MediaFoldersDetectionWork.KEY_MEDIA_FOLDER_PATH);
+            type = getIntent().getIntExtra(MediaFoldersDetectionWork.KEY_MEDIA_FOLDER_TYPE, -1);
 
             // Cancel notification
-            int notificationId = getIntent().getIntExtra(MediaFoldersDetectionJob.NOTIFICATION_ID, 0);
+            int notificationId = getIntent().getIntExtra(MediaFoldersDetectionWork.NOTIFICATION_ID, 0);
             NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Activity.NOTIFICATION_SERVICE);
             notificationManager.cancel(notificationId);
@@ -637,8 +639,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         }
 
         if (syncedFolderDisplayItem.isEnabled()) {
-            FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolderDisplayItem, true);
-
+            backgroundJobManager.startImmediateFilesSyncJob(false, false);
             showBatteryOptimizationInfo();
         }
     }
@@ -779,7 +780,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             // existing synced folder setup to be updated
             syncedFolderProvider.updateSyncFolder(item);
             if (item.isEnabled()) {
-                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(item, true);
+                backgroundJobManager.startImmediateFilesSyncJob(false, false);
             } else {
                 String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + item.getId();
 
@@ -797,7 +798,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         if (storedId != -1) {
             item.setId(storedId);
             if (item.isEnabled()) {
-                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(item, true);
+                backgroundJobManager.startImmediateFilesSyncJob(false, false);
             } else {
                 String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + item.getId();
                 arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);

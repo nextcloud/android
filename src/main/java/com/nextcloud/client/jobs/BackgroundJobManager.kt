@@ -28,6 +28,7 @@ import com.nextcloud.client.account.User
  * This interface allows to control, schedule and monitor all application
  * long-running background tasks, such as periodic checks or synchronization.
  */
+@Suppress("TooManyFunctions") // we expect this implementation to have rich API
 interface BackgroundJobManager {
 
     /**
@@ -89,7 +90,15 @@ interface BackgroundJobManager {
         selectedContacts: IntArray
     ): LiveData<JobInfo?>
 
+    fun schedulePeriodicFilesSyncJob()
+    fun startImmediateFilesSyncJob(skipCustomFolders: Boolean = false, overridePowerSaving: Boolean = false)
+    fun scheduleOfflineSync()
+
+    fun scheduleMediaFoldersDetectionJob()
+    fun startMediaFoldersDetectionJob()
+
     fun scheduleTestJob()
+    fun startImmediateTestJob()
     fun cancelTestJob()
 
     fun pruneJobs()
