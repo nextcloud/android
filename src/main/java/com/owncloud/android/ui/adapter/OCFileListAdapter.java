@@ -678,11 +678,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
                                                                                   thumbnail, task);
 
-                            task.setListener(() -> {
-                                if (shimmerFrameLayout != null) {
-                                    shimmerFrameLayout.hideShimmer();
-                                    shimmerThumbnail.setVisibility(View.GONE);
-                                    thumbnailView.setVisibility(View.VISIBLE);
+                            task.setListener(new ThumbnailsCacheManager.ThumbnailGenerationTask.Listener() {
+                                @Override
+                                public void onSuccess() {
+                                    stopShimmer(shimmerFrameLayout, shimmerThumbnail, thumbnailView);
+                                }
+
+                                @Override
+                                public void onError() {
+                                    stopShimmer(shimmerFrameLayout, shimmerThumbnail, thumbnailView);
                                 }
                             });
 
@@ -705,6 +709,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                             user.toPlatformAccount(),
                                                                             context));
             }
+        }
+    }
+
+    private static void stopShimmer(ShimmerFrameLayout shimmerFrameLayout, View shimmerThumbnail, ImageView thumbnailView) {
+        if (shimmerFrameLayout != null) {
+            shimmerFrameLayout.hideShimmer();
+            shimmerThumbnail.setVisibility(View.GONE);
+            thumbnailView.setVisibility(View.VISIBLE);
         }
     }
 

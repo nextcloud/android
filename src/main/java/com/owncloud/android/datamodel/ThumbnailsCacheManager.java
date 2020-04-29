@@ -480,7 +480,7 @@ public final class ThumbnailsCacheManager {
         @Override
         protected Bitmap doInBackground(ThumbnailGenerationTaskObject... params) {
             Bitmap thumbnail = null;
-
+            boolean isError = false;
             try {
                 if (mAccount != null) {
                     OwnCloudAccount ocAccount = new OwnCloudAccount(
@@ -515,9 +515,15 @@ public final class ThumbnailsCacheManager {
 
             } catch(OutOfMemoryError oome) {
                 Log_OC.e(TAG, "Out of memory");
+                isError = true;
             } catch (Throwable t) {
                 // the app should never break due to a problem with thumbnails
                 Log_OC.e(TAG, "Generation of thumbnail for " + mFile + " failed", t);
+                isError = true;
+            } finally {
+                if (isError && mListener != null){
+                    mListener.onError();
+                }
             }
 
             return thumbnail;
@@ -707,6 +713,7 @@ public final class ThumbnailsCacheManager {
 
         public interface Listener{
             void onSuccess();
+            void onError();
         }
 
     }
