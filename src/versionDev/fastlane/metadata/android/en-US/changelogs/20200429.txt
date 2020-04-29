@@ -1,0 +1,45 @@
+Fix background tests
+Remove unused argument
+Unused function
+Improve methode name
+Revert " Bugfix for #5929"
+Fix dark mode "follow system"
+Put back the Material values (due invision false values)
+revert background image for notifications
+Tinted checkboxes in ConflictsResolveDialog Activity icons have a 'night mode' background circle. Signed-off-by: Daniel Bailey <daniel.bailey@grappleIT.co.uk>
+set secondary action button in notifications to grey
+proper toolbar theming ignoring dark/light theme for toolbar colors
+properly theme SwipeRefreshLayout
+unify divider colors
+change dark theme background to #121212 see https://material.io/design/color/dark-theme.html#properties
+dark theme favorite icon
+don't tint drawer menu toggle
+use proper rtl values
+raise margin for bottom sheet menu item divider
+Dark Mode Improvements (2)
+Fixes bug whereby a user initiated change to dark mode isn't applied for "follow system".
+Bump to 3.13 alpha
+Better item selected background color in dark mode
+Improve variable name
+Change ActionMode color
+Correction Whitespace and remove superficial comments
+add missing back button in ManageAccountsActivity & UserInfoActivity
+Enhanced dark mode for some text colors
+Replaced comma separator by bullet character in files list
+Adjusted size of file list item
+Removed edited icons, merged changes in a new branch
+Set color of hamburger icon
+Replaced some icons by Material ones to (removed useless icons)
+Fix setting background if change manualy dark theme (And remove duplication)
+Changed Drawer and global texts colors
+Reformat ThemeUtils
+Black Status bar in light theme <23 api
+Refactor and fix bug
+Change font color for darkmode and remove unused code
+Refactor
+New color, white for light theme and grey for dark theme. New progressbar
+Fixed bug relative to inflating (due to < API 21)
+Start files sync job when enabling auto upload
+Migrate file sync related jobs to WorkManager API
+Replaced colors by native Android ones
+Update translations
