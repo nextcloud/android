@@ -30,7 +30,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -292,6 +291,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerToggle.setDrawerSlideAnimationEnabled(true);
+        Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
+        mDrawerToggle.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.appBarPrimaryFontColor(this)));
+        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.appBarPrimaryFontColor(this));
     }
 
     /**
@@ -302,7 +304,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
 
         mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toggle);
-        mAccountChooserToggle.setColorFilter(ThemeUtils.fontColor(this, true));
 
         if (getResources().getBoolean(R.bool.allow_profile_click)) {
             mAccountChooserToggle.setImageResource(R.drawable.ic_down);
@@ -773,17 +774,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         super.updateActionBarTitleAndHomeButton(chosenFile);
 
         // set home button properties
-        if (mDrawerToggle != null && chosenFile != null) {
-            if (isRoot(chosenFile)) {
+        if (mDrawerToggle != null) {
+            if (chosenFile != null && isRoot(chosenFile)) {
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
             } else {
                 mDrawerToggle.setDrawerIndicatorEnabled(false);
-                Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-                upArrow.setColorFilter(ThemeUtils.fontColor(this), PorterDuff.Mode.SRC_ATOP);
-                mDrawerToggle.setHomeAsUpIndicator(upArrow);
             }
-        } else if (mDrawerToggle != null) {
-            mDrawerToggle.setDrawerIndicatorEnabled(false);
         }
     }
 
@@ -995,7 +991,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     }
                     menuItem.setTitle(Html.fromHtml(
                         "<font color='"
-                            + ThemeUtils.colorToHexString(ContextCompat.getColor(this, R.color.text_color))
+                            + ThemeUtils.colorToHexString(ContextCompat.getColor(this, R.color.drawer_text_color))
                             + "'>" + menuItem.getTitle()
                             + "</font>"));
                 }

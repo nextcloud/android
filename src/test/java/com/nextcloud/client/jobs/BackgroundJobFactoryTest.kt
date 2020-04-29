@@ -28,9 +28,12 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.logger.Logger
+import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nhaarman.mockitokotlin2.whenever
 import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.UploadsStorageManager
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Before
@@ -74,12 +77,22 @@ class BackgroundJobFactoryTest {
     @Mock
     private lateinit var dataProvider: ArbitraryDataProvider
 
+    @Mock
+    private lateinit var logger: Logger
+
+    @Mock
+    private lateinit var uploadsStorageManager: UploadsStorageManager
+
+    @Mock
+    private lateinit var connectivityService: ConnectivityService
+
     private lateinit var factory: BackgroundJobFactory
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         factory = BackgroundJobFactory(
+            logger,
             preferences,
             contentResolver,
             clock,
@@ -88,7 +101,9 @@ class BackgroundJobFactoryTest {
             deviceInfo,
             accountManager,
             resources,
-            dataProvider
+            dataProvider,
+            uploadsStorageManager,
+            connectivityService
         )
     }
 

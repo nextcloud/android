@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   Nextcloud Android client application
 
   Copyright (C) 2017 Andy Scherzinger
@@ -55,15 +54,6 @@
             android:layout_gravity="center_vertical|center_horizontal"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/synced_folders_plus"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/grid_sync_item_layout_next_text_size"
-                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/counter"

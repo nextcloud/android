@@ -55,6 +55,7 @@ import java.io.InputStreamReader
 import java.util.ArrayList
 import java.util.Calendar
 
+@Suppress("LongParameterList") // legacy code
 class ContactsBackupWork(
     appContext: Context,
     params: WorkerParameters,
