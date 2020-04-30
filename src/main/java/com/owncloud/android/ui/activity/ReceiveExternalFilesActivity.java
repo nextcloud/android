@@ -39,7 +39,6 @@ import android.content.res.Resources.NotFoundException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -123,6 +122,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+
+import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
 /**
  * This can be used to upload things to an ownCloud instance.
@@ -1058,10 +1059,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 showAccountChooserDialog();
                 break;
             case R.id.action_sort:
-                SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                    preferences.getSortOrderByFolder(mFile));
-                mSortingOrderDialogFragment.show(getSupportFragmentManager(),
-                        SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
+                openSortingOrderDialogFragment(getSupportFragmentManager(),
+                                               preferences.getSortOrderByFolder(mFile));
                 break;
             default:
                 retval = super.onOptionsItemSelected(item);

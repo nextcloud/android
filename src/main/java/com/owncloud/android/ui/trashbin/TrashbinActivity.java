@@ -63,6 +63,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
+
 /**
  * Presenting trashbin data, received from presenter
  */
@@ -177,14 +179,9 @@ public class TrashbinActivity extends FileActivity implements
                 }
                 break;
             case R.id.action_sort: {
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.addToBackStack(null);
-
-                SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                    preferences.getSortOrderByType(FileSortOrder.Type.trashBinView, FileSortOrder.sort_new_to_old));
-                mSortingOrderDialogFragment.show(ft, SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
-
+                openSortingOrderDialogFragment(getSupportFragmentManager(),
+                                               preferences.getSortOrderByType(FileSortOrder.Type.trashBinView,
+                                                                              FileSortOrder.sort_new_to_old));
                 break;
             }
             case R.id.action_empty_trashbin:

@@ -72,6 +72,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
+
 public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity,
     OnClickListener,
     OnEnforceableRefreshListener,
@@ -324,14 +326,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                 break;
             }
             case R.id.action_sort: {
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.addToBackStack(null);
-
-                SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                    preferences.getSortOrderByFolder(getListOfFilesFragment().getCurrentFile()));
-                mSortingOrderDialogFragment.show(ft, SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
-
+                openSortingOrderDialogFragment(getSupportFragmentManager(),
+                                               preferences.getSortOrderByFolder(getListOfFilesFragment().getCurrentFile()));
                 break;
             }
             default:
