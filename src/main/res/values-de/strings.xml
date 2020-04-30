@@ -266,6 +266,7 @@
     <string name="etm_background_jobs">Hintergrund-Aufgaben</string>
     <string name="etm_background_jobs_cancel_all">Alle Aufgaben abbrechen</string>
     <string name="etm_background_jobs_prune">Inaktive Aufgaben bereinigen</string>
+    <string name="etm_background_jobs_schedule_test_job">Test-Aufgabe planen</string>
     <string name="etm_background_jobs_start_test_job">Test-Aufgabe starten</string>
     <string name="etm_background_jobs_stop_test_job">Test-Aufgabe stoppen</string>
     <string name="etm_migrations">Migrationen (App-Aktualisierung)</string>

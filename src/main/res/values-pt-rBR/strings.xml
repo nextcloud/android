@@ -266,6 +266,7 @@
     <string name="etm_background_jobs">Tarefas em segundo plano</string>
     <string name="etm_background_jobs_cancel_all">Cancelar todas as tarefas</string>
     <string name="etm_background_jobs_prune">Limpar tarefas inativas</string>
+    <string name="etm_background_jobs_schedule_test_job">Agendar um teste</string>
     <string name="etm_background_jobs_start_test_job">Iniciar tarefa de teste</string>
     <string name="etm_background_jobs_stop_test_job">Parar tarefa de teste</string>
     <string name="etm_migrations">Migrações (atualização do aplicativo)</string>
