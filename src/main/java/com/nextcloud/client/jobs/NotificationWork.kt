@@ -88,7 +88,7 @@ class NotificationWork constructor(
         private const val NUMERIC_NOTIFICATION_ID = "NUMERIC_NOTIFICATION_ID"
     }
 
-    @Suppress("TooGenericExceptionCaught") // legacy code
+    @Suppress("TooGenericExceptionCaught", "NestedBlockDepth", "ComplexMethod", "LongMethod") // legacy code
     override fun doWork(): Result {
         val subject = inputData.getString(KEY_NOTIFICATION_SUBJECT) ?: ""
         val signature = inputData.getString(KEY_NOTIFICATION_SIGNATURE) ?: ""
