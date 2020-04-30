@@ -136,6 +136,7 @@
     <string name="common_loading">Loading…</string>
     <string name="common_unknown">unknown</string>
     <string name="common_error_unknown">Unknown error</string>
+    <string name="common_open">Open</string>
     <string name="common_pending">Pending</string>
     <string name="common_delete">Delete</string>
     <string name="common_send">Send</string>

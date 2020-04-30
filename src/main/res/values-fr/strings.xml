@@ -107,6 +107,7 @@
     <string name="common_loading">Chargement…</string>
     <string name="common_no">Non</string>
     <string name="common_ok">OK</string>
+    <string name="common_open">Ouvrir</string>
     <string name="common_pending">En attente</string>
     <string name="common_remove">Supprimer</string>
     <string name="common_rename">Renommer</string>
