@@ -2,11 +2,11 @@ package com.owncloud.android;
 
 import android.content.ContentResolver;
 
-import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.NetworkType;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
@@ -44,12 +44,17 @@ public class UploadIT extends AbstractIT {
         }
 
         @Override
-        public JobRequest.NetworkType getActiveNetworkType() {
-            return JobRequest.NetworkType.ANY;
+        public NetworkType getActiveNetworkType() {
+            return NetworkType.ANY;
         }
     };
 
     private PowerManagementService powerManagementServiceMock = new PowerManagementService() {
+        @Override
+        public float getBatteryPercent() {
+            return 100.0f;
+        }
+
         @Override
         public boolean isPowerSavingEnabled() {
             return false;

@@ -27,11 +27,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.Device;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.NetworkType;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 
@@ -57,7 +56,7 @@ public final class ReceiversHelper {
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+                if (!connectivityService.getActiveNetworkType().equals(NetworkType.ANY)) {
                     FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
                                                         accountManager,
                                                         connectivityService,

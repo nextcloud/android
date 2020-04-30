@@ -21,11 +21,11 @@
  */
 package com.owncloud.android.files.services
 
-import com.evernote.android.job.JobRequest
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.network.NetworkType
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -53,8 +53,8 @@ class FileUploaderIT : AbstractIT() {
             return true
         }
 
-        override fun getActiveNetworkType(): JobRequest.NetworkType {
-            return JobRequest.NetworkType.ANY
+        override fun getActiveNetworkType(): NetworkType {
+            return NetworkType.ANY
         }
     }
 
@@ -67,6 +67,10 @@ class FileUploaderIT : AbstractIT() {
 
         override val isBatteryCharging: Boolean
             get() = false
+
+        override fun getBatteryPercent(): Float {
+            return 100.0f
+        }
     }
 
     @Before

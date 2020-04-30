@@ -29,11 +29,10 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.Device;
 import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.NetworkType;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
@@ -718,20 +717,20 @@ public class UploadFileOperation extends SyncOperation {
         RemoteOperationResult remoteOperationResult = null;
 
         // check that internet is not behind walled garden
-        if (Device.getNetworkType(mContext).equals(JobRequest.NetworkType.ANY) ||
+        if (connectivityService.getActiveNetworkType() == NetworkType.ANY ||
                 connectivityService.isInternetWalled()) {
             remoteOperationResult =  new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
         }
 
         // check that connectivity conditions are met and delays the upload otherwise
-        if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
+        if (mOnWifiOnly && connectivityService.getActiveNetworkType() != NetworkType.UNMETERED) {
             Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
             remoteOperationResult = new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
         }
 
         // check if charging conditions are met and delays the upload otherwise
-        if (mWhileChargingOnly && !Device.getBatteryStatus(mContext).isCharging()
-                && Device.getBatteryStatus(mContext).getBatteryPercent() < 1) {
+        if (mWhileChargingOnly && !powerManagementService.isBatteryCharging()
+            && powerManagementService.getBatteryPercent() < 100.0f) {
             Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
             remoteOperationResult =  new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
         }

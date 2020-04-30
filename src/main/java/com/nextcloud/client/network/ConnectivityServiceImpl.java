@@ -23,7 +23,6 @@ package com.nextcloud.client.network;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.Server;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.logger.Logger;
@@ -116,7 +115,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
                 }
             }
         } else {
-            return getActiveNetworkType() == JobRequest.NetworkType.ANY;
+            return getActiveNetworkType() == NetworkType.ANY;
         }
 
         return true;
@@ -154,27 +153,27 @@ class ConnectivityServiceImpl implements ConnectivityService {
     }
 
     @Override
-    public JobRequest.NetworkType getActiveNetworkType() {
+    public NetworkType getActiveNetworkType() {
         NetworkInfo networkInfo;
         try {
             networkInfo = connectivityManager.getActiveNetworkInfo();
         } catch (Throwable t) {
-            return JobRequest.NetworkType.ANY;
+            return NetworkType.ANY;
         }
 
         if (networkInfo == null || !networkInfo.isConnectedOrConnecting()) {
-            return JobRequest.NetworkType.ANY;
+            return NetworkType.ANY;
         }
 
         boolean metered = ConnectivityManagerCompat.isActiveNetworkMetered(connectivityManager);
         if (!metered) {
-            return JobRequest.NetworkType.UNMETERED;
+            return NetworkType.UNMETERED;
         }
 
         if (networkInfo.isRoaming()) {
-            return JobRequest.NetworkType.CONNECTED;
+            return NetworkType.CONNECTED;
         } else {
-            return JobRequest.NetworkType.NOT_ROAMING;
+            return NetworkType.NOT_ROAMING;
         }
     }
 }

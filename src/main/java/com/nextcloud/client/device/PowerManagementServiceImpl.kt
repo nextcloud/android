@@ -83,4 +83,12 @@ internal class PowerManagementServiceImpl(
                 else -> false
             }
         }
+
+    override fun getBatteryPercent(): Float {
+        val intent: Intent? = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        val level: Int = intent?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
+        val scale: Int = intent?.getIntExtra(BatteryManager.EXTRA_SCALE, -1) ?: -1
+
+        return level * 100 / scale.toFloat()
+    }
 }

@@ -31,12 +31,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 
-import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.NetworkType;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
@@ -205,7 +205,7 @@ public final class FilesSyncHelper {
         }
 
         new Thread(() -> {
-            if (connectivityService.getActiveNetworkType() != JobRequest.NetworkType.ANY &&
+            if (connectivityService.getActiveNetworkType() != NetworkType.ANY &&
                     !connectivityService.isInternetWalled()) {
                 FileUploader.retryFailedUploads(
                     context,

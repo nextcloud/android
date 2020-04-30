@@ -26,11 +26,11 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
-import com.evernote.android.job.JobRequest
 import com.facebook.testing.screenshot.Screenshot
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.network.NetworkType
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.client.preferences.DarkMode
@@ -75,8 +75,8 @@ class OCFileListFragmentIT : AbstractIT() {
             return true
         }
 
-        override fun getActiveNetworkType(): JobRequest.NetworkType {
-            return JobRequest.NetworkType.ANY
+        override fun getActiveNetworkType(): NetworkType {
+            return NetworkType.ANY
         }
     }
 
@@ -89,6 +89,10 @@ class OCFileListFragmentIT : AbstractIT() {
 
         override val isBatteryCharging: Boolean
             get() = false
+
+        override fun getBatteryPercent(): Float {
+            return 100.0f
+        }
     }
 
     @Test

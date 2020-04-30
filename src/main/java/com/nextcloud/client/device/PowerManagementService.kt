@@ -48,4 +48,9 @@ interface PowerManagementService {
      * Checks if battery is charging using any hardware supported means.
      */
     val isBatteryCharging: Boolean
+
+    /**
+     * Returns current battery percentage from 0.0 to 100.0
+     */
+    fun getBatteryPercent(): Float
 }

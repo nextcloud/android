@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <full-backup-content>
+    <!--    We do not use evernote anylonger, but cannot remove it and thus it should still not get backuped-->
     <exclude domain="sharedpref" path="evernote_jobs.xml" />
     <exclude domain="database" path="evernote_jobs.db" />
 </full-backup-content>

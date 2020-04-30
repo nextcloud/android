@@ -47,11 +47,10 @@ import android.os.Parcelable;
 import android.os.Process;
 import android.util.Pair;
 
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.Device;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.NetworkType;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -1007,10 +1006,10 @@ public class FileUploader extends Service
         boolean resultMatch;
         boolean accountMatch;
 
-        boolean gotNetwork = connectivityService.getActiveNetworkType() != JobRequest.NetworkType.ANY &&
+        boolean gotNetwork = connectivityService.getActiveNetworkType() != NetworkType.ANY &&
             !connectivityService.isInternetWalled();
-        boolean gotWifi = gotNetwork && Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED);
-        boolean charging = Device.getBatteryStatus(context).isCharging();
+        boolean gotWifi = gotNetwork && connectivityService.getActiveNetworkType() == (NetworkType.UNMETERED);
+        boolean charging = powerManagementService.isBatteryCharging();
         boolean isPowerSaving = powerManagementService.isPowerSavingEnabled();
 
         for (OCUpload failedUpload : failedUploads) {
@@ -1027,7 +1026,7 @@ public class FileUploader extends Service
                         uploadsStorageManager.updateUpload(failedUpload);
                     }
                 } else {
-                    charging = charging || Device.getBatteryStatus(context).getBatteryPercent() == 1;
+                    charging = charging || powerManagementService.getBatteryPercent() == 100.0f;
                     if (!isPowerSaving && gotNetwork && canUploadBeRetried(failedUpload, gotWifi, charging)) {
                         retryUpload(context, currentAccount, failedUpload);
                     }
@@ -1286,9 +1285,10 @@ public class FileUploader extends Service
             Context context = MainApp.getAppContext();
             if (context != null) {
                 ResultCode cancelReason = null;
-                if (mCurrentUpload.isWifiRequired() && !Device.getNetworkType(context).equals(JobRequest.NetworkType.UNMETERED)) {
+                if (mCurrentUpload.isWifiRequired() &&
+                    connectivityService.getActiveNetworkType() != NetworkType.UNMETERED) {
                     cancelReason = ResultCode.DELAYED_FOR_WIFI;
-                } else if (mCurrentUpload.isChargingRequired() && !Device.getBatteryStatus(context).isCharging()) {
+                } else if (mCurrentUpload.isChargingRequired() && !powerManagementService.isBatteryCharging()) {
                     cancelReason = ResultCode.DELAYED_FOR_CHARGING;
                 } else if (!mCurrentUpload.isIgnoringPowerSaveMode() && powerManagementService.isPowerSavingEnabled()) {
                     cancelReason = ResultCode.DELAYED_IN_POWER_SAVE_MODE;

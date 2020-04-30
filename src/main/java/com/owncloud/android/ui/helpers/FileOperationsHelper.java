@@ -45,10 +45,10 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 
-import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.NetworkType;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -219,7 +219,7 @@ public class FileOperationsHelper {
             }
 
             // if offline or walled garden, show old version with warning
-            if (connectivityService.getActiveNetworkType() == JobRequest.NetworkType.ANY ||
+            if (connectivityService.getActiveNetworkType() == NetworkType.ANY ||
                     connectivityService.isInternetWalled()) {
                 DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
                 EventBus.getDefault().post(new SyncEventFinished(intent));
