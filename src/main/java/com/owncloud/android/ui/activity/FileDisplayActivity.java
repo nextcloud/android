@@ -152,6 +152,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
+import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
@@ -868,14 +869,8 @@ public class FileDisplayActivity extends FileActivity
                 break;
             }
             case R.id.action_sort: {
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.addToBackStack(null);
-
-                SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                    preferences.getSortOrderByFolder(getListOfFilesFragment().getCurrentFile()));
-                mSortingOrderDialogFragment.show(ft, SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
-
+                openSortingOrderDialogFragment(getSupportFragmentManager(),
+                                               preferences.getSortOrderByFolder(getListOfFilesFragment().getCurrentFile()));
                 break;
             }
             case R.id.action_switch_view: {

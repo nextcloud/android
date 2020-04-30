@@ -28,6 +28,7 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -83,6 +84,7 @@ import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment;
+import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.CommentsEvent;
@@ -120,6 +122,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -128,6 +131,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
+import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -352,9 +356,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
         prepareCurrentSearch(searchEvent);
 
-        if (isGridViewPreferred(getCurrentFile())) {
-            switchToGridView();
-        }
+        mSortButton.setOnClickListener(v -> openSortingOrderDialogFragment(requireFragmentManager(),
+                                                                           preferences.getSortOrderByFolder(mFile)));
+
+        mSwitchGridViewButton.setOnClickListener(v -> {
+            if (isGridEnabled()) {
+                setListAsPreferred();
+            } else {
+                setGridAsPreferred();
+            }
+            setGridSwitchButton();
+        });
 
         setTitle();
 
@@ -747,12 +759,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        Menu mMenu = menu;
 
         if (mOriginalMenuItems.size() == 0) {
-            mOriginalMenuItems.add(mMenu.findItem(R.id.action_switch_view));
-            mOriginalMenuItems.add(mMenu.findItem(R.id.action_sort));
-            mOriginalMenuItems.add(mMenu.findItem(R.id.action_search));
+            mOriginalMenuItems.add(menu.findItem(R.id.action_switch_view));
+            mOriginalMenuItems.add(menu.findItem(R.id.action_sort));
+            mOriginalMenuItems.add(menu.findItem(R.id.action_search));
         }
 
         changeGridIcon(menu);   // this is enough if the option stays out of the action bar
@@ -1272,6 +1283,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             switchToListView();
         }
 
+        setSortButton(preferences.getSortOrderByFolder(mFile));
+        setGridSwitchButton();
+
         if (mHideFab) {
             setFabVisible(false);
         } else {
@@ -1293,7 +1307,43 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
 
     public void sortFiles(FileSortOrder sortOrder) {
+        setSortButton(sortOrder);
         mAdapter.setSortOrder(mFile, sortOrder);
+    }
+
+    private void setSortButton(FileSortOrder sortOrder) {
+        int nameId;
+        switch (sortOrder.name) {
+            case "sort_new_to_old":
+            case "sort_old_to_new":
+                nameId = R.string.sort_by_date;
+                break;
+            case "sort_big_to_small":
+            case "sort_small_to_big":
+                nameId = R.string.sort_by_size;
+                break;
+            default:
+                nameId = R.string.sort_by_name;
+                break;
+        }
+        mSortButton.setText(getString(nameId));
+        Drawable icon;
+        if (sortOrder.isAscending) {
+            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_keyboard_arrow_down);
+        } else {
+            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_keyboard_arrow_up);
+        }
+        mSortButton.setIcon(icon);
+    }
+
+    private void setGridSwitchButton() {
+        if (isGridEnabled()) {
+            mSwitchGridViewButton.setContentDescription(getString(R.string.action_switch_list_view));
+            mSwitchGridViewButton.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_list));
+        } else {
+            mSwitchGridViewButton.setContentDescription(getString(R.string.action_switch_grid_view));
+            mSwitchGridViewButton.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_module));
+        }
     }
 
     /**

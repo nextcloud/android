@@ -11,6 +11,9 @@
     <string name="actionbar_send_file">Send</string>
     <string name="actionbar_sort">Sort</string>
     <string name="sort_by">Sort by</string>
+    <string name="sort_by_date">Date</string>
+    <string name="sort_by_name">Name</string>
+    <string name="sort_by_size">Size</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_date_newest_first">Newest first</string>
