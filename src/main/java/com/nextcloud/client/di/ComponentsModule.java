@@ -21,6 +21,7 @@
 package com.nextcloud.client.di;
 
 import com.nextcloud.client.etm.EtmActivity;
+import com.nextcloud.client.jobs.NotificationWork;
 import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.media.PlayerService;
 import com.nextcloud.client.onboarding.FirstRunActivity;
@@ -30,7 +31,6 @@ import com.owncloud.android.authentication.DeepLinkLoginActivity;
 import com.owncloud.android.files.BootupBroadcastReceiver;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.jobs.NotificationJob;
 import com.owncloud.android.providers.DiskLruImageCacheFileProvider;
 import com.owncloud.android.providers.FileContentProvider;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
@@ -157,7 +157,7 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FileDownloader fileDownloader();
 
     @ContributesAndroidInjector abstract BootupBroadcastReceiver bootupBroadcastReceiver();
-    @ContributesAndroidInjector abstract NotificationJob.NotificationReceiver notificationJobBroadcastReceiver();
+    @ContributesAndroidInjector abstract NotificationWork.NotificationReceiver notificationWorkBroadcastReceiver();
 
     @ContributesAndroidInjector abstract FileContentProvider fileContentProvider();
     @ContributesAndroidInjector abstract UsersAndGroupsSearchProvider usersAndGroupsSearchProvider();
