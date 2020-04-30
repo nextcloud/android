@@ -266,6 +266,7 @@
     <string name="etm_background_jobs">Úlohy na pozadí</string>
     <string name="etm_background_jobs_cancel_all">Ukončiť všetky úlohy</string>
     <string name="etm_background_jobs_prune">Zrušiť nečinné úlohy</string>
+    <string name="etm_background_jobs_schedule_test_job">Naplánovať testovaciu úlohu</string>
     <string name="etm_background_jobs_start_test_job">Začať testovaciu úlohu</string>
     <string name="etm_background_jobs_stop_test_job">Zastaviť testovaciu úlohu</string>
     <string name="etm_migrations">Migrácie (aktualizácia aplikácie)</string>
