@@ -266,6 +266,7 @@
     <string name="etm_background_jobs">Operazioni in background</string>
     <string name="etm_background_jobs_cancel_all">Annulla tutte le operazioni</string>
     <string name="etm_background_jobs_prune">Elimina operazioni inattive</string>
+    <string name="etm_background_jobs_schedule_test_job">Pianifica operazione di prova</string>
     <string name="etm_background_jobs_start_test_job">Avvia operazione di prova</string>
     <string name="etm_background_jobs_stop_test_job">Ferma operazione di prova</string>
     <string name="etm_migrations">Migrazioni (aggiornamento applicazione)</string>

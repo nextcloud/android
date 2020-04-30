@@ -266,6 +266,7 @@
     <string name="etm_background_jobs">Zadania w tle</string>
     <string name="etm_background_jobs_cancel_all">Anuluj wszystkie zadania</string>
     <string name="etm_background_jobs_prune">Skróć nieaktywne zadania</string>
+    <string name="etm_background_jobs_schedule_test_job">Zaplanuj zadanie testowe</string>
     <string name="etm_background_jobs_start_test_job">Rozpocznij zadanie testowe</string>
     <string name="etm_background_jobs_stop_test_job">Zatrzymaj zadanie testowe</string>
     <string name="etm_migrations">Migracje (aktualizacja aplikacji)</string>
