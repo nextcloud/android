@@ -981,6 +981,7 @@ public class UploadFileOperation extends SyncOperation {
 
             case FileUploader.LOCAL_BEHAVIOUR_DELETE:
                 originalFile.delete();
+                mFile.setStoragePath("");
                 getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
                 saveUploadedFile(client);
                 break;
