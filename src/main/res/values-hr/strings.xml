@@ -142,6 +142,7 @@
     <string name="confirmation_remove_folders_alert">Želite li zaista izbrisati odabrane stavke i pripadajući sadržaj?</string>
     <string name="confirmation_remove_local">Samo lokalno</string>
     <string name="conflict_already_existing_file">Datoteka postoji</string>
+    <string name="conflict_dialog_error">Pogreška pri stvaranju dijaloškog okvira o nepodudaranju!</string>
     <string name="conflict_message_description">Ako odaberete obje inačice, lokalna će datoteka uz naziv imati i broj.</string>
     <string name="conflict_message_headline">Koje datoteke želite zadržati?</string>
     <string name="conflict_new_file">Nova datoteka</string>
@@ -477,6 +478,11 @@
     <string name="pref_behaviour_entries_delete_file">izbrisano</string>
     <string name="pref_behaviour_entries_keep_file">spremljeno u izvornoj mapi</string>
     <string name="pref_behaviour_entries_move">premješteno u mapu aplikacije</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Što učiniti ako datoteka već postoji?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Pitaj me svaki put</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Prepiši udaljenu inačicu</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Preimenuj novu inačicu</string>
+    <string name="pref_instant_name_collision_policy_title">Što učiniti ako datoteka već postoji?</string>
     <string name="prefs_add_account">Dodaj račun</string>
     <string name="prefs_calendar_contacts">Sinkroniziraj kalendar i kontakte</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Adresa poslužitelja za račun nije razlučena za DAVx5 (ranije poznat kao DAVdroid)</string>
