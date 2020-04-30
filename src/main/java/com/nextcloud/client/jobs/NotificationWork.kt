@@ -129,6 +129,7 @@ class NotificationWork constructor(
         return Result.success()
     }
 
+    @Suppress("LongMethod") // legacy code
     private fun sendNotification(notification: Notification, user: User) {
         val randomId = SecureRandom()
         val file = notification.subjectRichParameters["file"]
@@ -237,6 +238,7 @@ class NotificationWork constructor(
             this.accountManager = accountManager
         }
 
+        @Suppress("ComplexMethod") // legacy code
         override fun onReceive(context: Context, intent: Intent) {
             AndroidInjection.inject(this, context)
             val numericNotificationId = intent.getIntExtra(NUMERIC_NOTIFICATION_ID, 0)

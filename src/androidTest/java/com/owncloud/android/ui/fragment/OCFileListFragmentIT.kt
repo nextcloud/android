@@ -5,6 +5,7 @@
  * @author Tobias Kaminsky
  * Copyright (C) 2020 Tobias Kaminsky
  * Copyright (C) 2020 Nextcloud GmbH
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -26,10 +27,11 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
-import com.evernote.android.job.JobRequest
 import com.facebook.testing.screenshot.Screenshot
 import com.nextcloud.client.account.UserAccountManagerImpl
+import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
@@ -71,12 +73,8 @@ class OCFileListFragmentIT : AbstractIT() {
             return false
         }
 
-        override fun isOnlineWithWifi(): Boolean {
-            return true
-        }
-
-        override fun getActiveNetworkType(): JobRequest.NetworkType {
-            return JobRequest.NetworkType.ANY
+        override fun getConnectivity(): Connectivity {
+            return Connectivity.CONNECTED_WIFI
         }
     }
 
@@ -87,8 +85,8 @@ class OCFileListFragmentIT : AbstractIT() {
         override val isPowerSavingExclusionAvailable: Boolean
             get() = false
 
-        override val isBatteryCharging: Boolean
-            get() = false
+        override val battery: BatteryStatus
+            get() = BatteryStatus()
     }
 
     @Test

@@ -55,6 +55,7 @@ class ContactsImportWork(
         const val SELECTED_CONTACTS_INDICES = "selected_contacts_indices"
     }
 
+    @Suppress("ComplexMethod", "NestedBlockDepth") // legacy code
     override fun doWork(): Result {
         val vCardFilePath = inputData.getString(VCARD_FILE_PATH) ?: ""
         val contactsAccountName = inputData.getString(ACCOUNT_NAME)

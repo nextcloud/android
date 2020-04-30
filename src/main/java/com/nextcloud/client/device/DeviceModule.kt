@@ -4,7 +4,7 @@
  * @author Chris Narkiewicz
  * @author Tobias Kaminsky
  *
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * Copyright (C) 2019 Tobias Kaminsky
  * Copyright (C) 2019 Nextcloud GmbH
  *
@@ -38,7 +38,7 @@ class DeviceModule {
         val platformPowerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
         return PowerManagementServiceImpl(
             context = context,
-            powerManager = platformPowerManager,
+            platformPowerManager = platformPowerManager,
             deviceInfo = DeviceInfo(),
             preferences = preferences
         )
