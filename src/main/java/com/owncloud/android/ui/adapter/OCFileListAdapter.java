@@ -714,7 +714,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private static void stopShimmer(ShimmerFrameLayout shimmerFrameLayout, View shimmerThumbnail, ImageView thumbnailView) {
         if (shimmerFrameLayout != null) {
-            shimmerFrameLayout.hideShimmer();
+            Shimmer.AlphaHighlightBuilder builder = new Shimmer.AlphaHighlightBuilder();
+            builder.setBaseAlpha(1);
+            builder.setAutoStart(false);
+            shimmerFrameLayout.setShimmer(builder.build());
             shimmerThumbnail.setVisibility(View.GONE);
             thumbnailView.setVisibility(View.VISIBLE);
         }
