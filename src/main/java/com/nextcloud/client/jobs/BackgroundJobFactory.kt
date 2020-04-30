@@ -83,7 +83,7 @@ class BackgroundJobFactory @Inject constructor(
             OfflineSyncWork::class -> createOfflineSyncWork(context, workerParameters)
             MediaFoldersDetectionWork::class -> createMediaFoldersDetectionWork(context, workerParameters)
             NotificationWork::class -> createNotificationWork(context, workerParameters)
-            AccountRemovalWork::class -> createAccountRemovalWorl(context, workerParameters)
+            AccountRemovalWork::class -> createAccountRemovalWork(context, workerParameters)
             else -> null // caller falls back to default factory
         }
     }
@@ -176,7 +176,7 @@ class BackgroundJobFactory @Inject constructor(
         )
     }
 
-    private fun createAccountRemovalWorl(context: Context, params: WorkerParameters): AccountRemovalWork {
+    private fun createAccountRemovalWork(context: Context, params: WorkerParameters): AccountRemovalWork {
         return AccountRemovalWork(
             context,
             params,
