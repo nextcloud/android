@@ -17,28 +17,27 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-package com.nextcloud.client.network;
+package com.nextcloud.client.device
 
 /**
- * This service provides information about current network connectivity
- * and server reachableity.
+ * This class exposes battery status information
+ * in platform-independent way.
+ *
+ * @param isCharging true if device battery is charging
+ * @param level Battery level, from 0 to 100%
+ *
+ * @see [android.os.BatteryManager]
  */
-public interface ConnectivityService {
+data class BatteryStatus(val isCharging: Boolean = false, val level: Int = 0) {
+
+    companion object {
+        const val BATTERY_FULL = 100
+    }
 
     /**
-     * Check if server is accessible by issuing HTTP status check request.
-     * Since this call involves network traffic, it should not be called
-     * on a main thread.
-     *
-     * @return True if server is unreachable, false otherwise
+     * True if battery is fully loaded, false otherwise.
+     * Some dodgy devices can report battery charging
+     * status as "battery full".
      */
-    boolean isInternetWalled();
-
-    /**
-     * Get current network connectivity status.
-     *
-     * @return Network connectivity status in platform-agnostic format
-     */
-    Connectivity getConnectivity();
+    val isFull: Boolean get() = level >= BATTERY_FULL
 }

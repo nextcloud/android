@@ -3,7 +3,7 @@
  *
  * @author Chris Narkiewicz
  *
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ interface PowerManagementService {
     val isPowerSavingExclusionAvailable: Boolean
 
     /**
-     * Checks if battery is charging using any hardware supported means.
+     * Checks current battery status using platform [android.os.BatteryManager]
      */
-    val isBatteryCharging: Boolean
+    val battery: BatteryStatus
 }

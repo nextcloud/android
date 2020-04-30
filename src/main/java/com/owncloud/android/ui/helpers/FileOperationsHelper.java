@@ -9,7 +9,7 @@
  *
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -45,7 +45,6 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 
-import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
@@ -219,8 +218,7 @@ public class FileOperationsHelper {
             }
 
             // if offline or walled garden, show old version with warning
-            if (connectivityService.getActiveNetworkType() == JobRequest.NetworkType.ANY ||
-                    connectivityService.isInternetWalled()) {
+            if (!connectivityService.getConnectivity().isConnected() || connectivityService.isInternetWalled()) {
                 DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
                 EventBus.getDefault().post(new SyncEventFinished(intent));
 
