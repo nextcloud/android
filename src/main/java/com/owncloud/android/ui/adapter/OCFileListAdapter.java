@@ -201,7 +201,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public int getItemPosition(OCFile file) {
-        return mFiles.indexOf(file);
+        int position = mFiles.indexOf(file);
+
+        if (shouldShowHeader()) {
+            position = position + 1;
+        }
+
+        return position;
     }
 
     public void setFavoriteAttributeForItemID(String fileId, boolean favorite) {
@@ -725,6 +731,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         return !TextUtils.isEmpty(currentDirectory.getRichWorkspace());
+    }
+
+    public boolean isHeader(OCFile file) {
+        return VIEWTYPE_HEADER == getItemViewType(getItemPosition(file));
     }
 
     @Override
