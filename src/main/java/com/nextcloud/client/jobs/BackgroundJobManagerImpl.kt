@@ -74,6 +74,8 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PERIODIC_MEDIA_FOLDER_DETECTION = "periodic_media_folder_detection"
         const val JOB_IMMEDIATE_MEDIA_FOLDER_DETECTION = "immediate_media_folder_detection"
         const val JOB_NOTIFICATION = "notification"
+        const val JOB_ACCOUNT_REMOVAL = "account_removal"
+
         const val JOB_TEST = "test_job"
 
         const val MAX_CONTENT_TRIGGER_DELAY_MS = 1500L
@@ -346,6 +348,19 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         val request = oneTimeRequestBuilder(NotificationWork::class, JOB_NOTIFICATION)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueue(request)
+    }
+
+    override fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean) {
+        val data = Data.Builder()
+            .putString(AccountRemovalWork.ACCOUNT, accountName)
+            .putBoolean(AccountRemovalWork.REMOTE_WIPE, remoteWipe)
+            .build()
+
+        val request = oneTimeRequestBuilder(AccountRemovalWork::class, JOB_ACCOUNT_REMOVAL)
             .setInputData(data)
             .build()
 

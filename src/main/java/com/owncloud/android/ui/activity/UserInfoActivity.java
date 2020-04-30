@@ -50,13 +50,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
-import com.owncloud.android.jobs.AccountRemovalJob;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -333,6 +331,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
 
     public static class AccountRemovalConfirmationDialog extends DialogFragment {
 
+        @Inject BackgroundJobManager backgroundJobManager;
         private Account account;
 
         public static UserInfoActivity.AccountRemovalConfirmationDialog newInstance(User user) {
@@ -373,16 +372,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
                     .setIcon(R.drawable.ic_warning)
                     .setPositiveButton(R.string.common_ok,
                             (dialogInterface, i) -> {
-                                // schedule job
-                                PersistableBundleCompat bundle = new PersistableBundleCompat();
-                                bundle.putString(AccountRemovalJob.ACCOUNT, account.name);
-
-                                new JobRequest.Builder(AccountRemovalJob.TAG)
-                                    .startNow()
-                                    .setExtras(bundle)
-                                    .setUpdateCurrent(false)
-                                    .build()
-                                    .schedule();
+                                backgroundJobManager.startAccountRemovalJob(account.name, false);
                             })
                     .setNegativeButton(R.string.common_cancel, null)
                     .create();
