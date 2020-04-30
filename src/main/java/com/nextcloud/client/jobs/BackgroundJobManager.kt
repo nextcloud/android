@@ -97,6 +97,9 @@ interface BackgroundJobManager {
     fun scheduleMediaFoldersDetectionJob()
     fun startMediaFoldersDetectionJob()
 
+    fun startNotificationJob(subject: String, signature: String)
+    fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean)
+
     fun scheduleTestJob()
     fun startImmediateTestJob()
     fun cancelTestJob()

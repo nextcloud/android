@@ -266,6 +266,7 @@
     <string name="etm_background_jobs">Arka plan görevleri</string>
     <string name="etm_background_jobs_cancel_all">Tüm görevleri iptal et</string>
     <string name="etm_background_jobs_prune">Etkin olmayan görevleri sil</string>
+    <string name="etm_background_jobs_schedule_test_job">Sınama görevi zamanla</string>
     <string name="etm_background_jobs_start_test_job">Sınama görevini başlat</string>
     <string name="etm_background_jobs_stop_test_job">Sınama görevini durdur</string>
     <string name="etm_migrations">Aktarımlar (uygulama yükseltmesi)</string>
