@@ -26,60 +26,63 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_default"
+            app:elevation="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/sort_button"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="@string/actionbar_sort"
+                    android:text="@string/sort_by_name"
+                    android:textColor="@color/fontAppbar"
+                    android:textSize="14sp"
+                    app:icon="@drawable/ic_keyboard_arrow_down"
+                    app:iconGravity="textEnd"
+                    app:iconPadding="3dp"
+                    app:iconTint="@color/fontAppbar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/switch_grid_view_button"
+                    style="@style/Widget.AppTheme.Button.IconButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="15dp"
+                    android:contentDescription="@string/action_switch_grid_view"
+                    app:cornerRadius="24dp"
+                    app:icon="@drawable/ic_view_module"
+                    app:iconTint="@color/fontAppbar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_containing_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:footerDividersEnabled="false"
-            android:visibility="visible">
+            android:visibility="visible"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
+            <com.owncloud.android.ui.EmptyRecyclerView
+                android:id="@+id/list_root"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/sort_button"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:contentDescription="@string/actionbar_sort"
-                        android:text="@string/sort_by_name"
-                        android:textColor="@color/fontAppbar"
-                        android:textSize="14sp"
-                        app:icon="@drawable/ic_keyboard_arrow_down"
-                        app:iconGravity="textEnd"
-                        app:iconPadding="3dp"
-                        app:iconTint="@color/fontAppbar"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/switch_grid_view_button"
-                        style="@style/Widget.AppTheme.Button.IconButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginEnd="15dp"
-                        android:contentDescription="@string/action_switch_grid_view"
-                        app:cornerRadius="24dp"
-                        app:icon="@drawable/ic_view_module"
-                        app:iconTint="@color/fontAppbar"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <com.owncloud.android.ui.EmptyRecyclerView
-                    android:id="@+id/list_root"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
+                android:layout_height="match_parent" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <include layout="@layout/empty_list" />
