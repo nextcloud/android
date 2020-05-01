@@ -615,7 +615,7 @@ public abstract class FileActivity extends DrawerActivity
         dialog.show(getSupportFragmentManager(), DIALOG_CERT_NOT_SAVED);
     }
 
-    public void checkForNewDevVersionNecessary(View view, Context context) {
+    public void checkForNewDevVersionNecessary(Context context) {
         if (getResources().getBoolean(R.bool.dev_version_direct_download_enabled)) {
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
             int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL, APP_OPENED_COUNT);

@@ -70,7 +70,6 @@ import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -233,7 +232,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
     private void showPowerCheckDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(this)
-            .setView(findViewById(R.id.root_layout))
             .setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
             .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.autoupload_disable_power_save_check),
                                                  ThemeUtils.primaryAccentColor(this)))
