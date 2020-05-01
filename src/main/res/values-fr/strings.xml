@@ -268,6 +268,7 @@ Attention la suppression est irréversible.</string>
     <string name="etm_background_jobs">Tâches de fond</string>
     <string name="etm_background_jobs_cancel_all">Annuler toutes les tâches </string>
     <string name="etm_background_jobs_prune">Prune inactive jobs</string>
+    <string name="etm_background_jobs_schedule_test_job">Planifier une tâche de test</string>
     <string name="etm_background_jobs_start_test_job">Démarrer la tâche de test</string>
     <string name="etm_background_jobs_stop_test_job">Arrêter la tâche de test</string>
     <string name="etm_migrations">Migrations (app mise à jour)</string>

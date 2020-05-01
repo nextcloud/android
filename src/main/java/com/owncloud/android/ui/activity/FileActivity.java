@@ -40,6 +40,7 @@ import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -150,6 +151,9 @@ public abstract class FileActivity extends DrawerActivity
 
     @Inject
     ConnectivityService connectivityService;
+
+    @Inject
+    BackgroundJobManager backgroundJobManager;
 
     @Override
     public void showFiles(boolean onDeviceOnly) {
@@ -405,7 +409,7 @@ public abstract class FileActivity extends DrawerActivity
         boolean remoteWipeSupported = accountManager.getServerVersion(account).isRemoteWipeSupported();
 
         if (remoteWipeSupported) {
-            new CheckRemoteWipeTask(account, new WeakReference<>(this)).execute();
+            new CheckRemoteWipeTask(backgroundJobManager, account, new WeakReference<>(this)).execute();
         } else {
             performCredentialsUpdate(account, context);
         }
