@@ -266,6 +266,7 @@
     <string name="etm_background_jobs">Baggrundsjobs</string>
     <string name="etm_background_jobs_cancel_all">Afbryd alle jobs</string>
     <string name="etm_background_jobs_prune">Fjern inaktive jobs</string>
+    <string name="etm_background_jobs_schedule_test_job">Planlæg test job</string>
     <string name="etm_background_jobs_start_test_job">Start test job</string>
     <string name="etm_background_jobs_stop_test_job">Stop test job</string>
     <string name="etm_migrations">Migrationer (app upgrade)</string>
