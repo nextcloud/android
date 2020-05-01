@@ -43,6 +43,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -658,12 +659,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                             if (shimmerFrameLayout != null){
                                 if (!shimmerFrameLayout.isShimmerStarted()){
-                                    Shimmer.AlphaHighlightBuilder shimmerBuilder = new Shimmer.AlphaHighlightBuilder();
-                                    shimmerBuilder.setRepeatCount(ValueAnimator.INFINITE);
-                                    shimmerBuilder.setRepeatMode(ValueAnimator.RESTART);
-                                    shimmerFrameLayout.setShimmer(shimmerBuilder.build());
-                                    thumbnailView.setVisibility(View.GONE);
-                                    shimmerThumbnail.setVisibility(View.VISIBLE);
+                                    if (shimmerThumbnail instanceof ImageView){
+                                        ImageView mShimmerThumbnail = (ImageView) shimmerThumbnail;
+                                        int size = task.getThumbnailDimension();
+                                        configShimmerGridImageSize(mShimmerThumbnail, size);
+                                    }
+                                    startShimmer(shimmerFrameLayout, shimmerThumbnail, thumbnailView);
                                 }
                             }
 
@@ -712,6 +713,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
+    private static void startShimmer(ShimmerFrameLayout shimmerFrameLayout,
+                                     View shimmerThumbnail,
+                                     ImageView thumbnailView) {
+        Shimmer.AlphaHighlightBuilder shimmerBuilder = new Shimmer.AlphaHighlightBuilder();
+        shimmerBuilder.setRepeatCount(ValueAnimator.INFINITE);
+        shimmerBuilder.setRepeatMode(ValueAnimator.RESTART);
+        shimmerFrameLayout.setShimmer(shimmerBuilder.build());
+        thumbnailView.setVisibility(View.GONE);
+        shimmerThumbnail.setVisibility(View.VISIBLE);
+    }
+
     private static void stopShimmer(ShimmerFrameLayout shimmerFrameLayout, View shimmerThumbnail, ImageView thumbnailView) {
         if (shimmerFrameLayout != null) {
             Shimmer.AlphaHighlightBuilder builder = new Shimmer.AlphaHighlightBuilder();
@@ -721,6 +733,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             shimmerThumbnail.setVisibility(View.GONE);
             thumbnailView.setVisibility(View.VISIBLE);
         }
+    }
+
+    private static void configShimmerGridImageSize(ImageView shimmerThumbnail, int size){
+        shimmerThumbnail.setImageResource(R.drawable.background);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(size,size);
+        shimmerThumbnail.setLayoutParams(params);
     }
 
     private String getFooterText() {
