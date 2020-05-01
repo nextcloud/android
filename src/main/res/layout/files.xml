@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
@@ -21,40 +20,38 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:clickable="true" >
+    android:clickable="true"
+    android:fitsSystemWindows="true">
 
     <!-- The main content view -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/root_layout"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/toolbar_standard" />
+            <include layout="@layout/toolbar_standard" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/bg_default"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
-            android:id="@+id/ListLayout"
-            android:contentDescription="@string/list_layout">
-
-            <FrameLayout
-                android:id="@+id/left_fragment_container"
-                android:layout_width="@dimen/zero"
+            <LinearLayout
+                android:id="@+id/ListLayout"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:background="@color/bg_default"
+                android:baselineAligned="false"
+                android:contentDescription="@string/list_layout"
+                android:orientation="horizontal">
 
-            <FrameLayout
-                android:id="@+id/right_fragment_container"
-                android:layout_width="@dimen/zero"
-                android:layout_height="match_parent"
-                android:layout_weight="2" />
-        </LinearLayout>
+                <FrameLayout
+                    android:id="@+id/left_fragment_container"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <FrameLayout
+                    android:id="@+id/right_fragment_container"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+            </LinearLayout>
 
     </LinearLayout>
 
@@ -62,6 +59,6 @@
         layout="@layout/drawer"
         android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
-        android:layout_gravity="start"/>
+        android:layout_gravity="start" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
