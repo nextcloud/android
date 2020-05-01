@@ -38,11 +38,11 @@
             app:shimmer_base_alpha="1"
             android:clipChildren="true">
 
-            <View
+            <ImageView
                 android:id="@+id/thumbnail_shimmer"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/standard_list_item_size"
-                android:background="@drawable/shimmer_background"
+                android:layout_height="match_parent"
+                android:background="@color/grey_200"
                 android:padding="@dimen/standard_eigth_padding"
                 android:visibility="gone" />
 
