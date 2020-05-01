@@ -42,8 +42,9 @@
                 android:id="@+id/thumbnail_shimmer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/grey_200"
                 android:layout_margin="@dimen/standard_eigth_padding"
+                android:background="@color/grey_200"
+                android:contentDescription="@null"
                 android:scaleType="centerCrop"
                 android:visibility="gone" />
 

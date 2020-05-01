@@ -31,7 +31,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.PorterDuff;
 import android.graphics.Shader;
@@ -614,7 +613,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         setThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, null, null);
     }
 
-    public static void setThumbnail(OCFile file,
+    private static void setThumbnail(OCFile file,
                                     ImageView thumbnailView,
                                     User user,
                                     FileDataStorageManager storageManager,
