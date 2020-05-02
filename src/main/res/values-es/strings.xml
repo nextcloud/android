@@ -266,6 +266,7 @@
     <string name="etm_background_jobs">Procesos en segundo plano</string>
     <string name="etm_background_jobs_cancel_all">Cancelar todos los trabajos</string>
     <string name="etm_background_jobs_prune">Parar trabajos inactivos</string>
+    <string name="etm_background_jobs_schedule_test_job">Programar trabajo de prueba</string>
     <string name="etm_background_jobs_start_test_job">Iniciar trabajo de prueba</string>
     <string name="etm_background_jobs_stop_test_job">Parar trabajo de prueba</string>
     <string name="etm_migrations">Migraciones (actualizar app)</string>
