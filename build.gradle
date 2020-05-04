@@ -343,7 +343,6 @@ dependencies {
 
     // Shimmer animation
     implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
-    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     // dependencies for markdown rendering
     implementation "io.noties.markwon:core:$markwonVersion"
