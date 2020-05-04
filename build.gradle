@@ -342,6 +342,7 @@ dependencies {
     implementation 'org.conscrypt:conscrypt-android:2.4.0'
 
     // Shimmer animation
+    implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     // dependencies for markdown rendering
