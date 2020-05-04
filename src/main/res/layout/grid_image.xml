@@ -16,7 +16,6 @@
 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -30,20 +29,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.facebook.shimmer.ShimmerFrameLayout
+        <FrameLayout
             android:id="@+id/shimmer_view_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:shimmer_auto_start="false"
-            app:shimmer_base_alpha="1"
             android:clipChildren="true">
 
-            <ImageView
+            <com.elyeproj.loaderviewlibrary.LoaderImageView
                 android:id="@+id/thumbnail_shimmer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/standard_eigth_padding"
-                android:background="@color/grey_200"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
                 android:visibility="gone" />
@@ -56,7 +52,7 @@
                 android:padding="@dimen/standard_eigth_padding"
                 android:scaleType="centerCrop"
                 android:src="@drawable/folder" />
-        </com.facebook.shimmer.ShimmerFrameLayout>
+        </FrameLayout>
 
         <ImageView
             android:id="@+id/favorite_action"

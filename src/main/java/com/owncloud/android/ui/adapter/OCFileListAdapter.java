@@ -25,7 +25,6 @@
 package com.owncloud.android.ui.adapter;
 
 import android.accounts.AccountManager;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -51,8 +50,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.facebook.shimmer.Shimmer;
-import com.facebook.shimmer.ShimmerFrameLayout;
+import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -97,6 +95,7 @@ import java.util.Set;
 import java.util.Vector;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
@@ -363,7 +362,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                          asyncTasks,
                          gridView,
                          activity,
-                         gridViewHolder.shimmerFrameLayout,
                          gridViewHolder.shimmerThumbnail);
 
             if (highlightedItem != null && file.getFileId() == highlightedItem.getFileId()) {
@@ -610,7 +608,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
                                     boolean gridView,
                                     Context context) {
-        setThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, null, null);
+        setThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, null);
     }
 
     private static void setThumbnail(OCFile file,
@@ -620,8 +618,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
                                     boolean gridView,
                                     Context context,
-                                    ShimmerFrameLayout shimmerFrameLayout,
-                                    View shimmerThumbnail) {
+                                    LoaderImageView shimmerThumbnail) {
         if (file.isFolder()) {
             thumbnailView.setImageDrawable(MimeTypeUtil
                                                .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
@@ -655,18 +652,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                                    user.toPlatformAccount(),
                                                                                    asyncTasks,
                                                                                    !gridView);
-
-                            if (shimmerFrameLayout != null){
-                                if (!shimmerFrameLayout.isShimmerStarted()){
-                                    if (shimmerThumbnail instanceof ImageView){
-                                        ImageView mShimmerThumbnail = (ImageView) shimmerThumbnail;
-                                        int size = task.getThumbnailDimension();
-                                        configShimmerGridImageSize(mShimmerThumbnail, size);
-                                    }
-                                    startShimmer(shimmerFrameLayout, shimmerThumbnail, thumbnailView);
-                                }
-                            }
-
                             if (thumbnail == null) {
                                 thumbnail = BitmapUtils.drawableToBitmap(
                                     MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
@@ -678,15 +663,22 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
                                                                                   thumbnail, task);
 
+                            if (shimmerThumbnail != null && shimmerThumbnail.getVisibility() == View.GONE) {
+                                if (gridView) {
+                                    configShimmerGridImageSize(shimmerThumbnail, task.getThumbnailDimension());
+                                }
+                                startShimmer(shimmerThumbnail, thumbnailView);
+                            }
+
                             task.setListener(new ThumbnailsCacheManager.ThumbnailGenerationTask.Listener() {
                                 @Override
                                 public void onSuccess() {
-                                    stopShimmer(shimmerFrameLayout, shimmerThumbnail, thumbnailView);
+                                    stopShimmer(shimmerThumbnail, thumbnailView);
                                 }
 
                                 @Override
                                 public void onError() {
-                                    stopShimmer(shimmerFrameLayout, shimmerThumbnail, thumbnailView);
+                                    stopShimmer(shimmerThumbnail, thumbnailView);
                                 }
                             });
 
@@ -712,32 +704,34 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private static void startShimmer(ShimmerFrameLayout shimmerFrameLayout,
-                                     View shimmerThumbnail,
-                                     ImageView thumbnailView) {
-        Shimmer.AlphaHighlightBuilder shimmerBuilder = new Shimmer.AlphaHighlightBuilder();
-        shimmerBuilder.setRepeatCount(ValueAnimator.INFINITE);
-        shimmerBuilder.setRepeatMode(ValueAnimator.RESTART);
-        shimmerFrameLayout.setShimmer(shimmerBuilder.build());
-        thumbnailView.setVisibility(View.GONE);
-        shimmerThumbnail.setVisibility(View.VISIBLE);
+    @Override
+    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
+        if (holder instanceof OCFileListGridImageViewHolder) {
+            LoaderImageView thumbnailShimmer = ((OCFileListGridImageViewHolder) holder).shimmerThumbnail;
+            if (thumbnailShimmer.getVisibility() == View.VISIBLE){
+                thumbnailShimmer.setImageResource(R.drawable.background);
+                thumbnailShimmer.resetLoader();
+            }
+        }
     }
 
-    private static void stopShimmer(ShimmerFrameLayout shimmerFrameLayout, View shimmerThumbnail, ImageView thumbnailView) {
-        if (shimmerFrameLayout != null) {
-            Shimmer.AlphaHighlightBuilder builder = new Shimmer.AlphaHighlightBuilder();
-            builder.setBaseAlpha(1);
-            builder.setAutoStart(false);
-            shimmerFrameLayout.setShimmer(builder.build());
-            shimmerThumbnail.setVisibility(View.GONE);
+    private static void startShimmer(LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
+        thumbnailShimmer.setImageResource(R.drawable.background);
+        thumbnailShimmer.resetLoader();
+        thumbnailView.setVisibility(View.GONE);
+        thumbnailShimmer.setVisibility(View.VISIBLE);
+    }
+
+    private static void stopShimmer(@Nullable LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
+        if (thumbnailShimmer != null){
+            thumbnailShimmer.setVisibility(View.GONE);
             thumbnailView.setVisibility(View.VISIBLE);
         }
     }
 
-    private static void configShimmerGridImageSize(ImageView shimmerThumbnail, int size){
-        shimmerThumbnail.setImageResource(R.drawable.background);
+    private static void configShimmerGridImageSize(LoaderImageView thumbnailShimmer, int size){
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,size);
-        shimmerThumbnail.setLayoutParams(params);
+        thumbnailShimmer.setLayoutParams(params);
     }
 
     private String getFooterText() {
@@ -1258,10 +1252,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public ImageView thumbnail;
 
         @BindView(R.id.thumbnail_shimmer)
-        public View shimmerThumbnail;
-
-        @BindView(R.id.shimmer_view_container)
-        public ShimmerFrameLayout shimmerFrameLayout;
+        public LoaderImageView shimmerThumbnail;
 
         @BindView(R.id.favorite_action)
         public ImageView favorite;
