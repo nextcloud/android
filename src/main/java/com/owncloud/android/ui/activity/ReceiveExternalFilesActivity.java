@@ -775,11 +775,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 btnChooseFolder.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
             }
 
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(
-                        ThemeUtils.primaryColor(getAccount(), false, this)));
-            }
-
             ThemeUtils.colorStatusBar(this);
 
             ThemeUtils.tintBackButton(actionBar, this);
