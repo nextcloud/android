@@ -61,8 +61,9 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/switch_grid_view_button"
                     style="@style/Widget.AppTheme.Button.IconButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_marginEnd="4dp"
                     android:contentDescription="@string/action_switch_grid_view"
                     app:cornerRadius="24dp"
                     app:icon="@drawable/ic_view_module"
