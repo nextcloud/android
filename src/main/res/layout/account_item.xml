@@ -95,7 +95,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/overflow_menu"
+            android:id="@+id/account_menu"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
