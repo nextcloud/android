@@ -731,6 +731,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private static void configShimmerGridImageSize(LoaderImageView thumbnailShimmer, int size){
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,size);
+        FrameLayout.LayoutParams targetLayoutParams = (FrameLayout.LayoutParams) thumbnailShimmer.getLayoutParams();
+        params.setMargins(targetLayoutParams.leftMargin, targetLayoutParams.topMargin,
+                          targetLayoutParams.rightMargin, targetLayoutParams.bottomMargin);
         thumbnailShimmer.setLayoutParams(params);
     }
 

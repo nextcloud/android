@@ -16,6 +16,7 @@
 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -42,7 +43,9 @@
                 android:layout_margin="@dimen/standard_eigth_padding"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
-                android:visibility="gone" />
+                android:visibility="gone"
+                app:width_weight="0.4"
+                app:height_weight="0.6" />
 
             <ImageView
                 android:id="@+id/thumbnail"
