@@ -84,7 +84,6 @@ import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment;
-import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.CommentsEvent;
@@ -132,6 +131,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
+import static com.owncloud.android.utils.FileSortOrder.sort_big_to_small_id;
+import static com.owncloud.android.utils.FileSortOrder.sort_new_to_old_id;
+import static com.owncloud.android.utils.FileSortOrder.sort_old_to_new_id;
+import static com.owncloud.android.utils.FileSortOrder.sort_small_to_big_id;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -1314,12 +1317,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private void setSortButton(FileSortOrder sortOrder) {
         int nameId;
         switch (sortOrder.name) {
-            case "sort_new_to_old":
-            case "sort_old_to_new":
+            case sort_new_to_old_id:
+            case sort_old_to_new_id:
                 nameId = R.string.sort_by_date;
                 break;
-            case "sort_big_to_small":
-            case "sort_small_to_big":
+            case sort_big_to_small_id:
+            case sort_small_to_big_id:
                 nameId = R.string.sort_by_size;
                 break;
             default:
@@ -1329,9 +1332,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mSortButton.setText(getString(nameId));
         Drawable icon;
         if (sortOrder.isAscending) {
-            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_keyboard_arrow_down);
+            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_down);
         } else {
-            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_keyboard_arrow_up);
+            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_up);
         }
         mSortButton.setIcon(icon);
     }
