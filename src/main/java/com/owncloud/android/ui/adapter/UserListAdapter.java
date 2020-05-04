@@ -296,13 +296,19 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         private User user;
 
+        private ImageView accountMenuButton;
+
+
         AccountViewHolderItem(@NonNull View view) {
             super(view);
             this.imageViewItem = view.findViewById(R.id.user_icon);
             this.checkViewItem = view.findViewById(R.id.ticker);
             this.usernameViewItem = view.findViewById(R.id.user_name);
             this.accountViewItem = view.findViewById(R.id.account);
+            this.accountMenuButton = view.findViewById(R.id.account_menu);
+
             view.setOnClickListener(this);
+            accountMenuButton.setOnClickListener(this);
         }
 
         public void setData(User user) {
