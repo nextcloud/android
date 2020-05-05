@@ -633,9 +633,6 @@ Attention la suppression est irréversible.</string>
     <string name="signup_with_provider">Se connecter avec un fournisseur</string>
     <string name="single_sign_on_request_token" formatted="true">Autoriser %1$s à accéder à votre compte Nextcloud  %2$s ?</string>
     <string name="sort_by">Trier par</string>
-    <string name="sort_by_date">Date</string>
-    <string name="sort_by_name">Nom</string>
-    <string name="sort_by_size">Taille</string>
     <string name="sort_by_modification_date_ascending">Le plus récent en premier</string>
     <string name="sort_by_modification_date_descending">Le plus ancien en premier</string>
     <string name="sort_by_name_ascending">A - Z</string>

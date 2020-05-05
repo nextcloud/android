@@ -131,10 +131,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
+import static com.owncloud.android.utils.FileSortOrder.sort_a_to_z_id;
 import static com.owncloud.android.utils.FileSortOrder.sort_big_to_small_id;
 import static com.owncloud.android.utils.FileSortOrder.sort_new_to_old_id;
 import static com.owncloud.android.utils.FileSortOrder.sort_old_to_new_id;
 import static com.owncloud.android.utils.FileSortOrder.sort_small_to_big_id;
+import static com.owncloud.android.utils.FileSortOrder.sort_z_to_a_id;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -779,6 +781,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
                          menuItemOrig.getTitle());
             }
+            mSortButton.setVisibility(View.VISIBLE);
 
         } else if (menuItemAddRemoveValue == MenuItemAddRemove.ADD_GRID_AND_SORT) {
             if (menu.findItem(R.id.action_switch_view) == null) {
@@ -786,12 +789,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
                          menuItemOrig.getTitle());
             }
+            mSwitchGridViewButton.setVisibility(View.VISIBLE);
 
             if (menu.findItem(R.id.action_sort) == null) {
                 menuItemOrig = mOriginalMenuItems.get(1);
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
                          menuItemOrig.getTitle());
             }
+            mSortButton.setVisibility(View.VISIBLE);
         } else if (menuItemAddRemoveValue == MenuItemAddRemove.REMOVE_SEARCH) {
             menu.removeItem(R.id.action_search);
         } else if (menuItemAddRemoveValue == MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH) {
@@ -800,12 +805,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
                          menuItemOrig.getTitle());
             }
+            mSwitchGridViewButton.setVisibility(View.VISIBLE);
 
             if (menu.findItem(R.id.action_sort) == null) {
                 menuItemOrig = mOriginalMenuItems.get(1);
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
                          menuItemOrig.getTitle());
             }
+            mSortButton.setVisibility(View.VISIBLE);
 
             if (menu.findItem(R.id.action_search) == null) {
                 menuItemOrig = mOriginalMenuItems.get(2);
@@ -815,10 +822,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else if (menuItemAddRemoveValue == MenuItemAddRemove.REMOVE_SORT) {
             menu.removeItem(R.id.action_sort);
             menu.removeItem(R.id.action_search);
+            mSortButton.setVisibility(View.GONE);
         } else if (menuItemAddRemoveValue == MenuItemAddRemove.REMOVE_GRID_AND_SORT) {
             menu.removeItem(R.id.action_sort);
             menu.removeItem(R.id.action_switch_view);
             menu.removeItem(R.id.action_search);
+            mSortButton.setVisibility(View.GONE);
+            mSwitchGridViewButton.setVisibility(View.GONE);
         }
     }
 
@@ -1317,26 +1327,27 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private void setSortButton(FileSortOrder sortOrder) {
         int nameId;
         switch (sortOrder.name) {
+            case sort_z_to_a_id:
+                nameId = R.string.menu_item_sort_by_name_z_a;
+                break;
             case sort_new_to_old_id:
+                nameId = R.string.menu_item_sort_by_date_newest_first;
+                break;
             case sort_old_to_new_id:
-                nameId = R.string.sort_by_date;
+                nameId = R.string.menu_item_sort_by_date_oldest_first;
                 break;
             case sort_big_to_small_id:
-            case sort_small_to_big_id:
-                nameId = R.string.sort_by_size;
+                nameId = R.string.menu_item_sort_by_size_biggest_first;
                 break;
+            case sort_small_to_big_id:
+                nameId = R.string.menu_item_sort_by_size_smallest_first;
+                break;
+            case sort_a_to_z_id:
             default:
-                nameId = R.string.sort_by_name;
+                nameId = R.string.menu_item_sort_by_name_a_z;
                 break;
         }
         mSortButton.setText(getString(nameId));
-        Drawable icon;
-        if (sortOrder.isAscending) {
-            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_down);
-        } else {
-            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_up);
-        }
-        mSortButton.setIcon(icon);
     }
 
     private void setGridSwitchButton() {
