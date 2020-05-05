@@ -266,6 +266,7 @@
     <string name="etm_background_jobs">Послови у позадини</string>
     <string name="etm_background_jobs_cancel_all">Откажи све послове</string>
     <string name="etm_background_jobs_prune">Уклони неактивне послове</string>
+    <string name="etm_background_jobs_schedule_test_job">Закажи пробни посао</string>
     <string name="etm_background_jobs_start_test_job">Покрени пробни посао</string>
     <string name="etm_background_jobs_stop_test_job">Заустави пробни посао</string>
     <string name="etm_migrations">Пресељења (надоградња апликације)</string>
@@ -478,6 +479,11 @@
     <string name="pref_behaviour_entries_delete_file">обрисано</string>
     <string name="pref_behaviour_entries_keep_file">остављен у изворној фасцикли</string>
     <string name="pref_behaviour_entries_move">премештен у фасциклу апликације</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Шта радити ако фајл већ постоји?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Питај ме сваки пут</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Препиши удаљену верзију</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Преименуј нову вертију</string>
+    <string name="pref_instant_name_collision_policy_title">Шта радити ако фајл већ постоји?</string>
     <string name="prefs_add_account">Додај налог</string>
     <string name="prefs_calendar_contacts">Синхронизуј календар и контакте</string>
     <string name="prefs_calendar_contacts_address_resolve_error">DAVx5 (раније знан и као ДАВдроид) не може да разлучи адресу сервера овог налога</string>
