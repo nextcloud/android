@@ -36,7 +36,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -60,6 +63,7 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -163,7 +167,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         initializeComponentGetters();
     }
 
-    @Override
+
+        @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == KEY_DELETE_CODE && data != null) {
@@ -463,12 +468,26 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     }
 
     @Override
-    public void onClick(User user) {
-        final Intent intent = new Intent(this, UserInfoActivity.class);
-        intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);
-        OwnCloudAccount oca = user.toOwnCloudAccount();
-        intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
-        startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
+    public void onClick(User user, View view) {
+
+        MenuInflater inflater = getMenuInflater();
+
+        if(view.getId() == R.id.account_menu) {
+            // Inflate the account menu
+            /*
+            inflater.inflate(R.menu.item_account, menu);
+            openContextMenu(R.menu.item_account);
+            */
+        } else {
+            // Open the account view
+            Log_OC.e("VIEW VIEW VIEW", view.toString());
+
+            final Intent intent = new Intent(this, UserInfoActivity.class);
+            intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);
+            OwnCloudAccount oca = user.toOwnCloudAccount();
+            intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
+            startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
+        }
     }
 
     /**
