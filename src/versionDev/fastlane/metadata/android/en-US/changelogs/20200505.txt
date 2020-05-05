@@ -1,0 +1,2 @@
+Fix color
+Update translations
