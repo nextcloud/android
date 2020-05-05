@@ -6,7 +6,7 @@
  *
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2017 Nextcloud
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -31,7 +31,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 
-import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
@@ -205,8 +204,7 @@ public final class FilesSyncHelper {
         }
 
         new Thread(() -> {
-            if (connectivityService.getActiveNetworkType() != JobRequest.NetworkType.ANY &&
-                    !connectivityService.isInternetWalled()) {
+            if (connectivityService.getConnectivity().isConnected() && !connectivityService.isInternetWalled()) {
                 FileUploader.retryFailedUploads(
                     context,
                     null,

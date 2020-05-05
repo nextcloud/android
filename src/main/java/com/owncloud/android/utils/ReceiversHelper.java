@@ -5,7 +5,7 @@
  * @author Chris Narkiewicz
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2017 Nextcloud
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -27,8 +27,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.Device;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
@@ -57,7 +55,7 @@ public final class ReceiversHelper {
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (!Device.getNetworkType(context).equals(JobRequest.NetworkType.ANY)) {
+                if (connectivityService.getConnectivity().isConnected()) {
                     FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
                                                         accountManager,
                                                         connectivityService,
