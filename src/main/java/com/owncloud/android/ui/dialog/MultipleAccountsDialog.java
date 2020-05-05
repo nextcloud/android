@@ -131,7 +131,7 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
     }
 
     @Override
-    public void onClick(User user) {
+    public void onClick(User user, View view) {
         final ReceiveExternalFilesActivity parentActivity = (ReceiveExternalFilesActivity) getActivity();
         if (parentActivity != null) {
             parentActivity.changeAccount(user.toPlatformAccount());
