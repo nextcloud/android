@@ -32,7 +32,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,7 +47,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.webkit.URLUtil;
 
 import com.nextcloud.client.account.User;
@@ -89,7 +87,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.res.ResourcesCompat;
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -1016,6 +1013,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     @Override
     public void returnVersion(Integer latestVersion) {
-        FileActivity.showDevSnackbar(this, latestVersion, true);
+        FileActivity.showDevSnackbar(this, latestVersion, true, false);
     }
 }
