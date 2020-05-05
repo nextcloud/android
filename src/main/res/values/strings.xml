@@ -567,6 +567,7 @@
     <string name="synced_folders_preferences">Preferences for auto uploading</string>
     <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
+    <string name="synced_folders_plus" translatable="false">+</string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"

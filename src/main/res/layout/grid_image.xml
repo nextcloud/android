@@ -47,7 +47,7 @@
                 app:width_weight="0.4"
                 app:height_weight="0.6" />
 
-            <ImageView
+            <com.owncloud.android.ui.SquareImageView
                 android:id="@+id/thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
