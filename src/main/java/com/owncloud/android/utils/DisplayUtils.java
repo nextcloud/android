@@ -750,7 +750,6 @@ public final class DisplayUtils {
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(null);
 
-        SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(sortOrder);
-        mSortingOrderDialogFragment.show(fragmentTransaction, SORTING_ORDER_FRAGMENT);
+        SortingOrderDialogFragment.newInstance(sortOrder).show(fragmentTransaction, SORTING_ORDER_FRAGMENT);
     }
 }
