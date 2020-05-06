@@ -47,6 +47,8 @@ public class FileDataStorageManagerTest {
         ContentResolver contentResolver = instrumentationCtx.getContentResolver();
         Account account = new Account("A", "A");
         storageManager = new FileDataStorageManager(account, contentResolver);
+
+        storageManager.deleteAllFiles();
     }
 
     @Test
@@ -59,7 +61,7 @@ public class FileDataStorageManagerTest {
 
     @Test
     public void insertManyFilesAndDelete() {
-        int count = 5000;
+        int count = 500;
         insertFiles(count);
 
         OCFile root = storageManager.getFileByPath("/");
@@ -72,7 +74,7 @@ public class FileDataStorageManagerTest {
 
     @Test
     public void insertManyFilesAndDelete2() {
-        int count = 5000;
+        int count = 500;
         insertFiles(count);
 
         OCFile root = storageManager.getFileByPath("/");
@@ -97,12 +99,4 @@ public class FileDataStorageManagerTest {
 
         assertEquals(count, storageManager.getFolderContent(root, false).size());
     }
-
-//    @After
-//    public void after() {
-//        OCFile root = storageManager.getFileByPath("/");
-//        storageManager.deleteAllFiles();
-//
-//        assertEquals(0, storageManager.getFolderContent(root, false).size());
-//    }
 }
