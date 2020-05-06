@@ -36,10 +36,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -63,7 +62,6 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -75,6 +73,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -168,7 +167,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     }
 
 
-        @Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == KEY_DELETE_CODE && data != null) {
@@ -384,7 +383,9 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         super.onDestroy();
     }
 
-    public Handler getHandler() { return handler; }
+    public Handler getHandler() {
+        return handler;
+    }
 
     @Override
     public FileUploader.FileUploaderBinder getFileUploaderBinder() {
@@ -470,9 +471,32 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     @Override
     public void onClick(User user, View view) {
 
-        MenuInflater inflater = getMenuInflater();
+        if (view.getId() == R.id.account_menu) {
+            ImageView btn = findViewById(R.id.account_menu);
+            PopupMenu popup = new PopupMenu(view.getContext(), btn);
 
-        if(view.getId() == R.id.account_menu) {
+            //Inflating the Popup using xml file
+            popup.getMenuInflater().inflate(R.menu.item_account, popup.getMenu());
+            popup.show();
+
+            //registering popup with OnMenuItemClickListener
+            popup.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.action_open_account:
+                        Log_OC.e("Action", "Go account");
+                        break;
+
+                    case R.id.action_delete_account:
+                        Log_OC.e("Action", "Delete account");
+                        break;
+
+                    default:
+                        Log_OC.e("Action", ".");
+                        break;
+
+                }
+                return true;
+            });
             // Inflate the account menu
             /*
             inflater.inflate(R.menu.item_account, menu);
@@ -480,8 +504,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
             */
         } else {
             // Open the account view
-            Log_OC.e("VIEW VIEW VIEW", view.toString());
-
             final Intent intent = new Intent(this, UserInfoActivity.class);
             intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);
             OwnCloudAccount oca = user.toOwnCloudAccount();
