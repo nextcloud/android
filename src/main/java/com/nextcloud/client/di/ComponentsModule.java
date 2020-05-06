@@ -138,6 +138,7 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FileDetailActivitiesFragment fileDetailActivitiesFragment();
     @ContributesAndroidInjector abstract FileDetailSharingFragment fileDetailSharingFragment();
     @ContributesAndroidInjector abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
+    @ContributesAndroidInjector abstract UserInfoActivity.AccountRemovalConfirmationDialog accountRemovalConfirmationDialog();
 
     @ContributesAndroidInjector abstract ChooseRichDocumentsTemplateDialogFragment chooseRichDocumentsTemplateDialogFragment();
     @ContributesAndroidInjector abstract ContactsBackupFragment contactsBackupFragment();
