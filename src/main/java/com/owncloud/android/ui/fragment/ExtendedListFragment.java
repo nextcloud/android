@@ -54,6 +54,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -118,6 +119,8 @@ public class ExtendedListFragment extends Fragment implements
     @Inject UserAccountManager accountManager;
     private ScaleGestureDetector mScaleGestureDetector;
     protected SwipeRefreshLayout mRefreshListLayout;
+    protected MaterialButton mSortButton;
+    protected MaterialButton mSwitchGridViewButton;
     protected LinearLayout mEmptyListContainer;
     protected TextView mEmptyListMessage;
     protected TextView mEmptyListHeadline;
@@ -373,6 +376,9 @@ public class ExtendedListFragment extends Fragment implements
         mRefreshListLayout = v.findViewById(R.id.swipe_containing_list);
         ThemeUtils.colorSwipeRefreshLayout(getContext(), mRefreshListLayout);
         mRefreshListLayout.setOnRefreshListener(this);
+
+        mSortButton = v.findViewById(R.id.sort_button);
+        mSwitchGridViewButton = v.findViewById(R.id.switch_grid_view_button);
 
         mFabMain = v.findViewById(R.id.fab_main);
         ThemeUtils.tintFloatingActionButton(mFabMain, R.drawable.ic_plus, getContext());
