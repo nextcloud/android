@@ -1,5 +1,25 @@
-<vector android:alpha="0.5" android:height="72dp"
-    android:viewportHeight="16" android:viewportWidth="16"
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2020 Nextcloud.
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  Icon provided by Android Material Library in Apache License 2.0
+-->
+<vector android:height="72dp" android:tint="#626364"
+    android:viewportHeight="24.0" android:viewportWidth="24.0"
     android:width="72dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#FF969696" android:pathData="m1.5,2c-0.2,0.05 -0.5,0.29 -0.5,0.5v11c0,0.23 0.274,0.5 0.5,0.5h13c0.34,0 0.5,-0.26 0.5,-0.5v-11c0,-0.34 -0.249,-0.5 -0.5,-0.5zM2,3h12v10h-12zM5,5v6l6,-3z"/>
+    <path android:fillColor="#FF000000" android:pathData="M21,3L3,3c-1.11,0 -2,0.89 -2,2v12c0,1.1 0.89,2 2,2h5v2h8v-2h5c1.1,0 1.99,-0.9 1.99,-2L23,5c0,-1.11 -0.9,-2 -2,-2zM21,17L3,17L3,5h18v12zM16,11l-7,4L9,7z"/>
 </vector>
