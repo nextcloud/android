@@ -27,8 +27,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
-import android.app.Dialog;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -52,7 +50,6 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.UserInfo;
@@ -60,6 +57,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
+import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
@@ -77,12 +75,9 @@ import javax.inject.Inject;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindString;
@@ -324,60 +319,11 @@ public class UserInfoActivity extends FileActivity implements Injectable {
     }
 
     public static void openAccountRemovalConfirmationDialog(User user, FragmentManager fragmentManager) {
-        UserInfoActivity.AccountRemovalConfirmationDialog dialog =
-            UserInfoActivity.AccountRemovalConfirmationDialog.newInstance(user);
+        AccountRemovalConfirmationDialog dialog = AccountRemovalConfirmationDialog.newInstance(user);
         dialog.show(fragmentManager, "dialog");
     }
 
-    public static class AccountRemovalConfirmationDialog extends DialogFragment {
 
-        @Inject BackgroundJobManager backgroundJobManager;
-        private Account account;
-
-        public static UserInfoActivity.AccountRemovalConfirmationDialog newInstance(User user) {
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(KEY_ACCOUNT, user.toPlatformAccount());
-
-            UserInfoActivity.AccountRemovalConfirmationDialog dialog = new
-                    UserInfoActivity.AccountRemovalConfirmationDialog();
-            dialog.setArguments(bundle);
-
-            return dialog;
-        }
-
-        @Override
-        public void onCreate(@Nullable Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            account = getArguments().getParcelable(KEY_ACCOUNT);
-        }
-
-        @Override
-        public void onStart() {
-            super.onStart();
-
-            int color = ThemeUtils.primaryAccentColor(getActivity());
-
-            AlertDialog alertDialog = (AlertDialog) getDialog();
-
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
-        }
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            return new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
-                    .setTitle(R.string.delete_account)
-                    .setMessage(getResources().getString(R.string.delete_account_warning, account.name))
-                    .setIcon(R.drawable.ic_warning)
-                    .setPositiveButton(R.string.common_ok,
-                            (dialogInterface, i) -> {
-                                backgroundJobManager.startAccountRemovalJob(account.name, false);
-                            })
-                    .setNegativeButton(R.string.common_cancel, null)
-                    .create();
-        }
-    }
 
     private void fetchAndSetData() {
         Thread t = new Thread(() -> {
