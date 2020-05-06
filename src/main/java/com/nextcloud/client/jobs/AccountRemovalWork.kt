@@ -61,6 +61,7 @@ import java.util.ArrayList
 /**
  * Removes account and all local files
  */
+@Suppress("LongParameterList") // legacy code
 class AccountRemovalWork(
     private val context: Context,
     params: WorkerParameters,
