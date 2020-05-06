@@ -391,7 +391,7 @@
     <string name="logs_menu_refresh">إنعاش</string>
     <string name="logs_menu_search">البحث في السجلات</string>
     <string name="logs_menu_send">إرسال سجلات بالبريد الإلكتروني</string>
-    <string name="logs_status_filtered">سجلات: %1$d كيلو بايت، مطابقة الإستعلام %2$d\%3$d خلال %4$d جزء من الثانية</string>
+    <string name="logs_status_filtered">سجلات: %1$d كيلو بايت، مطابقة الإستعلام %2$d \ %3$d خلال %4$d جزء من الثانية</string>
     <string name="logs_status_loading">التحميل جارٍ…</string>
     <string name="logs_status_not_filtered">سجلات: %1$d كيلو بايت، بدون فلتر</string>
     <string name="logs_title">السجلات</string>
