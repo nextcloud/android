@@ -31,7 +31,7 @@
         android:showAsAction="never" />
 
     <item
-        android:id="@+id/delete_account"
+        android:id="@+id/action_delete_account"
         android:title="@string/common_remove"
         app:showAsAction="never"
         android:showAsAction="never" />
