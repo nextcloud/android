@@ -2611,14 +2611,14 @@ public class FileDisplayActivity extends FileActivity
         }
 
         EventBus.getDefault().post(new TokenPushEvent());
-        checkForNewDevVersionNecessary(findViewById(R.id.root_layout), getApplicationContext());
+        checkForNewDevVersionNecessary(getApplicationContext());
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
 
-        checkForNewDevVersionNecessary(findViewById(R.id.root_layout), getApplicationContext());
+        checkForNewDevVersionNecessary(getApplicationContext());
     }
 
     public void setSearchQuery(String query) {
