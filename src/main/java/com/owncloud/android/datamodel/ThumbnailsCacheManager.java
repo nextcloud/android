@@ -428,6 +428,7 @@ public final class ThumbnailsCacheManager {
         private FileDataStorageManager mStorageManager;
         private GetMethod getMethod;
         private boolean roundedCorners = false;
+        private Listener mListener;
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, Account account)
                 throws IllegalArgumentException {
@@ -479,7 +480,7 @@ public final class ThumbnailsCacheManager {
         @Override
         protected Bitmap doInBackground(ThumbnailGenerationTaskObject... params) {
             Bitmap thumbnail = null;
-
+            boolean isError = false;
             try {
                 if (mAccount != null) {
                     OwnCloudAccount ocAccount = new OwnCloudAccount(
@@ -514,9 +515,15 @@ public final class ThumbnailsCacheManager {
 
             } catch(OutOfMemoryError oome) {
                 Log_OC.e(TAG, "Out of memory");
+                isError = true;
             } catch (Throwable t) {
                 // the app should never break due to a problem with thumbnails
                 Log_OC.e(TAG, "Generation of thumbnail for " + mFile + " failed", t);
+                isError = true;
+            } finally {
+                if (isError && mListener != null){
+                    mListener.onError();
+                }
             }
 
             return thumbnail;
@@ -545,9 +552,17 @@ public final class ThumbnailsCacheManager {
                 }
             }
 
+            if (mListener !=null){
+                mListener.onSuccess();
+            }
+
             if (mAsyncTasks != null) {
                 mAsyncTasks.remove(this);
             }
+        }
+
+        public void setListener(Listener listener){
+            mListener = listener;
         }
 
         private Bitmap doThumbnailFromOCFileInBackground() {
@@ -658,7 +673,7 @@ public final class ThumbnailsCacheManager {
          *
          * @return int
          */
-        private int getThumbnailDimension() {
+        public int getThumbnailDimension() {
             // Converts dp to pixel
             Resources r = MainApp.getAppContext().getResources();
             Double d = Math.pow(2, Math.floor(Math.log(r.getDimension(R.dimen.file_icon_size_grid)) / Math.log(2)));
@@ -694,6 +709,11 @@ public final class ThumbnailsCacheManager {
                 }
             }
             return thumbnail;
+        }
+
+        public interface Listener{
+            void onSuccess();
+            void onError();
         }
 
     }
