@@ -17,48 +17,64 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/ListItemLayout"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/standard_list_item_size"
-              android:background="@drawable/list_selector"
-              android:descendantFocusability="blocksDescendants"
-              android:foreground="?android:attr/selectableItemBackground"
-              android:baselineAligned="false"
-              android:orientation="horizontal">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ListItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/standard_list_item_size"
+    android:background="@drawable/list_selector"
+    android:descendantFocusability="blocksDescendants"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:layout_width="@dimen/standard_list_item_size"
         android:layout_height="@dimen/standard_list_item_size"
-        android:paddingBottom="@dimen/standard_padding"
-        android:paddingEnd="@dimen/standard_quarter_padding"
         android:paddingStart="@dimen/zero"
-        android:paddingTop="@dimen/standard_padding">
+        android:paddingTop="@dimen/standard_padding"
+        android:paddingEnd="@dimen/standard_quarter_padding"
+        android:paddingBottom="@dimen/standard_padding">
 
-        <ImageView
-            android:id="@+id/thumbnail"
-            android:layout_width="@dimen/file_icon_size"
-            android:layout_height="@dimen/file_icon_size"
+        <FrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginStart="@dimen/standard_half_margin"
-            android:contentDescription="@null"
-            android:src="@drawable/folder"/>
+            android:layout_marginStart="@dimen/standard_half_margin">
+
+            <com.elyeproj.loaderviewlibrary.LoaderImageView
+                android:id="@+id/thumbnail_shimmer"
+                android:layout_width="@dimen/file_icon_size"
+                android:layout_height="@dimen/file_icon_size"
+                android:layout_marginStart="@dimen/standard_half_margin"
+                android:visibility="gone"
+                app:corners="8" />
+
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="@dimen/file_icon_size"
+                android:layout_height="@dimen/file_icon_size"
+                android:layout_marginStart="@dimen/standard_half_margin"
+                android:contentDescription="@null"
+                android:src="@drawable/folder"/>
+        </FrameLayout>
 
         <ImageView
             android:id="@+id/favorite_action"
             android:layout_width="@dimen/list_item_favorite_action_layout_width"
             android:layout_height="@dimen/list_item_favorite_action_layout_height"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/standard_quarter_margin"
             android:contentDescription="@string/favorite"
-            android:src="@drawable/favorite"/>
+            android:src="@drawable/favorite" />
 
         <ImageView
             android:id="@+id/localFileIndicator"
             android:layout_width="@dimen/list_item_local_file_indicator_layout_width"
             android:layout_height="@dimen/list_item_local_file_indicator_layout_height"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginEnd="@dimen/standard_quarter_margin"
             android:contentDescription="@string/downloader_download_succeeded_ticker"
             android:scaleType="fitCenter"
@@ -83,7 +99,7 @@
             android:singleLine="true"
             android:text="@string/placeholder_filename"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/two_line_primary_text_size"/>
+            android:textSize="@dimen/two_line_primary_text_size" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,18 +112,18 @@
                 android:layout_height="wrap_content"
                 android:text="@string/placeholder_fileSize"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:textSize="@dimen/two_line_secondary_text_size"/>
+                android:textSize="@dimen/two_line_secondary_text_size" />
 
             <TextView
                 android:id="@+id/file_separator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:paddingEnd="@dimen/standard_quarter_padding"
                 android:paddingStart="@dimen/zero"
+                android:paddingEnd="@dimen/standard_quarter_padding"
                 android:text="@string/info_separator"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:textSize="@dimen/two_line_secondary_text_size"/>
+                android:textSize="@dimen/two_line_secondary_text_size" />
 
             <TextView
                 android:id="@+id/last_mod"
@@ -116,7 +132,7 @@
                 android:gravity="end"
                 android:text="@string/placeholder_media_time"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:textSize="@dimen/two_line_secondary_text_size"/>
+                android:textSize="@dimen/two_line_secondary_text_size" />
 
         </LinearLayout>
 
@@ -126,8 +142,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:paddingEnd="@dimen/zero"
-        android:paddingStart="@dimen/standard_half_padding">
+        android:paddingStart="@dimen/standard_half_padding"
+        android:paddingEnd="@dimen/zero">
 
         <ImageView
             android:id="@+id/unreadComments"
@@ -137,10 +153,10 @@
             android:clickable="true"
             android:contentDescription="@string/unread_comments"
             android:focusable="true"
-            android:paddingEnd="@dimen/list_item_share_right_margin"
             android:paddingStart="@dimen/standard_half_padding"
+            android:paddingEnd="@dimen/list_item_share_right_margin"
             android:src="@drawable/ic_comment"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/sharedIcon"
@@ -151,19 +167,19 @@
             android:clickable="true"
             android:contentDescription="@string/shared_icon_share"
             android:focusable="true"
-            android:paddingEnd="@dimen/list_item_share_right_margin"
             android:paddingStart="@dimen/standard_half_padding"
-            android:src="@drawable/ic_unshared"/>
+            android:paddingEnd="@dimen/list_item_share_right_margin"
+            android:src="@drawable/ic_unshared" />
 
         <RelativeLayout
             android:id="@+id/sharedAvatars"
             android:layout_width="100dp"
             android:layout_height="@dimen/file_icon_size"
-            android:layout_centerVertical="true"
             android:layout_alignEnd="@id/sharedIcon"
+            android:layout_centerVertical="true"
             android:layout_toEndOf="@id/sharedIcon"
             android:contentDescription="@string/shared_avatar_desc"
-            android:visibility="visible"/>
+            android:visibility="visible" />
 
         <ImageView
             android:id="@+id/custom_checkbox"
@@ -174,9 +190,9 @@
             android:clickable="false"
             android:contentDescription="@string/checkbox"
             android:focusable="false"
-            android:paddingEnd="@dimen/alternate_padding"
             android:paddingStart="@dimen/standard_half_padding"
-            android:src="@drawable/ic_checkbox_blank_outline"/>
+            android:paddingEnd="@dimen/alternate_padding"
+            android:src="@drawable/ic_checkbox_blank_outline" />
 
         <ImageView
             android:id="@+id/overflow_menu"
@@ -187,10 +203,9 @@
             android:clickable="true"
             android:contentDescription="@string/overflow_menu"
             android:focusable="true"
-            android:paddingEnd="@dimen/alternate_padding"
             android:paddingStart="@dimen/standard_half_padding"
-            android:src="@drawable/ic_dots_vertical"/>
+            android:paddingEnd="@dimen/alternate_padding"
+            android:src="@drawable/ic_dots_vertical" />
 
     </RelativeLayout>
-
 </LinearLayout>
