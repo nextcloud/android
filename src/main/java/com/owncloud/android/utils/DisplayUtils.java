@@ -69,6 +69,7 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.glide.CustomGlideUriLoader;
@@ -97,6 +98,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatDrawableManager;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import static com.owncloud.android.ui.dialog.SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT;
 
 /**
  * A helper class for UI/display related operations.
@@ -739,5 +744,12 @@ public final class DisplayUtils {
     static public void showErrorAndFinishActivity(Activity activity, String errorMessage) {
         Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show();
         activity.finish();
+    }
+
+    static public void openSortingOrderDialogFragment(FragmentManager supportFragmentManager, FileSortOrder sortOrder) {
+        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+
+        SortingOrderDialogFragment.newInstance(sortOrder).show(fragmentTransaction, SORTING_ORDER_FRAGMENT);
     }
 }
