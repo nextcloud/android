@@ -266,6 +266,7 @@
     <string name="etm_background_jobs">Εργασίες παρασκηνίου</string>
     <string name="etm_background_jobs_cancel_all">Ακύρωση όλων των εργασιών</string>
     <string name="etm_background_jobs_prune">Διακοπή ανενεργών εργασιών</string>
+    <string name="etm_background_jobs_schedule_test_job">Προγραμματισμός δοκιμαστικής εργασίας</string>
     <string name="etm_background_jobs_start_test_job">Έναρξη δοκιμαστικής εργασίας</string>
     <string name="etm_background_jobs_stop_test_job">Τερματισμός δοκιμαστικής εργασίας</string>
     <string name="etm_migrations">Μεταβίβαση (αναβάθμιση εφαρμογής)</string>
