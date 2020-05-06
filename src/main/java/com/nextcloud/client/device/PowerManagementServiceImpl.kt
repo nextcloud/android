@@ -3,7 +3,7 @@
  *
  * @author Chris Narkiewicz
  *
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl
 
 internal class PowerManagementServiceImpl(
     private val context: Context,
-    private val powerManager: PowerManager,
+    private val platformPowerManager: PowerManager,
     private val preferences: AppPreferences,
     private val deviceInfo: DeviceInfo = DeviceInfo()
 ) : PowerManagementService {
@@ -62,7 +62,7 @@ internal class PowerManagementServiceImpl(
 
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             if (deviceInfo.apiLevel >= Build.VERSION_CODES.LOLLIPOP) {
-                return powerManager.isPowerSaveMode
+                return platformPowerManager.isPowerSaveMode
             }
             // For older versions, we just say that device is not in power save mode
             return false
@@ -71,16 +71,25 @@ internal class PowerManagementServiceImpl(
     override val isPowerSavingExclusionAvailable: Boolean
         get() = deviceInfo.vendor in OVERLY_AGGRESSIVE_POWER_SAVING_VENDORS
 
-    override val isBatteryCharging: Boolean
+    @Suppress("MagicNumber") // 100% is 100, we're not doing Cobol
+    override val battery: BatteryStatus
         get() {
             val intent: Intent? = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-            val plugged = intent?.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) ?: 0
-            return when {
-                plugged == BatteryManager.BATTERY_PLUGGED_USB -> true
-                plugged == BatteryManager.BATTERY_PLUGGED_AC -> true
-                deviceInfo.apiLevel >= Build.VERSION_CODES.JELLY_BEAN_MR1 &&
-                    plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS -> true
-                else -> false
-            }
+            val isCharging = intent?.let {
+                val plugged = it.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0)
+                when {
+                    plugged == BatteryManager.BATTERY_PLUGGED_USB -> true
+                    plugged == BatteryManager.BATTERY_PLUGGED_AC -> true
+                    deviceInfo.apiLevel >= Build.VERSION_CODES.JELLY_BEAN_MR1 &&
+                        plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS -> true
+                    else -> false
+                }
+            } ?: false
+            val level = intent?.let { it ->
+                val level: Int = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+                val scale: Int = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+                (level * 100 / scale.toFloat()).toInt()
+            } ?: 0
+            return BatteryStatus(isCharging, level)
         }
 }

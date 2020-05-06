@@ -17,28 +17,24 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client.network
 
-package com.nextcloud.client.network;
+data class Connectivity(
+    val isConnected: Boolean = false,
+    val isMetered: Boolean = false,
+    val isWifi: Boolean = false,
+    val isServerAvailable: Boolean? = null
+) {
+    companion object {
+        @JvmField
+        val DISCONNECTED = Connectivity()
 
-/**
- * This service provides information about current network connectivity
- * and server reachableity.
- */
-public interface ConnectivityService {
-
-    /**
-     * Check if server is accessible by issuing HTTP status check request.
-     * Since this call involves network traffic, it should not be called
-     * on a main thread.
-     *
-     * @return True if server is unreachable, false otherwise
-     */
-    boolean isInternetWalled();
-
-    /**
-     * Get current network connectivity status.
-     *
-     * @return Network connectivity status in platform-agnostic format
-     */
-    Connectivity getConnectivity();
+        @JvmField
+        val CONNECTED_WIFI = Connectivity(
+            isConnected = true,
+            isMetered = false,
+            isWifi = true,
+            isServerAvailable = true
+        )
+    }
 }
