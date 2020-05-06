@@ -341,6 +341,9 @@ dependencies {
     ktlint "com.pinterest:ktlint:0.36.0"
     implementation 'org.conscrypt:conscrypt-android:2.4.0'
 
+    // Shimmer animation
+    implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
+
     // dependencies for markdown rendering
     implementation "io.noties.markwon:core:$markwonVersion"
     implementation "io.noties.markwon:ext-strikethrough:$markwonVersion"
