@@ -61,7 +61,7 @@ public class FileDataStorageManagerTest {
 
     @Test
     public void insertManyFilesAndDelete() {
-        int count = 500;
+        int count = 5000;
         insertFiles(count);
 
         OCFile root = storageManager.getFileByPath("/");
@@ -74,7 +74,7 @@ public class FileDataStorageManagerTest {
 
     @Test
     public void insertManyFilesAndDelete2() {
-        int count = 500;
+        int count = 5000;
         insertFiles(count);
 
         OCFile root = storageManager.getFileByPath("/");
