@@ -329,7 +329,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         dialog.show(fragmentManager, "dialog");
     }
 
-    public static class AccountRemovalConfirmationDialog extends DialogFragment {
+    public static class AccountRemovalConfirmationDialog extends DialogFragment implements Injectable {
 
         @Inject BackgroundJobManager backgroundJobManager;
         private Account account;
