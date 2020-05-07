@@ -56,6 +56,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.adapter.UserListItem;
+import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ThemeUtils;
@@ -76,6 +77,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -472,44 +474,36 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     public void onClick(User user, View view) {
 
         if (view.getId() == R.id.account_menu) {
-            ImageView btn = findViewById(R.id.account_menu);
-            PopupMenu popup = new PopupMenu(view.getContext(), btn);
+            ImageView menuButton = findViewById(R.id.account_menu);
 
-            //Inflating the Popup using xml file
+            PopupMenu popup = new PopupMenu(view.getContext(), menuButton);
             popup.getMenuInflater().inflate(R.menu.item_account, popup.getMenu());
             popup.show();
-
-            //registering popup with OnMenuItemClickListener
             popup.setOnMenuItemClickListener(item -> {
-                switch (item.getItemId()) {
-                    case R.id.action_open_account:
-                        Log_OC.e("Action", "Go account");
-                        break;
-
-                    case R.id.action_delete_account:
-                        Log_OC.e("Action", "Delete account");
-                        break;
-
-                    default:
-                        Log_OC.e("Action", ".");
-                        break;
-
+                if (item.getItemId() == R.id.action_delete_account) {
+                    openAccountRemovalConfirmationDialog(user, getSupportFragmentManager());
+                } else {
+                    openAccount(user);
                 }
                 return true;
             });
-            // Inflate the account menu
-            /*
-            inflater.inflate(R.menu.item_account, menu);
-            openContextMenu(R.menu.item_account);
-            */
         } else {
-            // Open the account view
-            final Intent intent = new Intent(this, UserInfoActivity.class);
-            intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);
-            OwnCloudAccount oca = user.toOwnCloudAccount();
-            intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
-            startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
+            openAccount(user);
         }
+    }
+
+    public static void openAccountRemovalConfirmationDialog(User user, FragmentManager fragmentManager) {
+        AccountRemovalConfirmationDialog dialog =
+            AccountRemovalConfirmationDialog.newInstance(user);
+        dialog.show(fragmentManager, "dialog");
+    }
+
+    private void openAccount(User user) {
+        final Intent intent = new Intent(this, UserInfoActivity.class);
+        intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);
+        OwnCloudAccount oca = user.toOwnCloudAccount();
+        intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
+        startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
     }
 
     /**

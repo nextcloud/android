@@ -26,13 +26,13 @@
 
     <item
         android:id="@+id/action_open_account"
-        android:title="@string/common_choose_account"
+        android:title="@string/common_open"
         app:showAsAction="never"
         android:showAsAction="never" />
 
     <item
         android:id="@+id/action_delete_account"
-        android:title="@string/common_remove"
+        android:title="@string/delete_account"
         app:showAsAction="never"
         android:showAsAction="never" />
 </menu>
