@@ -266,6 +266,7 @@
     <string name="etm_background_jobs">后台任务</string>
     <string name="etm_background_jobs_cancel_all">取消所有工作</string>
     <string name="etm_background_jobs_prune">缩减不活跃的工作</string>
+    <string name="etm_background_jobs_schedule_test_job">日程测试工作</string>
     <string name="etm_background_jobs_start_test_job">开始测试工作</string>
     <string name="etm_background_jobs_stop_test_job">停止测试工作</string>
     <string name="etm_migrations">迁移（应用升级）</string>
@@ -277,7 +278,7 @@
     <string name="failed_to_start_editor">无法启动编辑器</string>
     <string name="fallback_weblogin_back">返回</string>
     <string name="fallback_weblogin_text">采用旧的登录方式</string>
-    <string name="favorite">添加到收藏列表</string>
+    <string name="favorite">添加到收藏夹</string>
     <string name="favorite_icon">收藏</string>
     <string name="file_delete">删除</string>
     <string name="file_detail_activity_error">获取文件动态时出错</string>
@@ -478,7 +479,11 @@
     <string name="pref_behaviour_entries_delete_file">已删除</string>
     <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">如果文件已经存在怎么办？</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">每次问我</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">覆盖远程版本</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">重命名新版本</string>
+    <string name="pref_instant_name_collision_policy_title">如果文件已经存在怎么办？</string>
     <string name="prefs_add_account">添加账号</string>
     <string name="prefs_calendar_contacts">同步日历和联系人</string>
     <string name="prefs_calendar_contacts_address_resolve_error">DAVx5（前身为 DAVdroid）无法解析该账号的服务器地址</string>
