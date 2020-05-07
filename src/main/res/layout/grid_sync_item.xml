@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   Nextcloud Android client application
 
   Copyright (C) 2017 Andy Scherzinger
@@ -18,8 +17,7 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/grid_item_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,16 +29,17 @@
         android:id="@+id/thumbnail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@null"
         android:scaleType="centerCrop"
-        android:src="@drawable/folder"/>
+        android:src="@drawable/folder" />
 
     <ImageView
         android:id="@+id/thumbnailDarkener"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#99000000"
-        android:scaleType="centerCrop"
-        android:contentDescription="@null"/>
+        android:contentDescription="@null"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:id="@+id/counterLayout"
@@ -57,7 +56,7 @@
             android:text="@string/synced_folders_plus"
             android:textColor="#ffffff"
             android:textSize="@dimen/grid_sync_item_layout_next_text_size"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/counter"
@@ -67,6 +66,6 @@
             android:text="@string/placeholder_fileSize"
             android:textColor="#ffffff"
             android:textSize="@dimen/grid_sync_item_layout_counter_text_size"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </LinearLayout>
 </FrameLayout>

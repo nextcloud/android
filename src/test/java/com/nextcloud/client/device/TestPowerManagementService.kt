@@ -3,7 +3,7 @@
  *
  * @author Chris Narkiewicz
  *
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,6 +34,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -46,7 +47,7 @@ import org.mockito.MockitoAnnotations
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
     TestPowerManagementService.PowerSaveMode::class,
-    TestPowerManagementService.BatteryCharging::class
+    TestPowerManagementService.Battery::class
 )
 class TestPowerManagementService {
 
@@ -113,7 +114,7 @@ class TestPowerManagementService {
         }
 
         @Test
-        fun `power save exclusion is available for flagged vendors`() {
+        fun `power saving exclusion is available for flagged vendors`() {
             for (vendor in PowerManagementServiceImpl.OVERLY_AGGRESSIVE_POWER_SAVING_VENDORS) {
                 whenever(deviceInfo.vendor).thenReturn(vendor)
                 assertTrue("Vendor $vendor check failed", powerManagementService.isPowerSavingExclusionAvailable)
@@ -121,7 +122,7 @@ class TestPowerManagementService {
         }
 
         @Test
-        fun `power save exclusion is not available for other vendors`() {
+        fun `power saving exclusion is not available for other vendors`() {
             whenever(deviceInfo.vendor).thenReturn("some_other_nice_vendor")
             assertFalse(powerManagementService.isPowerSavingExclusionAvailable)
         }
@@ -142,13 +143,18 @@ class TestPowerManagementService {
         }
     }
 
-    class BatteryCharging : Base() {
+    class Battery : Base() {
 
-        val mockStickyBatteryStatusIntent: Intent = mock()
+        companion object {
+            const val FULL_RAGE = 32
+            const val HALF_RANGE = 16
+        }
+
+        val intent: Intent = mock()
 
         @Before
         fun setUp() {
-            whenever(context.registerReceiver(anyOrNull(), anyOrNull())).thenReturn(mockStickyBatteryStatusIntent)
+            whenever(context.registerReceiver(anyOrNull(), anyOrNull())).thenReturn(intent)
         }
 
         @Test
@@ -166,12 +172,12 @@ class TestPowerManagementService {
             for (row in powerSources) {
                 // WHEN
                 //      device is charging using supported power source
-                whenever(mockStickyBatteryStatusIntent.getIntExtra(eq(BatteryManager.EXTRA_PLUGGED), any()))
+                whenever(intent.getIntExtra(eq(BatteryManager.EXTRA_PLUGGED), any()))
                     .thenReturn(row)
 
                 // THEN
                 //      charging flag is true
-                assertTrue(powerManagementService.isBatteryCharging)
+                assertTrue(powerManagementService.battery.isCharging)
             }
         }
 
@@ -189,12 +195,12 @@ class TestPowerManagementService {
             for (row in powerSources) {
                 // WHEN
                 //      device is charging using AC or USB
-                whenever(mockStickyBatteryStatusIntent.getIntExtra(eq(BatteryManager.EXTRA_PLUGGED), any()))
+                whenever(intent.getIntExtra(eq(BatteryManager.EXTRA_PLUGGED), any()))
                     .thenReturn(row)
 
                 // THEN
                 //      charging flag is true
-                assertTrue(powerManagementService.isBatteryCharging)
+                assertTrue(powerManagementService.battery.isCharging)
             }
         }
 
@@ -207,13 +213,13 @@ class TestPowerManagementService {
 
             // WHEN
             //      spurious wireless power source is returned
-            whenever(mockStickyBatteryStatusIntent.getIntExtra(eq(BatteryManager.EXTRA_PLUGGED), any()))
+            whenever(intent.getIntExtra(eq(BatteryManager.EXTRA_PLUGGED), any()))
                 .thenReturn(BatteryManager.BATTERY_PLUGGED_WIRELESS)
 
             // THEN
             //      power source value is ignored on this API level
             //      charging flag is false
-            assertFalse(powerManagementService.isBatteryCharging)
+            assertFalse(powerManagementService.battery.isCharging)
         }
 
         @Test
@@ -226,8 +232,39 @@ class TestPowerManagementService {
 
             // THEN
             //     charging flag is false
-            assertFalse(powerManagementService.isBatteryCharging)
+            assertFalse(powerManagementService.battery.isCharging)
             verify(context).registerReceiver(anyOrNull(), any())
+        }
+
+        @Test
+        @Suppress("MagicNumber")
+        fun `battery level is available`() {
+            // GIVEN
+            //      battery level info is available
+            //      battery is at 50%
+            whenever(intent.getIntExtra(eq(BatteryManager.EXTRA_LEVEL), any()))
+                .thenReturn(HALF_RANGE)
+            whenever(intent.getIntExtra(eq(BatteryManager.EXTRA_SCALE), any()))
+                .thenReturn(FULL_RAGE)
+
+            // THEN
+            //      battery level is calculated from extra values
+            assertEquals(50, powerManagementService.battery.level)
+        }
+
+        @Test
+        fun `battery level is not available`() {
+            // GIVEN
+            //      battery level is not available
+            val defaultValueArgIndex = 1
+            whenever(intent.getIntExtra(eq(BatteryManager.EXTRA_LEVEL), any()))
+                .thenAnswer { it.getArgument(defaultValueArgIndex) }
+            whenever(intent.getIntExtra(eq(BatteryManager.EXTRA_SCALE), any()))
+                .thenAnswer { it.getArgument(defaultValueArgIndex) }
+
+            // THEN
+            //      battery level is 100
+            assertEquals(BatteryStatus.BATTERY_FULL, powerManagementService.battery.level)
         }
     }
 }
