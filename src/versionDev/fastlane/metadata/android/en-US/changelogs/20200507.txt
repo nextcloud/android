@@ -1,0 +1,35 @@
+Refactor and readd unnecessary id
+Fix account removal, #6012
+Remove Evernote job scheduler dependency
+show "no new version available" only when clicking on it, not in background check
+Readd necessaries values
+Improve sort button and hide if necessary
+Reduce lint warning
+Remove unused dependencies
+Shimmer effect in grid mode
+Improve ripple
+Replace shimmer effect on list mode view
+Add loaderViewLibrary for youtube skeleton effect
+Improve margin and lower case button
+fix some warnings for lint
+Hide FAB in scroll
+Reduce spotbugs
+Hide when scroll
+Add new sort and gridview switch button. Remove duplication
+fix shimmer background marge for grid mode
+Fix shimmer background width for grid mode
+Background shimmer size on grid image is the same as the downloaded pictures
+Infinite shimmer animation continue while scrolling until the thumbnail is loaded
+Replaced some file and list icons
+add a corner on the background of the shimmer
+stop shimmer on network error and show a default picture
+Shimmer effect only when you download a thumbnail and you only display gray during the progression
+remove unused shimmer effects
+Replaced some icons by Material ones + Removed a useless double-icon
+add facebook shimmer effect
+Replaced some icons
+add facebook shimmer effect
+Updated headers (removed due to autochange) + Replaced some icons by Material ones
+Replaced some icons by Material ones to (removed useless icons)
+Remove unused class
+Update translations
