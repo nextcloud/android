@@ -266,6 +266,7 @@
     <string name="etm_background_jobs">Achtergrondtaken</string>
     <string name="etm_background_jobs_cancel_all">Annuleer alle taken</string>
     <string name="etm_background_jobs_prune">Inactieve taken opruimen</string>
+    <string name="etm_background_jobs_schedule_test_job">Inplannen test-job</string>
     <string name="etm_background_jobs_start_test_job">Start testtaak</string>
     <string name="etm_background_jobs_stop_test_job">Stop testtaak</string>
     <string name="etm_migrations">Migratie (app upgrade)</string>

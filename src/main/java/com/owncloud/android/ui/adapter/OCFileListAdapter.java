@@ -41,6 +41,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -49,6 +50,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -93,6 +95,7 @@ import java.util.Set;
 import java.util.Vector;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
@@ -201,7 +204,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public int getItemPosition(OCFile file) {
-        return mFiles.indexOf(file);
+        int position = mFiles.indexOf(file);
+
+        if (shouldShowHeader()) {
+            position = position + 1;
+        }
+
+        return position;
     }
 
     public void setFavoriteAttributeForItemID(String fileId, boolean favorite) {
@@ -358,7 +367,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                          mStorageManager,
                          asyncTasks,
                          gridView,
-                         activity);
+                         activity,
+                         gridViewHolder.shimmerThumbnail);
 
             if (highlightedItem != null && file.getFileId() == highlightedItem.getFileId()) {
                 gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
@@ -604,6 +614,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
                                     boolean gridView,
                                     Context context) {
+        setThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, null);
+    }
+
+    private static void setThumbnail(OCFile file,
+                                    ImageView thumbnailView,
+                                    User user,
+                                    FileDataStorageManager storageManager,
+                                    List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
+                                    boolean gridView,
+                                    Context context,
+                                    LoaderImageView shimmerThumbnail) {
         if (file.isFolder()) {
             thumbnailView.setImageDrawable(MimeTypeUtil
                                                .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
@@ -637,7 +658,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                                    user.toPlatformAccount(),
                                                                                    asyncTasks,
                                                                                    !gridView);
-
                             if (thumbnail == null) {
                                 thumbnail = BitmapUtils.drawableToBitmap(
                                     MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
@@ -648,6 +668,26 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                 new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
                                                                                   thumbnail, task);
+
+                            if (shimmerThumbnail != null && shimmerThumbnail.getVisibility() == View.GONE) {
+                                if (gridView) {
+                                    configShimmerGridImageSize(shimmerThumbnail, task.getThumbnailDimension());
+                                }
+                                startShimmer(shimmerThumbnail, thumbnailView);
+                            }
+
+                            task.setListener(new ThumbnailsCacheManager.ThumbnailGenerationTask.Listener() {
+                                @Override
+                                public void onSuccess() {
+                                    stopShimmer(shimmerThumbnail, thumbnailView);
+                                }
+
+                                @Override
+                                public void onError() {
+                                    stopShimmer(shimmerThumbnail, thumbnailView);
+                                }
+                            });
+
                             thumbnailView.setImageDrawable(asyncDrawable);
                             asyncTasks.add(task);
                             task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
@@ -668,6 +708,39 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                             context));
             }
         }
+    }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
+        if (holder instanceof OCFileListGridImageViewHolder) {
+            LoaderImageView thumbnailShimmer = ((OCFileListGridImageViewHolder) holder).shimmerThumbnail;
+            if (thumbnailShimmer.getVisibility() == View.VISIBLE){
+                thumbnailShimmer.setImageResource(R.drawable.background);
+                thumbnailShimmer.resetLoader();
+            }
+        }
+    }
+
+    private static void startShimmer(LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
+        thumbnailShimmer.setImageResource(R.drawable.background);
+        thumbnailShimmer.resetLoader();
+        thumbnailView.setVisibility(View.GONE);
+        thumbnailShimmer.setVisibility(View.VISIBLE);
+    }
+
+    private static void stopShimmer(@Nullable LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
+        if (thumbnailShimmer != null){
+            thumbnailShimmer.setVisibility(View.GONE);
+            thumbnailView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private static void configShimmerGridImageSize(LoaderImageView thumbnailShimmer, int size){
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,size);
+        FrameLayout.LayoutParams targetLayoutParams = (FrameLayout.LayoutParams) thumbnailShimmer.getLayoutParams();
+        params.setMargins(targetLayoutParams.leftMargin, targetLayoutParams.topMargin,
+                          targetLayoutParams.rightMargin, targetLayoutParams.bottomMargin);
+        thumbnailShimmer.setLayoutParams(params);
     }
 
     private String getFooterText() {
@@ -725,6 +798,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         return !TextUtils.isEmpty(currentDirectory.getRichWorkspace());
+    }
+
+    public boolean isHeader(OCFile file) {
+        return VIEWTYPE_HEADER == getItemViewType(getItemPosition(file));
     }
 
     @Override
@@ -1186,6 +1263,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     static class OCFileListGridImageViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.thumbnail)
         public ImageView thumbnail;
+
+        @BindView(R.id.thumbnail_shimmer)
+        public LoaderImageView shimmerThumbnail;
 
         @BindView(R.id.favorite_action)
         public ImageView favorite;

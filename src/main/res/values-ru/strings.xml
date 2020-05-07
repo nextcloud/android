@@ -266,6 +266,7 @@
     <string name="etm_background_jobs">Фоновые задания</string>
     <string name="etm_background_jobs_cancel_all">Отменить все задания</string>
     <string name="etm_background_jobs_prune">Удалить неактивные задания</string>
+    <string name="etm_background_jobs_schedule_test_job">Запланировать тестовую задачу</string>
     <string name="etm_background_jobs_start_test_job">Запустить задачу тестирования</string>
     <string name="etm_background_jobs_stop_test_job">Остановить задачу тестирования</string>
     <string name="etm_migrations">Перенос (обновление приложения)</string>

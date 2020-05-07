@@ -32,12 +32,15 @@ import org.junit.runners.model.Statement
  */
 class RetryTestRule(val retryCount: Int = 5) : TestRule {
 
-    private val TAG = RetryTestRule::class.java.simpleName
+    companion object {
+        private val TAG = RetryTestRule::class.java.simpleName
+    }
 
     override fun apply(base: Statement, description: Description): Statement {
         return statement(base, description)
     }
 
+    @Suppress("TooGenericExceptionCaught") // and this exactly what we want here
     private fun statement(base: Statement, description: Description): Statement {
         return object : Statement() {
 

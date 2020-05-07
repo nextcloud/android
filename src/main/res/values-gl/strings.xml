@@ -266,6 +266,7 @@
     <string name="etm_background_jobs">Traballos en segundo plano</string>
     <string name="etm_background_jobs_cancel_all">Cancelar todos os traballos</string>
     <string name="etm_background_jobs_prune">Depurar os traballos inactivos</string>
+    <string name="etm_background_jobs_schedule_test_job">Programar traballo de proba</string>
     <string name="etm_background_jobs_start_test_job">Iniciar o traballo de proba</string>
     <string name="etm_background_jobs_stop_test_job">Deter o traballo de proba</string>
     <string name="etm_migrations">Migracións (anovación de aplicación)</string>
