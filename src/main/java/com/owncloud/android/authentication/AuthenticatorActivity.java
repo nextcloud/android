@@ -1111,7 +1111,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void showViewPasswordButton() {
-        int drawable = R.drawable.ic_view;
+        int drawable = R.drawable.ic_show;
         if (isPasswordVisible()) {
             drawable = R.drawable.ic_hide;
         }

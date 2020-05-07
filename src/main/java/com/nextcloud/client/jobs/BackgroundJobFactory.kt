@@ -63,6 +63,7 @@ class BackgroundJobFactory @Inject constructor(
     private val eventBus: EventBus
 ) : WorkerFactory() {
 
+    @Suppress("ComplexMethod") // it's just a trivial dispatch
     override fun createWorker(
         context: Context,
         workerClassName: String,

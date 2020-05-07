@@ -34,18 +34,24 @@ import java.util.Map;
  */
 
 public class FileSortOrder {
-    public static final FileSortOrder sort_a_to_z = new FileSortOrderByName("sort_a_to_z", true);
-    public static final FileSortOrder sort_z_to_a = new FileSortOrderByName("sort_z_to_a", false);
-    public static final FileSortOrder sort_old_to_new = new FileSortOrderByDate("sort_old_to_new", true);
-    public static final FileSortOrder sort_new_to_old = new FileSortOrderByDate("sort_new_to_old", false);
-    public static final FileSortOrder sort_small_to_big = new FileSortOrderBySize("sort_small_to_big", true);
-    public static final FileSortOrder sort_big_to_small = new FileSortOrderBySize("sort_big_to_small", false);
+    public static final String sort_a_to_z_id = "sort_a_to_z";
+    public static final String sort_z_to_a_id = "sort_z_to_a";
+    public static final String sort_old_to_new_id = "sort_old_to_new";
+    public static final String sort_new_to_old_id = "sort_new_to_old";
+    public static final String sort_small_to_big_id = "sort_small_to_big";
+    public static final String sort_big_to_small_id = "sort_big_to_small";
+
+    public static final FileSortOrder sort_a_to_z = new FileSortOrderByName(sort_a_to_z_id, true);
+    public static final FileSortOrder sort_z_to_a = new FileSortOrderByName(sort_z_to_a_id, false);
+    public static final FileSortOrder sort_old_to_new = new FileSortOrderByDate(sort_old_to_new_id, true);
+    public static final FileSortOrder sort_new_to_old = new FileSortOrderByDate(sort_new_to_old_id, false);
+    public static final FileSortOrder sort_small_to_big = new FileSortOrderBySize(sort_small_to_big_id, true);
+    public static final FileSortOrder sort_big_to_small = new FileSortOrderBySize(sort_big_to_small_id, false);
 
     public static final Map<String, FileSortOrder> sortOrders;
 
     public enum Type {
         trashBinView, localFileListView, uploadFilesView
-
     }
     static {
         sortOrders = new HashMap<>();

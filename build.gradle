@@ -119,7 +119,8 @@ android {
             'IconMissingDensityFolder',
             'IconDensities',
             'GoogleAppIndexingWarning',
-            'MissingDefaultResource'
+            'MissingDefaultResource',
+            'InvalidPeriodicWorkRequestInterval' // crashes due to a bug in lint itself
     }
 
     dexOptions {
@@ -305,7 +306,6 @@ dependencies {
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:2.0.1'
     implementation 'commons-io:commons-io:2.6'
-    implementation 'com.github.tobiaskaminsky:android-job:v1.2.6.1' // 'com.github.evernote:android-job:v1.2.5'
     implementation 'com.jakewharton:butterknife:10.2.1'
     kapt 'com.jakewharton:butterknife-compiler:10.2.1'
     implementation 'org.greenrobot:eventbus:3.2.0'
@@ -315,7 +315,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.afollestad:sectioned-recyclerview:0.5.0'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.20'
     implementation 'com.github.tobiaskaminsky:qrcodescanner:0.1.2.2' // 'com.github.blikoon:QRCodeScanner:0.1.2'
     implementation 'com.google.android:flexbox:2.0.1'
     implementation 'org.parceler:parceler-api:1.1.13'
@@ -340,6 +340,9 @@ dependencies {
 
     ktlint "com.pinterest:ktlint:0.36.0"
     implementation 'org.conscrypt:conscrypt-android:2.4.0'
+
+    // Shimmer animation
+    implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
 
     // dependencies for markdown rendering
     implementation "io.noties.markwon:core:$markwonVersion"

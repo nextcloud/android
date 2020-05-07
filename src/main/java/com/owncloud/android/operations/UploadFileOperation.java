@@ -4,7 +4,7 @@
  * @author David A. Velasco
  * @author Chris Narkiewicz
  * Copyright (C) 2016 ownCloud GmbH.
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -29,10 +29,10 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.Device;
 import com.google.gson.reflect.TypeToken;
+import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
@@ -144,11 +144,11 @@ public class UploadFileOperation extends SyncOperation {
 
     private RequestEntity mEntity;
 
-    final private Account mAccount;
-    final private OCUpload mUpload;
-    final private UploadsStorageManager uploadsStorageManager;
-    final private ConnectivityService connectivityService;
-    final private PowerManagementService powerManagementService;
+    private final Account mAccount;
+    private final OCUpload mUpload;
+    private final UploadsStorageManager uploadsStorageManager;
+    private final ConnectivityService connectivityService;
+    private final PowerManagementService powerManagementService;
 
     private boolean encryptedAncestor;
 
@@ -594,7 +594,7 @@ public class UploadFileOperation extends SyncOperation {
 
             /// perform the upload
             if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
-                boolean onWifiConnection = connectivityService.isOnlineWithWifi();
+                boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
 
                 mUploadOperation = new ChunkedFileUploadRemoteOperation(encryptedTempFile.getAbsolutePath(),
                                                                         mFile.getParentRemotePath() + encryptedFileName,
@@ -718,20 +718,20 @@ public class UploadFileOperation extends SyncOperation {
         RemoteOperationResult remoteOperationResult = null;
 
         // check that internet is not behind walled garden
-        if (Device.getNetworkType(mContext).equals(JobRequest.NetworkType.ANY) ||
-                connectivityService.isInternetWalled()) {
+        if (!connectivityService.getConnectivity().isConnected() || connectivityService.isInternetWalled()) {
             remoteOperationResult =  new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
         }
 
         // check that connectivity conditions are met and delays the upload otherwise
-        if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
+        Connectivity connectivity = connectivityService.getConnectivity();
+        if (mOnWifiOnly && connectivity.isWifi()) {
             Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
             remoteOperationResult = new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
         }
 
         // check if charging conditions are met and delays the upload otherwise
-        if (mWhileChargingOnly && !Device.getBatteryStatus(mContext).isCharging()
-                && Device.getBatteryStatus(mContext).getBatteryPercent() < 1) {
+        final BatteryStatus battery = powerManagementService.getBattery();
+        if (mWhileChargingOnly && battery.isCharging()) {
             Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
             remoteOperationResult =  new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
         }
@@ -827,7 +827,7 @@ public class UploadFileOperation extends SyncOperation {
 
             // perform the upload
             if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
-                boolean onWifiConnection = connectivityService.isOnlineWithWifi();
+                boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
 
                 mUploadOperation = new ChunkedFileUploadRemoteOperation(mFile.getStoragePath(),
                                                                         mFile.getRemotePath(), mFile.getMimeType(),
