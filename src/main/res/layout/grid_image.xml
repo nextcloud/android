@@ -44,8 +44,9 @@
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
                 android:visibility="gone"
-                app:width_weight="0.4"
-                app:height_weight="0.6" />
+                app:corners="16"
+                app:height_weight="0.6"
+                app:width_weight="0.4" />
 
             <com.owncloud.android.ui.SquareImageView
                 android:id="@+id/thumbnail"
