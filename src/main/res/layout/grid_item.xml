@@ -16,6 +16,7 @@
 
 -->
 <com.owncloud.android.ui.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -39,7 +40,8 @@
                 android:id="@+id/thumbnail_shimmer"
                 android:layout_width="@dimen/standard_list_item_size"
                 android:layout_height="@dimen/standard_list_item_size"
-                android:visibility="gone" />
+                android:visibility="gone"
+                app:corners="8" />
 
             <ImageView
                 android:id="@+id/thumbnail"
