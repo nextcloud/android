@@ -260,6 +260,14 @@ public class FileDisplayActivity extends FileActivity
         // setup toolbar
         setupToolbar();
 
+        mMenuButton.setOnClickListener(v -> {
+            openDrawer();
+        });
+
+        mSwitchAccountButton.setOnClickListener(v -> {
+            openManageAccounts();
+        });
+
         // setup drawer
         if (MainApp.isOnlyOnDevice()) {
             setupDrawer(R.id.nav_on_device);
@@ -697,7 +705,6 @@ public class FileDisplayActivity extends FileActivity
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) {
             fileListFragment.listDirectory(MainApp.isOnlyOnDevice(), fromSearch);
-            setupToolbar();
         }
     }
 
@@ -2581,6 +2588,11 @@ public class FileDisplayActivity extends FileActivity
             User user = optionalUser.get();
             setAccountInDrawer(user);
             setupDrawer();
+
+            mSwitchAccountButton.setTag(user.getAccountName());
+            DisplayUtils.setAvatar(user, this, getResources()
+                                       .getDimension(R.dimen.nav_drawer_menu_avatar_radius), getResources(),
+                                   mSwitchAccountButton, this);
 
             final String lastDisplayedAccountName = mLastDisplayedAccount != null ? mLastDisplayedAccount.name : null;
             final boolean accountChanged = !user.getAccountName().equals(lastDisplayedAccountName);

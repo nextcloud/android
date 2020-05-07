@@ -32,6 +32,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.textview.MaterialTextView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -45,6 +49,12 @@ import androidx.appcompat.widget.Toolbar;
  * Base class providing toolbar registration functionality, see {@link #setupToolbar()}.
  */
 public abstract class ToolbarActivity extends BaseActivity {
+    private AppBarLayout mAppBar;
+    private RelativeLayout mDefaultToolbar;
+    private MaterialCardView mHomeToolbar;
+    protected MaterialButton mMenuButton;
+    private MaterialTextView mSearchText;
+    protected MaterialButton mSwitchAccountButton;
     private ImageView mPreviewImage;
     private FrameLayout mPreviewImageContainer;
     private LinearLayout mInfoBox;
@@ -56,8 +66,8 @@ public abstract class ToolbarActivity extends BaseActivity {
     }
 
     /**
-     * Toolbar setup that must be called in implementer's {@link #onCreate} after {@link #setContentView} if they
-     * want to use the toolbar.
+     * Toolbar setup that must be called in implementer's {@link #onCreate} after {@link #setContentView} if they want
+     * to use the toolbar.
      */
     protected void setupToolbar(boolean useBackgroundImage) {
         int primaryColor = ThemeUtils.primaryAppbarColor(this);
@@ -65,6 +75,17 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mAppBar = findViewById(R.id.appbar);
+        mDefaultToolbar = findViewById(R.id.default_toolbar);
+        mHomeToolbar = findViewById(R.id.home_toolbar);
+        mMenuButton = findViewById(R.id.menu_button);
+        mSearchText = findViewById(R.id.search_text);
+        mSwitchAccountButton = findViewById(R.id.switch_account_button);
+
+        if (mAppBar != null) {
+            mAppBar.setElevation(getResources().getDimension(R.dimen.default_appbar_elevation));
+        }
 
         mInfoBox = findViewById(R.id.info_box);
         mInfoBoxMessage = findViewById(R.id.info_box_message);
@@ -95,17 +116,22 @@ public abstract class ToolbarActivity extends BaseActivity {
      * Updates title bar and home buttons (state and icon).
      */
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
-        String title = ThemeUtils.getDefaultDisplayNameForRootFolder(this);    // default
-        boolean inRoot;
+        String title;
+        boolean isRoot = isRoot(chosenFile);
 
-        // choose the appropriate title
-        inRoot =  chosenFile == null ||
-                        (chosenFile.isFolder() && chosenFile.getParentId() == FileDataStorageManager.ROOT_PARENT_ID);
-        if (!inRoot) {
-            title = chosenFile.getFileName();
-        }
-
+        title = isRoot ? ThemeUtils.getDefaultDisplayNameForRootFolder(this) : chosenFile.getFileName();
         updateActionBarTitleAndHomeButtonByString(title);
+
+        if (isRoot) {
+            mAppBar.setElevation(0);
+            mDefaultToolbar.setVisibility(View.GONE);
+            mHomeToolbar.setVisibility(View.VISIBLE);
+            mSearchText.setText(String.format("Search in %s", title));
+        } else {
+            mAppBar.setElevation(getResources().getDimension(R.dimen.default_appbar_elevation));
+            mDefaultToolbar.setVisibility(View.VISIBLE);
+            mHomeToolbar.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -192,6 +218,6 @@ public abstract class ToolbarActivity extends BaseActivity {
      * get the toolbar's preview image view.
      */
     public ImageView getPreviewImageView() {
-            return mPreviewImage;
+        return mPreviewImage;
     }
 }
