@@ -428,6 +428,7 @@ public final class ThumbnailsCacheManager {
         private FileDataStorageManager mStorageManager;
         private GetMethod getMethod;
         private Listener mListener;
+        private Boolean isGridView = false;
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, Account account)
                 throws IllegalArgumentException {
@@ -445,6 +446,13 @@ public final class ThumbnailsCacheManager {
             mStorageManager = storageManager;
             mAccount = account;
             mAsyncTasks = asyncTasks;
+        }
+
+        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
+                                       Account account, List<ThumbnailGenerationTask> asyncTasks, Boolean isGridView)
+            throws IllegalArgumentException {
+            this(imageView, storageManager, account, asyncTasks);
+            this.isGridView = isGridView;
         }
 
         public GetMethod getGetMethod() {
@@ -532,7 +540,11 @@ public final class ThumbnailsCacheManager {
                         tagId = String.valueOf(((TrashbinFile) mFile).getRemoteId());
                     }
                     if (String.valueOf(imageView.getTag()).equals(tagId)) {
+                        if (isGridView){
+                            BitmapUtils.setRoundedBitmapForGridMode(bitmap, imageView);
+                        } else {
                         BitmapUtils.setRoundedBitmap(bitmap, imageView);
+                        }
                     }
                 }
             }
