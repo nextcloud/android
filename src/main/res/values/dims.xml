@@ -117,7 +117,7 @@
     <dimen name="grid_image_shared_icon_layout_top_margin">24dp</dimen>
     <dimen name="grid_image_local_file_indicator_layout_width">16dp</dimen>
     <dimen name="grid_image_local_file_indicator_layout_height">16dp</dimen>
-    <dimen name="grid_image_icon_margin">9dp</dimen>
+    <dimen name="grid_image_icon_margin">14dp</dimen>
     <dimen name="grid_item_shared_icon_layout_top_margin">24dp</dimen>
     <dimen name="grid_item_local_file_indicator_layout_width">16dp</dimen>
     <dimen name="grid_item_local_file_indicator_layout_height">16dp</dimen>
