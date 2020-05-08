@@ -37,6 +37,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -626,6 +627,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     Context context,
                                     LoaderImageView shimmerThumbnail) {
         if (file.isFolder()) {
+            // Applying a smaller size for thumbnail, if it's a folder
+            if (!gridView) {
+                int folderThumbnailSize = (int) context.getResources().getDimension(R.dimen.folder_thumbnail_size);
+                thumbnailView.setLayoutParams(new FrameLayout.LayoutParams(folderThumbnailSize, folderThumbnailSize));
+            }
             thumbnailView.setImageDrawable(MimeTypeUtil
                                                .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
                                                                   file.isSharedViaLink(), file.isEncrypted(),

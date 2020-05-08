@@ -142,4 +142,5 @@
     <dimen name="button_corner_radius">24dp</dimen>
     <integer name="media_grid_width">4</integer>
     <dimen name="copy_internal_link_padding">10dp</dimen>
+    <dimen name="folder_thumbnail_size">30dp</dimen>
 </resources>
