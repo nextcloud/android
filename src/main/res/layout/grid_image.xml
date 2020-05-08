@@ -42,7 +42,6 @@
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/grid_image_icon_margin"
                 android:contentDescription="@null"
-                android:scaleType="centerCrop"
                 android:visibility="gone"
                 app:corners="3"
                 app:height_weight="0.6"

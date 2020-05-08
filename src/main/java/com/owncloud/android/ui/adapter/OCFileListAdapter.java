@@ -37,6 +37,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -723,7 +725,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private static void configShimmerGridImageSize(LoaderImageView thumbnailShimmer, int size){
         final int width = FrameLayout.LayoutParams.MATCH_PARENT;
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, size);
+        final int height = size + size/8;
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
         FrameLayout.LayoutParams targetLayoutParams = (FrameLayout.LayoutParams) thumbnailShimmer.getLayoutParams();
         params.setMargins(targetLayoutParams.leftMargin, targetLayoutParams.topMargin,
                           targetLayoutParams.rightMargin, targetLayoutParams.bottomMargin);
