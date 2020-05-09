@@ -32,8 +32,13 @@ public class GetCapabilitiesOperation extends SyncOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        GetCapabilitiesRemoteOperation getCapabilities = new GetCapabilitiesRemoteOperation();
-        RemoteOperationResult result = getCapabilities.execute(client);
+        OCCapability currentCapability = null;
+
+        if (getStorageManager() != null && getStorageManager().getAccount() != null) {
+            currentCapability = getStorageManager().getCapability(getStorageManager().getAccount().name);
+        }
+
+        RemoteOperationResult result = new GetCapabilitiesRemoteOperation(currentCapability).execute(client);
 
         if (result.isSuccess()
                 && result.getData() != null && result.getData().size() > 0) {
