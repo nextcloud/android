@@ -374,7 +374,7 @@
     <string name="logs_menu_search">Шукати у журналі</string>
     <string name="logs_menu_send">Надіслати журнал ел.поштою</string>
     <string name="logs_status_loading">Завантаження…</string>
-    <string name="logs_title">Журнали</string>
+    <string name="logs_title">Журнал подій</string>
     <string name="maintenance_mode">Сервер у режимі обслуговування</string>
     <string name="manage_space_clear_data">Очистити дані</string>
     <string name="manage_space_title">Керувати простором</string>
