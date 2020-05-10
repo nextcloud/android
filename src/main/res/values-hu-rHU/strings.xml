@@ -142,8 +142,8 @@
     <string name="confirmation_remove_folders_alert">Biztos, hogy törli a kiválasztott elemeket és tartalmukat?</string>
     <string name="confirmation_remove_local">Csak a helyi példány</string>
     <string name="conflict_already_existing_file">Már létező fájl</string>
-    <string name="conflict_dialog_error">Hiba a konfliktus párbeszéd létrehozásakor!</string>
-    <string name="conflict_message_description">Amennyiben mindkét verziót kiválasztja, a helyi fájl neve egy számmal lesz kibővítve.</string>
+    <string name="conflict_dialog_error">Hiba az ütközési párbeszédablak létrehozásakor!</string>
+    <string name="conflict_message_description">Amennyiben mindkét verziót kiválasztja, a helyi fájl nevéhez egy szám lesz hozzáfűzve.</string>
     <string name="conflict_message_headline">Mely fájlokat akarja megtartani?</string>
     <string name="conflict_new_file">Új fájl</string>
     <string name="contaclist_restore_selected">Kiválasztott névjegyek visszaállítása</string>
@@ -264,11 +264,12 @@
     <string name="etm_background_job_user">Felhasználó</string>
     <string name="etm_background_job_uuid">Egyedi azonosító</string>
     <string name="etm_background_jobs">Háttérfeladatok</string>
-    <string name="etm_background_jobs_cancel_all">Minden háttérfeladat eldobása</string>
-    <string name="etm_background_jobs_prune">Inaktív háttérfeladatok törlése</string>
-    <string name="etm_background_jobs_start_test_job">Teszt háttérfeladat indítása</string>
-    <string name="etm_background_jobs_stop_test_job">Teszt háttérfeladat leállítása</string>
-    <string name="etm_migrations">Migrációk (alkalmazás frissítés)</string>
+    <string name="etm_background_jobs_cancel_all">Minden feladat megszakítása</string>
+    <string name="etm_background_jobs_prune">Inaktív feladatok törlése</string>
+    <string name="etm_background_jobs_schedule_test_job">Tesztfeladat ütemezése</string>
+    <string name="etm_background_jobs_start_test_job">Tesztfeladat indítása</string>
+    <string name="etm_background_jobs_stop_test_job">Tesztfeladat leállítása</string>
+    <string name="etm_migrations">Migrációk (alkalmazásfrissítés)</string>
     <string name="etm_preferences">Beállítások</string>
     <string name="etm_title">Mérnöki teszt mód</string>
     <string name="fab_label">Hozzáadás vagy feltöltés</string>
@@ -375,7 +376,7 @@
     <string name="instant_upload_existing">A meglévő fájlokat is töltse fel</string>
     <string name="instant_upload_on_charging">Feltöltés csak töltés közben</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="invalid_url">Hibás URL</string>
+    <string name="invalid_url">Érvénytelen URL</string>
     <string name="learn_more">Tudjon meg többet</string>
     <string name="link">Hivatkozás</string>
     <string name="list_layout">Listás elrendezés</string>
@@ -585,8 +586,8 @@
     <string name="share_get_public_link_button">Hivatkozás beszerzése</string>
     <string name="share_group_clarification">%1$s (csoport)</string>
     <string name="share_internal_link">Belső hivatkozás megosztása</string>
-    <string name="share_internal_link_to_file_text">A belső megosztási link csak azon felhasználók számára működik, amelyeknek van hozzáférésük ehhez a fájlhoz</string>
-    <string name="share_internal_link_to_folder_text">A belső megosztási link csak azon felhasználók számára működik, amelyeknek van hozzáférésük ehhez a mappához</string>
+    <string name="share_internal_link_to_file_text">A belső megosztási hivatkozás csak azon felhasználóknál működik, akik hozzáférnek ehhez a fájlhoz</string>
+    <string name="share_internal_link_to_folder_text">A belső megosztási hivatkozás csak azon felhasználóknál működik, akik hozzáférnek ehhez a mappához</string>
     <string name="share_known_remote_clarification">%1$s ( itt: %2$s )</string>
     <string name="share_link_empty_password">Meg kell adnia a jelszót</string>
     <string name="share_link_file_error">Hiba történt a fájl vagy mappa megosztásakor</string>
@@ -705,7 +706,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="sync_fail_ticker">Szinkronizálás sikertelen</string>
     <string name="sync_fail_ticker_unauthorized">Szinkronizálás sikertelen, jelentkezzen be újra</string>
     <string name="sync_file_nothing_to_do_msg">A fájlok már szinkronizálva vannak</string>
-    <string name="sync_folder_failed_content">A(z) %1$s mappa szinkronizálását nem sikerült befejezni.</string>
+    <string name="sync_folder_failed_content">A(z) %1$s mappa szinkronizálását nem sikerült befejezni</string>
     <string name="sync_foreign_files_forgotten_explanation">Az 1.3.16-os verziótól kezdve, az erről az eszközről feltöltött fájlok a következő mappába kerülnek az adatvesztés elkerülésére érdekében, ha több fiókkal is szinkronizál egy fájlt: %1$s.\n\nEzen változás miatt, minden a korábbi verzió által feltöltött verzió ebbe a mappába került: %2$s. Viszont egy a fiók szinkronizálásakor történt hiba megakadályozta a művelet befejezését. Úgy hagyhatja a fájlokat, vagy törölheti a következő hivatkozást: %3$s, vagy áthelyezheti a fájlokat ebbe a mappába: %1$s, és meghagyhatja a hivatkozást itt: %4$s.\n\nLent láthatja a helyi fájlok és mappák listáját itt: %5$s, ahova hivatkozva voltak.</string>
     <string name="sync_foreign_files_forgotten_ticker">Néhány helyi fájl figyelmen kívül lett hagyva</string>
     <string name="sync_in_progress">A fájl legfrissebb verziójának lekérése.</string>
