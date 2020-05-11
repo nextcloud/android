@@ -470,9 +470,22 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         }
     }
 
-    @Override
-    public void onClick(User user, View view) {
+    public static void openAccountRemovalConfirmationDialog(User user, FragmentManager fragmentManager) {
+        AccountRemovalConfirmationDialog dialog =
+            AccountRemovalConfirmationDialog.newInstance(user);
+        dialog.show(fragmentManager, "dialog");
+    }
 
+    private void openAccount(User user) {
+        final Intent intent = new Intent(this, UserInfoActivity.class);
+        intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);
+        OwnCloudAccount oca = user.toOwnCloudAccount();
+        intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
+        startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
+    }
+
+    @Override
+    public void onOptionItemClicked(User user, View view) {
         if (view.getId() == R.id.account_menu) {
             ImageView menuButton = findViewById(R.id.account_menu);
 
@@ -492,18 +505,9 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         }
     }
 
-    public static void openAccountRemovalConfirmationDialog(User user, FragmentManager fragmentManager) {
-        AccountRemovalConfirmationDialog dialog =
-            AccountRemovalConfirmationDialog.newInstance(user);
-        dialog.show(fragmentManager, "dialog");
-    }
-
-    private void openAccount(User user) {
-        final Intent intent = new Intent(this, UserInfoActivity.class);
-        intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);
-        OwnCloudAccount oca = user.toOwnCloudAccount();
-        intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
-        startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
+    @Override
+    public void onAccountClicked(User user) {
+        openAccount(user);
     }
 
     /**
