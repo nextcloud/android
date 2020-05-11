@@ -136,7 +136,6 @@
     <string name="common_loading">Loading…</string>
     <string name="common_unknown">unknown</string>
     <string name="common_error_unknown">Unknown error</string>
-    <string name="common_open">Open</string>
     <string name="common_pending">Pending</string>
     <string name="common_delete">Delete</string>
     <string name="common_send">Send</string>
@@ -948,4 +947,5 @@
     <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
     <string name="invalid_url">Invalid URL</string>
     <string name="conflict_dialog_error">Error creating conflict dialog!</string>
+    <string name="view_profile">View profile</string>
 </resources>
