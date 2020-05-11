@@ -491,7 +491,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private void startSyncFolderOperation(String path){
         Intent intent = new Intent(mContext, OperationsService.class);
         intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
-        intent.putExtra(OperationsService.EXTRA_ACCOUNT, user);
+        intent.putExtra(OperationsService.EXTRA_ACCOUNT, user.toPlatformAccount());
         intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
         mContext.startService(intent);
     }
