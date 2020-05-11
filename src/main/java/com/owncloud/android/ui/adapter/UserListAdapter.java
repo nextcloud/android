@@ -314,7 +314,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         @Override
         public void onClick(View v) {
             if (clickListener != null && v.isEnabled()) {
-                clickListener.onClick(user, v);
+                clickListener.onOptionItemClicked(user, v);
             }
         }
     }
@@ -331,6 +331,8 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public interface ClickListener {
-        void onClick(User user, View view);
+        void onOptionItemClicked(User user, View view);
+
+        void onAccountClicked(User user);
     }
 }
