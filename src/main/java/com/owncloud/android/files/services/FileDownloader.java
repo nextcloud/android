@@ -87,7 +87,6 @@ public class FileDownloader extends Service
     private static final String DOWNLOAD_ADDED_MESSAGE = "DOWNLOAD_ADDED";
     private static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
     public static final String EXTRA_DOWNLOAD_RESULT = "RESULT";
-    public static final String EXTRA_FILE_PATH = "FILE_PATH";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
     public static final String EXTRA_CONFLICT_UPLOAD = "CONFLICT_UPLOAD";
@@ -691,7 +690,6 @@ public class FileDownloader extends Service
         end.putExtra(EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess());
         end.putExtra(ACCOUNT_NAME, download.getAccount().name);
         end.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
-        end.putExtra(EXTRA_FILE_PATH, download.getSavePath());
         end.putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, download.getBehaviour());
         end.putExtra(SendShareDialog.ACTIVITY_NAME, download.getActivityName());
         end.putExtra(SendShareDialog.PACKAGE_NAME, download.getPackageName());
@@ -714,7 +712,6 @@ public class FileDownloader extends Service
         Intent added = new Intent(getDownloadAddedMessage());
         added.putExtra(ACCOUNT_NAME, download.getAccount().name);
         added.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
-        added.putExtra(EXTRA_FILE_PATH, download.getSavePath());
         added.putExtra(EXTRA_LINKED_TO_PATH, linkedToRemotePath);
         added.setPackage(getPackageName());
         sendStickyBroadcast(added);
