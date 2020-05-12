@@ -40,6 +40,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.BaseActivity;
+import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -292,6 +293,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         private TextView usernameViewItem;
         private TextView accountViewItem;
+        private ImageView accountMenu;
 
         private User user;
 
@@ -302,9 +304,13 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.checkViewItem = view.findViewById(R.id.ticker);
             this.usernameViewItem = view.findViewById(R.id.user_name);
             this.accountViewItem = view.findViewById(R.id.account);
+            this.accountMenu = view.findViewById(R.id.account_menu);
 
             view.setOnClickListener(this);
-            view.findViewById(R.id.account_menu).setOnClickListener(this);
+            if(context instanceof ReceiveExternalFilesActivity) {
+                accountMenu.setVisibility(View.GONE);
+            }
+            accountMenu.setOnClickListener(this);
         }
 
         public void setData(User user) {
@@ -312,9 +318,13 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
         @Override
-        public void onClick(View v) {
-            if (clickListener != null && v.isEnabled()) {
-                clickListener.onOptionItemClicked(user, v);
+        public void onClick(View view) {
+            if (clickListener != null && view.isEnabled()) {
+                if (view.getId() == R.id.account_menu) {
+                    clickListener.onOptionItemClicked(user, view);
+                } else {
+                    clickListener.onAccountClicked(user);
+                }
             }
         }
     }
