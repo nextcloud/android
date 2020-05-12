@@ -293,7 +293,6 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         private TextView usernameViewItem;
         private TextView accountViewItem;
-        private ImageView accountMenu;
 
         private User user;
 
@@ -304,7 +303,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.checkViewItem = view.findViewById(R.id.ticker);
             this.usernameViewItem = view.findViewById(R.id.user_name);
             this.accountViewItem = view.findViewById(R.id.account);
-            this.accountMenu = view.findViewById(R.id.account_menu);
+            ImageView accountMenu = view.findViewById(R.id.account_menu);
 
             view.setOnClickListener(this);
             if(context instanceof ReceiveExternalFilesActivity) {
