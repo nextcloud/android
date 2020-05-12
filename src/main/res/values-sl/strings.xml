@@ -478,6 +478,11 @@
     <string name="pref_behaviour_entries_delete_file">izbrisano</string>
     <string name="pref_behaviour_entries_keep_file">ohranjeno v izvorni mapi</string>
     <string name="pref_behaviour_entries_move">premaknjeno v mapo programa</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Kaj storiti, če datoteka že obstaja?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Vedno vprašaj</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Prepiši oddaljeno različico</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Preimenuj novo različico</string>
+    <string name="pref_instant_name_collision_policy_title">Kaj storiti, če datoteka že obstaja?</string>
     <string name="prefs_add_account">Dodaj račun</string>
     <string name="prefs_calendar_contacts">Uskladi koledar in stike</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Strežniškega naslova računa za DAVx5 (posodobljena različica DAVdroid) ni mogoče razrešiti</string>
