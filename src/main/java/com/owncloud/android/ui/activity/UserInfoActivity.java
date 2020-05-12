@@ -145,7 +145,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         boolean useBackgroundImage = URLUtil.isValidUrl(
                 getStorageManager().getCapability(user.getAccountName()).getServerBackground());
 
-        setupToolbar(useBackgroundImage);
+        setupToolbar(useBackgroundImage, false);
 
 
         // set the back button from action bar

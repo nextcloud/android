@@ -22,9 +22,12 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.animation.AnimatorInflater;
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -46,22 +49,29 @@ import com.owncloud.android.utils.ThemeUtils;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
 
 /**
- * Base class providing toolbar registration functionality, see {@link #setupToolbar()}.
+ * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean)}.
  */
 public abstract class ToolbarActivity extends BaseActivity {
     private AppBarLayout mAppBar;
+
     private RelativeLayout mDefaultToolbar;
-    private MaterialCardView mHomeToolbar;
+
+    private MaterialCardView mHomeSearchToolbar;
     protected MaterialButton mMenuButton;
     private MaterialTextView mSearchText;
     protected MaterialButton mSwitchAccountButton;
+
     private ProgressBar mProgressBar;
     private ImageView mPreviewImage;
     private FrameLayout mPreviewImageContainer;
     private LinearLayout mInfoBox;
     private TextView mInfoBoxMessage;
+
+    private boolean isHomeSearchToolbarShow = false;
+    private boolean isUserInfo = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +82,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * Toolbar setup that must be called in implementer's {@link #onCreate} after {@link #setContentView} if they want
      * to use the toolbar.
      */
-    protected void setupToolbar(boolean useBackgroundImage) {
+    protected void setupToolbar(boolean isUserInfo, boolean isHomeSearchToolbarShow) {
         int primaryColor = ThemeUtils.primaryAppbarColor(this);
         int fontColor = ThemeUtils.appBarPrimaryFontColor(this);
 
@@ -81,14 +91,14 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         mAppBar = findViewById(R.id.appbar);
         mDefaultToolbar = findViewById(R.id.default_toolbar);
-        mHomeToolbar = findViewById(R.id.home_toolbar);
+        mHomeSearchToolbar = findViewById(R.id.home_toolbar);
         mMenuButton = findViewById(R.id.menu_button);
         mSearchText = findViewById(R.id.search_text);
         mSwitchAccountButton = findViewById(R.id.switch_account_button);
 
-        if (mAppBar != null) {
-            mAppBar.setElevation(getResources().getDimension(R.dimen.default_appbar_elevation));
-        }
+        this.isHomeSearchToolbarShow = isHomeSearchToolbarShow;
+        this.isUserInfo = isUserInfo;
+        updateActionBarTitleAndHomeButton(null);
 
         mProgressBar = findViewById(R.id.toolbar_progressBar);
         setProgressBarBackgroundColor();
@@ -108,14 +118,14 @@ public abstract class ToolbarActivity extends BaseActivity {
         if (toolbar.getNavigationIcon() != null) {
             ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), fontColor);
         }
-
-        if (!useBackgroundImage) {
-            toolbar.setBackgroundColor(primaryColor);
-        }
     }
 
     public void setupToolbar() {
-        setupToolbar(false);
+        setupToolbar(false, false);
+    }
+
+    public void setupToolbar(boolean homeSearchToolbarShow) {
+        setupToolbar(false, homeSearchToolbarShow);
     }
 
     /**
@@ -128,15 +138,32 @@ public abstract class ToolbarActivity extends BaseActivity {
         title = isRoot ? ThemeUtils.getDefaultDisplayNameForRootFolder(this) : chosenFile.getFileName();
         updateActionBarTitleAndHomeButtonByString(title);
 
-        if (isRoot) {
-            mAppBar.setElevation(0);
+        if (!isUserInfo) {
+            showHomeSearchToolbar(title, isRoot);
+        }
+    }
+
+    @SuppressLint("PrivateResource")
+    private void showHomeSearchToolbar(String title, boolean isRoot) {
+        if (isHomeSearchToolbarShow && isRoot) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
+                                                                                    R.animator.appbar_elevation_off));
+            } else {
+                ViewCompat.setElevation(mAppBar, 0);
+            }
             mDefaultToolbar.setVisibility(View.GONE);
-            mHomeToolbar.setVisibility(View.VISIBLE);
+            mHomeSearchToolbar.setVisibility(View.VISIBLE);
             mSearchText.setText(String.format("Search in %s", title));
         } else {
-            mAppBar.setElevation(getResources().getDimension(R.dimen.default_appbar_elevation));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
+                                                                                    R.animator.appbar_elevation_on));
+            } else {
+                ViewCompat.setElevation(mAppBar, getResources().getDimension(R.dimen.design_appbar_elevation));
+            }
             mDefaultToolbar.setVisibility(View.VISIBLE);
-            mHomeToolbar.setVisibility(View.GONE);
+            mHomeSearchToolbar.setVisibility(View.GONE);
         }
     }
 

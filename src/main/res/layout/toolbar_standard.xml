@@ -24,7 +24,7 @@
     android:id="@+id/appbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/appbar"
+    android:background="@color/bg_default"
     android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
     tools:viewBindingIgnore="true">
 
@@ -78,6 +78,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginEnd="16dp"
         android:visibility="gone"
+        app:background="@color/appbar"
         app:strokeColor="#E0E0E0"
         app:strokeWidth="1dp">
 
