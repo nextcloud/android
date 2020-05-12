@@ -1,4 +1,28 @@
-<vector android:height="72dp" android:viewportHeight="16"
-    android:viewportWidth="16" android:width="72dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#0082c9" android:fillType="evenOdd" android:pathData="M1.46,2c-0.25,0 -0.46,0.21 -0.46,0.46v11.08c0,0.258 0.202,0.46 0.46,0.46h13.08c0.258,0 0.46,-0.202 0.46,-0.46L15,4.462c0,-0.25 -0.21,-0.463 -0.46,-0.463L8,3.999L6,2L1.46,2zM7.977,5.793h3.57v3.385L10.355,8.05 8.57,9.743l-1.19,-1.13 1.786,-1.69 -1.19,-1.13zM5.597,6.357L7.38,6.357l0.597,0.565h-2.38v4.514h4.758L10.355,9.178l0.596,0.564v1.694c0,0.312 -0.265,0.564 -0.595,0.564h-4.76c-0.33,0 -0.595,-0.252 -0.595,-0.564L5.001,6.922c0,-0.313 0.266,-0.565 0.596,-0.565z"/>
+<!--
+    @author Google LLC
+    @author Andy Scherzinger
+    Copyright (C) 2018 Google LLC
+    Copyright (C) 2020 Andy Scherzinger
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="#0082c9"
+    android:viewportWidth="24.0"
+    android:viewportHeight="24.0">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M10,4L4,4C2.89,4 2,4.89 2,6L2,18C2,19.097 2.903,20 4,20L20,20C21.097,20 22,19.097 22,18L22,8C22,6.89 21.1,6 20,6L12,6L10,4ZM8.453,9.652L10.823,9.652L11.616,10.403L8.453,10.403L8.453,16.403L14.776,16.403L14.776,13.402L15.569,14.151L15.569,16.403C15.569,16.817 15.216,17.152 14.778,17.152L8.451,17.152C8.013,17.152 7.661,16.817 7.661,16.403L7.661,10.403C7.661,9.987 8.014,9.652 8.453,9.652ZM11.616,8.903L16.361,8.903L16.361,13.402L14.776,11.902L12.404,14.152L10.823,12.651L13.196,10.405L11.616,8.903Z" />
 </vector>
