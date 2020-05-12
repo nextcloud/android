@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@null"
-                android:padding="@dimen/grid_image_icon_margin"
+                android:padding="@dimen/grid_image_icon_padding"
                 android:scaleType="centerCrop"
                 android:src="@drawable/folder" />
         </FrameLayout>
