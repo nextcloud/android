@@ -947,4 +947,5 @@
     <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
     <string name="invalid_url">Invalid URL</string>
     <string name="conflict_dialog_error">Error creating conflict dialog!</string>
+    <string name="view_profile">View profile</string>
 </resources>
