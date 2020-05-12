@@ -57,7 +57,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     public static final String AUTO_PREF__LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
     public static final String STORAGE_PATH = "storage_path";
     public static final String PREF__DARK_THEME = "dark_theme_mode";
-    public static final float DEFAULT_GRID_COLUMN = 4.0f;
+    public static final float DEFAULT_GRID_COLUMN = 3f;
 
     private static final String AUTO_PREF__LAST_UPLOAD_PATH = "last_upload_path";
     private static final String AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH = "upload_from_local_last_path";
