@@ -121,8 +121,8 @@
     <dimen name="grid_item_local_file_indicator_layout_height">16dp</dimen>
     <dimen name="grid_sync_item_layout_next_text_size">22sp</dimen>
     <dimen name="grid_sync_item_layout_counter_text_size">22sp</dimen>
-    <dimen name="list_item_favorite_action_layout_width">16dp</dimen>
-    <dimen name="list_item_favorite_action_layout_height">16dp</dimen>
+    <dimen name="list_item_favorite_action_layout_width">14dp</dimen>
+    <dimen name="list_item_favorite_action_layout_height">14dp</dimen>
     <dimen name="list_item_local_file_indicator_layout_width">12dp</dimen>
     <dimen name="list_item_local_file_indicator_layout_height">12dp</dimen>
     <dimen name="preview_error_image_layout_width">72dp</dimen>
