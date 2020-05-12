@@ -428,7 +428,7 @@ public final class ThumbnailsCacheManager {
         private FileDataStorageManager mStorageManager;
         private GetMethod getMethod;
         private Listener mListener;
-        private Boolean gridViewEnabled = false;
+        private boolean gridViewEnabled = false;
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, Account account)
                 throws IllegalArgumentException {
@@ -449,7 +449,8 @@ public final class ThumbnailsCacheManager {
         }
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
-                                       Account account, List<ThumbnailGenerationTask> asyncTasks, Boolean gridViewEnabled)
+                                       Account account, List<ThumbnailGenerationTask> asyncTasks,
+                                       boolean gridViewEnabled)
             throws IllegalArgumentException {
             this(imageView, storageManager, account, asyncTasks);
             this.gridViewEnabled = gridViewEnabled;
