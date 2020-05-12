@@ -37,6 +37,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -54,6 +56,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.adapter.UserListItem;
+import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ThemeUtils;
@@ -71,8 +74,10 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -162,6 +167,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         initializeComponentGetters();
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -379,7 +385,9 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         super.onDestroy();
     }
 
-    public Handler getHandler() { return handler; }
+    public Handler getHandler() {
+        return handler;
+    }
 
     @Override
     public FileUploader.FileUploaderBinder getFileUploaderBinder() {
@@ -462,13 +470,44 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         }
     }
 
-    @Override
-    public void onClick(User user) {
+    public static void openAccountRemovalConfirmationDialog(User user, FragmentManager fragmentManager) {
+        AccountRemovalConfirmationDialog dialog =
+            AccountRemovalConfirmationDialog.newInstance(user);
+        dialog.show(fragmentManager, "dialog");
+    }
+
+    private void openAccount(User user) {
         final Intent intent = new Intent(this, UserInfoActivity.class);
         intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);
         OwnCloudAccount oca = user.toOwnCloudAccount();
         intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
         startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
+    }
+
+    @Override
+    public void onOptionItemClicked(User user, View view) {
+        if (view.getId() == R.id.account_menu) {
+            ImageView menuButton = findViewById(R.id.account_menu);
+
+            PopupMenu popup = new PopupMenu(view.getContext(), menuButton);
+            popup.getMenuInflater().inflate(R.menu.item_account, popup.getMenu());
+            popup.show();
+            popup.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.action_delete_account) {
+                    openAccountRemovalConfirmationDialog(user, getSupportFragmentManager());
+                } else {
+                    openAccount(user);
+                }
+                return true;
+            });
+        } else {
+            openAccount(user);
+        }
+    }
+
+    @Override
+    public void onAccountClicked(User user) {
+        openAccount(user);
     }
 
     /**
