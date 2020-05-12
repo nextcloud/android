@@ -132,7 +132,8 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
 
     @Override
     public void onOptionItemClicked(User user, View view) {
-        // Do nothing
+        // By default, access account if option is clicked
+        onAccountClicked(user);
     }
 
     @Override
