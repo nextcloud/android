@@ -83,7 +83,6 @@ public abstract class ToolbarActivity extends BaseActivity {
      * to use the toolbar.
      */
     protected void setupToolbar(boolean isUserInfo, boolean isHomeSearchToolbarShow) {
-        int primaryColor = ThemeUtils.primaryAppbarColor(this);
         int fontColor = ThemeUtils.appBarPrimaryFontColor(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);

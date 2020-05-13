@@ -149,10 +149,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             createFragments();
         }
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(true);
-            ThemeUtils.setColoredTitle(getSupportActionBar(), caption, this);
-        }
+        updateActionBarTitleAndHomeButtonByString(caption);
 
         showProgressBar(mSyncInProgress);
         // always AFTER setContentView(...) ; to work around bug in its implementation

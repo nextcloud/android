@@ -268,19 +268,9 @@ public class FileDisplayActivity extends FileActivity
             openManageAccounts();
         });
 
-        // setup drawer
-        if (MainApp.isOnlyOnDevice()) {
-            setupDrawer(R.id.nav_on_device);
-        } else {
-            setupDrawer(R.id.nav_all_files);
-        }
-
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
-
-        // Action bar setup
-        getSupportActionBar().setHomeButtonEnabled(true);
 
         // Init Fragment without UI to retain AsyncTask across configuration changes
         FragmentManager fm = getSupportFragmentManager();
@@ -2492,26 +2482,11 @@ public class FileDisplayActivity extends FileActivity
         return getListOfFilesFragment().isGridEnabled();
     }
 
-    public void allFilesOption() {
-        browseToRoot();
-    }
-
-    public void setActionBarTitle(@StringRes final int title) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (getSupportActionBar() != null) {
-                    ThemeUtils.setColoredTitle(getSupportActionBar(), title, getBaseContext());
-                }
-            }
-        });
-    }
-
     @Override
     public void showFiles(boolean onDeviceOnly) {
         super.showFiles(onDeviceOnly);
         if (onDeviceOnly) {
-            setActionBarTitle(R.string.drawer_item_on_device);
+            updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_on_device));
         }
         getListOfFilesFragment().refreshDirectory();
     }
