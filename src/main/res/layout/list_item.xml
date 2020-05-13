@@ -45,25 +45,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <RelativeLayout
-            android:id="@+id/shimmer_view_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+        <com.elyeproj.loaderviewlibrary.LoaderImageView
+            android:id="@+id/thumbnail_shimmer"
+            android:layout_width="@dimen/file_icon_size"
+            android:layout_height="@dimen/file_icon_size"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:corners="8" />
 
-            <com.elyeproj.loaderviewlibrary.LoaderImageView
-                android:id="@+id/thumbnail_shimmer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_half_margin"
-                android:visibility="gone"
-                app:corners="8" />
-
-        </RelativeLayout>
 
         <ImageView
             android:id="@+id/localFileIndicator"
