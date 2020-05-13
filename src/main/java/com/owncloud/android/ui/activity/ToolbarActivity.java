@@ -49,6 +49,7 @@ import com.owncloud.android.utils.ThemeUtils;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
 /**
@@ -86,6 +87,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ThemeUtils.colorStatusBar(this);
 
         mAppBar = findViewById(R.id.appbar);
         mDefaultToolbar = findViewById(R.id.default_toolbar);
@@ -105,8 +107,6 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         mPreviewImage = findViewById(R.id.preview_image);
         mPreviewImageContainer = findViewById(R.id.preview_image_frame);
-
-        ThemeUtils.colorStatusBar(this);
 
         if (toolbar.getOverflowIcon() != null) {
             ThemeUtils.tintDrawable(toolbar.getOverflowIcon(), fontColor);
@@ -155,7 +155,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     @SuppressLint("PrivateResource")
     private void showHomeSearchToolbar(boolean isShow) {
-        if (isShow) {
+        if (isShow && mDefaultToolbar.getVisibility() == View.VISIBLE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                     R.animator.appbar_elevation_off));
@@ -164,7 +164,8 @@ public abstract class ToolbarActivity extends BaseActivity {
             }
             mDefaultToolbar.setVisibility(View.GONE);
             mHomeSearchToolbar.setVisibility(View.VISIBLE);
-        } else {
+            ThemeUtils.colorStatusBar(this, ContextCompat.getColor(this, R.color.bg_default));
+        } else if (mDefaultToolbar.getVisibility() == View.GONE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                     R.animator.appbar_elevation_on));
@@ -173,6 +174,7 @@ public abstract class ToolbarActivity extends BaseActivity {
             }
             mDefaultToolbar.setVisibility(View.VISIBLE);
             mHomeSearchToolbar.setVisibility(View.GONE);
+            ThemeUtils.colorStatusBar(this);
         }
     }
 

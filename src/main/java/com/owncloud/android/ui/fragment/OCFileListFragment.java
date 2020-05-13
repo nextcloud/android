@@ -28,7 +28,6 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -1243,21 +1242,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
 
                 if (searchView != null && !searchView.isIconified() && !fromSearch) {
-
-                    searchView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            searchView.setQuery("", false);
-                            searchView.onActionViewCollapsed();
-                            Activity activity;
-                            if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
-                                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
-                                if (getCurrentFile() != null) {
-                                    fileDisplayActivity.setDrawerIndicatorEnabled(
-                                            fileDisplayActivity.isRoot(getCurrentFile()));
-                                }
+                    searchView.post(() -> {
+                        searchView.setQuery("", false);
+                        searchView.onActionViewCollapsed();
+                        Activity activity;
+                        if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
+                            FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
+                            fileDisplayActivity.hideSearchView(fileDisplayActivity.getCurrentDir());
+                            if (getCurrentFile() != null) {
+                                fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isRoot(getCurrentFile()));
                             }
-
                         }
                     });
                 }
