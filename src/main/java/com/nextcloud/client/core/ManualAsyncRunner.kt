@@ -27,14 +27,35 @@ import java.util.ArrayDeque
  */
 class ManualAsyncRunner : AsyncRunner {
 
-    private val queue: ArrayDeque<Task<*>> = ArrayDeque()
+    private val queue: ArrayDeque<Runnable> = ArrayDeque()
 
-    override fun <T> post(task: () -> T, onResult: OnResultCallback<T>?, onError: OnErrorCallback?): Cancellable {
+    override fun <T> postQuickTask(
+        task: () -> T,
+        onResult: OnResultCallback<T>?,
+        onError: OnErrorCallback?
+    ): Cancellable {
+        return postTask(
+            task = { _: OnProgressCallback<Any>, _: IsCancelled -> task.invoke() },
+            onResult = onResult,
+            onError = onError,
+            onProgress = null
+        )
+    }
+
+    override fun <T, P> postTask(
+        task: TaskFunction<T, P>,
+        onResult: OnResultCallback<T>?,
+        onError: OnErrorCallback?,
+        onProgress: OnProgressCallback<P>?
+    ): Cancellable {
+        val remove: Function1<Runnable, Boolean> = queue::remove
         val taskWrapper = Task(
-            postResult = { it.run() },
+            postResult = { it.run(); true },
+            removeFromQueue = remove,
             taskBody = task,
             onSuccess = onResult,
-            onError = onError
+            onError = onError,
+            onProgress = onProgress
         )
         queue.push(taskWrapper)
         return taskWrapper
