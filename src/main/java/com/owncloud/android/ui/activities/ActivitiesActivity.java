@@ -120,10 +120,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
         // setup drawer
         setupDrawer(R.id.nav_activity);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            ThemeUtils.setColoredTitle(actionBar, getString(R.string.drawer_item_activities), this);
-        }
+        updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_activities));
 
         swipeListRefreshLayout.setOnRefreshListener(() -> {
             // We set lastGiven variable to undefined here since when manually refreshing
