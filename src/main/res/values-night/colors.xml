@@ -46,4 +46,5 @@
     <!-- App bar -->
     <color name="appbar">#1E1E1E</color>
     <color name="fontAppbar">@android:color/white</color>
+    <color name="stroke_home_toolbar">#727272</color>
 </resources>
