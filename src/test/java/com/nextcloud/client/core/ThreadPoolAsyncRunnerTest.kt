@@ -62,7 +62,7 @@ class ThreadPoolAsyncRunnerTest {
         val latch = CountDownLatch(1)
         val callerThread = Thread.currentThread()
         var taskThread: Thread? = null
-        r.post({
+        r.postQuickTask({
             taskThread = Thread.currentThread()
             latch.countDown()
         })
@@ -79,7 +79,7 @@ class ThreadPoolAsyncRunnerTest {
         }.whenever(handler).post(any())
 
         val onResult: OnResultCallback<String> = mock()
-        r.post(
+        r.postQuickTask(
             {
                 "result"
             },
@@ -99,11 +99,12 @@ class ThreadPoolAsyncRunnerTest {
 
         val onResult: OnResultCallback<String> = mock()
         val onError: OnErrorCallback = mock()
-        r.post(
+        r.postQuickTask(
             {
                 throw IllegalArgumentException("whatever")
             },
-            onResult = onResult, onError = onError
+            onResult = onResult,
+            onError = onError
         )
         assertAwait(afterPostLatch)
         verify(onResult, never()).invoke(any())
@@ -114,13 +115,14 @@ class ThreadPoolAsyncRunnerTest {
     fun `cancelled task does not return result`() {
         val taskIsCancelled = CountDownLatch(INIT_COUNT)
         val taskIsRunning = CountDownLatch(INIT_COUNT)
-        val t = r.post(
+        val t = r.postQuickTask(
             {
                 taskIsRunning.countDown()
                 taskIsCancelled.await()
                 "result"
             },
-            onResult = {}, onError = {}
+            onResult = {},
+            onError = {}
         )
         assertAwait(taskIsRunning)
         t.cancel()
@@ -133,13 +135,14 @@ class ThreadPoolAsyncRunnerTest {
     fun `cancelled task does not return error`() {
         val taskIsCancelled = CountDownLatch(INIT_COUNT)
         val taskIsRunning = CountDownLatch(INIT_COUNT)
-        val t = r.post(
+        val t = r.postQuickTask(
             {
                 taskIsRunning.countDown()
                 taskIsCancelled.await()
                 throw IllegalStateException("whatever")
             },
-            onResult = {}, onError = {}
+            onResult = {},
+            onError = {}
         )
         assertAwait(taskIsRunning)
         t.cancel()

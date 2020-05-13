@@ -20,11 +20,14 @@
 package com.nextcloud.client.etm
 
 import android.accounts.AccountManager
+import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.nextcloud.client.account.MockUser
+import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.etm.pages.EtmBackgroundJobsFragment
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.JobInfo
@@ -66,7 +69,9 @@ class TestEtmViewModel {
         @get:Rule
         val rule = InstantTaskExecutorRule()
 
+        protected lateinit var context: Context
         protected lateinit var platformAccountManager: AccountManager
+        protected lateinit var accountManager: UserAccountManager
         protected lateinit var sharedPreferences: SharedPreferences
         protected lateinit var vm: EtmViewModel
         protected lateinit var resources: Resources
@@ -76,16 +81,21 @@ class TestEtmViewModel {
 
         @Before
         fun setUpBase() {
+            context = mock()
             sharedPreferences = mock()
             platformAccountManager = mock()
+            accountManager = mock()
             resources = mock()
             backgroundJobManager = mock()
             migrationsManager = mock()
             migrationsDb = mock()
             whenever(resources.getString(any())).thenReturn("mock-account-type")
+            whenever(accountManager.user).thenReturn(MockUser())
             vm = EtmViewModel(
+                context,
                 sharedPreferences,
                 platformAccountManager,
+                accountManager,
                 resources,
                 backgroundJobManager,
                 migrationsManager,
