@@ -1,0 +1,20 @@
+consistent naming schema for folder icons
+replace folder icons with material design like versions
+Implemented a fixed width for local file indicator
+remove EXTRA_FILE_PATH
+move field to local variable
+Fixed a bug relative to account switch
+Splitted User ClickListener interface in two methods
+spotbugs: FCBL_FIELD_COULD_BE_LOCAL
+Replaced "Open" by "View Profile" and removed french translation for transifex
+Aligned the files icons
+Fix parameters passed to downloader during contacts list download
+Added account deletion feature
+Enabled the actions and the inflating for Accounts Management
+Implemented view in listener + Pre-implemented menu inflating
+Applied a listener on account menu button
+Pre-added a menu to manage accounts
+Translation fix
+Update strings.xml file
+Update strings.xml file
+Update Nextcloud Android library
