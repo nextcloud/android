@@ -61,7 +61,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     private MaterialCardView mHomeSearchToolbar;
     protected MaterialButton mMenuButton;
-    private MaterialTextView mSearchText;
+    protected MaterialTextView mSearchText;
     protected MaterialButton mSwitchAccountButton;
 
     private ProgressBar mProgressBar;
@@ -136,9 +136,26 @@ public abstract class ToolbarActivity extends BaseActivity {
         }
     }
 
-    @SuppressLint("PrivateResource")
+    public void showSearchView() {
+        if (isHomeSearchToolbarShow) {
+            showHomeSearchToolbar(false);
+        }
+    }
+
+    public void hideSearchView(OCFile chosenFile) {
+        if (isHomeSearchToolbarShow) {
+            showHomeSearchToolbar(isRoot(chosenFile));
+        }
+    }
+
     private void showHomeSearchToolbar(String title, boolean isRoot) {
-        if (isHomeSearchToolbarShow && isRoot) {
+        showHomeSearchToolbar(isHomeSearchToolbarShow && isRoot);
+        mSearchText.setText(getString(R.string.appbar_search_in, title));
+    }
+
+    @SuppressLint("PrivateResource")
+    private void showHomeSearchToolbar(boolean isShow) {
+        if (isShow) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                     R.animator.appbar_elevation_off));
@@ -147,7 +164,6 @@ public abstract class ToolbarActivity extends BaseActivity {
             }
             mDefaultToolbar.setVisibility(View.GONE);
             mHomeSearchToolbar.setVisibility(View.VISIBLE);
-            mSearchText.setText(String.format("Search in %s", title));
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
