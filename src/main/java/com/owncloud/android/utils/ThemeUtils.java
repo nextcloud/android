@@ -309,12 +309,16 @@ public final class ThemeUtils {
      * @param supportActionBar
      */
     public static void tintBackButton(@Nullable ActionBar supportActionBar, Context context) {
+        tintBackButton(supportActionBar, context, ThemeUtils.appBarPrimaryFontColor(context));
+    }
+
+    public static void tintBackButton(@Nullable ActionBar supportActionBar, Context context, @ColorInt int color) {
         if (supportActionBar == null) {
             return;
         }
 
         Drawable backArrow = context.getResources().getDrawable(R.drawable.ic_arrow_back);
-        supportActionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.appBarPrimaryFontColor(context)));
+        supportActionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, color));
     }
 
     public static Spanned getColoredTitle(String title, int color) {
@@ -550,8 +554,8 @@ public final class ThemeUtils {
     /**
      * Theme search view
      *
-     * @param searchView       searchView to be changed
-     * @param context          the app's context
+     * @param searchView searchView to be changed
+     * @param context    the app's context
      */
     public static void themeSearchView(SearchView searchView, Context context) {
         // hacky as no default way is provided
