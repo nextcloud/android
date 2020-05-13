@@ -775,8 +775,12 @@ public class FileDisplayActivity extends FileActivity
 
         menu.findItem(R.id.action_select_all).setVisible(false);
         MenuItem searchMenuItem = menu.findItem(R.id.action_search);
-        searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
         searchMenuItem.setVisible(false);
+        mSearchText.setOnClickListener(v -> {
+            showSearchView();
+            searchView.setIconified(false);
+        });
 
         ThemeUtils.themeSearchView(searchView, this);
 
@@ -785,7 +789,7 @@ public class FileDisplayActivity extends FileActivity
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sort));
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sync_account));
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_switch_view));
-        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_search));
+        mDrawerMenuItemstoShowHideList.add(searchMenuItem);
 
         //focus the SearchView
         if (!TextUtils.isEmpty(searchQuery)) {
@@ -1144,6 +1148,8 @@ public class FileDisplayActivity extends FileActivity
 
             // Remove the list to the original state
             listOfFiles.performSearch("", true);
+
+            hideSearchView(getCurrentDir());
 
             setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
         } else if (isDrawerOpen) {
