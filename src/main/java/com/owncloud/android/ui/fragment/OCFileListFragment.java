@@ -28,7 +28,6 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -1626,7 +1625,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                 @Override
                                 public void run() {
                                     if (fileDisplayActivity != null) {
-                                        fileDisplayActivity.showProgressBar(false);
+                                        setLoading(false);
                                     }
                                 }
                             });
