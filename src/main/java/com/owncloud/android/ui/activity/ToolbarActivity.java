@@ -71,7 +71,6 @@ public abstract class ToolbarActivity extends BaseActivity {
     private TextView mInfoBoxMessage;
 
     private boolean isHomeSearchToolbarShow = false;
-    private boolean isUserInfo = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +81,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * Toolbar setup that must be called in implementer's {@link #onCreate} after {@link #setContentView} if they want
      * to use the toolbar.
      */
-    protected void setupToolbar(boolean isUserInfo, boolean isHomeSearchToolbarShow) {
+    protected void setupToolbar(boolean isHomeSearchToolbarShow) {
         int fontColor = ThemeUtils.appBarPrimaryFontColor(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -96,7 +95,6 @@ public abstract class ToolbarActivity extends BaseActivity {
         mSwitchAccountButton = findViewById(R.id.switch_account_button);
 
         this.isHomeSearchToolbarShow = isHomeSearchToolbarShow;
-        this.isUserInfo = isUserInfo;
         updateActionBarTitleAndHomeButton(null);
 
         mProgressBar = findViewById(R.id.toolbar_progressBar);
@@ -120,11 +118,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     }
 
     public void setupToolbar() {
-        setupToolbar(false, false);
-    }
-
-    public void setupToolbar(boolean homeSearchToolbarShow) {
-        setupToolbar(false, homeSearchToolbarShow);
+        setupToolbar(false);
     }
 
     /**
@@ -137,7 +131,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         title = isRoot ? ThemeUtils.getDefaultDisplayNameForRootFolder(this) : chosenFile.getFileName();
         updateActionBarTitleAndHomeButtonByString(title);
 
-        if (!isUserInfo) {
+        if (mAppBar != null) {
             showHomeSearchToolbar(title, isRoot);
         }
     }

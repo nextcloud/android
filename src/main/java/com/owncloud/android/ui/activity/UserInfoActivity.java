@@ -141,12 +141,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         setContentView(R.layout.user_info_layout);
         unbinder = ButterKnife.bind(this);
 
-
-        boolean useBackgroundImage = URLUtil.isValidUrl(
-                getStorageManager().getCapability(user.getAccountName()).getServerBackground());
-
-        setupToolbar(useBackgroundImage, false);
-
+        setupToolbar(false);
 
         // set the back button from action bar
         ActionBar actionBar = getSupportActionBar();
@@ -155,10 +150,8 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setTitle("");
         }
-
-        // set title Action bar
-        updateActionBarTitleAndHomeButtonByString("");
 
         mUserInfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount(), true, this)));
 
@@ -229,10 +222,9 @@ public class UserInfoActivity extends FileActivity implements Injectable {
 
     private void setHeaderImage() {
         if (getStorageManager().getCapability(user.getAccountName()).getServerBackground() != null) {
-            ViewGroup appBar = findViewById(R.id.appbar);
+            ImageView backgroundImageView = findViewById(R.id.drawer_header_background);
 
-            if (appBar != null) {
-                ImageView backgroundImageView = appBar.findViewById(R.id.drawer_header_background);
+            if (backgroundImageView != null) {
 
                 String background = getStorageManager().getCapability(user.getAccountName()).getServerBackground();
                 int primaryColor = ThemeUtils.primaryColor(getAccount(), false, this);
