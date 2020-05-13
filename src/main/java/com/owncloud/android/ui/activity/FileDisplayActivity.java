@@ -514,7 +514,7 @@ public class FileDisplayActivity extends FileActivity
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
+        setIntent(intent);
 
         if (ACTION_DETAILS.equalsIgnoreCase(intent.getAction())) {
             OCFile file = intent.getParcelableExtra(EXTRA_FILE);
