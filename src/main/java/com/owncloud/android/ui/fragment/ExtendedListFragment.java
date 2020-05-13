@@ -547,6 +547,7 @@ public class ExtendedListFragment extends Fragment implements
             if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
                 FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
                 fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isDrawerIndicatorAvailable());
+                fileDisplayActivity.hideSearchView(fileDisplayActivity.getCurrentDir());
             }
         }
 
