@@ -212,7 +212,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
 
         if (!ocFile.isDown()) {
             Intent i = new Intent(getContext(), FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_FILE_PATH, user);
+            i.putExtra(FileDownloader.EXTRA_USER, user);
             i.putExtra(FileDownloader.EXTRA_FILE, ocFile);
             getContext().startService(i);
 

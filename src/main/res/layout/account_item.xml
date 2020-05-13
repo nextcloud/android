@@ -55,40 +55,56 @@
             android:contentDescription="@string/active_user"/>
     </FrameLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_toEndOf="@id/avatar_container"
-        android:orientation="vertical"
-        android:paddingEnd="@dimen/zero"
-        android:paddingStart="3dp">
 
-        <TextView
-            android:id="@+id/user_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_quarter_margin"
-            android:ellipsize="end"
-            android:gravity="bottom"
-            android:maxLines="1"
-            android:text="@string/placeholder_filename"
-            android:textAppearance="?android:attr/textAppearanceListItem"/>
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@id/avatar_container"
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/zero"
+            android:layout_marginEnd="25dp"
+            android:paddingStart="3dp">
 
-        <TextView
-            android:id="@+id/account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/standard_quarter_margin"
-            android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_marginStart="@dimen/standard_margin"
-            android:ellipsize="end"
-            android:gravity="top"
-            android:maxLines="2"
-            android:text="@string/placeholder_sentence"
-            android:textColor="?android:attr/textColorSecondary"/>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/standard_half_margin"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_quarter_margin"
+                android:ellipsize="end"
+                android:gravity="bottom"
+                android:maxLines="1"
+                android:text="@string/placeholder_filename"
+                android:textAppearance="?android:attr/textAppearanceListItem"/>
+
+            <TextView
+                android:id="@+id/account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/standard_quarter_margin"
+                android:layout_marginEnd="@dimen/standard_half_margin"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:ellipsize="end"
+                android:gravity="top"
+                android:maxLines="2"
+                android:text="@string/placeholder_sentence"
+                android:textColor="?android:attr/textColorSecondary"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/account_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:clickable="true"
+            android:contentDescription="@string/overflow_menu"
+            android:focusable="true"
+            android:paddingEnd="@dimen/alternate_padding"
+            android:paddingStart="@dimen/standard_half_padding"
+            android:src="@drawable/ic_dots_vertical"/>
 
 </RelativeLayout>

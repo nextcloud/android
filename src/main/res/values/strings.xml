@@ -93,7 +93,7 @@
     <string name="file_list_empty_headline">No files here</string>
     <string name="folder_list_empty_headline">No folders here</string>
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
-    <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorites will show up here</string>
+    <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorites will show up here.</string>
     <string name="file_list_empty_favorites_filter">Your search returned no favorited files.</string>
     <string name="file_list_loading">Loading…</string>
     <string name="file_list_no_app_for_file_type">No app set up to handle this file type.</string>
@@ -103,7 +103,7 @@
     <string name="file_list_empty_headline_server_search">No results</string>
     <string name="file_list_empty_favorite_headline">Nothing favorited yet</string>
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
-    <string name="file_list_empty_shared">Files and folders you share will show up here</string>
+    <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
     <string name="file_list_empty_headline_server_search_videos">No videos</string>
     <string name="file_list_empty_headline_server_search_photos">No photos</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
@@ -116,7 +116,7 @@
     <string name="file_list_empty_text_videos">Upload some videos or activate auto upload.</string>
     <string name="file_list_empty_text_videos_filter">No videos.</string>
     <string name="trashbin_empty_headline">No deleted files</string>
-    <string name="trashbin_empty_message">You will be able to recover deleted files from here</string>
+    <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>
     <string name="file_list_folder">folder</string>
@@ -255,10 +255,10 @@
     <string name="auth_unauthorized">Wrong username or password</string>
     <string name="auth_oauth_error">Unsuccessful authorization</string>
     <string name="auth_oauth_error_access_denied">Access denied by authorization server</string>
-    <string name="auth_wtf_reenter_URL">Unexpected state, please enter the server address again</string>
+    <string name="auth_wtf_reenter_URL">Unexpected state, please enter the server address again.</string>
     <string name="auth_expired_basic_auth_toast">Please enter the current password</string>
     <string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
-    <string name="auth_fail_get_user_name">Your server is not returning a correct user ID, please contact an admin</string>
+    <string name="auth_fail_get_user_name">Your server is not returning a correct user ID, please contact an admin.</string>
     <string name="auth_can_not_auth_against_server">Cannot authenticate to this server</string>
     <string name="auth_account_does_not_exist">The account is not added on this device yet</string>
     <string name="auth_access_failed">Access failed: %1$s</string>
@@ -339,12 +339,12 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Store in subfolders based on year and month</string>
 
-    <string name="share_link_file_no_exist">Unable to share. Please check whether the file exists</string>
-    <string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
-    <string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists</string>
-    <string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder</string>
-    <string name="update_link_file_no_exist">Unable to update. Please check whether the file exists</string>
-    <string name="update_link_file_error">An error occurred while trying to update the share</string>
+    <string name="share_link_file_no_exist">Unable to share. Please check whether the file exists.</string>
+    <string name="share_link_file_error">An error occurred while trying to share this file or folder.</string>
+    <string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists.</string>
+    <string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder.</string>
+    <string name="update_link_file_no_exist">Unable to update. Please check whether the file exists.</string>
+    <string name="update_link_file_error">An error occurred while trying to update the share.</string>
     <string name="share_link_password_title">Enter a password</string>
     <string name="share_link_optional_password_title">Enter an optional password</string>
     <string name="share_link_empty_password">You must enter a password</string>
@@ -360,9 +360,9 @@
     <string name="error_cant_bind_to_operations_service">Critical error: Unable to perform operations</string>
 
     <string name="network_error_socket_exception">An error occurred during connection to the server</string>
-    <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server. Could not complete operation</string>
-    <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation</string>
-    <string name="network_host_not_available">Could not complete operation. Server unavailable</string>
+    <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
+    <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
+    <string name="network_host_not_available">Could not complete operation. Server unavailable.</string>
 
     <string name="forbidden_permissions">You are not permitted %s</string>
     <string name="forbidden_permissions_rename">to rename this file</string>
@@ -416,14 +416,14 @@
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
     <string name="folder_picker_choose_button_text">Choose</string>
 
-    <string name="move_file_not_found">Unable to move file. Please check whether it exists</string>
+    <string name="move_file_not_found">Unable to move file. Please check whether it exists.</string>
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
     <string name="move_file_error">An error occurred while trying to move this file or folder</string>
     <string name="forbidden_permissions_move">to move this file</string>
 
 
-    <string name="copy_file_not_found">Unable to copy. Please check whether the file exists</string>
+    <string name="copy_file_not_found">Unable to copy. Please check whether the file exists.</string>
     <string name="copy_file_invalid_into_descendent">It is not possible to copy a folder into one of its own underlying folders</string>
     <string name="copy_file_invalid_overwrite">The file is already present in the destination folder</string>
     <string name="copy_file_error">An error occurred while trying to copy this file or folder</string>
@@ -548,7 +548,7 @@
     <string name="community_contribute_translate_translate">Translate</string>
     <string name="community_contribute_translate_text">the app</string>
     <string name="community_contribute_translate_link" translatable="false">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">%3$s&lt;/a>&lt;/font></string>
-    <string name="community_contribute_github_text">Review, amend and write code, see %1$s for details</string>
+    <string name="community_contribute_github_text">Review, amend and write code, see %1$s for details.</string>
     <string name="community_contribute_github_text_link" translatable="false">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font></string>
     <string name="community_rc_play_store">Get release candidate from Google Play store</string>
     <string name="community_rc_fdroid">Get release candidate from F-Droid app</string>
@@ -947,4 +947,5 @@
     <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
     <string name="invalid_url">Invalid URL</string>
     <string name="conflict_dialog_error">Error creating conflict dialog!</string>
+    <string name="view_profile">View profile</string>
 </resources>
