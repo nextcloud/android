@@ -406,26 +406,19 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         switch (menuItem.getItemId()) {
             case R.id.nav_all_files:
-                if (this instanceof FileDisplayActivity) {
-                    if (((FileDisplayActivity) this).getListOfFilesFragment() instanceof PhotoFragment) {
-                        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-                        intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
-                        intent.setAction(FileDisplayActivity.ALL_FILES);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                    } else {
-                        ((FileDisplayActivity) this).browseToRoot();
-                        showFiles(false);
-                        EventBus.getDefault().post(new ChangeMenuEvent());
-                    }
+                if ((this instanceof FileDisplayActivity) &&
+                    !(((FileDisplayActivity) this).getListOfFilesFragment() instanceof PhotoFragment)) {
+                    ((FileDisplayActivity) this).browseToRoot();
+                    showFiles(false);
+                    EventBus.getDefault().post(new ChangeMenuEvent());
                 } else {
                     showFiles(false);
                     Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-                    intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setAction(FileDisplayActivity.ALL_FILES);
+                    intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
                     startActivity(intent);
                 }
-
                 break;
             case R.id.nav_favorites:
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH),
