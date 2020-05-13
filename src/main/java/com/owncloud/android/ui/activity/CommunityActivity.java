@@ -48,10 +48,10 @@ public class CommunityActivity extends FileActivity {
         // setup toolbar
         setupToolbar();
 
+        updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_community));
+
         // setup drawer
         setupDrawer(R.id.nav_community);
-
-        ThemeUtils.setColoredTitle(getSupportActionBar(), R.string.drawer_community, this);
 
         setupContent();
     }

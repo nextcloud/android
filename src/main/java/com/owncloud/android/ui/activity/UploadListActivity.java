@@ -123,14 +123,12 @@ public class UploadListActivity extends FileActivity {
         // setup toolbar
         setupToolbar();
 
+        updateActionBarTitleAndHomeButtonByString(getString(R.string.uploads_view_title));
+
         // setup drawer
         setupDrawer(R.id.nav_uploads);
 
         setupContent();
-
-        if (getSupportActionBar() != null) {
-            ThemeUtils.setColoredTitle(getSupportActionBar(), R.string.uploads_view_title, this);
-        }
     }
 
     private void setupContent() {
@@ -200,7 +198,6 @@ public class UploadListActivity extends FileActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        ThemeUtils.setColoredTitle(getSupportActionBar(), R.string.uploads_view_title, this);
         final Optional<User> optionalUser = getUser();
         if (optionalUser.isPresent()) {
             setAccountInDrawer(optionalUser.get());
