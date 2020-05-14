@@ -16,6 +16,7 @@
 
 -->
 <com.owncloud.android.ui.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -29,26 +30,21 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <FrameLayout
-            android:id="@+id/shimmer_view_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
+        <com.elyeproj.loaderviewlibrary.LoaderImageView
+            android:id="@+id/thumbnail_shimmer"
+            android:layout_width="@dimen/standard_list_item_size"
+            android:layout_height="@dimen/standard_list_item_size"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:corners="8" />
 
-            <com.elyeproj.loaderviewlibrary.LoaderImageView
-                android:id="@+id/thumbnail_shimmer"
-                android:layout_width="@dimen/standard_list_item_size"
-                android:layout_height="@dimen/standard_list_item_size"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/thumbnail"
-                android:layout_width="@dimen/standard_list_item_size"
-                android:layout_height="@dimen/standard_list_item_size"
-                android:layout_gravity="center"
-                android:contentDescription="@null"
-                android:src="@drawable/folder" />
-        </FrameLayout>
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="@dimen/standard_list_item_size"
+            android:layout_height="@dimen/standard_list_item_size"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:src="@drawable/folder" />
 
         <ImageView
             android:id="@+id/favorite_action"
