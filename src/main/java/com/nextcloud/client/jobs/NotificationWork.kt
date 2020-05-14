@@ -42,6 +42,7 @@ import androidx.work.WorkerParameters
 import com.google.gson.Gson
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.integration.deck.DeckApiImpl
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.DecryptedPushMessage
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -133,17 +134,27 @@ class NotificationWork constructor(
     private fun sendNotification(notification: Notification, user: User) {
         val randomId = SecureRandom()
         val file = notification.subjectRichParameters["file"]
-        val intent: Intent
-        if (file == null) {
-            intent = Intent(context, NotificationsActivity::class.java)
+
+        val deckApi = DeckApiImpl(context, context.packageManager)
+        val deckActionOverrideIntent = deckApi.createForwardToDeckActionIntent(notification, user)
+
+        val pendingIntent: PendingIntent
+        if (deckActionOverrideIntent.isPresent) {
+            pendingIntent = deckActionOverrideIntent.get()
         } else {
-            intent = Intent(context, FileDisplayActivity::class.java)
-            intent.action = Intent.ACTION_VIEW
-            intent.putExtra(FileDisplayActivity.KEY_FILE_ID, file.id)
+            val intent: Intent
+            if (file == null) {
+                intent = Intent(context, NotificationsActivity::class.java)
+            } else {
+                intent = Intent(context, FileDisplayActivity::class.java)
+                intent.action = Intent.ACTION_VIEW
+                intent.putExtra(FileDisplayActivity.KEY_FILE_ID, file.id)
+            }
+            intent.putExtra(KEY_NOTIFICATION_ACCOUNT, user.accountName)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)
         }
-        intent.putExtra(KEY_NOTIFICATION_ACCOUNT, user.accountName)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+
         val pushNotificationId = randomId.nextInt()
         val notificationBuilder = NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_PUSH)
             .setSmallIcon(R.drawable.notification_icon)
