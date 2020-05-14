@@ -628,10 +628,13 @@ public final class ThemeUtils {
         return String.format("#%06X", 0xFFFFFF & color);
     }
 
-    public static void tintFloatingActionButton(FloatingActionButton button, @DrawableRes int
-        drawable, Context context) {
+    public static void tintFloatingActionButton(FloatingActionButton button, Context context) {
         button.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(context)));
         button.setRippleColor(ThemeUtils.primaryDarkColor(context));
+    }
+
+    public static void drawableFloatingActionButton(FloatingActionButton button, @DrawableRes int
+        drawable, Context context) {
         button.setImageDrawable(ThemeUtils.tintDrawable(drawable, ThemeUtils.fontColor(context)));
     }
 
