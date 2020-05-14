@@ -43,7 +43,6 @@
     <string name="auth_check_server">בדיקת שרת</string>
     <string name="auth_connection_established">החיבור נוצר</string>
     <string name="auth_expired_basic_auth_toast">יש להכניס את הסיסמא הנוכחית</string>
-    <string name="auth_fail_get_user_name">השרת שלך אינו מחזיר מזהה משתמש נכון, נא ליצור קשר עם מנהל המערכת</string>
     <string name="auth_host_address">כתובת שרת</string>
     <string name="auth_host_url">כתובת שרת https://…</string>
     <string name="auth_illegal_login_used">נעשה שימוש בכתובת נתוני כניסה שגויה</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s אינו תומך בריבוי חשבונות</string>
     <string name="auth_username">שם משתמש</string>
     <string name="auth_wrong_connection_title">לא ניתן ליצור את החיבור</string>
-    <string name="auth_wtf_reenter_URL">מצב בלתי צפוי, יש להקליד את כתובת השרת שוב</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">נשאר בתיקייה המקומית כיוון שהיא לקריאה בלבד</string>
     <string name="auto_upload_on_wifi">להעלות רק ברשת אלחוטית ללא מדידת כמות</string>
     <string name="auto_upload_path">/העלאה אוטומטית</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">לרבות כל התכונות הקרבות וזה כבר בהליכי פיתוח. תקלות/שגיאות עשויות להתרחש, אפילו כשהן מתרחשות, נא לדווח לנו על הממצאים שלך.</string>
     <string name="community_contribute_forum_forum">בפורום</string>
     <string name="community_contribute_forum_text">ניתן לסייע לאחרים</string>
-    <string name="community_contribute_github_text">ניתן לסקור, להוסיף ולכתוב קוד, %1$s לפרטים</string>
     <string name="community_contribute_headline">תרומה פעילה</string>
     <string name="community_contribute_irc_text">הצטרפות לשיח ב־IRC:</string>
     <string name="community_contribute_translate_text">היישומון</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">אירעה שגיאה בזמן ניסיון להעתיק את הקובץ או התיקייה</string>
     <string name="copy_file_invalid_into_descendent">אי אפשר להעתיק תיקייה לתוך אחת התיקיות שתחתיה</string>
     <string name="copy_file_invalid_overwrite">הקובץ כבר קיים בתיקיית היעד</string>
-    <string name="copy_file_not_found">לא ניתן להעתיק. יש לבדוק אם הקובץ קיים</string>
     <string name="copy_link">העתקת קישור</string>
     <string name="copy_move_to_encrypted_folder_not_supported">נכון לעכשיו, אין תמיכה בהעתקה/העברה לתיקייה מוצפנת.</string>
     <string name="copy_to">העתק אל…</string>
@@ -266,6 +262,7 @@
     <string name="etm_background_jobs">משימות רקע</string>
     <string name="etm_background_jobs_cancel_all">ביטול על המשימות</string>
     <string name="etm_background_jobs_prune">ניקוי משימות בלתי פעילות</string>
+    <string name="etm_background_jobs_schedule_test_job">תזמון משימת בדיקה</string>
     <string name="etm_background_jobs_start_test_job">התחלת משימת בדיקה</string>
     <string name="etm_background_jobs_stop_test_job">עצירת משימת בדיקה</string>
     <string name="etm_migrations">נדידות (שדרוגי יישומים)</string>
@@ -287,7 +284,6 @@
     <string name="file_list_empty">ניתן להעלות לכאן תוכן או לסנכרן עם ההתקנים שלך.</string>
     <string name="file_list_empty_favorite_headline">שום דבר לא סומן כמועדף עדיין</string>
     <string name="file_list_empty_favorites_filter">החיפוש שלך לא החזיר קבצים מועדפים.</string>
-    <string name="file_list_empty_favorites_filter_list">הקבצים והתיקיות שמסומנים כמועדפים יופיעו כאן</string>
     <string name="file_list_empty_headline">אין כאן קבצים</string>
     <string name="file_list_empty_headline_search">לא נמצאו תוצאות בתקיה זו</string>
     <string name="file_list_empty_headline_server_search">לא נמצאו תוצאות</string>
@@ -299,7 +295,6 @@
     <string name="file_list_empty_recently_modified">לא נמצאו קבצים שנערכו בשבוע החולף</string>
     <string name="file_list_empty_recently_modified_filter">אף קובץ לא נערך בשבוע החולף.</string>
     <string name="file_list_empty_search">יכול להיות שזה בתיקייה אחרת?</string>
-    <string name="file_list_empty_shared">הקבצים והתיקיות המשותפים יופיעו כאן</string>
     <string name="file_list_empty_shared_headline">שום דבר לא שותף עדיין</string>
     <string name="file_list_empty_text_photos">יש להעלות תמונות כלשהן או להפעיל את ההעלאה האוטומטית.</string>
     <string name="file_list_empty_text_photos_filter">אין תמונות.</string>
@@ -417,12 +412,8 @@
     <string name="move_file_error">אירעה שגיאה בזמן ניסיון להעביר את הקובץ או התיקייה</string>
     <string name="move_file_invalid_into_descendent">אי אפשר להעביר תיקייה לתוך אחת התיקיות שתחתיה.</string>
     <string name="move_file_invalid_overwrite">הקובץ כבר קיים בתיקיית היעד</string>
-    <string name="move_file_not_found">לא ניתן להעביר קובץ. נא לבדוק אם הוא קיים.</string>
     <string name="move_to">העבר אל…</string>
-    <string name="network_error_connect_timeout_exception">שגיאה אירעה בזמן המתנה לשרת. הפעולה לא הושלמה.</string>
     <string name="network_error_socket_exception">אירעה שגיאה במהלך ההתחברות לשרת</string>
-    <string name="network_error_socket_timeout_exception">אירעה שגיאה בעת המתנה לשרת. לא ניתן להשלים את הפעולה</string>
-    <string name="network_host_not_available">לא ניתן להשלים את הפעולה. השרת אינו זמין</string>
     <string name="new_comment">תגובה חדשה…</string>
     <string name="new_media_folder_detected">זוהתה תיקיית מדיה עם %1$s</string>
     <string name="new_media_folder_photos">תמונות</string>
@@ -589,8 +580,6 @@
     <string name="share_internal_link_to_folder_text">קישורי שיתוף פנימיים עובדים רק עבור משתמש עם גישה לתיקייה הזו</string>
     <string name="share_known_remote_clarification">%1$s ( ב- %2$s )</string>
     <string name="share_link_empty_password">יש להכניס סיסמא</string>
-    <string name="share_link_file_error">שגיאה אירעה בזמן ניסיון לשתף קובץ זה או תיקייה זו</string>
-    <string name="share_link_file_no_exist">לא ניתן לשתף. יש לבדוק אם הקובץ קיים</string>
     <string name="share_link_forbidden_permissions">לשתף קובץ זה</string>
     <string name="share_link_optional_password_title">ניתן להקליד ססמה</string>
     <string name="share_link_password_title">הכנסת סיסמא</string>
@@ -733,7 +722,6 @@
     <string name="timeout_richDocuments">הטעינה אורכת זמן רב…</string>
     <string name="trashbin_activity_title">קבצים שנמחקו</string>
     <string name="trashbin_empty_headline">אין קבצים שנמחקו</string>
-    <string name="trashbin_empty_message">תהיה לך אפשרות לשחזר קבצים דרך כאן</string>
     <string name="trashbin_file_not_deleted">לא ניתן למחוק את הקובץ %1$s!</string>
     <string name="trashbin_file_not_restored">לא ניתן לשחזר את הקובץ %1$s!</string>
     <string name="trashbin_loading_failed">טעינת סל האשפה נכשלה!</string>
@@ -741,13 +729,9 @@
     <string name="unread_comments">יש תגובות שלא נקראו</string>
     <string name="unset_encrypted">ביטול הגדרת ההצפנה</string>
     <string name="unset_favorite">הסרה מהמועדפים</string>
-    <string name="unshare_link_file_error">שגיאה אירעה בזמן ניסיון לבטל שיתוף לקובץ זה או לתיקייה זו</string>
-    <string name="unshare_link_file_no_exist">לא ניתן לבטל שיתוף. יש לבדוק אם הקובץ קיים</string>
     <string name="unshare_link_forbidden_permissions">לבטל שיתוף לקובץ זה</string>
     <string name="unsharing_failed">ביטול השיתוף נכשל</string>
     <string name="untrusted_domain">גישה דרך שם מתחם בלתי מהימן. נא לעיין בתיעוד לקבלת פרטים נוספים.</string>
-    <string name="update_link_file_error">שגיאה אירעה בניסיון לעדכן את השיתוף</string>
-    <string name="update_link_file_no_exist">לא ניתן לעדכן. נא לבדוק האם הקובץ קיים</string>
     <string name="update_link_forbidden_permissions">לעידכון השיתוף הזה</string>
     <string name="updating_share_failed">עדכון השיתוף נכשל</string>
     <string name="upload_cannot_create_file">לא ניתן ליצור קובץ מקומי</string>

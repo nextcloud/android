@@ -43,7 +43,6 @@
     <string name="auth_check_server">Verifică serverul</string>
     <string name="auth_connection_established">Conexiune stabilită</string>
     <string name="auth_expired_basic_auth_toast">Va rugăm să introduceți parola actuală</string>
-    <string name="auth_fail_get_user_name">Server-ul dvs. nu întoarce un ID de utilizator corect, contactați un administrator</string>
     <string name="auth_host_address">Adresa server-ului</string>
     <string name="auth_host_url">Adresa serverului https://…</string>
     <string name="auth_illegal_login_used">Adresă URL de date de autentificare ilegală</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s nu suporta conturi multiple</string>
     <string name="auth_username">Nume utilizator</string>
     <string name="auth_wrong_connection_title">Nu s-a putut stabili conexiunea</string>
-    <string name="auth_wtf_reenter_URL">Situație neașteptată; vă rugăm să reintroduceți adresa serverului</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">pastrează în directorul original deoarece este disponibil doar pentru citire</string>
     <string name="auto_upload_on_wifi">Se încarcă numai pe Wi-Fi nelimitat</string>
     <string name="auto_upload_path">/AutoÎncărcare</string>
@@ -153,7 +151,6 @@
     <string name="copy_file_error">A apărut o eroare în timpul copierii fișierului sau dosarului </string>
     <string name="copy_file_invalid_into_descendent">Nu se poate copia un dosar intr-un descendent</string>
     <string name="copy_file_invalid_overwrite">Fișierul există deja în dosarul de destinație</string>
-    <string name="copy_file_not_found">Nu se poate copia. Vă rugăm să verificați dacă există fișierul</string>
     <string name="copy_link">Link copiat</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copierea/mutarea în directorul criptat nu este suportată.</string>
     <string name="copy_to">Copiază în…</string>
@@ -240,7 +237,6 @@
     <string name="file_list_empty">Încărcați conținut sau sincronizați cu dispozitivele dvs!</string>
     <string name="file_list_empty_favorite_headline">Nu aveți favorite încă</string>
     <string name="file_list_empty_favorites_filter">Căutarea dvs. nu a returnat fișiere favorite.</string>
-    <string name="file_list_empty_favorites_filter_list">FIșierele și dosarele pe care le marcați ca favorite vor apărea aici</string>
     <string name="file_list_empty_headline">Niciun fișier aici</string>
     <string name="file_list_empty_headline_search">Niciun element găsit în acest director</string>
     <string name="file_list_empty_headline_server_search">Niciun rezultat</string>
@@ -252,7 +248,6 @@
     <string name="file_list_empty_recently_modified">Nu au fost găsite fișiere modificate în ultimele 7 zile</string>
     <string name="file_list_empty_recently_modified_filter">Nici un fișier nu a fost modificat în ultimele 7 zile.</string>
     <string name="file_list_empty_search">Poate că este într-un alt dosar?</string>
-    <string name="file_list_empty_shared">Fișierele și directoarele pe care le partajați vor apărea aici</string>
     <string name="file_list_empty_shared_headline">Nimic partajat încă</string>
     <string name="file_list_empty_text_photos">Încărcați câteva fotografii sau activați încărcarea automată.</string>
     <string name="file_list_empty_text_photos_filter">Nicio fotografie.</string>
@@ -354,12 +349,8 @@
     <string name="move_file_error">O eroare apare la transferarea acestui fișier sau dosar</string>
     <string name="move_file_invalid_into_descendent">Nu este posibil să muți un dosar într-un descendent</string>
     <string name="move_file_invalid_overwrite">Fișierul există deja în dosarul de destinație</string>
-    <string name="move_file_not_found">Nu se poate transfera fișierul. Verifică dacă acesta există</string>
     <string name="move_to">Mută în…</string>
-    <string name="network_error_connect_timeout_exception">A apărut o eroare în timp ce se aștepta pentru server; operațiunea nu s-a executat</string>
     <string name="network_error_socket_exception">A apărut o eroare în timp ce se conecta la server</string>
-    <string name="network_error_socket_timeout_exception">A apărut o eroare în timp ce se aștepta pentru server; operațiunea nu s-a executat</string>
-    <string name="network_host_not_available">Operațiunea nu a putut fi finalizată; serverul este indisponibil</string>
     <string name="new_comment">Comentariu nou…</string>
     <string name="new_media_folder_photos">poză</string>
     <string name="new_notification">Notificare nouă</string>
@@ -470,8 +461,6 @@
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_known_remote_clarification">%1$s ( la %2$s )</string>
     <string name="share_link_empty_password">Trebuie să introduci o parolă</string>
-    <string name="share_link_file_error">A apărut o eroare în timp ce încerca să partajeze acest fișier sau folder</string>
-    <string name="share_link_file_no_exist">Imposibil de partajat. Te rugăm să verifici dacă există fișierul.</string>
     <string name="share_link_forbidden_permissions">de a share acest fișier</string>
     <string name="share_link_optional_password_title">Introdu o parolă opțională</string>
     <string name="share_link_password_title">Introduceţi parola</string>
@@ -565,14 +554,9 @@
     <string name="thumbnail">Miniatură</string>
     <string name="trashbin_activity_title">Fișiere șterse</string>
     <string name="trashbin_empty_headline">Nu sunt fișiere șterse</string>
-    <string name="trashbin_empty_message">Veți putea restabili fișierele șterse de aici</string>
     <string name="unset_encrypted">Dezactivați criptarea</string>
     <string name="unset_favorite">Ștergeți din favorite</string>
-    <string name="unshare_link_file_error">A apărut o eroare în timp ce încerca să departajeze sau unshare acest fișier sau folder</string>
-    <string name="unshare_link_file_no_exist">Imposibil de șters partajarea. Te rugăm să verifici dacă există fișierul.</string>
     <string name="unshare_link_forbidden_permissions">de a nu permite accesul la acest fisier</string>
-    <string name="update_link_file_error">Eroare aparută în timpul actualizării partajării</string>
-    <string name="update_link_file_no_exist">Actualizare nereușită. Vă rugăm să verificați existența fișierului</string>
     <string name="update_link_forbidden_permissions">sa actualizezi această partajare</string>
     <string name="upload_chooser_title">Încarcă din…</string>
     <string name="upload_file_dialog_filename">Numele fișierului</string>

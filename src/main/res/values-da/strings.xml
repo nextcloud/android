@@ -43,7 +43,6 @@
     <string name="auth_check_server">Tjek server</string>
     <string name="auth_connection_established">Forbindelse oprettet</string>
     <string name="auth_expired_basic_auth_toast">Indtast venligst din nuværende adgangskode</string>
-    <string name="auth_fail_get_user_name">Din server giver ikke et korrekt bruger id, kontakt venligst en administrator</string>
     <string name="auth_host_address">Serveradresse</string>
     <string name="auth_host_url">Serveradresse https://…</string>
     <string name="auth_illegal_login_used">Ugyldig login data URL benyttet</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s understøtter ikke flere konti</string>
     <string name="auth_username">Brugernavn</string>
     <string name="auth_wrong_connection_title">Kunne ikke etablere forbindelse</string>
-    <string name="auth_wtf_reenter_URL">Uventet tilstand, indtast venligst server adressen igen</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Forblevet i oprindelig folder, da den er skrivebeskyttet</string>
     <string name="auto_upload_on_wifi">Upload kun på ubegrænset wifi</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Dette indeholder alle nye features og er på alleryderste forkant. Bugs/fejl kan forekomme, og når det sker, venligst rapporter dine observationer.</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Hjælp andre på</string>
-    <string name="community_contribute_github_text">Anmelde, tilføje og skrive kode, se %1$s for information</string>
     <string name="community_contribute_headline">Aktivt bidrage</string>
     <string name="community_contribute_irc_text">Deltag i chatten på IRC:</string>
     <string name="community_contribute_translate_text">Appen</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Der opstod en fejl under forsøg på at kopiere denne fil eller mappe</string>
     <string name="copy_file_invalid_into_descendent">Det er ikke muligt at kopiere en mappe til én af dens egne undermapper</string>
     <string name="copy_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>
-    <string name="copy_file_not_found">Kunne ikke kopiere. Tjek venligst om filerne findes</string>
     <string name="copy_link">Kopiér link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopier/flyt til krypteret mappe endnu ikke understøttet.</string>
     <string name="copy_to">Kopier til...</string>
@@ -288,7 +284,6 @@
     <string name="file_list_empty">Upload indhold eller synk med dine enheder.</string>
     <string name="file_list_empty_favorite_headline">Send/Del</string>
     <string name="file_list_empty_favorites_filter">Din søgning returnerede ingen favoritfiler.</string>
-    <string name="file_list_empty_favorites_filter_list">Filer og mapper som markeres som favoritter vil blive vist her</string>
     <string name="file_list_empty_headline">Her er ingen filer</string>
     <string name="file_list_empty_headline_search">Intet resultat for denne mappe</string>
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
@@ -300,7 +295,6 @@
     <string name="file_list_empty_recently_modified">Fandt ikke nogen filer ændre inden for de sidste 7 dage</string>
     <string name="file_list_empty_recently_modified_filter">Ingen filer ændret de sidste 7 dage</string>
     <string name="file_list_empty_search">Måske den er i en anden mappe?</string>
-    <string name="file_list_empty_shared">Filer og mapper du deler vil blive vist her</string>
     <string name="file_list_empty_shared_headline">Intet er delt endnu</string>
     <string name="file_list_empty_text_photos">Overføre nogle billeder eller aktivér auto upload</string>
     <string name="file_list_empty_text_photos_filter">Ingen fotos</string>
@@ -418,12 +412,8 @@
     <string name="move_file_error">Der opstod en fejl under forsøg på at flytte denne mappe eller fil</string>
     <string name="move_file_invalid_into_descendent">Det er ikke muligt at flytte en mappe til én af dens egne undermapper</string>
     <string name="move_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>
-    <string name="move_file_not_found">Kan ikke flytte filen. Tjek venligst om den findes</string>
     <string name="move_to">Flyt til...</string>
-    <string name="network_error_connect_timeout_exception">Der opstod en fejl mens under venten på serveren. Kunne ikke gennemføre handlingen</string>
     <string name="network_error_socket_exception">Der opstod en fejl under tilslutningen til serveren</string>
-    <string name="network_error_socket_timeout_exception">Der opstod en fejl mens under venten på serveren. Kunne ikke gennemføre handlingen</string>
-    <string name="network_host_not_available">Kunne ikke gennemføre handlingen. Serveren er utilgængelig</string>
     <string name="new_comment">Ny kommentar...</string>
     <string name="new_media_folder_detected">Ny %1$s medie mappe opdaget.</string>
     <string name="new_media_folder_photos">photo</string>
@@ -592,8 +582,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_internal_link_to_folder_text">Internt dele link virker kun for brugere med adgang til denne mappe</string>
     <string name="share_known_remote_clarification">%1$s ( ved %2$s)</string>
     <string name="share_link_empty_password">Du skal angive et kodeord</string>
-    <string name="share_link_file_error">Der opstod en fejl ved deling af denne fil eller mappe</string>
-    <string name="share_link_file_no_exist">Kan ikke dele. Tjek venligst om filen findes.</string>
     <string name="share_link_forbidden_permissions">til at dele denne fil</string>
     <string name="share_link_optional_password_title">Angiv et valgfrit kodeord</string>
     <string name="share_link_password_title">Angiv et kodeord</string>
@@ -717,7 +705,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="timeout_richDocuments">Indlæsning tager lang tid…</string>
     <string name="trashbin_activity_title">Slettede filer</string>
     <string name="trashbin_empty_headline">Ingen slettede filer</string>
-    <string name="trashbin_empty_message">Du vil kunne gendanne slettede filer herfra</string>
     <string name="trashbin_file_not_deleted">Fil %1$s kunne ikke slettes!</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunne ikke genskabes!</string>
     <string name="trashbin_loading_failed">indlæsning af skraldespand fejlet!</string>
@@ -725,13 +712,9 @@ Enheds legitimationsoplysninger er sat op
     <string name="unread_comments">Der er ulæste kommentarer</string>
     <string name="unset_encrypted">Slå kryptering fra</string>
     <string name="unset_favorite">Fjern fra favoritter</string>
-    <string name="unshare_link_file_error">Der opstod en fejl ved stopning af deling af denne mappe.</string>
-    <string name="unshare_link_file_no_exist">Kan ikke fjerne deling. Tjek venligst om filen findes.</string>
     <string name="unshare_link_forbidden_permissions">til at stoppe deling af denne fil</string>
     <string name="unsharing_failed">Stop deling fejlet</string>
     <string name="untrusted_domain">Adgang fra ubetroet domæne. Se venligst dokumentation for mere information.</string>
-    <string name="update_link_file_error">Der opstod en fejl under forsøg på at opdatering det delte</string>
-    <string name="update_link_file_no_exist">Kan ikke opdatere. Tjek venligst om filen findes.</string>
     <string name="update_link_forbidden_permissions">for at opdatere denne deling</string>
     <string name="updating_share_failed">Opdater deling fejlet</string>
     <string name="upload_cannot_create_file">Kan ikke oprette filen lokalt</string>

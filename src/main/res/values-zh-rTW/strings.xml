@@ -43,7 +43,6 @@
     <string name="auth_check_server">檢查伺服器</string>
     <string name="auth_connection_established">連線已建立</string>
     <string name="auth_expired_basic_auth_toast">請輸入目前的密碼</string>
-    <string name="auth_fail_get_user_name">你的伺服器並未回應正確的使用者 ID，請聯繫管理人員</string>
     <string name="auth_host_address">伺服器位址</string>
     <string name="auth_host_url">伺服器位址 https://…</string>
     <string name="auth_illegal_login_used">使用了不合法的登入資料URL</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s 不支援多個賬戶</string>
     <string name="auth_username">使用者名稱</string>
     <string name="auth_wrong_connection_title">無法建立連線</string>
-    <string name="auth_wtf_reenter_URL">未知的狀態，請重新輸入伺服器位址</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
     <string name="auto_upload_on_wifi">僅在未計量的Wi-Fi上傳</string>
     <string name="auto_upload_path">自動上傳</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">這包含所有最新功能，預期執行上仍可能會有錯誤，若發現錯誤請回報給我們。</string>
     <string name="community_contribute_forum_forum">論壇</string>
     <string name="community_contribute_forum_text">幫助其他人</string>
-    <string name="community_contribute_github_text">檢查、修改和撰寫程式碼，請參見 %1$s</string>
     <string name="community_contribute_headline">積極貢獻</string>
     <string name="community_contribute_irc_text">加入 IRC：</string>
     <string name="community_contribute_translate_text">應用程式</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">嘗試複製檔案或資料夾時發生錯誤</string>
     <string name="copy_file_invalid_into_descendent">無法將資料夾複製到自己的子資料夾中。</string>
     <string name="copy_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
-    <string name="copy_file_not_found">無法複製，請檢查檔案是否存在</string>
     <string name="copy_link">複製連結</string>
     <string name="copy_move_to_encrypted_folder_not_supported">不支援複製移動加密的資料夾</string>
     <string name="copy_to">複製到…</string>
@@ -285,7 +281,6 @@
     <string name="file_list_empty">上傳一些項目或與你的設備同步！</string>
     <string name="file_list_empty_favorite_headline">目前沒有我的最愛</string>
     <string name="file_list_empty_favorites_filter">您搜尋的結果顯示無已收藏檔案。</string>
-    <string name="file_list_empty_favorites_filter_list">您標記為最愛的檔案與資料夾將會顯示在這裡</string>
     <string name="file_list_empty_headline">目前沒有檔案</string>
     <string name="file_list_empty_headline_search">在這資料夾中沒有結果</string>
     <string name="file_list_empty_headline_server_search">沒有符合搜尋的項目</string>
@@ -297,7 +292,6 @@
     <string name="file_list_empty_recently_modified">沒有找到最近 7 日修改的檔案</string>
     <string name="file_list_empty_recently_modified_filter">在 7 天內沒有修改的檔案。</string>
     <string name="file_list_empty_search">說不定它在其他的資料夾?</string>
-    <string name="file_list_empty_shared">您分享的檔案與資料夾將會顯示在這裡</string>
     <string name="file_list_empty_shared_headline">還沒有分享任何資料</string>
     <string name="file_list_empty_text_photos">上傳些照片或者啟用自動上傳功能。</string>
     <string name="file_list_empty_text_photos_filter">無圖片。</string>
@@ -415,12 +409,8 @@
     <string name="move_file_error">在移動檔案或資料夾時發生了錯誤</string>
     <string name="move_file_invalid_into_descendent">無法將資料夾移動到自己的子資料夾中。</string>
     <string name="move_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
-    <string name="move_file_not_found">無法移動檔案，請確認檔案是否存在。</string>
     <string name="move_to">移動至…</string>
-    <string name="network_error_connect_timeout_exception">等待伺服器時發生錯誤。 無法完成操作</string>
     <string name="network_error_socket_exception">連接至伺服器時發生錯誤</string>
-    <string name="network_error_socket_timeout_exception">等待伺服器時發生錯誤。 無法完成操作</string>
-    <string name="network_host_not_available">無法完成操作，無法使用伺服器</string>
     <string name="new_comment">新留言…</string>
     <string name="new_media_folder_detected">偵測新媒體資料夾 %1$s</string>
     <string name="new_media_folder_photos">相片</string>
@@ -583,8 +573,6 @@
     <string name="share_internal_link_to_folder_text">內部分享連結僅對有權存取這個資料夾的使用者有效</string>
     <string name="share_known_remote_clarification">%1$s （在 %2$s ）</string>
     <string name="share_link_empty_password">您必須輸入密碼</string>
-    <string name="share_link_file_error">在分享檔案或資料夾時發生了錯誤</string>
-    <string name="share_link_file_no_exist">無法分享，請檢查檔案是否存在</string>
     <string name="share_link_forbidden_permissions">分享這個檔案</string>
     <string name="share_link_optional_password_title">輸入密碼(選項)</string>
     <string name="share_link_password_title">輸入密碼</string>
@@ -704,7 +692,6 @@
     <string name="timeout_richDocuments">載入需要花一段時間…</string>
     <string name="trashbin_activity_title">回收桶</string>
     <string name="trashbin_empty_headline">無已刪除檔案</string>
-    <string name="trashbin_empty_message">你可以從這裡復原已刪除檔案</string>
     <string name="trashbin_file_not_deleted">檔案 %1$s 無法被刪除！</string>
     <string name="trashbin_file_not_restored">檔案 %1$s 不能被還原！</string>
     <string name="trashbin_loading_failed">載入回收桶失敗！</string>
@@ -712,13 +699,9 @@
     <string name="unread_comments">有未讀留言</string>
     <string name="unset_encrypted">取消加密</string>
     <string name="unset_favorite">從最愛中移除</string>
-    <string name="unshare_link_file_error">在取消分享檔案或資料夾時發生了錯誤</string>
-    <string name="unshare_link_file_no_exist">無法取消分享，請檢查檔案是否存在</string>
     <string name="unshare_link_forbidden_permissions">取消分享這個檔案</string>
     <string name="unsharing_failed">取消分享失敗</string>
     <string name="untrusted_domain">存取未受信任的域名，更多資訊請參照文件</string>
-    <string name="update_link_file_error">當嘗試更新分享時發生錯誤</string>
-    <string name="update_link_file_no_exist">無法更新。請確認檔案是否存在。</string>
     <string name="update_link_forbidden_permissions">更新這個分享</string>
     <string name="updating_share_failed">上傳分享失敗</string>
     <string name="upload_cannot_create_file">無法建立本地檔案</string>
