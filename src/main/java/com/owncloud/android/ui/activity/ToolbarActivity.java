@@ -148,7 +148,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     @SuppressLint("PrivateResource")
     private void showHomeSearchToolbar(boolean isShow) {
-        if (isShow && mDefaultToolbar.getVisibility() == View.VISIBLE) {
+        if (isShow) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                     R.animator.appbar_elevation_off));
@@ -158,7 +158,7 @@ public abstract class ToolbarActivity extends BaseActivity {
             mDefaultToolbar.setVisibility(View.GONE);
             mHomeSearchToolbar.setVisibility(View.VISIBLE);
             ThemeUtils.colorStatusBar(this, ContextCompat.getColor(this, R.color.bg_default));
-        } else if (mDefaultToolbar.getVisibility() == View.GONE) {
+        } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                     R.animator.appbar_elevation_on));
