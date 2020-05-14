@@ -28,7 +28,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
-import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.PhotoFragment;
@@ -98,6 +97,7 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
     @Override
     protected void onPostExecute(RemoteOperationResult result) {
         if (photoFragmentWeakReference.get() != null) {
+            Boolean loadingStatus = false;
             PhotoFragment photoFragment = photoFragmentWeakReference.get();
 
             if (result.isSuccess() && result.getData() != null && !isCancelled()) {
@@ -116,9 +116,7 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
                 }
             }
 
-            final ToolbarActivity fileDisplayActivity = (ToolbarActivity) photoFragment.getActivity();
-
-                photoFragment.setLoading(false);
+            photoFragment.setLoading(false);
 
             if (!result.isSuccess() && !isCancelled()) {
                 photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.PHOTO_SEARCH);
