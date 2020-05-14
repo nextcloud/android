@@ -1505,7 +1505,7 @@ public class FileDisplayActivity extends FileActivity
                         // TODO what about other kind of previews?
                     }
                 }
-                getListOfFilesFragment().setLoading(false);
+                getListOfFilesFragment().setLoading(Boolean.FALSE);
             } finally {
                 if (intent != null) {
                     removeStickyBroadcast(intent);
@@ -2218,7 +2218,7 @@ public class FileDisplayActivity extends FileActivity
                                         null
                                 );
 
-                                getListOfFilesFragment().setLoading(true);
+                                getListOfFilesFragment().setLoading(Boolean.TRUE);
 
                                 setBackgroundText();
 

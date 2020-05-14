@@ -116,7 +116,7 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
                 }
             }
 
-            photoFragment.setLoading(false);
+            photoFragment.setLoading(Boolean.FALSE);
 
             if (!result.isSuccess() && !isCancelled()) {
                 photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.PHOTO_SEARCH);
