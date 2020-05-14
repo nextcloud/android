@@ -35,7 +35,6 @@
     <string name="auth_check_server">სერვერის შემოწმება</string>
     <string name="auth_connection_established">კავშირი დამყარდა</string>
     <string name="auth_expired_basic_auth_toast">გთხოვთ შეიყვანოთ ამჟამინდელი პაროლი</string>
-    <string name="auth_fail_get_user_name">თქვენი სერვერი არ აბრუნებს სწორ მომხმარებლის ID-ს, გთხოვთ დაუკავშირდეთ ადმინისტრატორს</string>
     <string name="auth_host_address">სერვერის მისამართი</string>
     <string name="auth_host_url">სერვერის მისამართი https://...</string>
     <string name="auth_incorrect_address_title">სერვერისთვის არასწორი მისამსამართის ფორმატი</string>
@@ -59,7 +58,6 @@
     <string name="auth_unsupported_multiaccount">%1$s არ უჭერს მხარს მრავალი ანგარიშის არსებობას</string>
     <string name="auth_username">მომხმარებლის სახელი</string>
     <string name="auth_wrong_connection_title">კავშირი ვერ დამყარდა</string>
-    <string name="auth_wtf_reenter_URL">მოულოდნელი მდგომარეობა, გთხოვთ ახლიდან შეიყვანოთ სერვერის მისამართი</string>
     <string name="auto_upload_on_wifi">ატვირთვა მხოლოდ შეუზღუდავ Wi-Fi-ზე</string>
     <string name="auto_upload_path">/ავტომატური_ატვირთვა</string>
     <string name="autoupload_create_new_custom_folder">შექმენით ახალი სპეციფიური დირექტორია</string>
@@ -96,7 +94,6 @@
     <string name="community_beta_text">იმყოფება სისხლდენის ზღვარზე და მოიცავს ყველა დამდეგ ფუნქციას. შეიძლება გამოჩნდეს შეცდომები, ასეთი შემთხვევისას გთხოვთ გვამცნობოთ რეპორტით.</string>
     <string name="community_contribute_forum_forum">ფურუმი</string>
     <string name="community_contribute_forum_text">დაეხმარეთ სხვებს</string>
-    <string name="community_contribute_github_text">განიხილეთ, შეცვალეთ და დაწერეთ კოდი, დეტალებისთვის იხილეთ %1$s</string>
     <string name="community_contribute_headline">აქტიურად შეიტანეთ წვლილი</string>
     <string name="community_contribute_irc_text">შემოგვიერთდით IRC ჩატში:</string>
     <string name="community_contribute_translate_text">აპლიკაცია</string>
@@ -135,7 +132,6 @@
     <string name="copy_file_error">ამ ფაილისა თუ დირექტორიის კოპირებისას წარმოიშვა შეცდომა</string>
     <string name="copy_file_invalid_into_descendent">დირექტორიის კოპირება მასში არსებულ დირექტორიაში შეუძლებელია</string>
     <string name="copy_file_invalid_overwrite">ფაილი დანიშნულ დირექტორიაში უკვე არსებობს</string>
-    <string name="copy_file_not_found">კოპირება ვერ ხერხდება. დაამოწმეთ ფაილის არსებობა</string>
     <string name="copy_link">ბმულის კოპირება</string>
     <string name="copy_move_to_encrypted_folder_not_supported">ამჟამად კოპირება/გადატანა დაშიფრულ დირექტორიაში არაა მხარდაჭერილი.</string>
     <string name="create_dir_fail_msg">დირექტორია ვერ შეიქმნა</string>
@@ -202,7 +198,6 @@
     <string name="file_list_empty">ატვირთეთ რამე ან გაუწიეთ თქვნს მოწყობილობას სინქრონიზაცია.</string>
     <string name="file_list_empty_favorite_headline">რჩეულებში ჯერ არაფერი დამატებულია</string>
     <string name="file_list_empty_favorites_filter">ვერც ერთი რჩეული ფაილი ვერ იქნა ნაპოვნი.</string>
-    <string name="file_list_empty_favorites_filter_list">აქ გამოჩნდება ფაილები და დირექტორიები რომელთაც მონიშნავთ რჩეულებად</string>
     <string name="file_list_empty_headline">აქ ფაილები არაა</string>
     <string name="file_list_empty_headline_search">ამ დირექტორიაში შედეგები არაა</string>
     <string name="file_list_empty_headline_server_search">შედეგები არაა</string>
@@ -214,7 +209,6 @@
     <string name="file_list_empty_recently_modified">გასული 7 დღის განმავლობაში შეცვლილი ფაილ(ებ)ი ვერ იქნა ნაპოვნი</string>
     <string name="file_list_empty_recently_modified_filter">გასული 7 დღის განმავობაში ფაილ(ებ)ი არ შეცვლილა.</string>
     <string name="file_list_empty_search">იქნებ სხვა დირექტორიაშია?</string>
-    <string name="file_list_empty_shared">აქ გამოჩნდება თქვენ მიერ გაზიარებული ფაილები და დირექტორიები</string>
     <string name="file_list_empty_shared_headline">ჯერ არაფერი გაზიარებულა</string>
     <string name="file_list_empty_text_photos">ატვირთეთ რამდენიმე სურათი, ან გაააქტიურეთ ავტო-ატვირთვა.</string>
     <string name="file_list_empty_text_photos_filter">ფოტოები არაა.</string>
@@ -306,11 +300,7 @@
     <string name="move_file_error">ამ ფაილისა თუ დირექტორიის გადატანისას წარმოიშვა შეცდომა</string>
     <string name="move_file_invalid_into_descendent">დირექტორიის გადატანა მასში არსებულ დირექტორიაში შეუძლებელია</string>
     <string name="move_file_invalid_overwrite">ფაილი დანიშნულ დირექტორიაში უკვე არსებობს</string>
-    <string name="move_file_not_found">ფაილის გადატანა ვერ ხერხდება. დაამოწმეთ მისი არსებობა</string>
-    <string name="network_error_connect_timeout_exception">სერვერისგან პასუხის მიღებისას წარმოიშვა შეცდომა. ოპერაციის დასრულება ვერ მოხერხდა</string>
     <string name="network_error_socket_exception">სერვერთან დაკავშირებისას წარმოიქმნა შეცდომა</string>
-    <string name="network_error_socket_timeout_exception">სერვერისგან პასუხის მიღებისას წარმოიშვა შეცდომა. ოპერაცია ვერ დასრულდა</string>
-    <string name="network_host_not_available">ოპერაცია ვერ დასრულდა. სერვერი ხელმიუწვდომელია</string>
     <string name="new_media_folder_photos">ფოტო</string>
     <string name="note_confirm">გაგზავნა</string>
     <string name="notification_channel_download_description">აჩვენებს გადმოწერის პროგრესს</string>
@@ -409,8 +399,6 @@
     <string name="share_group_clarification">%1$s (ჯგუფი)</string>
     <string name="share_known_remote_clarification">%1$s ( %2$s-ზე )</string>
     <string name="share_link_empty_password">უნდა შეიყვანოთ პაროლი</string>
-    <string name="share_link_file_error">ამ ფაილის თუ დირექტორიის გაზიარებისას წარმოიშვა შეცდომა</string>
-    <string name="share_link_file_no_exist">გაზიარება ვერ ხერხდება. გთხოვთ დაამოწმოთ ფაილის არსებობა</string>
     <string name="share_link_forbidden_permissions">გააზიაროთ ეს ფაილი</string>
     <string name="share_link_password_title">შეიყვანეთ პაროლი</string>
     <string name="share_no_expiration_date_label">მიუთითეთ ვადის გასვლის დრო</string>
@@ -492,14 +480,9 @@
     <string name="thumbnail">მინიატურა</string>
     <string name="trashbin_activity_title">გაუქმებული ფაილები</string>
     <string name="trashbin_empty_headline">წაშლილი ფაილები ვერ მოიძებნა</string>
-    <string name="trashbin_empty_message">წაშლილი ფაილების აღდგენა შესაძლებელია აქ</string>
     <string name="unset_encrypted">შიფრაციის გაუქმება</string>
-    <string name="unshare_link_file_error">ამ ფაილისა თუ დირექტორიის გაზიარების შეწყვეტისას წარმოიშვა შეცდომა</string>
-    <string name="unshare_link_file_no_exist">გაზიარების შეწყვეტა ვერ ხერხდება. დაამოწმეთ ფაილის არსებობა</string>
     <string name="unshare_link_forbidden_permissions">შეწყვიტოთ ამ ფაილის გაზიარება</string>
     <string name="untrusted_domain">წვდომა არასანდო დომენით. დამატებითი ინფორმაციისთვის გთხოვთ იხილოთ დოკუმენტაცია.</string>
-    <string name="update_link_file_error">ამ გაზიარების განახლებისას წარმოიშვა შეცდომა</string>
-    <string name="update_link_file_no_exist">განახლება ვერ ხერხდება. დაამოწმეთ ფაილის არსებობა</string>
     <string name="update_link_forbidden_permissions">განაახლოთ ეს გაზიარება</string>
     <string name="upload_file_dialog_filename">ფაილის სახელი</string>
     <string name="upload_file_dialog_filetype">ფაილის სახეობა</string>

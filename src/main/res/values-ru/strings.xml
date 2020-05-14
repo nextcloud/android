@@ -43,7 +43,6 @@
     <string name="auth_check_server">Проверить сервер</string>
     <string name="auth_connection_established">Соединение установлено</string>
     <string name="auth_expired_basic_auth_toast">Введите текущий пароль</string>
-    <string name="auth_fail_get_user_name">Сервер не вернул верный пользовательский идентификатор, свяжитесь с вашим администратором</string>
     <string name="auth_host_address">Адрес сервера</string>
     <string name="auth_host_url">Адрес сервера https://…</string>
     <string name="auth_illegal_login_used">Неверный URL входа в систему</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s не поддерживает множественные аккаунты</string>
     <string name="auth_username">Имя пользователя</string>
     <string name="auth_wrong_connection_title">Не удается установить соединение</string>
-    <string name="auth_wtf_reenter_URL">Неожиданное состояние, укажите адрес сервера повторно</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
     <string name="auto_upload_on_wifi">Необходимо безлимитное подключение Wi-Fi </string>
     <string name="auto_upload_path">/Автозагрузка</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Она включает в себя все готовящиеся возможности с самой передовой. Могут появляться баги, в таком случае, напишите о них нам.</string>
     <string name="community_contribute_forum_forum">форуме</string>
     <string name="community_contribute_forum_text">Помочь другим пользователям на</string>
-    <string name="community_contribute_github_text">Просмотрите, измените и напишите код, подробности смотрите в %1$s</string>
     <string name="community_contribute_headline">Активное участие</string>
     <string name="community_contribute_irc_text">Присоединиться к обсуждению на канале IRC:</string>
     <string name="community_contribute_translate_text">приложение</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Произошла ошибка при попытке копирования этого файла или каталога</string>
     <string name="copy_file_invalid_into_descendent">Невозможно копирование каталога в его подкаталог</string>
     <string name="copy_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
-    <string name="copy_file_not_found">Не удалось произвести копирование. Проверьте что файл существует</string>
     <string name="copy_link">Копировать ссылку</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирование и перемещение в зашифрованные папки пока не поддерживается.</string>
     <string name="copy_to">Копировать…</string>
@@ -288,7 +284,6 @@
     <string name="file_list_empty">Добавьте что-нибудь или синхронизируйте со своими устройствами!</string>
     <string name="file_list_empty_favorite_headline">В избранное ничего не добавлено </string>
     <string name="file_list_empty_favorites_filter">По запросу избранных файлов не найдено.</string>
-    <string name="file_list_empty_favorites_filter_list">Здесь появятся избранные файлы и каталоги</string>
     <string name="file_list_empty_headline">Здесь нет файлов</string>
     <string name="file_list_empty_headline_search">В этом каталоге результатов не найдено</string>
     <string name="file_list_empty_headline_server_search">Результаты отсутствуют</string>
@@ -300,7 +295,6 @@
     <string name="file_list_empty_recently_modified">Изменённых за последние 7 дней файлов не найдено</string>
     <string name="file_list_empty_recently_modified_filter">Отсутствуют файлы, изменённые за последние 7 дней.</string>
     <string name="file_list_empty_search">Искать в другом каталоге?</string>
-    <string name="file_list_empty_shared">Здесь появятся файлы и каталоги, которыми вы поделитесь</string>
     <string name="file_list_empty_shared_headline">Вы ничем не поделились</string>
     <string name="file_list_empty_text_photos">Добавьте фотографии или включите автоматическую передачу файлов на сервер!</string>
     <string name="file_list_empty_text_photos_filter">Фотографии отсутствуют.</string>
@@ -418,12 +412,8 @@
     <string name="move_file_error">Произошла ошибка при попытке перемещения этого файла или каталога</string>
     <string name="move_file_invalid_into_descendent">Невозможно переместить каталог в его подкаталог</string>
     <string name="move_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
-    <string name="move_file_not_found">Невозможно переместить. Убедитесь, что файл существует</string>
     <string name="move_to">Переместить…</string>
-    <string name="network_error_connect_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть завершено.</string>
     <string name="network_error_socket_exception">При подключении к серверу возникла ошибка.</string>
-    <string name="network_error_socket_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть завершено.</string>
-    <string name="network_host_not_available">Действие не может быть завершено, сервер недоступен</string>
     <string name="new_comment">Новый комментарий…</string>
     <string name="new_media_folder_detected">Обнаружена новая папка с фото или видеофайлами: «%1$s».</string>
     <string name="new_media_folder_photos">фото</string>
@@ -590,8 +580,6 @@
     <string name="share_internal_link_to_folder_text">Внутренние ссылки могут быть использованы только пользователями, у которых есть доступ к этой папке</string>
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
     <string name="share_link_empty_password">Необходимо ввести пароль</string>
-    <string name="share_link_file_error">При попытке поделиться этим файлом или каталогом произошла ошибка</string>
-    <string name="share_link_file_no_exist">Невозможно поделиться. Убедитесь, что файл существует</string>
     <string name="share_link_forbidden_permissions">для открытия общего доступа к этому файлу</string>
     <string name="share_link_optional_password_title">Введите дополнительный пароль</string>
     <string name="share_link_password_title">Введите пароль</string>
@@ -715,7 +703,6 @@
     <string name="timeout_richDocuments">Загрузка выполняется очень долго…</string>
     <string name="trashbin_activity_title">Удалённые файлы</string>
     <string name="trashbin_empty_headline">Нет удалённых файлов</string>
-    <string name="trashbin_empty_message">Отсюда могут быть восстановлены удалённые файлы</string>
     <string name="trashbin_file_not_deleted">Файл «%1$s» не может быть удалён!</string>
     <string name="trashbin_file_not_restored">Файл «%1$s» не может быть восстановлен!</string>
     <string name="trashbin_loading_failed">Не удалась загрузить содержимое корзины!</string>
@@ -723,13 +710,9 @@
     <string name="unread_comments">Имеются непрочитанные комментарии</string>
     <string name="unset_encrypted">Расшифровать</string>
     <string name="unset_favorite">Убрать из избранного</string>
-    <string name="unshare_link_file_error">При попытке закрыть доступ к этому файлу или каталогу произошла ошибка</string>
-    <string name="unshare_link_file_no_exist">Невозможно закрыть доступ. Убедитесь что файл существует</string>
     <string name="unshare_link_forbidden_permissions">для закрытия доступа к этому файлу</string>
     <string name="unsharing_failed">Не удалось закрыть общий доступ</string>
     <string name="untrusted_domain">Доступ через недоверенный домен. За дополнительной информацией обратитесь к документации.</string>
-    <string name="update_link_file_error">Произошла ошибка во время обновления ссылки доступа</string>
-    <string name="update_link_file_no_exist">Обновить не удалось. Проверьте, существует ли файл</string>
     <string name="update_link_forbidden_permissions">для обновления этой ссылки</string>
     <string name="updating_share_failed">Не удалось изменить параметры общего доступа</string>
     <string name="upload_cannot_create_file">Невозможно создать локальный файл</string>

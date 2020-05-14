@@ -43,7 +43,6 @@
     <string name="auth_check_server">Провери сервер</string>
     <string name="auth_connection_established">Веза успостављена</string>
     <string name="auth_expired_basic_auth_toast">Унесите тренутну лозинку</string>
-    <string name="auth_fail_get_user_name">Сервер не враћа исправан ИД корисника. Контактирајте администратора</string>
     <string name="auth_host_address">Адреса сервера</string>
     <string name="auth_host_url">Адреса сервера https://…</string>
     <string name="auth_illegal_login_used">Коришћена неисправна адреса за податке пријаве</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s не подржава вишеструке налоге</string>
     <string name="auth_username">Корисничко име</string>
     <string name="auth_wrong_connection_title">Не могу да успоставим везу</string>
-    <string name="auth_wtf_reenter_URL">Неочекивано стање. Поново унестите адресу сервера</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">остављен у оригиналној фасцикли јер је само за читање</string>
     <string name="auto_upload_on_wifi">Отпремај само на бежичним мрежама без ограничења</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Ово укључује све надолазеће функционалности па може бити нестабилна. Ако приметите пропусте или грешке, пријавите нам.</string>
     <string name="community_contribute_forum_forum">форуму</string>
     <string name="community_contribute_forum_text">Помозите другима на</string>
-    <string name="community_contribute_github_text">Прегледај, дорађуј и мењај кôд, погледај %1$s за детаље</string>
     <string name="community_contribute_headline">Активно допринесите</string>
     <string name="community_contribute_irc_text">Придружите се ћаскању на ИРЦ-у:</string>
     <string name="community_contribute_translate_text">апликације</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Грешка приликом копирања овог фајла или фасцикле</string>
     <string name="copy_file_invalid_into_descendent">Фасцикла се не може копирати у неку од својих потфасцикли.</string>
     <string name="copy_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
-    <string name="copy_file_not_found">Не могу да копирам. Проверите да ли фајл постоји</string>
     <string name="copy_link">Копирај везу</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирање/премештање у шифровану фасциклу тренутно није подржано.</string>
     <string name="copy_to">Копирај у…</string>
@@ -288,7 +284,6 @@
     <string name="file_list_empty">Отпремите неки садржај или синхронизујте са вашим уређајима.</string>
     <string name="file_list_empty_favorite_headline">Још ништа није омиљено</string>
     <string name="file_list_empty_favorites_filter">Претрага није нашла омиљене фајлове.</string>
-    <string name="file_list_empty_favorites_filter_list">Фајлови и фасцикле обележене као омиљене, појавиће се овде</string>
     <string name="file_list_empty_headline">Овде нема фајлова</string>
     <string name="file_list_empty_headline_search">Нема резултата у овој фасцикли</string>
     <string name="file_list_empty_headline_server_search">Нема резултата</string>
@@ -300,7 +295,6 @@
     <string name="file_list_empty_recently_modified">Нема фајлова измењених у последњих 7 дана</string>
     <string name="file_list_empty_recently_modified_filter">Нема фајлова измењених у последњих 7 дана.</string>
     <string name="file_list_empty_search">Можда су у некој другој фасцикли?</string>
-    <string name="file_list_empty_shared">Фајлови и фасцикле које делите појавиће се овде</string>
     <string name="file_list_empty_shared_headline">Још се ништа не дели</string>
     <string name="file_list_empty_text_photos">Отпремите неке фотографије или активирајте аутоматско отпремање.</string>
     <string name="file_list_empty_text_photos_filter">Нема слика.</string>
@@ -418,12 +412,8 @@
     <string name="move_file_error">Дошло је до грешке при премештању фајла или фасцикле</string>
     <string name="move_file_invalid_into_descendent">Фасцикла се не може преместити у неку од својих потфасцикли.</string>
     <string name="move_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
-    <string name="move_file_not_found">Не могу да преместим фајл. Проверите да ли постоји.</string>
     <string name="move_to">Премести у…</string>
-    <string name="network_error_connect_timeout_exception">Десила се грешка при чекању на сервер. Не могу да довршим радњу</string>
     <string name="network_error_socket_exception">Десила се грешка при повезивању на сервер</string>
-    <string name="network_error_socket_timeout_exception">Десила се грешка при чекању на сервер. Нисам могао да довршим радњу</string>
-    <string name="network_host_not_available">Нисам могао да довршим радњу. Сервер није доступан</string>
     <string name="new_comment">Нови коментар…</string>
     <string name="new_media_folder_detected">Нађена је нова медијска фасцикла са %1$s</string>
     <string name="new_media_folder_photos">сликама</string>
@@ -590,8 +580,6 @@
     <string name="share_internal_link_to_folder_text">Интерна веза дељења ради само за кориснике који имају приступ фасцикли</string>
     <string name="share_known_remote_clarification">%1$s (на %2$s)</string>
     <string name="share_link_empty_password">Морате унети лозинку</string>
-    <string name="share_link_file_error">Десила се грешка при покушају дељења фајла или фасцикле</string>
-    <string name="share_link_file_no_exist">Не могу да делим. Проверите да ли фајл постоји</string>
     <string name="share_link_forbidden_permissions">да делите овај фајл</string>
     <string name="share_link_optional_password_title">Унесите опциону лозинку</string>
     <string name="share_link_password_title">Унесите лозинку</string>
@@ -715,7 +703,6 @@
     <string name="timeout_richDocuments">Учитавање траје предуго…</string>
     <string name="trashbin_activity_title">Обрисани фајлови</string>
     <string name="trashbin_empty_headline">Нема обрисаних фајлова</string>
-    <string name="trashbin_empty_message">Одавде ћете моћи да повратите обрисане фајлове</string>
     <string name="trashbin_file_not_deleted">Фајл %1$s не може да се обрише!</string>
     <string name="trashbin_file_not_restored">Фајл %1$s не може да се поврати!</string>
     <string name="trashbin_loading_failed">Неуспело учитавање садржаја канте!</string>
@@ -723,13 +710,9 @@
     <string name="unread_comments">Постоје непрочитани коментари</string>
     <string name="unset_encrypted">Искључи шифровање</string>
     <string name="unset_favorite">Уклони из омиљених</string>
-    <string name="unshare_link_file_error">Десила се грешка при покушају укидања дељења фајла или фасцикле</string>
-    <string name="unshare_link_file_no_exist">Не могу да укинем дељење. Проверите да ли фајл постоји</string>
     <string name="unshare_link_forbidden_permissions">да укинете дељење овог фајла</string>
     <string name="unsharing_failed">Укидање дељења није успело</string>
     <string name="untrusted_domain">Приступ кроз домен који није од поверења. Погледајте документацију за још информација.</string>
-    <string name="update_link_file_error">Дошло је до грешке при покушају ажурирања дељења</string>
-    <string name="update_link_file_no_exist">Не могу да освежим везу. Проверите да ли фајл постоји</string>
     <string name="update_link_forbidden_permissions">да ажурирате ово дељење</string>
     <string name="updating_share_failed">Ажурирање дељења није успело</string>
     <string name="upload_cannot_create_file">Не могу да направим локални фајл</string>
