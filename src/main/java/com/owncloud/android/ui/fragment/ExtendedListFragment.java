@@ -178,7 +178,7 @@ public class ExtendedListFragment extends Fragment implements
         return mFabMain;
     }
 
-    public void setLoading(Boolean enabled) {
+    public void setLoading(boolean enabled) {
         mRefreshListLayout.setRefreshing(enabled);
     }
 

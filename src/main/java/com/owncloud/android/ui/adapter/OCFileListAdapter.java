@@ -56,7 +56,6 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -741,7 +740,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         try {
             final Point screenSize = getScreenSize(thumbnailShimmer.getContext());
-            final int marginLeftAndRight = Math.round(targetLayoutParams.leftMargin + targetLayoutParams.rightMargin);
+            final int marginLeftAndRight = targetLayoutParams.leftMargin + targetLayoutParams.rightMargin;
             final int size = Math.round(screenSize.x / gridColumns - marginLeftAndRight);
 
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(size, size);
