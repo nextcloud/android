@@ -264,7 +264,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                                                             getApplicationContext());
 
         refreshFolderOperation.execute(getAccount(), this, null, null);
-        getListOfFilesFragment().setLoading(true);
+        getListOfFilesFragment().setLoading(Boolean.TRUE);
         setBackgroundText();
     }
 
