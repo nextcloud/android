@@ -42,6 +42,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Observable;
 
 import androidx.annotation.Nullable;
@@ -288,40 +289,39 @@ public class UploadsStorageManager extends Observable {
     private OCUpload[] getUploads(@Nullable String selection, @Nullable String... selectionArgs) {
         ArrayList<OCUpload> uploads = new ArrayList<>();
         final long pageSize = 100;
-        long offset = 0;
         long page = 0;
-        long rowsRead = 0;
+        long rowsRead;
         long rowsTotal = 0;
         long lastRowID = -1;
 
         do {
             String pageSelection = selection;
             String[] pageSelectionArgs = selectionArgs;
-            if(page > 0 && lastRowID >= 0) {
-                if(selection != null) {
+            if (page > 0 && lastRowID >= 0) {
+                if (selection != null) {
                     pageSelection = "(" + selection + ") AND _id < ?";
                 } else {
                     pageSelection = "_id < ?";
                 }
-                if(selectionArgs != null) {
+                if (selectionArgs != null) {
                     pageSelectionArgs = Arrays.copyOf(selectionArgs, selectionArgs.length + 1);
                 } else {
                     pageSelectionArgs = new String[1];
                 }
                 pageSelectionArgs[pageSelectionArgs.length - 1] = String.valueOf(lastRowID);
-                Log_OC.d(TAG, String.format("QUERY: %s ROWID: %d", pageSelection, lastRowID));
+                Log_OC.d(TAG, String.format(Locale.ENGLISH, "QUERY: %s ROWID: %d", pageSelection, lastRowID));
             } else {
-                Log_OC.d(TAG, String.format("QUERY: %s ROWID: %d", selection, lastRowID));
+                Log_OC.d(TAG, String.format(Locale.ENGLISH, "QUERY: %s ROWID: %d", selection, lastRowID));
             }
             rowsRead = 0;
 
             Cursor c = getDB().query(
-                    ProviderTableMeta.CONTENT_URI_UPLOADS,
-                    null,
-                    pageSelection,
-                    pageSelectionArgs,
-                    String.format("_id DESC LIMIT %d", pageSize)
-            );
+                ProviderTableMeta.CONTENT_URI_UPLOADS,
+                null,
+                pageSelection,
+                pageSelectionArgs,
+                String.format(Locale.ENGLISH, "_id DESC LIMIT %d", pageSize)
+                                    );
 
             if (c != null) {
                 if (c.moveToFirst()) {
@@ -338,26 +338,27 @@ public class UploadsStorageManager extends Observable {
                     } while (c.moveToNext() && !c.isAfterLast());
                 }
                 c.close();
-                Log_OC.v(TAG, String.format("getUploads() got %d rows from page %d, %d rows total so far, last ID %d",
-                            rowsRead,
-                            page,
-                            rowsTotal,
-                            lastRowID
-                ));
-                offset += rowsRead;
+                Log_OC.v(TAG, String.format(Locale.ENGLISH,
+                                            "getUploads() got %d rows from page %d, %d rows total so far, last ID %d",
+                                            rowsRead,
+                                            page,
+                                            rowsTotal,
+                                            lastRowID
+                                           ));
                 page += 1;
             } else {
                 break;
             }
-        } while(rowsRead > 0);
+        } while (rowsRead > 0);
 
-        Log_OC.v(TAG, String.format("getUploads() returning %d (%d) rows after reading %d pages",
-                rowsTotal,
-                uploads.size(),
-                page
-        ));
+        Log_OC.v(TAG, String.format(Locale.ENGLISH,
+                                    "getUploads() returning %d (%d) rows after reading %d pages",
+                                    rowsTotal,
+                                    uploads.size(),
+                                    page
+                                   ));
 
-        return (OCUpload[])uploads.toArray(new OCUpload[uploads.size()]);
+        return uploads.toArray(new OCUpload[0]);
     }
 
     private OCUpload createOCUploadFromCursor(Cursor c) {
