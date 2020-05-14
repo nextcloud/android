@@ -43,7 +43,6 @@
     <string name="auth_check_server">Skontrolovať server</string>
     <string name="auth_connection_established">Pripojenie vytvorené</string>
     <string name="auth_expired_basic_auth_toast">Zadajte prosím aktuálne heslo</string>
-    <string name="auth_fail_get_user_name">Váš server nevracia správne používateľské ID, kontaktujte prosím správcu systému </string>
     <string name="auth_host_address">Adresa servera</string>
     <string name="auth_host_url">Adresa servera https://…</string>
     <string name="auth_illegal_login_used">Použitá nedovolená prihlasovacia URL</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s nepodporuje viacero účtov</string>
     <string name="auth_username">Používateľské meno</string>
     <string name="auth_wrong_connection_title">Nepodarilo sa nadviazať spojenie</string>
-    <string name="auth_wtf_reenter_URL">Neočakávaný stav, zadajte prosím adresu servera znovu</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechané v pôvodnom priečinku, pretože je iba na čítanie</string>
     <string name="auto_upload_on_wifi">Nahrávaj iba na neobmedzenom Wi-Fi</string>
     <string name="auto_upload_path">/AutomatickéNahrávanie</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Táto verzia obsahuje všetký pripravované funkcie. Je veľmi nestabilná a môže obsahovať chyby. Ak na ne natrafíte, prosím nahláste nám ich.</string>
     <string name="community_contribute_forum_forum">fórum</string>
     <string name="community_contribute_forum_text">Pomôžte ostatným s</string>
-    <string name="community_contribute_github_text">Prispejte ako vývojár, pre viac informácií pozrite %1$s</string>
     <string name="community_contribute_headline">Aktívne prispievať</string>
     <string name="community_contribute_irc_text">Pripojte sa k rozhovoru na IRC:</string>
     <string name="community_contribute_translate_text">aplikácia</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Počas kopírovania súboru alebo zložky sa vyskytla chyba</string>
     <string name="copy_file_invalid_into_descendent">Nie je možné skopírovať priečinok do samého seba</string>
     <string name="copy_file_invalid_overwrite">Súbor už v cieľovom priečinku existuje</string>
-    <string name="copy_file_not_found">Nemožno kopírovať. Overte či súbor ešte existuje</string>
     <string name="copy_link">Kopíruj odkaz</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírovanie/presun do šifrovaného priečinku v súčasnosti nie je podporované.</string>
     <string name="copy_to">Kopírovať do…</string>
@@ -288,7 +284,6 @@
     <string name="file_list_empty">Nahrajte nejaký obsah alebo synchronizujte so svojimi zariadeniami.</string>
     <string name="file_list_empty_favorite_headline">Zatiaľ nemáte nič obľúbené</string>
     <string name="file_list_empty_favorites_filter">Vaše vyhľadávanie nenašlo žiadne obľúbené súbory.</string>
-    <string name="file_list_empty_favorites_filter_list"> Tu sa zobrazia súbory a priečinky označené ako obľúbené</string>
     <string name="file_list_empty_headline">Nie sú tu žiadne súbory</string>
     <string name="file_list_empty_headline_search">Žiadne výsledky v tomto priečinku</string>
     <string name="file_list_empty_headline_server_search">Žiadne výsledky</string>
@@ -300,7 +295,6 @@
     <string name="file_list_empty_recently_modified">V posledných 7 dňoch sa nenašli žiadne zmeny</string>
     <string name="file_list_empty_recently_modified_filter">Za posledných 7 dní neboli zmenené žiadne súbory.</string>
     <string name="file_list_empty_search">Možno to je v inom priečinku?</string>
-    <string name="file_list_empty_shared">Tu sa zobrazia súbory a priečinky, ktoré ste sprístupnili</string>
     <string name="file_list_empty_shared_headline">Zatiaľ ste nič nesprístupnili</string>
     <string name="file_list_empty_text_photos">Nahrajte nejaké fotky alebo si zapnite automatické nahrávanie.</string>
     <string name="file_list_empty_text_photos_filter">Žiadne fotky.</string>
@@ -418,12 +412,8 @@
     <string name="move_file_error">Pri pokuse o presun tohoto súboru alebo priečinka nastala chyba</string>
     <string name="move_file_invalid_into_descendent">Nie je možné presunúť priečinok do samého seba</string>
     <string name="move_file_invalid_overwrite">Súbor už v cieľovom priečinku existuje</string>
-    <string name="move_file_not_found">Nemožno presunúť súbor. Skontrolujte, či súbor existuje</string>
     <string name="move_to">Presunúť do…</string>
-    <string name="network_error_connect_timeout_exception">Pri čakaní na odpoveď servera nastala chyba.  Operácia nemohla byť dokončená</string>
     <string name="network_error_socket_exception">Pri pokuse o pripojenie na server nastala chyba</string>
-    <string name="network_error_socket_timeout_exception">Pri čakaní na odpoveď servera nastala chyba.  Operácia nemohla byť dokončená</string>
-    <string name="network_host_not_available">Operácia nemohla byť dokončená.  Server je nedostupný</string>
     <string name="new_comment">Nový komentár…</string>
     <string name="new_media_folder_detected">Nový%1$smediálny priečinok nájdený.</string>
     <string name="new_media_folder_photos">fotografia</string>
@@ -590,8 +580,6 @@
     <string name="share_internal_link_to_folder_text">Interný odkaz na zdieľanie funguje iba pre používateľov s prístupom k tomuto adresáru</string>
     <string name="share_known_remote_clarification">%1$s ( na %2$s )</string>
     <string name="share_link_empty_password">Musíte vložiť heslo</string>
-    <string name="share_link_file_error">Pri pokuse o sprístupnenie tohto súboru alebo priečinka došlo k chybe</string>
-    <string name="share_link_file_no_exist">Sprístupnenie nie je možné. Skontrolujte, či súbor existuje</string>
     <string name="share_link_forbidden_permissions">sprístupniť tento súbor</string>
     <string name="share_link_optional_password_title">Zadajte voliteľné heslo </string>
     <string name="share_link_password_title">Vložte heslo</string>
@@ -715,7 +703,6 @@
     <string name="timeout_richDocuments">Načítanie trvá veľmi dlho…</string>
     <string name="trashbin_activity_title">Zmazané súbory</string>
     <string name="trashbin_empty_headline">Žiadne zmazané súbory</string>
-    <string name="trashbin_empty_message">Tu budete mať možnosť obnoviť zmazané súbory</string>
     <string name="trashbin_file_not_deleted">Súbor %1$s sa nedá vymazať!</string>
     <string name="trashbin_file_not_restored">Súbor %1$s sa nedá obnoviť!</string>
     <string name="trashbin_loading_failed">Načítanie obsahu koša sa nepodarilo!</string>
@@ -723,13 +710,9 @@
     <string name="unread_comments">Existujú neprečítané komentáre</string>
     <string name="unset_encrypted">Vypnúť šifrovanie</string>
     <string name="unset_favorite">Odstrániť z obľúbených</string>
-    <string name="unshare_link_file_error">Pri pokuse o zrušenie sprístupnenia tohto súboru alebo priečinka došlo k chybe</string>
-    <string name="unshare_link_file_no_exist">Sprístupnenie nie je možné zrušiť. Skontrolujte, či súbor existuje</string>
     <string name="unshare_link_forbidden_permissions">zrušiť sprístupnenie tohto súboru</string>
     <string name="unsharing_failed">Zrušenie sprístupnenia neúspešné</string>
     <string name="untrusted_domain">Prísup cez nedôveryhodnú doménu.  Prosím skontrolujte dokumentáciu pre ďalšie informácie.</string>
-    <string name="update_link_file_error">Pri pokuse o aktualizáciu sprístupnenia došlo k chybe</string>
-    <string name="update_link_file_no_exist">Nemožno aktualizovať. Overte prosím či súbor existuje</string>
     <string name="update_link_forbidden_permissions">aktualizovať toto sprístupnenie</string>
     <string name="updating_share_failed">Aktualizácia zdieľania neúspešná</string>
     <string name="upload_cannot_create_file">Nieje možné vytvoriť lokálny súbor</string>

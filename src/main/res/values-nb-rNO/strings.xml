@@ -43,7 +43,6 @@
     <string name="auth_check_server">Sjekk server</string>
     <string name="auth_connection_established">Tilkobling opprettet</string>
     <string name="auth_expired_basic_auth_toast">Legg inn nåværende passord</string>
-    <string name="auth_fail_get_user_name">Serveren svarer ikke med korrekt bruker-ID. Kontakt administrator</string>
     <string name="auth_host_address">Serveradresse</string>
     <string name="auth_host_url">Serveradresse https://…</string>
     <string name="auth_illegal_login_used">Ugyldig påloggingsdata for URL er brukt</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
     <string name="auth_username">Brukernavn</string>
     <string name="auth_wrong_connection_title">Klarte ikke å opprette tilkobling</string>
-    <string name="auth_wtf_reenter_URL">Uventet tilstand. Legg inn serveradressen på nytt</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">beholdt i opprinnelig mappe da den kun har leserettigheter</string>
     <string name="auto_upload_on_wifi">Kun last opp på ubegrenset Wi-Fi</string>
     <string name="auto_upload_path">/Auto-opplasting</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Denne inneholder alle kommende funksjoner og er på knivseggen hva angår utvikling. Feil/feilmeldinger kan oppstå, og i sådant fall, meld fra om dem til oss.</string>
     <string name="community_contribute_forum_forum">forumet</string>
     <string name="community_contribute_forum_text">Hjelp andre på</string>
-    <string name="community_contribute_github_text">Gjennomse, endre og skriv kode, se %1$s for detaljer</string>
     <string name="community_contribute_headline">Bidra aktivt</string>
     <string name="community_contribute_irc_text">Sludre på IRC:</string>
     <string name="community_contribute_translate_text">Appen</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">En feil oppstod ved kopiering av denne filen eller mappen</string>
     <string name="copy_file_invalid_into_descendent">Det er ikke mulig å kopiere en mappe inn i sin egen undermappe</string>
     <string name="copy_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
-    <string name="copy_file_not_found">Kan ikke kopiere. Sjekk om filen eksisterer</string>
     <string name="copy_link">Kopier lenke</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiering/flytting til kryptert mappe støttes ikke enda.</string>
     <string name="copy_to">Kopier til…</string>
@@ -258,18 +254,21 @@
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
     <string name="etm_accounts">Kontoer</string>
     <string name="etm_background_job_name">Jobbnavn</string>
+    <string name="etm_background_job_progress">Fremgang</string>
     <string name="etm_background_job_started">Started</string>
     <string name="etm_background_job_state">Tilstand</string>
     <string name="etm_background_job_user">Bruker</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Bakgrunnsjobber</string>
     <string name="etm_background_jobs_cancel_all">Avbryt alle jobber</string>
+    <string name="etm_background_jobs_prune">Fjern inaktive jobber</string>
     <string name="etm_background_jobs_schedule_test_job">Planlegg testjobb</string>
     <string name="etm_background_jobs_start_test_job">Start test-jobb</string>
     <string name="etm_background_jobs_stop_test_job">Stopp test-jobb</string>
     <string name="etm_migrations">Migreringer (appoppgradering)</string>
     <string name="etm_preferences">Innstillinger</string>
     <string name="fab_label">Legg til eller last opp</string>
+    <string name="failed_to_download">Kunne ikke sende filen til nedlastingsbehandleren</string>
     <string name="failed_to_print">Mislykket å skrive ut filen</string>
     <string name="failed_to_start_editor">Start av editor feilet</string>
     <string name="fallback_weblogin_back">Tilbake</string>
@@ -284,7 +283,6 @@
     <string name="file_list_empty">Last opp innhold eller synkroniser med andre enheter.</string>
     <string name="file_list_empty_favorite_headline">Ingen favoritter ennå</string>
     <string name="file_list_empty_favorites_filter">Søket ga ingen treff på filer markert som favoritter.</string>
-    <string name="file_list_empty_favorites_filter_list">Filer og mapper du markerer som favoritter vil vises her</string>
     <string name="file_list_empty_headline">Ingen filer her</string>
     <string name="file_list_empty_headline_search">Ingen resultater i denne mappen</string>
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
@@ -296,7 +294,6 @@
     <string name="file_list_empty_recently_modified">Fant ingen filer endret de siste 7 dagene</string>
     <string name="file_list_empty_recently_modified_filter">Ungen filer endret de siste 7 dagene.</string>
     <string name="file_list_empty_search">Vil du prøve i en annen mappe?</string>
-    <string name="file_list_empty_shared">Filer og mapper som du deler vil bli vist her</string>
     <string name="file_list_empty_shared_headline">Ingenting delt enda</string>
     <string name="file_list_empty_text_photos">Last opp noen bilder eller aktiver automatisk opplasting.</string>
     <string name="file_list_empty_text_photos_filter">Ingen bilder.</string>
@@ -386,7 +383,9 @@
     <string name="logs_menu_refresh">Oppdater</string>
     <string name="logs_menu_search">Søk loggen</string>
     <string name="logs_menu_send">Sende logg med e-post</string>
+    <string name="logs_status_filtered">Logg: %1$d kB, spørring funnet%2$d / %3$d iløpet av %4$d ms</string>
     <string name="logs_status_loading">Laster…</string>
+    <string name="logs_status_not_filtered">Logg: %1$d kB, ingen filter</string>
     <string name="logs_title">Logger</string>
     <string name="maintenance_mode">Server i vedlikeholdsmodus</string>
     <string name="manage_space_clear_data">Nullstill data</string>
@@ -412,12 +411,8 @@
     <string name="move_file_error">En feil oppstod ved flytting av denne filen eller mappen</string>
     <string name="move_file_invalid_into_descendent">Det er ikke mulig å flytte en mappe inn i sin egen undermappe</string>
     <string name="move_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
-    <string name="move_file_not_found">Kan ikke flytte. Sjekk om filen eksisterer.</string>
     <string name="move_to">Flytt til…</string>
-    <string name="network_error_connect_timeout_exception">Feil oppsått ved venting på server. Kunne ikke fullføre operasjonen</string>
     <string name="network_error_socket_exception">Feil oppstått ved forbindelsen til serveren</string>
-    <string name="network_error_socket_timeout_exception">Feil oppsått ved venting på server. Kunne ikke fullføre operasjonen</string>
-    <string name="network_host_not_available">Operasjonen kunne ikke fullføres. Serveren er utilgjengelig</string>
     <string name="new_comment">Ny kommentar…</string>
     <string name="new_media_folder_detected">Ny %1$s media mappe oppdaget.</string>
     <string name="new_media_folder_photos">bilde</string>
@@ -554,6 +549,7 @@
     <string name="screenshot_01_gridView_subline">produktivitet på egen tjener</string>
     <string name="screenshot_02_listView_heading">Bla gjennom og del</string>
     <string name="screenshot_03_drawer_heading">Aktivitet, delinger...</string>
+    <string name="screenshot_03_drawer_subline">Alt så hurtig som mulig</string>
     <string name="screenshot_04_accounts_heading">Alle kontoene dine</string>
     <string name="screenshot_04_accounts_subline">på et plass</string>
     <string name="screenshot_05_autoUpload_heading">Automatisk opplastning</string>
@@ -582,8 +578,6 @@
     <string name="share_internal_link_to_folder_text">Intern dele-link virker bare for brukere med tilgang til til denne mappen</string>
     <string name="share_known_remote_clarification">%1$s ( hos %2$s )</string>
     <string name="share_link_empty_password">Du må skrive inn ett passord</string>
-    <string name="share_link_file_error">Det skjedde en feil under deling av denne filen eller mappen</string>
-    <string name="share_link_file_no_exist">Kan ikke dele. Sjekk om filen eksisterer.</string>
     <string name="share_link_forbidden_permissions">å dele denne filen</string>
     <string name="share_link_optional_password_title">Skriv inn et valgfri passord</string>
     <string name="share_link_password_title">Skriv inn ett passord</string>
@@ -703,7 +697,6 @@
     <string name="timeout_richDocuments">Lasting tar lang tid...</string>
     <string name="trashbin_activity_title">Slettede filer</string>
     <string name="trashbin_empty_headline">Ingen slettede filer</string>
-    <string name="trashbin_empty_message">Du vil kunne gjenopprette slettede filer herfra</string>
     <string name="trashbin_file_not_deleted">Fil %1$s kunne ikke slettes!</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunne ikke gjenopprettes!</string>
     <string name="trashbin_loading_failed">Innlesing av papirkurv feilet!</string>
@@ -711,13 +704,9 @@
     <string name="unread_comments">Det er uleste kommentarer</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
     <string name="unset_favorite">Fjern fra favoritter</string>
-    <string name="unshare_link_file_error">En oppstod en feil  ved oppheving av delingen av denne filen eller mappen</string>
-    <string name="unshare_link_file_no_exist">Kan ikke oppheve deling. Sjekk om filen eksisterer.</string>
     <string name="unshare_link_forbidden_permissions">å oppheve deling av denne filen</string>
     <string name="unsharing_failed">Fjerning av deling feilet</string>
     <string name="untrusted_domain">Tilgang gjennom ubetrodd domene. Sjekk dokumentasjonen for mer informasjon.</string>
-    <string name="update_link_file_error">Det oppstod en feil ved oppdatering av delingen</string>
-    <string name="update_link_file_no_exist">Kan ikke oppdatere. Sjekk om filen eksisterer</string>
     <string name="update_link_forbidden_permissions">å oppdatere denne delingen</string>
     <string name="updating_share_failed">Oppdatering av deling feilet</string>
     <string name="upload_cannot_create_file">Kan ikke opprette lokal fil</string>

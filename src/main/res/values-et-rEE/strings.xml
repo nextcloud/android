@@ -100,7 +100,6 @@
     <string name="community_beta_text">See sisaldab kõiki tulevasi funktsioona. Bugisid/vigu võib esineda ja kui nii juhtub, siis palun andke sellest teada.</string>
     <string name="community_contribute_forum_forum">foorumis</string>
     <string name="community_contribute_forum_text">Aita teisi</string>
-    <string name="community_contribute_github_text">Vaata, paranda ja kirjuta koodi, täpsem info: %1$s</string>
     <string name="community_contribute_headline">Löö aktiivselt kaasa</string>
     <string name="community_contribute_irc_text">Ühine jutuajamiseg IRC serveris:</string>
     <string name="community_contribute_translate_text">rakendust</string>
@@ -129,7 +128,6 @@
     <string name="copy_file_error">Selle faili või kausta kopeerimisel tekkis tõrge</string>
     <string name="copy_file_invalid_into_descendent">Kausta ei saa kopeerida tema enda alamkausta</string>
     <string name="copy_file_invalid_overwrite">See fail on juba sihtkaustas olemas</string>
-    <string name="copy_file_not_found">Kopeerimine ebaõnnestus. Palun kontrolli, kas fail on olemas</string>
     <string name="copy_link">Kopeeri link</string>
     <string name="create_dir_fail_msg">Ei suuda kausta luua</string>
     <string name="create_new_folder">Loo uus kaust</string>
@@ -179,7 +177,6 @@
     <string name="file_list_empty">Lae midagi üles või sünkroniseeri oma seadmetega.</string>
     <string name="file_list_empty_favorite_headline">Midagi pole veel lemmikutese lisatud</string>
     <string name="file_list_empty_favorites_filter">Sinu poolt sooritatud otsing ei leidnud ühtegi lemmikuks märgitud faili.</string>
-    <string name="file_list_empty_favorites_filter_list">Lemmikuteks märgitud failid ja kaustad kuvatakse siin</string>
     <string name="file_list_empty_headline">Siin ei ole faile</string>
     <string name="file_list_empty_headline_search">Selles kaustas tulemused puuduvad</string>
     <string name="file_list_empty_headline_server_search">Vasteid ei leitud</string>
@@ -191,7 +188,6 @@
     <string name="file_list_empty_recently_modified">Viimase 7 päeva jooksul muudetud faile ei leitud</string>
     <string name="file_list_empty_recently_modified_filter">Viimase 7 päeva jooksul pole faile muudetud.</string>
     <string name="file_list_empty_search">Võibolla on see teises kaustas?</string>
-    <string name="file_list_empty_shared">Sinu poolt jagatud failid ja kaustad on siin näha</string>
     <string name="file_list_empty_shared_headline">Midagi pole veel jagatud</string>
     <string name="file_list_empty_text_photos">Lae üles mõned pildid või lülita sisse automaatne üleslaadimine.</string>
     <string name="file_list_empty_text_photos_filter">Pilte pole.</string>
@@ -262,7 +258,6 @@
     <string name="move_file_error">Selle faili või kausta liigutamisel tekkis tõrge</string>
     <string name="move_file_invalid_into_descendent">Kausta ei saa liigutada tema enda alamkausta</string>
     <string name="move_file_invalid_overwrite">See fail on sihtkohas juba olemas.</string>
-    <string name="move_file_not_found">Liigutamine ebaõnnestus. Palun kontrolli, kas fail on olemas</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="note_confirm">Saada</string>
     <string name="notification_channel_push_name">Süsteemiteavitused</string>
@@ -334,8 +329,6 @@
     <string name="share_get_public_link_button">Hangi link</string>
     <string name="share_group_clarification">%1$s (grupp)</string>
     <string name="share_link_empty_password">Sa pead parooli sisestama</string>
-    <string name="share_link_file_error">Faili või kausta jagamisel esines viga</string>
-    <string name="share_link_file_no_exist">Jagamine ebaõnnestus. Palun kontrolli, kas fail on olemas</string>
     <string name="share_link_forbidden_permissions">faili jagamiseks</string>
     <string name="share_link_password_title">Sisesta parool</string>
     <string name="share_no_expiration_date_label">Määra aegumise kuupäev</string>
@@ -402,11 +395,8 @@
     <string name="test_server_button">Testi ühendust serveriga</string>
     <string name="trashbin_activity_title">Kustutatud failid</string>
     <string name="trashbin_empty_headline">Kustutatud faile pole</string>
-    <string name="trashbin_empty_message">Siit saad kustutatud faile taastada</string>
     <string name="unset_encrypted">Eemalda krüpteering</string>
     <string name="unset_favorite">Eemalda lemmikutest</string>
-    <string name="unshare_link_file_error">Faili või kausta jagamise tühistamisel esines viga</string>
-    <string name="unshare_link_file_no_exist">Liigutamise lõpetamine ebaõnnestus. Palun kontrolli, kas fail on olemas</string>
     <string name="unshare_link_forbidden_permissions">faili jagamise lõpetamiseks</string>
     <string name="update_link_forbidden_permissions">jagamise uuendamiseks</string>
     <string name="upload_content_from_other_apps">Lae üles sisu teistest rakendustest</string>

@@ -43,7 +43,6 @@
     <string name="auth_check_server">Vérifier le serveur</string>
     <string name="auth_connection_established">Connexion établie</string>
     <string name="auth_expired_basic_auth_toast">Veuillez saisir le mot de passe actuel</string>
-    <string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez contacter un administrateur</string>
     <string name="auth_host_address">Adresse du serveur</string>
     <string name="auth_host_url">Adresse du serveur https://…</string>
     <string name="auth_illegal_login_used">Utilisation d\'une URL d\'identification non autorisée</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
     <string name="auth_username">Nom d\'utilisateur</string>
     <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
-    <string name="auth_wtf_reenter_URL">Problème inattendu ; veuillez saisir à nouveau l\'adresse du serveur</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
     <string name="auto_upload_path">/EnvoiAuto</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">La version Beta inclut les dernières fonctionnalités qui sont encore toutes fraîches. Des erreurs peuvent se produire et si c\'est le cas, merci de nous les signaler.</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Aidez les autres sur</string>
-    <string name="community_contribute_github_text">Vérifiez, améliorez ou créez du code. Consultez %1$s pour plus de détails</string>
     <string name="community_contribute_headline">Participez activement</string>
     <string name="community_contribute_irc_text">Rejoignez la discussion sur IRC :</string>
     <string name="community_contribute_translate_text">l\'application</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Une erreur est survenue lors de la copie de ce fichier ou dossier</string>
     <string name="copy_file_invalid_into_descendent">Il n\'est pas possible de copier un dossier vers un de ses descendants</string>
     <string name="copy_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
-    <string name="copy_file_not_found">Impossible de copier. Vérifiez que le fichier existe</string>
     <string name="copy_link">Copier le lien</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copier/déplacer dans ce dossier chiffré n\'est pas actuellement supporté</string>
     <string name="copy_to">Copier vers…</string>
@@ -290,7 +286,6 @@ Attention la suppression est irréversible.</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>
     <string name="file_list_empty_favorite_headline">Aucun favori</string>
     <string name="file_list_empty_favorites_filter">Aucun fichier favori trouvé pour votre recherche.</string>
-    <string name="file_list_empty_favorites_filter_list">Les fichiers et dossiers ajoutés à vos favoris apparaîtront ici</string>
     <string name="file_list_empty_headline">Aucun fichier</string>
     <string name="file_list_empty_headline_search">Aucun résultat dans ce dossier</string>
     <string name="file_list_empty_headline_server_search">Aucun résultat</string>
@@ -302,7 +297,6 @@ Attention la suppression est irréversible.</string>
     <string name="file_list_empty_recently_modified">Aucun fichier modifié n\'a été trouvé dans les 7 derniers jours</string>
     <string name="file_list_empty_recently_modified_filter">Aucun fichier modifié au cours des 7 derniers jours.</string>
     <string name="file_list_empty_search">Il se trouve peut-être dans un autre dossier ?</string>
-    <string name="file_list_empty_shared">Les fichiers et dossiers que vous partagez apparaîtront ici</string>
     <string name="file_list_empty_shared_headline">Aucun partage</string>
     <string name="file_list_empty_text_photos">Envoyez des photos ou activez l\'envoi automatique.</string>
     <string name="file_list_empty_text_photos_filter">Aucune photo.</string>
@@ -420,12 +414,8 @@ Attention la suppression est irréversible.</string>
     <string name="move_file_error">Une erreur est survenue lors de la tentative de déplacement de ce fichier ou dossier</string>
     <string name="move_file_invalid_into_descendent">Il n\'est pas possible de déplacer un dossier vers un de ses descendants</string>
     <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
-    <string name="move_file_not_found">Impossible de déplacer le fichier. Vérifiez que le fichier existe</string>
     <string name="move_to">Déplacer vers…</string>
-    <string name="network_error_connect_timeout_exception">Une erreur est survenue pendant l\'attente d\'une réponse du serveur. L\'opération n\'a pas pu être effectuée</string>
     <string name="network_error_socket_exception">Une erreur est survenue pendant la connexion au serveur</string>
-    <string name="network_error_socket_timeout_exception">Une erreur est survenue pendant l\'attente d\'une réponse du serveur. L\'opération n\'a pas pu être terminée</string>
-    <string name="network_host_not_available">Impossible de réaliser l\'opération. Le serveur n\'est pas accessible</string>
     <string name="new_comment">Nouveau commentaire…</string>
     <string name="new_media_folder_detected">Nouveau dossier de média %1$s détecté.</string>
     <string name="new_media_folder_photos">photo</string>
@@ -592,8 +582,6 @@ Attention la suppression est irréversible.</string>
     <string name="share_internal_link_to_folder_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce dossier</string>
     <string name="share_known_remote_clarification">%1$s (sur %2$s)</string>
     <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
-    <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
-    <string name="share_link_file_no_exist">Impossible de partager. Vérifiez que le fichier est bien présent</string>
     <string name="share_link_forbidden_permissions">de partager ce fichier</string>
     <string name="share_link_optional_password_title">Saisissez un mot de passe optionnel</string>
     <string name="share_link_password_title">Saisissez un mot de passe</string>
@@ -717,7 +705,6 @@ Attention la suppression est irréversible.</string>
     <string name="timeout_richDocuments">Le chargement est très long ...</string>
     <string name="trashbin_activity_title">Fichiers supprimés</string>
     <string name="trashbin_empty_headline">Aucun fichier supprimé</string>
-    <string name="trashbin_empty_message">Les fichiers supprimés s\'afficheront ici et vous pourrez les restaurer.</string>
     <string name="trashbin_file_not_deleted">Le fichier %1$s n\'a pas pu être supprimé !</string>
     <string name="trashbin_file_not_restored">Le fichier %1$s n\'a pas pu être restauré !</string>
     <string name="trashbin_loading_failed">Erreur lors du chargement de la corbeille</string>
@@ -725,13 +712,9 @@ Attention la suppression est irréversible.</string>
     <string name="unread_comments">Il y a des commentaire non lus</string>
     <string name="unset_encrypted">Désactiver le chiffrement</string>
     <string name="unset_favorite">Supprimer des favoris</string>
-    <string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
-    <string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier est bien présent</string>
     <string name="unshare_link_forbidden_permissions">de cesser le partage de ce fichier</string>
     <string name="unsharing_failed">L\'arrêt du partage a échoué</string>
     <string name="untrusted_domain">Accès depuis un domaine non fiable. Veuillez consulter la documentation pour plus d\'informations.</string>
-    <string name="update_link_file_error">Une erreur est survenue lors de la mise à jour du partage</string>
-    <string name="update_link_file_no_exist">Impossible de mettre à jour. Vérifiez que le fichier est bien présent</string>
     <string name="update_link_forbidden_permissions">de modifier ce partage</string>
     <string name="updating_share_failed">La mise à jour du partage a échoué</string>
     <string name="upload_cannot_create_file">Impossible de créer le fichier local</string>

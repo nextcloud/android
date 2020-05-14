@@ -43,7 +43,6 @@
     <string name="auth_check_server">Kontrollo serverin</string>
     <string name="auth_connection_established">Lidhja u vendos</string>
     <string name="auth_expired_basic_auth_toast">Ju lutem, jepni fjalëkalimin e tanishëm</string>
-    <string name="auth_fail_get_user_name">Serveri juaj nuk kthen ID e saktë të përdoruesit, ju lutemi kontaktoni nje administrator</string>
     <string name="auth_host_address">Adresë serveri</string>
     <string name="auth_host_url">Adresa e serverit https://…</string>
     <string name="auth_illegal_login_used">URL e të dhënave të përdorur për t\'u identifikimit e paligjshme </string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s s\’mbulon llogari të shumëfishta</string>
     <string name="auth_username">Emër përdoruesi</string>
     <string name="auth_wrong_connection_title">S’u vendos dot lidhja</string>
-    <string name="auth_wtf_reenter_URL">Gjendje e papritur; ju lutemi, rijepni adresën e serverit</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mbajtur në dosjen origjinale, pasi ajo është e vetëm e lexueshme</string>
     <string name="auto_upload_on_wifi">Ngarkoni vetëm Kur Wi-Fi është i pamatur</string>
     <string name="auto_upload_path">/NgarkimAutomatik</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Kjo përfshin të gjitha karakteristikat që do të vijnë dhe ky është vetëm fillimi. Buget/gabimet  mund të ndodhin, nëse dhe kur të ndodhin, ju lutemi të raportoni për gjetjet tuaja. </string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Ndihmo të tjerët në</string>
-    <string name="community_contribute_github_text">Rishiko, ndrysho dhe shkruaj kod, shi %1$s për detaje</string>
     <string name="community_contribute_headline">Kontribim aktiv</string>
     <string name="community_contribute_irc_text">Bashkohu bisedës në IRC:</string>
     <string name="community_contribute_translate_text">aplikacioni</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Ndodhi një gabim teksa përpiqej të kopjohej ky skedar apo kjo dosje</string>
     <string name="copy_file_invalid_into_descendent">S’është e mundur të kopjohet një dosje në një tjetër brenda saj</string>
     <string name="copy_file_invalid_overwrite">Kartela gjendet tashmë te dosja destinacion</string>
-    <string name="copy_file_not_found">S’arrin të kopjojë. Ju lutemi, kontrolloni nëse ekziston apo jo skedari</string>
     <string name="copy_link">Kopjoje lidhjen</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopjimi/lëvizja në direktorinë e enkriptuar për momentin nuk suportohet.</string>
     <string name="copy_to">Kopjojeni tek…</string>
@@ -287,7 +283,6 @@
     <string name="file_list_empty">Ngarko disa të dhëna ose sinkronizo me pajisjet e tua!</string>
     <string name="file_list_empty_favorite_headline">Asgjë e preferuar akoma</string>
     <string name="file_list_empty_favorites_filter">Kërkimi juaj nuk gjeti asnjë skedar të preferuar</string>
-    <string name="file_list_empty_favorites_filter_list">Skedarët dhe direktoritë që i shënoni si të preferuara do të shfaqen këtu</string>
     <string name="file_list_empty_headline">Këtu nuk ka asnjë skedar</string>
     <string name="file_list_empty_headline_search">Nuk ka rezultate në këtë dosje</string>
     <string name="file_list_empty_headline_server_search">Asnjë rezultat</string>
@@ -299,7 +294,6 @@
     <string name="file_list_empty_recently_modified">Nuk u gjetë asnjë skedar i modifikuar 7 ditët e fundit</string>
     <string name="file_list_empty_recently_modified_filter">Nuk u gjetë asnje skedar i modifikuar 7 ditët e fundit.</string>
     <string name="file_list_empty_search">Përpiquni të shikoni në një dosje tjetër</string>
-    <string name="file_list_empty_shared">Skedarët dhe direktoritë që shpërndani do të shfaqen këtu</string>
     <string name="file_list_empty_shared_headline">Asgjë e shpërndarë akoma</string>
     <string name="file_list_empty_text_photos">Ngarko disa foto ose aktivizo ngarkimin direkt.</string>
     <string name="file_list_empty_text_photos_filter">Nuk ka foto.</string>
@@ -417,12 +411,8 @@
     <string name="move_file_error">Ndodhi një gabim teksa përpiqej të zhvendosej ky skedar apo kjo dosje</string>
     <string name="move_file_invalid_into_descendent">S’është e mundur të zhvendoset një dosje në një tjetër brenda saj</string>
     <string name="move_file_invalid_overwrite">Skedri gjendet tashmë te dosja destinacion</string>
-    <string name="move_file_not_found">S’arrin të zhvendosë. Ju lutemi, kontrolloni nëse ekziston apo jo skedari</string>
     <string name="move_to">Lëvizni tek…</string>
-    <string name="network_error_connect_timeout_exception">Ndodhi një gabim gjatë pritjes për serverin. Operacioni nuk u krye</string>
     <string name="network_error_socket_exception">Ndodhi një gabim gjatë lidhjes me serverin</string>
-    <string name="network_error_socket_timeout_exception">Ndodhi një gabim gjatë pritjes për serverin. Operacioni nuk u krye</string>
-    <string name="network_host_not_available">Veprimi s\'u plotësua dot, serveri është i pakapshëm</string>
     <string name="new_comment">Koment i ri…</string>
     <string name="new_media_folder_detected">Dosja %1$se re e mediave u zbulua.</string>
     <string name="new_media_folder_photos">Foto</string>
@@ -584,8 +574,6 @@
     <string name="share_internal_link_to_folder_text">Lidhja e ndarjes së brendshme funksionon vetëm për përdoruesit me qasje në këtë dosje</string>
     <string name="share_known_remote_clarification">%1$s ( te %2$s )</string>
     <string name="share_link_empty_password">Duhet të jepni një fjalëkalim</string>
-    <string name="share_link_file_error">Ndodhi një gabim teksa përpiqej të ndahej me të tjerët ky skedar apo dosje</string>
-    <string name="share_link_file_no_exist">S’arrin të ndajë me të tjerët. Ju lutemi, kontrolloni nëse skedari ekziston apo jo</string>
     <string name="share_link_forbidden_permissions">për ndarje me të tjerët të kësaj kartele</string>
     <string name="share_link_optional_password_title">Shkruani një fjalëkalim jo të detyrueshëm</string>
     <string name="share_link_password_title">Jepni një fjalëkalim</string>
@@ -709,7 +697,6 @@
     <string name="timeout_richDocuments">Ngarkimi merr shumë të gjatë ...</string>
     <string name="trashbin_activity_title">Skedar të fshirë</string>
     <string name="trashbin_empty_headline">Pa kartela të fshira</string>
-    <string name="trashbin_empty_message">Që këtu do të jeni në gjendje të rimerrni kartela të fshira</string>
     <string name="trashbin_file_not_deleted">Skeda %1$snuk mund të fshihej!</string>
     <string name="trashbin_file_not_restored">Skeda %1$snuk mund të rikthehej!</string>
     <string name="trashbin_loading_failed">Ngarkimi i koshit të plehrave nuk u arrit!</string>
@@ -717,13 +704,9 @@
     <string name="unread_comments">Ekzistojnë komente të palexuara</string>
     <string name="unset_encrypted">Hiq enkriptimin</string>
     <string name="unset_favorite">Hiqe nga të parapëlqyerat</string>
-    <string name="unshare_link_file_error">Ndodhi një gabim teksa përpiqej të zhbëhej ndarja me të tjerët e këtij skedari apo dosjeje</string>
-    <string name="unshare_link_file_no_exist">S\’arrin të zhbëjë ndarjen me të tjerët. Ju lutemi, kontrolloni nëse skedari ekziston</string>
     <string name="unshare_link_forbidden_permissions">për zhbërje të ndarjes me të tjerët të kësaj kartele</string>
     <string name="unsharing_failed">Mos ndarja dështoi</string>
     <string name="untrusted_domain">Aksesi nëpërmjet një domaini jo të besuar. Ju lutem shikoni dokumentimin për info të mëtejshme. </string>
-    <string name="update_link_file_error">Ndodhi një gabim teksa provohej të përditësohej ndarja</string>
-    <string name="update_link_file_no_exist">Në pamundësi për ta rinovuar. Ju lutem kontrolloni nëse dosja ekziston </string>
     <string name="update_link_forbidden_permissions">që të përditësohet kjo ndarje</string>
     <string name="updating_share_failed">Duke përditësuar ndarjet e dështuara</string>
     <string name="upload_cannot_create_file">Nuk mund të krijohet skedar lokal</string>

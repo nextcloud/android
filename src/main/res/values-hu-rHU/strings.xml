@@ -43,7 +43,6 @@
     <string name="auth_check_server">Kiszolgáló-ellenőrzés</string>
     <string name="auth_connection_established">A kapcsolat létrejött</string>
     <string name="auth_expired_basic_auth_toast">Adja meg a jelenlegi jelszavát</string>
-    <string name="auth_fail_get_user_name">A kiszolgálója nem megfelelő felhasználói azonosítót ad vissza, lépjen kapcsolatba egy rendszergazdával</string>
     <string name="auth_host_address">Kiszolgálócím</string>
     <string name="auth_host_url">Kiszolgáló cím https://…</string>
     <string name="auth_illegal_login_used">Érvénytelen bejelentkezési URL</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">A %1$s nem támogat több fiókot</string>
     <string name="auth_username">Felhasználónév</string>
     <string name="auth_wrong_connection_title">A kapcsolat létrehozása sikertelen</string>
-    <string name="auth_wtf_reenter_URL">Váratlan állapot, adja meg újra a kiszolgáló címét</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">megtartva az eredeti mappában, mivel csak olvasható</string>
     <string name="auto_upload_on_wifi">Feltöltés csak forgalomkorlát nélküli Wi-Fin</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Ez tartalmazza az összes új funkciót, és nem stabil. Hibák előfordulhatnak, így ha ilyen történik, akkor jelentse azokat.</string>
     <string name="community_contribute_forum_forum">fórumban</string>
     <string name="community_contribute_forum_text">Segítsen másoknak a</string>
-    <string name="community_contribute_github_text">Ellenőrizze, módosítsa és írjon kódot, a részletekért lásd: %1$s</string>
     <string name="community_contribute_headline">Működjön közre aktívan</string>
     <string name="community_contribute_irc_text">Csatlakozzon a csevegéshez IRC-n:</string>
     <string name="community_contribute_translate_text">az alkalmazást</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Hiba történt a fájl vagy mappa másolása közben</string>
     <string name="copy_file_invalid_into_descendent">Nem másolható egy mappa a saját almappájába</string>
     <string name="copy_file_invalid_overwrite">A fájl már létezik a célmappában</string>
-    <string name="copy_file_not_found">Nem lehet másolni. Ellenőrizze, hogy létezik-e a fájl</string>
     <string name="copy_link">Hivatkozás másolása</string>
     <string name="copy_move_to_encrypted_folder_not_supported">A titkosított mappába másolás/áthelyezés jelenleg nem támogatott.</string>
     <string name="copy_to">Másolás ide…</string>
@@ -288,7 +284,6 @@
     <string name="file_list_empty">Töltsön fel új tartalmat vagy szinkronizáljon az eszközeivel</string>
     <string name="file_list_empty_favorite_headline">Még nincsenek kedvencek</string>
     <string name="file_list_empty_favorites_filter">A keresés nem talált kedvenc fájlokat.</string>
-    <string name="file_list_empty_favorites_filter_list">Azon fájlok és mappák, amiket kedvencnek jelöl, itt fognak megjelenni</string>
     <string name="file_list_empty_headline">Itt nincsenek fájlok</string>
     <string name="file_list_empty_headline_search">Nincs találat ebben a mappában</string>
     <string name="file_list_empty_headline_server_search">Nincs találat</string>
@@ -300,7 +295,6 @@
     <string name="file_list_empty_recently_modified">Nem található az utóbbi 7 napban módosított fájl</string>
     <string name="file_list_empty_recently_modified_filter">Nincsenek 7 napon belül módosított fájlok.</string>
     <string name="file_list_empty_search">Lehet, hogy másik mappában található?</string>
-    <string name="file_list_empty_shared">Az Ön által megosztott fájlok és mappák itt jelennek meg</string>
     <string name="file_list_empty_shared_headline">Még semmi sincs megosztva</string>
     <string name="file_list_empty_text_photos">Töltsön fel néhány fényképet, vagy aktiválja az automatikus feltöltést.</string>
     <string name="file_list_empty_text_photos_filter">Nincsenek fotók.</string>
@@ -418,12 +412,8 @@
     <string name="move_file_error">Hiba történt a fájl vagy mappa áthelyezése közben</string>
     <string name="move_file_invalid_into_descendent">Nem helyezhető át egy mappa a saját almappájába</string>
     <string name="move_file_invalid_overwrite">A fájl már létezik a célmappában</string>
-    <string name="move_file_not_found">A fájl nem helyezhető át. Ellenőrizze, hogy létezik-e</string>
     <string name="move_to">Áthelyezés ide…</string>
-    <string name="network_error_connect_timeout_exception">Hiba történt a kiszolgálóra várakozás közben. A művelet nem teljesíthető.</string>
     <string name="network_error_socket_exception">Hiba történt a kiszolgálóhoz kapcsolódás közben.</string>
-    <string name="network_error_socket_timeout_exception">Hiba történt a kiszolgálóra várakozás közben. A művelet nem teljesíthető.</string>
-    <string name="network_host_not_available">A művelet nem végezhető el. A kiszolgáló nem érhető el</string>
     <string name="new_comment">Új hozzászólás…</string>
     <string name="new_media_folder_detected">Új %1$s médiamappa észlelhető.</string>
     <string name="new_media_folder_photos">fénykép</string>
@@ -590,8 +580,6 @@
     <string name="share_internal_link_to_folder_text">A belső megosztási hivatkozás csak azon felhasználóknál működik, akik hozzáférnek ehhez a mappához</string>
     <string name="share_known_remote_clarification">%1$s ( itt: %2$s )</string>
     <string name="share_link_empty_password">Meg kell adnia a jelszót</string>
-    <string name="share_link_file_error">Hiba történt a fájl vagy mappa megosztásakor</string>
-    <string name="share_link_file_no_exist">A megosztás sikertelen. Ellenőrizze, hogy a fájl létezik-e</string>
     <string name="share_link_forbidden_permissions">fájl megosztása</string>
     <string name="share_link_optional_password_title">Adjon meg egy jelszót (nem kötelező)</string>
     <string name="share_link_password_title">Adja meg a jelszót</string>
@@ -733,7 +721,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="timeout_richDocuments">A betöltés sokáig tart…</string>
     <string name="trashbin_activity_title">Törölt fájlok</string>
     <string name="trashbin_empty_headline">Nincs törölt fájl</string>
-    <string name="trashbin_empty_message">Innen vissza tudja állítani a törölt fájljait</string>
     <string name="trashbin_file_not_deleted">A(z) %1$s fájl nem törölhető!</string>
     <string name="trashbin_file_not_restored">A(z) %1$s fájl nem állítható vissza!</string>
     <string name="trashbin_loading_failed">Hiba a kuka betöltésekor!</string>
@@ -741,13 +728,9 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="unread_comments">Olvasatlan hozzászólások vannak</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>
     <string name="unset_favorite">Eltávolítás a kedvencekből</string>
-    <string name="unshare_link_file_error">Hiba történt a mappa megosztásának visszavonásakor</string>
-    <string name="unshare_link_file_no_exist">A megosztás visszavonása sikertelen. Ellenőrizze, hogy a fájl létezik-e</string>
     <string name="unshare_link_forbidden_permissions">fájl megosztásának visszavonása</string>
     <string name="unsharing_failed">A megosztás visszavonása sikertelen</string>
     <string name="untrusted_domain">Nem megbízható domainen keresztüli elérés. További információkért tekintse meg a dokumentációt.</string>
-    <string name="update_link_file_error">Hiba történt a megosztás frissítése közben</string>
-    <string name="update_link_file_no_exist">Nem lehet frissíteni. Ellenőrizze, hogy a fájl létezik-e</string>
     <string name="update_link_forbidden_permissions">megosztás frissítése</string>
     <string name="updating_share_failed">A megosztás frissítése sikertelen</string>
     <string name="upload_cannot_create_file">A helyi fájlt nem lehet létrehozni</string>

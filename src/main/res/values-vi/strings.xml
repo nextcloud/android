@@ -178,7 +178,6 @@
     <string name="file_list_empty">Tải lên một số nội dung hoặc đồng bộ với thiết bị của bạn.</string>
     <string name="file_list_empty_favorite_headline">Không có mục ưa thích nào</string>
     <string name="file_list_empty_favorites_filter">Kết quả tìm kiếm không trả về các tệp ưa thích.</string>
-    <string name="file_list_empty_favorites_filter_list">Những tệp và thư mục mà bạn đánh dấu là mục ưa thích sẽ hiển thị ở đây</string>
     <string name="file_list_empty_headline">Không có tệp nào</string>
     <string name="file_list_empty_headline_search">Không có kết quả trong thư mục này</string>
     <string name="file_list_empty_headline_server_search">Không có kết quả</string>
@@ -190,7 +189,6 @@
     <string name="file_list_empty_recently_modified">Không tìm thấy tệp nào được sửa đổi trong 7 ngày qua</string>
     <string name="file_list_empty_recently_modified_filter">Không tệp nào được sửa đổi trong 7 ngày qua</string>
     <string name="file_list_empty_search">Có lẽ nó trong một thư mục khác?</string>
-    <string name="file_list_empty_shared">Tập tin và thư mục bạn chia sẻ sẽ được hiển thị tại đây.</string>
     <string name="file_list_empty_shared_headline">Chưa có gì được chia sẻ</string>
     <string name="file_list_empty_text_photos">Tải lên một số ảnh hoặc kích hoạt tự động tải lên.</string>
     <string name="file_list_empty_text_photos_filter">Không có hình ảnh</string>
@@ -357,7 +355,6 @@
     <string name="share_file">Chia sẽ %1$s</string>
     <string name="share_get_public_link_button">Lấy liên kết</string>
     <string name="share_link_empty_password">Bạn hãy nhập một mật khẩu</string>
-    <string name="share_link_file_error">Một lỗi đã xảy ra khi thử chia sẻ file hoặc thư mục này</string>
     <string name="share_link_forbidden_permissions">chia sẽ tập tin này</string>
     <string name="share_link_password_title">Nhập mật khẩu</string>
     <string name="share_no_expiration_date_label">Đặt ngày hết hạn</string>
@@ -436,11 +433,9 @@
     <string name="test_server_button">Kiểm tra kết nối máy chủ</string>
     <string name="trashbin_activity_title">File đã bị xóa</string>
     <string name="trashbin_empty_headline">Không có file đã xóa</string>
-    <string name="trashbin_empty_message">Bạn có thể khôi phục dữ liệu đã xóa tại đây</string>
     <string name="trashbin_loading_failed">Tải dữ liệu ở thùng rác bị lỗi!</string>
     <string name="unset_encrypted">Bỏ đặt mã hóa</string>
     <string name="unset_favorite">Xóa khỏi ưa thích</string>
-    <string name="unshare_link_file_error">Một lỗi đã xảy ra khi thử gỡ chia sẻ file hoặc thư mục này</string>
     <string name="unshare_link_forbidden_permissions">bỏ chia sẽ tập tin này</string>
     <string name="update_link_forbidden_permissions">cập nhật chia sẽ này</string>
     <string name="upload_chooser_title">Tải lên từ…</string>

@@ -43,7 +43,6 @@
     <string name="auth_check_server">Preveri strežnik</string>
     <string name="auth_connection_established">Povezava je vzpostavljena</string>
     <string name="auth_expired_basic_auth_toast">Vpišite trenutno geslo</string>
-    <string name="auth_fail_get_user_name">Strežnik ne vrne ustreznega ID uporabnika. Stopite v stik s skrbnikom sistema.</string>
     <string name="auth_host_address">Naslov strežnika</string>
     <string name="auth_host_url">Naslov strežnika https:// …</string>
     <string name="auth_illegal_login_used">Uporabljen je neveljaven naslov s prijavnimi podatki</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
     <string name="auth_username">Uporabniško ime</string>
     <string name="auth_wrong_connection_title">Ni mogoče vzpostaviti povezave</string>
-    <string name="auth_wtf_reenter_URL">Nepričakovano stanje. Znova vpiši podatke strežnika.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ohranjeno v izvorni mapi, ker je ta le za branje</string>
     <string name="auto_upload_on_wifi">Pošiljaj le na nemerjeni povezavi Wi-Fi</string>
     <string name="auto_upload_path">/SamodejnoPošiljanje</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">To vključuje vse prihajajoče zmožnosti programa. Hrošči in napake se pojavljajo in ko se, je priporočljivo poslati poročilo za razhroščevanje.</string>
     <string name="community_contribute_forum_forum">forumu</string>
     <string name="community_contribute_forum_text">Pomoč uporabnikom na</string>
-    <string name="community_contribute_github_text">Preglejte, razvijajte in dopolnite kodo ... več o tem na %1$s</string>
     <string name="community_contribute_headline">Dejaven doprinos</string>
     <string name="community_contribute_irc_text">Pridružite se klepetu na kanalu IRC:</string>
     <string name="community_contribute_translate_text">programa</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Prišlo je do napake med kopiranjem datoteke v mapo</string>
     <string name="copy_file_invalid_into_descendent">Ni mogoče kopirati mape v podrejeno mapo</string>
     <string name="copy_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja</string>
-    <string name="copy_file_not_found">Kopiranje ni mogoče. Preverite, ali datoteka obstaja.</string>
     <string name="copy_link">Kopiraj povezavo</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiranje/Premikanje predmetov v šifrirano mapo trenutno ni podprto.</string>
     <string name="copy_to">Kopiraj v ...</string>
@@ -266,6 +262,7 @@
     <string name="etm_background_jobs">Opravila v ozadju</string>
     <string name="etm_background_jobs_cancel_all">Prekliči vse posle</string>
     <string name="etm_background_jobs_prune">Obreži nedejavna opravila</string>
+    <string name="etm_background_jobs_schedule_test_job">Načrtovano preizkusno opravilo</string>
     <string name="etm_background_jobs_start_test_job">Začni preizkusno opravilo</string>
     <string name="etm_background_jobs_stop_test_job">Zaustavi preizkusno opravilo</string>
     <string name="etm_migrations">Preselitev (posodobitev programa)</string>
@@ -287,7 +284,6 @@
     <string name="file_list_empty">Pošljite nekaj datotek v oblak, ali pa uskladite vsebino z drugimi napravami.</string>
     <string name="file_list_empty_favorite_headline">Ni datotek, označenih kot priljubljene</string>
     <string name="file_list_empty_favorites_filter">Iskanje ni vrnilo zadetkov iskanja.</string>
-    <string name="file_list_empty_favorites_filter_list">Datoteke ali mape, označene kot priljubljene, bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_headline">Ni datotek</string>
     <string name="file_list_empty_headline_search">V tej mapi ni rezultatov</string>
     <string name="file_list_empty_headline_server_search">Ni rezultatov</string>
@@ -299,7 +295,6 @@
     <string name="file_list_empty_recently_modified">Ni datotek, spremenjenih v zadnjih 7. dneh</string>
     <string name="file_list_empty_recently_modified_filter">V zadnjih 7. dneh ni bila spremenjena nobena datoteka.</string>
     <string name="file_list_empty_search">Mogoče v drugi mapi?</string>
-    <string name="file_list_empty_shared">Datoteke in mape v souporabi bodo zbrane na tem mestu</string>
     <string name="file_list_empty_shared_headline">Ni še datotek v souporabi</string>
     <string name="file_list_empty_text_photos">Pošljite kakšno sliko, ali pa omogočite samodejno nalaganje.</string>
     <string name="file_list_empty_text_photos_filter">Ni slik in fotografij.</string>
@@ -417,12 +412,8 @@
     <string name="move_file_error">Prišlo je do napake med premikanjem datoteke v mapo</string>
     <string name="move_file_invalid_into_descendent">Ni mogoče premakniti mape v podrejeno mapo</string>
     <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja</string>
-    <string name="move_file_not_found">Ni mogoče premakniti datoteke. Preveri, ali obstaja.</string>
     <string name="move_to">Premakni v …</string>
-    <string name="network_error_connect_timeout_exception">Prišlo je do napake med čakanjem odziva strežnika. Opravila ni mogoče končati.</string>
     <string name="network_error_socket_exception">Med povezovanjem s strežnikom je prišlo do napake.</string>
-    <string name="network_error_socket_timeout_exception">Prišlo je do napake med čakanjem na strežnik. Opravila ni mogoče končati.</string>
-    <string name="network_host_not_available">Zahtevanega dejanja ni bilo mogoče končati. Strežnik ni dosegljiv</string>
     <string name="new_comment">Nova opomba …</string>
     <string name="new_media_folder_detected">Zaznana je nova mapa s predstavno vsebino: %1$s .</string>
     <string name="new_media_folder_photos">slika</string>
@@ -588,8 +579,6 @@
     <string name="share_internal_link_to_folder_text">Notranja povezava mesta souporabe deluje le za uporabnike z dostopom do mape.</string>
     <string name="share_known_remote_clarification">%1$s ( pri %2$s )</string>
     <string name="share_link_empty_password">Vpisati je treba geslo.</string>
-    <string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
-    <string name="share_link_file_no_exist">Souporaba ni mogoča. Preverite, ali datoteka obstaja.</string>
     <string name="share_link_forbidden_permissions">za omogočanje souporabe datoteke.</string>
     <string name="share_link_optional_password_title">Vpis gesla na željo</string>
     <string name="share_link_password_title">Vpis gesla</string>
@@ -672,7 +661,7 @@
     <string name="store_full_desc">Okolje, ki gostuje, kjer vi želite, in vam omogoča nadzor.\n\n Možnosti:\n* Enostaven za uporabo in sodoben vmesnik, ki je skladen z vašim strežnikom\n* Omogoča nalaganje datotek v oblak Nextcloud\n* Omogoča izmenjavo datotek z drugimi\n* Ohrani vaše datoteke in mape vedno usklajene\n * Podpira iskanje po vseh dodeljenih mapah na strežniku\n * Podpira samodejno nalaganje fotografij in videoposnetkov z naprave\n * Usklajuje in posreduje obvestila\n * Podpora je uporaba več računov\n* Zagotavlja varen dostop do podatkov s prstnim odtisom ali kodo PIN\n * Izvorno podpira sistem DAVx5 (poznan kot DAVdroid) za enostavno nastavitev usklajevanja koledarja in stikov\n\nPoročila o težavah je mogoče poslati na https://github.com/nextcloud/android/isissue in o programu razpravljati na https://help.nextcloud.com/c/clients/android\n\nAli šele spoznavate oblak Nextcloud? To je je zasebni strežnik za usklajevanje in sporočanje. Je brezplačna programska oprema, ki jo lahko namestite na svojem strežniku ali gostujete pri številnih ponudnikih. Vedno imate nadzor nad fotografijami, koledarjem in podatki stikov, nad dokumenti in vsem drugim.\n\nVse o Nextcloud izveste na https://nextcloud.com.</string>
     <string name="store_full_dev_desc">Okolje, ki vam omogoči nadzor nad datotekami.\nUporabljate uradno razvojno različico, ki omogoča zagon nepreizkušene, dnevno spreminjajoče se kode, ta pa lahko povzroči nestabilnost in izgubo podatkov. Program je namenjen uporabnikom, ki so pripravljeni preizkušati novosti, poročati o težavah in iskati napake. Programa ni priporočljivo uporabiti za resno delo!\n\nObe različici, stabilna in razvojna, sta na voljo na F-droid in ju je mogoče uporabljati nameščeni sočasno.</string>
     <string name="store_short_desc">Samo-gostujoče produkcijsko okolje pod vašim nadzorom.</string>
-    <string name="store_short_dev_desc">Samo-gostujoče produkcijsko okolje pod vašim nadzorom. (razvojna predogledna različica)</string>
+    <string name="store_short_dev_desc">Samo-gostujoče produkcijsko okolje pod vašim nadzorom (razvojna predogledna različica).</string>
     <string name="stream">Pretakaj s programom ...</string>
     <string name="stream_not_possible_headline">Notranji pretok ni mogoč</string>
     <string name="stream_not_possible_message">Poskusite prejeti predstavno vsebino, ali pa uporabiti zunanji program.</string>
@@ -713,7 +702,6 @@
     <string name="timeout_richDocuments">Nalaganje poteka nepričakovano dolgo ...</string>
     <string name="trashbin_activity_title">Izbrisane datoteke</string>
     <string name="trashbin_empty_headline">Ni izbrisanih datotek</string>
-    <string name="trashbin_empty_message">Izbrisane datoteke je mogoče tudi povrniti.</string>
     <string name="trashbin_file_not_deleted">Datoteke %1$s ni mogoče izbrisati!</string>
     <string name="trashbin_file_not_restored">Datoteke %1$s ni mogoče obnoviti!</string>
     <string name="trashbin_loading_failed">Nalaganje smeti je spodletelo!</string>
@@ -721,13 +709,9 @@
     <string name="unread_comments">Obstajajo so neprebrane opombe</string>
     <string name="unset_encrypted">Odstrani šifriranje</string>
     <string name="unset_favorite">Odstrani iz priljubljenih</string>
-    <string name="unshare_link_file_error">Prišlo je do napake med poskusom odstranjevanja souporabe te datoteke ali mape</string>
-    <string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
     <string name="unshare_link_forbidden_permissions">za preklic souporabe datoteke.</string>
     <string name="unsharing_failed">Odstranjevanje souporabe je spodletelo</string>
     <string name="untrusted_domain">Zaznan je dostop prek domene, ki ni zaupanja vredna. Več podrobnosti je zapisanih v dokumentaciji.</string>
-    <string name="update_link_file_error">Prišlo je do napake med posodabljanjem mesta souporabe</string>
-    <string name="update_link_file_no_exist">Posodobitev ni mogoča. Preveri, ali datoteka obstaja.</string>
     <string name="update_link_forbidden_permissions">za posodobitev mesta souporabe</string>
     <string name="updating_share_failed">Posodabljanje mesta souporabe je spodletelo</string>
     <string name="upload_cannot_create_file">Krajevne datoteke ni mogoče ustvariti</string>
@@ -825,6 +809,12 @@
         <item quantity="two">Ni mogoče uskladiti %1$d datotek (spori: %2$d)</item>
         <item quantity="few">Ni mogoče uskladiti %1$d datotek (spori: %2$d)</item>
         <item quantity="other">Ni mogoče uskladiti %1$d datotek (spori: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="one">Spodletelo je kopiranje %1$d datoteke iz mape %2$s v</item>
+        <item quantity="two">Spodletelo je kopiranje %1$d datotek iz mape %2$s v</item>
+        <item quantity="few">Spodletelo je kopiranje %1$d datotek iz mape %2$s v</item>
+        <item quantity="other">Spodletelo je kopiranje %1$d datotek iz mape %2$s v</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mapa</item>
