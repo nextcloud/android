@@ -703,6 +703,7 @@
     <string name="timeout_richDocuments">Yükleme işlemi çok zaman alıyor …</string>
     <string name="trashbin_activity_title">Silinmiş dosyalar</string>
     <string name="trashbin_empty_headline">Silinmiş bir dosya yok</string>
+    <string name="trashbin_empty_message">Silinen dosyalarınızı buradan kurtarabilirsiniz.</string>
     <string name="trashbin_file_not_deleted">%1$s dosyası silinemedi!</string>
     <string name="trashbin_file_not_restored">%1$s dosyası geri yüklenemedi!</string>
     <string name="trashbin_loading_failed">Çöp kutusu yüklenemedi!</string>
@@ -799,6 +800,7 @@
     <string name="userinfo_no_info_text">Profil sayfanızdan ad, görsel ve iletişim bilgilerinizi ekleyin.</string>
     <string name="username">Kullanıcı adı</string>
     <string name="version_dev_download">İndir</string>
+    <string name="view_profile">Profili görüntüle</string>
     <string name="wait_a_moment">Lütfen bekleyin …</string>
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
