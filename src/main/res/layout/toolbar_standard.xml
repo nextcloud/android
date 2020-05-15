@@ -56,16 +56,6 @@
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar" />
 
-        <ProgressBar
-            android:id="@+id/toolbar_progressBar"
-            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
-            android:layout_marginTop="-7dp"
-            android:layout_marginBottom="-7dp"
-            android:indeterminate="true"
-            android:visibility="gone" />
     </RelativeLayout>
 
     <include layout="@layout/info_box" />
