@@ -25,7 +25,6 @@ package com.owncloud.android.ui.activity;
 import android.animation.AnimatorInflater;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +32,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -54,19 +54,17 @@ import androidx.core.view.ViewCompat;
  * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean)}.
  */
 public abstract class ToolbarActivity extends BaseActivity {
-    private AppBarLayout mAppBar;
-
-    private RelativeLayout mDefaultToolbar;
-
-    private MaterialCardView mHomeSearchToolbar;
     protected MaterialButton mMenuButton;
     protected MaterialTextView mSearchText;
     protected MaterialButton mSwitchAccountButton;
+
+    private AppBarLayout mAppBar;
+    private RelativeLayout mDefaultToolbar;
+    private MaterialCardView mHomeSearchToolbar;
     private ImageView mPreviewImage;
     private FrameLayout mPreviewImageContainer;
     private LinearLayout mInfoBox;
     private TextView mInfoBoxMessage;
-
     private boolean isHomeSearchToolbarShow = false;
 
     @Override
