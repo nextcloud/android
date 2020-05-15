@@ -1,4 +1,4 @@
-name: KtLint
+name: Detekt
 
 on:
     push:
@@ -7,7 +7,7 @@ on:
         branches: [ master ]
 
 jobs:
-  ktlint:
+  detekt:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,5 +16,5 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Runt ktlint
-      run: ./gradlew ktlint
+    - name: Runt detekt
+      run: ./gradlew detekt
