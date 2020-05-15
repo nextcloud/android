@@ -70,7 +70,7 @@ class AccountRemovalWork(
     private val backgroundJobManager: BackgroundJobManager,
     private val clock: Clock,
     private val eventBus: EventBus
-) : Worker(context, params) {
+                        ) : Worker(context, params) {
 
     companion object {
         const val TAG = "AccountRemovalJob"
