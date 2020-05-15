@@ -472,7 +472,13 @@ public final class ThemeUtils {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 View decor = window.getDecorView();
                 if (isLightTheme) {
-                    decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    int systemUiFlagLightStatusBar;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        systemUiFlagLightStatusBar = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+                    } else {
+                        systemUiFlagLightStatusBar = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    }
+                    decor.setSystemUiVisibility(systemUiFlagLightStatusBar);
                 } else {
                     decor.setSystemUiVisibility(0);
                 }

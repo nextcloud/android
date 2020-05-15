@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar.DrawerBase">
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:navigationBarColor">@color/bg_default</item>
+    </style>
+</resources>
