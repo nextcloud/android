@@ -28,7 +28,6 @@ import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -69,7 +68,6 @@ import javax.inject.Inject;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
@@ -154,7 +152,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             ThemeUtils.setColoredTitle(getSupportActionBar(), caption, this);
         }
 
-        showProgressBar(mSyncInProgress);
         // always AFTER setContentView(...) ; to work around bug in its implementation
 
         // sets message for empty list of folders
@@ -265,7 +262,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                                                             getApplicationContext());
 
         refreshFolderOperation.execute(getAccount(), this, null, null);
-        showProgressBar(true);
+        getListOfFilesFragment().setLoading(true);
         setBackgroundText();
     }
 
@@ -273,6 +270,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     protected void onResume() {
         super.onResume();
         Log_OC.e(TAG, "onResume() start");
+        getListOfFilesFragment().setLoading(mSyncInProgress);
+
 
         // refresh list of files
         refreshListOfFilesFragment(false);
@@ -544,7 +543,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                     DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
 
-                    showProgressBar(mSyncInProgress);
+                    getListOfFilesFragment().setLoading(mSyncInProgress);
 
                     setBackgroundText();
                 }
