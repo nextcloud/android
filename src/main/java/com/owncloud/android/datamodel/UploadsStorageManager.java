@@ -39,7 +39,10 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Observable;
 
 import androidx.annotation.Nullable;
@@ -284,35 +287,78 @@ public class UploadsStorageManager extends Observable {
     }
 
     private OCUpload[] getUploads(@Nullable String selection, @Nullable String... selectionArgs) {
-        OCUpload[] list;
+        ArrayList<OCUpload> uploads = new ArrayList<>();
+        final long pageSize = 100;
+        long page = 0;
+        long rowsRead;
+        long rowsTotal = 0;
+        long lastRowID = -1;
 
-        Cursor c = getDB().query(
+        do {
+            String pageSelection = selection;
+            String[] pageSelectionArgs = selectionArgs;
+            if (page > 0 && lastRowID >= 0) {
+                if (selection != null) {
+                    pageSelection = "(" + selection + ") AND _id < ?";
+                } else {
+                    pageSelection = "_id < ?";
+                }
+                if (selectionArgs != null) {
+                    pageSelectionArgs = Arrays.copyOf(selectionArgs, selectionArgs.length + 1);
+                } else {
+                    pageSelectionArgs = new String[1];
+                }
+                pageSelectionArgs[pageSelectionArgs.length - 1] = String.valueOf(lastRowID);
+                Log_OC.d(TAG, String.format(Locale.ENGLISH, "QUERY: %s ROWID: %d", pageSelection, lastRowID));
+            } else {
+                Log_OC.d(TAG, String.format(Locale.ENGLISH, "QUERY: %s ROWID: %d", selection, lastRowID));
+            }
+            rowsRead = 0;
+
+            Cursor c = getDB().query(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
                 null,
-                selection,
-                selectionArgs,
-                null
-        );
+                pageSelection,
+                pageSelectionArgs,
+                String.format(Locale.ENGLISH, "_id DESC LIMIT %d", pageSize)
+                                    );
 
-        if (c != null) {
-            list = new OCUpload[c.getCount()];
-
-            if (c.moveToFirst()) {
-                do {
-                    OCUpload upload = createOCUploadFromCursor(c);
-                    if (upload == null) {
-                        Log_OC.e(TAG, "OCUpload could not be created from cursor");
-                    } else {
-                        list[c.getPosition()] = upload;
-                    }
-                } while (c.moveToNext() && !c.isAfterLast());
+            if (c != null) {
+                if (c.moveToFirst()) {
+                    do {
+                        rowsRead++;
+                        rowsTotal++;
+                        lastRowID = c.getLong(c.getColumnIndex(ProviderTableMeta._ID));
+                        OCUpload upload = createOCUploadFromCursor(c);
+                        if (upload == null) {
+                            Log_OC.e(TAG, "OCUpload could not be created from cursor");
+                        } else {
+                            uploads.add(upload);
+                        }
+                    } while (c.moveToNext() && !c.isAfterLast());
+                }
+                c.close();
+                Log_OC.v(TAG, String.format(Locale.ENGLISH,
+                                            "getUploads() got %d rows from page %d, %d rows total so far, last ID %d",
+                                            rowsRead,
+                                            page,
+                                            rowsTotal,
+                                            lastRowID
+                                           ));
+                page += 1;
+            } else {
+                break;
             }
-            c.close();
-        } else {
-            list = new OCUpload[0];
-        }
+        } while (rowsRead > 0);
 
-        return list;
+        Log_OC.v(TAG, String.format(Locale.ENGLISH,
+                                    "getUploads() returning %d (%d) rows after reading %d pages",
+                                    rowsTotal,
+                                    uploads.size(),
+                                    page
+                                   ));
+
+        return uploads.toArray(new OCUpload[0]);
     }
 
     private OCUpload createOCUploadFromCursor(Cursor c) {
