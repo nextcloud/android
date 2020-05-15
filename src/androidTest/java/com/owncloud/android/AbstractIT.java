@@ -135,6 +135,10 @@ public abstract class AbstractIT {
         return new FileDataStorageManager(account, targetContext.getContentResolver());
     }
 
+    protected Account[] getAllAccounts() {
+        return AccountManager.get(targetContext).getAccounts();
+    }
+
     private static void createDummyFiles() throws IOException {
         new File(FileStorageUtils.getSavePath(account.name)).mkdirs();
 
