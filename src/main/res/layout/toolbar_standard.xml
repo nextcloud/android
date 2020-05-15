@@ -117,17 +117,18 @@
                 app:layout_constraintRight_toLeftOf="@id/switch_account_button"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.button.MaterialButton
+            <ImageView
                 android:id="@+id/switch_account_button"
                 style="@style/Widget.AppTheme.Button.IconButton"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginEnd="8dp"
-                app:cornerRadius="@dimen/button_corner_radius"
-                app:iconSize="28dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:src="@drawable/account_circle_white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/common_choose_account" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

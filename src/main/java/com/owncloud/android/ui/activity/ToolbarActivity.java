@@ -63,7 +63,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     private MaterialCardView mHomeSearchToolbar;
     protected MaterialButton mMenuButton;
     protected MaterialTextView mSearchText;
-    protected MaterialButton mSwitchAccountButton;
+    protected ImageView mSwitchAccountButton;
 
     private ProgressBar mProgressBar;
     private ImageView mPreviewImage;
