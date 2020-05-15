@@ -31,14 +31,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/navigation_bar"
-            layout="@layout/toolbar_standard"/>
+        <include layout="@layout/toolbar_standard" />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/navigation_bar">
+            android:layout_below="@id/appbar">
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_containing_list"

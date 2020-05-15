@@ -138,6 +138,8 @@ public class NotificationsActivity extends FileActivity implements Notifications
         // setup toolbar
         setupToolbar();
 
+        updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_notifications));
+
         swipeEmptyListRefreshLayout = findViewById(R.id.swipe_containing_empty);
         swipeListRefreshLayout = findViewById(R.id.swipe_containing_list);
         ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
@@ -145,7 +147,6 @@ public class NotificationsActivity extends FileActivity implements Notifications
 
         // setup drawer
         setupDrawer(R.id.nav_notifications);
-        ThemeUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_item_notifications), this);
 
         if (!optionalUser.isPresent()) {
             // show error
