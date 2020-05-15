@@ -43,6 +43,7 @@
     <string name="auth_check_server">Comprobar o servidor</string>
     <string name="auth_connection_established">Estabeleceuse a conexión</string>
     <string name="auth_expired_basic_auth_toast">Introduza o seu contrasinal actual</string>
+    <string name="auth_fail_get_user_name">O seu servidor non está devolvendo unha identificación de usuario correcta; contacte cun administrador.</string>
     <string name="auth_host_address">Enderezo do servidor</string>
     <string name="auth_host_url">Enderezo do servidor https://…</string>
     <string name="auth_illegal_login_used">Usouse un URL de datos de acceso ilegal</string>
@@ -70,6 +71,7 @@
     <string name="auth_unsupported_multiaccount">%1$s non admite contas múltipes</string>
     <string name="auth_username">Nome de usuario</string>
     <string name="auth_wrong_connection_title">Non foi posíbel estabelecer a conexión</string>
+    <string name="auth_wtf_reenter_URL">Estado non agardado; introduza de novo o enderezo do servidor.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
     <string name="auto_upload_on_wifi">Enviar só con WiFi sen límite de datos</string>
     <string name="auto_upload_path">/EnvíoAutomático</string>
@@ -118,6 +120,7 @@
     <string name="community_beta_text">Isto inclúe todas as últimas funcionalidades por chegar e é bastante inestábel. Poden ocorrer fallos e erros e, cando sexa o caso, infórmenos diso.</string>
     <string name="community_contribute_forum_forum">foro</string>
     <string name="community_contribute_forum_text">Axude a outros no</string>
+    <string name="community_contribute_github_text">Revise, corrixa e escriba código, vexa %1$s para obter máis detalles.</string>
     <string name="community_contribute_headline">Colabore activamente</string>
     <string name="community_contribute_irc_text">Únase á conversa no IRC:</string>
     <string name="community_contribute_translate_text">a aplicación</string>
@@ -161,6 +164,7 @@
     <string name="copy_file_error">Produciuse un erro ao tentar copiar este ficheiro ou cartafol.</string>
     <string name="copy_file_invalid_into_descendent">Non é posíbel copiar un cartafol nun dos seus propios subcartafoles</string>
     <string name="copy_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
+    <string name="copy_file_not_found">Non se puido copiar. Comprobe que o ficheiro existe.</string>
     <string name="copy_link">Copiar a ligazón</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover dentro dun cartafol cifrado aínda non está admitido.</string>
     <string name="copy_to">Copiar en…</string>
@@ -284,6 +288,7 @@
     <string name="file_list_empty">Envíe algún contido ou sincronice cos seus dispositivos.</string>
     <string name="file_list_empty_favorite_headline">Aínda non hai nada marcado como favorito</string>
     <string name="file_list_empty_favorites_filter">A súa b usca non atopou ningún ficheiro favorito.</string>
+    <string name="file_list_empty_favorites_filter_list">Aquí amosaranse os ficheiros e cartafoles que marque como favoritos.</string>
     <string name="file_list_empty_headline">Aquí non hai ficheiros</string>
     <string name="file_list_empty_headline_search">Non hai resultados neste cartafol</string>
     <string name="file_list_empty_headline_server_search">Sen resultados</string>
@@ -295,6 +300,7 @@
     <string name="file_list_empty_recently_modified">Non se atoparon ficheiros modificados nos últimos 7 días.</string>
     <string name="file_list_empty_recently_modified_filter">Non hai ficheiros modificados nos últimos 7 días.</string>
     <string name="file_list_empty_search">Quizáis estea nun cartafol diferente?</string>
+    <string name="file_list_empty_shared">Aquí amosaranse os ficheiros e cartafoles que comparta.</string>
     <string name="file_list_empty_shared_headline">Aínda non hai nada compartido</string>
     <string name="file_list_empty_text_photos">Envíe algunhas fotos ou active o envío automático.</string>
     <string name="file_list_empty_text_photos_filter">Non hai fotos.</string>
@@ -412,8 +418,12 @@
     <string name="move_file_error">Produciuse un erro ao tentar mover este ficheiro ou cartafol</string>
     <string name="move_file_invalid_into_descendent">Non é posíbel mover un cartafol cara a un dos seus propios subcartafoles</string>
     <string name="move_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
+    <string name="move_file_not_found">Non se puido mover o ficheiro. Comprobe que existe.</string>
     <string name="move_to">Mover a…</string>
+    <string name="network_error_connect_timeout_exception">Produciuse un erro agardando a resposta do servidor. Non foi posíbel completar a operación.</string>
     <string name="network_error_socket_exception">Produciuse un erro durante a conexión co servidor</string>
+    <string name="network_error_socket_timeout_exception">Produciuse un erro agardando a resposta do servidor. Non foi posíbel completar a operación.</string>
+    <string name="network_host_not_available">Non foi posíbel completar a operación. O servidor non está dispoñíbel.</string>
     <string name="new_comment">Comentario novo…</string>
     <string name="new_media_folder_detected">Detectouse un novo cartafol de medios %1$s</string>
     <string name="new_media_folder_photos">foto</string>
@@ -581,6 +591,8 @@
     <string name="share_internal_link_to_folder_text">A ligazón de compartición interna só funciona para usuarios con acceso a este cartafol</string>
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
     <string name="share_link_empty_password">Ten que introducir un contrasinal</string>
+    <string name="share_link_file_error">Produciuse un erro ao tentar compartir este ficheiro ou cartafol.</string>
+    <string name="share_link_file_no_exist">Non se puido actualizar. Comprobe que o ficheiro existe.</string>
     <string name="share_link_forbidden_permissions">para compartir este ficheiro</string>
     <string name="share_link_optional_password_title">Escriba un contrasinal opcional</string>
     <string name="share_link_password_title">Introduza un contrasinal</string>
@@ -704,6 +716,7 @@
     <string name="timeout_richDocuments">A carga tarda moito…</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="trashbin_empty_headline">Non hai ficheiros eliminados</string>
+    <string name="trashbin_empty_message">Poderá recuperar ficheiros eliminados de aquí.</string>
     <string name="trashbin_file_not_deleted">Non foi posíbel eliminar o ficheiro %1$s!</string>
     <string name="trashbin_file_not_restored">Non foi posíbel restaurar o ficheiro %1$s!</string>
     <string name="trashbin_loading_failed">Produciuse un fallo ao cargar o cesto do lixo!</string>
@@ -711,9 +724,13 @@
     <string name="unread_comments">Existen comentarios sen ler</string>
     <string name="unset_encrypted">Estabelecer como NON cifrado</string>
     <string name="unset_favorite">Retirar dos favoritos</string>
+    <string name="unshare_link_file_error">Produciuse un erro ao tentar deixar de compartir este ficheiro ou cartafol.</string>
+    <string name="unshare_link_file_no_exist">Non foi posíbel deixar de compartir. Comprobe que existe o ficheiro.</string>
     <string name="unshare_link_forbidden_permissions">para deixar de compartir este ficheiro</string>
     <string name="unsharing_failed">Produciuse un fallo ao deixar de compartir</string>
     <string name="untrusted_domain">Acceder a través dun dominio fiábel. Lea a documentación para obter máis más información.</string>
+    <string name="update_link_file_error">Produciuse un erro ao tentar actualizar o elemento compartido.</string>
+    <string name="update_link_file_no_exist">Non se puido actualizar. Comprobe que o ficheiro existe.</string>
     <string name="update_link_forbidden_permissions">para actualizar esta compartición</string>
     <string name="updating_share_failed">Produciuse un fallo ao actualizar elementos compartidos</string>
     <string name="upload_cannot_create_file">Non é posíbel crear o ficheiro local</string>
@@ -800,6 +817,7 @@
     <string name="userinfo_no_info_text">Engada o seu nome, imaxe e detalles de contacto na súa páxina de perfil.</string>
     <string name="username">Nome de usuario</string>
     <string name="version_dev_download">Descargar</string>
+    <string name="view_profile">Ver o perfil</string>
     <string name="wait_a_moment">Agarde un chisco…</string>
     <string name="wait_checking_credentials">Verificando as credenciais almacenadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o ficheiro dende o almacenamento privado</string>
