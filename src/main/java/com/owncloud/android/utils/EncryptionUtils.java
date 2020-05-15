@@ -38,15 +38,16 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.GetMetadataRemoteOperation;
 
 import org.apache.commons.codec.binary.Hex;
+import org.spongycastle.util.io.Streams;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -66,13 +67,13 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
@@ -281,13 +282,13 @@ public final class EncryptionUtils {
      * @return encryptedFile with encryptedBytes and authenticationTag
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public static EncryptedFile encryptFile(OCFile ocFile, byte[] encryptionKeyBytes, byte[] iv)
+    public static void encryptFile(OCFile ocFile, File output, byte[] encryptionKeyBytes, byte[] iv)
             throws NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException, IOException {
         File file = new File(ocFile.getStoragePath());
 
-        return encryptFile(file, encryptionKeyBytes, iv);
+        encryptFile(file, output, encryptionKeyBytes, iv);
     }
 
     /**
@@ -297,10 +298,10 @@ public final class EncryptionUtils {
      * @return encryptedFile with encryptedBytes and authenticationTag
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public static EncryptedFile encryptFile(File file, byte[] encryptionKeyBytes, byte[] iv)
+    public static void encryptFile(File file, File output, byte[] encryptionKeyBytes, byte[] iv)
             throws NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
-            BadPaddingException, IllegalBlockSizeException, IOException {
+        IOException {
 
         Cipher cipher = Cipher.getInstance(AES_CIPHER);
 
@@ -309,15 +310,13 @@ public final class EncryptionUtils {
         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
         cipher.init(Cipher.ENCRYPT_MODE, key, spec);
 
-        RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
-        byte[] fileBytes = new byte[(int) randomAccessFile.length()];
-        randomAccessFile.readFully(fileBytes);
+        CipherInputStream cis = new CipherInputStream(new FileInputStream(file), cipher);
 
-        byte[] cryptedBytes = cipher.doFinal(fileBytes);
-        String authenticationTag = encodeBytesToBase64String(Arrays.copyOfRange(cryptedBytes,
-                cryptedBytes.length - (128 / 8), cryptedBytes.length));
+        FileOutputStream fileOutputStream = new FileOutputStream(output);
 
-        return new EncryptedFile(cryptedBytes, authenticationTag);
+        Streams.pipeAll(cis, fileOutputStream);
+
+        fileOutputStream.close();
     }
 
     /**
@@ -328,10 +327,10 @@ public final class EncryptionUtils {
      * @return decrypted byte[]
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public static byte[] decryptFile(File file, byte[] encryptionKeyBytes, byte[] iv, byte[] authenticationTag)
+    public static void decryptFile(File file, File output, byte[] encryptionKeyBytes, byte[] iv)
             throws NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
-            BadPaddingException, IllegalBlockSizeException, IOException {
+        IOException {
 
 
         Cipher cipher = Cipher.getInstance(AES_CIPHER);
@@ -339,19 +338,13 @@ public final class EncryptionUtils {
         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
         cipher.init(Cipher.DECRYPT_MODE, key, spec);
 
-        RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
-        byte[] fileBytes = new byte[(int) randomAccessFile.length()];
-        randomAccessFile.readFully(fileBytes);
+        CipherInputStream cis = new CipherInputStream(new FileInputStream(file), cipher);
 
-        // check authentication tag
-        byte[] extractedAuthenticationTag = Arrays.copyOfRange(fileBytes,
-                fileBytes.length - (128 / 8), fileBytes.length);
+        FileOutputStream fileOutputStream1 = new FileOutputStream(output);
 
-        if (!Arrays.equals(extractedAuthenticationTag, authenticationTag)) {
-            throw new SecurityException("Tag not correct");
-        }
+        Streams.pipeAll(cis, fileOutputStream1);
 
-        return cipher.doFinal(fileBytes);
+        fileOutputStream1.close();
     }
 
     public static class EncryptedFile {

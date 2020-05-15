@@ -40,7 +40,6 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -186,7 +185,7 @@ public class DownloadFileOperation extends RemoteOperation {
                         .get(file.getEncryptedFileName()).getAuthenticationTag());
 
                 try {
-                    byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile, key, iv, authenticationTag);
+//                    byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile, key, iv, authenticationTag);
 
                     try (FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)) {
                         fileOutputStream.write(decryptedBytes);

@@ -535,7 +535,9 @@ public class UploadFileOperation extends SyncOperation {
             // IV, always generate new one
             byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
 
-            EncryptionUtils.EncryptedFile encryptedFile = EncryptionUtils.encryptFile(mFile, key, iv);
+            // EncryptionUtils.EncryptedFile encryptedFile = EncryptionUtils.encryptFile(mFile, key, iv);
+
+            EncryptionUtils.EncryptedFile encryptedFile = new EncryptionUtils.EncryptedFile(new byte[0], "1");
 
             // new random file name, check if it exists in metadata
             String encryptedFileName = UUID.randomUUID().toString().replaceAll("-", "");
