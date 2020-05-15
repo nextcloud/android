@@ -24,7 +24,17 @@ jobs:
     - name: Install NDK
       run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;20.0.5594570" --sdk_root=${ANDROID_SDK_ROOT}
     - name: Build QA
-      run: | 
-        ./gradlew assembleQaDebug
-        /opt/android-sdk-linux/build-tools/*/apksigner sign  --ks-pass pass:$KS_PASS --key-pass pass:$KEY_PASS --ks-key-alias key0 --ks scripts/QA_keystore.jks build/outputs/apk/qa/debug/qa-debug-*.apk
-        scripts/uploadArtifact.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      run: ./gradlew assembleQaDebug
+    - name: sign APK
+      uses: r0adkll/sign-android-release@v1
+      with:
+        releaseDirectory: build/outputs/apk/qa/debug
+        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+        alias: key0
+        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+        keyPassword: ${{ secrets.KEY_PASSWORD }}
+    - name: upload APK
+      uses: actions/upload-artifact@v2
+      with:
+        name: QAbuild
+        path: build/outputs/apk/qa/debug/qa-debug-*.apk
