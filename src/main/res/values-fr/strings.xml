@@ -286,6 +286,7 @@ Attention la suppression est irréversible.</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>
     <string name="file_list_empty_favorite_headline">Aucun favori</string>
     <string name="file_list_empty_favorites_filter">Aucun fichier favori trouvé pour votre recherche.</string>
+    <string name="file_list_empty_favorites_filter_list">Les fichiers et dossiers ajoutés à vos favoris seront affichés ici.</string>
     <string name="file_list_empty_headline">Aucun fichier</string>
     <string name="file_list_empty_headline_search">Aucun résultat dans ce dossier</string>
     <string name="file_list_empty_headline_server_search">Aucun résultat</string>
@@ -705,6 +706,7 @@ Attention la suppression est irréversible.</string>
     <string name="timeout_richDocuments">Le chargement est très long ...</string>
     <string name="trashbin_activity_title">Fichiers supprimés</string>
     <string name="trashbin_empty_headline">Aucun fichier supprimé</string>
+    <string name="trashbin_empty_message">Les fichiers supprimés s\'afficheront ici et vous pourrez les restaurer.</string>
     <string name="trashbin_file_not_deleted">Le fichier %1$s n\'a pas pu être supprimé !</string>
     <string name="trashbin_file_not_restored">Le fichier %1$s n\'a pas pu être restauré !</string>
     <string name="trashbin_loading_failed">Erreur lors du chargement de la corbeille</string>
@@ -801,6 +803,7 @@ Attention la suppression est irréversible.</string>
     <string name="userinfo_no_info_text">Ajouter le nom, la photo et les coordonnées sur votre page de profil.</string>
     <string name="username">Nom d\'utilisateur</string>
     <string name="version_dev_download">Télécharger</string>
+    <string name="view_profile">Afficher le profil</string>
     <string name="wait_a_moment">Veuillez patienter…</string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
