@@ -74,6 +74,7 @@ import butterknife.ButterKnife;
  */
 public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder> {
     private static final String FILE = "file";
+    private static final String ACTION_TYPE_WEB = "WEB";
     private StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
     private ForegroundColorSpan foregroundColorSpanBlack;
 
@@ -166,10 +167,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 button.setTextColor(ThemeUtils.fontColor(notificationsActivity));
                 button.setTypeface(button.getTypeface(), Typeface.BOLD);
             } else {
-                button.setStrokeColor(ColorStateList.valueOf(resources.getColor(R.color.grey_200)));
-                button.setStrokeWidth(3);
-
-                button.setBackgroundColor(resources.getColor(R.color.transparent));
+                button.setBackgroundColor(resources.getColor(R.color.grey_200));
                 button.setTextColor(primaryColor);
                 button.setTypeface(button.getTypeface(), Typeface.BOLD);
             }
@@ -184,11 +182,19 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
             button.setOnClickListener(v -> {
                 setButtonEnabled(holder, false);
-                new NotificationExecuteActionTask(client,
-                                                  holder,
-                                                  notification,
-                                                  notificationsActivity)
-                    .execute(action);
+
+                if (ACTION_TYPE_WEB.equals(action.type)) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(action.link));
+
+                    notificationsActivity.startActivity(intent);
+                } else {
+                    new NotificationExecuteActionTask(client,
+                                                      holder,
+                                                      notification,
+                                                      notificationsActivity)
+                        .execute(action);
+                }
             });
 
             holder.buttons.addView(button);

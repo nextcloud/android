@@ -23,7 +23,6 @@ package com.nextcloud.client.network;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.Server;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.logger.Logger;
@@ -43,7 +42,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
     private final static String TAG = ConnectivityServiceImpl.class.getName();
 
-    private final ConnectivityManager connectivityManager;
+    private final ConnectivityManager platformConnectivityManager;
     private final UserAccountManager accountManager;
     private final ClientFactory clientFactory;
     private final GetRequestBuilder requestBuilder;
@@ -56,12 +55,12 @@ class ConnectivityServiceImpl implements ConnectivityService {
         }
     }
 
-    ConnectivityServiceImpl(ConnectivityManager connectivityManager,
+    ConnectivityServiceImpl(ConnectivityManager platformConnectivityManager,
                             UserAccountManager accountManager,
                             ClientFactory clientFactory,
                             GetRequestBuilder requestBuilder,
                             Logger logger) {
-        this.connectivityManager = connectivityManager;
+        this.platformConnectivityManager = platformConnectivityManager;
         this.accountManager = accountManager;
         this.clientFactory = clientFactory;
         this.requestBuilder = requestBuilder;
@@ -70,7 +69,10 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
     @Override
     public boolean isInternetWalled() {
-        if (isOnlineWithWifi()) {
+        Connectivity c = getConnectivity();
+        if (c.isConnected() && c.isWifi()) {
+
+            GetMethod get = null;
             try {
                 Server server = accountManager.getUser().getServer();
                 String baseServerAddress = server.getUri().toString();
@@ -84,7 +86,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
                     url = baseServerAddress + "/status.php";
                 }
 
-                GetMethod get = requestBuilder.invoke(url);
+                get = requestBuilder.invoke(url);
                 HttpClient client = clientFactory.createPlainClient();
 
                 int status = client.executeMethod(get);
@@ -108,67 +110,43 @@ class ConnectivityServiceImpl implements ConnectivityService {
                 }
             } catch (IOException e) {
                 logger.e(TAG, "Error checking internet connection", e);
+            } finally {
+                if (get != null) {
+                    get.releaseConnection();
+                }
             }
         } else {
-            return getActiveNetworkType() == JobRequest.NetworkType.ANY;
+            return !getConnectivity().isConnected();
         }
 
         return true;
     }
 
     @Override
-    public boolean isOnlineWithWifi() {
+    public Connectivity getConnectivity() {
+        NetworkInfo networkInfo;
         try {
-            NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+            networkInfo = platformConnectivityManager.getActiveNetworkInfo();
+        } catch (Throwable t) {
+            networkInfo = null; // no network available or no information (permission denied?)
+        }
 
-            if (activeNetwork.isConnectedOrConnecting()) {
-                switch (activeNetwork.getType()) {
-                    case ConnectivityManager.TYPE_VPN:
-                        // check if any other network is wifi
-                        for (NetworkInfo networkInfo : connectivityManager.getAllNetworkInfo()) {
-                            if (networkInfo.isConnectedOrConnecting() &&
-                                networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-                                return true;
-                            }
-                        }
-                        return false;
-
-                    case ConnectivityManager.TYPE_WIFI:
-                        return true;
-
-                    default:
-                        return false;
-                }
-            } else {
-                return false;
-            }
-        } catch (NullPointerException exception) {
-            return false;
+        if (networkInfo != null) {
+            boolean isConnected = networkInfo.isConnectedOrConnecting();
+            boolean isMetered = ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
+            boolean isWifi = networkInfo.getType() == ConnectivityManager.TYPE_WIFI || isAnyOtherNetworkWifi();
+            return new Connectivity(isConnected, isMetered, isWifi, null);
+        } else {
+            return Connectivity.DISCONNECTED;
         }
     }
 
-    @Override
-    public JobRequest.NetworkType getActiveNetworkType() {
-        NetworkInfo networkInfo;
-        try {
-            networkInfo = connectivityManager.getActiveNetworkInfo();
-        } catch (Throwable t) {
-            return JobRequest.NetworkType.ANY;
+    private boolean isAnyOtherNetworkWifi() {
+        for (NetworkInfo networkInfo : platformConnectivityManager.getAllNetworkInfo()) {
+            if (networkInfo.isConnectedOrConnecting() && networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                return true;
+            }
         }
-
-        if (networkInfo == null || !networkInfo.isConnectedOrConnecting()) {
-            return JobRequest.NetworkType.ANY;
-        }
-
-        boolean metered = ConnectivityManagerCompat.isActiveNetworkMetered(connectivityManager);
-        if (!metered) {
-            return JobRequest.NetworkType.UNMETERED;
-        }
-
-        if (networkInfo.isRoaming()) {
-            return JobRequest.NetworkType.CONNECTED;
-        } else {
-            return JobRequest.NetworkType.NOT_ROAMING;
-        }
+        return false;
     }
 }

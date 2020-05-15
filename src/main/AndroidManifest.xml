@@ -117,6 +117,19 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http"
+                    android:host="*"
+                    android:pathPattern="/.*index.php/f/.*"
+                    />
+                <data android:scheme="https"
+                      android:host="*"
+                      android:pathPattern="/.*index.php/f/.*"
+                    />
+            </intent-filter>
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/users_and_groups_searchable"/>
         </activity>
@@ -127,8 +140,8 @@
         <activity android:name=".ui.activities.ActivitiesActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".ui.activity.SyncedFoldersActivity"/>
-        <receiver android:name="com.owncloud.android.jobs.MediaFoldersDetectionJob$NotificationReceiver" />
-        <receiver android:name="com.owncloud.android.jobs.NotificationJob$NotificationReceiver" />
+        <receiver android:name="com.nextcloud.client.jobs.MediaFoldersDetectionWork$NotificationReceiver" />
+        <receiver android:name="com.nextcloud.client.jobs.NotificationWork$NotificationReceiver" />
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.ExternalSiteWebView"
                   android:configChanges="orientation|screenSize|keyboardHidden" />

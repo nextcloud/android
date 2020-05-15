@@ -20,18 +20,41 @@
 
 package com.owncloud.android.ui.adapter;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * UI POJO for the storage path list.
  */
-@Getter
-@Setter
-@AllArgsConstructor
 public class StoragePathItem {
     private int icon;
     private String name;
     private String path;
+
+    public StoragePathItem(int icon, String name, String path) {
+        this.icon = icon;
+        this.name = name;
+        this.path = path;
+    }
+
+    public int getIcon() {
+        return this.icon;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getPath() {
+        return this.path;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 }

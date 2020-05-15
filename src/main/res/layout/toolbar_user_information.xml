@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Nextcloud Android client application
 
   Copyright (C) 2017 Andy Scherzinger
@@ -18,11 +17,9 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<com.google.android.material.appbar.AppBarLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/appbar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_drawer_header_height"
     android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
@@ -36,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/drawer_header_background"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@id/toolbar"
@@ -53,11 +50,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/toolbar_user_information_layout_margin"
-                android:layout_marginEnd="@dimen/standard_half_margin"
-                android:layout_marginLeft="@dimen/toolbar_user_information_layout_margin"
-                android:layout_marginRight="@dimen/standard_half_margin"
                 android:layout_marginStart="@dimen/toolbar_user_information_layout_margin"
+                android:layout_marginEnd="@dimen/standard_half_margin"
+                android:layout_marginBottom="@dimen/toolbar_user_information_layout_margin"
                 android:gravity="bottom"
                 android:orientation="horizontal"
                 android:weightSum="1">
@@ -72,7 +67,7 @@
                         android:layout_width="@dimen/nav_drawer_header_avatar"
                         android:layout_height="@dimen/nav_drawer_header_avatar"
                         android:contentDescription="@string/avatar"
-                        android:src="@drawable/account_circle_white"/>
+                        android:src="@drawable/account_circle_white" />
                 </FrameLayout>
 
                 <LinearLayout
@@ -82,7 +77,6 @@
                     android:layout_marginLeft="@dimen/standard_half_margin"
                     android:layout_marginRight="@dimen/standard_half_margin"
                     android:layout_toEndOf="@id/avatar_container"
-                    android:layout_toRightOf="@id/avatar_container"
                     android:orientation="vertical">
 
                     <TextView
@@ -98,7 +92,7 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/drawer_header_text"
                         android:textStyle="bold"
-                        tools:text="Max Mustermann"/>
+                        tools:text="Max Mustermann" />
 
                     <TextView
                         android:id="@+id/userinfo_username"
@@ -113,14 +107,14 @@
                         android:shadowRadius="2"
                         android:textColor="@color/white"
                         android:textSize="@dimen/drawer_header_subtext"
-                        tools:text="max@127.0.0.1/nextcloud"/>
+                        tools:text="max@127.0.0.1/nextcloud" />
                 </LinearLayout>
 
             </RelativeLayout>
 
-        <include layout="@layout/info_box"/>
+            <include layout="@layout/info_box" />
 
-    </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
 
 </com.google.android.material.appbar.AppBarLayout>

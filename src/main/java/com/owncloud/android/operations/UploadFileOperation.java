@@ -4,7 +4,7 @@
  * @author David A. Velasco
  * @author Chris Narkiewicz
  * Copyright (C) 2016 ownCloud GmbH.
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -29,10 +29,10 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.Device;
 import com.google.gson.reflect.TypeToken;
+import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
@@ -90,6 +90,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import androidx.annotation.CheckResult;
 import androidx.annotation.RequiresApi;
 
 
@@ -111,14 +112,14 @@ public class UploadFileOperation extends SyncOperation {
     private OCFile mFile;
 
     /**
-     * Original OCFile which is to be uploaded in case file had to be renamed
-     * (if forceOverwrite==false and remote file already exists).
+     * Original OCFile which is to be uploaded in case file had to be renamed (if nameCollisionPolicy==RENAME and remote
+     * file already exists).
      */
     private OCFile mOldFile;
     private String mRemotePath;
     private String mFolderUnlockToken;
     private boolean mRemoteFolderToBeCreated;
-    private boolean mForceOverwrite;
+    private FileUploader.NameCollisionPolicy mNameCollisionPolicy;
     private int mLocalBehaviour;
     private int mCreatedBy;
     private boolean mOnWifiOnly;
@@ -143,11 +144,11 @@ public class UploadFileOperation extends SyncOperation {
 
     private RequestEntity mEntity;
 
-    final private Account mAccount;
-    final private OCUpload mUpload;
-    final private UploadsStorageManager uploadsStorageManager;
-    final private ConnectivityService connectivityService;
-    final private PowerManagementService powerManagementService;
+    private final Account mAccount;
+    private final OCUpload mUpload;
+    private final UploadsStorageManager uploadsStorageManager;
+    private final ConnectivityService connectivityService;
+    private final PowerManagementService powerManagementService;
 
     private boolean encryptedAncestor;
 
@@ -183,7 +184,7 @@ public class UploadFileOperation extends SyncOperation {
                                Account account,
                                OCFile file,
                                OCUpload upload,
-                               boolean forceOverwrite,
+                               FileUploader.NameCollisionPolicy nameCollisionPolicy,
                                int localBehaviour,
                                Context context,
                                boolean onWifiOnly,
@@ -218,7 +219,7 @@ public class UploadFileOperation extends SyncOperation {
         mOnWifiOnly = onWifiOnly;
         mWhileChargingOnly = whileChargingOnly;
         mRemotePath = upload.getRemotePath();
-        mForceOverwrite = forceOverwrite;
+        mNameCollisionPolicy = nameCollisionPolicy;
         mLocalBehaviour = localBehaviour;
         mOriginalStoragePath = mFile.getStoragePath();
         mContext = context;
@@ -284,8 +285,10 @@ public class UploadFileOperation extends SyncOperation {
         return mLocalBehaviour;
     }
 
-    public void setRemoteFolderToBeCreated() {
+    public UploadFileOperation setRemoteFolderToBeCreated() {
         mRemoteFolderToBeCreated = true;
+
+        return this;
     }
 
     public boolean wasRenamed() {
@@ -347,8 +350,10 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    public void addRenameUploadListener(OnRenameListener listener) {
+    public UploadFileOperation addRenameUploadListener(OnRenameListener listener) {
         mRenameUploadListener = listener;
+
+        return this;
     }
 
     public Context getContext() {
@@ -504,7 +509,11 @@ public class UploadFileOperation extends SyncOperation {
             /**** E2E *****/
 
             // check name collision
-            checkNameCollision(client, metadata, parentFile.isEncrypted());
+            RemoteOperationResult collisionResult = checkNameCollision(client, metadata, parentFile.isEncrypted());
+            if (collisionResult != null) {
+                result = collisionResult;
+                return collisionResult;
+            }
 
             String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
             expectedFile = new File(expectedPath);
@@ -585,7 +594,7 @@ public class UploadFileOperation extends SyncOperation {
 
             /// perform the upload
             if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
-                boolean onWifiConnection = connectivityService.isOnlineWithWifi();
+                boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
 
                 mUploadOperation = new ChunkedFileUploadRemoteOperation(encryptedTempFile.getAbsolutePath(),
                                                                         mFile.getParentRemotePath() + encryptedFileName,
@@ -709,20 +718,20 @@ public class UploadFileOperation extends SyncOperation {
         RemoteOperationResult remoteOperationResult = null;
 
         // check that internet is not behind walled garden
-        if (Device.getNetworkType(mContext).equals(JobRequest.NetworkType.ANY) ||
-                connectivityService.isInternetWalled()) {
+        if (!connectivityService.getConnectivity().isConnected() || connectivityService.isInternetWalled()) {
             remoteOperationResult =  new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
         }
 
         // check that connectivity conditions are met and delays the upload otherwise
-        if (mOnWifiOnly && !Device.getNetworkType(mContext).equals(JobRequest.NetworkType.UNMETERED)) {
+        Connectivity connectivity = connectivityService.getConnectivity();
+        if (mOnWifiOnly && connectivity.isWifi()) {
             Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
             remoteOperationResult = new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
         }
 
         // check if charging conditions are met and delays the upload otherwise
-        if (mWhileChargingOnly && !Device.getBatteryStatus(mContext).isCharging()
-                && Device.getBatteryStatus(mContext).getBatteryPercent() < 1) {
+        final BatteryStatus battery = powerManagementService.getBattery();
+        if (mWhileChargingOnly && battery.isCharging()) {
             Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
             remoteOperationResult =  new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
         }
@@ -759,7 +768,11 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // check name collision
-            checkNameCollision(client, null, false);
+            RemoteOperationResult collisionResult = checkNameCollision(client, null, false);
+            if (collisionResult != null) {
+                result = collisionResult;
+                return collisionResult;
+            }
 
             String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
             expectedFile = new File(expectedPath);
@@ -814,7 +827,7 @@ public class UploadFileOperation extends SyncOperation {
 
             // perform the upload
             if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
-                boolean onWifiConnection = connectivityService.isOnlineWithWifi();
+                boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
 
                 mUploadOperation = new ChunkedFileUploadRemoteOperation(mFile.getStoragePath(),
                                                                         mFile.getRemotePath(), mFile.getMimeType(),
@@ -922,24 +935,39 @@ public class UploadFileOperation extends SyncOperation {
         return new RemoteOperationResult(ResultCode.OK);
     }
 
-    private void checkNameCollision(OwnCloudClient client, DecryptedFolderMetadata metadata, boolean encrypted)
-            throws OperationCancelledException {
-        /// automatic rename of file to upload in case of name collision in server
+    @CheckResult
+    private RemoteOperationResult checkNameCollision(OwnCloudClient client, DecryptedFolderMetadata metadata, boolean encrypted)
+        throws OperationCancelledException {
         Log_OC.d(TAG, "Checking name collision in server");
-        if (!mForceOverwrite) {
-            String remotePath = getAvailableRemotePath(client, mRemotePath, metadata, encrypted);
-            mWasRenamed = !remotePath.equals(mRemotePath);
-            if (mWasRenamed) {
-                createNewOCFile(remotePath);
-                Log_OC.d(TAG, "File renamed as " + remotePath);
+
+        if (existsFile(client, mRemotePath, metadata, encrypted)) {
+            switch (mNameCollisionPolicy) {
+                case CANCEL:
+                    Log_OC.d(TAG, "File exists; canceling");
+                    throw new OperationCancelledException();
+                case RENAME:
+                    mRemotePath = getNewAvailableRemotePath(client, mRemotePath, metadata, encrypted);
+                    mWasRenamed = true;
+                    createNewOCFile(mRemotePath);
+                    Log_OC.d(TAG, "File renamed as " + mRemotePath);
+                    if (mRenameUploadListener != null) {
+                        mRenameUploadListener.onRenameUpload();
+                    }
+                    break;
+                case OVERWRITE:
+                    Log_OC.d(TAG, "Overwriting file");
+                    break;
+                case ASK_USER:
+                    Log_OC.d(TAG, "Name collision; asking the user what to do");
+                    return new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
             }
-            mRemotePath = remotePath;
-            mRenameUploadListener.onRenameUpload();
         }
 
         if (mCancellationRequested.get()) {
             throw new OperationCancelledException();
         }
+
+        return null;
     }
 
     private void handleSuccessfulUpload(File temporalFile, File expectedFile, File originalFile,
@@ -953,6 +981,7 @@ public class UploadFileOperation extends SyncOperation {
 
             case FileUploader.LOCAL_BEHAVIOUR_DELETE:
                 originalFile.delete();
+                mFile.setStoragePath("");
                 getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
                 saveUploadedFile(client);
                 break;
@@ -1043,8 +1072,8 @@ public class UploadFileOperation extends SyncOperation {
 
 
     /**
-     * Create a new OCFile mFile with new remote path. This is required if forceOverwrite==false.
-     * New file is stored as mFile, original as mOldFile.
+     * Create a new OCFile mFile with new remote path. This is required if nameCollisionPolicy==RENAME. New file is
+     * stored as mFile, original as mOldFile.
      *
      * @param newRemotePath new remote path
      */
@@ -1068,45 +1097,36 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     /**
-     * Checks if remotePath does not exist in the server and returns it, or adds
-     * a suffix to it in order to avoid the server file is overwritten.
+     * Returns a new and available (does not exists on the server) remotePath.
+     * This adds an incremental suffix.
      *
      * @param client     OwnCloud client
      * @param remotePath remote path of the file
      * @param metadata   metadata of encrypted folder
      * @return new remote path
      */
-    private String getAvailableRemotePath(OwnCloudClient client, String remotePath, DecryptedFolderMetadata metadata,
-                                          boolean encrypted) {
-        boolean check = existsFile(client, remotePath, metadata, encrypted);
-        if (!check) {
-            return remotePath;
-        }
-
-        int pos = remotePath.lastIndexOf('.');
+    private String getNewAvailableRemotePath(OwnCloudClient client, String remotePath, DecryptedFolderMetadata metadata,
+                                             boolean encrypted) {
+        int extPos = remotePath.lastIndexOf('.');
         String suffix;
         String extension = "";
         String remotePathWithoutExtension = "";
-        if (pos >= 0) {
-            extension = remotePath.substring(pos + 1);
-            remotePathWithoutExtension = remotePath.substring(0, pos);
+        if (extPos >= 0) {
+            extension = remotePath.substring(extPos + 1);
+            remotePathWithoutExtension = remotePath.substring(0, extPos);
         }
+
         int count = 2;
+        boolean exists;
+        String newPath;
         do {
             suffix = " (" + count + ")";
-            if (pos >= 0) {
-                check = existsFile(client, remotePathWithoutExtension + suffix + "." + extension, metadata, encrypted);
-            } else {
-                check = existsFile(client, remotePath + suffix, metadata, encrypted);
-            }
+            newPath = extPos >= 0 ? remotePathWithoutExtension + suffix + "." + extension : remotePath + suffix;
+            exists = existsFile(client, newPath, metadata, encrypted);
             count++;
-        } while (check);
+        } while (exists);
 
-        if (pos >= 0) {
-            return remotePathWithoutExtension + suffix + "." + extension;
-        } else {
-            return remotePath + suffix;
-        }
+        return newPath;
     }
 
     private boolean existsFile(OwnCloudClient client, String remotePath, DecryptedFolderMetadata metadata,

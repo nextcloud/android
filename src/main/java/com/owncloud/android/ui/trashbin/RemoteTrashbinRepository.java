@@ -43,8 +43,6 @@ import androidx.annotation.NonNull;
 
 public class RemoteTrashbinRepository implements TrashbinRepository {
 
-    private static final String TAG = RemoteTrashbinRepository.class.getSimpleName();
-
     private final User user;
     private final ClientFactory clientFactory;
 
@@ -83,7 +81,7 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
                 return result.isSuccess();
             } catch (ClientFactory.CreationException e) {
                 Log_OC.e(this, "Cannot create client", e);
-                return false;
+                return Boolean.FALSE;
             }
         }
 
@@ -162,7 +160,7 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
                 return result.isSuccess();
             } catch (ClientFactory.CreationException e) {
                 Log_OC.e(this, "Cannot create client", e);
-                return false;
+                return Boolean.FALSE;
             }
         }
 

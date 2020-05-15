@@ -43,7 +43,6 @@
     <string name="auth_check_server">서버 확인</string>
     <string name="auth_connection_established">연결됨</string>
     <string name="auth_expired_basic_auth_toast">현재 암호를 입력하십시오</string>
-    <string name="auth_fail_get_user_name">서버에서 올바른 사용자 ID를 반환하지 않습니다. 시스템 관리자에게 연락하십시오</string>
     <string name="auth_host_address">서버 주소</string>
     <string name="auth_host_url">서버 주소 https://…</string>
     <string name="auth_illegal_login_used">잘못된 로그인 데이터 URL 사용</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s에서 다중 계정을 지원하지 않습니다</string>
     <string name="auth_username">사용자 이름</string>
     <string name="auth_wrong_connection_title">연결할 수 없음</string>
-    <string name="auth_wtf_reenter_URL">예상하지 못한 상태, 서버 주소를 다시 입력하십시오</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">읽기 전용 파일이므로 기존 폴더에 유지됩니다.</string>
     <string name="auto_upload_on_wifi">Wi-Fi에서만 업로드</string>
     <string name="auto_upload_path">/자동 업로드</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">포함될 예정인 기능이 들어 있으며 완벽한 상태가 아닙니다. 버그나 오류가 발생할 수 있으며, 언제 어떻게 발생하는지 정보를 알려 주십시오.</string>
     <string name="community_contribute_forum_forum">포럼</string>
     <string name="community_contribute_forum_text">다른 사람 돕기:</string>
-    <string name="community_contribute_github_text">코드를 리뷰, 수정, 작성할 수 있습니다. 자세한 사항은 %1$s 사이트를 참조하십시오</string>
     <string name="community_contribute_headline">적극적으로 기여</string>
     <string name="community_contribute_irc_text">IRC 채팅 참여하기:</string>
     <string name="community_contribute_translate_text">앱</string>
@@ -141,11 +138,11 @@
     <string name="confirmation_remove_folder_alert">%1$s 및 포함된 모든 내용을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_folders_alert">선택한 항목과 포함된 내용을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_local">로컬만</string>
-    <string name="conflict_keep_both">모두 저장</string>
-    <string name="conflict_message">어떤 파일을 저장하시겠습니까? 모두 저장을 선택하면 로컬 버전의 파일 이름에 숫자를 추가합니다.</string>
-    <string name="conflict_title">파일 충돌</string>
-    <string name="conflict_use_local_version">로컬 버전</string>
-    <string name="conflict_use_server_version">서버 버전</string>
+    <string name="conflict_already_existing_file">파일이 이미 존재합니다</string>
+    <string name="conflict_dialog_error">다이얼로그의 충돌로 인한 오류</string>
+    <string name="conflict_message_description">두 버전을 모두 선택하면 기존 파일 이름에 번호가 추가됩니다.</string>
+    <string name="conflict_message_headline">어느 파일을 유지하시겠습니까?</string>
+    <string name="conflict_new_file">새 파일</string>
     <string name="contaclist_restore_selected">선택한 주소록 복원</string>
     <string name="contactlist_account_chooser_title">가져올 계정 선택</string>
     <string name="contactlist_item_icon">연락처 목록 사용자 아이콘</string>
@@ -164,17 +161,19 @@
     <string name="copy_file_error">이 파일이나 폴더를 복사할 수 없음</string>
     <string name="copy_file_invalid_into_descendent">폴더를 자기 자신의 하위 폴더로 복사할 수 없음</string>
     <string name="copy_file_invalid_overwrite">파일이 대상 폴더에 이미 존재함</string>
-    <string name="copy_file_not_found">복사할 수 없습니다. 파일이 존재하는지 확인하십시오</string>
     <string name="copy_link">링크 주소 복사</string>
     <string name="copy_move_to_encrypted_folder_not_supported">암호화된 폴더로 복사/이동은 아직 지원하지 않습니다.</string>
     <string name="copy_to">다음으로 복사</string>
     <string name="could_not_download_image">전체 이미지를 다운로드 할 수 없습니다.</string>
-    <string name="could_not_retrieve_url">URL을 검색 할 수 없습니다.</string>
+    <string name="could_not_retrieve_url">주소를 불러올 수 없었습니다</string>
     <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
+    <string name="create_new">새로 만들기</string>
     <string name="create_new_document">새 문서 작성</string>
     <string name="create_new_folder">새 폴더 생성</string>
     <string name="create_new_presentation">새 프리젠테이션 작성</string>
     <string name="create_new_spreadsheet">새 스프레드시트 작성</string>
+    <string name="create_rich_workspace">폴더 정보 추가</string>
+    <string name="creates_rich_workspace">폴더 정보 만들기</string>
     <string name="credentials_disabled">인증 비활성화됨</string>
     <string name="date_unknown">알 수 없음</string>
     <string name="default_credentials_wrong">인증 정보 틀림</string>
@@ -225,6 +224,7 @@
     <string name="drawer_quota_unlimited">%1$s 사용됨</string>
     <string name="drawer_synced_folders">자동 업로드</string>
     <string name="edit_permission_label">편집</string>
+    <string name="edit_rich_workspace">폴더 정보 수정</string>
     <string name="encrypted">암호화하도록 설정</string>
     <string name="end_to_end_encryption_confirm_button">암호화 설정</string>
     <string name="end_to_end_encryption_decrypting">복호화중…</string>
@@ -252,16 +252,29 @@
     <string name="error_retrieving_file">파일 가져오는 중 오류 발생</string>
     <string name="error_retrieving_templates">템플릿 검색 중 오류 발생</string>
     <string name="error_starting_direct_camera_upload">카메라 시작 중 오류 발생</string>
+    <string name="etm_accounts">Accounts</string>
+    <string name="etm_background_job_name">작업 이름</string>
+    <string name="etm_background_job_progress">진행 상황</string>
+    <string name="etm_background_job_started">시작됨</string>
+    <string name="etm_background_job_state">상태</string>
+    <string name="etm_background_job_user">사용자</string>
+    <string name="etm_background_job_uuid">UUID</string>
+    <string name="etm_background_jobs">배경 작업</string>
+    <string name="etm_background_jobs_cancel_all">모든 작업 취소하기</string>
+    <string name="etm_background_jobs_prune">비활성 작업 삭제하기</string>
+    <string name="etm_background_jobs_start_test_job">테스트 작업 시작하기</string>
+    <string name="etm_background_jobs_stop_test_job">테스트 작업 정지하기</string>
+    <string name="etm_migrations">이전 작업 (앱 업그레이드)</string>
     <string name="etm_preferences">환경 설정</string>
     <string name="etm_title">엔지니어링 테스트 모드</string>
     <string name="fab_label">추가 또는 업로드</string>
     <string name="failed_to_download">다운로드 관리자에게 파일을 전달할 수 없음</string>
     <string name="failed_to_print">파일을 출력할 수 없음</string>
+    <string name="failed_to_start_editor">에디터 실행 실패</string>
     <string name="fallback_weblogin_back">뒤로</string>
     <string name="fallback_weblogin_text">이전 로그인 방식으로 변경</string>
     <string name="favorite">즐겨찾기에 추가</string>
     <string name="favorite_icon">즐겨찾기</string>
-    <string name="file">파일</string>
     <string name="file_delete">삭제</string>
     <string name="file_detail_activity_error">파일에 대한 작업 검색 중 오류 발생</string>
     <string name="file_details_no_content">자세한 정보를 불러오는데 실패했습니다.</string>
@@ -270,7 +283,6 @@
     <string name="file_list_empty">콘텐츠를 업로드하거나 기기와 동기화 하십시오.</string>
     <string name="file_list_empty_favorite_headline">즐겨찾는 항목 없음</string>
     <string name="file_list_empty_favorites_filter">검색 결과에 즐겨찾기 항목이 없습니다.</string>
-    <string name="file_list_empty_favorites_filter_list">즐겨찾기 표시한 파일과 폴더가 여기에 나타납니다</string>
     <string name="file_list_empty_headline">파일이 없습니다</string>
     <string name="file_list_empty_headline_search">이 폴더에 검색 결과 없음</string>
     <string name="file_list_empty_headline_server_search">검색 결과 없음</string>
@@ -282,7 +294,6 @@
     <string name="file_list_empty_recently_modified">검색 결과 지난 7일간 수정한 파일 없음</string>
     <string name="file_list_empty_recently_modified_filter">지난 7일간 수정한 파일이 없습니다.</string>
     <string name="file_list_empty_search">다른 폴더에 있을 수도 있습니다.</string>
-    <string name="file_list_empty_shared">공유한 파일과 폴더가 여기에 나타납니다</string>
     <string name="file_list_empty_shared_headline">공유된 항목 없음</string>
     <string name="file_list_empty_text_photos">사진을 업로드하거나 자동 업로드를 활성화하십시오.</string>
     <string name="file_list_empty_text_photos_filter">사진이 없습니다.</string>
@@ -331,7 +342,6 @@
     <string name="first_run_2_text">안전한 협력 &amp;파일 교환</string>
     <string name="first_run_3_text">사용하기 쉬운 웹 메일, 달력 &amp; 연락처</string>
     <string name="first_run_4_text">화면 공유, 온라인 회의 &amp; 웹 회의</string>
-    <string name="folder">폴더</string>
     <string name="folder_already_exists">폴더가 이미 존재함</string>
     <string name="folder_confirm_create">생성</string>
     <string name="folder_icon">폴더 아이콘</string>
@@ -356,8 +366,10 @@
     <string name="hint_password">암호</string>
     <string name="host_not_available">서버를 사용할 수 없음</string>
     <string name="host_your_own_server">자체 서버 호스팅</string>
+    <string name="instant_upload_existing">이미 존재하는 파일도 올리기</string>
     <string name="instant_upload_on_charging">충전 중에만 업로드</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="invalid_url">잘못된 URL</string>
     <string name="learn_more">자세히 알아보기</string>
     <string name="link">링크</string>
     <string name="list_layout">목록 보기</string>
@@ -371,7 +383,9 @@
     <string name="logs_menu_refresh">새로 고침</string>
     <string name="logs_menu_search">로그 검색</string>
     <string name="logs_menu_send">이메일로 로그 보내기</string>
+    <string name="logs_status_filtered">로그: %1$d kB, 쿼리가 %3$d개 중에서 %2$d개 를 찾음, 소요시간 %4$d ms</string>
     <string name="logs_status_loading">불러오는 중…</string>
+    <string name="logs_status_not_filtered">기록: %1$dkB, 필터 없음</string>
     <string name="logs_title">로그</string>
     <string name="maintenance_mode">서버가 유지 관리 모드임</string>
     <string name="manage_space_clear_data">데이터 지우기</string>
@@ -397,12 +411,8 @@
     <string name="move_file_error">이 파일이나 폴더를 이동할 수 없음</string>
     <string name="move_file_invalid_into_descendent">폴더를 자기 자신의 하위 폴더로 이동할 수 없음</string>
     <string name="move_file_invalid_overwrite">파일이 대상 폴더에 이미 존재함</string>
-    <string name="move_file_not_found">파일을 이동할 수 없습니다. 파일이 존재하는지 확인하십시오</string>
     <string name="move_to">다음으로 이동</string>
-    <string name="network_error_connect_timeout_exception">서버를 대기하는 중 오류가 발생했습니다. 작업을 완료할 수 없습니다.</string>
     <string name="network_error_socket_exception">서버에 연결하는 중 오류가 발생했습니다.</string>
-    <string name="network_error_socket_timeout_exception">서버를 대기하는 중 오류가 발생했습니다. 작업을 완료할 수 없습니다.</string>
-    <string name="network_host_not_available">작업을 완료할 수 없습니다. 서버를 사용할 수 없음</string>
     <string name="new_comment">새로운 댓글…</string>
     <string name="new_media_folder_detected">새 %1$s 미디어 폴더를 발견했습니다.</string>
     <string name="new_media_folder_photos">사진</string>
@@ -458,6 +468,11 @@
     <string name="pref_behaviour_entries_delete_file">삭제됨</string>
     <string name="pref_behaviour_entries_keep_file">원래 폴더에 유지됨</string>
     <string name="pref_behaviour_entries_move">앱 폴더로 이동함</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">파일이 이미 존재한다면 어떻게 처리할까요?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">매번 물어보기</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">원격 버전을 덮어 씌우기</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">새 버전의 이름을 바꾸기</string>
+    <string name="pref_instant_name_collision_policy_title">파일이 이미 존재한다면 어떻게 처리할까요?</string>
     <string name="prefs_add_account">계정 추가</string>
     <string name="prefs_calendar_contacts">달력 및 연락처 동기화</string>
     <string name="prefs_calendar_contacts_address_resolve_error">DAVx5 (이전의 DAVdroid)에서 계정의 서버 주소를 확인할 수 없습니다.</string>
@@ -486,6 +501,7 @@
     <string name="prefs_lock_device_credentials_enabled">기기 인증 활성화됨</string>
     <string name="prefs_lock_device_credentials_not_setup">기기 인증이 설정되지 않았습니다.</string>
     <string name="prefs_lock_none">없음</string>
+    <string name="prefs_lock_title">사용하여 앱을 보호</string>
     <string name="prefs_lock_using_device_credentials">기기 인증 정보</string>
     <string name="prefs_lock_using_passcode">암호</string>
     <string name="prefs_manage_accounts">계정 관리</string>
@@ -498,6 +514,7 @@
     <string name="prefs_theme_title">테마</string>
     <string name="prefs_value_theme_dark">어둡게</string>
     <string name="prefs_value_theme_light">밝게</string>
+    <string name="prefs_value_theme_system">시스템을 따르기</string>
     <string name="preview_image_description">사진 미리 보기</string>
     <string name="preview_image_error_no_local_file">미리 볼 로컬 파일 없음</string>
     <string name="preview_image_error_unknown_format">이 사진을 미리 볼 수 없음</string>
@@ -529,13 +546,17 @@
     <string name="saml_authentication_wrong_pass">잘못된 암호</string>
     <string name="scanQR_description">QR 코드로 로그인</string>
     <string name="screenshot_01_gridView_heading">데이터 보호</string>
+    <string name="screenshot_01_gridView_subline">자체 운영되는 생산성</string>
     <string name="screenshot_02_listView_heading">탐색하고 공유</string>
     <string name="screenshot_02_listView_subline">모든 터치 액션</string>
+    <string name="screenshot_03_drawer_heading">활동, 공유, ...</string>
     <string name="screenshot_03_drawer_subline">빠르게 접근 가능한 모든 것.</string>
     <string name="screenshot_04_accounts_heading">모든 계정</string>
     <string name="screenshot_04_accounts_subline">한곳에서</string>
     <string name="screenshot_05_autoUpload_heading">자동 업로드</string>
     <string name="screenshot_05_autoUpload_subline">사진 &amp; 동영상</string>
+    <string name="screenshot_06_davdroid_heading">달력 &amp; 연락처</string>
+    <string name="screenshot_06_davdroid_subline">DAVx5와 동기화</string>
     <string name="search_users_and_groups_hint">사용자와 그룹 검색</string>
     <string name="select_all">모두 선택</string>
     <string name="select_template">템플릿 선택</string>
@@ -554,11 +575,10 @@
     <string name="share_get_public_link_button">링크 얻기</string>
     <string name="share_group_clarification">%1$s(그룹)</string>
     <string name="share_internal_link">내부 링크 공유</string>
-    <string name="share_internal_link_text">이 %1$s에 액세스하는 사용자에게만 해당됩니다.</string>
+    <string name="share_internal_link_to_file_text">내부 공유 링크 (이 파일에 접근 권한이 있는 사람만 사용가능)</string>
+    <string name="share_internal_link_to_folder_text">내부 공유 링크 (이 폴더에 접근 권한이 있는 사람만 사용가능)</string>
     <string name="share_known_remote_clarification">%1$s(%2$s에서)</string>
     <string name="share_link_empty_password">암호를 입력해야 합니다</string>
-    <string name="share_link_file_error">이 파일이나 폴더를 공유하는 중 오류 발생</string>
-    <string name="share_link_file_no_exist">공유할 수 없습니다. 파일이 있는지 확인하십시오</string>
     <string name="share_link_forbidden_permissions">이 파일을 공유할</string>
     <string name="share_link_optional_password_title">선택적 암호를 입력하십시오.</string>
     <string name="share_link_password_title">암호 입력</string>
@@ -638,6 +658,28 @@
     <string name="storage_movies">영화</string>
     <string name="storage_music">음악</string>
     <string name="storage_pictures">그림</string>
+    <string name="store_full_desc">당신이 관리할 수 있는 자체 운영되는 생산성 플랫폼.
+
+특징:
+당신의 Nextcloud 서버 테마에 맞는 쉽고 현대적인 인터페이스를 지니고 있음
+파일을 Nextcloud 서버에 올리고 다른 이들과 공유할 수 있음
+당신의 중요 파일과 폴더를 동기화 된 상태로 유지 할 수 있음
+당신의 폴더들 구석구석을 검색할 수 있음
+당신의 장치로 찍힌 사진과 동영상을 자동 업로드 할 수 있음
+Nextcloud의 알림으로 최신 상태로 유지할 수 있음
+다-계정 지원 가능함
+지문이나 PIN을 통한 안전한 잠금을 지원함
+DAVx5(DAVdroid) 와의 통합으로 캘린더와 주소록을 쉽게 동기화할 수 있음
+
+문제가 있다면 https://github.com/nextcloud/android/issues 여기서 토론을
+앱에 문제가 있다면 https://help.nextcloud.com/c/clients/android 여기서 토론을 부탁드립니다.
+
+Nextcloud가 처음이신가요?
+Nextcloud는 개인적인 파일 동기화, 공유 그리고 의사소통을 위한 서버입니다.
+Nextcloud는 자유 소프트웨어이고, 당신이 직접 운영하거나 돈을 내고 다른 서버의 계정를 빌릴 수 있습니다.
+그럼으로써, 당신은 당신의 사진, 캘린더와 주소록, 당신의 문서 등을 관리할 수 있습니다.
+
+Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="store_full_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼. \ n 이는 공식적으로 개발 된 버전으로, 테스트되지 않은 새로운 기능을 매일 샘플로 제공하므로 불안정과 데이터 손실이 발생할 수 있습니다. 이 응용 프로그램은 기꺼이 테스트하고 버그가 발생하면 보고하는 사용자를 대상으로 합니다. 생산적인 작업에는 사용하지 마십시오! \ n \ n 공식 개발자 및 일반 버전은 모두 F-droid에서 사용할 수 있으며 동시에 설치할 수 있습니다.</string>
     <string name="store_short_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼</string>
     <string name="store_short_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼 (디바이스 미리 보기 버전)</string>
@@ -658,6 +700,10 @@
     <string name="sync_foreign_files_forgotten_explanation">버전 1.3.16부터 단일 파일을 여러 계정과 동기화 시 자료 손실을 방지하기 위하여 이 장치에서 업로드된 파일은 로컬 %1$s 폴더에 일단 복사됩니다.\n\n이 변경 사항으로 인하여 이전 버전 앱에서 업로드한 모든 파일을 %2$s 폴더로 복사했습니다. 하지만 계정 동기화 중 오류가 발생하여 이 작업이 중단되었습니다. 파일을 그대로 두고 %3$s 연결을 삭제하거나, 파일을 %1$s 폴더로 이동하고 %4$s 연결을 그대로 유지할 수 있습니다.\n\n아래의 목록은 로컬 파일과 연결된 %5$s에 있는 원격 파일 목록입니다.</string>
     <string name="sync_foreign_files_forgotten_ticker">일부 로컬 파일이 사라짐</string>
     <string name="sync_in_progress">이 파일의 최신 버전을 가져옵니다.</string>
+    <string name="sync_not_enough_space_dialog_action_choose">동기화 대상 선택</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">남는 공간 늘리기</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s 파일은 %2$s 이지만,  장치에는 %3$s 밖에 남아있지 않습니다.  </string>
+    <string name="sync_not_enough_space_dialog_title">남은 공간 부족</string>
     <string name="sync_status_button">동기화 상태 단추</string>
     <string name="sync_string_files">파일</string>
     <string name="synced_folder_settings_button">설정 단추</string>
@@ -672,10 +718,11 @@
     <string name="tags">태그</string>
     <string name="test_server_button">서버 연결 테스트</string>
     <string name="thumbnail">섬네일</string>
+    <string name="thumbnail_for_existing_file_description">이미 존재하는 파일의 썸네일</string>
+    <string name="thumbnail_for_new_file_desc">새로운 파일의 썸네일</string>
     <string name="timeout_richDocuments">오래 걸립니다...</string>
     <string name="trashbin_activity_title">삭제된 파일</string>
     <string name="trashbin_empty_headline">삭제된 파일 없음</string>
-    <string name="trashbin_empty_message">여기에서 삭제된 파일을 복구할 수 있습니다.</string>
     <string name="trashbin_file_not_deleted">%1$s 파일을 삭제할 수 없습니다!</string>
     <string name="trashbin_file_not_restored">%1$s 파일을 복구할 수 없습니다!</string>
     <string name="trashbin_loading_failed">휴지통 로딩 실패!</string>
@@ -683,13 +730,9 @@
     <string name="unread_comments">읽지 않은 댓글 있음</string>
     <string name="unset_encrypted">암호화 해제</string>
     <string name="unset_favorite">즐겨찾기에서 제거</string>
-    <string name="unshare_link_file_error">이 파일이나 폴더의 공유를 해제하는 중 오류 발생</string>
-    <string name="unshare_link_file_no_exist">공유를 해제할 수 없습니다. 파일이 있는지 확인하십시오</string>
     <string name="unshare_link_forbidden_permissions">이 파일의 공유를 해제할</string>
     <string name="unsharing_failed">공유 해제 실패</string>
     <string name="untrusted_domain">신뢰할 수 없는 도메인으로 접근했습니다. 더 많은 정보를 보려면 문서를 참조하십시오.</string>
-    <string name="update_link_file_error">공유를 업데이트하는 중 오류 발생</string>
-    <string name="update_link_file_no_exist">업데이트할 수 없습니다. 파일이 있는지 확인하십시오</string>
     <string name="update_link_forbidden_permissions">이 공유를 업데이트할</string>
     <string name="updating_share_failed">공유 갱신 실패</string>
     <string name="upload_cannot_create_file">로컬 파일을 만들 수 없음</string>
@@ -704,11 +747,14 @@
     <string name="upload_file_dialog_title">업로드할 파일 이름과 형식 입력</string>
     <string name="upload_files">파일 업로드</string>
     <string name="upload_item_action_button">항목 업로드 동작 단추</string>
+    <string name="upload_list_delete">삭제</string>
     <string name="upload_list_empty_headline">업로드 없음</string>
     <string name="upload_list_empty_text_auto_upload">콘텐츠를 업로드하거나 자동 업로드를 활성화하십시오.</string>
+    <string name="upload_list_resolve_conflict">문제 해결</string>
     <string name="upload_local_storage_full">로컬 저장소가 가득 참</string>
     <string name="upload_local_storage_not_copied">파일을 로컬 저장소로 복사 할 수 없음</string>
     <string name="upload_lock_failed">폴더 잠금 실패</string>
+    <string name="upload_old_android">암호화는 안드로이드 5.0 이상 가능합니다</string>
     <string name="upload_query_move_foreign_files">공간이 부족해서 선택한 파일을 %1$s 폴더로 복사할 수 없습니다. 대신 이동하시겠습니까?</string>
     <string name="upload_sync_conflict">동기화 충돌, 수동으로 해결하십시오.</string>
     <string name="upload_unknown_error">알 수 없는 오류</string>
@@ -724,6 +770,8 @@
     <string name="uploader_top_message">업로드 폴더 선택</string>
     <string name="uploader_upload_failed_content_single">%1$s을(를) 업로드할 수 없음</string>
     <string name="uploader_upload_failed_credentials_error">업로드 실패, 다시 로그인하십시오</string>
+    <string name="uploader_upload_failed_sync_conflict_error">파일 업로드 충돌</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">유지할 버전 %1$s중 선택</string>
     <string name="uploader_upload_failed_ticker">업로드 실패</string>
     <string name="uploader_upload_files_behaviour">업로드 설정:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">%1$s폴더로 이동</string>
@@ -752,6 +800,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">로컬 파일을 찾을 수 없음</string>
     <string name="uploads_view_upload_status_failed_permission_error">권한 오류</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">신뢰할 수 없는 서버 인증서</string>
+    <string name="uploads_view_upload_status_fetching_server_version">서버 버전 가져오는중...</string>
     <string name="uploads_view_upload_status_service_interrupted">앱 종료됨</string>
     <string name="uploads_view_upload_status_succeeded">완료됨</string>
     <string name="uploads_view_upload_status_unknown_fail">알 수 없는 오류</string>

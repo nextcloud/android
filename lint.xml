@@ -5,9 +5,9 @@
         <ignore regexp="autofillHints"/>
     </issue>
     <issue id="InvalidPackage">
-        <ignore path="**/freemarker-2.3.28.jar" />
+        <ignore path="**/freemarker-2.*.*.jar" />
         <ignore path="**/nnio-0.2.jar"/>
-        <ignore path="**/pkix-1.54.0.0.jar"/>
+        <ignore path="**/bcpkix-jdk15on-1.65.jar" />
     </issue>
 
     <issue id="UnusedResources">
@@ -42,6 +42,10 @@
 
     <issue id="Typos">
         <ignore path="**/values-**/strings.xml" />
+    </issue>
+
+    <issue id="TrustAllX509TrustManager">
+        <ignore path="**/bouncycastle/est/jcajce/*.class" />
     </issue>
 
 </lint>

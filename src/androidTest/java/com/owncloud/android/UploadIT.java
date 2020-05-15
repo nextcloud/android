@@ -1,11 +1,33 @@
+/*
+ * Nextcloud Android client application
+ *
+ * @author Tobias Kaminsky
+ * Copyright (C) 2020 Tobias Kaminsky
+ * Copyright (C) 2020 Nextcloud GmbH
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.owncloud.android;
 
 import android.content.ContentResolver;
 
-import com.evernote.android.job.JobRequest;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
+import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
@@ -15,6 +37,7 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,13 +62,8 @@ public class UploadIT extends AbstractIT {
         }
 
         @Override
-        public boolean isOnlineWithWifi() {
-            return true;
-        }
-
-        @Override
-        public JobRequest.NetworkType getActiveNetworkType() {
-            return JobRequest.NetworkType.ANY;
+        public Connectivity getConnectivity() {
+            return Connectivity.CONNECTED_WIFI;
         }
     };
 
@@ -60,9 +78,10 @@ public class UploadIT extends AbstractIT {
             return false;
         }
 
+        @NotNull
         @Override
-        public boolean isBatteryCharging() {
-            return false;
+        public BatteryStatus getBattery() {
+            return new BatteryStatus(false, 0);
         }
     };
 
@@ -120,7 +139,7 @@ public class UploadIT extends AbstractIT {
             account,
             null,
             ocUpload,
-            false,
+            FileUploader.NameCollisionPolicy.DEFAULT,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             false,
@@ -140,17 +159,17 @@ public class UploadIT extends AbstractIT {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/empty.txt",
                 "/testUpload/2/3/4/1.txt", account.name);
         UploadFileOperation newUpload = new UploadFileOperation(
-                storageManager,
-                connectivityServiceMock,
-                powerManagementServiceMock,
-                account,
-                null,
-                ocUpload,
-                false,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
-                targetContext,
-                false,
-                false
+            storageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            account,
+            null,
+            ocUpload,
+            FileUploader.NameCollisionPolicy.DEFAULT,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            false,
+            false
         );
         newUpload.addRenameUploadListener(() -> {
             // dummy

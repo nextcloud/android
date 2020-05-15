@@ -25,15 +25,13 @@
                                                  android:layout_height="match_parent"
                                                  android:background="@color/bg_default">
 
-    <include
-        layout="@layout/toolbar_user_information"/>
+    <include layout="@layout/toolbar_user_information" />
 
-    <include layout="@layout/empty_list"/>
+    <include layout="@layout/empty_list" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">

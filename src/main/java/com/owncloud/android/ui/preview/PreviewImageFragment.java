@@ -81,6 +81,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import androidx.annotation.DrawableRes;
@@ -149,7 +150,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
      *                              {@link FragmentStatePagerAdapter}
      *                              ; TODO better solution
      */
-    public static PreviewImageFragment newInstance(@NonNull OCFile imageFile, boolean ignoreFirstSavedState,
+    public static PreviewImageFragment newInstance(@NonNull OCFile imageFile,
+                                                   boolean ignoreFirstSavedState,
                                                    boolean showResizedImage) {
         PreviewImageFragment frag = new PreviewImageFragment();
         frag.mShowResizedImage = showResizedImage;
@@ -250,9 +252,12 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         if (getFile() != null) {
             mImageView.setTag(getFile().getFileId());
 
+            Point screenSize = DisplayUtils.getScreenSize(getActivity());
+            int width = screenSize.x;
+            int height = screenSize.y;
+
             if (mShowResizedImage) {
-                Bitmap resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        String.valueOf(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId()));
+                Bitmap resizedImage = getResizedBitmap(getFile(), width, height);
 
                 if (resizedImage != null && !getFile().isUpdateThumbnailNeeded()) {
                     mImageView.setImageBitmap(resizedImage);
@@ -260,8 +265,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                     mBitmap = resizedImage;
                 } else {
                     // show thumbnail while loading resized image
-                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                            String.valueOf(ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId()));
+                    Bitmap thumbnail = getResizedBitmap(getFile(), width, height);
 
                     if (thumbnail != null) {
                         mImageView.setImageBitmap(thumbnail);
@@ -273,22 +277,22 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
                     // generate new resized image
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), mImageView) &&
-                            containerActivity.getStorageManager() != null) {
+                        containerActivity.getStorageManager() != null) {
                         final ThumbnailsCacheManager.ResizedImageGenerationTask task =
-                                new ThumbnailsCacheManager.ResizedImageGenerationTask(this,
-                                        mImageView,
-                                        containerActivity.getStorageManager(),
-                                        connectivityService,
-                                        containerActivity.getStorageManager().getAccount());
+                            new ThumbnailsCacheManager.ResizedImageGenerationTask(this,
+                                                                                  mImageView,
+                                                                                  containerActivity.getStorageManager(),
+                                                                                  connectivityService,
+                                                                                  containerActivity.getStorageManager().getAccount());
                         if (resizedImage == null) {
                             resizedImage = thumbnail;
                         }
                         final ThumbnailsCacheManager.AsyncResizedImageDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncResizedImageDrawable(
-                                        MainApp.getAppContext().getResources(),
-                                        resizedImage,
-                                        task
-                                );
+                            new ThumbnailsCacheManager.AsyncResizedImageDrawable(
+                                MainApp.getAppContext().getResources(),
+                                resizedImage,
+                                task
+                            );
                         mImageView.setImageDrawable(asyncDrawable);
                         task.execute(getFile());
                     }
@@ -304,6 +308,27 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         } else {
             showErrorMessage(R.string.preview_image_error_no_local_file);
         }
+    }
+
+    private @Nullable
+    Bitmap getResizedBitmap(OCFile file, int width, int height) {
+        Bitmap cachedImage = null;
+        int scaledWidth = width;
+        int scaledHeight = height;
+
+        for (int i = 0; i < 3 && cachedImage == null; i++) {
+            try {
+                cachedImage = ThumbnailsCacheManager.getScaledBitmapFromDiskCache(
+                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.getRemoteId(),
+                    scaledWidth,
+                    scaledHeight);
+            } catch (OutOfMemoryError e) {
+                scaledWidth = scaledWidth / 2;
+                scaledHeight = scaledHeight / 2;
+            }
+        }
+
+        return cachedImage;
     }
 
     @Override
@@ -494,7 +519,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             OCFile ocFile = params[0];
             String storagePath = ocFile.getStoragePath();
             try {
-
                 int maxDownScale = 3;   // could be a parameter passed to doInBackground(...)
                 Point screenSize = DisplayUtils.getScreenSize(getActivity());
                 int minWidth = screenSize.x;

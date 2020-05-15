@@ -23,7 +23,6 @@ package com.owncloud.android.ui.fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +38,7 @@ import com.nextcloud.client.device.DeviceInfo;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -170,11 +170,19 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         }
 
         // create rich workspace
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && file != null) {
-            if (TextUtils.isEmpty(file.getRichWorkspace())) {
-                createRichWorkspace.setVisibility(View.VISIBLE);
-            } else {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+            FileMenuFilter.isEditorAvailable(getContext().getContentResolver(),
+                                             user,
+                                             MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN) &&
+            file != null) {
+            // richWorkspace
+            // == "": no info set -> show button
+            // == null: disabled on server side -> hide button
+            // != "": info set -> hide button
+            if (file.getRichWorkspace() == null || !"".equals(file.getRichWorkspace())) {
                 createRichWorkspace.setVisibility(View.GONE);
+            } else {
+                createRichWorkspace.setVisibility(View.VISIBLE);
             }
         } else {
             createRichWorkspace.setVisibility(View.GONE);

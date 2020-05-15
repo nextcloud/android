@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,6 +21,7 @@
 package com.nextcloud.client.di;
 
 import com.nextcloud.client.etm.EtmActivity;
+import com.nextcloud.client.jobs.NotificationWork;
 import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.media.PlayerService;
 import com.nextcloud.client.onboarding.FirstRunActivity;
@@ -30,7 +31,6 @@ import com.owncloud.android.authentication.DeepLinkLoginActivity;
 import com.owncloud.android.files.BootupBroadcastReceiver;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.jobs.NotificationJob;
 import com.owncloud.android.providers.DiskLruImageCacheFileProvider;
 import com.owncloud.android.providers.FileContentProvider;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
@@ -63,6 +63,7 @@ import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
+import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
@@ -74,6 +75,7 @@ import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.PhotoFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
+import com.owncloud.android.ui.fragment.contactsbackup.ContactsBackupFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
@@ -137,9 +139,10 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FileDetailActivitiesFragment fileDetailActivitiesFragment();
     @ContributesAndroidInjector abstract FileDetailSharingFragment fileDetailSharingFragment();
     @ContributesAndroidInjector abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
+    @ContributesAndroidInjector abstract AccountRemovalConfirmationDialog accountRemovalConfirmationDialog();
 
-    @ContributesAndroidInjector
-    abstract ChooseRichDocumentsTemplateDialogFragment chooseRichDocumentsTemplateDialogFragment();
+    @ContributesAndroidInjector abstract ChooseRichDocumentsTemplateDialogFragment chooseRichDocumentsTemplateDialogFragment();
+    @ContributesAndroidInjector abstract ContactsBackupFragment contactsBackupFragment();
     @ContributesAndroidInjector abstract PreviewImageFragment previewImageFragment();
     @ContributesAndroidInjector abstract ContactListFragment chooseContactListFragment();
     @ContributesAndroidInjector abstract PreviewMediaFragment previewMediaFragment();
@@ -156,7 +159,7 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FileDownloader fileDownloader();
 
     @ContributesAndroidInjector abstract BootupBroadcastReceiver bootupBroadcastReceiver();
-    @ContributesAndroidInjector abstract NotificationJob.NotificationReceiver notificationJobBroadcastReceiver();
+    @ContributesAndroidInjector abstract NotificationWork.NotificationReceiver notificationWorkBroadcastReceiver();
 
     @ContributesAndroidInjector abstract FileContentProvider fileContentProvider();
     @ContributesAndroidInjector abstract UsersAndGroupsSearchProvider usersAndGroupsSearchProvider();

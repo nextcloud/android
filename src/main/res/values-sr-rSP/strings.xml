@@ -44,7 +44,6 @@
     <string name="auth_check_server">Proveri server</string>
     <string name="auth_connection_established">Veza uspostavljena</string>
     <string name="auth_expired_basic_auth_toast">Unesite trenutnu lozinku</string>
-    <string name="auth_fail_get_user_name">Server ne vraća ispravnu identifikaciju korisnika, kontaktirajte administratora</string>
     <string name="auth_host_address">Adresa servera</string>
     <string name="auth_host_url">Adresa servera https://…</string>
     <string name="auth_illegal_login_used">Iskorišćena neispravna adresa za podatke prijave</string>
@@ -72,7 +71,6 @@
     <string name="auth_unsupported_multiaccount">%1$s ne podržava višestruke naloge</string>
     <string name="auth_username">Korisničko ime</string>
     <string name="auth_wrong_connection_title">Ne mogu da uspostavim vezu</string>
-    <string name="auth_wtf_reenter_URL">Neočekivano stanje, molimo ponovo unestite adresu servera</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">zadrži u originalnoj fascikli, pošto je samo za čitanje</string>
     <string name="auto_upload_on_wifi">Otpremaj samo na bežičnim mrežama koje ne mere protok saobraćaja</string>
     <string name="auto_upload_path">/Automatska otpremanja</string>
@@ -121,7 +119,6 @@
     <string name="community_beta_text">Ovo uključuje sve funkcionalnosti koje tek dolaze i najnoviji i najsvežiji kôd. To znači i da mogu lako da se pojave greške. Ako ih uočite, molimo da ih prijavite.</string>
     <string name="community_contribute_forum_forum">forumu</string>
     <string name="community_contribute_forum_text">Pomozite drugima na</string>
-    <string name="community_contribute_github_text">Pregledaj, dorađuj i menjaj kôd, pogledaj %1$s za detalje</string>
     <string name="community_contribute_headline">Aktivno se pridružite</string>
     <string name="community_contribute_irc_text">Pridružite se ćaskanju na IRC-u:</string>
     <string name="community_contribute_translate_text">aplikacije</string>
@@ -142,11 +139,6 @@
     <string name="confirmation_remove_folder_alert">Da li stvarno želite da obrišete %1$s i sav dodatni sadržaj odatle?</string>
     <string name="confirmation_remove_folders_alert">Da li stvarno želite da obrišete označene stavke i sav njihov sadržaj?</string>
     <string name="confirmation_remove_local">Samo lokalno</string>
-    <string name="conflict_keep_both">Zadrži oba</string>
-    <string name="conflict_message">Koje fajlove želite da sačuvate? Ako izaberete obe verzije, lokalnom fajlu će biti dodat broj u naziv.</string>
-    <string name="conflict_title">Konflikt fajlova</string>
-    <string name="conflict_use_local_version">lokalna verzija</string>
-    <string name="conflict_use_server_version">verzija servera</string>
     <string name="contaclist_restore_selected">Povrati označene kontakte</string>
     <string name="contactlist_account_chooser_title">Odaberite naloge za uvoz</string>
     <string name="contactlist_item_icon">Ikona korisnika za listu kontakata</string>
@@ -165,12 +157,10 @@
     <string name="copy_file_error">Greška prilikom kopiranja ovog fajla ili fascikle</string>
     <string name="copy_file_invalid_into_descendent">Ne može da se iskopira fascikla u neku od svojih podfascikli.</string>
     <string name="copy_file_invalid_overwrite">Fajl već postoji u odredišnoj fascikli</string>
-    <string name="copy_file_not_found">Ne mogu da kopiram. Proverite da li fajl postoji</string>
     <string name="copy_link">Kopiraj vezu</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiranje/premeštanje u šifrovanu fasciklu nije podržano.</string>
     <string name="copy_to">Kopiraj u…</string>
     <string name="could_not_download_image">Nije moguće preuzeti celu sliku</string>
-    <string name="could_not_retrieve_url">Ne mogu da dobavim adresu</string>
     <string name="create_dir_fail_msg">Ne mogu da napravim fasciklu</string>
     <string name="create_new_document">Napravi novi dokument</string>
     <string name="create_new_folder">Napravi novu fasciklu</string>
@@ -253,6 +243,7 @@
     <string name="error_retrieving_file">Greška pri dobavljanju fajla</string>
     <string name="error_retrieving_templates">Greška pri učitavanju šablona</string>
     <string name="error_starting_direct_camera_upload">Greška pri startovanju kamere</string>
+    <string name="etm_accounts">Nalozi</string>
     <string name="etm_preferences">Postavke</string>
     <string name="etm_title">Inženjerski test režim</string>
     <string name="fab_label">Dodaj ili otpremi</string>
@@ -262,7 +253,6 @@
     <string name="fallback_weblogin_text">Vrati se na stari način prijave</string>
     <string name="favorite">Dodaj u omiljene</string>
     <string name="favorite_icon">Omiljeni</string>
-    <string name="file">Fajl</string>
     <string name="file_delete">Obriši</string>
     <string name="file_detail_activity_error">Greška pri dohvatanju aktivnosti fajla</string>
     <string name="file_details_no_content">Greška pri učitavanju detalja</string>
@@ -271,7 +261,6 @@
     <string name="file_list_empty">Otpremite neki sadržaj ili sinhronizujte sa vašim uređajima.</string>
     <string name="file_list_empty_favorite_headline">Još ništa nije omiljeno</string>
     <string name="file_list_empty_favorites_filter">Vaša pretraga nije našla nijedan omiljeni fajl</string>
-    <string name="file_list_empty_favorites_filter_list">Fajlovi i fascikle koje obeležite kao omiljene pojaviće se ovde</string>
     <string name="file_list_empty_headline">Ovde nema fajlova</string>
     <string name="file_list_empty_headline_search">Nema rezultata u ovoj fascikli</string>
     <string name="file_list_empty_headline_server_search">Nema rezultata</string>
@@ -283,7 +272,6 @@
     <string name="file_list_empty_recently_modified">Nije nađen nijedan fajl promenjen u poslednjih 7 dana.</string>
     <string name="file_list_empty_recently_modified_filter">Nijedan fajl nije promenjen u poslednjih 7 dana</string>
     <string name="file_list_empty_search">Možda su u nekoj drugoj fascikli?</string>
-    <string name="file_list_empty_shared">Fajlovi i fascikle koje delite pojaviće se ovde</string>
     <string name="file_list_empty_shared_headline">Još se ništa ne deli</string>
     <string name="file_list_empty_text_photos">Otpremite neke slike ili uključite automatsko otpremanje.</string>
     <string name="file_list_empty_text_photos_filter">Nema slika.</string>
@@ -332,7 +320,6 @@
     <string name="first_run_2_text">Bezbedna saradnja &amp; i razmena fajlova</string>
     <string name="first_run_3_text">Veb pošta laka za korišćenje, kalendar &amp; kontakti</string>
     <string name="first_run_4_text">Deljenje ekrana, sastanci na internetu &amp; veb konferencije</string>
-    <string name="folder">Folder</string>
     <string name="folder_already_exists">Fascikla već postoji</string>
     <string name="folder_confirm_create">Napravi</string>
     <string name="folder_icon">Ikona fascikle</string>
@@ -400,12 +387,8 @@
     <string name="move_file_error">Došlo je do greške pri premeštanju fajla ili fascikle</string>
     <string name="move_file_invalid_into_descendent">Ne može da se premesti fascikla u neku od svojih podfascikli</string>
     <string name="move_file_invalid_overwrite">Fajl već postoji u odredišnoj fascikli</string>
-    <string name="move_file_not_found">Ne mogu da pomerim fajl. Proverite da li još postoji.</string>
     <string name="move_to">Premesti u…</string>
-    <string name="network_error_connect_timeout_exception">Došlo je do greške pri čekanju na server. Radnja nije mogla biti urađena</string>
     <string name="network_error_socket_exception">Desila se greška prilikom povezivanja na server</string>
-    <string name="network_error_socket_timeout_exception">Došlo je do greške pri čekanju na server. Radnja nije mogla biti urađena</string>
-    <string name="network_host_not_available">Radnja nije mogla biti urađena. Server nije dostupan</string>
     <string name="new_comment">Novi komentar…</string>
     <string name="new_media_folder_detected">Pronađena je nova multimedijalna fascikla sa %1$s</string>
     <string name="new_media_folder_photos">slikama</string>
@@ -563,11 +546,8 @@
     <string name="share_get_public_link_button">Dobavi vezu</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_internal_link">Podeli internu vezu</string>
-    <string name="share_internal_link_text">Radi samo za korisike sa pristupom ovome %1$s</string>
     <string name="share_known_remote_clarification">%1$s (na %2$s)</string>
     <string name="share_link_empty_password">Morate uneti lozinku</string>
-    <string name="share_link_file_error">Došlo je do greške prilikom pokušaja deljenja ovog fajla ili fascikle</string>
-    <string name="share_link_file_no_exist">Ne mogu da delim. Proverite da li fajl postoji</string>
     <string name="share_link_forbidden_permissions">da delite ovaj fajl</string>
     <string name="share_link_optional_password_title">Unesite opcionu lozinku</string>
     <string name="share_link_password_title">Unesite lozinku</string>
@@ -664,7 +644,6 @@
     <string name="sync_fail_ticker">Sinhronizacija nije uspela</string>
     <string name="sync_fail_ticker_unauthorized">Neuspešna sinhronizacija, ponovo se prijavite</string>
     <string name="sync_file_nothing_to_do_msg">Sadržaj je već sinhronizovan</string>
-    <string name="sync_folder_failed_content">Sinhronizacija fascikle %1$s ne može da se dovrši</string>
     <string name="sync_foreign_files_forgotten_explanation">Od verzije 1.3.16, fajlovi otpremljeni sa ovog uređaja se kopiraki u lokalnu fasciklu %1$s da bi se sprečio gubitak podataka kada se isti fajl sinhronizuje sa više naloga.\n\nZbog ove izmene, svi fajlovi koji su otpremljeni sa starijim verzijama ove aplikacije su kopirani u fasciklu %2$s. Ipak, greška je onemogućila završetak ove operacije dok se radila sinhronizacija naloga. Možete ili ostaviti fajl(ove) tu gde jesu i izbrisati vezu ka %3$s, ili pomeriti fajl(ove) u %1$s i zadržati vezu ka %4$s.\n\nIspod su izlistani lokalni fajl(ovi), i udaljeni fajl(ovi) u %5$s na koje su vezani.</string>
     <string name="sync_foreign_files_forgotten_ticker">Neki lokalni fajlovi su zaboravljeni</string>
     <string name="sync_in_progress">Dohvatam najskoriju verziju fajla.</string>
@@ -685,7 +664,6 @@
     <string name="timeout_richDocuments">Učitavanje traje predugo…</string>
     <string name="trashbin_activity_title">Obrisani fajlovi</string>
     <string name="trashbin_empty_headline">Nema obrisanih fajlova</string>
-    <string name="trashbin_empty_message">Odavde ćete moći da povratite obrisane fajlove</string>
     <string name="trashbin_file_not_deleted">Fajl %1$s ne može da se obriše!</string>
     <string name="trashbin_file_not_restored">Fajl %1$s ne može da se povrati!</string>
     <string name="trashbin_loading_failed">Neuspelo učitavanje sadržaja kante!</string>
@@ -693,13 +671,9 @@
     <string name="unread_comments">Postoje nepročitani komentari</string>
     <string name="unset_encrypted">Isključi šifrovanje</string>
     <string name="unset_favorite">Ukloni iz omiljenih</string>
-    <string name="unshare_link_file_error">Došlo je do greške prilikom pokušaja ukidanja deljenja ovog fajla ili fascikle</string>
-    <string name="unshare_link_file_no_exist">Ne mogu da prekinem deljenje. Proverite da li fajl postoji</string>
     <string name="unshare_link_forbidden_permissions">da ukinete deljenje ovog fajla</string>
     <string name="unsharing_failed">Uklanjanje deljenja nije uspelo</string>
     <string name="untrusted_domain">Pristup kroz domen koji nije od poverenja. Pogledajte dokumentaciju za još informacija.</string>
-    <string name="update_link_file_error">Došlo je do greške pri pokušaju ažuriranja deljenja</string>
-    <string name="update_link_file_no_exist">Ne mogu da osvežim vezu. Proverite da li fajl postoji</string>
     <string name="update_link_forbidden_permissions">da ažurirate ovaj fajl</string>
     <string name="updating_share_failed">Ažuriranje deljenja nije uspelo</string>
     <string name="upload_cannot_create_file">Ne mogu da napravim lokalni fajl</string>
@@ -714,6 +688,7 @@
     <string name="upload_file_dialog_title">Unesite ime i tip fajla za otpremanje</string>
     <string name="upload_files">Otpremi fajlove</string>
     <string name="upload_item_action_button">Dugme otpremanja stavke</string>
+    <string name="upload_list_delete">Obriši</string>
     <string name="upload_list_empty_headline">Nema dostupnih otpremanja</string>
     <string name="upload_list_empty_text_auto_upload">Otpremite neki sadržaj ili uključite automatsko otpremanje.</string>
     <string name="upload_local_storage_full">Lokalno skladište puno</string>

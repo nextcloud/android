@@ -54,7 +54,6 @@
     <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
     <string name="auth_username">Usuario</string>
     <string name="auth_wrong_connection_title">No fue posible establecer la conexión</string>
-    <string name="auth_wtf_reenter_URL">Estado inesperado, por favor reingresa la dirección del servidor</string>
     <string name="auto_upload_path">/CargaAutomática</string>
     <string name="autoupload_create_new_custom_folder">Crear nueva configuración de carpeta personalizada</string>
     <string name="autoupload_custom_folder">Configurar una carpeta personalizada</string>
@@ -90,7 +89,6 @@
     <string name="community_beta_text">Esto incluye todas las últimas funcionalidades y es lo más nuevo. Fallas/errores pueden ocurrir y si es el caso, por favor repórtanoslo.</string>
     <string name="community_contribute_forum_forum">foro</string>
     <string name="community_contribute_forum_text">Ayuda a otros en</string>
-    <string name="community_contribute_github_text">Revisa, corrige y escribe código, ve %1$s para más detalles</string>
     <string name="community_contribute_headline">Contribuye activamente</string>
     <string name="community_contribute_irc_text">Únete a la conversación en IRC:</string>
     <string name="community_contribute_translate_text">la aplicación</string>
@@ -110,11 +108,7 @@
     <string name="confirmation_remove_folder_alert">¿Realmente quieres eliminar %1$s y sus contenidos? </string>
     <string name="confirmation_remove_folders_alert">¿Reamente deseas eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Sólo local</string>
-    <string name="conflict_keep_both">Mantener ambas</string>
-    <string name="conflict_message">¿Qué archivos desesa mantener? Si seleccionas ambas versiones, se le agregará un número al nombre del archivo local.</string>
-    <string name="conflict_title">Conflicto de archivo</string>
-    <string name="conflict_use_local_version">versión local</string>
-    <string name="conflict_use_server_version">versión de servidor</string>
+    <string name="conflict_message_headline">¿Cuales archivos deseas mantener?</string>
     <string name="contaclist_restore_selected">Restaurar los contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Selecciona la cuenta a importar</string>
     <string name="contactlist_no_permission">No se han otorgado privilegios, nada fue importado.</string>
@@ -132,7 +126,6 @@
     <string name="copy_file_error">Se presentó un error al intentar copiar este archivo o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No es posible copiar una carpeta dentro de una de sus sub carpetas</string>
     <string name="copy_file_invalid_overwrite">El archivo ya existe en la carpeta destino</string>
-    <string name="copy_file_not_found">Falla al copiar. Por favor revisa si existe el archivo</string>
     <string name="copy_link">Copiar liga</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
     <string name="date_unknown">Desconocido</string>
@@ -174,17 +167,17 @@
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
     <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Error crítico: No se pueden realizar operaciones</string>
+    <string name="etm_accounts">Cuentas</string>
+    <string name="etm_background_jobs">Trabajos en segundo plano</string>
     <string name="fallback_weblogin_back">Atrás</string>
     <string name="fallback_weblogin_text">Regresar al antiguo método de inicio de sesión</string>
     <string name="favorite">Agregar a tus favoritos</string>
     <string name="favorite_icon">Hacer favorito</string>
-    <string name="file">archivo</string>
     <string name="file_delete">Borrar</string>
     <string name="file_icon">Archivo</string>
     <string name="file_list_empty">Carga algún contenido o sincroniza con tus dispositivos.</string>
     <string name="file_list_empty_favorite_headline">Aún no hay nada marcado como favorito</string>
     <string name="file_list_empty_favorites_filter">Tu búsqueda no regresó archivos marcados como favoritos. </string>
-    <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas que marques como favoritos se mostrarán aquí</string>
     <string name="file_list_empty_headline">No hay archivos aquí</string>
     <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
@@ -193,7 +186,6 @@
     <string name="file_list_empty_moving">No hay nada aquí. Puedes agregar una carpeta.</string>
     <string name="file_list_empty_recently_added">No se encontraron archivos agregados recientemente</string>
     <string name="file_list_empty_search">¿Tal vez está dentro de una carpeta diferente?</string>
-    <string name="file_list_empty_shared">Los archivos y carpetas que compartas se mostrarán aquí. </string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
     <string name="file_list_empty_text_photos">Carga algunas fotos o activa la carga automática.</string>
     <string name="file_list_empty_text_videos">Carga algunos videos o activa la carga automática.</string>
@@ -212,7 +204,6 @@
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>
     <string name="filename_forbidden_characters">Caracteres inválidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_hint">Nombre del archivo</string>
-    <string name="folder">carpeta</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_icon">Ícono de carpeta</string>
     <string name="folder_list_empty_headline">No hay carpetas aquí</string>
@@ -269,8 +260,6 @@
     <string name="move_file_error">Se presentó un error al intentar mover este archivo o carpeta</string>
     <string name="move_file_invalid_into_descendent">No es posible mover una carpeta dentro de una de sus sub carpetas</string>
     <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
-    <string name="move_file_not_found">No fue posible mover el archivo. Por favor verifica si existe. </string>
-    <string name="network_host_not_available">La operación no pudo ser completada. El servidor no está disponible</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="note_confirm">Enviar</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
@@ -354,8 +343,6 @@
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_known_remote_clarification">%1$s ( a las %2$s )</string>
     <string name="share_link_empty_password">Debes ingresar una contraseña</string>
-    <string name="share_link_file_error">Se presentó un error al tratar de compartir este archivo o carpeta</string>
-    <string name="share_link_file_no_exist">No fue posible compartir. Por favor revisa si el archivo existe</string>
     <string name="share_link_forbidden_permissions">para compartir este archivo</string>
     <string name="share_link_password_title">Ingresa una contraseña</string>
     <string name="share_no_expiration_date_label">Establecer fecha de expiración</string>
@@ -435,12 +422,7 @@
     <string name="thumbnail">Miniatura</string>
     <string name="trashbin_activity_title">Archivos borrados</string>
     <string name="trashbin_empty_headline">No hay archivos borrados</string>
-    <string name="trashbin_empty_message">Podrás recuperar archivos borrados desde aquí</string>
-    <string name="unshare_link_file_error">Se presentó un error al tratar de dejar de compartir este archivo o carpeta</string>
-    <string name="unshare_link_file_no_exist">Falla al dejar de compartir. Por favor revisa si existe el archivo</string>
     <string name="unshare_link_forbidden_permissions">para dejar de compartir este archivo</string>
-    <string name="update_link_file_error">Se presentó un error al tratar de actualizar el recurso compartido</string>
-    <string name="update_link_file_no_exist">Falla al actualizar. Favor de verificar si el archivo existe</string>
     <string name="update_link_forbidden_permissions">para actualizar este recurso compartido</string>
     <string name="upload_file_dialog_filename">Nombre de archivo</string>
     <string name="upload_file_dialog_filetype">Tipo de archivo</string>
@@ -450,6 +432,7 @@
     <string name="upload_file_dialog_title">Ingresa el nombre y el tipo del archivo a cargar</string>
     <string name="upload_files">Cargar archivos</string>
     <string name="upload_item_action_button">Botón de cargar elemento</string>
+    <string name="upload_list_delete">Borrar</string>
     <string name="upload_list_empty_headline">No hay cargas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Carga algún contenido o activa la carga automática</string>
     <string name="upload_query_move_foreign_files">El espacio insuficiente evita que se copien los archivos seleccionados dentro de la carpeta %1$s. ¿Te gustaría moverlos ahí en su lugar?</string>

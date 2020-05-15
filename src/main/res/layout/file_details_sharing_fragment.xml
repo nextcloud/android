@@ -35,9 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/standard_eighth_margin"
-            android:layout_marginLeft="@dimen/standard_eighth_margin"
             android:layout_marginEnd="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
             android:hint="@string/share_search"
             style="@style/ownCloud.SearchView"/>
 
@@ -119,10 +117,8 @@
                     android:layout_weight="1"
                     android:contentDescription="@string/copy_link"
                     android:paddingStart="@dimen/standard_half_margin"
-                    android:paddingLeft="@dimen/standard_half_margin"
                     android:paddingTop="@dimen/standard_quarter_margin"
                     android:paddingEnd="@dimen/standard_eighth_margin"
-                    android:paddingRight="@dimen/standard_eighth_margin"
                     android:paddingBottom="@dimen/standard_quarter_margin"
                     android:scaleType="fitStart"
                     android:src="@drawable/ic_content_copy" />
@@ -143,13 +139,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center"
                 android:layout_marginStart="@dimen/standard_half_margin"
-                android:layout_marginLeft="@dimen/standard_half_margin"
                 android:layout_weight="0"
                 android:contentDescription="@string/overflow_menu"
                 android:paddingStart="@dimen/standard_half_padding"
-                android:paddingLeft="@dimen/standard_half_padding"
                 android:paddingEnd="@dimen/zero"
-                android:paddingRight="@dimen/zero"
                 android:src="@drawable/ic_dots_vertical"/>
         </LinearLayout>
 
@@ -177,6 +170,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_margin"
+            android:paddingStart="@dimen/zero"
+            android:paddingEnd="@dimen/standard_padding"
             android:orientation="horizontal">
 
             <ImageView
@@ -215,8 +210,7 @@
                 <TextView
                     android:id="@+id/shareInternalLinkText"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/share_internal_link_text" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
         </LinearLayout>

@@ -48,10 +48,10 @@ public class CommunityActivity extends FileActivity {
         // setup toolbar
         setupToolbar();
 
+        updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_community));
+
         // setup drawer
         setupDrawer(R.id.nav_community);
-
-        ThemeUtils.setColoredTitle(getSupportActionBar(), R.string.drawer_community, this);
 
         setupContent();
     }
@@ -93,6 +93,7 @@ public class CommunityActivity extends FileActivity {
 
         MaterialButton reportButton = findViewById(R.id.community_testing_report);
         reportButton.setBackgroundColor(ThemeUtils.primaryColor(this,true));
+        reportButton.setTextColor(ThemeUtils.fontColor(this, false));
         reportButton.setOnClickListener(v -> DisplayUtils.startLinkIntent(this, R.string.report_issue_link));
     }
 

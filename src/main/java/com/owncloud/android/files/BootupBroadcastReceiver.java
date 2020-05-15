@@ -6,7 +6,7 @@
  * Copyright (C) 2012 Bartek Przybylski
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2017 Mario Danic
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -32,6 +32,7 @@ import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -49,6 +50,7 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
 
     private static final String TAG = BootupBroadcastReceiver.class.getSimpleName();
 
+    @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject UploadsStorageManager uploadsStorageManager;
     @Inject ConnectivityService connectivityService;
@@ -67,13 +69,14 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
         AndroidInjection.inject(this, context);
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            MainApp.initSyncOperations(uploadsStorageManager,
+            MainApp.initSyncOperations(preferences,
+                                       uploadsStorageManager,
                                        accountManager,
                                        connectivityService,
                                        powerManagementService,
                                        backgroundJobManager,
                                        clock);
-            MainApp.initContactsBackup(accountManager);
+            MainApp.initContactsBackup(accountManager, backgroundJobManager);
         } else {
             Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());
         }

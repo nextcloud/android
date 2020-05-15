@@ -26,7 +26,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.Utf8PostMethod;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -52,11 +52,11 @@ public class CreateFileFromTemplateOperation extends RemoteOperation {
 
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result;
-        PostMethod postMethod = null;
+        Utf8PostMethod postMethod = null;
 
         try {
 
-            postMethod = new PostMethod(client.getBaseUri() + NEW_FROM_TEMPLATE_URL + JSON_FORMAT);
+            postMethod = new Utf8PostMethod(client.getBaseUri() + NEW_FROM_TEMPLATE_URL + JSON_FORMAT);
             postMethod.setParameter("path", path);
             postMethod.setParameter("template", String.valueOf(templateId));
 

@@ -16,6 +16,7 @@
 
 -->
 <com.owncloud.android.ui.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -29,13 +30,21 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
+        <com.elyeproj.loaderviewlibrary.LoaderImageView
+            android:id="@+id/thumbnail_shimmer"
+            android:layout_width="@dimen/standard_list_item_size"
+            android:layout_height="@dimen/standard_list_item_size"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:corners="8" />
+
         <ImageView
             android:id="@+id/thumbnail"
             android:layout_width="@dimen/standard_list_item_size"
             android:layout_height="@dimen/standard_list_item_size"
             android:layout_gravity="center"
-            android:src="@drawable/folder"
-            android:contentDescription="@null"/>
+            android:contentDescription="@null"
+            android:src="@drawable/folder" />
 
         <ImageView
             android:id="@+id/favorite_action"
@@ -52,7 +61,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
             android:layout_marginTop="@dimen/grid_item_shared_icon_layout_top_margin"
-            android:layout_marginRight="@dimen/standard_quarter_margin"
             android:layout_marginEnd="@dimen/standard_quarter_margin"
             android:src="@drawable/shared_via_link"
             android:contentDescription="@string/shared_icon_shared_via_link"/>
@@ -66,7 +74,6 @@
             android:focusable="true"
             android:layout_gravity="top|end"
             android:layout_marginTop="@dimen/grid_item_shared_icon_layout_top_margin"
-            android:layout_marginRight="@dimen/standard_quarter_margin"
             android:layout_marginEnd="@dimen/standard_quarter_margin"
             android:src="@drawable/ic_comment_grid"
             android:visibility="gone" />
@@ -77,7 +84,6 @@
             android:layout_height="@dimen/grid_item_local_file_indicator_layout_height"
             android:layout_gravity="bottom|end"
             android:layout_marginBottom="@dimen/standard_quarter_margin"
-            android:layout_marginRight="@dimen/standard_quarter_margin"
             android:layout_marginEnd="@dimen/standard_quarter_margin"
             android:layout_marginTop="@dimen/standard_quarter_margin"
             android:src="@drawable/ic_synced"

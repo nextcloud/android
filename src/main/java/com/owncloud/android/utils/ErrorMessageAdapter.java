@@ -76,14 +76,14 @@ public final class ErrorMessageAdapter {
             RemoteOperation operation,
             Resources res
     ) {
-        String message = getSpecificMessageForResultAndOperation(result, operation, res);
+        String message = getMessageForResultAndOperation(result, operation, res);
 
         if (TextUtils.isEmpty(message)) {
-            message = getCommonMessageForResult(result, res);
+            message = getMessageForResult(result, res);
         }
 
         if (TextUtils.isEmpty(message)) {
-            message = getGenericErrorMessageForOperation(operation, res);
+            message = getMessageForOperation(operation, res);
         }
 
         if (message == null) {
@@ -109,7 +109,7 @@ public final class ErrorMessageAdapter {
      *                      specific message for both.
      */
     @Nullable
-    private static String getSpecificMessageForResultAndOperation(
+    private static String getMessageForResultAndOperation(
             RemoteOperationResult result,
             RemoteOperation operation,
             Resources res
@@ -360,6 +360,9 @@ public final class ErrorMessageAdapter {
             } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
                 return res.getString(R.string.filename_forbidden_charaters_from_server);
 
+            } else if(result.getCode() == ResultCode.SYNC_CONFLICT) {
+                return String.format(res.getString(R.string.uploader_upload_failed_sync_conflict_error_content),
+                                        operation.getFileName());
             }
         }
 
@@ -376,8 +379,7 @@ public final class ErrorMessageAdapter {
      * @return              User message corresponding to 'result'.
      */
     @Nullable
-    private static String getCommonMessageForResult(RemoteOperationResult result, Resources res) {
-
+    private static String getMessageForResult(RemoteOperationResult result, Resources res) {
         String message = null;
 
         if (!result.isSuccess()) {
@@ -452,7 +454,7 @@ public final class ErrorMessageAdapter {
      * @return              User message corresponding to a generic error of 'operation'.
      */
     @Nullable
-    private static String getGenericErrorMessageForOperation(RemoteOperation operation, Resources res) {
+    private static String getMessageForOperation(RemoteOperation operation, Resources res) {
         String message = null;
 
         if (operation instanceof UploadFileOperation) {

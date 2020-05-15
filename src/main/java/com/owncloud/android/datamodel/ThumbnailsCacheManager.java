@@ -45,6 +45,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -209,6 +210,23 @@ public final class ThumbnailsCacheManager {
 
     public static boolean containsBitmap(String key) {
         return mThumbnailCache.containsKey(key);
+    }
+
+    public static Bitmap getScaledBitmapFromDiskCache(String key, int width, int height) {
+        synchronized (mThumbnailsDiskCacheLock) {
+            // Wait while disk cache is started from background thread
+            while (mThumbnailCacheStarting) {
+                try {
+                    mThumbnailsDiskCacheLock.wait();
+                } catch (InterruptedException e) {
+                    Log_OC.e(TAG, "Wait in mThumbnailsDiskCacheLock was interrupted", e);
+                }
+            }
+            if (mThumbnailCache != null) {
+                return mThumbnailCache.getScaledBitmap(key, width, height);
+            }
+        }
+        return null;
     }
 
     public static Bitmap getBitmapFromDiskCache(String key) {
@@ -410,21 +428,12 @@ public final class ThumbnailsCacheManager {
         private String mImageKey;
         private FileDataStorageManager mStorageManager;
         private GetMethod getMethod;
-        private boolean roundedCorners = false;
+        private Listener mListener;
+        private boolean gridViewEnabled = false;
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, Account account)
                 throws IllegalArgumentException {
             this(imageView, storageManager, account, null);
-        }
-
-        public ThumbnailGenerationTask(ImageView imageView,
-                                       FileDataStorageManager storageManager,
-                                       Account account,
-                                       List<ThumbnailGenerationTask> asyncTasks,
-                                       boolean roundedCorners)
-            throws IllegalArgumentException {
-            this(imageView, storageManager, account, asyncTasks);
-            this.roundedCorners = roundedCorners;
         }
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
@@ -438,6 +447,14 @@ public final class ThumbnailsCacheManager {
             mStorageManager = storageManager;
             mAccount = account;
             mAsyncTasks = asyncTasks;
+        }
+
+        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
+                                       Account account, List<ThumbnailGenerationTask> asyncTasks,
+                                       boolean gridViewEnabled)
+            throws IllegalArgumentException {
+            this(imageView, storageManager, account, asyncTasks);
+            this.gridViewEnabled = gridViewEnabled;
         }
 
         public GetMethod getGetMethod() {
@@ -462,7 +479,7 @@ public final class ThumbnailsCacheManager {
         @Override
         protected Bitmap doInBackground(ThumbnailGenerationTaskObject... params) {
             Bitmap thumbnail = null;
-
+            boolean isError = false;
             try {
                 if (mAccount != null) {
                     OwnCloudAccount ocAccount = new OwnCloudAccount(
@@ -497,9 +514,15 @@ public final class ThumbnailsCacheManager {
 
             } catch(OutOfMemoryError oome) {
                 Log_OC.e(TAG, "Out of memory");
+                isError = true;
             } catch (Throwable t) {
                 // the app should never break due to a problem with thumbnails
                 Log_OC.e(TAG, "Generation of thumbnail for " + mFile + " failed", t);
+                isError = true;
+            } finally {
+                if (isError && mListener != null){
+                    mListener.onError();
+                }
             }
 
             return thumbnail;
@@ -519,18 +542,26 @@ public final class ThumbnailsCacheManager {
                         tagId = String.valueOf(((TrashbinFile) mFile).getRemoteId());
                     }
                     if (String.valueOf(imageView.getTag()).equals(tagId)) {
-                        if (roundedCorners) {
-                            BitmapUtils.setRoundedBitmap(bitmap, imageView);
+                        if (gridViewEnabled){
+                            BitmapUtils.setRoundedBitmapForGridMode(bitmap, imageView);
                         } else {
-                            imageView.setImageBitmap(bitmap);
+                        BitmapUtils.setRoundedBitmap(bitmap, imageView);
                         }
                     }
                 }
             }
 
+            if (mListener !=null){
+                mListener.onSuccess();
+            }
+
             if (mAsyncTasks != null) {
                 mAsyncTasks.remove(this);
             }
+        }
+
+        public void setListener(Listener listener){
+            mListener = listener;
         }
 
         private Bitmap doThumbnailFromOCFileInBackground() {
@@ -679,6 +710,11 @@ public final class ThumbnailsCacheManager {
             return thumbnail;
         }
 
+        public interface Listener{
+            void onSuccess();
+            void onError();
+        }
+
     }
 
     public static class MediaThumbnailGenerationTask extends AsyncTask<Object, Void, Bitmap> {
@@ -824,9 +860,14 @@ public final class ThumbnailsCacheManager {
         private Context mContext;
 
 
-        public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener, Object callContext,
-                                    Account account, Resources resources, float avatarRadius, String userId,
-                                    String serverName, Context context) {
+        public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener,
+                                    Object callContext,
+                                    Account account,
+                                    Resources resources,
+                                    float avatarRadius,
+                                    String userId,
+                                    String serverName,
+                                    Context context) {
             mAvatarGenerationListener = new WeakReference<>(avatarGenerationListener);
             mCallContext = callContext;
             mAccount = account;
@@ -865,7 +906,8 @@ public final class ThumbnailsCacheManager {
                 AvatarGenerationListener listener = mAvatarGenerationListener.get();
                 if (listener != null) {
                     AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(mCallContext);
-                    if (this == avatarWorkerTask && listener.shouldCallGeneratedCallback(mUserId, mCallContext)) {
+                    String accountName = mUserId + "@" + mServerName;
+                    if (this == avatarWorkerTask && listener.shouldCallGeneratedCallback(accountName, mCallContext)) {
                         listener.avatarGenerated(drawable, mCallContext);
                     }
                 }
@@ -999,51 +1041,28 @@ public final class ThumbnailsCacheManager {
     }
 
     public static boolean cancelPotentialAvatarWork(Object file, Object callContext) {
-        if (callContext instanceof ImageView) {
-            return cancelPotentialAvatarWork(file, (ImageView) callContext);
-        } else if (callContext instanceof MenuItem) {
-            return cancelPotentialAvatarWork(file, (MenuItem)callContext);
-        }
+        if (callContext instanceof ImageView ||
+            callContext instanceof MenuItem ||
+            callContext instanceof MaterialButton) {
 
-        return false;
-    }
-
-    public static boolean cancelPotentialAvatarWork(Object file, ImageView imageView) {
-        final AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(imageView);
-
-        if (avatarWorkerTask != null) {
-            final Object usernameData = avatarWorkerTask.mUserId;
-            // If usernameData is not yet set or it differs from the new data
-            if (usernameData == null || !usernameData.equals(file)) {
-                // Cancel previous task
-                avatarWorkerTask.cancel(true);
-                Log_OC.v(TAG, "Cancelled generation of avatar for a reused imageView");
-            } else {
-                // The same work is already in progress
-                return false;
+            AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(callContext);
+            if (avatarWorkerTask != null) {
+                final Object usernameData = avatarWorkerTask.mUserId;
+                // If usernameData is not yet set or it differs from the new data
+                if (usernameData == null || !usernameData.equals(file)) {
+                    // Cancel previous task
+                    avatarWorkerTask.cancel(true);
+                    Log_OC.v(TAG, "Cancelled generation of avatar for a reused imageView");
+                } else {
+                    // The same work is already in progress
+                    return false;
+                }
             }
+            // No task associated with the ImageView, or an existing task was cancelled
+            return true;
+        } else {
+            return false;
         }
-        // No task associated with the ImageView, or an existing task was cancelled
-        return true;
-    }
-
-    public static boolean cancelPotentialAvatarWork(Object file, MenuItem menuItem) {
-        final AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(menuItem);
-
-        if (avatarWorkerTask != null) {
-            final Object usernameData = avatarWorkerTask.mUserId;
-            // If usernameData is not yet set or it differs from the new data
-            if (usernameData == null || !usernameData.equals(file)) {
-                // Cancel previous task
-                avatarWorkerTask.cancel(true);
-                Log_OC.v(TAG, "Cancelled generation of avatar for a reused imageView");
-            } else {
-                // The same work is already in progress
-                return false;
-            }
-        }
-        // No task associated with the ImageView, or an existing task was cancelled
-        return true;
     }
 
     public static ThumbnailGenerationTask getBitmapWorkerTask(ImageView imageView) {
@@ -1114,9 +1133,11 @@ public final class ThumbnailsCacheManager {
 
     public static AvatarGenerationTask getAvatarWorkerTask(Object callContext) {
         if (callContext instanceof ImageView) {
-            return getAvatarWorkerTask(((ImageView)callContext).getDrawable());
+            return getAvatarWorkerTask(((ImageView) callContext).getDrawable());
         } else if (callContext instanceof MenuItem) {
-            return getAvatarWorkerTask(((MenuItem)callContext).getIcon());
+            return getAvatarWorkerTask(((MenuItem) callContext).getIcon());
+        } else if (callContext instanceof MaterialButton) {
+            return getAvatarWorkerTask(((MaterialButton) callContext).getIcon());
         }
 
         return null;

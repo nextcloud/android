@@ -27,17 +27,15 @@ import android.os.Parcelable;
 
 import com.owncloud.android.R;
 
-import lombok.Getter;
-
 /**
  * @author Bartosz Przybylski
  * @author Tobias Kaminsky
  */
 public class FeatureItem implements Parcelable {
     private static final int DO_NOT_SHOW = -1;
-    @Getter private int image;
-    @Getter private int titleText;
-    @Getter private int contentText;
+    private int image;
+    private int titleText;
+    private int contentText;
     private boolean contentCentered;
     private boolean bulletList;
 
@@ -102,4 +100,16 @@ public class FeatureItem implements Parcelable {
             return new FeatureItem[size];
         }
     };
+
+    public int getImage() {
+        return this.image;
+    }
+
+    public int getTitleText() {
+        return this.titleText;
+    }
+
+    public int getContentText() {
+        return this.contentText;
+    }
 }

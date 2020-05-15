@@ -1,1 +1,1 @@
-Samo-hostująca platforma produkcyjna, która zapewnia kontrolę (wersja dewelopers
+Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę 

@@ -32,7 +32,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,7 +47,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.webkit.URLUtil;
 
 import com.nextcloud.client.account.User;
@@ -89,7 +87,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.res.ResourcesCompat;
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -746,30 +743,12 @@ public class SettingsActivity extends ThemedPreferenceActivity
         ActionBar actionBar = getDelegate().getSupportActionBar();
 
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
             ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings), this);
-            actionBar.setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryColor(this)));
+            ThemeUtils.colorStatusBar(this);
+            actionBar.setBackgroundDrawable(new ColorDrawable(ThemeUtils.primaryAppbarColor(this)));
 
-            Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-            actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this, true)));
-        }
-
-        Window window = getWindow();
-        if (window != null) {
-            window.getDecorView().setBackgroundDrawable(new ColorDrawable(ResourcesCompat
-                    .getColor(getResources(), R.color.bg_default, null)));
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.setStatusBarColor(ThemeUtils.primaryColor(this));
-            }
-
-            // For adding content description tag to a title field in the action bar
-            int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
-            View actionBarTitle = window.getDecorView().findViewById(actionBarTitleId);
-
-            if (actionBarTitle != null) {
-                actionBarTitle.setContentDescription(getString(R.string.actionbar_settings));
-            }
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            ThemeUtils.tintBackButton(actionBar, this);
         }
     }
 
@@ -1034,6 +1013,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     @Override
     public void returnVersion(Integer latestVersion) {
-        FileActivity.showDevSnackbar(this, latestVersion, true);
+        FileActivity.showDevSnackbar(this, latestVersion, true, false);
     }
 }

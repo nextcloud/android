@@ -342,12 +342,16 @@ public class SyncedFolderProvider extends Observable {
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY)) == 1;
             boolean chargingOnly = cursor.getInt(cursor.getColumnIndex(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY)) == 1;
+            boolean existing = cursor.getInt(cursor.getColumnIndex(
+                    ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_EXISTING)) == 1;
             boolean subfolderByDate = cursor.getInt(cursor.getColumnIndex(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE)) == 1;
             String accountName = cursor.getString(cursor.getColumnIndex(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT));
             int uploadAction = cursor.getInt(cursor.getColumnIndex(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION));
+            int nameCollisionPolicy = cursor.getInt(cursor.getColumnIndex(
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY));
             boolean enabled = cursor.getInt(cursor.getColumnIndex(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED)) == 1;
             long enabledTimestampMs = cursor.getLong(cursor.getColumnIndex(
@@ -357,8 +361,20 @@ public class SyncedFolderProvider extends Observable {
             boolean hidden = cursor.getInt(cursor.getColumnIndex(
                 ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN)) == 1;
 
-            syncedFolder = new SyncedFolder(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate,
-                    accountName, uploadAction, enabled, enabledTimestampMs, type, hidden);
+            syncedFolder = new SyncedFolder(id,
+                                            localPath,
+                                            remotePath,
+                                            wifiOnly,
+                                            chargingOnly,
+                                            existing,
+                                            subfolderByDate,
+                                            accountName,
+                                            uploadAction,
+                                            nameCollisionPolicy,
+                                            enabled,
+                                            enabledTimestampMs,
+                                            type,
+                                            hidden);
         }
         return syncedFolder;
     }
@@ -376,11 +392,14 @@ public class SyncedFolderProvider extends Observable {
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH, syncedFolder.getRemotePath());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY, syncedFolder.isWifiOnly());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY, syncedFolder.isChargingOnly());
+        cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_EXISTING, syncedFolder.isExisting());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED, syncedFolder.isEnabled());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS, syncedFolder.getEnabledTimestampMs());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE, syncedFolder.isSubfolderByDate());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT, syncedFolder.getAccount());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION, syncedFolder.getUploadAction());
+        cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY,
+               syncedFolder.getNameCollisionPolicy());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE, syncedFolder.getType().getId());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN, syncedFolder.isHidden());
 

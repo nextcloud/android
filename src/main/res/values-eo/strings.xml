@@ -41,7 +41,6 @@
     <string name="auth_check_server">Kontroli servilon</string>
     <string name="auth_connection_established">Konekto stariĝis</string>
     <string name="auth_expired_basic_auth_toast">Bonvolu entajpi la nunan pasvorton</string>
-    <string name="auth_fail_get_user_name">Via servilo ne liveras ĝustan identigilon de uzanto. Bonvolu kontakti vian administranton.</string>
     <string name="auth_host_address">Servila adreso</string>
     <string name="auth_host_url">Servila adreso https://…</string>
     <string name="auth_illegal_login_used">Nepermesita adreso de aŭtentigo</string>
@@ -69,7 +68,6 @@
     <string name="auth_unsupported_multiaccount">%1$s ne subtenas plurajn kontojn</string>
     <string name="auth_username">Uzantonomo</string>
     <string name="auth_wrong_connection_title">Ne eblis starigi konekton</string>
-    <string name="auth_wtf_reenter_URL">Neatendita stato, bonvolu re-entajpi la serviladreson</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">konservita en origina dosierujo, ĉar ĝi estas nurlega</string>
     <string name="auto_upload_on_wifi">Nur alŝuti per sendrata („Wi-Fi“) senlima konekto</string>
     <string name="auto_upload_path">/AŭtomataAlŝutado</string>
@@ -115,7 +113,6 @@
     <string name="community_beta_text">Ĝi enhavas ĉiujn venontajn funkciojn, kaj ĝi estas freŝfreŝa. Eraroj povas okazi: se kaj kiam tio okazas, bonvolu raporti ilin.</string>
     <string name="community_contribute_forum_forum">forumo</string>
     <string name="community_contribute_forum_text">Helpu la aliajn uzantojn per</string>
-    <string name="community_contribute_github_text">Reviziu, korekti kaj kodu: vidu ĉi tie %1$s por pli da detaloj</string>
     <string name="community_contribute_headline">Aktive kontribuu</string>
     <string name="community_contribute_irc_text">Partoprenu babilante per IRC (interreta relajsa babilo, angle „internet relay chat“):</string>
     <string name="community_contribute_translate_text">la aplikaĵon</string>
@@ -136,11 +133,7 @@
     <string name="confirmation_remove_folder_alert">Ĉu vi ja volas forigi %1$s kaj ĝian enhavon?</string>
     <string name="confirmation_remove_folders_alert">Ĉu vi ja volas forigi la elektitajn elementojn kaj ilian enhavon?</string>
     <string name="confirmation_remove_local">Nur loka</string>
-    <string name="conflict_keep_both">Konservi ambaŭ</string>
-    <string name="conflict_message">Kiujn dosierojn vi volas konservi? Se vi elektos ambaŭ eldonojn, la loka dosiero havos numeron aldonitan al sia nomo.</string>
-    <string name="conflict_title">Dosierkonflikto</string>
-    <string name="conflict_use_local_version">loka eldono</string>
-    <string name="conflict_use_server_version">servila eldono</string>
+    <string name="conflict_message_headline">Kiujn dosierojn vi volas konservi?</string>
     <string name="contaclist_restore_selected">Restaŭri elektitajn kontaktojn</string>
     <string name="contactlist_account_chooser_title">Elekti konton importota</string>
     <string name="contactlist_item_icon">Uzanto-piktogramo por la kontaktlisto</string>
@@ -159,7 +152,6 @@
     <string name="copy_file_error">Eraro okazis dum provo kopii ĉi tiun dosieron aŭ dosierujon</string>
     <string name="copy_file_invalid_into_descendent">Ne eblas kopii dosierujon en unu el ĝiaj idoj</string>
     <string name="copy_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
-    <string name="copy_file_not_found">Ne eblas kopii. Bonvolu kontroli, ĉu la dosiero ekzistas.</string>
     <string name="copy_link">Kopii ligilon</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopii aŭ movi en ĉifritan dosierujon ne estas subtenata momente.</string>
     <string name="copy_to">Kopii al...</string>
@@ -239,12 +231,13 @@
     <string name="error_comment_file">Eraro dum komentado de la dosiero</string>
     <string name="error_retrieving_templates">Eraro dum ricevo de ŝablonoj</string>
     <string name="error_starting_direct_camera_upload">Eraro dum ŝargo de la fotilo</string>
+    <string name="etm_accounts">Kontoj</string>
+    <string name="etm_background_jobs">Fonaj taskoj</string>
     <string name="fab_label">Aldoni aŭ alŝuti</string>
     <string name="fallback_weblogin_back">Antaŭen</string>
     <string name="fallback_weblogin_text">Reiri al la malnova konektmetodo</string>
     <string name="favorite">Aldoni al pliŝataĵoj</string>
     <string name="favorite_icon">Pliŝatataj</string>
-    <string name="file">dosiero</string>
     <string name="file_delete">Forigi</string>
     <string name="file_details_no_content">Ŝargo de detaloj malsukcesis</string>
     <string name="file_icon">Dosiero</string>
@@ -252,7 +245,6 @@
     <string name="file_list_empty">Alŝutu ion aŭ sinkronigu kun viaj aparatoj.</string>
     <string name="file_list_empty_favorite_headline">Ankoraŭ neniu pliŝataĵo</string>
     <string name="file_list_empty_favorites_filter">Neniu serĉorezulto en viaj pliŝatataj dosieroj.</string>
-    <string name="file_list_empty_favorites_filter_list">Dosieroj kaj dosierujoj, kiujn vi markas kiel pliŝataĵoj, aperos ĉi tie</string>
     <string name="file_list_empty_headline">Neniu dosiero ĉi tie</string>
     <string name="file_list_empty_headline_search">Neniu rezulto en tiu dosierujo</string>
     <string name="file_list_empty_headline_server_search">Neniu rezulto</string>
@@ -264,7 +256,6 @@
     <string name="file_list_empty_recently_modified">Troviĝis neniu dosiero modifita dum la lastaj 7 tagoj</string>
     <string name="file_list_empty_recently_modified_filter">Neniu dosiero modifita dum la lastaj 7 tagoj</string>
     <string name="file_list_empty_search">Ĉu eble ĝi estas en alia dosierujo?</string>
-    <string name="file_list_empty_shared">Dosieroj kaj dosierujoj, kiujn vi kunhavigas per ligilo, aperos ĉi tie</string>
     <string name="file_list_empty_shared_headline">Ankoraŭ neniu kunhavo</string>
     <string name="file_list_empty_text_photos">Alŝutu kelkajn fotojn aŭ aktivigu aŭtomatan alŝuton.</string>
     <string name="file_list_empty_text_photos_filter">Neniu foto.</string>
@@ -313,7 +304,6 @@
     <string name="first_run_2_text">Sekura kunlaborado kaj dosiera interŝanĝo</string>
     <string name="first_run_3_text">Faciluza enreta retpoŝtilo, kalendaro kaj kontaktaro</string>
     <string name="first_run_4_text">Ekrandividado, retkunsidoj kaj reta konferencoj</string>
-    <string name="folder">folder</string>
     <string name="folder_already_exists">La dosierujo jam ekzistas</string>
     <string name="folder_confirm_create">Krei</string>
     <string name="folder_icon">Piktogramo de dosierujo</string>
@@ -376,12 +366,8 @@
     <string name="move_file_error">Eraro okazis dum provo movi ĉi tiun dosieron aŭ dosierujon</string>
     <string name="move_file_invalid_into_descendent">Ne eblas movi dosierujon en unu el ĝiaj idoj</string>
     <string name="move_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
-    <string name="move_file_not_found">Ne eblas movi dosieron. Bonvolu kontroli, ĉu ĝi ekzistas.</string>
     <string name="move_to">Movi al...</string>
-    <string name="network_error_connect_timeout_exception">Eraro okazis dum atendado de la servilo. Ne eblis plenumi la taskon</string>
     <string name="network_error_socket_exception">Eraro okazis dum konekto al la servilo</string>
-    <string name="network_error_socket_timeout_exception">Eraro okazis dum atendado de la servilo. Ne eblis plenumi la taskon</string>
-    <string name="network_host_not_available">Ne eblis plenumi la taskon: la servilo ne disponeblas</string>
     <string name="new_comment">Nova komento...</string>
     <string name="new_media_folder_detected">Nova aŭdovida dosierujo %1$s eltrovita.</string>
     <string name="new_media_folder_photos">foto</string>
@@ -522,8 +508,6 @@
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_known_remote_clarification">%1$s (el %2$s)</string>
     <string name="share_link_empty_password">Vi devas enigi pasvorton</string>
-    <string name="share_link_file_error">Eraro okazis, dum provo kunhavigi ĉi tiun dosieron aŭ dosierujon</string>
-    <string name="share_link_file_no_exist">Ne eblas kunhavigi. Bonvolu kontroli, ĉu la dosiero ekzistas</string>
     <string name="share_link_forbidden_permissions">kunhavigi ĉi tiun dosieron</string>
     <string name="share_link_password_title">Enigu pasvorton</string>
     <string name="share_no_expiration_date_label">Uzi limdaton</string>
@@ -615,7 +599,6 @@
     <string name="sync_fail_ticker">Sinkronigo malsukcesis</string>
     <string name="sync_fail_ticker_unauthorized">Sinkronigo malsukcesis, bonvolu re-ensaluti</string>
     <string name="sync_file_nothing_to_do_msg">Dosierenhavoj jam sinkroniĝis</string>
-    <string name="sync_folder_failed_content">Sinkronigo de dosierujo %1$s ne estis plenumita</string>
     <string name="sync_foreign_files_forgotten_explanation">De la versio 1.3.16, dosieroj alŝutitaj el tiu aparato estas kopiitaj en loka dosierujo %1$s por antaŭmalhelpi perdon de datumoj, kiam unuopa dosiero sinkroniĝas kun pluraj kontoj.\n\nPro tiu ŝanĝo, ĉiuj dosieroj alŝutitaj per antaŭaj versioj de tiu aplikaĵo kopiiĝis en la dosierujo %2$s. Tamen, eraro malebligis plenumigon de tiu operacio dum la konta sinkronigo. Vi povas aŭ lasi la dosiero(j)n, kie ili estas, kaj forigi la ligilon al %3$s, aŭ transigi la dosiero(j)n al la dosierujo %1$s kaj konservi la ligilon al %4$s.\n\nĈi-sube, vi trovos la loka(j)n dosiero(j)n kaj la fora(j)n dosiero(j)n en %5$s, al kiuj ili estis ligitaj.</string>
     <string name="sync_foreign_files_forgotten_ticker">Iuj lokaj dosieroj forgesiĝis</string>
     <string name="sync_in_progress">Prenante plej freŝa versio de la dosiero.</string>
@@ -635,7 +618,6 @@
     <string name="timeout_richDocuments">Ŝargo daŭras longe...</string>
     <string name="trashbin_activity_title">Forigitaj dosieroj</string>
     <string name="trashbin_empty_headline">Neniu forigita dosiero</string>
-    <string name="trashbin_empty_message">Vi eblos restaŭri forigitajn dosierojn el ĉi tie</string>
     <string name="trashbin_file_not_deleted">Dosiero %1$s ne povis esti forigita!</string>
     <string name="trashbin_file_not_restored">Dosiero %1$s ne povis esti restaŭrita!</string>
     <string name="trashbin_loading_failed">Eraro dum legado de rubuj-enhavo!</string>
@@ -643,13 +625,9 @@
     <string name="unread_comments">Ekzistas nelegataj komentoj</string>
     <string name="unset_encrypted">Malĉifrigi</string>
     <string name="unset_favorite">Forigi el pliŝataĵoj</string>
-    <string name="unshare_link_file_error">Eraro okazis, dum provo malkunhavigi ĉi tiun dosieron aŭ dosierujon</string>
-    <string name="unshare_link_file_no_exist">Ne eblas malkunhavigi. Bonvolu kontroli, ĉu la dosiero ekzistas</string>
     <string name="unshare_link_forbidden_permissions">malkunhavigi ĉi tiun dosieron</string>
     <string name="unsharing_failed">Malkunhavigo malsukcesis</string>
     <string name="untrusted_domain">Aliro per nefidinda domajno. Vidu la helpdokumentojn por scii pli.</string>
-    <string name="update_link_file_error">Okazis eraro dum provo ĝisdatigi la kunhavon</string>
-    <string name="update_link_file_no_exist">Ne eblas ĝisdatigi. Bonvolu kontroli, ĉu la dosiero ekzistas</string>
     <string name="update_link_forbidden_permissions">ĝisdatigi ĉi tiun kunhavon</string>
     <string name="updating_share_failed">Ĝisdatigo de kunhavo malsukcesis</string>
     <string name="upload_cannot_create_file">Ne eblas krei lokan dosieron</string>
@@ -664,6 +642,7 @@
     <string name="upload_file_dialog_title">Entajpu la alŝutotan dosiernomon kaj ĝian tipon </string>
     <string name="upload_files">Alŝuti dosierojn</string>
     <string name="upload_item_action_button">Butono pri alŝuto</string>
+    <string name="upload_list_delete">Forigi</string>
     <string name="upload_list_empty_headline">Neniu alŝuto disponeblas</string>
     <string name="upload_list_empty_text_auto_upload">Alŝutu ion aŭ aktivigu aŭtomatan alŝuton.</string>
     <string name="upload_local_storage_full">Loka konservejo plenas</string>

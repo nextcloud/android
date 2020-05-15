@@ -25,17 +25,17 @@ package com.nextcloud.android.sso;
 import com.google.gson.Gson;
 
 import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpMethodBase;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
-
 public class Response {
-    @Getter
     private InputStream body;
     private Header[] headers;
+    private HttpMethodBase method;
 
     public Response() {
         headers = new Header[0];
@@ -47,9 +47,10 @@ public class Response {
         };
     }
 
-    public Response(InputStream inputStream, Header[] headers) {
-        this.body = inputStream;
-        this.headers = headers;
+    public Response(HttpMethodBase methodBase) throws IOException {
+        this.method = methodBase;
+        this.body = methodBase.getResponseBodyAsStream();
+        this.headers = methodBase.getResponseHeaders();
     }
 
     public String getPlainHeadersString() {
@@ -61,5 +62,13 @@ public class Response {
 
         Gson gson = new Gson();
         return gson.toJson(arrayList);
+    }
+
+    public InputStream getBody() {
+        return this.body;
+    }
+
+    public HttpMethodBase getMethod() {
+        return method;
     }
 }

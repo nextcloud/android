@@ -6,7 +6,7 @@
  * @author Chris Narkiewicz
  * Copyright (C) 2017 Andy Scherzinger
  * Copyright (C) 2017 Mario Danic
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -38,11 +38,11 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.jobs.NotificationWork;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.jobs.NotificationJob;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -124,7 +124,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
 
         // use account from intent (opened via android notification can have a different account than current one)
         if (getIntent() != null && getIntent().getExtras() != null) {
-            String accountName = getIntent().getExtras().getString(NotificationJob.KEY_NOTIFICATION_ACCOUNT);
+            String accountName = getIntent().getExtras().getString(NotificationWork.KEY_NOTIFICATION_ACCOUNT);
             if(accountName != null && optionalUser.isPresent()) {
                 User user = optionalUser.get();
                 if (user.getAccountName().equalsIgnoreCase(accountName)) {
@@ -138,12 +138,15 @@ public class NotificationsActivity extends FileActivity implements Notifications
         // setup toolbar
         setupToolbar();
 
+        updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_notifications));
+
         swipeEmptyListRefreshLayout = findViewById(R.id.swipe_containing_empty);
         swipeListRefreshLayout = findViewById(R.id.swipe_containing_list);
+        ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
+        ThemeUtils.colorSwipeRefreshLayout(this, swipeEmptyListRefreshLayout);
 
         // setup drawer
         setupDrawer(R.id.nav_notifications);
-        ThemeUtils.setColoredTitle(getSupportActionBar(), getString(R.string.drawer_item_notifications), this);
 
         if (!optionalUser.isPresent()) {
             // show error
@@ -234,7 +237,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
      * sets up the UI elements and loads all notification items.
      */
     private void setupContent() {
-        emptyContentIcon.setImageResource(R.drawable.ic_notification_light_grey);
+        emptyContentIcon.setImageResource(R.drawable.ic_notification);
         emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(this),
                 PorterDuff.Mode.SRC_IN);
         setLoadingMessage();
@@ -348,7 +351,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
             emptyContentMessage.setVisibility(View.VISIBLE);
 
             emptyContentProgressBar.setVisibility(View.GONE);
-            emptyContentIcon.setImageResource(R.drawable.ic_notification_light_grey);
+            emptyContentIcon.setImageResource(R.drawable.ic_notification);
             emptyContentIcon.setVisibility(View.VISIBLE);
         }
     }

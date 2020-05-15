@@ -1,9 +1,14 @@
 #!/bin/bash
 date=$(date +%Y%m%d)
+oldLibraryCommit=$(grep "androidLibraryVersion\ =" build.gradle)
+libraryCommit=$(curl https://api.github.com/repos/nextcloud/android-library/commits/master | jq .sha | sed s'/\"//g')
 
 # use current date for version code/name
 sed -i "/versionDev/,/\}/ s/versionCode .*/versionCode $date/" build.gradle
 sed -i "/versionDev/,/\}/ s/versionName .*/versionName \"$date\"/" build.gradle
+
+# change library
+sed -i s"#androidLibraryVersion\ =.*#androidLibraryVersion =\"$libraryCommit\"#" build.gradle
 
 # build signed apk
 ./gradlew assembleVersionDevRelease >> /tmp/dev.log 2>&1
@@ -32,17 +37,33 @@ mv latest.apk ~/apks/
 # remove all but the latest 5 apks
 /bin/ls -t ~/apks/*.apk | awk 'NR>6' | xargs rm -f
 
-lastBuildTime=$(date --date="$(git log -1 --format=%ai $(git tag | grep dev | tail -n1))" +%s)
-changelog=$(git log --after=$lastBuildTime --pretty=oneline --abbrev-commit)
+lastBuildTag=$(git tag | grep dev | tail -n1)
+# Show only the commit subject in the changelog and filter out:
+#  * Merges
+#  * Dependabot commits
+#  * Commits touching only non-user-facing stuff like tests
+#  * Version bump commits
+#  * Anything reachable from the previous dev edition tag
+changelog=$(git log --no-merges --invert-grep --author=dependabot --pretty='format:%s' HEAD "^$lastBuildTag" -- ':!src/androidTest' ':!.*' ':!scripts/' ':!screenshots' ':!CHANGELOG.md' | grep -vE '^daily dev [[:digit:]]{8}$')
+# Make Transifex updates have a nicer description
+if echo "$changelog" | grep -q 'tx-robot'; then
+	changelog=$(echo "$changelog" | grep -v 'tx-robot')
+	# This is a funky bashism - preceding a single-quote string with $ lets you put escape chars in it
+	changelog="${changelog}"$'\nUpdate translations'
+fi
 
-libraryCommit=$(curl https://api.github.com/repos/nextcloud/android-library/commits/master | jq .sha | sed s'/\"//g')
+# Check if the library was updated
+if ! echo $oldLibraryCommit | grep -q $libraryCommit; then
+	changelog="${changelog}"$'\nUpdate Nextcloud Android library'
+fi
+
+# Collapse dependency updates into a single "Update dependencies" entry
+if git log --pretty='format:%an' HEAD "^$lastBuildTag" | grep -q dependabot; then
+	changelog="${changelog}"$'\nUpdate 3rd-party dependencies'
+fi
 
 # changelog
 echo "$changelog" > src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
-echo "library commit: $libraryCommit" >> src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
-
-# build
-sed -i s"# androidLibraryVersion.*#androidLibraryVersion =\"$libraryCommit\"#" build.gradle
 
 git add .
 git commit -m "daily dev $date" -m "$changelog"

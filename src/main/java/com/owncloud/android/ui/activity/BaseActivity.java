@@ -1,21 +1,17 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.accounts.AccountManagerCallback;
-import android.accounts.AccountManagerFuture;
-import android.accounts.OperationCanceledException;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.mixins.MixinRegistry;
+import com.nextcloud.client.mixins.SessionMixin;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.java.util.Optional;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -34,26 +30,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     private static final String TAG = BaseActivity.class.getSimpleName();
 
     /**
-     * ownCloud {@link Account} where the main {@link OCFile} handled by the activity is located.
-     */
-    private Account currentAccount;
-
-    /**
-     * Capabilities of the server where {@link #currentAccount} lives.
-     */
-    private OCCapability capabilities;
-
-    /**
-     * Access point to the cached database for the current ownCloud {@link Account}.
-     */
-    private FileDataStorageManager storageManager;
-
-    /**
      * Tracks whether the activity should be recreate()'d after a theme change
      */
     private boolean themeChangePending;
     private boolean paused;
     protected boolean enableAccountHandling = true;
+
+    private MixinRegistry mixinRegistry = new MixinRegistry();
+    private SessionMixin sessionMixin;
 
     @Inject UserAccountManager accountManager;
     @Inject AppPreferences preferences;
@@ -72,10 +56,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sessionMixin = new SessionMixin(this,
+                                        getContentResolver(),
+                                        accountManager);
+        mixinRegistry.add(sessionMixin);
 
         if (enableAccountHandling) {
-            Account account = accountManager.getCurrentAccount();
-            setAccount(account, false);
+            mixinRegistry.onCreate(savedInstanceState);
         }
     }
 
@@ -88,18 +75,21 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mixinRegistry.onDestroy();
         preferences.removeListener(onPreferencesChanged);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        mixinRegistry.onPause();
         paused = true;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        mixinRegistry.onResume();
         paused = false;
 
         if (themeChangePending) {
@@ -110,28 +100,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
-        Log_OC.v(TAG, "onNewIntent() start");
-        Account current = accountManager.getCurrentAccount();
-        if (current != null && currentAccount != null && !currentAccount.name.equals(current.name)) {
-            currentAccount = current;
-        }
-        Log_OC.v(TAG, "onNewIntent() stop");
+        mixinRegistry.onNewIntent(intent);
     }
 
-    /**
-     *  Since ownCloud {@link Account}s can be managed from the system setting menu, the existence of the {@link
-     *  Account} associated to the instance must be checked every time it is restarted.
-     */
     @Override
     protected void onRestart() {
         Log_OC.v(TAG, "onRestart() start");
         super.onRestart();
-        boolean validAccount = currentAccount != null && accountManager.exists(currentAccount);
-        if (!validAccount) {
-            swapToDefaultAccount();
-        }
-        Log_OC.v(TAG, "onRestart() end");
+        mixinRegistry.onRestart();
     }
 
     private void onThemeSettingsModeChanged() {
@@ -152,56 +128,18 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      */
     @Deprecated
     protected void setAccount(Account account, boolean savedAccount) {
-        boolean validAccount = account != null && accountManager.setCurrentOwnCloudAccount(account.name);
-        if (validAccount) {
-            currentAccount = account;
-        } else {
-            swapToDefaultAccount();
-        }
-
-        if(currentAccount != null) {
-            storageManager = new FileDataStorageManager(currentAccount, getContentResolver());
-            capabilities = storageManager.getCapability(currentAccount.name);
-        }
+        sessionMixin.setAccount(account);
     }
 
     protected void setUser(User user) {
-        setAccount(user.toPlatformAccount(), false);
-    }
-
-    /**
-     * Tries to swap the current ownCloud {@link Account} for other valid and existing.
-     *
-     * If no valid ownCloud {@link Account} exists, then the user is requested
-     * to create a new ownCloud {@link Account}.
-     */
-    protected void swapToDefaultAccount() {
-        // default to the most recently used account
-        Account newAccount = accountManager.getCurrentAccount();
-
-        if (newAccount == null) {
-            /// no account available: force account creation
-            createAccount(true);
-        } else {
-            currentAccount = newAccount;
-        }
+        sessionMixin.setUser(user);
     }
 
     /**
      * Launches the account creation activity.
-     *
-     * @param mandatoryCreation     When 'true', if an account is not created by the user, the app will be closed.
-     *                              To use when no ownCloud account is available.
      */
-    protected void createAccount(boolean mandatoryCreation) {
-        AccountManager am = AccountManager.get(getApplicationContext());
-        am.addAccount(MainApp.getAccountType(this),
-                null,
-                null,
-                null,
-                this,
-                new AccountCreationCallback(mandatoryCreation),
-                new Handler());
+    protected void startAccountCreation() {
+        sessionMixin.startAccountCreation();
     }
 
     /**
@@ -211,7 +149,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      * set yet.
      */
     public OCCapability getCapabilities() {
-        return capabilities;
+        return sessionMixin.getCapabilities();
     }
 
     /**
@@ -222,76 +160,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      * is located.
      */
     public Account getAccount() {
-        return currentAccount;
+        return sessionMixin.getCurrentAccount();
     }
 
     public Optional<User> getUser() {
-        if (currentAccount != null) {
-            return accountManager.getUser(currentAccount.name);
-        } else {
-            return Optional.empty();
-        }
+        return sessionMixin.getUser();
     }
 
     public FileDataStorageManager getStorageManager() {
-        return storageManager;
-    }
-
-    /**
-     * Method that gets called when a new account has been successfully created.
-     *
-     * @param future
-     */
-    protected void onAccountCreationSuccessful(AccountManagerFuture<Bundle> future) {
-        // no special handling in base activity
-        Log_OC.d(TAG,"onAccountCreationSuccessful");
-    }
-
-    /**
-     * Helper class handling a callback from the {@link AccountManager} after the creation of
-     * a new ownCloud {@link Account} finished, successfully or not.
-     */
-    public class AccountCreationCallback implements AccountManagerCallback<Bundle> {
-
-        boolean mMandatoryCreation;
-
-        /**
-         * Constructor
-         *
-         * @param mandatoryCreation     When 'true', if an account was not created, the app is closed.
-         */
-        public AccountCreationCallback(boolean mandatoryCreation) {
-            mMandatoryCreation = mandatoryCreation;
-        }
-
-        @Override
-        public void run(AccountManagerFuture<Bundle> future) {
-            boolean accountWasSet = false;
-            if (future != null) {
-                try {
-                    Bundle result;
-                    result = future.getResult();
-                    String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
-                    String type = result.getString(AccountManager.KEY_ACCOUNT_TYPE);
-                    if (accountManager.setCurrentOwnCloudAccount(name)) {
-                        setAccount(new Account(name, type), false);
-                        accountWasSet = true;
-                    }
-
-                    onAccountCreationSuccessful(future);
-                } catch (OperationCanceledException e) {
-                    Log_OC.d(TAG, "Account creation canceled");
-
-                } catch (Exception e) {
-                    Log_OC.e(TAG, "Account creation finished in exception: ", e);
-                }
-
-            } else {
-                Log_OC.e(TAG, "Account creation callback with null bundle");
-            }
-            if (mMandatoryCreation && !accountWasSet) {
-                moveTaskToBack(true);
-            }
-        }
+        return sessionMixin.getStorageManager();
     }
 }

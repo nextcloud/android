@@ -20,6 +20,8 @@
 package com.nextcloud.client.account;
 
 import android.accounts.Account;
+import android.app.Activity;
+import android.content.Intent;
 
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.datamodel.OCFile;
@@ -45,6 +47,14 @@ public interface UserAccountManager extends CurrentAccountProvider {
      * Remove all NextCloud accounts from OS account manager.
      */
     void removeAllAccounts();
+
+    /**
+     * Remove registered user.
+     *
+     * @param user user to remove
+     * @return true if account was removed successfully, false otherwise
+     */
+    boolean removeUser(User user);
 
     /**
      * Get configured NextCloud's user accounts.
@@ -79,7 +89,11 @@ public interface UserAccountManager extends CurrentAccountProvider {
     boolean exists(Account account);
 
     /**
-     * Verifies that every account has userId set
+     * Verifies that every account has userId set and sets the user id if not.
+     * This migration is idempotent and can be run multiple times until
+     * all accounts are migrated.
+     *
+     * @return true if migration was successful, false if any account failed to be migrated
      */
     boolean migrateUserId();
 
@@ -141,4 +155,12 @@ public interface UserAccountManager extends CurrentAccountProvider {
         }
     }
 
+    /**
+     * Launch account registration activity.
+     *
+     * This method returns immediately. Authenticator activity will be launched asynchronously.
+     *
+     * @param activity Activity used to launch authenticator flow via {@link Activity#startActivity(Intent)}
+     */
+    void startAccountCreation(Activity activity);
 }

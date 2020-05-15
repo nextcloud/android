@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,11 +19,21 @@
  */
 package com.nextcloud.client.etm
 
+import android.accounts.AccountManager
 import android.content.SharedPreferences
+import android.content.res.Resources
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.nextcloud.client.etm.pages.EtmBackgroundJobsFragment
+import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.JobInfo
+import com.nextcloud.client.migrations.MigrationsDb
+import com.nextcloud.client.migrations.MigrationsManager
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.inOrder
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.reset
@@ -35,6 +45,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -45,7 +56,8 @@ import org.junit.runners.Suite
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
     TestEtmViewModel.MainPage::class,
-    TestEtmViewModel.PreferencesPage::class
+    TestEtmViewModel.PreferencesPage::class,
+    TestEtmViewModel.BackgroundJobsPage::class
 )
 class TestEtmViewModel {
 
@@ -54,13 +66,31 @@ class TestEtmViewModel {
         @get:Rule
         val rule = InstantTaskExecutorRule()
 
+        protected lateinit var platformAccountManager: AccountManager
         protected lateinit var sharedPreferences: SharedPreferences
         protected lateinit var vm: EtmViewModel
+        protected lateinit var resources: Resources
+        protected lateinit var backgroundJobManager: BackgroundJobManager
+        protected lateinit var migrationsManager: MigrationsManager
+        protected lateinit var migrationsDb: MigrationsDb
 
         @Before
         fun setUpBase() {
             sharedPreferences = mock()
-            vm = EtmViewModel(sharedPreferences)
+            platformAccountManager = mock()
+            resources = mock()
+            backgroundJobManager = mock()
+            migrationsManager = mock()
+            migrationsDb = mock()
+            whenever(resources.getString(any())).thenReturn("mock-account-type")
+            vm = EtmViewModel(
+                sharedPreferences,
+                platformAccountManager,
+                resources,
+                backgroundJobManager,
+                migrationsManager,
+                migrationsDb
+            )
         }
     }
 
@@ -197,6 +227,37 @@ class TestEtmViewModel {
             assertEquals("1", prefs["key1"])
             assertEquals("value2", prefs["key2"])
             assertEquals("false", prefs["key3"])
+        }
+    }
+
+    internal class BackgroundJobsPage : Base() {
+        @Before
+        fun setUp() {
+            vm.onPageSelected(EtmViewModel.PAGE_JOBS)
+            assertEquals(EtmBackgroundJobsFragment::class, vm.currentPage.value?.pageClass)
+        }
+
+        @Test
+        fun `prune jobs action is delegated to job manager`() {
+            vm.pruneJobs()
+            verify(backgroundJobManager).pruneJobs()
+        }
+
+        @Test
+        fun `start stop test job actions are delegated to job manager`() {
+            vm.startTestJob(true)
+            vm.cancelTestJob()
+            inOrder(backgroundJobManager).apply {
+                verify(backgroundJobManager).scheduleTestJob()
+                verify(backgroundJobManager).cancelTestJob()
+            }
+        }
+
+        @Test
+        fun `job info is taken from job manager`() {
+            val jobInfo: LiveData<List<JobInfo>> = mock()
+            whenever(backgroundJobManager.jobs).thenReturn(jobInfo)
+            assertSame(jobInfo, vm.backgroundJobs)
         }
     }
 }

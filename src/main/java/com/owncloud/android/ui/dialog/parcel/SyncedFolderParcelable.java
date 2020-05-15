@@ -27,28 +27,25 @@ import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.FileUploader;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 /**
  * Parcelable for {@link SyncedFolderDisplayItem} objects to transport them from/to dialog fragments.
  */
-@NoArgsConstructor
 public class SyncedFolderParcelable implements Parcelable {
-    @Getter @Setter private String folderName;
-    @Getter @Setter private String localPath;
-    @Getter @Setter private String remotePath;
-    @Getter @Setter private boolean wifiOnly = false;
-    @Getter @Setter private boolean chargingOnly = false;
-    @Getter @Setter private boolean enabled = false;
-    @Getter @Setter private boolean subfolderByDate = false;
-    @Getter private Integer uploadAction;
-    @Getter @Setter private MediaFolderType type;
-    @Getter @Setter private boolean hidden = false;
-    @Getter @Setter private long id;
-    @Getter @Setter private String account;
-    @Getter @Setter private int section;
+    private String folderName;
+    private String localPath;
+    private String remotePath;
+    private boolean wifiOnly = false;
+    private boolean chargingOnly = false;
+    private boolean existing = true;
+    private boolean enabled = false;
+    private boolean subfolderByDate = false;
+    private Integer uploadAction;
+    private FileUploader.NameCollisionPolicy nameCollisionPolicy = FileUploader.NameCollisionPolicy.ASK_USER;
+    private MediaFolderType type;
+    private boolean hidden = false;
+    private long id;
+    private String account;
+    private int section;
 
     public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
         id = syncedFolderDisplayItem.getId();
@@ -57,11 +54,14 @@ public class SyncedFolderParcelable implements Parcelable {
         remotePath = syncedFolderDisplayItem.getRemotePath();
         wifiOnly = syncedFolderDisplayItem.isWifiOnly();
         chargingOnly = syncedFolderDisplayItem.isChargingOnly();
+        existing = syncedFolderDisplayItem.isExisting();
         enabled = syncedFolderDisplayItem.isEnabled();
         subfolderByDate = syncedFolderDisplayItem.isSubfolderByDate();
         type = syncedFolderDisplayItem.getType();
         account = syncedFolderDisplayItem.getAccount();
         uploadAction = syncedFolderDisplayItem.getUploadAction();
+        nameCollisionPolicy = FileUploader.NameCollisionPolicy.deserialize(
+            syncedFolderDisplayItem.getNameCollisionPolicy());
         this.section = section;
         hidden = syncedFolderDisplayItem.isHidden();
     }
@@ -73,13 +73,18 @@ public class SyncedFolderParcelable implements Parcelable {
         remotePath = read.readString();
         wifiOnly = read.readInt()!= 0;
         chargingOnly = read.readInt() != 0;
+        existing = read.readInt() != 0;
         enabled = read.readInt() != 0;
         subfolderByDate = read.readInt() != 0;
         type = MediaFolderType.getById(read.readInt());
         account = read.readString();
         uploadAction = read.readInt();
+        nameCollisionPolicy = FileUploader.NameCollisionPolicy.deserialize(read.readInt());
         section = read.readInt();
         hidden = read.readInt() != 0;
+    }
+
+    public SyncedFolderParcelable() {
     }
 
     @Override
@@ -90,11 +95,13 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeString(remotePath);
         dest.writeInt(wifiOnly ? 1 : 0);
         dest.writeInt(chargingOnly ? 1 : 0);
+        dest.writeInt(existing ? 1 : 0);
         dest.writeInt(enabled ? 1 : 0);
         dest.writeInt(subfolderByDate ? 1 : 0);
         dest.writeInt(type.getId());
         dest.writeString(account);
         dest.writeInt(uploadAction);
+        dest.writeInt(nameCollisionPolicy.serialize());
         dest.writeInt(section);
         dest.writeInt(hidden ? 1 : 0);
     }
@@ -142,5 +149,121 @@ public class SyncedFolderParcelable implements Parcelable {
                 this.uploadAction = FileUploader.LOCAL_BEHAVIOUR_DELETE;
                 break;
         }
+    }
+
+    public String getFolderName() {
+        return this.folderName;
+    }
+
+    public String getLocalPath() {
+        return this.localPath;
+    }
+
+    public String getRemotePath() {
+        return this.remotePath;
+    }
+
+    public boolean isWifiOnly() {
+        return this.wifiOnly;
+    }
+
+    public boolean isChargingOnly() {
+        return this.chargingOnly;
+    }
+
+    public boolean isExisting() {
+        return this.existing;
+    }
+
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
+    public boolean isSubfolderByDate() {
+        return this.subfolderByDate;
+    }
+
+    public Integer getUploadAction() {
+        return this.uploadAction;
+    }
+
+    public FileUploader.NameCollisionPolicy getNameCollisionPolicy() {
+        return this.nameCollisionPolicy;
+    }
+
+    public MediaFolderType getType() {
+        return this.type;
+    }
+
+    public boolean isHidden() {
+        return this.hidden;
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public String getAccount() {
+        return this.account;
+    }
+
+    public int getSection() {
+        return this.section;
+    }
+
+    public void setFolderName(String folderName) {
+        this.folderName = folderName;
+    }
+
+    public void setLocalPath(String localPath) {
+        this.localPath = localPath;
+    }
+
+    public void setRemotePath(String remotePath) {
+        this.remotePath = remotePath;
+    }
+
+    public void setWifiOnly(boolean wifiOnly) {
+        this.wifiOnly = wifiOnly;
+    }
+
+    public void setChargingOnly(boolean chargingOnly) {
+        this.chargingOnly = chargingOnly;
+    }
+
+    public void setExisting(boolean existing) {
+        this.existing = existing;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setSubfolderByDate(boolean subfolderByDate) {
+        this.subfolderByDate = subfolderByDate;
+    }
+
+    public void setNameCollisionPolicy(FileUploader.NameCollisionPolicy nameCollisionPolicy) {
+        this.nameCollisionPolicy = nameCollisionPolicy;
+    }
+
+    public void setType(MediaFolderType type) {
+        this.type = type;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public void setSection(int section) {
+        this.section = section;
     }
 }

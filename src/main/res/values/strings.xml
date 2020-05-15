@@ -3,6 +3,7 @@
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">version %1$s</string>
     <string name="about_version_with_build">version %1$s, build #%2$s</string>
+    <string name="appbar_search_in">Search in %s</string>
     <string name="actionbar_sync">Refresh account</string>
     <string name="actionbar_open_with">Open with</string>
     <string name="actionbar_mkdir">New folder</string>
@@ -93,7 +94,7 @@
     <string name="file_list_empty_headline">No files here</string>
     <string name="folder_list_empty_headline">No folders here</string>
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
-    <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorites will show up here</string>
+    <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorites will show up here.</string>
     <string name="file_list_empty_favorites_filter">Your search returned no favorited files.</string>
     <string name="file_list_loading">Loading…</string>
     <string name="file_list_no_app_for_file_type">No app set up to handle this file type.</string>
@@ -103,7 +104,7 @@
     <string name="file_list_empty_headline_server_search">No results</string>
     <string name="file_list_empty_favorite_headline">Nothing favorited yet</string>
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
-    <string name="file_list_empty_shared">Files and folders you share will show up here</string>
+    <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
     <string name="file_list_empty_headline_server_search_videos">No videos</string>
     <string name="file_list_empty_headline_server_search_photos">No photos</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
@@ -116,7 +117,7 @@
     <string name="file_list_empty_text_videos">Upload some videos or activate auto upload.</string>
     <string name="file_list_empty_text_videos_filter">No videos.</string>
     <string name="trashbin_empty_headline">No deleted files</string>
-    <string name="trashbin_empty_message">You will be able to recover deleted files from here</string>
+    <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>
     <string name="file_list_folder">folder</string>
@@ -171,6 +172,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Waiting for Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Waiting to exit power save mode</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Fetching server version…</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="uploads_view_group_header" translatable="false">%1$s (%2$d)</string>
     <string name="downloader_download_in_progress_ticker">Downloading…</string>
@@ -254,10 +256,10 @@
     <string name="auth_unauthorized">Wrong username or password</string>
     <string name="auth_oauth_error">Unsuccessful authorization</string>
     <string name="auth_oauth_error_access_denied">Access denied by authorization server</string>
-    <string name="auth_wtf_reenter_URL">Unexpected state, please enter the server address again</string>
+    <string name="auth_wtf_reenter_URL">Unexpected state, please enter the server address again.</string>
     <string name="auth_expired_basic_auth_toast">Please enter the current password</string>
     <string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
-    <string name="auth_fail_get_user_name">Your server is not returning a correct user ID, please contact an admin</string>
+    <string name="auth_fail_get_user_name">Your server is not returning a correct user ID, please contact an admin.</string>
     <string name="auth_can_not_auth_against_server">Cannot authenticate to this server</string>
     <string name="auth_account_does_not_exist">The account is not added on this device yet</string>
     <string name="auth_access_failed">Access failed: %1$s</string>
@@ -323,13 +325,9 @@
 
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
+    <string name="instant_upload_existing">Also upload existing files</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutoUpload</string>
-    <string name="conflict_title">File conflict</string>
-    <string name="conflict_message">Which files do you want to keep? If you select both versions, the local file will have a number appended to its name.</string>
-    <string name="conflict_keep_both">Keep both</string>
-    <string name="conflict_use_local_version">local version</string>
-    <string name="conflict_use_server_version">server version</string>
 
     <string name="preview_sorry">Sorry</string>
     <string name="preview_image_description">Image preview</string>
@@ -342,12 +340,12 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Store in subfolders based on year and month</string>
 
-    <string name="share_link_file_no_exist">Unable to share. Please check whether the file exists</string>
-    <string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
-    <string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists</string>
-    <string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder</string>
-    <string name="update_link_file_no_exist">Unable to update. Please check whether the file exists</string>
-    <string name="update_link_file_error">An error occurred while trying to update the share</string>
+    <string name="share_link_file_no_exist">Unable to share. Please check whether the file exists.</string>
+    <string name="share_link_file_error">An error occurred while trying to share this file or folder.</string>
+    <string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists.</string>
+    <string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder.</string>
+    <string name="update_link_file_no_exist">Unable to update. Please check whether the file exists.</string>
+    <string name="update_link_file_error">An error occurred while trying to update the share.</string>
     <string name="share_link_password_title">Enter a password</string>
     <string name="share_link_optional_password_title">Enter an optional password</string>
     <string name="share_link_empty_password">You must enter a password</string>
@@ -363,9 +361,9 @@
     <string name="error_cant_bind_to_operations_service">Critical error: Unable to perform operations</string>
 
     <string name="network_error_socket_exception">An error occurred during connection to the server</string>
-    <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server. Could not complete operation</string>
-    <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation</string>
-    <string name="network_host_not_available">Could not complete operation. Server unavailable</string>
+    <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
+    <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
+    <string name="network_host_not_available">Could not complete operation. Server unavailable.</string>
 
     <string name="forbidden_permissions">You are not permitted %s</string>
     <string name="forbidden_permissions_rename">to rename this file</string>
@@ -419,14 +417,14 @@
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
     <string name="folder_picker_choose_button_text">Choose</string>
 
-    <string name="move_file_not_found">Unable to move file. Please check whether it exists</string>
+    <string name="move_file_not_found">Unable to move file. Please check whether it exists.</string>
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
     <string name="move_file_error">An error occurred while trying to move this file or folder</string>
     <string name="forbidden_permissions_move">to move this file</string>
 
 
-    <string name="copy_file_not_found">Unable to copy. Please check whether the file exists</string>
+    <string name="copy_file_not_found">Unable to copy. Please check whether the file exists.</string>
     <string name="copy_file_invalid_into_descendent">It is not possible to copy a folder into one of its own underlying folders</string>
     <string name="copy_file_invalid_overwrite">The file is already present in the destination folder</string>
     <string name="copy_file_error">An error occurred while trying to copy this file or folder</string>
@@ -434,7 +432,7 @@
 
     <string name="prefs_category_details">Details</string>
 
-    <string name="sync_folder_failed_content">Sync of %1$s folder could not be completed</string>
+    <string name="sync_folder_failed_content">Sync of folder %1$s could not be completed</string>
 
     <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
     <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
@@ -465,6 +463,13 @@
     <string name="pref_behaviour_entries_move">moved to app folder</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
     <string name="prefs_storage_path">Storage path</string>
+
+    <string name="pref_instant_name_collision_policy_dialogTitle">What to do if the file already exists?</string>
+    <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
+
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Ask me every time</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Rename new version</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Overwrite remote version</string>
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_file">Share %1$s</string>
@@ -544,7 +549,7 @@
     <string name="community_contribute_translate_translate">Translate</string>
     <string name="community_contribute_translate_text">the app</string>
     <string name="community_contribute_translate_link" translatable="false">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">%3$s&lt;/a>&lt;/font></string>
-    <string name="community_contribute_github_text">Review, amend and write code, see %1$s for details</string>
+    <string name="community_contribute_github_text">Review, amend and write code, see %1$s for details.</string>
     <string name="community_contribute_github_text_link" translatable="false">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font></string>
     <string name="community_rc_play_store">Get release candidate from Google Play store</string>
     <string name="community_rc_fdroid">Get release candidate from F-Droid app</string>
@@ -638,7 +643,7 @@
 
     <string name="empty" translatable="false" />
     <string name="test_server_button">Test server connection</string>
-    <string name="info_separator" translatable="false">,</string>
+    <string name="info_separator" translatable="false">&#160;&#x2022;</string>
     <string name="resharing_is_not_allowed">Resharing is not allowed</string>
     <string name="fallback_weblogin_back">Back</string>
     <string name="fallback_weblogin_text">Revert to old login method</string>
@@ -885,7 +890,21 @@
     <string name="autoupload_disable_power_save_check">Disable power save check</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>
     <string name="etm_title">Engineering Test Mode</string>
+    <string name="etm_accounts">Accounts</string>
     <string name="etm_preferences">Preferences</string>
+    <string name="etm_background_jobs">Background jobs</string>
+    <string name="etm_background_jobs_cancel_all">Cancel all jobs</string>
+    <string name="etm_background_jobs_prune">Prune inactive jobs</string>
+    <string name="etm_background_jobs_start_test_job">Start test job</string>
+    <string name="etm_background_jobs_schedule_test_job">Schedule test job</string>
+    <string name="etm_background_jobs_stop_test_job">Stop test job</string>
+    <string name="etm_background_job_uuid">UUID</string>
+    <string name="etm_background_job_name">Job name</string>
+    <string name="etm_background_job_user">User</string>
+    <string name="etm_background_job_state">State</string>
+    <string name="etm_background_job_started">Started</string>
+    <string name="etm_background_job_progress">Progress</string>
+    <string name="etm_migrations">Migrations (app upgrade)</string>
 
     <string name="logs_status_loading">Loading…</string>
     <string name="logs_status_filtered">Logs: %1$d kB, query matched %2$d / %3$d in %4$d ms</string>
@@ -902,21 +921,32 @@
     <string name="file_detail_activity_error">Error retrieving activities for file</string>
     <string name="no_mutliple_accounts_allowed">Only one account allowed</string>
     <string name="remote_file_fetch_failed">Failed to find file!</string>
-    <string name="share_internal_link_text">Only works for users with access to this %1$s</string>
-    <string name="folder">folder</string>
-    <string name="file">file</string>
+    <string name="share_internal_link_to_folder_text">Internal share link only works for users with access to this folder</string>
+    <string name="share_internal_link_to_file_text">Internal share link only works for users with access to this file</string>
     <string name="share_internal_link">Share internal link</string>
     <string name="action_edit">Edit</string>
     <string name="failed_to_start_editor">Failed to start editor</string>
     <string name="create_rich_workspace">Add folder info</string>
     <string name="creates_rich_workspace">creates folder info</string>
     <string name="edit_rich_workspace">edit folder info</string>
+    <string name="uploader_upload_failed_sync_conflict_error">File upload conflict</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Pick which version to keep of %1$s</string>
+    <string name="upload_list_resolve_conflict">Resolve conflict</string>
+    <string name="upload_list_delete">Delete</string>
     <string name="create_new">Create new</string>
     <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
 
     <string name="sync_not_enough_space_dialog_action_choose">Choose what to sync</string>
     <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
-    <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s
-        available on device.</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s available on device.</string>
     <string name="sync_not_enough_space_dialog_title">Not enough space</string>
+    <string name="conflict_message_headline">Which files do you want to keep?</string>
+    <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
+    <string name="conflict_new_file">New file</string>
+    <string name="conflict_already_existing_file">Already existing file</string>
+    <string name="thumbnail_for_new_file_desc">Thumbnail for new file</string>
+    <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
+    <string name="invalid_url">Invalid URL</string>
+    <string name="conflict_dialog_error">Error creating conflict dialog!</string>
+    <string name="view_profile">View profile</string>
 </resources>

@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -35,6 +35,7 @@ import org.apache.commons.httpclient.HttpClient
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.GetMethod
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -47,6 +48,7 @@ import java.net.URI
 
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
+    ConnectivityServiceTest.Disconnected::class,
     ConnectivityServiceTest.IsConnected::class,
     ConnectivityServiceTest.WifiConnectionWalledStatusOnLegacyServer::class,
     ConnectivityServiceTest.WifiConnectionWalledStatus::class
@@ -111,10 +113,29 @@ class ConnectivityServiceTest {
             )
 
             whenever(platformConnectivityManager.activeNetworkInfo).thenReturn(networkInfo)
+            whenever(platformConnectivityManager.allNetworkInfo).thenReturn(arrayOf(networkInfo))
             whenever(requestBuilder.invoke(any())).thenReturn(getRequest)
             whenever(clientFactory.createPlainClient()).thenReturn(client)
             whenever(user.server).thenReturn(newServer)
             whenever(accountManager.user).thenReturn(user)
+        }
+    }
+
+    internal class Disconnected : Base() {
+        @Test
+        fun `wifi is disconnected`() {
+            whenever(networkInfo.isConnectedOrConnecting).thenReturn(false)
+            whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
+            connectivityService.connectivity.apply {
+                assertFalse(isConnected)
+                assertTrue(isWifi)
+            }
+        }
+
+        @Test
+        fun `no active network`() {
+            whenever(platformConnectivityManager.activeNetworkInfo).thenReturn(null)
+            assertSame(Connectivity.DISCONNECTED, connectivityService.connectivity)
         }
     }
 
@@ -124,7 +145,8 @@ class ConnectivityServiceTest {
         fun `connected to wifi`() {
             whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
             whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
-            assertTrue(connectivityService.isOnlineWithWifi)
+            assertTrue(connectivityService.connectivity.isConnected)
+            assertTrue(connectivityService.connectivity.isWifi)
         }
 
         @Test
@@ -144,14 +166,21 @@ class ConnectivityServiceTest {
                 )
             )
             whenever(platformConnectivityManager.allNetworkInfo).thenReturn(wifiNetworkInfoList)
-            assertTrue(connectivityService.isOnlineWithWifi)
+            connectivityService.connectivity.let {
+                assertTrue(it.isConnected)
+                assertTrue(it.isWifi)
+            }
         }
 
         @Test
         fun `connected to mobile network`() {
             whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
             whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_MOBILE)
-            assertFalse(connectivityService.isOnlineWithWifi)
+            whenever(platformConnectivityManager.allNetworkInfo).thenReturn(arrayOf(networkInfo))
+            connectivityService.connectivity.let {
+                assertTrue(it.isConnected)
+                assertFalse(it.isWifi)
+            }
         }
     }
 
@@ -162,7 +191,9 @@ class ConnectivityServiceTest {
             whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
             whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
             whenever(user.server).thenReturn(legacyServer)
-            assertTrue("Precondition failed", connectivityService.isOnlineWithWifi)
+            assertTrue("Precondition failed", connectivityService.connectivity.let {
+                it.isConnected && it.isWifi
+            })
         }
 
         fun mockResponse(maintenance: Boolean = true, httpStatus: Int = HttpStatus.SC_OK) {
@@ -207,7 +238,9 @@ class ConnectivityServiceTest {
             whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
             whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
             whenever(accountManager.getServerVersion(any())).thenReturn(OwnCloudVersion.nextcloud_14)
-            assertTrue("Precondition failed", connectivityService.isOnlineWithWifi)
+            assertTrue("Precondition failed", connectivityService.connectivity.let {
+                it.isConnected && it.isWifi
+            })
         }
 
         @Test

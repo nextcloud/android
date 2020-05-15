@@ -7,7 +7,7 @@
 import com.github.spotbugs.SpotBugsTask
 
 buildscript {
-    ext.kotlin_version = '1.3.61'
+    ext.kotlin_version = '1.3.72'
     repositories {
         google()
         jcenter()
@@ -20,13 +20,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:3.6.3'
         classpath('com.dicedmelon.gradle:jacoco-android:0.1.4') {
             exclude group: 'org.codehaus.groovy', module: 'groovy-all'
         }
         classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.6'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.5.1"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.8.0"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:3.1.0'
     }
@@ -60,8 +60,8 @@ configurations {
 
 ext {
     jacocoVersion = "0.8.2"
-    daggerVersion = "2.26"
-    markwonVersion =  "4.2.1"
+    daggerVersion = "2.27"
+    markwonVersion =  "4.3.1"
     prismVersion = "2.0.0"
     androidLibraryVersion = "master-SNAPSHOT"
 
@@ -84,14 +84,14 @@ repositories {
 
 // semantic versioning for version code
 def versionMajor = 3
-def versionMinor = 11
+def versionMinor = 13
 def versionPatch = 0
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
     for (String arg : tr.args) {
         // any gplay, but only exact "build", as e.g. buildGeneric shall not apply gplay.grade
-        if (arg.contains("Gplay") || arg.contains("lint") || arg == "build") {
+        if (arg.contains("Gplay") || arg.contains("lint") || arg.contains("executeScreenshot") || arg == "build") {
             apply from: 'gplay.gradle'
             System.console().println("Applying gplay.gradle")
             break
@@ -105,7 +105,7 @@ spotbugs {
 
 shot {
     appId = 'com.nextcloud.client'
-    instrumentationTestTask = 'connectedGenericDebugAndroidTest'
+    instrumentationTestTask = 'connectedGplayDebugAndroidTest'
 }
 
 android {
@@ -119,7 +119,8 @@ android {
             'IconMissingDensityFolder',
             'IconDensities',
             'GoogleAppIndexingWarning',
-            'MissingDefaultResource'
+            'MissingDefaultResource',
+            'InvalidPeriodicWorkRequestInterval' // crashes due to a bug in lint itself
     }
 
     dexOptions {
@@ -129,7 +130,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 29
 
         // arguments to be passed to functional tests
@@ -191,6 +192,7 @@ android {
 
         testOptions {
             unitTests.returnDefaultValues = true
+            // comment out if you run androidTests in Android Studio experiencing test runner crashes
             execution 'ANDROIDX_TEST_ORCHESTRATOR'
             animationsDisabled true
         }
@@ -274,6 +276,10 @@ android {
     dataBinding {
         enabled true
     }
+
+    viewBinding {
+        enabled true
+    }
 }
 
 dependencies {
@@ -289,32 +295,31 @@ dependencies {
     implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.1' // remove after entire switch to lib v2
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.1.0-rc02'
+    implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.jakewharton:disklrucache:2.0.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
+    implementation 'androidx.appcompat:appcompat:1.2.0-beta01'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.exifinterface:exifinterface:1.1.0'
+    implementation 'androidx.exifinterface:exifinterface:1.2.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-    implementation "androidx.work:work-runtime:2.3.0"
-    implementation "androidx.work:work-runtime-ktx:2.3.1"
+    implementation "androidx.work:work-runtime:2.3.4"
+    implementation "androidx.work:work-runtime-ktx:2.3.4"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:2.0.1'
     implementation 'commons-io:commons-io:2.6'
-    implementation 'com.github.tobiaskaminsky:android-job:v1.2.6.1' // 'com.github.evernote:android-job:v1.2.5'
     implementation 'com.jakewharton:butterknife:10.2.1'
     kapt 'com.jakewharton:butterknife-compiler:10.2.1'
     implementation 'org.greenrobot:eventbus:3.2.0'
-    implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.5'
+    implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.6'
     implementation 'org.lukhnos:nnio:0.2'
-    implementation 'com.madgag.spongycastle:pkix:1.54.0.0'
+    implementation 'org.bouncycastle:bcpkix-jdk15on:1.65'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.afollestad:sectioned-recyclerview:0.5.0'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.20'
     implementation 'com.github.tobiaskaminsky:qrcodescanner:0.1.2.2' // 'com.github.blikoon:QRCodeScanner:0.1.2'
     implementation 'com.google.android:flexbox:2.0.1'
-    implementation 'org.parceler:parceler-api:1.1.12'
-    kapt 'org.parceler:parceler:1.1.12'
+    implementation 'org.parceler:parceler-api:1.1.13'
+    kapt 'org.parceler:parceler:1.1.13'
     implementation('com.github.bumptech.glide:glide:3.8.0') {
         exclude group: "com.android.support"
     }
@@ -333,11 +338,11 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
-    compileOnly "org.projectlombok:lombok:1.18.10"
-    annotationProcessor "org.projectlombok:lombok:1.18.10"
-
     ktlint "com.pinterest:ktlint:0.36.0"
-    implementation 'org.conscrypt:conscrypt-android:2.2.1'
+    implementation 'org.conscrypt:conscrypt-android:2.4.0'
+
+    // Shimmer animation
+    implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
 
     // dependencies for markdown rendering
     implementation "io.noties.markwon:core:$markwonVersion"
@@ -352,11 +357,11 @@ dependencies {
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.13'
-    testImplementation 'org.mockito:mockito-core:3.2.4'
+    testImplementation 'org.mockito:mockito-core:3.3.3'
     testImplementation 'androidx.test:core:1.2.0'
-    testImplementation 'org.powermock:powermock-core:2.0.5'
-    testImplementation 'org.powermock:powermock-module-junit4:2.0.5'
-    testImplementation 'org.powermock:powermock-api-mockito2:2.0.5'
+    testImplementation 'org.powermock:powermock-core:2.0.7'
+    testImplementation 'org.powermock:powermock-module-junit4:2.0.7'
+    testImplementation 'org.powermock:powermock-api-mockito2:2.0.7'
     testImplementation 'org.json:json:20190722'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
@@ -372,7 +377,7 @@ dependencies {
     // Espresso core
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
-    androidTestImplementation 'org.mockito:mockito-core:3.2.4'
+    androidTestImplementation 'org.mockito:mockito-core:3.3.1'
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
     // androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
@@ -390,6 +395,8 @@ dependencies {
 //    androidJacocoAnt "org.jacoco:org.jacoco.agent:${jacocoVersion}"
 
     implementation "com.github.stateless4j:stateless4j:2.6.0"
+    androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    androidTestImplementation "org.mockito:mockito-android:3.3.3"
 }
 
 configurations.all {

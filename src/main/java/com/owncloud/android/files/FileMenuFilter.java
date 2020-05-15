@@ -133,7 +133,7 @@ public class FileMenuFilter {
             List<Integer> toShow = new ArrayList<>();
             List<Integer> toHide = new ArrayList<>();
 
-            filter(toShow, toHide, inSingleFileFragment, isMediaSupported, menu);
+            filter(toShow, toHide, inSingleFileFragment, isMediaSupported);
 
             for (int i : toShow) {
                 showMenuItem(menu.findItem(i));
@@ -181,9 +181,7 @@ public class FileMenuFilter {
     }
 
     /**
-     * Performs the real filtering, to be applied in the {@link Menu} by the caller methods.
-     *
-     * Decides what actions must be shown and hidden.
+     * Decides what actions must be shown and hidden implementing the different rule sets.
      *
      * @param toShow                List to save the options that must be shown in the menu.
      * @param toHide                List to save the options that must be shown in the menu.
@@ -193,8 +191,7 @@ public class FileMenuFilter {
     private void filter(List<Integer> toShow,
                         List<Integer> toHide,
                         boolean inSingleFileFragment,
-                        boolean isMediaSupported,
-                        Menu menu) {
+                        boolean isMediaSupported) {
         boolean synchronizing = anyFileSynchronizing();
         OCCapability capability = componentsGetter.getStorageManager().getCapability(account.name);
         boolean endToEndEncryptionEnabled = capability.getEndToEndEncryption().isTrue();
@@ -315,7 +312,13 @@ public class FileMenuFilter {
         DirectEditing directEditing = new Gson().fromJson(json, DirectEditing.class);
 
         for (Editor editor : directEditing.editors.values()) {
-            if (editor.mimetypes.contains(mimeType) || editor.optionalMimetypes.contains(mimeType)) {
+            if (editor.mimetypes.contains(mimeType)) {
+                return editor;
+            }
+        }
+
+        for (Editor editor : directEditing.editors.values()) {
+            if (editor.optionalMimetypes.contains(mimeType)) {
                 return editor;
             }
         }

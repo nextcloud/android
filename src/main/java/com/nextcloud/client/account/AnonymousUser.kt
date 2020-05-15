@@ -2,8 +2,8 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz <hello@ezaquarii.com>
- * Copyright (C) 2019 Chris Narkiewicz
- * Copyright (C) 2019 Nextcloud GmbH
+ * Copyright (C) 2020 Chris Narkiewicz
+ * Copyright (C) 2020 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +23,8 @@ package com.nextcloud.client.account
 import android.accounts.Account
 import android.content.Context
 import android.net.Uri
+import android.os.Parcel
+import android.os.Parcelable
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.OwnCloudAccount
@@ -34,7 +36,7 @@ import java.net.URI
  * It serves as a semantically correct "empty value", allowing simplification of logic
  * in various components requiring user data, such as DB queries.
  */
-internal class AnonymousUser(private val accountType: String) : User {
+internal data class AnonymousUser(private val accountType: String) : User, Parcelable {
 
     companion object {
         @JvmStatic
@@ -42,9 +44,19 @@ internal class AnonymousUser(private val accountType: String) : User {
             val type = context.getString(R.string.account_type)
             return AnonymousUser(type)
         }
+
+        @JvmField
+        val CREATOR: Parcelable.Creator<AnonymousUser> = object : Parcelable.Creator<AnonymousUser> {
+            override fun createFromParcel(source: Parcel): AnonymousUser = AnonymousUser(source)
+            override fun newArray(size: Int): Array<AnonymousUser?> = arrayOfNulls(size)
+        }
     }
 
-    override val accountName: String = "anonymous"
+    private constructor(source: Parcel) : this(
+        source.readString() as String
+    )
+
+    override val accountName: String = "anonymous@nohost"
     override val server = Server(URI.create(""), MainApp.MINIMUM_SUPPORTED_SERVER_VERSION)
     override val isAnonymous = true
 
@@ -54,5 +66,19 @@ internal class AnonymousUser(private val accountType: String) : User {
 
     override fun toOwnCloudAccount(): OwnCloudAccount {
         return OwnCloudAccount(Uri.EMPTY, OwnCloudBasicCredentials("", ""))
+    }
+
+    override fun nameEquals(user: User?): Boolean {
+        return user?.accountName.equals(accountName, true)
+    }
+
+    override fun nameEquals(accountName: CharSequence?): Boolean {
+        return accountName?.toString().equals(this.accountType, true)
+    }
+
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeString(accountType)
     }
 }

@@ -49,7 +49,6 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.EncryptionUtils;
-import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.UUID;
 
@@ -125,10 +124,6 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         } catch (PackageManager.NameNotFoundException e) {
             Log.e(TAG, e.getMessage());
         }
-
-        int primaryColor = ThemeUtils.primaryColor(this, true);
-        grantPermissionButton.setTextColor(primaryColor);
-        declinePermissionButton.setTextColor(primaryColor);
     }
 
     @Override

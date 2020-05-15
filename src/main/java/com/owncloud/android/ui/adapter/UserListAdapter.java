@@ -1,449 +1,347 @@
 /*
- * Nextcloud Android client application
+ *   Nextcloud Android client application
  *
- * @author masensio
- * @author Andy Scherzinger
- * Copyright (C) 2015 ownCloud GmbH
- * Copyright (C) 2018 Andy Scherzinger
+ *   @author Andy Scherzinger
+ *   @author Chris Narkiewicz <hello@ezaquarii.com>
+ *   @author Nick Antoniou
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
+ *   Copyright (C) 2016 Andy Scherzinger
+ *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2019 Nick Antoniou
+ *   Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ *   License as published by the Free Software Foundation; either
+ *   version 3 of the License, or any later version.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ *
+ *   You should have received a copy of the GNU Affero General Public
+ *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.adapter;
 
-import android.accounts.Account;
-import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
+import com.nextcloud.client.account.User;
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.services.OperationsService;
-import com.owncloud.android.ui.TextDrawable;
-import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
-import com.owncloud.android.ui.dialog.NoteDialogFragment;
-import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.BaseActivity;
+import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
-import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
- * Adapter to show a user/group/email/remote in Sharing list in file details view.
+ * This Adapter populates a RecyclerView with all accounts within the app.
  */
-public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserViewHolder>
-        implements DisplayUtils.AvatarGenerationListener {
+public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+                                implements DisplayUtils.AvatarGenerationListener {
+    private static final String TAG = UserListAdapter.class.getSimpleName();
 
-    private ShareeListAdapterListener listener;
-    private OCCapability capabilities;
-    private FragmentManager fragmentManager;
-    private Context context;
-    private int accentColor;
-    private List<OCShare> shares;
-    private float avatarRadiusDimension;
-    private OCFile file;
-    private String userId;
+    private float accountAvatarRadiusDimension;
+    private final BaseActivity context;
+    private List<UserListItem> values;
+    private Listener accountListAdapterListener;
+    private Drawable tintedCheck;
+    private UserAccountManager accountManager;
 
-    public UserListAdapter(FragmentManager fragmentManager, Context context, List<OCShare> shares, Account account,
-                           OCFile file, ShareeListAdapterListener listener, String userId) {
+    public static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
+    public static final int KEY_USER_INFO_REQUEST_CODE = 13;
+    private ClickListener clickListener;
+    private boolean showAddAccount;
+
+    public UserListAdapter(BaseActivity context,
+                           UserAccountManager accountManager,
+                           List<UserListItem> values,
+                           Drawable tintedCheck,
+                           ClickListener clickListener,
+                           boolean showAddAccount) {
         this.context = context;
-        this.fragmentManager = fragmentManager;
-        this.shares = shares;
-        this.listener = listener;
-        this.file = file;
-        this.userId = userId;
-
-        accentColor = ThemeUtils.primaryAccentColor(context);
-        capabilities = new FileDataStorageManager(account, context.getContentResolver()).getCapability(account.name);
-        avatarRadiusDimension = context.getResources().getDimension(R.dimen.user_icon_radius);
-    }
-
-    @NonNull
-    @Override
-    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.file_details_share_user_item, parent, false);
-        return new UserViewHolder(v);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        if (shares != null && shares.size() > position) {
-            final OCShare share = shares.get(position);
-
-            String name = share.getSharedWithDisplayName();
-
-            switch (share.getShareType()) {
-                case GROUP:
-                    name = context.getString(R.string.share_group_clarification, name);
-                    setImage(holder, name, R.drawable.ic_group);
-                    break;
-                case EMAIL:
-                    name = context.getString(R.string.share_email_clarification, name);
-                    setImage(holder, name, R.drawable.ic_email);
-                    break;
-                case ROOM:
-                    name = context.getString(R.string.share_room_clarification, name);
-                    setImage(holder, name, R.drawable.ic_chat_bubble);
-                    break;
-                default:
-                    setImage(holder, name, R.drawable.ic_user);
-                    break;
-            }
-
-            holder.name.setText(name);
-
-            if (share.getShareWith().equalsIgnoreCase(userId) || share.getUserId().equalsIgnoreCase(userId)) {
-                holder.allowEditing.setVisibility(View.VISIBLE);
-                holder.editShareButton.setVisibility(View.VISIBLE);
-
-                ThemeUtils.tintCheckbox(holder.allowEditing, accentColor);
-                holder.allowEditing.setChecked(canEdit(share));
-                holder.allowEditing.setOnClickListener(v -> allowEditClick(holder.allowEditing, share));
-
-                // bind listener to edit privileges
-                holder.editShareButton.setOnClickListener(v -> onOverflowIconClicked(v, holder.allowEditing, share));
-            } else {
-                holder.allowEditing.setVisibility(View.GONE);
-                holder.editShareButton.setVisibility(View.GONE);
-            }
+        this.accountManager = accountManager;
+        this.values = values;
+        if (context instanceof Listener) {
+            this.accountListAdapterListener = (Listener) context;
         }
+        this.accountAvatarRadiusDimension = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
+        this.tintedCheck = tintedCheck;
+        this.clickListener = clickListener;
+        this.showAddAccount = showAddAccount;
     }
 
-    private void setImage(UserViewHolder holder, String name, @DrawableRes int fallback) {
-        try {
-            holder.avatar.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
-        } catch (NoSuchAlgorithmException e) {
-            holder.avatar.setImageResource(fallback);
+    @Override
+    public int getItemViewType(int position) {
+        if (position == values.size() - 1 && showAddAccount) {
+            return UserListItem.TYPE_ACTION_ADD;
         }
+        return UserListItem.TYPE_ACCOUNT;
     }
 
     @Override
-    public long getItemId(int position) {
-        return shares.get(position).getId();
-    }
-
-    @Override
-    public int getItemCount() {
-        return shares.size();
-    }
-
-    private void allowEditClick(AppCompatCheckBox checkBox, @NonNull OCShare share) {
-        if (!share.isFolder()) {
-            share.setPermissions(listener.updatePermissionsToShare(
-                    share,
-                    canReshare(share),
-                    checkBox.isChecked(),
-                    false,
-                    false,
-                    false
-            ));
+    public @NonNull
+    RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view;
+        if (UserListItem.TYPE_ACCOUNT == viewType) {
+            view = LayoutInflater.from(context).inflate(R.layout.account_item, parent, false);
+            AccountViewHolderItem viewHolder = new AccountViewHolderItem(view);
+            viewHolder.checkViewItem.setImageDrawable(tintedCheck);
+            return viewHolder;
         } else {
-            share.setPermissions(listener.updatePermissionsToShare(
-                    share,
-                    canReshare(share),
-                    checkBox.isChecked(),
-                    checkBox.isChecked(),
-                    checkBox.isChecked(),
-                    checkBox.isChecked()
-            ));
+            view = LayoutInflater.from(context).inflate(R.layout.account_action, parent, false);
+            return new AddAccountViewHolderItem(view);
         }
     }
 
-    private void onOverflowIconClicked(View view, AppCompatCheckBox allowEditsCheckBox, OCShare share) {
-        // use grey as fallback for elements where custom theming is not available
-        if (ThemeUtils.themingEnabled(context)) {
-            context.getTheme().applyStyle(R.style.FallbackThemingTheme, true);
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        UserListItem userListItem = values.get(position);
+
+        if (userListItem != null) {
+            // create account item
+            if (UserListItem.TYPE_ACCOUNT == userListItem.getType()) {
+                final User user = userListItem.getUser();
+                AccountViewHolderItem item = (AccountViewHolderItem)holder;
+                item.setData(user);
+                setUser(item, user);
+                setUsername(item, user);
+                setAvatar(item, user);
+                setCurrentlyActiveState(item, user);
+
+                TextView usernameView = item.usernameViewItem;
+                TextView accountView = item.accountViewItem;
+
+                if (!userListItem.isEnabled()) {
+                    usernameView.setPaintFlags(usernameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    accountView.setPaintFlags(accountView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                } else {
+                    usernameView.setPaintFlags(usernameView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    accountView.setPaintFlags(accountView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                }
+
+            } // create add account action item
+            else if (UserListItem.TYPE_ACTION_ADD == userListItem.getType() && accountListAdapterListener != null) {
+                setupAddAccountListItem((AddAccountViewHolderItem)holder);
+            }
         }
-        PopupMenu popup = new PopupMenu(context, view);
-        popup.inflate(R.menu.item_user_sharing_settings);
-
-        prepareOptionsMenu(popup.getMenu(), share);
-
-        popup.setOnMenuItemClickListener(item -> optionsItemSelected(popup.getMenu(), item, allowEditsCheckBox, share));
-        popup.show();
     }
 
     /**
-     * Updates the sharee's menu with the current permissions of the {@link OCShare}
+     * Sets up a View to be used for adding a new account
      *
-     * @param menu  the menu of the sharee/shared file
-     * @param share the shared file
+     * @param holder the add account view holder
      */
-    private void prepareOptionsMenu(Menu menu, OCShare share) {
+    private void setupAddAccountListItem(AddAccountViewHolderItem holder) {
+        View actionView = holder.itemView;
 
-        MenuItem editCreateItem = menu.findItem(R.id.action_can_edit_create);
-        MenuItem editChangeItem = menu.findItem(R.id.action_can_edit_change);
-        MenuItem editDeleteItem = menu.findItem(R.id.action_can_edit_delete);
+        holder.usernameViewItem.setTextColor(ThemeUtils.primaryColor(context, true));
 
-        MenuItem hideFileListingItem = menu.findItem(R.id.action_hide_file_listing);
-        MenuItem passwordItem = menu.findItem(R.id.action_password);
-        MenuItem expirationDateItem = menu.findItem(R.id.action_expiration_date);
+        // bind action listener
+        boolean isProviderOrOwnInstallationVisible = context.getResources()
+                .getBoolean(R.bool.show_provider_or_own_installation);
 
-        MenuItem reshareItem = menu.findItem(R.id.action_can_reshare);
-
-        MenuItem sendNoteItem = menu.findItem(R.id.action_share_send_note);
-
-        if (isReshareForbidden(share)) {
-            reshareItem.setVisible(false);
-        }
-        reshareItem.setChecked(canReshare(share));
-
-        if (share.getShareType() == ShareType.EMAIL) {
-            SharingMenuHelper.setupHideFileListingMenuItem(
-                    hideFileListingItem,
-                    file.isFolder(),
-                    canEdit(share),
-                    share.getPermissions()
-            );
-            SharingMenuHelper.setupPasswordMenuItem(passwordItem, share.isPasswordProtected());
-
-            reshareItem.setVisible(false);
-            editCreateItem.setVisible(false);
-            editChangeItem.setVisible(false);
-            editDeleteItem.setVisible(false);
+        if (isProviderOrOwnInstallationVisible) {
+            actionView.setOnClickListener(v -> accountListAdapterListener.showFirstRunActivity());
         } else {
-            if (file.isFolder() && isEditOptionsAvailable(share)) {
-                /// TODO change areEditOptionsAvailable in order to delete !isFederated
-                editCreateItem.setChecked(canCreate(share));
-                editChangeItem.setChecked(canUpdate(share));
-                editDeleteItem.setChecked(canDelete(share));
-            } else {
-                editCreateItem.setVisible(false);
-                editChangeItem.setVisible(false);
-                editDeleteItem.setVisible(false);
-            }
-
-            hideFileListingItem.setVisible(false);
-            passwordItem.setVisible(false);
-            expirationDateItem.setVisible(false);
-        }
-
-        SharingMenuHelper.setupExpirationDateMenuItem(
-                menu.findItem(R.id.action_expiration_date), share.getExpirationDate(), context.getResources());
-
-        sendNoteItem.setVisible(capabilities.getVersion().isNoteOnShareSupported());
-    }
-
-    private boolean isEditOptionsAvailable(OCShare share) {
-        return !ShareType.FEDERATED.equals(share.getShareType());
-    }
-
-    private boolean isReshareForbidden(OCShare share) {
-        return ShareType.FEDERATED.equals(share.getShareType()) ||
-                (capabilities != null && capabilities.getFilesSharingResharing().isFalse());
-    }
-
-    private boolean canEdit(OCShare share) {
-        return (share.getPermissions() &
-                (OCShare.CREATE_PERMISSION_FLAG | OCShare.UPDATE_PERMISSION_FLAG | OCShare.DELETE_PERMISSION_FLAG)) > 0;
-    }
-
-    private boolean canCreate(OCShare share) {
-        return (share.getPermissions() & OCShare.CREATE_PERMISSION_FLAG) > 0;
-    }
-
-    private boolean canUpdate(OCShare share) {
-        return (share.getPermissions() & OCShare.UPDATE_PERMISSION_FLAG) > 0;
-    }
-
-    private boolean canDelete(OCShare share) {
-        return (share.getPermissions() & OCShare.DELETE_PERMISSION_FLAG) > 0;
-    }
-
-    private boolean canReshare(OCShare share) {
-        return (share.getPermissions() & OCShare.SHARE_PERMISSION_FLAG) > 0;
-    }
-
-    private boolean optionsItemSelected(Menu menu, MenuItem item, AppCompatCheckBox allowEditsCheckBox, OCShare share) {
-        switch (item.getItemId()) {
-            case R.id.action_can_edit_create:
-            case R.id.action_can_edit_change:
-            case R.id.action_can_edit_delete: {
-                item.setChecked(!item.isChecked());
-                if (item.isChecked() && !allowEditsCheckBox.isChecked()) {
-                    allowEditsCheckBox.setChecked(true);
-                }
-                share.setPermissions(
-                        updatePermissionsToShare(
-                                share,
-                                menu.findItem(R.id.action_can_reshare).isChecked(),
-                                allowEditsCheckBox.isChecked(),
-                                menu.findItem(R.id.action_can_edit_create).isChecked(),
-                                menu.findItem(R.id.action_can_edit_change).isChecked(),
-                                menu.findItem(R.id.action_can_edit_delete).isChecked())
-                );
-                return true;
-            }
-            case R.id.action_can_reshare: {
-                item.setChecked(!item.isChecked());
-                share.setPermissions(
-                        updatePermissionsToShare(
-                                share,
-                                menu.findItem(R.id.action_can_reshare).isChecked(),
-                                allowEditsCheckBox.isChecked(),
-                                menu.findItem(R.id.action_can_edit_create).isChecked(),
-                                menu.findItem(R.id.action_can_edit_change).isChecked(),
-                                menu.findItem(R.id.action_can_edit_delete).isChecked())
-                );
-                return true;
-            }
-            case R.id.action_unshare: {
-                listener.unshareWith(share);
-                shares.remove(share);
-                notifyDataSetChanged();
-                return true;
-            }
-            case R.id.action_hide_file_listing: {
-                item.setChecked(!item.isChecked());
-                if (capabilities.getFilesFileDrop().isTrue()) {
-                    listener.setHideFileListingPermissionsToShare(share, item.isChecked());
-                } else {
-                    // not supported in ownCloud
-                    listener.showNotSupportedByOcMessage();
-                }
-                return true;
-            }
-            case R.id.action_password: {
-                listener.requestPasswordForShare(share);
-                return true;
-            }
-            case R.id.action_expiration_date: {
-                ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment
-                    .newInstance(share, share.getExpirationDate());
-                dialog.show(fragmentManager, ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG);
-                return true;
-            }
-            case R.id.action_share_send_note:
-                NoteDialogFragment dialog = NoteDialogFragment.newInstance(share);
-                dialog.show(fragmentManager, NoteDialogFragment.NOTE_FRAGMENT);
-                return true;
-            default:
-                return true;
+            actionView.setOnClickListener(v -> accountListAdapterListener.startAccountCreation());
         }
     }
 
-    private int updatePermissionsToShare(OCShare share, boolean canReshare, boolean canEdit, boolean canEditCreate,
-                                         boolean canEditChange, boolean canEditDelete) {
-        return listener.updatePermissionsToShare(
-                share,
-                canReshare,
-                canEdit,
-                canEditCreate,
-                canEditChange,
-                canEditDelete
-        );
+    /**
+     * Sets the name of the account, in the view holder
+     *
+     * @param viewHolder the view holder that contains the account
+     * @param user the account
+     */
+    private void setUser(AccountViewHolderItem viewHolder, User user) {
+        viewHolder.accountViewItem.setText(DisplayUtils.convertIdn(user.getAccountName(), false));
+        viewHolder.accountViewItem.setTag(user.getAccountName());
+    }
+
+    /**
+     * Sets the current active state of the account to true if it is the account being used currently,
+     * false otherwise
+     *
+     * @param viewHolder the view holder that contains the account
+     * @param user the account
+     */
+    private void setCurrentlyActiveState(AccountViewHolderItem viewHolder, User user) {
+        User currentUser = accountManager.getUser();
+        if (currentUser.nameEquals(user)) {
+            viewHolder.checkViewItem.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.checkViewItem.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    /**
+     * Sets the avatar of the account
+     *
+     * @param viewHolder the view holder that contains the account
+     * @param user the account
+     */
+    private void setAvatar(AccountViewHolderItem viewHolder, User user) {
+        try {
+            View viewItem = viewHolder.imageViewItem;
+            viewItem.setTag(user.getAccountName());
+            DisplayUtils.setAvatar(user, this, accountAvatarRadiusDimension, context.getResources(), viewItem,
+                                   context);
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
+            // use user icon as a fallback
+            viewHolder.imageViewItem.setImageResource(R.drawable.ic_user);
+        }
+    }
+
+    /**
+     * Sets the username of the account
+     *
+     * @param viewHolder the view holder that contains the account
+     * @param user the account
+     */
+    private void setUsername(AccountViewHolderItem viewHolder, User user) {
+        try {
+            OwnCloudAccount oca = user.toOwnCloudAccount();
+            viewHolder.usernameViewItem.setText(oca.getDisplayName());
+        } catch (Exception e) {
+            Log_OC.w(TAG, "Account not found right after being read; using account name instead");
+            viewHolder.usernameViewItem.setText(UserAccountManager.getUsername(user.toPlatformAccount()));
+        }
+        viewHolder.usernameViewItem.setTag(user.getAccountName());
     }
 
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
-        if (callContext instanceof ImageView) {
-            ImageView iv = (ImageView) callContext;
-            iv.setImageDrawable(avatarDrawable);
-        }
+        ((ImageView)callContext).setImageDrawable(avatarDrawable);
     }
 
     @Override
     public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
-        if (callContext instanceof ImageView) {
-            ImageView iv = (ImageView) callContext;
-            return String.valueOf(iv.getTag()).equals(tag);
-        }
-        return false;
+        return String.valueOf(((ImageView)callContext).getTag()).equals(tag);
     }
 
-    class UserViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.avatar)
-        ImageView avatar;
-        @BindView(R.id.name)
-        TextView name;
-        @BindView(R.id.allowEditing)
-        AppCompatCheckBox allowEditing;
-        @BindView(R.id.editShareButton)
-        ImageView editShareButton;
+    /**
+     * Returns the total number of items in the data set held by the adapter
+     *
+     * @return The total number of items in this adapter.
+     */
+    @Override
+    public int getItemCount() {
+        return this.values.size();
+    }
 
-        UserViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+    /**
+     * Returns an UserListItem from the specified position in the values list
+     *
+     * @param position of the object to be returned
+     * @return An UserListItem of the specified position
+     */
+    public UserListItem getItem(int position) {
+        return values.get(position);
+    }
+
+    /**
+     * Deletes the elements in the values list and notifies the Adapter
+     */
+    public void clear() {
+        final int size = values.size();
+        values.clear();
+        notifyItemRangeRemoved(0, size);
+    }
+
+    /**
+     * Adds all of the items to the data set
+     *
+     * @param items The item list to be added
+     */
+    public void addAll(List<UserListItem> items){
+        if(values == null){
+            values = new ArrayList<>();
+        }
+        values.addAll(items);
+        notifyDataSetChanged();
+    }
+
+    public interface Listener {
+        void showFirstRunActivity();
+        void startAccountCreation();
+    }
+
+    /**
+     * Account ViewHolderItem to get smooth scrolling.
+     */
+    class AccountViewHolderItem extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private ImageView imageViewItem;
+        private ImageView checkViewItem;
+
+        private TextView usernameViewItem;
+        private TextView accountViewItem;
+
+        private User user;
+
+
+        AccountViewHolderItem(@NonNull View view) {
+            super(view);
+            this.imageViewItem = view.findViewById(R.id.user_icon);
+            this.checkViewItem = view.findViewById(R.id.ticker);
+            this.usernameViewItem = view.findViewById(R.id.user_name);
+            this.accountViewItem = view.findViewById(R.id.account);
+            ImageView accountMenu = view.findViewById(R.id.account_menu);
+
+            view.setOnClickListener(this);
+            if(context instanceof ReceiveExternalFilesActivity) {
+                accountMenu.setVisibility(View.GONE);
+            }
+            accountMenu.setOnClickListener(this);
+        }
+
+        public void setData(User user) {
+            this.user = user;
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (clickListener != null && view.isEnabled()) {
+                if (view.getId() == R.id.account_menu) {
+                    clickListener.onOptionItemClicked(user, view);
+                } else {
+                    clickListener.onAccountClicked(user);
+                }
+            }
         }
     }
 
-    public interface ShareeListAdapterListener {
-        /**
-         * unshare with given sharee {@link OCShare}.
-         *
-         * @param share the share
-         */
-        void unshareWith(OCShare share);
+    /**
+     * Account ViewHolderItem to get smooth scrolling.
+     */
+    static class AddAccountViewHolderItem extends RecyclerView.ViewHolder {
+        private TextView usernameViewItem;
+        AddAccountViewHolderItem(@NonNull View view) {
+            super(view);
+            this.usernameViewItem = view.findViewById(R.id.user_name);
+        }
+    }
 
-        /**
-         * Updates the permissions of the {@link OCShare}.
-         *
-         * @param share         the share to be updated
-         * @param canReshare    reshare permission
-         * @param canEdit       edit permission
-         * @param canEditCreate create permission (folders only)
-         * @param canEditChange change permission (folders only)
-         * @param canEditDelete delete permission (folders only)
-         * @return permissions value set
-         */
-        int updatePermissionsToShare(OCShare share,
-                                     boolean canReshare,
-                                     boolean canEdit,
-                                     boolean canEditCreate,
-                                     boolean canEditChange,
-                                     boolean canEditDelete);
+    public interface ClickListener {
+        void onOptionItemClicked(User user, View view);
 
-        void updateNoteToShare(OCShare share, String note);
-
-        /**
-         * show a snackbar that this feature is not supported by ownCloud.
-         */
-        void showNotSupportedByOcMessage();
-
-        /**
-         * Starts a dialog that requests a password to the user to protect a share.
-         *
-         * @param share the share for which a password shall be configured/removed
-         */
-        void requestPasswordForShare(OCShare share);
-
-        /**
-         * Updates a public share on a folder to set its hide file listing permission.
-         * Starts a request to do it in {@link OperationsService}
-         *
-         * @param share           {@link OCShare} instance which permissions will be updated.
-         * @param hideFileListing New state of the permission for editing the folder shared via link.
-         */
-        void setHideFileListingPermissionsToShare(OCShare share, boolean hideFileListing);
-
-        void setHideFileDownloadPermissionToShare(OCFile file, boolean hideFileDownload);
+        void onAccountClicked(User user);
     }
 }

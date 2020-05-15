@@ -27,8 +27,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -44,6 +44,7 @@ import com.owncloud.android.ui.adapter.ActivityListAdapter;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.List;
@@ -100,6 +101,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     private ActivitiesContract.ActionListener mActionListener;
     @Inject ActivitiesRepository activitiesRepository;
     @Inject FilesRepository filesRepository;
+    @Inject ClientFactory clientFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,14 +116,11 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         // setup toolbar
         setupToolbar();
 
-        onCreateSwipeToRefresh(swipeListRefreshLayout);
+        ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
 
         // setup drawer
         setupDrawer(R.id.nav_activity);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            ThemeUtils.setColoredTitle(actionBar, getString(R.string.drawer_item_activities), this);
-        }
+        updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_activities));
 
         swipeListRefreshLayout.setOnRefreshListener(() -> {
             // We set lastGiven variable to undefined here since when manually refreshing
@@ -135,15 +134,6 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
         emptyContentProgressBar.setVisibility(View.GONE);
         emptyContentMessage.setVisibility(View.INVISIBLE);
         emptyContentHeadline.setVisibility(View.INVISIBLE);
-    }
-
-    protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
-        int primaryColor = ThemeUtils.primaryColor(this);
-        int darkColor = ThemeUtils.primaryDarkColor(this);
-        int accentColor = ThemeUtils.primaryAccentColor(this);
-
-        // Colors in animations
-        refreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
     }
 
     @Override
@@ -164,13 +154,18 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
      * sets up the UI elements and loads all activity items.
      */
     private void setupContent() {
-        emptyContentIcon.setImageResource(R.drawable.ic_activity_light_grey);
+        emptyContentIcon.setImageResource(R.drawable.ic_activity);
         emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(this),
                                                                           PorterDuff.Mode.SRC_IN);
 
         FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-        adapter = new ActivityListAdapter(this, getUserAccountManager(), this, storageManager,
-        getCapabilities(), false);
+        adapter = new ActivityListAdapter(this,
+                                          getUserAccountManager(),
+                                          this,
+                                          storageManager,
+                                          getCapabilities(),
+                                          clientFactory,
+                                          false);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -260,7 +255,7 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
     @Override
     public void showActivitiesLoadError(String error) {
-        Toast.makeText(getBaseContext(), error, Toast.LENGTH_LONG).show();
+        DisplayUtils.showSnackMessage(this, error);
     }
 
     @Override
@@ -279,12 +274,12 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
 
     @Override
     public void showActivityDetailUIIsNull() {
-        Toast.makeText(getBaseContext(), R.string.file_not_found, Toast.LENGTH_LONG).show();
+        DisplayUtils.showSnackMessage(this, R.string.file_not_found);
     }
 
     @Override
     public void showActivityDetailError(String error) {
-        Toast.makeText(getBaseContext(), error, Toast.LENGTH_LONG).show();
+        DisplayUtils.showSnackMessage(this, error);
     }
 
     @Override

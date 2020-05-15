@@ -43,7 +43,6 @@
     <string name="auth_check_server">サーバーをチェック</string>
     <string name="auth_connection_established">接続が確立しました</string>
     <string name="auth_expired_basic_auth_toast">現在のパスワードを入力してください</string>
-    <string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返さない場合は、管理者に連絡してください</string>
     <string name="auth_host_address">サーバーアドレス</string>
     <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_illegal_login_used">不正なログインデータURLを使用しています</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
     <string name="auth_username">ユーザー名</string>
     <string name="auth_wrong_connection_title">接続を確立できませんでした</string>
-    <string name="auth_wtf_reenter_URL">予期しない状態です。サーバーアドレスをもう一度入力してください</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">読み取り専用のため元のフォルダに残しました</string>
     <string name="auto_upload_on_wifi">定額制 Wi-Fi でのみアップロード</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">これは、すべての最新の機能が含まれており、非常に最先端です。 バグ/エラーが発生する可能性があります。もしその場合は、私たちに報告してください。</string>
     <string name="community_contribute_forum_forum">フォーラム</string>
     <string name="community_contribute_forum_text">他の人に協力する</string>
-    <string name="community_contribute_github_text">詳細を確認するには、%1$sを参照してください。</string>
     <string name="community_contribute_headline">積極的な貢献</string>
     <string name="community_contribute_irc_text">IRCのチャットに参加する：</string>
     <string name="community_contribute_translate_text">アプリ</string>
@@ -141,11 +138,8 @@
     <string name="confirmation_remove_folder_alert">本当に %1$s を中身も一緒に削除しますか？</string>
     <string name="confirmation_remove_folders_alert">本当に選択したアイテムとその内容を削除しますか？</string>
     <string name="confirmation_remove_local">ローカルのみ</string>
-    <string name="conflict_keep_both">両方を保持</string>
-    <string name="conflict_message">どちらのファイルを保存したいですか？両方のバージョンを選択した場合は、ファイル名の後ろに数字を追加したファイルのコピーを作成します。</string>
-    <string name="conflict_title">ファイル競合</string>
-    <string name="conflict_use_local_version">ローカルのもの</string>
-    <string name="conflict_use_server_version">サーバーのバージョン</string>
+    <string name="conflict_message_headline">どちらのファイルを保持しますか？</string>
+    <string name="conflict_new_file">新しいファイル</string>
     <string name="contaclist_restore_selected">選択したアドレス帳を復元</string>
     <string name="contactlist_account_chooser_title">インポートするアカウントを選択</string>
     <string name="contactlist_item_icon">連絡先リストのユーザーアイコン</string>
@@ -164,7 +158,6 @@
     <string name="copy_file_error">このファイルまたはフォルダーをコピーする際にエラーが発生しました</string>
     <string name="copy_file_invalid_into_descendent">フォルダをその下のフォルダにコピーすることはできません</string>
     <string name="copy_file_invalid_overwrite">そのファイルは移動先フォルダーにすでに存在します。</string>
-    <string name="copy_file_not_found">コピーできません。ファイルがあるか確認してください。</string>
     <string name="copy_link">リンクをコピー</string>
     <string name="copy_move_to_encrypted_folder_not_supported">現在サポートされていない暗号化されたフォルダにコピー/移動します。</string>
     <string name="copy_to">コピー…</string>
@@ -256,6 +249,15 @@
     <string name="error_retrieving_file">ファイルの取得中にエラーが発生しました</string>
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
     <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>
+    <string name="etm_accounts">アカウント</string>
+    <string name="etm_background_job_name">ジョブの名前</string>
+    <string name="etm_background_job_progress">進捗状況</string>
+    <string name="etm_background_job_state">状態</string>
+    <string name="etm_background_jobs">バックグラウンドジョブ</string>
+    <string name="etm_background_jobs_cancel_all">すべてのジョブをキャンセル</string>
+    <string name="etm_background_jobs_start_test_job">テストジョブを開始</string>
+    <string name="etm_background_jobs_stop_test_job">テストジョブを中断</string>
+    <string name="etm_migrations">マイグレーション（アプリのアップグレード）</string>
     <string name="etm_preferences">環境設定</string>
     <string name="etm_title">開発者用テストモード</string>
     <string name="fab_label">追加またはアップロード</string>
@@ -266,7 +268,6 @@
     <string name="fallback_weblogin_text">古いログイン方法へ戻す</string>
     <string name="favorite">お気に入りに追加</string>
     <string name="favorite_icon">お気に入り</string>
-    <string name="file">ファイル</string>
     <string name="file_delete">削除</string>
     <string name="file_detail_activity_error">ファイルのアクティビティ取得エラー</string>
     <string name="file_details_no_content">詳細のロードに失敗しました</string>
@@ -275,7 +276,6 @@
     <string name="file_list_empty">コンテンツをアップロードするか、デバイスと同期してください。</string>
     <string name="file_list_empty_favorite_headline">まだお気に入りに登録されていません</string>
     <string name="file_list_empty_favorites_filter">お気に入りのファイルが見つかりませんでした。</string>
-    <string name="file_list_empty_favorites_filter_list">お気に入りに登録されたファイルやフォルダーがここに表示されます</string>
     <string name="file_list_empty_headline">ここにファイルはありません</string>
     <string name="file_list_empty_headline_search">このフォルダーに該当はありません</string>
     <string name="file_list_empty_headline_server_search">該当なし</string>
@@ -287,7 +287,6 @@
     <string name="file_list_empty_recently_modified">ここ7日間に更新されたファイルが見つかりません</string>
     <string name="file_list_empty_recently_modified_filter">ここ7日間に更新されたファイルはありません。</string>
     <string name="file_list_empty_search">別のフォルダーにありませんか？</string>
-    <string name="file_list_empty_shared">共有したファイルやフォルダーは、ここに表示されます。</string>
     <string name="file_list_empty_shared_headline">まだ何も共有されていません</string>
     <string name="file_list_empty_text_photos">写真をアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="file_list_empty_text_photos_filter">写真はありません。</string>
@@ -336,7 +335,6 @@
     <string name="first_run_2_text">セキュアなコラボレーションとファイル交換</string>
     <string name="first_run_3_text">使いやすいWebメールやカレンダーや連絡先</string>
     <string name="first_run_4_text">画面共有やオンラインミーティングやウェブ会議</string>
-    <string name="folder">フォルダー</string>
     <string name="folder_already_exists">フォルダーはすでに存在します</string>
     <string name="folder_confirm_create">作成</string>
     <string name="folder_icon">フォルダアイコン</string>
@@ -363,6 +361,7 @@
     <string name="host_your_own_server">自分のサーバーをホストする</string>
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="invalid_url">無効なURL</string>
     <string name="learn_more">もっと見る</string>
     <string name="link">リンク</string>
     <string name="list_layout">リスト表示</string>
@@ -404,12 +403,8 @@
     <string name="move_file_error">このファイルまたはフォルダーを移動する際にエラーが発生しました</string>
     <string name="move_file_invalid_into_descendent">フォルダを自身の基礎となるフォルダの1つに移動することはできません</string>
     <string name="move_file_invalid_overwrite">そのファイルは移動先フォルダーにすでに存在します。</string>
-    <string name="move_file_not_found">ファイルを移動できません。ファイルがあるか確認してください。</string>
     <string name="move_to">移動…</string>
-    <string name="network_error_connect_timeout_exception">サーバーの応答を待っている間にエラーが発生しました。操作を完了できませんでした。</string>
     <string name="network_error_socket_exception">サーバーへの接続中にエラーが発生しました。</string>
-    <string name="network_error_socket_timeout_exception">サーバーの応答を待っている間にエラーが発生しました。操作を完了できませんでした。</string>
-    <string name="network_host_not_available">操作を完了できません。サーバーが利用できません。</string>
     <string name="new_comment">新しいコメント…</string>
     <string name="new_media_folder_detected">新しい %1$s メディアフォルダが検出されました。</string>
     <string name="new_media_folder_photos">写真</string>
@@ -567,11 +562,8 @@
     <string name="share_get_public_link_button">リンクを取得</string>
     <string name="share_group_clarification">%1$s (グループ)</string>
     <string name="share_internal_link">内部リンクを共有</string>
-    <string name="share_internal_link_text">この %1$sにアクセスできるユーザーにのみ機能します</string>
     <string name="share_known_remote_clarification">%1$s ( %2$s で)</string>
     <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
-    <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
-    <string name="share_link_file_no_exist">共有できません。ファイルがあるか確認してください。</string>
     <string name="share_link_forbidden_permissions">ファイルを共有</string>
     <string name="share_link_optional_password_title">オプションのパスワードを入力</string>
     <string name="share_link_password_title">パスワードを入力</string>
@@ -668,10 +660,13 @@
     <string name="sync_fail_ticker">同期の失敗</string>
     <string name="sync_fail_ticker_unauthorized">同期失敗、要 再ログイン</string>
     <string name="sync_file_nothing_to_do_msg">ファイルコンテンツはすでに同期されています</string>
-    <string name="sync_folder_failed_content">%1$sフォルダの同期を完了できませんでした</string>
     <string name="sync_foreign_files_forgotten_explanation">バージョン1.3.16以降、デバイスからアップロードされたファイルは %1$s ローカルフォルダーにコピーされ、単一のファイルが複数のアカウントと同期されているときにデータが失われるのを防ぎます。\n\nこの変更により、以前にこのアプリでアップロードしたすべてのファイルが %2$s フォルダーにコピーされました。しかし、アカウント同期中にエラーが発生したため操作を完了できませんでした。操作を完了させるには、ファイルをそのまま保持する場合は %3$sとのリンクを削除し、 %4$sとのリンクを保持する場合は %1$s フォルダーにファイルを移動させてください。\n\n以下にローカルファイルと リンクしている %5$s のリモートファイルのリストを表示します。</string>
     <string name="sync_foreign_files_forgotten_ticker">一部のローカルファイルが忘れられています</string>
     <string name="sync_in_progress">最新のファイルを取得しています。</string>
+    <string name="sync_not_enough_space_dialog_action_choose">同期フォルダーを選択</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">空き容量</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s が %2$sである必要がありますが、このデバイスでは、領域が%3$s しかありません。</string>
+    <string name="sync_not_enough_space_dialog_title">十分な空き容量がありません</string>
     <string name="sync_status_button">同期ステータスボタン</string>
     <string name="sync_string_files">ファイル</string>
     <string name="synced_folder_settings_button">設定ボタン</string>
@@ -689,7 +684,6 @@
     <string name="timeout_richDocuments">ローディング中 時間がかかります...</string>
     <string name="trashbin_activity_title">ゴミ箱</string>
     <string name="trashbin_empty_headline">削除されたファイルはありません</string>
-    <string name="trashbin_empty_message">ここから削除されたファイルを元に戻すことができます。</string>
     <string name="trashbin_file_not_deleted">ファイル %1$s を削除できませんでした。</string>
     <string name="trashbin_file_not_restored">ファイル %1$s を復元できませんでした。</string>
     <string name="trashbin_loading_failed">ゴミ箱へのロードに失敗しました！</string>
@@ -697,13 +691,9 @@
     <string name="unread_comments">未読のコメントが存在します</string>
     <string name="unset_encrypted">暗号化解除</string>
     <string name="unset_favorite">お気に入りから削除</string>
-    <string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
-    <string name="unshare_link_file_no_exist">共有を解除できません。ファイルがあるか確認してください。</string>
     <string name="unshare_link_forbidden_permissions">ファイルの共有を解除</string>
     <string name="unsharing_failed">共有に失敗しました</string>
     <string name="untrusted_domain">信頼できないドメインを介したアクセス。 詳細はドキュメントを参照してください。</string>
-    <string name="update_link_file_error">共有を更新する際にエラーが発生しました</string>
-    <string name="update_link_file_no_exist">更新できません。ファイルがあるか確認してください。</string>
     <string name="update_link_forbidden_permissions">共有を更新</string>
     <string name="updating_share_failed">共有の更新に失敗しました</string>
     <string name="upload_cannot_create_file">ローカルファイルが作成できません</string>
@@ -718,11 +708,13 @@
     <string name="upload_file_dialog_title">アップロードするファイル名とファイルタイプを入力</string>
     <string name="upload_files">アップロードファイル</string>
     <string name="upload_item_action_button">アイテムアクションのアップロードボタン</string>
+    <string name="upload_list_delete">削除</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
     <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください。</string>
     <string name="upload_local_storage_full">ローカルストレージに空きがありません</string>
     <string name="upload_local_storage_not_copied">ローカルストレージへにファイルをコピーできませんでした</string>
     <string name="upload_lock_failed">フォルダのロックに失敗しました</string>
+    <string name="upload_old_android">暗号化は、Android 5.0以降で使えます。</string>
     <string name="upload_query_move_foreign_files">十分な空き容量が無い場合、選択したファイルは%1$sにコピーできません。コピーせず移動にしますか？</string>
     <string name="upload_sync_conflict">同期の競合が発生しました。手動で解決してください。</string>
     <string name="upload_unknown_error">不明なエラー</string>
@@ -766,6 +758,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">ローカルファイルがありません</string>
     <string name="uploads_view_upload_status_failed_permission_error">権限エラー</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">信頼できないサーバー証明書</string>
+    <string name="uploads_view_upload_status_fetching_server_version">サーバーのバージョンを取得中…</string>
     <string name="uploads_view_upload_status_service_interrupted">アプリが終了しました</string>
     <string name="uploads_view_upload_status_succeeded">完了</string>
     <string name="uploads_view_upload_status_unknown_fail">不明なエラー</string>

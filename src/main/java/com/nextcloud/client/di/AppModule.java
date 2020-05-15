@@ -25,13 +25,15 @@ import android.app.Application;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.os.Handler;
 import android.media.AudioManager;
+import android.os.Handler;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
+import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.core.AsyncRunner;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.core.ClockImpl;
@@ -41,6 +43,10 @@ import com.nextcloud.client.logger.FileLogHandler;
 import com.nextcloud.client.logger.Logger;
 import com.nextcloud.client.logger.LoggerImpl;
 import com.nextcloud.client.logger.LogsRepository;
+import com.nextcloud.client.migrations.Migrations;
+import com.nextcloud.client.migrations.MigrationsDb;
+import com.nextcloud.client.migrations.MigrationsManager;
+import com.nextcloud.client.migrations.MigrationsManagerImpl;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -51,6 +57,8 @@ import com.owncloud.android.ui.activities.data.activities.RemoteActivitiesReposi
 import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesServiceApiImpl;
 import com.owncloud.android.ui.activities.data.files.RemoteFilesRepository;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 
@@ -163,5 +171,27 @@ class AppModule {
     @Provides
     AudioManager audioManager(Context context) {
         return (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+    }
+
+    @Provides
+    @Singleton
+    EventBus eventBus() {
+        return EventBus.getDefault();
+    }
+
+    @Provides
+    @Singleton
+    MigrationsDb migrationsDb(Application application) {
+        SharedPreferences store = application.getSharedPreferences("migrations", Context.MODE_PRIVATE);
+        return new MigrationsDb(store);
+    }
+
+    @Provides
+    @Singleton
+    MigrationsManager migrationsManager(MigrationsDb migrationsDb,
+                                        AppInfo appInfo,
+                                        AsyncRunner asyncRunner,
+                                        Migrations migrations) {
+        return new MigrationsManagerImpl(appInfo, migrationsDb, asyncRunner, migrations.getSteps());
     }
 }

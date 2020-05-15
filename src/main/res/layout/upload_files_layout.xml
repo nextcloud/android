@@ -23,15 +23,14 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/toolbar_standard" />
+    <include layout="@layout/toolbar_standard" />
 
     <fragment
         android:id="@+id/local_files_list"
+        class="com.owncloud.android.ui.fragment.LocalFileListFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        class="com.owncloud.android.ui.fragment.LocalFileListFragment" />
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,7 +83,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_weight="1"
             android:text="@string/common_cancel"
             style="@style/OutlinedButton"

@@ -21,10 +21,7 @@
 
 package com.owncloud.android.authentication;
 
-import android.content.Context;
 import android.text.TextUtils;
-
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
 import java.util.Locale;
 
@@ -38,20 +35,6 @@ public final class AuthenticatorUrlUtils {
     private static final String HTTP_PROTOCOL = "http://";
 
     private AuthenticatorUrlUtils() {
-    }
-
-    /**
-     * Returns the proper URL path to access the WebDAV interface of an ownCloud server,
-     * according to its version and the authorization method used.
-     *
-     * @param   version         Version of ownCloud server.
-     * @param   authTokenType   Authorization token type, matching some of the AUTH_TOKEN_TYPE_* constants in
-     *                          {@link AccountAuthenticator}.
-     * @return                  WebDAV path for given OC version and authorization method, null if OC version
-     *                          is unknown; versions prior to ownCloud 4 are not supported anymore
-     */
-    public static String getWebdavPath(OwnCloudVersion version, String authTokenType, Context context) {
-            return WEBDAV_PATH_4_0_AND_LATER;
     }
 
     public static String normalizeUrlSuffix(String url) {

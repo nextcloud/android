@@ -104,7 +104,7 @@ public final class BitmapUtils {
      * @return The largest inSampleSize value that is a power of 2 and keeps both
      *                      height and width larger than reqWidth and reqHeight.
      */
-    private static int calculateSampleFactor(Options options, int reqWidth, int reqHeight) {
+    public static int calculateSampleFactor(Options options, int reqWidth, int reqHeight) {
 
         final int height = options.outHeight;
         final int width = options.outWidth;
@@ -430,11 +430,20 @@ public final class BitmapUtils {
     }
 
     public static void setRoundedBitmap(Bitmap thumbnail, ImageView imageView) {
-        Resources resources = MainApp.getAppContext().getResources();
-
-        BitmapUtils.setRoundedBitmap(resources,
+        BitmapUtils.setRoundedBitmap(getResources(),
                                      thumbnail,
-                                     resources.getDimension(R.dimen.file_icon_rounded_corner_radius),
+                                     getResources().getDimension(R.dimen.file_icon_rounded_corner_radius),
                                      imageView);
+    }
+
+    public static void setRoundedBitmapForGridMode(Bitmap thumbnail, ImageView imageView){
+        BitmapUtils.setRoundedBitmap(getResources(),
+                                     thumbnail,
+                                     getResources().getDimension(R.dimen.file_icon_rounded_corner_radius_for_grid_mode),
+                                     imageView);
+    }
+
+    private static Resources getResources(){
+        return MainApp.getAppContext().getResources();
     }
 }

@@ -22,17 +22,12 @@
  */
 package com.owncloud.android.utils.glide;
 
-import android.accounts.Account;
-
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -63,7 +58,7 @@ public class HttpStreamFetcher implements DataFetcher<InputStream> {
         OwnCloudClient client = clientFactory.create(user);
 
         if (client != null) {
-            GetMethod get;
+            GetMethod get = null;
             try {
                 get = new GetMethod(url);
                 get.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
@@ -76,6 +71,10 @@ public class HttpStreamFetcher implements DataFetcher<InputStream> {
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, e.getMessage(), e);
+            } finally {
+                if (get != null) {
+                    get.releaseConnection();
+                }
             }
         }
         return null;

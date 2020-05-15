@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,10 +20,25 @@
 
 package com.nextcloud.client.network;
 
-import com.evernote.android.job.JobRequest;
-
+/**
+ * This service provides information about current network connectivity
+ * and server reachableity.
+ */
 public interface ConnectivityService {
+
+    /**
+     * Check if server is accessible by issuing HTTP status check request.
+     * Since this call involves network traffic, it should not be called
+     * on a main thread.
+     *
+     * @return True if server is unreachable, false otherwise
+     */
     boolean isInternetWalled();
-    boolean isOnlineWithWifi();
-    JobRequest.NetworkType getActiveNetworkType();
+
+    /**
+     * Get current network connectivity status.
+     *
+     * @return Network connectivity status in platform-agnostic format
+     */
+    Connectivity getConnectivity();
 }

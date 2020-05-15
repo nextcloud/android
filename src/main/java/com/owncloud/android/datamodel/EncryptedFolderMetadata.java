@@ -23,26 +23,70 @@ package com.owncloud.android.datamodel;
 
 import java.util.Map;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * Encrypted class representation of metadata json of folder metadata
  */
-@Getter
-@Setter
-@AllArgsConstructor
 public class EncryptedFolderMetadata {
     private DecryptedFolderMetadata.Metadata metadata;
     private Map<String, EncryptedFile> files;
 
-    @Getter
-    @Setter
+    public EncryptedFolderMetadata(DecryptedFolderMetadata.Metadata metadata, Map<String, EncryptedFile> files) {
+        this.metadata = metadata;
+        this.files = files;
+    }
+
+    public DecryptedFolderMetadata.Metadata getMetadata() {
+        return this.metadata;
+    }
+
+    public Map<String, EncryptedFile> getFiles() {
+        return this.files;
+    }
+
+    public void setMetadata(DecryptedFolderMetadata.Metadata metadata) {
+        this.metadata = metadata;
+    }
+
+    public void setFiles(Map<String, EncryptedFile> files) {
+        this.files = files;
+    }
+
     public static class EncryptedFile {
         private String encrypted;
         private String initializationVector;
         private String authenticationTag;
         private int metadataKey;
+
+        public String getEncrypted() {
+            return this.encrypted;
+        }
+
+        public String getInitializationVector() {
+            return this.initializationVector;
+        }
+
+        public String getAuthenticationTag() {
+            return this.authenticationTag;
+        }
+
+        public int getMetadataKey() {
+            return this.metadataKey;
+        }
+
+        public void setEncrypted(String encrypted) {
+            this.encrypted = encrypted;
+        }
+
+        public void setInitializationVector(String initializationVector) {
+            this.initializationVector = initializationVector;
+        }
+
+        public void setAuthenticationTag(String authenticationTag) {
+            this.authenticationTag = authenticationTag;
+        }
+
+        public void setMetadataKey(int metadataKey) {
+            this.metadataKey = metadataKey;
+        }
     }
 }

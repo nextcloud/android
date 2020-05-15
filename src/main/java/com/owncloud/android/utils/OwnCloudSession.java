@@ -19,16 +19,37 @@
  */
 package com.owncloud.android.utils;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * Represents a session to an ownCloud instance
  */
-@AllArgsConstructor
 class OwnCloudSession {
-    @Getter @Setter private String sessionName;
-    @Getter @Setter private String sessionUrl;
-    @Getter private int entryId;
+    private String sessionName;
+    private String sessionUrl;
+    private int entryId;
+
+    public OwnCloudSession(String sessionName, String sessionUrl, int entryId) {
+        this.sessionName = sessionName;
+        this.sessionUrl = sessionUrl;
+        this.entryId = entryId;
+    }
+
+    public String getSessionName() {
+        return this.sessionName;
+    }
+
+    public String getSessionUrl() {
+        return this.sessionUrl;
+    }
+
+    public int getEntryId() {
+        return this.entryId;
+    }
+
+    public void setSessionName(String sessionName) {
+        this.sessionName = sessionName;
+    }
+
+    public void setSessionUrl(String sessionUrl) {
+        this.sessionUrl = sessionUrl;
+    }
 }

@@ -22,7 +22,6 @@
 package com.owncloud.android;
 
 import android.Manifest;
-import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -41,8 +40,7 @@ import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
-import com.evernote.android.job.JobManager;
-import com.evernote.android.job.JobRequest;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.core.Clock;
@@ -53,6 +51,7 @@ import com.nextcloud.client.errorhandling.ExceptionHandler;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.logger.LegacyLoggerAdapter;
 import com.nextcloud.client.logger.Logger;
+import com.nextcloud.client.migrations.MigrationsManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -69,12 +68,9 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
-import com.owncloud.android.jobs.MediaFoldersDetectionJob;
-import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.DisplayUtils;
@@ -84,6 +80,7 @@ import com.owncloud.android.utils.ReceiversHelper;
 import com.owncloud.android.utils.SecurityUtils;
 
 import org.conscrypt.Conscrypt;
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.reflect.Method;
 import java.security.NoSuchAlgorithmException;
@@ -92,8 +89,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.net.ssl.SSLContext;
@@ -165,6 +162,12 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @Inject
     Clock clock;
 
+    @Inject
+    EventBus eventBus;
+
+    @Inject
+    MigrationsManager migrationsManager;
+
     private PassCodeManager passCodeManager;
 
     @SuppressWarnings("unused")
@@ -191,14 +194,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
      */
     public PowerManagementService getPowerManagementService() {
         return powerManagementService;
-    }
-
-    /**
-     * Temporary getter enabling intermediate refactoring.
-     * TODO: remove when FileSyncHelper is refactored/removed
-     */
-    public BackgroundJobManager getBackgroundJobManager() {
-        return backgroundJobManager;
     }
 
     private String getAppProcessName() {
@@ -256,26 +251,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         registerActivityLifecycleCallbacks(new ActivityInjector());
 
-        Thread t = new Thread(() -> {
-            // best place, before any access to AccountManager or database
-            if (!preferences.isUserIdMigrated()) {
-                final boolean migrated = accountManager.migrateUserId();
-                preferences.setMigratedUserId(migrated);
-            }
-        });
-        t.start();
-
-        JobManager.create(this).addJobCreator(
-            new NCJobCreator(
-                getApplicationContext(),
-                accountManager,
-                preferences,
-                uploadsStorageManager,
-                connectivityService,
-                powerManagementService,
-                clock
-            )
-        );
+        int startedMigrationsCount = migrationsManager.startMigration();
+        logger.i(TAG, String.format(Locale.US, "Started %d migrations", startedMigrationsCount));
 
         new SecurityUtils();
         DisplayUtils.useCompatVectorIfNeeded();
@@ -305,27 +282,18 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 Log_OC.d("Debug", "Failed to disable uri exposure");
             }
         }
-        initSyncOperations(uploadsStorageManager,
+        initSyncOperations(preferences,
+                           uploadsStorageManager,
                            accountManager,
                            connectivityService,
                            powerManagementService,
                            backgroundJobManager,
                            clock);
-        initContactsBackup(accountManager);
+        initContactsBackup(accountManager, backgroundJobManager);
         notificationChannels();
 
-
-        new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
-            .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(5))
-            .setUpdateCurrent(true)
-            .build()
-            .schedule();
-
-        new JobRequest.Builder(MediaFoldersDetectionJob.TAG)
-            .startNow()
-            .setUpdateCurrent(false)
-            .build()
-            .schedule();
+        backgroundJobManager.scheduleMediaFoldersDetectionJob();
+        backgroundJobManager.startMediaFoldersDetectionJob();
 
         registerGlobalPassCodeProtection();
     }
@@ -381,13 +349,13 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         securityKeyManager.init(this, config);
     }
 
-    public static void initContactsBackup(UserAccountManager accountManager) {
+    public static void initContactsBackup(UserAccountManager accountManager, BackgroundJobManager backgroundJobManager) {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext.getContentResolver());
-        Account[] accounts = accountManager.getAccounts();
+        List<User> users = accountManager.getAllUsers();
+        for (User user : users) {
+            if (arbitraryDataProvider.getBooleanValue(user.toPlatformAccount(), PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {
+                backgroundJobManager.schedulePeriodicContactsBackup(user);
 
-        for (Account account : accounts) {
-            if (arbitraryDataProvider.getBooleanValue(account, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {
-                ContactsPreferenceActivity.startContactBackupJob(account);
             }
         }
     }
@@ -464,11 +432,12 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
     public static void initSyncOperations(
+        final AppPreferences preferences,
         final UploadsStorageManager uploadsStorageManager,
         final UserAccountManager accountManager,
         final ConnectivityService connectivityService,
         final PowerManagementService powerManagementService,
-        final BackgroundJobManager jobManager,
+        final BackgroundJobManager backgroundJobManager,
         final Clock clock
     ) {
         updateToAutoUpload();
@@ -480,20 +449,23 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 splitOutAutoUploadEntries(clock);
             } else {
-                AppPreferences preferences = AppPreferencesImpl.fromContext(getAppContext());
                 preferences.setAutoUploadSplitEntriesEnabled(true);
             }
         }
 
-        initiateExistingAutoUploadEntries(clock);
+        if (!preferences.isAutoUploadInitialized()) {
+            backgroundJobManager.startImmediateFilesSyncJob(false, false);
+            preferences.setAutoUploadInit(true);
+        }
 
-        FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext, jobManager);
+        FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext, backgroundJobManager);
         FilesSyncHelper.restartJobsIfNeeded(
             uploadsStorageManager,
             accountManager,
             connectivityService,
             powerManagementService);
-        FilesSyncHelper.scheduleOfflineSyncIfNeeded();
+
+        backgroundJobManager.scheduleOfflineSync();
 
         ReceiversHelper.registerNetworkChangeReceiver(uploadsStorageManager,
                                                       accountManager,
@@ -756,25 +728,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
             preferences.setAutoUploadSplitEntriesEnabled(true);
         }
-    }
-
-    private static void initiateExistingAutoUploadEntries(Clock clock) {
-        new Thread(() -> {
-            AppPreferences preferences = AppPreferencesImpl.fromContext(getAppContext());
-            if (!preferences.isAutoUploadInitialized()) {
-                SyncedFolderProvider syncedFolderProvider =
-                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences, clock);
-
-                for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-                    if (syncedFolder.isEnabled()) {
-                        FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder);
-                    }
-                }
-
-                preferences.setAutoUploadInit(true);
-            }
-
-        }).start();
     }
 
     private static void cleanOldEntries(Clock clock) {

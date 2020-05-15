@@ -26,7 +26,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.Utf8PostMethod;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class StreamMediaFileOperation extends RemoteOperation {
     private static final int SYNC_READ_TIMEOUT = 40000;
     private static final int SYNC_CONNECTION_TIMEOUT = 5000;
     private static final String STREAM_MEDIA_URL = "/ocs/v2.php/apps/dav/api/v1/direct";
-    
+
     private String fileID;
 
     // JSON node names
@@ -51,10 +51,10 @@ public class StreamMediaFileOperation extends RemoteOperation {
 
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result;
-        PostMethod postMethod = null;
+        Utf8PostMethod postMethod = null;
 
         try {
-            postMethod = new PostMethod(client.getBaseUri() + STREAM_MEDIA_URL + JSON_FORMAT);
+            postMethod = new Utf8PostMethod(client.getBaseUri() + STREAM_MEDIA_URL + JSON_FORMAT);
             postMethod.setParameter("fileId", fileID);
 
             // remote request

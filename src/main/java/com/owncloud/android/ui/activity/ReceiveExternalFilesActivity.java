@@ -39,7 +39,6 @@ import android.content.res.Resources.NotFoundException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -63,6 +62,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.di.Injectable;
@@ -122,6 +122,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+
+import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
 /**
  * This can be used to upload things to an ownCloud instance.
@@ -238,12 +240,21 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Override
     protected void onStart() {
         super.onStart();
+
+        if (mAccountManager.getAccountsByType(MainApp.getAccountType(this)).length == 0) {
+            Toast.makeText(this,
+                           String.format(getString(R.string.uploader_wrn_no_account_text),
+                                         getString(R.string.app_name)),
+                           Toast.LENGTH_LONG).show();
+            return;
+        }
+
         initTargetFolder();
         populateDirectoryList();
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         Log_OC.d(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putString(KEY_PARENTS, generatePath(mParents));
@@ -765,20 +776,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 btnChooseFolder.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
             }
 
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(
-                        ThemeUtils.primaryColor(getAccount(), false, this)));
-            }
+            ThemeUtils.colorStatusBar(this);
 
-            ThemeUtils.colorStatusBar(this, ThemeUtils.primaryColor(getAccount(), false, this));
-
-            ThemeUtils.colorToolbarProgressBar(this, ThemeUtils.primaryColor(getAccount(), false, this));
-
-            Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
-
-            if (actionBar != null) {
-                actionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.fontColor(this)));
-            }
+            ThemeUtils.tintBackButton(actionBar, this);
 
             Button btnNewFolder = findViewById(R.id.uploader_cancel);
             btnNewFolder.setTextColor(ThemeUtils.primaryColor(this, true));
@@ -888,19 +888,19 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     public void uploadFile(String tmpName, String filename) {
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        requester.uploadNewFile(
+        FileUploader.uploadNewFile(
             getBaseContext(),
             getAccount(),
-                tmpName,
+            tmpName,
             mFile.getRemotePath() + filename,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             null,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,
-            false
-            );
+            false,
+            FileUploader.NameCollisionPolicy.ASK_USER
+        );
         finish();
     }
 
@@ -1032,7 +1032,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         newFolderMenuItem.setEnabled(mFile.canWrite());
 
         // hacky as no default way is provided
-        ThemeUtils.themeSearchView(searchView, true, this);
+        ThemeUtils.themeSearchView(searchView, this);
 
         return true;
     }
@@ -1054,10 +1054,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 showAccountChooserDialog();
                 break;
             case R.id.action_sort:
-                SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
-                    preferences.getSortOrderByFolder(mFile));
-                mSortingOrderDialogFragment.show(getSupportFragmentManager(),
-                        SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT);
+                openSortingOrderDialogFragment(getSupportFragmentManager(),
+                                               preferences.getSortOrderByFolder(mFile));
                 break;
             default:
                 retval = super.onOptionsItemSelected(item);

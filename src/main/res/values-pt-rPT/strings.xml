@@ -43,7 +43,6 @@
     <string name="auth_check_server">Verificar servidor</string>
     <string name="auth_connection_established">Ligação estabelecida</string>
     <string name="auth_expired_basic_auth_toast">Por favor, introduza a sua palavra-passe atual</string>
-    <string name="auth_fail_get_user_name">O seu servidor não está a retornar um ID de usuário correto. Por favor, contacte o administrador. </string>
     <string name="auth_host_address">Endereço do servidor</string>
     <string name="auth_host_url">Endereço do servidor https://…</string>
     <string name="auth_illegal_login_used">URL usado com dados login inválidos</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s não suporta contas múltiplas</string>
     <string name="auth_username">Nome de utilizador</string>
     <string name="auth_wrong_connection_title">Não foi possível estabelecer ligação</string>
-    <string name="auth_wtf_reenter_URL">Estado inesperado. Digite novamente o endereço do servidor</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, dado ser readonly</string>
     <string name="auto_upload_on_wifi">Carregar ficheiros apenas em redes Wi-Fi sem contagem do tráfego</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -79,6 +77,7 @@
     <string name="autoupload_create_new_custom_folder">Criar nova estrutura de pasta personalizada</string>
     <string name="autoupload_custom_folder">Definir uma pasta personalizada</string>
     <string name="autoupload_disable_power_save_check">Desabilitar a verificação de poupança de energia</string>
+    <string name="autoupload_hide_folder">Esconder pasta</string>
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Fechar</string>
     <string name="battery_optimization_disable">Desativar</string>
@@ -118,7 +117,6 @@
     <string name="community_beta_text">Inclui todas as futuras e mais recentes funcionalidades. Falhas/erros podem ocorrer, se e quando tal acontecer, por favor, reporte as suas descobertas.</string>
     <string name="community_contribute_forum_forum">fórum</string>
     <string name="community_contribute_forum_text">Ajude outros em</string>
-    <string name="community_contribute_github_text">Reveja, emende e escreva código, veja %1$s para detalhes</string>
     <string name="community_contribute_headline">Contribua activamente</string>
     <string name="community_contribute_irc_text">Junte-se à conversação em IRC:</string>
     <string name="community_contribute_translate_text">a aplicação</string>
@@ -139,11 +137,9 @@
     <string name="confirmation_remove_folder_alert">Deseja realmente apagar %1$s e o seu conteúdo?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente apagar os itens seleccionados e os seus conteúdos?</string>
     <string name="confirmation_remove_local">Apenas localmente</string>
-    <string name="conflict_keep_both">Manter ambos</string>
-    <string name="conflict_message">Quais os ficheiros que pretende manter? Se seleccionar ambas as versões, o ficheiro local terá um número adicionado ao se nome</string>
-    <string name="conflict_title">Conflito de ficheiro</string>
-    <string name="conflict_use_local_version">versão local</string>
-    <string name="conflict_use_server_version">versão servidor</string>
+    <string name="conflict_already_existing_file">Ficheiro já existente</string>
+    <string name="conflict_message_headline">Quais os ficheiros que pretende manter?</string>
+    <string name="conflict_new_file">Ficheiro novo</string>
     <string name="contaclist_restore_selected">Restaurar contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Escolher conta a importar</string>
     <string name="contactlist_item_icon">Ícone de utilizador de lista de contactos</string>
@@ -162,16 +158,16 @@
     <string name="copy_file_error">Ocorreu um erro quando tentava copiar este ficheiro ou pasta</string>
     <string name="copy_file_invalid_into_descendent">Não é possível copiar a pasta para uma das suas próprias pastas internas</string>
     <string name="copy_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
-    <string name="copy_file_not_found">Não é possível copiar. Por favor, verifique se o ficheiro existe</string>
     <string name="copy_link">Copiar hiperligação</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover para pasta encriptada não é actualmente suportado.</string>
     <string name="copy_to">Copiar para…</string>
-    <string name="could_not_retrieve_url">Não foi possível obter o URL</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
+    <string name="create_new">Criar novo</string>
     <string name="create_new_document">Criar novo documento</string>
     <string name="create_new_folder">Criar nova pasta</string>
     <string name="create_new_presentation">Criar nova apresentação</string>
     <string name="create_new_spreadsheet">Criar nova folha de cálculo</string>
+    <string name="create_rich_workspace">Adicionar info da pasta</string>
     <string name="credentials_disabled">Credenciais desativadas</string>
     <string name="date_unknown">Desconhecido</string>
     <string name="default_credentials_wrong">Credenciais incorretas</string>
@@ -196,6 +192,7 @@
     <string name="downloader_download_succeeded_ticker">Transferido</string>
     <string name="downloader_not_downloaded_yet">Ainda não transferido</string>
     <string name="drawer_close">Fechar barra lateral</string>
+    <string name="drawer_community">Comunidade</string>
     <string name="drawer_current_account">Conta actual</string>
     <string name="drawer_end_account">Última conta</string>
     <string name="drawer_header_background">Imagem de fundo de drawer header</string>
@@ -244,13 +241,21 @@
     <string name="error_retrieving_file">Erro ao obter o ficheiro</string>
     <string name="error_retrieving_templates">Erro ao obter modelos</string>
     <string name="error_starting_direct_camera_upload">Erro ao iniciar câmara</string>
+    <string name="etm_accounts">Contas</string>
+    <string name="etm_background_job_progress">Progresso</string>
+    <string name="etm_background_job_started">Iniciado</string>
+    <string name="etm_background_job_state">Estado</string>
+    <string name="etm_background_job_user">Utilizador</string>
+    <string name="etm_background_job_uuid">UUID</string>
+    <string name="etm_background_jobs">Tarefas de segundo plano</string>
+    <string name="etm_preferences">Preferências</string>
     <string name="fab_label">Adicionar ou enviar</string>
     <string name="failed_to_download">Falhou a passagem do ficheiro ao gestor de transferências</string>
+    <string name="failed_to_print">Falhou a impressão do ficheiro</string>
     <string name="fallback_weblogin_back">Anterior</string>
     <string name="fallback_weblogin_text">Reverter para método de início de sessão anterior</string>
     <string name="favorite">Adicionar aos favoritos</string>
     <string name="favorite_icon">Favorito</string>
-    <string name="file">ficheiro</string>
     <string name="file_delete">Apagar</string>
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
     <string name="file_icon">Ficheiro</string>
@@ -258,7 +263,6 @@
     <string name="file_list_empty">Envie algum conteúdo ou sincronize com os seus dispositivos</string>
     <string name="file_list_empty_favorite_headline">Ainda sem favoritos</string>
     <string name="file_list_empty_favorites_filter">A sua pesquisa não devolveu ficheiros favoritos.</string>
-    <string name="file_list_empty_favorites_filter_list">Os seus ficheiros e pastas favoritos serão mostrados aqui</string>
     <string name="file_list_empty_headline">Sem ficheiros aqui</string>
     <string name="file_list_empty_headline_search">Sem resultados nesta pasta</string>
     <string name="file_list_empty_headline_server_search">Sem resultados</string>
@@ -270,7 +274,6 @@
     <string name="file_list_empty_recently_modified">Não foi encontrado nenhum arquivo modificado nos últimos 7 dias</string>
     <string name="file_list_empty_recently_modified_filter">Sem arquivos modificados nos últimos 7 dias.</string>
     <string name="file_list_empty_search">Poderá estar numa pasta diferente?</string>
-    <string name="file_list_empty_shared">Os ficheiros e pastas que partilha serão mostrados aqui</string>
     <string name="file_list_empty_shared_headline">Ainda sem partilhas</string>
     <string name="file_list_empty_text_photos">Envie algumas fotografias ou ative o envio automático.</string>
     <string name="file_list_empty_text_photos_filter">Sem fotografias.</string>
@@ -319,7 +322,6 @@
     <string name="first_run_2_text">Colaboração &amp; partilha de ficheiros segura</string>
     <string name="first_run_3_text">Email web fácil de utilizar, calendarização &amp; contactos</string>
     <string name="first_run_4_text">Partilha de ecrã, reuniões online &amp; conferências web</string>
-    <string name="folder">pasta</string>
     <string name="folder_already_exists">A pasta já existe</string>
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_icon">Ícone de pasta</string>
@@ -382,12 +384,8 @@
     <string name="move_file_error">Ocorreu um ocorreu quando tentava mover este ficheiro ou pasta</string>
     <string name="move_file_invalid_into_descendent">Não é possível mover a pasta para uma das suas próprias pastas internas</string>
     <string name="move_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
-    <string name="move_file_not_found">Não é possível mover o ficheiro. Por favor, verifique se este existe</string>
     <string name="move_to">Movido para…</string>
-    <string name="network_error_connect_timeout_exception">Impossível concluir a operação porque ocorreu um erro na resposta do servidor</string>
     <string name="network_error_socket_exception">Ocorreu um erro na conexão com o servidor</string>
-    <string name="network_error_socket_timeout_exception">Impossível concluir a operação porque ocorreu um erro na resposta do servidor</string>
-    <string name="network_host_not_available">Impossível concluir a operação porque o servidor não responde</string>
     <string name="new_comment">Novo comentário…</string>
     <string name="new_media_folder_detected">Nova %1$s pasta multimédia detectada.</string>
     <string name="new_media_folder_photos">photo</string>
@@ -442,6 +440,7 @@
     <string name="pref_behaviour_entries_delete_file">eliminado</string>
     <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">movido para pasta da aplicação</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Perguntar-me todas as vezes</string>
     <string name="prefs_add_account">Adicionar conta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendário e contactos</string>
     <string name="prefs_calendar_contacts_address_resolve_error">O endereço do servidor da conta não pôde ser resolvido pelo DAVx5 (anteriormente conhecido como DAVdroid)</string>
@@ -512,6 +511,8 @@
     <string name="saml_authentication_required_text">Necessário palavra-passe</string>
     <string name="saml_authentication_wrong_pass">Palavra-passe errada</string>
     <string name="scanQR_description">acesso através de código QR</string>
+    <string name="screenshot_04_accounts_subline">Num único lugar</string>
+    <string name="screenshot_06_davdroid_subline">Sincronizar com DAVx5</string>
     <string name="search_users_and_groups_hint">Pesquisar utilizadores e grupos</string>
     <string name="select_all">Selecionar tudo</string>
     <string name="select_template">Seleccionar modelo</string>
@@ -531,8 +532,6 @@
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
     <string name="share_link_empty_password">Você deve introduzir uma palavra-passe</string>
-    <string name="share_link_file_error">Ocorreu um erro enquanto tentava partilhar este ficheiro ou pasta</string>
-    <string name="share_link_file_no_exist">Não é possível partilhar. Por favor verifique se o ficheiro existe</string>
     <string name="share_link_forbidden_permissions">para partilhar este ficheiro</string>
     <string name="share_link_optional_password_title">Insira uma palavra-passe opcional</string>
     <string name="share_link_password_title">Introduza uma palavra-passe</string>
@@ -629,10 +628,12 @@
     <string name="sync_fail_ticker">Sincronização falhou</string>
     <string name="sync_fail_ticker_unauthorized">A sincronização falhou, inicie novamente a sessão</string>
     <string name="sync_file_nothing_to_do_msg">O conteúdo do ficheiro já foi sincronizado</string>
-    <string name="sync_folder_failed_content">Não foi possível concluir a sincronização da pasta %1$s</string>
     <string name="sync_foreign_files_forgotten_explanation">Para a versão 1.3.16, os ficheiros enviados deste dispositivo são copiados para a seguinte pasta %1$s para evitar a falha de dados quando um só ficheiro é sincronizado em múltiplas contas.\n\nDevido a esta alteração, todos os ficheiros enviados com as versões mais antigas desta aplicação serão copiadas para a seguinte pasta %2$s. Contudo, um erro evitou a conclusão desta operação durante a sincronização da conta. Pode deixar o(s) ficheiro(s) como estão e eliminar a associação para %3$s, ou mover o(s) ficheiro(s) para a pasta %1$s e manter a associação para %4$s.\n\nEm baixo está a lista dos ficheiros locais e dos ficheiros remotos na pasta %5$s em que foram associados.</string>
     <string name="sync_foreign_files_forgotten_ticker">Alguns ficheiros locais foram esquecidos</string>
     <string name="sync_in_progress">Obter a versão mais recente do ficheiro.</string>
+    <string name="sync_not_enough_space_dialog_action_choose">Escolher o que sincronizar</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Libertar espaço</string>
+    <string name="sync_not_enough_space_dialog_title">Espaço insuficiente</string>
     <string name="sync_status_button">Botão de estado de sincronização</string>
     <string name="sync_string_files">Ficheiros</string>
     <string name="synced_folder_settings_button">Botão de Configurações</string>
@@ -650,7 +651,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="timeout_richDocuments">O carregamento é demorado...</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="trashbin_empty_headline">Sem ficheiros eliminados.</string>
-    <string name="trashbin_empty_message">Poderá recuperar ficheiros eliminados a partir daqui</string>
     <string name="trashbin_file_not_deleted">Ficheiro %1$s não pôde ser apagado!</string>
     <string name="trashbin_file_not_restored">Ficheiro %1$s não pôde ser restaurado!</string>
     <string name="trashbin_loading_failed">Carregamento do cesto do lixo falhou!</string>
@@ -658,13 +658,9 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Encriptação não definida</string>
     <string name="unset_favorite">Remover dos favoritos</string>
-    <string name="unshare_link_file_error">Ocorreu um erro enquanto retirava a partilha deste ficheiro ou pasta</string>
-    <string name="unshare_link_file_no_exist">Não é possível retirar a partilha. Verifique se o ficheiro existe</string>
     <string name="unshare_link_forbidden_permissions">para cancelar a partilha deste ficheiro</string>
     <string name="unsharing_failed">Cancelamento da partilha falhou</string>
     <string name="untrusted_domain">Acesso através de domínio não confiável. Por favor, verifique a documentação para mais informações.</string>
-    <string name="update_link_file_error">Ocorreu um erro ao tentar atualizar a partilha</string>
-    <string name="update_link_file_no_exist">Impossível atualizar. Confirme que o ficheiro existe</string>
     <string name="update_link_forbidden_permissions">para atualizar esta partilha</string>
     <string name="updating_share_failed">Actualização da partilha falhou</string>
     <string name="upload_cannot_create_file">Não é possível criar ficheiro local</string>
@@ -679,8 +675,10 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="upload_file_dialog_title">Introduza o nome e tipo de ficheiro a enviar</string>
     <string name="upload_files">Carregar ficheiros</string>
     <string name="upload_item_action_button">Botão de acção de envio de item</string>
+    <string name="upload_list_delete">Apagar</string>
     <string name="upload_list_empty_headline">Sem envios disponíveis</string>
     <string name="upload_list_empty_text_auto_upload">Envie algum conteúdo ou ative o envio automático.</string>
+    <string name="upload_list_resolve_conflict">Resolver conflito</string>
     <string name="upload_local_storage_full">Armazenamento local cheio</string>
     <string name="upload_local_storage_not_copied">O ficheiro não pôde ser copiado para o armazenamento local</string>
     <string name="upload_lock_failed">Falha ao trancar pasta</string>
@@ -766,6 +764,10 @@ Aproveite o novo e melhorado envio automático.</string>
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d ficheiro</item>
         <item quantity="other">%1$d ficheiros</item>
+    </plurals>
+    <plurals name="synced_folders_show_hidden_folders">
+        <item quantity="one">Mostrar %1$d pasta oculta</item>
+        <item quantity="other">Show %1$d pastas ocultas</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d selecionado</item>

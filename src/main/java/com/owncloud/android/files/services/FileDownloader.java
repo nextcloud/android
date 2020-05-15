@@ -38,11 +38,14 @@ import android.os.Message;
 import android.os.Process;
 import android.util.Pair;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -78,15 +81,15 @@ import dagger.android.AndroidInjection;
 public class FileDownloader extends Service
         implements OnDatatransferProgressListener, OnAccountsUpdateListener {
 
-    public static final String EXTRA_ACCOUNT = "ACCOUNT";
+    public static final String EXTRA_USER = "USER";
     public static final String EXTRA_FILE = "FILE";
 
     private static final String DOWNLOAD_ADDED_MESSAGE = "DOWNLOAD_ADDED";
     private static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
     public static final String EXTRA_DOWNLOAD_RESULT = "RESULT";
-    public static final String EXTRA_FILE_PATH = "FILE_PATH";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
+    public static final String EXTRA_CONFLICT_UPLOAD = "CONFLICT_UPLOAD";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
 
     private static final int FOREGROUND_SERVICE_ID = 412;
@@ -110,7 +113,10 @@ public class FileDownloader extends Service
 
     private Notification mNotification;
 
+    private OCUpload conflictUpload;
+
     @Inject UserAccountManager accountManager;
+    @Inject UploadsStorageManager uploadsStorageManager;
 
     public static String getDownloadAddedMessage() {
         return FileDownloader.class.getName() + DOWNLOAD_ADDED_MESSAGE;
@@ -186,23 +192,29 @@ public class FileDownloader extends Service
 
         startForeground(FOREGROUND_SERVICE_ID, mNotification);
 
-        if (intent == null || !intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_FILE)) {
+        if (intent == null || !intent.hasExtra(EXTRA_USER) || !intent.hasExtra(EXTRA_FILE)) {
             Log_OC.e(TAG, "Not enough information provided in intent");
             return START_NOT_STICKY;
         } else {
-            final Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
+            final User user = intent.getParcelableExtra(EXTRA_USER);
             final OCFile file = intent.getParcelableExtra(EXTRA_FILE);
             final String behaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
             String activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME);
             String packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME);
+            this.conflictUpload = intent.getParcelableExtra(FileDownloader.EXTRA_CONFLICT_UPLOAD);
             AbstractList<String> requestedDownloads = new Vector<String>();
             try {
-                DownloadFileOperation newDownload = new DownloadFileOperation(account, file, behaviour, activityName,
-                        packageName, getBaseContext());
+                DownloadFileOperation newDownload = new DownloadFileOperation(user.toPlatformAccount(),
+                                                                              file,
+                                                                              behaviour,
+                                                                              activityName,
+                                                                              packageName,
+                                                                              getBaseContext());
                 newDownload.addDatatransferProgressListener(this);
                 newDownload.addDatatransferProgressListener((FileDownloaderBinder) mBinder);
-                Pair<String, String> putResult = mPendingDownloads.putIfAbsent(
-                        account.name, file.getRemotePath(), newDownload);
+                Pair<String, String> putResult = mPendingDownloads.putIfAbsent(user.getAccountName(),
+                                                                               file.getRemotePath(),
+                                                                               newDownload);
                 if (putResult != null) {
                     String downloadKey = putResult.first;
                     requestedDownloads.add(downloadKey);
@@ -224,7 +236,6 @@ public class FileDownloader extends Service
 
         return START_NOT_STICKY;
     }
-
 
     /**
      * Provides a binder object that clients can use to perform operations on the queue of downloads,
@@ -634,6 +645,10 @@ public class FileDownloader extends Service
 
                 // Remove success notification
                 if (downloadResult.isSuccess()) {
+                    if (this.conflictUpload != null) {
+                        uploadsStorageManager.removeUpload(this.conflictUpload);
+                    }
+
                     // Sleep 2 seconds, so show the notification before remove it
                     NotificationUtils.cancelWithDelay(mNotificationManager,
                             R.string.downloader_download_succeeded_ticker, 2000);
@@ -675,7 +690,6 @@ public class FileDownloader extends Service
         end.putExtra(EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess());
         end.putExtra(ACCOUNT_NAME, download.getAccount().name);
         end.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
-        end.putExtra(EXTRA_FILE_PATH, download.getSavePath());
         end.putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, download.getBehaviour());
         end.putExtra(SendShareDialog.ACTIVITY_NAME, download.getActivityName());
         end.putExtra(SendShareDialog.PACKAGE_NAME, download.getPackageName());
@@ -698,7 +712,6 @@ public class FileDownloader extends Service
         Intent added = new Intent(getDownloadAddedMessage());
         added.putExtra(ACCOUNT_NAME, download.getAccount().name);
         added.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
-        added.putExtra(EXTRA_FILE_PATH, download.getSavePath());
         added.putExtra(EXTRA_LINKED_TO_PATH, linkedToRemotePath);
         added.setPackage(getPackageName());
         sendStickyBroadcast(added);
