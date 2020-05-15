@@ -56,7 +56,7 @@ import androidx.core.view.ViewCompat;
 public abstract class ToolbarActivity extends BaseActivity {
     protected MaterialButton mMenuButton;
     protected MaterialTextView mSearchText;
-    protected MaterialButton mSwitchAccountButton;
+    protected ImageView mSwitchAccountButton;
 
     private AppBarLayout mAppBar;
     private RelativeLayout mDefaultToolbar;
