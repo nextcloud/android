@@ -43,7 +43,6 @@
     <string name="auth_check_server">Check server</string>
     <string name="auth_connection_established">Connection established</string>
     <string name="auth_expired_basic_auth_toast">Please enter the current password</string>
-    <string name="auth_fail_get_user_name">Your server is not returning a correct user ID, please contact an admin</string>
     <string name="auth_host_address">Server address</string>
     <string name="auth_host_url">Server address https://…</string>
     <string name="auth_illegal_login_used">Illegal login data URL used</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
     <string name="auth_username">Username</string>
     <string name="auth_wrong_connection_title">Could not establish connection</string>
-    <string name="auth_wtf_reenter_URL">Unexpected state, please enter the server address again</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">This includes all upcoming features and it is on the very bleeding edge. Bugs/errors can occur, if and when they do, please report of your findings.</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Help others on the</string>
-    <string name="community_contribute_github_text">Review, amend and write code, see %1$s for details</string>
     <string name="community_contribute_headline">Actively Contribute</string>
     <string name="community_contribute_irc_text">Join the chat on IRC:</string>
     <string name="community_contribute_translate_text">the app</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">An error occurred while trying to copy this file or folder</string>
     <string name="copy_file_invalid_into_descendent">It is not possible to copy a folder into one of its own underlying folders</string>
     <string name="copy_file_invalid_overwrite">The file is already present in the destination folder</string>
-    <string name="copy_file_not_found">Unable to copy. Please check whether the file exists</string>
     <string name="copy_link">Copy link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
     <string name="copy_to">Copy to…</string>
@@ -287,7 +283,6 @@
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
     <string name="file_list_empty_favorite_headline">Nothing favorited yet</string>
     <string name="file_list_empty_favorites_filter">Your search returned no favorited files.</string>
-    <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorites will show up here</string>
     <string name="file_list_empty_headline">No files here</string>
     <string name="file_list_empty_headline_search">No results in this folder</string>
     <string name="file_list_empty_headline_server_search">No results</string>
@@ -299,7 +294,6 @@
     <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
     <string name="file_list_empty_recently_modified_filter">No files modified the last 7 days.</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
-    <string name="file_list_empty_shared">Files and folders you share will show up here</string>
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
     <string name="file_list_empty_text_photos">Upload some photos or activate auto upload.</string>
     <string name="file_list_empty_text_photos_filter">No photos.</string>
@@ -417,12 +411,8 @@
     <string name="move_file_error">An error occurred whilst trying to move this file or folder</string>
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
-    <string name="move_file_not_found">Unable to move file. Please check whether it exists</string>
     <string name="move_to">Move to…</string>
-    <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation</string>
     <string name="network_error_socket_exception">An error occurred during connection to the server</string>
-    <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server. Could not complete operation</string>
-    <string name="network_host_not_available">Could not complete operation. Server unavailable</string>
     <string name="new_comment">New comment…</string>
     <string name="new_media_folder_detected">New %1$s media folder detected.</string>
     <string name="new_media_folder_photos">photo</string>
@@ -589,8 +579,6 @@
     <string name="share_internal_link_to_folder_text">Internal share link only works for users with access to this folder</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
     <string name="share_link_empty_password">You must enter a password</string>
-    <string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
-    <string name="share_link_file_no_exist">Unable to share. Please check whether the file exists</string>
     <string name="share_link_forbidden_permissions">to share this file</string>
     <string name="share_link_optional_password_title">Enter an optional password</string>
     <string name="share_link_password_title">Enter a password</string>
@@ -714,7 +702,6 @@
     <string name="timeout_richDocuments">Loading takes very long…</string>
     <string name="trashbin_activity_title">Deleted files</string>
     <string name="trashbin_empty_headline">No deleted files</string>
-    <string name="trashbin_empty_message">You will be able to recover deleted files from here</string>
     <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
     <string name="trashbin_file_not_restored">File %1$s could not be restored!</string>
     <string name="trashbin_loading_failed">Loading trashbin failed!</string>
@@ -722,13 +709,9 @@
     <string name="unread_comments">Unread comments exist</string>
     <string name="unset_encrypted">Unset encryption</string>
     <string name="unset_favorite">Remove from favourites</string>
-    <string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder</string>
-    <string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists</string>
     <string name="unshare_link_forbidden_permissions">to unshare this file</string>
     <string name="unsharing_failed">Unsharing failed</string>
     <string name="untrusted_domain">Access through untrusted domain. Please see documentation for further info.</string>
-    <string name="update_link_file_error">An error occurred while trying to update the share</string>
-    <string name="update_link_file_no_exist">Unable to update. Please check whether the file exists</string>
     <string name="update_link_forbidden_permissions">to update this share</string>
     <string name="updating_share_failed">Updating share failed</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>

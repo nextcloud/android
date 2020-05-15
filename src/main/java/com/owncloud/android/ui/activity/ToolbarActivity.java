@@ -25,7 +25,6 @@ package com.owncloud.android.ui.activity;
 import android.animation.AnimatorInflater;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,7 +32,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -56,21 +54,17 @@ import androidx.core.view.ViewCompat;
  * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean)}.
  */
 public abstract class ToolbarActivity extends BaseActivity {
-    private AppBarLayout mAppBar;
-
-    private RelativeLayout mDefaultToolbar;
-
-    private MaterialCardView mHomeSearchToolbar;
     protected MaterialButton mMenuButton;
     protected MaterialTextView mSearchText;
     protected ImageView mSwitchAccountButton;
 
-    private ProgressBar mProgressBar;
+    private AppBarLayout mAppBar;
+    private RelativeLayout mDefaultToolbar;
+    private MaterialCardView mHomeSearchToolbar;
     private ImageView mPreviewImage;
     private FrameLayout mPreviewImageContainer;
     private LinearLayout mInfoBox;
     private TextView mInfoBoxMessage;
-
     private boolean isHomeSearchToolbarShow = false;
 
     @Override
@@ -98,9 +92,6 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         this.isHomeSearchToolbarShow = isHomeSearchToolbarShow;
         updateActionBarTitleAndHomeButton(null);
-
-        mProgressBar = findViewById(R.id.toolbar_progressBar);
-        setProgressBarBackgroundColor();
 
         mInfoBox = findViewById(R.id.info_box);
         mInfoBoxMessage = findViewById(R.id.info_box_message);
@@ -226,17 +217,6 @@ public abstract class ToolbarActivity extends BaseActivity {
     }
 
     /**
-     * Change the visibility for the toolbar's progress bar.
-     *
-     * @param isVisible visibility of the progress bar
-     */
-    public void showProgressBar(boolean isVisible) {
-        if (mProgressBar != null) {
-            mProgressBar.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-        }
-    }
-
-    /**
      * Change the visibility for the toolbar's preview image.
      *
      * @param visibility visibility of the preview image
@@ -274,16 +254,5 @@ public abstract class ToolbarActivity extends BaseActivity {
      */
     public ImageView getPreviewImageView() {
         return mPreviewImage;
-    }
-
-    /**
-     * Set the background to to progress bar of the toolbar. The resource should refer to a Drawable object or 0 to
-     * remove the background.#
-     */
-    private void setProgressBarBackgroundColor() {
-        if (mProgressBar != null) {
-            mProgressBar.setBackgroundColor(ThemeUtils.primaryAppbarColor(this));
-            mProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(this), PorterDuff.Mode.SRC_IN);
-        }
     }
 }

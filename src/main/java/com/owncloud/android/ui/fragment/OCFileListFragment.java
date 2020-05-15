@@ -1620,7 +1620,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                 @Override
                                 public void run() {
                                     if (fileDisplayActivity != null) {
-                                        fileDisplayActivity.showProgressBar(false);
+                                        setLoading(false);
                                     }
                                 }
                             });

@@ -43,7 +43,6 @@
     <string name="auth_check_server">Verificar servidor</string>
     <string name="auth_connection_established">Conexión establecida</string>
     <string name="auth_expired_basic_auth_toast">Por favor, introduce tu contraseña actual</string>
-    <string name="auth_fail_get_user_name">Tu servidor no está devolviendo una ID de usuario correcta; por favor, ponte en contacto con un administrador</string>
     <string name="auth_host_address">Dirección del servidor</string>
     <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_illegal_login_used">Se ha usado una URL ilegal de datos de entrada</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
     <string name="auth_username">Usuario</string>
     <string name="auth_wrong_connection_title">No se ha podido establecer la conexión</string>
-    <string name="auth_wtf_reenter_URL">Estado inesperado; por favor, introduce de nuevo la dirección del servidor</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">se mantiene en la carpeta original, pues es de solo lectura</string>
     <string name="auto_upload_on_wifi">Subir sólo con conexión Wi-Fi sin límite de datos</string>
     <string name="auto_upload_path">/CargaAutomática</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Esto incluye todas las características por llegar y es bastante inestable. Pueden ocurrir fallos y errores. Cuando sucedan infórmanos, por favor.</string>
     <string name="community_contribute_forum_forum">foro</string>
     <string name="community_contribute_forum_text">Ayuda a otros en el</string>
-    <string name="community_contribute_github_text">Revisa, corrige y escribe código. Ve %1$s para más detalles</string>
     <string name="community_contribute_headline">Colabora activamente</string>
     <string name="community_contribute_irc_text">Únete a la conversación en IRC:</string>
     <string name="community_contribute_translate_text">la app</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Se ha producido un error al tratar de copiar este archivo o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No se puede copiar una carpeta dentro de una de sus propias subcarpetas.</string>
     <string name="copy_file_invalid_overwrite">El fichero ya existe en el directorio de destino</string>
-    <string name="copy_file_not_found">No se puede copiar. Revisa si existe el archivo</string>
     <string name="copy_link">Copiar enlace</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
     <string name="copy_to">Copiar a…</string>
@@ -288,7 +284,6 @@
     <string name="file_list_empty">Sube algún contenido o sincroniza con tus dispositivos.</string>
     <string name="file_list_empty_favorite_headline">Aún no hay nada marcado como favorito</string>
     <string name="file_list_empty_favorites_filter">Tu búsqueda no encontró ningún archivo favorito.</string>
-    <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas que marques como favoritos aparecerán aquí</string>
     <string name="file_list_empty_headline">No hay archivos aquí</string>
     <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
@@ -300,7 +295,6 @@
     <string name="file_list_empty_recently_modified">No se han encontrado archivos modificados en los últimos 7 días</string>
     <string name="file_list_empty_recently_modified_filter">No hay archivos modificados en los últimos 7 días.</string>
     <string name="file_list_empty_search">¿Quizás está en una carpeta diferente?</string>
-    <string name="file_list_empty_shared">Aquí aparecerán los archivos y carpetas que compartas</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
     <string name="file_list_empty_text_photos">Sube algunas imágenes o activa la subida automática.</string>
     <string name="file_list_empty_text_photos_filter">No hay fotos.</string>
@@ -418,12 +412,8 @@
     <string name="move_file_error">Ha habido un error al tratar de mover este archivo o carpeta</string>
     <string name="move_file_invalid_into_descendent">No se puede mover una carpeta dentro de una de sus propias subcarpetas.</string>
     <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
-    <string name="move_file_not_found">No se puede mover el archivo. Comprueba si existe</string>
     <string name="move_to">Mover a…</string>
-    <string name="network_error_connect_timeout_exception">Ha ocurrido un error al esperar al servidor. La operación no se ha podido completar.</string>
     <string name="network_error_socket_exception">Se ha producido un error al conectarse con el servidor</string>
-    <string name="network_error_socket_timeout_exception">Ha ocurrido un error al esperar al servidor. La operación no se ha podido completar.</string>
-    <string name="network_host_not_available">La operación no se ha podido completar. El servidor no está disponible</string>
     <string name="new_comment">Comentario nuevo…</string>
     <string name="new_media_folder_detected">Nueva carpeta de medios %1$s detectada.</string>
     <string name="new_media_folder_photos">foto</string>
@@ -590,8 +580,6 @@
     <string name="share_internal_link_to_folder_text">Los links compartidos internos solo funcionan para los usuarios con acceso a esta carpeta</string>
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
     <string name="share_link_empty_password">Debes introducir una contraseña</string>
-    <string name="share_link_file_error">Ha ocurrido un error al tratar de compartir este archivo o carpeta</string>
-    <string name="share_link_file_no_exist">No se puede compartir. Revisa si el archivo existe</string>
     <string name="share_link_forbidden_permissions">para compartir este archivo</string>
     <string name="share_link_optional_password_title">Escriba un contraseña opcional</string>
     <string name="share_link_password_title">Introduce una contraseña</string>
@@ -715,7 +703,6 @@
     <string name="timeout_richDocuments">La carga está tardando mucho tiempo…</string>
     <string name="trashbin_activity_title">Archivos eliminados</string>
     <string name="trashbin_empty_headline">No hay archivos eliminados</string>
-    <string name="trashbin_empty_message">Podrás recuperar los archivos eliminados desde aquí</string>
     <string name="trashbin_file_not_deleted">No se ha podido eliminar el archivo %1$s.</string>
     <string name="trashbin_file_not_restored">No se ha podido restaurar el archivo %1$s.</string>
     <string name="trashbin_loading_failed">¡Fallo al cargar la papelera!</string>
@@ -723,13 +710,9 @@
     <string name="unread_comments">Hay comentarios no leídos</string>
     <string name="unset_encrypted">Desconfigurar cifrado</string>
     <string name="unset_favorite">Quitar de favoritos</string>
-    <string name="unshare_link_file_error">Ha ocurrido  un error al tratar de dejar de compartir este archivo o carpeta</string>
-    <string name="unshare_link_file_no_exist">No se puede dejar de compartir. Revise si el archivo existe</string>
     <string name="unshare_link_forbidden_permissions">para descompartir este archivo</string>
     <string name="unsharing_failed">Fallo al dejar de compartir</string>
     <string name="untrusted_domain">Acceder a través de un domino no confiado. Por favor, mira la documentación para más información.</string>
-    <string name="update_link_file_error">Un error ha ocurrido mientras se intentaba actualizar el archivo compartido</string>
-    <string name="update_link_file_no_exist">No se puede actualizar. Revisa si el archivo existe</string>
     <string name="update_link_forbidden_permissions">para actualizar este recurso compartido</string>
     <string name="updating_share_failed">Fallo al actualizar recurso compartido</string>
     <string name="upload_cannot_create_file">No se puede crear el archivo local</string>

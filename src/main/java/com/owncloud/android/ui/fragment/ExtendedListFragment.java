@@ -178,6 +178,10 @@ public class ExtendedListFragment extends Fragment implements
         return mFabMain;
     }
 
+    public void setLoading(boolean enabled) {
+        mRefreshListLayout.setRefreshing(enabled);
+    }
+
     public void switchToGridView() {
         if (!isGridEnabled()) {
             getRecyclerView().setLayoutManager(new GridLayoutManager(getContext(), getColumnsCount()));
@@ -550,9 +554,6 @@ public class ExtendedListFragment extends Fragment implements
                 fileDisplayActivity.hideSearchView(fileDisplayActivity.getCurrentDir());
             }
         }
-
-        mRefreshListLayout.setRefreshing(false);
-
         if (mOnRefreshListener != null) {
             mOnRefreshListener.onRefresh();
         }
@@ -795,8 +796,6 @@ public class ExtendedListFragment extends Fragment implements
 
     @Override
     public void onRefresh(boolean ignoreETag) {
-        mRefreshListLayout.setRefreshing(false);
-
         if (mOnRefreshListener != null) {
             mOnRefreshListener.onRefresh();
         }

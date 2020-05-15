@@ -43,7 +43,6 @@
     <string name="auth_check_server">Egiaztatu zerbitzaria</string>
     <string name="auth_connection_established">Konexioa ezarri da</string>
     <string name="auth_expired_basic_auth_toast">Sartu uneko pasahitza</string>
-    <string name="auth_fail_get_user_name">Zure zerbitzariak ez du erabiltzaile ID zuzena itzultzen, jarri administratzailearekin harremanetan</string>
     <string name="auth_host_address">Zerbitzariaren helbidea</string>
     <string name="auth_host_url">Zerbitzariaren helbidea https://…</string>
     <string name="auth_illegal_login_used">Saio hasierako datuen URL baliogabea erabili da</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s(e)k ez ditu hainbat kontu onartzen</string>
     <string name="auth_username">Erabiltzaile-izena</string>
     <string name="auth_wrong_connection_title">Ezin izan da konexioa ezarri</string>
-    <string name="auth_wtf_reenter_URL">Ustekabeko egoera, zerbitzariaren helbidea berriz sartu mesedez</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Jatorrizko karpetan mantendu da, soilik irakurtzeko delako</string>
     <string name="auto_upload_on_wifi">Kargatu soilik mugarik gabeko Wi-Fi bidez</string>
     <string name="auto_upload_path">/Auto-karga</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Datozen ezaugarri berri guztiak ditu eta punta-puntakoa da. Erroreak gerta daitezke, eta gertatzen direnean, mesedez bidali iezaguzu topatutakoa.</string>
     <string name="community_contribute_forum_forum">foroa</string>
     <string name="community_contribute_forum_text">Lagundu besteak</string>
-    <string name="community_contribute_github_text">Berrikusi, zuzendu eta idatzi kodea, ikusi %1$s xehetasunetarako</string>
     <string name="community_contribute_headline">Lagundu aktiboki</string>
     <string name="community_contribute_irc_text">Sartu IRC txatean:</string>
     <string name="community_contribute_translate_text">aplikazioa</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Fitxategi edo karpeta kopiatzean errore bat gertatu da.</string>
     <string name="copy_file_invalid_into_descendent">Ezin da karpeta bat bere azpikarpeta batera kopiatu</string>
     <string name="copy_file_invalid_overwrite">Fitxategi hau existitzen da jadanik helburuko karpetan</string>
-    <string name="copy_file_not_found">Ezin da kopiatu. Fitxategia existitzen dela egiazta ezazu</string>
     <string name="copy_link">Kopiatu esteka</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Une honetan ez da onartzen enkriptatutako karpetara kopiatzea/mugitzea.</string>
     <string name="copy_to">Kopiatu hona…</string>
@@ -288,7 +284,6 @@
     <string name="file_list_empty">Kargatu edukiren bat edo sinkronizatu zure gailuekin.</string>
     <string name="file_list_empty_favorite_headline">Oraindik ez dago ezer gogoko bezala markatuta</string>
     <string name="file_list_empty_favorites_filter">Zure bilaketak ez du gogoko fitxategirik itzuli.</string>
-    <string name="file_list_empty_favorites_filter_list">Gogoko bezala markatzen dituzun fitxategi eta karpetak hemen agertuko dira</string>
     <string name="file_list_empty_headline">Ez dago fitxategirik hemen</string>
     <string name="file_list_empty_headline_search">Ez dago emailtzarik karpeta honetan</string>
     <string name="file_list_empty_headline_server_search">Emaitzik ez</string>
@@ -300,7 +295,6 @@
     <string name="file_list_empty_recently_modified">Ez da aurkitu azken 7 egunetan aldatu den fitxategirik</string>
     <string name="file_list_empty_recently_modified_filter">Ez da fitxategirik aldatu azken 7 egunetan.</string>
     <string name="file_list_empty_search">Agian beste karpeta batean dago?</string>
-    <string name="file_list_empty_shared">Partekatzen dituzun fitxategi eta karpetak hemen agertuko dira</string>
     <string name="file_list_empty_shared_headline">Oraindik ez dago ezer partekatuta</string>
     <string name="file_list_empty_text_photos">Kargatu argazki batzuk edo aktiba ezazu automatikoki kargatzea.</string>
     <string name="file_list_empty_text_photos_filter">Argazkirik ez.</string>
@@ -418,12 +412,8 @@
     <string name="move_file_error">Errore bat gertatu da fitxategi edo karpeta hau mugitzen saiatzerakoan</string>
     <string name="move_file_invalid_into_descendent">Ezin da karpeta bat azpikarpeta batera mugitu</string>
     <string name="move_file_invalid_overwrite">Fitxategi hau existitzen da jadanik helburuko karpetan</string>
-    <string name="move_file_not_found">Ezin da fitxategia mugitu. Existitzen dela egiazta ezazu</string>
     <string name="move_to">Mugitu hona…</string>
-    <string name="network_error_connect_timeout_exception">Errore bat gertatu da zerbitzariaren zain egon bitartean, ezin izan da eragiketa burutu</string>
     <string name="network_error_socket_exception">Errore bat gertatu da zerbitzariarekin konektatzean.</string>
-    <string name="network_error_socket_timeout_exception">Errore bat gertatu da zerbitzariaren zain egon bitartean, ezin izan da eragiketa burutu</string>
-    <string name="network_host_not_available">Eragiketa ezin izan da burutu, zerbitzaria ez dago erabilgarri</string>
     <string name="new_comment">Iruzkin berria...</string>
     <string name="new_media_folder_detected">%1$s multimedia karpeta berria aurkitu da.</string>
     <string name="new_media_folder_photos">argazkia</string>
@@ -590,8 +580,6 @@
     <string name="share_internal_link_to_folder_text">Barneko partekatze-estekak karpeta honetarako sarbidea duten erabiltzaileentzat bakarrik balio du</string>
     <string name="share_known_remote_clarification">%1$s (%2$s(e)n)</string>
     <string name="share_link_empty_password">Pasahitz bat sartu behar duzu</string>
-    <string name="share_link_file_error">Errore bat gertatu da fitxategaia edo karpeta partekatzerakoan</string>
-    <string name="share_link_file_no_exist">Ezin izan da partekatu. Egiaztatu fitxategia existitzen dela</string>
     <string name="share_link_forbidden_permissions">fitxategi hau partekatzeko</string>
     <string name="share_link_optional_password_title">Sartu hautazko pasahitz bat</string>
     <string name="share_link_password_title">Sartu pasahitza</string>
@@ -715,7 +703,6 @@
     <string name="timeout_richDocuments">Karga luze jotzen ari da</string>
     <string name="trashbin_activity_title">Ezabatutako fitxategiak</string>
     <string name="trashbin_empty_headline">Ezabatutako fitxategirik ez</string>
-    <string name="trashbin_empty_message">Ezabatutako fitxategiak hemendik berreskuratu ahal izango dituzu</string>
     <string name="trashbin_file_not_deleted"> %1$s fitxategia ezin da ezabatu!</string>
     <string name="trashbin_file_not_restored"> %1$s fitxategia ezin da berreskuratu!</string>
     <string name="trashbin_loading_failed">Zakarrontzia kargatzeak huts egin du!</string>
@@ -723,13 +710,9 @@
     <string name="unread_comments">Irakurri gabeko iruzkinak daude</string>
     <string name="unset_encrypted">Kendu enkriptatzea</string>
     <string name="unset_favorite">Gogokoenetatik kendu</string>
-    <string name="unshare_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzeari uzterakoan</string>
-    <string name="unshare_link_file_no_exist">Ezin izan da partekatzea desegin. Mesedez egiaztatu fitxategia existitzen dela</string>
     <string name="unshare_link_forbidden_permissions">fitxategiaren konpartitzea kentzeko</string>
     <string name="unsharing_failed">Kargatzeak huts egin du</string>
     <string name="untrusted_domain">Sarbidea fidagarritasunik gabeko domeinuaren bidez. Informazio gehiago lortzeko, ikusi dokumentazioa.</string>
-    <string name="update_link_file_error">Akats bat gertatu da partekatzea eguneratzen saiatzean</string>
-    <string name="update_link_file_no_exist">Ezin da eguneratu. Konprobatu fitxategia existitzen dela</string>
     <string name="update_link_forbidden_permissions">eguneratzeko partekatze hau</string>
     <string name="updating_share_failed">partekatzearen eguneraketa huts egin du</string>
     <string name="upload_cannot_create_file">Ezin da sortu fitxategi lokala</string>

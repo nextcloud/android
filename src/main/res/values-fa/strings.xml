@@ -43,7 +43,6 @@
     <string name="auth_check_server">ارتباط با سرور را چک کنید </string>
     <string name="auth_connection_established">اتصال برقرار شد</string>
     <string name="auth_expired_basic_auth_toast">لطفا گذرواژه فعلی را وارد کنید</string>
-    <string name="auth_fail_get_user_name">سرور شما شناسه کاربری صحیح رو باز نمی گرداند، لطفا با مدیر تماس بگیرید.</string>
     <string name="auth_host_address">آدرس سرور</string>
     <string name="auth_host_url">آدرس سرور https://…</string>
     <string name="auth_illegal_login_used">داده آدرس لاگین غیرقانونی استفاده شده است.</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s چند اکانته بودن را پشتیبانی نمی‌کند</string>
     <string name="auth_username">نام کاربری</string>
     <string name="auth_wrong_connection_title">ارتباط برقرار نشد</string>
-    <string name="auth_wtf_reenter_URL">وضیعت غیر منتظره، لطفا آدرس سرور را دوباره وارد کنید</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">در پوشه اصلی و به صورت فقط خواندنی نگهداری شده است.</string>
     <string name="auto_upload_on_wifi">بارگذلری فقط روی Wi-Fi بی اندازه</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">این شامل تمام ویژگی های آینده است و در لبه خونریزی شدید (خطرناک) قرار دارد. اشکالات / خطاها ممکن است رخ دهد ، در صورت وقوع ، لطفاً یافته های خود را گزارش دهید.</string>
     <string name="community_contribute_forum_forum">انجمن</string>
     <string name="community_contribute_forum_text">به دیگران کمک کنید</string>
-    <string name="community_contribute_github_text">بررسی ، اصلاح و نوشتن کد ، ببینید %1$s برای جزئیات بیشتر</string>
     <string name="community_contribute_headline">فعالانه مشارکت نمایید</string>
     <string name="community_contribute_irc_text">در IRC به تالار گفتمان بپیوندید:</string>
     <string name="community_contribute_translate_text">برنامه</string>
@@ -161,7 +158,6 @@
     <string name="copy_file_error">یک خطا در زمان تلاش برای کپی این فایل یا شاخه رخ داد</string>
     <string name="copy_file_invalid_into_descendent">کپی کردن پوشه در یکی از پوشه های زیرین خود امکان پذیر نیست</string>
     <string name="copy_file_invalid_overwrite">پرونده در حال حاضر در پوشه مقصد موجود است</string>
-    <string name="copy_file_not_found">امکان کپی وجود ندارد، لطفا وجود فایل را بررسی کنید</string>
     <string name="copy_link">کپی کردن لینک</string>
     <string name="copy_move_to_encrypted_folder_not_supported">کپی کردن / انتقال به پوشه رمزگذاری شده در حال حاضر پشتیبانی نمی شود.</string>
     <string name="copy_to">کپی کردن در...</string>
@@ -275,7 +271,6 @@
     <string name="file_list_empty">بعضی از محتویات را آپلود کنید یا با دستگاه های خود همگام سازی کنید.</string>
     <string name="file_list_empty_favorite_headline">هیچ فایل برگزیده ای وجود ندارد</string>
     <string name="file_list_empty_favorites_filter">جستجوی شما هیچ فایل برگزیده ای نیافت</string>
-    <string name="file_list_empty_favorites_filter_list">فایل ها و پوشه هایی که به عنوان مورد علاقه شما علامت گذاری می شوند، نشان داده می شوند.</string>
     <string name="file_list_empty_headline">هیچ فایلی اینجا نیست</string>
     <string name="file_list_empty_headline_search">هیچ نتیجه ای در این پوشه نیست</string>
     <string name="file_list_empty_headline_server_search">نتیجه ای یافت نشد</string>
@@ -287,7 +282,6 @@
     <string name="file_list_empty_recently_modified">در 7 روز گذشته هیچ پرونده تغییر یافته یافت نشد</string>
     <string name="file_list_empty_recently_modified_filter">هیچ پرونده ای در 7 روز گذشته اصلاح نشده است.</string>
     <string name="file_list_empty_search">شاید در پوشه های مختلف باشد؟</string>
-    <string name="file_list_empty_shared">فایلها و پوشه هایی که به اشتراک میگذارید در اینجا نشان داده میشوند</string>
     <string name="file_list_empty_shared_headline">هنوز هیچ فایلی به اشتراک نگذشته شده است</string>
     <string name="file_list_empty_text_photos">تعدادی عکس آپلود کنید یا آپلود خودکار را فعال کنید</string>
     <string name="file_list_empty_text_photos_filter">بدون عکس</string>
@@ -405,12 +399,8 @@
     <string name="move_file_error">خطایی در زمان تلاش برای انتقال این فایل یا پوشه رخ داده است</string>
     <string name="move_file_invalid_into_descendent">جابجایی یک پوشه در یکی از پوشه های زیرین خود امکان پذیر نیست</string>
     <string name="move_file_invalid_overwrite">پرونده در حال حاضر در پوشه مقصد موجود است</string>
-    <string name="move_file_not_found">انتقال پرونده امکان پذیر نیست. لطفاً بررسی کنید که آیا وجود دارد یا خیر</string>
     <string name="move_to">انتقال به ...</string>
-    <string name="network_error_connect_timeout_exception">هنگام انتظار برای سرور خطایی روی داد. عملیات کامل نشد</string>
     <string name="network_error_socket_exception">هنگام اتصال به سرور خطایی روی داد</string>
-    <string name="network_error_socket_timeout_exception">هنگام انتظار برای سرور خطایی روی داد. عملیات کامل نشد</string>
-    <string name="network_host_not_available">عملیات کامل نشد. سرور در دسترس نیست</string>
     <string name="new_comment">نظر جدید…</string>
     <string name="new_media_folder_detected">  پوشه رسانه جدید %1$sشناسایی شد.</string>
     <string name="new_media_folder_photos">photo</string>
@@ -570,8 +560,6 @@
     <string name="share_internal_link">پیوند داخلی را به اشتراک بگذارید</string>
     <string name="share_known_remote_clarification">%1$s ( در%2$s )</string>
     <string name="share_link_empty_password">شما باید یک رمزعبور را وارد کنید</string>
-    <string name="share_link_file_error">در حین اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>
-    <string name="share_link_file_no_exist">اشتراک گذاری امکان پذیر نیست لطفاً بررسی کنید که آیا پرونده وجود دارد یا خیر</string>
     <string name="share_link_forbidden_permissions">اشتراک‌گذاری این فایل</string>
     <string name="share_link_optional_password_title">رمزعبور اختیاری را وارد کنید</string>
     <string name="share_link_password_title">یک رمزعبور را وارد کنید</string>
@@ -688,7 +676,6 @@
     <string name="timeout_richDocuments">بارگیری بسیار طول می کشد ...</string>
     <string name="trashbin_activity_title">فایل های حذف شده</string>
     <string name="trashbin_empty_headline">هیچ فایل حذف شده وجود ندارد</string>
-    <string name="trashbin_empty_message">شما قادر خواهید بود فایل های حذف شده را از اینجا بازیابی کنید</string>
     <string name="trashbin_file_not_deleted">فایل%1$s نمی تواند حذف شود!</string>
     <string name="trashbin_file_not_restored">فایل %1$s نمی تواند بازیابی شود</string>
     <string name="trashbin_loading_failed">بارگیری سطل زباله انجام نشد!</string>
@@ -696,13 +683,9 @@
     <string name="unread_comments">نظرات خوانده نشده وجود دارد</string>
     <string name="unset_encrypted">رمزگذاری شروع نشده است</string>
     <string name="unset_favorite">حذف از موارد دلخواه</string>
-    <string name="unshare_link_file_error">در حین حذف اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>
-    <string name="unshare_link_file_no_exist">امکان پذیر نیست .لطفا بررسی کنید که آیا پرونده وجود دارد</string>
     <string name="unshare_link_forbidden_permissions">حذف اشتراک‌گذاری این فایل</string>
     <string name="unsharing_failed">اشتراک گذاری ناموفق بود</string>
     <string name="untrusted_domain">دسترسی از طریق دامنه غیر قابل اعتماد. لطفا برای اطلاعات بیشتر به اسناد مراجعه کنید.</string>
-    <string name="update_link_file_error">هنگام تلاش برای به روز رسانی اشتراک ، خطایی روی داد</string>
-    <string name="update_link_file_no_exist">به روزرسانی امکان پذیر نیست. لطفاً بررسی کنید که آیا پرونده وجود دارد یا خیر</string>
     <string name="update_link_forbidden_permissions">برای به روزرسانی این اشتراک</string>
     <string name="updating_share_failed">بروزرسانی اشتراک گذاری انجام نشد</string>
     <string name="upload_cannot_create_file">پرونده محلی ایجاد نمی شود</string>

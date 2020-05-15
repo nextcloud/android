@@ -43,7 +43,6 @@
     <string name="auth_check_server">Controleer server</string>
     <string name="auth_connection_established">Verbinding tot stand gebracht</string>
     <string name="auth_expired_basic_auth_toast">Voer het huidige wachtwoord in</string>
-    <string name="auth_fail_get_user_name">Je server geeft geen geldige userID terug, neem contact op met je serverbeheerder</string>
     <string name="auth_host_address">Serveradres</string>
     <string name="auth_host_url">Serveradres https://…</string>
     <string name="auth_illegal_login_used">Ongeldige login URL gebruikt</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
     <string name="auth_username">Gebruikersnaam</string>
     <string name="auth_wrong_connection_title">Kon verbinding niet tot stand brengen</string>
-    <string name="auth_wtf_reenter_URL">Onverwachte toestand; voer het serveradres opnieuw in</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">bewaard worden in originele map, omdat die Alleen-lezen is</string>
     <string name="auto_upload_on_wifi">Upload alleen met Wi-Fi</string>
     <string name="auto_upload_path">/AutomatischUploaden</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten kunnen voorkomen en in dat geval vragen we je die aan ons te melden.</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Help anderen met het</string>
-    <string name="community_contribute_github_text">Bekijk, wijzig en schrijf code, zie %1$s voor details</string>
     <string name="community_contribute_headline">Actief meedoen</string>
     <string name="community_contribute_irc_text">Join de chat op IRC:</string>
     <string name="community_contribute_translate_text">de app</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Er trad een fout op bij het kopiëren van dit bestand of deze map</string>
     <string name="copy_file_invalid_into_descendent">Een map kan niet naar een onderliggende map worden gekopieerd</string>
     <string name="copy_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
-    <string name="copy_file_not_found">Kan niet kopiëren. Ga na of het bestand wel bestaat</string>
     <string name="copy_link">Link kopiëren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
     <string name="copy_to">Kopieer naar…</string>
@@ -288,7 +284,6 @@
     <string name="file_list_empty">Upload je inhoud of synchroniseer met je apparaten.</string>
     <string name="file_list_empty_favorite_headline">Nog niets als favoriet gemarkeerd</string>
     <string name="file_list_empty_favorites_filter">Geen favoriete bestanden gevonden voor je zoekopdracht!</string>
-    <string name="file_list_empty_favorites_filter_list">Bestanden en mappen gemarkeerd als favoriet worden hier getoond</string>
     <string name="file_list_empty_headline">Hier geen bestanden</string>
     <string name="file_list_empty_headline_search">Geen resultaten in deze map</string>
     <string name="file_list_empty_headline_server_search">Geen resultaten</string>
@@ -300,7 +295,6 @@
     <string name="file_list_empty_recently_modified">Geen bestanden gevonden die de afgelopen 7 dagen zijn gewijzigd</string>
     <string name="file_list_empty_recently_modified_filter">Geen files die de laatste 7 dagen gewijzigd zijn.</string>
     <string name="file_list_empty_search">Misschien staat het in een andere map?</string>
-    <string name="file_list_empty_shared">Bestanden en mappen die je deelt, worden hier getoond</string>
     <string name="file_list_empty_shared_headline">Nog niets gedeeld</string>
     <string name="file_list_empty_text_photos">Upload enkele foto\'s of activeer auto-upload.</string>
     <string name="file_list_empty_text_photos_filter">Geen foto\'s.</string>
@@ -418,12 +412,8 @@
     <string name="move_file_error">Er trad een fout op bij het verplaatsen van dit bestand of deze map</string>
     <string name="move_file_invalid_into_descendent">De map kan niet naar een onderliggende map worden verplaatst</string>
     <string name="move_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
-    <string name="move_file_not_found">Kan niet verplaatsen. Ga na of het bestand wel bestaat</string>
     <string name="move_to">Verplaats naar…</string>
-    <string name="network_error_connect_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
     <string name="network_error_socket_exception">Er trad een fout op bij het verbinden met de server.</string>
-    <string name="network_error_socket_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
-    <string name="network_host_not_available">De verwerking kon niet plaatsvinden, de server is niet beschikbaar</string>
     <string name="new_comment">Nieuwe reactie…</string>
     <string name="new_media_folder_detected">Nieuwe%1$smedia map gevonden.</string>
     <string name="new_media_folder_photos">foto</string>
@@ -590,8 +580,6 @@
     <string name="share_internal_link_to_folder_text">Interne link voor delen werkt alleen voor gebruikers met toegang tot deze map</string>
     <string name="share_known_remote_clarification">%1$s ( op %2$s )</string>
     <string name="share_link_empty_password">Je moet een wachtwoord opgeven</string>
-    <string name="share_link_file_error">Er trad een fout op bij je poging dit bestand of deze map te delen</string>
-    <string name="share_link_file_no_exist">Kan dit niet delen. Controleer of dit bestand wel bestaat</string>
     <string name="share_link_forbidden_permissions">om dit bestand te delen</string>
     <string name="share_link_optional_password_title">Geef een niet verplicht wachtwoord in</string>
     <string name="share_link_password_title">Vul het wachtwoord in</string>
@@ -715,7 +703,6 @@
     <string name="timeout_richDocuments">Het laden duurt erg lang...</string>
     <string name="trashbin_activity_title">Verwijderde bestanden</string>
     <string name="trashbin_empty_headline">Geen verwijderde bestanden</string>
-    <string name="trashbin_empty_message">Van hieruit kun je verwijderde bestanden terugzetten</string>
     <string name="trashbin_file_not_deleted">Bestand %1$s kon niet worden verwijderd!</string>
     <string name="trashbin_file_not_restored">Bestand %1$s kon niet worden hersteld!</string>
     <string name="trashbin_loading_failed">Laden prullenbak mislukt!</string>
@@ -723,13 +710,9 @@
     <string name="unread_comments">Er zijn ongelezen reacties</string>
     <string name="unset_encrypted">Niet ingestelde versleuteling</string>
     <string name="unset_favorite">Verwijderen uit favorieten</string>
-    <string name="unshare_link_file_error">Er trad een fout op bij je poging het delen van dit bestand of deze map te beëindigen</string>
-    <string name="unshare_link_file_no_exist">Kan delen niet beëindigen. Ga na of het bestand bestaat</string>
     <string name="unshare_link_forbidden_permissions">om dit bestand niet meer te delen</string>
     <string name="unsharing_failed">Stoppen met delen mislukt</string>
     <string name="untrusted_domain">Toegang van een niet vertrouwd domein. Bekijk de documentatie voor meer informatie.</string>
-    <string name="update_link_file_error">Er trad een fout op bij je poging de share bij te werken</string>
-    <string name="update_link_file_no_exist">Kan niet bijwerken. Ga na of het bestand bestaat</string>
     <string name="update_link_forbidden_permissions">om deze share bij te werken</string>
     <string name="updating_share_failed">Bijwerken delen mislukt</string>
     <string name="upload_cannot_create_file">Kan geen lokaal bestand aanmaken</string>
