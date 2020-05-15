@@ -1,0 +1,36 @@
+Fix the star for favorite for shimmers
+fix crash when populating info on vanished activity
+Fix the shimmer that had been accidentally hidden on master
+spotbugs. needless boxing of a boolean constant
+Fix gridview enabled name
+Fix grid image padding dimension name
+remove some warnings
+fix thumbnail dynamic size
+Fix fab behavior hide and ripple color
+Fix after rebase
+DeckApi unit test
+Adjusted javadoc
+Removed logging
+Add license header and code format
+Internal refactoring of the DeckApiImpl
+Add some java doc
+Rename interface and implementation for Deck integration
+Use Optional for DeckIntegration and better name for interface
+Don't instantiate intent each time in the for loop
+Don't spam logs
+Small refactorings
+Added default serialVersionUID for new Exception classes
+Fix typo in handle
+Add GPL headers
+Move Deck exception classes into own files
+Move Deck integration logic to own package
+Set shimmer corner same as the thumbnail
+remove unused imports
+Set thumbnail shimmer height same as the thumbnail
+set new margin for icons in grid view
+custom different radius for icons on the grid view and the list view
+3 Columns on grid mode
+add margin in grid mode
+Add corners in shimmer effect for all modes
+add thumbnail corners on grid and list mode fix to 8dp
+Update translations
