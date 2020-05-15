@@ -81,7 +81,7 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
                 return result.isSuccess();
             } catch (ClientFactory.CreationException e) {
                 Log_OC.e(this, "Cannot create client", e);
-                return false;
+                return Boolean.FALSE;
             }
         }
 
@@ -160,7 +160,7 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
                 return result.isSuccess();
             } catch (ClientFactory.CreationException e) {
                 Log_OC.e(this, "Cannot create client", e);
-                return false;
+                return Boolean.FALSE;
             }
         }
 

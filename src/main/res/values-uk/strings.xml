@@ -43,7 +43,6 @@
     <string name="auth_check_server">Перевірити сервер</string>
     <string name="auth_connection_established">З\'єднання встановлено</string>
     <string name="auth_expired_basic_auth_toast">Будь ласка, введіть поточний пароль</string>
-    <string name="auth_fail_get_user_name">Ваш сервер не повернув правильний ID користувача. Просимо сконтактувати з адміністратором.</string>
     <string name="auth_host_address">Ареса серверу</string>
     <string name="auth_host_url">Адреса сервера https://…</string>
     <string name="auth_illegal_login_used">Використано недопустимий URL для даних входу</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s не підтримує одночасно декілька облікових записів</string>
     <string name="auth_username">Ім\'я користувача</string>
     <string name="auth_wrong_connection_title">Не вдалося встановити з\'єднання</string>
-    <string name="auth_wtf_reenter_URL">Неочікуваний статус; будь ласка, введіть адресу сервера знову</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">залишено в оригінальній теці, так як вона доступна лише для читання</string>
     <string name="auto_upload_on_wifi">Завантаження тільки у нелімітованих мережах WiFi</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Це включає усі нові розробки, що передують, і є ранньою версією. Можуть траплятися вади та помилки. Просимо повідомляти про них.</string>
     <string name="community_contribute_forum_forum">форум</string>
     <string name="community_contribute_forum_text">Допомогти іншим з</string>
-    <string name="community_contribute_github_text">Перегляд, доповнення або написаня коду, докладно див. %1$s</string>
     <string name="community_contribute_headline">Беруть активну участь</string>
     <string name="community_contribute_irc_text">Приєднатися до чату IRC:</string>
     <string name="community_contribute_translate_text">застосунок</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Виникла помилка під час спроби скопіювати даний файл чи папку</string>
     <string name="copy_file_invalid_into_descendent">Неможливо скопіювати теку до однієї з її підтек</string>
     <string name="copy_file_invalid_overwrite">Файл уже присутній в теці призначення</string>
-    <string name="copy_file_not_found">Неможливо скопіювати. Будь ласка, перевірте, чи існує файл</string>
     <string name="copy_link">Копіювати посилання</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копіювання/переміщення в зашифрований каталог - в даний час не підтримується.</string>
     <string name="copy_to">Копіювати до…</string>
@@ -279,7 +275,6 @@
     <string name="file_list_empty">Додати зміст або синхронізувати з вашими пристроями.</string>
     <string name="file_list_empty_favorite_headline">Відсутнє обране</string>
     <string name="file_list_empty_favorites_filter">В результатах пошуку відсутні файли з улюбленого списку.</string>
-    <string name="file_list_empty_favorites_filter_list">Тут буде показано файли та каталоги, які ви позначили як улюблені.</string>
     <string name="file_list_empty_headline">Тут немає файлів</string>
     <string name="file_list_empty_headline_search">Жодного співпадіння у цій теці</string>
     <string name="file_list_empty_headline_server_search">Жодного співпадіння</string>
@@ -291,7 +286,6 @@
     <string name="file_list_empty_recently_modified">Відсутні зміни серед файлів за останні 7 днів</string>
     <string name="file_list_empty_recently_modified_filter">Жодного зміненого файлу за останні 7 днів.</string>
     <string name="file_list_empty_search">Можливо, це інший каталог?</string>
-    <string name="file_list_empty_shared">Файли і теки, яким ви дасте спільний доступ, з\'являться тут</string>
     <string name="file_list_empty_shared_headline">Жодного спільного файлу</string>
     <string name="file_list_empty_text_photos">Завантажити фотографії чи активувати автозавантаження</string>
     <string name="file_list_empty_text_photos_filter">Немає фотографій.</string>
@@ -528,8 +522,6 @@
     <string name="share_add_user_or_group">Додати користувача або групу</string>
     <string name="share_dialog_title">Спільний доступ</string>
     <string name="share_link_empty_password">Ви повинні ввести пароль</string>
-    <string name="share_link_file_error">Виникла помилка при спробі поділитися файлом або текою</string>
-    <string name="share_link_file_no_exist">Неможливо поділитися. Будь ласка, перевірте, чи існує файл</string>
     <string name="share_link_forbidden_permissions">для надання доступу до файла</string>
     <string name="share_link_password_title">Ввести пароль</string>
     <string name="share_no_expiration_date_label">Встановити термін дії</string>
@@ -600,11 +592,8 @@
     <string name="tags">Позначки</string>
     <string name="trashbin_activity_title">Видалені файли</string>
     <string name="trashbin_empty_headline">Видалені файли відсутні</string>
-    <string name="trashbin_empty_message">Ви зможете відновлювати видалені файли звідси</string>
     <string name="unset_encrypted">Зняти шифрування</string>
     <string name="unset_favorite">Вилучити з обраного</string>
-    <string name="unshare_link_file_error">Виникла помилка при спробі заборонити доступ до файлу або теки</string>
-    <string name="unshare_link_file_no_exist">Неможливо заборонити доступ. Будь ласка, перевірте, чи існує файл</string>
     <string name="unshare_link_forbidden_permissions">для закриття доступу до файла</string>
     <string name="untrusted_domain">Доступ через ненадійний домен. Будь ласка, перегляньте документацію для отримання додаткової інформації.</string>
     <string name="update_link_forbidden_permissions">на оновлення цього спільного каталогу</string>

@@ -43,7 +43,6 @@
     <string name="auth_check_server">Provjeri poslužitelj</string>
     <string name="auth_connection_established">Veza je uspostavljena</string>
     <string name="auth_expired_basic_auth_toast">Unesite važeću zaporku</string>
-    <string name="auth_fail_get_user_name">Vaš poslužitelj ne vraća ispravan ID korisnika, obratite se administratoru</string>
     <string name="auth_host_address">Adresa poslužitelja</string>
     <string name="auth_host_url">Adresa poslužitelja https://…</string>
     <string name="auth_illegal_login_used">Nevažeći URL podataka za prijavu</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s ne podržava višestruke račune</string>
     <string name="auth_username">Korisničko ime</string>
     <string name="auth_wrong_connection_title">Nije moguće uspostaviti vezu</string>
-    <string name="auth_wtf_reenter_URL">Neočekivano stanje, ponovno unesite adresu poslužitelja</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">nalazi se u izvornoj mapi jer je samo za čitanje</string>
     <string name="auto_upload_on_wifi">Otpremite samo putem nemjerene bežične (Wi-Fi) mreže</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Uključuje sve nadolazeće značajke i sadrži najnovije tehnologije. Mogu se pojaviti pogreške/nedostaci koje je potrebno prijaviti ako ih primijetite.</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Pomozite drugima na</string>
-    <string name="community_contribute_github_text">Pregledajte, izmijenite i pišite kôd, pogledajte %1$s za pojedinosti</string>
     <string name="community_contribute_headline">Aktivno doprinosite</string>
     <string name="community_contribute_irc_text">Pridružite se razmjeni poruka na IRC-u:</string>
     <string name="community_contribute_translate_text">aplikacija</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Došlo je do pogreške prilikom kopiranja ove datoteke ili mape</string>
     <string name="copy_file_invalid_into_descendent">Nije moguće kopirati mapu u jednu od svojih osnovnih mapa</string>
     <string name="copy_file_invalid_overwrite">Datoteka je već prisutna u odredišnoj mapi</string>
-    <string name="copy_file_not_found">Nije moguće kopirati. Provjerite postoji li datoteka</string>
     <string name="copy_link">Kopiraj poveznicu</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Trenutno nije podržano kopiranje/premještanje u šifriranu mapu.</string>
     <string name="copy_to">Kopiraj u…</string>
@@ -287,7 +283,6 @@
     <string name="file_list_empty">Otpremite neki sadržaj ili sinkronizirajte sa svojim uređajima.</string>
     <string name="file_list_empty_favorite_headline">Nema spremljenih favorita</string>
     <string name="file_list_empty_favorites_filter">Pretraživanje nije pronašlo datoteke označene kao favoriti.</string>
-    <string name="file_list_empty_favorites_filter_list">Ovdje će se prikazati datoteke i mape koje označite kao favorite</string>
     <string name="file_list_empty_headline">Ovdje nema datoteka</string>
     <string name="file_list_empty_headline_search">Nema rezultata u ovoj mapi</string>
     <string name="file_list_empty_headline_server_search">Nema rezultata</string>
@@ -299,7 +294,6 @@
     <string name="file_list_empty_recently_modified">Nije pronađena nijedna datoteka izmijenjena u posljednjih 7 dana</string>
     <string name="file_list_empty_recently_modified_filter">Nijedna datoteka nije izmijenjena u zadnjih 7 dana.</string>
     <string name="file_list_empty_search">Možda je u drugoj mapi?</string>
-    <string name="file_list_empty_shared">Ovdje će se prikazati datoteke i mape koje dijelite</string>
     <string name="file_list_empty_shared_headline">Još ništa nije dijeljeno</string>
     <string name="file_list_empty_text_photos">Otpremite fotografije ili aktivirajte automatsko otpremanje.</string>
     <string name="file_list_empty_text_photos_filter">Nema fotografija.</string>
@@ -417,12 +411,8 @@
     <string name="move_file_error">Došlo je do pogreške prilikom premještanja ove datoteke ili mape</string>
     <string name="move_file_invalid_into_descendent">Nije moguće premjestiti mapu u jednu od svojih osnovnih mapa</string>
     <string name="move_file_invalid_overwrite">Datoteka je već prisutna u odredišnoj mapi</string>
-    <string name="move_file_not_found">Nije moguće premjestiti datoteku. Provjerite postoji li datoteka</string>
     <string name="move_to">Premjesti u...</string>
-    <string name="network_error_connect_timeout_exception">Došlo je do pogreške tijekom čekanja poslužitelja. Nije moguće dovršiti radnju</string>
     <string name="network_error_socket_exception">Došlo je do pogreške tijekom povezivanja s poslužiteljem</string>
-    <string name="network_error_socket_timeout_exception">Došlo je do pogreške tijekom čekanja poslužitelja. Nije moguće dovršiti radnju</string>
-    <string name="network_host_not_available">Nije moguće dovršiti radnju. Poslužitelj je nedostupan</string>
     <string name="new_comment">Novi komentar…</string>
     <string name="new_media_folder_detected">Otkrivena je nova medijska mapa %1$s.</string>
     <string name="new_media_folder_photos">fotografija</string>
@@ -589,8 +579,6 @@
     <string name="share_internal_link_to_folder_text">Poveznicu za interno dijeljenje mogu rabiti samo korisnici koji smiju pristupiti ovoj mapi</string>
     <string name="share_known_remote_clarification">%1$s (na %2$s)</string>
     <string name="share_link_empty_password">Morate unijeti zaporku</string>
-    <string name="share_link_file_error">Došlo je do pogreške prilikom dijeljenja ove datoteke ili mape</string>
-    <string name="share_link_file_no_exist">Dijeljenje nije moguće. Provjerite postoji li datoteka</string>
     <string name="share_link_forbidden_permissions">kako biste dijelili ovu datoteku</string>
     <string name="share_link_optional_password_title">Unesite neobveznu zaporku</string>
     <string name="share_link_password_title">Unesite zaporku</string>
@@ -714,7 +702,6 @@
     <string name="timeout_richDocuments">Učitavanje traje jako dugo...</string>
     <string name="trashbin_activity_title">Izbrisane datoteke</string>
     <string name="trashbin_empty_headline">Nema izbrisanih datoteka</string>
-    <string name="trashbin_empty_message">Ovdje ćete moći vratiti izbrisane datoteke</string>
     <string name="trashbin_file_not_deleted">Datoteku %1$s nije moguće izbrisati!</string>
     <string name="trashbin_file_not_restored">Datoteku %1$s nije moguće vratiti!</string>
     <string name="trashbin_loading_failed">Učitavanje koša za smeće nije uspjelo!</string>
@@ -722,13 +709,9 @@
     <string name="unread_comments">Postoje nepročitani komentari</string>
     <string name="unset_encrypted">Ukloni šifriranje</string>
     <string name="unset_favorite">Ukloni iz favorita</string>
-    <string name="unshare_link_file_error">Došlo je do pogreške prilikom prestanka dijeljenja ove datoteke ili mape</string>
-    <string name="unshare_link_file_no_exist">Nije moguće poništiti dijeljenje. Provjerite postoji li datoteka</string>
     <string name="unshare_link_forbidden_permissions">kako biste poništili dijeljenje ove datoteke</string>
     <string name="unsharing_failed">Poništavanje dijeljenja nije uspjelo</string>
     <string name="untrusted_domain">Pristup putem nepouzdane domene. Dodatne informacije potražite u dokumentaciji.</string>
-    <string name="update_link_file_error">Došlo je do pogreške prilikom ažuriranja dijeljenja</string>
-    <string name="update_link_file_no_exist">Nije moguće ažurirati. Provjerite postoji li datoteka</string>
     <string name="update_link_forbidden_permissions">za ažuriranje ovog dijeljenja</string>
     <string name="updating_share_failed">Ažuriranje dijeljenja nije uspjelo</string>
     <string name="upload_cannot_create_file">Nije moguće stvoriti lokalnu datoteku</string>

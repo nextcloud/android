@@ -43,7 +43,6 @@
     <string name="auth_check_server">Comprova el servidor</string>
     <string name="auth_connection_established">S\'ha establert la connexió</string>
     <string name="auth_expired_basic_auth_toast">Escriviu la contrasenya actual</string>
-    <string name="auth_fail_get_user_name">El vostre servidor no està retornant un ID d\'usuari correcte, si us plau contacteu amb un administrador</string>
     <string name="auth_host_address">Adreça del servidor</string>
     <string name="auth_host_url">Adreça del servidor https://…</string>
     <string name="auth_illegal_login_used">S\'ha fet servir una dada d\'entrada d\'URL il·legal</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
     <string name="auth_username">Nom d\'usuari</string>
     <string name="auth_wrong_connection_title">No s\'ha pogut establir la connexió</string>
-    <string name="auth_wtf_reenter_URL">Estat inesperat, torneu a introduir l\'adreça del servidor</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">manté a la carpeta original, ja que és només de lectura</string>
     <string name="auto_upload_on_wifi">Només carrega quan hi hagi Wi-Fi sense límits</string>
     <string name="auto_upload_path">/Càrrega automàtica</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Això inclou totes les característiques que vindràn i molt experimentals. Es poden produir errors i, quan es produeixin, informeu-ne de les troballes.</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Ajudar a d\'altres en</string>
-    <string name="community_contribute_github_text">Reviseu, modifiqueu i escriviu codi, veure %1$s per a detalls</string>
     <string name="community_contribute_headline">Contribuir activament</string>
     <string name="community_contribute_irc_text">Unir-se a la conversa en l\'IRC:</string>
     <string name="community_contribute_translate_text">l\'app</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Hi ha hagut un error en copiar aquest fitxer o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No és possible copiar una carpeta a cap de les que conté</string>
     <string name="copy_file_invalid_overwrite">El fitxer ja existeix a la carpeta de destinació</string>
-    <string name="copy_file_not_found">No es pot copiar. Assegureu-vos que el fitxer existeix</string>
     <string name="copy_link">Copia l\'enllaç</string>
     <string name="copy_move_to_encrypted_folder_not_supported">No hi ha suport actualment per copiar o moure a una carpeta xifrada.</string>
     <string name="copy_to">Copia a…</string>
@@ -287,7 +283,6 @@
     <string name="file_list_empty">Carregueu continguts o sincronitzeu els vostres dispositius.</string>
     <string name="file_list_empty_favorite_headline">No s\'ha marcat cap preferit</string>
     <string name="file_list_empty_favorites_filter">La cerca no ha retornat cap fitxer </string>
-    <string name="file_list_empty_favorites_filter_list">Aquí apareixeran els fitxers i carpetes que marqueu com a favorits</string>
     <string name="file_list_empty_headline">No hi ha fitxers</string>
     <string name="file_list_empty_headline_search">Cap resultat en aquesta carpeta</string>
     <string name="file_list_empty_headline_server_search">Sense resultats</string>
@@ -299,7 +294,6 @@
     <string name="file_list_empty_recently_modified">No s\'han trobat fitxers modificats els darrers 7 dies</string>
     <string name="file_list_empty_recently_modified_filter">No s\'han modificat fitxers els darrers 7 dies</string>
     <string name="file_list_empty_search">Potser és a una altra carpeta?</string>
-    <string name="file_list_empty_shared">Els fitxers i carpetes que compartiu es mostraran aquí</string>
     <string name="file_list_empty_shared_headline">Encara no s\'ha compartit res</string>
     <string name="file_list_empty_text_photos">Carregueu algunes fotos o activeu la càrrega automàtica.</string>
     <string name="file_list_empty_text_photos_filter">Sense fotos.</string>
@@ -417,12 +411,8 @@
     <string name="move_file_error">Hi ha hagut un error mentre es movia aquest fitxer o carpeta</string>
     <string name="move_file_invalid_into_descendent">No és possible moure una carpeta en una de les seves pròpies carpetes</string>
     <string name="move_file_invalid_overwrite">Aquest fitxer ja existeix a la carpeta de destinació</string>
-    <string name="move_file_not_found">Aquest fitxer no es pot moure. Si us plau comproveu que existeixi</string>
     <string name="move_to">Mou a…</string>
-    <string name="network_error_connect_timeout_exception">S\'ha produït un error mentre s\'esperava el servidor. L\'operació no s\'ha pogut completar</string>
     <string name="network_error_socket_exception">S\'ha produït un error durant la connexió al servidor</string>
-    <string name="network_error_socket_timeout_exception">S\'ha produït un error mentre s\'esperava el servidor. L\'operació no s\'ha pogut completar</string>
-    <string name="network_host_not_available">No s\'ha pogut realitzar l\'operació, el servidor no està disponible.</string>
     <string name="new_comment">Comentari nou…</string>
     <string name="new_media_folder_detected">S\'ha detectat la nova carpeta multimèdia %1$s.</string>
     <string name="new_media_folder_photos">foto</string>
@@ -589,8 +579,6 @@
     <string name="share_internal_link_to_folder_text">L\'enllaç de compartició intern només funciona per a usuaris amb permís d\'accés a aquesta carpeta</string>
     <string name="share_known_remote_clarification">%1$s (a %2$s)</string>
     <string name="share_link_empty_password">Heu d\'escriure una contrasenya</string>
-    <string name="share_link_file_error">S\'ha produït un error mentre s\'intentava compartir aquest fitxer o carpeta</string>
-    <string name="share_link_file_no_exist">No es pot compartir. Assegureu-vos que el fitxer existeix</string>
     <string name="share_link_forbidden_permissions">per compartir aquest fitxer</string>
     <string name="share_link_optional_password_title">Introduïu una contrasenya opcional</string>
     <string name="share_link_password_title">Escriviu una contrasenya</string>
@@ -714,7 +702,6 @@
     <string name="timeout_richDocuments">La càrrega triga molt…</string>
     <string name="trashbin_activity_title">Fitxers suprimits</string>
     <string name="trashbin_empty_headline">No hi ha cap fitxer suprimit</string>
-    <string name="trashbin_empty_message">Des d\'aquí es podran recuperar fitxers suprimits</string>
     <string name="trashbin_file_not_deleted">El fitxer %1$s no es pot suprimir!</string>
     <string name="trashbin_file_not_restored">El fitxer %1$s no es pot restaurar!</string>
     <string name="trashbin_loading_failed">Ha fallat la càrrega de la paperera!</string>
@@ -722,13 +709,9 @@
     <string name="unread_comments">Hi ha comentaris sense llegir</string>
     <string name="unset_encrypted">Desactiva el xifrat</string>
     <string name="unset_favorite">Suprimeix-ho de preferits</string>
-    <string name="unshare_link_file_error">S\'ha produït un error mentre s\'intentava deixar de compartir aquest fitxer o carpeta</string>
-    <string name="unshare_link_file_no_exist">No es pot deixar de compartir. Assegureu-vos que el fitxer existeix</string>
     <string name="unshare_link_forbidden_permissions">per deixar de compartir aquest fitxer</string>
     <string name="unsharing_failed">No s\'ha pogut deixar de compartir</string>
     <string name="untrusted_domain">Accés a través d\'un domini no fiable. Si us plau, per més informació llegiu la documentació.</string>
-    <string name="update_link_file_error">S\'ha produït un error mentre s\'intentava actualitzar la compartició</string>
-    <string name="update_link_file_no_exist">No s\'ha pogut actualitzar. Assegureu-vos que el fitxer existeix</string>
     <string name="update_link_forbidden_permissions">per actualitzar aquesta compartició</string>
     <string name="updating_share_failed">Ha fallat l\'actualització de la compartició</string>
     <string name="upload_cannot_create_file">No s\'ha pogut crear el fitxer local</string>

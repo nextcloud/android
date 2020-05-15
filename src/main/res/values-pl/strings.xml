@@ -43,7 +43,6 @@
     <string name="auth_check_server">Sprawdź serwer</string>
     <string name="auth_connection_established">Połączenie nawiązane</string>
     <string name="auth_expired_basic_auth_toast">Podaj aktualne hasło</string>
-    <string name="auth_fail_get_user_name">Twój serwer nie zwraca poprawnego identyfikatora użytkownika. Skontaktuj się z administratorem.</string>
     <string name="auth_host_address">Adres serwera</string>
     <string name="auth_host_url">Adres serwera https://…</string>
     <string name="auth_illegal_login_used">Nieprawidłowe dane logowania w użytym adresie URL</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
     <string name="auth_username">Nazwa użytkownika</string>
     <string name="auth_wrong_connection_title">Nie udało się ustanowić połączenia</string>
-    <string name="auth_wtf_reenter_URL">Nieoczekiwany stan. Podaj ponownie adres serwera.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">zachowany w oryginalnym katalogu, jak jest tylko do odczytu</string>
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Zawiera w sobie wszystkie nadchodzące funkcje i może być mało stabilna. Przy występowaniu błędów, należy zgłosić je do nas.</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Pomóż innym na</string>
-    <string name="community_contribute_github_text">Przejrzyj, zmodyfikuj i napisz kod. Szczegóły znajdziesz w %1$s.</string>
     <string name="community_contribute_headline">Aktywne uczestniczenie</string>
     <string name="community_contribute_irc_text">Dołącz do kanału na IRC:</string>
     <string name="community_contribute_translate_text">aplikację</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">Wystąpił błąd podczas próby kopiowania tego pliku lub katalogu</string>
     <string name="copy_file_invalid_into_descendent">Nie można skopiować katalogu do jednego z jego podkatalogów</string>
     <string name="copy_file_invalid_overwrite">Plik już istnieje w katalogu docelowym</string>
-    <string name="copy_file_not_found">Nie można skopiować. Sprawdź, czy plik istnieje.</string>
     <string name="copy_link">Kopiuj link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiuj/przenieś do zaszyfrowanego katalogu, który nie jest obecnie obsługiwany.</string>
     <string name="copy_to">Kopiuj do…</string>
@@ -288,7 +284,6 @@
     <string name="file_list_empty">Wyślij lub zsynchronizuj pliki z urządzeniami.</string>
     <string name="file_list_empty_favorite_headline">Brak ulubionych</string>
     <string name="file_list_empty_favorites_filter">Twoje wyszukiwanie nie zwróciło żadnych ulubionych plików.</string>
-    <string name="file_list_empty_favorites_filter_list">Tutaj znajdziesz pliki i katalogi oznaczone jako ulubione.</string>
     <string name="file_list_empty_headline">Brak plików</string>
     <string name="file_list_empty_headline_search">Brak wyników w tym katalogu</string>
     <string name="file_list_empty_headline_server_search">Brak wyników</string>
@@ -300,7 +295,6 @@
     <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików modyfikowanych w ciągu ostatnich 7 dni</string>
     <string name="file_list_empty_recently_modified_filter">Brak plików zmodyfikowanych w ciągu ostatnich 7 dni.</string>
     <string name="file_list_empty_search">Może jest w innym katalogu?</string>
-    <string name="file_list_empty_shared">Tutaj pokażą się pliki i katalogi, które udostępnisz.</string>
     <string name="file_list_empty_shared_headline">Nic nie udostępniasz</string>
     <string name="file_list_empty_text_photos">Wyślij zdjęcia lub włącz automatyczne wysyłanie.</string>
     <string name="file_list_empty_text_photos_filter">Brak zdjęć.</string>
@@ -418,12 +412,8 @@
     <string name="move_file_error">Wystąpił błąd podczas próby przeniesienia tego pliku lub katalogu</string>
     <string name="move_file_invalid_into_descendent">Nie można przenieść katalogu do jednego z jego podkatalogów</string>
     <string name="move_file_invalid_overwrite">Plik już istnieje w katalogu docelowym</string>
-    <string name="move_file_not_found">Nie można przenieść pliku. Sprawdź, czy plik istnieje.</string>
     <string name="move_to">Przenieś do…</string>
-    <string name="network_error_connect_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji.</string>
     <string name="network_error_socket_exception">Wystąpił błąd podczas połączenia z serwerem</string>
-    <string name="network_error_socket_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji.</string>
-    <string name="network_host_not_available">Nie można ukończyć operacji. Serwer jest niedostępny.</string>
     <string name="new_comment">Nowy komentarz…</string>
     <string name="new_media_folder_detected">Wykryty nowy katalog multimediów %1$s.</string>
     <string name="new_media_folder_photos">zdjęcie</string>
@@ -590,8 +580,6 @@
     <string name="share_internal_link_to_folder_text">Wewnętrzny link udostępniania działa tylko dla użytkowników z dostępem do tego katalogu</string>
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
     <string name="share_link_empty_password">Musisz wprowadzić hasło</string>
-    <string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub katalogu</string>
-    <string name="share_link_file_no_exist">Nie można udostępnić. Sprawdź, czy plik istnieje.</string>
     <string name="share_link_forbidden_permissions">do udostępniania tego pliku</string>
     <string name="share_link_optional_password_title">Wprowadź opcjonalne hasło</string>
     <string name="share_link_password_title">Wprowadź hasło</string>
@@ -715,7 +703,6 @@
     <string name="timeout_richDocuments">Ładowanie potrwa długo...</string>
     <string name="trashbin_activity_title">Usunięte pliki</string>
     <string name="trashbin_empty_headline">Brak usuniętych plików</string>
-    <string name="trashbin_empty_message">Stąd będziesz mógł odzyskać usunięte pliki.</string>
     <string name="trashbin_file_not_deleted">Plik %1$s nie może zostać usunięty!</string>
     <string name="trashbin_file_not_restored">Plik %1$s nie może zostać przywrócony!</string>
     <string name="trashbin_loading_failed">Ładowanie kosza nie powiodło się!</string>
@@ -723,13 +710,9 @@
     <string name="unread_comments">Nieprzeczytane komentarze</string>
     <string name="unset_encrypted">Wyłącz szyfrowanie</string>
     <string name="unset_favorite">Usuń z ulubionych</string>
-    <string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępniania tego pliku lub katalogu.</string>
-    <string name="unshare_link_file_no_exist">Nie można wyłączyć udostępniania. Sprawdź, czy plik istnieje.</string>
     <string name="unshare_link_forbidden_permissions">aby anulować udostępnianie tego pliku</string>
     <string name="unsharing_failed">Zatrzymywanie udostępnienia nie powiodło się</string>
     <string name="untrusted_domain">Dostęp przez niezaufaną domenę. Więcej informacji można znaleźć w dokumentacji.</string>
-    <string name="update_link_file_error">Wystąpił błąd podczas próby aktualizacji udostępniania.</string>
-    <string name="update_link_file_no_exist">Nie można zaktualizować. Sprawdź, czy plik istnieje.</string>
     <string name="update_link_forbidden_permissions">aby zaktualizować te udostępnianie</string>
     <string name="updating_share_failed">Zmiana udostępniania nie powiodła się</string>
     <string name="upload_cannot_create_file">Nie można utworzyć pliku lokalnego</string>

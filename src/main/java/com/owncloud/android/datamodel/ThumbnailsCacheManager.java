@@ -427,22 +427,12 @@ public final class ThumbnailsCacheManager {
         private String mImageKey;
         private FileDataStorageManager mStorageManager;
         private GetMethod getMethod;
-        private boolean roundedCorners = false;
         private Listener mListener;
+        private boolean gridViewEnabled = false;
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, Account account)
                 throws IllegalArgumentException {
             this(imageView, storageManager, account, null);
-        }
-
-        public ThumbnailGenerationTask(ImageView imageView,
-                                       FileDataStorageManager storageManager,
-                                       Account account,
-                                       List<ThumbnailGenerationTask> asyncTasks,
-                                       boolean roundedCorners)
-            throws IllegalArgumentException {
-            this(imageView, storageManager, account, asyncTasks);
-            this.roundedCorners = roundedCorners;
         }
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
@@ -456,6 +446,14 @@ public final class ThumbnailsCacheManager {
             mStorageManager = storageManager;
             mAccount = account;
             mAsyncTasks = asyncTasks;
+        }
+
+        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
+                                       Account account, List<ThumbnailGenerationTask> asyncTasks,
+                                       boolean gridViewEnabled)
+            throws IllegalArgumentException {
+            this(imageView, storageManager, account, asyncTasks);
+            this.gridViewEnabled = gridViewEnabled;
         }
 
         public GetMethod getGetMethod() {
@@ -543,10 +541,10 @@ public final class ThumbnailsCacheManager {
                         tagId = String.valueOf(((TrashbinFile) mFile).getRemoteId());
                     }
                     if (String.valueOf(imageView.getTag()).equals(tagId)) {
-                        if (roundedCorners) {
-                            BitmapUtils.setRoundedBitmap(bitmap, imageView);
+                        if (gridViewEnabled){
+                            BitmapUtils.setRoundedBitmapForGridMode(bitmap, imageView);
                         } else {
-                            imageView.setImageBitmap(bitmap);
+                        BitmapUtils.setRoundedBitmap(bitmap, imageView);
                         }
                     }
                 }
@@ -673,7 +671,7 @@ public final class ThumbnailsCacheManager {
          *
          * @return int
          */
-        public int getThumbnailDimension() {
+        private int getThumbnailDimension() {
             // Converts dp to pixel
             Resources r = MainApp.getAppContext().getResources();
             Double d = Math.pow(2, Math.floor(Math.log(r.getDimension(R.dimen.file_icon_size_grid)) / Math.log(2)));

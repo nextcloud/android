@@ -43,7 +43,6 @@
     <string name="auth_check_server">فحص الخادم</string>
     <string name="auth_connection_established">تم الاتصال</string>
     <string name="auth_expired_basic_auth_toast">إدخل كلمة المرور الخاصة بك من فضلك</string>
-    <string name="auth_fail_get_user_name">خادمك لا يرد بإسم مستخدم صحيح، الرجاء بالإتصال بمدير الخادم</string>
     <string name="auth_host_address">عنوان الخادم</string>
     <string name="auth_host_url">عنوان الخادوم https://…</string>
     <string name="auth_illegal_login_used">رابط الدخول غير شرعي</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s لا يدعم الحسابات المتعددة </string>
     <string name="auth_username">إسم المستخدم</string>
     <string name="auth_wrong_connection_title">لا يمكن إنشاء إتصال</string>
-    <string name="auth_wtf_reenter_URL">حالة غير متوقعة، الرجاء إدخال عنوان الخادم مرة أخرى</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ترك في مجلد الأصل، بسبب كونه للقرائة فقط</string>
     <string name="auto_upload_on_wifi">قم بالرفع عبر شبكة لاسلكية غير محدودة البيانات فقط</string>
     <string name="auto_upload_path">/رفع تلقائي</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">يشمل هذا جميع المميزات الحديثة ويعتبر طليعة الإصدارات. الأخطاء متوَّقعة، لذا إذا حصلت أخطاء، نرجو منك الإبلاغ عنهم.</string>
     <string name="community_contribute_forum_forum">المنتدى</string>
     <string name="community_contribute_forum_text">قم بمساعدة الآخرين على</string>
-    <string name="community_contribute_github_text">رَاجِع، أَصّلِح وبَّرمج، إنظر إلى %1$s لمزيد من التفاصيل</string>
     <string name="community_contribute_headline">ساهم بفعالية</string>
     <string name="community_contribute_irc_text">إنضم إلى الدردشة على IRC:</string>
     <string name="community_contribute_translate_text">التطبيق</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">حدث خطأٌ خلال محاولة نسخ هذا الملف أو المجلد</string>
     <string name="copy_file_invalid_into_descendent">لا يمكن نسخ مجلد في مجلدات هوَّ يتضمنها</string>
     <string name="copy_file_invalid_overwrite">هذا الملف موجود حالياً في المجلد المُّسّتَقبِل</string>
-    <string name="copy_file_not_found">غير قادر على النسخ. يرجى التحقق من وجود الملف</string>
     <string name="copy_link">نسخ الرابط</string>
     <string name="copy_move_to_encrypted_folder_not_supported">النسخ أو النقل إلى مجلد مشفر حالياً غير مدعوم.</string>
     <string name="copy_to">انسخه إلى…</string>
@@ -288,7 +284,6 @@
     <string name="file_list_empty">قم برفع بعض المحتوى أو زامن مع أجهزتك</string>
     <string name="file_list_empty_favorite_headline">ليست عندك مفضلات بعد</string>
     <string name="file_list_empty_favorites_filter">بحثك لم ينتج عن ملفات مفضلة.</string>
-    <string name="file_list_empty_favorites_filter_list">الملفات والمجلدات التي حددتها كَمفضلة سوف تظهر هنا</string>
     <string name="file_list_empty_headline">لا يوجد ملفات هنا </string>
     <string name="file_list_empty_headline_search">لم يتم العثور على أية بيانات في هذا المجلد</string>
     <string name="file_list_empty_headline_server_search">دون أية نتيجة</string>
@@ -300,7 +295,6 @@
     <string name="file_list_empty_recently_modified">لم توجد ملفات معدلة خلال 7 أيام ماضية</string>
     <string name="file_list_empty_recently_modified_filter">لا ملفات معدلة لآخر 7 أيام ماضية.</string>
     <string name="file_list_empty_search">ربما كنت تنوي البحث داخل مجلد آخر ؟</string>
-    <string name="file_list_empty_shared">سوف تظهر هنا كل من الملفات و المجلدات التي قمت بمشاركتها</string>
     <string name="file_list_empty_shared_headline">لم تقم بمشاركة أية بيانات بعد</string>
     <string name="file_list_empty_text_photos">قم بتحميل بعض الصور أو قم بتفعيل التحميل التلقائي.</string>
     <string name="file_list_empty_text_photos_filter">لا توجد صور.</string>
@@ -423,12 +417,8 @@
     <string name="move_file_error">حدث خطأ أثناء محاولة نقل هذا الملف أو المجلد</string>
     <string name="move_file_invalid_into_descendent">لا يمكن نقل مجلد في مجلدات هوَّ يتضمنها</string>
     <string name="move_file_invalid_overwrite">هذا الملف موجود حالياً في المجلد المُّسّتَقبِل</string>
-    <string name="move_file_not_found">غير قادر على النقل. يرجى التحقق من وجود الملف</string>
     <string name="move_to">أنقل إلى…</string>
-    <string name="network_error_connect_timeout_exception">حدث خطأ أثناء انتظار الخادم. تعذر إكمال العملية</string>
     <string name="network_error_socket_exception">حدث خطأ أثناء الاتصال بالخادم</string>
-    <string name="network_error_socket_timeout_exception">حدث خطأ أثناء انتظار الخادم. تعذر إكمال العملية</string>
-    <string name="network_host_not_available">تعذر إكمال العملية. الخادم غير متوفر</string>
     <string name="new_comment">تعليق جديد…</string>
     <string name="new_media_folder_detected">تم الكشف عن مجلد %1$s وسائط جديد.</string>
     <string name="new_media_folder_photos">صورة</string>
@@ -595,8 +585,6 @@
     <string name="share_internal_link_to_folder_text">يعمل رابط المشاركة الداخلية فقط للمستخدمين الذين لديهم حق الوصول إلى هذا المجلد</string>
     <string name="share_known_remote_clarification">%1$s ( على %2$s )</string>
     <string name="share_link_empty_password">يجب عليك إدخال كلمة مرور</string>
-    <string name="share_link_file_error">حدث خطأ ما أثناء محاولة مشاركة هذا الملف أو المجلد</string>
-    <string name="share_link_file_no_exist">غير قادر على المشاركة. يرجى التحقق من وجود الملف</string>
     <string name="share_link_forbidden_permissions">لمشاركة هذا الملف</string>
     <string name="share_link_optional_password_title">ادخل كلمة سرية اختيارية</string>
     <string name="share_link_password_title">إدخِل كلمة السر</string>
@@ -719,7 +707,6 @@
     <string name="timeout_richDocuments">التحميل يستغرق وقتًا طويلاً ...</string>
     <string name="trashbin_activity_title">الملفات المحذوفة</string>
     <string name="trashbin_empty_headline">لا يوجد ملفات محذوفة</string>
-    <string name="trashbin_empty_message">سوف تكون قادر على استعادة الملفات المحذوفة من هنا</string>
     <string name="trashbin_file_not_deleted">الملف %1$s لا يمكن حذفه!</string>
     <string name="trashbin_file_not_restored">الملف %1$s لا يمكن إسترجاعه!</string>
     <string name="trashbin_loading_failed">فشل تحميل سلة المهملات!</string>
@@ -727,13 +714,9 @@
     <string name="unread_comments">توجد تعليقات غير مقروءة</string>
     <string name="unset_encrypted">لم يتم تحديد التشفير</string>
     <string name="unset_favorite">إزالتها مِن المفضلة</string>
-    <string name="unshare_link_file_error">حدث خطأ ما أثناء محاولة إلغاء مشاركة هذا الملف أو المجلد</string>
-    <string name="unshare_link_file_no_exist">غير قادر على إلغاء المشاركة. يرجى التحقق من وجود الملف</string>
     <string name="unshare_link_forbidden_permissions">لإلغاء مشاركة هذا الملف</string>
     <string name="unsharing_failed">فشل إلغاء المشاركة</string>
     <string name="untrusted_domain">الوصول من خلال مجال غير موثوق به. يرجى الاطلاع على الوثائق لمزيد من المعلومات.</string>
-    <string name="update_link_file_error">حدث خطأ أثناء محاولة تحديث المشاركة</string>
-    <string name="update_link_file_no_exist">تعذر التحديث. يرجى التحقق من وجود الملف</string>
     <string name="update_link_forbidden_permissions">لتحديث هذه المشاركة</string>
     <string name="updating_share_failed">فشل تحديث المشاركة</string>
     <string name="upload_cannot_create_file">لا يمكن إنشاء ملف محلي</string>

@@ -53,7 +53,7 @@ public class ManageAccountsActivityIT extends AbstractIT {
         ManageAccountsActivity sut = activityRule.launchActivity(null);
 
         User user = sut.accountManager.getUser();
-        sut.onClick(user);
+        sut.onAccountClicked(user);
 
         shortSleep();
 

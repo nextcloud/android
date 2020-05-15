@@ -43,7 +43,6 @@
     <string name="auth_check_server">Periksa peladen</string>
     <string name="auth_connection_established">Sambungan dibuat</string>
     <string name="auth_expired_basic_auth_toast">Masukkan kata sandi saat ini</string>
-    <string name="auth_fail_get_user_name">Server anda tidak membalas dengan ID pengguna yang benar, silahkan kontak admin</string>
     <string name="auth_host_address">Alamat server</string>
     <string name="auth_host_url">Alamat server https://…</string>
     <string name="auth_illegal_login_used">URL data masuk ilegal digunakan</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s tidak mendukung banyak akun </string>
     <string name="auth_username">Nama Pengguna</string>
     <string name="auth_wrong_connection_title">Tidak dapat memulai koneksi</string>
-    <string name="auth_wtf_reenter_URL">Masalah tidak terduga; masukkan ulang alamat server</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">disimpan di folder original karena readonly</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_create_new_custom_folder">Buat kostum folder baru.</string>
@@ -111,7 +109,6 @@
     <string name="community_beta_text">Ini termasuk semua fitur yang akan datang.  Bug/galat bisa terjadi, bila terjadi harap laporkan ke kami.</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Bantu yang lain di</string>
-    <string name="community_contribute_github_text">Tinjauan, perubahan dan penulis kode lihat %1$suntuk jelasnya.</string>
     <string name="community_contribute_headline">Berkontribusi Aktif</string>
     <string name="community_contribute_irc_text">Gabung untuk mengobrol di IRC:</string>
     <string name="community_contribute_translate_text">aplikasi</string>
@@ -143,7 +140,6 @@
     <string name="copy_file_error">Terjadi kesalahan ketika mencoba menyalin berkas atau folder ini</string>
     <string name="copy_file_invalid_into_descendent">Tidak memungkinkan untuk menyalin folder kedalam turunannya</string>
     <string name="copy_file_invalid_overwrite">Berkas sudah ada didalam folder tujuan</string>
-    <string name="copy_file_not_found">Tidak dapat menyalin. Silakan periksa apakah berkas ada</string>
     <string name="copy_link">Salin tautan</string>
     <string name="copy_to">Salin ke…</string>
     <string name="create_dir_fail_msg">Folder tidak dapat dibuat</string>
@@ -215,7 +211,6 @@
     <string name="file_list_empty">Unggah beberapa berkas atau sinkronisasi dengan perangkat anda.</string>
     <string name="file_list_empty_favorite_headline">Belum ada yang disukai.</string>
     <string name="file_list_empty_favorites_filter">Tidak ada hasil penelusuran di folder yang disukai.</string>
-    <string name="file_list_empty_favorites_filter_list">Berkas dan folder yang Anda tandai sebagai favorit akan ditampilkan disini.</string>
     <string name="file_list_empty_headline">Tidak ada berkas</string>
     <string name="file_list_empty_headline_search">Tidak ada hasil di folder ini</string>
     <string name="file_list_empty_headline_server_search">Tidak ada hasil.</string>
@@ -227,7 +222,6 @@
     <string name="file_list_empty_recently_modified">Tidak ditemukan berkas yang diubah 7 hari terakhir</string>
     <string name="file_list_empty_recently_modified_filter">Tidak ada berkas yang di ubah selama 7 hari terakhir.</string>
     <string name="file_list_empty_search">Mungkin ada di folder yang berbeda?</string>
-    <string name="file_list_empty_shared">Berkas dan folder yang anda bagikan akan muncul disini.</string>
     <string name="file_list_empty_shared_headline">Belum ada yang dibagikan.</string>
     <string name="file_list_empty_text_photos">Unggah beberapa foto atau aktifkan unggah otomatis.</string>
     <string name="file_list_empty_text_photos_filter">Tidak ada Foto.</string>
@@ -326,12 +320,8 @@
     <string name="move_file_error">Terjadi kesalahan saat mencoba memindahkan berkas atau folder ini</string>
     <string name="move_file_invalid_into_descendent">Tidak memungkinkan untuk memindahkan folder kedalam sub-folder</string>
     <string name="move_file_invalid_overwrite">Berkas sudah ada didalam folder tujuan</string>
-    <string name="move_file_not_found">Tidak dapat memindahkan. Silakan periksa apakah berkas sudah ada</string>
     <string name="move_to">Pindah ke…</string>
-    <string name="network_error_connect_timeout_exception">Sebuah kesalahan terjadi saat menunggu balasan server. Operasi tidak dapat terselesaikan</string>
     <string name="network_error_socket_exception">Sebuah kesalahan terjadi saat menghubungi server</string>
-    <string name="network_error_socket_timeout_exception">Sebuah kesalahan terjadi saat menunggu balasan server. Operasi tidak dapat terselesaikan</string>
-    <string name="network_host_not_available">Operasi tidak dapat diselesaikan, server tidak tersedia</string>
     <string name="new_comment">Komentar baru…</string>
     <string name="new_media_folder_detected">Media baru %1$s terdeteksi.</string>
     <string name="new_media_folder_photos">foto</string>
@@ -431,8 +421,6 @@
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_known_remote_clarification">%1$s ( di %2$s )</string>
     <string name="share_link_empty_password">Anda harus memasukkan kata sandi</string>
-    <string name="share_link_file_error">Terjadi kesalahan saat mencoba membagikan berkas atau folder ini</string>
-    <string name="share_link_file_no_exist">Tidak dapat berbagi. Mohon periksa apakah berkas ada</string>
     <string name="share_link_forbidden_permissions">untuk membagikan berkas ini</string>
     <string name="share_link_password_title">Masukkan kata sandi</string>
     <string name="share_no_expiration_date_label">Atur tanggal kedaluwarsa</string>
@@ -518,14 +506,9 @@
     <string name="thumbnail">Pratinjau</string>
     <string name="trashbin_activity_title">Berkas terhapus</string>
     <string name="trashbin_empty_headline">Tidak ada berkas yang dihapus.</string>
-    <string name="trashbin_empty_message">Anda dapat memulihkan berkas yang dihapus dari sini</string>
     <string name="trashbin_loading_failed">Memuat tempat sampah gagal!</string>
     <string name="unset_favorite">Hapus dari favorit</string>
-    <string name="unshare_link_file_error">Terjadi kesalahan saat mencoba menghapus berbagi berkas dan folder ini</string>
-    <string name="unshare_link_file_no_exist">Tidak dapat menghapus berbagi. Mohon periksa apakah berkas ada</string>
     <string name="unshare_link_forbidden_permissions">untuk batal membagikan berkas ini</string>
-    <string name="update_link_file_error">Terjadi kesalahan saat mencoba untuk memperbarui pembagian</string>
-    <string name="update_link_file_no_exist">Tidak dapat memperbarui. Cek apabila berkas ada</string>
     <string name="update_link_forbidden_permissions">untuk memperbarui pembagian ini</string>
     <string name="upload_chooser_title">Unggah dari…</string>
     <string name="upload_content_from_other_apps">Unggah konten dari aplikasi lain</string>

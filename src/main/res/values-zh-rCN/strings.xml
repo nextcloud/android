@@ -43,7 +43,6 @@
     <string name="auth_check_server">检查服务器</string>
     <string name="auth_connection_established">连接已建立</string>
     <string name="auth_expired_basic_auth_toast">请输入当前的密码</string>
-    <string name="auth_fail_get_user_name">您的服务器没有返回正确的用户ID，请与管理员联系</string>
     <string name="auth_host_address">服务器地址</string>
     <string name="auth_host_url">服务器地址 https://…</string>
     <string name="auth_illegal_login_used">非法登录地址</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s 不支持多个账号</string>
     <string name="auth_username">用户名</string>
     <string name="auth_wrong_connection_title">无法建立连接</string>
-    <string name="auth_wtf_reenter_URL">意外状态，请重新输入服务器地址</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">保持为原始的文件夹，即使它是只读的</string>
     <string name="auto_upload_on_wifi">仅通过无流量限制的 Wi-Fi 上传</string>
     <string name="auto_upload_path">/自动上传</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">这包括所有即将到来的功能，它处于非常流行的边缘。 可能会发生错误/错误，如果及时，请报告您的发现。</string>
     <string name="community_contribute_forum_forum">论坛</string>
     <string name="community_contribute_forum_text">帮助别人，在</string>
-    <string name="community_contribute_github_text">查看，修改和编写代码，有关详细信息，请参阅%1$s</string>
     <string name="community_contribute_headline">活跃的候选版</string>
     <string name="community_contribute_irc_text">在 IRC 上加入此聊天</string>
     <string name="community_contribute_translate_text">此应用</string>
@@ -164,7 +161,6 @@
     <string name="copy_file_error">尝试复制这个文件或文件夹时发生了错误</string>
     <string name="copy_file_invalid_into_descendent">将文件夹复制到其自己的底层文件夹中是不可能的</string>
     <string name="copy_file_invalid_overwrite">该文件已存在于目标文件夹中</string>
-    <string name="copy_file_not_found">无法复制文件。请检查文件是否存在</string>
     <string name="copy_link">复制链接</string>
     <string name="copy_move_to_encrypted_folder_not_supported">目前不支持 复制 / 移动到加密的文件夹。</string>
     <string name="copy_to">复制到…</string>
@@ -288,7 +284,6 @@
     <string name="file_list_empty">上传一些内容或与您的设备同步。</string>
     <string name="file_list_empty_favorite_headline">暂无收藏</string>
     <string name="file_list_empty_favorites_filter">搜索结果中没有你收藏的文件。</string>
-    <string name="file_list_empty_favorites_filter_list">你收藏的文件和文件夹将显示在这里</string>
     <string name="file_list_empty_headline">这里没有文件</string>
     <string name="file_list_empty_headline_search">这个文件夹没有结果</string>
     <string name="file_list_empty_headline_server_search">没有结果</string>
@@ -300,7 +295,6 @@
     <string name="file_list_empty_recently_modified">在过去的7天内没有被修改过的文件</string>
     <string name="file_list_empty_recently_modified_filter">过去7天内没有修改过文件.</string>
     <string name="file_list_empty_search">也许它在其他文件夹中？</string>
-    <string name="file_list_empty_shared">您共享的文件和文件夹将显示在这里</string>
     <string name="file_list_empty_shared_headline">暂无共享</string>
     <string name="file_list_empty_text_photos">上传一些照片或启用自动上传。</string>
     <string name="file_list_empty_text_photos_filter">没有照片。</string>
@@ -418,12 +412,8 @@
     <string name="move_file_error">尝试移动该文件或文件夹时发生错误</string>
     <string name="move_file_invalid_into_descendent">将文件夹移动到其自己的底层文件夹中是不可能的</string>
     <string name="move_file_invalid_overwrite">该文件已存在于目标文件夹中</string>
-    <string name="move_file_not_found">无法移动文件。 请检查该文件是否存在</string>
     <string name="move_to">移动到…</string>
-    <string name="network_error_connect_timeout_exception">等待服务器时发生错误。 无法完成操作。</string>
     <string name="network_error_socket_exception">连接到服务器时发生错误。</string>
-    <string name="network_error_socket_timeout_exception">等待服务器时发生错误。 无法完成操作。</string>
-    <string name="network_host_not_available">无法完成操作。 服务器无法使用</string>
     <string name="new_comment">新评论…</string>
     <string name="new_media_folder_detected">检测到新的%1$s媒体目录。</string>
     <string name="new_media_folder_photos">照片</string>
@@ -590,8 +580,6 @@
     <string name="share_internal_link_to_folder_text">内部共享链接仅对有权访问此文件夹的用户有效</string>
     <string name="share_known_remote_clarification">%1$s ( 在 %2$s )</string>
     <string name="share_link_empty_password">您必须输入密码</string>
-    <string name="share_link_file_error">共享文件或目录出错</string>
-    <string name="share_link_file_no_exist">无法共享。请检查文件是否存在</string>
     <string name="share_link_forbidden_permissions">共享该文件</string>
     <string name="share_link_optional_password_title">输入一个可选密码</string>
     <string name="share_link_password_title">输入密码</string>
@@ -718,7 +706,6 @@
     <string name="timeout_richDocuments">加载需要很长时间...</string>
     <string name="trashbin_activity_title">已删除的文件</string>
     <string name="trashbin_empty_headline">没有被删除的文件</string>
-    <string name="trashbin_empty_message">你可以在此处恢复已删除的文件</string>
     <string name="trashbin_file_not_deleted">文件 %1$s 无法被删除！</string>
     <string name="trashbin_file_not_restored">文件 %1$s 无法被恢复！</string>
     <string name="trashbin_loading_failed">加载回收站失败！</string>
@@ -726,13 +713,9 @@
     <string name="unread_comments">有未读评论</string>
     <string name="unset_encrypted">不设置加密</string>
     <string name="unset_favorite">从收藏列表移除</string>
-    <string name="unshare_link_file_error">尝试取消共享此文件或文件夹时发生错误</string>
-    <string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在</string>
     <string name="unshare_link_forbidden_permissions">取消共享该文件</string>
     <string name="unsharing_failed">取消共享失败</string>
     <string name="untrusted_domain">通过不受信任的域名访问。有关进一步的信息，请参阅文档。</string>
-    <string name="update_link_file_error">更新共享时发生错误</string>
-    <string name="update_link_file_no_exist">无法上传，请检查文件是否存在</string>
     <string name="update_link_forbidden_permissions">更新共享</string>
     <string name="updating_share_failed">更新共享失败</string>
     <string name="upload_cannot_create_file">无法新建本地文件</string>

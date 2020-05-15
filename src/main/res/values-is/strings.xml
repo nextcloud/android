@@ -43,7 +43,6 @@
     <string name="auth_check_server">Athuga með þjón</string>
     <string name="auth_connection_established">Tengingu komið á</string>
     <string name="auth_expired_basic_auth_toast">Settu inn núgildandi lykilorð</string>
-    <string name="auth_fail_get_user_name">Vefþjónninn þinn er ekki að svara með réttu notandaauðkenni, hafðu samband við kerfisstjóra.</string>
     <string name="auth_host_address">Vistfang þjóns</string>
     <string name="auth_host_url">Vistfang þjóns https://…</string>
     <string name="auth_illegal_login_used">Notaði óleyfileg slóð á innskráningargögn</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s styður ekki fjölaðganga</string>
     <string name="auth_username">Notandanafn</string>
     <string name="auth_wrong_connection_title">Gat ekki komið á tengingu</string>
-    <string name="auth_wtf_reenter_URL">Óvænt ástand, settu aftur inn vistfang þjónsins</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">haldið áfram í upprunalegri möppu, því hún er skrifvarin</string>
     <string name="auto_upload_on_wifi">Aðeins senda inn á gjaldfrjálsu WiFi-neti</string>
     <string name="auto_upload_path">/SjálfvirkInnsending</string>
@@ -120,7 +118,6 @@
     <string name="community_beta_text">Þetta inniheldur alla væntanlega eiginleika og er alveg á jaðrinum hvað varðar stöðugleika. Villur geta komið upp, og ef slíkt gerist, endilega tilkynntu um þær.</string>
     <string name="community_contribute_forum_forum">vefspjallinu</string>
     <string name="community_contribute_forum_text">Hjálpaðu öðrum á</string>
-    <string name="community_contribute_github_text">Yfirfarðu, bættu og skrifaðu kóða, skoðaðu %1$s fyrir nánari upplýsingar</string>
     <string name="community_contribute_headline">Vertu virkur þáttakandi</string>
     <string name="community_contribute_irc_text">Taktu þátt í umræðum á IRC:</string>
     <string name="community_contribute_translate_text">forritið</string>
@@ -160,7 +157,6 @@
     <string name="copy_file_error">Villa kom upp við að reyna að afrita þessa skrá eða möppu</string>
     <string name="copy_file_invalid_into_descendent">Ekki er hægt að afrita möppu inn í eina af undirmöppum sínum</string>
     <string name="copy_file_invalid_overwrite">Skráin er þegar til í móttökumöppunni</string>
-    <string name="copy_file_not_found">Get ekki afritað. Athugaðu hvort skráin sé til</string>
     <string name="copy_link">Afrita tengil</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Ekki er stuðningur ennþá við afritun/færslu inn í dulritaða möppu.</string>
     <string name="copy_to">Afrita í…</string>
@@ -273,7 +269,6 @@
     <string name="file_list_empty">Sendu inn eitthvað efni eða samstilltu við tækin þín.</string>
     <string name="file_list_empty_favorite_headline">Ekkert er eftirlæti ennþá</string>
     <string name="file_list_empty_favorites_filter">Leitin skilaði engum eftirlætisskrám</string>
-    <string name="file_list_empty_favorites_filter_list">Skrár og möppur sem þú merkir sem eftirlæti birtast hér</string>
     <string name="file_list_empty_headline">Engar skrár hér</string>
     <string name="file_list_empty_headline_search">Engar niðurstöður í þessari möppu</string>
     <string name="file_list_empty_headline_server_search">Engar niðurstöður</string>
@@ -285,7 +280,6 @@
     <string name="file_list_empty_recently_modified">Fann engar skrár sem breytt hefur verið síðustu 7 daga</string>
     <string name="file_list_empty_recently_modified_filter">Engar skrár fundust sem breytt hefur verið síðustu 7 daga.</string>
     <string name="file_list_empty_search">Er þetta kannski í einhverri annarri möppu?</string>
-    <string name="file_list_empty_shared">Skrár og möppur sem þú deilir birtast hér</string>
     <string name="file_list_empty_shared_headline">Engu deilt ennþá</string>
     <string name="file_list_empty_text_photos">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
     <string name="file_list_empty_text_photos_filter">Engar ljósmyndir.</string>
@@ -401,12 +395,8 @@
     <string name="move_file_error">Villa kom upp við að reyna að færa þessa skrá eða möppu</string>
     <string name="move_file_invalid_into_descendent">Ekki er hægt að færa möppu inn í eina af undirmöppum sínum</string>
     <string name="move_file_invalid_overwrite">Skráin er þegar til í móttökumöppunni</string>
-    <string name="move_file_not_found">Get ekki fært skrá. Athugaðu hvort hún sé til</string>
     <string name="move_to">Færa í…</string>
-    <string name="network_error_connect_timeout_exception">Villa kom upp á meðan beðið var eftir þjóninum. Ekki var hægt að ljúka aðgerðinni</string>
     <string name="network_error_socket_exception">Villa kom upp við að tengjast þjóninum</string>
-    <string name="network_error_socket_timeout_exception">Villa kom upp á meðan beðið var eftir þjóninum. Ekki var hægt að ljúka aðgerðinni</string>
-    <string name="network_host_not_available">Gat ekki lokið aðgerð. Þjónn ekki tiltækur</string>
     <string name="new_comment">Ný ummæli…</string>
     <string name="new_media_folder_detected">Fann möppu með %1$s.</string>
     <string name="new_media_folder_photos">ljósmyndum</string>
@@ -566,8 +556,6 @@
     <string name="share_internal_link">Deila innri tengli</string>
     <string name="share_known_remote_clarification">%1$s ( á %2$s )</string>
     <string name="share_link_empty_password">Þú verður að setja inn lykilorð</string>
-    <string name="share_link_file_error">Villa kom upp við að reyna að deila þessari skrá eða möppu</string>
-    <string name="share_link_file_no_exist">Get ekki deilt. Athugaðu hvort skráin sé til</string>
     <string name="share_link_forbidden_permissions">til að deila þessari skrá</string>
     <string name="share_link_optional_password_title">Settu inn valkvætt lykilorð</string>
     <string name="share_link_password_title">Settu inn lykilorð</string>
@@ -688,7 +676,6 @@
     <string name="timeout_richDocuments">Hleðsla tekur langan tíma …</string>
     <string name="trashbin_activity_title">Eyddar skrár</string>
     <string name="trashbin_empty_headline">Engar eyddar skrár</string>
-    <string name="trashbin_empty_message">Þú getur endurheimt eyddar skrár héðan</string>
     <string name="trashbin_file_not_deleted">Ekki tókst að eyða %1$s skránni!</string>
     <string name="trashbin_file_not_restored">Ekki tókst að endurheimta %1$s skrána!</string>
     <string name="trashbin_loading_failed">Mistókst að hlaða inn ruslmöppu!</string>
@@ -696,13 +683,9 @@
     <string name="unread_comments">Ólesnar athugasemdir eru fyrirliggjandi</string>
     <string name="unset_encrypted">Gera dulritun óvirka</string>
     <string name="unset_favorite">Fjarlægja úr eftirlætum</string>
-    <string name="unshare_link_file_error">Villa kom upp við að reyna að hætta deilingu á þessari skrá eða möppu</string>
-    <string name="unshare_link_file_no_exist">Get ekki hætt deilingu. Athugaðu hvort skráin sé til</string>
     <string name="unshare_link_forbidden_permissions">til að hætta deilingu á þessari skrá</string>
     <string name="unsharing_failed">Mistókst að hætta deilingu</string>
     <string name="untrusted_domain">Aðgangur í gegnum vantreyst lén. Endilega kíktu á hjálparskjölin til að sjá ítarlegri upplýsingar.</string>
-    <string name="update_link_file_error">Villa kom upp við að reyna að uppfæra sameignina</string>
-    <string name="update_link_file_no_exist">Get ekki uppfært. Athugaðu hvort skráin sé til</string>
     <string name="update_link_forbidden_permissions">til að uppfæra þessa sameign</string>
     <string name="updating_share_failed">Mistókst að uppfæra sameign</string>
     <string name="upload_cannot_create_file">Get ekki búið til skrá á tölvu</string>

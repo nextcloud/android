@@ -43,7 +43,6 @@
     <string name="auth_check_server">Pārbaudīt serveri</string>
     <string name="auth_connection_established">Savienojums ir izveidots</string>
     <string name="auth_expired_basic_auth_toast">Lūdzu, ievadiet pašreizējo paroli</string>
-    <string name="auth_fail_get_user_name">Jūsu serveris neatgriež pareizu lietotāja ID, lūdzu, sazinieties ar administratoru</string>
     <string name="auth_host_address">Servera adrese</string>
     <string name="auth_host_url">Servera adrese https://…</string>
     <string name="auth_illegal_login_used">Nepareizs pierakstīšanās datu URL izmantots</string>
@@ -71,7 +70,6 @@
     <string name="auth_unsupported_multiaccount">%1$s neatbalsta vairākus kontus.</string>
     <string name="auth_username">Lietotājvārds</string>
     <string name="auth_wrong_connection_title">Neizdevās izveidot savienojumu</string>
-    <string name="auth_wtf_reenter_URL">Neparedzēts stāvoklis, lūdzu ievadiet servera adresi no jauna</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">glabāts oriģinālajā mapē, jo tā ir tikai lasāma</string>
     <string name="auto_upload_on_wifi">Augšupielādēt tikai neirobežotā Wi-Fi</string>
     <string name="autoupload_configure">Konfigurē</string>
@@ -152,7 +150,6 @@
     <string name="copy_file_error">Radās kļūda, mēģinot kopēt šo datni vai mapi</string>
     <string name="copy_file_invalid_into_descendent">Nav iespējams kopēt mapi tās apakšmapē</string>
     <string name="copy_file_invalid_overwrite">Datne jau pastāv mērķa mapē</string>
-    <string name="copy_file_not_found">Nevar nokopēt. Lūdzu, pārbaudiet, vai datne pastāv</string>
     <string name="copy_link">Kopēt saiti</string>
     <string name="copy_to">Kopēt uz…</string>
     <string name="could_not_download_image">Nevarēja lejupielādēt pilnu attēlu</string>
@@ -230,7 +227,6 @@
     <string name="file_list_empty">Augšupielādē kaut ko vai sinhronizē saturu ar savām ierīcēm!</string>
     <string name="file_list_empty_favorite_headline">Nekas vēl nav pievienots favorītiem</string>
     <string name="file_list_empty_favorites_filter">Nekas netika atrast starp favorītu datnēm.</string>
-    <string name="file_list_empty_favorites_filter_list">Datnes un mapes kuras pievienosiet favorītiem, būs redzami šeit</string>
     <string name="file_list_empty_headline">Šeit nav datņu</string>
     <string name="file_list_empty_headline_search">Nav rezultātu šajā mapē</string>
     <string name="file_list_empty_headline_server_search">Nav rezultātu</string>
@@ -242,7 +238,6 @@
     <string name="file_list_empty_recently_modified">Neatrada nevienu datni, kas izmainīta pēdējās 7 dienās</string>
     <string name="file_list_empty_recently_modified_filter">Neviena datne nav bijusi izmainīta pēdējās 7 dienās.</string>
     <string name="file_list_empty_search">Varbūt tas atrodas citā mapē?</string>
-    <string name="file_list_empty_shared">Datnes un mapes, ko koplietosi ar citiem, tiks rādītas šeit</string>
     <string name="file_list_empty_shared_headline">Nekas vēl nav koplietots</string>
     <string name="file_list_empty_text_photos">Augšupielādē attēlus vai ieslēdz automātisko augšupielādi.</string>
     <string name="file_list_empty_text_photos_filter">Nav attēlu.</string>
@@ -341,11 +336,8 @@
     <string name="move_file_error">Radās kļūda, mēģinot pārvietot šo datni vai mapi</string>
     <string name="move_file_invalid_into_descendent">Nav iespējams pārvietot mapi tās apakšmapē</string>
     <string name="move_file_invalid_overwrite">Datne jau pastāv mērķa mapē</string>
-    <string name="move_file_not_found">Nevar pārvietot datni. Lūdzu pārbaudiet vai tas eksistē.</string>
     <string name="move_to">Pārvietot uz…</string>
-    <string name="network_error_connect_timeout_exception">Radās kļūda, gaidot serveri. Darbību nevarēja pabeigt</string>
     <string name="network_error_socket_exception">Radās kļūda, mēģinot izveidot savienojumu ar serveri.</string>
-    <string name="network_error_socket_timeout_exception">Radās kļūda, gaidot serveri. Darbību nevarēja pabeigt</string>
     <string name="new_comment">Jauns komentārs…</string>
     <string name="new_media_folder_photos">bilde</string>
     <string name="new_version_was_created">Jauna versija izveidota</string>
@@ -439,8 +431,6 @@
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_known_remote_clarification">%1$s ( uz %2$s )</string>
     <string name="share_link_empty_password">Jums ir jāievada paroli</string>
-    <string name="share_link_file_error">Radās kļūda, mēģinot koplietot šo datni vai mapi</string>
-    <string name="share_link_file_no_exist">Nevar koplietot. Lūdzu, pārbaudiet, vai datne pastāv</string>
     <string name="share_link_forbidden_permissions">lai koplietotu šo datni</string>
     <string name="share_link_password_title">Ievadiet paroli</string>
     <string name="share_no_expiration_date_label">Uzstādīt beigu termiņu</string>
@@ -523,15 +513,10 @@
     <string name="tags">Birkas</string>
     <string name="trashbin_activity_title">Dzēstās datnes</string>
     <string name="trashbin_empty_headline">Nav dzēstu datņu</string>
-    <string name="trashbin_empty_message">No šejienes būs iespējams atgūt dzēstās datnes</string>
     <string name="trashbin_loading_failed">Kļūda ielādējot miskasti!</string>
     <string name="unset_encrypted">Atstatīt šifrēšanu</string>
     <string name="unset_favorite">Noņemt no favorītiem</string>
-    <string name="unshare_link_file_error">Radās kļūda mēģinot beigt datnes vai mapes koplietošanu.</string>
-    <string name="unshare_link_file_no_exist">Neizdevās beigt koplietošanu. Lūdzu pārbaudiet vai datne eksistē</string>
     <string name="unshare_link_forbidden_permissions">lai pārtrauktu šīs datnes koplietošanu</string>
-    <string name="update_link_file_error">Radās kļūda, mēģinot atjaunināt koplietojumu</string>
-    <string name="update_link_file_no_exist">Neizdevās atjaunināt. Lūdzu pārbaudiet vai datne eksistē</string>
     <string name="update_link_forbidden_permissions">lai atjauninātu šo koplietošanu</string>
     <string name="updating_share_failed">Koplietojuma atjaunināšana neizdevās</string>
     <string name="upload_chooser_title">Augšupielādēts no…</string>
