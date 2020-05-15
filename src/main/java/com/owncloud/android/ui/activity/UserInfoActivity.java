@@ -83,6 +83,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -378,16 +379,18 @@ public class UserInfoActivity extends FileActivity implements Injectable {
             RemoteOperation getRemoteUserInfoOperation = new GetUserInfoRemoteOperation();
             RemoteOperationResult result = getRemoteUserInfoOperation.execute(user.toPlatformAccount(), this);
 
-            if (result.isSuccess() && result.getData() != null) {
-                userInfo = (UserInfo) result.getData().get(0);
+            if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                if (result.isSuccess() && result.getData() != null) {
+                    userInfo = (UserInfo) result.getData().get(0);
 
-                runOnUiThread(() -> populateUserInfoUi(userInfo));
-
-            } else {
-                // show error
-                runOnUiThread(() -> setErrorMessageForMultiList(sorryMessage, result.getLogMessage(),
-                        R.drawable.ic_list_empty_error));
-                Log_OC.d(TAG, result.getLogMessage());
+                    runOnUiThread(() -> populateUserInfoUi(userInfo));
+                } else {
+                    // show error
+                    runOnUiThread(() -> setErrorMessageForMultiList(sorryMessage,
+                                                                    result.getLogMessage(),
+                                                                    R.drawable.ic_list_empty_error));
+                    Log_OC.d(TAG, result.getLogMessage());
+                }
             }
         });
 
