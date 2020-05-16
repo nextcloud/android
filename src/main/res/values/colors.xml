@@ -19,8 +19,6 @@
 -->
 <resources>
 
-    <color name="list_selector_focused_pressed">#00ddff</color>
-
     <color name="list_item_lastmod_and_filesize_text">@color/secondary_text_color</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
