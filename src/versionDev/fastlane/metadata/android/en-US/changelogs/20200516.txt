@@ -1,0 +1,27 @@
+Fixed linter warnings
+Add SQL query pagination to fix #5891
+Add some tests for upload storage manager
+Minor changes after rebase
+Appbar like google
+Bug fix
+Fix toolbar color un darkmode
+Fix tiny jump
+Improve color in darkmode and fix another searchview collapsed
+Fix when searchview is open and reload page
+Implement new searchbar
+Don't show new appbar with DeviceOnly
+Fix userinfo and previewimage toolbar
+Remove redundant code
+Fix SyncedFoldersActivity
+Fix select nav_all_files in drawer
+Only show new app bar for "all_files"
+Add home search appbar
+spotbugs: Unused public or protected field
+Fix wrong extra_account, which used user instead of account
+Fix linter warnings
+Tried to fix the "Spotbug" NAB detections
+Removed "Dead store" spotbug error for PhotoSearchTask
+Cleaned up the old toolbar progressbar dependent code
+Replaced toolbar loading by SwipeRefresh in Files list
+Update translations
+Update 3rd-party dependencies
