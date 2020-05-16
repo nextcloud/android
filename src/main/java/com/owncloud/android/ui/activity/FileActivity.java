@@ -158,6 +158,7 @@ public abstract class FileActivity extends DrawerActivity
     public void showFiles(boolean onDeviceOnly) {
         // must be specialized in subclasses
         MainApp.showOnlyFilesOnDevice(onDeviceOnly);
+        setupToolbar(!onDeviceOnly);
     }
 
     /**

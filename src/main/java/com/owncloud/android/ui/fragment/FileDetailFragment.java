@@ -241,7 +241,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private void activatePreviewImage() {
         if (activity != null) {
             activity.setPreviewImageVisibility(View.VISIBLE);
-            activity.showProgressBar(false);
             ThemeUtils.setStatusBarColor(activity, activity.getResources().getColor(R.color.background_color_inverse));
             if (activity.getSupportActionBar() != null) {
                 activity.getSupportActionBar().setTitle(null);
@@ -378,7 +377,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if(activity != null) {
             activity.setupToolbar();
             activity.setPreviewImageVisibility(View.GONE);
-            activity.showProgressBar(true);
         }
 
         super.onStop();

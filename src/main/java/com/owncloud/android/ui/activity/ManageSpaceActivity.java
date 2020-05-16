@@ -53,8 +53,10 @@ public class ManageSpaceActivity extends AppCompatActivity implements Injectable
         setContentView(R.layout.activity_manage_space);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.manage_space_title);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.manage_space_title);
+        }
 
         TextView descriptionTextView = findViewById(R.id.general_description);
         descriptionTextView.setText(getString(R.string.manage_space_description, getString(R.string.app_name)));

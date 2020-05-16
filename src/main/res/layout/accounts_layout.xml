@@ -26,13 +26,12 @@
 	android:layout_height="fill_parent"
 	android:orientation="vertical">
 
-	<include
-		layout="@layout/toolbar_standard"/>
+    <include layout="@layout/toolbar_standard" />
 
-	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/account_list"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:divider="@null" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/account_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="@null" />
 
 </LinearLayout>

@@ -24,13 +24,13 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/toolbar_standard" />
+    <include layout="@layout/toolbar_standard" />
 
-	<FrameLayout android:layout_height="0dp"
-		android:layout_width="fill_parent"
-		android:id="@+id/frameLayout1"
-		android:layout_weight="1">
+    <FrameLayout
+        android:id="@+id/frameLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
 		<ListView android:id="@android:id/list"
 			android:layout_width="fill_parent"

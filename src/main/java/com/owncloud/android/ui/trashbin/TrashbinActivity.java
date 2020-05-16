@@ -113,8 +113,8 @@ public class TrashbinActivity extends FileActivity implements
         setContentView(R.layout.trashbin_activity);
         unbinder = ButterKnife.bind(this);
         setupToolbar();
+        updateActionBarTitleAndHomeButtonByString(getString(R.string.trashbin_activity_title));
         setupDrawer(R.id.nav_trashbin);
-        ThemeUtils.setColoredTitle(getSupportActionBar(), R.string.trashbin_activity_title, this);
     }
 
     @Override

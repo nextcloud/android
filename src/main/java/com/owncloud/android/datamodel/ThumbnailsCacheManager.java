@@ -45,6 +45,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -1040,51 +1041,28 @@ public final class ThumbnailsCacheManager {
     }
 
     public static boolean cancelPotentialAvatarWork(Object file, Object callContext) {
-        if (callContext instanceof ImageView) {
-            return cancelPotentialAvatarWork(file, (ImageView) callContext);
-        } else if (callContext instanceof MenuItem) {
-            return cancelPotentialAvatarWork(file, (MenuItem)callContext);
-        }
+        if (callContext instanceof ImageView ||
+            callContext instanceof MenuItem ||
+            callContext instanceof MaterialButton) {
 
-        return false;
-    }
-
-    public static boolean cancelPotentialAvatarWork(Object file, ImageView imageView) {
-        final AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(imageView);
-
-        if (avatarWorkerTask != null) {
-            final Object usernameData = avatarWorkerTask.mUserId;
-            // If usernameData is not yet set or it differs from the new data
-            if (usernameData == null || !usernameData.equals(file)) {
-                // Cancel previous task
-                avatarWorkerTask.cancel(true);
-                Log_OC.v(TAG, "Cancelled generation of avatar for a reused imageView");
-            } else {
-                // The same work is already in progress
-                return false;
+            AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(callContext);
+            if (avatarWorkerTask != null) {
+                final Object usernameData = avatarWorkerTask.mUserId;
+                // If usernameData is not yet set or it differs from the new data
+                if (usernameData == null || !usernameData.equals(file)) {
+                    // Cancel previous task
+                    avatarWorkerTask.cancel(true);
+                    Log_OC.v(TAG, "Cancelled generation of avatar for a reused imageView");
+                } else {
+                    // The same work is already in progress
+                    return false;
+                }
             }
+            // No task associated with the ImageView, or an existing task was cancelled
+            return true;
+        } else {
+            return false;
         }
-        // No task associated with the ImageView, or an existing task was cancelled
-        return true;
-    }
-
-    public static boolean cancelPotentialAvatarWork(Object file, MenuItem menuItem) {
-        final AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(menuItem);
-
-        if (avatarWorkerTask != null) {
-            final Object usernameData = avatarWorkerTask.mUserId;
-            // If usernameData is not yet set or it differs from the new data
-            if (usernameData == null || !usernameData.equals(file)) {
-                // Cancel previous task
-                avatarWorkerTask.cancel(true);
-                Log_OC.v(TAG, "Cancelled generation of avatar for a reused imageView");
-            } else {
-                // The same work is already in progress
-                return false;
-            }
-        }
-        // No task associated with the ImageView, or an existing task was cancelled
-        return true;
     }
 
     public static ThumbnailGenerationTask getBitmapWorkerTask(ImageView imageView) {
@@ -1155,9 +1133,11 @@ public final class ThumbnailsCacheManager {
 
     public static AvatarGenerationTask getAvatarWorkerTask(Object callContext) {
         if (callContext instanceof ImageView) {
-            return getAvatarWorkerTask(((ImageView)callContext).getDrawable());
+            return getAvatarWorkerTask(((ImageView) callContext).getDrawable());
         } else if (callContext instanceof MenuItem) {
-            return getAvatarWorkerTask(((MenuItem)callContext).getIcon());
+            return getAvatarWorkerTask(((MenuItem) callContext).getIcon());
+        } else if (callContext instanceof MaterialButton) {
+            return getAvatarWorkerTask(((MaterialButton) callContext).getIcon());
         }
 
         return null;
