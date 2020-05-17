@@ -1,0 +1,9 @@
+fix unused background
+remove unused files and colors
+Remove unused background for selection in grid_sync_item
+Replace list_selector background by ripple effect
+remove unused background in grid_image
+remove unused background list_selector on grid_item
+remove unused properties in list_item
+Fix selected item background color
+Update translations
