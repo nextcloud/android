@@ -43,6 +43,7 @@
     <string name="auth_check_server">Έλεγχος διακομιστή</string>
     <string name="auth_connection_established">Εδραίωση σύνδεσης</string>
     <string name="auth_expired_basic_auth_toast">Παρακαλούμε εισάγετε το τρέχον συνθηματικό</string>
+    <string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό αναγνωριστικό χρήστη, παρακαλούμε επικοινωνήστε με τον διαχειριστή.</string>
     <string name="auth_host_address">Διεύθυνση διακομιστή</string>
     <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
     <string name="auth_illegal_login_used">Χρησιμοποιήθηκε μη έγκυρο URL σύνδεσης</string>
@@ -70,6 +71,7 @@
     <string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
     <string name="auth_username">Όνομα χρήστη</string>
     <string name="auth_wrong_connection_title">Αδυναμία δημιουργίας σύνδεσης</string>
+    <string name="auth_wtf_reenter_URL">Απροσδόκητη κατάσταση, παρακαλούμε εισάγετε ξανά τη διεύθυνση του διακομιστή</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">διατηρηθεί στον αρχικό φάκελο, όπως είναι μόνο για ανάγνωση</string>
     <string name="auto_upload_on_wifi">Μεταφόρτωση μόνο μέσω wifi</string>
     <string name="auto_upload_path">/ΑυτόματηΜεταφόρτωση</string>
@@ -118,6 +120,7 @@
     <string name="community_beta_text">Αυτή περιέχει όλες τις επερχόμενες λειτουργίες και δαθέτει ότι τελευταίο έχει ενσωματωθεί. Εάν και εφόσον προκύψουν σφάλματα, σας παρακαλούμε να μας τα αναφέρετε.</string>
     <string name="community_contribute_forum_forum">Φόρουμ</string>
     <string name="community_contribute_forum_text">Βοήθησε άλλους στο</string>
+    <string name="community_contribute_github_text">Επιθεωρήστε, τροποποιήστε και γράψτε κώδικα, δείτε %1$s για λεπτομέρειες.</string>
     <string name="community_contribute_headline">Συνέβαλε ενεργά</string>
     <string name="community_contribute_irc_text">Μπείτε για chat στο IRC:</string>
     <string name="community_contribute_translate_text">η εφαρμογή</string>
@@ -161,6 +164,7 @@
     <string name="copy_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια αντιγραφής αυτού του αρχείου ή φακέλου</string>
     <string name="copy_file_invalid_into_descendent">Δεν είναι δυνατό να αντιγραφεί ο φάκελος σε απογονικό</string>
     <string name="copy_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
+    <string name="copy_file_not_found">Αδυναμία αντιγραφής. Ελέγξτε αν το αρχείο υπάρχει.</string>
     <string name="copy_link">Αντιγραφή συνδέσμου</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Η αντιγραφή/μετακίνηση σε κρυπτογραφημένο φάκελο δεν υποστηρίζεται αυτή τη στιγμή</string>
     <string name="copy_to">Αντιγραφή σε…</string>
@@ -284,6 +288,7 @@
     <string name="file_list_empty">Μεταφόρτωση περιεχομένου ή συγχρονισμός με τις συσκευές σας.</string>
     <string name="file_list_empty_favorite_headline">Κανένα αγαπημένο</string>
     <string name="file_list_empty_favorites_filter">Δεν βρέθηκαν αρχεία σημειωμένα ως αγαπημένα για το ερώτημά σας.</string>
+    <string name="file_list_empty_favorites_filter_list">Τα αρχεία και οι φάκελοι που σημειώσατε ως αγαπημένα θα εμφανίζονται εδώ.</string>
     <string name="file_list_empty_headline">Δεν υπάρχουν αρχεία</string>
     <string name="file_list_empty_headline_search">Κανενα αποτέλεσμα σε αυτον τον φάκελο</string>
     <string name="file_list_empty_headline_server_search">Κανένα αποτέλεσμα</string>
@@ -295,6 +300,7 @@
     <string name="file_list_empty_recently_modified">Δεν βρέθηκαν τροποποιημένα αρχεία εντός των τελευταίων 7 ημερών</string>
     <string name="file_list_empty_recently_modified_filter">Κανένα αρχείο δεν τροποποιήθηκε τις τελευταίες 7 ημέρες.</string>
     <string name="file_list_empty_search">Θα δοκιμάστε αναζήτηση και σε άλλο φάκελο;</string>
+    <string name="file_list_empty_shared">Τα αρχεία και οι φάκελοι που διαμοιράζεστε θα εμφανίζονται εδώ.</string>
     <string name="file_list_empty_shared_headline">Δεν έχει διαμοιραστεί τίποτα μέχρι στιγμής</string>
     <string name="file_list_empty_text_photos">Μεταφόρτωση μερικών φωτογραφιών ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
     <string name="file_list_empty_text_photos_filter">Δεν υπάρχουν φωτογραφίες.</string>
@@ -412,8 +418,12 @@
     <string name="move_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια μετακίνησης αυτού του αρχείου ή φακέλου</string>
     <string name="move_file_invalid_into_descendent">Δεν είναι δυνατό να μετακινηθεί ο φάκελος σε έναν απογονικό</string>
     <string name="move_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
+    <string name="move_file_not_found">Αδύνατη η μετακίνηση. Ελέγξτε αν το αρχείο υπάρχει.</string>
     <string name="move_to">Μετακίνηση σε…</string>
+    <string name="network_error_connect_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή απόκρισης του διακομιστή. Η εργασία δεν μπορεί να ολοκληρωθεί.</string>
     <string name="network_error_socket_exception">Παρουσιάστηκε σφάλμα κατά τη σύνδεση με το διακομιστή.</string>
+    <string name="network_error_socket_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή απόκρισης του διακομιστή. Η εργασία δεν μπορεί να ολοκληρωθεί.</string>
+    <string name="network_host_not_available">Η εργασία δεν μπορεί να ολοκληρωθεί. Ο διακομιστής δεν είναι διαθέσιμος.</string>
     <string name="new_comment">Νέο σχόλιο…</string>
     <string name="new_media_folder_detected">Εντοπίστηκε νέος φάκελος πολυμέσων %1$s.</string>
     <string name="new_media_folder_photos">φωτογραφία</string>
@@ -580,6 +590,8 @@
     <string name="share_internal_link_to_folder_text">Οι εσωτερικοί κοινόχρηστοι σύνδεσμοι λειτουργούν μόνο για χρήστες με πρόσβαση στο φάκελο</string>
     <string name="share_known_remote_clarification">%1$s ( στο %2$s )</string>
     <string name="share_link_empty_password">Πρέπει να εισάγετε ένα συνθηματικό</string>
+    <string name="share_link_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια διαμοιρασμού του αρχείου ή φακέλου.</string>
+    <string name="share_link_file_no_exist">Αδυναμία διαμοιρασμού. Ελέγξτε αν υπάρχει το αρχείο.</string>
     <string name="share_link_forbidden_permissions">για να διαμοιραστείτε αυτό το αρχείο</string>
     <string name="share_link_optional_password_title">Εισάγετε προαιρετικό συνθηματικό</string>
     <string name="share_link_password_title">Εισάγετε ένα συνθηματικό</string>
@@ -703,6 +715,7 @@
     <string name="timeout_richDocuments">Η φόρτωση διαρκεί πολύ…</string>
     <string name="trashbin_activity_title">Διεγραμμένα αρχεία</string>
     <string name="trashbin_empty_headline">Κανένα διαγεγραμμένο αρχείο</string>
+    <string name="trashbin_empty_message">Μπορείτε να ανακτήσετε διαγραμμένα αρχεία από εδώ.</string>
     <string name="trashbin_file_not_deleted">Το αρχείο %1$s δεν μπορεί να διαγραφεί!</string>
     <string name="trashbin_file_not_restored">Το αρχείο %1$s δεν μπορεί να ανακτηθεί!</string>
     <string name="trashbin_loading_failed">Αποτυχία φόρτωσης κάδου ανακύκλωσης!</string>
@@ -710,9 +723,13 @@
     <string name="unread_comments">Υπάρχουν μη αναγνωσμένα σχόλια</string>
     <string name="unset_encrypted">Χρήση κρυπτογράφησης</string>
     <string name="unset_favorite">Αφαίρεση από τα αγαπημένα</string>
+    <string name="unshare_link_file_error">Παρουσιάστηκε σφάλμα κατά την αφαίρεση διαμοιρασμού του αρχείου ή φακέλου.</string>
+    <string name="unshare_link_file_no_exist">Αδυναμία αφαίρεσης κοινής χρήσης.  Ελέγξτε αν το αρχείο υπάρχει.</string>
     <string name="unshare_link_forbidden_permissions">για να αναιρέσετε το διαμοιρασμό αυτού του αρχείου</string>
     <string name="unsharing_failed">Απέτυχε η αναίρεση διαμοιρασμού</string>
     <string name="untrusted_domain">Πρόσβαση μέσω μη αξιόπιστου τομέα. Ανατρέξτε στην τεκμηρίωση για περισσότερες πληροφορίες.</string>
+    <string name="update_link_file_error">Παρουσιάστηκε σφάλμα κατά την ενημέρωση του διαμοιρασμού.</string>
+    <string name="update_link_file_no_exist">Αδυναμία ενημέρωσης. Ελέγξτε αν το αρχείο υπάρχει.</string>
     <string name="update_link_forbidden_permissions">για να ενημερώσετε αυτό τον διαμοιρασμό</string>
     <string name="updating_share_failed">Η ενημέρωση της κοινής χρήσης απέτυχε</string>
     <string name="upload_cannot_create_file">Αδυναμία δημιουργίας τοπικού αρχείου</string>
@@ -799,6 +816,7 @@
     <string name="userinfo_no_info_text">Προσθέστε όνομα, εικόνα και λεπτομέρειες επικοινωνίας στο προφίλ σας.</string>
     <string name="username">Όνομα χρήστη</string>
     <string name="version_dev_download">Λήψη</string>
+    <string name="view_profile">Προβολή προφίλ</string>
     <string name="wait_a_moment">Παρακαλούμε περιμένετε…</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>
