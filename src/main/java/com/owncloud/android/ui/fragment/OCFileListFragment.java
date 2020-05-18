@@ -696,9 +696,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mActiveActionMode = null;
 
             // reset to previous color
-            final FragmentActivity activity = getActivity();
-            if (activity != null) {
-                ThemeUtils.colorStatusBar(activity);
+            FragmentActivity fragmentActivity;
+            if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity) {
+                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) fragmentActivity;
+                fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir());
             }
 
             // show FAB on multi selection mode exit
