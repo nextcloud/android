@@ -10,7 +10,7 @@ until [[ $status = "false" ]]; do
 
     if [[ "$status" =~ "false" || "$status" = "" ]]; then
         let "counter += 1"
-         if [[ $counter -gt 10 ]]; then
+         if [[ $counter -gt 30 ]]; then
             echo "Failed to wait for server"
             exit 1
         fi
