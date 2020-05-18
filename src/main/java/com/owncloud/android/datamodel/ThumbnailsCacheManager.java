@@ -42,11 +42,9 @@ import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.Display;
-import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -885,17 +883,12 @@ public final class ThumbnailsCacheManager {
             Drawable thumbnail = null;
 
             try {
-                if (mAccount != null) {
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, mContext);
-                    mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, mContext);
-                }
-
                 thumbnail = doAvatarInBackground();
-
             } catch (OutOfMemoryError oome) {
                 Log_OC.e(TAG, "Out of memory");
             } catch (Throwable t) {
                 // the app should never break due to a problem with avatars
+                thumbnail = mResources.getDrawable(R.drawable.account_circle_white);
                 Log_OC.e(TAG, "Generation of avatar for " + mUserId + " failed", t);
             }
 
@@ -906,9 +899,8 @@ public final class ThumbnailsCacheManager {
             if (drawable != null) {
                 AvatarGenerationListener listener = mAvatarGenerationListener.get();
                 if (listener != null) {
-                    AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(mCallContext);
                     String accountName = mUserId + "@" + mServerName;
-                    if (this == avatarWorkerTask && listener.shouldCallGeneratedCallback(accountName, mCallContext)) {
+                    if (listener.shouldCallGeneratedCallback(accountName, mCallContext)) {
                         listener.avatarGenerated(drawable, mCallContext);
                     }
                 }
@@ -940,9 +932,14 @@ public final class ThumbnailsCacheManager {
             avatar = getBitmapFromDiskCache(avatarKey);
 
             // Download avatar from server, only if older than 60 min or avatar does not exist
-            if ((System.currentTimeMillis() - timestamp >= 60 * 60 * 1000 || avatar == null) && mClient != null) {
+            if ((System.currentTimeMillis() - timestamp >= 60 * 60 * 1000 || avatar == null)) {
                 GetMethod get = null;
                 try {
+                    if (mAccount != null) {
+                        OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, mContext);
+                        mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, mContext);
+                    }
+
                     int px = getAvatarDimension();
                     String uri = mClient.getBaseUri() + "/index.php/avatar/" + Uri.encode(mUserId) + "/" + px;
                     Log_OC.d("Avatar", "URI: " + uri);
@@ -1041,31 +1038,6 @@ public final class ThumbnailsCacheManager {
         return true;
     }
 
-    public static boolean cancelPotentialAvatarWork(Object file, Object callContext) {
-        if (callContext instanceof ImageView ||
-            callContext instanceof MenuItem ||
-            callContext instanceof MaterialButton) {
-
-            AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(callContext);
-            if (avatarWorkerTask != null) {
-                final Object usernameData = avatarWorkerTask.mUserId;
-                // If usernameData is not yet set or it differs from the new data
-                if (usernameData == null || !usernameData.equals(file)) {
-                    // Cancel previous task
-                    avatarWorkerTask.cancel(true);
-                    Log_OC.v(TAG, "Cancelled generation of avatar for a reused imageView");
-                } else {
-                    // The same work is already in progress
-                    return false;
-                }
-            }
-            // No task associated with the ImageView, or an existing task was cancelled
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public static ThumbnailGenerationTask getBitmapWorkerTask(ImageView imageView) {
         if (imageView != null) {
             final Drawable drawable = imageView.getDrawable();
@@ -1132,27 +1104,6 @@ public final class ThumbnailsCacheManager {
         return resultBitmap;
     }
 
-    public static AvatarGenerationTask getAvatarWorkerTask(Object callContext) {
-        if (callContext instanceof ImageView) {
-            return getAvatarWorkerTask(((ImageView) callContext).getDrawable());
-        } else if (callContext instanceof MenuItem) {
-            return getAvatarWorkerTask(((MenuItem) callContext).getIcon());
-        } else if (callContext instanceof MaterialButton) {
-            return getAvatarWorkerTask(((MaterialButton) callContext).getIcon());
-        }
-
-        return null;
-    }
-
-    private static AvatarGenerationTask getAvatarWorkerTask(Drawable drawable) {
-        if (drawable instanceof AsyncAvatarDrawable) {
-            final AsyncAvatarDrawable asyncDrawable = (AsyncAvatarDrawable) drawable;
-            return asyncDrawable.getAvatarWorkerTask();
-        }
-        return null;
-    }
-
-
     public static class AsyncThumbnailDrawable extends BitmapDrawable {
         private final WeakReference<ThumbnailGenerationTask> bitmapWorkerTaskReference;
 
@@ -1190,19 +1141,6 @@ public final class ThumbnailsCacheManager {
 
             super(res, bitmap);
             bitmapWorkerTaskReference = new WeakReference<>(bitmapWorkerTask);
-        }
-    }
-
-    public static class AsyncAvatarDrawable extends BitmapDrawable {
-        private final WeakReference<AvatarGenerationTask> avatarWorkerTaskReference;
-
-        public AsyncAvatarDrawable(Resources res, Drawable bitmap, AvatarGenerationTask avatarWorkerTask) {
-            super(res, BitmapUtils.drawableToBitmap(bitmap));
-            avatarWorkerTaskReference = new WeakReference<>(avatarWorkerTask);
-        }
-
-        public AvatarGenerationTask getAvatarWorkerTask() {
-            return avatarWorkerTaskReference.get();
         }
     }
 
