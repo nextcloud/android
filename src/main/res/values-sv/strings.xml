@@ -33,6 +33,7 @@
     <string name="activity_chooser_title">Skicka länk till…</string>
     <string name="activity_icon">Aktivitet</string>
     <string name="add_to_cloud">Lägg till %1$s</string>
+    <string name="appbar_search_in">Sök i %s</string>
     <string name="associated_account_not_found">Associerat konto kunde inte hittas!</string>
     <string name="auth_access_failed">Åtkomst misslyckades: %1$s</string>
     <string name="auth_account_does_not_exist">Kontot har ännu inte lagts till på den här enheten</string>
@@ -800,6 +801,7 @@
     <string name="userinfo_no_info_text">Lägg till namn, bild och kontaktuppgifter på din profilsida.</string>
     <string name="username">Användarnamn</string>
     <string name="version_dev_download">Hämta</string>
+    <string name="view_profile">Visa profil</string>
     <string name="wait_a_moment">Vänligen vänta…</string>
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>

@@ -33,6 +33,7 @@
     <string name="activity_chooser_title">Link senden an…</string>
     <string name="activity_icon">Aktivitäten</string>
     <string name="add_to_cloud">Hinzufügen zu %1$s</string>
+    <string name="appbar_search_in">Suche in %s</string>
     <string name="associated_account_not_found">Verknüpftes Konto nicht gefunden!</string>
     <string name="auth_access_failed">Zugriffsfehler: %1$s</string>
     <string name="auth_account_does_not_exist">Das Benutzerkonto ist bislang auf dem Gerät nicht vorhanden</string>
@@ -43,6 +44,7 @@
     <string name="auth_check_server">Server überprüfen</string>
     <string name="auth_connection_established">Verbindung hergestellt</string>
     <string name="auth_expired_basic_auth_toast">Bitte geben Sie das aktuelle Passwort ein</string>
+    <string name="auth_fail_get_user_name">Ihr Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktieren Sie einen Administrator.</string>
     <string name="auth_host_address">Serveradresse</string>
     <string name="auth_host_url">Serveradresse https://…</string>
     <string name="auth_illegal_login_used">Ungültige Anmeldeadresse verwendet</string>
@@ -70,6 +72,7 @@
     <string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
     <string name="auth_username">Benutzername</string>
     <string name="auth_wrong_connection_title">Verbindung konnte nicht hergestellt werden</string>
+    <string name="auth_wtf_reenter_URL">Unerwarteter Zustand, bitte geben Sie die Adresse des Servers erneut ein.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
     <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -118,6 +121,7 @@
     <string name="community_beta_text">Dies beinhaltet neue Funktionalitäten und ist nicht komplett qualitätsgesichert. Es können daher Fehler/Bugs auftreten, melden Sie uns solche bitte.</string>
     <string name="community_contribute_forum_forum">Forum</string>
     <string name="community_contribute_forum_text">Helfen Sie anderen auf</string>
+    <string name="community_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, weitere Enzelheiten finden Sie hier: %1$s.</string>
     <string name="community_contribute_headline">Aktiv etwas beitragen</string>
     <string name="community_contribute_irc_text">Dem Chat im IRC beitreten: </string>
     <string name="community_contribute_translate_text">die App</string>
@@ -161,6 +165,7 @@
     <string name="copy_file_error">Es ist ein Fehler beim Kopieren der Datei oder des Ordners aufgetreten.</string>
     <string name="copy_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu kopieren</string>
     <string name="copy_file_invalid_overwrite">Die Datei existiert bereits im Zielverzeichnis</string>
+    <string name="copy_file_not_found">Kopieren nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
     <string name="copy_link">Link kopieren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
     <string name="copy_to">Kopieren nach…</string>
@@ -284,6 +289,7 @@
     <string name="file_list_empty">Laden Sie Inhalt hoch oder synchronisieren Sie mit Ihren Geräten.</string>
     <string name="file_list_empty_favorite_headline">Noch keine Favoriten vorhanden</string>
     <string name="file_list_empty_favorites_filter">Keine favorisierten Dateien in Ihrem Verlauf gefunden.</string>
+    <string name="file_list_empty_favorites_filter_list">Dateien und Ordner, die als Favoriten markiert werden, erscheinen hier.</string>
     <string name="file_list_empty_headline"> Keine Dateien vorhanden </string>
     <string name="file_list_empty_headline_search">Keine Ergebnisse in diesem Ordner</string>
     <string name="file_list_empty_headline_server_search">Keine Ergebnisse</string>
@@ -295,6 +301,7 @@
     <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>
     <string name="file_list_empty_recently_modified_filter">Keine Dateien in den letzten 7 Tagen geändert.</string>
     <string name="file_list_empty_search">Vielleicht befindet es sich in einem anderen Ordner?</string>
+    <string name="file_list_empty_shared">Von Ihnen geteilte Dateien und Ordner werden hier angezeigt.</string>
     <string name="file_list_empty_shared_headline">Noch nichts geteilt</string>
     <string name="file_list_empty_text_photos">Laden Sie Fotos hoch oder aktivieren Sie den Sofortupload.</string>
     <string name="file_list_empty_text_photos_filter">Keine Fotos.</string>
@@ -412,8 +419,12 @@
     <string name="move_file_error">Es ist ein Fehler beim Verschieben der Datei oder des Ordners aufgetreten.</string>
     <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
     <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
+    <string name="move_file_not_found">Verschieben nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
     <string name="move_to">Verschieben nach…</string>
+    <string name="network_error_connect_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation konnte nicht abgeschlossen werden.</string>
     <string name="network_error_socket_exception">Es ist ein Fehler beim Verbinden mit dem Server aufgetreten.</string>
+    <string name="network_error_socket_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation konnte nicht abgeschlossen werden</string>
+    <string name="network_host_not_available">Die Operation kann nicht abgeschlossen werden, der Server ist nicht erreichbar.</string>
     <string name="new_comment">Neuer Kommentar…</string>
     <string name="new_media_folder_detected">Neuer Medienordner %1$s gefunden.</string>
     <string name="new_media_folder_photos">Foto</string>
@@ -580,6 +591,8 @@
     <string name="share_internal_link_to_folder_text">Der interne Freigabelink funktioniert nur für Benutzer mit Zugriff auf diesen Ordner</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
     <string name="share_link_empty_password">Sie müssen ein Passwort eingeben</string>
+    <string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
+    <string name="share_link_file_no_exist">Teilen nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
     <string name="share_link_forbidden_permissions">diese Datei zu teilen</string>
     <string name="share_link_optional_password_title">Passwort eingeben (optional)</string>
     <string name="share_link_password_title">Passwort eingeben</string>
@@ -704,6 +717,7 @@
     <string name="timeout_richDocuments">Das Laden dauert sehr lange…</string>
     <string name="trashbin_activity_title">Gelöschte Dateien</string>
     <string name="trashbin_empty_headline">Keine gelöschten Dateien</string>
+    <string name="trashbin_empty_message">Hier können Sie gelöschte Dateien wiederherstellen.</string>
     <string name="trashbin_file_not_deleted">Datei %1$s konnte nicht gelöscht werden!</string>
     <string name="trashbin_file_not_restored">Datei %1$s konnte nicht wiederhergestellt werden!</string>
     <string name="trashbin_loading_failed">Laden der gelöschten Dateien fehlgeschlagen!</string>
@@ -711,9 +725,13 @@
     <string name="unread_comments">Es gibt  ungelesene Kommentare</string>
     <string name="unset_encrypted">Verschlüsselung aufheben</string>
     <string name="unset_favorite">Aus den Favoriten entfernen</string>
+    <string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
+    <string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
     <string name="unshare_link_forbidden_permissions">diese Datei nicht mehr zu teilen</string>
     <string name="unsharing_failed">Freigabe aufheben fehlgeschlagen</string>
     <string name="untrusted_domain">Zugriff über nicht vertrauenswürdige Domain. Weitere Informationen finden sich in der Dokumentation.</string>
+    <string name="update_link_file_error">Fehler bei der Aktualisierungd der Freigabe aufgetreten.</string>
+    <string name="update_link_file_no_exist">Aktualisierung nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
     <string name="update_link_forbidden_permissions">zum Aktualisieren dieser Freigabe</string>
     <string name="updating_share_failed">Aktualisierung der Freigabe fehlgeschlagen</string>
     <string name="upload_cannot_create_file">Datei kann lokal nicht erstellt werden</string>
@@ -800,6 +818,7 @@
     <string name="userinfo_no_info_text">Fügen Sie Name, Bild und Kontaktdaten auf Ihrer Profilseite hinzu.</string>
     <string name="username">Benutzername</string>
     <string name="version_dev_download">Herunterladen</string>
+    <string name="view_profile">Profil ansehen</string>
     <string name="wait_a_moment">Bitte warten…</string>
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>
