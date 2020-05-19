@@ -19,6 +19,7 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_default"
@@ -26,7 +27,7 @@
 
     <include layout="@layout/toolbar_standard" />
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/nav_drawer_header_height">
 
@@ -34,82 +35,62 @@
             android:id="@+id/user_info_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/background_nc18"
             android:contentDescription="@string/drawer_header_background"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:orientation="vertical">
+        <ImageView
+            android:id="@+id/user_icon"
+            android:layout_width="@dimen/nav_drawer_header_avatar"
+            android:layout_height="@dimen/nav_drawer_header_avatar"
+            android:layout_marginStart="@dimen/account_item_layout_user_image_left_start_margin"
+            android:layout_marginBottom="@dimen/account_item_layout_user_image_left_start_margin"
+            android:contentDescription="@string/avatar"
+            android:src="@drawable/account_circle_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/toolbar_user_information_layout_margin"
-                android:layout_marginEnd="@dimen/standard_half_margin"
-                android:layout_marginBottom="@dimen/toolbar_user_information_layout_margin"
-                android:gravity="bottom"
-                android:orientation="horizontal"
-                android:weightSum="1">
+        <TextView
+            android:id="@+id/userinfo_username_full"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:shadowColor="@color/drawer_shadow"
+            android:shadowDx="0.5"
+            android:shadowDy="0"
+            android:shadowRadius="2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/file_details_username_text_size"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/user_icon"
+            app:layout_constraintTop_toTopOf="@id/user_icon"
+            tools:text="John Doe" />
 
-                <FrameLayout
-                    android:id="@+id/avatar_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/userinfo_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1"
+            android:shadowColor="@color/drawer_shadow"
+            android:shadowDx="0.5"
+            android:shadowDy="0"
+            android:shadowRadius="2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/drawer_header_subtext"
+            app:layout_constraintStart_toStartOf="@id/userinfo_username_full"
+            app:layout_constraintTop_toBottomOf="@id/userinfo_username_full"
+            tools:text="john@nextcloud.com" />
 
-                    <ImageView
-                        android:id="@+id/user_icon"
-                        android:layout_width="@dimen/nav_drawer_header_avatar"
-                        android:layout_height="@dimen/nav_drawer_header_avatar"
-                        android:contentDescription="@string/avatar"
-                        android:src="@drawable/account_circle_white" />
-                </FrameLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="@dimen/standard_half_margin"
-                    android:layout_marginRight="@dimen/standard_half_margin"
-                    android:layout_toEndOf="@id/avatar_container"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/userinfo_username_full"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:shadowColor="@color/drawer_shadow"
-                        android:shadowDx="0.5"
-                        android:shadowDy="0"
-                        android:shadowRadius="2"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/drawer_header_text"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/userinfo_username"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:lines="1"
-                        android:maxLines="1"
-                        android:shadowColor="@color/drawer_shadow"
-                        android:shadowDx="0.5"
-                        android:shadowDy="0"
-                        android:shadowRadius="2"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/drawer_header_subtext" />
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <include layout="@layout/info_box" />
-
-        </LinearLayout>
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/user_info_view"
