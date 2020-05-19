@@ -99,11 +99,10 @@ public class UserInfoActivity extends FileActivity implements Injectable {
     @BindView(R.id.empty_list_view_text) protected TextView emptyContentMessage;
     @BindView(R.id.empty_list_view_headline) protected TextView emptyContentHeadline;
     @BindView(R.id.empty_list_icon) protected ImageView emptyContentIcon;
-    @BindView(R.id.user_info_view) protected LinearLayout userInfoView;
-    @BindView(R.id.user_icon) protected ImageView avatar;
+    @BindView(R.id.userinfo_icon) protected ImageView avatar;
     @BindView(R.id.userinfo_username) protected TextView userName;
-    @BindView(R.id.userinfo_username_full) protected TextView fullName;
-    @BindView(R.id.user_info_list) protected RecyclerView mUserInfoList;
+    @BindView(R.id.userinfo_fullName) protected TextView fullName;
+    @BindView(R.id.userinfo_list) protected RecyclerView mUserInfoList;
     @BindView(R.id.empty_list_progress) protected ProgressBar multiListProgressBar;
 
     @BindString(R.string.user_information_retrieval_error) protected String sorryMessage;
@@ -233,7 +232,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
 
     private void setHeaderImage() {
         if (getStorageManager().getCapability(user.getAccountName()).getServerBackground() != null) {
-            ImageView backgroundImageView = findViewById(R.id.user_info_background);
+            ImageView backgroundImageView = findViewById(R.id.userinfo_background);
 
             if (backgroundImageView != null) {
 
@@ -292,7 +291,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
                 getString(R.string.userinfo_no_info_text), R.drawable.ic_user);
         } else {
             emptyContentContainer.setVisibility(View.GONE);
-            userInfoView.setVisibility(View.VISIBLE);
+            mUserInfoList.setVisibility(View.VISIBLE);
 
             if (mUserInfoList.getAdapter() instanceof UserInfoAdapter) {
                 mUserInfoList.setAdapter(new UserInfoAdapter(createUserInfoDetails(userInfo), tint));

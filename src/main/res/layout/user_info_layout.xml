@@ -32,7 +32,7 @@
         android:layout_height="@dimen/nav_drawer_header_height">
 
         <ImageView
-            android:id="@+id/user_info_background"
+            android:id="@+id/userinfo_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/background_nc18"
@@ -44,7 +44,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/user_icon"
+            android:id="@+id/userinfo_icon"
             android:layout_width="@dimen/nav_drawer_header_avatar"
             android:layout_height="@dimen/nav_drawer_header_avatar"
             android:layout_marginStart="@dimen/account_item_layout_user_image_left_start_margin"
@@ -55,13 +55,13 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/userinfo_username_full"
+            android:id="@+id/userinfo_fullName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:lines="1"
             android:shadowColor="@color/drawer_shadow"
             android:shadowDx="0.5"
             android:shadowDy="0"
@@ -69,8 +69,9 @@
             android:textColor="@color/white"
             android:textSize="@dimen/file_details_username_text_size"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/user_icon"
-            app:layout_constraintTop_toTopOf="@id/user_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/userinfo_icon"
+            app:layout_constraintTop_toTopOf="@id/userinfo_icon"
             tools:text="John Doe" />
 
         <TextView
@@ -78,36 +79,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:lines="1"
-            android:maxLines="1"
+            android:lines="2"
             android:shadowColor="@color/drawer_shadow"
             android:shadowDx="0.5"
             android:shadowDy="0"
             android:shadowRadius="2"
             android:textColor="@color/white"
             android:textSize="@dimen/drawer_header_subtext"
-            app:layout_constraintStart_toStartOf="@id/userinfo_username_full"
-            app:layout_constraintTop_toBottomOf="@id/userinfo_username_full"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/userinfo_fullName"
+            app:layout_constraintTop_toBottomOf="@id/userinfo_fullName"
             tools:text="john@nextcloud.com" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/user_info_view"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userinfo_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="6dp"
+        android:layout_margin="@dimen/standard_margin"
         android:orientation="vertical"
-        android:visibility="gone">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/user_info_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    </LinearLayout>
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <include layout="@layout/empty_list" />
 
