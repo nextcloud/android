@@ -1,0 +1,5 @@
+Add licence
+Add light navigationbar and fix statusbar with actionMode
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
