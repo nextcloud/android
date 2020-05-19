@@ -396,7 +396,7 @@ public class FileDataStorageManager {
                     if (file.isDown()) {
                         String path = file.getStoragePath();
                         if (new File(path).delete() && MimeTypeUtil.isMedia(file.getMimeType())) {
-                            triggerMediaScan(path); // notify MediaScanner about removed file
+                            triggerMediaScan(path, file); // notify MediaScanner about removed file
                         }
                     }
                 }
