@@ -151,7 +151,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
-            actionBar.setTitle("");
+            ThemeUtils.tintBackButton(actionBar, this);
         }
 
         mUserInfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount(), true, this)));
@@ -223,7 +223,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
 
     private void setHeaderImage() {
         if (getStorageManager().getCapability(user.getAccountName()).getServerBackground() != null) {
-            ImageView backgroundImageView = findViewById(R.id.drawer_header_background);
+            ImageView backgroundImageView = findViewById(R.id.user_info_background);
 
             if (backgroundImageView != null) {
 
