@@ -79,6 +79,7 @@
         <item name="actionModeBackground">@color/action_mode_background</item>
         <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
         <item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
+        <item name="android:colorBackground">@color/bg_default</item>
         <item name="android:windowBackground">@color/bg_default</item>
         <item name="colorAccent">@color/color_accent</item>
         <item name="colorPrimary">@color/primary</item>
@@ -92,8 +93,7 @@
     <style name="Theme.ownCloud.Toolbar" parent="BaseTheme.ownCloud.Toolbar" />
 
 	<!-- separate style for Drawer activities needed for v21+ theming -->
-	<style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar">
-	</style>
+	<style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar"/>
 
 	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.Toolbar">
 		<item name="android:windowBackground">@color/primary</item>
