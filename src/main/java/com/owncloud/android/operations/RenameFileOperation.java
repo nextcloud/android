@@ -131,7 +131,7 @@ public class RenameFileOperation extends SyncOperation {
                 getStorageManager().deleteFileInMediaScan(oldPath);
                 // notify to scan about new file, if it is a media file
                 if (MimeTypeUtil.isMedia(file.getMimeType())) {
-                    FileDataStorageManager.triggerMediaScan(newPath);
+                    FileDataStorageManager.triggerMediaScan(newPath, file);
                 }
             }
             // else - NOTHING: the link to the local file is kept although the local name
