@@ -679,14 +679,14 @@ public class UploadFileOperation extends SyncOperation {
 
         // check that connectivity conditions are met and delays the upload otherwise
         Connectivity connectivity = connectivityService.getConnectivity();
-        if (mOnWifiOnly && connectivity.isWifi()) {
+        if (mOnWifiOnly && !connectivity.isWifi()) {
             Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
             remoteOperationResult = new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
         }
 
         // check if charging conditions are met and delays the upload otherwise
         final BatteryStatus battery = powerManagementService.getBattery();
-        if (mWhileChargingOnly && battery.isCharging()) {
+        if (mWhileChargingOnly && !battery.isCharging()) {
             Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
             remoteOperationResult =  new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
         }
