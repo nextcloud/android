@@ -43,6 +43,7 @@
     <string name="auth_check_server">Egiaztatu zerbitzaria</string>
     <string name="auth_connection_established">Konexioa ezarri da</string>
     <string name="auth_expired_basic_auth_toast">Sartu uneko pasahitza</string>
+    <string name="auth_fail_get_user_name">Zure zerbitzaria ez du erabiltzaile ID zuzena itzultzen, mesedez jarri harremanetan administratzaile batekin.</string>
     <string name="auth_host_address">Zerbitzariaren helbidea</string>
     <string name="auth_host_url">Zerbitzariaren helbidea https://…</string>
     <string name="auth_illegal_login_used">Saio hasierako datuen URL baliogabea erabili da</string>
@@ -161,6 +162,7 @@
     <string name="copy_file_error">Fitxategi edo karpeta kopiatzean errore bat gertatu da.</string>
     <string name="copy_file_invalid_into_descendent">Ezin da karpeta bat bere azpikarpeta batera kopiatu</string>
     <string name="copy_file_invalid_overwrite">Fitxategi hau existitzen da jadanik helburuko karpetan</string>
+    <string name="copy_file_not_found">Ezin izan da kopiatu. Mesedez egiaztatu fitxategia existitzen dela.</string>
     <string name="copy_link">Kopiatu esteka</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Une honetan ez da onartzen enkriptatutako karpetara kopiatzea/mugitzea.</string>
     <string name="copy_to">Kopiatu hona…</string>
@@ -414,6 +416,7 @@
     <string name="move_file_invalid_overwrite">Fitxategi hau existitzen da jadanik helburuko karpetan</string>
     <string name="move_to">Mugitu hona…</string>
     <string name="network_error_socket_exception">Errore bat gertatu da zerbitzariarekin konektatzean.</string>
+    <string name="network_host_not_available">Ezin izan da eragiketa burutu. Zerbitzaria ez dago eskuragarri.</string>
     <string name="new_comment">Iruzkin berria...</string>
     <string name="new_media_folder_detected">%1$s multimedia karpeta berria aurkitu da.</string>
     <string name="new_media_folder_photos">argazkia</string>
@@ -713,6 +716,8 @@
     <string name="unshare_link_forbidden_permissions">fitxategiaren konpartitzea kentzeko</string>
     <string name="unsharing_failed">Kargatzeak huts egin du</string>
     <string name="untrusted_domain">Sarbidea fidagarritasunik gabeko domeinuaren bidez. Informazio gehiago lortzeko, ikusi dokumentazioa.</string>
+    <string name="update_link_file_error">Errorea gertatu da partekatzea eguneratzean.</string>
+    <string name="update_link_file_no_exist">Ezin izan da eguneratu. Mesedez egiaztatu fitxategia existitzen dela.</string>
     <string name="update_link_forbidden_permissions">eguneratzeko partekatze hau</string>
     <string name="updating_share_failed">partekatzearen eguneraketa huts egin du</string>
     <string name="upload_cannot_create_file">Ezin da sortu fitxategi lokala</string>

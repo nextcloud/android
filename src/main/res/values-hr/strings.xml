@@ -262,6 +262,7 @@
     <string name="etm_background_jobs">Pozadinski zadaci</string>
     <string name="etm_background_jobs_cancel_all">Otkaži sve zadatke</string>
     <string name="etm_background_jobs_prune">Pročisti neaktivne zadatke</string>
+    <string name="etm_background_jobs_schedule_test_job">Zakaži ispitni zadatak</string>
     <string name="etm_background_jobs_start_test_job">Pokreni ispitni zadatak</string>
     <string name="etm_background_jobs_stop_test_job">Zaustavi ispitni zadatak</string>
     <string name="etm_migrations">Migracije (nadogradnja aplikacije)</string>
