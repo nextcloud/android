@@ -18,15 +18,19 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- General ownCloud app style -->
-    <style name="Theme.ownCloud" parent="BaseTheme.ownCloud">
+    <style name="Theme.ownCloudBase" parent="BaseTheme.ownCloud">
         <item name="android:actionModeBackground">@color/action_mode_background</item>
         <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
     </style>
 
-    <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase">
+    <style name="Theme.ownCloud" parent="Theme.ownCloudBase" />
+
+    <style name="FallbackThemingThemeBase21" parent="FallbackThemingThemeBase">
         <item name="android:actionModeBackground">@color/action_mode_background</item>
         <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
     </style>
+
+    <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase21" />
 
     <style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
         <item name="colorPrimary">@color/bg_default</item>
@@ -51,16 +55,18 @@
         <item name="android:windowBackground">@color/bg_default</item>
     </style>
 
-    <style name="Theme.ownCloud.Toolbar" parent="BaseTheme.ownCloud.Toolbar">
+    <style name="Theme.ownCloud.ToolbarBase" parent="BaseTheme.ownCloud.Toolbar">
         <item name="android:actionModeBackground">@color/action_mode_background</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
+
+    <style name="Theme.ownCloud.Toolbar" parent="Theme.ownCloud.ToolbarBase" />
 
     <style name="Theme.ownCloud.Toolbar.DrawerBase" parent="Theme.ownCloud.Toolbar">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar.DrawerBase"/>
+    <style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar.DrawerBase" />
 
     <!-- Launch screen -->
     <style name="Theme.ownCloud.Launcher">
