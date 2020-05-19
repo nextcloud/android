@@ -21,10 +21,13 @@
 -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/account_item_layout_height"
     android:orientation="horizontal"
-    android:weightSum="1">
+    android:foreground="?attr/selectableItemBackground"
+    tools:ignore="UnusedAttribute">
 
     <FrameLayout
         android:id="@+id/avatar_container"
@@ -70,8 +73,8 @@
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/standard_half_margin"
-                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginEnd="@dimen/standard_double_margin"
+                android:layout_marginStart="@dimen/standard_half_margin"
                 android:layout_marginTop="@dimen/standard_quarter_margin"
                 android:ellipsize="end"
                 android:gravity="bottom"
@@ -84,11 +87,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/standard_quarter_margin"
-                android:layout_marginEnd="@dimen/standard_half_margin"
-                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginEnd="@dimen/standard_double_margin"
+                android:layout_marginStart="@dimen/standard_half_margin"
                 android:ellipsize="end"
                 android:gravity="top"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:text="@string/placeholder_sentence"
                 android:textColor="?android:attr/textColorSecondary"/>
 

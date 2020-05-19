@@ -62,6 +62,7 @@ import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.ui.ChooseAccountFragment;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -495,16 +496,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     private void handleAccountItemClick(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.drawer_menu_account_add:
-                boolean isProviderOrOwnInstallationVisible = getResources()
-                    .getBoolean(R.bool.show_provider_or_own_installation);
-
-                if (isProviderOrOwnInstallationVisible) {
-                    Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
-                    firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
-                    startActivity(firstRunIntent);
-                } else {
-                    startAccountCreation();
-                }
+                openAddAccount();
                 break;
 
             case R.id.drawer_menu_account_manage:
@@ -517,9 +509,27 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
+    public void showManageAccountsDialog() {
+        ChooseAccountFragment choseAccountDialog = ChooseAccountFragment.newInstance(accountManager.getUser());
+        choseAccountDialog.show(getSupportFragmentManager(), "fragment_chose_account");
+    }
+
     public void openManageAccounts() {
         Intent manageAccountsIntent = new Intent(getApplicationContext(), ManageAccountsActivity.class);
         startActivityForResult(manageAccountsIntent, ACTION_MANAGE_ACCOUNTS);
+    }
+
+    public void openAddAccount() {
+        boolean isProviderOrOwnInstallationVisible = getResources()
+            .getBoolean(R.bool.show_provider_or_own_installation);
+
+        if (isProviderOrOwnInstallationVisible) {
+            Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
+            firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
+            startActivity(firstRunIntent);
+        } else {
+            startAccountCreation();
+        }
     }
 
     private void startPhotoSearch(MenuItem menuItem) {
@@ -569,7 +579,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      *
      * @param hashCode HashCode of account to be set
      */
-    private void accountClicked(int hashCode) {
+    public void accountClicked(int hashCode) {
         final User currentUser = accountManager.getUser();
         if (currentUser.hashCode() != hashCode && accountManager.setCurrentOwnCloudAccount(hashCode)) {
             fetchExternalLinks(true);
