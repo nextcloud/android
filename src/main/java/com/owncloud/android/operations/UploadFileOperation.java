@@ -1348,7 +1348,7 @@ public class UploadFileOperation extends SyncOperation {
         getStorageManager().saveConflict(file, null);
 
         if (MimeTypeUtil.isMedia(file.getMimeType())) {
-            FileDataStorageManager.triggerMediaScan(file.getStoragePath());
+            FileDataStorageManager.triggerMediaScan(file.getStoragePath(), file);
         }
 
         // generate new Thumbnail
