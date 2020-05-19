@@ -142,7 +142,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         setContentView(R.layout.user_info_layout);
         unbinder = ButterKnife.bind(this);
 
-        setupToolbar(false);
+        setupToolbar();
 
         // set the back button from action bar
         ActionBar actionBar = getSupportActionBar();
