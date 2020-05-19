@@ -461,7 +461,6 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             itemLayout = itemView.findViewById(R.id.ListItemLayout);
 
             itemView.findViewById(R.id.sharedIcon).setVisibility(View.GONE);
-            itemView.findViewById(R.id.sharedAvatars).setVisibility(View.GONE);
             itemView.findViewById(R.id.favorite_action).setVisibility(View.GONE);
             itemView.findViewById(R.id.localFileIndicator).setVisibility(View.GONE);
         }
