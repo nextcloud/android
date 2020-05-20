@@ -20,6 +20,8 @@
 
 package com.nextcloud.ui
 
+import android.annotation.SuppressLint
+import android.app.Dialog
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,6 +30,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.owncloud.android.R
@@ -37,6 +40,7 @@ import com.owncloud.android.ui.adapter.UserListAdapter
 import com.owncloud.android.ui.adapter.UserListItem
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
+import com.owncloud.android.utils.ThemeUtils
 import kotlinx.android.synthetic.main.account_item.*
 import kotlinx.android.synthetic.main.dialog_choose_account.*
 import java.util.ArrayList
@@ -44,6 +48,7 @@ import java.util.ArrayList
 private const val ARG_CURRENT_USER_PARAM = "currentUser"
 
 class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, UserListAdapter.ClickListener {
+    private lateinit var dialogView: View
     private var currentUser: User? = null
     private lateinit var accountManager: UserAccountManager
 
@@ -52,6 +57,14 @@ class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, 
         arguments?.let {
             currentUser = it.getParcelable(ARG_CURRENT_USER_PARAM)
         }
+    }
+
+    @SuppressLint("InflateParams")
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_choose_account, null)
+        return MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogView)
+            .create()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,7 +88,9 @@ class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, 
             account.text = user.accountName
 
             // Defining user right indicator
-            account_menu.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_check_circle))
+            val icon = ThemeUtils.tintDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_check_circle),
+                ThemeUtils.primaryColor(requireContext(), true))
+            account_menu.setImageDrawable(icon)
 
             // Creating adapter for accounts list
             val adapter = UserListAdapter(activity as BaseActivity,
@@ -126,7 +141,7 @@ class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, 
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.dialog_choose_account, container, false)
+        return dialogView
     }
 
     override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean {
