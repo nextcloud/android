@@ -21,7 +21,6 @@
 
 package com.owncloud.android.operations;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;

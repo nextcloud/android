@@ -87,8 +87,12 @@ public class DownloadFileOperation extends RemoteOperation {
 
     public String getSavePath() {
         if (file.getStoragePath() != null) {
+            File parentFile = new File(file.getStoragePath()).getParentFile();
+            if (parentFile != null && !parentFile.exists()) {
+                parentFile.mkdirs();
+            }
             File path = new File(file.getStoragePath());  // re-downloads should be done over the original file
-            if (path.canWrite()) {
+            if (path.canWrite() || parentFile != null && parentFile.canWrite()) {
                 return path.getAbsolutePath();
             }
         }
@@ -117,7 +121,7 @@ public class DownloadFileOperation extends RemoteOperation {
                             file.getRemotePath().lastIndexOf('.') + 1));
             } catch (IndexOutOfBoundsException e) {
                 Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " +
-                        file.getRemotePath());
+                    file.getRemotePath());
             }
         }
         if (mimeType == null) {

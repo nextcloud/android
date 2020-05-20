@@ -22,9 +22,11 @@ package com.owncloud.android.utils;
  */
 public final class MimeType {
     public static final String DIRECTORY = "DIR";
+    public static final String WEBDAV_FOLDER = "httpd/unix-directory";
     public static final String JPEG = "image/jpeg";
     public static final String TIFF = "image/tiff";
     public static final String TEXT_PLAIN = "text/plain";
+    public static final String FILE = "application/octet-stream";
 
     private MimeType() {
         // No instance

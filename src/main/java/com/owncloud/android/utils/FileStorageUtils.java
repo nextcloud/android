@@ -201,6 +201,7 @@ public final class FileStorageUtils {
      */
     public static OCFile fillOCFile(RemoteFile remote) {
         OCFile file = new OCFile(remote.getRemotePath());
+        file.setDecryptedRemotePath(remote.getRemotePath());
         file.setCreationTimestamp(remote.getCreationTimestamp());
         if (MimeType.DIRECTORY.equalsIgnoreCase(remote.getMimeType())) {
             file.setFileLength(remote.getSize());
@@ -449,7 +450,7 @@ public final class FileStorageUtils {
             return true;
         }
 
-        while (!OCFile.ROOT_PATH.equals(file.getRemotePath())) {
+        while (!OCFile.ROOT_PATH.equals(file.getDecryptedRemotePath())) {
             if (file.isEncrypted()) {
                 return true;
             }

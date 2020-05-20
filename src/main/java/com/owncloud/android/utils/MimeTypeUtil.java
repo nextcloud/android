@@ -301,7 +301,7 @@ public final class MimeTypeUtil {
      */
     public static boolean isImage(ServerFileInterface file) {
         return MimeTypeUtil.isImage(file.getMimeType())
-                || MimeTypeUtil.isImage(getMimeTypeFromPath(file.getRemotePath()));
+            || MimeTypeUtil.isImage(getMimeTypeFromPath(file.getRemotePath()));
     }
 
     /**
@@ -310,7 +310,7 @@ public final class MimeTypeUtil {
      */
     public static boolean isText(OCFile file) {
         return MimeTypeUtil.isText(file.getMimeType())
-                || MimeTypeUtil.isText(getMimeTypeFromPath(file.getRemotePath()));
+            || MimeTypeUtil.isText(getMimeTypeFromPath(file.getRemotePath()));
     }
 
     /**

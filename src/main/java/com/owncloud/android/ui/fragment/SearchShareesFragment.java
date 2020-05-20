@@ -160,8 +160,8 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
         // Get Users and Groups
         if (((FileActivity) mListener).getStorageManager() != null) {
             mShares = ((FileActivity) mListener).getStorageManager().getSharesWithForAFile(
-                    mFile.getRemotePath(),
-                    mAccount.name
+                mFile.getRemotePath(),
+                mAccount.name
             );
 
             // Update list of users/groups

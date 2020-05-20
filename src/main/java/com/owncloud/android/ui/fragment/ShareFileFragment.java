@@ -606,8 +606,8 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         if (((FileActivity) mListener).getStorageManager() != null) {
             // Get Users and Groups
             mPrivateShares = ((FileActivity) mListener).getStorageManager().getSharesWithForAFile(
-                    mFile.getRemotePath(),
-                    mAccount.name
+                mFile.getRemotePath(),
+                mAccount.name
             );
 
             // Update list of users/groups
@@ -672,9 +672,9 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         } else if (((FileActivity) mListener).getStorageManager() != null) {
             // Get public share
             mPublicShare = ((FileActivity) mListener).getStorageManager().getFirstShareByPathAndType(
-                    mFile.getRemotePath(),
-                    ShareType.PUBLIC_LINK,
-                    ""
+                mFile.getRemotePath(),
+                ShareType.PUBLIC_LINK,
+                ""
             );
 
             // Update public share section
