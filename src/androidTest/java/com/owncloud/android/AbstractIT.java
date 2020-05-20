@@ -10,11 +10,12 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.evernote.android.job.JobRequest;
 import com.facebook.testing.screenshot.Screenshot;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
+import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -38,6 +39,7 @@ import junit.framework.TestCase;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.io.FileUtils;
+import org.jetbrains.annotations.NotNull;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -73,6 +75,9 @@ public abstract class AbstractIT {
     protected static Context targetContext;
 
     private Activity currentActivity;
+
+    protected FileDataStorageManager fileDataStorageManager =
+        new FileDataStorageManager(account, targetContext.getContentResolver());
 
     @BeforeClass
     public static void beforeAll() {
@@ -152,7 +157,7 @@ public abstract class AbstractIT {
 
 
     protected FileDataStorageManager getStorageManager() {
-        return new FileDataStorageManager(account, targetContext.getContentResolver());
+        return fileDataStorageManager;
     }
 
     protected Account[] getAllAccounts() {
@@ -272,17 +277,18 @@ public abstract class AbstractIT {
             }
 
             @Override
-            public boolean isOnlineWithWifi() {
-                return true;
-            }
-
-            @Override
-            public JobRequest.NetworkType getActiveNetworkType() {
-                return JobRequest.NetworkType.ANY;
+            public Connectivity getConnectivity() {
+                return Connectivity.CONNECTED_WIFI;
             }
         };
 
         PowerManagementService powerManagementServiceMock = new PowerManagementService() {
+            @NotNull
+            @Override
+            public BatteryStatus getBattery() {
+                return new BatteryStatus();
+            }
+
             @Override
             public boolean isPowerSavingEnabled() {
                 return false;
@@ -290,11 +296,6 @@ public abstract class AbstractIT {
 
             @Override
             public boolean isPowerSavingExclusionAvailable() {
-                return false;
-            }
-
-            @Override
-            public boolean isBatteryCharging() {
                 return false;
             }
         };

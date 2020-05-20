@@ -44,7 +44,7 @@ public class FolderPickerActivityIT {
         // Arrange
         FolderPickerActivity targetActivity = activityRule.getActivity();
         OCFile origin = new OCFile("/test/file.test");
-        origin.setEncryptedRemotePath("/remotePath/test");
+        origin.setRemotePath("/remotePath/test");
 
         // Act
         targetActivity.setFile(origin);
@@ -60,7 +60,7 @@ public class FolderPickerActivityIT {
         FolderPickerActivity targetActivity = activityRule.getActivity();
         OCFile origin = new OCFile("/test/");
         origin.setFileId(1);
-        origin.setEncryptedRemotePath("/test/");
+        origin.setRemotePath("/test/");
         origin.setStoragePath("/test/");
         origin.setFolder();
 
@@ -78,7 +78,7 @@ public class FolderPickerActivityIT {
         FolderPickerActivity targetActivity = activityRule.getActivity();
         OCFile origin = new OCFile("/");
         origin.setFileId(1);
-        origin.setEncryptedRemotePath("/");
+        origin.setRemotePath("/");
         origin.setStoragePath("/");
         origin.setFolder();
 
@@ -109,7 +109,7 @@ public class FolderPickerActivityIT {
         // Arrange
         FolderPickerActivity targetActivity = activityRule.getActivity();
         OCFile origin = new OCFile("/test/file.test");
-        origin.setEncryptedRemotePath("/test/file.test");
+        origin.setRemotePath("/test/file.test");
 
         OCFile target = new OCFile("/test/");
 
