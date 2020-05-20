@@ -83,6 +83,17 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
         OCFile parent = getStorageManager().getFileByDecryptedRemotePath(remoteParentPath);
 
+        String tempRemoteParentPath = remoteParentPath;
+        while (parent == null) {
+            tempRemoteParentPath = new File(tempRemoteParentPath).getParent();
+
+            if (!tempRemoteParentPath.endsWith(OCFile.PATH_SEPARATOR)) {
+                tempRemoteParentPath = tempRemoteParentPath + OCFile.PATH_SEPARATOR;
+            }
+
+            parent = getStorageManager().getFileByDecryptedRemotePath(tempRemoteParentPath);
+        }
+
         // check if any parent is encrypted
         boolean encryptedAncestor = FileStorageUtils.checkEncryptionStatus(parent, getStorageManager());
 
