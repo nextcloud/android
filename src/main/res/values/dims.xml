@@ -143,6 +143,7 @@
     <dimen name="button_corner_radius">24dp</dimen>
     <integer name="media_grid_width">4</integer>
     <dimen name="copy_internal_link_padding">10dp</dimen>
+    <dimen name="account_action_button_margin">12dp</dimen>
     <dimen name="account_action_button_height">50dp</dimen>
     <dimen name="account_action_button_vertical_margin">10dp</dimen>
 </resources>

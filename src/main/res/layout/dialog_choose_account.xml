@@ -15,30 +15,34 @@
   You should have received a copy of the GNU General Public License
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_default"
     android:orientation="vertical"
-    android:padding="5dp"
     tools:context="com.nextcloud.ui.ChooseAccountDialogFragment">
 
     <include
         android:id="@+id/current_account"
         layout="@layout/account_item"
-        app:layout_constraintBottom_toTopOf="@id/separator_line"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_width="0dp"
+        android:layout_height="@dimen/account_item_layout_height"
+        android:layout_margin="@dimen/standard_quarter_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/separator_line"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/account_separator"
-        app:layout_constraintBottom_toBottomOf="@+id/current_account"
+        android:layout_marginTop="@dimen/standard_quarter_margin"
+        android:background="@color/list_divider_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/current_account" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/accounts_list"
@@ -57,8 +61,8 @@
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
         android:layout_width="0dp"
         android:layout_height="@dimen/account_action_button_height"
-        android:layout_marginStart="@dimen/standard_half_margin"
-        android:layout_marginEnd="@dimen/standard_half_margin"
+        android:layout_marginStart="@dimen/account_action_button_margin"
+        android:layout_marginEnd="@dimen/account_action_button_margin"
         android:paddingStart="10dp"
         android:paddingEnd="0dp"
         android:text="@string/prefs_add_account"
@@ -78,8 +82,9 @@
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
         android:layout_width="0dp"
         android:layout_height="@dimen/account_action_button_height"
-        android:layout_marginStart="@dimen/standard_half_margin"
-        android:layout_marginEnd="@dimen/standard_half_margin"
+        android:layout_marginStart="@dimen/account_action_button_margin"
+        android:layout_marginEnd="@dimen/account_action_button_margin"
+        android:layout_marginBottom="@dimen/account_action_button_margin"
         android:paddingStart="12dp"
         android:paddingEnd="0dp"
         android:text="@string/prefs_manage_accounts"
