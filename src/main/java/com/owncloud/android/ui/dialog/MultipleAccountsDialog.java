@@ -95,7 +95,8 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
                                                       getAccountListItems(),
                                                       tintedCheck,
                                                       this,
-                                                      false, false);
+                                                      false,
+                                                      false);
 
         listView.setHasFixedSize(true);
         listView.setLayoutManager(new LinearLayoutManager(activity));

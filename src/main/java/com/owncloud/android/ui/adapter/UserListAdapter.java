@@ -74,7 +74,8 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                            List<UserListItem> values,
                            Drawable tintedCheck,
                            ClickListener clickListener,
-                           boolean showAddAccount, boolean showDotsMenu) {
+                           boolean showAddAccount,
+                           boolean showDotsMenu) {
         this.context = context;
         this.accountManager = accountManager;
         this.values = values;
