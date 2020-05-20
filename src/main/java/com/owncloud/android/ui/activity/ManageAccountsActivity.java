@@ -496,7 +496,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                 if (item.getItemId() == R.id.action_delete_account) {
                     openAccountRemovalConfirmationDialog(user, getSupportFragmentManager());
                 } else {
-                    openAccount(user);
+                    accountClicked(user.hashCode());
                 }
                 return true;
             });

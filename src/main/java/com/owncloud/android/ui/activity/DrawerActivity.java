@@ -569,7 +569,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      *
      * @param hashCode HashCode of account to be set
      */
-    private void accountClicked(int hashCode) {
+    public void accountClicked(int hashCode) {
         final User currentUser = accountManager.getUser();
         if (currentUser.hashCode() != hashCode && accountManager.setCurrentOwnCloudAccount(hashCode)) {
             fetchExternalLinks(true);
