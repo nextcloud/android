@@ -1,3 +1,23 @@
+/*
+ * Nextcloud Android client application
+ *
+ * @author Infomaniak Network SA
+ * Copyright (C) 2020 Infomaniak Network SA
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.nextcloud.ui
 
 import android.graphics.drawable.Drawable
@@ -5,18 +25,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.DialogFragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.owncloud.android.R
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.adapter.UserListAdapter
@@ -24,12 +38,12 @@ import com.owncloud.android.ui.adapter.UserListItem
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import kotlinx.android.synthetic.main.account_item.*
-import kotlinx.android.synthetic.main.fragment_choose_account.*
+import kotlinx.android.synthetic.main.dialog_choose_account.*
 import java.util.ArrayList
 
 private const val ARG_CURRENT_USER_PARAM = "currentUser"
 
-class ChooseAccountFragment : DialogFragment(), AvatarGenerationListener, UserListAdapter.ClickListener {
+class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, UserListAdapter.ClickListener {
     private var currentUser: User? = null
     private lateinit var accountManager: UserAccountManager
 
@@ -55,27 +69,21 @@ class ChooseAccountFragment : DialogFragment(), AvatarGenerationListener, UserLi
             account.text = user.accountName
 
             // Defining user right indicator
-            account_menu.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable
-                .ic_check_circle)?.let { icon -> DrawableCompat.wrap(icon) })
-            val tintedCheck = ContextCompat.getDrawable(requireContext(), R.drawable.account_circle_white)?.let { DrawableCompat.wrap(it) }
+            account_menu.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_check_circle))
 
             // Creating adapter for accounts list
             val adapter = UserListAdapter(activity as BaseActivity,
                 accountManager,
                 getAccountListItems(),
-                tintedCheck,
+                null,
                 this,
                 false, false)
-            accounts_list.setHasFixedSize(true)
-            accounts_list.layoutManager = LinearLayoutManager(activity)
             accounts_list.adapter = adapter
 
-            /*
             // Creating listeners for quick-actions
-            user_layout.setOnClickListener {
+            current_account.setOnClickListener {
                 dismiss()
             }
-            */
             add_account.setOnClickListener {
                 (activity as DrawerActivity).openAddAccount()
             }
@@ -88,6 +96,7 @@ class ChooseAccountFragment : DialogFragment(), AvatarGenerationListener, UserLi
     private fun getAccountListItems(): List<UserListItem>? {
         val users = accountManager.allUsers
         val adapterUserList: MutableList<UserListItem> = ArrayList(users.size)
+        // Remove the current account from the adapter to display only other accounts
         for (user in users) {
             if (user != currentUser) {
                 adapterUserList.add(UserListItem(user))
@@ -102,7 +111,7 @@ class ChooseAccountFragment : DialogFragment(), AvatarGenerationListener, UserLi
     companion object {
         @JvmStatic
         fun newInstance(user: User) =
-            ChooseAccountFragment().apply {
+            ChooseAccountDialogFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_CURRENT_USER_PARAM, user)
                 }
@@ -111,7 +120,7 @@ class ChooseAccountFragment : DialogFragment(), AvatarGenerationListener, UserLi
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_choose_account, container, false)
+        return inflater.inflate(R.layout.dialog_choose_account, container, false)
     }
 
     override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean {
@@ -127,6 +136,6 @@ class ChooseAccountFragment : DialogFragment(), AvatarGenerationListener, UserLi
     }
 
     override fun onOptionItemClicked(user: User?, view: View?) {
-        // Todo : Implement the onOptionItemClicked
+        // Un-needed for this context
     }
 }

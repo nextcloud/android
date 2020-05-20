@@ -9,6 +9,7 @@
  * Copyright (C) 2016 Nextcloud
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Infomaniak Network SA
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -62,7 +63,7 @@ import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.java.util.Optional;
-import com.nextcloud.ui.ChooseAccountFragment;
+import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -510,7 +511,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     public void showManageAccountsDialog() {
-        ChooseAccountFragment choseAccountDialog = ChooseAccountFragment.newInstance(accountManager.getUser());
+        ChooseAccountDialogFragment choseAccountDialog = ChooseAccountDialogFragment.newInstance(accountManager.getUser());
         choseAccountDialog.show(getSupportFragmentManager(), "fragment_chose_account");
     }
 

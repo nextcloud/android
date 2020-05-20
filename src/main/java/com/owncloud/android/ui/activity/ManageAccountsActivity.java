@@ -309,8 +309,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                       getUserListItems(),
                                       tintedCheck,
                                       this,
-                                      multipleAccountsSupported, false
-                                  );
+                                      multipleAccountsSupported, false);
                                   recyclerView.setAdapter(userListAdapter);
                                   runOnUiThread(() -> userListAdapter.notifyDataSetChanged());
                               } catch (OperationCanceledException e) {
@@ -362,8 +361,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                                       userListItemArray,
                                                       tintedCheck,
                                                       this,
-                                                      multipleAccountsSupported, false
-                );
+                                                      multipleAccountsSupported, false);
                 recyclerView.setAdapter(userListAdapter);
             } else {
                 onBackPressed();
