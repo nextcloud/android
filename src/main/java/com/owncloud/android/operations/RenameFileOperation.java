@@ -90,8 +90,11 @@ public class RenameFileOperation extends SyncOperation {
                 return new RemoteOperationResult(ResultCode.INVALID_OVERWRITE);
             }
 
-            result = new RenameFileRemoteOperation(file.getFileName(), file.getRemotePath(), newName,
-                                                   file.isFolder()).execute(client);
+            result = new RenameFileRemoteOperation(file.getFileName(),
+                                                   file.getRemotePath(),
+                                                   newName,
+                                                   file.isFolder())
+                .execute(client);
 
             if (result.isSuccess()) {
                 if (file.isFolder()) {
@@ -104,7 +107,7 @@ public class RenameFileOperation extends SyncOperation {
             }
 
         } catch (IOException e) {
-            Log_OC.e(TAG, "Rename " + file.getRemotePath() + " to " + ((newRemotePath ==null) ?
+            Log_OC.e(TAG, "Rename " + file.getRemotePath() + " to " + ((newRemotePath == null) ?
                 newName : newRemotePath) + ": " +
                     (result!= null ? result.getLogMessage() : ""), e);
         }
