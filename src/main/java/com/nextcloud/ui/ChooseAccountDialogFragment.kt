@@ -61,7 +61,13 @@ class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, 
 
             // Defining user picture
             user_icon.tag = user.accountName
-            DisplayUtils.setAvatar(user, this, resources.getDimension(R.dimen.list_item_avatar_icon_radius), resources, user_icon, context)
+            DisplayUtils.setAvatar(
+                user,
+                this,
+                resources.getDimension(R.dimen.list_item_avatar_icon_radius),
+                resources,
+                user_icon,
+                context)
 
             // Defining user texts, accounts, etc.
             user_name.text = user.toOwnCloudAccount().displayName
@@ -77,7 +83,8 @@ class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, 
                 getAccountListItems(),
                 null,
                 this,
-                false, false)
+                false,
+                false)
             accounts_list.adapter = adapter
 
             // Creating listeners for quick-actions
