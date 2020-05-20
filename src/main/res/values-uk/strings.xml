@@ -317,7 +317,7 @@
     <string name="file_migration_directory_already_exists">Тека з даними вже існує. Виберіть одну з таких:</string>
     <string name="file_migration_failed_dir_already_exists">Тека Nextcloud вже існує</string>
     <string name="file_migration_failed_not_enough_space">Потрібно більше місця</string>
-    <string name="file_migration_failed_not_readable">Неможливо прочитати вихідний файл</string>
+    <string name="file_migration_failed_not_readable">Неможливо прочитати початковий файл</string>
     <string name="file_migration_failed_not_writable">Неможливо записати до файлу призначення</string>
     <string name="file_migration_failed_while_coping">Помилка під час міграції</string>
     <string name="file_migration_failed_while_updating_index">Неможливо оновити індекс</string>
@@ -328,7 +328,7 @@
     <string name="file_migration_restoring_accounts_configuration">Відновлення налаштувань облікового запису...</string>
     <string name="file_migration_saving_accounts_configuration">Збереження налаштувань облікового запису...</string>
     <string name="file_migration_source_not_readable">Ви все ще бажаєте змінити шлях місця збереження на %1$s?\n\nПримітка: Усі дані потрібно буде повторно звантажити.</string>
-    <string name="file_migration_source_not_readable_title">Неможливо прочитати вихідну теку!</string>
+    <string name="file_migration_source_not_readable_title">Неможливо прочитати початкову теку!</string>
     <string name="file_migration_updating_index">Оновлення індексу...</string>
     <string name="file_migration_use_data_folder">Використовувати</string>
     <string name="file_migration_waiting_for_unfinished_sync">Очікування повної синхронізації…</string>
@@ -479,12 +479,12 @@
     <string name="power_save_check_dialog_message">Вимкнення заощадження батареї може вплинути на завантаження файлів при низькому заряді!</string>
     <string name="pref_behaviour_entries_delete_file">вилучено</string>
     <string name="pref_behaviour_entries_keep_file">збережено у початковій теці</string>
-    <string name="pref_behaviour_entries_move">перенесено до теки застосунку</string>
-    <string name="pref_instant_name_collision_policy_dialogTitle">Що робити, якщо файл уже присутній?</string>
+    <string name="pref_behaviour_entries_move">переміщено до теки застосунку</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Що робити, якщо такий файл уже наявний?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Питати щоразу</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Переписувати віддалену версію</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Перейменовувати нову версію </string>
-    <string name="pref_instant_name_collision_policy_title">Що робити, якщо файл уже присутній?</string>
+    <string name="pref_instant_name_collision_policy_title">Що робити, якщо такий файл уже наявний?</string>
     <string name="prefs_add_account">Додати обліковий запис</string>
     <string name="prefs_calendar_contacts">Синхронізувати календар та контакти</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Адресу сервера цього облікового запису неможливо визначити для DAVx5 (раніше відомого як DAVdroid)</string>
