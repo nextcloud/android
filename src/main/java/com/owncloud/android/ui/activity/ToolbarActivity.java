@@ -76,7 +76,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * Toolbar setup that must be called in implementer's {@link #onCreate} after {@link #setContentView} if they want
      * to use the toolbar.
      */
-    protected void setupToolbar(boolean isHomeSearchToolbarShow) {
+    private void setupToolbar(boolean isHomeSearchToolbarShow) {
         int fontColor = ThemeUtils.appBarPrimaryFontColor(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -110,6 +110,10 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     public void setupToolbar() {
         setupToolbar(false);
+    }
+
+    public void setupHomeSearchToolbar() {
+        setupToolbar(true);
     }
 
     /**

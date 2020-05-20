@@ -24,4 +24,20 @@
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:navigationBarColor">@color/bg_default</item>
     </style>
+
+    <style name="Theme.ownCloud.Toolbar" parent="Theme.ownCloud.ToolbarBase">
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:navigationBarColor">@color/bg_default</item>
+    </style>
+
+    <style name="Theme.ownCloud" parent="Theme.ownCloudBase">
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:navigationBarColor">@color/bg_default</item>
+    </style>
+
+    <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase21">
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:navigationBarColor">@color/bg_default</item>
+    </style>
+
 </resources>

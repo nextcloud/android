@@ -139,7 +139,6 @@
     <dimen name="synced_folders_item_type_layout_right_end_margin">24dp</dimen>
     <dimen name="synced_folders_recycler_view_layout_margin">-3dp</dimen>
     <dimen name="synced_folders_control_width">80dp</dimen>
-    <dimen name="toolbar_user_information_layout_margin">12dp</dimen>
     <dimen name="bottom_sheet_text_size">16sp</dimen>
     <dimen name="permission_dialog_text_size">18sp</dimen>
     <dimen name="button_corner_radius">24dp</dimen>
