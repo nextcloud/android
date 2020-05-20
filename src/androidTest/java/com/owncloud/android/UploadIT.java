@@ -27,12 +27,16 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import org.jetbrains.annotations.NotNull;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -47,8 +51,9 @@ import static junit.framework.TestCase.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class UploadIT extends AbstractIT {
+    private static final String FOLDER = "/testUpload/";
 
-    private UploadsStorageManager storageManager =
+    private UploadsStorageManager uploadsStorageManager =
         new UploadsStorageManager(UserAccountManagerImpl.fromContext(targetContext),
                                   targetContext.getContentResolver());
 
@@ -82,51 +87,57 @@ public class UploadIT extends AbstractIT {
         }
     };
 
+    @After
+    public void after() {
+        RemoteOperationResult result = new RefreshFolderOperation(getStorageManager().getFileByPath("/"),
+                                                                  System.currentTimeMillis() / 1000L,
+                                                                  false,
+                                                                  true,
+                                                                  getStorageManager(),
+                                                                  account,
+                                                                  targetContext)
+            .execute(client);
+
+        // cleanup only if folder exists
+        if (result.isSuccess() && getStorageManager().getFileByDecryptedRemotePath(FOLDER) != null) {
+            new RemoveFileOperation(getStorageManager().getFileByDecryptedRemotePath(FOLDER),
+                                    false,
+                                    account,
+                                    false,
+                                    targetContext)
+                .execute(client, getStorageManager());
+        }
+    }
+
     @Test
     public void testEmptyUpload() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/empty.txt",
-                                         "/testUpload/empty.txt",
+                                         FOLDER + "empty.txt",
                                          account.name);
 
         uploadOCUpload(ocUpload);
-
-        // cleanup
-        new RemoveFileOperation(new OCFile("/testUpload/"),
-                                false,
-                                account,
-                                false,
-                                targetContext)
-            .execute(client, getStorageManager());
     }
 
     @Test
     public void testNonEmptyUpload() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt",
-                                         "/testUpload/nonEmpty.txt",
+                                         FOLDER + "nonEmpty.txt",
                                          account.name);
 
         uploadOCUpload(ocUpload);
-
-        // cleanup
-        new RemoveFileOperation("/testUpload/", false, account, false, targetContext)
-            .execute(client, getStorageManager());
     }
 
     @Test
     public void testChunkedUpload() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/chunkedFile.txt",
-                                         "/testUpload/chunkedFile.txt", account.name);
+                                         FOLDER + "chunkedFile.txt", account.name);
 
         uploadOCUpload(ocUpload);
-
-        // cleanup
-        new RemoveFileOperation("/testUpload/", false, account, false, targetContext)
-            .execute(client, getStorageManager());
     }
 
     public RemoteOperationResult testUpload(OCUpload ocUpload) {
         UploadFileOperation newUpload = new UploadFileOperation(
-            storageManager,
+            uploadsStorageManager,
             connectivityServiceMock,
             powerManagementServiceMock,
             account,
@@ -150,26 +161,18 @@ public class UploadIT extends AbstractIT {
     @Test
     public void testUploadInNonExistingFolder() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/empty.txt",
-                                         "/testUpload/2/3/4/1.txt", account.name);
+                                         FOLDER + "2/3/4/1.txt", account.name);
 
         uploadOCUpload(ocUpload);
-
-        // cleanup
-        new RemoveFileOperation(new OCFile("/testUpload/"),
-                                false,
-                                account,
-                                false,
-                                targetContext)
-            .execute(client, getStorageManager());
     }
     @Test
     public void testUploadOnChargingOnlyButNotCharging() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/empty.txt",
-                                         "/testUpload/notCharging.txt", account.name);
+                                         FOLDER + "notCharging.txt", account.name);
         ocUpload.setWhileChargingOnly(true);
 
         UploadFileOperation newUpload = new UploadFileOperation(
-            storageManager,
+            uploadsStorageManager,
             connectivityServiceMock,
             powerManagementServiceMock,
             account,
@@ -211,11 +214,11 @@ public class UploadIT extends AbstractIT {
         };
 
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/empty.txt",
-                                         "/testUpload/charging.txt", account.name);
+                                         FOLDER + "charging.txt", account.name);
         ocUpload.setWhileChargingOnly(true);
 
         UploadFileOperation newUpload = new UploadFileOperation(
-            storageManager,
+            uploadsStorageManager,
             connectivityServiceMock,
             powerManagementServiceMock,
             account,
@@ -234,10 +237,6 @@ public class UploadIT extends AbstractIT {
 
         RemoteOperationResult result = newUpload.execute(client, getStorageManager());
         assertTrue(result.toString(), result.isSuccess());
-
-        // cleanup
-        new RemoveFileOperation("/testUpload/", false, account, false, targetContext)
-            .execute(client, getStorageManager());
     }
 
     @Test
@@ -254,11 +253,11 @@ public class UploadIT extends AbstractIT {
             }
         };
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/empty.txt",
-                                         "/testUpload/noWifi.txt", account.name);
+                                         FOLDER + "noWifi.txt", account.name);
         ocUpload.setUseWifiOnly(true);
 
         UploadFileOperation newUpload = new UploadFileOperation(
-            storageManager,
+            uploadsStorageManager,
             connectivityServiceMock,
             powerManagementServiceMock,
             account,
@@ -282,11 +281,11 @@ public class UploadIT extends AbstractIT {
     @Test
     public void testUploadOnWifiOnlyAndWifi() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/empty.txt",
-                                         "/testUpload/wifi.txt", account.name);
+                                         FOLDER + "wifi.txt", account.name);
         ocUpload.setWhileChargingOnly(true);
 
         UploadFileOperation newUpload = new UploadFileOperation(
-            storageManager,
+            uploadsStorageManager,
             connectivityServiceMock,
             powerManagementServiceMock,
             account,
@@ -307,7 +306,11 @@ public class UploadIT extends AbstractIT {
         assertTrue(result.toString(), result.isSuccess());
 
         // cleanup
-        new RemoveFileOperation("/testUpload/", false, account, false, targetContext)
+        new RemoveFileOperation(getStorageManager().getFileByDecryptedRemotePath(FOLDER),
+                                false,
+                                account,
+                                false,
+                                targetContext)
             .execute(client, getStorageManager());
     }
 }
