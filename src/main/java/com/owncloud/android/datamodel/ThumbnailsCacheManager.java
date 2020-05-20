@@ -32,6 +32,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
@@ -1205,15 +1206,32 @@ public final class ThumbnailsCacheManager {
         }
     }
 
-    private static Bitmap handlePNG(Bitmap bitmap, int pxW, int pxH) {
-        Bitmap resultBitmap = Bitmap.createBitmap(pxW, pxH, Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(resultBitmap);
+    /**
+     * adapted from https://stackoverflow.com/a/8113368
+     */
+    private static Bitmap handlePNG(Bitmap source, int newWidth, int newHeight) {
+        int sourceWidth = source.getWidth();
+        int sourceHeight = source.getHeight();
 
-        // TODO check based on https://github.com/nextcloud/android/pull/3459#discussion_r339935975
-        c.drawColor(MainApp.getAppContext().getResources().getColor(R.color.background_color_png));
-        c.drawBitmap(bitmap, 0, 0, null);
+        float xScale = (float) newWidth / sourceWidth;
+        float yScale = (float) newHeight / sourceHeight;
+        float scale = Math.max(xScale, yScale);
 
-        return resultBitmap;
+        float scaledWidth = scale * sourceWidth;
+        float scaledHeight = scale * sourceHeight;
+
+        float left = (newWidth - scaledWidth) / 2;
+        float top = (newHeight - scaledHeight) / 2;
+
+        RectF targetRect = new RectF(left, top, left + scaledWidth, top + scaledHeight);
+
+        Bitmap dest = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(dest);
+        canvas.drawColor(MainApp.getAppContext().getResources().getColor(R.color.background_color_png));
+        canvas.drawBitmap(source, null, targetRect, null);
+
+        return dest;
     }
 
     public static void generateResizedImage(OCFile file) {
