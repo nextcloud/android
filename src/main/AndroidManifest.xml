@@ -122,12 +122,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="http"
+                    android:scheme="https"
                     android:host="*"
-                    android:pathPattern="/.*index.php/f/.*"
-                    />
-                <data android:scheme="https"
-                      android:host="*"
-                      android:pathPattern="/.*index.php/f/.*"
+                    android:pathPattern=".*/f/[0-9]*[0-9]$"
                     />
             </intent-filter>
             <meta-data android:name="android.app.searchable"

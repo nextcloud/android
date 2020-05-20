@@ -2625,12 +2625,21 @@ public class FileDisplayActivity extends FileActivity
         if (userName == null && fileId == null && intent.getData() != null) {
             // Handle intent coming from URI
 
-            Pattern pattern  = Pattern.compile("(.*)/index\\.php/([f])/([0-9]+)$");
-            Matcher matcher = pattern.matcher(intent.getData().toString());
-            if (matcher.matches()) {
-                String uri = matcher.group(1);
-                if ("f".equals(matcher.group(2))) {
-                    fileId = matcher.group(3);
+            Pattern pattern1 = Pattern.compile("(.*)/index\\.php/([f])/([0-9]+)$");
+            Pattern pattern2 = Pattern.compile("(.*)/([f])/([0-9]+)$");
+            Matcher matcher1 = pattern1.matcher(intent.getData().toString());
+            Matcher matcher2 = pattern2.matcher(intent.getData().toString());
+            if (matcher1.matches()) {
+                String uri = matcher1.group(1);
+                if ("f".equals(matcher1.group(2))) {
+                    fileId = matcher1.group(3);
+                    findAccountAndOpenFile(uri, fileId);
+                    return;
+                }
+            } else if (matcher2.matches()) {
+                String uri = matcher2.group(1);
+                if ("f".equals(matcher2.group(2))) {
+                    fileId = matcher2.group(3);
                     findAccountAndOpenFile(uri, fileId);
                     return;
                 }
