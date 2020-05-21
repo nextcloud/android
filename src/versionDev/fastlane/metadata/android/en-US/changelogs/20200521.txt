@@ -1,0 +1,10 @@
+Fix upload and wrote tests
+Fix upload and wrote tests
+Properly show default/generated avatar if there is no one yet
+Fix navigationbar in all activity
+Improve userinfo item
+Use ConstraintLayout
+Refactor
+Remove old layout
+E2E overhaul - Limit online editing/stream when e2e-encrypted file - download files in subfolder to correct local folder name - use httpd/unix-directory for folder in metadata - set encryption status of subfolder
+Update translations
