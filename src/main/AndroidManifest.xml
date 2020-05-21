@@ -125,9 +125,7 @@
                 <data android:scheme="https" />
                 <data android:host="*" />
                 <data android:pathPattern="/f/..*" />
-                <data android:pathPattern="/..*/f/..*" />
-                <data android:pathPattern="/..*/..*/f/..*" />
-                <data android:pathPattern="/..*/..*/..*/f/..*" />
+                <data android:pathPattern="/..*\\/f/..*" />
             </intent-filter>
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/users_and_groups_searchable"/>
