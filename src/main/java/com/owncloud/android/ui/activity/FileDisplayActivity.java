@@ -258,7 +258,7 @@ public class FileDisplayActivity extends FileActivity
         setContentView(R.layout.files);
 
         // setup toolbar
-        setupToolbar(true);
+        setupHomeSearchToolbar();
 
         mMenuButton.setOnClickListener(v -> {
             openDrawer();
@@ -710,12 +710,12 @@ public class FileDisplayActivity extends FileActivity
                                          boolean success) {
         FileFragment secondFragment = getSecondFragment();
         boolean waitedPreview = mWaitingToPreview != null
-                && mWaitingToPreview.getRemotePath().equals(downloadedRemotePath);
+            && mWaitingToPreview.getRemotePath().equals(downloadedRemotePath);
         if (secondFragment instanceof FileDetailFragment) {
             FileDetailFragment detailsFragment = (FileDetailFragment) secondFragment;
             OCFile fileInFragment = detailsFragment.getFile();
             if (fileInFragment != null &&
-                    !downloadedRemotePath.equals(fileInFragment.getRemotePath())) {
+                !downloadedRemotePath.equals(fileInFragment.getRemotePath())) {
                 // the user browsed to other file ; forget the automatic preview
                 mWaitingToPreview = null;
 
@@ -1251,16 +1251,16 @@ public class FileDisplayActivity extends FileActivity
         if (menuItemId == -1) {
             if (MainApp.isOnlyOnDevice()) {
                 setDrawerMenuItemChecked(R.id.nav_on_device);
-                setupToolbar(false);
+                setupToolbar();
             } else {
                 setDrawerMenuItemChecked(R.id.nav_all_files);
-                setupToolbar(true);
+                setupHomeSearchToolbar();
             }
         } else {
             if (menuItemId == R.id.nav_all_files) {
-                setupToolbar(true);
+                setupHomeSearchToolbar();
             } else {
-                setupToolbar(false);
+                setupToolbar();
             }
             setDrawerMenuItemChecked(menuItemId);
         }
@@ -1326,9 +1326,9 @@ public class FileDisplayActivity extends FileActivity
 
                     } else {
                         OCFile currentFile = (getFile() == null) ? null :
-                                getStorageManager().getFileByPath(getFile().getRemotePath());
+                            getStorageManager().getFileByPath(getFile().getRemotePath());
                         OCFile currentDir = (getCurrentDir() == null) ? null :
-                                getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
+                            getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
 
                         if (currentDir == null) {
                             // current folder was removed from the server
@@ -1463,7 +1463,7 @@ public class FileDisplayActivity extends FileActivity
                 boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name);
                 OCFile currentDir = getCurrentDir();
                 boolean isDescendant = currentDir != null && uploadedRemotePath != null &&
-                        uploadedRemotePath.startsWith(currentDir.getRemotePath());
+                    uploadedRemotePath.startsWith(currentDir.getRemotePath());
 
                 if (sameAccount && isDescendant) {
                     String linkedToRemotePath =
@@ -1588,13 +1588,13 @@ public class FileDisplayActivity extends FileActivity
             OCFile currentDir = getCurrentDir();
             return currentDir != null &&
                     downloadedRemotePath != null &&
-                    downloadedRemotePath.startsWith(currentDir.getRemotePath());
+                downloadedRemotePath.startsWith(currentDir.getRemotePath());
         }
 
         private boolean isAscendant(String linkedToRemotePath) {
             OCFile currentDir = getCurrentDir();
             return currentDir != null &&
-                    currentDir.getRemotePath().startsWith(linkedToRemotePath);
+                currentDir.getRemotePath().startsWith(linkedToRemotePath);
         }
 
         private boolean isSameAccount(Intent intent) {
@@ -2439,11 +2439,11 @@ public class FileDisplayActivity extends FileActivity
     public void cancelTransference(OCFile file) {
         getFileOperationsHelper().cancelTransference(file);
         if (mWaitingToPreview != null &&
-                mWaitingToPreview.getRemotePath().equals(file.getRemotePath())) {
+            mWaitingToPreview.getRemotePath().equals(file.getRemotePath())) {
             mWaitingToPreview = null;
         }
         if (mWaitingToSend != null &&
-                mWaitingToSend.getRemotePath().equals(file.getRemotePath())) {
+            mWaitingToSend.getRemotePath().equals(file.getRemotePath())) {
             mWaitingToSend = null;
         }
         onTransferStateChanged(file, false, false);

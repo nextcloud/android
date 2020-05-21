@@ -151,14 +151,14 @@ class SyncFolderHandler extends Handler {
             return;
         }
         Pair<SynchronizeFolderOperation, String> removeResult = mPendingOperations.remove(account.name,
-                file.getRemotePath());
+                                                                                          file.getRemotePath());
         SynchronizeFolderOperation synchronization = removeResult.first;
         if (synchronization != null) {
             synchronization.cancel();
         } else {
             // TODO synchronize?
             if (mCurrentSyncOperation != null && mCurrentAccount != null &&
-                    mCurrentSyncOperation.getRemotePath().startsWith(file.getRemotePath()) &&
+                mCurrentSyncOperation.getRemotePath().startsWith(file.getRemotePath()) &&
                     account.name.equals(mCurrentAccount.name)) {
                 mCurrentSyncOperation.cancel();
             }

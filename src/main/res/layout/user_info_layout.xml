@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Nextcloud Android client application
 
   Copyright (C) 2017 Andy Scherzinger
@@ -18,51 +17,91 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:background="@color/bg_default">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_default"
+    android:orientation="vertical">
 
-    <include layout="@layout/toolbar_user_information" />
+    <include layout="@layout/toolbar_standard" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_drawer_header_height">
+
+        <ImageView
+            android:id="@+id/userinfo_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_nc18"
+            android:contentDescription="@string/drawer_header_background"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/userinfo_icon"
+            android:layout_width="@dimen/nav_drawer_header_avatar"
+            android:layout_height="@dimen/nav_drawer_header_avatar"
+            android:layout_marginStart="@dimen/account_item_layout_user_image_left_start_margin"
+            android:layout_marginBottom="@dimen/account_item_layout_user_image_left_start_margin"
+            android:contentDescription="@string/avatar"
+            android:src="@drawable/account_circle_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/userinfo_fullName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:shadowColor="@color/drawer_shadow"
+            android:shadowDx="0.5"
+            android:shadowDy="0"
+            android:shadowRadius="2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/file_details_username_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/userinfo_icon"
+            app:layout_constraintTop_toTopOf="@id/userinfo_icon"
+            tools:text="John Doe" />
+
+        <TextView
+            android:id="@+id/userinfo_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="2"
+            android:shadowColor="@color/drawer_shadow"
+            android:shadowDx="0.5"
+            android:shadowDy="0"
+            android:shadowRadius="2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/drawer_header_subtext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/userinfo_fullName"
+            app:layout_constraintTop_toBottomOf="@id/userinfo_fullName"
+            tools:text="john@nextcloud.com" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userinfo_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/standard_margin"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <include layout="@layout/empty_list" />
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:id="@+id/user_info_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/primary_user_info_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/standard_half_margin"
-                card_view:cardCornerRadius="3dp"
-                card_view:cardUseCompatPadding="true">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/user_info_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    card_view:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"></androidx.recyclerview.widget.RecyclerView>
-
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

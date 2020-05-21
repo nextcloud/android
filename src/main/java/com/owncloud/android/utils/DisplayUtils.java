@@ -488,23 +488,20 @@ public final class DisplayUtils {
             }
         }
 
-        // check for new avatar, eTag is compared, so only new one is downloaded
-        if (ThumbnailsCacheManager.cancelPotentialAvatarWork(userId, callContext)) {
-            final ThumbnailsCacheManager.AvatarGenerationTask task =
-                new ThumbnailsCacheManager.AvatarGenerationTask(listener,
-                                                                callContext,
-                                                                user.toPlatformAccount(),
-                                                                resources,
-                                                                avatarRadius,
-                                                                userId,
-                                                                serverName,
-                                                                context);
+        listener.avatarGenerated(avatar, callContext);
 
-            final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
-                new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, avatar, task);
-            listener.avatarGenerated(asyncDrawable, callContext);
-            task.execute(userId);
-        }
+        // check for new avatar, eTag is compared, so only new one is downloaded
+        final ThumbnailsCacheManager.AvatarGenerationTask task =
+            new ThumbnailsCacheManager.AvatarGenerationTask(listener,
+                                                            callContext,
+                                                            user.toPlatformAccount(),
+                                                            resources,
+                                                            avatarRadius,
+                                                            userId,
+                                                            serverName,
+                                                            context);
+
+        task.execute(userId);
     }
 
     public static void downloadIcon(CurrentAccountProvider currentAccountProvider,
