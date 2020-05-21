@@ -397,7 +397,7 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
     androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     androidTestImplementation "org.mockito:mockito-android:3.3.3"
-    androidTestImplementation 'net.bytebuddy:byte-buddy:1.10.5'
+    androidTestImplementation 'net.bytebuddy:byte-buddy:1.10.10'
 }
 
 configurations.all {
