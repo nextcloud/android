@@ -2625,7 +2625,7 @@ public class FileDisplayActivity extends FileActivity
         if (userName == null && fileId == null && intent.getData() != null) {
             // Handle intent coming from URI
 
-            Pattern pattern2 = Pattern.compile(".*://(.*)/([f])/([0-9]+)$");
+            Pattern pattern2 = Pattern.compile("(.*)/([f])/([0-9]+)$");
             Matcher matcher2 = pattern2.matcher(intent.getData().toString());
  
             if (matcher2.matches()) {
