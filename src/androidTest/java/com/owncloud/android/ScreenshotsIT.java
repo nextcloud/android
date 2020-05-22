@@ -17,8 +17,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import androidx.test.core.app.ActivityScenario;
-import androidx.test.espresso.Espresso;
-import androidx.test.espresso.NoActivityResumedException;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
@@ -54,30 +52,18 @@ public class ScreenshotsIT extends AbstractIT {
     }
 
     @Test
-    public void gridViewScreenshot() throws InterruptedException {
+    public void gridViewScreenshot() {
         ActivityScenario.launch(FileDisplayActivity.class);
 
-        openOverflowMenu();
-        onView(anyOf(withText(R.string.action_switch_grid_view), withId(R.id.action_switch_view))).perform(click());
+        onView(anyOf(withText(R.string.action_switch_grid_view), withId(R.id.switch_grid_view_button))).perform(click());
 
         shortSleep();
 
         Screengrab.screenshot("01_gridView");
 
-        openOverflowMenu();
-        onView(anyOf(withText(R.string.action_switch_list_view), withId(R.id.action_switch_view))).perform(click());
+        onView(anyOf(withText(R.string.action_switch_list_view), withId(R.id.switch_grid_view_button))).perform(click());
 
         Assert.assertTrue(true); // if we reach this, everything is ok
-    }
-
-    private void openOverflowMenu() {
-        try {
-            Espresso.openContextualActionModeOverflowMenu();
-        } catch (NoActivityResumedException e) {
-            ActivityScenario.launch(FileDisplayActivity.class);
-            shortSleep();
-            Espresso.openContextualActionModeOverflowMenu();
-        }
     }
 
     @Test
