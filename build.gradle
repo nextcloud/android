@@ -192,8 +192,6 @@ android {
 
         testOptions {
             unitTests.returnDefaultValues = true
-            // comment out if you run androidTests in Android Studio experiencing test runner crashes
-            execution 'ANDROIDX_TEST_ORCHESTRATOR'
             animationsDisabled true
         }
     }

@@ -2228,7 +2228,11 @@ public class FileDisplayActivity extends FileActivity
                                         null
                                 );
 
-                                getListOfFilesFragment().setLoading(true);
+                                OCFileListFragment fragment = getListOfFilesFragment();
+
+                                if (fragment != null) {
+                                    fragment.setLoading(true);
+                                }
 
                                 setBackgroundText();
 
