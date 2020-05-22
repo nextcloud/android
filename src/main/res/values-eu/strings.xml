@@ -416,6 +416,7 @@
     <string name="move_file_error">Errore bat gertatu da fitxategi edo karpeta hau mugitzen saiatzerakoan</string>
     <string name="move_file_invalid_into_descendent">Ezin da karpeta bat azpikarpeta batera mugitu</string>
     <string name="move_file_invalid_overwrite">Fitxategi hau existitzen da jadanik helburuko karpetan</string>
+    <string name="move_file_not_found">Ezin izan da fitxategia mugitu. Mesedez egiaztatu fitxategia existitzen dela.</string>
     <string name="move_to">Mugitu hona…</string>
     <string name="network_error_connect_timeout_exception">Errore bat gertatu da zerbitzariari itxaroten. Ezin izan da eragiketa burutu.</string>
     <string name="network_error_socket_exception">Errore bat gertatu da zerbitzariarekin konektatzean.</string>
