@@ -1109,7 +1109,7 @@ public class UploadFileOperation extends SyncOperation {
      * is in progress it is cancelled, if upload preparation is being performed
      * upload will not take place.
      */
-    public void cancel() {
+    public void cancel(ResultCode cancellationReason) {
         if (mUploadOperation == null) {
             if (mUploadStarted.get()) {
                 Log_OC.d(TAG, "Cancelling upload during upload preparations.");
@@ -1119,7 +1119,7 @@ public class UploadFileOperation extends SyncOperation {
             }
         } else {
             Log_OC.d(TAG, "Cancelling upload during actual upload operation.");
-            mUploadOperation.cancel();
+            mUploadOperation.cancel(cancellationReason);
         }
     }
 
