@@ -555,7 +555,7 @@ public class FileUploader extends Service
     public void onAccountsUpdated(Account[] accounts) {
         // Review current upload, and cancel it if its account doesn't exist
         if (mCurrentUpload != null && !accountManager.exists(mCurrentUpload.getAccount())) {
-            mCurrentUpload.cancel();
+            mCurrentUpload.cancel(ResultCode.ACCOUNT_NOT_FOUND);
         }
         // The rest of uploads are cancelled when they try to start
     }
@@ -1127,7 +1127,7 @@ public class FileUploader extends Service
             }
 
             if (upload != null) {
-                upload.cancel();
+                upload.cancel(resultCode);
                 // need to update now table in mUploadsStorageManager,
                 // since the operation will not get to be run by FileUploader#uploadFile
                 if (resultCode != null) {
@@ -1150,7 +1150,7 @@ public class FileUploader extends Service
             if (mCurrentUpload != null) {
                 Log_OC.d(TAG, "Current Upload Account= " + mCurrentUpload.getAccount().name);
                 if (mCurrentUpload.getAccount().name.equals(account.name)) {
-                    mCurrentUpload.cancel();
+                    mCurrentUpload.cancel(ResultCode.CANCELLED);
                 }
             }
 
@@ -1288,7 +1288,7 @@ public class FileUploader extends Service
             if (context != null) {
                 ResultCode cancelReason = null;
                 Connectivity connectivity = connectivityService.getConnectivity();
-                if (mCurrentUpload.isWifiRequired() && connectivity.isWifi()) {
+                if (mCurrentUpload.isWifiRequired() && !connectivity.isWifi()) {
                     cancelReason = ResultCode.DELAYED_FOR_WIFI;
                 } else if (mCurrentUpload.isChargingRequired() && !powerManagementService.getBattery().isCharging()) {
                     cancelReason = ResultCode.DELAYED_FOR_CHARGING;
