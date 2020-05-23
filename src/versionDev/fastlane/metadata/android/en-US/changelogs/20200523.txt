@@ -1,0 +1,6 @@
+Add media title to mediaStore if necessary
+Set title in mediaStore, when upload from "move to <nc> folder"
+insert uploaded image to mediaStore
+do not use media scanner
+Update translations
+Update 3rd-party dependencies
