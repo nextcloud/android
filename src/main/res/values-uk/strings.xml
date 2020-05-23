@@ -281,7 +281,7 @@
     <string name="fallback_weblogin_text">Повернутися до старого методу авторизації</string>
     <string name="favorite">Додати до обраного</string>
     <string name="favorite_icon">Улюблений</string>
-    <string name="file_delete">Видалити</string>
+    <string name="file_delete">Вилучити</string>
     <string name="file_detail_activity_error">Помилка з отриманням дії для файлу</string>
     <string name="file_details_no_content">Не вдалося завантажити подробиці</string>
     <string name="file_icon">Файл</string>
