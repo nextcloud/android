@@ -30,7 +30,7 @@
     <string name="activities_no_results_headline">Ainda sem atividade</string>
     <string name="activities_no_results_message">Ainda sem eventos como adições, alterações ou partilhas</string>
     <string name="activity_chooser_send_file_title">Enviar</string>
-    <string name="activity_chooser_title">Enviar ligação para…</string>
+    <string name="activity_chooser_title">Enviar hiperligação para…</string>
     <string name="activity_icon">Actividade</string>
     <string name="add_to_cloud">Adicionar a %1$s</string>
     <string name="associated_account_not_found">Conta associada não encontrada!</string>
@@ -91,7 +91,7 @@
     <string name="clear_notifications_failed">Falha ao limpar notificações.</string>
     <string name="clipboard_label">Texto copiado a partir de %1$s</string>
     <string name="clipboard_no_text_to_copy">Não existe nada para copiar para o clipboard</string>
-    <string name="clipboard_text_copied">Link copiado</string>
+    <string name="clipboard_text_copied">Hiperligação copiada</string>
     <string name="clipboard_unexpected_error">Erro inesperado ao copiar para o clipboard</string>
     <string name="common_back">Anterior</string>
     <string name="common_cancel">Cancelar</string>
@@ -528,7 +528,7 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_expiration_date_label">Expira %1$s</string>
     <string name="share_file">Partilhar %1$s</string>
-    <string name="share_get_public_link_button">Obter ligação</string>
+    <string name="share_get_public_link_button">Obter hiperligação</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
     <string name="share_link_empty_password">Você deve introduzir uma palavra-passe</string>
@@ -556,7 +556,7 @@
     <string name="share_via_link_menu_password_label">Protegido com Senha (%1$s)</string>
     <string name="share_via_link_password_label">Proteger com palavra-passe</string>
     <string name="share_via_link_password_title">Protegido</string>
-    <string name="share_via_link_section_title">Compartilhar hiperligação</string>
+    <string name="share_via_link_section_title">Partilhar hiperligação</string>
     <string name="share_via_link_send_link_label">Enviar hiperligação</string>
     <string name="share_via_link_unset_password">Retirar</string>
     <string name="share_with_edit_title">Partilhar com %1$s</string>
