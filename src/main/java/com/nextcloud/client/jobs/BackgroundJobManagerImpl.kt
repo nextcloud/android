@@ -85,11 +85,8 @@ internal class BackgroundJobManagerImpl(
         const val TAG_PREFIX_START_TIMESTAMP = "timestamp"
         val PREFIXES = setOf(TAG_PREFIX_NAME, TAG_PREFIX_USER, TAG_PREFIX_START_TIMESTAMP)
         const val NOT_SET_VALUE = "not set"
+        const val PERIODIC_CONTACTS_BACKUP_INTERVAL_MINUTES = 24 * 60L
         const val DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES = 15L
-        const val INTERVAL_SECOND = 1000L
-        const val INTERVAL_MINUTE = 60L * INTERVAL_SECOND
-        const val INTERVAL_HOUR = 60 * INTERVAL_MINUTE
-        const val INTERVAL_24H = 24L * INTERVAL_HOUR
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
 
         fun formatNameTag(name: String, user: User? = null): String {
@@ -231,7 +228,7 @@ internal class BackgroundJobManagerImpl(
         val request = periodicRequestBuilder(
             jobClass = ContactsBackupWork::class,
             jobName = JOB_PERIODIC_CONTACTS_BACKUP,
-            intervalMins = INTERVAL_24H,
+            intervalMins = PERIODIC_CONTACTS_BACKUP_INTERVAL_MINUTES,
             user = user
         ).setInputData(data).build()
 
