@@ -415,6 +415,7 @@
     <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja</string>
     <string name="move_to">Premakni v …</string>
     <string name="network_error_socket_exception">Med povezovanjem s strežnikom je prišlo do napake.</string>
+    <string name="network_host_not_available">Opravila ni mogoče dokončate. Strežnik ni dosegljiv</string>
     <string name="new_comment">Nova opomba …</string>
     <string name="new_media_folder_detected">Zaznana je nova mapa s predstavno vsebino: %1$s .</string>
     <string name="new_media_folder_photos">slika</string>
