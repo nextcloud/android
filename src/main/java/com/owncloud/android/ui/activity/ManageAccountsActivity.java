@@ -488,6 +488,10 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         if (view.getId() == R.id.account_menu) {
             PopupMenu popup = new PopupMenu(this, view);
             popup.getMenuInflater().inflate(R.menu.item_account, popup.getMenu());
+
+            if((accountManager.getUser()).equals(user)) {
+                popup.getMenu().findItem(R.id.action_open_account).setVisible(false);
+            }
             popup.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case R.id.action_open_account:

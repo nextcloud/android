@@ -167,6 +167,14 @@ public class UserInfoActivity extends FileActivity implements Injectable {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if ((accountManager.getUser()).equals(user)) {
+            menu.findItem(R.id.action_open_account).setVisible(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.item_account, menu);
