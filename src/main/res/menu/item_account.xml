@@ -26,7 +26,7 @@
 
     <item
         android:id="@+id/action_open_account"
-        android:title="@string/view_profile"
+        android:title="@string/common_switch_to_account"
         app:showAsAction="never"
         android:showAsAction="never" />
 
