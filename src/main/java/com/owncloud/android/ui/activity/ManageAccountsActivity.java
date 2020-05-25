@@ -38,7 +38,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -490,10 +489,16 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
             PopupMenu popup = new PopupMenu(this, view);
             popup.getMenuInflater().inflate(R.menu.item_account, popup.getMenu());
             popup.setOnMenuItemClickListener(item -> {
-                if (item.getItemId() == R.id.action_delete_account) {
-                    openAccountRemovalConfirmationDialog(user, getSupportFragmentManager());
-                } else {
-                    accountClicked(user.hashCode());
+                switch (item.getItemId()) {
+                    case R.id.action_open_account:
+                        accountClicked(user.hashCode());
+                        break;
+                    case R.id.action_delete_account:
+                        openAccountRemovalConfirmationDialog(user, getSupportFragmentManager());
+                        break;
+                    default:
+                        openAccount(user);
+                        break;
                 }
                 return true;
             });
