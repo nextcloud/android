@@ -487,11 +487,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     @Override
     public void onOptionItemClicked(User user, View view) {
         if (view.getId() == R.id.account_menu) {
-            ImageView menuButton = findViewById(R.id.account_menu);
-
-            PopupMenu popup = new PopupMenu(view.getContext(), menuButton);
+            PopupMenu popup = new PopupMenu(this, view);
             popup.getMenuInflater().inflate(R.menu.item_account, popup.getMenu());
-            popup.show();
             popup.setOnMenuItemClickListener(item -> {
                 if (item.getItemId() == R.id.action_delete_account) {
                     openAccountRemovalConfirmationDialog(user, getSupportFragmentManager());
@@ -500,6 +497,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                 }
                 return true;
             });
+            popup.show();
         } else {
             openAccount(user);
         }
