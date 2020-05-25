@@ -444,6 +444,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             fileSeparator = itemView.findViewById(R.id.file_separator);
             lastModification = itemView.findViewById(R.id.last_mod);
 
+            itemView.findViewById(R.id.sharedAvatars).setVisibility(View.GONE);
             itemView.findViewById(R.id.overflow_menu).setVisibility(View.GONE);
         }
     }
