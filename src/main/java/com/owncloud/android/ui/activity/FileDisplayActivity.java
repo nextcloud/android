@@ -2578,7 +2578,6 @@ public class FileDisplayActivity extends FileActivity
             setFile(file);
 
             User user = optionalUser.get();
-            setAccountInDrawer(user);
             setupDrawer();
 
             mSwitchAccountButton.setTag(user.getAccountName());
@@ -2660,7 +2659,6 @@ public class FileDisplayActivity extends FileActivity
         if (optionalNewUser.isPresent()) {
             user = optionalNewUser.get();
             setUser(user);
-            updateAccountList();
         } else {
             dismissLoadingDialog();
             DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));

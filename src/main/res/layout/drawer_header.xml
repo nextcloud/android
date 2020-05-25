@@ -21,120 +21,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/drawer_header_view"
               android:layout_width="match_parent"
-              android:layout_height="@dimen/nav_drawer_header_height"
+              android:layout_height="@dimen/drawer_header_height"
               android:fitsSystemWindows="true">
 
     <ImageView
-        android:id="@+id/drawer_header_background"
-        android:layout_width="match_parent"
+        android:id="@+id/drawer_header_logo"
+        android:layout_width="@dimen/drawer_header_logo_width"
         android:layout_height="match_parent"
-        android:contentDescription="@string/drawer_header_background"
-        android:src="@drawable/background"
-        android:scaleType="centerCrop"/>
-
-    <RelativeLayout
-        android:id="@+id/drawer_active_user"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:paddingTop="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_padding"
-        android:paddingLeft="@dimen/standard_padding"
-        android:paddingBottom="@dimen/zero">
-
-        <FrameLayout
-            android:id="@+id/drawer_user_avatars"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginBottom="@dimen/standard_half_margin">
-
-            <ImageView
-                android:id="@+id/drawer_current_account"
-                android:layout_width="@dimen/nav_drawer_header_avatar"
-                android:layout_height="@dimen/nav_drawer_header_avatar"
-                android:src="@drawable/account_circle_white"
-                android:contentDescription="@string/drawer_current_account"/>
-
-            <ImageView
-                android:id="@+id/drawer_account_middle"
-                android:layout_width="@dimen/nav_drawer_header_avatar_other_accounts_size"
-                android:layout_height="@dimen/nav_drawer_header_avatar_other_accounts_size"
-                android:layout_gravity="end"
-                android:layout_marginEnd="@dimen/nav_drawer_header_avatar_second_account_margin"
-                android:src="@drawable/account_circle_white"
-                android:onClick="onAccountDrawerClick"
-                android:contentDescription="@string/drawer_middle_account"/>
-
-            <ImageView
-                android:id="@+id/drawer_account_end"
-                android:layout_width="@dimen/nav_drawer_header_avatar_other_accounts_size"
-                android:layout_height="@dimen/nav_drawer_header_avatar_other_accounts_size"
-                android:layout_gravity="end"
-                android:src="@drawable/account_circle_white"
-                android:onClick="onAccountDrawerClick"
-                android:contentDescription="@string/drawer_end_account"/>
-
-        </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/drawer_user_avatars"
-            >
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingEnd="@dimen/standard_half_padding"
-                android:paddingStart="@dimen/zero">
-
-                <TextView
-                    android:id="@+id/drawer_username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:shadowColor="@color/drawer_shadow"
-                    android:shadowDx="0.5"
-                    android:shadowDy="0"
-                    android:shadowRadius="2"
-                    android:maxLines="1"
-                    android:text="@string/app_name"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/drawer_header_text"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/drawer_username_full"
-                    android:layout_width="match_parent"
-                    android:layout_height="28dp"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:shadowColor="@color/drawer_shadow"
-                    android:shadowDx="0.5"
-                    android:shadowDy="0"
-                    android:shadowRadius="2"
-                    android:text="@string/app_name"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/drawer_header_subtext"/>
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/drawer_account_chooser_toggle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginBottom="8dp"
-                android:contentDescription="@string/drawer_manage_accounts"
-                android:src="@drawable/ic_down"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
+        android:layout_margin="@dimen/standard_margin"
+        android:src="@drawable/nextcloud_logo"
+        android:scaleType="fitCenter"/>
 
 </FrameLayout>

@@ -96,24 +96,6 @@
     </group>
 
     <!--
-      account list placeholder
-      all items in this group MUST have orderInCategory="2" set
-      all accounts are dynamically added with orderInCategory="1" set
-    -->
-    <group android:id="@+id/drawer_menu_accounts">
-        <item
-            android:id="@+id/drawer_menu_account_add"
-            android:icon="@drawable/ic_account_plus"
-            android:orderInCategory="2"
-            android:title="@string/prefs_add_account"/>
-        <item
-            android:id="@+id/drawer_menu_account_manage"
-            android:icon="@drawable/nav_settings"
-            android:orderInCategory="2"
-            android:title="@string/drawer_manage_accounts"/>
-    </group>
-
-    <!--
      all items in this group MUST have orderInCategory="3" set
    -->
     <group
