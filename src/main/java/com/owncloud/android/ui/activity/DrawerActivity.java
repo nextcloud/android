@@ -269,7 +269,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      *
      * @param navigationView the drawers navigation view
      */
-    protected void setupDrawerMenu(NavigationView navigationView) {
+    private void setupDrawerMenu(NavigationView navigationView) {
         navigationView.setItemIconTintList(null);
 
         // setup actions for drawer menu items
@@ -739,27 +739,24 @@ public abstract class DrawerActivity extends ToolbarActivity
                     final int relative = (int) Math.ceil(quota.getRelative());
                     final long quotaValue = quota.getQuota();
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (quotaValue > 0 || quotaValue == GetUserInfoRemoteOperation.SPACE_UNLIMITED
-                                || quotaValue == GetUserInfoRemoteOperation.QUOTA_LIMIT_INFO_NOT_AVAILABLE) {
-                                /*
-                                 * show quota in case
-                                 * it is available and calculated (> 0) or
-                                 * in case of legacy servers (==QUOTA_LIMIT_INFO_NOT_AVAILABLE)
-                                 */
-                                setQuotaInformation(used, total, relative, quotaValue);
-                            } else {
-                                /*
-                                 * quotaValue < 0 means special cases like
-                                 * {@link RemoteGetUserQuotaOperation.SPACE_NOT_COMPUTED},
-                                 * {@link RemoteGetUserQuotaOperation.SPACE_UNKNOWN} or
-                                 * {@link RemoteGetUserQuotaOperation.SPACE_UNLIMITED}
-                                 * thus don't display any quota information.
-                                 */
-                                showQuota(false);
-                            }
+                    runOnUiThread(() -> {
+                        if (quotaValue > 0 || quotaValue == GetUserInfoRemoteOperation.SPACE_UNLIMITED
+                            || quotaValue == GetUserInfoRemoteOperation.QUOTA_LIMIT_INFO_NOT_AVAILABLE) {
+                            /*
+                             * show quota in case
+                             * it is available and calculated (> 0) or
+                             * in case of legacy servers (==QUOTA_LIMIT_INFO_NOT_AVAILABLE)
+                             */
+                            setQuotaInformation(used, total, relative, quotaValue);
+                        } else {
+                            /*
+                             * quotaValue < 0 means special cases like
+                             * {@link RemoteGetUserQuotaOperation.SPACE_NOT_COMPUTED},
+                             * {@link RemoteGetUserQuotaOperation.SPACE_UNKNOWN} or
+                             * {@link RemoteGetUserQuotaOperation.SPACE_UNLIMITED}
+                             * thus don't display any quota information.
+                             */
+                            showQuota(false);
                         }
                     });
                 }
