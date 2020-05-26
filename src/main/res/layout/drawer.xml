@@ -30,6 +30,7 @@
         android:fitsSystemWindows="true"
         android:background="@color/appbar"
         android:theme="@style/NavigationView_ItemTextAppearance"
+        app:itemTextColor="@color/drawer_text_color"
         app:headerLayout="@layout/drawer_header"
         app:menu="@menu/partial_drawer_entries">
 
