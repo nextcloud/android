@@ -290,6 +290,15 @@ dependencies {
     gplayImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     versionDevImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     qaImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
+
+    kapt 'javax.xml.bind:jaxb-api:2.3.1'
+    kapt 'org.glassfish.jaxb:jaxb-core:2.3.0.1'
+    kapt 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+
+    annotationProcessor 'javax.xml.bind:jaxb-api:2.3.1'
+    annotationProcessor 'org.glassfish.jaxb:jaxb-core:2.3.0.1'
+    annotationProcessor 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+
     compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2' // remove after entire switch to lib v2
     implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
     implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.1' // remove after entire switch to lib v2
@@ -362,7 +371,7 @@ dependencies {
     testImplementation 'org.powermock:powermock-core:2.0.7'
     testImplementation 'org.powermock:powermock-module-junit4:2.0.7'
     testImplementation 'org.powermock:powermock-api-mockito2:2.0.7'
-    testImplementation 'org.json:json:20190722'
+    testImplementation 'org.json:json:20200518'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
 

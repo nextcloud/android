@@ -161,6 +161,7 @@
     <string name="copy_file_error">Prišlo je do napake med kopiranjem datoteke v mapo</string>
     <string name="copy_file_invalid_into_descendent">Ni mogoče kopirati mape v podrejeno mapo</string>
     <string name="copy_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja</string>
+    <string name="copy_file_not_found">Kopiranje ni mogoče. Preverite, ali datoteka obstaja.</string>
     <string name="copy_link">Kopiraj povezavo</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiranje/Premikanje predmetov v šifrirano mapo trenutno ni podprto.</string>
     <string name="copy_to">Kopiraj v ...</string>
@@ -414,6 +415,7 @@
     <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja</string>
     <string name="move_to">Premakni v …</string>
     <string name="network_error_socket_exception">Med povezovanjem s strežnikom je prišlo do napake.</string>
+    <string name="network_host_not_available">Opravila ni mogoče dokončate. Strežnik ni dosegljiv</string>
     <string name="new_comment">Nova opomba …</string>
     <string name="new_media_folder_detected">Zaznana je nova mapa s predstavno vsebino: %1$s .</string>
     <string name="new_media_folder_photos">slika</string>
@@ -712,6 +714,8 @@
     <string name="unshare_link_forbidden_permissions">za preklic souporabe datoteke.</string>
     <string name="unsharing_failed">Odstranjevanje souporabe je spodletelo</string>
     <string name="untrusted_domain">Zaznan je dostop prek domene, ki ni zaupanja vredna. Več podrobnosti je zapisanih v dokumentaciji.</string>
+    <string name="update_link_file_error">Prišlo je do napake med posodabljanjem mesta souporabe</string>
+    <string name="update_link_file_no_exist">Posodobitev ni mogoča. Preverite, ali datoteka obstaja.</string>
     <string name="update_link_forbidden_permissions">za posodobitev mesta souporabe</string>
     <string name="updating_share_failed">Posodabljanje mesta souporabe je spodletelo</string>
     <string name="upload_cannot_create_file">Krajevne datoteke ni mogoče ustvariti</string>

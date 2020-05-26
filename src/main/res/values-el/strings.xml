@@ -127,9 +127,9 @@
     <string name="community_contribute_translate_text">η εφαρμογή</string>
     <string name="community_contribute_translate_translate">Μετάφραση</string>
     <string name="community_dev_direct_download">Απευθείας λήψη της υπό ανάπτυξη έκδοσης</string>
-    <string name="community_dev_fdroid">Λάβετε την υπό ανάπτυξη έκδοση από την εφαρμογή F-Droid</string>
-    <string name="community_rc_fdroid">Λάβετε την υπό ανάπτυξη έκδοση από την εφαρμογή F-Droid</string>
-    <string name="community_rc_play_store">Λάβετε την υπό ανάπτυξη έκδοση από την εφαρμογή Google Play store</string>
+    <string name="community_dev_fdroid">Λάβετε την έκδοση για προγραμματιστές από το F-Droid</string>
+    <string name="community_rc_fdroid">Λάβετε την υπό ανάπτυξη έκδοση από το F-Droid</string>
+    <string name="community_rc_play_store">Λάβετε την υπό ανάπτυξη έκδοση από το Google Play store</string>
     <string name="community_release_candidate_headline">Υποψήφια έκδοση</string>
     <string name="community_release_candidate_text">Η υποψήφια έκδοση (RC) είναι ένα στιγμιότυπο της επερχόμενης έκδοσης και να αναμένεται να είναι σταθερή. Δοκιμάζοντας τις προσωπικές σας ρυθμίσεις μπορεί να βοηθήσει στην διασφάλιση της έκδοσης. Δηλώστε υποψηφιότητα δοκιμής στο Play store ή αναζητήστε χειροκίνητα στον τομέα \"εκδόσεων\" στο F-Droid.</string>
     <string name="community_testing_bug_text">Βρήκατε σφάλμα; Κάτι σας φαίνεται παράξενο;</string>
@@ -207,7 +207,7 @@
     <string name="drawer_community">Κοινότητα</string>
     <string name="drawer_current_account">Τρέχον λογαριασμός</string>
     <string name="drawer_end_account">Τελευταίος λογαριασμός</string>
-    <string name="drawer_header_background">Φωτογραφία φόντου επικεφαλίδας</string>
+    <string name="drawer_header_background">Φωτογραφία φόντου επικεφαλίδας συρταριού</string>
     <string name="drawer_item_activities">Δραστηριότητες</string>
     <string name="drawer_item_all_files">Όλα τα αρχεία</string>
     <string name="drawer_item_favorites">Αγαπημένα</string>
