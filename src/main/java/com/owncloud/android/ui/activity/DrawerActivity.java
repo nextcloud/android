@@ -31,14 +31,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -691,30 +689,26 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     protected void setDrawerMenuItemChecked(int menuItemId) {
         if (mNavigationView != null && mNavigationView.getMenu().findItem(menuItemId) != null) {
+            mCheckedMenuItem = menuItemId;
+            MenuItem currentItem = mNavigationView.getMenu().findItem(menuItemId);
+            int drawerColor = getResources().getColor(R.color.drawer_text_color);
+            int activeColor = ThemeUtils.elementColor(this);
 
-            MenuItem item = mNavigationView.getMenu().findItem(menuItemId);
-            item.setChecked(true);
+            currentItem.setChecked(true);
 
-            // reset all tinted icons
+            // For each menu item, change the color of the selected item, and of the other items
             for (int i = 0; i < mNavigationView.getMenu().size(); i++) {
                 MenuItem menuItem = mNavigationView.getMenu().getItem(i);
                 if (menuItem.getIcon() != null) {
-                    menuItem.getIcon().clearColorFilter();
-                    menuItem.setTitle(Html.fromHtml(
-                        "<font color='"
-                            + ThemeUtils.colorToHexString(ContextCompat.getColor(this, R.color.drawer_text_color))
-                            + "'>" + menuItem.getTitle()
-                            + "</font>"));
+                    if (menuItem != currentItem) {
+                        ThemeUtils.tintDrawable(menuItem.getIcon(), drawerColor);
+                        ThemeUtils.tintMenuItemText(menuItem, drawerColor);
+                    } else {
+                        ThemeUtils.tintDrawable(currentItem.getIcon(), activeColor);
+                        ThemeUtils.tintMenuItemText(currentItem, activeColor);
+                    }
                 }
             }
-
-            int elementColor = ThemeUtils.elementColor(this);
-            ThemeUtils.tintDrawable(item.getIcon(), elementColor);
-
-            String colorHex = ThemeUtils.colorToHexString(elementColor);
-            item.setTitle(Html.fromHtml("<font color='" + colorHex + "'>" + item.getTitle() + "</font>"));
-
-            mCheckedMenuItem = menuItemId;
         } else {
             Log_OC.w(TAG, "setDrawerMenuItemChecked has been called with invalid menu-item-ID");
         }
