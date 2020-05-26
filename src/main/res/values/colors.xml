@@ -87,7 +87,4 @@
     <color name="appbar">@android:color/white</color>
     <color name="fontAppbar">#666666</color>
     <color name="fontSecondaryAppbar">#A5A5A5</color>
-
-    <!-- Account selection -->
-    <color name="account_separator">#E0E0E0</color>
 </resources>
