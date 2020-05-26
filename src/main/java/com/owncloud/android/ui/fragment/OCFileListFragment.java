@@ -657,8 +657,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
          */
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            Set<OCFile> checkedFiles = mAdapter.getCheckedItems();
             final int checkedCount = mAdapter.getCheckedItems().size();
+            if (checkedCount == 0) {
+                mActiveActionMode.finish();
+            }
+            Set<OCFile> checkedFiles = mAdapter.getCheckedItems();
             String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
             mode.setTitle(title);
             Account currentAccount = ((FileActivity) getActivity()).getAccount();
