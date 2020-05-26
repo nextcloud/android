@@ -1,0 +1,8 @@
+FIX: #5752 Upload files: too much whitespace
+Revert "[FIX: #5752] Upload files: too much whitespace"
+If we cancel by user, we pass a reason, so app can handle it correctly
+Add jaxb dependencies for builde (with jdk>8)
+Fix contacts backup job interval
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
