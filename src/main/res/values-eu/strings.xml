@@ -288,6 +288,7 @@
     <string name="file_list_empty">Kargatu edukiren bat edo sinkronizatu zure gailuekin.</string>
     <string name="file_list_empty_favorite_headline">Oraindik ez dago ezer gogoko bezala markatuta</string>
     <string name="file_list_empty_favorites_filter">Zure bilaketak ez du gogoko fitxategirik itzuli.</string>
+    <string name="file_list_empty_favorites_filter_list">Gogoko bezala markatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
     <string name="file_list_empty_headline">Ez dago fitxategirik hemen</string>
     <string name="file_list_empty_headline_search">Ez dago emailtzarik karpeta honetan</string>
     <string name="file_list_empty_headline_server_search">Emaitzik ez</string>
@@ -299,6 +300,7 @@
     <string name="file_list_empty_recently_modified">Ez da aurkitu azken 7 egunetan aldatu den fitxategirik</string>
     <string name="file_list_empty_recently_modified_filter">Ez da fitxategirik aldatu azken 7 egunetan.</string>
     <string name="file_list_empty_search">Agian beste karpeta batean dago?</string>
+    <string name="file_list_empty_shared">Partekatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
     <string name="file_list_empty_shared_headline">Oraindik ez dago ezer partekatuta</string>
     <string name="file_list_empty_text_photos">Kargatu argazki batzuk edo aktiba ezazu automatikoki kargatzea.</string>
     <string name="file_list_empty_text_photos_filter">Argazkirik ez.</string>
