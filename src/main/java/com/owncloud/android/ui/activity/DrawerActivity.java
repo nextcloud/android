@@ -263,7 +263,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     private void setupDrawerHeader() {
         ImageView drawerLogo = findViewById(R.id.drawer_header_logo);
-        drawerLogo.setColorFilter(Color.parseColor(getCapabilities().getServerColor()));
+        drawerLogo.setColorFilter(ThemeUtils.primaryColor(getAccount(), true, this));
     }
 
     /**
