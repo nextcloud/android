@@ -30,6 +30,7 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/standard_margin"
         android:src="@drawable/nextcloud_logo"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/empty" />
 
 </FrameLayout>
