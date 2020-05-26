@@ -198,7 +198,6 @@ public class UploadListActivity extends FileActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        final Optional<User> optionalUser = getUser();
     }
 
     @Override
