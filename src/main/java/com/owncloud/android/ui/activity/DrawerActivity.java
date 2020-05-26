@@ -36,6 +36,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.text.Html;
 import android.view.Menu;
@@ -116,6 +117,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     implements DisplayUtils.AvatarGenerationListener, Injectable {
 
     private static final String TAG = DrawerActivity.class.getSimpleName();
+    private static final String KEY_IS_ACCOUNT_CHOOSER_ACTIVE = "IS_ACCOUNT_CHOOSER_ACTIVE";
     private static final String KEY_CHECKED_MENU_ITEM = "CHECKED_MENU_ITEM";
     private static final int ACTION_MANAGE_ACCOUNTS = 101;
     private static final int MENU_ORDER_EXTERNAL_LINKS = 3;
@@ -124,7 +126,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * Reference to the drawer layout.
      */
-    protected DrawerLayout mDrawerLayout;
+    private DrawerLayout mDrawerLayout;
 
     /**
      * Reference to the drawer toggle.
@@ -135,6 +137,11 @@ public abstract class DrawerActivity extends ToolbarActivity
      * Reference to the navigation view.
      */
     private NavigationView mNavigationView;
+
+    /**
+     * Flag to signal if the account chooser is active.
+     */
+    private boolean mIsAccountChooserActive;
 
     /**
      * Id of the checked menu item.
@@ -172,8 +179,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     ClientFactory clientFactory;
 
     /**
-     * Initializes the drawer, its content and highlights the menu item with the given id.
-     * This method needs to be called after the content view has been set.
+     * Initializes the drawer, its content and highlights the menu item with the given id. This method needs to be
+     * called after the content view has been set.
      *
      * @param menuItemId the menu item to be checked/highlighted
      */
@@ -183,17 +190,20 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     /**
-     * Initializes the drawer and its content.
-     * This method needs to be called after the content view has been set.
+     * Initializes the drawer and its content. This method needs to be called after the content view has been set.
      */
     protected void setupDrawer() {
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
         mNavigationView = findViewById(R.id.nav_view);
         if (mNavigationView != null) {
+
             setupDrawerMenu(mNavigationView);
+            getAndDisplayUserQuota();
             setupQuotaElement();
         }
+
+        setupDrawerToggle();
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -201,9 +211,45 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     /**
+     * initializes and sets up the drawer toggle.
+     */
+    private void setupDrawerToggle() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                supportInvalidateOptionsMenu();
+                mDrawerToggle.setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+
+                if (pendingRunnable != null) {
+                    new Handler().post(pendingRunnable);
+                    pendingRunnable = null;
+                }
+
+                closeDrawer();
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                mDrawerToggle.setDrawerIndicatorEnabled(true);
+                supportInvalidateOptionsMenu();
+            }
+        };
+
+        // Set the drawer toggle as the DrawerListener
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerToggle.setDrawerSlideAnimationEnabled(true);
+        Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
+        mDrawerToggle.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.appBarPrimaryFontColor(this)));
+        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.appBarPrimaryFontColor(this));
+    }
+
+    /**
      * setup quota elements of the drawer.
      */
-
     private void setupQuotaElement() {
         mQuotaView = (LinearLayout) findQuotaViewById(R.id.drawer_quota);
         mQuotaProgressBar = (ProgressBar) findQuotaViewById(R.id.drawer_quota_ProgressBar);
@@ -214,11 +260,10 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     /**
      * setup drawer header, basically the logo color
-     *
      */
-    protected void setupDrawerHeader() {
-       ImageView drawerLogo = findViewById(R.id.drawer_header_logo);
-       drawerLogo.setColorFilter(Color.parseColor(getCapabilities().getServerColor()));
+    private void setupDrawerHeader() {
+        ImageView drawerLogo = findViewById(R.id.drawer_header_logo);
+        drawerLogo.setColorFilter(Color.parseColor(getCapabilities().getServerColor()));
     }
 
     /**
@@ -231,28 +276,20 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         // setup actions for drawer menu items
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull final MenuItem menuItem) {
-                        mDrawerLayout.closeDrawers();
-                        // pending runnable will be executed after the drawer has been closed
-                        pendingRunnable = new Runnable() {
-                            @Override
-                            public void run() {
-                                onNavigationItemClicked(menuItem);
-                            }
-                        };
-                        return true;
-                    }
-                });
+            menuItem -> {
+                mDrawerLayout.closeDrawers();
+                // pending runnable will be executed after the drawer has been closed
+                pendingRunnable = () -> onNavigationItemClicked(menuItem);
+                return true;
+            });
 
         User account = accountManager.getUser();
         filterDrawerMenu(navigationView.getMenu(), account);
     }
 
     private void filterDrawerMenu(final Menu menu, @NonNull final User user) {
-            FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(),
-                                                                               getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(),
+                                                                           getContentResolver());
         OCCapability capability = storageManager.getCapability(user.getAccountName());
 
         DrawerMenuUtil.filterSearchMenuItems(menu, user, getResources(), true);
@@ -265,10 +302,10 @@ public abstract class DrawerActivity extends ToolbarActivity
                                       !getResources().getBoolean(R.bool.participate_enabled));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_shared, !getResources().getBoolean(R.bool.shared_enabled));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_contacts, !getResources().getBoolean(R.bool.contacts_backup)
-                || !getResources().getBoolean(R.bool.show_drawer_contacts_backup));
+            || !getResources().getBoolean(R.bool.show_drawer_contacts_backup));
 
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_synced_folders,
-                getResources().getBoolean(R.bool.syncedFolder_light));
+                                      getResources().getBoolean(R.bool.syncedFolder_light));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_logout, !getResources().getBoolean(R.bool.show_drawer_logout));
     }
 
@@ -434,8 +471,8 @@ public abstract class DrawerActivity extends ToolbarActivity
 
 
     /**
-     * sets the new/current account and restarts. In case the given account equals the actual/current account the
-     * call will be ignored.
+     * sets the new/current account and restarts. In case the given account equals the actual/current account the call
+     * will be ignored.
      *
      * @param hashCode HashCode of account to be set
      */
@@ -447,7 +484,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private void externalLinkClicked(MenuItem menuItem){
+    private void externalLinkClicked(MenuItem menuItem) {
         for (ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
             if (menuItem.getTitle().toString().equalsIgnoreCase(link.name)) {
                 if (link.redirect) {
@@ -488,9 +525,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     public void openDrawer() {
         if (mDrawerLayout != null) {
-            ImageView drawerLogo = mDrawerLayout.findViewById(R.id.drawer_header_logo);
-            drawerLogo.setColorFilter(Color.parseColor(getCapabilities().getServerColor()));
-
+            setupDrawerHeader();
             mDrawerLayout.openDrawer(GravityCompat.START);
             updateExternalLinksInDrawer();
             updateQuotaLink();
@@ -500,8 +535,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * Enable or disable interaction with all drawers.
      *
-     * @param lockMode The new lock mode for the given drawer. One of {@link DrawerLayout#LOCK_MODE_UNLOCKED},
-     *                 {@link DrawerLayout#LOCK_MODE_LOCKED_CLOSED} or {@link DrawerLayout#LOCK_MODE_LOCKED_OPEN}.
+     * @param lockMode The new lock mode for the given drawer. One of {@link DrawerLayout#LOCK_MODE_UNLOCKED}, {@link
+     *                 DrawerLayout#LOCK_MODE_LOCKED_CLOSED} or {@link DrawerLayout#LOCK_MODE_LOCKED_OPEN}.
      */
     public void setDrawerLockMode(int lockMode) {
         if (mDrawerLayout != null) {
@@ -521,8 +556,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     /**
-     * Updates title bar and home buttons (state and icon).
-     * Assumes that navigation drawer is NOT visible.
+     * Updates title bar and home buttons (state and icon). Assumes that navigation drawer is NOT visible.
      */
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
         super.updateActionBarTitleAndHomeButton(chosenFile);
@@ -552,7 +586,8 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     /**
      * configured the quota to be displayed.
-     *  @param usedSpace  the used space
+     *
+     * @param usedSpace  the used space
      * @param totalSpace the total space
      * @param relative   the percentage of space already used
      * @param quotaValue {@link GetUserInfoRemoteOperation#SPACE_UNLIMITED} or other to determinate state
@@ -560,13 +595,13 @@ public abstract class DrawerActivity extends ToolbarActivity
     private void setQuotaInformation(long usedSpace, long totalSpace, int relative, long quotaValue) {
         if (GetUserInfoRemoteOperation.SPACE_UNLIMITED == quotaValue) {
             mQuotaTextPercentage.setText(String.format(
-                    getString(R.string.drawer_quota_unlimited),
-                    DisplayUtils.bytesToHumanReadable(usedSpace)));
+                getString(R.string.drawer_quota_unlimited),
+                DisplayUtils.bytesToHumanReadable(usedSpace)));
         } else {
             mQuotaTextPercentage.setText(String.format(
-                    getString(R.string.drawer_quota),
-                    DisplayUtils.bytesToHumanReadable(usedSpace),
-                    DisplayUtils.bytesToHumanReadable(totalSpace)));
+                getString(R.string.drawer_quota),
+                DisplayUtils.bytesToHumanReadable(usedSpace),
+                DisplayUtils.bytesToHumanReadable(totalSpace)));
         }
 
         mQuotaProgressBar.setProgress(relative);
@@ -577,8 +612,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         showQuota(true);
     }
 
-    protected void unsetAllDrawerMenuItems() {
-        if (mNavigationView != null && mNavigationView.getMenu() != null) {
+    private void unsetAllDrawerMenuItems() {
+        if (mNavigationView != null) {
+            mNavigationView.getMenu();
             Menu menu = mNavigationView.getMenu();
             for (int i = 0; i < menu.size(); i++) {
                 menu.getItem(i).setChecked(false);
@@ -601,16 +637,13 @@ public abstract class DrawerActivity extends ToolbarActivity
                     mQuotaTextLink.setText(firstQuota.name);
                     mQuotaTextLink.setClickable(true);
                     mQuotaTextLink.setVisibility(View.VISIBLE);
-                    mQuotaTextLink.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.name);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.url);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
-                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
-                            startActivity(externalWebViewIntent);
-                        }
+                    mQuotaTextLink.setOnClickListener(v -> {
+                        Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.name);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.url);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
+                        startActivity(externalWebViewIntent);
                     });
 
 
@@ -657,8 +690,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      * @param menuItemId the menu item to be highlighted
      */
     protected void setDrawerMenuItemChecked(int menuItemId) {
-        if (mNavigationView != null && mNavigationView.getMenu() != null &&
-                mNavigationView.getMenu().findItem(menuItemId) != null) {
+        if (mNavigationView != null && mNavigationView.getMenu().findItem(menuItemId) != null) {
 
             MenuItem item = mNavigationView.getMenu().findItem(menuItemId);
             item.setChecked(true);
@@ -693,51 +725,49 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     private void getAndDisplayUserQuota() {
         // set user space information
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                final User user = accountManager.getUser();
+        Thread t = new Thread(() -> {
+            final User user = accountManager.getUser();
 
-                if (user.isAnonymous()) {
-                    return;
-                }
+            if (user.isAnonymous()) {
+                return;
+            }
 
-                final Context context = MainApp.getAppContext();
-                RemoteOperationResult result = new GetUserInfoRemoteOperation().execute(user.toPlatformAccount(), context);
+            final Context context = MainApp.getAppContext();
+            RemoteOperationResult result = new GetUserInfoRemoteOperation().execute(user.toPlatformAccount(), context);
 
-                if (result.isSuccess() && result.getData() != null) {
-                    final UserInfo userInfo = (UserInfo) result.getData().get(0);
-                    final Quota quota = userInfo.getQuota();
+            if (result.isSuccess() && result.getData() != null) {
+                final UserInfo userInfo = (UserInfo) result.getData().get(0);
+                final Quota quota = userInfo.getQuota();
 
-                    if (quota != null) {
-                        final long used = quota.getUsed();
-                        final long total = quota.getTotal();
-                        final int relative = (int) Math.ceil(quota.getRelative());
-                        final long quotaValue = quota.getQuota();
+                if (quota != null) {
+                    final long used = quota.getUsed();
+                    final long total = quota.getTotal();
+                    final int relative = (int) Math.ceil(quota.getRelative());
+                    final long quotaValue = quota.getQuota();
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (quotaValue > 0 || quotaValue == GetUserInfoRemoteOperation.SPACE_UNLIMITED
-                                    || quotaValue == GetUserInfoRemoteOperation.QUOTA_LIMIT_INFO_NOT_AVAILABLE) {
-                                    /*
-                                     * show quota in case
-                                     * it is available and calculated (> 0) or
-                                     * in case of legacy servers (==QUOTA_LIMIT_INFO_NOT_AVAILABLE)
-                                     */
-                                    setQuotaInformation(used, total, relative, quotaValue);
-                                } else {
-                                    /*
-                                     * quotaValue < 0 means special cases like
-                                     * {@link RemoteGetUserQuotaOperation.SPACE_NOT_COMPUTED},
-                                     * {@link RemoteGetUserQuotaOperation.SPACE_UNKNOWN} or
-                                     * {@link RemoteGetUserQuotaOperation.SPACE_UNLIMITED}
-                                     * thus don't display any quota information.
-                                     */
-                                    showQuota(false);
-                                }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (quotaValue > 0 || quotaValue == GetUserInfoRemoteOperation.SPACE_UNLIMITED
+                                || quotaValue == GetUserInfoRemoteOperation.QUOTA_LIMIT_INFO_NOT_AVAILABLE) {
+                                /*
+                                 * show quota in case
+                                 * it is available and calculated (> 0) or
+                                 * in case of legacy servers (==QUOTA_LIMIT_INFO_NOT_AVAILABLE)
+                                 */
+                                setQuotaInformation(used, total, relative, quotaValue);
+                            } else {
+                                /*
+                                 * quotaValue < 0 means special cases like
+                                 * {@link RemoteGetUserQuotaOperation.SPACE_NOT_COMPUTED},
+                                 * {@link RemoteGetUserQuotaOperation.SPACE_UNKNOWN} or
+                                 * {@link RemoteGetUserQuotaOperation.SPACE_UNLIMITED}
+                                 * thus don't display any quota information.
+                                 */
+                                showQuota(false);
                             }
-                        });
-                    }
+                        }
+                    });
                 }
             }
         });
@@ -745,7 +775,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         t.start();
     }
 
-    public void updateExternalLinksInDrawer() {
+    private void updateExternalLinksInDrawer() {
         if (mNavigationView != null && getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
             mNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
 
@@ -755,8 +785,8 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
                 int id = mNavigationView.getMenu().add(R.id.drawer_menu_external_links,
-                        MENU_ITEM_EXTERNAL_LINK + link.id, MENU_ORDER_EXTERNAL_LINKS, link.name)
-                        .setCheckable(true).getItemId();
+                                                       MENU_ITEM_EXTERNAL_LINK + link.id, MENU_ORDER_EXTERNAL_LINKS, link.name)
+                    .setCheckable(true).getItemId();
 
                 MenuSimpleTarget target = new MenuSimpleTarget<Drawable>(id) {
                     @Override
@@ -801,6 +831,11 @@ public abstract class DrawerActivity extends ToolbarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (savedInstanceState != null) {
+            mIsAccountChooserActive = savedInstanceState.getBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, false);
+            mCheckedMenuItem = savedInstanceState.getInt(KEY_CHECKED_MENU_ITEM, Menu.NONE);
+        }
+
         externalLinksProvider = new ExternalLinksProvider(getContentResolver());
         arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
     }
@@ -808,6 +843,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+
+        outState.putBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, mIsAccountChooserActive);
         outState.putInt(KEY_CHECKED_MENU_ITEM, mCheckedMenuItem);
     }
 
@@ -815,6 +852,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
+        mIsAccountChooserActive = savedInstanceState.getBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, false);
         mCheckedMenuItem = savedInstanceState.getInt(KEY_CHECKED_MENU_ITEM, Menu.NONE);
 
         // check/highlight the menu item if present
@@ -874,7 +912,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         // - ACCOUNT_LIST_CHANGED = true
         // - RESULT_OK
         if (requestCode == ACTION_MANAGE_ACCOUNTS && resultCode == RESULT_OK
-                && data.getBooleanExtra(ManageAccountsActivity.KEY_ACCOUNT_LIST_CHANGED, false)) {
+            && data.getBooleanExtra(ManageAccountsActivity.KEY_ACCOUNT_LIST_CHANGED, false)) {
 
             // current account has changed
             if (data.getBooleanExtra(ManageAccountsActivity.KEY_CURRENT_ACCOUNT_CHANGED, false)) {
@@ -882,15 +920,31 @@ public abstract class DrawerActivity extends ToolbarActivity
                 restart();
             }
         } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY &&
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && data != null) {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && data != null) {
             int result = data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
-                    RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE);
+                                          RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE);
 
             if (result == RequestCredentialsActivity.KEY_CHECK_RESULT_CANCEL) {
                 Log_OC.d(TAG, "PassCodeManager cancelled");
                 preferences.setLockTimestamp(0);
                 finish();
             }
+        }
+    }
+
+    /**
+     * Finds a view that was identified by the id attribute from the drawer header.
+     *
+     * @param id the view's id
+     * @return The view if found or <code>null</code> otherwise.
+     */
+    private View findNavigationViewChildById(int id) {
+        NavigationView view = findViewById(R.id.nav_view);
+
+        if (view != null) {
+            return view.getHeaderView(0).findViewById(id);
+        } else {
+            return null;
         }
     }
 
@@ -989,18 +1043,17 @@ public abstract class DrawerActivity extends ToolbarActivity
             Thread t = new Thread(() -> {
                 // fetch capabilities as early as possible
                 if ((getCapabilities() == null || getCapabilities().getAccountName().isEmpty())
-                        && getStorageManager() != null) {
+                    && getStorageManager() != null) {
                     GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation();
                     getCapabilities.execute(getStorageManager(), getBaseContext());
                 }
 
                 User user = accountManager.getUser();
                 String name = user.getAccountName();
-                if (getStorageManager() != null && getStorageManager().getCapability(name) != null &&
-                        getStorageManager().getCapability(name).getExternalLinks().isTrue()) {
+                if (getStorageManager() != null && getStorageManager().getCapability(name).getExternalLinks().isTrue()) {
 
                     int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL,
-                            FileActivity.APP_OPENED_COUNT);
+                                                                      FileActivity.APP_OPENED_COUNT);
 
                     if (count > 10 || count == -1 || force) {
                         if (force) {
@@ -1008,7 +1061,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                         }
 
                         arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL,
-                                FileActivity.APP_OPENED_COUNT, "0");
+                                                                    FileActivity.APP_OPENED_COUNT, "0");
 
                         Log_OC.d("ExternalLinks", "update via api");
                         RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
@@ -1025,7 +1078,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                         }
                     } else {
                         arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL,
-                                FileActivity.APP_OPENED_COUNT, String.valueOf(count + 1));
+                                                                    FileActivity.APP_OPENED_COUNT, String.valueOf(count + 1));
                     }
                 } else {
                     externalLinksProvider.deleteAllExternalLinks();
@@ -1033,7 +1086,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
                 runOnUiThread(this::updateExternalLinksInDrawer);
             });
-
             t.start();
         }
     }
