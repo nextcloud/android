@@ -401,7 +401,6 @@
     <string name="file_migration_source_not_readable">Do you still want to change the storage path to %1$s?\n\nNote: All data will have to be downloaded again.</string>
 
     <string name="prefs_add_account">Add account</string>
-    <string name="drawer_manage_accounts">Manage accounts</string>
     <string name="auth_redirect_non_secure_connection_title">Secure connection redirected through an unsecured route.</string>
 
     <string name="logs_title">Logs</string>
