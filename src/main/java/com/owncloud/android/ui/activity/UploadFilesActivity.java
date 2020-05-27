@@ -26,7 +26,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -77,52 +76,57 @@ import androidx.fragment.app.FragmentTransaction;
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
 /**
- * Displays local files and let the user choose what of them wants to upload
- * to the current ownCloud account.
+ * Displays local files and let the user choose what of them wants to upload to the current ownCloud account.
  */
 public class UploadFilesActivity extends FileActivity implements
     LocalFileListFragment.ContainerActivity, ActionBar.OnNavigationListener,
     OnClickListener, ConfirmationDialogFragmentListener, SortingOrderDialogFragment.OnSortingOrderListener,
     CheckAvailableSpaceTask.CheckAvailableSpaceListener, StoragePathAdapter.StoragePathAdapterListener, Injectable {
 
+    private static final String KEY_ALL_SELECTED = UploadFilesActivity.class.getCanonicalName() + ".KEY_ALL_SELECTED";
+    public final static String KEY_LOCAL_FOLDER_PICKER_MODE = UploadFilesActivity.class.getCanonicalName() + ".LOCAL_FOLDER_PICKER_MODE";
+    public static final String EXTRA_CHOSEN_FILES = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
+    public static final String KEY_DIRECTORY_PATH = UploadFilesActivity.class.getCanonicalName() + ".KEY_DIRECTORY_PATH";
+
     private static final int SINGLE_DIR = 1;
-
-    private ArrayAdapter<String> mDirectories;
-    private File mCurrentDir;
-    private boolean mSelectAll;
-    private boolean mLocalFolderPickerMode;
-    private LocalFileListFragment mFileListFragment;
-    protected MaterialButton mUploadBtn;
-    private Spinner mBehaviourSpinner;
-    private Account mAccountOnCreation;
-    private DialogFragment mCurrentDialog;
-    private Menu mOptionsMenu;
-    private SearchView mSearchView;
-
-    public static final String EXTRA_CHOSEN_FILES =
-            UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
-
-    public static final String EXTRA_ACTION = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_ACTION";
-    public final static String KEY_LOCAL_FOLDER_PICKER_MODE = UploadFilesActivity.class.getCanonicalName()
-            + ".LOCAL_FOLDER_PICKER_MODE";
-
-    public static final int RESULT_OK_AND_MOVE = RESULT_FIRST_USER;
-    public static final int RESULT_OK_AND_DO_NOTHING = 2;
     public static final int RESULT_OK_AND_DELETE = 3;
-
-    public static final String KEY_DIRECTORY_PATH =
-            UploadFilesActivity.class.getCanonicalName() + ".KEY_DIRECTORY_PATH";
-    private static final String KEY_ALL_SELECTED =
-            UploadFilesActivity.class.getCanonicalName() + ".KEY_ALL_SELECTED";
-
-    private static final String TAG = "UploadFilesActivity";
-    private static final String WAIT_DIALOG_TAG = "WAIT";
-    private static final String QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE";
+    public static final int RESULT_OK_AND_DO_NOTHING = 2;
+    public static final int RESULT_OK_AND_MOVE = RESULT_FIRST_USER;
     public static final String REQUEST_CODE_KEY = "requestCode";
 
+    private static final String QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE";
+    private static final String TAG = "UploadFilesActivity";
+    private static final String WAIT_DIALOG_TAG = "WAIT";
+
     @Inject AppPreferences preferences;
+    private Account mAccountOnCreation;
+    private ArrayAdapter<String> mDirectories;
+    private boolean mLocalFolderPickerMode;
+    private boolean mSelectAll;
+    private DialogFragment mCurrentDialog;
+    private File mCurrentDir;
     private int requestCode;
+    private LocalFileListFragment mFileListFragment;
     private LocalStoragePathPickerDialogFragment dialog;
+    private Menu mOptionsMenu;
+    private SearchView mSearchView;
+    private Spinner mBehaviourSpinner;
+    protected MaterialButton mUploadBtn;
+
+    /**
+     * Helper to launch the UploadFilesActivity for which you would like a result when it finished. Your
+     * onActivityResult() method will be called with the given requestCode.
+     *
+     * @param activity    the activity which should call the upload activity for a result
+     * @param account     the account for which the upload activity is called
+     * @param requestCode If >= 0, this code will be returned in onActivityResult()
+     */
+    public static void startUploadActivityForResult(Activity activity, Account account, int requestCode) {
+        Intent action = new Intent(activity, UploadFilesActivity.class);
+        action.putExtra(EXTRA_ACCOUNT, account);
+        action.putExtra(REQUEST_CODE_KEY, requestCode);
+        activity.startActivityForResult(action, requestCode);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -136,8 +140,8 @@ public class UploadFilesActivity extends FileActivity implements
         }
 
         if (savedInstanceState != null) {
-            mCurrentDir = new File(savedInstanceState.getString(UploadFilesActivity.KEY_DIRECTORY_PATH, Environment
-                    .getExternalStorageDirectory().getAbsolutePath()));
+            mCurrentDir = new File(savedInstanceState.getString(UploadFilesActivity.KEY_DIRECTORY_PATH,
+                                                                Environment.getExternalStorageDirectory().getAbsolutePath()));
             mSelectAll = savedInstanceState.getBoolean(UploadFilesActivity.KEY_ALL_SELECTED, false);
         } else {
             String lastUploadFrom = preferences.getUploadFromLocalLastPath();
@@ -166,8 +170,7 @@ public class UploadFilesActivity extends FileActivity implements
 
         if (mLocalFolderPickerMode) {
             findViewById(R.id.upload_options).setVisibility(View.GONE);
-            ((MaterialButton) findViewById(R.id.upload_files_btn_upload))
-                    .setText(R.string.uploader_btn_alternative_text);
+            ((MaterialButton) findViewById(R.id.upload_files_btn_upload)).setText(R.string.uploader_btn_alternative_text);
         }
 
         mFileListFragment = (LocalFileListFragment) getSupportFragmentManager().findFragmentById(R.id.local_files_list);
@@ -208,7 +211,7 @@ public class UploadFilesActivity extends FileActivity implements
 
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the official documentation
-            actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null && mCurrentDir.getName() != null);
+            actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null);
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
             actionBar.setListNavigationCallbacks(mDirectories, this);
@@ -236,28 +239,12 @@ public class UploadFilesActivity extends FileActivity implements
         mDirectories.add(File.separator);
     }
 
-    /**
-     * Helper to launch the UploadFilesActivity for which you would like a result when it finished.
-     * Your onActivityResult() method will be called with the given requestCode.
-     *
-     * @param activity    the activity which should call the upload activity for a result
-     * @param account     the account for which the upload activity is called
-     * @param requestCode If >= 0, this code will be returned in onActivityResult()
-     */
-    public static void startUploadActivityForResult(Activity activity, Account account, int requestCode) {
-        Intent action = new Intent(activity, UploadFilesActivity.class);
-        action.putExtra(EXTRA_ACCOUNT, account);
-        action.putExtra(REQUEST_CODE_KEY, requestCode);
-        activity.startActivityForResult(action, requestCode);
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mOptionsMenu = menu;
         getMenuInflater().inflate(R.menu.activity_upload_files, menu);
 
-        if(!mLocalFolderPickerMode) {
+        if (!mLocalFolderPickerMode) {
             MenuItem selectAll = menu.findItem(R.id.action_select_all);
             setSelectAllMenuItem(selectAll, mSelectAll);
         }
@@ -284,7 +271,7 @@ public class UploadFilesActivity extends FileActivity implements
         boolean retval = true;
         switch (item.getItemId()) {
             case android.R.id.home: {
-                if(mCurrentDir != null && mCurrentDir.getParentFile() != null){
+                if (mCurrentDir != null && mCurrentDir.getParentFile() != null) {
                     onBackPressed();
                 }
                 break;
@@ -407,8 +394,7 @@ public class UploadFilesActivity extends FileActivity implements
         super.onSaveInstanceState(outState);
         outState.putString(UploadFilesActivity.KEY_DIRECTORY_PATH, mCurrentDir.getAbsolutePath());
         if (mOptionsMenu != null && mOptionsMenu.findItem(R.id.action_select_all) != null) {
-            outState.putBoolean(UploadFilesActivity.KEY_ALL_SELECTED,
-                    mOptionsMenu.findItem(R.id.action_select_all).isChecked());
+            outState.putBoolean(UploadFilesActivity.KEY_ALL_SELECTED, mOptionsMenu.findItem(R.id.action_select_all).isChecked());
         } else {
             outState.putBoolean(UploadFilesActivity.KEY_ALL_SELECTED, false);
         }
@@ -417,11 +403,12 @@ public class UploadFilesActivity extends FileActivity implements
 
     /**
      * Pushes a directory to the drop down list
+     *
      * @param directory to push
      * @throws IllegalArgumentException If the {@link File#isDirectory()} returns false.
      */
     public void pushDirname(File directory) {
-        if(!directory.isDirectory()){
+        if (!directory.isDirectory()) {
             throw new IllegalArgumentException("Only directories may be pushed!");
         }
         mDirectories.insert(directory.getName(), 0);
@@ -431,6 +418,7 @@ public class UploadFilesActivity extends FileActivity implements
 
     /**
      * Pops a directory name from the drop down list
+     *
      * @return True, unless the stack is empty
      */
     public boolean popDirname() {
@@ -440,7 +428,7 @@ public class UploadFilesActivity extends FileActivity implements
 
     private void setSelectAllMenuItem(MenuItem selectAll, boolean checked) {
         selectAll.setChecked(checked);
-        if(checked) {
+        if (checked) {
             selectAll.setIcon(R.drawable.ic_select_none);
         } else {
             selectAll.setIcon(ThemeUtils.tintDrawable(R.drawable.ic_select_all, ThemeUtils.primaryColor(this)));
@@ -507,7 +495,7 @@ public class UploadFilesActivity extends FileActivity implements
             ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
                 R.string.upload_query_move_foreign_files, args, 0, R.string.common_yes, -1,
                 R.string.common_no
-            );
+                                                                                      );
             dialog.setOnConfirmationListener(this);
             dialog.show(getSupportFragmentManager(), QUERY_TO_MOVE_DIALOG_TAG);
         }
@@ -537,7 +525,8 @@ public class UploadFilesActivity extends FileActivity implements
         }
 
         @SuppressLint("RestrictedApi")
-        public @NonNull View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public @NonNull
+        View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             View v = super.getView(position, convertView, parent);
 
             int color = ThemeUtils.fontColor(getContext());
@@ -552,7 +541,7 @@ public class UploadFilesActivity extends FileActivity implements
             View v = super.getDropDownView(position, convertView, parent);
 
             ((TextView) v).setTextColor(getResources().getColorStateList(
-                    android.R.color.white));
+                android.R.color.white));
 
             return v;
         }
@@ -563,7 +552,7 @@ public class UploadFilesActivity extends FileActivity implements
      */
     @Override
     public void onDirectoryClick(File directory) {
-        if(!mLocalFolderPickerMode) {
+        if (!mLocalFolderPickerMode) {
             // invalidate checked state when navigating directories
             MenuItem selectAll = mOptionsMenu.findItem(R.id.action_select_all);
             setSelectAllMenuItem(selectAll, false);
@@ -619,9 +608,9 @@ public class UploadFilesActivity extends FileActivity implements
 
     /**
      * Performs corresponding action when user presses 'Cancel' or 'Upload' button
-     *
-     * TODO Make here the real request to the Upload service ; will require to receive the account and
-     * target folder where the upload must be done in the received intent.
+     * <p>
+     * TODO Make here the real request to the Upload service ; will require to receive the account and target folder
+     * where the upload must be done in the received intent.
      */
     @Override
     public void onClick(View v) {
@@ -630,7 +619,7 @@ public class UploadFilesActivity extends FileActivity implements
             finish();
 
         } else if (v.getId() == R.id.upload_files_btn_upload) {
-            if(mCurrentDir != null) {
+            if (mCurrentDir != null) {
                 preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
             }
             if (mLocalFolderPickerMode) {
