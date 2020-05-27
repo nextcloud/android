@@ -79,6 +79,7 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -988,61 +989,61 @@ public class FileUploader extends Service
      * Retry a subset of all the stored failed uploads.
      *
      * @param context      Caller {@link Context}
-     * @param account      If not null, only failed uploads to this OC account will be retried; otherwise, uploads of
-     *                     all accounts will be retried.
-     * @param uploadResult If not null, only failed uploads with the result specified will be retried; otherwise, failed
-     *                     uploads due to any result will be retried.
      */
     public static void retryFailedUploads(
         @NonNull final Context context,
-        @Nullable final Account account,
         @NonNull final UploadsStorageManager uploadsStorageManager,
         @NonNull final ConnectivityService connectivityService,
         @NonNull final UserAccountManager accountManager,
-        @NonNull final PowerManagementService powerManagementService,
-        @Nullable final UploadResult uploadResult
+        @NonNull final PowerManagementService powerManagementService
     ) {
-        OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-        Account currentAccount = null;
-        boolean resultMatch;
-        boolean accountMatch;
-
         final Connectivity connectivity = connectivityService.getConnectivity();
         final boolean gotNetwork = connectivity.isConnected() && !connectivityService.isInternetWalled();
+        final boolean isPowerSaving = powerManagementService.isPowerSavingEnabled();
+
+        if (!gotNetwork || isPowerSaving) {
+            // do nothing if no internet or power saving
+            return;
+        }
+
+        // always clean up
+        uploadsStorageManager.removeUploadsWithExpiredUsers(Arrays.asList(accountManager.getAccounts()));
+
         final boolean gotWifi = connectivity.isWifi();
         final BatteryStatus batteryStatus = powerManagementService.getBattery();
         final boolean charging = batteryStatus.isCharging() || batteryStatus.isFull();
-        final boolean isPowerSaving = powerManagementService.isPowerSavingEnabled();
+
+        // pre-filter on failed uploads
+        List<OCUpload> failedUploads;
+
+        // find all without constraints
+        failedUploads = uploadsStorageManager.getFailedUploads(false, false);
+
+        // wifi only
+        if (gotWifi) {
+            failedUploads.addAll(uploadsStorageManager.getFailedUploads(true, false));
+        }
+
+        // battery only
+        if (charging) {
+            failedUploads.addAll(uploadsStorageManager.getFailedUploads(false, true));
+        }
+
+        // battery and wifi only
+        if (gotWifi && charging) {
+            failedUploads.addAll(uploadsStorageManager.getFailedUploads(true, true));
+        }
 
         for (OCUpload failedUpload : failedUploads) {
-            accountMatch = account == null || account.name.equals(failedUpload.getAccountName());
-            resultMatch = uploadResult == null || uploadResult == failedUpload.getLastResult();
-            if (accountMatch && resultMatch) {
-                if (currentAccount == null || !currentAccount.name.equals(failedUpload.getAccountName())) {
-                    currentAccount = failedUpload.getAccount(accountManager);
+            if (!new File(failedUpload.getLocalPath()).exists()) {
+                if (failedUpload.getLastResult() != UploadResult.FILE_NOT_FOUND) {
+                    failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
+                    uploadsStorageManager.updateUpload(failedUpload);
                 }
-
-                if (!new File(failedUpload.getLocalPath()).exists()) {
-                    if (failedUpload.getLastResult() != UploadResult.FILE_NOT_FOUND) {
-                        failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
-                        uploadsStorageManager.updateUpload(failedUpload);
-                    }
-                } else {
-
-                    if (!isPowerSaving && gotNetwork && canUploadBeRetried(failedUpload, gotWifi, charging)) {
-                        retryUpload(context, currentAccount, failedUpload);
-                    }
-                }
+            } else {
+                retryUpload(context, failedUpload.getAccount(accountManager), failedUpload);
             }
         }
-    }
-
-    private static boolean canUploadBeRetried(OCUpload upload, boolean gotWifi, boolean isCharging) {
-        File file = new File(upload.getLocalPath());
-        boolean needsWifi = upload.isUseWifiOnly();
-        boolean needsCharging = upload.isWhileChargingOnly();
-
-        return file.exists() && (!needsWifi || gotWifi) && (!needsCharging || isCharging);
     }
 
     public static String getUploadsAddedMessage() {

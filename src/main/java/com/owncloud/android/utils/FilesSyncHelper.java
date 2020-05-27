@@ -23,7 +23,6 @@
  */
 package com.owncloud.android.utils;
 
-import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -43,7 +42,6 @@ import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -183,36 +181,14 @@ public final class FilesSyncHelper {
                                            final PowerManagementService powerManagementService) {
         final Context context = MainApp.getAppContext();
 
-        boolean accountExists;
-
-        OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-
-        for (OCUpload failedUpload : failedUploads) {
-            accountExists = false;
-
-            // check if accounts still exists
-            for (Account account : accountManager.getAccounts()) {
-                if (account.name.equals(failedUpload.getAccountName())) {
-                    accountExists = true;
-                    break;
-                }
-            }
-
-            if (!accountExists) {
-                uploadsStorageManager.removeUpload(failedUpload);
-            }
-        }
-
         new Thread(() -> {
             if (connectivityService.getConnectivity().isConnected() && !connectivityService.isInternetWalled()) {
                 FileUploader.retryFailedUploads(
                     context,
-                    null,
                     uploadsStorageManager,
                     connectivityService,
                     accountManager,
-                    powerManagementService,
-                    null
+                    powerManagementService
                 );
             }
         }).start();
