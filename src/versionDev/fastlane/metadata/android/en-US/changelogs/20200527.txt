@@ -1,0 +1,14 @@
+Revert "Fixed unused resources linter warning"
+Fixed unused resources linter warning
+Implemented "Switch to account" feature in Accounts list
+Fix #6147
+Fix lint
+- disabling test_orchestrator - E2E tests only on NC19+ - fixed Tests
+Improve design
+Fixed definitively KTLint errors
+Enhanced code syntax
+Fixed Spotbugs and KtLint reports
+Aligned icons + Cleaned code + Implemented listeners
+Implemented ChooseAccountFragment dialog + Fixed some things around accounts management
+do not let media scanner throw an exception as otherwise upload fails
+Update translations
