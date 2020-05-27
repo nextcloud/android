@@ -63,6 +63,7 @@ public class UserListAdapterTest {
                                               new ArrayList<>(),
                                               null,
                                               null,
+                                              true,
                                               true);
         assertEquals(0, userListAdapter.getItemCount());
     }
@@ -81,6 +82,7 @@ public class UserListAdapterTest {
                                               accounts,
                                               null,
                                               null,
+                                              true,
                                               true);
 
         assertEquals(2, userListAdapter.getItemCount());
@@ -101,6 +103,7 @@ public class UserListAdapterTest {
                                               accounts,
                                               null,
                                               null,
+                                              true,
                                               true);
 
         UserListItem userListItem1 = new UserListItem();
