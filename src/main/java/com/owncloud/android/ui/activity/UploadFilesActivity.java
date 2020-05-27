@@ -21,7 +21,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -32,10 +31,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -64,9 +61,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
@@ -78,8 +73,7 @@ import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFrag
 /**
  * Displays local files and let the user choose what of them wants to upload to the current ownCloud account.
  */
-public class UploadFilesActivity extends FileActivity implements
-    LocalFileListFragment.ContainerActivity, ActionBar.OnNavigationListener,
+public class UploadFilesActivity extends FileActivity implements LocalFileListFragment.ContainerActivity,
     OnClickListener, ConfirmationDialogFragmentListener, SortingOrderDialogFragment.OnSortingOrderListener,
     CheckAvailableSpaceTask.CheckAvailableSpaceListener, StoragePathAdapter.StoragePathAdapterListener, Injectable {
 
@@ -111,7 +105,6 @@ public class UploadFilesActivity extends FileActivity implements
     private Menu mOptionsMenu;
     private SearchView mSearchView;
     private Spinner mBehaviourSpinner;
-    protected MaterialButton mUploadBtn;
 
     /**
      * Helper to launch the UploadFilesActivity for which you would like a result when it finished. Your
@@ -162,7 +155,8 @@ public class UploadFilesActivity extends FileActivity implements
         /// USER INTERFACE
 
         // Drop-down navigation
-        mDirectories = new CustomArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item);
+        mDirectories = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
+        mDirectories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         fillDirectoryDropdown();
 
         // Inflate and set the layout view
@@ -180,7 +174,7 @@ public class UploadFilesActivity extends FileActivity implements
         mCancelButton.setTextColor(ThemeUtils.primaryColor(this, true));
         mCancelButton.setOnClickListener(this);
 
-        mUploadBtn = findViewById(R.id.upload_files_btn_upload);
+        MaterialButton mUploadBtn = findViewById(R.id.upload_files_btn_upload);
         mUploadBtn.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
         mUploadBtn.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(this, true)));
         mUploadBtn.setTextColor(ThemeUtils.fontColor(this, false));
@@ -213,11 +207,31 @@ public class UploadFilesActivity extends FileActivity implements
             actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the official documentation
             actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null);
             actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-            actionBar.setListNavigationCallbacks(mDirectories, this);
 
             ThemeUtils.tintBackButton(actionBar, this);
         }
+
+        showToolbarSpinner();
+        mToolbarSpinner.setAdapter(mDirectories);
+        mToolbarSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                int i = position;
+                while (i-- != 0) {
+                    onBackPressed();
+                }
+                // the next operation triggers a new call to this method, but it's necessary to
+                // ensure that the name exposed in the action bar is the current directory when the
+                // user selected it in the navigation list
+                if (position != 0) {
+                    mToolbarSpinner.setSelection(0);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         // wait dialog
         if (mCurrentDialog != null) {
@@ -228,6 +242,10 @@ public class UploadFilesActivity extends FileActivity implements
         checkWritableFolder(mCurrentDir);
 
         Log_OC.d(TAG, "onCreate() end");
+    }
+
+    public void showToolbarSpinner() {
+        mToolbarSpinner.setVisibility(View.VISIBLE);
     }
 
     private void fillDirectoryDropdown() {
@@ -252,16 +270,13 @@ public class UploadFilesActivity extends FileActivity implements
         MenuItem switchView = menu.findItem(R.id.action_switch_view);
         switchView.setTitle(isGridView() ? R.string.action_switch_list_view : R.string.action_switch_grid_view);
 
-        int fontColor = ThemeUtils.fontColor(this);
+        int fontColor = ThemeUtils.appBarPrimaryFontColor(this);
         final MenuItem item = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(item);
-        EditText editText = mSearchView.findViewById(androidx.appcompat.R.id.search_src_text);
-        editText.setHintTextColor(fontColor);
-        editText.setTextColor(fontColor);
-        ImageView searchClose = mSearchView.findViewById(androidx.appcompat.R.id.search_close_btn);
-        searchClose.setColorFilter(fontColor);
-
+        ThemeUtils.themeSearchView(mSearchView, this);
         ThemeUtils.tintDrawable(menu.findItem(R.id.action_choose_storage_path).getIcon(), fontColor);
+
+        mSearchView.setOnSearchClickListener(v -> mToolbarSpinner.setVisibility(View.GONE));
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -322,21 +337,6 @@ public class UploadFilesActivity extends FileActivity implements
     @Override
     public void onSortingOrderChosen(FileSortOrder selection) {
         mFileListFragment.sortFiles(selection);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        int i = itemPosition;
-        while (i-- != 0) {
-            onBackPressed();
-        }
-        // the next operation triggers a new call to this method, but it's necessary to
-        // ensure that the name exposed in the action bar is the current directory when the
-        // user selected it in the navigation list
-        if (itemPosition != 0) {
-            getSupportActionBar().setSelectedNavigationItem(0);
-        }
-        return true;
     }
 
     private boolean isSearchOpen() {
@@ -512,38 +512,6 @@ public class UploadFilesActivity extends FileActivity implements
             mDirectories.clear();
 
             fillDirectoryDropdown();
-        }
-    }
-
-    /**
-     * Custom array adapter to override text colors
-     */
-    private class CustomArrayAdapter<T> extends ArrayAdapter<T> {
-
-        public CustomArrayAdapter(UploadFilesActivity ctx, int view) {
-            super(ctx, view);
-        }
-
-        @SuppressLint("RestrictedApi")
-        public @NonNull
-        View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            View v = super.getView(position, convertView, parent);
-
-            int color = ThemeUtils.fontColor(getContext());
-            ColorStateList colorStateList = ColorStateList.valueOf(color);
-
-            ((AppCompatSpinner) parent).setSupportBackgroundTintList(colorStateList);
-            ((TextView) v).setTextColor(colorStateList);
-            return v;
-        }
-
-        public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
-            View v = super.getDropDownView(position, convertView, parent);
-
-            ((TextView) v).setTextColor(getResources().getColorStateList(
-                android.R.color.white));
-
-            return v;
         }
     }
 
