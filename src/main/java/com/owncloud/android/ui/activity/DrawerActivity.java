@@ -138,6 +138,11 @@ public abstract class DrawerActivity extends ToolbarActivity
     private NavigationView mNavigationView;
 
     /**
+     * Reference to the navigation view header.
+     */
+    private View mNavigationViewHeader;
+
+    /**
      * Flag to signal if the account chooser is active.
      */
     private boolean mIsAccountChooserActive;
@@ -198,8 +203,8 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (mNavigationView != null) {
 
             // Setting up drawer header
-            View navigationHeader = mNavigationView.getHeaderView(0);
-            FrameLayout drawerHeader = navigationHeader.findViewById(R.id.drawer_header_view);
+            mNavigationViewHeader = mNavigationView.getHeaderView(0);
+            FrameLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
             setupDrawerHeader(drawerHeader);
 
             setupDrawerMenu(mNavigationView);
