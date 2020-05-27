@@ -43,6 +43,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 import net.bytebuddy.utility.RandomString;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -53,8 +54,10 @@ import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.owncloud.android.lib.resources.status.OwnCloudVersion.nextcloud_19;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assume.assumeTrue;
 
 public class EndToEndRandomIT extends AbstractIT {
     public enum Action {
@@ -73,6 +76,17 @@ public class EndToEndRandomIT extends AbstractIT {
     @BeforeClass
     public static void initClass() {
         arbitraryDataProvider = new ArbitraryDataProvider(targetContext.getContentResolver());
+    }
+
+    @Before
+    public void before() {
+        // tests only for NC19+
+        assumeTrue(getStorageManager()
+                       .getCapability(account.name)
+                       .getVersion()
+                       .isNewerOrEqual(nextcloud_19)
+                  );
+
     }
 
     @Test

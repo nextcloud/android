@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Nextcloud Android client application
 
   Copyright (C) 2016 Andy Scherzinger
   Copyright (C) 2016 Nextcloud
   Copyright (C) 2016 ownCloud
+  Copyright (C) 2020 Infomaniak Network SA
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -19,78 +19,87 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/account_item_layout_height"
+    android:layout_margin="@dimen/standard_quarter_margin"
     android:orientation="horizontal"
-    android:weightSum="1">
+    app:cardBackgroundColor="@color/transparent"
+    app:cardElevation="0dp">
 
-    <FrameLayout
-        android:id="@+id/avatar_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        tools:ignore="UnusedAttribute">
 
-        <ImageView
-            android:id="@+id/user_icon"
-            android:layout_width="@dimen/user_icon_size"
-            android:layout_height="@dimen/user_icon_size"
-            android:layout_gravity="top|start"
-            android:layout_marginBottom="@dimen/account_item_layout_user_image_margin"
-            android:layout_marginStart="@dimen/account_item_layout_user_image_left_start_margin"
-            android:layout_marginEnd="@dimen/account_item_layout_user_image_margin"
-            android:layout_marginTop="@dimen/account_item_layout_user_image_margin"
-            android:src="@drawable/folder"
-            android:contentDescription="@string/avatar"/>
+        <FrameLayout
+            android:id="@+id/avatar_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true">
 
-        <ImageView
-            android:id="@+id/ticker"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_gravity="bottom|end"
-            android:background="@drawable/round_bgnd"
-            android:src="@drawable/account_circle_white"
-            android:contentDescription="@string/active_user"/>
-    </FrameLayout>
+            <ImageView
+                android:id="@+id/user_icon"
+                android:layout_width="@dimen/user_icon_size"
+                android:layout_height="@dimen/user_icon_size"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="@dimen/account_item_layout_user_image_left_start_margin"
+                android:layout_marginTop="@dimen/account_item_layout_user_image_margin"
+                android:layout_marginEnd="@dimen/account_item_layout_user_image_margin"
+                android:layout_marginBottom="@dimen/account_item_layout_user_image_margin"
+                android:contentDescription="@string/avatar"
+                android:src="@drawable/folder" />
+
+            <ImageView
+                android:id="@+id/ticker"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="bottom|end"
+                android:background="@drawable/round_bgnd"
+                android:contentDescription="@string/active_user"
+                android:src="@drawable/account_circle_white" />
+        </FrameLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginEnd="25dp"
             android:layout_toEndOf="@id/avatar_container"
             android:orientation="vertical"
-            android:paddingEnd="@dimen/zero"
-            android:layout_marginEnd="25dp"
-            android:paddingStart="3dp">
+            android:paddingStart="3dp"
+            android:paddingEnd="@dimen/zero">
 
             <TextView
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/standard_half_margin"
-                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginStart="@dimen/standard_half_margin"
                 android:layout_marginTop="@dimen/standard_quarter_margin"
+                android:layout_marginEnd="@dimen/standard_double_margin"
                 android:ellipsize="end"
                 android:gravity="bottom"
                 android:maxLines="1"
                 android:text="@string/placeholder_filename"
-                android:textAppearance="?android:attr/textAppearanceListItem"/>
+                android:textAppearance="?android:attr/textAppearanceListItem" />
 
             <TextView
                 android:id="@+id/account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_half_margin"
+                android:layout_marginEnd="@dimen/standard_double_margin"
                 android:layout_marginBottom="@dimen/standard_quarter_margin"
-                android:layout_marginEnd="@dimen/standard_half_margin"
-                android:layout_marginStart="@dimen/standard_margin"
                 android:ellipsize="end"
                 android:gravity="top"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:text="@string/placeholder_sentence"
-                android:textColor="?android:attr/textColorSecondary"/>
+                android:textColor="?android:attr/textColorSecondary" />
 
         </LinearLayout>
 
@@ -98,13 +107,14 @@
             android:id="@+id/account_menu"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:clickable="true"
             android:contentDescription="@string/overflow_menu"
             android:focusable="true"
-            android:paddingEnd="@dimen/alternate_padding"
             android:paddingStart="@dimen/standard_half_padding"
-            android:src="@drawable/ic_dots_vertical"/>
+            android:paddingEnd="@dimen/alternate_padding"
+            android:src="@drawable/ic_dots_vertical" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

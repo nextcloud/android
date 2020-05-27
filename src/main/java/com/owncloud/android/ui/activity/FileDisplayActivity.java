@@ -265,7 +265,7 @@ public class FileDisplayActivity extends FileActivity
         });
 
         mSwitchAccountButton.setOnClickListener(v -> {
-            openManageAccounts();
+            showManageAccountsDialog();
         });
 
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
@@ -2228,7 +2228,11 @@ public class FileDisplayActivity extends FileActivity
                                         null
                                 );
 
-                                getListOfFilesFragment().setLoading(true);
+                                OCFileListFragment fragment = getListOfFilesFragment();
+
+                                if (fragment != null) {
+                                    fragment.setLoading(true);
+                                }
 
                                 setBackgroundText();
 

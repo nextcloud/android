@@ -166,9 +166,17 @@ public class UserInfoActivity extends FileActivity implements Injectable {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if ((accountManager.getUser()).equals(user)) {
+            menu.findItem(R.id.action_open_account).setVisible(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_user_info, menu);
+        inflater.inflate(R.menu.item_account, menu);
 
         return true;
     }
@@ -180,7 +188,10 @@ public class UserInfoActivity extends FileActivity implements Injectable {
             case android.R.id.home:
                 onBackPressed();
                 break;
-            case R.id.delete_account:
+            case R.id.action_open_account:
+                accountClicked(user.hashCode());
+                break;
+            case R.id.action_delete_account:
                 openAccountRemovalConfirmationDialog(user, getSupportFragmentManager());
                 break;
             default:

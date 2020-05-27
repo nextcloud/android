@@ -48,6 +48,14 @@ require 'xmlsimple'
 # run FindBugs
 puts "running FindBugs..."
 system './gradlew assembleGplayDebug'
+
+# confirm that assemble ran w/out error
+result = $?.to_i
+if result != 0
+    puts "FAIL: failed to run ./gradlew assembleGplayDebug"
+    exit 1
+end
+
 system './gradlew spotbugsGplayDebug'
 
 # find FindBugs report file

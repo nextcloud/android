@@ -40,7 +40,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.events.SearchEvent;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONException;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -86,7 +85,7 @@ public class FileDisplayActivityIT extends AbstractIT {
     }
 
     @Test
-    public void showShares() throws JSONException {
+    public void showShares() {
         assertTrue(new ExistenceCheckRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareToGroup/", true).execute(client).isSuccess());
