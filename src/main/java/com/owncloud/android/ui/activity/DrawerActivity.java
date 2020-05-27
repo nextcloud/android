@@ -40,6 +40,7 @@ import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -196,6 +197,11 @@ public abstract class DrawerActivity extends ToolbarActivity
         mNavigationView = findViewById(R.id.nav_view);
         if (mNavigationView != null) {
 
+            // Setting up drawer header
+            View navigationHeader = mNavigationView.getHeaderView(0);
+            FrameLayout drawerHeader = navigationHeader.findViewById(R.id.drawer_header_view);
+            setupDrawerHeader(drawerHeader);
+
             setupDrawerMenu(mNavigationView);
             getAndDisplayUserQuota();
             setupQuotaElement();
@@ -259,9 +265,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * setup drawer header, basically the logo color
      */
-    private void setupDrawerHeader() {
-        ImageView drawerLogo = findViewById(R.id.drawer_header_logo);
-        drawerLogo.setColorFilter(ThemeUtils.primaryColor(getAccount(), true, this));
+    private void setupDrawerHeader(FrameLayout drawerHeader) {
+        drawerHeader.setBackgroundColor(ThemeUtils.primaryColor(getAccount(), true, this));
     }
 
     /**
@@ -523,7 +528,6 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     public void openDrawer() {
         if (mDrawerLayout != null) {
-            setupDrawerHeader();
             mDrawerLayout.openDrawer(GravityCompat.START);
             updateExternalLinksInDrawer();
             updateQuotaLink();
@@ -920,22 +924,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 preferences.setLockTimestamp(0);
                 finish();
             }
-        }
-    }
-
-    /**
-     * Finds a view that was identified by the id attribute from the drawer header.
-     *
-     * @param id the view's id
-     * @return The view if found or <code>null</code> otherwise.
-     */
-    private View findNavigationViewChildById(int id) {
-        NavigationView view = findViewById(R.id.nav_view);
-
-        if (view != null) {
-            return view.getHeaderView(0).findViewById(id);
-        } else {
-            return null;
         }
     }
 
