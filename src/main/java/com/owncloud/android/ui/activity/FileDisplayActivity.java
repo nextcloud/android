@@ -52,6 +52,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.files.DeepLinkHandler;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -2408,53 +2409,32 @@ public class FileDisplayActivity extends FileActivity
         String fileId = intent.getStringExtra(KEY_FILE_ID);
 
         if (userName == null && fileId == null && intent.getData() != null) {
-            // Handle intent coming from URI
-
-            Pattern pattern1 = Pattern.compile("(.*)/index\\.php/([f])/([0-9]+)$");
-            Pattern pattern2 = Pattern.compile("(.*)/([f])/([0-9]+)$");
-            Matcher matcher1 = pattern1.matcher(intent.getData().toString());
-            Matcher matcher2 = pattern2.matcher(intent.getData().toString());
-            if (matcher1.matches()) {
-                String uri = matcher1.group(1);
-                if ("f".equals(matcher1.group(2))) {
-                    fileId = matcher1.group(3);
-                    findAccountAndOpenFile(uri, fileId);
-                    return;
-                }
-            } else if (matcher2.matches()) {
-                String uri = matcher2.group(1);
-                if ("f".equals(matcher2.group(2))) {
-                    fileId = matcher2.group(3);
-                    findAccountAndOpenFile(uri, fileId);
-                    return;
-                }
+            openDeepLink(intent.getData());
+        } else {
+            Optional<User> optionalUser = userName == null ? getUser() : getUserAccountManager().getUser(userName);
+            if (optionalUser.isPresent()) {
+                openFile(optionalUser.get(), fileId);
             } else {
                 dismissLoadingDialog();
-                DisplayUtils.showSnackMessage(this, getString(R.string.invalid_url));
-                return;
+                DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
             }
         }
-        openFile(userName, fileId);
-
     }
-    private void openFile(String userName, String fileId) {
-        Optional<User> optionalNewUser;
-        User user;
 
-        if (userName == null) {
-            optionalNewUser = getUser();
-        } else {
-            optionalNewUser = getUserAccountManager().getUser(userName);
-        }
-
-        if (optionalNewUser.isPresent()) {
-            user = optionalNewUser.get();
-            setUser(user);
+    private void openDeepLink(Uri uri) {
+        DeepLinkHandler linkHandler = new DeepLinkHandler(getApplicationContext(), getUserAccountManager());
+        DeepLinkHandler.Match match = linkHandler.parseDeepLink(uri);
+        if (match != null) {
+            findAccountAndOpenFile(match.getServerBaseUrl(), match.getFileId());
         } else {
             dismissLoadingDialog();
-            DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
-            return;
+            DisplayUtils.showSnackMessage(this, getString(R.string.invalid_url));
         }
+    }
+
+    private void openFile(User user, String fileId) {
+        setUser(user);
+        updateAccountList();
 
         if (fileId == null) {
             dismissLoadingDialog();
@@ -2493,7 +2473,7 @@ public class FileDisplayActivity extends FileActivity
         }
 
         if (validUsers.size() == 1) {
-            openFile(validUsers.get(0).getAccountName(), fileId);
+            openFile(validUsers.get(0), fileId);
             return;
         }
 
@@ -2507,12 +2487,13 @@ public class FileDisplayActivity extends FileActivity
         builder
             .setTitle(R.string.common_choose_account)
             .setItems(validUserNames.toArray(new CharSequence[validUserNames.size()]),
-                      new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    openFile(validUsers.get(which).getAccountName(), fileId);
-                    showLoadingDialog(getString(R.string.retrieving_file));
-                }
-            });
+                      (dialog, which) -> {
+                          // TODO: refactor to use User model directly
+                          String accountName = validUsers.get(which).getAccountName();
+                          User user = getUserAccountManager().getUser(accountName).orElseThrow(RuntimeException::new);
+                          openFile(user, fileId);
+                          showLoadingDialog(getString(R.string.retrieving_file));
+                      });
         AlertDialog dialog = builder.create();
         dismissLoadingDialog();
         dialog.show();

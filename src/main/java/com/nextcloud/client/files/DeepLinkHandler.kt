@@ -4,25 +4,31 @@ import android.content.Context
 import android.net.Uri
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import java.util.regex.Pattern
 
 
 class DeepLinkHandler(
     private val context: Context,
-    private val userAccountManager: UserAccountManager,
-    private val onUserChoiceRequired: (users: List<User>, fileId: String)->Unit
+    private val userAccountManager: UserAccountManager
 ) {
 
-    /**
-     * Open deep link.
-     *
-     * If deep link can be opened immediately, new activity is launched.
-     * If link can be handled by multiple users, [onUserChoiceRequired] callback
-     * is invoked with list of matching users.
-     *
-     * @param uri Deep link received in incoming [Intent]
-     * @return true if deep link can be handled
-     */
-    fun openDeepLink(uri: Uri): Boolean {
-        throw NotImplementedError()
+    data class Match(val serverBaseUrl: String, val fileId: String)
+
+    companion object {
+        val DEEP_LINK_PATTERN = Regex("""(.*?)(/index\.php)?/f/([0-9]+)$""")
+        val BASE_URL_GROUP_INDEX = 1
+        val INDEX_PATH_GROUP_INDEX = 2
+        val FILE_ID_GROUP_INDEX = 3
+    }
+
+    fun parseDeepLink(uri: Uri): Match? {
+        val match = DEEP_LINK_PATTERN.matchEntire(uri.toString())
+        if (match != null) {
+            val baseServerUrl = match.groupValues[BASE_URL_GROUP_INDEX]
+            val fielId = match.groupValues[FILE_ID_GROUP_INDEX]
+            return Match(baseServerUrl, fielId)
+        } else {
+            return null
+        }
     }
 }
