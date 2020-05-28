@@ -40,13 +40,6 @@
         android:orderInCategory="2"
         app:showAsAction="never"
         android:title="@string/action_switch_grid_view" />
-    <item
-        android:id="@+id/action_sync_account"
-        android:icon="@drawable/ic_action_refresh"
-        android:orderInCategory="1"
-        app:showAsAction="never"
-        android:title="@string/actionbar_sync"
-        android:contentDescription="@string/actionbar_sync"/>
 	<item
         android:id="@+id/action_sort"
         android:icon="@drawable/ic_sort_variant"
