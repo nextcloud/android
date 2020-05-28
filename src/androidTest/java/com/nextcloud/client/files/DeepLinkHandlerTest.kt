@@ -1,57 +1,74 @@
 package com.nextcloud.client.files
 
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
+import org.junit.runners.Suite
 
+@RunWith(Suite::class)
+@Suite.SuiteClasses(
+    DeepLinkHandlerTest.DeepLinkPattern::class
+)
 class DeepLinkHandlerTest {
 
-    @Test
-    fun valid_uri_can_be_handled_by_one_user() {
-        // GIVEN
-        //      uri matching allowed pattern
-        //      one user can open the file
+    @RunWith(Parameterized::class)
+    class DeepLinkPattern {
 
-        // WHEN
-        //      deep link is handled
+        companion object {
+            val FILE_ID = 1234
+            val SERVER_BASE_URLS = listOf(
+                "http://hostname.net",
+                "https://hostname.net",
+                "http://hostname.net/subdir1",
+                "https://hostname.net/subdir1",
+                "http://hostname.net/subdir1/subdir2",
+                "https://hostname.net/subdir1/subdir2",
+                "http://hostname.net/subdir1/subdir2/subdir3",
+                "https://hostname.net/subdir1/subdir2/subdir3"
+            )
+            val INDEX_PHP_PATH = listOf(
+                "",
+                "/index.php"
+            )
 
-        // THEN
-        //      file is opened immediately
-    }
+            @Parameterized.Parameters
+            @JvmStatic
+            fun urls(): Array<Array<Any>> {
+                val testInput = mutableListOf<Array<Any>>()
+                SERVER_BASE_URLS.forEach { baseUrl ->
+                    INDEX_PHP_PATH.forEach {
+                        indexPath ->
+                        val url = "$baseUrl$indexPath/f/$FILE_ID"
+                        testInput.add(arrayOf(baseUrl, indexPath, "$FILE_ID", url))
+                    }
+                }
+                return testInput.toTypedArray()
+            }
+        }
 
-    @Test
-    fun valid_uri_can_be_handled_by_multiple_users() {
-        // GIVEN
-        //      uri matching allowed pattern
-        //      multiple users can open the file
+        @Parameterized.Parameter(0)
+        lateinit var baseUrl: String
 
-        // WHEN
-        //      deep link is handled
+        @Parameterized.Parameter(1)
+        lateinit var indexPath: String
 
-        // THEN
-        //      user chooser dialog is opened
-    }
+        @Parameterized.Parameter(2)
+        lateinit var fileId: String
 
-    @Test
-    fun valid_uri_cannot_be_handled_by_any_user() {
-        // GIVEN
-        //      uri matching allowed pattern
-        //      no user can open given uri
+        @Parameterized.Parameter(3)
+        lateinit var url: String
 
-        // WHEN
-        //      deep link is handled
+        @Test
+        fun matches_deep_link_patterns() {
+            val match = DeepLinkHandler.DEEP_LINK_PATTERN.matchEntire(url)
+            assertNotNull("Url [$url] does not match pattern", match)
+            assertEquals(baseUrl, match?.groupValues?.get(DeepLinkHandler.BASE_URL_GROUP_INDEX))
+            assertEquals(indexPath, match?.groupValues?.get(DeepLinkHandler.INDEX_PATH_GROUP_INDEX))
+            assertEquals(fileId, match?.groupValues?.get(DeepLinkHandler.FILE_ID_GROUP_INDEX))
+        }
 
-        // THEN
-        //      deep link is ignored
-    }
-
-    @Test
-    fun invalid_uri_is_ignored() {
-        // GIVEN
-        //      file uri does not match allowed pattern
-
-        // WHEN
-        //      deep link is handled
-
-        // THEN
-        //      deep link is ignored
     }
 }
