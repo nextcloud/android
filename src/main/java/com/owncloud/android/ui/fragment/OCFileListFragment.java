@@ -201,10 +201,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     protected enum MenuItemAddRemove {
         DO_NOTHING, REMOVE_SORT, REMOVE_GRID_AND_SORT, ADD_SORT, ADD_GRID_AND_SORT, ADD_GRID_AND_SORT_WITH_SEARCH,
-        REMOVE_SEARCH
+        REMOVE_SEARCH, REMOVE_ALL_EXCEPT_SEARCH
     }
 
-    protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.DO_NOTHING;
+    protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_ALL_EXCEPT_SEARCH;
 
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
@@ -775,63 +775,65 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         changeGridIcon(menu);   // this is enough if the option stays out of the action bar
-
         MenuItem menuItemOrig;
 
-        if (menuItemAddRemoveValue == MenuItemAddRemove.ADD_SORT) {
-            if (menu.findItem(R.id.action_sort) == null) {
-                menuItemOrig = mOriginalMenuItems.get(1);
-                menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                         menuItemOrig.getTitle());
-            }
-            mSortButton.setVisibility(View.VISIBLE);
+        switch (menuItemAddRemoveValue) {
+            case ADD_SORT:
+                if (menu.findItem(R.id.action_sort) == null) {
+                    menuItemOrig = mOriginalMenuItems.get(1);
+                    menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
+                             menuItemOrig.getTitle());
+                }
+                mSortButton.setVisibility(View.VISIBLE);
+                break;
 
-        } else if (menuItemAddRemoveValue == MenuItemAddRemove.ADD_GRID_AND_SORT) {
-            if (menu.findItem(R.id.action_switch_view) == null) {
-                menuItemOrig = mOriginalMenuItems.get(0);
-                menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                         menuItemOrig.getTitle());
-            }
-            mSwitchGridViewButton.setVisibility(View.VISIBLE);
+            case ADD_GRID_AND_SORT:
+            case ADD_GRID_AND_SORT_WITH_SEARCH:
+                if (menu.findItem(R.id.action_switch_view) == null) {
+                    menuItemOrig = mOriginalMenuItems.get(0);
+                    menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
+                             menuItemOrig.getTitle());
+                }
+                mSwitchGridViewButton.setVisibility(View.VISIBLE);
 
-            if (menu.findItem(R.id.action_sort) == null) {
-                menuItemOrig = mOriginalMenuItems.get(1);
-                menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                         menuItemOrig.getTitle());
-            }
-            mSortButton.setVisibility(View.VISIBLE);
-        } else if (menuItemAddRemoveValue == MenuItemAddRemove.REMOVE_SEARCH) {
-            menu.removeItem(R.id.action_search);
-        } else if (menuItemAddRemoveValue == MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH) {
-            if (menu.findItem(R.id.action_switch_view) == null) {
-                menuItemOrig = mOriginalMenuItems.get(0);
-                menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                         menuItemOrig.getTitle());
-            }
-            mSwitchGridViewButton.setVisibility(View.VISIBLE);
+                if (menu.findItem(R.id.action_sort) == null) {
+                    menuItemOrig = mOriginalMenuItems.get(1);
+                    menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
+                             menuItemOrig.getTitle());
+                }
+                mSortButton.setVisibility(View.VISIBLE);
+                break;
 
-            if (menu.findItem(R.id.action_sort) == null) {
-                menuItemOrig = mOriginalMenuItems.get(1);
-                menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                         menuItemOrig.getTitle());
-            }
-            mSortButton.setVisibility(View.VISIBLE);
+            case REMOVE_SEARCH:
+                menu.removeItem(R.id.action_search);
+                break;
 
-            if (menu.findItem(R.id.action_search) == null) {
-                menuItemOrig = mOriginalMenuItems.get(2);
-                menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                         menuItemOrig.getTitle());
-            }
-        } else if (menuItemAddRemoveValue == MenuItemAddRemove.REMOVE_SORT) {
-            menu.removeItem(R.id.action_sort);
-            menu.removeItem(R.id.action_search);
-            mSortButton.setVisibility(View.GONE);
-        } else if (menuItemAddRemoveValue == MenuItemAddRemove.REMOVE_GRID_AND_SORT) {
-            menu.removeItem(R.id.action_sort);
-            menu.removeItem(R.id.action_switch_view);
-            menu.removeItem(R.id.action_search);
-            mSortButton.setVisibility(View.GONE);
-            mSwitchGridViewButton.setVisibility(View.GONE);
+            case REMOVE_SORT:
+                menu.removeItem(R.id.action_sort);
+                menu.removeItem(R.id.action_search);
+                mSortButton.setVisibility(View.GONE);
+                break;
+
+            case REMOVE_GRID_AND_SORT:
+                menu.removeItem(R.id.action_sort);
+                menu.removeItem(R.id.action_switch_view);
+                menu.removeItem(R.id.action_search);
+                mSortButton.setVisibility(View.GONE);
+                mSwitchGridViewButton.setVisibility(View.GONE);
+                break;
+
+            case REMOVE_ALL_EXCEPT_SEARCH:
+                menu.removeItem(R.id.action_sort);
+                menu.removeItem(R.id.action_switch_view);
+                menu.removeItem(R.id.action_sync_account);
+                mSwitchGridViewButton.setVisibility(View.VISIBLE);
+                mSortButton.setVisibility(View.VISIBLE);
+                break;
+
+            case DO_NOTHING:
+            default:
+                Log_OC.v(TAG, "Kept the options menu default structure");
+                break;
         }
     }
 
