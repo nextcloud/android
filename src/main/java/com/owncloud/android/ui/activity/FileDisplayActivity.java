@@ -2474,6 +2474,8 @@ public class FileDisplayActivity extends FileActivity
     @Override
     public void onRefresh(boolean ignoreETag) {
         syncAndUpdateFolder(ignoreETag);
+        // Synchronize account during swipe refresh
+        startSynchronization();
     }
 
     @Override
