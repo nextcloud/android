@@ -46,6 +46,7 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
@@ -65,6 +66,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     private FrameLayout mPreviewImageContainer;
     private LinearLayout mInfoBox;
     private TextView mInfoBoxMessage;
+    protected AppCompatSpinner mToolbarSpinner;
     private boolean isHomeSearchToolbarShow = false;
 
     @Override
@@ -98,6 +100,8 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         mPreviewImage = findViewById(R.id.preview_image);
         mPreviewImageContainer = findViewById(R.id.preview_image_frame);
+
+        mToolbarSpinner = findViewById(R.id.toolbar_spinner);
 
         if (toolbar.getOverflowIcon() != null) {
             ThemeUtils.tintDrawable(toolbar.getOverflowIcon(), fontColor);
