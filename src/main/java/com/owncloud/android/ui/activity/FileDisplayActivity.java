@@ -764,6 +764,10 @@ public class FileDisplayActivity extends FileActivity
             menuItem.setVisible(!drawerOpen);
         }
 
+        // Hiding unused elements
+        menu.findItem(R.id.action_sort).setVisible(false);
+        menu.findItem(R.id.action_switch_view).setVisible(false);
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -785,9 +789,8 @@ public class FileDisplayActivity extends FileActivity
         ThemeUtils.themeSearchView(searchView, this);
 
         // populate list of menu items to show/hide when drawer is opened/closed
-        mDrawerMenuItemstoShowHideList = new ArrayList<>(4);
+        mDrawerMenuItemstoShowHideList = new ArrayList<>(3);
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sort));
-        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sync_account));
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_switch_view));
         mDrawerMenuItemstoShowHideList.add(searchMenuItem);
 
@@ -848,10 +851,6 @@ public class FileDisplayActivity extends FileActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
-            case R.id.action_sync_account: {
-                startSynchronization();
-                break;
-            }
             case android.R.id.home: {
                 FileFragment second = getSecondFragment();
                 OCFile currentDir = getCurrentDir();

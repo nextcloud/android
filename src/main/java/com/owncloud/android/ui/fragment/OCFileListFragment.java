@@ -825,7 +825,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             case REMOVE_ALL_EXCEPT_SEARCH:
                 menu.removeItem(R.id.action_sort);
                 menu.removeItem(R.id.action_switch_view);
-                menu.removeItem(R.id.action_sync_account);
                 mSwitchGridViewButton.setVisibility(View.VISIBLE);
                 mSortButton.setVisibility(View.VISIBLE);
                 break;
