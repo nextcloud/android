@@ -12,7 +12,7 @@ class DeepLinkHandler(
     private val userAccountManager: UserAccountManager
 ) {
 
-    data class Match(val serverBaseUrl: String, val fileId: String)
+    data class Match(val users: List<User>, val fileId: String)
 
     companion object {
         val DEEP_LINK_PATTERN = Regex("""(.*?)(/index\.php)?/f/([0-9]+)$""")
@@ -26,9 +26,12 @@ class DeepLinkHandler(
         if (match != null) {
             val baseServerUrl = match.groupValues[BASE_URL_GROUP_INDEX]
             val fielId = match.groupValues[FILE_ID_GROUP_INDEX]
-            return Match(baseServerUrl, fielId)
+            return Match(users = getUsers(baseServerUrl), fileId = fielId)
         } else {
             return null
         }
     }
+
+    private fun getUsers(serverBaseUrl: String): List<User> =
+        userAccountManager.allUsers.filter { it.server.uri.toString() == serverBaseUrl }
 }
