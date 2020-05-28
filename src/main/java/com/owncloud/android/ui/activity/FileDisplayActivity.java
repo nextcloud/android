@@ -124,8 +124,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -2292,12 +2290,6 @@ public class FileDisplayActivity extends FileActivity
             transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
             transaction.commit();
         }
-//        else {
-//            Log_OC.d(this, "Switch to OCFileListFragment");
-//
-//            fragment = new OCFileListFragment();
-//        }
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -2424,12 +2416,35 @@ public class FileDisplayActivity extends FileActivity
     private void openDeepLink(Uri uri) {
         DeepLinkHandler linkHandler = new DeepLinkHandler(getApplicationContext(), getUserAccountManager());
         DeepLinkHandler.Match match = linkHandler.parseDeepLink(uri);
-        if (match != null) {
-            findAccountAndOpenFile(match.getServerBaseUrl(), match.getFileId());
-        } else {
+        if (match == null) {
             dismissLoadingDialog();
             DisplayUtils.showSnackMessage(this, getString(R.string.invalid_url));
+        } else if (match.getUsers().size() == 0) {
+            dismissLoadingDialog();
+            DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
+        } else if (match.getUsers().size() == 1) {
+            openFile(match.getUsers().get(0), match.getFileId());
+        } else {
+            selectUserAndOpenFile(match.getUsers(), match.getFileId());
         }
+    }
+
+    private void selectUserAndOpenFile(List<User> users, String fileId) {
+        final CharSequence[] userNames = new CharSequence[users.size()];
+        for (int i = 0; i < userNames.length; i++) {
+            userNames[i] = users.get(i).getAccountName();
+        }
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder
+            .setTitle(R.string.common_choose_account)
+            .setItems(userNames, (dialog, which) -> {
+                User user = users.get(which);
+                openFile(user, fileId);
+                showLoadingDialog(getString(R.string.retrieving_file));
+            });
+        final AlertDialog dialog = builder.create();
+        dismissLoadingDialog();
+        dialog.show();
     }
 
     private void openFile(User user, String fileId) {
@@ -2454,48 +2469,5 @@ public class FileDisplayActivity extends FileActivity
                                                                           this);
         fetchRemoteFileTask.execute();
 
-    }
-
-    private void findAccountAndOpenFile(String uri, String fileId) {
-
-        ArrayList<User> validUsers = new ArrayList<>();
-
-        for (User user : getUserAccountManager().getAllUsers()) {
-            if (user.getServer().getUri().toString().equals(uri)) {
-                validUsers.add(user);
-            }
-        }
-
-        if (validUsers.size() == 0) {
-            dismissLoadingDialog();
-            DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
-            return;
-        }
-
-        if (validUsers.size() == 1) {
-            openFile(validUsers.get(0), fileId);
-            return;
-        }
-
-        ArrayList<String> validUserNames = new ArrayList<>();
-
-        for (User user : validUsers) {
-            validUserNames.add(user.getAccountName());
-        }
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder
-            .setTitle(R.string.common_choose_account)
-            .setItems(validUserNames.toArray(new CharSequence[validUserNames.size()]),
-                      (dialog, which) -> {
-                          // TODO: refactor to use User model directly
-                          String accountName = validUsers.get(which).getAccountName();
-                          User user = getUserAccountManager().getUser(accountName).orElseThrow(RuntimeException::new);
-                          openFile(user, fileId);
-                          showLoadingDialog(getString(R.string.retrieving_file));
-                      });
-        AlertDialog dialog = builder.create();
-        dismissLoadingDialog();
-        dialog.show();
     }
 }
