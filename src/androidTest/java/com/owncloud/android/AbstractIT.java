@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.facebook.testing.screenshot.Screenshot;
+import com.nextcloud.client.RetryTestRule;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.device.BatteryStatus;
@@ -43,6 +44,7 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -68,7 +70,7 @@ import static org.junit.Assert.assertTrue;
 
 //@RunWith(AndroidJUnit4.class)
 public abstract class AbstractIT {
-    // @Rule public RetryTestRule retryTestRule = new RetryTestRule();
+    @Rule public RetryTestRule retryTestRule = new RetryTestRule();
 
     protected static OwnCloudClient client;
     protected static Account account;
