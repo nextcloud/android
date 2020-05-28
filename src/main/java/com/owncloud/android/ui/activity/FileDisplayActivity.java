@@ -893,38 +893,6 @@ public class FileDisplayActivity extends FileActivity
         return retval;
     }
 
-    private void startSynchronization() {
-        Log_OC.d(TAG, "Got to start sync");
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
-            Log_OC.d(TAG, "Canceling all syncs for " + MainApp.getAuthority());
-            ContentResolver.cancelSync(null, MainApp.getAuthority());
-            // cancel the current synchronizations of any ownCloud account
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-            bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-            Log_OC.d(TAG, "Requesting sync for " + getAccount().name + " at " +
-                    MainApp.getAuthority());
-            ContentResolver.requestSync(
-                    getAccount(),
-                    MainApp.getAuthority(), bundle);
-        } else {
-            Log_OC.d(TAG, "Requesting sync for " + getAccount().name + " at " +
-                    MainApp.getAuthority() + " with new API");
-            SyncRequest.Builder builder = new SyncRequest.Builder();
-            builder.setSyncAdapter(getAccount(), MainApp.getAuthority());
-            builder.setExpedited(true);
-            builder.setManual(true);
-            builder.syncOnce();
-
-            // Fix bug in Android Lollipop when you click on refresh the whole account
-            Bundle extras = new Bundle();
-            builder.setExtras(extras);
-
-            SyncRequest request = builder.build();
-            ContentResolver.requestSync(request);
-        }
-    }
-
     /**
      * Called, when the user selected something for uploading
      */
@@ -2473,8 +2441,6 @@ public class FileDisplayActivity extends FileActivity
     @Override
     public void onRefresh(boolean ignoreETag) {
         syncAndUpdateFolder(ignoreETag);
-        // Synchronize account during swipe refresh
-        startSynchronization();
     }
 
     @Override
