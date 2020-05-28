@@ -34,6 +34,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -632,6 +633,18 @@ public final class ThemeUtils {
         }
 
         return null;
+    }
+
+    /**
+     * Will change a menu item text tint
+     * @param item the menu item object
+     * @param color the wanted color (as resource or color)
+     */
+    public static void tintMenuItemText(MenuItem item, int color) {
+        SpannableString newItemTitle = new SpannableString(item.getTitle());
+        newItemTitle.setSpan(new ForegroundColorSpan(color), 0, newItemTitle.length(),
+                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item.setTitle(newItemTitle);
     }
 
     public static String colorToHexString(int color) {
