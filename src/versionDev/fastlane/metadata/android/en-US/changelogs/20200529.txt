@@ -1,0 +1,21 @@
+synced folder dialog, if disabled: - do not allow to click on any item - checkboxes are grey
+refresh favorites result in actually reloading favorites
+Fixed the color for Drawer Quota + fixed a global bug about color
+Replaced the logo and header drawer background/color
+Adjusted drawer quota font-size + Formated Drawer XML code
+Fixed spotbugs useless issue
+Fixed Android Studio lint
+Adjusted drawer menu item tint management
+Increased the Drawer Quota progressbar height
+Replaced Drawer logo color by Primary one (with white-replace)
+Fixed some Drawer errors due to clean
+Added Drawer logo description
+Removed the Drawer profiles part + removed unused code
+Remove deprecated method and fix color in light
+Refactor UploadFilesActivity
+fix test
+fix favorite star to top
+re-arrange code
+hide share icon in grid mode
+Update Nextcloud Android library
+Update 3rd-party dependencies
