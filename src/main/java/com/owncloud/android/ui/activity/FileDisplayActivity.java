@@ -1439,7 +1439,14 @@ public class FileDisplayActivity extends FileActivity
                 getFile().getFileLength() > 0 && getStorageManager().getFolderContent(getFile(), false).isEmpty()) {
                 ocFileListFragment.setEmptyListLoadingMessage();
             } else {
-                ocFileListFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
+                if (MainApp.isOnlyOnDevice()) {
+                    ocFileListFragment.setMessageForEmptyList(R.string.file_list_empty_headline,
+                                                              R.string.file_list_empty_on_device,
+                                                              R.drawable.ic_list_empty_folder,
+                                                              true);
+                } else {
+                    ocFileListFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
+                }
             }
         } else {
             Log_OC.e(TAG, "OCFileListFragment is null");
