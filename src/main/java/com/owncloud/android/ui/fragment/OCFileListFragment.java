@@ -769,8 +769,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
 
         if (mOriginalMenuItems.size() == 0) {
-            mOriginalMenuItems.add(menu.findItem(R.id.action_switch_view));
-            mOriginalMenuItems.add(menu.findItem(R.id.action_sort));
+            if (!(getActivity() instanceof FileDisplayActivity)) {
+                mOriginalMenuItems.add(menu.findItem(R.id.action_switch_view));
+                mOriginalMenuItems.add(menu.findItem(R.id.action_sort));
+            }
             mOriginalMenuItems.add(menu.findItem(R.id.action_search));
         }
 
@@ -789,18 +791,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             case ADD_GRID_AND_SORT:
             case ADD_GRID_AND_SORT_WITH_SEARCH:
-                if (menu.findItem(R.id.action_switch_view) == null) {
-                    menuItemOrig = mOriginalMenuItems.get(0);
-                    menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                             menuItemOrig.getTitle());
-                }
                 mSwitchGridViewButton.setVisibility(View.VISIBLE);
-
-                if (menu.findItem(R.id.action_sort) == null) {
-                    menuItemOrig = mOriginalMenuItems.get(1);
-                    menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                             menuItemOrig.getTitle());
-                }
                 mSortButton.setVisibility(View.VISIBLE);
                 break;
 
