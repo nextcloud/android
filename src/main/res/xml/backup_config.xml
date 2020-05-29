@@ -2,4 +2,7 @@
 <full-backup-content>
     <exclude domain="sharedpref" path="evernote_jobs.xml" />
     <exclude domain="database" path="evernote_jobs.db" />
+    <exclude
+        domain="file"
+        path="." />
 </full-backup-content>
