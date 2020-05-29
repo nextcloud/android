@@ -31,13 +31,11 @@ import android.accounts.AuthenticatorException;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.SyncRequest;
 import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
 import android.net.Uri;
@@ -145,14 +143,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
-import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
@@ -764,10 +760,6 @@ public class FileDisplayActivity extends FileActivity
             menuItem.setVisible(!drawerOpen);
         }
 
-        // Hiding unused elements
-        menu.findItem(R.id.action_sort).setVisible(false);
-        menu.findItem(R.id.action_switch_view).setVisible(false);
-
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -775,7 +767,6 @@ public class FileDisplayActivity extends FileActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_file_display, menu);
-        menu.findItem(R.id.action_create_dir).setVisible(false);
 
         menu.findItem(R.id.action_select_all).setVisible(false);
         MenuItem searchMenuItem = menu.findItem(R.id.action_search);
@@ -789,9 +780,7 @@ public class FileDisplayActivity extends FileActivity
         ThemeUtils.themeSearchView(searchView, this);
 
         // populate list of menu items to show/hide when drawer is opened/closed
-        mDrawerMenuItemstoShowHideList = new ArrayList<>(3);
-        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sort));
-        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_switch_view));
+        mDrawerMenuItemstoShowHideList = new ArrayList<>(1);
         mDrawerMenuItemstoShowHideList.add(searchMenuItem);
 
         //focus the SearchView
@@ -862,23 +851,6 @@ public class FileDisplayActivity extends FileActivity
 
                 } else {
                     openDrawer();
-                }
-                break;
-            }
-            case R.id.action_sort: {
-                openSortingOrderDialogFragment(getSupportFragmentManager(),
-                                               preferences.getSortOrderByFolder(getListOfFilesFragment().getCurrentFile()));
-                break;
-            }
-            case R.id.action_switch_view: {
-                if (isGridView()) {
-                    item.setTitle(getString(R.string.action_switch_grid_view));
-                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_view_module));
-                    getListOfFilesFragment().setListAsPreferred();
-                } else {
-                    item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
-                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_view_list));
-                    getListOfFilesFragment().setGridAsPreferred();
                 }
                 break;
             }
