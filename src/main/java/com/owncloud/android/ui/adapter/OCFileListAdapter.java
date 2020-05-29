@@ -571,7 +571,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
 
-            if (hideItemOptions || (file.isFolder() && !file.canReshare())) {
+            if (gridView || hideItemOptions || (file.isFolder() && !file.canReshare())) {
                 gridViewHolder.shared.setVisibility(View.GONE);
             } else {
                 showShareIcon(gridViewHolder, file);
