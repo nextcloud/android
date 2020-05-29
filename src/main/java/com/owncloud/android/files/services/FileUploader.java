@@ -61,6 +61,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.db.OCUploadComparator;
 import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -80,6 +81,7 @@ import com.owncloud.android.utils.ThemeUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -303,7 +305,13 @@ public class FileUploader extends Service
         boolean onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, false);
         boolean whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
 
-        if (!retry) { // Start new uploads
+        if (retry) { // Retry uploads
+            if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_RETRY_UPLOAD)) {
+                Log_OC.e(TAG, "Not enough information provided in intent: no KEY_RETRY_UPLOAD_KEY");
+                return START_NOT_STICKY;
+            }
+            retryUploads(intent, account, requestedUploads);
+        } else { // Start new uploads
             if (!(intent.hasExtra(KEY_LOCAL_FILE) || intent.hasExtra(KEY_FILE))) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
                 return Service.START_NOT_STICKY;
@@ -313,12 +321,6 @@ public class FileUploader extends Service
             if (error != null) {
                 return error;
             }
-        } else { // Retry uploads
-            if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_RETRY_UPLOAD)) {
-                Log_OC.e(TAG, "Not enough information provided in intent: no KEY_RETRY_UPLOAD_KEY");
-                return START_NOT_STICKY;
-            }
-            retryUploads(intent, account, requestedUploads);
         }
 
         if (requestedUploads.size() > 0) {
@@ -1033,6 +1035,9 @@ public class FileUploader extends Service
         if (gotWifi && charging) {
             failedUploads.addAll(uploadsStorageManager.getFailedUploads(true, true));
         }
+
+        // sort them, so they are retried in same way as UI
+        Collections.sort(failedUploads, new OCUploadComparator());
 
         for (OCUpload failedUpload : failedUploads) {
             if (!new File(failedUpload.getLocalPath()).exists()) {
