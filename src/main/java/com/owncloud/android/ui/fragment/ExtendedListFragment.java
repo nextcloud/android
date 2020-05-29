@@ -268,7 +268,14 @@ public class ExtendedListFragment extends Fragment implements
                     if (currentVisibility == View.VISIBLE) {
                         setEmptyListMessage(SearchType.REGULAR_FILTER);
                     } else {
-                        setEmptyListMessage(SearchType.NO_SEARCH);
+                        if (MainApp.isOnlyOnDevice()) {
+                            setMessageForEmptyList(R.string.file_list_empty_headline,
+                                                   R.string.file_list_empty_on_device,
+                                                   R.drawable.ic_list_empty_folder,
+                                                   true);
+                        } else {
+                            setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
+                        }
                     }
 
                     oldVisibility = currentVisibility;
