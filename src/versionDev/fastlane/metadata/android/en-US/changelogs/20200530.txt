@@ -1,0 +1,3 @@
+exclude all files for backup
+Do not show rich workspace when "on devices"
+correct empty message for "on devices"
