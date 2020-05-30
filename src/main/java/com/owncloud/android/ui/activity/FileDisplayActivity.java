@@ -2414,12 +2414,12 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void openDeepLink(Uri uri) {
-        DeepLinkHandler linkHandler = new DeepLinkHandler(getApplicationContext(), getUserAccountManager());
+        DeepLinkHandler linkHandler = new DeepLinkHandler(getUserAccountManager());
         DeepLinkHandler.Match match = linkHandler.parseDeepLink(uri);
         if (match == null) {
             dismissLoadingDialog();
             DisplayUtils.showSnackMessage(this, getString(R.string.invalid_url));
-        } else if (match.getUsers().size() == 0) {
+        } else if (match.getUsers().isEmpty()) {
             dismissLoadingDialog();
             DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
         } else if (match.getUsers().size() == 1) {
@@ -2449,7 +2449,6 @@ public class FileDisplayActivity extends FileActivity
 
     private void openFile(User user, String fileId) {
         setUser(user);
-        updateAccountList();
 
         if (fileId == null) {
             dismissLoadingDialog();
