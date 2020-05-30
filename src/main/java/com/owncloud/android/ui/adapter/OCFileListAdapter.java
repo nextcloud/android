@@ -56,6 +56,7 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -822,6 +823,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private boolean shouldShowHeader() {
         if (currentDirectory == null) {
+            return false;
+        }
+
+        if (MainApp.isOnlyOnDevice()) {
             return false;
         }
 
