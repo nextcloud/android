@@ -29,6 +29,7 @@ import tools.fastlane.screengrab.locale.LocaleTestRule;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -105,12 +106,11 @@ public class ScreenshotsIT extends AbstractIT {
     public void multipleAccountsScreenshot() {
         ActivityScenario.launch(FileDisplayActivity.class);
 
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-        onView(withId(R.id.drawer_active_user)).perform(click());
+        onView(withId(R.id.switch_account_button)).perform(click());
 
         Screengrab.screenshot("04_accounts");
 
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.close());
+        pressBack();
 
         Assert.assertTrue(true); // if we reach this, everything is ok
     }
