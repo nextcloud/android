@@ -36,6 +36,7 @@
     <color name="selected_item_background">#373535</color>
 
     <color name="filelist_icon_background">#222222</color>
+    <color name="standard_grey">#DADADA</color>
 
     <color name="drawer_menu_icon">#ffffff</color>
     <color name="bg_fallback_highlight">#737373</color>
