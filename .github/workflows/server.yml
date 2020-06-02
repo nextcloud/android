@@ -22,9 +22,7 @@ jobs:
             -   name: Wait for server
                 env:
                     SERVER_baseUrl: http://localhost:8081
-                run: |
-                    npm install -g wait-on
-                    scripts/wait_for_server.sh $SERVER_baseUrl
+                run: scripts/wait_for_server.sh $SERVER_baseUrl
             -   name: Install NDK
                 run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;20.0.5594570" --sdk_root=${ANDROID_SDK_ROOT}
             -   name: Screenshot tests
