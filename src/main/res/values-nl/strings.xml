@@ -114,7 +114,6 @@
     <string name="common_save">Bewaren</string>
     <string name="common_send">Versturen</string>
     <string name="common_share">Delen</string>
-    <string name="common_switch_account">Account wisselen</string>
     <string name="common_unknown">onbekend</string>
     <string name="common_yes">Ja</string>
     <string name="community_beta_headline">Test de dev versie</string>
@@ -817,7 +816,6 @@
     <string name="userinfo_no_info_text">Voeg naam, foto en contact details op je profielpagina toe.</string>
     <string name="username">Gebruikersnaam</string>
     <string name="version_dev_download">Download</string>
-    <string name="view_profile">Bekijk profiel</string>
     <string name="wait_a_moment">Wacht even…</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>

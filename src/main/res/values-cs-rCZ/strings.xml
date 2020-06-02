@@ -114,7 +114,6 @@
     <string name="common_save">Uložit</string>
     <string name="common_send">Odeslat</string>
     <string name="common_share">Sdílet</string>
-    <string name="common_switch_account">Přepnout účet</string>
     <string name="common_unknown">neznámý</string>
     <string name="common_yes">Ano</string>
     <string name="community_beta_headline">Vyzkoušet vývojové sestavení</string>
@@ -838,7 +837,6 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="userinfo_no_info_text">Na své profilové stránce přidejte jméno, obrázek a kontaktní údaje.</string>
     <string name="username">Uživatelské jméno</string>
     <string name="version_dev_download">Stáhnout</string>
-    <string name="view_profile">Zobrazit profil</string>
     <string name="wait_a_moment">Chvilku strpení…</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru ze soukromého úložiště</string>

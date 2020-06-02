@@ -102,7 +102,6 @@
     <string name="common_save">Simpan</string>
     <string name="common_send">Kirim</string>
     <string name="common_share">Bagikan</string>
-    <string name="common_switch_account">Ganti Akun</string>
     <string name="common_unknown">tidak diketahui</string>
     <string name="common_yes">Ya</string>
     <string name="community_beta_headline">Uji versi dev</string>
@@ -140,6 +139,7 @@
     <string name="copy_file_error">Terjadi kesalahan ketika mencoba menyalin berkas atau folder ini</string>
     <string name="copy_file_invalid_into_descendent">Tidak memungkinkan untuk menyalin folder kedalam turunannya</string>
     <string name="copy_file_invalid_overwrite">Berkas sudah ada didalam folder tujuan</string>
+    <string name="copy_file_not_found">Tidak dapat menyalin. Silakan periksa apakah berkas eksis.</string>
     <string name="copy_link">Salin tautan</string>
     <string name="copy_to">Salin ke…</string>
     <string name="create_dir_fail_msg">Folder tidak dapat dibuat</string>
@@ -493,6 +493,7 @@
     <string name="sync_fail_ticker">Sinkron gagal</string>
     <string name="sync_fail_ticker_unauthorized">Sinkronisasi gagal, coba masuk kembali</string>
     <string name="sync_file_nothing_to_do_msg">Isi berkas sudah diselaraskan</string>
+    <string name="sync_folder_failed_content">Sinkronisasi folder %1$s tidak dapat terselesaikan</string>
     <string name="sync_foreign_files_forgotten_ticker">Beberapa berkas lokal terlupakan</string>
     <string name="sync_string_files">Berkas</string>
     <string name="synced_folders_configure_folders">Konfigurasi folder</string>

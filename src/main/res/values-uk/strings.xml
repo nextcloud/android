@@ -114,7 +114,6 @@
     <string name="common_save">Зберегти</string>
     <string name="common_send">Надіслати</string>
     <string name="common_share">Поділитися</string>
-    <string name="common_switch_account">Перемкнути обліковий запис</string>
     <string name="common_unknown">невідомо</string>
     <string name="common_yes">Так</string>
     <string name="community_beta_headline">Перевірте версію розробника</string>
@@ -815,7 +814,6 @@
     <string name="userinfo_no_info_text">Додайте назву, зображення та деталі контакту на сторінці вашого профілю.</string>
     <string name="username">Ім\'я користувача</string>
     <string name="version_dev_download">Завантажити</string>
-    <string name="view_profile">Перегляд профілю</string>
     <string name="wait_a_moment">Зачекайте трохи…</string>
     <string name="wait_checking_credentials">Перевірка збережених даних авторизації</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копіювання файлу з приватного сховища</string>
