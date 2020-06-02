@@ -114,7 +114,6 @@
     <string name="common_save">Spara</string>
     <string name="common_send">Skicka</string>
     <string name="common_share">Dela</string>
-    <string name="common_switch_account">Växla Konto</string>
     <string name="common_unknown">okänt</string>
     <string name="common_yes">Ja</string>
     <string name="community_beta_headline">Testa utvecklingsversionen</string>
@@ -818,7 +817,6 @@
     <string name="userinfo_no_info_text">Lägg till namn, bild och kontaktuppgifter på din profilsida.</string>
     <string name="username">Användarnamn</string>
     <string name="version_dev_download">Hämta</string>
-    <string name="view_profile">Visa profil</string>
     <string name="wait_a_moment">Vänligen vänta…</string>
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>

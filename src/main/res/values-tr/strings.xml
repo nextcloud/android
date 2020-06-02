@@ -114,7 +114,6 @@
     <string name="common_save">Kaydet</string>
     <string name="common_send">Gönder</string>
     <string name="common_share">Paylaş</string>
-    <string name="common_switch_account">Hesabı Değiştir</string>
     <string name="common_unknown">bilinmiyor</string>
     <string name="common_yes">Evet</string>
     <string name="community_beta_headline">Geliştirici sürümünü deneyin</string>
@@ -817,7 +816,6 @@
     <string name="userinfo_no_info_text">Profil sayfanızdan ad, görsel ve iletişim bilgilerinizi ekleyin.</string>
     <string name="username">Kullanıcı adı</string>
     <string name="version_dev_download">İndir</string>
-    <string name="view_profile">Profili görüntüle</string>
     <string name="wait_a_moment">Lütfen bekleyin …</string>
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>

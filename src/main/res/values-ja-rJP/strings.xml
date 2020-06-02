@@ -111,7 +111,6 @@
     <string name="common_save">保存</string>
     <string name="common_send">送信</string>
     <string name="common_share">共有</string>
-    <string name="common_switch_account">アカウント変更</string>
     <string name="common_unknown">不明</string>
     <string name="common_yes">はい</string>
     <string name="community_beta_headline">開発バージョンをテスト</string>
@@ -253,6 +252,7 @@
     <string name="etm_background_job_name">ジョブの名前</string>
     <string name="etm_background_job_progress">進捗状況</string>
     <string name="etm_background_job_state">状態</string>
+    <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">バックグラウンドジョブ</string>
     <string name="etm_background_jobs_cancel_all">すべてのジョブをキャンセル</string>
     <string name="etm_background_jobs_start_test_job">テストジョブを開始</string>
