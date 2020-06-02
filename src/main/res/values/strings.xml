@@ -183,7 +183,7 @@
     <string name="downloader_not_downloaded_yet">Not downloaded yet</string>
     <string name="downloader_download_failed_credentials_error">Download failed, log in again</string>
     <string name="common_choose_account">Choose account</string>
-    <string name="common_switch_account">Switch Account</string>
+    <string name="common_switch_account">Switch account</string>
     <string name="sync_fail_ticker">Sync failed</string>
     <string name="sync_fail_ticker_unauthorized">Sync failed, log in again</string>
     <string name="sync_fail_content">Could not sync %1$s</string>
