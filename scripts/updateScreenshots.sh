@@ -70,9 +70,11 @@ adb shell "mount -o remount,rw /system"
 sleep 2
 adb shell "echo $IP server >> /system/etc/hosts"
 
+sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
+
 ## update/create all screenshots
-./gradlew gplayDebugExecuteScreenshotTests -Precord \
--Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest
+#./gradlew gplayDebugExecuteScreenshotTests -Precord \
+#-Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest
 
 ## update screenshots in a class
 #./gradlew gplayDebugExecuteScreenshotTests \
@@ -84,7 +86,21 @@ adb shell "echo $IP server >> /system/etc/hosts"
 #./gradlew gplayDebugExecuteScreenshotTests \
 #-Precord \
 #-Pandroid.testInstrumentationRunnerArguments.class=\
-#com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragmentTest#showNotEnoughSpaceDialogForFile
+#com.nextcloud.client.FileDisplayActivityIT#showShares
+
+resultCode=-1
+retryCount=0
+until [ $resultCode -eq 0 ] || [ $retryCount -gt 2 ]
+do
+  # test all screenshots
+  ./gradlew gplayDebugExecuteScreenshotTests \
+  -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest
+
+resultCode=$?
+((retryCount++))
+done
+
+sed -i s'#<bool name="is_beta">true</bool>#<bool name="is_beta">false</bool>#'g src/main/res/values/setup.xml
 
 if [ "$1" == "debug" ]; then
   exit

@@ -123,8 +123,10 @@ class OCFileListFragmentIT : AbstractIT() {
             targetContext).execute(client).isSuccess)
 
         val sut = ActivityScenario.launch(FileDisplayActivity::class.java)
+        shortSleep()
         sut.onActivity { activity -> activity.onBrowsedDownTo(storageManager.getFileByPath("/test/")) }
 
+        shortSleep()
         shortSleep()
 
         sut.onActivity { activity ->
@@ -133,14 +135,21 @@ class OCFileListFragmentIT : AbstractIT() {
 
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(targetContext)
         preferences.darkThemeMode = DarkMode.DARK
-        MainApp.setAppTheme(DarkMode.DARK)
 
+        sut.onActivity { activity ->
+            MainApp.setAppTheme(DarkMode.DARK)
+        }
+
+        shortSleep()
         sut.onActivity { activity -> activity.onBackPressed() }
+
+        shortSleep()
 
         sut.recreate()
 
         sut.onActivity { activity -> activity.onBrowsedDownTo(storageManager.getFileByPath("/test/")) }
 
+        shortSleep()
         shortSleep()
 
         sut.onActivity { activity ->
@@ -151,6 +160,7 @@ class OCFileListFragmentIT : AbstractIT() {
         preferences.darkThemeMode = DarkMode.LIGHT
         MainApp.setAppTheme(DarkMode.LIGHT)
 
+        shortSleep()
         sut.onActivity { activity -> activity.onBackPressed() }
 
         sut.recreate()

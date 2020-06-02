@@ -51,7 +51,6 @@ import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static junit.framework.TestCase.assertEquals;
@@ -79,11 +78,13 @@ public class FileDisplayActivityIT extends AbstractIT {
     @Test
     @ScreenshotTest
     public void drawer() {
-        Activity sut = activityRule.launchActivity(null);
+        FileDisplayActivity sut = activityRule.launchActivity(null);
 
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
 
         waitForIdleSync();
+        shortSleep();
+        sut.getListOfFilesFragment().setFabEnabled(false);
 
         Screenshot.snapActivity(sut).record();
     }
@@ -147,17 +148,8 @@ public class FileDisplayActivityIT extends AbstractIT {
 
         EventBus.getDefault().post(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER));
 
-        getInstrumentation().waitForIdleSync();
-
-        Screenshot.snapActivity(sut).record();
-    }
-
-    @Test
-    @ScreenshotTest
-    public void showAccounts() {
-        Activity sut = activityRule.launchActivity(null);
-
-        onView(withId(R.id.switch_account_button)).perform(click());
+        shortSleep();
+        shortSleep();
 
         Screenshot.snapActivity(sut).record();
     }

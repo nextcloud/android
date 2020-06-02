@@ -115,7 +115,7 @@ public abstract class AbstractIT {
 
             waitForServer(client, baseUrl);
 
-//            deleteAllFiles(); // makes sure that no file/folder is in root
+            deleteAllFiles(); // makes sure that no file/folder is in root
         } catch (OperationCanceledException e) {
             e.printStackTrace();
         } catch (AuthenticatorException e) {
