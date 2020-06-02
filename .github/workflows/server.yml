@@ -21,7 +21,7 @@ jobs:
                     docker-compose up -d
             -   name: Wait for server
                 env:
-                    SERVER_baseUrl: http://localhost:8081
+                    SERVER_baseUrl: localhost:8081
                 run: scripts/wait_for_server.sh $SERVER_baseUrl
             -   name: Install NDK
                 run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;20.0.5594570" --sdk_root=${ANDROID_SDK_ROOT}
@@ -33,4 +33,4 @@ jobs:
                     scripts/wait_for_emulator.sh
                     ./gradlew executeScreenshotTests
                 env:
-                    SERVER_baseUrl: http://localhost:8081/index.php
+                    SERVER_baseUrl: localhost:8081
