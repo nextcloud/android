@@ -59,6 +59,7 @@ public class ManageAccountsActivityIT extends AbstractIT {
         sut.onAccountClicked(user);
 
         shortSleep();
+        shortSleep();
 
         Screenshot.snapActivity(getCurrentActivity()).record();
     }
