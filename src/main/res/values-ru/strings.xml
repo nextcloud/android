@@ -114,7 +114,6 @@
     <string name="common_save">Сохранить</string>
     <string name="common_send">Отправить</string>
     <string name="common_share">Поделиться</string>
-    <string name="common_switch_account">Переключить учётную запись</string>
     <string name="common_unknown">неизвестно</string>
     <string name="common_yes">Да</string>
     <string name="community_beta_headline">Протестируйте разрабатываемую версию</string>
@@ -817,7 +816,6 @@
     <string name="userinfo_no_info_text">На странице профиля укажите своё имя, добавьте изображение и подробные сведения</string>
     <string name="username">Имя пользователя</string>
     <string name="version_dev_download">Скачать</string>
-    <string name="view_profile">Открыть профиль</string>
     <string name="wait_a_moment">Подождите немного…</string>
     <string name="wait_checking_credentials">Проверка сохранённых реквизитов учётных данных</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частного хранилища</string>
