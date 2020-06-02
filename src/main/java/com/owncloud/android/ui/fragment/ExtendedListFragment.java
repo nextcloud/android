@@ -223,7 +223,7 @@ public class ExtendedListFragment extends Fragment implements
                 if (activity instanceof FolderPickerActivity) {
                     searchView.setMaxWidth((int) (width * 0.8));
                 } else {
-                    searchView.setMaxWidth((int) (width * 0.7));
+                    searchView.setMaxWidth(width);
                 }
             }
         }

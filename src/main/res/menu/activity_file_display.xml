@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
@@ -18,48 +17,22 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/action_search"
-          android:icon="@drawable/ic_search"
-          android:title="@string/actionbar_search"
-          android:contentDescription="@string/actionbar_search"
+    <item
+        android:id="@+id/action_search"
+        android:contentDescription="@string/actionbar_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/actionbar_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-          app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/action_create_dir"
-        android:icon="@drawable/ic_action_create_dir"
-        android:orderInCategory="1"
-        app:showAsAction="never"
-        android:title="@string/actionbar_mkdir"
-        android:contentDescription="@string/actionbar_mkdir"/>
-    <item
-        android:id="@+id/action_switch_view"
-        android:icon="@drawable/ic_view_module"
-        android:orderInCategory="2"
-        app:showAsAction="never"
-        android:title="@string/action_switch_grid_view" />
-    <item
-        android:id="@+id/action_sync_account"
-        android:icon="@drawable/ic_action_refresh"
-        android:orderInCategory="1"
-        app:showAsAction="never"
-        android:title="@string/actionbar_sync"
-        android:contentDescription="@string/actionbar_sync"/>
-	<item
-        android:id="@+id/action_sort"
-        android:icon="@drawable/ic_sort_variant"
-        android:orderInCategory="1"
-        app:showAsAction="never"
-        android:title="@string/actionbar_sort"
-        android:contentDescription="@string/actionbar_sort"/>
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/action_select_all"
+        android:contentDescription="@string/select_all"
         android:icon="@drawable/ic_select_all"
         android:orderInCategory="1"
-        app:showAsAction="never"
         android:title="@string/select_all"
-        android:contentDescription="@string/select_all"/>
+        app:showAsAction="never" />
 
 </menu>

@@ -283,7 +283,6 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             menu.findItem(R.id.action_move),
             menu.findItem(R.id.action_download_file),
             menu.findItem(R.id.action_sync_file),
-            menu.findItem(R.id.action_sync_account),
             menu.findItem(R.id.action_favorite),
             menu.findItem(R.id.action_unset_favorite)
         );
