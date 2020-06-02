@@ -636,14 +636,22 @@ public class FileUploader extends Service
                 sendBroadcastUploadFinished(mCurrentUpload, uploadResult, removeResult.second);
             }
 
-            // generate new Thumbnail
-            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                new ThumbnailsCacheManager.ThumbnailGenerationTask(mStorageManager, mCurrentAccount);
-
+            // generate new Thumbnail, only if it does not already exist
             File file = new File(mCurrentUpload.getOriginalStoragePath());
-            String remoteId = mCurrentUpload.getFile().getRemoteId();
+            String imageKey = mCurrentUpload.getFile().getRemoteId();
 
-            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId));
+            if (imageKey == null) {
+                imageKey = String.valueOf(file.hashCode());
+            }
+
+            boolean exists = ThumbnailsCacheManager.containsBitmap(ThumbnailsCacheManager.PREFIX_THUMBNAIL
+                                                                       + imageKey);
+            if (!exists) {
+                final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                    new ThumbnailsCacheManager.ThumbnailGenerationTask(mStorageManager, mCurrentAccount);
+
+                task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, imageKey));
+            }
         }
     }
 
