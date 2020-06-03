@@ -114,6 +114,8 @@
     <string name="common_save">Speichern</string>
     <string name="common_send">Senden</string>
     <string name="common_share">Teilen</string>
+    <string name="common_switch_account">Konto wechseln</string>
+    <string name="common_switch_to_account">Zu Konto wechseln</string>
     <string name="common_unknown">unbekannt</string>
     <string name="common_yes">Ja</string>
     <string name="community_beta_headline">Testen Sie die Entwickler-Version</string>
@@ -295,6 +297,7 @@
     <string name="file_list_empty_headline_server_search_photos">Keine Fotos</string>
     <string name="file_list_empty_headline_server_search_videos">Keine Videos</string>
     <string name="file_list_empty_moving">Noch nichts vorhanden. Sie können einen Ordner hinzufügen.</string>
+    <string name="file_list_empty_on_device">Heruntergeladene Dateien und Ordner werden hier angezeigt werden.</string>
     <string name="file_list_empty_recently_added">Keine kürzlich hinzugefügten Dateien gefunden</string>
     <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzugefügten Dateien.</string>
     <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>

@@ -114,6 +114,8 @@
     <string name="common_save">Kaydet</string>
     <string name="common_send">Gönder</string>
     <string name="common_share">Paylaş</string>
+    <string name="common_switch_account">Hesabı değiştir</string>
+    <string name="common_switch_to_account">Şu hesaba geç</string>
     <string name="common_unknown">bilinmiyor</string>
     <string name="common_yes">Evet</string>
     <string name="community_beta_headline">Geliştirici sürümünü deneyin</string>
@@ -295,6 +297,7 @@
     <string name="file_list_empty_headline_server_search_photos">Herhangi bir fotoğraf bulunamadı</string>
     <string name="file_list_empty_headline_server_search_videos">Herhangi bir görüntü bulunamadı</string>
     <string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
+    <string name="file_list_empty_on_device">İndirilmiş dosya ve klasörler burada görüntülenir.</string>
     <string name="file_list_empty_recently_added">Geçenlerde eklenmiş herhangi bir dosya bulunamadı</string>
     <string name="file_list_empty_recently_added_filter">Yakınlarda eklenmiş bir dosya yok</string>
     <string name="file_list_empty_recently_modified">Son 7 gün içinde düzenlenmiş bir dosya bulunamadı</string>
