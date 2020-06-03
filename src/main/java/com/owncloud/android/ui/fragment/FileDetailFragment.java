@@ -142,7 +142,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private int layout;
     private View view;
-    private boolean previewLoaded;
     private Account account;
     private Unbinder unbinder;
 
@@ -227,26 +226,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (previewLoaded && getFile() != null && MimeTypeUtil.isImage(getFile())) {
-            activatePreviewImage();
-        }
-    }
-
-    private void activatePreviewImage() {
-        if (activity != null) {
-            activity.setPreviewImageVisibility(View.VISIBLE);
-            ThemeUtils.setStatusBarColor(activity, activity.getResources().getColor(R.color.background_color_inverse));
-            if (activity.getSupportActionBar() != null) {
-                activity.getSupportActionBar().setTitle(null);
-                activity.getSupportActionBar().setBackgroundDrawable(null);
-            }
-        }
     }
 
     @Override
@@ -371,12 +350,16 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
     public void onStop() {
         leaveTransferProgress();
 
-        if(activity != null) {
-            activity.setupToolbar();
-            activity.setPreviewImageVisibility(View.GONE);
+        if (activity != null) {
+            activity.hidePreviewImage();
         }
 
         super.onStop();
@@ -630,9 +613,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             String tagId = String.valueOf(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId());
             resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
 
+            boolean previewLoaded;
             if (resizedImage != null && !file.isUpdateThumbnailNeeded()) {
                 activity.setPreviewImageBitmap(resizedImage);
-                activatePreviewImage();
                 previewLoaded = true;
             } else {
                 // show thumbnail while loading resized image
@@ -667,7 +650,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                             );
 
                     activity.setPreviewImageDrawable(asyncDrawable);
-                    activatePreviewImage();
                     previewLoaded = true;
                     task.execute(getFile());
                 }
