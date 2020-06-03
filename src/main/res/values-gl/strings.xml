@@ -114,6 +114,8 @@
     <string name="common_save">Gardar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
+    <string name="common_switch_account">Cambiar de conta</string>
+    <string name="common_switch_to_account">Cambiar á conta</string>
     <string name="common_unknown">descoñecido</string>
     <string name="common_yes">Si</string>
     <string name="community_beta_headline">Probar a versión de desenvolvemento</string>
@@ -295,6 +297,7 @@
     <string name="file_list_empty_headline_server_search_photos">Non hai fotos</string>
     <string name="file_list_empty_headline_server_search_videos">Non hai vídeos</string>
     <string name="file_list_empty_moving">Aquí non hai nada. Pode engadir un cartafol.</string>
+    <string name="file_list_empty_on_device">Aquí amosaranse os ficheiros e cartafoles descargados</string>
     <string name="file_list_empty_recently_added">Non se atoparon ficheiros engadidos recentemente</string>
     <string name="file_list_empty_recently_added_filter">Non hai ficheiros engadidos recentemente</string>
     <string name="file_list_empty_recently_modified">Non se atoparon ficheiros modificados nos últimos 7 días.</string>
