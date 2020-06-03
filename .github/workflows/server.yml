@@ -24,8 +24,9 @@ jobs:
                     SERVER_baseUrl: localhost:8081
                 run: scripts/wait_for_server.sh $SERVER_baseUrl
             -   name: Install NDK
-                run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;20.0.5594570" --sdk_root=${ANDROID_SDK_ROOT}
+                run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;20.0.5594570" --sdk_root=${ANDROID_SDK_ROOT} 1>/dev/null
             -   name: Screenshot tests
+                runs-on: nextcloudci/android:android-49
                 run: |
                     emulator-headless -avd android-27 -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
                     mkdir -p $HOME/.gradle
