@@ -75,13 +75,13 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="4dp"
         android:visibility="gone"
         app:background="@color/appbar"
         app:cardCornerRadius="8dp"
-        app:cardElevation="6dp"
+        app:cardElevation="2dp"
         app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
