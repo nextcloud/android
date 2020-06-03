@@ -27,10 +27,10 @@ jobs:
                 run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;20.0.5594570" --sdk_root=${ANDROID_SDK_ROOT}
             -   name: Screenshot tests
                 run: |
+                    emulator-headless -avd android-27 -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
                     mkdir -p $HOME/.gradle
                     echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
                     ./gradlew assembleGplayDebug
-                    scripts/wait_for_emulator.sh
                     ./gradlew executeScreenshotTests
                 env:
                     SERVER_baseUrl: localhost:8081
