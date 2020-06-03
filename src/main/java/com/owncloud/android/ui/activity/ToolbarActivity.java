@@ -226,7 +226,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         mInfoBox.setVisibility(View.GONE);
     }
 
-    private void setPreviewImageVisibility(boolean isVisibility) {
+    public void setPreviewImageVisibility(boolean isVisibility) {
         if (mPreviewImage != null && mPreviewImageContainer != null) {
             if (isVisibility) {
                 mToolbar.setTitle(null);
