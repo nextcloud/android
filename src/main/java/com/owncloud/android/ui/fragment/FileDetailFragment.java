@@ -144,9 +144,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private View view;
     private Account account;
     private Unbinder unbinder;
+    private boolean previewLoaded = false;
 
     private ProgressListener progressListener;
-    private ToolbarActivity activity;
+    private ToolbarActivity toolbarActivity;
     private int activeTab;
 
     @Inject AppPreferences preferences;
@@ -350,6 +351,15 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        if (toolbarActivity != null && previewLoaded) {
+            toolbarActivity.setPreviewImageVisibility(true);
+        }
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
     }
@@ -358,8 +368,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     public void onStop() {
         leaveTransferProgress();
 
-        if (activity != null) {
-            activity.hidePreviewImage();
+        if (toolbarActivity != null) {
+            toolbarActivity.hidePreviewImage();
         }
 
         super.onStop();
@@ -369,9 +379,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof ToolbarActivity) {
-            activity = (ToolbarActivity) context;
+            toolbarActivity = (ToolbarActivity) context;
         } else {
-            activity = null;
+            toolbarActivity = null;
         }
     }
 
@@ -609,13 +619,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private void setFilePreview(OCFile file) {
         Bitmap resizedImage;
 
-        if (activity != null && MimeTypeUtil.isImage(file)) {
+        if (toolbarActivity != null && MimeTypeUtil.isImage(file)) {
             String tagId = String.valueOf(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId());
             resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
 
-            boolean previewLoaded;
             if (resizedImage != null && !file.isUpdateThumbnailNeeded()) {
-                activity.setPreviewImageBitmap(resizedImage);
+                toolbarActivity.setPreviewImageBitmap(resizedImage);
                 previewLoaded = true;
             } else {
                 // show thumbnail while loading resized image
@@ -623,20 +632,20 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                         String.valueOf(ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId()));
 
                 if (thumbnail != null) {
-                    activity.setPreviewImageBitmap(thumbnail);
+                    toolbarActivity.setPreviewImageBitmap(thumbnail);
                 } else {
                     thumbnail = ThumbnailsCacheManager.mDefaultImg;
                 }
 
                 // generate new resized image
-                if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), activity.getPreviewImageView()) &&
+                if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), toolbarActivity.getPreviewImageView()) &&
                         containerActivity.getStorageManager() != null) {
                     final ThumbnailsCacheManager.ResizedImageGenerationTask task =
                             new ThumbnailsCacheManager.ResizedImageGenerationTask(this,
-                                    activity.getPreviewImageView(),
-                                    containerActivity.getStorageManager(),
-                                    connectivityService,
-                                    containerActivity.getStorageManager().getAccount());
+                                                                                  toolbarActivity.getPreviewImageView(),
+                                                                                  containerActivity.getStorageManager(),
+                                                                                  connectivityService,
+                                                                                  containerActivity.getStorageManager().getAccount());
 
                     if (resizedImage == null) {
                         resizedImage = thumbnail;
@@ -649,11 +658,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                     task
                             );
 
-                    activity.setPreviewImageDrawable(asyncDrawable);
+                    toolbarActivity.setPreviewImageDrawable(asyncDrawable);
                     previewLoaded = true;
                     task.execute(getFile());
                 }
             }
+        } else {
+            previewLoaded = false;
         }
     }
 
