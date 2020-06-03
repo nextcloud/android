@@ -1217,7 +1217,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (!searchFragment) {
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
             if (storageManager != null) {
-
                 // Check input parameters for null
                 if (directory == null) {
                     if (mFile != null) {
@@ -1230,13 +1229,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     }
                 }
 
-
                 // If that's not a directory -> List its parent
                 if (!directory.isFolder()) {
                     Log_OC.w(TAG, "You see, that is not a directory -> " + directory.toString());
                     directory = storageManager.getFileById(directory.getParentId());
                 }
-
 
                 if (searchView != null && !searchView.isIconified() && !fromSearch) {
                     searchView.post(() -> {
@@ -1266,14 +1263,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                 updateLayout();
 
-                mAdapter.setHighlightedItem(file);
-                int position = mAdapter.getItemPosition(file);
-                if (position == -1) {
-                    if (previousDirectory == null || !previousDirectory.equals(directory)) {
-                        getRecyclerView().scrollToPosition(0);
+                if (file != null) {
+                    mAdapter.setHighlightedItem(file);
+                    int position = mAdapter.getItemPosition(file);
+                    if (position != -1) {
+                        getRecyclerView().scrollToPosition(position);
                     }
-                } else {
-                    getRecyclerView().scrollToPosition(position);
+                } else if (previousDirectory == null || !previousDirectory.equals(directory)) {
+                    getRecyclerView().scrollToPosition(0);
                 }
             }
         }
