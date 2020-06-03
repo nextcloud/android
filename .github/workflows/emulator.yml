@@ -1,0 +1,14 @@
+jobs:
+    test:
+        runs-on: macOS-latest
+        steps:
+            -   name: checkout
+                uses: actions/checkout@v1
+                with:
+                    fetch-depth: 1
+
+            -   name: run tests
+                uses: reactivecircus/android-emulator-runner@v1
+                with:
+                    api-level: 29
+                    script: ./gradlew connectedCheck
