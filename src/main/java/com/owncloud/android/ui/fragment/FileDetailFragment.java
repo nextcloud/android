@@ -144,7 +144,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private View view;
     private Account account;
     private Unbinder unbinder;
-    private boolean previewLoaded = false;
+    private boolean previewLoaded;
 
     private ProgressListener progressListener;
     private ToolbarActivity toolbarActivity;
@@ -376,12 +376,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof ToolbarActivity) {
             toolbarActivity = (ToolbarActivity) context;
-        } else {
-            toolbarActivity = null;
         }
     }
 
