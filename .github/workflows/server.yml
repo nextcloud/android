@@ -27,6 +27,7 @@ jobs:
                 run: |
                     cd ci/android/
                     docker-compose up -d
+                    sleep 60
                     docker-compose exec -T android adb devices
                 env:
                     SERVER_baseUrl: localhost:8081
