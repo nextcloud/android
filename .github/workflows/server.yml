@@ -1,4 +1,4 @@
-name: "Screenshot tests on master"
+name: "Screenshot tests on master branch"
 
 on:
     push:
