@@ -8,7 +8,7 @@ on:
 
 jobs:
     Screenshot_tests_master:
-        runs-on: nextcloudci/android:android-49
+        runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
             -   name: set up JDK 1.8
