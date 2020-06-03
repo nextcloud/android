@@ -114,7 +114,6 @@
     <string name="common_save">Gorde</string>
     <string name="common_send">Bidali</string>
     <string name="common_share">Partekatu</string>
-    <string name="common_switch_account">Aldatu kontua</string>
     <string name="common_unknown">ezezaguna</string>
     <string name="common_yes">Bai</string>
     <string name="community_beta_headline">Probatu garapeneko bertsioa</string>
@@ -815,7 +814,6 @@
     <string name="userinfo_no_info_text">Gehitu izena, irudia eta kontaktuko zehaztasunak zure profilaren orrian</string>
     <string name="username">Erabiltzaile-izena</string>
     <string name="version_dev_download">Deskargatu</string>
-    <string name="view_profile">Ikusi profila</string>
     <string name="wait_a_moment">Itxaron momentu bat…</string>
     <string name="wait_checking_credentials">Gordetako nortasun-datuak konprobatzen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fitxategia biltegiratze pribatutik kopiatzen</string>

@@ -114,7 +114,6 @@
     <string name="common_save">Αποθήκευση</string>
     <string name="common_send">Αποστολή</string>
     <string name="common_share">Διαμοιρασμός</string>
-    <string name="common_switch_account">Αλλαγή Λογαριασμού</string>
     <string name="common_unknown">άγνωστο</string>
     <string name="common_yes">Ναι</string>
     <string name="community_beta_headline">Δοκιμή της έκδοσης προγραμματιστή</string>
@@ -817,7 +816,6 @@
     <string name="userinfo_no_info_text">Προσθέστε όνομα, εικόνα και λεπτομέρειες επικοινωνίας στο προφίλ σας.</string>
     <string name="username">Όνομα χρήστη</string>
     <string name="version_dev_download">Λήψη</string>
-    <string name="view_profile">Προβολή προφίλ</string>
     <string name="wait_a_moment">Παρακαλούμε περιμένετε…</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>

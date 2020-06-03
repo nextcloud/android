@@ -114,7 +114,6 @@
     <string name="common_save">Speichern</string>
     <string name="common_send">Senden</string>
     <string name="common_share">Teilen</string>
-    <string name="common_switch_account">Konto wechseln</string>
     <string name="common_unknown">unbekannt</string>
     <string name="common_yes">Ja</string>
     <string name="community_beta_headline">Testen Sie die Entwickler-Version</string>
@@ -818,7 +817,6 @@
     <string name="userinfo_no_info_text">Fügen Sie Name, Bild und Kontaktdaten auf Ihrer Profilseite hinzu.</string>
     <string name="username">Benutzername</string>
     <string name="version_dev_download">Herunterladen</string>
-    <string name="view_profile">Profil ansehen</string>
     <string name="wait_a_moment">Bitte warten…</string>
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>

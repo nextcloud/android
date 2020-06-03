@@ -31,6 +31,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
@@ -42,32 +43,26 @@ public final class DrawerMenuUtil {
 
     public static void filterSearchMenuItems(Menu menu,
                                              User user,
-                                             Resources resources,
-                                             boolean hasSearchSupport) {
-        if (!user.isAnonymous() && !hasSearchSupport) {
+                                             Resources resources) {
+        if (user.isAnonymous()) {
             filterMenuItems(menu, R.id.nav_photos, R.id.nav_favorites, R.id.nav_videos);
         }
 
-        if (hasSearchSupport) {
-            if (!resources.getBoolean(R.bool.recently_added_enabled)) {
-                menu.removeItem(R.id.nav_recently_added);
-            }
+        if (!resources.getBoolean(R.bool.recently_added_enabled)) {
+            menu.removeItem(R.id.nav_recently_added);
+        }
 
-            if (!resources.getBoolean(R.bool.recently_modified_enabled)) {
-                menu.removeItem(R.id.nav_recently_modified);
-            }
+        if (!resources.getBoolean(R.bool.recently_modified_enabled)) {
+            menu.removeItem(R.id.nav_recently_modified);
+        }
 
-            if (!resources.getBoolean(R.bool.videos_enabled)) {
-                menu.removeItem(R.id.nav_videos);
-            }
-        } else if (!user.isAnonymous()) {
-            filterMenuItems(menu, R.id.nav_recently_added, R.id.nav_recently_modified, R.id.nav_videos);
+        if (!resources.getBoolean(R.bool.videos_enabled)) {
+            menu.removeItem(R.id.nav_videos);
         }
     }
 
-    public static void filterTrashbinMenuItem(Menu menu, User user, @Nullable OCCapability capability) {
-        if (!user.isAnonymous() &&
-            user.getServer().getVersion().compareTo(OwnCloudVersion.nextcloud_14) < 0 ||
+    public static void filterTrashbinMenuItem(Menu menu, @NonNull User user, @Nullable OCCapability capability) {
+        if (user.getServer().getVersion().compareTo(OwnCloudVersion.nextcloud_14) < 0 ||
             capability != null && capability.getFilesUndelete().isFalse() ||
             capability != null && capability.getFilesUndelete().isUnknown()) {
             filterMenuItems(menu, R.id.nav_trashbin);

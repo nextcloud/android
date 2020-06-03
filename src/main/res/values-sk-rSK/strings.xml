@@ -114,7 +114,6 @@
     <string name="common_save">Uložiť</string>
     <string name="common_send">Odoslať</string>
     <string name="common_share">Zdieľať</string>
-    <string name="common_switch_account">Prepnúť účet</string>
     <string name="common_unknown">neznámy</string>
     <string name="common_yes">Áno</string>
     <string name="community_beta_headline">Testovať vývojovú verziu</string>
@@ -817,7 +816,6 @@
     <string name="userinfo_no_info_text">Pridaj meno, obrázok a kontakt na profilovú stránku.</string>
     <string name="username">Používateľské meno</string>
     <string name="version_dev_download">Stiahnúť</string>
-    <string name="view_profile">Zobraziť profil</string>
     <string name="wait_a_moment">Počkajte chvíľu…</string>
     <string name="wait_checking_credentials">Overujem uložené prihlasovacie údaje</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>

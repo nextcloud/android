@@ -111,7 +111,6 @@
     <string name="common_save">저장</string>
     <string name="common_send">전송</string>
     <string name="common_share">공유</string>
-    <string name="common_switch_account">계정 전환</string>
     <string name="common_unknown">알 수 없음</string>
     <string name="common_yes">예</string>
     <string name="community_beta_headline">개발 중인 버전 테스트하기</string>

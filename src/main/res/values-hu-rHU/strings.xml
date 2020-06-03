@@ -114,7 +114,6 @@
     <string name="common_save">Mentés</string>
     <string name="common_send">Küldés</string>
     <string name="common_share">Megosztás</string>
-    <string name="common_switch_account">Fiókváltás</string>
     <string name="common_unknown">ismeretlen</string>
     <string name="common_yes">Igen</string>
     <string name="community_beta_headline">Tesztelje a fejlesztési verziót</string>
@@ -835,7 +834,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="userinfo_no_info_text">Adja meg a nevét, profilképét és kapcsolati adatait a profil oldalán.</string>
     <string name="username">Felhasználónév</string>
     <string name="version_dev_download">Letöltés</string>
-    <string name="view_profile">Profil megtekintése</string>
     <string name="wait_a_moment">Egy pillanat…</string>
     <string name="wait_checking_credentials">Tárolt hitelesítő adatok ellenőrzése</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fájl másolása a privát tárolóról</string>

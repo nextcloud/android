@@ -144,7 +144,6 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        menu.findItem(R.id.action_sync_account).setVisible(false);
         menu.findItem(R.id.action_sort).setVisible(false);
         menu.findItem(R.id.action_switch_view).setVisible(false);
     }

@@ -31,13 +31,11 @@ import android.accounts.AuthenticatorException;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.SyncRequest;
 import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
 import android.net.Uri;
@@ -145,14 +143,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
-import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
@@ -771,7 +767,6 @@ public class FileDisplayActivity extends FileActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_file_display, menu);
-        menu.findItem(R.id.action_create_dir).setVisible(false);
 
         menu.findItem(R.id.action_select_all).setVisible(false);
         MenuItem searchMenuItem = menu.findItem(R.id.action_search);
@@ -785,10 +780,7 @@ public class FileDisplayActivity extends FileActivity
         ThemeUtils.themeSearchView(searchView, this);
 
         // populate list of menu items to show/hide when drawer is opened/closed
-        mDrawerMenuItemstoShowHideList = new ArrayList<>(4);
-        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sort));
-        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sync_account));
-        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_switch_view));
+        mDrawerMenuItemstoShowHideList = new ArrayList<>(1);
         mDrawerMenuItemstoShowHideList.add(searchMenuItem);
 
         //focus the SearchView
@@ -848,10 +840,6 @@ public class FileDisplayActivity extends FileActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
-            case R.id.action_sync_account: {
-                startSynchronization();
-                break;
-            }
             case android.R.id.home: {
                 FileFragment second = getSecondFragment();
                 OCFile currentDir = getCurrentDir();
@@ -866,23 +854,6 @@ public class FileDisplayActivity extends FileActivity
                 }
                 break;
             }
-            case R.id.action_sort: {
-                openSortingOrderDialogFragment(getSupportFragmentManager(),
-                                               preferences.getSortOrderByFolder(getListOfFilesFragment().getCurrentFile()));
-                break;
-            }
-            case R.id.action_switch_view: {
-                if (isGridView()) {
-                    item.setTitle(getString(R.string.action_switch_grid_view));
-                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_view_module));
-                    getListOfFilesFragment().setListAsPreferred();
-                } else {
-                    item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
-                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_view_list));
-                    getListOfFilesFragment().setGridAsPreferred();
-                }
-                break;
-            }
             case R.id.action_select_all: {
                 getListOfFilesFragment().selectAllFiles(true);
                 break;
@@ -892,38 +863,6 @@ public class FileDisplayActivity extends FileActivity
                 break;
         }
         return retval;
-    }
-
-    private void startSynchronization() {
-        Log_OC.d(TAG, "Got to start sync");
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
-            Log_OC.d(TAG, "Canceling all syncs for " + MainApp.getAuthority());
-            ContentResolver.cancelSync(null, MainApp.getAuthority());
-            // cancel the current synchronizations of any ownCloud account
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-            bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-            Log_OC.d(TAG, "Requesting sync for " + getAccount().name + " at " +
-                    MainApp.getAuthority());
-            ContentResolver.requestSync(
-                    getAccount(),
-                    MainApp.getAuthority(), bundle);
-        } else {
-            Log_OC.d(TAG, "Requesting sync for " + getAccount().name + " at " +
-                    MainApp.getAuthority() + " with new API");
-            SyncRequest.Builder builder = new SyncRequest.Builder();
-            builder.setSyncAdapter(getAccount(), MainApp.getAuthority());
-            builder.setExpedited(true);
-            builder.setManual(true);
-            builder.syncOnce();
-
-            // Fix bug in Android Lollipop when you click on refresh the whole account
-            Bundle extras = new Bundle();
-            builder.setExtras(extras);
-
-            SyncRequest request = builder.build();
-            ContentResolver.requestSync(request);
-        }
     }
 
     /**
