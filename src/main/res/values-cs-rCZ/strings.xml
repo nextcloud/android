@@ -114,6 +114,8 @@
     <string name="common_save">Uložit</string>
     <string name="common_send">Odeslat</string>
     <string name="common_share">Sdílet</string>
+    <string name="common_switch_account">Přepnout účet</string>
+    <string name="common_switch_to_account">Přepnout na účet</string>
     <string name="common_unknown">neznámý</string>
     <string name="common_yes">Ano</string>
     <string name="community_beta_headline">Vyzkoušet vývojové sestavení</string>
@@ -295,6 +297,7 @@
     <string name="file_list_empty_headline_server_search_photos">Žádné fotky</string>
     <string name="file_list_empty_headline_server_search_videos">Žádná videa</string>
     <string name="file_list_empty_moving">Nic tu není. Můžete přidat složku.</string>
+    <string name="file_list_empty_on_device">Stažené soubory a složky se zobrazí zde.</string>
     <string name="file_list_empty_recently_added">Nenalezeny žádné nedávno přidané soubory</string>
     <string name="file_list_empty_recently_added_filter">Žádné nedávno přidané soubory.</string>
     <string name="file_list_empty_recently_modified">Nenalezeny žádné soubory změněné za uplynulých 7 dnů</string>

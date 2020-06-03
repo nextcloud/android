@@ -114,6 +114,8 @@
     <string name="common_save">Enregistrer</string>
     <string name="common_send">Envoyer</string>
     <string name="common_share">Partager</string>
+    <string name="common_switch_account">Basculer de compte</string>
+    <string name="common_switch_to_account">Utiliser ce compte</string>
     <string name="common_unknown">Inconnu</string>
     <string name="common_yes">Oui</string>
     <string name="community_beta_headline">Testez la version de dév</string>
@@ -297,6 +299,7 @@ Attention la suppression est irréversible.</string>
     <string name="file_list_empty_headline_server_search_photos">Aucune photo</string>
     <string name="file_list_empty_headline_server_search_videos">Aucune vidéo</string>
     <string name="file_list_empty_moving">Il n\'y a rien ici. Vous pouvez ajouter un dossier.</string>
+    <string name="file_list_empty_on_device">Les fichiers/dossiers téléchargés apparaîtront ici.</string>
     <string name="file_list_empty_recently_added">Aucun fichier ajouté récemment</string>
     <string name="file_list_empty_recently_added_filter">Aucun fichier ajouté récemment.</string>
     <string name="file_list_empty_recently_modified">Aucun fichier modifié n\'a été trouvé dans les 7 derniers jours</string>
