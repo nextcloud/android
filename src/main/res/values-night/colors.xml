@@ -36,12 +36,14 @@
     <color name="selected_item_background">#373535</color>
 
     <color name="filelist_icon_background">#222222</color>
+    <color name="standard_grey">#DADADA</color>
 
     <color name="drawer_menu_icon">#ffffff</color>
     <color name="bg_fallback_highlight">#737373</color>
     <color name="switch_thumb_color_unchecked">#2a2a2a</color>
     <color name="switch_track_color_unchecked">#B3FFFFFF</color>
     <color name="drawer_active_item_background">@color/white</color>
+    <color name="element_fallback_color">#EDEDED</color>
 
     <!-- App bar -->
     <color name="appbar">#1E1E1E</color>
