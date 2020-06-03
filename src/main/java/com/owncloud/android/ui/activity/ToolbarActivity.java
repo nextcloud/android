@@ -25,6 +25,7 @@ package com.owncloud.android.ui.activity;
 import android.animation.AnimatorInflater;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -61,6 +62,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     private AppBarLayout mAppBar;
     private RelativeLayout mDefaultToolbar;
+    private Toolbar mToolbar;
     private MaterialCardView mHomeSearchToolbar;
     private ImageView mPreviewImage;
     private FrameLayout mPreviewImageContainer;
@@ -81,8 +83,8 @@ public abstract class ToolbarActivity extends BaseActivity {
     private void setupToolbar(boolean isHomeSearchToolbarShow) {
         int fontColor = ThemeUtils.appBarPrimaryFontColor(this);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         ThemeUtils.colorStatusBar(this);
 
         mAppBar = findViewById(R.id.appbar);
@@ -103,12 +105,12 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         mToolbarSpinner = findViewById(R.id.toolbar_spinner);
 
-        if (toolbar.getOverflowIcon() != null) {
-            ThemeUtils.tintDrawable(toolbar.getOverflowIcon(), fontColor);
+        if (mToolbar.getOverflowIcon() != null) {
+            ThemeUtils.tintDrawable(mToolbar.getOverflowIcon(), fontColor);
         }
 
-        if (toolbar.getNavigationIcon() != null) {
-            ThemeUtils.tintDrawable(toolbar.getNavigationIcon(), fontColor);
+        if (mToolbar.getNavigationIcon() != null) {
+            ThemeUtils.tintDrawable(mToolbar.getNavigationIcon(), fontColor);
         }
     }
 
@@ -224,15 +226,20 @@ public abstract class ToolbarActivity extends BaseActivity {
         mInfoBox.setVisibility(View.GONE);
     }
 
-    /**
-     * Change the visibility for the toolbar's preview image.
-     *
-     * @param visibility visibility of the preview image
-     */
-    public void setPreviewImageVisibility(int visibility) {
+    private void setPreviewImageVisibility(boolean isVisibility) {
         if (mPreviewImage != null && mPreviewImageContainer != null) {
-            mPreviewImageContainer.setVisibility(visibility);
+            if (isVisibility) {
+                mToolbar.setTitle(null);
+                mToolbar.setBackgroundColor(Color.TRANSPARENT);
+            } else {
+                mToolbar.setBackgroundResource(R.color.appbar);
+            }
+            mPreviewImageContainer.setVisibility(isVisibility ? View.VISIBLE : View.GONE);
         }
+    }
+
+    public void hidePreviewImage() {
+        setPreviewImageVisibility(false);
     }
 
     /**
@@ -243,6 +250,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     public void setPreviewImageBitmap(Bitmap bitmap) {
         if (mPreviewImage != null) {
             mPreviewImage.setImageBitmap(bitmap);
+            setPreviewImageVisibility(true);
         }
     }
 
@@ -254,6 +262,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     public void setPreviewImageDrawable(Drawable drawable) {
         if (mPreviewImage != null) {
             mPreviewImage.setImageDrawable(drawable);
+            setPreviewImageVisibility(true);
         }
     }
 
