@@ -1,0 +1,8 @@
+fix search related items in drawer
+Removed unused items in FileDisplayActivity + Fixed some bugs
+Fixed lint
+Removed startSynchronization method
+Removed unused Sync account + Fixed a display inconsistency bug
+Increased searchview width when deployed
+Restructured options menu + Removed unused items
+Update translations
