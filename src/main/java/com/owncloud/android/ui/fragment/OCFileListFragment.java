@@ -130,12 +130,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
-import static com.owncloud.android.utils.FileSortOrder.sort_a_to_z_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_big_to_small_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_new_to_old_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_old_to_new_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_small_to_big_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_z_to_a_id;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -767,16 +761,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
-
         if (mOriginalMenuItems.size() == 0) {
-            if (!(getActivity() instanceof FileDisplayActivity)) {
-                mOriginalMenuItems.add(menu.findItem(R.id.action_switch_view));
-                mOriginalMenuItems.add(menu.findItem(R.id.action_sort));
-            }
             mOriginalMenuItems.add(menu.findItem(R.id.action_search));
         }
 
-        changeGridIcon(menu);   // this is enough if the option stays out of the action bar
         MenuItem menuItemOrig;
 
         switch (menuItemAddRemoveValue) {
@@ -800,22 +788,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 break;
 
             case REMOVE_SORT:
-                menu.removeItem(R.id.action_sort);
                 menu.removeItem(R.id.action_search);
                 mSortButton.setVisibility(View.GONE);
                 break;
 
             case REMOVE_GRID_AND_SORT:
-                menu.removeItem(R.id.action_sort);
-                menu.removeItem(R.id.action_switch_view);
                 menu.removeItem(R.id.action_search);
                 mSortButton.setVisibility(View.GONE);
                 mSwitchGridViewButton.setVisibility(View.GONE);
                 break;
 
             case REMOVE_ALL_EXCEPT_SEARCH:
-                menu.removeItem(R.id.action_sort);
-                menu.removeItem(R.id.action_switch_view);
                 mSwitchGridViewButton.setVisibility(View.VISIBLE);
                 mSortButton.setVisibility(View.VISIBLE);
                 break;
@@ -1389,19 +1372,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public OCFileListAdapter getAdapter() {
         return mAdapter;
-    }
-
-    private void changeGridIcon(Menu menu) {
-        MenuItem menuItem = menu.findItem(R.id.action_switch_view);
-        if (menuItem != null) {
-            if (isGridViewPreferred(mFile)) {
-                menuItem.setTitle(getString(R.string.action_switch_list_view));
-                menuItem.setIcon(R.drawable.ic_view_list);
-            } else {
-                menuItem.setTitle(getString(R.string.action_switch_grid_view));
-                menuItem.setIcon(R.drawable.ic_view_module);
-            }
-        }
     }
 
     private void setTitle() {

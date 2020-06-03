@@ -287,14 +287,6 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             menu.findItem(R.id.action_unset_favorite)
         );
 
-        Boolean dualPane = getResources().getBoolean(R.bool.large_land_layout);
-
-        if (!dualPane) {
-            FileMenuFilter.hideMenuItems(menu.findItem(R.id.action_switch_view),
-                                         menu.findItem(R.id.action_sort)
-            );
-        }
-
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_edit));
         }
