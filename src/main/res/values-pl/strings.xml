@@ -114,6 +114,8 @@
     <string name="common_save">Zapisz</string>
     <string name="common_send">Wyślij</string>
     <string name="common_share">Udostępnij</string>
+    <string name="common_switch_account">Przełącz konto</string>
+    <string name="common_switch_to_account">Przełącz na konto</string>
     <string name="common_unknown">nieznane</string>
     <string name="common_yes">Tak</string>
     <string name="community_beta_headline">Sprawdź wersję deweloperską</string>
@@ -295,6 +297,7 @@
     <string name="file_list_empty_headline_server_search_photos">Brak zdjęć</string>
     <string name="file_list_empty_headline_server_search_videos">Brak plików wideo</string>
     <string name="file_list_empty_moving">Pusto. Możesz dodać katalog.</string>
+    <string name="file_list_empty_on_device">Tutaj pojawią się pobrane pliki i katalogi.</string>
     <string name="file_list_empty_recently_added">Nie znaleziono żadnych ostatnio dodanych plików</string>
     <string name="file_list_empty_recently_added_filter">Brak ostatnio dodanych plików.</string>
     <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików modyfikowanych w ciągu ostatnich 7 dni</string>
