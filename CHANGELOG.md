@@ -1,3 +1,14 @@
+## 3.12.0 RC3 (June, 03, 2020)
+
+- add circle support for searching/displaying
+- if no offline editor is available, use OO/Cool/Text
+- add possibility to set expiration date on user/group shares (NC18+)
+- rich workspaces can be disabled on server side
+- improved loading view
+- requires Android 4.2 or newer
+
+For a full list, please see https://github.com/nextcloud/android/milestone/42
+
 ## 3.12.0 RC2 (May, 15, 2020)
 
 - add circle support for searching/displaying
