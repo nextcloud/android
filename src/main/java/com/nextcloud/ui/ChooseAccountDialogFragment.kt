@@ -80,7 +80,8 @@ class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, 
                 resources.getDimension(R.dimen.list_item_avatar_icon_radius),
                 resources,
                 user_icon,
-                context)
+                context
+            )
 
             // Defining user texts, accounts, etc.
             user_name.text = user.toOwnCloudAccount().displayName
@@ -88,17 +89,21 @@ class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, 
             account.text = user.accountName
 
             // Defining user right indicator
-            val icon = ThemeUtils.tintDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_check_circle),
-                ThemeUtils.primaryColor(requireContext(), true))
+            val icon = ThemeUtils.tintDrawable(
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_check_circle),
+                ThemeUtils.primaryColor(requireContext(), true)
+            )
             account_menu.setImageDrawable(icon)
 
             // Creating adapter for accounts list
-            val adapter = UserListAdapter(activity as BaseActivity,
+            val adapter = UserListAdapter(
+                activity as BaseActivity,
                 accountManager,
                 getAccountListItems(),
                 this,
                 false,
-                false)
+                false
+            )
             accounts_list.adapter = adapter
 
             // Creating listeners for quick-actions

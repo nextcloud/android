@@ -140,24 +140,29 @@ class AccountRemovalWork(
         user: User,
         arbitraryDataProvider: ArbitraryDataProvider
     ) {
-        val arbitraryDataPushString = arbitraryDataProvider.getValue(user.toPlatformAccount(),
-            PushUtils.KEY_PUSH)
+        val arbitraryDataPushString = arbitraryDataProvider.getValue(user.toPlatformAccount(), PushUtils.KEY_PUSH)
         val pushServerUrl = context.resources.getString(R.string.push_server_url)
         if (!TextUtils.isEmpty(arbitraryDataPushString) && !TextUtils.isEmpty(pushServerUrl)) {
             val gson = Gson()
-            val pushArbitraryData = gson.fromJson(arbitraryDataPushString,
-                PushConfigurationState::class.java)
+            val pushArbitraryData = gson.fromJson(
+                arbitraryDataPushString,
+                PushConfigurationState::class.java
+            )
             pushArbitraryData.isShouldBeDeleted = true
-            arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, PushUtils.KEY_PUSH,
-                gson.toJson(pushArbitraryData))
+            arbitraryDataProvider.storeOrUpdateKeyValue(
+                user.accountName, PushUtils.KEY_PUSH,
+                gson.toJson(pushArbitraryData)
+            )
             PushUtils.pushRegistrationToServer(userAccountManager, pushArbitraryData.getPushToken())
         }
     }
 
     private fun remoceSyncedFolders(context: Context, account: Account, clock: Clock) {
-        val syncedFolderProvider = SyncedFolderProvider(context.contentResolver,
+        val syncedFolderProvider = SyncedFolderProvider(
+            context.contentResolver,
             AppPreferencesImpl.fromContext(context),
-            clock)
+            clock
+        )
         val syncedFolders = syncedFolderProvider.syncedFolders
         val syncedFolderIds: MutableList<Long> = ArrayList()
         for (syncedFolder in syncedFolders) {

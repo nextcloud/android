@@ -36,12 +36,14 @@ class FileStorageUtilsTest {
         val subFolderByDate = false
         val dateTaken = 123123123L
 
-        val result = FileStorageUtils.getInstantUploadFilePath(file,
+        val result = FileStorageUtils.getInstantUploadFilePath(
+            file,
             Locale.ROOT,
             syncedFolderRemotePath,
             syncedFolderLocalPath,
             dateTaken,
-            subFolderByDate)
+            subFolderByDate
+        )
         val expected = "/Camera/subfolder/file.jpg"
 
         assertEquals(expected, result)
@@ -55,12 +57,14 @@ class FileStorageUtilsTest {
         val subFolderByDate = false
         val dateTaken = 123123123L
 
-        val result = FileStorageUtils.getInstantUploadFilePath(file,
+        val result = FileStorageUtils.getInstantUploadFilePath(
+            file,
             Locale.ROOT,
             syncedFolderRemotePath,
             syncedFolderLocalPath,
             dateTaken,
-            subFolderByDate)
+            subFolderByDate
+        )
         val expected = "/Camera/file.jpg"
 
         assertEquals(expected, result)
@@ -74,12 +78,14 @@ class FileStorageUtilsTest {
         val subFolderByDate = true
         val dateTaken = 0L
 
-        val result = FileStorageUtils.getInstantUploadFilePath(file,
+        val result = FileStorageUtils.getInstantUploadFilePath(
+            file,
             Locale.ROOT,
             syncedFolderRemotePath,
             syncedFolderLocalPath,
             dateTaken,
-            subFolderByDate)
+            subFolderByDate
+        )
         val expected = "/Camera/file.jpg"
 
         assertEquals(expected, result)
@@ -93,12 +99,14 @@ class FileStorageUtilsTest {
         val subFolderByDate = false
         val dateTaken = 123123123L
 
-        val result = FileStorageUtils.getInstantUploadFilePath(file,
+        val result = FileStorageUtils.getInstantUploadFilePath(
+            file,
             Locale.ROOT,
             syncedFolderRemotePath,
             syncedFolderLocalPath,
             dateTaken,
-            subFolderByDate)
+            subFolderByDate
+        )
         val expected = "/Camera/file.jpg"
 
         assertEquals(expected, result)
@@ -112,12 +120,14 @@ class FileStorageUtilsTest {
         val subFolderByDate = true
         val dateTaken = 1569918628000L
 
-        val result = FileStorageUtils.getInstantUploadFilePath(file,
+        val result = FileStorageUtils.getInstantUploadFilePath(
+            file,
             Locale.ROOT,
             syncedFolderRemotePath,
             syncedFolderLocalPath,
             dateTaken,
-            subFolderByDate)
+            subFolderByDate
+        )
         val expected = "/Camera/2019/10/file.jpg"
 
         assertEquals(expected, result)
@@ -131,12 +141,14 @@ class FileStorageUtilsTest {
         val subFolderByDate = false
         val dateTaken = 123123123L
 
-        val result = FileStorageUtils.getInstantUploadFilePath(file,
+        val result = FileStorageUtils.getInstantUploadFilePath(
+            file,
             Locale.ROOT,
             syncedFolderRemotePath,
             syncedFolderLocalPath,
             dateTaken,
-            subFolderByDate)
+            subFolderByDate
+        )
         val expected = "/Camera/subfolder/file.jpg"
 
         assertEquals(expected, result)
@@ -150,12 +162,14 @@ class FileStorageUtilsTest {
         val subFolderByDate = true
         val dateTaken = 1569918628000L
 
-        val result = FileStorageUtils.getInstantUploadFilePath(file,
+        val result = FileStorageUtils.getInstantUploadFilePath(
+            file,
             Locale.ROOT,
             syncedFolderRemotePath,
             syncedFolderLocalPath,
             dateTaken,
-            subFolderByDate)
+            subFolderByDate
+        )
         val expected = "/Camera/2019/10/subfolder/file.jpg"
 
         assertEquals(expected, result)
