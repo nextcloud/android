@@ -428,7 +428,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             ArrayList<Parcelable> targetFiles = i.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
 
             Intent data = new Intent();
-            data.putExtra(EXTRA_FOLDER, getCurrentFolder());
+            data.putExtra(EXTRA_FOLDER, getListOfFilesFragment().getCurrentFile());
             data.putParcelableArrayListExtra(EXTRA_FILES, targetFiles);
             setResult(RESULT_OK, data);
 
