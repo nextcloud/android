@@ -1351,7 +1351,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    if (position == getAdapter().getItemCount() - 1) {
+                    if (position == getAdapter().getItemCount() - 1 ||
+                        position == 0 && getAdapter().shouldShowHeader()) {
                         return ((GridLayoutManager) layoutManager).getSpanCount();
                     } else {
                         return 1;
