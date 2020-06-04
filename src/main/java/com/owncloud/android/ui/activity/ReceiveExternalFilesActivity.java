@@ -38,8 +38,6 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -864,13 +862,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
 
         if (mStreamsToUpload != null) {
-            Log_OC.d(this, "Received: " + mStreamsToUpload.size());
+            Log_OC.d("ExternalUpload", "Received: " + mStreamsToUpload.size());
 
             for (Parcelable parcelable : mStreamsToUpload) {
                 if (parcelable instanceof Uri) {
-                    Log_OC.d(this, "URI: " + UriUtils.getDisplayNameForUri((Uri) parcelable, this));
+                    Log_OC.d("ExternalUpload", "URI: " + UriUtils.getDisplayNameForUri((Uri) parcelable, this));
                 } else {
-                    Log_OC.d(this, "no URI: " + parcelable.toString());
+                    Log_OC.d("ExternalUpload", "no URI: " + parcelable.toString());
                 }
             }
         }

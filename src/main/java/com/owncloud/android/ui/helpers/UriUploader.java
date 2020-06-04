@@ -110,9 +110,11 @@ public class UriUploader {
                     if (ContentResolver.SCHEME_CONTENT.equals(sourceUri.getScheme())) {
                         contentUris.add(sourceUri);
                         contentRemotePaths.add(remotePath);
+                        Log_OC.d("ExternalUpload", "upload as content uri: " + sourceUri.getPath());
 
                     } else if (ContentResolver.SCHEME_FILE.equals(sourceUri.getScheme())) {
                         /// file: uris should point to a local file, should be safe let FileUploader handle them
+                        Log_OC.d("ExternalUpload", "upload as local file: " + sourceUri.getPath());
                         requestUpload(sourceUri.getPath(), remotePath);
                         schemeFileCounter++;
                     }
@@ -120,11 +122,13 @@ public class UriUploader {
             }
 
             if (!contentUris.isEmpty()) {
+                Log_OC.d("ExternalUpload", "size of contentUri: " + contentUris.size());
                 /// content: uris will be copied to temporary files before calling {@link FileUploader}
                 copyThenUpload(contentUris.toArray(new Uri[0]),
                         contentRemotePaths.toArray(new String[0]));
 
             } else if (schemeFileCounter == 0) {
+                Log_OC.d("ExternalUpload", "contentUri is empty");
                 mCode = UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD;
 
             }

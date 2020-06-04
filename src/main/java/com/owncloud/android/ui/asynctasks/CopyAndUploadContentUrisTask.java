@@ -143,6 +143,8 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                 currentUri = uris[i];
                 currentRemotePath = remotePaths[i];
 
+                Log_OC.d("ExternalUpload", "copy file: " + currentUri);
+
                 fullTempPath = FileStorageUtils.getTemporalPath(account.name) + currentRemotePath;
                 inputStream = leakedContentResolver.openInputStream(currentUri);
                 File cacheFile = new File(fullTempPath);
