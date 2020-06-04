@@ -183,6 +183,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     protected boolean mHideFab = true;
     protected ActionMode mActiveActionMode;
+    protected boolean mIsActionModeNew;
     protected OCFileListFragment.MultiChoiceModeListener mMultiChoiceModeListener;
 
     protected SearchType currentSearchType;
@@ -631,6 +632,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mActiveActionMode = mode;
+            // Determine if actionMode is "new" or not (already affected by item-selection)
+            mIsActionModeNew = true;
 
             MenuInflater inflater = getActivity().getMenuInflater();
             inflater.inflate(R.menu.item_file, menu);
@@ -652,9 +655,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
             final int checkedCount = mAdapter.getCheckedItems().size();
-            if (checkedCount == 0) {
-                mActiveActionMode.finish();
-            }
             Set<OCFile> checkedFiles = mAdapter.getCheckedItems();
             String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
             mode.setTitle(title);
@@ -673,6 +673,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mf.filter(menu,
                       false,
                       accountManager.isMediaStreamingSupported(currentAccount));
+
+            // Determine if we need to finish the action mode because there are no items selected
+            if (checkedCount == 0 && !mIsActionModeNew) {
+                exitSelectionMode();
+            }
+
             return true;
         }
 
@@ -707,7 +713,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mAdapter.setMultiSelect(false);
             mAdapter.clearCheckedItems();
         }
-
 
         public void storeStateIn(Bundle outState) {
             outState.putBoolean(KEY_ACTION_MODE_CLOSED_BY_DRAWER, mActionModeClosedByDrawer);
@@ -856,12 +861,44 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return moveCount;
     }
 
+    /**
+     * Will toggle a file selection status from the action mode
+     * @param file The concerned OCFile by the selection/deselection
+     */
+    private void toggleItemToCheckedList(OCFile file) {
+        if (getAdapter().isCheckedFile(file)) {
+            getAdapter().removeCheckedFile(file);
+        } else {
+            getAdapter().addCheckedFile(file);
+        }
+        updateActionModeFile(file);
+    }
+
+    /**
+     * Will update (invalidate) the action mode adapter/mode to refresh an item selection change
+     * @param file The concerned OCFile to refresh in adapter
+     */
+    private void updateActionModeFile(OCFile file) {
+        mIsActionModeNew = false;
+        if (mActiveActionMode != null) {
+            mActiveActionMode.invalidate();
+            mAdapter.notifyItemChanged(getAdapter().getItemPosition(file));
+        }
+    }
 
     @Override
     public boolean onLongItemClicked(OCFile file) {
         FragmentActivity actionBarActivity = getActivity();
-        getAdapter().addCheckedFile(file);
-        actionBarActivity.startActionMode(mMultiChoiceModeListener);
+        if (actionBarActivity != null) {
+            // Create only once instance of action method
+            if (mActiveActionMode != null) {
+                toggleItemToCheckedList(file);
+            } else {
+                actionBarActivity.startActionMode(mMultiChoiceModeListener);
+                getAdapter().addCheckedFile(file);
+            }
+            updateActionModeFile(file);
+        }
 
         return true;
     }
@@ -869,13 +906,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onItemClicked(OCFile file) {
         if (getAdapter().isMultiSelect()) {
-            if (getAdapter().isCheckedFile(file)) {
-                getAdapter().removeCheckedFile(file);
-            } else {
-                getAdapter().addCheckedFile(file);
-            }
-            mActiveActionMode.invalidate();
-            mAdapter.notifyItemChanged(getAdapter().getItemPosition(file));
+            toggleItemToCheckedList(file);
         } else {
             if (file != null) {
                 int position = mAdapter.getItemPosition(file);
