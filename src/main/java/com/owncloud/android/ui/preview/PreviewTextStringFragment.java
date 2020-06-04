@@ -145,7 +145,6 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
         super.onPrepareOptionsMenu(menu);
 
         menu.findItem(R.id.action_sort).setVisible(false);
-        menu.findItem(R.id.action_switch_view).setVisible(false);
     }
 
     void loadAndShowTextPreview() {
