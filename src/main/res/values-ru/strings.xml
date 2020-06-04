@@ -114,6 +114,8 @@
     <string name="common_save">Сохранить</string>
     <string name="common_send">Отправить</string>
     <string name="common_share">Поделиться</string>
+    <string name="common_switch_account">Переключить учётную запись</string>
+    <string name="common_switch_to_account">Переключить учётную запись</string>
     <string name="common_unknown">неизвестно</string>
     <string name="common_yes">Да</string>
     <string name="community_beta_headline">Протестируйте разрабатываемую версию</string>
@@ -295,6 +297,7 @@
     <string name="file_list_empty_headline_server_search_photos">Фотографии отсутствуют</string>
     <string name="file_list_empty_headline_server_search_videos">Видео отсутствуют</string>
     <string name="file_list_empty_moving">Здесь ничего нет. Вы можете создать каталог!</string>
+    <string name="file_list_empty_on_device">Здесь будут показаны загруженные файлы и папки</string>
     <string name="file_list_empty_recently_added">Не найдено файлов, добавленных недавно</string>
     <string name="file_list_empty_recently_added_filter">Недавно добавленных файлы отсутствуют.</string>
     <string name="file_list_empty_recently_modified">Изменённых за последние 7 дней файлов не найдено</string>
