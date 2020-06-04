@@ -39,7 +39,6 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
-import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
@@ -93,8 +92,7 @@ public class DrawerActivityIT extends AbstractIT {
 
         assertEquals(account, sut.getUser().get().toPlatformAccount());
 
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-        onView(withId(R.id.drawer_active_user)).perform(click());
+        onView(withId(R.id.switch_account_button)).perform(click());
 
         onView(anyOf(withText(account2Name), withText(account2DisplayName))).perform(click());
 
@@ -102,25 +100,7 @@ public class DrawerActivityIT extends AbstractIT {
 
         assertEquals(account2, sut.getUser().get().toPlatformAccount());
 
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-        onView(withId(R.id.drawer_active_user)).perform(click());
+        onView(withId(R.id.switch_account_button)).perform(click());
         onView(withText(account.name)).perform(click());
-    }
-
-    @Test
-    public void switchAccountViaAvatar() {
-        FileDisplayActivity sut = activityRule.launchActivity(null);
-
-        assertEquals(account, sut.getUser().get().toPlatformAccount());
-
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-        onView(withId(R.id.drawer_account_end)).perform(click());
-
-        waitForIdleSync();
-
-        assertEquals(account2, sut.getUser().get().toPlatformAccount());
-
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-        onView(withId(R.id.drawer_account_end)).perform(click());
     }
 }

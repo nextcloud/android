@@ -709,12 +709,12 @@ public abstract class DrawerActivity extends ToolbarActivity
             for (int i = 0; i < mNavigationView.getMenu().size(); i++) {
                 MenuItem menuItem = mNavigationView.getMenu().getItem(i);
                 if (menuItem.getIcon() != null) {
-                    if (menuItem != currentItem) {
-                        ThemeUtils.tintDrawable(menuItem.getIcon(), drawerColor);
-                        ThemeUtils.tintMenuItemText(menuItem, drawerColor);
-                    } else {
+                    if (menuItem == currentItem) {
                         ThemeUtils.tintDrawable(currentItem.getIcon(), activeColor);
                         ThemeUtils.tintMenuItemText(currentItem, activeColor);
+                    } else {
+                        ThemeUtils.tintDrawable(menuItem.getIcon(), drawerColor);
+                        ThemeUtils.tintMenuItemText(menuItem, drawerColor);
                     }
                 }
             }

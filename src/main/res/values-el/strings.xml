@@ -114,6 +114,8 @@
     <string name="common_save">Αποθήκευση</string>
     <string name="common_send">Αποστολή</string>
     <string name="common_share">Διαμοιρασμός</string>
+    <string name="common_switch_account">Αλλαγή λογαριασμού</string>
+    <string name="common_switch_to_account">Αλλαγή στον λογαριασμό</string>
     <string name="common_unknown">άγνωστο</string>
     <string name="common_yes">Ναι</string>
     <string name="community_beta_headline">Δοκιμή της έκδοσης προγραμματιστή</string>
@@ -295,6 +297,7 @@
     <string name="file_list_empty_headline_server_search_photos">Καμιά φωτογραφία</string>
     <string name="file_list_empty_headline_server_search_videos">Κανένα βίντεο</string>
     <string name="file_list_empty_moving">Δεν υπάρχει τίποτα εδώ. Μπορείτε να προσθέσετε ένα φάκελο!</string>
+    <string name="file_list_empty_on_device">Τα ληφθέντα αρχεία και φάκελοι θα εμφανίζονται εδώ.</string>
     <string name="file_list_empty_recently_added">Δεν βρέθηκαν πρόσφατα προστεθημένα αρχεία</string>
     <string name="file_list_empty_recently_added_filter">Δεν προστέθηκαν πρόσφατα αρχεία.</string>
     <string name="file_list_empty_recently_modified">Δεν βρέθηκαν τροποποιημένα αρχεία εντός των τελευταίων 7 ημερών</string>

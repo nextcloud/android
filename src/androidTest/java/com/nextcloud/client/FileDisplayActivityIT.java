@@ -151,8 +151,7 @@ public class FileDisplayActivityIT extends AbstractIT {
     public void showAccounts() {
         Activity sut = activityRule.launchActivity(null);
 
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-        onView(withId(R.id.drawer_active_user)).perform(click());
+        onView(withId(R.id.switch_account_button)).perform(click());
 
         Screenshot.snapActivity(sut).record();
     }
