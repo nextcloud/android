@@ -166,6 +166,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private TextView mEmptyListHeadline;
     private ImageView mEmptyListIcon;
     private ProgressBar mEmptyListProgress;
+    private MaterialButton sortButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -274,6 +275,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Override
     public void onSortingOrderChosen(FileSortOrder newSortOrder) {
         preferences.setSortOrder(mFile, newSortOrder);
+        sortButton.setText(DisplayUtils.getSortOrderStringId(newSortOrder));
         populateDirectoryList();
     }
 
@@ -705,7 +707,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private void populateDirectoryList() {
-        setContentView(R.layout.uploader_layout);
+        setContentView(R.layout.receive_external_files);
         setupEmptyList();
         setupToolbar();
         ActionBar actionBar = getSupportActionBar();
@@ -784,6 +786,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
             btnNewFolder.setOnClickListener(this);
 
             mListView.setOnItemClickListener(this);
+
+            sortButton = findViewById(R.id.sort_button);
+            FileSortOrder sortOrder = preferences.getSortOrderByFolder(mFile);
+            sortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+            sortButton.setOnClickListener(l -> openSortingOrderDialogFragment(getSupportFragmentManager(), sortOrder));
         }
     }
 
@@ -1051,10 +1058,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 break;
             case R.id.action_switch_account:
                 showAccountChooserDialog();
-                break;
-            case R.id.action_sort:
-                openSortingOrderDialogFragment(getSupportFragmentManager(),
-                                               preferences.getSortOrderByFolder(mFile));
                 break;
             default:
                 retval = super.onOptionsItemSelected(item);
