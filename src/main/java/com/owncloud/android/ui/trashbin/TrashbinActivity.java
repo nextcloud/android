@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
@@ -46,6 +47,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.TrashbinListAdapter;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.interfaces.TrashbinActivityInterface;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -53,8 +55,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindString;
@@ -87,6 +87,9 @@ public class TrashbinActivity extends FileActivity implements
 
     @BindView(R.id.swipe_containing_list)
     public SwipeRefreshLayout swipeListRefreshLayout;
+
+    @BindView(R.id.sort_button)
+    public MaterialButton sortButton;
 
     @BindString(R.string.trashbin_empty_headline)
     public String noResultsHeadline;
@@ -148,6 +151,13 @@ public class TrashbinActivity extends FileActivity implements
         ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
         swipeListRefreshLayout.setOnRefreshListener(this::loadFolder);
 
+        sortButton.setOnClickListener(l ->
+                                          openSortingOrderDialogFragment(getSupportFragmentManager(),
+                                                                         preferences.getSortOrderByType(
+                                                                             FileSortOrder.Type.trashBinView,
+                                                                             FileSortOrder.sort_new_to_old))
+                                     );
+
         loadFolder();
     }
 
@@ -177,12 +187,7 @@ public class TrashbinActivity extends FileActivity implements
                     openDrawer();
                 }
                 break;
-            case R.id.action_sort: {
-                openSortingOrderDialogFragment(getSupportFragmentManager(),
-                                               preferences.getSortOrderByType(FileSortOrder.Type.trashBinView,
-                                                                              FileSortOrder.sort_new_to_old));
-                break;
-            }
+
             case R.id.action_empty_trashbin:
                 trashbinPresenter.emptyTrashbin();
                 break;
@@ -259,6 +264,7 @@ public class TrashbinActivity extends FileActivity implements
 
     @Override
     public void onSortingOrderChosen(FileSortOrder sortOrder) {
+        sortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
         trashbinListAdapter.setSortOrder(sortOrder);
     }
 
