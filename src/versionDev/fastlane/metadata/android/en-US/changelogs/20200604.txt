@@ -1,0 +1,6 @@
+invert if to make it more readable
+only scroll to position, if highlighted item exists
+Replaced primary color by element color for chosen Sort-By element
+Applied a new fallback color for DarkMode
+Update translations
+Update Nextcloud Android library
