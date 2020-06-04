@@ -102,6 +102,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import static com.owncloud.android.ui.dialog.SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT;
+import static com.owncloud.android.utils.FileSortOrder.sort_a_to_z_id;
+import static com.owncloud.android.utils.FileSortOrder.sort_big_to_small_id;
+import static com.owncloud.android.utils.FileSortOrder.sort_new_to_old_id;
+import static com.owncloud.android.utils.FileSortOrder.sort_old_to_new_id;
+import static com.owncloud.android.utils.FileSortOrder.sort_small_to_big_id;
+import static com.owncloud.android.utils.FileSortOrder.sort_z_to_a_id;
 
 /**
  * A helper class for UI/display related operations.
@@ -748,5 +754,23 @@ public final class DisplayUtils {
         fragmentTransaction.addToBackStack(null);
 
         SortingOrderDialogFragment.newInstance(sortOrder).show(fragmentTransaction, SORTING_ORDER_FRAGMENT);
+    }
+
+    public static @StringRes int getSortOrderStringId(FileSortOrder sortOrder) {
+        switch (sortOrder.name) {
+            case sort_z_to_a_id:
+                return R.string.menu_item_sort_by_name_z_a;
+            case sort_new_to_old_id:
+                return R.string.menu_item_sort_by_date_newest_first;
+            case sort_old_to_new_id:
+                return R.string.menu_item_sort_by_date_oldest_first;
+            case sort_big_to_small_id:
+                return R.string.menu_item_sort_by_size_biggest_first;
+            case sort_small_to_big_id:
+                return R.string.menu_item_sort_by_size_smallest_first;
+            case sort_a_to_z_id:
+            default:
+                return R.string.menu_item_sort_by_name_a_z;
+        }
     }
 }

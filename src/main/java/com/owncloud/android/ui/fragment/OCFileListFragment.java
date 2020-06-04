@@ -1284,7 +1284,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             switchToListView();
         }
 
-        setSortButton(preferences.getSortOrderByFolder(mFile));
+        mSortButton.setText(DisplayUtils.getSortOrderStringId(preferences.getSortOrderByFolder(mFile)));
         setGridSwitchButton();
 
         if (mHideFab) {
@@ -1306,36 +1306,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-
     public void sortFiles(FileSortOrder sortOrder) {
-        setSortButton(sortOrder);
+        mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
         mAdapter.setSortOrder(mFile, sortOrder);
-    }
-
-    private void setSortButton(FileSortOrder sortOrder) {
-        int nameId;
-        switch (sortOrder.name) {
-            case sort_z_to_a_id:
-                nameId = R.string.menu_item_sort_by_name_z_a;
-                break;
-            case sort_new_to_old_id:
-                nameId = R.string.menu_item_sort_by_date_newest_first;
-                break;
-            case sort_old_to_new_id:
-                nameId = R.string.menu_item_sort_by_date_oldest_first;
-                break;
-            case sort_big_to_small_id:
-                nameId = R.string.menu_item_sort_by_size_biggest_first;
-                break;
-            case sort_small_to_big_id:
-                nameId = R.string.menu_item_sort_by_size_smallest_first;
-                break;
-            case sort_a_to_z_id:
-            default:
-                nameId = R.string.menu_item_sort_by_name_a_z;
-                break;
-        }
-        mSortButton.setText(getString(nameId));
     }
 
     private void setGridSwitchButton() {
