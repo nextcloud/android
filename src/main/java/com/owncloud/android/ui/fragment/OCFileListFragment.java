@@ -890,7 +890,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public boolean onLongItemClicked(OCFile file) {
         FragmentActivity actionBarActivity = getActivity();
         if (actionBarActivity != null) {
-            // Create only once instance of action method
+            // Create only once instance of action mode
             if (mActiveActionMode != null) {
                 toggleItemToCheckedList(file);
             } else {
