@@ -41,7 +41,8 @@ data class LogEntry(val timestamp: Date, val level: Level, val tag: String, val 
          *  1970-01-01T00:00:00.000Z;D;tag;some message
          */
         private val ENTRY_PARSE_REGEXP = Regex(
-            pattern = """(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z);([ADEIVW]);([^;]+);(.*)"""
+            pattern =
+                """(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z);([ADEIVW]);([^;]+);(.*)"""
         )
 
         @JvmStatic

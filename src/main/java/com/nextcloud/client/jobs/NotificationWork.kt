@@ -99,17 +99,21 @@ class NotificationWork constructor(
                 val base64DecodedSignature = Base64.decode(signature, Base64.DEFAULT)
                 val privateKey = PushUtils.readKeyFromFile(false) as PrivateKey
                 try {
-                    val signatureVerification = PushUtils.verifySignature(context,
+                    val signatureVerification = PushUtils.verifySignature(
+                        context,
                         accountManager,
                         base64DecodedSignature,
-                        base64DecodedSubject)
+                        base64DecodedSubject
+                    )
                     if (signatureVerification != null && signatureVerification.isSignatureValid) {
                         val cipher = Cipher.getInstance("RSA/None/PKCS1Padding")
                         cipher.init(Cipher.DECRYPT_MODE, privateKey)
                         val decryptedSubject = cipher.doFinal(base64DecodedSubject)
                         val gson = Gson()
-                        val decryptedPushMessage = gson.fromJson(String(decryptedSubject),
-                            DecryptedPushMessage::class.java)
+                        val decryptedPushMessage = gson.fromJson(
+                            String(decryptedSubject),
+                            DecryptedPushMessage::class.java
+                        )
                         if (decryptedPushMessage.delete) {
                             notificationManager.cancel(decryptedPushMessage.nid)
                         } else if (decryptedPushMessage.deleteAll) {
@@ -174,10 +178,16 @@ class NotificationWork constructor(
             disableDetection.putExtra(NUMERIC_NOTIFICATION_ID, notification.getNotificationId())
             disableDetection.putExtra(PUSH_NOTIFICATION_ID, pushNotificationId)
             disableDetection.putExtra(KEY_NOTIFICATION_ACCOUNT, user.accountName)
-            val disableIntent = PendingIntent.getBroadcast(context, pushNotificationId, disableDetection,
-                PendingIntent.FLAG_CANCEL_CURRENT)
-            notificationBuilder.addAction(NotificationCompat.Action(R.drawable.ic_close,
-                context.getString(R.string.remove_push_notification), disableIntent))
+            val disableIntent = PendingIntent.getBroadcast(
+                context, pushNotificationId, disableDetection,
+                PendingIntent.FLAG_CANCEL_CURRENT
+            )
+            notificationBuilder.addAction(
+                NotificationCompat.Action(
+                    R.drawable.ic_close,
+                    context.getString(R.string.remove_push_notification), disableIntent
+                )
+            )
         } else { // Actions
             for (action in notification.getActions()) {
                 val actionIntent = Intent(context, NotificationReceiver::class.java)
@@ -186,9 +196,11 @@ class NotificationWork constructor(
                 actionIntent.putExtra(KEY_NOTIFICATION_ACCOUNT, user.accountName)
                 actionIntent.putExtra(KEY_NOTIFICATION_ACTION_LINK, action.link)
                 actionIntent.putExtra(KEY_NOTIFICATION_ACTION_TYPE, action.type)
-                val actionPendingIntent = PendingIntent.getBroadcast(context, randomId.nextInt(),
+                val actionPendingIntent = PendingIntent.getBroadcast(
+                    context, randomId.nextInt(),
                     actionIntent,
-                    PendingIntent.FLAG_CANCEL_CURRENT)
+                    PendingIntent.FLAG_CANCEL_CURRENT
+                )
                 var icon: Int
                 icon = if (action.primary) {
                     R.drawable.ic_check_circle
@@ -209,7 +221,8 @@ class NotificationWork constructor(
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setAutoCancel(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setContentIntent(pendingIntent).build())
+                .setContentIntent(pendingIntent).build()
+        )
         val notificationManager = NotificationManagerCompat.from(context)
         notificationManager.notify(notification.getNotificationId(), notificationBuilder.build())
     }
@@ -255,51 +268,54 @@ class NotificationWork constructor(
             val numericNotificationId = intent.getIntExtra(NUMERIC_NOTIFICATION_ID, 0)
             val accountName = intent.getStringExtra(KEY_NOTIFICATION_ACCOUNT)
             if (numericNotificationId != 0) {
-                Thread(Runnable {
-                    val notificationManager = context.getSystemService(
-                        Activity.NOTIFICATION_SERVICE) as NotificationManager
-                    var oldNotification: android.app.Notification? = null
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && notificationManager != null) {
-                        for (statusBarNotification in notificationManager.activeNotifications) {
-                            if (numericNotificationId == statusBarNotification.id) {
-                                oldNotification = statusBarNotification.notification
-                                break
-                            }
-                        }
-                        cancel(context, numericNotificationId)
-                    }
-                    try {
-                        val optionalUser = accountManager.getUser(accountName)
-                        if (optionalUser.isPresent) {
-                            val user = optionalUser.get()
-                            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                                .getClientFor(user.toOwnCloudAccount(), context)
-                            val actionType = intent.getStringExtra(KEY_NOTIFICATION_ACTION_TYPE)
-                            val actionLink = intent.getStringExtra(KEY_NOTIFICATION_ACTION_LINK)
-                            val success: Boolean
-                            success = if (!TextUtils.isEmpty(actionType) && !TextUtils.isEmpty(actionLink)) {
-                                val resultCode = executeAction(actionType, actionLink, client)
-                                resultCode == HttpStatus.SC_OK || resultCode == HttpStatus.SC_ACCEPTED
-                            } else {
-                                DeleteNotificationRemoteOperation(numericNotificationId)
-                                    .execute(client).isSuccess
-                            }
-                            if (success) {
-                                if (oldNotification == null) {
-                                    cancel(context, numericNotificationId)
+                Thread(
+                    Runnable {
+                        val notificationManager = context.getSystemService(
+                            Activity.NOTIFICATION_SERVICE
+                        ) as NotificationManager
+                        var oldNotification: android.app.Notification? = null
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && notificationManager != null) {
+                            for (statusBarNotification in notificationManager.activeNotifications) {
+                                if (numericNotificationId == statusBarNotification.id) {
+                                    oldNotification = statusBarNotification.notification
+                                    break
                                 }
-                            } else {
-                                notificationManager.notify(numericNotificationId, oldNotification)
                             }
+                            cancel(context, numericNotificationId)
                         }
-                    } catch (e: IOException) {
-                        Log_OC.e(TAG, "Error initializing client", e)
-                    } catch (e: OperationCanceledException) {
-                        Log_OC.e(TAG, "Error initializing client", e)
-                    } catch (e: AuthenticatorException) {
-                        Log_OC.e(TAG, "Error initializing client", e)
+                        try {
+                            val optionalUser = accountManager.getUser(accountName)
+                            if (optionalUser.isPresent) {
+                                val user = optionalUser.get()
+                                val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+                                    .getClientFor(user.toOwnCloudAccount(), context)
+                                val actionType = intent.getStringExtra(KEY_NOTIFICATION_ACTION_TYPE)
+                                val actionLink = intent.getStringExtra(KEY_NOTIFICATION_ACTION_LINK)
+                                val success: Boolean
+                                success = if (!TextUtils.isEmpty(actionType) && !TextUtils.isEmpty(actionLink)) {
+                                    val resultCode = executeAction(actionType, actionLink, client)
+                                    resultCode == HttpStatus.SC_OK || resultCode == HttpStatus.SC_ACCEPTED
+                                } else {
+                                    DeleteNotificationRemoteOperation(numericNotificationId)
+                                        .execute(client).isSuccess
+                                }
+                                if (success) {
+                                    if (oldNotification == null) {
+                                        cancel(context, numericNotificationId)
+                                    }
+                                } else {
+                                    notificationManager.notify(numericNotificationId, oldNotification)
+                                }
+                            }
+                        } catch (e: IOException) {
+                            Log_OC.e(TAG, "Error initializing client", e)
+                        } catch (e: OperationCanceledException) {
+                            Log_OC.e(TAG, "Error initializing client", e)
+                        } catch (e: AuthenticatorException) {
+                            Log_OC.e(TAG, "Error initializing client", e)
+                        }
                     }
-                }).start()
+                ).start()
             }
         }
 

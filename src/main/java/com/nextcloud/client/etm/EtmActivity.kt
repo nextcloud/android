@@ -51,9 +51,12 @@ class EtmActivity : ToolbarActivity(), Injectable {
         setupToolbar()
         updateActionBarTitleAndHomeButtonByString(getString(R.string.etm_title))
         vm = ViewModelProvider(this, viewModelFactory).get(EtmViewModel::class.java)
-        vm.currentPage.observe(this, Observer {
-            onPageChanged(it)
-        })
+        vm.currentPage.observe(
+            this,
+            Observer {
+                onPageChanged(it)
+            }
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

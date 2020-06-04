@@ -146,9 +146,11 @@ class LoggerTest {
         assertTrue("Expected open(), write() and close() calls on bg thread", called)
         val inOrder = inOrder(logHandler)
         inOrder.verify(logHandler).open()
-        inOrder.verify(logHandler).write(argThat {
-            tag in this && message in this
-        })
+        inOrder.verify(logHandler).write(
+            argThat {
+                tag in this && message in this
+            }
+        )
         inOrder.verify(logHandler).close()
         assertFalse(logger.lostEntries)
     }
@@ -258,9 +260,12 @@ class LoggerTest {
         logger.load(listener)
         assertTrue("Logs not loaded", posted.await(1, TimeUnit.SECONDS))
 
-        verify(listener).invoke(argThat {
-            "Logger queue overflow" in last().message
-        }, any())
+        verify(listener).invoke(
+            argThat {
+                "Logger queue overflow" in last().message
+            },
+            any()
+        )
     }
 
     @Test

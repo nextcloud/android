@@ -87,8 +87,10 @@ class ContactsBackupWork(
             return Result.failure()
         }
         val user = optionalUser.get()
-        val lastExecution = arbitraryDataProvider.getLongValue(user.toPlatformAccount(),
-            ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP)
+        val lastExecution = arbitraryDataProvider.getLongValue(
+            user.toPlatformAccount(),
+            ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP
+        )
         val force = inputData.getBoolean(FORCE, false)
         if (force || lastExecution + JOB_INTERVAL_MS < Calendar.getInstance().timeInMillis) {
             Log_OC.d(TAG, "start contacts backup job")
@@ -121,8 +123,10 @@ class ContactsBackupWork(
 
     private fun backupContact(user: User, backupFolder: String) {
         val vCard = ArrayList<String>()
-        val cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null,
-            null, null, null)
+        val cursor = contentResolver.query(
+            ContactsContract.Contacts.CONTENT_URI, null,
+            null, null, null
+        )
         if (cursor != null && cursor.count > 0) {
             cursor.moveToFirst()
             for (i in 0 until cursor.count) {
@@ -168,8 +172,10 @@ class ContactsBackupWork(
 
     private fun expireFiles(daysToExpire: Int, backupFolderString: String, user: User) { // -1 disables expiration
         if (daysToExpire > -1) {
-            val storageManager = FileDataStorageManager(user.toPlatformAccount(),
-                applicationContext.getContentResolver())
+            val storageManager = FileDataStorageManager(
+                user.toPlatformAccount(),
+                applicationContext.getContentResolver()
+            )
             val backupFolder: OCFile = storageManager.getFileByPath(backupFolderString)
             val cal = Calendar.getInstance()
             cal.add(Calendar.DAY_OF_YEAR, -daysToExpire)

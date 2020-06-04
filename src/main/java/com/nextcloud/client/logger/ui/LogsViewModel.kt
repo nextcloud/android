@@ -114,11 +114,13 @@ class LogsViewModel @Inject constructor(
         val sizeKb = logsSize / KILOBYTE
         return when {
             isLoading.value == true -> context.getString(R.string.logs_status_loading)
-            isFiltered -> context.getString(R.string.logs_status_filtered,
+            isFiltered -> context.getString(
+                R.string.logs_status_filtered,
                 sizeKb,
                 displayedEntries,
                 allEntries.size,
-                filterDurationMs)
+                filterDurationMs
+            )
             !isFiltered -> context.getString(R.string.logs_status_not_filtered, sizeKb)
             else -> ""
         }
