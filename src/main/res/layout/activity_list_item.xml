@@ -36,7 +36,6 @@
         android:layout_marginTop="@dimen/standard_margin"
         android:alpha="0.5"
         android:padding="2dp"
-        android:background="@drawable/round_bgnd_icons"
         android:contentDescription="@string/activity_icon"
         android:src="@drawable/ic_activity" />
 

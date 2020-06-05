@@ -23,8 +23,11 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.drawable.PictureDrawable;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -69,9 +72,8 @@ import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
+import com.owncloud.android.utils.svg.SvgBitmapTranscoder;
 import com.owncloud.android.utils.svg.SvgDecoder;
-import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
-import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -196,8 +198,21 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
             if (!TextUtils.isEmpty(activity.getIcon())) {
-                downloadIcon(activity.getIcon(), activityViewHolder.activityIcon);
+                downloadIcon(activity, activityViewHolder.activityIcon);
             }
+
+            int nightModeFlag = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+            if (!activity.getType().equalsIgnoreCase("file_created") &&
+                !activity.getType().equalsIgnoreCase("file_deleted")) {
+                if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
+                    activityViewHolder.activityIcon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+                } else {
+                    activityViewHolder.activityIcon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+                }
+            }
+
+
 
             if (activity.getRichSubjectElement() != null &&
                 activity.getRichSubjectElement().getRichObjectList().size() > 0) {
@@ -329,21 +344,20 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    private void downloadIcon(String icon, ImageView itemViewType) {
-        GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(context)
+    private void downloadIcon(Activity activity, ImageView itemViewType) {
+        GenericRequestBuilder<Uri, InputStream, SVG, Bitmap> requestBuilder = Glide.with(context)
             .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
             .from(Uri.class)
             .as(SVG.class)
-            .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
+            .transcode(new SvgBitmapTranscoder(128, 128), Bitmap.class)
             .sourceEncoder(new StreamEncoder())
             .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
             .decoder(new SvgDecoder())
             .placeholder(R.drawable.ic_activity)
             .error(R.drawable.ic_activity)
-            .animate(android.R.anim.fade_in)
-            .listener(new SvgSoftwareLayerSetter<>());
+            .animate(android.R.anim.fade_in);
 
-        Uri uri = Uri.parse(icon);
+        Uri uri = Uri.parse(activity.getIcon());
         requestBuilder
             .diskCacheStrategy(DiskCacheStrategy.SOURCE)
             .load(uri)
