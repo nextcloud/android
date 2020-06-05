@@ -49,6 +49,7 @@ import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.ScreenshotTest
 import junit.framework.TestCase
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -88,6 +89,7 @@ class OCFileListFragmentIT : AbstractIT() {
     }
 
     @Test
+    @ScreenshotTest
     fun showRichWorkspace() {
         assertTrue(CreateFolderOperation("/test/", account, targetContext).execute(client, storageManager).isSuccess)
 
@@ -121,8 +123,10 @@ class OCFileListFragmentIT : AbstractIT() {
             targetContext).execute(client).isSuccess)
 
         val sut = ActivityScenario.launch(FileDisplayActivity::class.java)
+        shortSleep()
         sut.onActivity { activity -> activity.onBrowsedDownTo(storageManager.getFileByPath("/test/")) }
 
+        shortSleep()
         shortSleep()
 
         sut.onActivity { activity ->
@@ -131,14 +135,21 @@ class OCFileListFragmentIT : AbstractIT() {
 
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(targetContext)
         preferences.darkThemeMode = DarkMode.DARK
-        MainApp.setAppTheme(DarkMode.DARK)
 
+        sut.onActivity { activity ->
+            MainApp.setAppTheme(DarkMode.DARK)
+        }
+
+        shortSleep()
         sut.onActivity { activity -> activity.onBackPressed() }
+
+        shortSleep()
 
         sut.recreate()
 
         sut.onActivity { activity -> activity.onBrowsedDownTo(storageManager.getFileByPath("/test/")) }
 
+        shortSleep()
         shortSleep()
 
         sut.onActivity { activity ->
@@ -149,12 +160,14 @@ class OCFileListFragmentIT : AbstractIT() {
         preferences.darkThemeMode = DarkMode.LIGHT
         MainApp.setAppTheme(DarkMode.LIGHT)
 
+        shortSleep()
         sut.onActivity { activity -> activity.onBackPressed() }
 
         sut.recreate()
     }
 
     @Test
+    @ScreenshotTest
     fun createAndShowShareToUser() {
         val path = "/shareToAdmin/"
         TestCase.assertTrue(CreateFolderOperation(path, account, targetContext)
@@ -179,6 +192,7 @@ class OCFileListFragmentIT : AbstractIT() {
     }
 
     @Test
+    @ScreenshotTest
     fun createAndShowShareToGroup() {
         val path = "/shareToGroup/"
         TestCase.assertTrue(CreateFolderOperation(path, account, targetContext)
@@ -203,6 +217,7 @@ class OCFileListFragmentIT : AbstractIT() {
     }
 
 //    @Test
+//    @ScreenshotTest
 //    fun createAndShowShareToCircle() {
 //        val path = "/shareToCircle/"
 //        TestCase.assertTrue(CreateFolderOperation(path, account, targetContext)
@@ -234,6 +249,7 @@ class OCFileListFragmentIT : AbstractIT() {
 //    }
 
     @Test
+    @ScreenshotTest
     fun createAndShowShareViaLink() {
         val path = "/shareViaLink/"
         TestCase.assertTrue(CreateFolderOperation(path, account, targetContext)

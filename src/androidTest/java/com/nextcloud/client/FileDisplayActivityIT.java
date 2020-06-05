@@ -38,6 +38,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.utils.ScreenshotTest;
 
 import org.greenrobot.eventbus.EventBus;
 import org.junit.Assert;
@@ -50,12 +51,10 @@ import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
-
 
 public class FileDisplayActivityIT extends AbstractIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
@@ -67,6 +66,7 @@ public class FileDisplayActivityIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
+    @ScreenshotTest
     public void open() {
         Activity sut = activityRule.launchActivity(null);
 
@@ -76,15 +76,21 @@ public class FileDisplayActivityIT extends AbstractIT {
     }
 
     @Test
+    @ScreenshotTest
     public void drawer() {
-        Activity sut = activityRule.launchActivity(null);
+        FileDisplayActivity sut = activityRule.launchActivity(null);
 
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+
+        waitForIdleSync();
+        shortSleep();
+        sut.getListOfFilesFragment().setFabEnabled(false);
 
         Screenshot.snapActivity(sut).record();
     }
 
     @Test
+    @ScreenshotTest
     public void showShares() {
         assertTrue(new ExistenceCheckRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
@@ -142,16 +148,8 @@ public class FileDisplayActivityIT extends AbstractIT {
 
         EventBus.getDefault().post(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER));
 
-        getInstrumentation().waitForIdleSync();
-
-        Screenshot.snapActivity(sut).record();
-    }
-
-    @Test
-    public void showAccounts() {
-        Activity sut = activityRule.launchActivity(null);
-
-        onView(withId(R.id.switch_account_button)).perform(click());
+        shortSleep();
+        shortSleep();
 
         Screenshot.snapActivity(sut).record();
     }

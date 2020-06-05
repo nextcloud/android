@@ -23,15 +23,23 @@
 package com.nextcloud.client;
 
 import android.Manifest;
+import android.view.View;
 
+import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
+import com.owncloud.android.R;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
+import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
 
+import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.rule.GrantPermissionRule;
+
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 
 public class ActivitiesActivityIT extends AbstractIT {
@@ -44,7 +52,24 @@ public class ActivitiesActivityIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
-    public void openDrawer() throws InterruptedException {
-        super.openDrawer(activityRule);
+    @ScreenshotTest
+    public void openDrawer() {
+        ActivitiesActivity sut = activityRule.launchActivity(null);
+
+        shortSleep();
+
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+
+        sut.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                sut.emptyContentContainer.setVisibility(View.VISIBLE);
+                sut.recyclerView.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        waitForIdleSync();
+
+        Screenshot.snapActivity(sut).record();
     }
 }
