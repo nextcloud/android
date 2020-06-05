@@ -1,0 +1,14 @@
+show rich workspace in grid spanned across first row
+Adjusted one comment
+Fixed a bug relative to actionmode + Enhanced actionmode behaviour
+ReceiveExternalFiles to new layout
+Upload list activity: new sort / switch button
+set sorting button text for trashbin activity, extract button text logic to utils method
+Fix lint
+Fix onResume FileDetailFragment
+Improve google style
+Fix appbar when show FileDetailFragment
+Fix contextual action bar theme
+Appbar like google and fix property file appbar
+change trashbin view to new layout
+Update translations
