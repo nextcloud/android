@@ -41,7 +41,7 @@
         android:id="@+id/contentPanel"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="82"></androidx.viewpager.widget.ViewPager>
+        android:layout_weight="82" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -44,5 +44,6 @@
         android:ellipsize="middle"
         android:gravity="center_horizontal"
         android:paddingTop="@dimen/standard_half_padding"
-        android:textColor="@color/text_color"/>
+        android:textColor="@color/text_color"
+        tools:text="@tools:sample/lorem" />
 </LinearLayout>

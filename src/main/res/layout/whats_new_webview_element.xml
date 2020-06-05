@@ -7,7 +7,6 @@
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/whatsNewWebView">
-    </WebView>
+        android:id="@+id/whatsNewWebView" />
 
 </LinearLayout>
