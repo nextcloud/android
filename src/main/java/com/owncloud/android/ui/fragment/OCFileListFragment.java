@@ -130,12 +130,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
-import static com.owncloud.android.utils.FileSortOrder.sort_a_to_z_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_big_to_small_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_new_to_old_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_old_to_new_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_small_to_big_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_z_to_a_id;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -189,6 +183,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     protected boolean mHideFab = true;
     protected ActionMode mActiveActionMode;
+    protected boolean mIsActionModeNew;
     protected OCFileListFragment.MultiChoiceModeListener mMultiChoiceModeListener;
 
     protected SearchType currentSearchType;
@@ -637,6 +632,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mActiveActionMode = mode;
+            // Determine if actionMode is "new" or not (already affected by item-selection)
+            mIsActionModeNew = true;
 
             MenuInflater inflater = getActivity().getMenuInflater();
             inflater.inflate(R.menu.item_file, menu);
@@ -658,9 +655,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
             final int checkedCount = mAdapter.getCheckedItems().size();
-            if (checkedCount == 0) {
-                mActiveActionMode.finish();
-            }
             Set<OCFile> checkedFiles = mAdapter.getCheckedItems();
             String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
             mode.setTitle(title);
@@ -679,6 +673,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mf.filter(menu,
                       false,
                       accountManager.isMediaStreamingSupported(currentAccount));
+
+            // Determine if we need to finish the action mode because there are no items selected
+            if (checkedCount == 0 && !mIsActionModeNew) {
+                exitSelectionMode();
+            }
+
             return true;
         }
 
@@ -713,7 +713,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mAdapter.setMultiSelect(false);
             mAdapter.clearCheckedItems();
         }
-
 
         public void storeStateIn(Bundle outState) {
             outState.putBoolean(KEY_ACTION_MODE_CLOSED_BY_DRAWER, mActionModeClosedByDrawer);
@@ -767,16 +766,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
-
         if (mOriginalMenuItems.size() == 0) {
-            if (!(getActivity() instanceof FileDisplayActivity)) {
-                mOriginalMenuItems.add(menu.findItem(R.id.action_switch_view));
-                mOriginalMenuItems.add(menu.findItem(R.id.action_sort));
-            }
             mOriginalMenuItems.add(menu.findItem(R.id.action_search));
         }
 
-        changeGridIcon(menu);   // this is enough if the option stays out of the action bar
         MenuItem menuItemOrig;
 
         switch (menuItemAddRemoveValue) {
@@ -800,22 +793,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 break;
 
             case REMOVE_SORT:
-                menu.removeItem(R.id.action_sort);
                 menu.removeItem(R.id.action_search);
                 mSortButton.setVisibility(View.GONE);
                 break;
 
             case REMOVE_GRID_AND_SORT:
-                menu.removeItem(R.id.action_sort);
-                menu.removeItem(R.id.action_switch_view);
                 menu.removeItem(R.id.action_search);
                 mSortButton.setVisibility(View.GONE);
                 mSwitchGridViewButton.setVisibility(View.GONE);
                 break;
 
             case REMOVE_ALL_EXCEPT_SEARCH:
-                menu.removeItem(R.id.action_sort);
-                menu.removeItem(R.id.action_switch_view);
                 mSwitchGridViewButton.setVisibility(View.VISIBLE);
                 mSortButton.setVisibility(View.VISIBLE);
                 break;
@@ -873,12 +861,44 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return moveCount;
     }
 
+    /**
+     * Will toggle a file selection status from the action mode
+     * @param file The concerned OCFile by the selection/deselection
+     */
+    private void toggleItemToCheckedList(OCFile file) {
+        if (getAdapter().isCheckedFile(file)) {
+            getAdapter().removeCheckedFile(file);
+        } else {
+            getAdapter().addCheckedFile(file);
+        }
+        updateActionModeFile(file);
+    }
+
+    /**
+     * Will update (invalidate) the action mode adapter/mode to refresh an item selection change
+     * @param file The concerned OCFile to refresh in adapter
+     */
+    private void updateActionModeFile(OCFile file) {
+        mIsActionModeNew = false;
+        if (mActiveActionMode != null) {
+            mActiveActionMode.invalidate();
+            mAdapter.notifyItemChanged(getAdapter().getItemPosition(file));
+        }
+    }
 
     @Override
     public boolean onLongItemClicked(OCFile file) {
         FragmentActivity actionBarActivity = getActivity();
-        getAdapter().addCheckedFile(file);
-        actionBarActivity.startActionMode(mMultiChoiceModeListener);
+        if (actionBarActivity != null) {
+            // Create only once instance of action mode
+            if (mActiveActionMode != null) {
+                toggleItemToCheckedList(file);
+            } else {
+                actionBarActivity.startActionMode(mMultiChoiceModeListener);
+                getAdapter().addCheckedFile(file);
+            }
+            updateActionModeFile(file);
+        }
 
         return true;
     }
@@ -886,13 +906,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onItemClicked(OCFile file) {
         if (getAdapter().isMultiSelect()) {
-            if (getAdapter().isCheckedFile(file)) {
-                getAdapter().removeCheckedFile(file);
-            } else {
-                getAdapter().addCheckedFile(file);
-            }
-            mActiveActionMode.invalidate();
-            mAdapter.notifyItemChanged(getAdapter().getItemPosition(file));
+            toggleItemToCheckedList(file);
         } else {
             if (file != null) {
                 int position = mAdapter.getItemPosition(file);
@@ -1284,7 +1298,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             switchToListView();
         }
 
-        setSortButton(preferences.getSortOrderByFolder(mFile));
+        mSortButton.setText(DisplayUtils.getSortOrderStringId(preferences.getSortOrderByFolder(mFile)));
         setGridSwitchButton();
 
         if (mHideFab) {
@@ -1306,36 +1320,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-
     public void sortFiles(FileSortOrder sortOrder) {
-        setSortButton(sortOrder);
+        mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
         mAdapter.setSortOrder(mFile, sortOrder);
-    }
-
-    private void setSortButton(FileSortOrder sortOrder) {
-        int nameId;
-        switch (sortOrder.name) {
-            case sort_z_to_a_id:
-                nameId = R.string.menu_item_sort_by_name_z_a;
-                break;
-            case sort_new_to_old_id:
-                nameId = R.string.menu_item_sort_by_date_newest_first;
-                break;
-            case sort_old_to_new_id:
-                nameId = R.string.menu_item_sort_by_date_oldest_first;
-                break;
-            case sort_big_to_small_id:
-                nameId = R.string.menu_item_sort_by_size_biggest_first;
-                break;
-            case sort_small_to_big_id:
-                nameId = R.string.menu_item_sort_by_size_smallest_first;
-                break;
-            case sort_a_to_z_id:
-            default:
-                nameId = R.string.menu_item_sort_by_name_a_z;
-                break;
-        }
-        mSortButton.setText(getString(nameId));
     }
 
     private void setGridSwitchButton() {
@@ -1395,7 +1382,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    if (position == getAdapter().getItemCount() - 1) {
+                    if (position == getAdapter().getItemCount() - 1 ||
+                        position == 0 && getAdapter().shouldShowHeader()) {
                         return ((GridLayoutManager) layoutManager).getSpanCount();
                     } else {
                         return 1;
@@ -1416,19 +1404,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public OCFileListAdapter getAdapter() {
         return mAdapter;
-    }
-
-    private void changeGridIcon(Menu menu) {
-        MenuItem menuItem = menu.findItem(R.id.action_switch_view);
-        if (menuItem != null) {
-            if (isGridViewPreferred(mFile)) {
-                menuItem.setTitle(getString(R.string.action_switch_list_view));
-                menuItem.setIcon(R.drawable.ic_view_list);
-            } else {
-                menuItem.setTitle(getString(R.string.action_switch_grid_view));
-                menuItem.setIcon(R.drawable.ic_view_module);
-            }
-        }
     }
 
     private void setTitle() {

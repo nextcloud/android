@@ -37,17 +37,4 @@
         android:title="@string/select_all"
         android:icon="@drawable/ic_select_all"
         app:showAsAction="never"/>
-    <item
-        android:id="@+id/action_sort"
-        android:icon="@drawable/ic_sort_variant"
-        android:orderInCategory="2"
-        app:showAsAction="never"
-        android:title="@string/actionbar_sort"
-        android:contentDescription="@string/actionbar_sort"/>
-    <item
-        android:id="@+id/action_switch_view"
-        android:icon="@drawable/ic_view_module"
-        android:orderInCategory="3"
-        app:showAsAction="never"
-        android:title="@string/action_switch_grid_view" />
 </menu>

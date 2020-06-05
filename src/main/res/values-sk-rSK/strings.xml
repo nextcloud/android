@@ -114,6 +114,8 @@
     <string name="common_save">Uložiť</string>
     <string name="common_send">Odoslať</string>
     <string name="common_share">Zdieľať</string>
+    <string name="common_switch_account">Prepnúť účet</string>
+    <string name="common_switch_to_account">Prepnúť na účet</string>
     <string name="common_unknown">neznámy</string>
     <string name="common_yes">Áno</string>
     <string name="community_beta_headline">Testovať vývojovú verziu</string>
@@ -295,6 +297,7 @@
     <string name="file_list_empty_headline_server_search_photos">Žiadne fogografie</string>
     <string name="file_list_empty_headline_server_search_videos">Žiadne videá</string>
     <string name="file_list_empty_moving">Nič tu nie je. Môžete pridať priečinok.</string>
+    <string name="file_list_empty_on_device">Tu sa zobrazia nahraté súbory a priečinky</string>
     <string name="file_list_empty_recently_added">Žiadne nedávno pridané súbory</string>
     <string name="file_list_empty_recently_added_filter">Žiadne nedávno pridané súbory.</string>
     <string name="file_list_empty_recently_modified">V posledných 7 dňoch sa nenašli žiadne zmeny</string>

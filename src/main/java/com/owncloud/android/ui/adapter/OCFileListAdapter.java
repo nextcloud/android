@@ -821,7 +821,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return mFiles.get(newPosition);
     }
 
-    private boolean shouldShowHeader() {
+    public boolean shouldShowHeader() {
         if (currentDirectory == null) {
             return false;
         }
@@ -831,10 +831,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         return !TextUtils.isEmpty(currentDirectory.getRichWorkspace());
-    }
-
-    public boolean isHeader(OCFile file) {
-        return VIEWTYPE_HEADER == getItemViewType(getItemPosition(file));
     }
 
     @Override
