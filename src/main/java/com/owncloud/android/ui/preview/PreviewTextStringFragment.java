@@ -140,13 +140,6 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
         }
     }
 
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-        menu.findItem(R.id.action_sort).setVisible(false);
-    }
-
     void loadAndShowTextPreview() {
         if (mTextPreview != null) {
             mOriginalText = getFile().getRichWorkspace();
