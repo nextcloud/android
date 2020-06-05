@@ -114,6 +114,8 @@
     <string name="common_save">Bewaren</string>
     <string name="common_send">Versturen</string>
     <string name="common_share">Delen</string>
+    <string name="common_switch_account">Account wisselen</string>
+    <string name="common_switch_to_account">Omschakelen naar account</string>
     <string name="common_unknown">onbekend</string>
     <string name="common_yes">Ja</string>
     <string name="community_beta_headline">Test de dev versie</string>
@@ -295,6 +297,7 @@
     <string name="file_list_empty_headline_server_search_photos">Geen foto\'s</string>
     <string name="file_list_empty_headline_server_search_videos">Geen video\'s</string>
     <string name="file_list_empty_moving">Het is hier leeg. Je kan een map toevoegen!</string>
+    <string name="file_list_empty_on_device">Gedownloade bestanden en folders zie je hier.</string>
     <string name="file_list_empty_recently_added">Geen recent toegevoegde bestanden gevonden</string>
     <string name="file_list_empty_recently_added_filter">Geen files die recent zijn toegevoegd,</string>
     <string name="file_list_empty_recently_modified">Geen bestanden gevonden die de afgelopen 7 dagen zijn gewijzigd</string>

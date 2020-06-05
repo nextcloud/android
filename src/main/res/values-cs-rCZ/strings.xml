@@ -610,7 +610,7 @@
     <string name="share_privilege_unshare">Zrušit sdílení</string>
     <string name="share_remote_clarification">%1$s (vzdálený)</string>
     <string name="share_room_clarification">%1$s (konverzace)</string>
-    <string name="share_search">Jméno, identifikátor v rámci sdruženého cloudu, nebo e-mailová adresa…</string>
+    <string name="share_search">Jméno, identifikátor v rámci federovaného cloudu, nebo e-mailová adresa…</string>
     <string name="share_send_note">Poznámka pro příjemce</string>
     <string name="share_via_link_edit_permission_label">Umožnit úpravy</string>
     <string name="share_via_link_expiration_date_label">Nastavit datum skončení platnosti</string>
