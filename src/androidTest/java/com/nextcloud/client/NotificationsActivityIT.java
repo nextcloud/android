@@ -26,6 +26,7 @@ import android.Manifest;
 
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.ui.activity.NotificationsActivity;
+import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -44,7 +45,8 @@ public class NotificationsActivityIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
-    public void openDrawer() throws InterruptedException {
+    @ScreenshotTest
+    public void openDrawer() {
         super.openDrawer(activityRule);
     }
 }
