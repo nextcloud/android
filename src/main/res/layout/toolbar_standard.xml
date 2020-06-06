@@ -57,7 +57,8 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/appbar"
             android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-            app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            tools:visibility="gone">
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/toolbar_spinner"
@@ -82,7 +83,8 @@
         app:background="@color/appbar"
         app:cardCornerRadius="8dp"
         app:cardElevation="2dp"
-        app:strokeWidth="0dp">
+        app:strokeWidth="0dp"
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -116,7 +118,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/menu_button"
                 app:layout_constraintRight_toLeftOf="@id/switch_account_button"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Search in Nextcloud"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/switch_account_button"
