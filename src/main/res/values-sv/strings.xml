@@ -114,6 +114,8 @@
     <string name="common_save">Spara</string>
     <string name="common_send">Skicka</string>
     <string name="common_share">Dela</string>
+    <string name="common_switch_account">Växla konto</string>
+    <string name="common_switch_to_account">Växla till konto</string>
     <string name="common_unknown">okänt</string>
     <string name="common_yes">Ja</string>
     <string name="community_beta_headline">Testa utvecklingsversionen</string>
@@ -295,6 +297,7 @@
     <string name="file_list_empty_headline_server_search_photos">Inga bilder</string>
     <string name="file_list_empty_headline_server_search_videos">Inga videor</string>
     <string name="file_list_empty_moving">Inget här. Du kan lägga till en mapp.</string>
+    <string name="file_list_empty_on_device">Nedladdade filer och mappar kommer att visas här.</string>
     <string name="file_list_empty_recently_added">Hittade inga nyligen tillagda filer</string>
     <string name="file_list_empty_recently_added_filter">Inga nyligen tillagda filer.</string>
     <string name="file_list_empty_recently_modified">Hittade inga ändrade filer de senaste 7 dagarna</string>
