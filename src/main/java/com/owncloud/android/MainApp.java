@@ -612,6 +612,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         mOnlyOnDevice = state;
     }
 
+
     public static boolean isOnlyOnDevice() {
         return mOnlyOnDevice;
     }

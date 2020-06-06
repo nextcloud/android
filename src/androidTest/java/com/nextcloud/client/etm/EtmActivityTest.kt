@@ -27,6 +27,10 @@ import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
 import com.facebook.testing.screenshot.Screenshot
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.lib.resources.status.OwnCloudVersion
+import com.owncloud.android.utils.ScreenshotTest
+import org.junit.Assume
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -34,7 +38,16 @@ class EtmActivityTest : AbstractIT() {
     @get:Rule
     var activityRule = IntentsTestRule(EtmActivity::class.java, true, false)
 
+    @Before
+    fun before() {
+        // tests only on NC 18
+        Assume.assumeTrue(storageManager
+            .getCapability(account.name)
+            .version.compareTo(OwnCloudVersion.nextcloud_18) == 0)
+    }
+
     @Test
+    @ScreenshotTest
     fun overview() {
         val sut: Activity = activityRule.launchActivity(null)
 
@@ -44,6 +57,7 @@ class EtmActivityTest : AbstractIT() {
     }
 
     @Test
+    @ScreenshotTest
     fun preferences() {
         val sut: EtmActivity = activityRule.launchActivity(null)
 
@@ -53,6 +67,7 @@ class EtmActivityTest : AbstractIT() {
     }
 
     @Test
+    @ScreenshotTest
     fun accounts() {
         val sut: EtmActivity = activityRule.launchActivity(null)
 

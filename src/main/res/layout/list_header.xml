@@ -19,7 +19,7 @@
   along with this program. If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/headerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,9 +30,15 @@
         android:id="@+id/headerText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/standard_padding"
         android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_padding"
         android:paddingRight="@dimen/standard_padding"
         android:paddingBottom="@dimen/zero"
         android:textColor="@color/text_color" />
-</LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:src="@drawable/preview_markdown_gradient_shape" />
+</FrameLayout>

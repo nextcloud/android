@@ -68,7 +68,6 @@ import static org.junit.Assert.assertTrue;
  * Common base for all integration tests
  */
 
-//@RunWith(AndroidJUnit4.class)
 public abstract class AbstractIT {
     @Rule public RetryTestRule retryTestRule = new RetryTestRule();
 
@@ -116,7 +115,7 @@ public abstract class AbstractIT {
 
             waitForServer(client, baseUrl);
 
-//            deleteAllFiles(); // makes sure that no file/folder is in root
+            deleteAllFiles(); // makes sure that no file/folder is in root
         } catch (OperationCanceledException e) {
             e.printStackTrace();
         } catch (AuthenticatorException e) {
@@ -221,7 +220,7 @@ public abstract class AbstractIT {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
     }
 
-    protected void openDrawer(IntentsTestRule activityRule) throws InterruptedException {
+    protected void openDrawer(IntentsTestRule activityRule) {
         Activity sut = activityRule.launchActivity(null);
 
         shortSleep();
