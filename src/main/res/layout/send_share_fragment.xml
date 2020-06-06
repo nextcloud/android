@@ -113,6 +113,7 @@
         android:id="@+id/send_button_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/divider"/>
+        android:layout_below="@id/divider"
+        tools:listitem="@layout/send_button" />
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

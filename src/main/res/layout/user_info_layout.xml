@@ -100,7 +100,10 @@
         android:layout_margin="@dimen/standard_margin"
         android:orientation="vertical"
         android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:visibility="visible"
+        tools:listitem="@layout/user_info_details_table_item"
+        tools:itemCount="3" />
 
     <include layout="@layout/empty_list" />
 
