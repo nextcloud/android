@@ -1,0 +1,11 @@
+set gradient via imageview for markdown previews
+invert activity icon on dark mode removed outer white border on shared_via_ink
+split up unit&IT tests from screenshot tests
+drone/ updateScreenshot update
+fix #6137
+Fix after rebase
+Add local variable for storageManager
+Add etag column to capabilities table
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
