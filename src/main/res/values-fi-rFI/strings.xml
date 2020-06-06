@@ -114,6 +114,8 @@
     <string name="common_save">Tallenna</string>
     <string name="common_send">Lähetä</string>
     <string name="common_share">Jaa</string>
+    <string name="common_switch_account">Vaihda käyttäjä</string>
+    <string name="common_switch_to_account">Vaihda käyttäjään</string>
     <string name="common_unknown">tuntematon</string>
     <string name="common_yes">Kyllä</string>
     <string name="community_beta_headline">Testaa kehitysversiota</string>
@@ -295,6 +297,7 @@
     <string name="file_list_empty_headline_server_search_photos">Ei kuvia</string>
     <string name="file_list_empty_headline_server_search_videos">Ei videoita</string>
     <string name="file_list_empty_moving">Täällä ei ole mitään. Voit lisätä kansion.</string>
+    <string name="file_list_empty_on_device">Ladatut tiedostot ja kansiot näkyvät täällä.</string>
     <string name="file_list_empty_recently_added">Äskettäin lisättyja tiedostoja ei löytynyt</string>
     <string name="file_list_empty_recently_added_filter">Ei äskettäin lisättyjä tiedostoja.</string>
     <string name="file_list_empty_recently_modified">Viimeisen 7 päivän aikana muokattuja tiedostoja ei löytynyt</string>
