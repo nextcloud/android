@@ -55,7 +55,6 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.java.util.Optional;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.owncloud.android.MainApp;
@@ -103,7 +102,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -895,12 +893,6 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Override
     protected void onResume() {
         super.onResume();
-        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
-
-            getDelegate().setLocalNightMode(DarkMode.DARK == preferences.getDarkThemeMode() ?
-                                                AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
-            getDelegate().applyDayNight();
-        }
         setDrawerMenuItemChecked(mCheckedMenuItem);
     }
 
