@@ -1,0 +1,3 @@
+Fix format
+Added some tool hints for easier development
+Update translations
