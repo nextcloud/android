@@ -114,6 +114,8 @@
     <string name="common_save">Зберегти</string>
     <string name="common_send">Надіслати</string>
     <string name="common_share">Поділитися</string>
+    <string name="common_switch_account">Перемкнути обліковий запис</string>
+    <string name="common_switch_to_account">Перейти до облікового запису</string>
     <string name="common_unknown">невідомо</string>
     <string name="common_yes">Так</string>
     <string name="community_beta_headline">Перевірте версію розробника</string>
@@ -295,6 +297,7 @@
     <string name="file_list_empty_headline_server_search_photos">Жодного фото</string>
     <string name="file_list_empty_headline_server_search_videos">Жодного відеофайлу</string>
     <string name="file_list_empty_moving">Нічого немає. Ви можете додати теку.</string>
+    <string name="file_list_empty_on_device">Тут ти можете знайти теки та файли, які було звантажено.</string>
     <string name="file_list_empty_recently_added">Не знайдено нещодавно доданих файлів</string>
     <string name="file_list_empty_recently_added_filter">Нещодавно додані файли відсутні</string>
     <string name="file_list_empty_recently_modified">Відсутні зміни серед файлів за останні 7 днів</string>
