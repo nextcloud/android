@@ -120,6 +120,7 @@
     <string name="community_beta_text">这包括所有即将到来的功能，它处于非常流行的边缘。 可能会发生错误/错误，如果及时，请报告您的发现。</string>
     <string name="community_contribute_forum_forum">论坛</string>
     <string name="community_contribute_forum_text">帮助别人，在</string>
+    <string name="community_contribute_github_text">查看，修改和编写代码，详情请参阅%1$s。</string>
     <string name="community_contribute_headline">活跃的候选版</string>
     <string name="community_contribute_irc_text">在 IRC 上加入此聊天</string>
     <string name="community_contribute_translate_text">此应用</string>
@@ -717,6 +718,7 @@
     <string name="timeout_richDocuments">加载需要很长时间...</string>
     <string name="trashbin_activity_title">已删除的文件</string>
     <string name="trashbin_empty_headline">没有被删除的文件</string>
+    <string name="trashbin_empty_message">您可以在此处恢复已删除的文件。</string>
     <string name="trashbin_file_not_deleted">文件 %1$s 无法被删除！</string>
     <string name="trashbin_file_not_restored">文件 %1$s 无法被恢复！</string>
     <string name="trashbin_loading_failed">加载回收站失败！</string>
