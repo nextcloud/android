@@ -18,7 +18,8 @@
 -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -35,7 +36,10 @@
                 android:padding="@dimen/standard_padding"
                 android:textIsSelectable="true"
                 android:textColor="@color/text_color"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:visibility="visible"
+                tools:maxLength="40"
+                tools:text="@tools:sample/lorem/random"/>
 
             <RelativeLayout
                 android:id="@+id/multi_view"
@@ -63,6 +67,7 @@
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_margin"
         android:contentDescription="@string/edit_rich_workspace"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
