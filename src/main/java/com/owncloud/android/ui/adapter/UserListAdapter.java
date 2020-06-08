@@ -148,7 +148,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private void setupAddAccountListItem(AddAccountViewHolderItem holder) {
         View actionView = holder.itemView;
 
-        holder.usernameViewItem.setTextColor(ThemeUtils.primaryColor(context, true));
+        holder.usernameViewItem.setTextColor(context.getResources().getColor(R.color.fontAppbar));
 
         // bind action listener
         boolean isProviderOrOwnInstallationVisible = context.getResources()

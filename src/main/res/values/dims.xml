@@ -42,7 +42,6 @@
     <dimen name="standard_list_item_size">72dp</dimen>
     <dimen name="two_line_primary_text_size">16sp</dimen>
     <dimen name="two_line_secondary_text_size">12sp</dimen>
-    <dimen name="list_item_avatar_icon_margin">20dp</dimen>
     <dimen name="list_item_share_right_margin">12dp</dimen>
     <dimen name="file_list_item_avatar_icon_radius">10dp</dimen>
     <dimen name="account_action_layout_height">72dp</dimen>
