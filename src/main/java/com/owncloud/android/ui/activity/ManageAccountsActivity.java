@@ -32,7 +32,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -74,8 +73,6 @@ import javax.inject.Inject;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -108,7 +105,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     private ServiceConnection uploadServiceConnection;
     private Set<String> originalUsers;
     private String originalCurrentUser;
-    private Drawable tintedCheck;
 
     private ArbitraryDataProvider arbitraryDataProvider;
     private boolean multipleAccountsSupported;
@@ -119,10 +115,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        tintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.account_circle_white));
-        int tint = ThemeUtils.elementColor(this);
-        DrawableCompat.setTint(tintedCheck, tint);
 
         setContentView(R.layout.accounts_layout);
 
@@ -158,7 +150,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         userListAdapter = new UserListAdapter(this,
                                               accountManager,
                                               getUserListItems(),
-                                              tintedCheck,
                                               this,
                                               multipleAccountsSupported, true);
 
@@ -306,7 +297,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                       this,
                                       accountManager,
                                       getUserListItems(),
-                                      tintedCheck,
                                       this,
                                       multipleAccountsSupported, false);
                                   recyclerView.setAdapter(userListAdapter);
@@ -358,7 +348,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                 userListAdapter = new UserListAdapter(this,
                                                       accountManager,
                                                       userListItemArray,
-                                                      tintedCheck,
                                                       this,
                                                       multipleAccountsSupported, false);
                 recyclerView.setAdapter(userListAdapter);
