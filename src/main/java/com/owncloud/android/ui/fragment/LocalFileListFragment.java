@@ -68,7 +68,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
     private LocalFileListAdapter mAdapter;
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
     }
 
@@ -109,7 +109,6 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         }
 
         setSwipeEnabled(false); // Disable pull-to-refresh
-        setFabVisible(false); // Disable FAB
 
         Log_OC.i(TAG, "onCreateView() end");
         return v;

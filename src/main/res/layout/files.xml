@@ -17,20 +17,26 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
     android:fitsSystemWindows="true">
 
-    <!-- The main content view -->
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/root_layout"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-            <include layout="@layout/toolbar_standard" />
+        <include layout="@layout/toolbar_standard" />
+
+        <!-- The main content view -->
+        <LinearLayout
+            android:id="@+id/root_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:id="@+id/ListLayout"
@@ -39,22 +45,39 @@
                 android:background="@color/bg_default"
                 android:baselineAligned="false"
                 android:contentDescription="@string/list_layout"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <FrameLayout
                     android:id="@+id/left_fragment_container"
                     android:layout_width="@dimen/zero"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
                 <FrameLayout
                     android:id="@+id/right_fragment_container"
                     android:layout_width="@dimen/zero"
                     android:layout_height="match_parent"
-                    android:layout_weight="2" />
+                    android:layout_weight="2"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             </LinearLayout>
 
-    </LinearLayout>
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:contentDescription="@string/fab_label"
+            android:visibility="gone"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <include
         layout="@layout/drawer"

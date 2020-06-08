@@ -159,9 +159,9 @@ public abstract class FileActivity extends DrawerActivity
         // must be specialized in subclasses
         MainApp.showOnlyFilesOnDevice(onDeviceOnly);
         if (onDeviceOnly) {
-            setupToolbar();
+            setupHomeSearchToolbar(true);
         } else {
-            setupHomeSearchToolbar();
+            setupHomeSearchToolbar(true);
         }
     }
 

@@ -27,9 +27,7 @@ package com.owncloud.android.ui.fragment;
 import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
@@ -54,9 +52,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -86,7 +82,6 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.SearchView;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -129,8 +124,6 @@ public class ExtendedListFragment extends Fragment implements
     protected ImageView mEmptyListIcon;
     protected ProgressBar mEmptyListProgress;
 
-    private FloatingActionButton mFabMain;
-
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
     private ArrayList<Integer> mFirstPositions;
@@ -172,10 +165,6 @@ public class ExtendedListFragment extends Fragment implements
 
     protected RecyclerView getRecyclerView() {
         return mRecyclerView;
-    }
-
-    public FloatingActionButton getFabMain() {
-        return mFabMain;
     }
 
     public void setLoading(boolean enabled) {
@@ -231,7 +220,12 @@ public class ExtendedListFragment extends Fragment implements
         searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> handler.post(() -> {
             if (getActivity() != null && !(getActivity() instanceof FolderPickerActivity)
                 && !(getActivity() instanceof UploadFilesActivity)) {
-                setFabVisible(!hasFocus);
+                if (getActivity() instanceof FileDisplayActivity) {
+                    OCFileListFragment fileFragment = ((FileDisplayActivity) getActivity()).getListOfFilesFragment();
+                    if (fileFragment != null) {
+                        fileFragment.setFabVisible(!hasFocus);
+                    }
+                }
                 if (TextUtils.isEmpty(searchView.getQuery())) {
                     closeButton.setVisibility(View.INVISIBLE);
                 }
@@ -354,7 +348,7 @@ public class ExtendedListFragment extends Fragment implements
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
     }
 
@@ -391,12 +385,8 @@ public class ExtendedListFragment extends Fragment implements
         ThemeUtils.colorSwipeRefreshLayout(getContext(), mRefreshListLayout);
         mRefreshListLayout.setOnRefreshListener(this);
 
-        mSortButton = v.findViewById(R.id.sort_button);
-        mSwitchGridViewButton = v.findViewById(R.id.switch_grid_view_button);
-
-        mFabMain = v.findViewById(R.id.fab_main);
-        ThemeUtils.tintFloatingActionButton(mFabMain, requireContext());
-        ThemeUtils.drawableFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
+        mSortButton = getActivity().findViewById(R.id.sort_button);
+        mSwitchGridViewButton = getActivity().findViewById(R.id.switch_grid_view_button);
 
         return v;
     }
@@ -585,72 +575,7 @@ public class ExtendedListFragment extends Fragment implements
         mRefreshListLayout.setEnabled(enabled);
     }
 
-    /**
-     * Sets the 'visibility' state of the FAB contained in the fragment.
-     * <p>
-     * When 'false' is set, FAB visibility is set to View.GONE programmatically.
-     *
-     * @param visible Desired visibility for the FAB.
-     */
-    public void setFabVisible(final boolean visible) {
-        if (getActivity() != null) {
-            getActivity().runOnUiThread(() -> {
-                if (visible) {
-                    mFabMain.show();
-                    ThemeUtils.tintFloatingActionButton(mFabMain, requireContext());
-                } else {
-                    mFabMain.hide();
-                }
 
-                showFabWithBehavior(visible);
-            });
-        }
-    }
-
-    /**
-     * Remove this, if HideBottomViewOnScrollBehavior is fix by Google
-     *
-     * @param visible
-     */
-    private void showFabWithBehavior(boolean visible) {
-        ViewGroup.LayoutParams layoutParams = mFabMain.getLayoutParams();
-        if (layoutParams instanceof CoordinatorLayout.LayoutParams) {
-            CoordinatorLayout.Behavior coordinatorLayoutBehavior =
-                ((CoordinatorLayout.LayoutParams) layoutParams).getBehavior();
-            if (coordinatorLayoutBehavior instanceof HideBottomViewOnScrollBehavior) {
-                @SuppressWarnings("unchecked")
-                HideBottomViewOnScrollBehavior<FloatingActionButton> behavior =
-                    (HideBottomViewOnScrollBehavior<FloatingActionButton>) coordinatorLayoutBehavior;
-                if (visible) {
-                    behavior.slideUp(mFabMain);
-                } else {
-                    behavior.slideDown(mFabMain);
-                }
-            }
-        }
-    }
-
-    /**
-     * Sets the 'visibility' state of the FAB contained in the fragment.
-     * <p>
-     * When 'false' is set, FAB is greyed out
-     *
-     * @param enabled Desired visibility for the FAB.
-     */
-    public void setFabEnabled(final boolean enabled) {
-        if (getActivity() != null) {
-            getActivity().runOnUiThread(() -> {
-                if (enabled) {
-                    mFabMain.setEnabled(true);
-                    ThemeUtils.tintFloatingActionButton(mFabMain, requireContext());
-                } else {
-                    mFabMain.setEnabled(false);
-                    mFabMain.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
-                    mFabMain.setRippleColor(Color.GRAY);
-                }
-            });
-        }
-    }
 
     /**
      * /** Set message for empty list view.
@@ -810,7 +735,7 @@ public class ExtendedListFragment extends Fragment implements
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
