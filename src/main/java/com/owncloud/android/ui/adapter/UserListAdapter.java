@@ -60,7 +60,6 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final BaseActivity context;
     private List<UserListItem> values;
     private Listener accountListAdapterListener;
-    private Drawable tintedCheck;
     private UserAccountManager accountManager;
 
     public static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
@@ -72,7 +71,6 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public UserListAdapter(BaseActivity context,
                            UserAccountManager accountManager,
                            List<UserListItem> values,
-                           Drawable tintedCheck,
                            ClickListener clickListener,
                            boolean showAddAccount,
                            boolean showDotsMenu) {
@@ -83,7 +81,6 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.accountListAdapterListener = (Listener) context;
         }
         this.accountAvatarRadiusDimension = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
-        this.tintedCheck = tintedCheck;
         this.clickListener = clickListener;
         this.showAddAccount = showAddAccount;
         this.showDotsMenu = showDotsMenu;
@@ -103,9 +100,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         View view;
         if (UserListItem.TYPE_ACCOUNT == viewType) {
             view = LayoutInflater.from(context).inflate(R.layout.account_item, parent, false);
-            AccountViewHolderItem viewHolder = new AccountViewHolderItem(view);
-            viewHolder.checkViewItem.setImageDrawable(tintedCheck);
-            return viewHolder;
+            return new AccountViewHolderItem(view);
         } else {
             view = LayoutInflater.from(context).inflate(R.layout.account_action, parent, false);
             return new AddAccountViewHolderItem(view);
@@ -301,10 +296,12 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         AccountViewHolderItem(@NonNull View view) {
             super(view);
-            this.imageViewItem = view.findViewById(R.id.user_icon);
-            this.checkViewItem = view.findViewById(R.id.ticker);
-            this.usernameViewItem = view.findViewById(R.id.user_name);
-            this.accountViewItem = view.findViewById(R.id.account);
+            imageViewItem = view.findViewById(R.id.user_icon);
+            checkViewItem = view.findViewById(R.id.ticker);
+            ThemeUtils.tintDrawable(checkViewItem.getDrawable(), ThemeUtils.primaryColor(context, true));
+
+            usernameViewItem = view.findViewById(R.id.user_name);
+            accountViewItem = view.findViewById(R.id.account);
             ImageView accountMenu = view.findViewById(R.id.account_menu);
 
             view.setOnClickListener(this);

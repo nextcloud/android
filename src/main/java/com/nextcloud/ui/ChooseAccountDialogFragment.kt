@@ -96,7 +96,6 @@ class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, 
             val adapter = UserListAdapter(activity as BaseActivity,
                 accountManager,
                 getAccountListItems(),
-                null,
                 this,
                 false,
                 false)
