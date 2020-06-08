@@ -40,4 +40,9 @@
         <item name="android:navigationBarColor">@color/bg_default</item>
     </style>
 
+    <style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar.LoginBase">
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:navigationBarColor">@color/primary</item>
+    </style>
+
 </resources>
