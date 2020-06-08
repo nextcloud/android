@@ -44,15 +44,4 @@
         <item name="android:windowLightNavigationBar">false</item>
     </style>
 
-    <style name="Theme.ownCloud.Overlay" parent="Theme.ownCloud">
-        <item name="android:actionBarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <!-- Support library compatibility -->
-        <item name="actionBarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
-        <item name="windowActionBarOverlay">true</item>
-        <item name="android:navigationBarColor">@color/black</item>
-    </style>
-
 </resources>
