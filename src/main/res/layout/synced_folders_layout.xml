@@ -52,7 +52,7 @@
                 android:clipToPadding="false"
                 android:scrollbarStyle="outsideOverlay"
                 android:scrollbars="vertical"
-                android:visibility="visible"/>
+                android:visibility="visible" />
         </FrameLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
