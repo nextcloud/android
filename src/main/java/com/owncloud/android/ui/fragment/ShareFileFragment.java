@@ -51,8 +51,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -534,7 +532,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     }
 
     @Override
-    public void onAttach(@NotNull Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         try {
             mListener = (ShareFragmentListener) activity;
