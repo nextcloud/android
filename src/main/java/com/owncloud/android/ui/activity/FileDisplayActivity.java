@@ -245,7 +245,7 @@ public class FileDisplayActivity extends FileActivity
         setContentView(binding.getRoot());
 
         // setup toolbar
-        setupHomeSearchToolbar();
+        setupHomeSearchToolbar(true);
 
         mMenuButton.setOnClickListener(v -> openDrawer());
 
@@ -598,7 +598,8 @@ public class FileDisplayActivity extends FileActivity
     }
 
 
-    public OCFileListFragment getListOfFilesFragment() {
+    public @androidx.annotation.Nullable
+    OCFileListFragment getListOfFilesFragment() {
         Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(
                 FileDisplayActivity.TAG_LIST_OF_FILES);
         if (listOfFiles != null) {
@@ -1131,16 +1132,16 @@ public class FileDisplayActivity extends FileActivity
         if (menuItemId == -1) {
             if (MainApp.isOnlyOnDevice()) {
                 setDrawerMenuItemChecked(R.id.nav_on_device);
-                setupToolbar();
+                setupHomeSearchToolbar(true);
             } else {
                 setDrawerMenuItemChecked(R.id.nav_all_files);
-                setupHomeSearchToolbar();
+                setupHomeSearchToolbar(true);
             }
         } else {
             if (menuItemId == R.id.nav_all_files) {
-                setupHomeSearchToolbar();
+                setupHomeSearchToolbar(true);
             } else {
-                setupToolbar();
+                setupHomeSearchToolbar(true);
             }
             setDrawerMenuItemChecked(menuItemId);
         }
