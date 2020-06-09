@@ -566,12 +566,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         file.setStoragePath(upload.getLocalPath());
 
         Context context = MainApp.getAppContext();
-        Intent i = new Intent(context, ConflictsResolveActivity.class);
-        i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
-        i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, upload.getAccount(accountManager));
-        i.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD, upload);
-        context.startActivity(i);
+        Intent intent = ConflictsResolveActivity.createIntent(file,
+                                                              upload.getAccount(accountManager),
+                                                              Intent.FLAG_ACTIVITY_NEW_TASK,
+                                                              context);
+
+        context.startActivity(intent);
     }
 
     /**
