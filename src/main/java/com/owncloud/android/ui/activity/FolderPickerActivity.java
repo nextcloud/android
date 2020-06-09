@@ -70,8 +70,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
-
 public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity,
     OnClickListener,
     OnEnforceableRefreshListener,
@@ -319,11 +317,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                 if (currentDir != null && currentDir.getParentId() != 0) {
                     onBackPressed();
                 }
-                break;
-            }
-            case R.id.action_sort: {
-                openSortingOrderDialogFragment(getSupportFragmentManager(),
-                                               preferences.getSortOrderByFolder(getListOfFilesFragment().getCurrentFile()));
                 break;
             }
             default:
