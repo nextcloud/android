@@ -26,6 +26,7 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -127,19 +128,31 @@ public final class ThemeUtils {
         return primaryColor(context, false);
     }
 
-    public static int primaryColor(Context context, boolean replaceWhite) {
-        return primaryColor(null, replaceWhite, context);
+    public static int primaryColor(Context context, boolean replaceEdgeColors) {
+        return primaryColor(null, replaceEdgeColors, context);
     }
 
-    public static int primaryColor(Account account, boolean replaceWhite, Context context) {
+    public static int primaryColor(Account account, boolean replaceEdgeColors, Context context) {
         if (context == null) {
             return Color.GRAY;
         }
 
         try {
             int color = Color.parseColor(getCapability(account, context).getServerColor());
-            if (replaceWhite && Color.WHITE == color) {
-                return getNeutralGrey(context);
+            if (replaceEdgeColors) {
+                if (isDarkModeActive(context)) {
+                    if (Color.BLACK == color) {
+                        return getNeutralGrey(context);
+                    } else {
+                        return color;
+                    }
+                } else {
+                    if (Color.WHITE == color) {
+                        return getNeutralGrey(context);
+                    } else {
+                        return color;
+                    }
+                }
             } else {
                 return color;
             }
@@ -153,30 +166,46 @@ public final class ThemeUtils {
     }
 
     public static int elementColor(Context context) {
-        return elementColor(null, context);
+        return elementColor(null, context, false);
     }
 
     @NextcloudServer(max = 12)
-    public static int elementColor(Account account, Context context) {
+    public static int elementColor(Account account, Context context, boolean replaceEdgeColors) {
         OCCapability capability = getCapability(account, context);
 
         try {
             return Color.parseColor(capability.getServerElementColor());
         } catch (Exception e) {
-            int primaryColor;
+            int color;
 
             try {
-                primaryColor = Color.parseColor(capability.getServerColor());
+                color = Color.parseColor(capability.getServerColor());
             } catch (Exception e1) {
-                primaryColor = context.getResources().getColor(R.color.primary);
+                color = context.getResources().getColor(R.color.primary);
             }
 
-            float[] hsl = colorToHSL(primaryColor);
-
-            if (hsl[INDEX_LUMINATION] > LUMINATION_THRESHOLD) {
-                return context.getResources().getColor(R.color.element_fallback_color);
+            if (replaceEdgeColors) {
+                if (isDarkModeActive(context)) {
+                    if (Color.BLACK == color) {
+                        return getNeutralGrey(context);
+                    } else {
+                        return color;
+                    }
+                } else {
+                    if (Color.WHITE == color) {
+                        return getNeutralGrey(context);
+                    } else {
+                        return color;
+                    }
+                }
             } else {
-                return primaryColor;
+                float[] hsl = colorToHSL(color);
+
+                if (hsl[INDEX_LUMINATION] > LUMINATION_THRESHOLD) {
+                    return context.getResources().getColor(R.color.element_fallback_color);
+                } else {
+                    return color;
+                }
             }
         }
     }
@@ -796,5 +825,11 @@ public final class ThemeUtils {
         } catch (Exception e) {
             Log_OC.e(TAG, "Error setting TextView handles color", e);
         }
+    }
+
+    public static boolean isDarkModeActive(Context context) {
+        int nightModeFlag = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        return Configuration.UI_MODE_NIGHT_YES == nightModeFlag;
     }
 }
