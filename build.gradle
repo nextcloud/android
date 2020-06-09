@@ -4,7 +4,6 @@
 // Due to this, the files layout is not the usual in new projects created with Android Studio / gradle. This file
 // merges declarations usually split in two separates build.gradle file, one for global settings of the project in
 // its root folder, another one for the app module in subfolder of root.
-import com.github.spotbugs.SpotBugsTask
 
 buildscript {
     ext.kotlin_version = '1.3.72'
@@ -21,10 +20,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.0'
-        classpath('com.dicedmelon.gradle:jacoco-android:0.1.4') {
-            exclude group: 'org.codehaus.groovy', module: 'groovy-all'
-        }
-        classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.6'
+        classpath('com.hiya:jacoco-android:0.2')
+        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.9.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -39,7 +36,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
-apply plugin: 'jacoco-android'
+apply plugin: 'com.hiya.jacoco-android'
 apply plugin: 'com.github.spotbugs'
 apply plugin: 'io.gitlab.arturbosch.detekt'
 apply plugin: 'shot'
@@ -238,17 +235,12 @@ android {
     android.applicationVariants.all { variant ->
         String variantName = variant.name
         String capVariantName = variantName.substring(0, 1).toUpperCase() + variantName.substring(1)
-        tasks.register("spotbugs${capVariantName}", SpotBugsTask) {
+        tasks.register("spotbugs${capVariantName}Report", com.github.spotbugs.snom.SpotBugsTask) {
             ignoreFailures = true // should continue checking
             effort = "max"
             reportLevel = "medium"
             classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
             excludeFilter = file("${project.rootDir}/spotbugs-filter.xml")
-            pluginClasspath = project.configurations.spotbugsPlugins
-            source = fileTree('src/main/java')
-            classpath = files()
-            include '**/*.java'
-            exclude '**/gen/**'
 
             reports {
                 xml.enabled = false
@@ -260,7 +252,7 @@ android {
         }
     }
 
-    check.dependsOn 'checkstyle', 'spotbugsGplayDebug', 'pmd', 'lint', 'ktlint', 'detekt'
+    check.dependsOn 'checkstyle', 'spotbugsGplayDebugReport', 'pmd', 'lint', 'ktlint', 'detekt'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
