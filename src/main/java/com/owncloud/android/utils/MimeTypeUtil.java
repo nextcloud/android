@@ -177,7 +177,7 @@ public final class MimeTypeUtil {
             drawableId = R.drawable.folder;
         }
 
-        return ThemeUtils.tintDrawable(drawableId, ThemeUtils.elementColor(account, context));
+        return ThemeUtils.tintDrawable(drawableId, ThemeUtils.elementColor(account, context, true));
     }
 
     public static Drawable getDefaultFolderIcon(Context context) {
