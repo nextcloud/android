@@ -35,12 +35,4 @@
         android:orderInCategory="1"
         android:title="@string/actionbar_mkdir"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_sort"
-        android:contentDescription="@string/actionbar_sort"
-        android:icon="@drawable/ic_sort_variant"
-        android:orderInCategory="1"
-        android:title="@string/actionbar_sort"
-        app:showAsAction="never" />
-
 </menu>

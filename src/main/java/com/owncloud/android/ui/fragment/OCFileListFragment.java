@@ -195,11 +195,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject DeviceInfo deviceInfo;
 
     protected enum MenuItemAddRemove {
-        DO_NOTHING, REMOVE_SORT, REMOVE_GRID_AND_SORT, ADD_SORT, ADD_GRID_AND_SORT, ADD_GRID_AND_SORT_WITH_SEARCH,
-        REMOVE_SEARCH, REMOVE_ALL_EXCEPT_SEARCH
+        DO_NOTHING,
+        REMOVE_SORT,
+        REMOVE_GRID_AND_SORT,
+        ADD_GRID_AND_SORT_WITH_SEARCH
     }
 
-    protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_ALL_EXCEPT_SEARCH;
+    protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.DO_NOTHING;
 
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
@@ -770,30 +772,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mOriginalMenuItems.add(menu.findItem(R.id.action_search));
         }
 
-        MenuItem menuItemOrig;
-
         switch (menuItemAddRemoveValue) {
-            case ADD_SORT:
-                if (menu.findItem(R.id.action_sort) == null) {
-                    menuItemOrig = mOriginalMenuItems.get(1);
-                    menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
-                             menuItemOrig.getTitle());
-                }
-                mSortButton.setVisibility(View.VISIBLE);
-                break;
-
-            case ADD_GRID_AND_SORT:
             case ADD_GRID_AND_SORT_WITH_SEARCH:
                 mSwitchGridViewButton.setVisibility(View.VISIBLE);
                 mSortButton.setVisibility(View.VISIBLE);
                 break;
 
-            case REMOVE_SEARCH:
-                menu.removeItem(R.id.action_search);
-                break;
-
             case REMOVE_SORT:
-                menu.removeItem(R.id.action_search);
                 mSortButton.setVisibility(View.GONE);
                 break;
 
@@ -801,11 +786,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 menu.removeItem(R.id.action_search);
                 mSortButton.setVisibility(View.GONE);
                 mSwitchGridViewButton.setVisibility(View.GONE);
-                break;
-
-            case REMOVE_ALL_EXCEPT_SEARCH:
-                mSwitchGridViewButton.setVisibility(View.VISIBLE);
-                mSortButton.setVisibility(View.VISIBLE);
                 break;
 
             case DO_NOTHING:
