@@ -31,6 +31,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 
 import java.io.IOException;
@@ -46,11 +47,10 @@ class ClientFactoryImpl implements ClientFactory {
     @Override
     public OwnCloudClient create(User user) throws CreationException {
         try {
-            return OwnCloudClientFactory.createOwnCloudClient(user.toPlatformAccount(), context);
+            return OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(user.toOwnCloudAccount(), context);
         } catch (OperationCanceledException|
                  AuthenticatorException|
-                 IOException|
-                 AccountUtils.AccountNotFoundException e) {
+            IOException e) {
             throw new CreationException(e);
         }
     }
