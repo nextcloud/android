@@ -166,7 +166,7 @@
     <string name="copy_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια αντιγραφής αυτού του αρχείου ή φακέλου</string>
     <string name="copy_file_invalid_into_descendent">Δεν είναι δυνατό να αντιγραφεί ο φάκελος σε απογονικό</string>
     <string name="copy_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
-    <string name="copy_file_not_found">Αδυναμία αντιγραφής. Ελέγξτε αν το αρχείο υπάρχει.</string>
+    <string name="copy_file_not_found">Αδυναμία αντιγραφής. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει.</string>
     <string name="copy_link">Αντιγραφή συνδέσμου</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Η αντιγραφή/μετακίνηση σε κρυπτογραφημένο φάκελο δεν υποστηρίζεται αυτή τη στιγμή</string>
     <string name="copy_to">Αντιγραφή σε…</string>
@@ -421,7 +421,7 @@
     <string name="move_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια μετακίνησης αυτού του αρχείου ή φακέλου</string>
     <string name="move_file_invalid_into_descendent">Δεν είναι δυνατό να μετακινηθεί ο φάκελος σε έναν απογονικό</string>
     <string name="move_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
-    <string name="move_file_not_found">Αδύνατη η μετακίνηση. Ελέγξτε αν το αρχείο υπάρχει.</string>
+    <string name="move_file_not_found">Αδύνατη η μετακίνηση. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει.</string>
     <string name="move_to">Μετακίνηση σε…</string>
     <string name="network_error_connect_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή απόκρισης του διακομιστή. Η εργασία δεν μπορεί να ολοκληρωθεί.</string>
     <string name="network_error_socket_exception">Παρουσιάστηκε σφάλμα κατά τη σύνδεση με το διακομιστή.</string>
@@ -500,7 +500,7 @@
     <string name="prefs_category_more">Περισσότερα</string>
     <string name="prefs_daily_contacts_sync_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
     <string name="prefs_e2e_mnemonic">E2E μνήμη</string>
-    <string name="prefs_e2e_no_device_credentials">Για την εμφάνιση της μνήμης παρακαλώ ενεργοποιήστε τα διαπιστευτήρια συσκευής.</string>
+    <string name="prefs_e2e_no_device_credentials">Για την εμφάνιση της μνήμης παρακαλούμε ενεργοποιήστε τα διαπιστευτήρια συσκευής.</string>
     <string name="prefs_enable_media_scan_notifications">  Εμφάνιση ειδοποιήσεων σάρωσης πολυμέσων</string>
     <string name="prefs_enable_media_scan_notifications_summary">Ειδοποιήστε για νέους φακέλους πολυμέσων</string>
     <string name="prefs_gpl_v2">Γενική Άδεια Δημόσιας Χρήσης GNU, έκδοση 2</string>
@@ -594,7 +594,7 @@
     <string name="share_known_remote_clarification">%1$s ( στο %2$s )</string>
     <string name="share_link_empty_password">Πρέπει να εισάγετε ένα συνθηματικό</string>
     <string name="share_link_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια διαμοιρασμού του αρχείου ή φακέλου.</string>
-    <string name="share_link_file_no_exist">Αδυναμία διαμοιρασμού. Ελέγξτε αν υπάρχει το αρχείο.</string>
+    <string name="share_link_file_no_exist">Αδυναμία διαμοιρασμού. Παρακαλούμε ελέγξτε αν υπάρχει το αρχείο.</string>
     <string name="share_link_forbidden_permissions">για να διαμοιραστείτε αυτό το αρχείο</string>
     <string name="share_link_optional_password_title">Εισάγετε προαιρετικό συνθηματικό</string>
     <string name="share_link_password_title">Εισάγετε ένα συνθηματικό</string>
@@ -674,7 +674,7 @@
     <string name="storage_movies">Βίντεο</string>
     <string name="storage_music">Μουσική</string>
     <string name="storage_pictures">Φωτογραφίες</string>
-    <string name="store_full_desc">Μια αυτόνομη πλατφόρμα που έχετε τον πλήρη έλεγχο.\n\nFeatures:\n* Εύκολο, μοντέρνο, συμβατό με το θέμα του διακομιστή σας\n* Μεταφόρτωση αρχείων στον Nextclound διακομιστή σας\n* Κοινή χρήση\n* Κρατήστε τα αγαπημένα σας αρχεία και φακέλους συγχρονισμένα\n* Αναζήτηση σε όλ΄ους τους φακέλους στον διακομιστή σας\n* Αυτόματη μεταφόρτωση φωτογραφιών και βίντεο από την συσκευή σας\n* Ενημέρωση με ειδοποιήσεις\n* Υποστήριξη πολλαπλών λογαριασμών\n* Ασφαλή σύνδεση στα δεδομένα σας με χρήση δακτυλικού αποτυπώματος ή κωδικού PIN\n* Συνεργασία με DADVx5 (γνωστό ως DAVdroid) για εύκολη εγκατάσταση και συγχρονισμό ημερολογίου &amp;\n\nΠαρακαλώ αναφέρετε τα σφάλματα στο https://github.com/nextcloud/android/issues και συζητήστε για την εφαρμογή στο https://help.nextcloud.com/c/clients/android\n\n Καινούργιος στο Nextclound? To Nextclound είναι ένας διακομιστής &amp;συγχρονισμού αρχείων κοινόχρηστων και επικοινωνίας. Ένα ελεύθερο λογισμικό, οπου μπορείτε να το υποστηρίξετε μόνοι σας ή επι πληρωμής. Με αυτό τον τρόπο έχετε τον έλεγχο των φωτογραφιών σας, του ημερολογίου σας και των δεδομένων των επαφών σας, των αρχείων σας και οτιδήποτε άλλο.\n\nΕνημερωθείτε για το Nextclound στο https://nextcloud.com</string>
+    <string name="store_full_desc">Μια αυτόνομη πλατφόρμα που έχετε τον πλήρη έλεγχο.\n\nFeatures:\n* Εύκολο, μοντέρνο, συμβατό με το θέμα του διακομιστή σας\n* Μεταφόρτωση αρχείων στον Nextclound διακομιστή σας\n* Κοινή χρήση\n* Κρατήστε τα αγαπημένα σας αρχεία και φακέλους συγχρονισμένα\n* Αναζήτηση σε όλ΄ους τους φακέλους στον διακομιστή σας\n* Αυτόματη μεταφόρτωση φωτογραφιών και βίντεο από την συσκευή σας\n* Ενημέρωση με ειδοποιήσεις\n* Υποστήριξη πολλαπλών λογαριασμών\n* Ασφαλή σύνδεση στα δεδομένα σας με χρήση δακτυλικού αποτυπώματος ή κωδικού PIN\n* Συνεργασία με DADVx5 (γνωστό ως DAVdroid) για εύκολη εγκατάσταση και συγχρονισμό ημερολογίου &amp;\n\nΠαρακαλούμε αναφέρετε τα σφάλματα στο https://github.com/nextcloud/android/issues και συζητήστε για την εφαρμογή στο https://help.nextcloud.com/c/clients/android\n\n Καινούργιος στο Nextclound? To Nextclound είναι ένας διακομιστής &amp;συγχρονισμού αρχείων κοινόχρηστων και επικοινωνίας. Ένα ελεύθερο λογισμικό, οπου μπορείτε να το υποστηρίξετε μόνοι σας ή επι πληρωμής. Με αυτό τον τρόπο έχετε τον έλεγχο των φωτογραφιών σας, του ημερολογίου σας και των δεδομένων των επαφών σας, των αρχείων σας και οτιδήποτε άλλο.\n\nΕνημερωθείτε για το Nextclound στο https://nextcloud.com</string>
     <string name="store_full_dev_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο. \nΑυτή είναι η επίσημη αναπτυξιακή έκδοση, περιλαμβάνει καθημερινό δείγμα οποιασδήποτε νέας μη δοκιμασμένης λειτουργικότητας, η οποία μπορεί να προκαλέσει αστάθεια και απώλεια δεδομένων. Η εφαρμογή προορίζεται για χρήστες που θέλουν να δοκιμάσουν και να αναφέρουν σφάλματα. Μην το χρησιμοποιείτε για την κανονική εργασία σας! \n\nΗ επίσημη έκδοση dev και η κανονική έκδοση είναι διαθέσιμες στο F-droid και μπορούν να εγκατασταθούν ταυτόχρονα.</string>
     <string name="store_short_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο.</string>
     <string name="store_short_dev_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο (προεπισκόπηση έκδοσης dev)</string>
@@ -727,12 +727,12 @@
     <string name="unset_encrypted">Χρήση κρυπτογράφησης</string>
     <string name="unset_favorite">Αφαίρεση από τα αγαπημένα</string>
     <string name="unshare_link_file_error">Παρουσιάστηκε σφάλμα κατά την αφαίρεση διαμοιρασμού του αρχείου ή φακέλου.</string>
-    <string name="unshare_link_file_no_exist">Αδυναμία αφαίρεσης κοινής χρήσης.  Ελέγξτε αν το αρχείο υπάρχει.</string>
+    <string name="unshare_link_file_no_exist">Αδυναμία αφαίρεσης κοινής χρήσης.  Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει.</string>
     <string name="unshare_link_forbidden_permissions">για να αναιρέσετε το διαμοιρασμό αυτού του αρχείου</string>
     <string name="unsharing_failed">Απέτυχε η αναίρεση διαμοιρασμού</string>
-    <string name="untrusted_domain">Πρόσβαση μέσω μη αξιόπιστου τομέα. Ανατρέξτε στην τεκμηρίωση για περισσότερες πληροφορίες.</string>
+    <string name="untrusted_domain">Πρόσβαση μέσω μη αξιόπιστου τομέα. Παρακαλούμε ανατρέξτε στην τεκμηρίωση για περισσότερες πληροφορίες.</string>
     <string name="update_link_file_error">Παρουσιάστηκε σφάλμα κατά την ενημέρωση του διαμοιρασμού.</string>
-    <string name="update_link_file_no_exist">Αδυναμία ενημέρωσης. Ελέγξτε αν το αρχείο υπάρχει.</string>
+    <string name="update_link_file_no_exist">Αδυναμία ενημέρωσης. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει.</string>
     <string name="update_link_forbidden_permissions">για να ενημερώσετε αυτό τον διαμοιρασμό</string>
     <string name="updating_share_failed">Η ενημέρωση της κοινής χρήσης απέτυχε</string>
     <string name="upload_cannot_create_file">Αδυναμία δημιουργίας τοπικού αρχείου</string>
@@ -756,7 +756,7 @@
     <string name="upload_lock_failed">Το κλείδωμα του φακέλου απέτυχε</string>
     <string name="upload_old_android">Η κρυπτογράφηση είναι δυνατή μόνο με &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Δεν υπάρχει αρκετός διαθέσιμος αποθηκευτικός χώρος για να αντιγραφούν τα επιλεγμένα αρχεία στον φάκελο %1$s. Θα θέλατε να τα μετακινήσετε αντί αυτού;</string>
-    <string name="upload_sync_conflict">Σφάλμα συγχρονισμού, παρακαλώ διορθώστε χειροκίνητα</string>
+    <string name="upload_sync_conflict">Σφάλμα συγχρονισμού, παρακαλούμε διορθώστε χειροκίνητα</string>
     <string name="upload_unknown_error">Άγνωστο σφάλμα</string>
     <string name="uploader_btn_alternative_text">Επιλογή</string>
     <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
