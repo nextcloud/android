@@ -61,7 +61,7 @@
                 android:layout_gravity="bottom|end"
                 android:background="@drawable/round_bgnd"
                 android:contentDescription="@string/active_user"
-                android:src="@drawable/account_circle_white" />
+                android:src="@drawable/ic_check_circle" />
         </FrameLayout>
 
 
