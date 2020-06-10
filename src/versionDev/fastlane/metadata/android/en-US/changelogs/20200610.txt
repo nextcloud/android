@@ -1,0 +1,5 @@
+replace edge colors
+remove action_sort
+Fix crash when creating client
+Update translations
+Update 3rd-party dependencies
