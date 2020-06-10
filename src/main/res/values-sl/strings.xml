@@ -44,6 +44,7 @@
     <string name="auth_check_server">Preveri strežnik</string>
     <string name="auth_connection_established">Povezava je vzpostavljena</string>
     <string name="auth_expired_basic_auth_toast">Vpišite trenutno geslo</string>
+    <string name="auth_fail_get_user_name">Strežnik ne vrne ustreznega ID uporabnika. Stopite v stik s skrbnikom sistema.</string>
     <string name="auth_host_address">Naslov strežnika</string>
     <string name="auth_host_url">Naslov strežnika https:// …</string>
     <string name="auth_illegal_login_used">Uporabljen je neveljaven naslov s prijavnimi podatki</string>
@@ -71,6 +72,7 @@
     <string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
     <string name="auth_username">Uporabniško ime</string>
     <string name="auth_wrong_connection_title">Ni mogoče vzpostaviti povezave</string>
+    <string name="auth_wtf_reenter_URL">Nepričakovano stanje. Znova je treba vpisati podatke strežnika.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ohranjeno v izvorni mapi, ker je ta le za branje</string>
     <string name="auto_upload_on_wifi">Pošiljaj le na nemerjeni povezavi Wi-Fi</string>
     <string name="auto_upload_path">/SamodejnoPošiljanje</string>
@@ -415,8 +417,11 @@
     <string name="move_file_error">Prišlo je do napake med premikanjem datoteke v mapo</string>
     <string name="move_file_invalid_into_descendent">Ni mogoče premakniti mape v podrejeno mapo</string>
     <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja</string>
+    <string name="move_file_not_found">Ni mogoče premakniti datoteke. Preverite, ali obstaja.</string>
     <string name="move_to">Premakni v …</string>
+    <string name="network_error_connect_timeout_exception">Prišlo je do napake med čakanjem na strežnik. Opravila ni mogoče končati.</string>
     <string name="network_error_socket_exception">Med povezovanjem s strežnikom je prišlo do napake.</string>
+    <string name="network_error_socket_timeout_exception">Prišlo je do napake med čakanjem na strežnik. Opravila ni mogoče končati.</string>
     <string name="network_host_not_available">Opravila ni mogoče dokončate. Strežnik ni dosegljiv</string>
     <string name="new_comment">Nova opomba …</string>
     <string name="new_media_folder_detected">Zaznana je nova mapa s predstavno vsebino: %1$s .</string>
@@ -583,6 +588,8 @@
     <string name="share_internal_link_to_folder_text">Notranja povezava mesta souporabe deluje le za uporabnike z dostopom do mape.</string>
     <string name="share_known_remote_clarification">%1$s ( pri %2$s )</string>
     <string name="share_link_empty_password">Vpisati je treba geslo.</string>
+    <string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
+    <string name="share_link_file_no_exist">Souporaba ni mogoča. Preverite, ali datoteka obstaja.</string>
     <string name="share_link_forbidden_permissions">za omogočanje souporabe datoteke.</string>
     <string name="share_link_optional_password_title">Vpis gesla na željo</string>
     <string name="share_link_password_title">Vpis gesla</string>
@@ -713,6 +720,8 @@
     <string name="unread_comments">Obstajajo so neprebrane opombe</string>
     <string name="unset_encrypted">Odstrani šifriranje</string>
     <string name="unset_favorite">Odstrani iz priljubljenih</string>
+    <string name="unshare_link_file_error">Prišlo je do napake med prekinjanjem souporabe te datoteke ali mape.</string>
+    <string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
     <string name="unshare_link_forbidden_permissions">za preklic souporabe datoteke.</string>
     <string name="unsharing_failed">Odstranjevanje souporabe je spodletelo</string>
     <string name="untrusted_domain">Zaznan je dostop prek domene, ki ni zaupanja vredna. Več podrobnosti je zapisanih v dokumentaciji.</string>
