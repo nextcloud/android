@@ -23,16 +23,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="@dimen/account_action_layout_height"
+    android:layout_margin="@dimen/standard_quarter_margin"
     android:orientation="horizontal"
     android:weightSum="1"
     tools:ignore="UseCompoundDrawables">
 
     <ImageView
         android:id="@+id/user_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="@dimen/list_item_avatar_icon_margin"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="8dp"
         android:src="@drawable/ic_account_plus"
         android:contentDescription="@string/prefs_add_account"/>
 
@@ -43,7 +45,7 @@
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:paddingEnd="@dimen/standard_padding"
-        android:paddingStart="28dp"
+        android:paddingStart="12dp"
         android:text="@string/prefs_add_account"
         android:textColor="@color/primary"
         android:textSize="@dimen/two_line_primary_text_size" />
