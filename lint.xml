@@ -48,4 +48,7 @@
         <ignore path="**/bouncycastle/est/jcajce/*.class" />
     </issue>
 
+    <issue id="RestrictedApi" severity="error">
+        <ignore path="build" />
+    </issue>
 </lint>
