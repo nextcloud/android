@@ -26,10 +26,11 @@ URL=https://nextcloud.kaminsky.me/remote.php/webdav/android-integrationTests
 ID=$3
 USER=$1
 PASS=$2
-TYPE=$4
-PR=$5
-GITHUB_USER=$6
-GITHUB_PASSWORD=$7
+BRANCH=$4
+TYPE=$5
+PR=$6
+GITHUB_USER=$7
+GITHUB_PASSWORD=$8
 REMOTE_FOLDER=$ID-$TYPE
 
 set -e
@@ -45,11 +46,11 @@ fi
 if [ -e $FOLDER ]; then
     upload $FOLDER
 else
-    echo "$TYPE test failed, but no output was generated. Maybe a preliminary stage failed."
+    echo "$BRANCH-$TYPE test failed, but no output was generated. Maybe a preliminary stage failed."
 
     curl -u $GITHUB_USER:$GITHUB_PASSWORD \
     -X POST https://api.github.com/repos/nextcloud/android/issues/$PR/comments \
-    -d "{ \"body\" : \"$TYPE test failed, but no output was generated. Maybe a preliminary stage failed. \" }"
+    -d "{ \"body\" : \"$BRANCH-$TYPE test failed, but no output was generated. Maybe a preliminary stage failed. \" }"
 
     if [ -e build/reports/androidTests/connected/flavors/GPLAY ] ; then
         TYPE="IT"
