@@ -51,4 +51,8 @@
     <issue id="RestrictedApi" severity="error">
         <ignore path="build" />
     </issue>
+
+    <issue id="NewApi" severity="error">
+        <ignore path="build" />
+    </issue>
 </lint>
