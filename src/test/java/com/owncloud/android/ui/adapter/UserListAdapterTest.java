@@ -62,7 +62,6 @@ public class UserListAdapterTest {
                                               null,
                                               new ArrayList<>(),
                                               null,
-                                              null,
                                               true,
                                               true);
         assertEquals(0, userListAdapter.getItemCount());
@@ -80,7 +79,6 @@ public class UserListAdapterTest {
         userListAdapter = new UserListAdapter(manageAccountsActivity,
                                               null,
                                               accounts,
-                                              null,
                                               null,
                                               true,
                                               true);
@@ -101,7 +99,6 @@ public class UserListAdapterTest {
         userListAdapter = new UserListAdapter(manageAccountsActivity,
                                               null,
                                               accounts,
-                                              null,
                                               null,
                                               true,
                                               true);
