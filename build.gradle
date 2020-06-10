@@ -105,6 +105,7 @@ spotbugs {
 
 android {
     lintOptions {
+        checkGeneratedSources = true
         abortOnError false
         htmlReport true
         htmlOutput file("$project.buildDir/reports/lint/lint.html")
