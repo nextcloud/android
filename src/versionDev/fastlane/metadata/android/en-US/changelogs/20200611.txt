@@ -1,0 +1,9 @@
+add lint ignore for newApi within build dir
+Ignore RestrictedApiCheck for generated files
+Check also generated sources to avoid unused resources warning
+Add account: grey color align text
+Fix unit tests
+#6247 View Binding - ShareFileFragment (Remove Jetbrains annotation)
+#6247 View Binding - ShareFileFragment
+Update translations
+Update Nextcloud Android library
