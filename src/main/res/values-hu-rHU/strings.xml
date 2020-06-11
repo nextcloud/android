@@ -114,6 +114,8 @@
     <string name="common_save">Mentés</string>
     <string name="common_send">Küldés</string>
     <string name="common_share">Megosztás</string>
+    <string name="common_switch_account">Fiókváltás</string>
+    <string name="common_switch_to_account">Váltás fiókra</string>
     <string name="common_unknown">ismeretlen</string>
     <string name="common_yes">Igen</string>
     <string name="community_beta_headline">Tesztelje a fejlesztési verziót</string>
@@ -295,6 +297,7 @@
     <string name="file_list_empty_headline_server_search_photos">Nincsenek képek</string>
     <string name="file_list_empty_headline_server_search_videos">Nincsenek videók</string>
     <string name="file_list_empty_moving">Nincs itt semmi. Hozzáadhat egy mappát.</string>
+    <string name="file_list_empty_on_device">A letöltött fájlok és mappák itt fognak megjelenni.</string>
     <string name="file_list_empty_recently_added">Nem található mostanában hozzáadott fájl</string>
     <string name="file_list_empty_recently_added_filter">Nincsenek mostanában hozzáadott fájlok.</string>
     <string name="file_list_empty_recently_modified">Nem található az utóbbi 7 napban módosított fájl</string>
