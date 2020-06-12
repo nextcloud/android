@@ -33,6 +33,7 @@ import android.webkit.SslErrorHandler;
 import android.widget.Button;
 
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.SslUntrustedCertLayoutBinding;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.network.NetworkUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -45,6 +46,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 /**
@@ -58,7 +60,7 @@ public class SslUntrustedCertDialog extends DialogFragment {
 
     private final static String TAG = SslUntrustedCertDialog.class.getSimpleName();
 
-    protected View mView;
+    protected SslUntrustedCertLayoutBinding binding;
     protected SslErrorHandler mHandler;
     protected X509Certificate m509Certificate;
 
@@ -110,7 +112,7 @@ public class SslUntrustedCertDialog extends DialogFragment {
 
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         Log_OC.d(TAG, "onAttach");
         super.onAttach(activity);
         if (!(activity instanceof OnSslUntrustedCertListener)) {
@@ -125,50 +127,41 @@ public class SslUntrustedCertDialog extends DialogFragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);    // force to keep the state of the fragment on configuration changes (such as device rotations)
         setCancelable(false);
-        mView = null;
+        binding = null;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView, savedInsanceState is " + savedInstanceState);
         // Create a view by inflating desired layout
-        if (mView == null) {
-            mView = inflater.inflate(R.layout.ssl_untrusted_cert_layout, container,  false);
-            mView.findViewById(R.id.details_scroll).setVisibility(View.GONE);
-            mErrorViewAdapter.updateErrorView(mView);
+        if (binding == null) {
+            binding = SslUntrustedCertLayoutBinding.inflate(inflater, container, false);
+            binding.detailsScroll.setVisibility(View.GONE);
+            mErrorViewAdapter.updateErrorView(binding);
         } else {
-            ((ViewGroup)mView.getParent()).removeView(mView);
+            ((ViewGroup) binding.getRoot().getParent()).removeView(binding.getRoot());
         }
 
-        Button ok = mView.findViewById(R.id.ok);
-        ok.setOnClickListener(new OnCertificateTrusted());
+        binding.ok.setOnClickListener(new OnCertificateTrusted());
 
-        Button cancel = mView.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new OnCertificateNotTrusted());
+        binding.cancel.setOnClickListener(new OnCertificateNotTrusted());
 
-        Button details = mView.findViewById(R.id.details_btn);
-        details.setOnClickListener(new OnClickListener() {
+        binding.detailsBtn.setOnClickListener(v -> {
+            if (binding.detailsScroll.getVisibility() == View.VISIBLE) {
+                binding.detailsScroll.setVisibility(View.GONE);
+                ((Button) v).setText(R.string.ssl_validator_btn_details_see);
 
-            @Override
-            public void onClick(View v) {
-                View detailsScroll = mView.findViewById(R.id.details_scroll);
-                if (detailsScroll.getVisibility() == View.VISIBLE) {
-                    detailsScroll.setVisibility(View.GONE);
-                    ((Button) v).setText(R.string.ssl_validator_btn_details_see);
-
-                } else {
-                    detailsScroll.setVisibility(View.VISIBLE);
-                    ((Button) v).setText(R.string.ssl_validator_btn_details_hide);
-                    mCertificateViewAdapter.updateCertificateView(mView);
-                }
+            } else {
+                binding.detailsScroll.setVisibility(View.VISIBLE);
+                ((Button) v).setText(R.string.ssl_validator_btn_details_hide);
+                mCertificateViewAdapter.updateCertificateView(binding);
             }
-
         });
 
-        return mView;
+        return binding.getRoot();
     }
 
-
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateDialog, savedInstanceState is " + savedInstanceState);
@@ -228,10 +221,10 @@ public class SslUntrustedCertDialog extends DialogFragment {
     }
 
     public interface ErrorViewAdapter {
-        void updateErrorView(View mView);
+        void updateErrorView(SslUntrustedCertLayoutBinding binding);
     }
 
     public interface CertificateViewAdapter {
-        void updateCertificateView(View mView);
+        void updateCertificateView(SslUntrustedCertLayoutBinding binding);
     }
 }
