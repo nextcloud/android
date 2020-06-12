@@ -22,9 +22,9 @@ package com.owncloud.android.ui.adapter;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.SslUntrustedCertLayoutBinding;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 
 import java.security.MessageDigest;
@@ -54,18 +54,16 @@ public class X509CertificateViewAdapter implements SslUntrustedCertDialog.Certif
     }
 
     @Override
-    public void updateCertificateView(View dialogView) {
-        TextView nullCerView = dialogView.findViewById(R.id.null_cert);
-
+    public void updateCertificateView(SslUntrustedCertLayoutBinding binding) {
         if (mCertificate != null) {
-            nullCerView.setVisibility(View.GONE);
-            showSubject(mCertificate.getSubjectX500Principal(), dialogView);
-            showIssuer(mCertificate.getIssuerX500Principal(), dialogView);
-            showValidity(mCertificate.getNotBefore(), mCertificate.getNotAfter(), dialogView);
-            showSignature(dialogView);
+            binding.nullCert.setVisibility(View.GONE);
+            showSubject(mCertificate.getSubjectX500Principal(), binding);
+            showIssuer(mCertificate.getIssuerX500Principal(), binding);
+            showValidity(mCertificate.getNotBefore(), mCertificate.getNotAfter(), binding);
+            showSignature(binding);
 
         } else {
-            nullCerView.setVisibility(View.VISIBLE);
+            binding.nullCert.setVisibility(View.VISIBLE);
         }
     }
 
@@ -81,20 +79,17 @@ public class X509CertificateViewAdapter implements SslUntrustedCertDialog.Certif
         return md.digest(message);
     }
 
-    private void showSignature(View dialogView) {
+    private void showSignature(@NonNull SslUntrustedCertLayoutBinding binding) {
         byte[] cert;
-
-        TextView certFingerprintView = dialogView.findViewById(R.id.value_certificate_fingerprint);
-        TextView algorithmView = dialogView.findViewById(R.id.value_signature_algorithm);
 
         try {
             cert = mCertificate.getEncoded();
             if (cert == null) {
-                certFingerprintView.setText(R.string.certificate_load_problem);
-                algorithmView.setText(R.string.certificate_load_problem);
+                binding.valueCertificateFingerprint.setText(R.string.certificate_load_problem);
+                binding.valueSignatureAlgorithm.setText(R.string.certificate_load_problem);
             } else {
-                certFingerprintView.setText(getDigestString(dialogView.getContext(), cert));
-                algorithmView.setText(mCertificate.getSigAlgName());
+                binding.valueCertificateFingerprint.setText(getDigestString(binding.valueCertificateFingerprint.getContext(), cert));
+                binding.valueSignatureAlgorithm.setText(mCertificate.getSigAlgName());
             }
         } catch (CertificateEncodingException e) {
             Log.e(TAG, "Problem while trying to decode the certificate.");
@@ -130,105 +125,91 @@ public class X509CertificateViewAdapter implements SslUntrustedCertDialog.Certif
         return digestType + ":" + newLine + hex.toString().replaceFirst("\\:$","") + newLine + newLine;
     }
 
-    private void showValidity(Date notBefore, Date notAfter, View dialogView) {
-        TextView fromView = dialogView.findViewById(R.id.value_validity_from);
-        TextView toView = dialogView.findViewById(R.id.value_validity_to);
+    private void showValidity(Date notBefore, Date notAfter, @NonNull SslUntrustedCertLayoutBinding binding) {
         DateFormat dateFormat = DateFormat.getDateInstance();
-        fromView.setText(dateFormat.format(notBefore));
-        toView.setText(dateFormat.format(notAfter));
+        binding.valueValidityFrom.setText(dateFormat.format(notBefore));
+        binding.valueValidityTo.setText(dateFormat.format(notAfter));
     }
 
-    private void showSubject(X500Principal subject, View dialogView) {
+    private void showSubject(X500Principal subject, @NonNull SslUntrustedCertLayoutBinding binding) {
         Map<String, String> s = parsePrincipal(subject);
-        TextView cnView = dialogView.findViewById(R.id.value_subject_CN);
-        TextView oView = dialogView.findViewById(R.id.value_subject_O);
-        TextView ouView = dialogView.findViewById(R.id.value_subject_OU);
-        TextView cView = dialogView.findViewById(R.id.value_subject_C);
-        TextView stView = dialogView.findViewById(R.id.value_subject_ST);
-        TextView lView = dialogView.findViewById(R.id.value_subject_L);
 
         if (s.get("CN") != null) {
-            cnView.setText(s.get("CN"));
-            cnView.setVisibility(View.VISIBLE);
+            binding.valueSubjectCN.setText(s.get("CN"));
+            binding.valueSubjectCN.setVisibility(View.VISIBLE);
         } else {
-            cnView.setVisibility(View.GONE);
+            binding.valueSubjectCN.setVisibility(View.GONE);
         }
         if (s.get("O") != null) {
-            oView.setText(s.get("O"));
-            oView.setVisibility(View.VISIBLE);
+            binding.valueSubjectO.setText(s.get("O"));
+            binding.valueSubjectO.setVisibility(View.VISIBLE);
         } else {
-            oView.setVisibility(View.GONE);
+            binding.valueSubjectO.setVisibility(View.GONE);
         }
         if (s.get("OU") != null) {
-            ouView.setText(s.get("OU"));
-            ouView.setVisibility(View.VISIBLE);
+            binding.valueSubjectOU.setText(s.get("OU"));
+            binding.valueSubjectOU.setVisibility(View.VISIBLE);
         } else {
-            ouView.setVisibility(View.GONE);
+            binding.valueSubjectOU.setVisibility(View.GONE);
         }
         if (s.get("C") != null) {
-            cView.setText(s.get("C"));
-            cView.setVisibility(View.VISIBLE);
+            binding.valueSubjectC.setText(s.get("C"));
+            binding.valueSubjectC.setVisibility(View.VISIBLE);
         } else {
-            cView.setVisibility(View.GONE);
+            binding.valueSubjectC.setVisibility(View.GONE);
         }
         if (s.get("ST") != null) {
-            stView.setText(s.get("ST"));
-            stView.setVisibility(View.VISIBLE);
+            binding.valueSubjectST.setText(s.get("ST"));
+            binding.valueSubjectST.setVisibility(View.VISIBLE);
         } else {
-            stView.setVisibility(View.GONE);
+            binding.valueSubjectST.setVisibility(View.GONE);
         }
         if (s.get("L") != null) {
-            lView.setText(s.get("L"));
-            lView.setVisibility(View.VISIBLE);
+            binding.valueSubjectL.setText(s.get("L"));
+            binding.valueSubjectL.setVisibility(View.VISIBLE);
         } else {
-            lView.setVisibility(View.GONE);
+            binding.valueSubjectL.setVisibility(View.GONE);
         }
     }
 
-    private void showIssuer(X500Principal issuer, View dialogView) {
+    private void showIssuer(X500Principal issuer, @NonNull SslUntrustedCertLayoutBinding binding) {
         Map<String, String> s = parsePrincipal(issuer);
-        TextView cnView = dialogView.findViewById(R.id.value_issuer_CN);
-        TextView oView = dialogView.findViewById(R.id.value_issuer_O);
-        TextView ouView = dialogView.findViewById(R.id.value_issuer_OU);
-        TextView cView = dialogView.findViewById(R.id.value_issuer_C);
-        TextView stView = dialogView.findViewById(R.id.value_issuer_ST);
-        TextView lView = dialogView.findViewById(R.id.value_issuer_L);
 
         if (s.get("CN") != null) {
-            cnView.setText(s.get("CN"));
-            cnView.setVisibility(View.VISIBLE);
+            binding.valueIssuerCN.setText(s.get("CN"));
+            binding.valueIssuerCN.setVisibility(View.VISIBLE);
         } else {
-            cnView.setVisibility(View.GONE);
+            binding.valueIssuerCN.setVisibility(View.GONE);
         }
         if (s.get("O") != null) {
-            oView.setText(s.get("O"));
-            oView.setVisibility(View.VISIBLE);
+            binding.valueIssuerO.setText(s.get("O"));
+            binding.valueIssuerO.setVisibility(View.VISIBLE);
         } else {
-            oView.setVisibility(View.GONE);
+            binding.valueIssuerO.setVisibility(View.GONE);
         }
         if (s.get("OU") != null) {
-            ouView.setText(s.get("OU"));
-            ouView.setVisibility(View.VISIBLE);
+            binding.valueIssuerOU.setText(s.get("OU"));
+            binding.valueIssuerOU.setVisibility(View.VISIBLE);
         } else {
-            ouView.setVisibility(View.GONE);
+            binding.valueIssuerOU.setVisibility(View.GONE);
         }
         if (s.get("C") != null) {
-            cView.setText(s.get("C"));
-            cView.setVisibility(View.VISIBLE);
+            binding.valueIssuerC.setText(s.get("C"));
+            binding.valueIssuerC.setVisibility(View.VISIBLE);
         } else {
-            cView.setVisibility(View.GONE);
+            binding.valueIssuerC.setVisibility(View.GONE);
         }
         if (s.get("ST") != null) {
-            stView.setText(s.get("ST"));
-            stView.setVisibility(View.VISIBLE);
+            binding.valueIssuerST.setText(s.get("ST"));
+            binding.valueIssuerST.setVisibility(View.VISIBLE);
         } else {
-            stView.setVisibility(View.GONE);
+            binding.valueIssuerST.setVisibility(View.GONE);
         }
         if (s.get("L") != null) {
-            lView.setText(s.get("L"));
-            lView.setVisibility(View.VISIBLE);
+            binding.valueIssuerL.setText(s.get("L"));
+            binding.valueIssuerL.setVisibility(View.VISIBLE);
         } else {
-            lView.setVisibility(View.GONE);
+            binding.valueIssuerL.setVisibility(View.GONE);
         }
     }
 
