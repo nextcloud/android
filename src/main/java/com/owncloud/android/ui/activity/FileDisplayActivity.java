@@ -294,7 +294,7 @@ public class FileDisplayActivity extends FileActivity
                 Snackbar snackbar = Snackbar.make(binding.ListLayout,
                                                   R.string.permission_storage_access,
                         Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.common_ok, v -> PermissionUtil.requestWriteExternalStoreagePermission(FileDisplayActivity.this));
+                        .setAction(R.string.common_ok, v -> PermissionUtil.requestWriteExternalStoreagePermission(this));
                 ThemeUtils.colorSnackbar(this, snackbar);
                 snackbar.show();
             } else {
