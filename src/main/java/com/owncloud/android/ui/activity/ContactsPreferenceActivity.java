@@ -93,7 +93,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
                 transaction.add(R.id.frame_container, fragment);
             } else {
                 OCFile file = Parcels.unwrap(intent.getParcelableExtra(ContactListFragment.FILE_NAME));
-                User user = Parcels.unwrap(intent.getParcelableExtra(ContactListFragment.USER));
+                User user = intent.getParcelableExtra(ContactListFragment.USER);
                 ContactListFragment contactListFragment = ContactListFragment.newInstance(file, user);
                 transaction.add(R.id.frame_container, contactListFragment);
             }
