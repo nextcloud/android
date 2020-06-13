@@ -105,7 +105,6 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.PhotoFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
-import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
@@ -2357,10 +2356,7 @@ public class FileDisplayActivity extends FileActivity
 
     public void startContactListFragment(OCFile file) {
         final User user = getUser().orElseThrow(RuntimeException::new);
-        Intent intent = new Intent(this, ContactsPreferenceActivity.class);
-        intent.putExtra(ContactListFragment.FILE_NAME, Parcels.wrap(file));
-        intent.putExtra(ContactListFragment.USER, user);
-        startActivity(intent);
+        ContactsPreferenceActivity.startActivityWithContactsFile(this, user, file);
     }
 
     /**
