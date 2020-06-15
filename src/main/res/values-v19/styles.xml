@@ -28,4 +28,6 @@
         <item name="actionBarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
         <item name="windowActionBarOverlay">true</item>
     </style>
+
+    <style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar.LoginBase" />
 </resources>
