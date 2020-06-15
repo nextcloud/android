@@ -26,6 +26,8 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -56,7 +58,7 @@ import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 /**
  * Adapter for the trashbin view
  */
-public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
 
     private static final int TRASHBIN_ITEM = 100;
     private static final int TRASHBIN_FOOTER = 101;
@@ -294,6 +296,35 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         preferences.setSortOrder(FileSortOrder.Type.trashBinView, sortOrder);
         files = sortOrder.sortTrashbinFiles(files);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults results = new FilterResults();
+
+                ArrayList<TrashbinFile> filteredList = new ArrayList<>();
+
+                for (TrashbinFile file : files) {
+                    if (file.getFileName().contains(constraint)) {
+                        filteredList.add(file);
+                    }
+                }
+
+                results.count = filteredList.size();
+                results.values = filteredList;
+
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                files = (List<TrashbinFile>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public class TrashbinFileViewHolder extends RecyclerView.ViewHolder {

@@ -55,6 +55,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindString;
@@ -68,10 +70,12 @@ import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFrag
  * Presenting trashbin data, received from presenter
  */
 public class TrashbinActivity extends FileActivity implements
-        TrashbinActivityInterface,
-        SortingOrderDialogFragment.OnSortingOrderListener,
-        TrashbinContract.View,
-        Injectable {
+    TrashbinActivityInterface,
+    SortingOrderDialogFragment.OnSortingOrderListener,
+    TrashbinContract.View,
+    Injectable,
+    SearchView.OnQueryTextListener,
+    SearchView.OnCloseListener {
 
     @BindView(R.id.empty_list_view_text)
     public TextView emptyContentMessage;
@@ -114,8 +118,10 @@ public class TrashbinActivity extends FileActivity implements
         trashbinPresenter = new TrashbinPresenter(trashRepository, this);
         setContentView(R.layout.trashbin_activity);
         unbinder = ButterKnife.bind(this);
-        setupToolbar();
-        updateActionBarTitleAndHomeButtonByString(getString(R.string.trashbin_activity_title));
+        setupHomeSearchToolbar(true);
+        //updateActionBarTitleAndHomeButtonByString(getString(R.string.trashbin_activity_title));
+        mSearchText.setText("Filter in deleted files");
+
         setupDrawer(R.id.nav_trashbin);
     }
 
@@ -157,6 +163,8 @@ public class TrashbinActivity extends FileActivity implements
                                                                              FileSortOrder.Type.trashBinView,
                                                                              FileSortOrder.sort_new_to_old))
                                      );
+
+        findViewById(R.id.switch_grid_view_button).setVisibility(View.GONE);
 
         loadFolder();
     }
@@ -237,6 +245,18 @@ public class TrashbinActivity extends FileActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_trashbin, menu);
 
+        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnCloseListener(this);
+
+        mSearchText.setOnClickListener(v -> {
+            showSearchView();
+            searchView.setIconified(false);
+        });
+
+        ThemeUtils.themeSearchView(searchView, this);
+
         return true;
     }
 
@@ -311,5 +331,27 @@ public class TrashbinActivity extends FileActivity implements
                 emptyContentIcon.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    @Override
+    public boolean onClose() {
+        trashbinListAdapter.getFilter().filter("");
+        hideSearchView(null);
+
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        trashbinListAdapter.getFilter().filter(query);
+
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        trashbinListAdapter.getFilter().filter(newText);
+
+        return true;
     }
 }
