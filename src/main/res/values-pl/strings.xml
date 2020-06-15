@@ -632,7 +632,7 @@
     <string name="shared_with_you_by">Udostępnione przez %1$s</string>
     <string name="sharee_add_failed">Udostępnienie nie powiodło się</string>
     <string name="signup_with_provider">Zarejestruj się u usługodawcy</string>
-    <string name="single_sign_on_request_token" formatted="true">Pozwolić %1$s na dostęp do Twojego konta Nextcloud %2$s?</string>
+    <string name="single_sign_on_request_token" formatted="true">Zezwolić %1$s na dostęp do Twojego konta Nextcloud %2$s?</string>
     <string name="sort_by">Sortuj według</string>
     <string name="sort_by_modification_date_ascending">Od najnowszych</string>
     <string name="sort_by_modification_date_descending">Od najstarszych</string>

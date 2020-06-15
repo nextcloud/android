@@ -166,7 +166,7 @@
     <string name="copy_file_error">Produciuse un erro ao tentar copiar este ficheiro ou cartafol.</string>
     <string name="copy_file_invalid_into_descendent">Non é posíbel copiar un cartafol nun dos seus propios subcartafoles</string>
     <string name="copy_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
-    <string name="copy_file_not_found">Non se puido copiar. Comprobe que o ficheiro existe.</string>
+    <string name="copy_file_not_found">Non é posíbel copiar. Comprobe que o ficheiro existe.</string>
     <string name="copy_link">Copiar a ligazón</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover dentro dun cartafol cifrado aínda non está admitido.</string>
     <string name="copy_to">Copiar en…</string>
@@ -421,7 +421,7 @@
     <string name="move_file_error">Produciuse un erro ao tentar mover este ficheiro ou cartafol</string>
     <string name="move_file_invalid_into_descendent">Non é posíbel mover un cartafol cara a un dos seus propios subcartafoles</string>
     <string name="move_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
-    <string name="move_file_not_found">Non se puido mover o ficheiro. Comprobe que existe.</string>
+    <string name="move_file_not_found">Non é posíbel mover o ficheiro. Comprobe que existe.</string>
     <string name="move_to">Mover a…</string>
     <string name="network_error_connect_timeout_exception">Produciuse un erro agardando a resposta do servidor. Non foi posíbel completar a operación.</string>
     <string name="network_error_socket_exception">Produciuse un erro durante a conexión co servidor</string>
@@ -595,7 +595,7 @@
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
     <string name="share_link_empty_password">Ten que introducir un contrasinal</string>
     <string name="share_link_file_error">Produciuse un erro ao tentar compartir este ficheiro ou cartafol.</string>
-    <string name="share_link_file_no_exist">Non se puido actualizar. Comprobe que o ficheiro existe.</string>
+    <string name="share_link_file_no_exist">Non é posíbel compartir, Comprobe que o ficheiro existe.</string>
     <string name="share_link_forbidden_permissions">para compartir este ficheiro</string>
     <string name="share_link_optional_password_title">Escriba un contrasinal opcional</string>
     <string name="share_link_password_title">Introduza un contrasinal</string>
@@ -733,7 +733,7 @@
     <string name="unsharing_failed">Produciuse un fallo ao deixar de compartir</string>
     <string name="untrusted_domain">Acceder a través dun dominio fiábel. Lea a documentación para obter máis más información.</string>
     <string name="update_link_file_error">Produciuse un erro ao tentar actualizar o elemento compartido.</string>
-    <string name="update_link_file_no_exist">Non se puido actualizar. Comprobe que o ficheiro existe.</string>
+    <string name="update_link_file_no_exist">Non é posíbel actualizar. Comprobe que o ficheiro existe.</string>
     <string name="update_link_forbidden_permissions">para actualizar esta compartición</string>
     <string name="updating_share_failed">Produciuse un fallo ao actualizar elementos compartidos</string>
     <string name="upload_cannot_create_file">Non é posíbel crear o ficheiro local</string>
