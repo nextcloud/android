@@ -95,7 +95,7 @@
 	<!-- separate style for Drawer activities needed for v21+ theming -->
 	<style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar"/>
 
-	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.Toolbar">
+    <style name="Theme.ownCloud.noActionBar.LoginBase" parent="Theme.ownCloud.Toolbar">
 		<item name="android:windowBackground">@color/primary</item>
         <item name="colorControlNormal">@color/login_text_color</item>
         <item name="colorControlActivated">@color/login_text_color</item>
