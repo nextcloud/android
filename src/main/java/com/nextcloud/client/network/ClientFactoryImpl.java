@@ -36,12 +36,16 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 
 import java.io.IOException;
 
-class ClientFactoryImpl implements ClientFactory {
+import okhttp3.Interceptor;
+
+public class ClientFactoryImpl implements ClientFactory {
 
     private Context context;
+    private Interceptor interceptor;
 
-    ClientFactoryImpl(Context context) {
+    public ClientFactoryImpl(Context context, Interceptor interceptor) {
         this.context = context;
+        this.interceptor = interceptor;
     }
 
     @Override
@@ -58,7 +62,7 @@ class ClientFactoryImpl implements ClientFactory {
     @Override
     public NextcloudClient createNextcloudClient(User user) throws CreationException {
         try {
-            return OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(), context);
+            return OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(), context, interceptor);
         } catch (OperationCanceledException |
             AuthenticatorException |
             IOException |

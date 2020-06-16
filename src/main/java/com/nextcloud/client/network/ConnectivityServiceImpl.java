@@ -38,7 +38,7 @@ import java.io.IOException;
 import androidx.core.net.ConnectivityManagerCompat;
 import kotlin.jvm.functions.Function1;
 
-class ConnectivityServiceImpl implements ConnectivityService {
+public class ConnectivityServiceImpl implements ConnectivityService {
 
     private final static String TAG = ConnectivityServiceImpl.class.getName();
 
@@ -48,18 +48,18 @@ class ConnectivityServiceImpl implements ConnectivityService {
     private final GetRequestBuilder requestBuilder;
     private final Logger logger;
 
-    static class GetRequestBuilder implements Function1<String, GetMethod> {
+    public static class GetRequestBuilder implements Function1<String, GetMethod> {
         @Override
         public GetMethod invoke(String url) {
             return new GetMethod(url);
         }
     }
 
-    ConnectivityServiceImpl(ConnectivityManager platformConnectivityManager,
-                            UserAccountManager accountManager,
-                            ClientFactory clientFactory,
-                            GetRequestBuilder requestBuilder,
-                            Logger logger) {
+    public ConnectivityServiceImpl(ConnectivityManager platformConnectivityManager,
+                                   UserAccountManager accountManager,
+                                   ClientFactory clientFactory,
+                                   GetRequestBuilder requestBuilder,
+                                   Logger logger) {
         this.platformConnectivityManager = platformConnectivityManager;
         this.accountManager = accountManager;
         this.clientFactory = clientFactory;

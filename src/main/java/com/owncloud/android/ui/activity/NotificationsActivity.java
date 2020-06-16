@@ -40,10 +40,10 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.jobs.NotificationWork;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -107,7 +107,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
 
     private NotificationListAdapter adapter;
     private Snackbar snackbar;
-    private OwnCloudClient client;
+    private NextcloudClient client;
     private Optional<User> optionalUser;
 
     @Inject ClientFactory clientFactory;
@@ -258,7 +258,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
             if (client == null && optionalUser.isPresent()) {
                 try {
                     User user = optionalUser.get();
-                    client = clientFactory.create(user);
+                    client = clientFactory.createNextcloudClient(user);
                 } catch (ClientFactory.CreationException e) {
                     Log_OC.e(TAG, "Error initializing client", e);
                 }
@@ -266,7 +266,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
 
             if (adapter == null) {
                 adapter = new NotificationListAdapter(client, this);
-                recyclerView.setAdapter(adapter);
+                // recyclerView.setAdapter(adapter);
             }
 
             RemoteOperation getRemoteNotificationOperation = new GetNotificationsRemoteOperation();

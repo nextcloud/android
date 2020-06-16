@@ -1,8 +1,10 @@
 /*
+ *
  * Nextcloud Android client application
  *
- * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * @author Tobias Kaminsky
+ * Copyright (C) 2020 Tobias Kaminsky
+ * Copyright (C) 2020 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -15,16 +17,21 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.client.network;
+package com.owncloud.android;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.logger.Logger;
+import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.network.ClientFactoryImpl;
+import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.ConnectivityServiceImpl;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import javax.inject.Singleton;
 
@@ -32,7 +39,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class NetworkModule {
+public class MockedNetworkModule {
 
     @Provides
     ConnectivityService connectivityService(ConnectivityManager connectivityManager,
@@ -49,12 +56,13 @@ public class NetworkModule {
     @Provides
     @Singleton
     ClientFactory clientFactory(Context context) {
-        return new ClientFactoryImpl(context, null);
+        Log_OC.d("MOCK", "c");
+        return new ClientFactoryImpl(context, new MockInterceptor());
     }
 
     @Provides
     @Singleton
     ConnectivityManager connectivityManager(Context context) {
-        return (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 }

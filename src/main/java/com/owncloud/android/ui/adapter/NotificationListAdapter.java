@@ -20,7 +20,6 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.PictureDrawable;
@@ -45,8 +44,8 @@ import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
 import com.google.android.material.button.MaterialButton;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.notifications.models.Action;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.lib.resources.notifications.models.RichObject;
@@ -79,10 +78,10 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     private ForegroundColorSpan foregroundColorSpanBlack;
 
     private List<Notification> notificationsList;
-    private OwnCloudClient client;
+    private NextcloudClient client;
     private NotificationsActivity notificationsActivity;
 
-    public NotificationListAdapter(OwnCloudClient client, NotificationsActivity notificationsActivity) {
+    public NotificationListAdapter(NextcloudClient client, NotificationsActivity notificationsActivity) {
         this.notificationsList = new ArrayList<>();
         this.client = client;
         this.notificationsActivity = notificationsActivity;
@@ -143,7 +142,9 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
         setButtons(holder, notification);
 
-        holder.dismiss.setOnClickListener(v -> new DeleteNotificationTask(client, notification, holder,
+        holder.dismiss.setOnClickListener(v -> new DeleteNotificationTask(client,
+                                                                          notification,
+                                                                          holder,
                                                                           notificationsActivity).execute());
     }
 
