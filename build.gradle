@@ -63,7 +63,7 @@ ext {
     daggerVersion = "2.27"
     markwonVersion =  "4.4.0"
     prismVersion = "2.0.0"
-    androidLibraryVersion = "master-SNAPSHOT"
+    androidLibraryVersion = "interceptor-SNAPSHOT"
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -368,6 +368,8 @@ dependencies {
     testImplementation 'org.json:json:20200518'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
+    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
 
     // dependencies for instrumented tests
     // JUnit4 Rules

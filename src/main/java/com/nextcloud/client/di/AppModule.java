@@ -68,7 +68,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module(includes = {ComponentsModule.class, VariantComponentsModule.class})
-class AppModule {
+public class AppModule {
 
     @Provides
     AccountManager accountManager(Application application) {
