@@ -287,7 +287,7 @@
     <string name="file_details_no_content">Caricamento dettagli non riuscito</string>
     <string name="file_icon">File</string>
     <string name="file_keep">Mantieni</string>
-    <string name="file_list_empty">Carica alcuni contenuti o sincronizza con i tuoi dispositivi.</string>
+    <string name="file_list_empty">Carica dei contenuti o sincronizza con i tuoi dispositivi.</string>
     <string name="file_list_empty_favorite_headline">Ancora nessun preferito</string>
     <string name="file_list_empty_favorites_filter">La tua ricerca non ha restituito alcun file preferito.</string>
     <string name="file_list_empty_favorites_filter_list">I file e le cartelle che marchi come preferiti saranno mostrati qui.</string>
@@ -307,7 +307,7 @@
     <string name="file_list_empty_shared_headline">Ancora nessuna condivisione</string>
     <string name="file_list_empty_text_photos">Carica alcune foto o attiva il caricamento automatico.</string>
     <string name="file_list_empty_text_photos_filter">Nessuna foto.</string>
-    <string name="file_list_empty_text_videos">Carica alcuni video o attiva il caricamento automatico.</string>
+    <string name="file_list_empty_text_videos">Carica dei video o attiva il caricamento automatico.</string>
     <string name="file_list_empty_text_videos_filter">Nessun video.</string>
     <string name="file_list_folder">cartella</string>
     <string name="file_list_loading">Caricamento in corso…</string>
@@ -749,7 +749,7 @@
     <string name="upload_item_action_button">Pulsante azione Carica elemento</string>
     <string name="upload_list_delete">Elimina</string>
     <string name="upload_list_empty_headline">Nessun caricamento disponibile</string>
-    <string name="upload_list_empty_text_auto_upload">Carica alcuni contenuti o attiva il caricamento automatico.</string>
+    <string name="upload_list_empty_text_auto_upload">Carica dei contenuti o attiva il caricamento automatico.</string>
     <string name="upload_list_resolve_conflict">Risolvi conflitto</string>
     <string name="upload_local_storage_full">Archiviazione locale piena</string>
     <string name="upload_local_storage_not_copied">Il file non può essere copiato nell\'archiviazione locale</string>
