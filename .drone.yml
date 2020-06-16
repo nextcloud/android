@@ -262,7 +262,7 @@ steps:
       - scripts/wait_for_emulator.sh
       - ./gradlew installGplayDebugAndroidTest
       - scripts/wait_for_server.sh "server"
-      - ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" Screenshot" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "Screenshot" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
   - name: notify
     image: drillster/drone-email
     settings:
