@@ -20,7 +20,6 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.PictureDrawable;

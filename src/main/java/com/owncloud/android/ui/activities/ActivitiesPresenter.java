@@ -19,7 +19,6 @@
 
 package com.owncloud.android.ui.activities;
 
-import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesRepository;
@@ -51,11 +50,11 @@ public class ActivitiesPresenter implements ActivitiesContract.ActionListener {
         activitiesView.setProgressIndicatorState(true);
         activitiesRepository.getActivities(lastGiven, new ActivitiesRepository.LoadActivitiesCallback() {
             @Override
-            public void onActivitiesLoaded(List<Object> activities, NextcloudClient client, int lastGiven) {
+            public void onActivitiesLoaded(List<Object> activities, int lastGiven) {
 
                 if (!activityStopped) {
                     activitiesView.setProgressIndicatorState(false);
-                    activitiesView.showActivities(activities, client, lastGiven);
+                    activitiesView.showActivities(activities, lastGiven);
                 }
             }
 

@@ -18,7 +18,6 @@
  */
 package com.owncloud.android.ui.activities.data.activities;
 
-import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.lib.resources.activities.model.Activity;
 
 import java.util.List;
@@ -31,10 +30,9 @@ import java.util.List;
 public interface ActivitiesServiceApi {
 
     interface ActivitiesServiceCallback<T> {
-        void onLoaded(T activities, NextcloudClient client, int lastGiven);
+        void onLoaded(T activities, int lastGiven);
         void onError (String error);
     }
 
     void getAllActivities(int lastGiven, ActivitiesServiceApi.ActivitiesServiceCallback<List<Object>> callback);
-
 }

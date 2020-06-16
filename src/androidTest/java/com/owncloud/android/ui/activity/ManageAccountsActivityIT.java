@@ -28,6 +28,7 @@ import com.facebook.testing.screenshot.Screenshot;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.utils.ScreenshotTest;
+import com.owncloud.android.utils.ScreenshotWithServerTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,6 +42,7 @@ public class ManageAccountsActivityIT extends AbstractIT {
                                                                                         false);
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     public void open() {
         Activity sut = activityRule.launchActivity(null);
@@ -51,6 +53,7 @@ public class ManageAccountsActivityIT extends AbstractIT {
     }
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     public void userInfoDetail() {
         ManageAccountsActivity sut = activityRule.launchActivity(null);

@@ -119,12 +119,16 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.storageManager = storageManager;
         this.capability = capability;
         this.clientFactory = clientFactory;
+        try {
+            this.client = clientFactory.createNextcloudClient(currentAccountProvider.getUser());
+        } catch (ClientFactory.CreationException e) {
+            Log_OC.e(this, "Failed to create client", e);
+        }
         px = getThumbnailDimension();
         this.isDetailView = isDetailView;
     }
 
-    public void setActivityItems(List<Object> activityItems, NextcloudClient client, boolean clear) {
-        this.client = client;
+    public void setActivityItems(List<Object> activityItems, boolean clear) {
         String sTime = "";
 
         if (clear) {

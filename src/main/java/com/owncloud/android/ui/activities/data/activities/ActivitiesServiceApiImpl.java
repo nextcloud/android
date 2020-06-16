@@ -71,7 +71,6 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         private Account account;
         private int lastGiven;
         private String errorMessage;
-        private NextcloudClient client;
 
         private GetActivityListTask(Account account,
                                     int lastGiven,
@@ -89,7 +88,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
             OwnCloudAccount ocAccount;
             try {
                 ocAccount = new OwnCloudAccount(account, context);
-                client = OwnCloudClientManagerFactory.getDefaultSingleton().
+                NextcloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().
                     getNextcloudClientFor(ocAccount, MainApp.getAppContext());
 
                 GetActivitiesRemoteOperation getRemoteActivitiesOperation;
@@ -138,7 +137,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         protected void onPostExecute(Boolean success) {
             super.onPostExecute(success);
             if (success) {
-                callback.onLoaded(activities, client, lastGiven);
+                callback.onLoaded(activities, lastGiven);
             } else {
                 callback.onError(errorMessage);
             }

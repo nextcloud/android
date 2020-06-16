@@ -31,6 +31,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ScreenshotTest;
+import com.owncloud.android.utils.ScreenshotWithServerTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -51,6 +52,7 @@ public class PreviewTextFileFragmentTest extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     public void displaySimpleTextFile() {
         FileDisplayActivity sut = activityRule.launchActivity(null);
@@ -69,6 +71,7 @@ public class PreviewTextFileFragmentTest extends AbstractIT {
     }
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     public void displayJavaSnippetFile() throws IOException {
         FileDisplayActivity sut = activityRule.launchActivity(null);

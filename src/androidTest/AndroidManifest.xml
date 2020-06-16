@@ -31,4 +31,6 @@
     android:sharedUserId="${applicationId}.uid">
 
     <uses-sdk tools:overrideLibrary="android_libs.ub_uiautomator, tools.fastlane.screengrab" />
+
+    <application android:name="com.owncloud.android.TestApp"></application>
 </manifest>
