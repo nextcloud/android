@@ -104,8 +104,10 @@ class Migrations @Inject constructor(
                 logger.i(TAG, "$description: no users to migrate")
             } else {
                 users.forEach {
-                    val backupEnabled = arbitraryDataProvider.getBooleanValue(it.accountName,
-                        ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)
+                    val backupEnabled = arbitraryDataProvider.getBooleanValue(
+                        it.accountName,
+                        ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP
+                    )
                     if (backupEnabled) {
                         jobManager.schedulePeriodicContactsBackup(it)
                     }

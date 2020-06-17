@@ -285,7 +285,8 @@ internal class BackgroundJobManagerImpl(
         val request = periodicRequestBuilder(
             jobClass = FilesSyncWork::class,
             jobName = JOB_PERIODIC_FILES_SYNC,
-            intervalMins = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES).build()
+            intervalMins = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES
+        ).build()
         workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_FILES_SYNC, ExistingPeriodicWorkPolicy.REPLACE, request)
     }
 
@@ -297,7 +298,8 @@ internal class BackgroundJobManagerImpl(
 
         val request = oneTimeRequestBuilder(
             jobClass = FilesSyncWork::class,
-            jobName = JOB_IMMEDIATE_FILES_SYNC)
+            jobName = JOB_IMMEDIATE_FILES_SYNC
+        )
             .setInputData(arguments)
             .build()
 
