@@ -244,8 +244,8 @@ android {
 
             reports {
                 xml.enabled = false
-                html.enabled = true
                 html {
+                    enabled = true
                     destination = file("$project.buildDir/reports/spotbugs/spotbugs.html")
                 }
             }
