@@ -1,0 +1,4 @@
+remove non needed exceptions
+Split off of #5150
+Update translations
+Update Nextcloud Android library
