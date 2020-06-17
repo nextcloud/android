@@ -68,7 +68,7 @@
         <ImageButton
             android:id="@+id/syncStatusButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/transparent"
             android:clickable="true"
             android:contentDescription="@string/sync_status_button"
@@ -79,15 +79,13 @@
         <ImageButton
             android:id="@+id/settingsButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/transparent"
             android:clickable="true"
             android:contentDescription="@string/synced_folder_settings_button"
             android:focusable="true"
-            android:paddingBottom="@dimen/standard_half_padding"
-            android:paddingEnd="@dimen/standard_padding"
+            android:paddingEnd="@dimen/synced_folder_padding_end"
             android:paddingStart="@dimen/standard_half_padding"
-            android:paddingTop="@dimen/standard_half_padding"
-            android:src="@drawable/ic_dots_vertical" />
+            android:src="@drawable/ic_dots_vertical"/>
     </LinearLayout>
 </RelativeLayout>

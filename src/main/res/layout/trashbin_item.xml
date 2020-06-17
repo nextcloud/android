@@ -144,8 +144,6 @@
                 android:contentDescription="@string/overflow_menu"
                 android:focusable="true"
                 android:paddingEnd="@dimen/alternate_padding"
-                android:paddingLeft="@dimen/standard_half_padding"
-                android:paddingRight="@dimen/standard_half_padding"
                 android:paddingStart="@dimen/standard_half_padding"
                 android:src="@drawable/ic_dots_vertical"/>
 
