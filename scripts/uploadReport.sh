@@ -8,8 +8,15 @@ upload() {
 
     echo "Uploaded failing tests to https://www.kaminsky.me/nc-dev/android-integrationTests/$REMOTE_FOLDER"
 
+    # delete all old comments, matching this type
+    oldComments=$(curl 2>/dev/null -u $GITHUB_USER:$GITHUB_PASSWORD -X GET https://api.github.com/repos/nextcloud/android/issues/$PR/comments | jq --arg type $BRANCH_TYPE '.[] | (.id |tostring) + "|" + (.user.login | test("nextcloud-android-bot") | tostring) + "|" + (.body | test("[$TYPE] test failed.*") | tostring)'| grep "true|true" | tr -d "\"" | cut -f1 -d"|")
+
+    echo $oldComments | while read comment ; do
+        curl 2>/dev/null -u $GITHUB_USER:$GITHUB_PASSWORD -X DELETE https://api.github.com/repos/nextcloud/android/issues/comments/$comment
+    done
+
     curl -u $GITHUB_USER:$GITHUB_PASSWORD -X POST https://api.github.com/repos/nextcloud/android/issues/$PR/comments \
-    -d "{ \"body\" : \"$TYPE test failed: https://www.kaminsky.me/nc-dev/android-integrationTests/$REMOTE_FOLDER \" }"
+    -d "{ \"body\" : \"$BRANCH_TYPE test failed: https://www.kaminsky.me/nc-dev/android-integrationTests/$REMOTE_FOLDER \" }"
 
     exit 1
 }
@@ -31,7 +38,8 @@ TYPE=$5
 PR=$6
 GITHUB_USER=$7
 GITHUB_PASSWORD=$8
-REMOTE_FOLDER=$ID-$TYPE
+REMOTE_FOLDER=$ID-$TYPE-BRANCH
+BRANCH_TYPE=$BRANCH-$TYPE
 
 set -e
 
@@ -46,24 +54,27 @@ fi
 if [ -e $FOLDER ]; then
     upload $FOLDER
 else
-    echo "$BRANCH-$TYPE test failed, but no output was generated. Maybe a preliminary stage failed."
+    echo "$BRANCH_TYPE test failed, but no output was generated. Maybe a preliminary stage failed."
 
     curl -u $GITHUB_USER:$GITHUB_PASSWORD \
     -X POST https://api.github.com/repos/nextcloud/android/issues/$PR/comments \
-    -d "{ \"body\" : \"$BRANCH-$TYPE test failed, but no output was generated. Maybe a preliminary stage failed. \" }"
+    -d "{ \"body\" : \"$BRANCH_TYPE test failed, but no output was generated. Maybe a preliminary stage failed. \" }"
 
     if [ -e build/reports/androidTests/connected/flavors/GPLAY ] ; then
         TYPE="IT"
+        BRANCH_TYPE=$BRANCH-$TYPE
         upload "build/reports/androidTests/connected/flavors/GPLAY"
     fi
 
     if [ -e build/reports/tests/testGplayDebugUnitTest ] ; then
         TYPE="Unit"
+        BRANCH_TYPE=$BRANCH-$TYPE
         upload "build/reports/tests/testGplayDebugUnitTest"
     fi
 
     if [ -e build/reports/shot/verification ] ; then
         TYPE="Screenshot"
+        BRANCH_TYPE=$BRANCH-$TYPE
         upload "build/reports/shot/verification"
     fi
 fi
