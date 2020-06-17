@@ -86,8 +86,11 @@ class FilesSyncWork(
         var wakeLock: WakeLock? = null
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
-            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, MainApp.getAuthority() +
-                WAKELOCK_TAG_SEPARATION + TAG)
+            wakeLock = powerManager.newWakeLock(
+                PowerManager.PARTIAL_WAKE_LOCK,
+                MainApp.getAuthority() +
+                    WAKELOCK_TAG_SEPARATION + TAG
+            )
             wakeLock.acquire(WAKELOCK_ACQUIRE_TIMEOUT_MS)
         }
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
@@ -99,10 +102,12 @@ class FilesSyncWork(
         val resources = context.resources
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
         val skipCustom = inputData.getBoolean(SKIP_CUSTOM, false)
-        FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
+        FilesSyncHelper.restartJobsIfNeeded(
+            uploadsStorageManager,
             userAccountManager,
             connectivityService,
-            powerManagementService)
+            powerManagementService
+        )
         FilesSyncHelper.insertAllDBEntries(preferences, clock, skipCustom)
         // Create all the providers we'll needq
         val filesystemDataProvider = FilesystemDataProvider(contentResolver)
@@ -112,8 +117,10 @@ class FilesSyncWork(
         dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
         for (syncedFolder in syncedFolderProvider.syncedFolders) {
             if (syncedFolder.isEnabled && (!skipCustom || MediaFolderType.CUSTOM != syncedFolder.type)) {
-                syncFolder(context, resources, lightVersion, filesystemDataProvider, currentLocale, dateFormat,
-                    syncedFolder)
+                syncFolder(
+                    context, resources, lightVersion, filesystemDataProvider, currentLocale, dateFormat,
+                    syncedFolder
+                )
             }
         }
         wakeLock?.release()
@@ -157,8 +164,10 @@ class FilesSyncWork(
             val mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.absolutePath)
             if (lightVersion) {
                 needsCharging = resources.getBoolean(R.bool.syncedFolder_light_on_charging)
-                needsWifi = arbitraryDataProvider!!.getBooleanValue(accountName,
-                    SettingsActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI)
+                needsWifi = arbitraryDataProvider!!.getBooleanValue(
+                    accountName,
+                    SettingsActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI
+                )
                 val uploadActionString = resources.getString(R.string.syncedFolder_light_upload_behaviour)
                 uploadAction = getUploadAction(uploadActionString)
                 subfolderByDate = resources.getBoolean(R.bool.syncedFolder_light_use_subfolders)
@@ -190,8 +199,10 @@ class FilesSyncWork(
                 needsCharging,
                 FileUploader.NameCollisionPolicy.ASK_USER
             )
-            filesystemDataProvider.updateFilesystemFileAsSentForUpload(path,
-                java.lang.Long.toString(syncedFolder.id))
+            filesystemDataProvider.updateFilesystemFileAsSentForUpload(
+                path,
+                java.lang.Long.toString(syncedFolder.id)
+            )
         }
     }
 

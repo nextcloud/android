@@ -115,11 +115,17 @@ class ManualAsyncRunnerTest {
         // WHEN
         //      one task is scheduled
         //      task callback schedules another task
-        runner.post(task, {
-            runner.post(task, {
-                runner.post(task)
-            })
-        })
+        runner.post(
+            task,
+            {
+                runner.post(
+                    task,
+                    {
+                        runner.post(task)
+                    }
+                )
+            }
+        )
         assertEquals(ONE_TASK, runner.size)
 
         // WHEN

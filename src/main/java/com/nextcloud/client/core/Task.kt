@@ -40,9 +40,11 @@ internal class Task<T>(
         try {
             val result = taskBody.invoke()
             if (!cancelled.get()) {
-                postResult.invoke(Runnable {
-                    onSuccess?.invoke(result)
-                })
+                postResult.invoke(
+                    Runnable {
+                        onSuccess?.invoke(result)
+                    }
+                )
             }
         } catch (t: Throwable) {
             if (!cancelled.get()) {

@@ -67,10 +67,10 @@ class EtmBackgroundJobsFragment : EtmBaseFragment() {
 
         private val dateFormat = SimpleDateFormat("YYYY-MM-dd HH:MM:ssZ", Locale.getDefault())
         var backgroundJobs: List<JobInfo> = emptyList()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+            set(value) {
+                field = value
+                notifyDataSetChanged()
+            }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = inflater.inflate(R.layout.etm_background_job_list_item, parent, false)

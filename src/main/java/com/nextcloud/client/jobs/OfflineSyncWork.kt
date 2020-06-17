@@ -93,8 +93,10 @@ class OfflineSyncWork constructor(
         val ocFolder = storageManager.getFileByPath(folderName)
         Log_OC.d(TAG, folderName + ": currentEtag: " + ocFolder.etag)
         // check for etag change, if false, skip
-        val checkEtagOperation = CheckEtagRemoteOperation(ocFolder.encryptedFileName,
-            ocFolder.etagOnServer)
+        val checkEtagOperation = CheckEtagRemoteOperation(
+            ocFolder.encryptedFileName,
+            ocFolder.etagOnServer
+        )
         val result = checkEtagOperation.execute(user.toPlatformAccount(), context)
         when (result.code) {
             ResultCode.ETAG_UNCHANGED -> {
@@ -116,10 +118,12 @@ class OfflineSyncWork constructor(
         if (files != null) {
             for (file in files) {
                 val ocFile = storageManager.getFileByLocalPath(file.path)
-                val synchronizeFileOperation = SynchronizeFileOperation(ocFile.remotePath,
+                val synchronizeFileOperation = SynchronizeFileOperation(
+                    ocFile.remotePath,
                     user,
                     true,
-                    context)
+                    context
+                )
                 synchronizeFileOperation.execute(storageManager, context)
             }
         }
