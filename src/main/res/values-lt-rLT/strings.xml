@@ -90,6 +90,7 @@
  </string>
     <string name="battery_optimization_title">Akumuliatoriaus energijos optimizacija</string>
     <string name="certificate_load_problem">Klaida, įkeliant liudijimą.</string>
+    <string name="changelog_dev_version">Dev versijos pakeitimų žurnalas</string>
     <string name="checkbox">Žymimasis langelis</string>
     <string name="choose_local_folder">Pasirinkite aplanką ...</string>
     <string name="choose_remote_folder">Pasirinkti nuotolinį aplanką…</string>
@@ -115,6 +116,8 @@
     <string name="common_save">Įrašyti</string>
     <string name="common_send">Siųsti</string>
     <string name="common_share">Bendrinti</string>
+    <string name="common_switch_account">Perjungti paskyrą</string>
+    <string name="common_switch_to_account">Prisijungti prie paskyros</string>
     <string name="common_unknown">nežinomas</string>
     <string name="common_yes">Taip</string>
     <string name="community_beta_headline">Testuoti dev versiją</string>
@@ -126,6 +129,7 @@
     <string name="community_contribute_irc_text">Prisijungti prie diskusijų IRC</string>
     <string name="community_contribute_translate_text">Programėlė</string>
     <string name="community_contribute_translate_translate">Versti</string>
+    <string name="community_dev_direct_download">Parsisiųsti vystomą versiją</string>
     <string name="community_release_candidate_headline">Kandidatas kitam leidimui</string>
     <string name="community_release_candidate_text">Kandidatas kitam leidimui (Releace Candidate - RC) yra fragmentas kito stabilaus leidimo. Individualus testavimas gali tam pagelbėti. Prisijunkite testavimui per Play Store arba ieškokite \"Version\" sekcijos F-Droid.</string>
     <string name="community_testing_bug_text">Radote klaidą? Netikslumą?</string>
@@ -139,6 +143,7 @@
     <string name="confirmation_remove_folders_alert">Ar tikrai norite ištrinti pažymėtus elementus ir jų turinį?</string>
     <string name="confirmation_remove_local">Tik vietiniai</string>
     <string name="conflict_already_existing_file">Jau esamas failas</string>
+    <string name="conflict_dialog_error">Klaida kuriant konflikto dialogą!</string>
     <string name="conflict_message_description">Jei pasirinksite abi versijas, vietinis failas prie pavadinimo turės numerį.</string>
     <string name="conflict_message_headline">Kuriuos failus norite pasilikti?</string>
     <string name="conflict_new_file">Naujas failas</string>
@@ -188,6 +193,7 @@
     <string name="disable_new_media_folder_detection_notifications">Išjungti</string>
     <string name="dismiss">Atmesti</string>
     <string name="dismiss_notification_description">Atmesti pranešimą</string>
+    <string name="download_latest_dev_version">Parsisiųsti naujausią dev versiją</string>
     <string name="downloader_download_failed_content">Nepavyko atsisiųsti %1$s</string>
     <string name="downloader_download_failed_credentials_error">Atsiuntimas nepavyko, prisijunkite dar kartą</string>
     <string name="downloader_download_failed_ticker">Atsiuntimas nepavyko</string>
@@ -291,6 +297,7 @@
     <string name="file_list_empty_headline_server_search_photos">Nėra nuotraukų</string>
     <string name="file_list_empty_headline_server_search_videos">Nera vaizdo įrašų</string>
     <string name="file_list_empty_moving">Čia tuščia. Įkelkite ką nors!</string>
+    <string name="file_list_empty_on_device">Čia bus rodomi parsiųsti failai ir aplankai.</string>
     <string name="file_list_empty_recently_added">Neseniai pridėtų failų nerasta</string>
     <string name="file_list_empty_recently_added_filter">Nėra jokių paskiausiai pridėtų failų.</string>
     <string name="file_list_empty_recently_modified">Nerasta jokių per paskutines 7 dienas modifikuotų failų.</string>
@@ -335,6 +342,7 @@
     <string name="file_version_restored_successfully">Failo versija sėkmingai atkurta.</string>
     <string name="filedetails_download">Atsisiųsti</string>
     <string name="filedetails_renamed_in_upload_msg">Failas pervadintas kaip %1$s įkėlimo metu</string>
+    <string name="filedetails_sync_file">Sync</string>
     <string name="filedisplay_no_file_selected">Neįkeltas joks failas</string>
     <string name="filename_empty">Failo pavadinimas negali būti tuščias</string>
     <string name="filename_forbidden_characters">Neleistini simboliai: / \\ &lt; &gt; : \" | ? *</string>
@@ -489,13 +497,17 @@
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendoriaus ir adresatų sinchronizavimas nustatytas</string>
     <string name="prefs_category_about">Apie</string>
     <string name="prefs_category_details">Informacija</string>
+    <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Bendras</string>
     <string name="prefs_category_more">Daugiau</string>
     <string name="prefs_daily_contacts_sync_summary">Kasdieninė Jūsų kontaktų atsarginė kopija</string>
+    <string name="prefs_e2e_mnemonic">E2E mnemoninis</string>
     <string name="prefs_e2e_no_device_credentials">Norėdami parodyti \"mnemoniką\", įjunkite įrenginio prisijungimo duomenis.</string>
     <string name="prefs_enable_media_scan_notifications">Rodyti medijos nuskaitymo pranešimus</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Praneškite apie naujai rastus laikmenų aplankus</string>
     <string name="prefs_gpl_v2">GNU Bendroji Viešoji Licencija, versija 2</string>
     <string name="prefs_help">Pagalba</string>
+    <string name="prefs_imprint">Įspaudas</string>
     <string name="prefs_instant_behaviour_dialogTitle">Pradinis failas bus…</string>
     <string name="prefs_instant_behaviour_title">Pradinis failas bus…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Išsaugoti poaplankyje pagal metus ir mėnesį</string>
@@ -550,6 +562,7 @@
     <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
     <string name="scanQR_description">Prisijungti per QR kodą</string>
     <string name="screenshot_01_gridView_heading">Apsaugomi Jūsų duomenys</string>
+    <string name="screenshot_01_gridView_subline">savarankiškas produktyvumas</string>
     <string name="screenshot_02_listView_heading">Naršyti ir bendrinti</string>
     <string name="screenshot_02_listView_subline">visi veiksmai po ranka</string>
     <string name="screenshot_03_drawer_heading">Veikla, viešiniai, …</string>
@@ -662,6 +675,13 @@
     <string name="storage_movies">Filmai</string>
     <string name="storage_music">Muzika</string>
     <string name="storage_pictures">Paveikslėliai</string>
+    <string name="store_full_desc">Savarankiška produktyvumo platforma, leidžianti Jums išlaikyti kontrolę. \n \nSavybės: \n * Paprasta, moderni sąsaja, tinkanti Jūsų serveriui. \n* Įkelti failai į „Nextcloud“ serverį \n* Failų bendrinimas su kitais naudotojais \n* Mėgstamų failų ir aplankų sinchronizacija. \n* Galima paieška visuose serverio aplankuose. \n* Automatinis Jūsų įrenginio darytų nuotraukų ir vaizdo įrašų įkėlimas \n* Pranešimai apie atnaujinimus \n* Kelių paskyrų palaikymas \n* Saugi prieiga prie savo duomenų naudojant pirštų atspaudus arba PIN kodą \n* Integracija su „DAVx5“ (anksčiau vadintu „DAVdroid“), kad būtų galima lengvai nustatyti kalendoriaus &amp; kontaktų sinchronizavimą\n. Prašome praneškite apie visas kilusias problemas puslapyje https://github.com/nextcloud/android/issues arba https://help.nextcloud.com/c/clients/android\n\nNaujai prisijungėte Nextcloud? „Nextcloud“ yra privatus failų sinchronizavimo &amp; ir ryšių serveris. Tai nemokama programinė įranga, kurią galite admnistruoti patys arba naudotis mokamais kitų įmonių pasiūlymais. Nextcloud Jūs kontroliuoti savo nuotraukas, kalendorių ar kontaktinius duomenis, dokumentus ir visa kita. \n\nIšbandykite „Nextcloud“ https://nextcloud.com.</string>
+    <string name="store_full_dev_desc">Savarankiška platforma.\nTai yra oficiali vystoma versija, turinti neišbandytų funkcijų, kurios gali sukelti nestabilumą ar duomenų praradimą. Programa skirta naudotojams, norintiems išbandyti naujausią versiją ir pranešti apie aptiktas klaidas ar neatitiktis. Nenaudokite jo produktyviam darbui!\n\n Tiek oficialią „dev“ versiją, tiek įprastinę versija „F-droid“ galima įdiegti tuo pačiu metu.</string>
+    <string name="store_short_desc">Savarankiška platforma, leidžianti Jums išlaikyti kontrolę</string>
+    <string name="store_short_dev_desc">Savarankiška platforma, leidžianti Jums išlaikyti kontrolę (dev versija)</string>
+    <string name="stream">Srautas su ...</string>
+    <string name="stream_not_possible_headline">Vidinis perdavimimas negalimas</string>
+    <string name="stream_not_possible_message">Prašome, parsisiųskite media arba naudokite išorinę programą.</string>
     <string name="subject_shared_with_you">\"%1$s\" dalinamasi su jumis</string>
     <string name="subject_user_shared_with_you">%1$s dalinamasi \"%2$s\" su jumis</string>
     <string name="sync_conflicts_in_favourites_ticker">Rastas konfliktas</string>
@@ -677,6 +697,7 @@
     <string name="sync_in_progress">Gaunama paskiausia failo versija.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Pasirinkite ką sinchronizuoti</string>
     <string name="sync_not_enough_space_dialog_action_free_space">Atlaisvinti vietos</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s yra %2$s, bet tik %3$s galimas įrenginyje. </string>
     <string name="sync_not_enough_space_dialog_title">Trūksta vietos</string>
     <string name="sync_status_button">Sinchronizacijos statuso mygtukas</string>
     <string name="sync_string_files">Failai</string>
@@ -779,6 +800,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Vietinis failas nerastas</string>
     <string name="uploads_view_upload_status_failed_permission_error">Leidimo klaida</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Nepatikimas serverio liudijimas</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Pateikiama serverio versija ...</string>
     <string name="uploads_view_upload_status_service_interrupted">Programėlės veikimas nutrauktas</string>
     <string name="uploads_view_upload_status_succeeded">Atliktas</string>
     <string name="uploads_view_upload_status_unknown_fail">Neatpažinta klaida</string>
