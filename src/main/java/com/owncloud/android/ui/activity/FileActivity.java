@@ -470,10 +470,8 @@ public abstract class FileActivity extends DrawerActivity
         OCFile syncedFile = operation.getLocalFile();
         if (!result.isSuccess()) {
             if (result.getCode() == ResultCode.SYNC_CONFLICT) {
-                Intent i = new Intent(this, ConflictsResolveActivity.class);
-                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, syncedFile); // must be new file
-                i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, getAccount());
-                startActivity(i);
+                Intent intent = ConflictsResolveActivity.createIntent(syncedFile, getAccount(), null, this);
+                startActivity(intent);
             }
 
         } else {

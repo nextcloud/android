@@ -233,11 +233,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                     if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
                         // ISSUE 5: if the user is not running the app (this is a service!),
                         // this can be very intrusive; a notification should be preferred
-                        Intent i = new Intent(context, ConflictsResolveActivity.class);
-                        i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        i.putExtra(ConflictsResolveActivity.EXTRA_FILE, finalFile);
-                        i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
-                        context.startActivity(i);
+                        Intent intent = ConflictsResolveActivity.createIntent(finalFile,
+                                                                              user.toPlatformAccount(),
+                                                                              Intent.FLAG_ACTIVITY_NEW_TASK,
+                                                                              context);
+                        context.startActivity(intent);
                     } else {
                         FileStorageUtils.checkIfFileFinishedSaving(finalFile);
                         if (!result.isSuccess()) {

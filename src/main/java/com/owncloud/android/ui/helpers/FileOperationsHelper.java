@@ -249,11 +249,12 @@ public class FileOperationsHelper {
         if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
             // ISSUE 5: if the user is not running the app (this is a service!),
             // this can be very intrusive; a notification should be preferred
-            Intent i = new Intent(fileActivity, ConflictsResolveActivity.class);
-            i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
-            i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
-            i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
-            fileActivity.startActivity(i);
+            Intent intent = ConflictsResolveActivity.createIntent(file,
+                                                                  user.toPlatformAccount(),
+                                                                  Intent.FLAG_ACTIVITY_NEW_TASK,
+                                                                  fileActivity);
+
+            fileActivity.startActivity(intent);
         } else {
             if (file.isDown()) {
                 FileStorageUtils.checkIfFileFinishedSaving(file);
@@ -317,11 +318,11 @@ public class FileOperationsHelper {
                     if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
                         // ISSUE 5: if the user is not running the app (this is a service!),
                         // this can be very intrusive; a notification should be preferred
-                        Intent i = new Intent(fileActivity, ConflictsResolveActivity.class);
-                        i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
-                        i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
-                        fileActivity.startActivity(i);
+                        Intent intent = ConflictsResolveActivity.createIntent(file,
+                                                                              user.toPlatformAccount(),
+                                                                              Intent.FLAG_ACTIVITY_NEW_TASK,
+                                                                              fileActivity);
+                        fileActivity.startActivity(intent);
                     } else {
                         if (!launchables.isEmpty()) {
                             try {
