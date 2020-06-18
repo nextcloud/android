@@ -123,38 +123,51 @@ class MediaFoldersDetectionWork constructor(
                     val allUsers = userAccountManager.allUsers
                     val activeUsers: MutableList<User> = ArrayList()
                     for (account in allUsers) {
-                        if (!arbitraryDataProvider.getBooleanValue(account.toPlatformAccount(),
-                                ManageAccountsActivity.PENDING_FOR_REMOVAL)) {
+                        if (!arbitraryDataProvider.getBooleanValue(
+                            account.toPlatformAccount(),
+                            ManageAccountsActivity.PENDING_FOR_REMOVAL
+                        )
+                        ) {
                             activeUsers.add(account)
                         }
                     }
                     for (user in activeUsers) {
                         for (imageMediaFolder in imageMediaFolderPaths) {
-                            val folder = syncedFolderProvider.findByLocalPathAndAccount(imageMediaFolder,
-                                user.toPlatformAccount())
+                            val folder = syncedFolderProvider.findByLocalPathAndAccount(
+                                imageMediaFolder,
+                                user.toPlatformAccount()
+                            )
                             if (folder == null) {
                                 val contentTitle = String.format(
                                     resources.getString(R.string.new_media_folder_detected),
                                     resources.getString(R.string.new_media_folder_photos)
                                 )
-                                sendNotification(contentTitle,
+                                sendNotification(
+                                    contentTitle,
                                     imageMediaFolder.substring(imageMediaFolder.lastIndexOf('/') + 1),
                                     user,
                                     imageMediaFolder,
-                                    1)
+                                    1
+                                )
                             }
                         }
                         for (videoMediaFolder in videoMediaFolderPaths) {
-                            val folder = syncedFolderProvider.findByLocalPathAndAccount(videoMediaFolder,
-                                user.toPlatformAccount())
+                            val folder = syncedFolderProvider.findByLocalPathAndAccount(
+                                videoMediaFolder,
+                                user.toPlatformAccount()
+                            )
                             if (folder == null) {
-                                val contentTitle = String.format(context.getString(R.string.new_media_folder_detected),
-                                    context.getString(R.string.new_media_folder_videos))
-                                sendNotification(contentTitle,
+                                val contentTitle = String.format(
+                                    context.getString(R.string.new_media_folder_detected),
+                                    context.getString(R.string.new_media_folder_videos)
+                                )
+                                sendNotification(
+                                    contentTitle,
                                     videoMediaFolder.substring(videoMediaFolder.lastIndexOf('/') + 1),
                                     user,
                                     videoMediaFolder,
-                                    2)
+                                    2
+                                )
                             }
                         }
                     }
@@ -162,8 +175,10 @@ class MediaFoldersDetectionWork constructor(
             }
         } else {
             mediaFoldersModel = MediaFoldersModel(imageMediaFolderPaths, videoMediaFolderPaths)
-            arbitraryDataProvider.storeOrUpdateKeyValue(ACCOUNT_NAME_GLOBAL, KEY_MEDIA_FOLDERS,
-                gson.toJson(mediaFoldersModel))
+            arbitraryDataProvider.storeOrUpdateKeyValue(
+                ACCOUNT_NAME_GLOBAL, KEY_MEDIA_FOLDERS,
+                gson.toJson(mediaFoldersModel)
+            )
         }
         return Result.success()
     }
@@ -180,7 +195,8 @@ class MediaFoldersDetectionWork constructor(
         intent.putExtra(SyncedFoldersActivity.EXTRA_SHOW_SIDEBAR, true)
         val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)
         val notificationBuilder = NotificationCompat.Builder(
-            context, NotificationUtils.NOTIFICATION_CHANNEL_GENERAL)
+            context, NotificationUtils.NOTIFICATION_CHANNEL_GENERAL
+        )
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
             .setColor(ThemeUtils.primaryColor(context))

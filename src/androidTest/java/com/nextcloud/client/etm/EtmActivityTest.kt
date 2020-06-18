@@ -41,9 +41,11 @@ class EtmActivityTest : AbstractIT() {
     @Before
     fun before() {
         // tests only on NC 18
-        Assume.assumeTrue(storageManager
-            .getCapability(account.name)
-            .version.compareTo(OwnCloudVersion.nextcloud_18) == 0)
+        Assume.assumeTrue(
+            storageManager
+                .getCapability(account.name)
+                .version.compareTo(OwnCloudVersion.nextcloud_18) == 0
+        )
     }
 
     @Test

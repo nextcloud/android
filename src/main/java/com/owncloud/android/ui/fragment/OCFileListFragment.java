@@ -428,10 +428,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void uploadFromApp() {
         Intent action = new Intent(Intent.ACTION_GET_CONTENT);
         action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
-        //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        }
+        action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+
         getActivity().startActivityForResult(
                 Intent.createChooser(action, getString(R.string.upload_chooser_title)),
                 FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS

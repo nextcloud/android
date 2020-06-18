@@ -473,12 +473,10 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                                                       connectivityService,
                                                       powerManagementService);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            ReceiversHelper.registerPowerChangeReceiver(uploadsStorageManager,
-                                                        accountManager,
-                                                        connectivityService,
-                                                        powerManagementService);
-        }
+        ReceiversHelper.registerPowerChangeReceiver(uploadsStorageManager,
+                                                    accountManager,
+                                                    connectivityService,
+                                                    powerManagementService);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ReceiversHelper.registerPowerSaveReceiver(uploadsStorageManager,

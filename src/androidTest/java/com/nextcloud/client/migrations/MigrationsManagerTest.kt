@@ -243,10 +243,7 @@ class MigrationsManagerTest {
         //      pending migrations
         //      mandatory migrations are passing
         //      one migration is optional and fails
-        assertEquals("Fixture should provide 1 optional, failing migration",
-            1,
-            migrations.count { !it.mandatory }
-        )
+        assertEquals("Fixture should provide 1 optional, failing migration", 1, migrations.count { !it.mandatory })
         val optionalFailingMigration = migrations.first { !it.mandatory }
         whenever(optionalFailingMigration.run()).thenThrow(RuntimeException())
 

@@ -218,6 +218,7 @@ public class FileDisplayActivity extends FileActivity
     private SearchView searchView;
     private PlayerServiceConnection mPlayerConnection;
     private Account mLastDisplayedAccount;
+    private int menuItemId = -1;
 
     @Inject
     AppPreferences preferences;
@@ -1185,7 +1186,7 @@ public class FileDisplayActivity extends FileActivity
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
 
         // setup drawer
-        int menuItemId = getIntent().getIntExtra(FileDisplayActivity.DRAWER_MENU_ID, -1);
+        menuItemId = getIntent().getIntExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
 
         if (menuItemId == -1) {
             if (MainApp.isOnlyOnDevice()) {

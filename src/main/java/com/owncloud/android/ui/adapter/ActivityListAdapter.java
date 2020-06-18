@@ -449,11 +449,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             return DisplayUtils.getRelativeDateTimeString(context, modificationTimestamp, DateUtils.DAY_IN_MILLIS,
                                                           DateUtils.WEEK_IN_MILLIS, 0);
         } else {
-            String pattern = "EEEE, MMMM d";
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "EEEE, MMMM d");
-            }
-            return DateFormat.format(pattern, modificationTimestamp);
+            return DateFormat.format(DateFormat.getBestDateTimePattern(
+                Locale.getDefault(), "EEEE, MMMM d"), modificationTimestamp);
         }
     }
 

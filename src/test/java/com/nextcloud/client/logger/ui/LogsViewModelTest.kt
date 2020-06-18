@@ -236,9 +236,11 @@ class LogsViewModelTest {
 
             assertEquals("Status should contain size in kB", TEST_LOG_SIZE_KILOBYTES, statusArgs[1])
             assertEquals("Status should show matched entries count", vm.entries.value?.size, statusArgs[2])
-            assertEquals("Status should contain total entries count",
+            assertEquals(
+                "Status should contain total entries count",
                 TEST_LOG_ENTRIES.size,
-                statusArgs[TOTAL_ENTRY_COUNT])
+                statusArgs[TOTAL_ENTRY_COUNT]
+            )
             assertTrue("Status should contain query time in ms", statusArgs[QUERY_TIME] is Long)
         }
     }

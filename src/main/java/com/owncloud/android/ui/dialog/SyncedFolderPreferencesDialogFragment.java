@@ -230,9 +230,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         }
 
         mUploadOnWifiCheckbox.setChecked(mSyncedFolder.isWifiOnly());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            mUploadOnChargingCheckbox.setChecked(mSyncedFolder.isChargingOnly());
-        }
+        mUploadOnChargingCheckbox.setChecked(mSyncedFolder.isChargingOnly());
+
         mUploadExistingCheckbox.setChecked(mSyncedFolder.isExisting());
         mUploadUseSubfoldersCheckbox.setChecked(mSyncedFolder.isSubfolderByDate());
 
@@ -330,10 +329,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         view.findViewById(R.id.setting_instant_upload_on_wifi_container).setEnabled(enable);
         view.findViewById(R.id.setting_instant_upload_on_wifi_container).setAlpha(alpha);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            view.findViewById(R.id.setting_instant_upload_on_charging_container).setEnabled(enable);
-            view.findViewById(R.id.setting_instant_upload_on_charging_container).setAlpha(alpha);
-        }
+        view.findViewById(R.id.setting_instant_upload_on_charging_container).setEnabled(enable);
+        view.findViewById(R.id.setting_instant_upload_on_charging_container).setAlpha(alpha);
 
         view.findViewById(R.id.setting_instant_upload_existing_container).setEnabled(enable);
         view.findViewById(R.id.setting_instant_upload_existing_container).setAlpha(alpha);
@@ -377,25 +374,22 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         view.findViewById(R.id.delete).setOnClickListener(new OnSyncedFolderDeleteClickListener());
 
         view.findViewById(R.id.setting_instant_upload_on_wifi_container).setOnClickListener(
-                new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mSyncedFolder.setWifiOnly(!mSyncedFolder.isWifiOnly());
-                        mUploadOnWifiCheckbox.toggle();
-                    }
-                });
+            new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSyncedFolder.setWifiOnly(!mSyncedFolder.isWifiOnly());
+                    mUploadOnWifiCheckbox.toggle();
+                }
+            });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-
-            view.findViewById(R.id.setting_instant_upload_on_charging_container).setOnClickListener(
-                    new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mSyncedFolder.setChargingOnly(!mSyncedFolder.isChargingOnly());
-                            mUploadOnChargingCheckbox.toggle();
-                        }
-                    });
-        }
+        view.findViewById(R.id.setting_instant_upload_on_charging_container).setOnClickListener(
+            new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSyncedFolder.setChargingOnly(!mSyncedFolder.isChargingOnly());
+                    mUploadOnChargingCheckbox.toggle();
+                }
+            });
 
         view.findViewById(R.id.setting_instant_upload_existing_container).setOnClickListener(
               new OnClickListener() {

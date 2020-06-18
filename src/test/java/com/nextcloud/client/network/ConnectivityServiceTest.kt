@@ -191,14 +191,18 @@ class ConnectivityServiceTest {
             whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
             whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
             whenever(user.server).thenReturn(legacyServer)
-            assertTrue("Precondition failed", connectivityService.connectivity.let {
-                it.isConnected && it.isWifi
-            })
+            assertTrue(
+                "Precondition failed",
+                connectivityService.connectivity.let {
+                    it.isConnected && it.isWifi
+                }
+            )
         }
 
         fun mockResponse(maintenance: Boolean = true, httpStatus: Int = HttpStatus.SC_OK) {
             whenever(client.executeMethod(getRequest)).thenReturn(httpStatus)
-            val body = """{"maintenance":$maintenance}"""
+            val body =
+                """{"maintenance":$maintenance}"""
             whenever(getRequest.responseContentLength).thenReturn(body.length.toLong())
             whenever(getRequest.responseBodyAsString).thenReturn(body)
         }
@@ -238,9 +242,12 @@ class ConnectivityServiceTest {
             whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
             whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
             whenever(accountManager.getServerVersion(any())).thenReturn(OwnCloudVersion.nextcloud_14)
-            assertTrue("Precondition failed", connectivityService.connectivity.let {
-                it.isConnected && it.isWifi
-            })
+            assertTrue(
+                "Precondition failed",
+                connectivityService.connectivity.let {
+                    it.isConnected && it.isWifi
+                }
+            )
         }
 
         @Test
