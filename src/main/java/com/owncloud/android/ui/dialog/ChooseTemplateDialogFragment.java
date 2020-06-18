@@ -89,7 +89,6 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Inje
 
     private static TemplateList templateList ;
     private int position;
-    private Template mtemp;
 
     private TemplateAdapter adapter;
     private OCFile parentFolder;
@@ -192,7 +191,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Inje
 
                         templateList = adapter.getTemplateList();
                         position = adapter.getPosition();
-                        mtemp = templateList.getTemplateList().get(position);
+                        Template mtemp = templateList.getTemplateList().get(position);
 
                         if (name.isEmpty() || name.equalsIgnoreCase(DOT + mtemp.getExtension())) {
                             DisplayUtils.showSnackMessage(listView, R.string.enter_filename);
