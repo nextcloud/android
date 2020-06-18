@@ -17,6 +17,8 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.accounts.Account;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -68,6 +70,17 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     private OCFile newFile;
     private int localBehaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
     protected OnConflictDecisionMadeListener listener;
+
+    public static Intent createIntent(OCFile file, Account account, Integer flag, Context context) {
+        Intent intent = new Intent(context, ConflictsResolveActivity.class);
+        if (flag != null) {
+            intent.setFlags(intent.getFlags() | flag);
+        }
+        intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
+        intent.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
+
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

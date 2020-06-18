@@ -71,7 +71,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -671,12 +671,15 @@ public class FileUploader extends Service
         }
 
         /// includes a pending intent in the notification showing the details
-        Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
-        showUploadListIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
-        showUploadListIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
-        showUploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
-                                                                        showUploadListIntent, 0));
+        Intent intent = UploadListActivity.createIntent(upload.getFile(),
+                                                        upload.getAccount(),
+                                                        Intent.FLAG_ACTIVITY_CLEAR_TOP,
+                                                        this);
+        mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this,
+                                                                        (int) System.currentTimeMillis(),
+                                                                        intent,
+                                                                        0)
+                                             );
 
         if (!upload.isInstantPicture() && !upload.isInstantVideo()) {
             if (mNotificationManager == null) {
@@ -776,14 +779,24 @@ public class FileUploader extends Service
                     PendingIntent.FLAG_ONE_SHOT
                 ));
             } else {
-                //in case of failure, do not show details file view (because there is no file!)
-                Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
-                showUploadListIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
-                showUploadListIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
-                showUploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(
-                    this, (int) System.currentTimeMillis(), showUploadListIntent, 0
-                ));
+                Intent intent;
+                if (uploadResult.getCode().equals(ResultCode.SYNC_CONFLICT)) {
+                    intent = ConflictsResolveActivity.createIntent(upload.getFile(),
+                                                                   upload.getAccount(),
+                                                                   Intent.FLAG_ACTIVITY_CLEAR_TOP,
+                                                                   this);
+                } else {
+                    intent = UploadListActivity.createIntent(upload.getFile(),
+                                                             upload.getAccount(),
+                                                             Intent.FLAG_ACTIVITY_CLEAR_TOP,
+                                                             this);
+                }
+
+                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this,
+                                                                                (int) System.currentTimeMillis(),
+                                                                                intent,
+                                                                                0)
+                                                     );
             }
 
             mNotificationBuilder.setContentText(content);

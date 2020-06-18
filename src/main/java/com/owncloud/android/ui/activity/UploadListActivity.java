@@ -37,15 +37,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -97,6 +96,17 @@ public class UploadListActivity extends FileActivity {
     BackgroundJobManager backgroundJobManager;
 
     private UploadListLayoutBinding binding;
+
+    public static Intent createIntent(OCFile file, Account account, Integer flag, Context context) {
+        Intent intent = new Intent(context, UploadListActivity.class);
+        if (flag != null) {
+            intent.setFlags(intent.getFlags() | flag);
+        }
+        intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
+        intent.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
+
+        return intent;
+    }
 
     @Override
     public void showFiles(boolean onDeviceOnly) {
