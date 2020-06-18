@@ -437,6 +437,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void startPhotoSearch(MenuItem menuItem) {
         SearchEvent searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
+        MainApp.showOnlyFilesOnDevice(false);
 
         Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
