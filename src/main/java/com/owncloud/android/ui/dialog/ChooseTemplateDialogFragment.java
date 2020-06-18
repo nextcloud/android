@@ -35,6 +35,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
@@ -80,7 +81,7 @@ import butterknife.ButterKnife;
 /**
  * Dialog to show templates for new documents/spreadsheets/presentations.
  */
-public class ChooseTemplateDialogFragment extends DialogFragment implements Injectable, TemplateAdapter.ClickListener {
+public class ChooseTemplateDialogFragment extends DialogFragment implements Injectable, TemplateAdapter.ClickListener, DialogInterface.OnShowListener {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
     private static final String ARG_CREATOR = "CREATOR";
@@ -176,42 +177,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Inje
             .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.select_template), accentColor));
         Dialog dialog = builder.create();
 
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-
-            @Override
-            public void onShow(DialogInterface dialog) {
-
-                Button posbtn = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                posbtn.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        String name = fileName.getText().toString();
-                        String path = parentFolder.getRemotePath() + name;
-
-                        templateList = adapter.getTemplateList();
-                        position = adapter.getPosition();
-                        Template mtemp = templateList.getTemplateList().get(position);
-
-                        if (name.isEmpty() || name.equalsIgnoreCase(DOT + mtemp.getExtension())) {
-                            DisplayUtils.showSnackMessage(listView, R.string.enter_filename);
-                        } else if (!name.endsWith(mtemp.getExtension())) {
-                            createFromTemplate(mtemp, path + DOT + mtemp.getExtension());
-                        } else {
-                            createFromTemplate(mtemp, path);
-                        }
-                    }
-                });
-
-                Button negbtn = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
-                negbtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-            }
-        });
+        dialog.setOnShowListener(this);
 
         Window window = dialog.getWindow();
 
@@ -232,6 +198,18 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Inje
     }
 
     @Override
+    public void onShow(DialogInterface dialog) {
+
+        Button posbtn = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+        PostiveButtonClickListener postiveButtonClickListener = new PostiveButtonClickListener();
+        posbtn.setOnClickListener(postiveButtonClickListener);
+
+        Button negbtn = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
+        NegativeButtonCLickListener negativeButtonCLickListener = new NegativeButtonCLickListener(dialog);
+        negbtn.setOnClickListener(negativeButtonCLickListener);
+    }
+
+    @Override
     public void onClick(Template template) {
         String name = fileName.getText().toString();
         String path = parentFolder.getRemotePath() + name;
@@ -245,6 +223,39 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Inje
         }
     }
 
+    private class PostiveButtonClickListener implements OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            String name = fileName.getText().toString();
+            String path = parentFolder.getRemotePath() + name;
+
+            templateList = adapter.getTemplateList();
+            position = adapter.getPosition();
+            Template mtemp = templateList.getTemplateList().get(position);
+
+            if (name.isEmpty() || name.equalsIgnoreCase(DOT + mtemp.getExtension())) {
+                DisplayUtils.showSnackMessage(listView, R.string.enter_filename);
+            } else if (!name.endsWith(mtemp.getExtension())) {
+                createFromTemplate(mtemp, path + DOT + mtemp.getExtension());
+            } else {
+                createFromTemplate(mtemp, path);
+            }
+        }
+    }
+
+    private class NegativeButtonCLickListener implements OnClickListener{
+        private DialogInterface dialog;
+
+        public NegativeButtonCLickListener(DialogInterface dialog) {
+            this.dialog = dialog;
+        }
+
+        @Override
+        public void onClick(View v) {
+            dialog.dismiss();
+        }
+    }
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {
         private ClientFactory clientFactory;
