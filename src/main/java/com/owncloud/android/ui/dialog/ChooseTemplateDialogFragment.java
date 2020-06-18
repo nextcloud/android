@@ -37,6 +37,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.nextcloud.android.lib.resources.directediting.DirectEditingCreateFileRemoteOperation;
@@ -79,13 +80,16 @@ import butterknife.ButterKnife;
 /**
  * Dialog to show templates for new documents/spreadsheets/presentations.
  */
-public class ChooseTemplateDialogFragment extends DialogFragment implements DialogInterface.OnClickListener,
-    TemplateAdapter.ClickListener, Injectable {
+public class ChooseTemplateDialogFragment extends DialogFragment implements Injectable {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
     private static final String ARG_CREATOR = "CREATOR";
     private static final String TAG = ChooseTemplateDialogFragment.class.getSimpleName();
     private static final String DOT = ".";
+
+    private static TemplateList templateList ;
+    private int position;
+    private Template mtemp;
 
     private TemplateAdapter adapter;
     private OCFile parentFolder;
@@ -162,15 +166,53 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
 
         listView.setHasFixedSize(true);
         listView.setLayoutManager(new GridLayoutManager(activity, 2));
-        adapter = new TemplateAdapter(creator.getMimetype(), this, getContext(), currentAccount, clientFactory);
+        adapter = new TemplateAdapter(creator.getMimetype(), null, getContext(), currentAccount, clientFactory);
         listView.setAdapter(adapter);
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view)
-            .setNegativeButton(R.string.common_cancel, this)
+            .setNegativeButton(R.string.common_cancel, null)
+            .setPositiveButton("Create",null)
             .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.select_template), accentColor));
         Dialog dialog = builder.create();
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow(DialogInterface dialog) {
+
+                Button posbtn = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                posbtn.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        String name = fileName.getText().toString();
+                        String path = parentFolder.getRemotePath() + name;
+
+                        templateList = adapter.getTemplateList();
+                        position = adapter.getPosition();
+                        mtemp = templateList.getTemplateList().get(position);
+
+                        if (name.isEmpty() || name.equalsIgnoreCase(DOT + mtemp.getExtension())) {
+                            DisplayUtils.showSnackMessage(listView, R.string.enter_filename);
+                        } else if (!name.endsWith(mtemp.getExtension())) {
+                            createFromTemplate(mtemp, path + DOT + mtemp.getExtension());
+                        } else {
+                            createFromTemplate(mtemp, path);
+                        }
+                    }
+                });
+
+                Button negbtn = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
+                negbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
 
         Window window = dialog.getWindow();
 
@@ -182,7 +224,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
     }
 
     private void createFromTemplate(Template template, String path) {
-        new CreateFileFromTemplateTask(this, clientFactory, currentAccount.getUser(), template, path, creator).execute();
+        new CreateFileFromTemplateTask(ChooseTemplateDialogFragment.this, clientFactory, currentAccount.getUser(), template, path, creator).execute();
     }
 
     public void setTemplateList(TemplateList templateList) {
@@ -190,24 +232,25 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onClick(Template template) {
-        String name = fileName.getText().toString();
-        String path = parentFolder.getRemotePath() + name;
+//    @Override
+//    public void onClick(Template template) {
+//        String name = fileName.getText().toString();
+//        String path = parentFolder.getRemotePath() + name;
+//
+//        if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
+//            DisplayUtils.showSnackMessage(listView, R.string.enter_filename);
+//        } else if (!name.endsWith(template.getExtension())) {
+//            createFromTemplate(template, path + DOT + template.getExtension());
+//        } else {
+//            createFromTemplate(template, path);
+//        }
+//    }
 
-        if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
-            DisplayUtils.showSnackMessage(listView, R.string.enter_filename);
-        } else if (!name.endsWith(template.getExtension())) {
-            createFromTemplate(template, path + DOT + template.getExtension());
-        } else {
-            createFromTemplate(template, path);
-        }
-    }
-
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
-        // cancel is handled by dialog itself, no other button available
-    }
+//    @Override
+//    public void onClick(DialogInterface dialog, int which) {
+//        // cancel is handled by dialog itself, no other button available
+//
+//    }
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {
         private ClientFactory clientFactory;
@@ -281,7 +324,6 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
         @Override
         protected void onPostExecute(String url) {
             final ChooseTemplateDialogFragment fragment = chooseTemplateDialogFragmentWeakReference.get();
-
             if (fragment != null && fragment.isAdded()) {
                 if (url.isEmpty()) {
                     DisplayUtils.showSnackMessage(fragment.listView, "Error creating file from template");

@@ -57,6 +57,7 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
     private CurrentAccountProvider currentAccountProvider;
     private ClientFactory clientFactory;
     private String mimetype;
+    private int position;
 
     public TemplateAdapter(
         String mimetype,
@@ -81,7 +82,11 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.setData(templateList.getTemplateList().get(position));
+        this.position = position;
     }
+
+    public int getPosition(){return this.position;}
+    public TemplateList getTemplateList(){return this.templateList;}
 
     public void setTemplateList(TemplateList templateList) {
         this.templateList = templateList;
