@@ -85,11 +85,11 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -875,7 +875,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
     private void showBatteryOptimizationInfo() {
         if (powerManagementService.isPowerSavingExclusionAvailable() || checkIfBatteryOptimizationEnabled()) {
-            AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
                 .setTitle(getString(R.string.battery_optimization_title))
                 .setMessage(getString(R.string.battery_optimization_message))
                 .setPositiveButton(getString(R.string.battery_optimization_disable), (dialog, which) -> {
@@ -899,12 +899,15 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                     }
                 })
                 .setNegativeButton(getString(R.string.battery_optimization_close), (dialog, which) -> dialog.dismiss())
-                .setIcon(R.drawable.ic_battery_alert)
-                .show();
+                .setIcon(R.drawable.ic_battery_alert);
 
-            int color = ThemeUtils.primaryAccentColor(this);
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+            if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                AlertDialog alertDialog = alertDialogBuilder.show();
+
+                int color = ThemeUtils.primaryAccentColor(this);
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+            }
         }
     }
 
