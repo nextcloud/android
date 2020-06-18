@@ -80,7 +80,7 @@ import butterknife.ButterKnife;
 /**
  * Dialog to show templates for new documents/spreadsheets/presentations.
  */
-public class ChooseTemplateDialogFragment extends DialogFragment implements Injectable {
+public class ChooseTemplateDialogFragment extends DialogFragment implements Injectable, TemplateAdapter.ClickListener {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
     private static final String ARG_CREATOR = "CREATOR";
@@ -165,14 +165,14 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Inje
 
         listView.setHasFixedSize(true);
         listView.setLayoutManager(new GridLayoutManager(activity, 2));
-        adapter = new TemplateAdapter(creator.getMimetype(), null, getContext(), currentAccount, clientFactory);
+        adapter = new TemplateAdapter(creator.getMimetype(), this, getContext(), currentAccount, clientFactory);
         listView.setAdapter(adapter);
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view)
             .setNegativeButton(R.string.common_cancel, null)
-            .setPositiveButton("Create",null)
+            .setPositiveButton(R.string.folder_confirm_create,null)
             .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.select_template), accentColor));
         Dialog dialog = builder.create();
 
@@ -231,25 +231,20 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Inje
         adapter.notifyDataSetChanged();
     }
 
-//    @Override
-//    public void onClick(Template template) {
-//        String name = fileName.getText().toString();
-//        String path = parentFolder.getRemotePath() + name;
-//
-//        if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
-//            DisplayUtils.showSnackMessage(listView, R.string.enter_filename);
-//        } else if (!name.endsWith(template.getExtension())) {
-//            createFromTemplate(template, path + DOT + template.getExtension());
-//        } else {
-//            createFromTemplate(template, path);
-//        }
-//    }
+    @Override
+    public void onClick(Template template) {
+        String name = fileName.getText().toString();
+        String path = parentFolder.getRemotePath() + name;
 
-//    @Override
-//    public void onClick(DialogInterface dialog, int which) {
-//        // cancel is handled by dialog itself, no other button available
-//
-//    }
+        if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
+            DisplayUtils.showSnackMessage(listView, R.string.enter_filename);
+        } else if (!name.endsWith(template.getExtension())) {
+            createFromTemplate(template, path + DOT + template.getExtension());
+        } else {
+            createFromTemplate(template, path);
+        }
+    }
+
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {
         private ClientFactory clientFactory;

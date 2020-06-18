@@ -44,6 +44,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/filename_hint"
         android:inputType="text"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        style="@style/TextInputLayout"/>
 </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>
