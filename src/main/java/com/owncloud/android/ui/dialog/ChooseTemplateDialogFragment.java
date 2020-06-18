@@ -224,7 +224,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Inje
     }
 
     private void createFromTemplate(Template template, String path) {
-        new CreateFileFromTemplateTask(ChooseTemplateDialogFragment.this, clientFactory, currentAccount.getUser(), template, path, creator).execute();
+        new CreateFileFromTemplateTask(this, clientFactory, currentAccount.getUser(), template, path, creator).execute();
     }
 
     public void setTemplateList(TemplateList templateList) {
