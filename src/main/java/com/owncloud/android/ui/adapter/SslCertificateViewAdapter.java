@@ -23,7 +23,6 @@ package com.owncloud.android.ui.adapter;
 import android.net.http.SslCertificate;
 import android.view.View;
 
-import com.owncloud.android.R;
 import com.owncloud.android.databinding.SslUntrustedCertLayoutBinding;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 
@@ -57,8 +56,6 @@ public class SslCertificateViewAdapter implements SslUntrustedCertDialog.Certifi
             showSubject(mCertificate.getIssuedTo(), binding);
             showIssuer(mCertificate.getIssuedBy(), binding);
             showValidity(mCertificate.getValidNotBeforeDate(), mCertificate.getValidNotAfterDate(), binding);
-            hideSignature(binding);
-
         } else {
             binding.nullCert.setVisibility(View.VISIBLE);
         }
@@ -109,14 +106,5 @@ public class SslCertificateViewAdapter implements SslUntrustedCertDialog.Certifi
         binding.labelIssuerC.setVisibility(View.GONE);
         binding.labelIssuerST.setVisibility(View.GONE);
         binding.labelIssuerL.setVisibility(View.GONE);
-    }
-
-    private void hideSignature(@NonNull SslUntrustedCertLayoutBinding binding) {
-        binding.labelSignature.setVisibility(View.GONE);
-        binding.labelSignatureAlgorithm.setVisibility(View.GONE);
-
-        binding.valueSignatureAlgorithm.setVisibility(View.GONE);
-        // FIXME There IS no R.id.value_signature in this layout !!
-        binding.getRoot().findViewById(R.id.value_signature).setVisibility(View.GONE);
     }
 }
