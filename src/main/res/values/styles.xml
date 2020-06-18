@@ -95,8 +95,6 @@
 	<!-- separate style for Drawer activities needed for v21+ theming -->
 	<style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar"/>
 
-    <style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar.LoginBase" />
-
     <style name="Theme.ownCloud.noActionBar.LoginBase" parent="Theme.ownCloud.Toolbar">
 		<item name="android:windowBackground">@color/primary</item>
         <item name="colorControlNormal">@color/login_text_color</item>
@@ -105,6 +103,8 @@
 		<item name="colorAccent">@color/login_text_hint_color</item>
 		<item name="android:textColorHint">@color/login_text_hint_color</item>
 	</style>
+
+    <style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar.LoginBase" />
 
 	<style name="ownCloud.AlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
 		<item name="colorAccent">@color/color_accent</item>
