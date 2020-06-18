@@ -1,0 +1,10 @@
+Theme refresh bugfix
+Fix appbar photos view when enter in background
+remove unneeded linearLayout id
+Drop Android 4.2 support
+Use MaterialButton for addAccount action in accounts screen
+Add touch states to file_list_actions_bottom_sheet
+tint first run
+perperly align 3-dot menu of folder items
+Update translations
+Update 3rd-party dependencies
