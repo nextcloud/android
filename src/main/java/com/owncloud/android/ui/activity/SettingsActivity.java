@@ -459,9 +459,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         if (pContactsBackup != null) {
             if (contactsBackupEnabled) {
                 pContactsBackup.setOnPreferenceClickListener(preference -> {
-                    Intent contactsIntent = new Intent(getApplicationContext(), ContactsPreferenceActivity.class);
-                    contactsIntent.putExtra(ContactsPreferenceActivity.EXTRA_SHOW_SIDEBAR, false);
-                    startActivity(contactsIntent);
+                    ContactsPreferenceActivity.startActivityWithoutSidebar(this);
                     return true;
                 });
             } else {

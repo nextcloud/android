@@ -366,7 +366,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 startActivity(SyncedFoldersActivity.class);
                 break;
             case R.id.nav_contacts:
-                startActivity(ContactsPreferenceActivity.class);
+                ContactsPreferenceActivity.startActivity(this);
                 break;
             case R.id.nav_settings:
                 startActivity(SettingsActivity.class);

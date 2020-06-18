@@ -78,6 +78,11 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
 
 public class ContactsBackupFragment extends FileFragment implements DatePickerDialog.OnDateSetListener, Injectable {
     public static final String TAG = ContactsBackupFragment.class.getSimpleName();
+    private static final String ARG_SHOW_SIDEBAR = "SHOW_SIDEBAR";
+    private static final String KEY_CALENDAR_PICKER_OPEN = "IS_CALENDAR_PICKER_OPEN";
+    private static final String KEY_CALENDAR_DAY = "CALENDAR_DAY";
+    private static final String KEY_CALENDAR_MONTH = "CALENDAR_MONTH";
+    private static final String KEY_CALENDAR_YEAR = "CALENDAR_YEAR";
 
     @BindView(R.id.contacts_automatic_backup)
     public SwitchCompat backupSwitch;
@@ -99,15 +104,17 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     private DatePickerDialog datePickerDialog;
 
     private CompoundButton.OnCheckedChangeListener onCheckedChangeListener;
-
-    private static final String KEY_CALENDAR_PICKER_OPEN = "IS_CALENDAR_PICKER_OPEN";
-    private static final String KEY_CALENDAR_DAY = "CALENDAR_DAY";
-    private static final String KEY_CALENDAR_MONTH = "CALENDAR_MONTH";
-    private static final String KEY_CALENDAR_YEAR = "CALENDAR_YEAR";
     private ArbitraryDataProvider arbitraryDataProvider;
     private Account account;
     private boolean showSidebar = true;
 
+    public static ContactsBackupFragment create(boolean showSidebar) {
+        ContactsBackupFragment fragment = new ContactsBackupFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(ARG_SHOW_SIDEBAR, showSidebar);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -122,7 +129,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         setHasOptionsMenu(true);
 
         if (getArguments() != null) {
-            showSidebar = getArguments().getBoolean(ContactsPreferenceActivity.EXTRA_SHOW_SIDEBAR);
+            showSidebar = getArguments().getBoolean(ARG_SHOW_SIDEBAR);
         }
 
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
