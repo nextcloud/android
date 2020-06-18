@@ -395,7 +395,10 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Inje
                     DisplayUtils.showSnackMessage(fragment.listView, R.string.error_retrieving_templates);
                 } else {
                     fragment.setTemplateList(templateList);
-
+                    if(templateList.getTemplateList().size()==1)
+                    {
+                        fragment.listView.setVisibility(View.GONE);
+                    }
                     String name = DOT + templateList.templates.values().iterator().next().getExtension();
                     fragment.fileName.setText(name);
                 }
