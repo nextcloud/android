@@ -22,6 +22,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -32,8 +33,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactsBackupFragment;
-
-import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
@@ -46,12 +45,33 @@ import androidx.fragment.app.FragmentTransaction;
  */
 public class ContactsPreferenceActivity extends FileActivity implements FileFragment.ContainerActivity {
     public static final String TAG = ContactsPreferenceActivity.class.getSimpleName();
-
-
+    private static final String EXTRA_FILE = "FILE";
+    private static final String EXTRA_USER = "USER";
+    /**
+     * Warning: default for this extra is different between this activity and {@link ContactsBackupFragment}
+     */
+    public static final String EXTRA_SHOW_SIDEBAR = "SHOW_SIDEBAR";
     public static final String PREFERENCE_CONTACTS_AUTOMATIC_BACKUP = "PREFERENCE_CONTACTS_AUTOMATIC_BACKUP";
     public static final String PREFERENCE_CONTACTS_LAST_BACKUP = "PREFERENCE_CONTACTS_LAST_BACKUP";
     public static final String BACKUP_TO_LIST = "BACKUP_TO_LIST";
-    public static final String EXTRA_SHOW_SIDEBAR = "SHOW_SIDEBAR";
+
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, ContactsPreferenceActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void startActivityWithContactsFile(Context context, User user, OCFile file) {
+        Intent intent = new Intent(context, ContactsPreferenceActivity.class);
+        intent.putExtra(EXTRA_FILE, file);
+        intent.putExtra(EXTRA_USER, user);
+        context.startActivity(intent);
+    }
+
+    public static void startActivityWithoutSidebar(Context context) {
+        Intent intent = new Intent(context, ContactsPreferenceActivity.class);
+        intent.putExtra(EXTRA_SHOW_SIDEBAR, false);
+        context.startActivity(intent);
+    }
 
     @Inject BackgroundJobManager backgroundJobManager;
 
@@ -86,14 +106,11 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             if (intent == null || intent.getParcelableExtra(ContactListFragment.FILE_NAME) == null ||
                     intent.getParcelableExtra(ContactListFragment.USER) == null) {
-                ContactsBackupFragment fragment = new ContactsBackupFragment();
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(EXTRA_SHOW_SIDEBAR, showSidebar);
-                fragment.setArguments(bundle);
+                ContactsBackupFragment fragment = ContactsBackupFragment.create(showSidebar);
                 transaction.add(R.id.frame_container, fragment);
             } else {
-                OCFile file = Parcels.unwrap(intent.getParcelableExtra(ContactListFragment.FILE_NAME));
-                User user = Parcels.unwrap(intent.getParcelableExtra(ContactListFragment.USER));
+                OCFile file = intent.getParcelableExtra(ContactListFragment.FILE_NAME);
+                User user = intent.getParcelableExtra(ContactListFragment.USER);
                 ContactListFragment contactListFragment = ContactListFragment.newInstance(file, user);
                 transaction.add(R.id.frame_container, contactListFragment);
             }
