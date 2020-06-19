@@ -366,7 +366,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 startActivity(SyncedFoldersActivity.class);
                 break;
             case R.id.nav_contacts:
-                startActivity(ContactsPreferenceActivity.class);
+                ContactsPreferenceActivity.startActivity(this);
                 break;
             case R.id.nav_settings:
                 startActivity(SettingsActivity.class);
@@ -437,6 +437,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void startPhotoSearch(MenuItem menuItem) {
         SearchEvent searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
+        MainApp.showOnlyFilesOnDevice(false);
 
         Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

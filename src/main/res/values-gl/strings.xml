@@ -471,7 +471,7 @@
     <string name="pass_code_wrong">Código de seguridade incorrecto</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Denegar</string>
-    <string name="permission_storage_access">Requirense permisos adicionais para enviar e descargar ficheiros.</string>
+    <string name="permission_storage_access">Son necesarios permisos adicionais para enviar e descargar ficheiros.</string>
     <string name="picture_set_as_no_app">Non se atopou unha aplicación coa que estabelecer unha imaxe</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">marcadordeposición.txt</string>
@@ -557,7 +557,7 @@
     <string name="restore_button_description">Restaurar ficheiro eliminado</string>
     <string name="retrieving_file">Recuperando o ficheiro…</string>
     <string name="richdocuments_failed_to_load_document">Produciuse un fallo ao cargar o documento!</string>
-    <string name="saml_authentication_required_text">Requírese o contrasinal</string>
+    <string name="saml_authentication_required_text">É necesario o contrasinal</string>
     <string name="saml_authentication_wrong_pass">Contrasinal incorrecto</string>
     <string name="scanQR_description">Acceder cun código QR</string>
     <string name="screenshot_01_gridView_heading">Protexendo os seus datos</string>
