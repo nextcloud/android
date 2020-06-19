@@ -37,6 +37,7 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import java.lang.ref.WeakReference;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
@@ -163,7 +164,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDownloadFragment.EXTRA_FILE, getFile());
         outState.putParcelable(FileDownloadFragment.EXTRA_ACCOUNT, mAccount);
