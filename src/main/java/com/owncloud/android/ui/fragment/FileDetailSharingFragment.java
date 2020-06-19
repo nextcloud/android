@@ -100,7 +100,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private OCShare publicShare;
 
     private FileOperationsHelper fileOperationsHelper;
-    private FileDisplayActivity fileDisplayActivity;
+    private FileActivity fileActivity;
     private FileDataStorageManager fileDataStorageManager;
 
     private Unbinder unbinder;
@@ -182,9 +182,9 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             throw new IllegalArgumentException("Account may not be null");
         }
 
-        fileDisplayActivity = (FileDisplayActivity) getActivity();
+        fileActivity = (FileActivity) getActivity();
 
-        if (fileDisplayActivity == null) {
+        if (fileActivity == null) {
             throw new IllegalArgumentException("FileActivity may not be null");
         }
     }
@@ -202,8 +202,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         View view = inflater.inflate(R.layout.file_details_sharing_fragment, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        fileOperationsHelper = fileDisplayActivity.getFileOperationsHelper();
-        fileDataStorageManager = fileDisplayActivity.getStorageManager();
+        fileOperationsHelper = fileActivity.getFileOperationsHelper();
+        fileDataStorageManager = fileActivity.getStorageManager();
 
         setupView();
 
@@ -243,8 +243,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             setShareByLinkInfo(file.isSharedViaLink());
             setShareWithUserInfo();
             FileDetailSharingFragmentHelper.setupSearchView(
-                (SearchManager) fileDisplayActivity.getSystemService(Context.SEARCH_SERVICE), searchView,
-                fileDisplayActivity.getComponentName());
+                (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE), searchView,
+                fileActivity.getComponentName());
             ThemeUtils.themeSearchView(searchView, requireContext());
         } else {
             searchView.setVisibility(View.GONE);
@@ -322,11 +322,16 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         if (shares.size() > 0) {
             AccountManager accountManager = AccountManager.get(getContext());
             String userId = accountManager.getUserData(account,
-                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+                                                       com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
             usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(new ShareeListAdapter(fileDisplayActivity.getSupportFragmentManager(),
-                                                       fileDisplayActivity, shares, account, file, this, userId));
+            usersList.setAdapter(new ShareeListAdapter(fileActivity.getSupportFragmentManager(),
+                                                       fileActivity,
+                                                       shares,
+                                                       account,
+                                                       file,
+                                                       this,
+                                                       userId));
             usersList.setLayoutManager(new LinearLayoutManager(getContext()));
             usersList.addItemDecoration(new SimpleListItemDividerDecoration(getContext()));
             noList.setVisibility(View.GONE);
@@ -354,7 +359,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             return;
         }
 
-        FileDisplayActivity.showShareLinkDialog(fileDisplayActivity, file, createInternalLink(account, file));
+        FileDisplayActivity.showShareLinkDialog(fileActivity, file, createInternalLink(account, file));
     }
 
     private String createInternalLink(OwnCloudAccount account, OCFile file) {
@@ -379,7 +384,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             if (TextUtils.isEmpty(file.getPublicLink())) {
                 fileOperationsHelper.getFileWithLink(file);
             } else {
-                FileDisplayActivity.showShareLinkDialog(fileDisplayActivity, file, file.getPublicLink());
+                FileDisplayActivity.showShareLinkDialog(fileActivity, file, file.getPublicLink());
             }
         }
     }
@@ -468,14 +473,14 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment
                     .newInstance(file, publicShare.getExpirationDate());
                 dialog.show(
-                    fileDisplayActivity.getSupportFragmentManager(),
-                        ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
-                );
+                    fileActivity.getSupportFragmentManager(),
+                    ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
+                           );
                 return true;
             }
             case R.id.action_share_send_link: {
                 if(shareByLink.isChecked() && file.isSharedViaLink() && !TextUtils.isEmpty(file.getPublicLink())) {
-                    FileDisplayActivity.showShareLinkDialog(fileDisplayActivity, file, file.getPublicLink());
+                    FileDisplayActivity.showShareLinkDialog(fileActivity, file, file.getPublicLink());
                 } else {
                     showSendLinkTo();
                 }
@@ -483,7 +488,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             }
             case R.id.action_share_send_note:
                 NoteDialogFragment dialog = NoteDialogFragment.newInstance(publicShare);
-                dialog.show(fileDisplayActivity.getSupportFragmentManager(), NoteDialogFragment.NOTE_FRAGMENT);
+                dialog.show(fileActivity.getSupportFragmentManager(), NoteDialogFragment.NOTE_FRAGMENT);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
