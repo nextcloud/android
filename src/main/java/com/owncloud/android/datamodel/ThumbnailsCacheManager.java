@@ -76,6 +76,7 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -888,7 +889,7 @@ public final class ThumbnailsCacheManager {
                 Log_OC.e(TAG, "Out of memory");
             } catch (Throwable t) {
                 // the app should never break due to a problem with avatars
-                thumbnail = mResources.getDrawable(R.drawable.account_circle_white);
+                thumbnail = ResourcesCompat.getDrawable(mResources, R.drawable.account_circle_white, null);
                 Log_OC.e(TAG, "Generation of avatar for " + mUserId + " failed", t);
             }
 
@@ -1011,7 +1012,7 @@ public final class ThumbnailsCacheManager {
                 try {
                     return TextDrawable.createAvatar(mAccount, mAvatarRadius);
                 } catch (Exception e1) {
-                    return mResources.getDrawable(R.drawable.ic_user);
+                    return ResourcesCompat.getDrawable(mResources, R.drawable.ic_user, null);
                 }
             } else {
                 return BitmapUtils.bitmapToCircularBitmapDrawable(mResources, avatar);
@@ -1060,17 +1061,19 @@ public final class ThumbnailsCacheManager {
         return null;
     }
 
-    public static Bitmap addVideoOverlay(Bitmap thumbnail){
-        Drawable playButtonDrawable = MainApp.getAppContext().getResources().getDrawable(R.drawable.view_play);
+    public static Bitmap addVideoOverlay(Bitmap thumbnail) {
+        Drawable playButtonDrawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(),
+                                                                  R.drawable.view_play,
+                                                                  null);
         Bitmap playButton = BitmapUtils.drawableToBitmap(playButtonDrawable);
 
         Bitmap resizedPlayButton = Bitmap.createScaledBitmap(playButton,
-                (int) (thumbnail.getWidth() * 0.3),
-                (int) (thumbnail.getHeight() * 0.3), true);
+                                                             (int) (thumbnail.getWidth() * 0.3),
+                                                             (int) (thumbnail.getHeight() * 0.3), true);
 
         Bitmap resultBitmap = Bitmap.createBitmap(thumbnail.getWidth(),
-                thumbnail.getHeight(),
-                Bitmap.Config.ARGB_8888);
+                                                  thumbnail.getHeight(),
+                                                  Bitmap.Config.ARGB_8888);
 
         Canvas c = new Canvas(resultBitmap);
 

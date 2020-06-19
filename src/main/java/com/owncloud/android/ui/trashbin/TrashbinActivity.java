@@ -55,6 +55,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindString;
@@ -304,7 +305,9 @@ public class TrashbinActivity extends FileActivity implements
 
             if (emptyContentMessage != null) {
                 emptyContentHeadline.setText(R.string.common_error);
-                emptyContentIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_list_empty_error));
+                emptyContentIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
+                                                                              R.drawable.ic_list_empty_error,
+                                                                              null));
                 emptyContentMessage.setText(message);
 
                 emptyContentMessage.setVisibility(View.VISIBLE);
