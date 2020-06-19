@@ -65,10 +65,10 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     private final List<SyncedFolderDisplayItem> syncFolderItems;
     private final List<SyncedFolderDisplayItem> filteredSyncFolderItems;
     private final boolean light;
-    private final int VIEW_TYPE_EMPTY = Integer.MAX_VALUE;
-    private final int VIEW_TYPE_ITEM = 1;
-    private final int VIEW_TYPE_HEADER = 2;
-    private final int VIEW_TYPE_FOOTER = 3;
+    private static final int VIEW_TYPE_EMPTY = Integer.MAX_VALUE;
+    private static final int VIEW_TYPE_ITEM = 1;
+    private static final int VIEW_TYPE_HEADER = 2;
+    private static final int VIEW_TYPE_FOOTER = 3;
     private boolean hideItems;
 
     public SyncedFolderAdapter(Context context, Clock clock, int gridWidth, ClickListener listener, boolean light) {
