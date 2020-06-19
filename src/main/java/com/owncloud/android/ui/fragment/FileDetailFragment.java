@@ -75,6 +75,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -594,9 +595,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void setFavoriteIconStatus(boolean isFavorite) {
         if (isFavorite) {
-            favoriteIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_star));
+            favoriteIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_star, null));
         } else {
-            favoriteIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_outline));
+            favoriteIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
+                                                                      R.drawable.ic_star_outline,
+                                                                      null));
         }
     }
 

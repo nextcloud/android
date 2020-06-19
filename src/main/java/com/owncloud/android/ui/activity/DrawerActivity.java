@@ -103,6 +103,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -249,7 +250,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerToggle.setDrawerSlideAnimationEnabled(true);
-        Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back);
+        Drawable backArrow = ResourcesCompat.getDrawable(getResources(),
+                                                         R.drawable.ic_arrow_back,
+                                                         null);
         mDrawerToggle.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.appBarPrimaryFontColor(this)));
         mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.appBarPrimaryFontColor(this));
     }
