@@ -1,0 +1,5 @@
+check if activity is running before showing dialog
+Migrate ContactsPreferenceActivity startup to type-safe API
+Show "photos" in title
+centralize intent creation for - FileUploader - ConflictsResolveActivity
+Update translations
