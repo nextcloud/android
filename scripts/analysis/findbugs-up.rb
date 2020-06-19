@@ -56,7 +56,7 @@ if result != 0
     exit 1
 end
 
-system './gradlew spotbugsGplayDebug'
+system './gradlew spotbugsGplayDebugReport'
 
 # find FindBugs report file
 findbugs_reports = Dir.glob(FINDBUGS_REPORT_FILE)

@@ -34,6 +34,8 @@ import android.widget.LinearLayout;
 
 import com.owncloud.android.R;
 
+import androidx.core.content.res.ResourcesCompat;
+
 /**
  * Progress indicator visualizing the actual progress with dots.
  */
@@ -69,7 +71,9 @@ public class ProgressIndicator extends FrameLayout {
         mDotsContainer.removeAllViews();
         for (int i = 0; i < steps; ++i) {
             ImageView iv = new ImageView(getContext());
-            iv.setImageDrawable(getContext().getResources().getDrawable(R.drawable.whats_new_progress_transition));
+            iv.setImageDrawable(ResourcesCompat.getDrawable(getContext().getResources(),
+                                                            R.drawable.whats_new_progress_transition,
+                                                            null));
             iv.setColorFilter(fontColor, PorterDuff.Mode.SRC_ATOP);
             mDotsContainer.addView(iv);
         }

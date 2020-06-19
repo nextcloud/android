@@ -39,6 +39,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 import java.io.File;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.res.ResourcesCompat;
 
 /**
  * @author Bartosz Przybylski
@@ -212,7 +213,9 @@ public class StorageMigration {
                     askToStillMove();
                 } else {
                     mProgressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.VISIBLE);
-                    mProgressDialog.setIndeterminateDrawable(mContext.getResources().getDrawable(R.drawable.image_fail));
+                    mProgressDialog.setIndeterminateDrawable(ResourcesCompat.getDrawable(mContext.getResources(),
+                                                                                         R.drawable.image_fail,
+                                                                                         null));
                 }
             }
 

@@ -388,7 +388,7 @@ steps:
       - sed -i "/qa/,/\}/ s/versionCode .*/versionCode $DRONE_BUILD_NUMBER/" build.gradle
       - sed -i "/qa/,/\}/ s/versionName .*/versionName \"$DRONE_BUILD_NUMBER\"/" build.gradle
       - ./gradlew assembleQaDebug
-      - /opt/android-sdk-linux/build-tools/*/apksigner sign  --ks-pass pass:$KS_PASS --key-pass pass:$KEY_PASS --ks-key-alias key0 --ks scripts/QA_keystore.jks build/outputs/apk/qa/debug/qa-debug-*.apk
+      - $(find /opt/android-sdk-linux/build-tools/*/apksigner | sort | tail -n1) sign  --ks-pass pass:$KS_PASS --key-pass pass:$KEY_PASS --ks-key-alias key0 --ks scripts/QA_keystore.jks build/outputs/apk/qa/debug/qa-debug-*.apk
       - scripts/uploadArtifact.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
 
 trigger:

@@ -22,6 +22,7 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignParentTop="true"
@@ -38,7 +39,6 @@
         android:src="@drawable/logo" />
 
     <ScrollView
-        android:id="@+id/scroll"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -148,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/alternate_half_margin"
                 android:contentDescription="@string/auth_testing_connection"
-                android:drawableStart="@android:drawable/stat_notify_sync"
+                app:drawableStartCompat="@android:drawable/stat_notify_sync"
                 android:drawablePadding="@dimen/alternate_half_padding"
                 android:gravity="center_vertical"
                 android:minHeight="@dimen/display_text_min_height"
@@ -185,7 +185,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/auth_unauthorized"
-                android:drawableStart="@android:drawable/stat_notify_sync"
+                app:drawableStartCompat="@android:drawable/stat_notify_sync"
                 android:drawablePadding="@dimen/alternate_half_padding"
                 android:gravity="center_vertical"
                 android:text="@string/auth_unauthorized"
