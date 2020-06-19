@@ -30,10 +30,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.LinearGradient;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
-import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -99,6 +97,7 @@ import java.util.Vector;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
@@ -583,7 +582,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             placeholder = TextDrawable.createAvatarByUserId(userId, avatarRadius);
         } catch (Exception e) {
             Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-            placeholder = resources.getDrawable(R.drawable.account_circle_white);
+            placeholder = ResourcesCompat.getDrawable(resources, R.drawable.account_circle_white, null);
         }
 
         avatar.setTag(null);

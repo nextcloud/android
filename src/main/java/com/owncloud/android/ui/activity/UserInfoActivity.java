@@ -77,6 +77,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
@@ -253,7 +254,9 @@ public class UserInfoActivity extends FileActivity implements Injectable {
                         @Override
                         public void onLoadFailed(Exception e, Drawable errorDrawable) {
                             Drawable[] drawables = {new ColorDrawable(primaryColor),
-                                    getResources().getDrawable(R.drawable.background)};
+                                ResourcesCompat.getDrawable(getResources(),
+                                                            R.drawable.background,
+                                                            null)};
                             LayerDrawable layerDrawable = new LayerDrawable(drawables);
                             backgroundImageView.setImageDrawable(layerDrawable);
                         }

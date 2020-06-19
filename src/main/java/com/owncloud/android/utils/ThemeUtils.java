@@ -347,7 +347,7 @@ public final class ThemeUtils {
             return;
         }
 
-        Drawable backArrow = context.getResources().getDrawable(R.drawable.ic_arrow_back);
+        Drawable backArrow = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_arrow_back, null);
         supportActionBar.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, color));
     }
 

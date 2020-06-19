@@ -98,6 +98,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatDrawableManager;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -490,7 +491,9 @@ public final class DisplayUtils {
                 avatar = TextDrawable.createAvatarByUserId(displayName, avatarRadius);
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                avatar = resources.getDrawable(R.drawable.account_circle_white);
+                avatar = ResourcesCompat.getDrawable(resources,
+                                                     R.drawable.account_circle_white,
+                                                     null);
             }
         }
 
