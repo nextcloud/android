@@ -81,7 +81,7 @@ import butterknife.ButterKnife;
 /**
  * Dialog to show templates for new documents/spreadsheets/presentations.
  */
-public class ChooseTemplateDialogFragment extends DialogFragment implements Injectable, TemplateAdapter.ClickListener, DialogInterface.OnShowListener {
+public class ChooseTemplateDialogFragment extends DialogFragment implements Injectable, TemplateAdapter.ClickListener {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
     private static final String ARG_CREATOR = "CREATOR";
@@ -177,7 +177,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Inje
             .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.select_template), accentColor));
         Dialog dialog = builder.create();
 
-        dialog.setOnShowListener(this);
+        dialog.setOnShowListener(this::showTemplateDialog);
 
         Window window = dialog.getWindow();
 
@@ -197,16 +197,27 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Inje
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onShow(DialogInterface dialog) {
+    public void showTemplateDialog(DialogInterface dialog) {
+        Button createButton = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+        createButton.setOnClickListener(this::OnCreateSelected);
+    }
 
-        Button posbtn = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-        PostiveButtonClickListener postiveButtonClickListener = new PostiveButtonClickListener();
-        posbtn.setOnClickListener(postiveButtonClickListener);
+    public void OnCreateSelected(View v)
+    {
+        String name = fileName.getText().toString();
+        String path = parentFolder.getRemotePath() + name;
 
-        Button negbtn = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
-        NegativeButtonCLickListener negativeButtonCLickListener = new NegativeButtonCLickListener(dialog);
-        negbtn.setOnClickListener(negativeButtonCLickListener);
+        templateList = adapter.getTemplateList();
+        position = adapter.getPosition();
+        Template mtemp = templateList.getTemplateList().get(position);
+
+        if (name.isEmpty() || name.equalsIgnoreCase(DOT + mtemp.getExtension())) {
+            DisplayUtils.showSnackMessage(listView, R.string.enter_filename);
+        } else if (!name.endsWith(mtemp.getExtension())) {
+            createFromTemplate(mtemp, path + DOT + mtemp.getExtension());
+        } else {
+            createFromTemplate(mtemp, path);
+        }
     }
 
     @Override
@@ -223,39 +234,6 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Inje
         }
     }
 
-    private class PostiveButtonClickListener implements OnClickListener{
-
-        @Override
-        public void onClick(View v) {
-            String name = fileName.getText().toString();
-            String path = parentFolder.getRemotePath() + name;
-
-            templateList = adapter.getTemplateList();
-            position = adapter.getPosition();
-            Template mtemp = templateList.getTemplateList().get(position);
-
-            if (name.isEmpty() || name.equalsIgnoreCase(DOT + mtemp.getExtension())) {
-                DisplayUtils.showSnackMessage(listView, R.string.enter_filename);
-            } else if (!name.endsWith(mtemp.getExtension())) {
-                createFromTemplate(mtemp, path + DOT + mtemp.getExtension());
-            } else {
-                createFromTemplate(mtemp, path);
-            }
-        }
-    }
-
-    private class NegativeButtonCLickListener implements OnClickListener{
-        private DialogInterface dialog;
-
-        public NegativeButtonCLickListener(DialogInterface dialog) {
-            this.dialog = dialog;
-        }
-
-        @Override
-        public void onClick(View v) {
-            dialog.dismiss();
-        }
-    }
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {
         private ClientFactory clientFactory;
