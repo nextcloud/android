@@ -1,3 +1,5 @@
+import com.github.spotbugs.snom.SpotBugsTask
+
 // Gradle build file
 //
 // This project was started in Eclipse and later moved to Android Studio. In the transition, both IDEs were supported.
@@ -48,7 +50,7 @@ configurations {
         exclude group: 'com.google.firebase', module: 'firebase-core'
         exclude group: 'com.google.firebase', module: 'firebase-analytics'
         exclude group: 'com.google.firebase', module: 'firebase-measurement-connector'
-        exclude group: 'org.jetbrains', module: 'annotations-java5' // via prism4j, already using annotations explicitely
+        exclude group: 'org.jetbrains', module: 'annotations-java5' // via prism4j, already using annotations explicitly
 
         // check for updates every build
         resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -64,7 +66,7 @@ ext {
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
-    // allows for -Dpre-dex=false to be set
+    // allows for -D pre-dex=false to be set
     preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 }
 
@@ -191,7 +193,7 @@ android {
     // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
     dexOptions {
-        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
+        // Skip pre-dexing when running on Travis CI or when disabled via -D pre-dex=false.
         preDexLibraries = preDexEnabled && !travisBuild
     }
 
@@ -233,7 +235,7 @@ android {
     android.applicationVariants.all { variant ->
         String variantName = variant.name
         String capVariantName = variantName.substring(0, 1).toUpperCase() + variantName.substring(1)
-        tasks.register("spotbugs${capVariantName}Report", com.github.spotbugs.snom.SpotBugsTask) {
+        tasks.register("spotbugs${capVariantName}Report", SpotBugsTask) {
             ignoreFailures = true // should continue checking
             effort = "max"
             reportLevel = "medium"
