@@ -25,6 +25,14 @@
       tools:ignore="AppCompatResource">
 
     <item
+        android:id="@+id/action_search"
+        android:contentDescription="@string/actionbar_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/actionbar_search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_empty_trashbin"
         android:contentDescription="@string/action_empty_trashbin"
         android:orderInCategory="1"
