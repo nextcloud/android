@@ -1,0 +1,10 @@
+minor changes to build.gradle and fixed type on uploadReport.sh
+minor changes to build.gradle
+Use always recommended spotbug version, defined by plugin exclude data binding generated classes
+Fixed Lint: MissingClass: Missing registered class Range: Outside Range UseAppTint: app:tint attribute should be used on ImageView UseCompatLoadingForDrawables UseCompatTextViewDrawableXml
+Fix spotbugs output
+update combinedTestReport
+change to newer spotbugs
+change Gradle to 6.1.1
+Update Nextcloud Android library
+Update 3rd-party dependencies
