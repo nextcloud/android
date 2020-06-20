@@ -32,6 +32,7 @@
         <Or>
             <Class name="~.*BindingImpl"/>
             <Class name="~.*\.DataBinderMapperImpl" />
+            <Class name="~.*Binding" />
         </Or>
     </Match>
 

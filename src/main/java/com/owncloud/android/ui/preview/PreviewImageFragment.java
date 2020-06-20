@@ -87,6 +87,7 @@ import javax.inject.Inject;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import pl.droidsonroids.gif.GifDrawable;
@@ -811,9 +812,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 Drawable layerOne;
 
                 if (previewImageActivity.isSystemUIVisible()) {
-                    layerOne = getResources().getDrawable(R.color.bg_default);
+                    layerOne = ResourcesCompat.getDrawable(getResources(), R.color.bg_default, null);
                 } else {
-                    layerOne = getResources().getDrawable(R.drawable.backrepeat);
+                    layerOne = ResourcesCompat.getDrawable(getResources(), R.drawable.backrepeat, null);
                 }
 
                 layerDrawable.setDrawableByLayerId(layerDrawable.getId(0), layerOne);

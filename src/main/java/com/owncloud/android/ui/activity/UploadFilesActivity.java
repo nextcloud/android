@@ -64,6 +64,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -190,10 +191,14 @@ public class UploadFilesActivity extends FileActivity implements LocalFileListFr
         MaterialButton switchButton = findViewById(R.id.switch_grid_view_button);
         switchButton.setOnClickListener(l -> {
             if (isGridView()) {
-                switchButton.setIcon(getResources().getDrawable(R.drawable.ic_view_module));
+                switchButton.setIcon(ResourcesCompat.getDrawable(getResources(),
+                                                                 R.drawable.ic_view_module,
+                                                                 null));
                 mFileListFragment.switchToListView();
             } else {
-                switchButton.setIcon(getResources().getDrawable(R.drawable.ic_view_list));
+                switchButton.setIcon(ResourcesCompat.getDrawable(getResources(),
+                                                                 R.drawable.ic_view_list,
+                                                                 null));
                 mFileListFragment.switchToGridView();
 
             }
