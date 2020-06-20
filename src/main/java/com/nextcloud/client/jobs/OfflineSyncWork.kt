@@ -94,7 +94,7 @@ class OfflineSyncWork constructor(
         Log_OC.d(TAG, folderName + ": currentEtag: " + ocFolder.etag)
         // check for etag change, if false, skip
         val checkEtagOperation = CheckEtagRemoteOperation(
-            ocFolder.encryptedFileName,
+            ocFolder.remotePath,
             ocFolder.etagOnServer
         )
         val result = checkEtagOperation.execute(user.toPlatformAccount(), context)
