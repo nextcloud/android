@@ -51,31 +51,6 @@
             android:orientation="vertical"
             android:padding="@dimen/standard_half_padding">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/centered_refresh_button"
-                style="@style/Button.Primary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/alternate_margin"
-                android:contentDescription="@string/auth_check_server"
-                android:text="@string/auth_check_server"
-                android:theme="@style/Button"
-                android:visibility="gone"
-                app:cornerRadius="@dimen/button_corner_radius" />
-
-            <TextView
-                android:id="@+id/instructions_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="fill_horizontal"
-                android:layout_marginBottom="@dimen/alternate_margin"
-                android:contentDescription="@string/auth_expired_basic_auth_toast"
-                android:text="@string/auth_expired_basic_auth_toast"
-                android:textColor="@color/login_text_color"
-                android:visibility="gone" />
-
-
             <FrameLayout
                 android:id="@+id/host_url_frame"
                 android:layout_width="match_parent"
@@ -129,18 +104,6 @@
                     android:src="@drawable/arrow_right"
                     android:tint="@color/login_text_color" />
 
-                <ImageButton
-                    android:id="@+id/embedded_refresh_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="@dimen/alternate_half_padding"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/auth_refresh_button"
-                    android:padding="@dimen/zero"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_action_refresh"
-                    android:visibility="gone" />
             </FrameLayout>
 
             <TextView
@@ -154,38 +117,13 @@
                 android:gravity="center_vertical"
                 android:minHeight="@dimen/display_text_min_height"
                 android:text="@string/auth_testing_connection"
-                android:textColor="@color/login_text_color" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/account_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="username"
-                android:ems="10"
-                android:hint="@string/auth_username"
-                android:inputType="textNoSuggestions"
                 android:textColor="@color/login_text_color"
-                android:textColorHint="@color/login_text_hint_color"
-                android:visibility="gone" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/account_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="password"
-                android:drawablePadding="@dimen/alternate_half_padding"
-                android:ems="10"
-                android:hint="@string/auth_password"
-                android:inputType="textPassword"
-                android:textColor="@color/login_text_color"
-                android:textColorHint="@color/login_text_hint_color"
-                android:visibility="gone" />
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/auth_status_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/alternate_margin"
                 android:contentDescription="@string/auth_unauthorized"
                 app:drawableStartCompat="@android:drawable/stat_notify_sync"
                 android:drawablePadding="@dimen/alternate_half_padding"
@@ -202,21 +140,7 @@
                 android:src="@drawable/qrcode_scan"
                 android:theme="@style/Button.Login" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_ok"
-                style="@style/Button.Login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/setup_btn_connect"
-                android:enabled="false"
-                android:padding="@dimen/standard_padding"
-                android:text="@string/setup_btn_connect"
-                android:theme="@style/Button.Login"
-                android:visibility="gone"
-                app:cornerRadius="@dimen/button_corner_radius" />
         </LinearLayout>
-
 
     </LinearLayout>
 
