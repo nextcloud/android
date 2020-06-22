@@ -133,6 +133,24 @@ public final class ThemeUtils {
     }
 
     public static int primaryColor(Account account, boolean replaceEdgeColors, Context context) {
+        return primaryColor(account, replaceEdgeColors, false, context);
+    }
+
+    /**
+     * return the primary color defined in the server-side theming respecting Android dark/light theming and edge case
+     * scenarios including drawer menu.
+     *
+     * @param account                          the Nextcloud user
+     * @param replaceEdgeColors                flag if edge case color scenarios should be handled
+     * @param replaceEdgeColorsByInvertedColor flag in edge case handling should be done via color inversion
+     *                                         (black/white)
+     * @param context                          the context (needed to load client-side colors)
+     * @return the color
+     */
+    public static int primaryColor(Account account,
+                                   boolean replaceEdgeColors,
+                                   boolean replaceEdgeColorsByInvertedColor,
+                                   Context context) {
         if (context == null) {
             return Color.GRAY;
         }
@@ -142,13 +160,21 @@ public final class ThemeUtils {
             if (replaceEdgeColors) {
                 if (isDarkModeActive(context)) {
                     if (Color.BLACK == color) {
-                        return getNeutralGrey(context);
+                        if (replaceEdgeColorsByInvertedColor) {
+                            return Color.WHITE;
+                        } else {
+                            return getNeutralGrey(context);
+                        }
                     } else {
                         return color;
                     }
                 } else {
                     if (Color.WHITE == color) {
-                        return getNeutralGrey(context);
+                        if (replaceEdgeColorsByInvertedColor) {
+                            return Color.BLACK;
+                        } else {
+                            return getNeutralGrey(context);
+                        }
                     } else {
                         return color;
                     }
