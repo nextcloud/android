@@ -126,6 +126,13 @@ public class DataStorageProvider {
             }
         }
 
+        StoragePoint downloads = new StoragePoint();
+        downloads.setPath("/sdcard/Download/");
+        downloads.setDescription("Downloads");
+        storagePoint.setPrivacyType(StoragePoint.PrivacyType.PUBLIC);
+        storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
+        mCachedStoragePoints.add(downloads);
+
         return mCachedStoragePoints.toArray(new StoragePoint[0]);
     }
 

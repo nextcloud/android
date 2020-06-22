@@ -1746,15 +1746,15 @@ public class FileDataStorageManager {
             ContentResolver contentResolver = MainApp.getAppContext().getContentResolver();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 if (file != null) {
-                    values.put(MediaStore.Images.Media.MIME_TYPE, file.getMimeType());
+                    //values.put(MediaStore.Images.Media.MIME_TYPE, file.getMimeType());
                     values.put(MediaStore.Images.Media.TITLE, file.getFileName());
                     values.put(MediaStore.Images.Media.DISPLAY_NAME, file.getFileName());
                 }
                 values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000);
-                values.put(MediaStore.Images.Media.RELATIVE_PATH, path);
+                values.put(MediaStore.Images.Media.RELATIVE_PATH, path.replace("/sdcard/", "")); // TODO dynamic
                 values.put(MediaStore.Images.Media.IS_PENDING, 0);
                 try {
-                    contentResolver.insert(MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),
+                    contentResolver.insert(MediaStore.Downloads.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),
                                            values);
                 } catch (IllegalArgumentException e) {
                     Log_OC.e("MediaScanner", "Adding image to media scanner failed: " + e);

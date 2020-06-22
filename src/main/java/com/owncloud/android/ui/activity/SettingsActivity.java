@@ -682,7 +682,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
                 StorageMigration storageMigration = new StorageMigration(this, storagePath, newPath);
                 storageMigration.setStorageMigrationProgressListener(this);
-                storageMigration.migrate();
+                runOnUiThread(storageMigration::migrate);
 
                 return false;
             });
