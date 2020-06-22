@@ -21,7 +21,6 @@
     <string name="only_office_user_agent">Mozilla/5.0 (Android %1$s) Mobile Nextcloud-android/%2$s</string>
 
     <!-- URLs and flags related -->
-    <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
     <bool name="show_provider_or_own_installation">true</bool>
     <string name="provider_registration_server">https://www.nextcloud.com/register</string>
@@ -109,7 +108,6 @@
     <!-- url for webview login, with the protocol prefix and with full url (normally /index.php/login/flow)
     If set, will replace all other login methods available -->
     <string name="webview_login_url" translatable="false"></string>
-    <bool name="show_old_login">false</bool>
 
     <!-- Files becomes Home -->
     <bool name="use_home">false</bool>
