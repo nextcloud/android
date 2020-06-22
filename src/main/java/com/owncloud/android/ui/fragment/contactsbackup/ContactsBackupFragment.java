@@ -184,8 +184,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             calendarPickerOpen = true;
         }
 
-        int primaryColor = ThemeUtils.primaryColor(getContext());
-        int fontColor = ThemeUtils.fontColor(getContext());
+        int primaryColor = ThemeUtils.primaryColor(getContext(), true);
+        int fontColor = ThemeUtils.fontColor(getContext(), false);
 
         backupNow.setBackgroundColor(primaryColor);
         backupNow.setTextColor(fontColor);
