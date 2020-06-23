@@ -36,6 +36,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 
 import java.io.File;
@@ -46,13 +47,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
+
 
 /**
  * A Fragment that lists all files and folders in a given LOCAL path.
  */
 public class LocalFileListFragment extends ExtendedListFragment implements
-        LocalFileListFragmentInterface,
-        Injectable {
+    LocalFileListFragmentInterface,
+    Injectable {
 
     private static final String TAG = LocalFileListFragment.class.getSimpleName();
 
@@ -82,13 +85,13 @@ public class LocalFileListFragment extends ExtendedListFragment implements
      * {@inheritDoc}
      */
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         try {
             mContainerActivity = (ContainerActivity) activity;
         } catch (ClassCastException e) {
             throw new IllegalArgumentException(activity.toString() + " must implement " +
-                    LocalFileListFragment.ContainerActivity.class.getSimpleName(), e);
+                                                   LocalFileListFragment.ContainerActivity.class.getSimpleName(), e);
         }
     }
 
@@ -125,10 +128,24 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         super.onActivityCreated(savedInstanceState);
 
         mAdapter = new LocalFileListAdapter(mContainerActivity.isFolderPickerMode(),
-                mContainerActivity.getInitialDirectory(), this, preferences, getActivity());
+                                            mContainerActivity.getInitialDirectory(), this, preferences, getActivity());
         setRecyclerViewAdapter(mAdapter);
 
         listDirectory(mContainerActivity.getInitialDirectory());
+
+        FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.uploadFilesView);
+        mSortButton.setOnClickListener(v -> openSortingOrderDialogFragment(requireFragmentManager(), sortOrder));
+        mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+
+        setGridSwitchButton();
+        mSwitchGridViewButton.setOnClickListener(v -> {
+            if (isGridEnabled()) {
+                switchToListView();
+            } else {
+                switchToGridView();
+            }
+            setGridSwitchButton();
+        });
 
         Log_OC.i(TAG, "onActivityCreated() stop");
     }
@@ -137,7 +154,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
      * {@inheritDoc}
      */
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
         if (mContainerActivity.isFolderPickerMode()) {
             menu.removeItem(R.id.action_select_all);
             menu.removeItem(R.id.action_search);
@@ -265,6 +282,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
     }
 
     public void sortFiles(FileSortOrder sortOrder) {
+        mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
         mAdapter.setSortOrder(sortOrder);
     }
 

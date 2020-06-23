@@ -112,7 +112,7 @@ class EtmBackgroundJobsFragment : EtmBaseFragment() {
         list.layoutManager = LinearLayoutManager(context)
         list.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         list.adapter = adapter
-        vm.backgroundJobs.observe(this, Observer { onBackgroundJobsUpdated(it) })
+        vm.backgroundJobs.observe(viewLifecycleOwner, Observer { onBackgroundJobsUpdated(it) })
         return view
     }
 
