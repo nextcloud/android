@@ -623,8 +623,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
             }
             return intArray;
         } else {
-            intArray = new int[0];
-            return intArray;
+            return new int[0];
         }
     }
 
