@@ -122,12 +122,8 @@ public abstract class ToolbarActivity extends BaseActivity {
         setupToolbar(false, false);
     }
 
-    public void setupHomeSearchToolbar() {
-        setupToolbar(true, false);
-    }
-
-    public void setupHomeSearchToolbar(boolean showShortListGroup) {
-        setupToolbar(true, showShortListGroup);
+    public void setupHomeSearchToolbarWithSortAndListButtons() {
+        setupToolbar(true, true);
     }
 
     /**
