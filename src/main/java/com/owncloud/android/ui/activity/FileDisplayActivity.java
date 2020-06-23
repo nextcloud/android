@@ -280,10 +280,10 @@ public class FileDisplayActivity extends FileActivity
             if (PermissionUtil.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 // Show explanation to the user and then request permission
-                Snackbar snackbar = Snackbar.make(binding.ListLayout,
+                Snackbar snackbar = Snackbar.make(binding.rootLayout,
                                                   R.string.permission_storage_access,
-                        Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.common_ok, v -> PermissionUtil.requestWriteExternalStoreagePermission(this));
+                                                  Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.common_ok, v -> PermissionUtil.requestWriteExternalStoreagePermission(this));
                 ThemeUtils.colorSnackbar(this, snackbar);
                 snackbar.show();
             } else {

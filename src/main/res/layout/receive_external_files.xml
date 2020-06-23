@@ -32,41 +32,6 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_default"
-            app:elevation="0dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways|snap">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/sort_button"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:contentDescription="@string/actionbar_sort"
-                    android:minWidth="0dp"
-                    android:text="@string/menu_item_sort_by_date_newest_first"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
-                    android:textColor="@color/fontAppbar"
-                    android:textSize="14sp"
-                    app:icon="@drawable/ic_keyboard_arrow_down"
-                    app:iconGravity="textEnd"
-                    app:iconSize="16dp"
-                    app:iconTint="@color/fontAppbar"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
         <ListView
             android:id="@android:id/list"
             android:layout_width="match_parent"
