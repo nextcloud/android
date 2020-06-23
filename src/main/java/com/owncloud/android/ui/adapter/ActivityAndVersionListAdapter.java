@@ -169,8 +169,6 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
     }
 
     protected class VersionViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.thumbnail)
-        public ImageView thumbnail;
         @BindView(R.id.size)
         public TextView size;
         @BindView(R.id.time)
