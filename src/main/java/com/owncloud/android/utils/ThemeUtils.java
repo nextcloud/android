@@ -38,6 +38,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -433,6 +434,21 @@ public final class ThemeUtils {
         ColorUtils.RGBToHSL(Color.red(color), Color.green(color), Color.blue(color), hsl);
 
         return hsl;
+    }
+
+    public static void colorPrimaryButton(Button button, Context context) {
+        int primaryColor = ThemeUtils.primaryColor(null, true, false, context);
+        int fontColor = ThemeUtils.fontColor(context, false);
+
+        button.setBackgroundColor(primaryColor);
+
+        if (Color.BLACK == primaryColor) {
+            button.setTextColor(Color.WHITE);
+        } else if (Color.WHITE == primaryColor) {
+            button.setTextColor(Color.BLACK);
+        } else {
+            button.setTextColor(fontColor);
+        }
     }
 
     /**
