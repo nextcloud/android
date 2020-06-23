@@ -3,7 +3,7 @@
   ownCloud Android client application
 
   Copyright (C) 2015 ownCloud Inc.
-  
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
   as published by the Free Software Foundation.
@@ -15,7 +15,7 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  
+
 -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -65,24 +65,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_margin="@dimen/standard_margin"
-            />
+            android:layout_margin="@dimen/standard_margin" />
     </RelativeLayout>
 
 
-    <RelativeLayout
-        android:id="@+id/multi_view"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <include layout="@layout/empty_list"/>
-
-        </ScrollView>
-    </RelativeLayout>
+        <include layout="@layout/empty_list" />
+    </ScrollView>
 
 
 </RelativeLayout>

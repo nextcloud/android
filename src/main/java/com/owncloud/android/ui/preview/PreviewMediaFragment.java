@@ -112,7 +112,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private VideoView mVideoPreview;
     private int mSavedPlaybackPosition;
 
-    private RelativeLayout mMultiView;
     private RelativeLayout mPreviewContainer;
 
     private LinearLayout mMultiListContainer;
@@ -197,7 +196,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         mVideoPreview.setOnTouchListener(this);
 
         mMediaController = view.findViewById(R.id.media_controller);
-        mMultiView = view.findViewById(R.id.multi_view);
 
         setupMultiView(view);
         setMultiListLoadingMessage();
@@ -213,7 +211,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     }
 
     private void setMultiListLoadingMessage() {
-        if (mMultiView != null) {
+        if (mMultiListContainer != null) {
             mMultiListHeadline.setText(R.string.file_list_loading);
             mMultiListMessage.setText("");
 
@@ -323,7 +321,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 mMediaController.setMediaPlayer(mMediaPlayerServiceConnection);
                 mMediaPlayerServiceConnection.bind();
                 mMediaPlayerServiceConnection.start(mAccount, file, mAutoplay, mSavedPlaybackPosition);
-                mMultiView.setVisibility(View.GONE);
+                mMultiListContainer.setVisibility(View.GONE);
                 mPreviewContainer.setVisibility(View.VISIBLE);
             } else if (MimeTypeUtil.isVideo(file)) {
                 stopAudio();
@@ -337,7 +335,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.removeItem(R.id.action_search);
         inflater.inflate(R.menu.item_file, menu);
@@ -525,10 +523,10 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                     previewMediaFragment.mVideoUri = uri;
                     previewMediaFragment.mVideoPreview.setVideoURI(uri);
                 } else {
-                    previewMediaFragment.mMultiView.setVisibility(View.VISIBLE);
+                    previewMediaFragment.mMultiListContainer.setVisibility(View.VISIBLE);
                     previewMediaFragment.setMessageForMultiList(
-                            previewMediaFragment.getString(R.string.stream_not_possible_headline),
-                            R.string.stream_not_possible_message, R.drawable.file_movie);
+                        previewMediaFragment.getString(R.string.stream_not_possible_headline),
+                        R.string.stream_not_possible_message, R.drawable.file_movie);
                 }
             } else {
                 Log_OC.e(TAG, "Error streaming file: no previewMediaFragment!");
@@ -548,7 +546,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         @Override
         public void onPrepared(MediaPlayer vp) {
             Log_OC.v(TAG, "onPrepared");
-            mMultiView.setVisibility(View.GONE);
+            mMultiListContainer.setVisibility(View.GONE);
             mPreviewContainer.setVisibility(View.VISIBLE);
             mVideoPreview.seekTo(mSavedPlaybackPosition);
             if (mAutoplay) {
@@ -590,7 +588,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             final Context context = getActivity();
             if (mVideoPreview.getWindowToken() != null && context != null) {
                 String message = ErrorFormat.toString(context, what, extra);
-                mMultiView.setVisibility(View.VISIBLE);
+                mMultiListContainer.setVisibility(View.VISIBLE);
                 setMessageForMultiList(message, R.string.preview_sorry, R.drawable.file_movie);
             }
             return true;
@@ -648,7 +646,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         Log_OC.v(TAG, "onConfigurationChanged " + this);
     }
@@ -710,15 +708,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         return mSavedPlaybackPosition;
     }
 
-    public boolean isPlaying() {
-        if (mPrepared) {
-            mAutoplay = mVideoPreview.isPlaying();
-        }
-        return mAutoplay;
-    }
-
     private void toggleDrawerLockMode(ContainerActivity containerActivity, int lockMode) {
         ((DrawerActivity) containerActivity).setDrawerLockMode(lockMode);
     }
-
 }

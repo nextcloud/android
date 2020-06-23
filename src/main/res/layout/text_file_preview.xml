@@ -39,22 +39,15 @@
                 android:visibility="gone"
                 tools:visibility="visible"
                 tools:maxLength="40"
-                tools:text="@tools:sample/lorem/random"/>
+                tools:text="@tools:sample/lorem/random" />
 
-            <RelativeLayout
-                android:id="@+id/multi_view"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <include layout="@layout/empty_list" />
 
-                    <include layout="@layout/empty_list" />
-
-                </ScrollView>
-            </RelativeLayout>
-
+            </ScrollView>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </ScrollView>
 
