@@ -744,9 +744,10 @@ public class FileDisplayActivity extends FileActivity
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 mDrawerToggle.syncState();
 
-                if (getListOfFilesFragment() != null) {
-                    getListOfFilesFragment().setSearchFragment(false);
-                    getListOfFilesFragment().refreshDirectory();
+                OCFileListFragment ocFileListFragment = getListOfFilesFragment();
+                if (ocFileListFragment != null) {
+                    ocFileListFragment.setSearchFragment(false);
+                    ocFileListFragment.refreshDirectory();
                 }
             } else {
                 searchView.post(() -> searchView.setQuery("", true));
@@ -797,7 +798,11 @@ public class FileDisplayActivity extends FileActivity
                 break;
             }
             case R.id.action_select_all: {
-                getListOfFilesFragment().selectAllFiles(true);
+                OCFileListFragment fragment = getListOfFilesFragment();
+
+                if (fragment != null) {
+                    fragment.selectAllFiles(true);
+                }
                 break;
             }
             default:
@@ -1028,7 +1033,9 @@ public class FileDisplayActivity extends FileActivity
             searchView.clearFocus();
 
             // Remove the list to the original state
-            listOfFiles.performSearch("", true);
+            if (listOfFiles != null) {
+                listOfFiles.performSearch("", true);
+            }
 
             hideSearchView(getCurrentDir());
 
@@ -1081,7 +1088,10 @@ public class FileDisplayActivity extends FileActivity
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
         // Instead of onPostCreate, starting the loading in onResume for children fragments
-        getListOfFilesFragment().setLoading(mSyncInProgress);
+        OCFileListFragment ocFileListFragment = getListOfFilesFragment();
+        if (ocFileListFragment != null) {
+            ocFileListFragment.setLoading(mSyncInProgress);
+        }
         syncAndUpdateFolder(false);
 
         OCFile startFile = null;
@@ -1093,16 +1103,17 @@ public class FileDisplayActivity extends FileActivity
         // refresh list of files
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView.setQuery(searchQuery, false);
-        } else if (getListOfFilesFragment() != null && !getListOfFilesFragment().isSearchFragment()
-                && startFile == null) {
+        } else if (ocFileListFragment != null && !ocFileListFragment.isSearchFragment() && startFile == null) {
             updateListOfFilesFragment(false);
         } else {
-            getListOfFilesFragment().listDirectory(startFile, false, false);
+            if (ocFileListFragment != null) {
+                ocFileListFragment.listDirectory(startFile, false, false);
+            }
             updateActionBarTitleAndHomeButton(startFile);
         }
 
         // Listen for sync messages
-        if (getListOfFilesFragment() != null && !getListOfFilesFragment().isSearchFragment()) {
+        if (ocFileListFragment != null && !ocFileListFragment.isSearchFragment()) {
             IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
             syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
             syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
@@ -1110,8 +1121,6 @@ public class FileDisplayActivity extends FileActivity
             syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
             mSyncBroadcastReceiver = new SyncBroadcastReceiver();
             registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
-            //LocalBroadcastManager.getInstance(this).registerReceiver(mSyncBroadcastReceiver,
-            // syncIntentFilter);
         }
 
         // Listen for upload messages
@@ -1120,8 +1129,7 @@ public class FileDisplayActivity extends FileActivity
         registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
 
         // Listen for download messages
-        IntentFilter downloadIntentFilter = new IntentFilter(
-                FileDownloader.getDownloadAddedMessage());
+        IntentFilter downloadIntentFilter = new IntentFilter(FileDownloader.getDownloadAddedMessage());
         downloadIntentFilter.addAction(FileDownloader.getDownloadFinishMessage());
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
@@ -1146,7 +1154,7 @@ public class FileDisplayActivity extends FileActivity
             setDrawerMenuItemChecked(menuItemId);
         }
 
-        if (getListOfFilesFragment() instanceof PhotoFragment) {
+        if (ocFileListFragment instanceof PhotoFragment) {
             updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_photos));
         }
 
@@ -1177,7 +1185,10 @@ public class FileDisplayActivity extends FileActivity
 
     @Override
     public void onSortingOrderChosen(FileSortOrder selection) {
-        getListOfFilesFragment().sortFiles(selection);
+        OCFileListFragment ocFileListFragment = getListOfFilesFragment();
+        if (ocFileListFragment != null) {
+            ocFileListFragment.sortFiles(selection);
+        }
     }
 
     @Override
@@ -1283,7 +1294,10 @@ public class FileDisplayActivity extends FileActivity
                         DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
 
                         Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                        getListOfFilesFragment().setLoading(mSyncInProgress);
+                        OCFileListFragment ocFileListFragment = getListOfFilesFragment();
+                        if (ocFileListFragment != null) {
+                            ocFileListFragment.setLoading(mSyncInProgress);
+                        }
                         setBackgroundText();
                     }
                 }
@@ -1407,7 +1421,10 @@ public class FileDisplayActivity extends FileActivity
                         // TODO what about other kind of previews?
                     }
                 }
-                getListOfFilesFragment().setLoading(false);
+                OCFileListFragment ocFileListFragment = getListOfFilesFragment();
+                if (ocFileListFragment != null) {
+                    ocFileListFragment.setLoading(false);
+                }
             } finally {
                 if (intent != null) {
                     removeStickyBroadcast(intent);
@@ -1838,7 +1855,7 @@ public class FileDisplayActivity extends FileActivity
                         getFileOperationsHelper().openFile(renamedFile);
                     }
                 } else if (details instanceof PreviewTextFragment &&
-                        renamedFile.equals(details.getFile())) {
+                    renamedFile.equals(details.getFile())) {
                     ((PreviewTextFileFragment) details).updateFile(renamedFile);
                     if (PreviewTextFileFragment.canBePreviewed(renamedFile)) {
                         startTextPreview(renamedFile, true);
@@ -1848,7 +1865,8 @@ public class FileDisplayActivity extends FileActivity
                 }
             }
 
-            if (getStorageManager().getFileById(renamedFile.getParentId()).equals(getCurrentDir())) {
+            OCFile file = getStorageManager().getFileById(renamedFile.getParentId());
+            if (file != null && file.equals(getCurrentDir())) {
                 updateListOfFilesFragment(false);
             }
 
@@ -2257,17 +2275,16 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    private boolean isGridView() {
-        return getListOfFilesFragment().isGridEnabled();
-    }
-
     @Override
     public void showFiles(boolean onDeviceOnly) {
         super.showFiles(onDeviceOnly);
         if (onDeviceOnly) {
             updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_on_device));
         }
-        getListOfFilesFragment().refreshDirectory();
+        OCFileListFragment ocFileListFragment = getListOfFilesFragment();
+        if (ocFileListFragment != null) {
+            ocFileListFragment.refreshDirectory();
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
