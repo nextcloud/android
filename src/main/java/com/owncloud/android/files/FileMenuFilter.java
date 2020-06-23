@@ -226,7 +226,7 @@ public class FileMenuFilter {
         }
     }
 
-    private void filterDetails(List<Integer> toShow, List<Integer> toHide) {
+    private void filterDetails(Collection<Integer> toShow, Collection<Integer> toHide) {
         if (isSingleSelection()) {
             toShow.add(R.id.action_see_details);
         } else {
@@ -353,7 +353,7 @@ public class FileMenuFilter {
         }
     }
 
-    private void filterOpenWith(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
+    private void filterOpenWith(Collection<Integer> toShow, Collection<Integer> toHide, boolean synchronizing) {
         if (!isSingleFile() || !anyFileDown() || synchronizing) {
             toHide.add(R.id.action_open_file_with);
         } else {
@@ -407,7 +407,7 @@ public class FileMenuFilter {
         }
     }
 
-    private void filterRename(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
+    private void filterRename(Collection<Integer> toShow, Collection<Integer> toHide, boolean synchronizing) {
         if (!isSingleSelection() || synchronizing || containsEncryptedFile() || containsEncryptedFolder()) {
             toHide.add(R.id.action_rename_file);
         } else {

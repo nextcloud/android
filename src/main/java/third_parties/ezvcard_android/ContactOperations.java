@@ -563,11 +563,12 @@ public class ContactOperations {
 
     /**
      * Groups properties by their group name.
+     *
      * @param properties the properties to group
-     * @return a map where the key is the group name (null for no group) and the
-     * value is the list of properties that belong to that group
+     * @return a map where the key is the group name (null for no group) and the value is the list of properties that
+     * belong to that group
      */
-    private <T extends VCardProperty> Map<String, List<T>> orderPropertiesByGroup(List<T> properties) {
+    private <T extends VCardProperty> Map<String, List<T>> orderPropertiesByGroup(Iterable<T> properties) {
         Map<String, List<T>> groupedProperties = new HashMap<String, List<T>>();
 
         for (T property : properties) {

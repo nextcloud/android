@@ -1603,7 +1603,7 @@ public class FileDataStorageManager {
      * @return
      */
     private ArrayList<ContentProviderOperation> prepareInsertShares(
-        List<OCShare> shares, ArrayList<ContentProviderOperation> operations) {
+        Iterable<OCShare> shares, ArrayList<ContentProviderOperation> operations) {
 
         ContentValues contentValues;
         // prepare operations to insert or update files to save in the given folder
