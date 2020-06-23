@@ -68,7 +68,6 @@ import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -637,8 +636,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         }
 
         if (syncedFolderDisplayItem.isEnabled()) {
-            FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolderDisplayItem, true);
-
             showBatteryOptimizationInfo();
         }
     }
@@ -778,9 +775,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         } else {
             // existing synced folder setup to be updated
             syncedFolderProvider.updateSyncFolder(item);
-            if (item.isEnabled()) {
-                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(item, true);
-            } else {
+            if (!item.isEnabled()) {
                 String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + item.getId();
 
                 ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().
@@ -796,9 +791,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         long storedId = syncedFolderProvider.storeSyncedFolder(item);
         if (storedId != -1) {
             item.setId(storedId);
-            if (item.isEnabled()) {
-                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(item, true);
-            } else {
+            if (!item.isEnabled()) {
                 String syncedFolderInitiatedKey = "syncedFolderIntitiated_" + item.getId();
                 arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey);
             }
