@@ -104,6 +104,8 @@
 		<item name="android:textColorHint">@color/login_text_hint_color</item>
 	</style>
 
+    <style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar.LoginBase" />
+
 	<style name="ownCloud.AlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:textColorPrimary">@color/primary</item>
