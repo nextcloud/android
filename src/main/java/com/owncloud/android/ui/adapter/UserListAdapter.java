@@ -299,11 +299,9 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * Account ViewHolderItem to get smooth scrolling.
      */
     static class AddAccountViewHolderItem extends RecyclerView.ViewHolder {
-        AccountActionBinding binding;
 
         AddAccountViewHolderItem(@NonNull AccountActionBinding binding) {
             super(binding.getRoot());
-            this.binding = binding;
         }
 
         /**
