@@ -765,19 +765,15 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mListView.setAdapter(sa);
             }
             MaterialButton btnChooseFolder = findViewById(R.id.uploader_choose_folder);
-            btnChooseFolder.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
-            btnChooseFolder.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(this, true)));
+            ThemeUtils.colorPrimaryButton(btnChooseFolder, this);
             btnChooseFolder.setOnClickListener(this);
-            btnChooseFolder.setTextColor(ThemeUtils.fontColor(this));
 
             if (mFile.canWrite()) {
                 btnChooseFolder.setEnabled(true);
-                btnChooseFolder.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(getAccount(),
-                                                                                                     true,
-                                                                                                     this)));
+                ThemeUtils.colorPrimaryButton(btnChooseFolder, this);
             } else {
                 btnChooseFolder.setEnabled(false);
-                btnChooseFolder.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+                btnChooseFolder.setBackgroundColor(Color.GRAY);
             }
 
             ThemeUtils.colorStatusBar(this);
