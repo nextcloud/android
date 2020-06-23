@@ -227,8 +227,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                 textView.setVisibility(View.VISIBLE);
             }
 
-            if (mMultiView != null) {
-                mMultiView.setVisibility(View.GONE);
+            if (mMultiListContainer != null) {
+                mMultiListContainer.setVisibility(View.GONE);
             }
         }
     }
