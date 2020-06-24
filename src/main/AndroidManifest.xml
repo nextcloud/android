@@ -251,7 +251,7 @@
             android:authorities="@string/users_and_groups_search_authority"
             android:enabled="true"
             android:exported="false"
-            android:label="@string/search_users_and_groups_hint" />
+            android:label="@string/share_search" />
 
         <provider
             android:name=".providers.DocumentsStorageProvider"
