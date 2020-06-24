@@ -130,7 +130,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
      * tints the icon reflecting the actual sorting choice in the apps primary color.
      */
     private void setupActiveOrderSelection() {
-        final int color = ThemeUtils.elementColor(getContext());
+        final int color = ThemeUtils.primaryColor(null, true, true, getContext());
         for (View view: mTaggedViews) {
             if (!((FileSortOrder) view.getTag()).name.equals(mCurrentSortOrderName)) {
                 continue;
