@@ -927,4 +927,5 @@
     <string name="invalid_url">Invalid URL</string>
     <string name="conflict_dialog_error">Error creating conflict dialog!</string>
     <string name="qr_could_not_be_read">QR Code could not be read!</string>
+    <string name="note_icon_hint">Note icon</string>
 </resources>
