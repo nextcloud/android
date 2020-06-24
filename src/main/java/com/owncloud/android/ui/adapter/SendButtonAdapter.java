@@ -24,11 +24,11 @@ package com.owncloud.android.ui.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.owncloud.android.R;
+import com.owncloud.android.databinding.SendButtonBinding;
 import com.owncloud.android.ui.components.SendButtonData;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -47,13 +47,14 @@ public class SendButtonAdapter extends RecyclerView.Adapter<SendButtonAdapter.Vi
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.send_button, parent, false));
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ViewHolder(SendButtonBinding.inflate(LayoutInflater.from(parent.getContext()), parent,
+                                                                                                 false), clickListener);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setData(sendButtonDataList.get(position));
+        holder.bind(sendButtonDataList.get(position));
     }
 
     @Override
@@ -61,17 +62,23 @@ public class SendButtonAdapter extends RecyclerView.Adapter<SendButtonAdapter.Vi
         return sendButtonDataList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView text;
-        private ImageView icon;
+        private SendButtonBinding binding;
+        private ClickListener clickListener;
         private SendButtonData sendButtonDataData;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
+        public ViewHolder(@NotNull SendButtonBinding binding, ClickListener clickListener) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.clickListener = clickListener;
             itemView.setOnClickListener(this);
-            text = itemView.findViewById(R.id.send_button_text);
-            icon = itemView.findViewById(R.id.send_button_icon);
+        }
+
+        public void bind(SendButtonData item) {
+            sendButtonDataData = item;
+            binding.sendButtonIcon.setImageDrawable(item.getDrawable());
+            binding.sendButtonText.setText(item.getTitle());
         }
 
         @Override
@@ -79,12 +86,6 @@ public class SendButtonAdapter extends RecyclerView.Adapter<SendButtonAdapter.Vi
             if (clickListener != null) {
                 clickListener.onClick(sendButtonDataData);
             }
-        }
-
-        public void setData(SendButtonData item) {
-            sendButtonDataData = item;
-            icon.setImageDrawable(item.getDrawable());
-            text.setText(item.getTitle());
         }
     }
 

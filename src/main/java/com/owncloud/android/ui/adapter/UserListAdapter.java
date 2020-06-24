@@ -32,11 +32,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.AccountActionBinding;
+import com.owncloud.android.databinding.AccountItemBinding;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.BaseActivity;
@@ -97,13 +98,11 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public @NonNull
     RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
         if (UserListItem.TYPE_ACCOUNT == viewType) {
-            view = LayoutInflater.from(context).inflate(R.layout.account_item, parent, false);
-            return new AccountViewHolderItem(view);
+            return new AccountViewHolderItem(AccountItemBinding.inflate(LayoutInflater.from(context), parent, false));
         } else {
-            view = LayoutInflater.from(context).inflate(R.layout.account_action, parent, false);
-            return new AddAccountViewHolderItem(view);
+            return new AddAccountViewHolderItem(
+                AccountActionBinding.inflate(LayoutInflater.from(context), parent, false));
         }
     }
 
@@ -115,111 +114,13 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             // create account item
             if (UserListItem.TYPE_ACCOUNT == userListItem.getType()) {
                 final User user = userListItem.getUser();
-                AccountViewHolderItem item = (AccountViewHolderItem)holder;
-                item.setData(user);
-                setUser(item, user);
-                setUsername(item, user);
-                setAvatar(item, user);
-                setCurrentlyActiveState(item, user);
-
-                TextView usernameView = item.usernameViewItem;
-                TextView accountView = item.accountViewItem;
-
-                if (!userListItem.isEnabled()) {
-                    usernameView.setPaintFlags(usernameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    accountView.setPaintFlags(accountView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                } else {
-                    usernameView.setPaintFlags(usernameView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-                    accountView.setPaintFlags(accountView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-                }
-
+                AccountViewHolderItem item = (AccountViewHolderItem) holder;
+                item.bind(user, userListItem.isEnabled(), this);
             } // create add account action item
             else if (UserListItem.TYPE_ACTION_ADD == userListItem.getType() && accountListAdapterListener != null) {
-                setupAddAccountListItem((AddAccountViewHolderItem)holder);
+                ((AddAccountViewHolderItem) holder).bind(accountListAdapterListener);
             }
         }
-    }
-
-    /**
-     * Sets up a View to be used for adding a new account
-     *
-     * @param holder the add account view holder
-     */
-    private void setupAddAccountListItem(AddAccountViewHolderItem holder) {
-        View actionView = holder.itemView;
-
-        // bind action listener
-        boolean isProviderOrOwnInstallationVisible = context.getResources()
-                .getBoolean(R.bool.show_provider_or_own_installation);
-
-        if (isProviderOrOwnInstallationVisible) {
-            actionView.setOnClickListener(v -> accountListAdapterListener.showFirstRunActivity());
-        } else {
-            actionView.setOnClickListener(v -> accountListAdapterListener.startAccountCreation());
-        }
-    }
-
-    /**
-     * Sets the name of the account, in the view holder
-     *
-     * @param viewHolder the view holder that contains the account
-     * @param user the account
-     */
-    private void setUser(AccountViewHolderItem viewHolder, User user) {
-        viewHolder.accountViewItem.setText(DisplayUtils.convertIdn(user.getAccountName(), false));
-        viewHolder.accountViewItem.setTag(user.getAccountName());
-    }
-
-    /**
-     * Sets the current active state of the account to true if it is the account being used currently,
-     * false otherwise
-     *
-     * @param viewHolder the view holder that contains the account
-     * @param user the account
-     */
-    private void setCurrentlyActiveState(AccountViewHolderItem viewHolder, User user) {
-        User currentUser = accountManager.getUser();
-        if (currentUser.nameEquals(user)) {
-            viewHolder.checkViewItem.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.checkViewItem.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    /**
-     * Sets the avatar of the account
-     *
-     * @param viewHolder the view holder that contains the account
-     * @param user the account
-     */
-    private void setAvatar(AccountViewHolderItem viewHolder, User user) {
-        try {
-            View viewItem = viewHolder.imageViewItem;
-            viewItem.setTag(user.getAccountName());
-            DisplayUtils.setAvatar(user, this, accountAvatarRadiusDimension, context.getResources(), viewItem,
-                                   context);
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
-            // use user icon as a fallback
-            viewHolder.imageViewItem.setImageResource(R.drawable.ic_user);
-        }
-    }
-
-    /**
-     * Sets the username of the account
-     *
-     * @param viewHolder the view holder that contains the account
-     * @param user the account
-     */
-    private void setUsername(AccountViewHolderItem viewHolder, User user) {
-        try {
-            OwnCloudAccount oca = user.toOwnCloudAccount();
-            viewHolder.usernameViewItem.setText(oca.getDisplayName());
-        } catch (Exception e) {
-            Log_OC.w(TAG, "Account not found right after being read; using account name instead");
-            viewHolder.usernameViewItem.setText(UserAccountManager.getUsername(user.toPlatformAccount()));
-        }
-        viewHolder.usernameViewItem.setTag(user.getAccountName());
     }
 
     @Override
@@ -283,31 +184,22 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * Account ViewHolderItem to get smooth scrolling.
      */
     class AccountViewHolderItem extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageView imageViewItem;
-        private ImageView checkViewItem;
 
-        private TextView usernameViewItem;
-        private TextView accountViewItem;
-
+        private AccountItemBinding binding;
         private User user;
 
+        AccountViewHolderItem(@NonNull AccountItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
 
-        AccountViewHolderItem(@NonNull View view) {
-            super(view);
-            imageViewItem = view.findViewById(R.id.user_icon);
-            checkViewItem = view.findViewById(R.id.ticker);
-            ThemeUtils.tintDrawable(checkViewItem.getDrawable(), ThemeUtils.primaryColor(context, true));
+            ThemeUtils.tintDrawable(binding.ticker.getDrawable(), ThemeUtils.primaryColor(context, true));
 
-            usernameViewItem = view.findViewById(R.id.user_name);
-            accountViewItem = view.findViewById(R.id.account);
-            ImageView accountMenu = view.findViewById(R.id.account_menu);
-
-            view.setOnClickListener(this);
+            binding.getRoot().setOnClickListener(this);
             if (showDotsMenu) {
-                accountMenu.setVisibility(View.VISIBLE);
-                accountMenu.setOnClickListener(this);
+                binding.accountMenu.setVisibility(View.VISIBLE);
+                binding.accountMenu.setOnClickListener(this);
             } else {
-                accountMenu.setVisibility(View.GONE);
+                binding.accountMenu.setVisibility(View.GONE);
             }
         }
 
@@ -325,14 +217,108 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             }
         }
+
+        public void bind(User user, boolean userListItemEnabled, DisplayUtils.AvatarGenerationListener avatarGenerationListener) {
+            setData(user);
+            setUser(user);
+            setUsername(user);
+            setAvatar(user, avatarGenerationListener);
+            setCurrentlyActiveState(user);
+
+            if (!userListItemEnabled) {
+                binding.userName.setPaintFlags(binding.userName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                binding.account.setPaintFlags(binding.account.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            } else {
+                binding.userName.setPaintFlags(binding.userName.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                binding.account.setPaintFlags(binding.account.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+
+        }
+
+        /**
+         * Sets the name of the account, in the view holder
+         *
+         * @param user the account
+         */
+        private void setUser(User user) {
+            binding.account.setText(DisplayUtils.convertIdn(user.getAccountName(), false));
+            binding.account.setTag(user.getAccountName());
+        }
+
+        /**
+         * Sets the current active state of the account to true if it is the account being used currently,
+         * false otherwise
+         *
+         * @param user the account
+         */
+        private void setCurrentlyActiveState(User user) {
+            User currentUser = accountManager.getUser();
+            if (currentUser.nameEquals(user)) {
+                binding.ticker.setVisibility(View.VISIBLE);
+            } else {
+                binding.ticker.setVisibility(View.INVISIBLE);
+            }
+        }
+
+        /**
+         * Sets the avatar of the account
+         *
+         * @param user the account
+         */
+        private void setAvatar(User user, DisplayUtils.AvatarGenerationListener avatarGenerationListener) {
+            try {
+                View viewItem = binding.userIcon;
+                viewItem.setTag(user.getAccountName());
+                DisplayUtils.setAvatar(user, avatarGenerationListener, accountAvatarRadiusDimension, context.getResources(), viewItem,
+                                       context);
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
+                // use user icon as a fallback
+                binding.userIcon.setImageResource(R.drawable.ic_user);
+            }
+        }
+
+        /**
+         * Sets the username of the account
+         *
+         * @param user the account
+         */
+        private void setUsername(User user) {
+            try {
+                OwnCloudAccount oca = user.toOwnCloudAccount();
+                binding.userName.setText(oca.getDisplayName());
+            } catch (Exception e) {
+                Log_OC.w(TAG, "Account not found right after being read; using account name instead");
+                binding.userName.setText(UserAccountManager.getUsername(user.toPlatformAccount()));
+            }
+            binding.userName.setTag(user.getAccountName());
+        }
     }
 
     /**
      * Account ViewHolderItem to get smooth scrolling.
      */
     static class AddAccountViewHolderItem extends RecyclerView.ViewHolder {
-        AddAccountViewHolderItem(@NonNull View view) {
-            super(view);
+
+        AddAccountViewHolderItem(@NonNull AccountActionBinding binding) {
+            super(binding.getRoot());
+        }
+
+        /**
+         * Sets up a View to be used for adding a new account
+         *
+         * @param accountListAdapterListener {@link Listener}
+         */
+        private void bind(Listener accountListAdapterListener) {
+            // bind action listener
+            boolean isProviderOrOwnInstallationVisible = itemView.getContext().getResources()
+                .getBoolean(R.bool.show_provider_or_own_installation);
+
+            if (isProviderOrOwnInstallationVisible) {
+                itemView.setOnClickListener(v -> accountListAdapterListener.showFirstRunActivity());
+            } else {
+                itemView.setOnClickListener(v -> accountListAdapterListener.startAccountCreation());
+            }
         }
     }
 
