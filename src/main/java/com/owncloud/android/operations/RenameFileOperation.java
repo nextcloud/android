@@ -23,6 +23,7 @@ package com.owncloud.android.operations;
 
 import android.text.TextUtils;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -134,7 +135,7 @@ public class RenameFileOperation extends SyncOperation {
                 getStorageManager().deleteFileInMediaScan(oldPath);
                 // notify to scan about new file, if it is a media file
                 if (MimeTypeUtil.isMedia(file.getMimeType())) {
-                    FileDataStorageManager.triggerMediaScan(newPath, file);
+                    FileDataStorageManager.triggerMediaScan(newPath, file, MainApp.getAppContext());
                 }
             }
             // else - NOTHING: the link to the local file is kept although the local name

@@ -29,15 +29,19 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.OperationApplicationException;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.RemoteException;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -411,7 +415,8 @@ public class FileDataStorageManager {
                     if (ocFile.isDown()) {
                         String path = ocFile.getStoragePath();
                         if (new File(path).delete() && MimeTypeUtil.isMedia(ocFile.getMimeType())) {
-                            triggerMediaScan(path, ocFile); // notify MediaScanner about removed file
+                            // notify MediaScanner about removed file
+                            triggerMediaScan(path, ocFile, MainApp.getAppContext());
                         }
                     }
                 }
@@ -793,7 +798,7 @@ public class FileDataStorageManager {
                 pathIterator = newPathsToTriggerMediaScan.iterator();
                 while (pathIterator.hasNext()) {
                     // Notify MediaScanner about new file/folder
-                    triggerMediaScan(pathIterator.next());
+                    triggerMediaScan(pathIterator.next(), MainApp.getAppContext());
                 }
             }
         }
@@ -1736,23 +1741,31 @@ public class FileDataStorageManager {
         return shares;
     }
 
-    public static void triggerMediaScan(String path) {
-        triggerMediaScan(path, null);
+    public static void triggerMediaScan(String path, Context context) {
+        triggerMediaScan(path, null, context);
     }
 
-    public static void triggerMediaScan(String path, OCFile file) {
+    public static void triggerMediaScan(String path, OCFile file, Context context) {
         if (path != null) {
             ContentValues values = new ContentValues();
             ContentResolver contentResolver = MainApp.getAppContext().getContentResolver();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                if (file != null) {
-                    //values.put(MediaStore.Images.Media.MIME_TYPE, file.getMimeType());
-                    values.put(MediaStore.Images.Media.TITLE, file.getFileName());
-                    values.put(MediaStore.Images.Media.DISPLAY_NAME, file.getFileName());
+                SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+                String storage = appPrefs.getString(AppPreferencesImpl.STORAGE_PATH,
+                                                    context.getFilesDir().getAbsolutePath());
+
+                if (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath().equalsIgnoreCase(storage)) {
+                    path = path.substring(path.indexOf("Download/"));
                 }
-                values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000);
-                values.put(MediaStore.Images.Media.RELATIVE_PATH, path.replace("/sdcard/", "")); // TODO dynamic
-                values.put(MediaStore.Images.Media.IS_PENDING, 0);
+
+                if (file != null) {
+                    values.put(MediaStore.Downloads.MIME_TYPE, file.getMimeType());
+                    values.put(MediaStore.Downloads.TITLE, file.getFileName());
+                    values.put(MediaStore.Downloads.DISPLAY_NAME, file.getFileName());
+                }
+                values.put(MediaStore.Downloads.DATE_ADDED, System.currentTimeMillis() / 1000);
+                values.put(MediaStore.Downloads.RELATIVE_PATH, path);
+                values.put(MediaStore.Downloads.IS_PENDING, 0);
                 try {
                     contentResolver.insert(MediaStore.Downloads.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),
                                            values);

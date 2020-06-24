@@ -953,7 +953,7 @@ public class UploadFileOperation extends SyncOperation {
                 mFile.setStoragePath(expectedFile.getAbsolutePath());
                 saveUploadedFile(client);
                 if (MimeTypeUtil.isMedia(mFile.getMimeType())) {
-                    FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
+                    FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath(), mContext);
                 }
                 break;
 
@@ -970,7 +970,7 @@ public class UploadFileOperation extends SyncOperation {
                 mFile.setStoragePath(newFile.getAbsolutePath());
                 saveUploadedFile(client);
                 if (MimeTypeUtil.isMedia(mFile.getMimeType())) {
-                    FileDataStorageManager.triggerMediaScan(newFile.getAbsolutePath());
+                    FileDataStorageManager.triggerMediaScan(newFile.getAbsolutePath(), mContext);
                 }
                 break;
         }
@@ -1305,7 +1305,7 @@ public class UploadFileOperation extends SyncOperation {
         getStorageManager().saveConflict(file, null);
 
         if (MimeTypeUtil.isMedia(file.getMimeType())) {
-            FileDataStorageManager.triggerMediaScan(file.getStoragePath(), file);
+            FileDataStorageManager.triggerMediaScan(file.getStoragePath(), file, mContext);
         }
 
         // generate new Thumbnail

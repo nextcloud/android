@@ -61,9 +61,9 @@ public class DataStorageProvider {
     private DataStorageProvider() {}
 
     public StoragePoint[] getAvailableStoragePoints() {
-        if (mCachedStoragePoints.size() != 0) {
-            return mCachedStoragePoints.toArray(new StoragePoint[0]);
-        }
+//        if (mCachedStoragePoints.size() != 0) {
+//            return mCachedStoragePoints.toArray(new StoragePoint[0]);
+//        }
 
         List<String> paths = new ArrayList<>();
         StoragePoint storagePoint;
@@ -126,12 +126,16 @@ public class DataStorageProvider {
             }
         }
 
-        StoragePoint downloads = new StoragePoint();
-        downloads.setPath("/sdcard/Download/");
-        downloads.setDescription("Downloads");
-        storagePoint.setPrivacyType(StoragePoint.PrivacyType.PUBLIC);
-        storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
-        mCachedStoragePoints.add(downloads);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            File storage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            String absolutePath = storage.getAbsolutePath();
+            StoragePoint downloads = new StoragePoint();
+            downloads.setPath(absolutePath);
+            downloads.setDescription(absolutePath);
+            storagePoint.setPrivacyType(StoragePoint.PrivacyType.PUBLIC);
+            storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
+            mCachedStoragePoints.add(downloads);
+        }
 
         return mCachedStoragePoints.toArray(new StoragePoint[0]);
     }
