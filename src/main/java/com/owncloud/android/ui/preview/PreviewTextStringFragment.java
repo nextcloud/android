@@ -147,8 +147,8 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
             mTextPreview.setVisibility(View.VISIBLE);
         }
 
-        if (mMultiView != null) {
-            mMultiView.setVisibility(View.GONE);
+        if (mMultiListContainer != null) {
+            mMultiListContainer.setVisibility(View.GONE);
         }
     }
 

@@ -34,7 +34,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.UserAccountManager;
@@ -86,8 +85,8 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
     protected boolean mSearchOpen;
     protected TextView mTextPreview;
     protected Handler mHandler;
-    protected RelativeLayout mMultiView;
     protected String mOriginalText;
+    protected View mMultiListContainer;
 
     private TextView mMultiListMessage;
     private TextView mMultiListHeadline;
@@ -109,8 +108,6 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
         View ret = inflater.inflate(R.layout.text_file_preview, container, false);
         mTextPreview = ret.findViewById(R.id.text_preview);
 
-        mMultiView = ret.findViewById(R.id.multi_view);
-
         setupMultiView(ret);
         setMultiListLoadingMessage();
 
@@ -118,6 +115,7 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
     }
 
     private void setupMultiView(View view) {
+        mMultiListContainer = view.findViewById(R.id.empty_list_view);
         mMultiListMessage = view.findViewById(R.id.empty_list_view_text);
         mMultiListHeadline = view.findViewById(R.id.empty_list_view_headline);
         mMultiListIcon = view.findViewById(R.id.empty_list_icon);
@@ -125,7 +123,7 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
     }
 
     private void setMultiListLoadingMessage() {
-        if (mMultiView != null) {
+        if (mMultiListContainer != null) {
             mMultiListHeadline.setText(R.string.file_list_loading);
             mMultiListMessage.setText("");
 
@@ -219,7 +217,7 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
      * Finishes the preview
      */
     protected void finish() {
-        getActivity().runOnUiThread(() -> getActivity().onBackPressed());
+        requireActivity().runOnUiThread(() -> requireActivity().onBackPressed());
     }
 
     public static void setText(TextView textView, String text, OCFile file, Activity activity) {
