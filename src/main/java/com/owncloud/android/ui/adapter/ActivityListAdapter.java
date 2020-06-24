@@ -203,15 +203,14 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             int nightModeFlag = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
-            if (!activity.getType().equalsIgnoreCase("file_created") &&
-                !activity.getType().equalsIgnoreCase("file_deleted")) {
+            if (!"file_created".equalsIgnoreCase(activity.getType()) &&
+                !"file_deleted".equalsIgnoreCase(activity.getType())) {
                 if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
                     activityViewHolder.activityIcon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
                 } else {
                     activityViewHolder.activityIcon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
                 }
             }
-
 
 
             if (activity.getRichSubjectElement() != null &&
