@@ -489,7 +489,6 @@
 
     <string name="share_search">Name, federated cloud ID or email address…</string>
 
-    <string name="search_users_and_groups_hint">Search users and groups</string>
     <string name="share_group_clarification">%1$s (group)</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_email_clarification">%1$s (email)</string>
