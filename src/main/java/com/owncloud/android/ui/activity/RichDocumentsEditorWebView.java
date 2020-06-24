@@ -61,6 +61,7 @@ import java.lang.ref.WeakReference;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -193,13 +194,13 @@ public class RichDocumentsEditorWebView extends EditorWebView {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putString(EXTRA_URL, url);
         super.onSaveInstanceState(outState);
     }
 
     @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         url = savedInstanceState.getString(EXTRA_URL);
         super.onRestoreInstanceState(savedInstanceState);
     }

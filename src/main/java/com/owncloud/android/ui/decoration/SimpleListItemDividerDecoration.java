@@ -71,8 +71,11 @@ public class SimpleListItemDividerDecoration extends DividerItemDecoration {
             parent.getDecoratedBoundsWithMargins(child, bounds);
             final int bottom = bounds.bottom + Math.round(child.getTranslationY());
             final int top = bottom - 1;
-            divider.setBounds(leftPadding, top, right, bottom);
-            divider.draw(canvas);
+
+            if (divider != null) {
+                divider.setBounds(leftPadding, top, right, bottom);
+                divider.draw(canvas);
+            }
         }
         canvas.restore();
     }

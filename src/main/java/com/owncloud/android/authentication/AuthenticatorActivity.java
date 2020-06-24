@@ -814,7 +814,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * See {@link super#onSaveInstanceState(Bundle)}
      */
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         //Log_OC.e(TAG, "onSaveInstanceState init" );
         super.onSaveInstanceState(outState);
 
