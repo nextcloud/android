@@ -757,11 +757,6 @@ public final class ThemeUtils {
         button.setRippleColor(rippleColor);
     }
 
-    public static void drawableFloatingActionButton(FloatingActionButton button, @DrawableRes int
-        drawable, Context context) {
-        int primaryColor = ThemeUtils.primaryColor(null, true, false, context);
-    }
-
     private static OCCapability getCapability(Context context) {
         return getCapability(null, context);
     }
