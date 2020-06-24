@@ -537,7 +537,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onHeaderClicked() {
-        if (!getAdapter().isMultiSelect()) {
+        if (!getAdapter().isMultiSelect() && mContainerActivity instanceof FileDisplayActivity) {
             ((FileDisplayActivity) mContainerActivity).startRichWorkspacePreview(getCurrentFile());
         }
     }
