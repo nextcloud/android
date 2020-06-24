@@ -1,0 +1,7 @@
+Fixed NPE when hiding ssl cert
+#6247 View Binding - Fix codacy issue
+#6247 View Binding - FileDisplayActivity and partial Ssl views
+Fix improper deleting synced folder by OfflineSyncWork
+Remove redundant style
+color nav bar
+Update Nextcloud Android library
