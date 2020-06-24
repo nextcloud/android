@@ -119,7 +119,15 @@ public final class ThemeUtils {
         OCCapability capability = getCapability(account, context);
 
         try {
-            return adjustLightness(-0.2f, Color.parseColor(capability.getServerColor()), -1f);
+            return calculateDarkColor(Color.parseColor(capability.getServerColor()), context);
+        } catch (Exception e) {
+            return context.getResources().getColor(R.color.primary_dark);
+        }
+    }
+
+    public static int calculateDarkColor(int color, Context context){
+        try {
+            return adjustLightness(-0.2f, color, -1f);
         } catch (Exception e) {
             return context.getResources().getColor(R.color.primary_dark);
         }
@@ -722,14 +730,36 @@ public final class ThemeUtils {
         return String.format("#%06X", 0xFFFFFF & color);
     }
 
-    public static void tintFloatingActionButton(FloatingActionButton button, Context context) {
-        button.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(context)));
-        button.setRippleColor(ThemeUtils.primaryDarkColor(context));
+    public static void colorFloatingActionButton(FloatingActionButton button, @DrawableRes int drawable,
+                                                 Context context) {
+        int primaryColor = ThemeUtils.primaryColor(null, true, false, context);
+        colorFloatingActionButton(button, context, primaryColor);
+
+        if (Color.BLACK == primaryColor) {
+            button.setImageDrawable(ThemeUtils.tintDrawable(drawable, Color.WHITE));
+        } else if (Color.WHITE == primaryColor) {
+            button.setImageDrawable(ThemeUtils.tintDrawable(drawable, Color.BLACK));
+        } else {
+            button.setImageDrawable(ThemeUtils.tintDrawable(drawable, ThemeUtils.fontColor(context, false)));
+        }
+    }
+
+    public static void colorFloatingActionButton(FloatingActionButton button, Context context) {
+        colorFloatingActionButton(button, context, ThemeUtils.primaryColor(null, true, false, context));
+    }
+
+    public static void colorFloatingActionButton(FloatingActionButton button, Context context, int primaryColor) {
+        colorFloatingActionButton(button, primaryColor, calculateDarkColor(primaryColor, context));
+    }
+
+    public static void colorFloatingActionButton(FloatingActionButton button, int backgroundColor, int rippleColor) {
+        button.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
+        button.setRippleColor(rippleColor);
     }
 
     public static void drawableFloatingActionButton(FloatingActionButton button, @DrawableRes int
         drawable, Context context) {
-        button.setImageDrawable(ThemeUtils.tintDrawable(drawable, ThemeUtils.fontColor(context)));
+        int primaryColor = ThemeUtils.primaryColor(null, true, false, context);
     }
 
     private static OCCapability getCapability(Context context) {
