@@ -59,6 +59,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.FilesBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
@@ -162,14 +163,14 @@ public class FileDisplayActivity extends FileActivity
     public static final String ALL_FILES = "ALL_FILES";
     public static final String PHOTO_SEARCH = "PHOTO_SEARCH";
 
+    private FilesBinding binding;
+
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
     private RemoteOperationResult mLastSslUntrustedServerResult;
 
     private boolean mDualPane;
-    private View mLeftFragmentContainer;
-    private View mRightFragmentContainer;
 
     public static final String TAG_PUBLIC_LINK = "PUBLIC_LINK";
     public static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
@@ -251,22 +252,17 @@ public class FileDisplayActivity extends FileActivity
         /// USER INTERFACE
 
         // Inflate and set the layout view
-        setContentView(R.layout.files);
+        binding = FilesBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // setup toolbar
         setupHomeSearchToolbar();
 
-        mMenuButton.setOnClickListener(v -> {
-            openDrawer();
-        });
+        mMenuButton.setOnClickListener(v -> openDrawer());
 
-        mSwitchAccountButton.setOnClickListener(v -> {
-            showManageAccountsDialog();
-        });
+        mSwitchAccountButton.setOnClickListener(v -> showManageAccountsDialog());
 
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
-        mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
-        mRightFragmentContainer = findViewById(R.id.right_fragment_container);
 
         // Init Fragment without UI to retain AsyncTask across configuration changes
         FragmentManager fm = getSupportFragmentManager();
@@ -295,14 +291,10 @@ public class FileDisplayActivity extends FileActivity
             if (PermissionUtil.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 // Show explanation to the user and then request permission
-                Snackbar snackbar = Snackbar.make(findViewById(R.id.ListLayout), R.string.permission_storage_access,
+                Snackbar snackbar = Snackbar.make(binding.ListLayout,
+                                                  R.string.permission_storage_access,
                         Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.common_ok, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                PermissionUtil.requestWriteExternalStoreagePermission(FileDisplayActivity.this);
-                            }
-                        });
+                        .setAction(R.string.common_ok, v -> PermissionUtil.requestWriteExternalStoreagePermission(this));
                 ThemeUtils.colorSnackbar(this, snackbar);
                 snackbar.show();
             } else {
@@ -381,7 +373,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
             case PermissionUtil.PERMISSIONS_WRITE_EXTERNAL_STORAGE: {
@@ -493,7 +485,7 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    //Is called with the flag FLAG_ACTIVITY_SINGLE_TOP and set the new file and intent
+    // Is called with the flag FLAG_ACTIVITY_SINGLE_TOP and set the new file and intent
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -631,27 +623,27 @@ public class FileDisplayActivity extends FileActivity
 
     private void updateFragmentsVisibility(boolean existsSecondFragment) {
         if (mDualPane) {
-            if (mLeftFragmentContainer.getVisibility() != View.VISIBLE) {
-                mLeftFragmentContainer.setVisibility(View.VISIBLE);
+            if (binding.leftFragmentContainer.getVisibility() != View.VISIBLE) {
+                binding.leftFragmentContainer.setVisibility(View.VISIBLE);
             }
-            if (mRightFragmentContainer.getVisibility() != View.VISIBLE) {
-                mRightFragmentContainer.setVisibility(View.VISIBLE);
+            if (binding.rightFragmentContainer.getVisibility() != View.VISIBLE) {
+                binding.rightFragmentContainer.setVisibility(View.VISIBLE);
             }
 
         } else if (existsSecondFragment) {
-            if (mLeftFragmentContainer.getVisibility() != View.GONE) {
-                mLeftFragmentContainer.setVisibility(View.GONE);
+            if (binding.leftFragmentContainer.getVisibility() != View.GONE) {
+                binding.leftFragmentContainer.setVisibility(View.GONE);
             }
-            if (mRightFragmentContainer.getVisibility() != View.VISIBLE) {
-                mRightFragmentContainer.setVisibility(View.VISIBLE);
+            if (binding.rightFragmentContainer.getVisibility() != View.VISIBLE) {
+                binding.rightFragmentContainer.setVisibility(View.VISIBLE);
             }
 
         } else {
-            if (mLeftFragmentContainer.getVisibility() != View.VISIBLE) {
-                mLeftFragmentContainer.setVisibility(View.VISIBLE);
+            if (binding.leftFragmentContainer.getVisibility() != View.VISIBLE) {
+                binding.leftFragmentContainer.setVisibility(View.VISIBLE);
             }
-            if (mRightFragmentContainer.getVisibility() != View.GONE) {
-                mRightFragmentContainer.setVisibility(View.GONE);
+            if (binding.rightFragmentContainer.getVisibility() != View.GONE) {
+                binding.rightFragmentContainer.setVisibility(View.GONE);
             }
         }
     }
@@ -1890,7 +1882,7 @@ public class FileDisplayActivity extends FileActivity
                     fileDetailFragment.getFileDetailSharingFragment().refreshPublicShareFromDB();
                 }
                 Snackbar snackbar = Snackbar.make(
-                        findViewById(android.R.id.content),
+                        binding.getRoot(),
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                         Snackbar.LENGTH_LONG
                 );

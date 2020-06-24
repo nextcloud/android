@@ -22,52 +22,51 @@ package com.owncloud.android.ui.adapter;
 
 import android.net.http.SslError;
 import android.view.View;
-import android.widget.TextView;
 
-import com.owncloud.android.R;
+import com.owncloud.android.databinding.SslUntrustedCertLayoutBinding;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 
 /**
  * Dialog to show an Untrusted Certificate
  */
 public class SslErrorViewAdapter implements SslUntrustedCertDialog.ErrorViewAdapter {
-    
+
     //private final static String TAG = SslErrorViewAdapter.class.getSimpleName();
-    
+
     private SslError mSslError;
-    
+
     public SslErrorViewAdapter(SslError sslError) {
         mSslError = sslError;
     }
-    
+
     @Override
-    public void updateErrorView(View dialogView) {
+    public void updateErrorView(SslUntrustedCertLayoutBinding binding) {
         /// clean
-        dialogView.findViewById(R.id.reason_no_info_about_error).setVisibility(View.GONE);
-        
+        binding.reasonNoInfoAboutError.setVisibility(View.GONE);
+
         /// refresh
         if (mSslError.hasError(SslError.SSL_UNTRUSTED)) {
-            ((TextView)dialogView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.VISIBLE);
+            binding.reasonCertNotTrusted.setVisibility(View.VISIBLE);
         } else {
-            dialogView.findViewById(R.id.reason_cert_not_trusted).setVisibility(View.GONE);
+            binding.reasonCertNotTrusted.setVisibility(View.GONE);
         }
-        
+
         if (mSslError.hasError(SslError.SSL_EXPIRED)) {
-            ((TextView)dialogView.findViewById(R.id.reason_cert_expired)).setVisibility(View.VISIBLE);
+            binding.reasonCertExpired.setVisibility(View.VISIBLE);
         } else {
-            dialogView.findViewById(R.id.reason_cert_expired).setVisibility(View.GONE);
+            binding.reasonCertExpired.setVisibility(View.GONE);
         }
-        
+
         if (mSslError.getPrimaryError() == SslError.SSL_NOTYETVALID) {
-            ((TextView)dialogView.findViewById(R.id.reason_cert_not_yet_valid)).setVisibility(View.VISIBLE);
+            binding.reasonCertNotYetValid.setVisibility(View.VISIBLE);
         } else {
-            dialogView.findViewById(R.id.reason_cert_not_yet_valid).setVisibility(View.GONE);
+            binding.reasonCertNotYetValid.setVisibility(View.GONE);
         }
-        
+
         if (mSslError.getPrimaryError() == SslError.SSL_IDMISMATCH) {
-            ((TextView)dialogView.findViewById(R.id.reason_hostname_not_verified)).setVisibility(View.VISIBLE);
+            binding.reasonHostnameNotVerified.setVisibility(View.VISIBLE);
         } else {
-            dialogView.findViewById(R.id.reason_hostname_not_verified).setVisibility(View.GONE);
+            binding.reasonHostnameNotVerified.setVisibility(View.GONE);
         }
     }
 
