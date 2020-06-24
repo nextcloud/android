@@ -113,8 +113,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
             fabMain.setVisibility(View.VISIBLE);
             fabMain.setEnabled(true);
             fabMain.setOnClickListener(v -> edit());
-            ThemeUtils.tintFloatingActionButton(fabMain, requireContext());
-            ThemeUtils.drawableFloatingActionButton(fabMain, R.drawable.ic_edit, requireContext());
+            ThemeUtils.colorFloatingActionButton(fabMain, R.drawable.ic_edit, requireContext());
         }
 
         return view;
