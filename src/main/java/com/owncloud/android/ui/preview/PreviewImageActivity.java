@@ -32,11 +32,9 @@ import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -53,14 +51,11 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -222,43 +217,6 @@ public class PreviewImageActivity extends FileActivity implements
             finish();
         } else if (operation instanceof SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish(result);
-        } else if (operation instanceof CreateShareViaLinkOperation) {
-            CreateShareViaLinkOperation op = (CreateShareViaLinkOperation) operation;
-
-            if (result.isSuccess()) {
-                updateFileFromDB();
-
-                // if share to user and share via link multiple ocshares are returned,
-                // therefore filtering for public_link
-                String link = "";
-                OCFile file = null;
-                for (Object object : result.getData()) {
-                    OCShare shareLink = (OCShare) object;
-                    if (FileDisplayActivity.TAG_PUBLIC_LINK.equalsIgnoreCase(shareLink.getShareType().name())) {
-                        link = shareLink.getShareLink();
-                        file = getStorageManager().getFileByPath(shareLink.getPath());
-                        break;
-                    }
-                }
-
-                copyAndShareFileLink(this, file, link);
-            } else {
-                // Detect Failure (403) --> maybe needs password
-                String password = op.getPassword();
-                if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_FORBIDDEN &&
-                    TextUtils.isEmpty(password) &&
-                    getCapabilities().getFilesSharingPublicEnabled().isUnknown()) {
-                    // Was tried without password, but not sure that it's optional.
-
-                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
-                                                      ErrorMessageAdapter.getErrorCauseMessage(result,
-                                                                                               operation,
-                                                                                               getResources()),
-                                                      Snackbar.LENGTH_LONG);
-                    ThemeUtils.colorSnackbar(this, snackbar);
-                    snackbar.show();
-                }
-            }
         }
     }
 
