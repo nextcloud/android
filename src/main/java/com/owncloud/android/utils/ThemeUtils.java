@@ -200,51 +200,6 @@ public final class ThemeUtils {
         return darkTheme(context) ? context.getResources().getColor(R.color.fg_contrast) : Color.GRAY;
     }
 
-    public static int elementColor(Context context) {
-        return elementColor(null, context, false);
-    }
-
-    @NextcloudServer(max = 12)
-    public static int elementColor(Account account, Context context, boolean replaceEdgeColors) {
-        OCCapability capability = getCapability(account, context);
-
-        try {
-            return Color.parseColor(capability.getServerElementColor());
-        } catch (Exception e) {
-            int color;
-
-            try {
-                color = Color.parseColor(capability.getServerColor());
-            } catch (Exception e1) {
-                color = context.getResources().getColor(R.color.primary);
-            }
-
-            if (replaceEdgeColors) {
-                if (isDarkModeActive(context)) {
-                    if (Color.BLACK == color) {
-                        return getNeutralGrey(context);
-                    } else {
-                        return color;
-                    }
-                } else {
-                    if (Color.WHITE == color) {
-                        return getNeutralGrey(context);
-                    } else {
-                        return color;
-                    }
-                }
-            } else {
-                float[] hsl = colorToHSL(color);
-
-                if (hsl[INDEX_LUMINATION] > LUMINATION_THRESHOLD) {
-                    return context.getResources().getColor(R.color.element_fallback_color);
-                } else {
-                    return color;
-                }
-            }
-        }
-    }
-
     public static boolean themingEnabled(Context context) {
         return getCapability(context).getServerColor() != null && !getCapability(context).getServerColor().isEmpty();
     }
@@ -470,10 +425,10 @@ public final class ThemeUtils {
         }
     }
 
-    public static void colorEditText(EditText editText, int elementColor) {
+    public static void colorEditText(EditText editText, int color) {
         if (editText != null) {
-            editText.setTextColor(elementColor);
-            editText.getBackground().setColorFilter(elementColor, PorterDuff.Mode.SRC_ATOP);
+            editText.setTextColor(color);
+            editText.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
         }
     }
 
