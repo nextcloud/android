@@ -422,19 +422,19 @@ public class ContactOperations {
             for (RawProperty property : properties) {
                 String name = property.getPropertyName();
 
-                if (name.equalsIgnoreCase("X-ABDATE")) {
+                if ("X-ABDATE".equalsIgnoreCase(name)) {
                     label = property.getValue(); //date
                     mime = ABDATE;
                     continue;
                 }
 
-                if (name.equalsIgnoreCase("X-ABRELATEDNAMES")) {
+                if ("X-ABRELATEDNAMES".equalsIgnoreCase(name)) {
                     label = property.getValue(); //name
                     mime = ABRELATEDNAMES;
                     continue;
                 }
 
-                if (name.equalsIgnoreCase("X-ABLABEL")) {
+                if ("X-ABLABEL".equalsIgnoreCase(name)) {
                     val = property.getValue(); // type of value ..Birthday,anniversary
                     continue;
                 }
@@ -457,7 +457,7 @@ public class ContactOperations {
                         cv = new NonEmptyContentValues(ContactsContract.CommonDataKinds.Nickname.CONTENT_ITEM_TYPE);
                         cv.put(ContactsContract.CommonDataKinds.Nickname.NAME, label);
 
-                        if (!val.equals("Nickname")) {
+                        if (!"Nickname".equals(val)) {
                             type = DataMappings.getNameType(val);
                             cv.put(ContactsContract.CommonDataKinds.Relation.TYPE, type);
                         }
