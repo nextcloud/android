@@ -18,10 +18,11 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1">
 
     <LinearLayout
         android:id="@+id/shareContainer"
@@ -59,26 +60,41 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_half_padding"
+                android:paddingRight="@dimen/standard_padding">
 
                 <TextView
                     android:id="@+id/shared_with_you_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/standard_padding"
-                    android:paddingTop="@dimen/standard_half_padding"
-                    android:paddingRight="@dimen/standard_padding"
                     android:text="@string/shared_with_you_by"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/shared_with_you_note"
+                <LinearLayout
+                    android:id="@+id/shared_with_you_note_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/standard_padding"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
                     android:paddingTop="@dimen/standard_half_padding"
-                    android:paddingRight="@dimen/standard_padding"
-                    android:textSize="16sp"/>
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/file_text"
+                        android:contentDescription="@string/note_icon_hint" />
+
+                    <TextView
+                        android:id="@+id/shared_with_you_note"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/standard_half_padding"
+                        android:paddingEnd="@dimen/standard_half_padding"
+                        android:textSize="16sp"
+                        android:layout_weight="1" />
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
@@ -146,7 +162,6 @@
                 android:src="@drawable/ic_dots_vertical"/>
         </LinearLayout>
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/shareUsersList"
             android:layout_width="match_parent"
@@ -154,16 +169,6 @@
             android:layout_weight="1"
             android:divider="@drawable/divider"
             android:dividerHeight="1dp" />
-
-        <TextView
-            android:id="@+id/shareNoUsers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingTop="@dimen/standard_half_padding"
-            android:paddingRight="@dimen/standard_padding"
-            android:text="@string/share_no_users"
-            android:textSize="16sp" />
 
         <LinearLayout
             android:id="@+id/copy_internal_container"
