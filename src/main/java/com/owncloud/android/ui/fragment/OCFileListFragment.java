@@ -1802,7 +1802,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      * @param enabled Desired visibility for the FAB.
      */
-    private void setFabEnabled(final boolean enabled) {
+    public void setFabEnabled(final boolean enabled) {
         if (getActivity() != null) {
             getActivity().runOnUiThread(() -> {
                 if (enabled) {
