@@ -26,7 +26,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -421,9 +420,6 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     }
 
     static class FooterViewHolder extends SectionedViewHolder {
-        @BindView(R.id.footer_container)
-        public LinearLayout mainFooterContainer;
-
         @BindView(R.id.footer_text)
         public TextView title;
 
@@ -440,9 +436,6 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     }
 
     static class MainViewHolder extends SectionedViewHolder {
-        @BindView(R.id.grid_item_container)
-        public FrameLayout item_container;
-
         @BindView(R.id.thumbnail)
         public ImageView image;
 

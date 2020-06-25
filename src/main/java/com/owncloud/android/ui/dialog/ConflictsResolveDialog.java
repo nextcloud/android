@@ -25,14 +25,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.ConflictResolveDialogBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -50,7 +47,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -60,6 +56,8 @@ import androidx.fragment.app.FragmentTransaction;
  * Dialog which will be displayed to user upon keep-in-sync file conflict.
  */
 public class ConflictsResolveDialog extends DialogFragment {
+
+    private ConflictResolveDialogBinding binding;
 
     private OCFile existingFile;
     private File newFile;
@@ -147,24 +145,20 @@ public class ConflictsResolveDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Inflate the layout for the dialog
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.conflict_resolve_dialog, null);
+        binding = ConflictResolveDialogBinding.inflate(requireActivity().getLayoutInflater());
         int accentColor = ThemeUtils.primaryAccentColor(getContext());
 
-        AppCompatCheckBox newFileCheckbox = view.findViewById(R.id.new_checkbox);
-        AppCompatCheckBox existingFileCheckbox = view.findViewById(R.id.existing_checkbox);
-
-        ThemeUtils.tintCheckbox(newFileCheckbox, ThemeUtils.primaryColor(getContext()));
-        ThemeUtils.tintCheckbox(existingFileCheckbox, ThemeUtils.primaryColor(getContext()));
+        ThemeUtils.tintCheckbox(binding.newCheckbox, ThemeUtils.primaryColor(getContext()));
+        ThemeUtils.tintCheckbox(binding.existingCheckbox, ThemeUtils.primaryColor(getContext()));
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view)
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        builder.setView(binding.getRoot())
             .setPositiveButton(R.string.common_ok, (dialog, which) -> {
                 if (listener != null) {
-                    if (newFileCheckbox.isChecked() && existingFileCheckbox.isChecked()) {
+                    if (binding.newCheckbox.isChecked() && binding.existingCheckbox.isChecked()) {
                         listener.conflictDecisionMade(Decision.KEEP_BOTH);
-                    } else if (newFileCheckbox.isChecked()) {
+                    } else if (binding.newCheckbox.isChecked()) {
                         listener.conflictDecisionMade(Decision.KEEP_LOCAL);
                     } else {
                         listener.conflictDecisionMade(Decision.KEEP_SERVER);
@@ -180,28 +174,19 @@ public class ConflictsResolveDialog extends DialogFragment {
                                                  accentColor));
 
         // set info for new file
-        TextView newSize = view.findViewById(R.id.new_size);
-        newSize.setText(DisplayUtils.bytesToHumanReadable(newFile.length()));
-
-        TextView newTimestamp = view.findViewById(R.id.new_timestamp);
-        newTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(), newFile.lastModified()));
-
-        ImageView newThumbnail = view.findViewById(R.id.new_thumbnail);
-        newThumbnail.setTag(newFile.hashCode());
-        LocalFileListAdapter.setThumbnail(newFile, newThumbnail, getContext());
+        binding.newSize.setText(DisplayUtils.bytesToHumanReadable(newFile.length()));
+        binding.newTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(), newFile.lastModified()));
+        binding.newThumbnail.setTag(newFile.hashCode());
+        LocalFileListAdapter.setThumbnail(newFile, binding.newThumbnail, getContext());
 
         // set info for existing file
-        TextView existingSize = view.findViewById(R.id.existing_size);
-        existingSize.setText(DisplayUtils.bytesToHumanReadable(existingFile.getFileLength()));
-
-        TextView existingTimestamp = view.findViewById(R.id.existing_timestamp);
-        existingTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(),
+        binding.existingSize.setText(DisplayUtils.bytesToHumanReadable(existingFile.getFileLength()));
+        binding.existingTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(),
                                                                     existingFile.getModificationTimestamp()));
 
-        ImageView existingThumbnail = view.findViewById(R.id.existing_thumbnail);
-        existingThumbnail.setTag(existingFile.getFileId());
+        binding.existingThumbnail.setTag(existingFile.getFileId());
         OCFileListAdapter.setThumbnail(existingFile,
-                                       view.findViewById(R.id.existing_thumbnail),
+                                       binding.existingThumbnail,
                                        user,
                                        new FileDataStorageManager(user.toPlatformAccount(),
                                                                   requireContext().getContentResolver()),
@@ -209,11 +194,8 @@ public class ConflictsResolveDialog extends DialogFragment {
                                        false,
                                        getContext());
 
-        view.findViewById(R.id.newFileContainer)
-            .setOnClickListener(v -> newFileCheckbox.setChecked(!newFileCheckbox.isChecked()));
-
-        view.findViewById(R.id.existingFileContainer)
-            .setOnClickListener(v -> existingFileCheckbox.setChecked(!existingFileCheckbox.isChecked()));
+        binding.newFileContainer.setOnClickListener(v -> binding.newCheckbox.setChecked(!binding.newCheckbox.isChecked()));
+        binding.existingFileContainer.setOnClickListener(v -> binding.existingCheckbox.setChecked(!binding.existingCheckbox.isChecked()));
 
         return builder.create();
     }

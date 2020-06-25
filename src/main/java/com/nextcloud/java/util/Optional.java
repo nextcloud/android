@@ -31,6 +31,7 @@ import java.util.NoSuchElementException;
 import androidx.core.util.Consumer;
 import androidx.core.util.ObjectsCompat;
 import androidx.core.util.Supplier;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.jvm.functions.Function1;
 
 /**
@@ -84,6 +85,7 @@ public final class Optional<T> {
      */
     public static<T> Optional<T> empty() {
         @SuppressWarnings("unchecked")
+        @SuppressFBWarnings("USBR_UNNECESSARY_STORE_BEFORE_RETURN")
         Optional<T> t = (Optional<T>) EMPTY;
         return t;
     }
