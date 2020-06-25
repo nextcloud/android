@@ -372,15 +372,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (mLoginWebView != null && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                if (mLoginWebView.canGoBack()) {
-                    mLoginWebView.goBack();
-                } else {
-                    finish();
-                }
-                return true;
+        if (mLoginWebView != null && event.getAction() == KeyEvent.ACTION_DOWN &&
+            keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mLoginWebView.canGoBack()) {
+                mLoginWebView.goBack();
+            } else {
+                finish();
             }
+            return true;
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -458,7 +457,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             webViewPassword = loginUrlInfo.password;
         } catch (Exception e) {
             mServerStatusIcon = R.drawable.ic_alert;
-            mServerStatusText = "QR Code could not be read!";
+            mServerStatusText = getString(R.string.qr_could_not_be_read);
             showServerStatus();
         }
         checkOcServer();
@@ -1400,7 +1399,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                         doOnResumeAndBound();
                     } catch (Exception e) {
                         mServerStatusIcon = R.drawable.ic_alert;
-                        mServerStatusText = "QR Code could not be read!";
+                        mServerStatusText = getString(R.string.qr_could_not_be_read);
                         showServerStatus();
                     }
                 } else {
