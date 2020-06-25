@@ -1,0 +1,15 @@
+Remove useless parents
+fix USBR_UNNECESSARY_STORE_BEFORE_RETURN
+remove unused constants
+fix URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD
+on user share permission: unshare as destructive option on bottom
+Use same search hint as on server
+rich workspace not in folder picker activity
+#6247 View Binding - Fix new SpotBugs performance warning (unread field)
+fix LSC_LITERAL_STRING_COMPARISON
+#6247 View Binding - Remove unused imports
+#6247 View Binding - SendButtonAdapter.ViewHolder
+#6247 View Binding - AccountItemBinding & AccountActionBinding
+#6247 View Binding - ConflictResolveDialogBinding
+Combined ShareActivity with FileDetailSharingFragment as much as possible
+Update Nextcloud Android library
