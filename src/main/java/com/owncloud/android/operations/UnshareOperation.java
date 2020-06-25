@@ -21,8 +21,6 @@
 
 package com.owncloud.android.operations;
 
-import android.content.Context;
-
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -46,44 +44,37 @@ public class UnshareOperation extends SyncOperation {
     private static final int SINGLY_SHARED = 1;
 
     private String mRemotePath;
-    private ShareType mShareType;
-    private String mShareWith;
-    private Context mContext;
+    private long shareId;
 
-    public UnshareOperation(String remotePath, ShareType shareType, String shareWith,
-                                Context context) {
+    public UnshareOperation(String remotePath, long shareId) {
         mRemotePath = remotePath;
-        mShareType = shareType;
-        mShareWith = shareWith;
-        mContext = context;
+        this.shareId = shareId;
     }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result  = null;
+        RemoteOperationResult result;
 
         // Get Share for a file
-        OCShare share = getStorageManager().getFirstShareByPathAndType(mRemotePath,
-                mShareType, mShareWith);
+        OCShare share = getStorageManager().getShareById(shareId);
 
         if (share != null) {
-            OCFile file = getStorageManager().getFileByPath(mRemotePath);
-            RemoveShareRemoteOperation operation =
-                new RemoveShareRemoteOperation((int) share.getRemoteId());
+            OCFile file = getStorageManager().getFileByEncryptedRemotePath(mRemotePath);
+            RemoveShareRemoteOperation operation = new RemoveShareRemoteOperation(share.getRemoteId());
             result = operation.execute(client);
 
             if (result.isSuccess()) {
                 Log_OC.d(TAG, "Share id = " + share.getRemoteId() + " deleted");
 
-                if (ShareType.PUBLIC_LINK.equals(mShareType)) {
+                if (ShareType.PUBLIC_LINK.equals(share.getShareType())) {
                     file.setSharedViaLink(false);
                     file.setPublicLink("");
-                } else if (ShareType.USER.equals(mShareType) || ShareType.GROUP.equals(mShareType)
-                    || ShareType.FEDERATED.equals(mShareType)){
+                } else if (ShareType.USER.equals(share.getShareType()) || ShareType.GROUP.equals(share.getShareType())
+                    || ShareType.FEDERATED.equals(share.getShareType())) {
                     // Check if it is the last share
-                    List <OCShare> sharesWith = getStorageManager().
-                            getSharesWithForAFile(mRemotePath,
-                            getStorageManager().getAccount().name);
+                    List<OCShare> sharesWith = getStorageManager().
+                        getSharesWithForAFile(mRemotePath,
+                                              getStorageManager().getAccount().name);
                     if (sharesWith.size() == SINGLY_SHARED) {
                         file.setSharedWithSharee(false);
                     }
@@ -104,15 +95,7 @@ public class UnshareOperation extends SyncOperation {
         return result;
     }
 
-    private boolean existsFile(OwnCloudClient client, String remotePath){
-        ExistenceCheckRemoteOperation existsOperation =
-                new ExistenceCheckRemoteOperation(remotePath, mContext, false);
-        RemoteOperationResult result = existsOperation.execute(client);
-        return result.isSuccess();
+    private boolean existsFile(OwnCloudClient client, String remotePath) {
+        return new ExistenceCheckRemoteOperation(remotePath, false).execute(client).isSuccess();
     }
-
-    public ShareType getShareType() {
-        return mShareType;
-    }
-
 }
