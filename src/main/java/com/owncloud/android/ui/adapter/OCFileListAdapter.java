@@ -919,8 +919,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
 
-    public void setData(List<Object> objects, ExtendedListFragment.SearchType searchType,
-                        FileDataStorageManager storageManager, OCFile folder, boolean clear) {
+    public void setData(List<Object> objects,
+                        ExtendedListFragment.SearchType searchType,
+                        FileDataStorageManager storageManager,
+                        @Nullable OCFile folder,
+                        boolean clear) {
         if (storageManager != null && mStorageManager == null) {
             mStorageManager = storageManager;
             showShareAvatar = mStorageManager.getCapability(user.getAccountName()).getVersion().isShareesOnDavSupported();
@@ -1107,7 +1110,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
-    public void setSortOrder(OCFile folder, FileSortOrder sortOrder) {
+    public void setSortOrder(@Nullable OCFile folder, FileSortOrder sortOrder) {
         preferences.setSortOrder(folder, sortOrder);
         mFiles = sortOrder.sortCloudFiles(mFiles);
         notifyDataSetChanged();
