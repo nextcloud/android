@@ -9,6 +9,8 @@
     <string name="action_edit">Chỉnh sửa</string>
     <string name="action_empty_trashbin">Dọn sạch thùng rác</string>
     <string name="action_send_share">Gửi/Chia sẽ</string>
+    <string name="action_switch_grid_view">Xem dạng Lưới</string>
+    <string name="action_switch_list_view">Xem dạng Danh sách</string>
     <string name="actionbar_copy">Sao chép</string>
     <string name="actionbar_mkdir">Tạo thư mục</string>
     <string name="actionbar_move">Dịch chuyển</string>
