@@ -189,7 +189,9 @@ public final class FileStorageUtils {
 
     public static String getParentPath(String remotePath) {
         String parentPath = new File(remotePath).getParent();
-        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
+        if (parentPath != null) {
+            parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
+        }
         return parentPath;
     }
 
