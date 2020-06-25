@@ -43,7 +43,6 @@ import android.view.WindowManager;
 import android.widget.Filter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -1298,7 +1297,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public ImageView checkbox;
 
         @BindView(R.id.ListItemLayout)
-        public LinearLayout itemLayout;
+        public View itemLayout;
 
         @BindView(R.id.unreadComments)
         public ImageView unreadComments;
