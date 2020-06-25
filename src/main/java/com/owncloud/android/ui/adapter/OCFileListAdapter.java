@@ -93,6 +93,7 @@ import java.util.Set;
 import java.util.Vector;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
@@ -837,8 +838,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
 
-    public void setData(List<Object> objects, ExtendedListFragment.SearchType searchType,
-                        FileDataStorageManager storageManager, OCFile folder, boolean clear) {
+    public void setData(List<Object> objects,
+                        ExtendedListFragment.SearchType searchType,
+                        FileDataStorageManager storageManager,
+                        @Nullable OCFile folder,
+                        boolean clear) {
         if (storageManager != null && mStorageManager == null) {
             mStorageManager = storageManager;
             showShareAvatar = mStorageManager.getCapability(user.getAccountName()).getVersion().isShareesOnDavSupported();
@@ -1024,7 +1028,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
-    public void setSortOrder(OCFile folder, FileSortOrder sortOrder) {
+    public void setSortOrder(@Nullable OCFile folder, FileSortOrder sortOrder) {
         preferences.setSortOrder(folder, sortOrder);
         mFiles = sortOrder.sortCloudFiles(mFiles);
         notifyDataSetChanged();

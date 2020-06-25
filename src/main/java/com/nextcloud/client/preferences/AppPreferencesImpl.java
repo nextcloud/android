@@ -289,12 +289,12 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
-    public void setFolderLayout(OCFile folder, String layout_name) {
+    public void setFolderLayout(@Nullable OCFile folder, String layoutName) {
         setFolderPreference(context,
                             currentAccountProvider.getUser(),
                             PREF__FOLDER_LAYOUT,
                             folder,
-                            layout_name);
+                            layoutName);
     }
 
     @Override
@@ -307,7 +307,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
-    public void setSortOrder(OCFile folder, FileSortOrder sortOrder) {
+    public void setSortOrder(@Nullable OCFile folder, FileSortOrder sortOrder) {
         setFolderPreference(context,
                             currentAccountProvider.getUser(),
                             PREF__FOLDER_SORT_ORDER,
@@ -607,13 +607,13 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static void setFolderPreference(final Context context,
                                             final User user,
                                             final String preferenceName,
-                                            final OCFile folder,
+                                            @Nullable final OCFile folder,
                                             final String value) {
         ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
         dataProvider.storeOrUpdateKeyValue(user.getAccountName(), getKeyFromFolder(preferenceName, folder), value);
     }
 
-    private static String getKeyFromFolder(String preferenceName, OCFile folder) {
+    private static String getKeyFromFolder(String preferenceName, @Nullable OCFile folder) {
         final String folderIdString = String.valueOf(folder != null ? folder.getFileId() :
             FileDataStorageManager.ROOT_PARENT_ID);
 

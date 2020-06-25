@@ -1291,7 +1291,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         // FAB
-        setFabEnabled(mFile.canWrite());
+        setFabEnabled(mFile != null && mFile.canWrite());
 
         invalidateActionMode();
     }
@@ -1311,10 +1311,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * Determines if user set folder to grid or list view. If folder is not set itself,
      * it finds a parent that is set (at least root is set).
      *
-     * @param folder Folder to check.
+     * @param folder Folder to check or null for root folder
      * @return 'true' is folder should be shown in grid mode, 'false' if list mode is preferred.
      */
-    public boolean isGridViewPreferred(OCFile folder) {
+    public boolean isGridViewPreferred(@Nullable OCFile folder) {
         return FOLDER_LAYOUT_GRID.equals(preferences.getFolderLayout(folder));
     }
 
