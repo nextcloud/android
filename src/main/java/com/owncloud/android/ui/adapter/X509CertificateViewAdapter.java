@@ -29,6 +29,7 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.text.DateFormat;
@@ -214,7 +215,7 @@ public class X509CertificateViewAdapter implements SslUntrustedCertDialog.Certif
     }
 
 
-    private Map<String, String> parsePrincipal(X500Principal principal) {
+    private Map<String, String> parsePrincipal(Principal principal) {
         Map<String, String> result = new HashMap<>();
         String toParse = principal.getName();
         String[] pieces = toParse.split(",");
