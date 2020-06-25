@@ -82,7 +82,6 @@
     <!-- Excluded from future app dark theme -->
     <color name="themed_fg">#FFFFFF</color>
     <color name="themed_fg_inverse">#000000</color>
-    <color name="themed_bg">#222222</color>
 
     <!-- App bar -->
     <color name="appbar">@android:color/white</color>
