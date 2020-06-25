@@ -926,4 +926,8 @@
     <string name="conflict_dialog_error">Error creating conflict dialog!</string>
     <string name="qr_could_not_be_read">QR Code could not be read!</string>
     <string name="note_icon_hint">Note icon</string>
+    <string name="add_another_public_share_link">Add another link</string>
+    <string name="unshare">Unshare</string>
+    <string name="allow_editing">Allow editing</string>
+    <string name="add_new_public_share">Add new public share link</string>
 </resources>

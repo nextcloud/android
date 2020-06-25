@@ -69,6 +69,7 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ExternalSiteWebView;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.activity.TextEditorWebView;
@@ -476,19 +477,19 @@ public class FileOperationsHelper {
         }
     }
 
-    public void getFileWithLink(OCFile file) {
-        if (file != null) {
-            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
-                    getString(R.string.wait_a_moment));
+    public void getFileWithLink(@NonNull OCFile file) {
+        List<OCShare> shares = fileActivity.getStorageManager().getSharesByPathAndType(file.getRemotePath(),
+                                                                                       ShareType.PUBLIC_LINK,
+                                                                                       "");
 
-            Intent service = new Intent(fileActivity, OperationsService.class);
-            service.setAction(OperationsService.ACTION_CREATE_SHARE_VIA_LINK);
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
-
+        if (shares.size() == 1) {
+            FileActivity.copyAndShareFileLink(fileActivity, file, shares.get(0).getShareLink());
         } else {
-            Log_OC.e(TAG, "Trying to share a NULL OCFile");
+            if (fileActivity instanceof FileDisplayActivity) {
+                ((FileDisplayActivity) fileActivity).showDetails(file, 1);
+            } else {
+                showShareFile(file);
+            }
         }
     }
 
@@ -541,33 +542,18 @@ public class FileOperationsHelper {
     }
 
     /**
-     * Helper method to unshare a file publicly shared via link.
-     * Starts a request to do it in {@link OperationsService}
+     * Helper method to unshare a file publicly shared via link. Starts a request to do it in {@link OperationsService}
      *
      * @param file The file to unshare.
      */
-    public void unshareFileViaLink(OCFile file) {
+    public void unshareShare(OCFile file, OCShare share) {
 
         // Unshare the file: Create the intent
         Intent unshareService = new Intent(fileActivity, OperationsService.class);
         unshareService.setAction(OperationsService.ACTION_UNSHARE);
         unshareService.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         unshareService.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-        unshareService.putExtra(OperationsService.EXTRA_SHARE_TYPE, ShareType.PUBLIC_LINK);
-        unshareService.putExtra(OperationsService.EXTRA_SHARE_WITH, "");
-
-        queueShareIntent(unshareService);
-    }
-
-    public void unshareFileWithUserOrGroup(OCFile file, ShareType shareType, String userOrGroup) {
-
-        // Unshare the file: Create the intent
-        Intent unshareService = new Intent(fileActivity, OperationsService.class);
-        unshareService.setAction(OperationsService.ACTION_UNSHARE);
-        unshareService.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-        unshareService.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-        unshareService.putExtra(OperationsService.EXTRA_SHARE_TYPE, shareType);
-        unshareService.putExtra(OperationsService.EXTRA_SHARE_WITH, userOrGroup);
+        unshareService.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
 
         queueShareIntent(unshareService);
     }

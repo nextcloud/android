@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~
+  ~ Nextcloud Android client application
+  ~
+  ~ @author Tobias Kaminsky
+  ~ Copyright (C) 2020 Tobias Kaminsky
+  ~ Copyright (C) 2020 Nextcloud GmbH
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program. If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<LinearLayout android:id="@+id/share_by_link_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/standard_half_padding"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/copy_internal_link_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/share"
+        android:src="@drawable/shared_via_link"
+        android:paddingTop="@dimen/copy_internal_link_padding"
+        android:paddingRight="@dimen/copy_internal_link_padding"
+        android:paddingEnd="@dimen/copy_internal_link_padding"
+        android:paddingBottom="@dimen/copy_internal_link_padding"
+        android:paddingLeft="@dimen/copy_internal_link_padding"
+        android:paddingStart="@dimen/copy_internal_link_padding"
+        android:layout_marginBottom="@dimen/standard_half_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:background="@drawable/round_bgnd" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="@string/share_via_link_section_title" />
+
+    <ImageView
+        android:id="@+id/share_link_copy_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_gravity="start|center"
+        android:layout_weight="1"
+        android:contentDescription="@string/copy_link"
+        android:paddingStart="@dimen/standard_half_margin"
+        android:paddingTop="@dimen/standard_quarter_margin"
+        android:paddingEnd="@dimen/standard_eighth_margin"
+        android:paddingBottom="@dimen/standard_quarter_margin"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_content_copy" />
+
+    <ImageView
+        android:id="@+id/overflow_menu_share_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center"
+        android:layout_marginStart="@dimen/standard_half_margin"
+        android:layout_weight="0"
+        android:contentDescription="@string/overflow_menu"
+        android:paddingStart="@dimen/standard_half_padding"
+        android:paddingEnd="@dimen/zero"
+        android:src="@drawable/ic_dots_vertical" />
+</LinearLayout>

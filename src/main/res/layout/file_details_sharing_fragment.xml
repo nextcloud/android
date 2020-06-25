@@ -99,68 +99,15 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/share_by_link_container"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/publicShareList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/standard_half_margin"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingTop="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@drawable/divider"
+            android:dividerHeight="1dp" />
 
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                app:alignContent="stretch"
-                app:alignItems="stretch"
-                app:flexWrap="wrap">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/share_by_link"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/share_via_link_section_title" />
-
-                <ImageView
-                    android:id="@+id/share_link_copy_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:layout_gravity="start|center"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/copy_link"
-                    android:paddingStart="@dimen/standard_half_margin"
-                    android:paddingTop="@dimen/standard_quarter_margin"
-                    android:paddingEnd="@dimen/standard_eighth_margin"
-                    android:paddingBottom="@dimen/standard_quarter_margin"
-                    android:scaleType="fitStart"
-                    android:src="@drawable/ic_content_copy" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/share_by_link_allow_editing"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:ellipsize="middle"
-                    android:text="@string/edit_permission_label"
-                    android:textSize="16sp" />
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <ImageView
-                android:id="@+id/overflow_menu_share_link"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center"
-                android:layout_marginStart="@dimen/standard_half_margin"
-                android:layout_weight="0"
-                android:contentDescription="@string/overflow_menu"
-                android:paddingStart="@dimen/standard_half_padding"
-                android:paddingEnd="@dimen/zero"
-                android:src="@drawable/ic_dots_vertical"/>
-        </LinearLayout>
+        <include layout="@layout/file_details_share_public_link_add_new_item" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/shareUsersList"
