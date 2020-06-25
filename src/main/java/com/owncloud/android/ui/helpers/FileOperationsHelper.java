@@ -118,6 +118,7 @@ public class FileOperationsHelper {
     private static final String FILE_EXTENSION_URL = "url";
     private static final String FILE_EXTENSION_DESKTOP = "desktop";
     private static final String FILE_EXTENSION_WEBLOC = "webloc";
+    public static final int SINGLE_LINK_SIZE = 1;
 
     private FileActivity fileActivity;
     private CurrentAccountProvider currentAccount;
@@ -482,7 +483,7 @@ public class FileOperationsHelper {
                                                                                        ShareType.PUBLIC_LINK,
                                                                                        "");
 
-        if (shares.size() == 1) {
+        if (shares.size() == SINGLE_LINK_SIZE) {
             FileActivity.copyAndShareFileLink(fileActivity, file, shares.get(0).getShareLink());
         } else {
             if (fileActivity instanceof FileDisplayActivity) {

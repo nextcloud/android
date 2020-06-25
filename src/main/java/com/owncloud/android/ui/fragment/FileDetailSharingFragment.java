@@ -94,6 +94,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_USER = "USER";
+    public static final int PERMISSION_EDITING_ALLOWED = 17;
 
     // to show share with users/groups info
     private List<OCShare> shares;
@@ -390,7 +391,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         menu.findItem(R.id.action_share_send_note).setVisible(capabilities.getVersion().isNoteOnShareSupported());
 
-        if (publicShare.getPermissions() > 17) {
+        if (publicShare.getPermissions() > PERMISSION_EDITING_ALLOWED) {
             menu.findItem(R.id.action_allow_editing).setChecked(true);
         } else {
             menu.findItem(R.id.action_allow_editing).setChecked(false);
