@@ -290,9 +290,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
             setChoiceModeAsMultipleModal(savedInstanceState);
         }
 
-        mFabMain = getActivity().findViewById(R.id.fab_main);
-        ThemeUtils.tintFloatingActionButton(mFabMain, requireContext());
-        ThemeUtils.drawableFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
+        mFabMain = requireActivity().findViewById(R.id.fab_main);
+
+        if (mFabMain != null) { // is not available in FolderPickerActivity
+            ThemeUtils.tintFloatingActionButton(mFabMain, requireContext());
+            ThemeUtils.drawableFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
+        }
 
         Log_OC.i(TAG, "onCreateView() end");
         return v;
@@ -1758,6 +1761,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @param visible Desired visibility for the FAB.
      */
     void setFabVisible(final boolean visible) {
+        if (mFabMain == null) {
+            // is not available in FolderPickerActivity
+            return;
+        }
+
         if (getActivity() != null) {
             getActivity().runOnUiThread(() -> {
                 if (visible) {
@@ -1803,6 +1811,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @param enabled Desired visibility for the FAB.
      */
     public void setFabEnabled(final boolean enabled) {
+        if (mFabMain == null) {
+            // is not available in FolderPickerActivity
+            return;
+        }
+
         if (getActivity() != null) {
             getActivity().runOnUiThread(() -> {
                 if (enabled) {
