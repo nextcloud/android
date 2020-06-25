@@ -138,10 +138,10 @@ public interface AppPreferences {
     /**
      * Set preferred folder display type.
      *
-     * @param folder Folder
-     * @param layout_name preference value
+     * @param folder Folder which layout is being set or null for root folder
+     * @param layoutName preference value
      */
-    void setFolderLayout(OCFile folder, String layout_name);
+    void setFolderLayout(@Nullable OCFile folder, String layoutName);
 
     /**
      * Saves the path where the user selected to do the last upload of a file shared from other app.
@@ -213,16 +213,18 @@ public interface AppPreferences {
     /**
      * Get preferred folder sort order.
      *
+     * @param folder Folder whoch order is being retrieved or null for root folder
      * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
      */
-    FileSortOrder getSortOrderByFolder(OCFile folder);
+    FileSortOrder getSortOrderByFolder(@Nullable OCFile folder);
 
     /**
      * Set preferred folder sort order.
      *
-     * @param sortOrder the sort order
+     * @param folder Folder which sort order is changed; if null, root folder is assumed
+     * @param sortOrder the sort order of a folder
      */
-    void setSortOrder(OCFile folder, FileSortOrder sortOrder);
+    void setSortOrder(@Nullable OCFile folder, FileSortOrder sortOrder);
 
     /**
      * Set preferred folder sort order.
