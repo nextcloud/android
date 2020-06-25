@@ -23,7 +23,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.0'
         classpath('com.hiya:jacoco-android:0.2')
-        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.3.0'
+        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.4.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.9.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -390,6 +390,10 @@ dependencies {
     androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     androidTestImplementation "org.mockito:mockito-android:3.3.3"
     androidTestImplementation 'net.bytebuddy:byte-buddy:1.10.12'
+}
+
+spotbugs {
+    toolVersion = '3.1.12'
 }
 
 configurations.all {
