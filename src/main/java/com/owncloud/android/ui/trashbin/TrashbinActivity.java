@@ -116,6 +116,8 @@ public class TrashbinActivity extends FileActivity implements
         setContentView(R.layout.trashbin_activity);
         unbinder = ButterKnife.bind(this);
         setupToolbar();
+        findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
+        findViewById(R.id.switch_grid_view_button).setVisibility(View.GONE);
         updateActionBarTitleAndHomeButtonByString(getString(R.string.trashbin_activity_title));
         setupDrawer(R.id.nav_trashbin);
     }

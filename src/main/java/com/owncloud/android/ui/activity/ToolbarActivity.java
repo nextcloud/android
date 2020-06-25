@@ -80,7 +80,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      * Toolbar setup that must be called in implementer's {@link #onCreate} after {@link #setContentView} if they want
      * to use the toolbar.
      */
-    private void setupToolbar(boolean isHomeSearchToolbarShow) {
+    private void setupToolbar(boolean isHomeSearchToolbarShow, boolean showSortListButtonGroup) {
         int fontColor = ThemeUtils.appBarPrimaryFontColor(this);
 
         mToolbar = findViewById(R.id.toolbar);
@@ -93,6 +93,10 @@ public abstract class ToolbarActivity extends BaseActivity {
         mMenuButton = findViewById(R.id.menu_button);
         mSearchText = findViewById(R.id.search_text);
         mSwitchAccountButton = findViewById(R.id.switch_account_button);
+
+        if (showSortListButtonGroup) {
+            findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
+        }
 
         this.isHomeSearchToolbarShow = isHomeSearchToolbarShow;
         updateActionBarTitleAndHomeButton(null);
@@ -115,11 +119,11 @@ public abstract class ToolbarActivity extends BaseActivity {
     }
 
     public void setupToolbar() {
-        setupToolbar(false);
+        setupToolbar(false, false);
     }
 
-    public void setupHomeSearchToolbar() {
-        setupToolbar(true);
+    public void setupHomeSearchToolbarWithSortAndListButtons() {
+        setupToolbar(true, true);
     }
 
     /**
