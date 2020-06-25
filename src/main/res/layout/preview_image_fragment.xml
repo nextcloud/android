@@ -34,11 +34,5 @@
         android:contentDescription="@string/preview_image_description"
         android:src="@drawable/image_fail" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include layout="@layout/empty_list" />
-
-    </ScrollView>
+    <include layout="@layout/empty_list" />
 </RelativeLayout>
