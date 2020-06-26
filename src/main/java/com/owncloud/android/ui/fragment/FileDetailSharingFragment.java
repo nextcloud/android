@@ -31,6 +31,7 @@ import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -111,9 +112,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @BindView(R.id.shareUsersList)
     RecyclerView usersList;
 
-    @BindView(R.id.shareNoUsers)
-    TextView noList;
-
     @BindView(R.id.share_by_link)
     AppCompatCheckBox shareByLink;
 
@@ -137,6 +135,9 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @BindView(R.id.shared_with_you_username)
     TextView sharedWithYouUsername;
+
+    @BindView(R.id.shared_with_you_note_container)
+    View sharedWithYouNoteContainer;
 
     @BindView(R.id.shared_with_you_note)
     TextView sharedWithYouNote;
@@ -239,17 +240,31 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private void setupView() {
         setShareWithYou();
 
+        FileDetailSharingFragmentHelper.setupSearchView(
+            (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE), searchView,
+            fileActivity.getComponentName());
+        ThemeUtils.themeSearchView(searchView, requireContext());
+
         if (file.canReshare()) {
             setShareByLinkInfo(file.isSharedViaLink());
             setShareWithUserInfo();
-            FileDetailSharingFragmentHelper.setupSearchView(
-                (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE), searchView,
-                fileActivity.getComponentName());
-            ThemeUtils.themeSearchView(searchView, requireContext());
         } else {
-            searchView.setVisibility(View.GONE);
+            searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
+            searchView.setInputType(InputType.TYPE_NULL);
+            disableSearchView(searchView);
             shareByLinkContainer.setVisibility(View.GONE);
-            noList.setText(R.string.reshare_not_allowed);
+        }
+    }
+
+    private void disableSearchView(View view) {
+        view.setEnabled(false);
+
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                disableSearchView(viewGroup.getChildAt(i));
+            }
         }
     }
 
@@ -309,9 +324,9 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
             if (!TextUtils.isEmpty(note)) {
                 sharedWithYouNote.setText(file.getNote());
-                sharedWithYouNote.setVisibility(View.VISIBLE);
+                sharedWithYouNoteContainer.setVisibility(View.VISIBLE);
             } else {
-                sharedWithYouNote.setVisibility(View.GONE);
+                sharedWithYouNoteContainer.setVisibility(View.GONE);
             }
         }
     }
@@ -334,10 +349,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                        userId));
             usersList.setLayoutManager(new LinearLayoutManager(getContext()));
             usersList.addItemDecoration(new SimpleListItemDividerDecoration(getContext()));
-            noList.setVisibility(View.GONE);
         } else {
             usersList.setVisibility(View.GONE);
-            noList.setVisibility(View.VISIBLE);
         }
     }
 
