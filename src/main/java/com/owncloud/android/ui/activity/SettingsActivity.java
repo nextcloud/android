@@ -53,6 +53,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.etm.EtmActivity;
+import com.nextcloud.client.integrations.davx.DavxLauncher;
 import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -134,6 +135,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
+    DavxLauncher davx = new DavxLauncher(getPackageManager());
 
     @SuppressWarnings("deprecation")
     @Override
