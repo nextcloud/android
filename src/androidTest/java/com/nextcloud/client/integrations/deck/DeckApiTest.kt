@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.integration.deck
+package com.nextcloud.client.integrations.deck
 
 import android.content.Context
 import android.content.Intent
