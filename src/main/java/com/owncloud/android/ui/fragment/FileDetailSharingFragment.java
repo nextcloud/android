@@ -90,13 +90,13 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     DisplayUtils.AvatarGenerationListener, Injectable {
 
     private static final String ARG_FILE = "FILE";
-    private static final String ARG_ACCOUNT = "ACCOUNT";
+    private static final String ARG_USER = "USER";
 
     // to show share with users/groups info
     private List<OCShare> shares;
 
     private OCFile file;
-    private Account account;
+    private User user;
     private OCCapability capabilities;
     private OCShare publicShare;
 
@@ -150,11 +150,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Inject UserAccountManager accountManager;
 
-    public static FileDetailSharingFragment newInstance(OCFile file, Account account) {
+    public static FileDetailSharingFragment newInstance(OCFile file, User user) {
         FileDetailSharingFragment fragment = new FileDetailSharingFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, file);
-        args.putParcelable(ARG_ACCOUNT, account);
+        args.putParcelable(ARG_USER, user);
         fragment.setArguments(args);
         return fragment;
     }
@@ -164,14 +164,13 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            file = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
-            account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
+            file = savedInstanceState.getParcelable(ARG_FILE);
+            user = savedInstanceState.getParcelable(ARG_USER);
         } else {
             Bundle arguments = getArguments();
-
             if (arguments != null) {
                 file = getArguments().getParcelable(ARG_FILE);
-                account = getArguments().getParcelable(ARG_ACCOUNT);
+                user = getArguments().getParcelable(ARG_USER);
             }
         }
 
@@ -179,7 +178,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             throw new IllegalArgumentException("File may not be null");
         }
 
-        if (account == null) {
+        if (user == null) {
             throw new IllegalArgumentException("Account may not be null");
         }
 
@@ -301,20 +300,18 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      */
     public void setShareWithUserInfo() {
         // Get Users and Groups
-        shares = fileDataStorageManager.getSharesWithForAFile(file.getRemotePath(), account.name);
+        shares = fileDataStorageManager.getSharesWithForAFile(file.getRemotePath(), user.getAccountName());
 
         // Update list of users/groups
         updateListOfUserGroups();
     }
 
     private void setShareWithYou() {
-        if (accountManager.accountOwnsFile(file, account)) {
+        if (accountManager.userOwnsFile(file, user)) {
             sharedWithYouContainer.setVisibility(View.GONE);
         } else {
             sharedWithYouUsername.setText(
                 String.format(getString(R.string.shared_with_you_by), file.getOwnerDisplayName()));
-
-            final User user = accountManager.getUser(account.name).orElseThrow(RuntimeException::new);
             DisplayUtils.setAvatar(user, file.getOwnerId(), this, getResources().getDimension(
                 R.dimen.file_list_item_avatar_icon_radius), getResources(), sharedWithYouAvatar,
                 getContext());
@@ -336,14 +333,14 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         if (shares.size() > 0) {
             AccountManager accountManager = AccountManager.get(getContext());
-            String userId = accountManager.getUserData(account,
+            String userId = accountManager.getUserData(user.toPlatformAccount(),
                                                        com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
             usersList.setVisibility(View.VISIBLE);
             usersList.setAdapter(new ShareeListAdapter(fileActivity.getSupportFragmentManager(),
                                                        fileActivity,
                                                        shares,
-                                                       account,
+                                                       user.toPlatformAccount(),
                                                        file,
                                                        this,
                                                        userId));
@@ -611,7 +608,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      * Get known server capabilities from DB
      */
     public void refreshCapabilitiesFromDB() {
-        capabilities = fileDataStorageManager.getCapability(account.name);
+        capabilities = fileDataStorageManager.getCapability(user.getAccountName());
     }
 
     /**
@@ -656,8 +653,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putParcelable(FileActivity.EXTRA_FILE, file);
-        outState.putParcelable(FileActivity.EXTRA_ACCOUNT, account);
+        outState.putParcelable(ARG_FILE, file);
+        outState.putParcelable(ARG_USER, user);
     }
 
     @Override
