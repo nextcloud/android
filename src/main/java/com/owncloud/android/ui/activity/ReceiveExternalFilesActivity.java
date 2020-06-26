@@ -715,6 +715,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         ListView mListView = findViewById(android.R.id.list);
 
+        findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
+        findViewById(R.id.switch_grid_view_button).setVisibility(View.GONE);
+
         String current_dir = mParents.peek();
         boolean notRoot = mParents.size() > 1;
 

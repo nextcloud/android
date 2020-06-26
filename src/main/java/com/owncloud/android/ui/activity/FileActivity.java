@@ -175,7 +175,7 @@ public abstract class FileActivity extends DrawerActivity
         if (onDeviceOnly) {
             setupToolbar();
         } else {
-            setupHomeSearchToolbar();
+            setupHomeSearchToolbarWithSortAndListButtons();
         }
     }
 

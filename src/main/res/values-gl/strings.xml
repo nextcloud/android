@@ -742,7 +742,7 @@
     <string name="upload_direct_camera_upload">Enviar dende a cámara</string>
     <string name="upload_file_dialog_filename">Nome de ficheiro</string>
     <string name="upload_file_dialog_filetype">Tipo de ficheiro</string>
-    <string name="upload_file_dialog_filetype_googlemap_shortcut">Ficheiro de atallo aGoogle Maps(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Ficheiro de atallo a Google Maps (%s)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Ficheiro de atallo a internet(%s)</string>
     <string name="upload_file_dialog_filetype_snippet_text">Ficheiro de fragmento de texto(.txt)</string>
     <string name="upload_file_dialog_title">Introduza o nome e o tipo do ficheiro a enviar</string>

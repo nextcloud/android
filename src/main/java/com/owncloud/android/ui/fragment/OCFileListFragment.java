@@ -28,6 +28,8 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,6 +46,8 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.PopupMenu;
 
+import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
@@ -120,6 +124,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
@@ -191,6 +196,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected SearchEvent searchEvent;
     protected AsyncTask<Void, Void, Boolean> remoteOperationAsyncTask;
     protected String mLimitToMimeType;
+    private FloatingActionButton mFabMain;
 
     @Inject DeviceInfo deviceInfo;
 
@@ -241,7 +247,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * {@inheritDoc}
      */
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         Log_OC.i(TAG, "onAttach");
         try {
@@ -282,6 +288,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
         boolean allowContextualActions = args != null && args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, false);
         if (allowContextualActions) {
             setChoiceModeAsMultipleModal(savedInstanceState);
+        }
+
+        mFabMain = requireActivity().findViewById(R.id.fab_main);
+
+        if (mFabMain != null) { // is not available in FolderPickerActivity
+            ThemeUtils.tintFloatingActionButton(mFabMain, requireContext());
+            ThemeUtils.drawableFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
         }
 
         Log_OC.i(TAG, "onCreateView() end");
@@ -410,11 +423,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
      */
     private void registerFabListener() {
         FileActivity activity = (FileActivity) getActivity();
-        getFabMain().setOnClickListener(v -> new OCFileListBottomSheetDialog(activity,
-                                                                             this,
-                                                                             deviceInfo,
-                                                                             accountManager.getUser(),
-                                                                             getCurrentFile())
+        mFabMain.setOnClickListener(v -> new OCFileListBottomSheetDialog(activity,
+                                                                         this,
+                                                                         deviceInfo,
+                                                                         accountManager.getUser(),
+                                                                         getCurrentFile())
             .show());
     }
 
@@ -1738,5 +1751,82 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public boolean isLoading() {
         return false;
+    }
+
+    /**
+     * Sets the 'visibility' state of the FAB contained in the fragment.
+     * <p>
+     * When 'false' is set, FAB visibility is set to View.GONE programmatically.
+     *
+     * @param visible Desired visibility for the FAB.
+     */
+    void setFabVisible(final boolean visible) {
+        if (mFabMain == null) {
+            // is not available in FolderPickerActivity
+            return;
+        }
+
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                if (visible) {
+                    mFabMain.show();
+                    ThemeUtils.tintFloatingActionButton(mFabMain, requireContext());
+                } else {
+                    mFabMain.hide();
+                }
+
+                showFabWithBehavior(visible);
+            });
+        }
+    }
+
+    /**
+     * Remove this, if HideBottomViewOnScrollBehavior is fix by Google
+     *
+     * @param visible
+     */
+    private void showFabWithBehavior(boolean visible) {
+        ViewGroup.LayoutParams layoutParams = mFabMain.getLayoutParams();
+        if (layoutParams instanceof CoordinatorLayout.LayoutParams) {
+            CoordinatorLayout.Behavior coordinatorLayoutBehavior =
+                ((CoordinatorLayout.LayoutParams) layoutParams).getBehavior();
+            if (coordinatorLayoutBehavior instanceof HideBottomViewOnScrollBehavior) {
+                @SuppressWarnings("unchecked")
+                HideBottomViewOnScrollBehavior<FloatingActionButton> behavior =
+                    (HideBottomViewOnScrollBehavior<FloatingActionButton>) coordinatorLayoutBehavior;
+                if (visible) {
+                    behavior.slideUp(mFabMain);
+                } else {
+                    behavior.slideDown(mFabMain);
+                }
+            }
+        }
+    }
+
+    /**
+     * Sets the 'visibility' state of the FAB contained in the fragment.
+     * <p>
+     * When 'false' is set, FAB is greyed out
+     *
+     * @param enabled Desired visibility for the FAB.
+     */
+    public void setFabEnabled(final boolean enabled) {
+        if (mFabMain == null) {
+            // is not available in FolderPickerActivity
+            return;
+        }
+
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                if (enabled) {
+                    mFabMain.setEnabled(true);
+                    ThemeUtils.tintFloatingActionButton(mFabMain, requireContext());
+                } else {
+                    mFabMain.setEnabled(false);
+                    mFabMain.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+                    mFabMain.setRippleColor(Color.GRAY);
+                }
+            });
+        }
     }
 }
