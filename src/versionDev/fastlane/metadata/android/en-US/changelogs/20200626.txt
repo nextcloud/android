@@ -1,0 +1,15 @@
+changes due to CR
+Removed legacy login cleaned up a bit AuthenticatorActivity
+add null check
+fix OCP_OVERLY_CONCRETE_PARAMETER
+use fixed spotbug version
+fix tests
+make function puplic for testing
+Fix zoom, toggle background
+Removed possible NPE
+removed duplicated sort/switch grid buttons
+Changes due to CR
+Hide on scrolling, fix https://github.com/nextcloud/android/issues/6238
+use view instead of linear layout as common parent
+Update translations
+Update 3rd-party dependencies
