@@ -428,49 +428,36 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    private void initFragmentsWithFile() {
-        if (getAccount() != null && getFile() != null) {
-            /// First fragment
-            OCFileListFragment listOfFiles = getListOfFilesFragment();
-            if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
-                listOfFiles.listDirectory(getCurrentDir(), getFile(), MainApp.isOnlyOnDevice(), false);
-            } else {
-                Log_OC.e(TAG, "Still have a chance to lose the initialization of list fragment >(");
+    private void initFragmentsWithFile(User user, OCFile file) {
+        /// First fragment
+        OCFileListFragment listOfFiles = getListOfFilesFragment();
+        if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
+            listOfFiles.listDirectory(getCurrentDir(), getFile(), MainApp.isOnlyOnDevice(), false);
+        } else {
+            Log_OC.e(TAG, "Still have a chance to lose the initialization of list fragment >(");
+        }
+
+        /// Second fragment
+        if (mDualPane) {
+            Fragment secondFragment = getSecondFragment();
+            if (secondFragment == null) {
+                secondFragment = chooseInitialSecondFragment(file, user);
             }
 
-            /// Second fragment
-            if (mDualPane) {
-                OCFile file = getFile();
-
-                Fragment secondFragment = getSecondFragment();
-                if (secondFragment == null) {
-                    secondFragment = chooseInitialSecondFragment(file);
-                }
-
-                if (secondFragment != null) {
-                    setSecondFragment(secondFragment);
-                    updateFragmentsVisibility(true);
-                    updateActionBarTitleAndHomeButton(file);
-                } else {
-                    cleanSecondFragment();
-                    if (file.isDown() && MimeTypeUtil.isVCard(file.getMimeType())) {
-                        startContactListFragment(file);
-                    } else if (file.isDown() && PreviewTextFileFragment.canBePreviewed(file)) {
-                        startTextPreview(file, false);
-                    }
-                }
+            if (secondFragment != null) {
+                setSecondFragment(secondFragment);
+                updateFragmentsVisibility(true);
+                updateActionBarTitleAndHomeButton(file);
             } else {
                 cleanSecondFragment();
+                if (file.isDown() && MimeTypeUtil.isVCard(file.getMimeType())) {
+                    startContactListFragment(file);
+                } else if (file.isDown() && PreviewTextFileFragment.canBePreviewed(file)) {
+                    startTextPreview(file, false);
+                }
             }
-
         } else {
-            Log_OC.e(TAG, "initFragments() called with invalid NULLs!");
-            if (getAccount() == null) {
-                Log_OC.e(TAG, "\t account is NULL");
-            }
-            if (getFile() == null) {
-                Log_OC.e(TAG, "\t file is NULL");
-            }
+            cleanSecondFragment();
         }
     }
 
@@ -529,17 +516,17 @@ public class FileDisplayActivity extends FileActivity
             }
     }
 
-    private Fragment chooseInitialSecondFragment(OCFile file) {
+    private Fragment chooseInitialSecondFragment(OCFile file, User user) {
         Fragment secondFragment = null;
         if (file != null && !file.isFolder()) {
             if (file.isDown() && PreviewMediaFragment.canBePreviewed(file)) {
                 int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
                 boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
-                secondFragment = PreviewMediaFragment.newInstance(file, getAccount(), startPlaybackPosition, autoplay);
+                secondFragment = PreviewMediaFragment.newInstance(file, user.toPlatformAccount(), startPlaybackPosition, autoplay);
             } else if (file.isDown() && PreviewTextFileFragment.canBePreviewed(file)) {
                 secondFragment = null;
             } else {
-                secondFragment = FileDetailFragment.newInstance(file, getAccount());
+                secondFragment = FileDetailFragment.newInstance(file, user);
             }
         }
         return secondFragment;
@@ -1556,7 +1543,8 @@ public class FileDisplayActivity extends FileActivity
      * @param activeTab the active tab in the details view
      */
     public void showDetails(OCFile file, int activeTab) {
-        Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount(), activeTab);
+        User currentUser = getUser().orElseThrow(RuntimeException::new);
+        Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser, activeTab);
         setSecondFragment(detailFragment);
         updateFragmentsVisibility(true);
         updateActionBarTitleAndHomeButton(file);
@@ -1834,13 +1822,15 @@ public class FileDisplayActivity extends FileActivity
      */
     private void onRenameFileOperationFinish(RenameFileOperation operation,
                                              RemoteOperationResult result) {
+        Optional<User> optionalUser = getUser();
         OCFile renamedFile = operation.getFile();
-        if (result.isSuccess()) {
+        if (result.isSuccess() && optionalUser.isPresent()) {
+            final User currentUser = optionalUser.get();
             FileFragment details = getSecondFragment();
             if (details != null) {
                 if (details instanceof FileDetailFragment &&
                         renamedFile.equals(details.getFile())) {
-                    ((FileDetailFragment) details).updateFileDetails(renamedFile, getAccount());
+                    ((FileDetailFragment) details).updateFileDetails(renamedFile, currentUser);
                     showDetails(renamedFile);
 
                 } else if (details instanceof PreviewMediaFragment &&
@@ -1929,10 +1919,11 @@ public class FileDisplayActivity extends FileActivity
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
         updateListOfFilesFragment(false);
         FileFragment details = getSecondFragment();
-        if (details instanceof FileDetailFragment &&
-                file.equals(details.getFile())) {
+        Optional<User> optionalUser = getUser();
+        if (details instanceof FileDetailFragment && file.equals(details.getFile()) && optionalUser.isPresent()) {
+            final User currentUser = optionalUser.get();
             if (downloading || uploading) {
-                ((FileDetailFragment) details).updateFileDetails(file, getAccount());
+                ((FileDetailFragment) details).updateFileDetails(file, currentUser);
             } else {
                 if (!file.fileExists()) {
                     cleanSecondFragment();
@@ -2216,7 +2207,8 @@ public class FileDisplayActivity extends FileActivity
      * @param file {@link OCFile} to download and preview.
      */
     public void startDownloadForPreview(OCFile file) {
-        Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount());
+        final User currentUser = getUser().orElseThrow(RuntimeException::new);
+        Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser);
         setSecondFragment(detailFragment);
         mWaitingToPreview = file;
         requestForDownload();
@@ -2379,7 +2371,7 @@ public class FileDisplayActivity extends FileActivity
             final boolean accountChanged = !user.getAccountName().equals(lastDisplayedAccountName);
             if (accountChanged) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
-                initFragmentsWithFile();
+                initFragmentsWithFile(user, file);
                 if (file.isFolder() && TextUtils.isEmpty(searchQuery)) {
                     startSyncFolderOperation(file, false);
                 }

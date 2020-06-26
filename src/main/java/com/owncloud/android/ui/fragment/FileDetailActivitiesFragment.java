@@ -24,6 +24,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
+import android.content.ContentResolver;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -58,7 +59,6 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.CommentFileOperation;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ActivityAndVersionListAdapter;
 import com.owncloud.android.ui.events.CommentsEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
@@ -95,7 +95,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     private static final String TAG = FileDetailActivitiesFragment.class.getSimpleName();
 
     private static final String ARG_FILE = "FILE";
-    private static final String ARG_ACCOUNT = "ACCOUNT";
+    private static final String ARG_USER = "USER";
     private static final int END_REACHED = 0;
 
     private ActivityAndVersionListAdapter adapter;
@@ -104,7 +104,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     private NextcloudClient nextcloudClient;
 
     private OCFile file;
-    private Account account;
+    private User user;
 
     private int lastGiven;
     private boolean isLoadingActivities;
@@ -148,12 +148,13 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
+    @Inject ContentResolver contentResolver;
 
-    public static FileDetailActivitiesFragment newInstance(OCFile file, Account account) {
+    public static FileDetailActivitiesFragment newInstance(OCFile file, User user) {
         FileDetailActivitiesFragment fragment = new FileDetailActivitiesFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, file);
-        args.putParcelable(ARG_ACCOUNT, account);
+        args.putParcelable(ARG_USER, user);
         fragment.setArguments(args);
         return fragment;
     }
@@ -163,12 +164,16 @@ public class FileDetailActivitiesFragment extends Fragment implements
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-        file = getArguments().getParcelable(ARG_FILE);
-        account = getArguments().getParcelable(ARG_ACCOUNT);
+        final Bundle arguments = getArguments();
+        if (arguments == null) {
+            throw new IllegalStateException("arguments are mandatory");
+        }
+        file = arguments.getParcelable(ARG_FILE);
+        user = arguments.getParcelable(ARG_USER);
 
         if (savedInstanceState != null) {
-            file = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
-            account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
+            file = savedInstanceState.getParcelable(ARG_FILE);
+            user = savedInstanceState.getParcelable(ARG_USER);
         }
 
         View view = inflater.inflate(R.layout.file_details_activities_fragment, container, false);
@@ -245,11 +250,12 @@ public class FileDetailActivitiesFragment extends Fragment implements
     }
 
     private void setupView() {
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, requireActivity().getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(),
+                                                                           contentResolver);
         operationsHelper = ((ComponentsGetter) requireActivity()).getFileOperationsHelper();
 
-        OCCapability capability = storageManager.getCapability(account.name);
-        OwnCloudVersion serverVersion = accountManager.getServerVersion(account);
+        OCCapability capability = storageManager.getCapability(user.getAccountName());
+        OwnCloudVersion serverVersion = user.getServer().getVersion();
         restoreFileVersionSupported = capability.getFilesVersioning().isTrue() &&
             serverVersion.compareTo(OwnCloudVersion.nextcloud_14) >= 0;
 
@@ -462,8 +468,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putParcelable(FileActivity.EXTRA_FILE, file);
-        outState.putParcelable(FileActivity.EXTRA_ACCOUNT, account);
+        outState.putParcelable(ARG_FILE, file);
+        outState.putParcelable(ARG_USER, user);
     }
 
     @Override
