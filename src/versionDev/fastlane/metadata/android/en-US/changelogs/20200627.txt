@@ -1,0 +1,4 @@
+lint: remove unused resource
+Enhance FileDetailSharingFragment: - remove no users text - disable search view if reshare is not allowed - show note icon
+Hide on scrolling for activities and notifications
+fix #5468 if we have no activity, do nothing
