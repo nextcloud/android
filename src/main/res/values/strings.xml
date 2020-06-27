@@ -464,7 +464,6 @@
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_file">Share %1$s</string>
-    <string name="share_no_users">No data shared with users yet</string>
     <string name="share_via_link_menu_password_label">Password protect (%1$s)</string>
     <string name="share_expiration_date_label">Expires %1$s</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
@@ -642,7 +641,6 @@
     <string name="sync_in_progress">Fetching most recent version of the file.</string>
     <string name="date_unknown">Unknown</string>
 
-    <string name="resized_image_not_possible">No resized image available.</string>
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
 
     <string name="store_short_desc">The self-hosted productivity platform that keeps you in control</string>
@@ -927,4 +925,5 @@
     <string name="invalid_url">Invalid URL</string>
     <string name="conflict_dialog_error">Error creating conflict dialog!</string>
     <string name="qr_could_not_be_read">QR Code could not be read!</string>
+    <string name="note_icon_hint">Note icon</string>
 </resources>

@@ -750,10 +750,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                    }
                                }
                     ).show();
-            } else {
-                Snackbar.make(mMultiListContainer,
-                              R.string.resized_image_not_possible,
-                              Snackbar.LENGTH_INDEFINITE).show();
             }
         } catch (IllegalArgumentException e) {
             Log_OC.d(TAG, e.getMessage());
