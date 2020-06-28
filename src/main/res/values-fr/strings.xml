@@ -440,6 +440,7 @@ Attention la suppression est irréversible.</string>
     <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
     <string name="note_confirm">Envoyer</string>
     <string name="note_could_not_sent">Impossible d\'envoyer la note</string>
+    <string name="note_icon_hint">Icône de note</string>
     <string name="notification_action_failed">Échec lors de l\'exécution de l\'action.</string>
     <string name="notification_channel_download_description">Afficher la progression de téléchargement</string>
     <string name="notification_channel_download_name">Canal de notification de téléchargement</string>

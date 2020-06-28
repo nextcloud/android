@@ -438,6 +438,7 @@
     <string name="no_pdf_app_available">Nenhum aplicativo disponível para lidar com PDF</string>
     <string name="note_confirm">Enviar</string>
     <string name="note_could_not_sent">Não foi possível enviar a anotação</string>
+    <string name="note_icon_hint">Ícone de anotação</string>
     <string name="notification_action_failed">Erro ao executar a ação.</string>
     <string name="notification_channel_download_description">Mostra o progresso de download</string>
     <string name="notification_channel_download_name">Canal de notificação de download</string>
