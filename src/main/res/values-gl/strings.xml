@@ -438,6 +438,7 @@
     <string name="no_pdf_app_available">Non hai ningunha aplicación para manexar PDF</string>
     <string name="note_confirm">Enviar</string>
     <string name="note_could_not_sent">Non foi posíbel enviar a nota</string>
+    <string name="note_icon_hint">Icona de nota</string>
     <string name="notification_action_failed">Produciuse un fallo ao executar a acción.</string>
     <string name="notification_channel_download_description">Amosa o progreso da descarga</string>
     <string name="notification_channel_download_name">Canle de notificación de descargas</string>

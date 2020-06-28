@@ -438,6 +438,7 @@
     <string name="no_pdf_app_available">Brak aplikacji obsługującej PDF</string>
     <string name="note_confirm">Wyślij</string>
     <string name="note_could_not_sent">Nie można wysłać notatki</string>
+    <string name="note_icon_hint">Ikona notatki</string>
     <string name="notification_action_failed">Wykonanie akcji nie powiodło się.</string>
     <string name="notification_channel_download_description">Pokazuje postęp pobierania</string>
     <string name="notification_channel_download_name">Kanał powiadomień pobierania</string>
