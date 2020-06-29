@@ -33,11 +33,11 @@ class EtmMenuFragment : EtmBaseFragment() {
     private lateinit var list: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        adapter = EtmMenuAdapter(context!!, this::onClickedItem)
+        adapter = EtmMenuAdapter(requireContext(), this::onClickedItem)
         adapter.pages = vm.pages
         val view = inflater.inflate(R.layout.fragment_etm_menu, container, false)
         list = view.findViewById(R.id.etm_menu_list)
-        list.layoutManager = LinearLayoutManager(context!!)
+        list.layoutManager = LinearLayoutManager(requireContext())
         list.adapter = adapter
         return view
     }
