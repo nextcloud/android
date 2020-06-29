@@ -178,9 +178,7 @@ public class UploadFilesActivity extends FileActivity implements LocalFileListFr
         cancelButton.setOnClickListener(this);
 
         MaterialButton uploadButton = findViewById(R.id.upload_files_btn_upload);
-        uploadButton.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
-        uploadButton.setBackgroundTintList(ColorStateList.valueOf(ThemeUtils.primaryColor(this, true)));
-        uploadButton.setTextColor(ThemeUtils.fontColor(this, false));
+        ThemeUtils.colorPrimaryButton(uploadButton, this);
         uploadButton.setOnClickListener(this);
 
         sortButton = findViewById(R.id.sort_button);

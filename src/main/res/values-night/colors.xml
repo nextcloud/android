@@ -43,7 +43,6 @@
     <color name="switch_thumb_color_unchecked">#2a2a2a</color>
     <color name="switch_track_color_unchecked">#B3FFFFFF</color>
     <color name="drawer_active_item_background">@color/white</color>
-    <color name="element_fallback_color">#EDEDED</color>
 
     <!-- App bar -->
     <color name="appbar">#1E1E1E</color>

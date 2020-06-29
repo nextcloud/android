@@ -37,7 +37,6 @@
 
     <!-- Colors -->
     <color name="standard_grey">#757575</color>
-    <color name="element_fallback_color">#555555</color>
     <color name="grey_200">#EEEEEE</color>
     <color name="grey_db">#dbdbdb</color>
     <color name="actionbar_shadow">#222222</color>
