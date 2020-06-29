@@ -121,9 +121,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @BindView(R.id.new_public_share)
     View addPublicShare;
 
-    @BindView(R.id.shareNoUsers)
-    TextView noList;
-
     @BindView(R.id.shared_with_you_container)
     LinearLayout sharedWithYouContainer;
 
@@ -242,13 +239,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         ThemeUtils.themeSearchView(searchView, requireContext());
 
         if (file.canReshare()) {
-            setShareByLinkInfo(file.isSharedViaLink());
             setShareWithUserInfo();
         } else {
             searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
             searchView.setInputType(InputType.TYPE_NULL);
             disableSearchView(searchView);
-            shareByLinkContainer.setVisibility(View.GONE);
         }
     }
 
