@@ -28,7 +28,6 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -46,6 +45,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.PopupMenu;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -1218,6 +1218,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @param directory File to be listed
      */
     public void listDirectory(OCFile directory, OCFile file, boolean onlyOnDevice, boolean fromSearch) {
+        // show toolbar
+        AppBarLayout layout = getActivity().findViewById(R.id.appbar);
+        if (layout != null && getAdapter().getFiles().isEmpty()) {
+            layout.setExpanded(true);
+        }
+
         if (!searchFragment) {
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
             if (storageManager != null) {
