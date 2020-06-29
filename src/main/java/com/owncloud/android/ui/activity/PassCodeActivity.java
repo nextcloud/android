@@ -95,10 +95,10 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.passcodelock);
 
-        int elementColor = ThemeUtils.elementColor(this);
+        int elementColor = ThemeUtils.primaryColor(this);
 
         mBCancel = findViewById(R.id.cancel);
-        mBCancel.setBackgroundColor(ThemeUtils.primaryColor(this));
+        ThemeUtils.colorPrimaryButton(mBCancel, this);
 
         mPassCodeHdr = findViewById(R.id.header);
         mPassCodeHdrExplanation = findViewById(R.id.explanation);

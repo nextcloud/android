@@ -194,7 +194,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     }
 
     private void themeShareButtonImage(ImageView shareImageView) {
-        shareImageView.getBackground().setColorFilter(ThemeUtils.elementColor(getContext()), PorterDuff.Mode.SRC_IN);
+        shareImageView.getBackground().setColorFilter(ThemeUtils.primaryColor(getContext()), PorterDuff.Mode.SRC_IN);
         shareImageView.getDrawable().mutate().setColorFilter(ThemeUtils.fontColor(getContext()),
                 PorterDuff.Mode.SRC_IN);
     }

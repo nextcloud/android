@@ -163,8 +163,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             int primaryColor = ThemeUtils.primaryColor(notificationsActivity);
 
             if (action.primary) {
-                button.setBackgroundColor(primaryColor);
-                button.setTextColor(ThemeUtils.fontColor(notificationsActivity));
+                ThemeUtils.colorPrimaryButton(button, notificationsActivity);
                 button.setTypeface(button.getTypeface(), Typeface.BOLD);
             } else {
                 button.setBackgroundColor(resources.getColor(R.color.grey_200));
