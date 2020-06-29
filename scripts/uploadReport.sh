@@ -24,10 +24,11 @@ upload() {
 #1: LOG_USERNAME
 #2: LOG_PASSWORD
 #3: DRONE_BUILD_NUMBER
-#4: TYPE (IT or Unit)
-#5: DRONE_PULL_REQUEST
-#6: GIT_USERNAME
-#7: GIT_TOKEN
+#4: BRANCH (stable or master)
+#5: TYPE (IT or Unit)
+#6: DRONE_PULL_REQUEST
+#7: GIT_USERNAME
+#8: GIT_TOKEN
 
 URL=https://nextcloud.kaminsky.me/remote.php/webdav/android-integrationTests
 ID=$3
