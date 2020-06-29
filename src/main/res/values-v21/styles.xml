@@ -82,4 +82,8 @@
 
     <style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar.LoginBase21" />
 
+    <style name="Theme.ownCloud.Overlay" parent="Theme.ownCloud.OverlayBase">
+        <item name="android:navigationBarColor">@color/black</item>
+    </style>
+
 </resources>
