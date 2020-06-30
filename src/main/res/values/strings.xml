@@ -68,7 +68,6 @@
 
     <string name="auth_host_url">Server address https://…</string>
     <string name="auth_username">Username</string>
-    <string name="auth_password">Password</string>
     <string name="sync_string_files">Files</string>
     <string name="uploader_btn_upload_text">Upload</string>
     <string name="uploader_btn_alternative_text">Choose</string>
@@ -677,7 +676,6 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">No info available.</string>
     <string name="dev_version_no_new_version_available">No new version available.</string>
-    <string name="folder_icon">Folder icon</string>
     <string name="dev_version_new_version_available">New version available</string>
     <string name="version_dev_download">Download</string>
 
