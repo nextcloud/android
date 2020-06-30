@@ -24,8 +24,6 @@ import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -459,6 +457,10 @@ public class UploadFilesActivity extends FileActivity implements LocalFileListFr
 
                     case 2: // upload and delete from source
                         setResult(RESULT_OK_AND_DELETE, data);
+                        break;
+
+                    default:
+                        // do nothing
                         break;
                 }
 
