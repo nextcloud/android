@@ -24,6 +24,7 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.owncloud.android.R;
@@ -48,6 +49,9 @@ class PublicShareViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(OCShare publicShare, PublicShareInterface listener) {
+        if (!TextUtils.isEmpty(publicShare.getLabel())) {
+            binding.publicShareLabel.setText(publicShare.getLabel());
+        }
         binding.copyInternalLinkIcon
             .getBackground()
             .setColorFilter(context.getResources().getColor(R.color.primary_button_background_color),

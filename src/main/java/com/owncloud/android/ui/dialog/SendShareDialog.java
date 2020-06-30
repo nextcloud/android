@@ -180,7 +180,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
             requestPasswordForShareViaLink();
         } else {
             // create without password if not enforced by server or we don't know if enforced;
-            ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaLink(file, null);
+            ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaPublicShare(file, null);
         }
 
         this.dismiss();

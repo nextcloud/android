@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -20,7 +20,7 @@
 
 package com.owncloud.android.ui.dialog;
 
-/**
+/*
  *  Dialog to input a new name for an {@link OCFile} being renamed.
  *
  *  Triggers the rename operation.
@@ -36,9 +36,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -60,6 +60,7 @@ public class RenameFileDialogFragment
 
     private static final String ARG_TARGET_FILE = "TARGET_FILE";
 
+    private EditBoxDialogBinding binding;
     private OCFile mTargetFile;
 
     /**
@@ -85,44 +86,43 @@ public class RenameFileDialogFragment
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+        if (alertDialog != null) {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+        }
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         int accentColor = ThemeUtils.primaryAccentColor(getContext());
-        mTargetFile = getArguments().getParcelable(ARG_TARGET_FILE);
+        mTargetFile = requireArguments().getParcelable(ARG_TARGET_FILE);
 
         // Inflate the layout for the dialog
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View v = inflater.inflate(R.layout.edit_box_dialog, null);
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        binding = EditBoxDialogBinding.inflate(inflater, null, false);
+        View view = binding.getRoot();
 
         // Setup layout
         String currentName = mTargetFile.getFileName();
-        EditText inputText = v.findViewById(R.id.user_input);
+        EditText inputText = binding.userInput;
         inputText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
         inputText.setText(currentName);
         ThemeUtils.themeEditText(getContext(), inputText, false);
         int selectionStart = 0;
         int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
         int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
-        if (selectionStart >= 0 && selectionEnd >= 0) {
-            inputText.setSelection(
-                    Math.min(selectionStart, selectionEnd),
-                    Math.max(selectionStart, selectionEnd));
-        }
+        inputText.setSelection(Math.min(selectionStart, selectionEnd), Math.max(selectionStart, selectionEnd));
         inputText.requestFocus();
         inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(v)
-                .setPositiveButton(R.string.file_rename, this)
-                .setNegativeButton(R.string.common_cancel, this)
-                .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.rename_dialog_title),
-                        accentColor));
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        builder.setView(view)
+            .setPositiveButton(R.string.file_rename, this)
+            .setNegativeButton(R.string.common_cancel, this)
+            .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.rename_dialog_title),
+                                                 accentColor));
         Dialog d = builder.create();
 
         Window window = d.getWindow();
@@ -137,22 +137,30 @@ public class RenameFileDialogFragment
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
-            String newFileName =
-                ((TextView)(getDialog().findViewById(R.id.user_input)))
-                    .getText().toString().trim();
+            String newFileName = "";
+
+            if (binding.userInput.getText() != null) {
+                newFileName = binding.userInput.getText().toString().trim();
+            }
 
             if (TextUtils.isEmpty(newFileName)) {
-                DisplayUtils.showSnackMessage(getActivity(), R.string.filename_empty);
+                DisplayUtils.showSnackMessage(requireActivity(), R.string.filename_empty);
                 return;
             }
 
             if (!FileUtils.isValidName(newFileName)) {
-                DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_charaters_from_server);
+                DisplayUtils.showSnackMessage(requireActivity(), R.string.filename_forbidden_charaters_from_server);
 
                 return;
             }
 
-            ((ComponentsGetter) getActivity()).getFileOperationsHelper().renameFile(mTargetFile, newFileName);
+            ((ComponentsGetter) requireActivity()).getFileOperationsHelper().renameFile(mTargetFile, newFileName);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
