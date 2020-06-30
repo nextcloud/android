@@ -29,6 +29,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
@@ -94,6 +95,9 @@ class BackgroundJobFactoryTest {
     @Mock
     private lateinit var eventBus: EventBus
 
+    @Mock
+    private lateinit var deckApi: DeckApi
+
     private lateinit var factory: BackgroundJobFactory
 
     @Before
@@ -113,7 +117,8 @@ class BackgroundJobFactoryTest {
             uploadsStorageManager,
             connectivityService,
             notificationManager,
-            eventBus
+            eventBus,
+            deckApi
         )
     }
 
