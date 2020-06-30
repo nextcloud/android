@@ -1047,25 +1047,7 @@ public class FileDataStorageManager {
     public boolean saveShare(OCShare share) {
         boolean overridden = false;
 
-        Uri contentUriShare = ProviderTableMeta.CONTENT_URI_SHARE;
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
-        contentValues.put(ProviderTableMeta.OCSHARES_ITEM_SOURCE, share.getItemSource());
-        contentValues.put(ProviderTableMeta.OCSHARES_SHARE_TYPE, share.getShareType().getValue());
-        contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH, share.getShareWith());
-        contentValues.put(ProviderTableMeta.OCSHARES_PATH, share.getPath());
-        contentValues.put(ProviderTableMeta.OCSHARES_PERMISSIONS, share.getPermissions());
-        contentValues.put(ProviderTableMeta.OCSHARES_SHARED_DATE, share.getSharedDate());
-        contentValues.put(ProviderTableMeta.OCSHARES_EXPIRATION_DATE, share.getExpirationDate());
-        contentValues.put(ProviderTableMeta.OCSHARES_TOKEN, share.getToken());
-        contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME, share.getSharedWithDisplayName());
-        contentValues.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0);
-        contentValues.put(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId());
-        contentValues.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getRemoteId());
-        contentValues.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, account.name);
-        contentValues.put(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED, share.isPasswordProtected() ? 1 : 0);
-        contentValues.put(ProviderTableMeta.OCSHARES_NOTE, share.getNote());
-        contentValues.put(ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD, share.isHideFileDownload());
+        ContentValues contentValues = createContentValueForShare(share);
 
         if (shareExistsForRemoteId(share.getRemoteId())) {// for renamed files; no more delete and create
             overridden = true;
@@ -1260,6 +1242,31 @@ public class FileDataStorageManager {
         return shares;
     }
 
+    private ContentValues createContentValueForShare(OCShare share) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
+        contentValues.put(ProviderTableMeta.OCSHARES_ITEM_SOURCE, share.getItemSource());
+        contentValues.put(ProviderTableMeta.OCSHARES_SHARE_TYPE, share.getShareType().getValue());
+        contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH, share.getShareWith());
+        contentValues.put(ProviderTableMeta.OCSHARES_PATH, share.getPath());
+        contentValues.put(ProviderTableMeta.OCSHARES_PERMISSIONS, share.getPermissions());
+        contentValues.put(ProviderTableMeta.OCSHARES_SHARED_DATE, share.getSharedDate());
+        contentValues.put(ProviderTableMeta.OCSHARES_EXPIRATION_DATE, share.getExpirationDate());
+        contentValues.put(ProviderTableMeta.OCSHARES_TOKEN, share.getToken());
+        contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME, share.getSharedWithDisplayName());
+        contentValues.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0);
+        contentValues.put(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId());
+        contentValues.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getRemoteId());
+        contentValues.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, account.name);
+        contentValues.put(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED, share.isPasswordProtected() ? 1 : 0);
+        contentValues.put(ProviderTableMeta.OCSHARES_NOTE, share.getNote());
+        contentValues.put(ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD, share.isHideFileDownload());
+        contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LINK, share.getShareLink());
+        contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LABEL, share.getLabel());
+
+        return contentValues;
+    }
+
     // test with null cursor?
     private OCShare createShareInstance(Cursor cursor) {
         OCShare share = new OCShare(getString(cursor, ProviderTableMeta.OCSHARES_PATH));
@@ -1279,6 +1286,7 @@ public class FileDataStorageManager {
         share.setNote(getString(cursor, ProviderTableMeta.OCSHARES_NOTE));
         share.setHideFileDownload(getInt(cursor, ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD) == 1);
         share.setShareLink(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK));
+        share.setLabel(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LABEL));
 
         return share;
     }
@@ -1366,24 +1374,7 @@ public class FileDataStorageManager {
 
         // prepare operations to insert or update files to save in the given folder
         for (OCShare share : shares) {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
-            contentValues.put(ProviderTableMeta.OCSHARES_ITEM_SOURCE, share.getItemSource());
-            contentValues.put(ProviderTableMeta.OCSHARES_SHARE_TYPE, share.getShareType().getValue());
-            contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH, share.getShareWith());
-            contentValues.put(ProviderTableMeta.OCSHARES_PATH, share.getPath());
-            contentValues.put(ProviderTableMeta.OCSHARES_PERMISSIONS, share.getPermissions());
-            contentValues.put(ProviderTableMeta.OCSHARES_SHARED_DATE, share.getSharedDate());
-            contentValues.put(ProviderTableMeta.OCSHARES_EXPIRATION_DATE, share.getExpirationDate());
-            contentValues.put(ProviderTableMeta.OCSHARES_TOKEN, share.getToken());
-            contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME, share.getSharedWithDisplayName());
-            contentValues.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0);
-            contentValues.put(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId());
-            contentValues.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getRemoteId());
-            contentValues.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, account.name);
-            contentValues.put(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED, share.isPasswordProtected() ? 1 : 0);
-            contentValues.put(ProviderTableMeta.OCSHARES_NOTE, share.getNote());
-            contentValues.put(ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD, share.isHideFileDownload());
+            ContentValues contentValues = createContentValueForShare(share);
 
             if (shareExistsForRemoteId(share.getRemoteId())) {
                 // updating an existing file
@@ -1613,25 +1604,7 @@ public class FileDataStorageManager {
         ContentValues contentValues;
         // prepare operations to insert or update files to save in the given folder
         for (OCShare share : shares) {
-            contentValues = new ContentValues();
-            contentValues.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
-            contentValues.put(ProviderTableMeta.OCSHARES_ITEM_SOURCE, share.getItemSource());
-            contentValues.put(ProviderTableMeta.OCSHARES_SHARE_TYPE, share.getShareType().getValue());
-            contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH, share.getShareWith());
-            contentValues.put(ProviderTableMeta.OCSHARES_PATH, share.getPath());
-            contentValues.put(ProviderTableMeta.OCSHARES_PERMISSIONS, share.getPermissions());
-            contentValues.put(ProviderTableMeta.OCSHARES_SHARED_DATE, share.getSharedDate());
-            contentValues.put(ProviderTableMeta.OCSHARES_EXPIRATION_DATE, share.getExpirationDate());
-            contentValues.put(ProviderTableMeta.OCSHARES_TOKEN, share.getToken());
-            contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME, share.getSharedWithDisplayName());
-            contentValues.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0);
-            contentValues.put(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId());
-            contentValues.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getRemoteId());
-            contentValues.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, account.name);
-            contentValues.put(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED, share.isPasswordProtected() ? 1 : 0);
-            contentValues.put(ProviderTableMeta.OCSHARES_NOTE, share.getNote());
-            contentValues.put(ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD, share.isHideFileDownload());
-            contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LINK, share.getShareLink());
+            contentValues = createContentValueForShare(share);
 
             // adding a new share resource
             operations.add(ContentProviderOperation

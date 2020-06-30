@@ -43,6 +43,11 @@
         android:checkable="true"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_edit_label"
+        android:showAsAction="never"
+        android:title="@string/edit_label"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_password"
         android:showAsAction="never"
         android:title="@string/share_via_link_menu_password_label"
