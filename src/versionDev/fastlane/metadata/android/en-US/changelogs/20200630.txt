@@ -1,0 +1,14 @@
+Lint ignore
+Replace fragment by FragmentContainerView
+remove element color references
+remove unused method
+improve edge case FAB coloring
+move primary action button theming to new theming method
+Introduce light/dark theme / black/white primary-color-aware primary-button theming
+proper coloring of drawer items in black/white edge case scenarios
+proper button coloring for dark theme + black primary color
+Remove duplacation
+black nav bar on image preview
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
