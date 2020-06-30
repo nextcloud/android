@@ -329,4 +329,10 @@
         <item name="iconGravity">textStart</item>
         <item name="iconPadding">0dp</item>
     </style>
+
+    <!-- Custom colors for the FIDO dialog -->
+    <style name="FidoDialog" parent="HwSecurity.Dialog">
+        <item name="hwSecurityButtonColor">@color/color_accent</item>
+        <item name="hwSecuritySurfaceColor">@color/primary</item>
+    </style>
 </resources>
