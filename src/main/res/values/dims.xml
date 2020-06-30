@@ -61,7 +61,6 @@
     <dimen name="activity_row_layout_min_width_independent">196dip</dimen>
     <dimen name="user_icon_size_independent">40dip</dimen>
     <dimen name="drawer_header_subtext">12sp</dimen>
-    <dimen name="edit_share_layout_view_height">2dp</dimen>
     <dimen name="fragment_margin">12dp</dimen>
     <dimen name="file_download_fragment_layout_padding">20dp</dimen>
     <dimen name="alternate_fragment_margin">15dp</dimen>
