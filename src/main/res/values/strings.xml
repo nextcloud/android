@@ -660,7 +660,6 @@
     <string name="sync_in_progress">Fetching most recent version of the file.</string>
     <string name="date_unknown">Unknown</string>
 
-    <string name="resized_image_not_possible">No resized image available.</string>
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
 
     <string name="store_short_desc">The self-hosted productivity platform that keeps you in control</string>
