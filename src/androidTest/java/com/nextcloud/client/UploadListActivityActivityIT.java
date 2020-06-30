@@ -27,6 +27,7 @@ import android.Manifest;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.utils.ScreenshotTest;
+import com.owncloud.android.utils.ScreenshotWithServerTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -45,6 +46,7 @@ public class UploadListActivityActivityIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     public void openDrawer() {
         super.openDrawer(activityRule);

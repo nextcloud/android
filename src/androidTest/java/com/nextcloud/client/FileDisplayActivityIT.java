@@ -39,6 +39,7 @@ import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.utils.ScreenshotTest;
+import com.owncloud.android.utils.ScreenshotWithServerTest;
 
 import org.greenrobot.eventbus.EventBus;
 import org.junit.Assert;
@@ -66,6 +67,7 @@ public class FileDisplayActivityIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     public void open() {
         Activity sut = activityRule.launchActivity(null);
@@ -76,6 +78,7 @@ public class FileDisplayActivityIT extends AbstractIT {
     }
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     public void drawer() {
         FileDisplayActivity sut = activityRule.launchActivity(null);
@@ -90,6 +93,7 @@ public class FileDisplayActivityIT extends AbstractIT {
     }
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     public void showShares() {
         assertTrue(new ExistenceCheckRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());

@@ -98,6 +98,7 @@ import javax.net.ssl.SSLEngine;
 
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.util.Pair;
@@ -222,10 +223,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         super.attachBaseContext(base);
 
         initGlobalContext(this);
-        DaggerAppComponent.builder()
-            .application(this)
-            .build()
-            .inject(this);
+        setupDagger();
 
         // we don't want to handle crashes occurring inside crash reporter activity/process;
         // let the platform deal with those
@@ -238,6 +236,14 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                                                                         defaultPlatformHandler);
             Thread.setDefaultUncaughtExceptionHandler(crashReporter);
         }
+    }
+
+    @VisibleForTesting
+    public void setupDagger() {
+        DaggerAppComponent.builder()
+            .application(this)
+            .build()
+            .inject(this);
     }
 
     @SuppressFBWarnings("ST")

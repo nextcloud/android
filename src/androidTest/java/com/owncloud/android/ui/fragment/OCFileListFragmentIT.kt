@@ -50,6 +50,7 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.ScreenshotTest
+import com.owncloud.android.utils.ScreenshotWithServerTest
 import junit.framework.TestCase
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -89,6 +90,7 @@ class OCFileListFragmentIT : AbstractIT() {
     }
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     fun showRichWorkspace() {
         assertTrue(CreateFolderOperation("/test/", account, targetContext).execute(client, storageManager).isSuccess)
@@ -176,6 +178,7 @@ class OCFileListFragmentIT : AbstractIT() {
     }
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     fun createAndShowShareToUser() {
         val path = "/shareToAdmin/"
@@ -207,6 +210,7 @@ class OCFileListFragmentIT : AbstractIT() {
     }
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     fun createAndShowShareToGroup() {
         val path = "/shareToGroup/"
@@ -271,6 +275,7 @@ class OCFileListFragmentIT : AbstractIT() {
 //    }
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     fun createAndShowShareViaLink() {
         val path = "/shareViaLink/"

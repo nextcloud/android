@@ -29,7 +29,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -52,7 +51,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -233,12 +231,12 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     }
 
     @Override
-    public void showActivities(List<Object> activities, NextcloudClient client, int lastGiven) {
+    public void showActivities(List<Object> activities, int lastGiven) {
         boolean clear = false;
         if (this.lastGiven == UNDEFINED) {
             clear = true;
         }
-        adapter.setActivityItems(activities, client, clear);
+        adapter.setActivityItems(activities, clear);
         this.lastGiven = lastGiven;
 
         // Hide the recyclerView if list is empty

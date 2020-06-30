@@ -22,13 +22,24 @@
 
 package com.nextcloud.client;
 
+import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 
 import com.facebook.testing.screenshot.ScreenshotRunner;
+import com.owncloud.android.TestApp;
 
 import androidx.test.runner.AndroidJUnitRunner;
 
 public class ScreenshotTestRunner extends AndroidJUnitRunner {
+
+    @Override
+    public Application newApplication(ClassLoader cl, String className, Context context)
+        throws ClassNotFoundException,
+        IllegalAccessException,
+        InstantiationException {
+        return super.newApplication(cl, TestApp.class.getName(), context);
+    }
 
     @Override
     public void onCreate(Bundle args) {

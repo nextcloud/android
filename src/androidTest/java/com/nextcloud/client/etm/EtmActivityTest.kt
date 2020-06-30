@@ -29,6 +29,7 @@ import com.facebook.testing.screenshot.Screenshot
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import com.owncloud.android.utils.ScreenshotTest
+import com.owncloud.android.utils.ScreenshotWithServerTest
 import org.junit.Assume
 import org.junit.Before
 import org.junit.Rule
@@ -49,6 +50,7 @@ class EtmActivityTest : AbstractIT() {
     }
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     fun overview() {
         val sut: Activity = activityRule.launchActivity(null)
@@ -59,6 +61,7 @@ class EtmActivityTest : AbstractIT() {
     }
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     fun preferences() {
         val sut: EtmActivity = activityRule.launchActivity(null)
@@ -69,6 +72,7 @@ class EtmActivityTest : AbstractIT() {
     }
 
     @Test
+    @ScreenshotWithServerTest
     @ScreenshotTest
     fun accounts() {
         val sut: EtmActivity = activityRule.launchActivity(null)

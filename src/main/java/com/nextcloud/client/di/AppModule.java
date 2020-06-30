@@ -50,10 +50,8 @@ import com.nextcloud.client.migrations.MigrationsManagerImpl;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApi;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApiImpl;
-import com.owncloud.android.ui.activities.data.activities.RemoteActivitiesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesServiceApiImpl;
 import com.owncloud.android.ui.activities.data.files.RemoteFilesRepository;
@@ -68,7 +66,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module(includes = {ComponentsModule.class, VariantComponentsModule.class})
-class AppModule {
+public class AppModule {
 
     @Provides
     AccountManager accountManager(Application application) {
@@ -109,10 +107,6 @@ class AppModule {
         return new ActivitiesServiceApiImpl(accountManager);
     }
 
-    @Provides
-    ActivitiesRepository activitiesRepository(ActivitiesServiceApi api) {
-        return new RemoteActivitiesRepository(api);
-    }
 
     @Provides
     FilesRepository filesRepository(UserAccountManager accountManager, ClientFactory clientFactory) {

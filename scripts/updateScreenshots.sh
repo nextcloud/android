@@ -74,7 +74,7 @@ sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g 
 
 ## update/create all screenshots
 #./gradlew gplayDebugExecuteScreenshotTests -Precord \
-#-Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest
+#-Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotOnServerTest
 
 ## update screenshots in a class
 #./gradlew gplayDebugExecuteScreenshotTests \
@@ -94,7 +94,7 @@ until [ $resultCode -eq 0 ] || [ $retryCount -gt 2 ]
 do
   # test all screenshots
   ./gradlew gplayDebugExecuteScreenshotTests \
-  -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest
+  -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotOnServerTest
 
 resultCode=$?
 ((retryCount++))

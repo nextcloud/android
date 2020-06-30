@@ -29,6 +29,7 @@ import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.ScreenshotTest;
+import com.owncloud.android.utils.ScreenshotWithoutServerTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -47,6 +48,7 @@ public class SettingsActivityIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
+    @ScreenshotWithoutServerTest
     @ScreenshotTest
     public void open() {
         Activity test = activityRule.launchActivity(null);

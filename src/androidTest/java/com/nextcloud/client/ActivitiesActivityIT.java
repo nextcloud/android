@@ -23,13 +23,13 @@
 package com.nextcloud.client;
 
 import android.Manifest;
-import android.view.View;
 
 import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.utils.ScreenshotTest;
+import com.owncloud.android.utils.ScreenshotWithoutServerTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -52,6 +52,18 @@ public class ActivitiesActivityIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
+    @ScreenshotWithoutServerTest
+    @ScreenshotTest
+    public void open() {
+        ActivitiesActivity sut = activityRule.launchActivity(null);
+
+        shortSleep();
+
+        Screenshot.snapActivity(sut).record();
+    }
+
+    @Test
+    @ScreenshotWithoutServerTest
     @ScreenshotTest
     public void openDrawer() {
         ActivitiesActivity sut = activityRule.launchActivity(null);
@@ -60,15 +72,7 @@ public class ActivitiesActivityIT extends AbstractIT {
 
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
 
-        sut.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                sut.emptyContentContainer.setVisibility(View.VISIBLE);
-                sut.recyclerView.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        waitForIdleSync();
+        shortSleep();
 
         Screenshot.snapActivity(sut).record();
     }
