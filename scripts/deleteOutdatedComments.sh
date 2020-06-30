@@ -13,3 +13,5 @@ oldComments=$(curl 2>/dev/null -u $GITHUB_USER:$GITHUB_PASSWORD -X GET https://a
 echo $oldComments | while read comment ; do
     curl 2>/dev/null -u $GITHUB_USER:$GITHUB_PASSWORD -X DELETE https://api.github.com/repos/nextcloud/android/issues/comments/$comment
 done
+
+exit 0
