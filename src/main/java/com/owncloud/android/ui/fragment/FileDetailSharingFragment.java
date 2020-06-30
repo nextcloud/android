@@ -23,7 +23,6 @@
 
 package com.owncloud.android.ui.fragment;
 
-import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.SearchManager;
 import android.content.Context;
@@ -95,9 +94,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private static final String ARG_FILE = "FILE";
     private static final String ARG_USER = "USER";
     public static final int PERMISSION_EDITING_ALLOWED = 17;
-
-    // to show share with users/groups info
-    private List<OCShare> shares;
 
     private OCFile file;
     private User user;
@@ -283,7 +279,9 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     private void setShareWithUserInfo() {
         // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
-        shares = fileDataStorageManager.getSharesWithForAFile(file.getRemotePath(), account.name);
+        // to show share with users/groups info
+        List<OCShare> shares = fileDataStorageManager.getSharesWithForAFile(file.getRemotePath(),
+                                                                            user.toPlatformAccount().name);
         if (shares.size() > 0) {
             AccountManager accountManager = AccountManager.get(getContext());
             String userId = accountManager.getUserData(user.toPlatformAccount(),

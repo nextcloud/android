@@ -30,7 +30,6 @@
     android:visibility="gone">
 
     <ImageView
-        android:id="@+id/copy_internal_link_icon"
         android:layout_width="@dimen/share_icon_size"
         android:layout_height="@dimen/share_icon_size"
         android:layout_gravity="center_vertical"
