@@ -135,7 +135,6 @@
     <dimen name="permission_dialog_text_size">18sp</dimen>
     <dimen name="button_corner_radius">24dp</dimen>
     <integer name="media_grid_width">4</integer>
-    <dimen name="copy_internal_link_padding">10dp</dimen>
     <dimen name="drawer_header_height">130dp</dimen>
     <dimen name="drawer_header_logo_width">170dp</dimen>
     <dimen name="account_action_button_margin">12dp</dimen>
