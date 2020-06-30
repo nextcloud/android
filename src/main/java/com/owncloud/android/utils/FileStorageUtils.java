@@ -25,6 +25,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -33,6 +34,7 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -48,11 +50,15 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import javax.annotation.Nullable;
 
 import androidx.core.app.ActivityCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -536,6 +542,47 @@ public final class FileStorageUtils {
     }
 
     /**
+     * Update the local path summary display. If a special directory is recognized, it is replaced by its name.
+     *
+     * Example: /storage/emulated/0/Movies -> Internal Storage / Movies
+     * Example: /storage/ABC/non/standard/directory -> ABC /non/standard/directory
+     *
+     * @param path the path to display
+     * @return a user friendly path as defined in examples, or {@param path} if the storage device isn't recognized.
+     */
+    public static String pathToUserFriendlyDisplay(String path, Activity activity, Resources resources) {
+        // Determine storage device (external, sdcard...)
+        String storageDevice = null;
+        for (String storageDirectory : FileStorageUtils.getStorageDirectories(activity)) {
+            if (path.startsWith(storageDirectory)) {
+                storageDevice = storageDirectory;
+                break;
+            }
+        }
+
+        // If storage device was not found, display full path
+        if (storageDevice == null) {
+            return path;
+        }
+
+        // Default to full path without storage device path
+        String storageFolder = path.substring(storageDevice.length() + 1);
+        FileStorageUtils.StandardDirectory standardDirectory = FileStorageUtils.StandardDirectory.fromPath(storageFolder);
+        if (standardDirectory != null) { // Friendly name of standard directory
+            storageFolder = " " + resources.getString(standardDirectory.getDisplayName());
+        }
+
+        // Shorten the storage device to a friendlier display name
+        if (storageDevice.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath())) {
+            storageDevice = resources.getString(R.string.storage_internal_storage);
+        } else {
+            storageDevice = new File(storageDevice).getName();
+        }
+
+        return resources.getString(R.string.local_folder_friendly_path, storageDevice, storageFolder);
+    }
+
+    /**
      * Taken from https://github.com/TeamAmaze/AmazeFileManager/blob/d11e0d2874c6067910e58e059859431a31ad6aee/app/src
      * /main/java/com/amaze/filemanager/activities/superclasses/PermissionsActivity.java#L47 on
      * 14.02.2019
@@ -581,5 +628,96 @@ public final class FileStorageUtils {
      */
     private static boolean canListFiles(File f) {
         return f.canRead() && f.isDirectory();
+    }
+
+    /**
+     * Should be converted to an enum when we only support min SDK version for Environment.DIRECTORY_DOCUMENTS
+     */
+    public static class StandardDirectory {
+        public static final StandardDirectory PICTURES = new StandardDirectory(
+            Environment.DIRECTORY_PICTURES,
+            R.string.storage_pictures,
+            R.drawable.ic_image_grey600
+        );
+        public static final StandardDirectory CAMERA = new StandardDirectory(
+            Environment.DIRECTORY_DCIM,
+            R.string.storage_camera,
+            R.drawable.ic_camera
+        );
+
+        public static final StandardDirectory DOCUMENTS;
+
+        static {
+            if (SDK_INT > Build.VERSION_CODES.KITKAT) {
+                DOCUMENTS = new StandardDirectory(
+                    Environment.DIRECTORY_DOCUMENTS,
+                    R.string.storage_documents,
+                    R.drawable.ic_document_grey600
+                );
+            } else {
+                DOCUMENTS = null;
+            }
+        }
+
+        public static final StandardDirectory DOWNLOADS = new StandardDirectory(
+            Environment.DIRECTORY_DOWNLOADS,
+            R.string.storage_downloads,
+            R.drawable.ic_download_grey600
+        );
+        public static final StandardDirectory MOVIES = new StandardDirectory(
+            Environment.DIRECTORY_MOVIES,
+            R.string.storage_movies,
+            R.drawable.ic_movie_grey600
+        );
+        public static final StandardDirectory MUSIC = new StandardDirectory(
+            Environment.DIRECTORY_MUSIC,
+            R.string.storage_music,
+            R.drawable.ic_music_grey600
+        );
+
+        private final String name;
+        private final int displayNameResource;
+        private final int iconResource;
+
+        private StandardDirectory(String name, int displayNameResource, int iconResource) {
+            this.name = name;
+            this.displayNameResource = displayNameResource;
+            this.iconResource = iconResource;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+
+        public int getDisplayName() {
+            return this.displayNameResource;
+        }
+
+        public int getIcon() {
+            return this.iconResource;
+        }
+
+        public static Collection<StandardDirectory> getStandardDirectories() {
+            Collection<StandardDirectory> standardDirectories = new HashSet<>();
+            standardDirectories.add(PICTURES);
+            standardDirectories.add(CAMERA);
+            if (DOCUMENTS != null) {
+                standardDirectories.add(DOCUMENTS);
+            }
+            standardDirectories.add(DOWNLOADS);
+            standardDirectories.add(MOVIES);
+            standardDirectories.add(MUSIC);
+            return standardDirectories;
+        }
+
+        @Nullable
+        public static StandardDirectory fromPath(String path) {
+            for (StandardDirectory directory : getStandardDirectories()) {
+                if (directory.getName().equals(path)) {
+                    return directory;
+                }
+            }
+            return null;
+        }
     }
 }
