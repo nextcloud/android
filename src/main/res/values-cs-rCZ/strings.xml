@@ -438,6 +438,7 @@
     <string name="no_pdf_app_available">Není k dispozice aplikace pro práci s PDF</string>
     <string name="note_confirm">Poslat</string>
     <string name="note_could_not_sent">Poznámku se nepodařilo odeslat</string>
+    <string name="note_icon_hint">Ikona poznámky</string>
     <string name="notification_action_failed">Akci se nepodařilo provést.</string>
     <string name="notification_channel_download_description">Zobrazuje ukazatel postupu stahování</string>
     <string name="notification_channel_download_name">Kanál pro upozorňování na stažení</string>
@@ -537,6 +538,7 @@
     <string name="push_notifications_not_implemented">Push upozorňování je vypnuto kvůli závislostem na proprietárních službách Google Play.</string>
     <string name="push_notifications_old_login">Žádná push upozornění kvůli zastaralé relaci přihlášení. Zvažte odebrání a opětovné přidání svého účtu.</string>
     <string name="push_notifications_temp_error">Push upozornění momentálně nejsou k dispozici.</string>
+    <string name="qr_could_not_be_read">QR kód se nepodařilo načíst!</string>
     <string name="recommend_subject">Vyzkoušejte %1$s ve svém zařízení!</string>
     <string name="recommend_text">Rád(a) bych Vás/Tě pozval(a) k používání %1$s na vašem/tvém zařízení.\nKe stažení zde: %2$s</string>
     <string name="recommend_urls">%1$s nebo %2$s</string>
