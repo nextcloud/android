@@ -473,7 +473,6 @@
     <string name="edit_permission_label">edit</string>
     <string name="share_via_link_hide_file_listing_permission_label">Hide file listing</string>
     <string name="share_with_title">Share with…</string>
-    <string name="share_with_edit_title">Share with %1$s</string>
     <string name="share_via_link_unset_password">Unset</string>
 
     <string name="share_search">Name, federated cloud ID or email address…</string>
@@ -486,7 +485,6 @@
 
     <string name="share_privilege_unshare">Unshare</string>
     <string name="share_privilege_can_share">can share</string>
-    <string name="share_privilege_can_edit">can edit</string>
     <string name="share_privilege_can_edit_create">can create</string>
     <string name="share_privilege_can_edit_change">can change</string>
     <string name="share_privilege_can_edit_delete">can delete</string>
