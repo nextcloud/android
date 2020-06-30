@@ -340,6 +340,11 @@ public class UserAccountManagerImpl implements UserAccountManager {
         return TextUtils.isEmpty(ownerId) || account.name.split("@")[0].equals(ownerId);
     }
 
+    @Override
+    public boolean userOwnsFile(OCFile file, User user) {
+        return accountOwnsFile(file, user.toPlatformAccount());
+    }
+
     public boolean migrateUserId() {
         Account[] ocAccounts = accountManager.getAccountsByType(MainApp.getAccountType(context));
         String userId;
