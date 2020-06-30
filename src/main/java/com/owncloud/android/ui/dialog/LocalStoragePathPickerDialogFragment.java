@@ -23,7 +23,6 @@ package com.owncloud.android.ui.dialog;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -139,48 +138,27 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
     private List<StoragePathItem> getPathList() {
         List<StoragePathItem> storagePathItems = new ArrayList<>();
 
-        addIfExists(storagePathItems, new StoragePathItem(R.drawable.ic_image_grey600,
-                                                          getString(R.string.storage_pictures),
-                                                          Environment.getExternalStoragePublicDirectory(
-                                                              Environment.DIRECTORY_PICTURES).getAbsolutePath()));
-        addIfExists(storagePathItems, new StoragePathItem(R.drawable.ic_camera, getString(R.string.storage_camera),
-                                                          Environment.getExternalStoragePublicDirectory(
-                                                              Environment.DIRECTORY_DCIM).getAbsolutePath()));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            addIfExists(storagePathItems, new StoragePathItem(R.drawable.ic_document_grey600,
-                                                              getString(R.string.storage_documents),
-                                                              Environment.getExternalStoragePublicDirectory(
-                                                                  Environment.DIRECTORY_DOCUMENTS).getAbsolutePath()));
+        for (FileStorageUtils.StandardDirectory standardDirectory : FileStorageUtils.StandardDirectory.getStandardDirectories()) {
+            addIfExists(storagePathItems, standardDirectory.getIcon(), getString(standardDirectory.getDisplayName()),
+                Environment.getExternalStoragePublicDirectory(standardDirectory.getName()).getAbsolutePath());
         }
-        addIfExists(storagePathItems, new StoragePathItem(R.drawable.ic_download_grey600,
-                                                          getString(R.string.storage_downloads),
-                                                          Environment.getExternalStoragePublicDirectory(
-                                                              Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()));
-        addIfExists(storagePathItems, new StoragePathItem(R.drawable.ic_movie_grey600,
-                                                          getString(R.string.storage_movies),
-                                                          Environment.getExternalStoragePublicDirectory(
-                                                              Environment.DIRECTORY_MOVIES).getAbsolutePath()));
-        addIfExists(storagePathItems, new StoragePathItem(R.drawable.ic_music_grey600,
-                                                          getString(R.string.storage_music),
-                                                          Environment.getExternalStoragePublicDirectory(
-                                                              Environment.DIRECTORY_MUSIC).getAbsolutePath()));
 
         String sdCard = getString(R.string.storage_internal_storage);
         for (String dir : FileStorageUtils.getStorageDirectories(requireActivity())) {
             if (internalStoragePaths.contains(dir)) {
-                addIfExists(storagePathItems, new StoragePathItem(R.drawable.ic_sd_grey600, sdCard, dir));
+                addIfExists(storagePathItems, R.drawable.ic_sd_grey600, sdCard, dir);
             } else {
-                addIfExists(storagePathItems, new StoragePathItem(R.drawable.ic_sd_grey600, new File(dir).getName(), dir));
+                addIfExists(storagePathItems, R.drawable.ic_sd_grey600, new File(dir).getName(), dir);
             }
         }
 
         return storagePathItems;
     }
 
-    private void addIfExists(List<StoragePathItem> storagePathItems, StoragePathItem item) {
-        File path = new File(item.getPath());
-        if (path.exists() && path.canRead()) {
-            storagePathItems.add(item);
+    private void addIfExists(List<StoragePathItem> storagePathItems, int icon, String name, String path) {
+        File file = new File(path);
+        if (file.exists() && file.canRead()) {
+            storagePathItems.add(new StoragePathItem(icon, name, path));
         }
     }
 
