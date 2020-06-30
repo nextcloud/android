@@ -25,6 +25,8 @@ import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 
+import com.nextcloud.client.account.User;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ShareActivityBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -92,11 +94,16 @@ public class ShareActivity extends FileActivity {
         // Size
         binding.shareFileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Optional<User> optionalUser = getUser();
+        if (!optionalUser.isPresent()) {
+            finish();
+            return;
+        }
 
         if (savedInstanceState == null) {
             // Add Share fragment on first creation
-            Fragment fragment = FileDetailSharingFragment.newInstance(getFile(), getAccount());
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            Fragment fragment = FileDetailSharingFragment.newInstance(getFile(), optionalUser.get());
             ft.replace(R.id.share_fragment_container, fragment, TAG_SHARE_FRAGMENT);
             ft.commit();
         }

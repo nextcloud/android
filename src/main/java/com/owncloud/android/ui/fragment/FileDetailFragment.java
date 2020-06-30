@@ -44,6 +44,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
@@ -59,7 +60,6 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
@@ -90,7 +90,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     static final String FTAG_RENAME_FILE = "RENAME_FILE_FRAGMENT";
 
     private static final String ARG_FILE = "FILE";
-    private static final String ARG_ACCOUNT = "ACCOUNT";
+    private static final String ARG_USER = "USER";
     private static final String ARG_ACTIVE_TAB = "TAB";
 
     @BindView(R.id.detail_container)
@@ -143,7 +143,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private int layout;
     private View view;
-    private Account account;
+    private User user;
     private Unbinder unbinder;
     private boolean previewLoaded;
 
@@ -162,14 +162,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * When 'fileToDetail' or 'ocAccount' are null, creates a dummy layout (to use when a file wasn't tapped before).
      *
      * @param fileToDetail      An {@link OCFile} to show in the fragment
-     * @param account           An ownCloud account; needed to start downloads
+     * @param user              Currently active user
      * @return                  New fragment with arguments set
      */
-    public static FileDetailFragment newInstance(OCFile fileToDetail, Account account) {
+    public static FileDetailFragment newInstance(OCFile fileToDetail, User user) {
         FileDetailFragment frag = new FileDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, fileToDetail);
-        args.putParcelable(ARG_ACCOUNT, account);
+        args.putParcelable(ARG_USER, user);
         frag.setArguments(args);
         return frag;
     }
@@ -180,15 +180,15 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * When 'fileToDetail' or 'ocAccount' are null, creates a dummy layout (to use when a file wasn't tapped before).
      *
      * @param fileToDetail      An {@link OCFile} to show in the fragment
-     * @param account           An ownCloud account; needed to start downloads
+     * @param user              Currently active user
      *                          @param activeTab to be active tab
      * @return New fragment with arguments set
      */
-    public static FileDetailFragment newInstance(OCFile fileToDetail, Account account, int activeTab) {
+    public static FileDetailFragment newInstance(OCFile fileToDetail, User user, int activeTab) {
         FileDetailFragment frag = new FileDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, fileToDetail);
-        args.putParcelable(ARG_ACCOUNT, account);
+        args.putParcelable(ARG_USER, user);
         args.putInt(ARG_ACTIVE_TAB, activeTab);
         frag.setArguments(args);
         return frag;
@@ -202,7 +202,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      */
     public FileDetailFragment() {
         super();
-        account = null;
+        user = null;
         layout = R.layout.file_details_fragment;
         progressListener = null;
     }
@@ -246,18 +246,18 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
 
         setFile(arguments.getParcelable(ARG_FILE));
-        account = arguments.getParcelable(ARG_ACCOUNT);
+        user = arguments.getParcelable(ARG_USER);
         activeTab = arguments.getInt(ARG_ACTIVE_TAB, 0);
 
         if (savedInstanceState != null) {
-            setFile(savedInstanceState.getParcelable(FileActivity.EXTRA_FILE));
-            account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
+            setFile(savedInstanceState.getParcelable(ARG_FILE));
+            user = savedInstanceState.getParcelable(ARG_USER);
         }
 
         view = inflater.inflate(layout, null);
         unbinder = ButterKnife.bind(this, view);
 
-        if (getFile() == null || account == null) {
+        if (getFile() == null || user == null) {
             showEmptyContent();
         } else {
             emptyContentContainer.setVisibility(View.GONE);
@@ -268,7 +268,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        if (getFile() != null && account != null) {
+        if (getFile() != null && user != null) {
             ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor(getContext()));
             progressListener = new ProgressListener(progressBar);
             cancelButton.setOnClickListener(this);
@@ -298,7 +298,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorColor(ThemeUtils.primaryAccentColor(getContext()));
 
-        final FileDetailTabAdapter adapter = new FileDetailTabAdapter(getFragmentManager(), getFile(), account);
+        final FileDetailTabAdapter adapter = new FileDetailTabAdapter(getFragmentManager(), getFile(), user);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout) {
             @Override
@@ -341,8 +341,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(FileActivity.EXTRA_FILE, getFile());
-        outState.putParcelable(FileActivity.EXTRA_ACCOUNT, account);
+        outState.putParcelable(ARG_FILE, getFile());
+        outState.putParcelable(ARG_USER, user);
     }
 
     @Override
@@ -509,7 +509,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * @return True when the fragment was created with the empty layout.
      */
     public boolean isEmpty() {
-        return layout == R.layout.empty_list || getFile() == null || account == null;
+        return layout == R.layout.empty_list || getFile() == null || user == null;
     }
 
     /**
@@ -517,9 +517,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      *
      * @param file : An {@link OCFile}
      */
-    public void updateFileDetails(OCFile file, Account ocAccount) {
+    public void updateFileDetails(OCFile file, User user) {
         setFile(file);
-        account = ocAccount;
+        this.user = user;
         updateFileDetails(false, false);
     }
 
@@ -564,8 +564,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             FileDownloaderBinder downloaderBinder = containerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = containerActivity.getFileUploaderBinder();
             if (transferring
-                    || (downloaderBinder != null && downloaderBinder.isDownloading(account, file))
-                    || (uploaderBinder != null && uploaderBinder.isUploading(account, file))) {
+                    || (downloaderBinder != null && downloaderBinder.isDownloading(user.toPlatformAccount(), file))
+                    || (uploaderBinder != null && uploaderBinder.isUploading(user.toPlatformAccount(), file))) {
                 setButtonsForTransferring();
 
             } else if (file.isDown()) {
@@ -609,7 +609,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * @return 'True' when the fragment is ready to show details of a file
      */
     private boolean readyToShow() {
-        return getFile() != null && account != null && layout == R.layout.file_details_fragment;
+        return getFile() != null && user != null && layout == R.layout.file_details_fragment;
     }
 
     /**
@@ -680,11 +680,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             FileDownloaderBinder downloaderBinder = containerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = containerActivity.getFileUploaderBinder();
             //if (getFile().isDownloading()) {
-            if (downloaderBinder != null && downloaderBinder.isDownloading(account, getFile())) {
+            if (downloaderBinder != null && downloaderBinder.isDownloading(user.toPlatformAccount(), getFile())) {
                 progressText.setText(R.string.downloader_download_in_progress_ticker);
             }
             else {
-                if (uploaderBinder != null && uploaderBinder.isUploading(account, getFile())) {
+                if (uploaderBinder != null && uploaderBinder.isUploading(user.toPlatformAccount(), getFile())) {
                     progressText.setText(R.string.uploader_upload_in_progress_ticker);
                 }
             }
@@ -715,11 +715,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (progressListener != null) {
             if (containerActivity.getFileDownloaderBinder() != null) {
                 containerActivity.getFileDownloaderBinder().
-                        addDatatransferProgressListener(progressListener, account, getFile());
+                        addDatatransferProgressListener(progressListener, user.toPlatformAccount(), getFile());
             }
             if (containerActivity.getFileUploaderBinder() != null) {
                 containerActivity.getFileUploaderBinder().
-                        addDatatransferProgressListener(progressListener, account, getFile());
+                        addDatatransferProgressListener(progressListener, user.toPlatformAccount(), getFile());
             }
         } else {
             Log_OC.d(TAG, "progressListener == null");
@@ -730,11 +730,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (progressListener != null) {
             if (containerActivity.getFileDownloaderBinder() != null) {
                 containerActivity.getFileDownloaderBinder().
-                        removeDatatransferProgressListener(progressListener, account, getFile());
+                        removeDatatransferProgressListener(progressListener, user.toPlatformAccount(), getFile());
             }
             if (containerActivity.getFileUploaderBinder() != null) {
                 containerActivity.getFileUploaderBinder().
-                        removeDatatransferProgressListener(progressListener, account, getFile());
+                        removeDatatransferProgressListener(progressListener, user.toPlatformAccount(), getFile());
             }
         }
     }
