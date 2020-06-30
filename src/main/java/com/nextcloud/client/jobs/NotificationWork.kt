@@ -42,7 +42,7 @@ import androidx.work.WorkerParameters
 import com.google.gson.Gson
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.integration.deck.DeckApiImpl
+import com.nextcloud.client.integrations.deck.DeckApi
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.DecryptedPushMessage
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -75,7 +75,8 @@ class NotificationWork constructor(
     private val context: Context,
     params: WorkerParameters,
     private val notificationManager: NotificationManager,
-    private val accountManager: UserAccountManager
+    private val accountManager: UserAccountManager,
+    private val deckApi: DeckApi
 ) : Worker(context, params) {
 
     companion object {
@@ -139,7 +140,6 @@ class NotificationWork constructor(
         val randomId = SecureRandom()
         val file = notification.subjectRichParameters["file"]
 
-        val deckApi = DeckApiImpl(context, context.packageManager)
         val deckActionOverrideIntent = deckApi.createForwardToDeckActionIntent(notification, user)
 
         val pendingIntent: PendingIntent

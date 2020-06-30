@@ -32,6 +32,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
@@ -60,7 +61,8 @@ class BackgroundJobFactory @Inject constructor(
     private val uploadsStorageManager: UploadsStorageManager,
     private val connectivityService: ConnectivityService,
     private val notificationManager: NotificationManager,
-    private val eventBus: EventBus
+    private val eventBus: EventBus,
+    private val deckApi: DeckApi
 ) : WorkerFactory() {
 
     @Suppress("ComplexMethod") // it's just a trivial dispatch
@@ -173,7 +175,8 @@ class BackgroundJobFactory @Inject constructor(
             context,
             params,
             notificationManager,
-            accountManager
+            accountManager,
+            deckApi
         )
     }
 
