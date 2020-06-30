@@ -438,6 +438,7 @@
     <string name="no_pdf_app_available">Nenhum aplicativo disponível para lidar com PDF</string>
     <string name="note_confirm">Enviar</string>
     <string name="note_could_not_sent">Não foi possível enviar a anotação</string>
+    <string name="note_icon_hint">Ícone de anotação</string>
     <string name="notification_action_failed">Erro ao executar a ação.</string>
     <string name="notification_channel_download_description">Mostra o progresso de download</string>
     <string name="notification_channel_download_name">Canal de notificação de download</string>
@@ -537,6 +538,7 @@
     <string name="push_notifications_not_implemented">Envio de notificações desativadas devido a dependências nos serviços proprietários do Google Play.</string>
     <string name="push_notifications_old_login">Sem envio de notificações devido à sessão de login desatualizada. Considere readicionar sua conta.</string>
     <string name="push_notifications_temp_error">Atualmente o envio de notificações está indisponível.</string>
+    <string name="qr_could_not_be_read">Não foi possível ler o Código QR!</string>
     <string name="recommend_subject">Experimente %1$s em seu dispositivo!</string>
     <string name="recommend_text">Quero convidar você a usar %1$s em seu dispositivo.\nBaixe daqui: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>

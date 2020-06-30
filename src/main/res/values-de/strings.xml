@@ -438,6 +438,7 @@
     <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
     <string name="note_confirm">Senden</string>
     <string name="note_could_not_sent">Notiz konnte nicht versandt werden</string>
+    <string name="note_icon_hint">Notiz-Symbol</string>
     <string name="notification_action_failed">Ausführen der Aktion fehlgeschlagen.</string>
     <string name="notification_channel_download_description">Zeigt den Herunterlade-Fortschritt an</string>
     <string name="notification_channel_download_name">Herunterlade-Benachrichtigungskanal</string>
@@ -537,6 +538,7 @@
     <string name="push_notifications_not_implemented">Push Benachrichtigungen deaktiviert aufgrund der Abhängigkeiten zu proprietären Google Play Diensten.</string>
     <string name="push_notifications_old_login">Keine Push Benachrichtigungen aufgrund veralteter Benutzersitzung. Bitte erwägen Sie das erneute Hinzufügen Ihres Kontos.</string>
     <string name="push_notifications_temp_error">Push Benachrichtigungen aktuell nicht verfügbar.</string>
+    <string name="qr_could_not_be_read">QR-Code konnte nicht gelesen werden!</string>
     <string name="recommend_subject">Probieren Sie %1$s auf Ihrem Smartphone</string>
     <string name="recommend_text">Ich empfehle Ihnen %1$s auf Ihrem Smartphone zu nutzen.\nHerunterladen: %2$s</string>
     <string name="recommend_urls">%1$s oder %2$s</string>

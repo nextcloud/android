@@ -438,6 +438,7 @@
     <string name="no_pdf_app_available">Nessun applicazione disponibile per gestire i PDF</string>
     <string name="note_confirm">Invia</string>
     <string name="note_could_not_sent">Impossibile inviare la nota</string>
+    <string name="note_icon_hint">Icona della nota</string>
     <string name="notification_action_failed">Esecuzione dell\'azione non riuscita.</string>
     <string name="notification_channel_download_description">Mostra l\'avanzamento degli scaricamenti</string>
     <string name="notification_channel_download_name">Canale delle notifiche di scaricamento</string>
@@ -537,6 +538,7 @@
     <string name="push_notifications_not_implemented">Notifiche push disabilitate a causa delle dipendenze dai servizi proprietari di Google Play.</string>
     <string name="push_notifications_old_login">Nessuna notifica push a causa della sessione di accesso scaduta. Considera di aggiungere nuovamente il tuo account.</string>
     <string name="push_notifications_temp_error">Notifiche push attualmente non disponibili.</string>
+    <string name="qr_could_not_be_read">Il codice QR non può essere letto!</string>
     <string name="recommend_subject">Prova %1$s sul tuo dispositivo!</string>
     <string name="recommend_text">Vorrei invitarti a utilizzare %1$s sul tuo dispositivo.\nScaricalo qui:%2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>

@@ -440,6 +440,7 @@ Attention la suppression est irréversible.</string>
     <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
     <string name="note_confirm">Envoyer</string>
     <string name="note_could_not_sent">Impossible d\'envoyer la note</string>
+    <string name="note_icon_hint">Icône de note</string>
     <string name="notification_action_failed">Échec lors de l\'exécution de l\'action.</string>
     <string name="notification_channel_download_description">Afficher la progression de téléchargement</string>
     <string name="notification_channel_download_name">Canal de notification de téléchargement</string>
@@ -539,6 +540,7 @@ Attention la suppression est irréversible.</string>
     <string name="push_notifications_not_implemented">L\'envoi de notifications est désactivé à cause des dépendances propriétaires des services Google Play.</string>
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
+    <string name="qr_could_not_be_read">Impossible de lire le QR code</string>
     <string name="recommend_subject">Essayez %1$s sur votre appareil !</string>
     <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre appareil.\nTéléchargez-la ici : %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>

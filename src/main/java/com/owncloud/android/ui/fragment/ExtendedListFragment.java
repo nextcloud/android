@@ -82,6 +82,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -188,7 +189,7 @@ public class ExtendedListFragment extends Fragment implements
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
         final MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(item);
         closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
@@ -746,6 +747,16 @@ public class ExtendedListFragment extends Fragment implements
 
         if (isGridEnabled() && getColumnsCount() > maxColumnSize) {
             ((GridLayoutManager) getRecyclerView().getLayoutManager()).setSpanCount(maxColumnSize);
+        }
+    }
+
+    protected void setGridSwitchButton() {
+        if (isGridEnabled()) {
+            mSwitchGridViewButton.setContentDescription(getString(R.string.action_switch_list_view));
+            mSwitchGridViewButton.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_list));
+        } else {
+            mSwitchGridViewButton.setContentDescription(getString(R.string.action_switch_grid_view));
+            mSwitchGridViewButton.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_module));
         }
     }
 }

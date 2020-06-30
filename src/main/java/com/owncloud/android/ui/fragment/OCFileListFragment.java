@@ -293,8 +293,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mFabMain = requireActivity().findViewById(R.id.fab_main);
 
         if (mFabMain != null) { // is not available in FolderPickerActivity
-            ThemeUtils.tintFloatingActionButton(mFabMain, requireContext());
-            ThemeUtils.drawableFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
+            ThemeUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
         }
 
         Log_OC.i(TAG, "onCreateView() end");
@@ -1316,16 +1315,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mAdapter.setSortOrder(mFile, sortOrder);
     }
 
-    private void setGridSwitchButton() {
-        if (isGridEnabled()) {
-            mSwitchGridViewButton.setContentDescription(getString(R.string.action_switch_list_view));
-            mSwitchGridViewButton.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_list));
-        } else {
-            mSwitchGridViewButton.setContentDescription(getString(R.string.action_switch_grid_view));
-            mSwitchGridViewButton.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_module));
-        }
-    }
-
     /**
      * Determines if user set folder to grid or list view. If folder is not set itself,
      * it finds a parent that is set (at least root is set).
@@ -1770,7 +1759,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (visible) {
                     mFabMain.show();
-                    ThemeUtils.tintFloatingActionButton(mFabMain, requireContext());
+                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext());
                 } else {
                     mFabMain.hide();
                 }
@@ -1820,11 +1809,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (enabled) {
                     mFabMain.setEnabled(true);
-                    ThemeUtils.tintFloatingActionButton(mFabMain, requireContext());
+                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext());
                 } else {
                     mFabMain.setEnabled(false);
-                    mFabMain.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
-                    mFabMain.setRippleColor(Color.GRAY);
+                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext(), Color.GRAY);
                 }
             });
         }

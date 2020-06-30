@@ -438,6 +438,7 @@
     <string name="no_pdf_app_available">Brak aplikacji obsługującej PDF</string>
     <string name="note_confirm">Wyślij</string>
     <string name="note_could_not_sent">Nie można wysłać notatki</string>
+    <string name="note_icon_hint">Ikona notatki</string>
     <string name="notification_action_failed">Wykonanie akcji nie powiodło się.</string>
     <string name="notification_channel_download_description">Pokazuje postęp pobierania</string>
     <string name="notification_channel_download_name">Kanał powiadomień pobierania</string>
@@ -537,6 +538,7 @@
     <string name="push_notifications_not_implemented">Powiadomienia typu push zostały wyłączone ze względu na zastrzeżenia prawne usług Google Play.</string>
     <string name="push_notifications_old_login">Brak powiadomień push z powodu nieaktualnej sesji logowania. Rozważ ponowne dodanie swojego konta.</string>
     <string name="push_notifications_temp_error">Powiadomienia push nie są obecnie dostępne.</string>
+    <string name="qr_could_not_be_read">Nie można odczytać kodu QR!</string>
     <string name="recommend_subject">Wypróbuj %1$s na swoim urządzeniu!</string>
     <string name="recommend_text">Chciałbym zaprosić Ciebie do użytkowania z %1$s na swoim urządzeniu.\nPobierz stąd: %2$s</string>
     <string name="recommend_urls">%1$s lub %2$s</string>
