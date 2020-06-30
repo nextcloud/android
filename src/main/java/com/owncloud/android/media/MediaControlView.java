@@ -47,10 +47,10 @@ import java.util.Locale;
 
 
 /**
- * View containing controls for a {@link MediaPlayer}. 
- *
- * Holds buttons "play / pause", "rewind", "fast forward" and a progress slider. 
- *
+ * View containing controls for a {@link MediaPlayer}.
+ * <p>
+ * Holds buttons "play / pause", "rewind", "fast forward" and a progress slider.
+ * <p>
  * It synchronizes itself with the state of the {@link MediaPlayer}.
  */
 public class MediaControlView extends FrameLayout implements OnClickListener, OnSeekBarChangeListener {
@@ -313,7 +313,6 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
         int pos;
         boolean playing = playerControl.isPlaying();
         switch (v.getId()) {
-
             case R.id.playBtn:
                 doPauseResume();
                 break;
@@ -336,6 +335,10 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
                     playerControl.pause(); // necessary in some 2.3.x devices
                 }
                 setProgress();
+                break;
+
+            default:
+                // do nothing
                 break;
         }
     }
