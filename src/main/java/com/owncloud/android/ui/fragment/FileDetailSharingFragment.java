@@ -444,6 +444,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 return true;
             case R.id.action_unshare:
                 fileOperationsHelper.unshareShare(file, publicShare);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
