@@ -688,15 +688,9 @@ public final class ThemeUtils {
     public static void colorFloatingActionButton(FloatingActionButton button, @DrawableRes int drawable,
                                                  Context context) {
         int primaryColor = ThemeUtils.primaryColor(null, true, false, context);
-        colorFloatingActionButton(button, context, primaryColor);
 
-        if (Color.BLACK == primaryColor) {
-            button.setImageDrawable(ThemeUtils.tintDrawable(drawable, Color.WHITE));
-        } else if (Color.WHITE == primaryColor) {
-            button.setImageDrawable(ThemeUtils.tintDrawable(drawable, Color.BLACK));
-        } else {
-            button.setImageDrawable(ThemeUtils.tintDrawable(drawable, ThemeUtils.fontColor(context, false)));
-        }
+        colorFloatingActionButton(button, context, primaryColor);
+        button.setImageDrawable(ThemeUtils.tintDrawable(drawable, getColorForPrimary(primaryColor, context)));
     }
 
     public static void colorFloatingActionButton(FloatingActionButton button, Context context) {
@@ -710,6 +704,29 @@ public final class ThemeUtils {
     public static void colorFloatingActionButton(FloatingActionButton button, int backgroundColor, int rippleColor) {
         button.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
         button.setRippleColor(rippleColor);
+    }
+
+    public static void colorIconImageViewWithBackground(ImageView imageView, Context context) {
+        int primaryColor = ThemeUtils.primaryColor(null, true, false, context);
+
+        imageView.getBackground().setColorFilter(primaryColor, PorterDuff.Mode.SRC_IN);
+        imageView.getDrawable().mutate().setColorFilter(getColorForPrimary(primaryColor, context),
+                                                        PorterDuff.Mode.SRC_IN);
+    }
+
+    /**
+     * returns a primary color matching color for texts/icons on top of a primary-colored element (like buttons).
+     *
+     * @param primaryColor the primary color
+     */
+    private static int getColorForPrimary(int primaryColor, Context context) {
+        if (Color.BLACK == primaryColor) {
+            return Color.WHITE;
+        } else if (Color.WHITE == primaryColor) {
+            return Color.BLACK;
+        } else {
+            return ThemeUtils.fontColor(context, false);
+        }
     }
 
     private static OCCapability getCapability(Context context) {
