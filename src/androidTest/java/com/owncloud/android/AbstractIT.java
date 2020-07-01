@@ -63,6 +63,9 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertTrue;
 
+import static androidx.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertTrue;
+
 
 /**
  * Common base for all integration tests
@@ -208,9 +211,9 @@ public abstract class AbstractIT {
         }
     }
 
-    protected File getFile(String filename) throws IOException {
+    public static File getFile(String filename) throws IOException {
         InputStream inputStream = getInstrumentation().getContext().getAssets().open(filename);
-        File temp = File.createTempFile("file", "file");
+        File temp = new File(FileStorageUtils.getSavePath(account.name) + File.separator + filename);
         FileUtils.copyInputStreamToFile(inputStream, temp);
 
         return temp;

@@ -262,7 +262,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         FileDataStorageManager storageManager = getStorageManager();
-        List<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
+        ArrayList<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
 
         // get current data about local contents of the folder to synchronize
         List<OCFile> localFiles = storageManager.getFolderContent(mLocalFolder, false);
