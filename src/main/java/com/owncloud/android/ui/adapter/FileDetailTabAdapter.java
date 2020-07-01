@@ -22,6 +22,7 @@ package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
@@ -35,26 +36,25 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
  */
 public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
     private OCFile file;
-    private Account account;
+    private User user;
 
     private FileDetailSharingFragment fileDetailSharingFragment;
     private FileDetailActivitiesFragment fileDetailActivitiesFragment;
 
-    public FileDetailTabAdapter(FragmentManager fm, OCFile file, Account account) {
+    public FileDetailTabAdapter(FragmentManager fm, OCFile file, User user) {
         super(fm);
-
         this.file = file;
-        this.account = account;
+        this.user = user;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                fileDetailActivitiesFragment = FileDetailActivitiesFragment.newInstance(file, account);
+                fileDetailActivitiesFragment = FileDetailActivitiesFragment.newInstance(file, user);
                 return fileDetailActivitiesFragment;
             case 1:
-                fileDetailSharingFragment = FileDetailSharingFragment.newInstance(file, account);
+                fileDetailSharingFragment = FileDetailSharingFragment.newInstance(file, user);
                 return fileDetailSharingFragment;
             default:
                 return null;

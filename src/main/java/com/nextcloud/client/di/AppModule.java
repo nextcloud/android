@@ -26,6 +26,7 @@ import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.media.AudioManager;
 import android.os.Handler;
@@ -78,6 +79,11 @@ class AppModule {
     @Provides
     Context context(Application application) {
         return application;
+    }
+
+    @Provides
+    PackageManager packageManager(Application application) {
+        return application.getPackageManager();
     }
 
     @Provides

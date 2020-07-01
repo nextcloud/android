@@ -1195,9 +1195,9 @@ public class FileDataStorageManager {
      * @param path      Path of the file.
      * @param type      Type of the share to get
      * @param shareWith Target of the share. Ignored in type is {@link ShareType#PUBLIC_LINK}
-     * @return First {@link OCShare} instance found in DB bound to the file in 'path'
+     * @return All {@link OCShare} instance found in DB bound to the file in 'path'
      */
-    public OCShare getFirstShareByPathAndType(String path, ShareType type, String shareWith) {
+    public List<OCShare> getSharesByPathAndType(String path, ShareType type, String shareWith) {
         Cursor cursor;
         if (shareWith == null) {
             shareWith = "";
@@ -1246,14 +1246,18 @@ public class FileDataStorageManager {
             }
         }
 
-        OCShare share = null;
+        List<OCShare> shares = new ArrayList<>();
+        OCShare share;
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                share = createShareInstance(cursor);
+                do {
+                    share = createShareInstance(cursor);
+                    shares.add(share);
+                } while (cursor.moveToNext());
             }
             cursor.close();
         }
-        return share;
+        return shares;
     }
 
     // test with null cursor?
@@ -1274,6 +1278,7 @@ public class FileDataStorageManager {
         share.setPasswordProtected(getInt(cursor, ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED) == 1);
         share.setNote(getString(cursor, ProviderTableMeta.OCSHARES_NOTE));
         share.setHideFileDownload(getInt(cursor, ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD) == 1);
+        share.setShareLink(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK));
 
         return share;
     }
@@ -1626,6 +1631,7 @@ public class FileDataStorageManager {
             contentValues.put(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED, share.isPasswordProtected() ? 1 : 0);
             contentValues.put(ProviderTableMeta.OCSHARES_NOTE, share.getNote());
             contentValues.put(ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD, share.isHideFileDownload());
+            contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LINK, share.getShareLink());
 
             // adding a new share resource
             operations.add(ContentProviderOperation

@@ -61,7 +61,6 @@
     <dimen name="activity_row_layout_min_width_independent">196dip</dimen>
     <dimen name="user_icon_size_independent">40dip</dimen>
     <dimen name="drawer_header_subtext">12sp</dimen>
-    <dimen name="edit_share_layout_view_height">2dp</dimen>
     <dimen name="fragment_margin">12dp</dimen>
     <dimen name="file_download_fragment_layout_padding">20dp</dimen>
     <dimen name="alternate_fragment_margin">15dp</dimen>
@@ -135,7 +134,6 @@
     <dimen name="permission_dialog_text_size">18sp</dimen>
     <dimen name="button_corner_radius">24dp</dimen>
     <integer name="media_grid_width">4</integer>
-    <dimen name="copy_internal_link_padding">10dp</dimen>
     <dimen name="drawer_header_height">130dp</dimen>
     <dimen name="drawer_header_logo_width">170dp</dimen>
     <dimen name="account_action_button_margin">12dp</dimen>

@@ -68,7 +68,6 @@
 
     <string name="auth_host_url">Server address https://…</string>
     <string name="auth_username">Username</string>
-    <string name="auth_password">Password</string>
     <string name="sync_string_files">Files</string>
     <string name="uploader_btn_upload_text">Upload</string>
     <string name="uploader_btn_alternative_text">Choose</string>
@@ -474,7 +473,6 @@
     <string name="edit_permission_label">edit</string>
     <string name="share_via_link_hide_file_listing_permission_label">Hide file listing</string>
     <string name="share_with_title">Share with…</string>
-    <string name="share_with_edit_title">Share with %1$s</string>
     <string name="share_via_link_unset_password">Unset</string>
 
     <string name="share_search">Name, federated cloud ID or email address…</string>
@@ -487,7 +485,6 @@
 
     <string name="share_privilege_unshare">Unshare</string>
     <string name="share_privilege_can_share">can share</string>
-    <string name="share_privilege_can_edit">can edit</string>
     <string name="share_privilege_can_edit_create">can create</string>
     <string name="share_privilege_can_edit_change">can change</string>
     <string name="share_privilege_can_edit_delete">can delete</string>
@@ -541,6 +538,7 @@
     <string name="copy_to">Copy to…</string>
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="choose_local_folder">Choose local folder…</string>
+    <string name="local_folder_friendly_path">%1$s /%2$s</string>
     <string name="synced_folders_loading_folders">Loading folders…</string>
     <string name="synced_folders_no_results">No media folders found</string>
     <plurals name="synced_folders_show_hidden_folders">
@@ -676,7 +674,6 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="dev_version_no_information_available">No info available.</string>
     <string name="dev_version_no_new_version_available">No new version available.</string>
-    <string name="folder_icon">Folder icon</string>
     <string name="dev_version_new_version_available">New version available</string>
     <string name="version_dev_download">Download</string>
 
@@ -926,4 +923,8 @@
     <string name="conflict_dialog_error">Error creating conflict dialog!</string>
     <string name="qr_could_not_be_read">QR Code could not be read!</string>
     <string name="note_icon_hint">Note icon</string>
+    <string name="add_another_public_share_link">Add another link</string>
+    <string name="unshare">Unshare</string>
+    <string name="allow_editing">Allow editing</string>
+    <string name="add_new_public_share">Add new public share link</string>
 </resources>

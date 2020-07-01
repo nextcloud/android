@@ -771,6 +771,7 @@ public abstract class FileActivity extends DrawerActivity
         if (result.isSuccess()) {
             updateFileFromDB();
             if (sharingFragment != null) {
+                sharingFragment.refreshPublicShareFromDB();
                 sharingFragment.onUpdateShareInformation(result, getFile());
             }
         } else if (sharingFragment != null && sharingFragment.getView() != null) {

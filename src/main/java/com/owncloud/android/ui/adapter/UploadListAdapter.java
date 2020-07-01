@@ -78,7 +78,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * This Adapter populates a ListView with following types of uploads: pending,active, completed. Filtering possible.
+ * This Adapter populates a ListView with following types of uploads: pending, active, completed. Filtering possible.
  */
 public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedViewHolder> {
     private static final String TAG = UploadListAdapter.class.getSimpleName();

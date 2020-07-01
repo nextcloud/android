@@ -38,6 +38,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
@@ -52,6 +53,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.files.DeepLinkHandler;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -123,8 +125,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -428,49 +428,36 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    private void initFragmentsWithFile() {
-        if (getAccount() != null && getFile() != null) {
-            /// First fragment
-            OCFileListFragment listOfFiles = getListOfFilesFragment();
-            if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
-                listOfFiles.listDirectory(getCurrentDir(), getFile(), MainApp.isOnlyOnDevice(), false);
-            } else {
-                Log_OC.e(TAG, "Still have a chance to lose the initialization of list fragment >(");
+    private void initFragmentsWithFile(User user, OCFile file) {
+        /// First fragment
+        OCFileListFragment listOfFiles = getListOfFilesFragment();
+        if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
+            listOfFiles.listDirectory(getCurrentDir(), getFile(), MainApp.isOnlyOnDevice(), false);
+        } else {
+            Log_OC.e(TAG, "Still have a chance to lose the initialization of list fragment >(");
+        }
+
+        /// Second fragment
+        if (mDualPane) {
+            Fragment secondFragment = getSecondFragment();
+            if (secondFragment == null) {
+                secondFragment = chooseInitialSecondFragment(file, user);
             }
 
-            /// Second fragment
-            if (mDualPane) {
-                OCFile file = getFile();
-
-                Fragment secondFragment = getSecondFragment();
-                if (secondFragment == null) {
-                    secondFragment = chooseInitialSecondFragment(file);
-                }
-
-                if (secondFragment != null) {
-                    setSecondFragment(secondFragment);
-                    updateFragmentsVisibility(true);
-                    updateActionBarTitleAndHomeButton(file);
-                } else {
-                    cleanSecondFragment();
-                    if (file.isDown() && MimeTypeUtil.isVCard(file.getMimeType())) {
-                        startContactListFragment(file);
-                    } else if (file.isDown() && PreviewTextFileFragment.canBePreviewed(file)) {
-                        startTextPreview(file, false);
-                    }
-                }
+            if (secondFragment != null) {
+                setSecondFragment(secondFragment);
+                updateFragmentsVisibility(true);
+                updateActionBarTitleAndHomeButton(file);
             } else {
                 cleanSecondFragment();
+                if (file.isDown() && MimeTypeUtil.isVCard(file.getMimeType())) {
+                    startContactListFragment(file);
+                } else if (file.isDown() && PreviewTextFileFragment.canBePreviewed(file)) {
+                    startTextPreview(file, false);
+                }
             }
-
         } else {
-            Log_OC.e(TAG, "initFragments() called with invalid NULLs!");
-            if (getAccount() == null) {
-                Log_OC.e(TAG, "\t account is NULL");
-            }
-            if (getFile() == null) {
-                Log_OC.e(TAG, "\t file is NULL");
-            }
+            cleanSecondFragment();
         }
     }
 
@@ -529,17 +516,17 @@ public class FileDisplayActivity extends FileActivity
             }
     }
 
-    private Fragment chooseInitialSecondFragment(OCFile file) {
+    private Fragment chooseInitialSecondFragment(OCFile file, User user) {
         Fragment secondFragment = null;
         if (file != null && !file.isFolder()) {
             if (file.isDown() && PreviewMediaFragment.canBePreviewed(file)) {
                 int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
                 boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
-                secondFragment = PreviewMediaFragment.newInstance(file, getAccount(), startPlaybackPosition, autoplay);
+                secondFragment = PreviewMediaFragment.newInstance(file, user.toPlatformAccount(), startPlaybackPosition, autoplay);
             } else if (file.isDown() && PreviewTextFileFragment.canBePreviewed(file)) {
                 secondFragment = null;
             } else {
-                secondFragment = FileDetailFragment.newInstance(file, getAccount());
+                secondFragment = FileDetailFragment.newInstance(file, user);
             }
         }
         return secondFragment;
@@ -1556,7 +1543,8 @@ public class FileDisplayActivity extends FileActivity
      * @param activeTab the active tab in the details view
      */
     public void showDetails(OCFile file, int activeTab) {
-        Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount(), activeTab);
+        User currentUser = getUser().orElseThrow(RuntimeException::new);
+        Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser, activeTab);
         setSecondFragment(detailFragment);
         updateFragmentsVisibility(true);
         updateActionBarTitleAndHomeButton(file);
@@ -1834,13 +1822,15 @@ public class FileDisplayActivity extends FileActivity
      */
     private void onRenameFileOperationFinish(RenameFileOperation operation,
                                              RemoteOperationResult result) {
+        Optional<User> optionalUser = getUser();
         OCFile renamedFile = operation.getFile();
-        if (result.isSuccess()) {
+        if (result.isSuccess() && optionalUser.isPresent()) {
+            final User currentUser = optionalUser.get();
             FileFragment details = getSecondFragment();
             if (details != null) {
                 if (details instanceof FileDetailFragment &&
                         renamedFile.equals(details.getFile())) {
-                    ((FileDetailFragment) details).updateFileDetails(renamedFile, getAccount());
+                    ((FileDetailFragment) details).updateFileDetails(renamedFile, currentUser);
                     showDetails(renamedFile);
 
                 } else if (details instanceof PreviewMediaFragment &&
@@ -1929,10 +1919,11 @@ public class FileDisplayActivity extends FileActivity
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
         updateListOfFilesFragment(false);
         FileFragment details = getSecondFragment();
-        if (details instanceof FileDetailFragment &&
-                file.equals(details.getFile())) {
+        Optional<User> optionalUser = getUser();
+        if (details instanceof FileDetailFragment && file.equals(details.getFile()) && optionalUser.isPresent()) {
+            final User currentUser = optionalUser.get();
             if (downloading || uploading) {
-                ((FileDetailFragment) details).updateFileDetails(file, getAccount());
+                ((FileDetailFragment) details).updateFileDetails(file, currentUser);
             } else {
                 if (!file.fileExists()) {
                     cleanSecondFragment();
@@ -2216,7 +2207,8 @@ public class FileDisplayActivity extends FileActivity
      * @param file {@link OCFile} to download and preview.
      */
     public void startDownloadForPreview(OCFile file) {
-        Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount());
+        final User currentUser = getUser().orElseThrow(RuntimeException::new);
+        Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser);
         setSecondFragment(detailFragment);
         mWaitingToPreview = file;
         requestForDownload();
@@ -2299,12 +2291,6 @@ public class FileDisplayActivity extends FileActivity
             transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
             transaction.commit();
         }
-//        else {
-//            Log_OC.d(this, "Switch to OCFileListFragment");
-//
-//            fragment = new OCFileListFragment();
-//        }
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -2379,7 +2365,7 @@ public class FileDisplayActivity extends FileActivity
             final boolean accountChanged = !user.getAccountName().equals(lastDisplayedAccountName);
             if (accountChanged) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
-                initFragmentsWithFile();
+                initFragmentsWithFile(user, file);
                 if (file.isFolder() && TextUtils.isEmpty(searchQuery)) {
                     startSyncFolderOperation(file, false);
                 }
@@ -2416,44 +2402,54 @@ public class FileDisplayActivity extends FileActivity
         String fileId = intent.getStringExtra(KEY_FILE_ID);
 
         if (userName == null && fileId == null && intent.getData() != null) {
-            // Handle intent coming from URI
-
-            Pattern pattern  = Pattern.compile("(.*)/index\\.php/([f])/([0-9]+)$");
-            Matcher matcher = pattern.matcher(intent.getData().toString());
-            if (matcher.matches()) {
-                String uri = matcher.group(1);
-                if ("f".equals(matcher.group(2))) {
-                    fileId = matcher.group(3);
-                    findAccountAndOpenFile(uri, fileId);
-                    return;
-                }
+            openDeepLink(intent.getData());
+        } else {
+            Optional<User> optionalUser = userName == null ? getUser() : getUserAccountManager().getUser(userName);
+            if (optionalUser.isPresent()) {
+                openFile(optionalUser.get(), fileId);
             } else {
                 dismissLoadingDialog();
-                DisplayUtils.showSnackMessage(this, getString(R.string.invalid_url));
-                return;
+                DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
             }
         }
-        openFile(userName, fileId);
-
     }
-    private void openFile(String userName, String fileId) {
-        Optional<User> optionalNewUser;
-        User user;
 
-        if (userName == null) {
-            optionalNewUser = getUser();
-        } else {
-            optionalNewUser = getUserAccountManager().getUser(userName);
-        }
-
-        if (optionalNewUser.isPresent()) {
-            user = optionalNewUser.get();
-            setUser(user);
-        } else {
+    private void openDeepLink(Uri uri) {
+        DeepLinkHandler linkHandler = new DeepLinkHandler(getUserAccountManager());
+        DeepLinkHandler.Match match = linkHandler.parseDeepLink(uri);
+        if (match == null) {
+            dismissLoadingDialog();
+            DisplayUtils.showSnackMessage(this, getString(R.string.invalid_url));
+        } else if (match.getUsers().isEmpty()) {
             dismissLoadingDialog();
             DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
-            return;
+        } else if (match.getUsers().size() == 1) {
+            openFile(match.getUsers().get(0), match.getFileId());
+        } else {
+            selectUserAndOpenFile(match.getUsers(), match.getFileId());
         }
+    }
+
+    private void selectUserAndOpenFile(List<User> users, String fileId) {
+        final CharSequence[] userNames = new CharSequence[users.size()];
+        for (int i = 0; i < userNames.length; i++) {
+            userNames[i] = users.get(i).getAccountName();
+        }
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder
+            .setTitle(R.string.common_choose_account)
+            .setItems(userNames, (dialog, which) -> {
+                User user = users.get(which);
+                openFile(user, fileId);
+                showLoadingDialog(getString(R.string.retrieving_file));
+            });
+        final AlertDialog dialog = builder.create();
+        dismissLoadingDialog();
+        dialog.show();
+    }
+
+    private void openFile(User user, String fileId) {
+        setUser(user);
 
         if (fileId == null) {
             dismissLoadingDialog();
@@ -2473,47 +2469,5 @@ public class FileDisplayActivity extends FileActivity
                                                                           this);
         fetchRemoteFileTask.execute();
 
-    }
-
-    private void findAccountAndOpenFile(String uri, String fileId) {
-
-        ArrayList<User> validUsers = new ArrayList<>();
-
-        for (User user : getUserAccountManager().getAllUsers()) {
-            if (user.getServer().getUri().toString().equals(uri)) {
-                validUsers.add(user);
-            }
-        }
-
-        if (validUsers.size() == 0) {
-            dismissLoadingDialog();
-            DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
-            return;
-        }
-
-        if (validUsers.size() == 1) {
-            openFile(validUsers.get(0).getAccountName(), fileId);
-            return;
-        }
-
-        ArrayList<String> validUserNames = new ArrayList<>();
-
-        for (User user : validUsers) {
-            validUserNames.add(user.getAccountName());
-        }
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder
-            .setTitle(R.string.common_choose_account)
-            .setItems(validUserNames.toArray(new CharSequence[validUserNames.size()]),
-                      new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    openFile(validUsers.get(which).getAccountName(), fileId);
-                    showLoadingDialog(getString(R.string.retrieving_file));
-                }
-            });
-        AlertDialog dialog = builder.create();
-        dismissLoadingDialog();
-        dialog.show();
     }
 }

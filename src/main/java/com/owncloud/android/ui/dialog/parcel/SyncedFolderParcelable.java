@@ -148,6 +148,9 @@ public class SyncedFolderParcelable implements Parcelable {
             case "LOCAL_BEHAVIOUR_DELETE":
                 this.uploadAction = FileUploader.LOCAL_BEHAVIOUR_DELETE;
                 break;
+            default:
+                // do nothing
+                break;
         }
     }
 

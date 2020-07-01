@@ -27,7 +27,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.shares.GetShareRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.UpdateShareRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
@@ -44,25 +43,22 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
     private Boolean publicUploadOnFile;
     private Boolean hideFileDownload;
     private long expirationDateInMillis;
+    private long shareId;
 
     /**
      * Constructor
      *
-     * @param path          Full path of the file/folder being shared. Mandatory argument
+     * @param path Full path of the file/folder being shared. Mandatory argument
      */
-    public UpdateShareViaLinkOperation(String path) {
+    public UpdateShareViaLinkOperation(String path, long shareId) {
         this.path = path;
         expirationDateInMillis = 0;
+        this.shareId = shareId;
     }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        OCShare publicShare = getStorageManager().getFirstShareByPathAndType(path, ShareType.PUBLIC_LINK, "");
-
-        if (publicShare == null) {
-            // TODO try to get remote share before failing?
-            return new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
-        }
+        OCShare publicShare = getStorageManager().getShareById(shareId);
 
         UpdateShareRemoteOperation updateOp = new UpdateShareRemoteOperation(publicShare.getRemoteId());
         updateOp.setPassword(password);
