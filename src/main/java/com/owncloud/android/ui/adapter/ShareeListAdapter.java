@@ -44,7 +44,6 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.NoteDialogFragment;
@@ -334,16 +333,6 @@ public class ShareeListAdapter extends RecyclerView.Adapter<ShareeListAdapter.Us
                 notifyDataSetChanged();
                 return true;
             }
-            case R.id.action_hide_file_listing: {
-                item.setChecked(!item.isChecked());
-                if (capabilities.getFilesFileDrop().isTrue()) {
-                    listener.setHideFileListingPermissionsToShare(share, item.isChecked());
-                } else {
-                    // not supported in ownCloud
-                    listener.showNotSupportedByOcMessage();
-                }
-                return true;
-            }
             case R.id.action_password: {
                 listener.requestPasswordForShare(share);
                 return true;
@@ -434,8 +423,6 @@ public class ShareeListAdapter extends RecyclerView.Adapter<ShareeListAdapter.Us
                                      boolean canEditChange,
                                      boolean canEditDelete);
 
-        void updateNoteToShare(OCShare share, String note);
-
         /**
          * show a snackbar that this feature is not supported by ownCloud.
          */
@@ -447,16 +434,5 @@ public class ShareeListAdapter extends RecyclerView.Adapter<ShareeListAdapter.Us
          * @param share the share for which a password shall be configured/removed
          */
         void requestPasswordForShare(OCShare share);
-
-        /**
-         * Updates a public share on a folder to set its hide file listing permission.
-         * Starts a request to do it in {@link OperationsService}
-         *
-         * @param share           {@link OCShare} instance which permissions will be updated.
-         * @param hideFileListing New state of the permission for editing the folder shared via link.
-         */
-        void setHideFileListingPermissionsToShare(OCShare share, boolean hideFileListing);
-
-        void setHideFileDownloadPermissionToShare(OCFile file, boolean hideFileDownload);
     }
 }

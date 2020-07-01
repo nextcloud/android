@@ -62,6 +62,7 @@ import com.owncloud.android.ui.adapter.ShareeListAdapter;
 import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.NoteDialogFragment;
+import com.owncloud.android.ui.dialog.RenamePublicShareDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
@@ -327,7 +328,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         } else {
             // create without password if not enforced by server or we don't know if enforced;
-            fileOperationsHelper.shareFileViaLink(file, null);
+            fileOperationsHelper.shareFileViaPublicShare(file, null);
         }
     }
 
@@ -396,14 +397,13 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             case R.id.action_allow_editing:
                 if (file.isSharedViaLink()) {
                     item.setChecked(!item.isChecked());
-                    fileOperationsHelper.setUploadPermissionsToShare(file,
-                                                                     item.isChecked());
+                    fileOperationsHelper.setUploadPermissionsToPublicShare(publicShare, item.isChecked());
                 }
                 return true;
             case R.id.action_hide_file_listing: {
                 item.setChecked(!item.isChecked());
                 if (capabilities.getFilesFileDrop().isTrue()) {
-                    setHideFileListingPermissionsToShare(publicShare, item.isChecked());
+                    fileOperationsHelper.setHideFileListingPermissionsToPublicShare(publicShare, item.isChecked());
                 } else {
                     // not supported in ownCloud
                     showNotSupportedByOcMessage();
@@ -412,8 +412,13 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             }
             case R.id.action_hide_file_download:
                 item.setChecked(!item.isChecked());
-                setHideFileDownloadPermissionToShare(file, item.isChecked());
+                fileOperationsHelper.setHideFileDownloadPermissionsToPublicShare(publicShare, item.isChecked());
 
+                return true;
+            case R.id.action_edit_label:
+                RenamePublicShareDialogFragment renameDialog = RenamePublicShareDialogFragment.newInstance(publicShare);
+                renameDialog.show(fileActivity.getSupportFragmentManager(),
+                                  RenamePublicShareDialogFragment.RENAME_PUBLIC_SHARE_FRAGMENT);
                 return true;
             case R.id.action_password: {
                 requestPasswordForShareViaLink(false,
@@ -421,10 +426,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 return true;
             }
             case R.id.action_share_expiration_date: {
-                ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment
+                ExpirationDatePickerDialogFragment expirationDialog = ExpirationDatePickerDialogFragment
                     .newInstance(file, publicShare.getExpirationDate());
-                dialog.show(fileActivity.getSupportFragmentManager(),
-                            ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG);
+                expirationDialog.show(fileActivity.getSupportFragmentManager(),
+                                      ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG);
                 return true;
             }
             case R.id.action_share_send_link: {
@@ -436,8 +441,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 return true;
             }
             case R.id.action_share_send_note:
-                NoteDialogFragment dialog = NoteDialogFragment.newInstance(publicShare);
-                dialog.show(fileActivity.getSupportFragmentManager(), NoteDialogFragment.NOTE_FRAGMENT);
+                NoteDialogFragment noteDialog = NoteDialogFragment.newInstance(publicShare);
+                noteDialog.show(fileActivity.getSupportFragmentManager(), NoteDialogFragment.NOTE_FRAGMENT);
                 return true;
             case R.id.action_add_another_public_share_link:
                 createShareLink();
@@ -448,16 +453,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public void setHideFileListingPermissionsToShare(OCShare share, boolean hideFileListing) {
-        fileOperationsHelper.setHideFileListingPermissionsToShare(share, hideFileListing);
-    }
-
-    @Override
-    public void setHideFileDownloadPermissionToShare(OCFile file, boolean hideFileDownload) {
-        fileOperationsHelper.setHideFileDownloadPermissionsToShare(file, hideFileDownload);
     }
 
     @Override
@@ -521,11 +516,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         fileOperationsHelper.setPermissionsToShare(share, permissions);
 
         return permissions;
-    }
-
-    @Override
-    public void updateNoteToShare(OCShare share, String note) {
-        fileOperationsHelper.updateNoteToShare(share, note);
     }
 
     /**

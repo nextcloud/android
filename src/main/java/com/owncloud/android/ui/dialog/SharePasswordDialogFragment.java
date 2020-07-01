@@ -193,9 +193,9 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
 
     private void setPassword(boolean createShare, OCFile file, String password) {
         if (createShare) {
-            ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaLink(file, password);
+            ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaPublicShare(file, password);
         } else {
-            ((FileActivity) getActivity()).getFileOperationsHelper().setPasswordToShareViaLink(file, password);
+            ((FileActivity) getActivity()).getFileOperationsHelper().setPasswordToPublicShare(share, password);
         }
     }
 
