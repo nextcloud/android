@@ -552,7 +552,6 @@
     <string name="rename_server_fail_msg">Přejmenování není možné, název už je použit</string>
     <string name="reshare_not_allowed">Příjemcům tohoto sdílení není dovoleno ho nasdílet dál dalším</string>
     <string name="resharing_is_not_allowed">Příjemcům tohoto sdílení není dovoleno ho nasdílet dál dalším</string>
-    <string name="resized_image_not_possible">Nejsou k dispozici žádné zmenšené obrázky.</string>
     <string name="resized_image_not_possible_download">Zmenšená verze obrázku není k dispozici. Stáhnout obrázek v plné velikosti?</string>
     <string name="restore">Obnovit soubor</string>
     <string name="restore_button_description">Obnovit smazaný soubor</string>

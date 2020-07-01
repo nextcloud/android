@@ -552,7 +552,6 @@
     <string name="rename_server_fail_msg">Nie można zmienić nazwy, nazwa jest już zajęta</string>
     <string name="reshare_not_allowed">Udostępnianie jest niedozwolone</string>
     <string name="resharing_is_not_allowed">Udostępnianie jest niedozwolone</string>
-    <string name="resized_image_not_possible">Brak obrazu o zmienionym rozmiarze.</string>
     <string name="resized_image_not_possible_download">Brak obrazu o zmienionym rozmiarze. Pobrać pełny obraz?</string>
     <string name="restore">Przywróć plik</string>
     <string name="restore_button_description">Przywróć usunięty plik</string>

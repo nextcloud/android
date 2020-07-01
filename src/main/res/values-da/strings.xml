@@ -538,7 +538,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="rename_server_fail_msg">Omdøbning ikke mulig, navnet eksisterer</string>
     <string name="reshare_not_allowed">Gendeling er ikke tilladt</string>
     <string name="resharing_is_not_allowed">Videredeling ikke tilladt</string>
-    <string name="resized_image_not_possible">Intet skaleret billede tilgængeligt.</string>
     <string name="resized_image_not_possible_download">Intet skaleret billede tilgængeligt. Hent fuldt billede?</string>
     <string name="restore">Genskab fil</string>
     <string name="restore_button_description">Genskab slettet fil</string>

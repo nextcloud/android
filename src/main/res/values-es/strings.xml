@@ -32,7 +32,9 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar enlace a…</string>
     <string name="activity_icon">Actividad</string>
+    <string name="add_another_public_share_link">Añadir otro enlace</string>
     <string name="add_to_cloud">Añadir a %1$s</string>
+    <string name="allow_editing">Permitir edición</string>
     <string name="appbar_search_in">Buscar en %s</string>
     <string name="associated_account_not_found">¡Cuenta asociada no encontrada!</string>
     <string name="auth_access_failed">Acceso fallido: %1$s</string>
@@ -550,7 +552,6 @@
     <string name="rename_server_fail_msg">No se ha podido dar un nombre nuevo, el nombre ya está tomado</string>
     <string name="reshare_not_allowed">No se permite volver a compartir</string>
     <string name="resharing_is_not_allowed">No se permite compartir de nuevo</string>
-    <string name="resized_image_not_possible">No se dispone de la imagen en otros tamaños. </string>
     <string name="resized_image_not_possible_download">No se dispone de la imagen en otros tamaños. ¿Descargar en tamaño completo?</string>
     <string name="restore">Restaurar archivo</string>
     <string name="restore_button_description">Restaurar archivo eliminado</string>
@@ -726,6 +727,7 @@
     <string name="unread_comments">Hay comentarios no leídos</string>
     <string name="unset_encrypted">Desconfigurar cifrado</string>
     <string name="unset_favorite">Quitar de favoritos</string>
+    <string name="unshare">No compartir</string>
     <string name="unshare_link_file_error">Ha ocurrido un error al dejar de compartir este archivo o carpeta.</string>
     <string name="unshare_link_file_no_exist">Imposible dejar de compartir. Por favor, comprueba que el archivo exista.</string>
     <string name="unshare_link_forbidden_permissions">para descompartir este archivo</string>

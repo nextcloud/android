@@ -551,7 +551,6 @@
     <string name="rename_server_fail_msg">Αδύνατη μετονομασία, το όνομα έχει ήδη δοθεί</string>
     <string name="reshare_not_allowed">Δεν επιτρέπεται ο επαναμοιρασμός</string>
     <string name="resharing_is_not_allowed">Δεν επιτρέπεται ο διαμοιρασμός</string>
-    <string name="resized_image_not_possible">Δεν υπάρχει διαθέσιμη εικόνα με αλλαγμένο μέγεθος.</string>
     <string name="resized_image_not_possible_download">Δεν υπάρχει διαθέσιμη εικόνα με αλλαγμένο μέγεθος. Κατέβασμα της πλήρους εικόνας;</string>
     <string name="restore">Επαναφορά αρχείου</string>
     <string name="restore_button_description">Επαναφορά διαγραμμένου αρχείου</string>
