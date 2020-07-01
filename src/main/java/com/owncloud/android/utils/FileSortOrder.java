@@ -54,13 +54,15 @@ public class FileSortOrder {
         trashBinView, localFileListView, uploadFilesView
     }
     static {
-        sortOrders = new HashMap<>();
-        sortOrders.put(sort_a_to_z.name, sort_a_to_z);
-        sortOrders.put(sort_z_to_a.name, sort_z_to_a);
-        sortOrders.put(sort_old_to_new.name, sort_old_to_new);
-        sortOrders.put(sort_new_to_old.name, sort_new_to_old);
-        sortOrders.put(sort_small_to_big.name, sort_small_to_big);
-        sortOrders.put(sort_big_to_small.name, sort_big_to_small);
+        HashMap<String, FileSortOrder> temp = new HashMap<>();
+        temp.put(sort_a_to_z.name, sort_a_to_z);
+        temp.put(sort_z_to_a.name, sort_z_to_a);
+        temp.put(sort_old_to_new.name, sort_old_to_new);
+        temp.put(sort_new_to_old.name, sort_new_to_old);
+        temp.put(sort_small_to_big.name, sort_small_to_big);
+        temp.put(sort_big_to_small.name, sort_big_to_small);
+
+        sortOrders = Collections.unmodifiableMap(temp);
     }
 
     public String name;

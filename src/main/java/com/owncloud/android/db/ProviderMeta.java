@@ -26,6 +26,10 @@ import android.provider.BaseColumns;
 
 import com.owncloud.android.MainApp;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Meta-Class that holds various static field information
  */
@@ -115,15 +119,37 @@ public class ProviderMeta {
         public static final String FILE_SHAREES = "sharees";
         public static final String FILE_RICH_WORKSPACE = "rich_workspace";
 
-        public static final String[] FILE_ALL_COLUMNS = {
-            _ID, FILE_PARENT, FILE_NAME, FILE_CREATION, FILE_MODIFIED,
-            FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, FILE_CONTENT_LENGTH, FILE_CONTENT_TYPE, FILE_STORAGE_PATH,
-            FILE_PATH, FILE_ACCOUNT_OWNER, FILE_LAST_SYNC_DATE, FILE_LAST_SYNC_DATE_FOR_DATA, FILE_ETAG,
-            FILE_ETAG_ON_SERVER, FILE_SHARED_VIA_LINK, FILE_SHARED_WITH_SHAREE, FILE_PUBLIC_LINK, FILE_PERMISSIONS,
-            FILE_REMOTE_ID, FILE_UPDATE_THUMBNAIL, FILE_IS_DOWNLOADING, FILE_ETAG_IN_CONFLICT, FILE_FAVORITE,
-            FILE_IS_ENCRYPTED, FILE_MOUNT_TYPE, FILE_HAS_PREVIEW, FILE_UNREAD_COMMENTS_COUNT, FILE_SHAREES,
-            FILE_RICH_WORKSPACE
-        };
+        public static final List<String> FILE_ALL_COLUMNS = Collections.unmodifiableList(Arrays.asList(
+            _ID,
+            FILE_PARENT,
+            FILE_NAME,
+            FILE_CREATION,
+            FILE_MODIFIED,
+            FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
+            FILE_CONTENT_LENGTH,
+            FILE_CONTENT_TYPE,
+            FILE_STORAGE_PATH,
+            FILE_PATH,
+            FILE_ACCOUNT_OWNER,
+            FILE_LAST_SYNC_DATE,
+            FILE_LAST_SYNC_DATE_FOR_DATA,
+            FILE_ETAG,
+            FILE_ETAG_ON_SERVER,
+            FILE_SHARED_VIA_LINK,
+            FILE_SHARED_WITH_SHAREE,
+            FILE_PUBLIC_LINK,
+            FILE_PERMISSIONS,
+            FILE_REMOTE_ID,
+            FILE_UPDATE_THUMBNAIL,
+            FILE_IS_DOWNLOADING,
+            FILE_ETAG_IN_CONFLICT,
+            FILE_FAVORITE,
+            FILE_IS_ENCRYPTED,
+            FILE_MOUNT_TYPE,
+            FILE_HAS_PREVIEW,
+            FILE_UNREAD_COMMENTS_COUNT,
+            FILE_SHAREES,
+            FILE_RICH_WORKSPACE));
 
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
 
