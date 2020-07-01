@@ -1,0 +1,29 @@
+remove EditShareFragment.java
+remove unused ressources
+add default to switch
+fix switch statement
+add missing import
+fix test
+minor code changes after rebase
+Synced folder dialog: remove local and remote folder icons
+Synced folder dialog: use display name instead of full path for local folder
+Synced folder dialog: remove folder path expand action
+Deep link handler tests
+Move user filtering to deep link handler
+Refactored deep link handling
+Deep link handler prototype
+allow 3 times deep nextcloud nesting
+Update pattern matcher to allow pretty urls
+allow pretty urls
+revert library
+fixes after rebase
+remove literals in conditional statements
+UI fine tuning for link items / sharing fragments
+add multiple share links
+Add to jetified-dagger-lint-aar-2.28.1 for custom lint check
+Bump to dagger 2.28.1
+Provide DeckApi via dependency injection framework
+Migate file details and share details to User model
+Fix NPE in OCFileListFragment when OCFile is null
+Update translations
+Update 3rd-party dependencies
