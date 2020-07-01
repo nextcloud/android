@@ -32,7 +32,9 @@
     <string name="activity_chooser_send_file_title">Gönder</string>
     <string name="activity_chooser_title">Bağlantıyı şuraya gönder …</string>
     <string name="activity_icon">İşlem</string>
+    <string name="add_another_public_share_link">Başka bir bağlantı ekle</string>
     <string name="add_to_cloud">%1$s üzerine ekle</string>
+    <string name="allow_editing">Düzenlenebilsin</string>
     <string name="appbar_search_in">%s içinde arama</string>
     <string name="associated_account_not_found">İlişkili hesap bulunamadı!</string>
     <string name="auth_access_failed">Erişilemedi: %1$s</string>
@@ -552,7 +554,6 @@
     <string name="rename_server_fail_msg">Ad zaten kullanıldığından yeniden adlandırılamadı</string>
     <string name="reshare_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
     <string name="resharing_is_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
-    <string name="resized_image_not_possible">Boyutu değiştirilmiş bir görsel yok.</string>
     <string name="resized_image_not_possible_download">Boyutu değiştirilmiş bir görsel yok. Tam boyuttaki görsel indirilsin mi?</string>
     <string name="restore">Dosyayı geri yükle</string>
     <string name="restore_button_description">Silinmiş dosyayı geri yükle</string>
@@ -728,6 +729,7 @@
     <string name="unread_comments">Okunmamış yorumlar var</string>
     <string name="unset_encrypted">Şifrelemeyi kaldır</string>
     <string name="unset_favorite">Sık kullanılanlardan kaldır</string>
+    <string name="unshare">Paylaşımı kaldır</string>
     <string name="unshare_link_file_error">Bu dosya ya da klasör paylaşımı kaldırılmaya çalışılırken bir sorun çıktı.</string>
     <string name="unshare_link_file_no_exist">Paylaşımı kaldırılamadı. Lütfen dosyanın var olup olmadığını denetleyin.</string>
     <string name="unshare_link_forbidden_permissions">bu dosyanın paylaşımını kaldırın</string>

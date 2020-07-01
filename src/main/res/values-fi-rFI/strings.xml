@@ -551,8 +551,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="rename_server_fail_msg">Nimen muutos epäonnistui, nimi on jo käytössä</string>
     <string name="reshare_not_allowed">Uudellenjako ei ole salluttu</string>
     <string name="resharing_is_not_allowed">Uudelleenjakaminen ei ole sallittu</string>
-    <string name="resized_image_not_possible">Uuden kokoista kuvaa ei ole saatavilla.
-</string>
     <string name="resized_image_not_possible_download">Uuden kokoinen kuva ei ole saatavilla. Ladataanko täysikokoinen kuva?</string>
     <string name="restore">Palauta tiedosto</string>
     <string name="restore_button_description">Palauta poistettu tiedosto</string>

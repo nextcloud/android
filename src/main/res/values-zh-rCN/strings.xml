@@ -547,7 +547,6 @@
     <string name="rename_server_fail_msg">无法重命名，名字已经被占用</string>
     <string name="reshare_not_allowed">不允许再次共享</string>
     <string name="resharing_is_not_allowed">不允许二次共享</string>
-    <string name="resized_image_not_possible">重整大小的图片不可用。</string>
     <string name="resized_image_not_possible_download">重整大小的图片不可用。下载完整图片？</string>
     <string name="restore">恢复文件</string>
     <string name="restore_button_description">恢复已删除的文件</string>

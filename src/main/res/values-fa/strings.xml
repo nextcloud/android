@@ -32,7 +32,9 @@
     <string name="activity_chooser_send_file_title">ارسال</string>
     <string name="activity_chooser_title">ارسال لینک به ....</string>
     <string name="activity_icon">فعّالیت</string>
+    <string name="add_another_public_share_link">پیوند دیگری اضافه کنید</string>
     <string name="add_to_cloud">افزودن به %1$s</string>
+    <string name="allow_editing">اجازه‌ی ویرایش</string>
     <string name="appbar_search_in">جست‌وجو در %s</string>
     <string name="associated_account_not_found">حساب مرتبط یافت نشد!</string>
     <string name="auth_access_failed">دسترسی خطای  %1$s</string>
@@ -521,7 +523,6 @@
     <string name="rename_server_fail_msg">تغییر نام ممکن نیست ، نام وجود دارد</string>
     <string name="reshare_not_allowed">اشتراک گذاری مجدد مجاز نمی باشد</string>
     <string name="resharing_is_not_allowed">اشتراک گذاری مجدد مجاز نمی باشد</string>
-    <string name="resized_image_not_possible">هیچ تصویری تغییر اندازه شده ای در دسترس نیست.</string>
     <string name="resized_image_not_possible_download">هیچ تصویری تغییر اندازه شده ای در دسترس نیست. تصویر کامل را بارگیری می کنید؟</string>
     <string name="restore">بازیابی پرونده</string>
     <string name="restore_button_description">بازیابی پرونده حذف شده</string>
@@ -685,6 +686,7 @@
     <string name="unread_comments">نظرات خوانده نشده وجود دارد</string>
     <string name="unset_encrypted">رمزگذاری شروع نشده است</string>
     <string name="unset_favorite">حذف از موارد دلخواه</string>
+    <string name="unshare">لغو اشتراک</string>
     <string name="unshare_link_forbidden_permissions">حذف اشتراک‌گذاری این فایل</string>
     <string name="unsharing_failed">اشتراک گذاری ناموفق بود</string>
     <string name="untrusted_domain">دسترسی از طریق دامنه غیر قابل اعتماد. لطفا برای اطلاعات بیشتر به اسناد مراجعه کنید.</string>

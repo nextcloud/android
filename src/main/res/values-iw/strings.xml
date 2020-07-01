@@ -543,7 +543,6 @@
     <string name="rename_server_fail_msg">אי אפשר לשנות שם, השם כבר תפוס</string>
     <string name="reshare_not_allowed">שיתוף מחדש אסור</string>
     <string name="resharing_is_not_allowed">אסור לשתף מחדש</string>
-    <string name="resized_image_not_possible">אין תמונות מוקטנות זמינות.</string>
     <string name="resized_image_not_possible_download">אין תמונה מוקטנת. להוריד את התמונה המלאה?</string>
     <string name="restore">שחזור קובץ</string>
     <string name="restore_button_description">שחזור קובץ שנמחק</string>

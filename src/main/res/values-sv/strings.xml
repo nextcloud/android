@@ -538,6 +538,7 @@
     <string name="push_notifications_not_implemented">Push-aviseringar har inaktiverats på grund av beroenden till skyddade Google Play-tjänster</string>
     <string name="push_notifications_old_login">Inga push-aviseringar på grund av utgången inloggningssession. Överväg att lägga till ditt konto på nytt.</string>
     <string name="push_notifications_temp_error">Push-aviseringar är inte tillgängligt för tillfället.</string>
+    <string name="qr_could_not_be_read">QR-koden kunde inte läsas!</string>
     <string name="recommend_subject">Försök%1$s på din enhet!</string>
     <string name="recommend_text">Jag vill bjuda in dig att använda %1$s på din enhet.\nHämta här: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
@@ -551,7 +552,6 @@
     <string name="rename_server_fail_msg">Namnbytning är inte möjligt, namnet är redan taget</string>
     <string name="reshare_not_allowed">Dela vidare är inte tillåtet</string>
     <string name="resharing_is_not_allowed">Att dela på nytt är inte tillåtet</string>
-    <string name="resized_image_not_possible">Ingen storleksändrad bild tillgänglig.</string>
     <string name="resized_image_not_possible_download">Ingen storleksändrad bild tillgänglig. Hämta hela bilden?</string>
     <string name="restore">Återställ fil</string>
     <string name="restore_button_description">Återställ raderad fil</string>

@@ -32,7 +32,9 @@
     <string name="activity_chooser_send_file_title">Send</string>
     <string name="activity_chooser_title">Send lenke til…</string>
     <string name="activity_icon">Aktivitet</string>
+    <string name="add_another_public_share_link">Legg til en lenke til</string>
     <string name="add_to_cloud">Legg til %1$s</string>
+    <string name="allow_editing">Tillat redigering</string>
     <string name="associated_account_not_found">Tilknyttet bruker ikke funnet!</string>
     <string name="auth_access_failed">Tilgang mislyktes: %1$s</string>
     <string name="auth_account_does_not_exist">Kontoen er ikke lagt til på denne enheten enda</string>
@@ -535,7 +537,6 @@
     <string name="rename_server_fail_msg">Endring av navn ikke mulig, navnet er allerde benyttet</string>
     <string name="reshare_not_allowed">Videre deling er ikke tillatt</string>
     <string name="resharing_is_not_allowed">Videredeling er ikke tillatt</string>
-    <string name="resized_image_not_possible">Inget mindre bilde tilgjengelig.</string>
     <string name="resized_image_not_possible_download">Inget mindre bilde tilgjengelig. Last ned fullversjon?</string>
     <string name="restore">Gjenopprett fil</string>
     <string name="restore_button_description">Gjenopprett slettet fil</string>
@@ -703,6 +704,7 @@
     <string name="unread_comments">Det er uleste kommentarer</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
     <string name="unset_favorite">Fjern fra favoritter</string>
+    <string name="unshare">Opphev deling</string>
     <string name="unshare_link_forbidden_permissions">å oppheve deling av denne filen</string>
     <string name="unsharing_failed">Fjerning av deling feilet</string>
     <string name="untrusted_domain">Tilgang gjennom ubetrodd domene. Sjekk dokumentasjonen for mer informasjon.</string>

@@ -553,7 +553,6 @@
     <string name="rename_server_fail_msg">Non foi posíbel renomear, o nome xa está ocupado</string>
     <string name="reshare_not_allowed">Non se permite volver compartir</string>
     <string name="resharing_is_not_allowed">Non se permite volver compartir</string>
-    <string name="resized_image_not_possible">No se dispón da imaxe noutros tamaños.</string>
     <string name="resized_image_not_possible_download">No se dispón da imaxe noutros tamaños. Descargala en tamaño total?</string>
     <string name="restore">Restaurar ficheiro</string>
     <string name="restore_button_description">Restaurar ficheiro eliminado</string>

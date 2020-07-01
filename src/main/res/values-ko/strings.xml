@@ -550,7 +550,6 @@
     <string name="rename_server_fail_msg">이름을 변경할 수 없음. 이름이 이미 사용중입니다.</string>
     <string name="reshare_not_allowed">다시 공유할 수 없음</string>
     <string name="resharing_is_not_allowed">다시 공유할 수 없습니다</string>
-    <string name="resized_image_not_possible">크기 조정된 사진을 사용할 수 없습니다.</string>
     <string name="resized_image_not_possible_download">크기 조정된 사진을 사용할 수 없습니다. 원본 크기로 다운로드하시겠습니까?</string>
     <string name="restore">파일 복구</string>
     <string name="restore_button_description">삭제된 파일 복구</string>

@@ -506,7 +506,6 @@
     <string name="rename_server_fail_msg">Preimenovanje nije moguće, ime je već zauzeto</string>
     <string name="reshare_not_allowed">Deljenje dalje nije dozvoljeno</string>
     <string name="resharing_is_not_allowed">Ponovno deljenje nije dozvoljeno</string>
-    <string name="resized_image_not_possible">Nema dostupne umanjene sličice.</string>
     <string name="resized_image_not_possible_download">Nema dostupne umanjene sličice. Skini originalnu sliku?</string>
     <string name="restore">Povrati fajl</string>
     <string name="restore_button_description">Povrati obrisani fajl</string>

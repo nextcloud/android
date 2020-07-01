@@ -550,7 +550,6 @@
     <string name="rename_server_fail_msg">Nem nevezhető át, ez a név már foglalt</string>
     <string name="reshare_not_allowed">Az újra megosztás nem engedélyezett</string>
     <string name="resharing_is_not_allowed">Az újra megosztás nem engedélyezett</string>
-    <string name="resized_image_not_possible">Nincs elérhető átméretezett kép.</string>
     <string name="resized_image_not_possible_download">Nincs elérhető átméretezett kép. Letölti a teljes képet?</string>
     <string name="restore">Fájl visszaállítása</string>
     <string name="restore_button_description">Törölt fájl visszaállítása</string>
