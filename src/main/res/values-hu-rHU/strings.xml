@@ -32,7 +32,9 @@
     <string name="activity_chooser_send_file_title">Küldés</string>
     <string name="activity_chooser_title">Hivatkozás küldése…</string>
     <string name="activity_icon">Tevékenység</string>
+    <string name="add_another_public_share_link">További hivatkozás hozzáadása</string>
     <string name="add_to_cloud">Hozzáadás ehhez: %1$s</string>
+    <string name="allow_editing">Szerkesztés engedélyezése</string>
     <string name="appbar_search_in">Keresés itt: %s</string>
     <string name="associated_account_not_found">A kapcsolódó fiók nem található!</string>
     <string name="auth_access_failed">Hozzáférési hiba: %1$s</string>
@@ -550,7 +552,6 @@
     <string name="rename_server_fail_msg">Nem nevezhető át, ez a név már foglalt</string>
     <string name="reshare_not_allowed">Az újra megosztás nem engedélyezett</string>
     <string name="resharing_is_not_allowed">Az újra megosztás nem engedélyezett</string>
-    <string name="resized_image_not_possible">Nincs elérhető átméretezett kép.</string>
     <string name="resized_image_not_possible_download">Nincs elérhető átméretezett kép. Letölti a teljes képet?</string>
     <string name="restore">Fájl visszaállítása</string>
     <string name="restore_button_description">Törölt fájl visszaállítása</string>
@@ -744,6 +745,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="unread_comments">Olvasatlan hozzászólások vannak</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>
     <string name="unset_favorite">Eltávolítás a kedvencekből</string>
+    <string name="unshare">Megosztás visszavonása</string>
     <string name="unshare_link_file_error">Hiba történt a mappa megosztásának visszavonásakor.</string>
     <string name="unshare_link_file_no_exist">A megosztás visszavonása sikertelen. Ellenőrizze, hogy a fájl létezik-e.</string>
     <string name="unshare_link_forbidden_permissions">fájl megosztásának visszavonása</string>

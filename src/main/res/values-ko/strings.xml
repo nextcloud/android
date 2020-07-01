@@ -32,7 +32,9 @@
     <string name="activity_chooser_send_file_title">보내기</string>
     <string name="activity_chooser_title">다음으로 링크 보내기…</string>
     <string name="activity_icon">활동</string>
+    <string name="add_another_public_share_link">다른 링크 추가</string>
     <string name="add_to_cloud">%1$s(으)로 추가</string>
+    <string name="allow_editing">Allow editing</string>
     <string name="appbar_search_in">%s 검색</string>
     <string name="associated_account_not_found">관련 계정을 찾을 수 없음!</string>
     <string name="auth_access_failed">접근 실패: %1$s</string>
@@ -550,7 +552,6 @@
     <string name="rename_server_fail_msg">이름을 변경할 수 없음. 이름이 이미 사용중입니다.</string>
     <string name="reshare_not_allowed">다시 공유할 수 없음</string>
     <string name="resharing_is_not_allowed">다시 공유할 수 없습니다</string>
-    <string name="resized_image_not_possible">크기 조정된 사진을 사용할 수 없습니다.</string>
     <string name="resized_image_not_possible_download">크기 조정된 사진을 사용할 수 없습니다. 원본 크기로 다운로드하시겠습니까?</string>
     <string name="restore">파일 복구</string>
     <string name="restore_button_description">삭제된 파일 복구</string>
@@ -747,6 +748,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="unread_comments">읽지 않은 댓글 있음</string>
     <string name="unset_encrypted">암호화 해제</string>
     <string name="unset_favorite">즐겨찾기에서 제거</string>
+    <string name="unshare">공유 해제</string>
     <string name="unshare_link_file_error">이 파일이나 폴더의 공유해제 중에 오류가 발생하였습니다.</string>
     <string name="unshare_link_file_no_exist">공유해제 실패. 파일이 존재하지는 확인하십시오.</string>
     <string name="unshare_link_forbidden_permissions">이 파일의 공유를 해제할</string>

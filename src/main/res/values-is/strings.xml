@@ -32,7 +32,9 @@
     <string name="activity_chooser_send_file_title">Senda</string>
     <string name="activity_chooser_title">Senda tengil til…</string>
     <string name="activity_icon">Virkni</string>
+    <string name="add_another_public_share_link">Bæta við öðrum tengli</string>
     <string name="add_to_cloud">Bæta við %1$s</string>
+    <string name="allow_editing">Leyfa breytingar</string>
     <string name="associated_account_not_found">Tengdur notandaaðgangur fannst ekki!</string>
     <string name="auth_access_failed">Aðgangur mistókst: %1$s</string>
     <string name="auth_account_does_not_exist">Aðgangur er ekki ennþá til á tækinu</string>
@@ -514,7 +516,6 @@
     <string name="rename_server_fail_msg">Ekki hægt að endurnefna, heitið er frátekið</string>
     <string name="reshare_not_allowed">Endurdeiling er ekki leyfð</string>
     <string name="resharing_is_not_allowed">Endurdeiling er ekki leyfð</string>
-    <string name="resized_image_not_possible">Engar aðlagaðar myndir tiltækar.</string>
     <string name="resized_image_not_possible_download">Engin stærðarbreytt mynd í boði. Sækja alla myndina?</string>
     <string name="restore">Endurheimta skrá</string>
     <string name="restore_button_description">Endurheimta eydda skrá</string>
@@ -682,6 +683,7 @@
     <string name="unread_comments">Ólesnar athugasemdir eru fyrirliggjandi</string>
     <string name="unset_encrypted">Gera dulritun óvirka</string>
     <string name="unset_favorite">Fjarlægja úr eftirlætum</string>
+    <string name="unshare">Hætta deilingu</string>
     <string name="unshare_link_forbidden_permissions">til að hætta deilingu á þessari skrá</string>
     <string name="unsharing_failed">Mistókst að hætta deilingu</string>
     <string name="untrusted_domain">Aðgangur í gegnum vantreyst lén. Endilega kíktu á hjálparskjölin til að sjá ítarlegri upplýsingar.</string>

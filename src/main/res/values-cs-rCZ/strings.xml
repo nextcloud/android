@@ -32,7 +32,9 @@
     <string name="activity_chooser_send_file_title">Odeslat</string>
     <string name="activity_chooser_title">Poslat odkaz na…</string>
     <string name="activity_icon">Aktivita</string>
+    <string name="add_another_public_share_link">Přidat další odkaz</string>
     <string name="add_to_cloud">Přidat k %1$s</string>
+    <string name="allow_editing">Umožnit úpravy</string>
     <string name="appbar_search_in">Hledat v %s</string>
     <string name="associated_account_not_found">Související účet nenalezen!</string>
     <string name="auth_access_failed">Přístup se nezdařil: %1$s</string>
@@ -552,7 +554,6 @@
     <string name="rename_server_fail_msg">Přejmenování není možné, název už je použit</string>
     <string name="reshare_not_allowed">Příjemcům tohoto sdílení není dovoleno ho nasdílet dál dalším</string>
     <string name="resharing_is_not_allowed">Příjemcům tohoto sdílení není dovoleno ho nasdílet dál dalším</string>
-    <string name="resized_image_not_possible">Nejsou k dispozici žádné zmenšené obrázky.</string>
     <string name="resized_image_not_possible_download">Zmenšená verze obrázku není k dispozici. Stáhnout obrázek v plné velikosti?</string>
     <string name="restore">Obnovit soubor</string>
     <string name="restore_button_description">Obnovit smazaný soubor</string>
@@ -749,6 +750,7 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="unread_comments">Existuje nepřečtený komentář</string>
     <string name="unset_encrypted">Zrušit šifrování</string>
     <string name="unset_favorite">Odebrat z oblíbených</string>
+    <string name="unshare">Zrušit sdílení</string>
     <string name="unshare_link_file_error">Při pokusu o zrušení sdílení tohoto souboru či složky došlo k chybě.</string>
     <string name="unshare_link_file_no_exist">Nedaří se ukončit sdílení – kontrolujte zda soubor existuje.</string>
     <string name="unshare_link_forbidden_permissions">pro zrušení sdílení tohoto souboru</string>
