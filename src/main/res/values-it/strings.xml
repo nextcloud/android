@@ -32,7 +32,10 @@
     <string name="activity_chooser_send_file_title">Invia</string>
     <string name="activity_chooser_title">Invia collegamento a…</string>
     <string name="activity_icon">Attività</string>
+    <string name="add_another_public_share_link">Aggiungi un altro collegamento</string>
+    <string name="add_new_public_share">Aggiungi nuovo collegamento pubblico di condivisione</string>
     <string name="add_to_cloud">Aggiungi a %1$s</string>
+    <string name="allow_editing">Consenti la modifica</string>
     <string name="appbar_search_in">Cerca in %s</string>
     <string name="associated_account_not_found">Account associato non trovato.</string>
     <string name="auth_access_failed">Accesso non riuscito: %1$s</string>
@@ -229,6 +232,7 @@
     <string name="drawer_quota">%1$s di %2$s utilizzati</string>
     <string name="drawer_quota_unlimited">%1$s utilizzato</string>
     <string name="drawer_synced_folders">Caricamento automatico</string>
+    <string name="edit_label">Cambia il nome</string>
     <string name="edit_permission_label">modifica</string>
     <string name="edit_rich_workspace">modifica informazioni cartella</string>
     <string name="encrypted">Imposta come cifrato</string>
@@ -385,6 +389,7 @@
     <string name="list_layout">Struttura a elenco</string>
     <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
     <string name="local_file_not_found_message">File non trovato nel file system locale</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Non ci sono ulteriori cartelle.</string>
     <string name="log_send_mail_subject">Registri applicazione %1$s Android</string>
     <string name="log_send_no_mail_app">Non è stata trovata alcuna applicazione per inviare i log. Installa un client di posta elettronica.</string>
@@ -727,6 +732,7 @@
     <string name="unread_comments">Sono presenti commenti non letti</string>
     <string name="unset_encrypted">Rimuovi cifratura</string>
     <string name="unset_favorite">Rimuovi dai preferiti</string>
+    <string name="unshare">Rimuovi condivisione</string>
     <string name="unshare_link_file_error">Si è verificato un errore durante il tentativo di rimozione della condivisione del file o della cartella.</string>
     <string name="unshare_link_file_no_exist">Impossibile rimuovere la condivisione. Assicurati che il file esista.</string>
     <string name="unshare_link_forbidden_permissions">per rimuovere la condivisione di questo file</string>
