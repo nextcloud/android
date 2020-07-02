@@ -98,17 +98,10 @@
             </LinearLayout>
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/publicShareList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@drawable/divider"
-            android:dividerHeight="1dp" />
-
         <include layout="@layout/file_details_share_public_link_add_new_item" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/shareUsersList"
+            android:id="@+id/sharesList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@drawable/divider"
