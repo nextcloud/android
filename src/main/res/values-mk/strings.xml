@@ -216,6 +216,7 @@
     <string name="drawer_quota">искористено %1$s од %2$s </string>
     <string name="drawer_quota_unlimited">искористено %1$s</string>
     <string name="drawer_synced_folders">Автоматско прикачување</string>
+    <string name="edit_label">Промени име</string>
     <string name="edit_permission_label">уреди</string>
     <string name="encrypted">Постави како енкриптирано</string>
     <string name="end_to_end_encryption_confirm_button">Постави енкрипција</string>

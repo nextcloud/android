@@ -231,6 +231,7 @@
     <string name="drawer_quota">χρησιμοποιούνται %1$s από %2$s</string>
     <string name="drawer_quota_unlimited">%1$sσε χρήση</string>
     <string name="drawer_synced_folders">Αυτόματη μεταφόρτωση</string>
+    <string name="edit_label">Αλλαγή ονόματος</string>
     <string name="edit_permission_label">επεξεργασία</string>
     <string name="edit_rich_workspace">επεξεργασία πληροφοριών φακέλου</string>
     <string name="encrypted">Ορισμός ως κρυπτογραφημένου</string>
@@ -387,6 +388,7 @@
     <string name="list_layout">Διάταξη λίστας</string>
     <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
     <string name="local_file_not_found_message">Το αρχείο δεν βρέθηκε στο τοπικό σύστημα αρχείων</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Δεν υπάρχουν άλλοι φάκελοι.</string>
     <string name="log_send_mail_subject">%1$s ιστορικό της εφαρμογής Android</string>
     <string name="log_send_no_mail_app">Δεν εντοπίστηκε εφαρμογή αποστολής ιστορικού συστήματος. Παρακαλούμε εγκαταστήστε μια εφαρμογή ηλεκτρονικού ταχυδρομείου.</string>

@@ -231,6 +231,7 @@
     <string name="drawer_quota">использовано %1$s из %2$s </string>
     <string name="drawer_quota_unlimited">%1$s использовано</string>
     <string name="drawer_synced_folders">Автоматическая передача</string>
+    <string name="edit_label">Изменить имя</string>
     <string name="edit_permission_label">Редактирование</string>
     <string name="edit_rich_workspace">Изменить информацию о папке</string>
     <string name="encrypted">Зашифровать</string>
@@ -387,6 +388,7 @@
     <string name="list_layout">Вид списком</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
     <string name="local_file_not_found_message">Файл не найден в локальной файловой системе</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Нет других каталогов.</string>
     <string name="log_send_mail_subject">Журналы приложения %1$s для Android</string>
     <string name="log_send_no_mail_app">Отсутствует приложение, которое сможет отправить журналы. Установите приложение для работы с почтой.</string>

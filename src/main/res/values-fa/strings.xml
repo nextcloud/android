@@ -223,6 +223,7 @@
     <string name="drawer_quota">%1$s از %2$s استفاده شده </string>
     <string name="drawer_quota_unlimited">%1$s استفاده شده</string>
     <string name="drawer_synced_folders">آپلود خودکار</string>
+    <string name="edit_label">تغییر نام</string>
     <string name="edit_permission_label">ویرایش کردن</string>
     <string name="edit_rich_workspace">ویرایش اطلاعات پوشه</string>
     <string name="encrypted">به صورت رمزگذاری شده تنظیم شود</string>

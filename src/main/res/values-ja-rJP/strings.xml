@@ -231,6 +231,7 @@
     <string name="drawer_quota">%2$s 中%1$s が使われています。</string>
     <string name="drawer_quota_unlimited">%1$s使用中</string>
     <string name="drawer_synced_folders">自動アップロード</string>
+    <string name="edit_label">名称変更</string>
     <string name="edit_permission_label">編集</string>
     <string name="edit_rich_workspace">フォルダ情報を編集</string>
     <string name="encrypted">暗号化設定</string>
@@ -387,6 +388,7 @@
     <string name="list_layout">リスト表示</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
     <string name="local_file_not_found_message">ローカルファイルシステムにファイルが見つかりません</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">これ以上フォルダーがありません。</string>
     <string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
     <string name="log_send_no_mail_app">ログを送信するアプリが見つかりません。メールクライアントをインストールしてください。</string>

@@ -375,6 +375,7 @@
     <string name="list_layout">Listed layout</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
     <string name="local_file_not_found_message">File not found in local file system</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">There are no further folders.</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
     <string name="log_send_no_mail_app">No app for sending logs found. Please install an e-mail client.</string>

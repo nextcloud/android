@@ -231,6 +231,7 @@
     <string name="drawer_quota">Usado %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">Usado %1$s</string>
     <string name="drawer_synced_folders">Envío automático</string>
+    <string name="edit_label">Cambiar o nome</string>
     <string name="edit_permission_label">editar</string>
     <string name="edit_rich_workspace"> editar a información do cartafol </string>
     <string name="encrypted">Estabelecer como cifrado</string>
@@ -387,6 +388,7 @@
     <string name="list_layout">Ver como lista</string>
     <string name="local_file_list_empty">Non hai ficheiros neste cartafol.</string>
     <string name="local_file_not_found_message">Non se atopou o ficheiro no sistema local de ficheiros</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Xa non hai máis cartafoles</string>
     <string name="log_send_mail_subject">Atopáronse %1$s aplicacións de rexistros para Android</string>
     <string name="log_send_no_mail_app">Non se atopou ningunha aplicación para o envío de rexistros. Instale un cliente de correo-e.</string>

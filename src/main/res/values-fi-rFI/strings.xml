@@ -231,6 +231,7 @@
     <string name="drawer_quota">%1$s / %2$s käytetty</string>
     <string name="drawer_quota_unlimited">%1$s käytetty</string>
     <string name="drawer_synced_folders">Automaattinen lähetys</string>
+    <string name="edit_label">Vaihda nimi</string>
     <string name="edit_permission_label">muokkaa</string>
     <string name="edit_rich_workspace">muokkaa kansion info</string>
     <string name="encrypted">Salaa</string>

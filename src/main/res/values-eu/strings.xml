@@ -228,6 +228,7 @@
     <string name="drawer_quota">%1$s / %2$s erabilita</string>
     <string name="drawer_quota_unlimited">%1$s erabilita</string>
     <string name="drawer_synced_folders">Kargatu automatikoki</string>
+    <string name="edit_label">Aldatu izena</string>
     <string name="edit_permission_label">editatu</string>
     <string name="edit_rich_workspace">editatu karpetaren informazioa</string>
     <string name="encrypted">Ezarri zifratu gisa</string>
@@ -383,6 +384,7 @@
     <string name="list_layout">Zerrenda ikuspegia</string>
     <string name="local_file_list_empty">Ez dago fitxategirik karpeta honetan.</string>
     <string name="local_file_not_found_message">Ez da fitxategia topatu fitxategi-sistema lokalean</string>
+    <string name="local_folder_friendly_path">%2$s(e)tik %1$s</string>
     <string name="local_folder_list_empty">Ez dago karpeta gehiagorik.</string>
     <string name="log_send_mail_subject">%1$s Android aplikazioaren egunkariak</string>
     <string name="log_send_no_mail_app">Ez da aurkitu egunkariak bidaltzeko aplikaziorik. Instalatu posta elektronikoko bezero bat.</string>

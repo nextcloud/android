@@ -231,6 +231,7 @@
     <string name="drawer_quota">%1$s felhasználva ennyiből: %2$s</string>
     <string name="drawer_quota_unlimited">%1$s használt</string>
     <string name="drawer_synced_folders">Automatikus feltöltés</string>
+    <string name="edit_label">Név megváltoztatása</string>
     <string name="edit_permission_label">szerkesztés</string>
     <string name="edit_rich_workspace">mappainformációk szerkesztése</string>
     <string name="encrypted">Titkosítás bekapcsolása</string>
@@ -387,6 +388,7 @@
     <string name="list_layout">Listás elrendezés</string>
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
     <string name="local_file_not_found_message">A fájl nem található a helyi fájlrendszeren</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Nincs több mappa.</string>
     <string name="log_send_mail_subject">%1$s androidos alkalmazás naplói</string>
     <string name="log_send_no_mail_app">Nincs alkalmazás a napló küldéshez. Telepítsen egy levelezőprogramot.</string>

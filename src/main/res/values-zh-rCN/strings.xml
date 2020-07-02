@@ -229,6 +229,7 @@
     <string name="drawer_quota">%1$s 中 %2$s 已使用</string>
     <string name="drawer_quota_unlimited">%1$s 已使用</string>
     <string name="drawer_synced_folders">自动上传</string>
+    <string name="edit_label">更改名称</string>
     <string name="edit_permission_label">编辑</string>
     <string name="edit_rich_workspace">编辑文件夹信息</string>
     <string name="encrypted">设置为加密</string>
@@ -384,6 +385,7 @@
     <string name="list_layout">列出的布局</string>
     <string name="local_file_list_empty">此文件夹中没有文件。</string>
     <string name="local_file_not_found_message">本地文件系统无法找到此文件</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">没有其他文件夹。</string>
     <string name="log_send_mail_subject">%1$s 安卓应用日志</string>
     <string name="log_send_no_mail_app">没有应用程序发送发送日志。 请安装电子邮件客户端。</string>

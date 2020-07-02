@@ -230,6 +230,7 @@
     <string name="drawer_quota">panaudota %1$s iš %2$s</string>
     <string name="drawer_quota_unlimited">panaudota %1$s</string>
     <string name="drawer_synced_folders">Automatinis įkėlimas</string>
+    <string name="edit_label">Keisti vardą</string>
     <string name="edit_permission_label">redaguoti</string>
     <string name="edit_rich_workspace">redaguoti aplanko informaciją</string>
     <string name="encrypted">Nustatyti kaip šifruotą</string>
