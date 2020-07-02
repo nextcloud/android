@@ -41,7 +41,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -402,12 +401,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 return true;
             case R.id.action_hide_file_listing: {
                 item.setChecked(!item.isChecked());
-                if (capabilities.getFilesFileDrop().isTrue()) {
-                    fileOperationsHelper.setHideFileListingPermissionsToPublicShare(publicShare, item.isChecked());
-                } else {
-                    // not supported in ownCloud
-                    showNotSupportedByOcMessage();
-                }
+                fileOperationsHelper.setHideFileListingPermissionsToPublicShare(publicShare, item.isChecked());
                 return true;
             }
             case R.id.action_hide_file_download:
@@ -452,16 +446,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    public void showNotSupportedByOcMessage() {
-        if (getView() != null) {
-            Snackbar.make(getView(), R.string.files_drop_not_supported, Snackbar.LENGTH_LONG)
-                .setAction(R.string.learn_more, v ->
-                    DisplayUtils.startLinkIntent(requireActivity(), R.string.url_server_install))
-                    .show();
         }
     }
 

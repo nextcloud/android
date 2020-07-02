@@ -424,11 +424,6 @@ public class ShareeListAdapter extends RecyclerView.Adapter<ShareeListAdapter.Us
                                      boolean canEditDelete);
 
         /**
-         * show a snackbar that this feature is not supported by ownCloud.
-         */
-        void showNotSupportedByOcMessage();
-
-        /**
          * Starts a dialog that requests a password to the user to protect a share.
          *
          * @param share the share for which a password shall be configured/removed

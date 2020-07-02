@@ -206,7 +206,6 @@ public class ProviderMeta {
         public static final String CAPABILITIES_FILES_BIGFILECHUNKING = "files_bigfilechunking";
         public static final String CAPABILITIES_FILES_UNDELETE = "files_undelete";
         public static final String CAPABILITIES_FILES_VERSIONING = "files_versioning";
-        public static final String CAPABILITIES_FILES_DROP = "files_drop";
         public static final String CAPABILITIES_EXTERNAL_LINKS = "external_links";
         public static final String CAPABILITIES_SERVER_NAME = "server_name";
         public static final String CAPABILITIES_SERVER_COLOR = "server_color";

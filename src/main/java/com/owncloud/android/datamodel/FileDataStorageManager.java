@@ -2022,8 +2022,6 @@ public class FileDataStorageManager {
                           capability.getFilesUndelete().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_FILES_VERSIONING,
                           capability.getFilesVersioning().getValue());
-        contentValues.put(ProviderTableMeta.CAPABILITIES_FILES_DROP,
-                          capability.getFilesFileDrop().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS,
                           capability.getExternalLinks().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_SERVER_NAME,
@@ -2158,7 +2156,6 @@ public class FileDataStorageManager {
                                                           ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING));
             capability.setFilesUndelete(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_FILES_UNDELETE));
             capability.setFilesVersioning(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_FILES_VERSIONING));
-            capability.setFilesFileDrop(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_FILES_DROP));
             capability.setExternalLinks(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS));
             capability.setServerName(getString(cursor, ProviderTableMeta.CAPABILITIES_SERVER_NAME));
             capability.setServerColor(getString(cursor, ProviderTableMeta.CAPABILITIES_SERVER_COLOR));
