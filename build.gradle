@@ -434,21 +434,21 @@ android.applicationVariants.all { variant ->
     }
 }
 
-tasks.register("combinedTestReport", JacocoReport) {
-
-    reports {
-        xml.enabled true
-        html.enabled true
-        csv.enabled false
-    }
-
-    additionalSourceDirs.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
-    sourceDirectories.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories.setFrom files(subprojects.sourceSets.main.output)
-    executionData.setFrom project.fileTree(dir: project.buildDir, includes: [
-        'jacoco/testGplayDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/GPLAY/*coverage.ec'
-    ])
-}
+//tasks.register("combinedTestReport", JacocoReport) {
+//
+//    reports {
+//        xml.enabled true
+//        html.enabled true
+//        csv.enabled false
+//    }
+//
+//    additionalSourceDirs.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
+//    sourceDirectories.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
+//    classDirectories.setFrom files(subprojects.sourceSets.main.output)
+//    executionData.setFrom project.fileTree(dir: project.buildDir, includes: [
+//        'jacoco/testGplayDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/GPLAY/*coverage.ec'
+//    ])
+//}
 
 task ktlint(type: JavaExec, group: "verification") {
     description = "Check Kotlin code style."

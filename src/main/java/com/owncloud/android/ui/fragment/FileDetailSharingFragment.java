@@ -55,8 +55,6 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.adapter.PublicShareInterface;
-import com.owncloud.android.ui.adapter.PublicShareListAdapter;
 import com.owncloud.android.ui.adapter.ShareeListAdapter;
 import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
@@ -88,7 +86,6 @@ import butterknife.Unbinder;
 
 public class FileDetailSharingFragment extends Fragment implements ShareeListAdapter.ShareeListAdapterListener,
     DisplayUtils.AvatarGenerationListener,
-    PublicShareInterface,
     Injectable {
 
     private static final String ARG_FILE = "FILE";
@@ -108,11 +105,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @BindView(R.id.searchView)
     SearchView searchView;
 
-    @BindView(R.id.shareUsersList)
-    RecyclerView usersList;
-
-    @BindView(R.id.publicShareList)
-    RecyclerView publicShareList;
+    @BindView(R.id.sharesList)
+    RecyclerView sharesList;
 
     @BindView(R.id.new_public_share)
     View addPublicShare;
@@ -280,6 +274,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private void setShareWithUserInfo() {
         // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
         // to show share with users/groups info
+        // TODO combine this with refreshPublicShareFromDB()
         List<OCShare> shares = fileDataStorageManager.getSharesWithForAFile(file.getRemotePath(),
                                                                             user.toPlatformAccount().name);
         if (shares.size() > 0) {
@@ -287,18 +282,18 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             String userId = accountManager.getUserData(user.toPlatformAccount(),
                                                        com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
-            usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(new ShareeListAdapter(fileActivity.getSupportFragmentManager(),
-                                                       fileActivity,
-                                                       shares,
-                                                       user.toPlatformAccount(),
-                                                       file,
-                                                       this,
-                                                       userId));
-            usersList.setLayoutManager(new LinearLayoutManager(getContext()));
-            usersList.addItemDecoration(new SimpleListItemDividerDecoration(getContext()));
+            sharesList.setVisibility(View.VISIBLE);
+            sharesList.setAdapter(new ShareeListAdapter(fileActivity.getSupportFragmentManager(),
+                                                        fileActivity,
+                                                        shares,
+                                                        user.toPlatformAccount(),
+                                                        file,
+                                                        this,
+                                                        userId));
+            sharesList.setLayoutManager(new LinearLayoutManager(getContext()));
+            sharesList.addItemDecoration(new SimpleListItemDividerDecoration(getContext()));
         } else {
-            usersList.setVisibility(View.GONE);
+            sharesList.setVisibility(View.GONE);
         }
     }
 
@@ -536,7 +531,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      */
     public void refreshPublicShareFromDB() {
         if (FileDetailSharingFragmentHelper.isPublicShareDisabled(capabilities) || !file.canReshare()) {
-            publicShareList.setVisibility(View.GONE);
             return;
         }
 
@@ -547,7 +541,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         if (shares.isEmpty()) {
             addPublicShare.setVisibility(View.VISIBLE);
-            publicShareList.setVisibility(View.GONE);
             ImageView icon = requireView().findViewById(R.id.copy_internal_link_icon);
             icon.getBackground().setColorFilter(requireContext()
                                                     .getResources()
@@ -558,10 +551,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             requireView().findViewById(R.id.add_new_public_share_link).setOnClickListener(v -> createShareLink());
         } else {
             addPublicShare.setVisibility(View.GONE);
-            publicShareList.setVisibility(View.VISIBLE);
-            publicShareList.setAdapter(new PublicShareListAdapter(getContext(), shares, this));
-            publicShareList.setLayoutManager(new LinearLayoutManager(getContext()));
-            publicShareList.addItemDecoration(new SimpleListItemDividerDecoration(getContext()));
+            ((ShareeListAdapter) sharesList.getAdapter()).addShares(shares);
+
         }
     }
 

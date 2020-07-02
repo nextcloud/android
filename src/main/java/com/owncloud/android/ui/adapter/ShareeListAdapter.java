@@ -38,6 +38,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.FileDetailsSharePublicLinkItemBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -65,8 +66,8 @@ import butterknife.ButterKnife;
 /**
  * Adapter to show a user/group/email/remote in Sharing list in file details view.
  */
-public class ShareeListAdapter extends RecyclerView.Adapter<ShareeListAdapter.UserViewHolder>
-        implements DisplayUtils.AvatarGenerationListener {
+public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+    implements DisplayUtils.AvatarGenerationListener {
 
     private ShareeListAdapterListener listener;
     private OCCapability capabilities;
@@ -92,56 +93,82 @@ public class ShareeListAdapter extends RecyclerView.Adapter<ShareeListAdapter.Us
         avatarRadiusDimension = context.getResources().getDimension(R.dimen.user_icon_radius);
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return shares.get(position).getShareType().getValue();
+    }
+
     @NonNull
     @Override
-    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.file_details_share_user_item, parent, false);
-        return new UserViewHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        switch (ShareType.fromValue(viewType)) {
+            case PUBLIC_LINK:
+                FileDetailsSharePublicLinkItemBinding binding =
+                    FileDetailsSharePublicLinkItemBinding.inflate(LayoutInflater.from(context), parent, false);
+
+                return new PublicShareViewHolder(binding, context);
+
+//            case USER:
+//                 nothing for now
+//                break;
+
+            default:
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.file_details_share_user_item, parent, false);
+                return new UserViewHolder(v);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        if (shares != null && shares.size() > position) {
-            final OCShare share = shares.get(position);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (shares == null || shares.size() <= position) {
+            return;
+        }
 
+        final OCShare share = shares.get(position);
+
+        if (holder instanceof PublicShareViewHolder) {
+            PublicShareViewHolder publicShareViewHolder = (PublicShareViewHolder) holder;
+            publicShareViewHolder.bind(share, listener);
+        } else {
+            UserViewHolder userViewHolder = (UserViewHolder) holder;
             String name = share.getSharedWithDisplayName();
 
             switch (share.getShareType()) {
                 case GROUP:
                     name = context.getString(R.string.share_group_clarification, name);
-                    setImage(holder, name, R.drawable.ic_group);
+                    setImage(userViewHolder, name, R.drawable.ic_group);
                     break;
                 case EMAIL:
                     name = context.getString(R.string.share_email_clarification, name);
-                    setImage(holder, name, R.drawable.ic_email);
+                    setImage(userViewHolder, name, R.drawable.ic_email);
                     break;
                 case ROOM:
                     name = context.getString(R.string.share_room_clarification, name);
-                    setImage(holder, name, R.drawable.ic_chat_bubble);
+                    setImage(userViewHolder, name, R.drawable.ic_chat_bubble);
                     break;
                 case CIRCLE:
-                    holder.avatar.setImageResource(R.drawable.ic_circles);
+                    userViewHolder.avatar.setImageResource(R.drawable.ic_circles);
                     break;
                 default:
-                    setImage(holder, name, R.drawable.ic_user);
+                    setImage(userViewHolder, name, R.drawable.ic_user);
                     break;
             }
 
-            holder.name.setText(name);
+            userViewHolder.name.setText(name);
 
             if (share.getShareWith().equalsIgnoreCase(userId) || share.getUserId().equalsIgnoreCase(userId)) {
-                holder.allowEditing.setVisibility(View.VISIBLE);
-                holder.editShareButton.setVisibility(View.VISIBLE);
+                userViewHolder.allowEditing.setVisibility(View.VISIBLE);
+                userViewHolder.editShareButton.setVisibility(View.VISIBLE);
 
-                ThemeUtils.tintCheckbox(holder.allowEditing, accentColor);
-                holder.allowEditing.setChecked(canEdit(share));
-                holder.allowEditing.setOnClickListener(v -> allowEditClick(holder.allowEditing, share));
+                ThemeUtils.tintCheckbox(userViewHolder.allowEditing, accentColor);
+                userViewHolder.allowEditing.setChecked(canEdit(share));
+                userViewHolder.allowEditing.setOnClickListener(v -> allowEditClick(userViewHolder.allowEditing, share));
 
                 // bind listener to edit privileges
-                holder.editShareButton.setOnClickListener(v -> onOverflowIconClicked(v, holder.allowEditing, share));
+                userViewHolder.editShareButton.setOnClickListener(v -> onOverflowIconClicked(v, userViewHolder.allowEditing, share));
             } else {
-                holder.allowEditing.setVisibility(View.GONE);
-                holder.editShareButton.setVisibility(View.GONE);
+                userViewHolder.allowEditing.setVisibility(View.GONE);
+                userViewHolder.editShareButton.setVisibility(View.GONE);
             }
         }
     }
@@ -355,13 +382,17 @@ public class ShareeListAdapter extends RecyclerView.Adapter<ShareeListAdapter.Us
     private int updatePermissionsToShare(OCShare share, boolean canReshare, boolean canEdit, boolean canEditCreate,
                                          boolean canEditChange, boolean canEditDelete) {
         return listener.updatePermissionsToShare(
-                share,
-                canReshare,
-                canEdit,
-                canEditCreate,
-                canEditChange,
-                canEditDelete
-        );
+            share,
+            canReshare,
+            canEdit,
+            canEditCreate,
+            canEditChange,
+            canEditDelete
+                                                );
+    }
+
+    public void addShares(List<OCShare> sharesToAdd) {
+        shares.addAll(sharesToAdd);
     }
 
     @Override
@@ -429,5 +460,9 @@ public class ShareeListAdapter extends RecyclerView.Adapter<ShareeListAdapter.Us
          * @param share the share for which a password shall be configured/removed
          */
         void requestPasswordForShare(OCShare share, boolean askForPassword);
+
+        void copyLink(OCShare share);
+
+        void showLinkOverflowMenu(OCShare publicShare, ImageView overflowMenuShareLink);
     }
 }

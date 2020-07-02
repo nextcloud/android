@@ -47,7 +47,7 @@ class PublicShareViewHolder extends RecyclerView.ViewHolder {
         this.context = context;
     }
 
-    public void bind(OCShare publicShare, PublicShareInterface listener) {
+    public void bind(OCShare publicShare, ShareeListAdapter.ShareeListAdapterListener listener) {
         if (!TextUtils.isEmpty(publicShare.getLabel())) {
             binding.publicShareLabel.setText(publicShare.getLabel());
         }
