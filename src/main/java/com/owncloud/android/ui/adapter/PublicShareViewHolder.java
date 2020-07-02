@@ -23,13 +23,12 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsSharePublicLinkItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.utils.ThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,15 +51,8 @@ class PublicShareViewHolder extends RecyclerView.ViewHolder {
         if (!TextUtils.isEmpty(publicShare.getLabel())) {
             binding.publicShareLabel.setText(publicShare.getLabel());
         }
-        binding.copyInternalLinkIcon
-            .getBackground()
-            .setColorFilter(context.getResources().getColor(R.color.primary_button_background_color),
-                            PorterDuff.Mode.SRC_IN);
-        binding.copyInternalLinkIcon
-            .getDrawable()
-            .mutate()
-            .setColorFilter(context.getResources().getColor(R.color.black),
-                            PorterDuff.Mode.SRC_IN);
+
+        ThemeUtils.colorIconImageViewWithBackground(binding.copyInternalLinkIcon, context);
 
         binding.shareLinkCopyIcon.setOnClickListener(v -> listener.copyLink(publicShare));
 
