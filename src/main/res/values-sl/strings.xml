@@ -438,6 +438,7 @@
     <string name="no_pdf_app_available">Ni nameščenega programa za odpiranje datotek PDF</string>
     <string name="note_confirm">Pošlji</string>
     <string name="note_could_not_sent">Sporočilca ni mogoče poslati</string>
+    <string name="note_icon_hint">Ikona opombe</string>
     <string name="notification_action_failed">Izvedba dejanja je spodletela</string>
     <string name="notification_channel_download_description">Pokaži napredek prejemanja</string>
     <string name="notification_channel_download_name">Kanal obvestil prejemanja</string>
@@ -536,6 +537,7 @@
     <string name="push_notifications_not_implemented">Potisna obvestila so onemogočena zaradi odvisnosti od storitev Google Play.</string>
     <string name="push_notifications_old_login">Ni mogoče prikazati potisnih obvestil zaradi pretečene prijavne seje. Priporočljivo je ponovno dodati račun med nastavitvami.</string>
     <string name="push_notifications_temp_error">Potisna obvestila trenutno niso na voljo.</string>
+    <string name="qr_could_not_be_read">Kode QR ni mogoče prebrati!</string>
     <string name="recommend_subject">Poskusite %1$s na vaši napravi!</string>
     <string name="recommend_text">Želim priporočiti program %1$s!\nPrejeti ga je mogoče prek: %2$s</string>
     <string name="recommend_urls">%1$s ali %2$s</string>
@@ -549,7 +551,6 @@
     <string name="rename_server_fail_msg">Preimenovanje ni mogoče. Ime je že uporabljeno.</string>
     <string name="reshare_not_allowed">Osveževanje ni dovoljena</string>
     <string name="resharing_is_not_allowed">Osveževanje ni dovoljeno</string>
-    <string name="resized_image_not_possible">Slika prilagojene velikosti ni na voljo.</string>
     <string name="resized_image_not_possible_download">Slika prilagojene velikosti ni na voljo. Ali želite prejeti sliko polne velikosti?</string>
     <string name="restore">Obnovi datoteko</string>
     <string name="restore_button_description">Obnovi izbrisano datoteko</string>

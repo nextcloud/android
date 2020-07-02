@@ -379,7 +379,6 @@
     <string name="rename_server_fail_msg">გადარქმევა შეუძლებელია, სახელი უკვე დაკავებულია</string>
     <string name="reshare_not_allowed">ხელახალი გაზიარება არაა დაშვებული</string>
     <string name="resharing_is_not_allowed">ხელახალი გაზიარება არაა ნებადართული</string>
-    <string name="resized_image_not_possible">ზომა-შეცვლილი სურათი არაა ხელმისაწვდომი.</string>
     <string name="resized_image_not_possible_download">ზომა-შეცვლილი სურათი არაა ხელმისაწვდომი. გადმოვწეროთ მთლიანი სურათი?</string>
     <string name="saml_authentication_required_text">საჭიროა პაროლი</string>
     <string name="saml_authentication_wrong_pass">არასწორი პაროლი</string>

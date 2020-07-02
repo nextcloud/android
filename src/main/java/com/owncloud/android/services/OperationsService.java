@@ -103,6 +103,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS = "SHARE_EXPIRATION_YEAR";
     public static final String EXTRA_SHARE_PERMISSIONS = "SHARE_PERMISSIONS";
     public static final String EXTRA_SHARE_PUBLIC_UPLOAD = "SHARE_PUBLIC_UPLOAD";
+    public static final String EXTRA_SHARE_PUBLIC_LABEL = "SHARE_PUBLIC_LABEL";
     public static final String EXTRA_SHARE_HIDE_FILE_DOWNLOAD = "HIDE_FILE_DOWNLOAD";
     public static final String EXTRA_SHARE_ID = "SHARE_ID";
     public static final String EXTRA_SHARE_NOTE = "SHARE_NOTE";
@@ -111,7 +112,8 @@ public class OperationsService extends Service {
     public static final String ACTION_CREATE_SHARE_VIA_LINK = "CREATE_SHARE_VIA_LINK";
     public static final String ACTION_CREATE_SHARE_WITH_SHAREE = "CREATE_SHARE_WITH_SHAREE";
     public static final String ACTION_UNSHARE = "UNSHARE";
-    public static final String ACTION_UPDATE_SHARE = "UPDATE_SHARE";
+    public static final String ACTION_UPDATE_PUBLIC_SHARE = "UPDATE_PUBLIC_SHARE";
+    public static final String ACTION_UPDATE_USER_SHARE = "UPDATE_USER_SHARE";
     public static final String ACTION_UPDATE_SHARE_NOTE = "UPDATE_SHARE_NOTE";
     public static final String ACTION_GET_SERVER_INFO = "GET_SERVER_INFO";
     public static final String ACTION_GET_USER_NAME = "GET_USER_NAME";
@@ -533,13 +535,11 @@ public class OperationsService extends Service {
                         }
                         break;
 
-                    case ACTION_UPDATE_SHARE:
-                        remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    case ACTION_UPDATE_PUBLIC_SHARE:
                         shareId = operationIntent.getLongExtra(EXTRA_SHARE_ID, -1);
 
-                        if (!TextUtils.isEmpty(remotePath)) {
-                            UpdateShareViaLinkOperation updateLinkOperation =
-                                new UpdateShareViaLinkOperation(remotePath, shareId);
+                        if (shareId > 0) {
+                            UpdateShareViaLinkOperation updateLinkOperation = new UpdateShareViaLinkOperation(shareId);
 
                             password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
                             updateLinkOperation.setPassword(password);
@@ -552,23 +552,28 @@ public class OperationsService extends Service {
                             updateLinkOperation.setHideFileDownload(hideFileDownload);
 
                             if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_UPLOAD)) {
-                                if (remotePath.endsWith("/")) {
-                                    updateLinkOperation.setPublicUploadOnFolder(
-                                        operationIntent.getBooleanExtra(EXTRA_SHARE_PUBLIC_UPLOAD, false));
-                                } else {
-                                    updateLinkOperation.setPublicUploadOnFile(
-                                        operationIntent.getBooleanExtra(EXTRA_SHARE_PUBLIC_UPLOAD, false));
-                                }
+                                updateLinkOperation.setPublicUpload(true);
                             }
+
+                            if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_LABEL)) {
+                                updateLinkOperation.setLabel(operationIntent.getStringExtra(EXTRA_SHARE_PUBLIC_LABEL));
+                            }
+
                             operation = updateLinkOperation;
-                        } else if (shareId > 0) {
+                        }
+                        break;
+
+                    case ACTION_UPDATE_USER_SHARE:
+                        shareId = operationIntent.getLongExtra(EXTRA_SHARE_ID, -1);
+
+                        if (shareId > 0) {
                             UpdateSharePermissionsOperation updateShare = new UpdateSharePermissionsOperation(shareId);
 
                             int permissions = operationIntent.getIntExtra(EXTRA_SHARE_PERMISSIONS, -1);
                             updateShare.setPermissions(permissions);
 
                             long expirationDateInMillis = operationIntent
-                                    .getLongExtra(EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, 0L);
+                                .getLongExtra(EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, 0L);
                             updateShare.setExpirationDateInMillis(expirationDateInMillis);
 
                             password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);

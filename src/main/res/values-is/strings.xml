@@ -514,7 +514,6 @@
     <string name="rename_server_fail_msg">Ekki hægt að endurnefna, heitið er frátekið</string>
     <string name="reshare_not_allowed">Endurdeiling er ekki leyfð</string>
     <string name="resharing_is_not_allowed">Endurdeiling er ekki leyfð</string>
-    <string name="resized_image_not_possible">Engar aðlagaðar myndir tiltækar.</string>
     <string name="resized_image_not_possible_download">Engin stærðarbreytt mynd í boði. Sækja alla myndina?</string>
     <string name="restore">Endurheimta skrá</string>
     <string name="restore_button_description">Endurheimta eydda skrá</string>

@@ -32,6 +32,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Calendar;
@@ -134,8 +135,8 @@ public class ExpirationDatePickerDialogFragment
                 getText(R.string.share_via_link_unset_password),
                 (dialog1, which) -> {
                     if (file != null) {
-                        ((FileActivity) getActivity()).getFileOperationsHelper()
-                                .setExpirationDateToShareViaLink(file, -1);
+                        ((FileActivity) getActivity()).getFileOperationsHelper().setExpirationDateToPublicShare(share,
+                                                                                                                -1);
                     } else if (share != null) {
                         ((FileActivity) getActivity()).getFileOperationsHelper().setExpirationDateToShare(share,-1);
                     }
@@ -175,11 +176,11 @@ public class ExpirationDatePickerDialogFragment
         chosenDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         long chosenDateInMillis = chosenDate.getTimeInMillis();
 
+        FileOperationsHelper operationsHelper = ((FileActivity) requireActivity()).getFileOperationsHelper();
         if (file != null) {
-            ((FileActivity) getActivity()).getFileOperationsHelper()
-                    .setExpirationDateToShareViaLink(file, chosenDateInMillis);
+            operationsHelper.setExpirationDateToPublicShare(share, chosenDateInMillis);
         } else if (share != null) {
-            ((FileActivity) getActivity()).getFileOperationsHelper().setExpirationDateToShare(share,chosenDateInMillis);
+            operationsHelper.setExpirationDateToShare(share, chosenDateInMillis);
         }
     }
 }
