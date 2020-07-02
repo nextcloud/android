@@ -508,8 +508,6 @@
 
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
     <string name="actionbar_search">Search</string>
-    <string name="files_drop_not_supported">This is a Nextcloud feature, please upgrade.</string>
-    <string name="learn_more">Learn more</string>
     <string name="drawer_synced_folders">Auto upload</string>
     <string name="drawer_community">Community</string>
     <string name="community_testing_headline">Help by testing</string>

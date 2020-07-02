@@ -778,7 +778,6 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING + INTEGER   // boolean
                        + ProviderTableMeta.CAPABILITIES_FILES_UNDELETE + INTEGER  // boolean
                        + ProviderTableMeta.CAPABILITIES_FILES_VERSIONING + INTEGER   // boolean
-                       + ProviderTableMeta.CAPABILITIES_FILES_DROP + INTEGER  // boolean
                        + ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS + INTEGER  // boolean
                        + ProviderTableMeta.CAPABILITIES_SERVER_NAME + TEXT
                        + ProviderTableMeta.CAPABILITIES_SERVER_COLOR + TEXT
