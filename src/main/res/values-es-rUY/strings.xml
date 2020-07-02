@@ -24,6 +24,7 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar liga a...</string>
     <string name="activity_icon">Actividad</string>
+    <string name="allow_editing">Permitir edición</string>
     <string name="auth_account_not_new">Ya existe una cuenta en el dispositivo para el mismo usuario y servidor </string>
     <string name="auth_account_not_the_same">El usuario ingresado no corresponde con el usuario de esta cuenta</string>
     <string name="auth_bad_oc_version_title">Versión del servidor no reconocida</string>
@@ -421,6 +422,7 @@
     <string name="thumbnail">Miniatura</string>
     <string name="trashbin_activity_title">Archivos borrados</string>
     <string name="trashbin_empty_headline">No hay archivos borrados</string>
+    <string name="unshare">Dejar de compartir</string>
     <string name="unshare_link_forbidden_permissions">para dejar de compartir este archivo</string>
     <string name="update_link_forbidden_permissions">para actualizar este recurso compartido</string>
     <string name="upload_file_dialog_filename">Nombre de archivo</string>

@@ -208,6 +208,7 @@
     <string name="drawer_quota">%1$s el %2$s uzataj</string>
     <string name="drawer_quota_unlimited">%1$s uzataj</string>
     <string name="drawer_synced_folders">Aŭtomata alŝuto</string>
+    <string name="edit_label">Ŝanĝi nomon</string>
     <string name="edit_permission_label">modifi</string>
     <string name="encrypted">Difini kiel ĉifrita</string>
     <string name="end_to_end_encryption_confirm_button">Agordi ĉifradon</string>

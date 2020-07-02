@@ -32,7 +32,9 @@
     <string name="activity_chooser_send_file_title">Skicka</string>
     <string name="activity_chooser_title">Skicka länk till…</string>
     <string name="activity_icon">Aktivitet</string>
+    <string name="add_another_public_share_link">Lägg till en annan länk</string>
     <string name="add_to_cloud">Lägg till %1$s</string>
+    <string name="allow_editing">Tillåt redigering</string>
     <string name="appbar_search_in">Sök i %s</string>
     <string name="associated_account_not_found">Associerat konto kunde inte hittas!</string>
     <string name="auth_access_failed">Åtkomst misslyckades: %1$s</string>
@@ -727,6 +729,7 @@
     <string name="unread_comments">Olästa kommentarer finns</string>
     <string name="unset_encrypted">Ta bort som krypterad</string>
     <string name="unset_favorite">Ta bort från favoriter</string>
+    <string name="unshare">Sluta dela</string>
     <string name="unshare_link_file_error">Ett fel uppstod vid försök att sluta dela denna fil eller mapp.</string>
     <string name="unshare_link_file_no_exist">Det går inte att sluta dela. Vänligen kontrollera att filen finns.</string>
     <string name="unshare_link_forbidden_permissions">att avbryta delningen utav denna fil</string>

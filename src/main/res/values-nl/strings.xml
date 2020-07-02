@@ -32,7 +32,9 @@
     <string name="activity_chooser_send_file_title">Versturen</string>
     <string name="activity_chooser_title">Verstuur link naar…</string>
     <string name="activity_icon">Activiteit</string>
+    <string name="add_another_public_share_link">Nog een  link toevoegen </string>
     <string name="add_to_cloud">Voeg toe aan %1$s</string>
+    <string name="allow_editing">Bewerken toestaan</string>
     <string name="appbar_search_in">Zoeken in %s</string>
     <string name="associated_account_not_found">Geassocieerd account niet gevonden!</string>
     <string name="auth_access_failed">Toegang mislukt: %1$s</string>
@@ -725,6 +727,7 @@
     <string name="unread_comments">Er zijn ongelezen reacties</string>
     <string name="unset_encrypted">Niet ingestelde versleuteling</string>
     <string name="unset_favorite">Verwijderen uit favorieten</string>
+    <string name="unshare">Delen stoppen</string>
     <string name="unshare_link_file_error">Het beëindigen van het delen van dit bestand of deze map is mislukt.</string>
     <string name="unshare_link_file_no_exist">Kan delen niet beëindigen. Ga na of het bestand bestaat.</string>
     <string name="unshare_link_forbidden_permissions">om dit bestand niet meer te delen</string>
