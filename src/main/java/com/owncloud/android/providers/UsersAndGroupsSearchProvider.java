@@ -58,6 +58,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import dagger.android.AndroidInjection;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
@@ -80,6 +81,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private static final int RESULTS_PER_PAGE = 50;
     private static final int REQUESTED_PAGE = 1;
 
+    @SuppressFBWarnings("MS_CANNOT_BE_FINAL")
     public static String ACTION_SHARE_WITH;
 
     public static final String CONTENT = "content";
