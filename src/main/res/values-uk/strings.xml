@@ -231,6 +231,7 @@
     <string name="drawer_quota">%1$s з %2$s використано</string>
     <string name="drawer_quota_unlimited">%1$sвикористано</string>
     <string name="drawer_synced_folders">Автозавантаження</string>
+    <string name="edit_label">Змінити ім\'я</string>
     <string name="edit_permission_label">редагувати</string>
     <string name="edit_rich_workspace">редагувати інформацію про теку</string>
     <string name="encrypted">Позначити як зашифроване</string>
@@ -387,6 +388,7 @@
     <string name="list_layout">Шаблон списку</string>
     <string name="local_file_list_empty">В цій теці немає файлів.</string>
     <string name="local_file_not_found_message">Файл не знайдено у локальній файловій системі</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Тут відсутні інші каталоги.</string>
     <string name="log_send_mail_subject">%1$s Android лог додатку</string>
     <string name="log_send_no_mail_app">Не знайдено застосунку для надсилання журналу. Будь ласка, встановіть поштовий клієнт.</string>

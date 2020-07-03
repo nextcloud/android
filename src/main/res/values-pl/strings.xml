@@ -32,7 +32,10 @@
     <string name="activity_chooser_send_file_title">Wyślij</string>
     <string name="activity_chooser_title">Wyślij link do…</string>
     <string name="activity_icon">Aktywność</string>
+    <string name="add_another_public_share_link">Dodaj kolejny link</string>
+    <string name="add_new_public_share">Dodaj nowy link publiczny do udostępniania</string>
     <string name="add_to_cloud">Dodaj do %1$s</string>
+    <string name="allow_editing">Zezwalaj na edycję</string>
     <string name="appbar_search_in">Szukaj w %s</string>
     <string name="associated_account_not_found">Nie znaleziono powiązanego konta!</string>
     <string name="auth_access_failed">Dostęp nieudany: %1$s</string>
@@ -727,6 +730,7 @@
     <string name="unread_comments">Nieprzeczytane komentarze</string>
     <string name="unset_encrypted">Wyłącz szyfrowanie</string>
     <string name="unset_favorite">Usuń z ulubionych</string>
+    <string name="unshare">Zatrzymaj udostępnianie</string>
     <string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępniania tego pliku lub katalogu.</string>
     <string name="unshare_link_file_no_exist">Nie można wyłączyć udostępniania. Sprawdź, czy plik istnieje.</string>
     <string name="unshare_link_forbidden_permissions">aby anulować udostępnianie tego pliku</string>
