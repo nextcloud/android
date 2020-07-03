@@ -231,6 +231,7 @@
     <string name="drawer_quota">%1$s van %2$s gebruikt</string>
     <string name="drawer_quota_unlimited">%1$s gebruikt</string>
     <string name="drawer_synced_folders">Automatisch uploaden</string>
+    <string name="edit_label">Naam veranderen</string>
     <string name="edit_permission_label">bewerken</string>
     <string name="edit_rich_workspace">bewerken mapinfo</string>
     <string name="encrypted">Instellen als versleuteld</string>
@@ -387,6 +388,7 @@
     <string name="list_layout">Lijstoverzicht</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
     <string name="local_file_not_found_message">Het bestand is niet te vinden binnen het lokale bestandssysteem.</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Er zijn niet meer mappen.</string>
     <string name="log_send_mail_subject">%1$s-Android-app-logs</string>
     <string name="log_send_no_mail_app">Geen applicatie gevonden voor het versturen van de logs. Installeer een email client.</string>

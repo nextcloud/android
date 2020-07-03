@@ -231,6 +231,7 @@
     <string name="drawer_quota">%1$s od %2$s uporabljeno</string>
     <string name="drawer_quota_unlimited">Skupaj %1$s</string>
     <string name="drawer_synced_folders">Samodejno pošiljanje</string>
+    <string name="edit_label">Spremeni ime</string>
     <string name="edit_permission_label">uredi</string>
     <string name="edit_rich_workspace">uredi podrobnosti mape</string>
     <string name="encrypted">Nastavi kot šifrirano</string>
@@ -387,6 +388,7 @@
     <string name="list_layout">Izpisana razporeditev</string>
     <string name="local_file_list_empty">V tej mapi ni datotek.</string>
     <string name="local_file_not_found_message">Na krajevnem sistemu datoteke ni mogoče najti</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Ni drugih map.</string>
     <string name="log_send_mail_subject">%1$s dnevniki programa</string>
     <string name="log_send_no_mail_app">Nobena nameščena datoteka ne more pošiljati dnevnikov. prosim, namesti e-poštno aplikacijo.</string>
