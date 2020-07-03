@@ -384,6 +384,7 @@
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
     <string name="invalid_url">Adres Geçersiz</string>
+    <string name="label_empty">Etiket boş olamaz</string>
     <string name="learn_more">Ayrıntılı bilgi alın</string>
     <string name="link">Bağlantı</string>
     <string name="list_layout">Liste düzeni</string>
@@ -540,6 +541,7 @@
     <string name="preview_image_error_unknown_format">Görsel görüntülenemedi</string>
     <string name="preview_sorry">Maalesef</string>
     <string name="privacy">Gizlilik</string>
+    <string name="public_share_name">Yeni ad</string>
     <string name="push_notifications_not_implemented">Anında bildirimler Google Play hizmetlerine ait olan bağımlılıklar nedeniyle devre dışı bırakıldı.</string>
     <string name="push_notifications_old_login">Oturumunuzun süresi dolduğundan anında bildirimler gönderilemez. Lütfen hesabınızı yeniden eklemeyi düşünün.</string>
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>

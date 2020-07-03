@@ -33,6 +33,7 @@
     <string name="activity_chooser_title">Siųsti nuorodą…</string>
     <string name="activity_icon">Veikla</string>
     <string name="add_another_public_share_link">Pridėti kitą nuorodą</string>
+    <string name="add_new_public_share">Pridėkite naują viešą bendrinimo nuorodą</string>
     <string name="add_to_cloud">Pridėti į %1$s</string>
     <string name="allow_editing">Leisti redaguoti</string>
     <string name="appbar_search_in">Ieškoti %s</string>
@@ -132,6 +133,9 @@
     <string name="community_contribute_translate_text">Programėlė</string>
     <string name="community_contribute_translate_translate">Versti</string>
     <string name="community_dev_direct_download">Parsisiųsti vystomą versiją</string>
+    <string name="community_dev_fdroid">Gaukite vystomą versiją iš F-Droid programos</string>
+    <string name="community_rc_fdroid">Gaukite vystomos versijos kandidatą iš F-Droid programos</string>
+    <string name="community_rc_play_store">Gaukite vystomos versijos kandidatą iš Google Play parduotuvės</string>
     <string name="community_release_candidate_headline">Kandidatas kitam leidimui</string>
     <string name="community_release_candidate_text">Kandidatas kitam leidimui (Releace Candidate - RC) yra fragmentas kito stabilaus leidimo. Individualus testavimas gali tam pagelbėti. Prisijunkite testavimui per Play Store arba ieškokite \"Version\" sekcijos F-Droid.</string>
     <string name="community_testing_bug_text">Radote klaidą? Netikslumą?</string>
@@ -384,11 +388,13 @@
     <string name="instant_upload_on_charging">Įkelti failus tik kai kraunasi</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Neteisingas URL</string>
+    <string name="label_empty">Kortelė negali būti tuščia</string>
     <string name="learn_more">Sužinoti daugiau</string>
     <string name="link">Nuoroda</string>
     <string name="list_layout">Išdėstymas sąraše</string>
     <string name="local_file_list_empty">Šiame aplanke nėra failų.</string>
     <string name="local_file_not_found_message">Failas nerastas vietinėje failų sistemoje</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Nėra kitų aplankų</string>
     <string name="log_send_mail_subject">%1$s Android žurnalai</string>
     <string name="log_send_no_mail_app">Nėra programėlės įrašams siųsti. Prašome instaliuoti el. pašto klientą.</string>
@@ -443,6 +449,7 @@
     <string name="no_pdf_app_available">Nėra programėlės, skirtos apdoroti PDF</string>
     <string name="note_confirm">Siųsti</string>
     <string name="note_could_not_sent">nepavyko išsiųsti užrašų</string>
+    <string name="note_icon_hint">Užrašo piktograma</string>
     <string name="notification_action_failed">Nepavyko įvykdyti veiksmą.</string>
     <string name="notification_channel_download_description">Rodo atsiuntimo eigą</string>
     <string name="notification_channel_download_name">Atsisiųskite pranešimų kanalą</string>
@@ -539,9 +546,11 @@
     <string name="preview_image_error_unknown_format">Nepavyko parodyti paveikslo</string>
     <string name="preview_sorry">Atsiprašome</string>
     <string name="privacy">Privatumas</string>
+    <string name="public_share_name">Naujas pavadinimas</string>
     <string name="push_notifications_not_implemented">Stumti pranešimus, kurie išjungti dėl ryšių su Google Play servisais</string>
     <string name="push_notifications_old_login">Nėra pranešimų dėl pasenusios prisijungimo sesijos. Pasvarstykite galimybę iš naujo pridėti prisijungimo duomenis.</string>
     <string name="push_notifications_temp_error">Stumti pranešimus funkcija šiuo metu negalima</string>
+    <string name="qr_could_not_be_read">Nepavyko nuskaityti QR kodo! </string>
     <string name="recommend_subject">Išbandykite %1$s savo įrenginyje!</string>
     <string name="recommend_text">Noriu jus paraginti naudoti %1$s savo įrenginyje.\nAtsisiųskite čia: %2$s</string>
     <string name="recommend_urls">%1$s arba %2$s</string>
@@ -629,6 +638,7 @@
     <string name="share_with_edit_title">Dalintis su %1$s</string>
     <string name="share_with_title">Dalintis su…</string>
     <string name="share_with_user_section_title">Bendrinti su naudotojais ir grupėmis</string>
+    <string name="shared_avatar_desc">Bendrinamo naudotojo avataras</string>
     <string name="shared_icon_share">bendrinti</string>
     <string name="shared_icon_shared">Dalinamasi</string>
     <string name="shared_icon_shared_via_link">bendrinta per nuorodą</string>
@@ -695,6 +705,7 @@
     <string name="sync_fail_ticker_unauthorized">Sinchronizacijanepavyko, prisijunkite dar kartą</string>
     <string name="sync_file_nothing_to_do_msg">Failo turinys jau sunchronizuotas</string>
     <string name="sync_folder_failed_content">Nepavyko užbaigti aplanko %1$s sinchronizacijos </string>
+    <string name="sync_foreign_files_forgotten_explanation">Nuo 1.3.16 versijos iš šio įrenginio įkelti failai yra nukopijuojami į lokalų aplanką %1$s, kad būtų išvengta duomenų praradimo, kai vienas failas sinchronizuojamas su keliomis paskyromis. \n\nDėl šio pakeitimo visi failai, įkelti naudojant ankstesnes šios programos versijas, buvo nukopijuoti į aplanką%2$s. Tačiau, sinchronizauojant paskyrą įvyko klaida ir nepavyko pabaigti perkėlimo operaijos. Galite palikti failą (-us) tokį, koks yra ir ištrinti nuorodą į %3$s, arba perkelti failą (-us) į aplanką %1$s ir išsaugoti nuorodą į %4$s. \n\nŽemiau pateikiami lokalūs failai ir su jais susieti nuotoliniai failai %5$s.</string>
     <string name="sync_foreign_files_forgotten_ticker">Keli vietiniai failai buvo užmiršti</string>
     <string name="sync_in_progress">Gaunama paskiausia failo versija.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Pasirinkite ką sinchronizuoti</string>

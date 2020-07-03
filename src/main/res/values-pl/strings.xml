@@ -384,6 +384,7 @@
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Błędny adres URL</string>
+    <string name="label_empty">Etykieta nie może być pusta</string>
     <string name="learn_more">Dowiedz się więcej</string>
     <string name="link">Odnośnik</string>
     <string name="list_layout">Wygląd listy</string>
@@ -540,6 +541,7 @@
     <string name="preview_image_error_unknown_format">Nie można wyświetlić obrazu</string>
     <string name="preview_sorry">Przykro nam</string>
     <string name="privacy">Prywatność</string>
+    <string name="public_share_name">Nowa nazwa</string>
     <string name="push_notifications_not_implemented">Powiadomienia typu push zostały wyłączone ze względu na zastrzeżenia prawne usług Google Play.</string>
     <string name="push_notifications_old_login">Brak powiadomień push z powodu nieaktualnej sesji logowania. Rozważ ponowne dodanie swojego konta.</string>
     <string name="push_notifications_temp_error">Powiadomienia push nie są obecnie dostępne.</string>

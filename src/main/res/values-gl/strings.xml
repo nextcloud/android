@@ -33,6 +33,7 @@
     <string name="activity_chooser_title">Enviar a ligazón a…</string>
     <string name="activity_icon">Actividade</string>
     <string name="add_another_public_share_link">Engadir outra ligazón</string>
+    <string name="add_new_public_share">Engadir unha nova ligazón pública</string>
     <string name="add_to_cloud">Engadir en %1$s</string>
     <string name="allow_editing">Permitir a edición</string>
     <string name="appbar_search_in">Buscar en %s</string>
@@ -383,6 +384,7 @@
     <string name="instant_upload_on_charging">Enviar só cando estea cargando</string>
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
     <string name="invalid_url">URL incorrecto</string>
+    <string name="label_empty">A etiqueta non pode estar baleira</string>
     <string name="learn_more">Aprender máis</string>
     <string name="link">Ligazón</string>
     <string name="list_layout">Ver como lista</string>
@@ -540,6 +542,7 @@
     <string name="preview_image_error_unknown_format">Non é posíbel amosar a imaxe</string>
     <string name="preview_sorry">Desculpe.</string>
     <string name="privacy">Privacidade</string>
+    <string name="public_share_name">Nome novo</string>
     <string name="push_notifications_not_implemented">Foron desactivadas as notificacións «push» por depender de servizos propietarios de Google Play.</string>
     <string name="push_notifications_old_login">Non hai notificacións «push» por mor dun acceso á sesión caducado. Considere volver engadir a súa conta.</string>
     <string name="push_notifications_temp_error">Actualmente non están dispoñíbeis as notificacións «push».</string>
