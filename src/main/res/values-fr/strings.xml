@@ -386,6 +386,7 @@ Attention la suppression est irréversible.</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">URL invalide</string>
+    <string name="label_empty">Le libellé ne peut pas être vide</string>
     <string name="learn_more">En savoir plus</string>
     <string name="link">Lien</string>
     <string name="list_layout">Affichage en liste</string>
@@ -542,6 +543,7 @@ Attention la suppression est irréversible.</string>
     <string name="preview_image_error_unknown_format">L\'image ne peut pas être affichée</string>
     <string name="preview_sorry">Désolé</string>
     <string name="privacy">Vie privée</string>
+    <string name="public_share_name">Nouveau nom</string>
     <string name="push_notifications_not_implemented">L\'envoi de notifications est désactivé à cause des dépendances propriétaires des services Google Play.</string>
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>

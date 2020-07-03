@@ -377,6 +377,7 @@
     <string name="list_layout">Liste layout</string>
     <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
     <string name="local_file_not_found_message">Fil ikke fundet i lokalt filsystem</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Der er ikke flere mapper.</string>
     <string name="log_send_mail_subject">%1$s Android-app - logge</string>
     <string name="log_send_no_mail_app">Ingen app til forsendelse af logs fundet. Venligst installer en e-mail app.</string>

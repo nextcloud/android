@@ -220,6 +220,7 @@
     <string name="drawer_quota">%1$s af %2$s notað</string>
     <string name="drawer_quota_unlimited">%1$s notað</string>
     <string name="drawer_synced_folders">Sjálfvirk innsending</string>
+    <string name="edit_label">Breyta nafni</string>
     <string name="edit_permission_label">breyta</string>
     <string name="edit_rich_workspace">breytir upplýsingum um möppu</string>
     <string name="encrypted">Setja sem dulritað</string>
