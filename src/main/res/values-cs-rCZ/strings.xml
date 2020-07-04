@@ -384,6 +384,7 @@
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Neplatná URL adresa</string>
+    <string name="label_empty">Štítek nemůže zůstat prázdný</string>
     <string name="learn_more">Zjistit více</string>
     <string name="link">Odkaz</string>
     <string name="list_layout">Zobrazit jako seznam</string>
@@ -540,6 +541,7 @@
     <string name="preview_image_error_unknown_format">Obrázek se nedaří zobrazit</string>
     <string name="preview_sorry">Je nám líto</string>
     <string name="privacy">Soukromí</string>
+    <string name="public_share_name">Nový název</string>
     <string name="push_notifications_not_implemented">Push upozorňování je vypnuto kvůli závislostem na proprietárních službách Google Play.</string>
     <string name="push_notifications_old_login">Žádná push upozornění kvůli zastaralé relaci přihlášení. Zvažte odebrání a opětovné přidání svého účtu.</string>
     <string name="push_notifications_temp_error">Push upozornění momentálně nejsou k dispozici.</string>

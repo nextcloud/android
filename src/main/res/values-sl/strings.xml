@@ -110,7 +110,7 @@
     <string name="common_loading">Poteka nalaganje …</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">V redu</string>
-    <string name="common_pending">V teku</string>
+    <string name="common_pending">Na čakanju</string>
     <string name="common_remove">Izbriši</string>
     <string name="common_rename">Preimenuj</string>
     <string name="common_save">Shrani</string>

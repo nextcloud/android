@@ -384,6 +384,7 @@
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
     <string name="invalid_url">URL no válida</string>
+    <string name="label_empty">La etiqueta no puede quedar vacía</string>
     <string name="learn_more">Aprender más</string>
     <string name="link">Enlace</string>
     <string name="list_layout">Formato de lista</string>
@@ -540,6 +541,7 @@
     <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
     <string name="preview_sorry">¡Lo sentimos</string>
     <string name="privacy">Privacidad</string>
+    <string name="public_share_name">Nuevo nombre</string>
     <string name="push_notifications_not_implemented">Notificaciones push deshabilitadas debido a que depende de servicios propietarios de Google Play.</string>
     <string name="push_notifications_old_login">No hay notificaciones push debido a que la sesión está caducada. Por favor, considera volver a añadir la cuenta.</string>
     <string name="push_notifications_temp_error">Notificaciones push actualmente no disponibles.</string>
