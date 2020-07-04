@@ -1,0 +1,7 @@
+remove fileDrop capability
+Resolve #6399 adding theming logic for share link icons
+Spotbugs: MS 	com.owncloud.android.db.ProviderMeta$ProviderTableMeta.FILE_ALL_COLUMNS is a mutable array MS 	com.owncloud.android.providers.UsersAndGroupsSearchProvider.ACTION_SHARE_WITH isn't final and can't be protected from malicious code MS 	com.owncloud.android.utils.FileSortOrder.sortOrders is a mutable collection MS 	org.nextcloud.providers.cursors.FileCursor.DEFAULT_DOCUMENT_PROJECTION should be package protected
+Edit label for public share split up between public share and user shares
+l10n: Delete a space character
+Update translations
+Update Nextcloud Android library
