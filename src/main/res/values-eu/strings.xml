@@ -33,6 +33,7 @@
     <string name="activity_chooser_title">Bidali esteka honi…</string>
     <string name="activity_icon">Jarduera</string>
     <string name="add_another_public_share_link">Gehitu beste esteka bat</string>
+    <string name="add_new_public_share">Gehitu partekatzeko esteka berria</string>
     <string name="add_to_cloud">Gehitu %1$s(r)i</string>
     <string name="allow_editing">Baimendu editatzea</string>
     <string name="appbar_search_in">Bilatu %s(e)n</string>
@@ -116,12 +117,15 @@
     <string name="common_save">Gorde</string>
     <string name="common_send">Bidali</string>
     <string name="common_share">Partekatu</string>
+    <string name="common_switch_account">Aldatu kontua</string>
+    <string name="common_switch_to_account">Aldatu kontu honetara</string>
     <string name="common_unknown">ezezaguna</string>
     <string name="common_yes">Bai</string>
     <string name="community_beta_headline">Probatu garapeneko bertsioa</string>
     <string name="community_beta_text">Datozen ezaugarri berri guztiak ditu eta punta-puntakoa da. Erroreak gerta daitezke, eta gertatzen direnean, mesedez bidali iezaguzu topatutakoa.</string>
     <string name="community_contribute_forum_forum">foroa</string>
     <string name="community_contribute_forum_text">Lagundu besteak</string>
+    <string name="community_contribute_github_text">Berrikusi, zuzendu eta idatzi kodea, ikusi %1$s xehetasunetarako</string>
     <string name="community_contribute_headline">Lagundu aktiboki</string>
     <string name="community_contribute_irc_text">Sartu IRC txatean:</string>
     <string name="community_contribute_translate_text">aplikazioa</string>
@@ -297,6 +301,7 @@
     <string name="file_list_empty_headline_server_search_photos">Argazkirik ez</string>
     <string name="file_list_empty_headline_server_search_videos">Bideorik ez</string>
     <string name="file_list_empty_moving">Hemen ez dago ezer. Karpeta bat gehi dezakezu.</string>
+    <string name="file_list_empty_on_device">Deskargatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
     <string name="file_list_empty_recently_added">Berriki gehitutako fitxategirik ez da aurkitu</string>
     <string name="file_list_empty_recently_added_filter">Ez da fitxategirik gehitu azkenaldian.</string>
     <string name="file_list_empty_recently_modified">Ez da aurkitu azken 7 egunetan aldatu den fitxategirik</string>
@@ -379,6 +384,7 @@
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">URL baliogabea</string>
+    <string name="label_empty">Etiketa ezin da hutsik egon</string>
     <string name="learn_more">Ikasi gehiago</string>
     <string name="link">Esteka</string>
     <string name="list_layout">Zerrenda ikuspegia</string>
@@ -438,6 +444,7 @@
     <string name="no_pdf_app_available">Ez dago eskuragarri PDFak kudeatzeko aplikaziorik</string>
     <string name="note_confirm">Bidali</string>
     <string name="note_could_not_sent">Ezin izan da bidali oharra</string>
+    <string name="note_icon_hint">Oharraren ikonoa</string>
     <string name="notification_action_failed">Huts egin du ekintza exekutatzean.</string>
     <string name="notification_channel_download_description">Erakutsi deskarga egoera</string>
     <string name="notification_channel_download_name">Deskargen jakinarazpenen kanala</string>
@@ -534,9 +541,11 @@
     <string name="preview_image_error_unknown_format">Ezin izan da irudia erakutsi</string>
     <string name="preview_sorry">Barkatu</string>
     <string name="privacy">Pribatutasuna</string>
+    <string name="public_share_name">Izen berria</string>
     <string name="push_notifications_not_implemented">Push jakinarazpenak Google Play zerbitzu jabedunen menpekotasunengatik desgaituta.</string>
     <string name="push_notifications_old_login">Ez dago push jakinarazpenik saio zaharkituaren ondorioz. Mesedez, kontua berriz gehitu.</string>
     <string name="push_notifications_temp_error">Push jakinarazpenak ez daude eskuragarri.</string>
+    <string name="qr_could_not_be_read">QR kodea ezin izan da irakurri!</string>
     <string name="recommend_subject">Probatu %1$s zure gailuan!</string>
     <string name="recommend_text">%1$s zure gailuan erabiltzera gonbidatu nahi zaitut.\n Hemendik deskargatu: %2$s</string>
     <string name="recommend_urls">%1$s edo %2$s</string>
@@ -717,6 +726,7 @@
     <string name="timeout_richDocuments">Karga luze jotzen ari da</string>
     <string name="trashbin_activity_title">Ezabatutako fitxategiak</string>
     <string name="trashbin_empty_headline">Ezabatutako fitxategirik ez</string>
+    <string name="trashbin_empty_message">Ezabatutako fitxategiak hemendik berreskuratu ahal izango dituzu</string>
     <string name="trashbin_file_not_deleted"> %1$s fitxategia ezin da ezabatu!</string>
     <string name="trashbin_file_not_restored"> %1$s fitxategia ezin da berreskuratu!</string>
     <string name="trashbin_loading_failed">Zakarrontzia kargatzeak huts egin du!</string>
