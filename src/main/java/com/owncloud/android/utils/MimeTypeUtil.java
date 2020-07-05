@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -92,7 +93,8 @@ public final class MimeTypeUtil {
      * @return Drawable of an image resource.
      */
     public static Drawable getFileTypeIcon(String mimetype, String filename, Context context) {
-        return getFileTypeIcon(mimetype, filename, null, context);
+        final Account nullAccount = null;
+        return getFileTypeIcon(mimetype, filename, nullAccount, context);
     }
 
     /**
@@ -104,6 +106,7 @@ public final class MimeTypeUtil {
      * @return Drawable of an image resource.
      */
     @Nullable
+    @Deprecated
     public static Drawable getFileTypeIcon(String mimetype, String filename, Account account, Context context) {
         if (context != null) {
             int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
@@ -117,6 +120,11 @@ public final class MimeTypeUtil {
         } else {
             return null;
         }
+    }
+
+    @Nullable
+    public static Drawable getFileTypeIcon(String mimetype, String filename, User user, Context context) {
+        return getFileTypeIcon(mimetype, filename, user.toPlatformAccount(), context);
     }
 
     /**
