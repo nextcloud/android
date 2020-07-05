@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -38,8 +39,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 /**
@@ -92,7 +92,8 @@ public final class MimeTypeUtil {
      * @return Drawable of an image resource.
      */
     public static Drawable getFileTypeIcon(String mimetype, String filename, Context context) {
-        return getFileTypeIcon(mimetype, filename, null, context);
+        final Account nullAccount = null;
+        return getFileTypeIcon(mimetype, filename, nullAccount, context);
     }
 
     /**
@@ -104,6 +105,7 @@ public final class MimeTypeUtil {
      * @return Drawable of an image resource.
      */
     @Nullable
+    @Deprecated
     public static Drawable getFileTypeIcon(String mimetype, String filename, Account account, Context context) {
         if (context != null) {
             int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
@@ -117,6 +119,11 @@ public final class MimeTypeUtil {
         } else {
             return null;
         }
+    }
+
+    @Nullable
+    public static Drawable getFileTypeIcon(String mimetype, String filename, User user, Context context) {
+        return getFileTypeIcon(mimetype, filename, user.toPlatformAccount(), context);
     }
 
     /**
@@ -155,11 +162,14 @@ public final class MimeTypeUtil {
      * @param isSharedViaUsers flag if the folder is shared via the users system
      * @param isSharedViaLink flag if the folder is publicly shared via link
      * @param isEncrypted flag if the folder is encrypted
-     * @param account account which color should be used
+     * @param user user which color should be used
      * @return Identifier of an image resource.
      */
-    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink,
-                                             boolean isEncrypted, Account account, WebdavEntry.MountType mountType,
+    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
+                                             boolean isSharedViaLink,
+                                             boolean isEncrypted,
+                                             @Nullable User user,
+                                             WebdavEntry.MountType mountType,
                                              Context context) {
         int drawableId;
 
@@ -177,7 +187,10 @@ public final class MimeTypeUtil {
             drawableId = R.drawable.folder;
         }
 
-        return ThemeUtils.tintDrawable(drawableId, ThemeUtils.primaryColor(account, true, context));
+        int color = ThemeUtils.primaryColor(user != null ? user.toPlatformAccount() : null,
+                                            true,
+                                            context);
+        return ThemeUtils.tintDrawable(drawableId, color);
     }
 
     public static Drawable getDefaultFolderIcon(Context context) {

@@ -656,7 +656,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 thumbnail = BitmapUtils.drawableToBitmap(
                                     MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                  file.getFileName(),
-                                                                 user.toPlatformAccount(),
+                                                                 user,
                                                                  context));
                             }
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
@@ -698,7 +698,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             } else {
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                             file.getFileName(),
-                                                                            user.toPlatformAccount(),
+                                                                            user,
                                                                             context));
             }
         }

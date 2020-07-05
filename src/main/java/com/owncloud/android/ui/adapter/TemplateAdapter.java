@@ -119,7 +119,7 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
 
             Drawable placeholder = MimeTypeUtil.getFileTypeIcon(mimetype,
                                                                 template.getTitle(),
-                                                                currentAccountProvider.getUser().toPlatformAccount(),
+                                                                currentAccountProvider.getUser(),
                                                                 context);
 
             Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider, clientFactory))

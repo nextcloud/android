@@ -51,8 +51,6 @@ public class ShareActivity extends FileActivity {
     private static final String TAG = ShareActivity.class.getSimpleName();
 
     static final String TAG_SHARE_FRAGMENT = "SHARE_FRAGMENT";
-    private static final String TAG_SEARCH_FRAGMENT = "SEARCH_USER_AND_GROUPS_FRAGMENT";
-    private static final String TAG_EDIT_SHARE_FRAGMENT = "EDIT_SHARE_FRAGMENT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +60,11 @@ public class ShareActivity extends FileActivity {
         setContentView(binding.getRoot());
 
         OCFile file = getFile();
+        Optional<User> optionalUser = getUser();
+        if (!optionalUser.isPresent()) {
+            finish();
+            return;
+        }
 
         // Icon
         if (file.isFolder()) {
@@ -74,7 +77,7 @@ public class ShareActivity extends FileActivity {
         } else {
             binding.shareFileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                                 file.getFileName(),
-                                                                                getAccount(),
+                                                                                optionalUser.get(),
                                                                                 this));
             if (MimeTypeUtil.isImage(file)) {
                 String remoteId = String.valueOf(file.getRemoteId());
@@ -93,12 +96,6 @@ public class ShareActivity extends FileActivity {
 
         // Size
         binding.shareFileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
-
-        Optional<User> optionalUser = getUser();
-        if (!optionalUser.isPresent()) {
-            finish();
-            return;
-        }
 
         if (savedInstanceState == null) {
             // Add Share fragment on first creation
