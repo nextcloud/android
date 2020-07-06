@@ -341,8 +341,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 itemViewHolder.button.setOnClickListener(view -> {
                     if (optionalUser.isPresent()) {
                         User user = optionalUser.get();
-                        showItemConflictPopup(user, itemViewHolder, item, status, view
-                        );
+                        showItemConflictPopup(user, itemViewHolder, item, status, view);
                     }
                 });
             } else {
