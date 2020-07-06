@@ -92,8 +92,7 @@ public final class MimeTypeUtil {
      * @return Drawable of an image resource.
      */
     public static Drawable getFileTypeIcon(String mimetype, String filename, Context context) {
-        final Account nullAccount = null;
-        return getFileTypeIcon(mimetype, filename, nullAccount, context);
+        return getFileTypeIcon(mimetype, filename, null, context);
     }
 
     /**
@@ -101,29 +100,23 @@ public final class MimeTypeUtil {
      *
      * @param mimetype MIME type string; if NULL, the method tries to guess it from the extension in filename
      * @param filename Name, with extension.
-     * @param account account which color should be used
+     * @param user user which color should be used
      * @return Drawable of an image resource.
      */
     @Nullable
-    @Deprecated
-    public static Drawable getFileTypeIcon(String mimetype, String filename, Account account, Context context) {
+    public static Drawable getFileTypeIcon(String mimetype, String filename, @Nullable User user, Context context) {
         if (context != null) {
             int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
             Drawable icon = ContextCompat.getDrawable(context, iconId);
 
             if (R.drawable.file_zip == iconId) {
-                ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(account, true, context));
+                ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(user, true, context));
             }
 
             return icon;
         } else {
             return null;
         }
-    }
-
-    @Nullable
-    public static Drawable getFileTypeIcon(String mimetype, String filename, User user, Context context) {
-        return getFileTypeIcon(mimetype, filename, user.toPlatformAccount(), context);
     }
 
     /**

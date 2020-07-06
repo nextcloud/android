@@ -50,6 +50,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -138,7 +139,15 @@ public final class ThemeUtils {
     }
 
     public static int primaryColor(Context context, boolean replaceEdgeColors) {
-        return primaryColor(null, replaceEdgeColors, context);
+        User nullUser = null;
+        return primaryColor(nullUser, replaceEdgeColors, context);
+    }
+
+    public static int primaryColor(User user, boolean replaceEdgeColors, Context context) {
+        return primaryColor(user != null ? user.toPlatformAccount() : null,
+                            replaceEdgeColors,
+                            false,
+                            context);
     }
 
     public static int primaryColor(Account account, boolean replaceEdgeColors, Context context) {
