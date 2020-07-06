@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -48,15 +49,15 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 public class FileDownloadFragment extends FileFragment implements OnClickListener {
 
     public static final String EXTRA_FILE = "FILE";
-    public static final String EXTRA_ACCOUNT = "ACCOUNT";
+    public static final String EXTRA_USER = "USER";
     private static final String EXTRA_ERROR = "ERROR";
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
-    private static final String ARG_ACCOUNT = "ACCOUNT" ;
+    private static final String ARG_USER = "USER" ;
 
     private View mView;
-    private Account mAccount;
+    private User user;
 
     public ProgressListener mProgressListener;
     private boolean mListening;
@@ -78,15 +79,15 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
      * When 'file' is null creates a dummy layout (useful when a file wasn't tapped before).
      *
      * @param file                      An {@link OCFile} to show in the fragment
-     * @param account                   An OC account; needed to start downloads
+     * @param user                      Nextcloud user; needed to start downloads
      * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter}
      *                                  TODO better solution
      */
-    public static Fragment newInstance(OCFile file, Account account, boolean ignoreFirstSavedState) {
+    public static Fragment newInstance(OCFile file, User user, boolean ignoreFirstSavedState) {
         FileDownloadFragment frag = new FileDownloadFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, file);
-        args.putParcelable(ARG_ACCOUNT, account);
+        args.putParcelable(ARG_USER, user);
         args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
         frag.setArguments(args);
         return frag;
@@ -101,7 +102,6 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
      */
     public FileDownloadFragment() {
         super();
-        mAccount = null;
         mProgressListener = null;
         mListening = false;
         mIgnoreFirstSavedState = false;
@@ -117,7 +117,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
             // TODO better in super, but needs to check ALL the class extending FileFragment; not right now
 
         mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
-        mAccount = args.getParcelable(ARG_ACCOUNT);
+        user = args.getParcelable(ARG_USER);
     }
 
 
@@ -128,9 +128,9 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
         if (savedInstanceState != null) {
             if (!mIgnoreFirstSavedState) {
-                setFile(savedInstanceState.getParcelable(FileDownloadFragment.EXTRA_FILE));
-                mAccount = savedInstanceState.getParcelable(FileDownloadFragment.EXTRA_ACCOUNT);
-                mError = savedInstanceState.getBoolean(FileDownloadFragment.EXTRA_ERROR);
+                setFile(savedInstanceState.getParcelable(EXTRA_FILE));
+                user = savedInstanceState.getParcelable(EXTRA_USER);
+                mError = savedInstanceState.getBoolean(EXTRA_ERROR);
             }
             else {
                 mIgnoreFirstSavedState = false;
@@ -167,7 +167,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDownloadFragment.EXTRA_FILE, getFile());
-        outState.putParcelable(FileDownloadFragment.EXTRA_ACCOUNT, mAccount);
+        outState.putParcelable(FileDownloadFragment.EXTRA_USER, user);
         outState.putBoolean(FileDownloadFragment.EXTRA_ERROR, mError);
     }
 
@@ -263,7 +263,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public void listenForTransferProgress() {
         if (mProgressListener != null && !mListening && containerActivity.getFileDownloaderBinder() != null) {
             containerActivity.getFileDownloaderBinder().addDatatransferProgressListener(
-                    mProgressListener, mAccount, getFile()
+                    mProgressListener, user.toPlatformAccount(), getFile()
             );
             mListening = true;
             setButtonsForTransferring();
@@ -274,7 +274,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public void leaveTransferProgress() {
         if (mProgressListener != null && containerActivity.getFileDownloaderBinder() != null) {
             containerActivity.getFileDownloaderBinder().removeDatatransferProgressListener(
-                    mProgressListener, mAccount, getFile()
+                    mProgressListener, user.toPlatformAccount(), getFile()
             );
             mListening = false;
         }
