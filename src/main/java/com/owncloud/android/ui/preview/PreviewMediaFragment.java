@@ -52,11 +52,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.media.ErrorFormat;
 import com.nextcloud.client.media.PlayerServiceConnection;
+import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -97,17 +99,17 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
 
     public static final String EXTRA_FILE = "FILE";
-    public static final String EXTRA_ACCOUNT = "ACCOUNT";
+    public static final String EXTRA_USER = "USER";
     private static final String EXTRA_PLAY_POSITION = "PLAY_POSITION";
     private static final String EXTRA_PLAYING = "PLAYING";
     private static final double MIN_DENSITY_RATIO = 24.0;
 
     private static final String FILE = "FILE";
-    private static final String ACCOUNT = "ACCOUNT";
+    private static final String USER = "USER";
     private static final String PLAYBACK_POSITION = "PLAYBACK_POSITION";
     private static final String AUTOPLAY = "AUTOPLAY";
 
-    private Account mAccount;
+    private User user;
     private ImageView mImagePreview;
     private VideoView mVideoPreview;
     private int mSavedPlaybackPosition;
@@ -126,6 +128,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private PlayerServiceConnection mMediaPlayerServiceConnection;
 
     private Uri mVideoUri;
+    @Inject ClientFactory clientFactory;
     @Inject UserAccountManager accountManager;
     @Inject DeviceInfo deviceInfo;
 
@@ -135,15 +138,15 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
      * When 'fileToDetail' or 'ocAccount' are null
      *
      * @param fileToDetail An {@link OCFile} to preview in the fragment
-     * @param ocAccount    An ownCloud account; needed to start downloads
+     * @param user    Currently active user
      */
-    public static PreviewMediaFragment newInstance(OCFile fileToDetail, Account ocAccount, int startPlaybackPosition,
+    public static PreviewMediaFragment newInstance(OCFile fileToDetail, User user, int startPlaybackPosition,
                                                    boolean autoplay) {
         PreviewMediaFragment previewMediaFragment = new PreviewMediaFragment();
 
         Bundle bundle = new Bundle();
         bundle.putParcelable(FILE, fileToDetail);
-        bundle.putParcelable(ACCOUNT, ocAccount);
+        bundle.putParcelable(USER, user);
         bundle.putInt(PLAYBACK_POSITION, startPlaybackPosition);
         bundle.putBoolean(AUTOPLAY, autoplay);
 
@@ -163,7 +166,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
      */
     public PreviewMediaFragment() {
         super();
-        mAccount = null;
         mSavedPlaybackPosition = 0;
         mAutoplay = true;
     }
@@ -176,7 +178,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         Bundle bundle = getArguments();
 
         setFile(bundle.getParcelable(FILE));
-        mAccount = bundle.getParcelable(ACCOUNT);
+        user = bundle.getParcelable(USER);
         mSavedPlaybackPosition = bundle.getInt(PLAYBACK_POSITION);
         mAutoplay = bundle.getBoolean(AUTOPLAY);
         mMediaPlayerServiceConnection = new PlayerServiceConnection(getContext());
@@ -242,15 +244,15 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             if (file == null) {
                 throw new IllegalStateException("Instanced with a NULL OCFile");
             }
-            if (mAccount == null) {
+            if (user == null) {
                 throw new IllegalStateException("Instanced with a NULL ownCloud Account");
             }
         } else {
-            file = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
+            file = savedInstanceState.getParcelable(EXTRA_FILE);
             setFile(file);
-            mAccount = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_ACCOUNT);
-            mSavedPlaybackPosition = savedInstanceState.getInt(PreviewMediaFragment.EXTRA_PLAY_POSITION);
-            mAutoplay = savedInstanceState.getBoolean(PreviewMediaFragment.EXTRA_PLAYING);
+            user = savedInstanceState.getParcelable(EXTRA_USER);
+            mSavedPlaybackPosition = savedInstanceState.getInt(EXTRA_PLAY_POSITION);
+            mAutoplay = savedInstanceState.getBoolean(EXTRA_PLAYING);
         }
 
         if (file != null) {
@@ -295,19 +297,19 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         super.onSaveInstanceState(outState);
         Log_OC.v(TAG, "onSaveInstanceState");
         toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        outState.putParcelable(PreviewMediaFragment.EXTRA_FILE, getFile());
-        outState.putParcelable(PreviewMediaFragment.EXTRA_ACCOUNT, mAccount);
+        outState.putParcelable(EXTRA_FILE, getFile());
+        outState.putParcelable(EXTRA_USER, user);
 
         if (MimeTypeUtil.isVideo(getFile())) {
             if (mVideoPreview != null) {
                 mSavedPlaybackPosition = mVideoPreview.getCurrentPosition();
                 mAutoplay = mVideoPreview.isPlaying();
-                outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION, mSavedPlaybackPosition);
-                outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING, mAutoplay);
+                outState.putInt(EXTRA_PLAY_POSITION, mSavedPlaybackPosition);
+                outState.putBoolean(EXTRA_PLAYING, mAutoplay);
             }
         } else if(mMediaPlayerServiceConnection.isConnected()) {
-            outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION, mMediaPlayerServiceConnection.getCurrentPosition());
-            outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING, mMediaPlayerServiceConnection.isPlaying());
+            outState.putInt(EXTRA_PLAY_POSITION, mMediaPlayerServiceConnection.getCurrentPosition());
+            outState.putBoolean(EXTRA_PLAYING, mMediaPlayerServiceConnection.isPlaying());
         }
     }
 
@@ -320,7 +322,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             if (MimeTypeUtil.isAudio(file)) {
                 mMediaController.setMediaPlayer(mMediaPlayerServiceConnection);
                 mMediaPlayerServiceConnection.bind();
-                mMediaPlayerServiceConnection.start(mAccount, file, mAutoplay, mSavedPlaybackPosition);
+                mMediaPlayerServiceConnection.start(user, file, mAutoplay, mSavedPlaybackPosition);
                 mMultiListContainer.setVisibility(View.GONE);
                 mPreviewContainer.setVisibility(View.VISIBLE);
             } else if (MimeTypeUtil.isVideo(file)) {
@@ -481,10 +483,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             mVideoPreview.setVideoURI(getFile().getStorageUri());
         } else {
             try {
-                OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, getContext());
-                OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().
-                        getClientFor(ocAccount, getContext());
-
+                OwnCloudClient client = clientFactory.create(user);
                 new LoadStreamUrl(this, client).execute(getFile().getLocalId());
             } catch (Exception e) {
                 Log_OC.e(TAG, "Loading stream url not possible: " + e);
@@ -636,7 +635,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
     private void startFullScreenVideo() {
         Intent i = new Intent(getActivity(), PreviewVideoActivity.class);
-        i.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
+        i.putExtra(FileActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
         i.putExtra(FileActivity.EXTRA_FILE, getFile());
         i.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, mVideoPreview.isPlaying());
         i.putExtra(PreviewVideoActivity.EXTRA_STREAM_URL, mVideoUri);

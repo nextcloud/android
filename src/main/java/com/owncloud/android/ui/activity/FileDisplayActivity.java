@@ -522,7 +522,7 @@ public class FileDisplayActivity extends FileActivity
             if (file.isDown() && PreviewMediaFragment.canBePreviewed(file)) {
                 int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
                 boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
-                secondFragment = PreviewMediaFragment.newInstance(file, user.toPlatformAccount(), startPlaybackPosition, autoplay);
+                secondFragment = PreviewMediaFragment.newInstance(file, user, startPlaybackPosition, autoplay);
             } else if (file.isDown() && PreviewTextFileFragment.canBePreviewed(file)) {
                 secondFragment = null;
             } else {
@@ -2130,8 +2130,12 @@ public class FileDisplayActivity extends FileActivity
      */
     public void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay, boolean showPreview,
                                   boolean streamMedia) {
+        Optional<User> user = getUser();
+        if (!user.isPresent()) {
+            return; // not reachable under normal conditions
+        }
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
-            Fragment mediaFragment = PreviewMediaFragment.newInstance(file, getAccount(), startPlaybackPosition, autoplay);
+            Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay);
             setSecondFragment(mediaFragment);
             updateFragmentsVisibility(true);
             updateActionBarTitleAndHomeButton(file);
