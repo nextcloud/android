@@ -156,7 +156,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
                     thumbnail.setImageDrawable(MimeTypeUtil.getFileTypeIcon(creator.getMimetype(),
                                                                             creator.getExtension(),
-                                                                            user.toPlatformAccount(),
+                                                                            user,
                                                                             getContext()));
 
                     creatorView.setOnClickListener(v -> {
