@@ -23,6 +23,7 @@ package com.owncloud.android.ui.adapter;
 import android.accounts.Account;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -45,15 +47,15 @@ import java.util.Map;
 public class UploaderAdapter extends SimpleAdapter {
 
     private Context mContext;
-    private Account mAccount;
+    private User user;
     private FileDataStorageManager mStorageManager;
     private LayoutInflater inflater;
 
     public UploaderAdapter(Context context,
                            List<? extends Map<String, ?>> data, int resource, String[] from,
-                           int[] to, FileDataStorageManager storageManager, Account account) {
+                           int[] to, FileDataStorageManager storageManager, User user) {
         super(context, data, resource, from, to);
-        mAccount = account;
+        this.user = user;
         mStorageManager = storageManager;
         mContext = context;
         inflater = (LayoutInflater) mContext
@@ -92,9 +94,14 @@ public class UploaderAdapter extends SimpleAdapter {
         }
 
         if (file.isFolder()) {
-            fileIcon.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
-                            file.isSharedWithSharee(), file.isSharedViaLink(), file.isEncrypted(), mAccount,
-                    file.getMountType(), mContext));
+            final boolean isShared = file.isSharedWithMe() || file.isSharedWithSharee();
+            final Drawable icon = MimeTypeUtil.getFolderTypeIcon(isShared,
+                                                                 file.isSharedViaLink(),
+                                                                 file.isEncrypted(),
+                                                                 user,
+                                                                 file.getMountType(),
+                                                                 mContext);
+            fileIcon.setImageDrawable(icon);
         } else {
             // get Thumbnail if file is image
             if (MimeTypeUtil.isImage(file) && file.getRemoteId() != null) {
@@ -109,7 +116,7 @@ public class UploaderAdapter extends SimpleAdapter {
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon)) {
                         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon, mStorageManager,
-                                        mAccount);
+                                        user.toPlatformAccount());
                         if (thumbnail == null) {
                             if (MimeTypeUtil.isVideo(file)) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultVideo;
@@ -127,9 +134,11 @@ public class UploaderAdapter extends SimpleAdapter {
                     }
                 }
             } else {
-                fileIcon.setImageDrawable(
-                        MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), mAccount, mContext)
-                );
+                final Drawable icon = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
+                                                                   file.getFileName(),
+                                                                   user,
+                                                                   mContext);
+                fileIcon.setImageDrawable(icon);
             }
         }
 

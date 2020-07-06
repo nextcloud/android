@@ -39,8 +39,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 /**
@@ -163,11 +162,14 @@ public final class MimeTypeUtil {
      * @param isSharedViaUsers flag if the folder is shared via the users system
      * @param isSharedViaLink flag if the folder is publicly shared via link
      * @param isEncrypted flag if the folder is encrypted
-     * @param account account which color should be used
+     * @param user user which color should be used
      * @return Identifier of an image resource.
      */
-    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink,
-                                             boolean isEncrypted, Account account, WebdavEntry.MountType mountType,
+    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
+                                             boolean isSharedViaLink,
+                                             boolean isEncrypted,
+                                             @Nullable User user,
+                                             WebdavEntry.MountType mountType,
                                              Context context) {
         int drawableId;
 
@@ -185,7 +187,10 @@ public final class MimeTypeUtil {
             drawableId = R.drawable.folder;
         }
 
-        return ThemeUtils.tintDrawable(drawableId, ThemeUtils.primaryColor(account, true, context));
+        int color = ThemeUtils.primaryColor(user != null ? user.toPlatformAccount() : null,
+                                            true,
+                                            context);
+        return ThemeUtils.tintDrawable(drawableId, color);
     }
 
     public static Drawable getDefaultFolderIcon(Context context) {
