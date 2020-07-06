@@ -910,10 +910,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             return;
                         }
 
-                        Account account = ((FileActivity) mContainerActivity).getAccount();
+                        User user = ((FileActivity) mContainerActivity).getUser().orElseThrow(RuntimeException::new);
 
                         // check if e2e app is enabled
-                        OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(account.name);
+                        OCCapability ocCapability = mContainerActivity.getStorageManager()
+                            .getCapability(user.getAccountName());
 
                         if (ocCapability.getEndToEndEncryption().isFalse() ||
                                 ocCapability.getEndToEndEncryption().isUnknown()) {
@@ -925,14 +926,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                 getContext().getContentResolver());
 
 
-                        String publicKey = arbitraryDataProvider.getValue(account, EncryptionUtils.PUBLIC_KEY);
-                        String privateKey = arbitraryDataProvider.getValue(account, EncryptionUtils.PRIVATE_KEY);
+                        String publicKey = arbitraryDataProvider.getValue(user.toPlatformAccount(),
+                                                                          EncryptionUtils.PUBLIC_KEY);
+                        String privateKey = arbitraryDataProvider.getValue(user.toPlatformAccount(),
+                                                                           EncryptionUtils.PRIVATE_KEY);
 
                         if (publicKey.isEmpty() || privateKey.isEmpty()) {
-                            Log_OC.d(TAG, "no public key for " + account.name);
+                            Log_OC.d(TAG, "no public key for " + user.getAccountName());
 
-                            SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(account,
-                                    position);
+                            SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user,
+                                                                                                             position);
                             dialog.setTargetFragment(this, SetupEncryptionDialogFragment.SETUP_ENCRYPTION_REQUEST_CODE);
                             dialog.show(getFragmentManager(), SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG);
                         } else {
