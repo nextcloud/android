@@ -19,7 +19,6 @@
  */
 package com.nextcloud.client.media
 
-import android.accounts.Account
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
@@ -29,6 +28,8 @@ import android.os.IBinder
 import android.widget.MediaController
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import com.nextcloud.client.account.User
+import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.notifications.NotificationUtils
@@ -40,7 +41,7 @@ import javax.inject.Inject
 class PlayerService : Service() {
 
     companion object {
-        const val EXTRA_ACCOUNT = "ACCOUNT"
+        const val EXTRA_USER = "USER"
         const val EXTRA_FILE = "FILE"
         const val EXTRA_AUTO_PLAY = "EXTRA_AUTO_PLAY"
         const val EXTRA_START_POSITION_MS = "START_POSITION_MS"
@@ -84,13 +85,16 @@ class PlayerService : Service() {
     @Inject
     protected lateinit var audioManager: AudioManager
 
+    @Inject
+    protected lateinit var clientFactory: ClientFactory
+
     private lateinit var player: Player
     private lateinit var notificationBuilder: NotificationCompat.Builder
 
     override fun onCreate() {
         super.onCreate()
         AndroidInjection.inject(this)
-        player = Player(applicationContext, playerListener, audioManager)
+        player = Player(applicationContext, clientFactory, playerListener, audioManager)
         notificationBuilder = NotificationCompat.Builder(this)
         notificationBuilder.color = ThemeUtils.primaryColor(this)
         val stop = Intent(this, PlayerService::class.java)
@@ -113,11 +117,11 @@ class PlayerService : Service() {
     }
 
     private fun onActionPlay(intent: Intent) {
-        val account: Account = intent.getParcelableExtra(EXTRA_ACCOUNT)
-        val file: OCFile = intent.getParcelableExtra(EXTRA_FILE)
+        val user: User = intent.getParcelableExtra(EXTRA_USER) as User
+        val file: OCFile = intent.getParcelableExtra(EXTRA_FILE) as OCFile
         val startPos = intent.getIntExtra(EXTRA_START_POSITION_MS, 0)
         val autoPlay = intent.getBooleanExtra(EXTRA_AUTO_PLAY, true)
-        val item = PlaylistItem(file = file, startPositionMs = startPos, autoPlay = autoPlay, account = account)
+        val item = PlaylistItem(file = file, startPositionMs = startPos, autoPlay = autoPlay, user = user)
         player.play(item)
     }
 
