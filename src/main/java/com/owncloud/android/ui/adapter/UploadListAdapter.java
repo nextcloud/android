@@ -340,10 +340,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 itemViewHolder.button.setImageResource(R.drawable.ic_dots_vertical);
                 itemViewHolder.button.setOnClickListener(view -> {
                     if (optionalUser.isPresent()) {
-                        Account account = optionalUser.get().toPlatformAccount();
-                        showItemConflictPopup(
-                            itemViewHolder, item, account, status, view
-                        );
+                        User user = optionalUser.get();
+                        showItemConflictPopup(user, itemViewHolder, item, status, view);
                     }
                 });
             } else {
@@ -366,8 +364,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     parentActivity.getFileOperationsHelper().checkCurrentCredentials(item.getAccount(accountManager));
                     return;
                 } else if (uploadResult == UploadResult.SYNC_CONFLICT && optionalUser.isPresent()) {
-                    Account account = optionalUser.get().toPlatformAccount();
-                    if (checkAndOpenConflictResolutionDialog(itemViewHolder, item, account, status)) {
+                    User user = optionalUser.get();
+                    if (checkAndOpenConflictResolutionDialog(user, itemViewHolder, item, status)) {
                         return;
                     }
                 }
@@ -483,21 +481,24 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 final User user = optionalUser.get();
                 final Drawable icon = MimeTypeUtil.getFileTypeIcon(item.getMimeType(),
                                                                    fileName,
-                                                                   user.toPlatformAccount(),
+                                                                   user,
                                                                    parentActivity);
                 itemViewHolder.thumbnail.setImageDrawable(icon);
             }
         }
     }
 
-    private boolean checkAndOpenConflictResolutionDialog(ItemViewHolder itemViewHolder, OCUpload item, Account account, String status) {
+    private boolean checkAndOpenConflictResolutionDialog(User user,
+                                                         ItemViewHolder itemViewHolder,
+                                                         OCUpload item,
+                                                         String status) {
         String remotePath = item.getRemotePath();
         OCFile ocFile = storageManager.getFileByPath(remotePath);
 
         if (ocFile == null) { // Remote file doesn't exist, try to refresh folder
             OCFile folder = storageManager.getFileByPath(new File(remotePath).getParent() + "/");
             if (folder != null && folder.isFolder()) {
-                this.refreshFolder(itemViewHolder, account, folder, (caller, result) -> {
+                this.refreshFolder(itemViewHolder, user.toPlatformAccount(), folder, (caller, result) -> {
                     itemViewHolder.status.setText(status);
                     if (result.isSuccess()) {
                         OCFile file = storageManager.getFileByPath(remotePath);
@@ -521,13 +522,17 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         return false;
     }
 
-    private void showItemConflictPopup(ItemViewHolder itemViewHolder, OCUpload item, Account account, String status, View view) {
+    private void showItemConflictPopup(User user,
+                                       ItemViewHolder itemViewHolder,
+                                       OCUpload item,
+                                       String status,
+                                       View view) {
         PopupMenu popup = new PopupMenu(MainApp.getAppContext(), view);
         popup.inflate(R.menu.upload_list_item_file_conflict);
         popup.setOnMenuItemClickListener(i -> {
             switch (i.getItemId()) {
                 case R.id.action_upload_list_resolve_conflict:
-                    checkAndOpenConflictResolutionDialog(itemViewHolder, item, account, status);
+                    checkAndOpenConflictResolutionDialog(user, itemViewHolder, item, status);
                     break;
                 case R.id.action_upload_list_delete:
                 default:

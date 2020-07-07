@@ -19,13 +19,13 @@
  */
 package com.nextcloud.client.media
 
-import android.accounts.Account
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
 import android.widget.MediaController
+import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
 
 @Suppress("TooManyFunctions") // implementing large interface
@@ -49,9 +49,9 @@ class PlayerServiceConnection(private val context: Context) : MediaController.Me
         }
     }
 
-    fun start(account: Account, file: OCFile, playImmediately: Boolean, position: Int) {
+    fun start(user: User, file: OCFile, playImmediately: Boolean, position: Int) {
         val i = Intent(context, PlayerService::class.java)
-        i.putExtra(PlayerService.EXTRA_ACCOUNT, account)
+        i.putExtra(PlayerService.EXTRA_USER, user)
         i.putExtra(PlayerService.EXTRA_FILE, file)
         i.putExtra(PlayerService.EXTRA_AUTO_PLAY, playImmediately)
         i.putExtra(PlayerService.EXTRA_START_POSITION_MS, position)

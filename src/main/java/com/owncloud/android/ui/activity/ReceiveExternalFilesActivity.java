@@ -34,7 +34,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.ColorStateList;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -756,11 +755,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 }
 
                 UploaderAdapter sa = new UploaderAdapter(this,
-                        data,
-                        R.layout.uploader_list_item_layout,
-                        new String[]{"dirname"},
-                        new int[]{R.id.filename},
-                        getStorageManager(), getAccount());
+                                                         data,
+                                                         R.layout.uploader_list_item_layout,
+                                                         new String[]{"dirname"},
+                                                         new int[]{R.id.filename},
+                                                         getStorageManager(),
+                                                         getUser().get());
 
                 mListView.setAdapter(sa);
             }

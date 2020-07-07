@@ -653,11 +653,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                                    asyncTasks,
                                                                                    gridView);
                             if (thumbnail == null) {
-                                thumbnail = BitmapUtils.drawableToBitmap(
-                                    MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
-                                                                 file.getFileName(),
-                                                                 user.toPlatformAccount(),
-                                                                 context));
+                                Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
+                                                                                 file.getFileName(),
+                                                                                 user,
+                                                                                 context);
+                                if (drawable == null) {
+                                    drawable = ResourcesCompat.getDrawable(context.getResources(),
+                                                                           R.drawable.file_image,
+                                                                           null);
+                                }
+                                thumbnail = BitmapUtils.drawableToBitmap(drawable);
                             }
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                 new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
@@ -698,7 +703,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             } else {
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                             file.getFileName(),
-                                                                            user.toPlatformAccount(),
+                                                                            user,
                                                                             context));
             }
         }

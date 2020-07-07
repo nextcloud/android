@@ -19,24 +19,23 @@
  */
 package com.nextcloud.client.media
 
-import android.accounts.Account
 import android.content.Context
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.PowerManager
 import android.widget.MediaController
+import com.nextcloud.client.account.User
 import com.nextcloud.client.media.PlayerStateMachine.Event
 import com.nextcloud.client.media.PlayerStateMachine.State
+import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.common.OwnCloudAccount
-import com.owncloud.android.lib.common.OwnCloudClient
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 
 @Suppress("TooManyFunctions")
 internal class Player(
     private val context: Context,
+    private val clientFactory: ClientFactory,
     private val listener: Listener? = null,
     audioManager: AudioManager,
     private val mediaPlayerCreator: () -> MediaPlayer = { MediaPlayer() }
@@ -64,7 +63,7 @@ internal class Player(
     private var playedFile: OCFile? = null
     private var startPositionMs: Int = 0
     private var autoPlay = true
-    private var account: Account? = null
+    private var user: User? = null
     private var dataSource: String? = null
     private var lastError: PlayerError? = null
     private var mediaPlayer: MediaPlayer? = null
@@ -82,7 +81,7 @@ internal class Player(
                     playedFile = it.file
                     startPositionMs = it.startPositionMs
                     autoPlay = it.autoPlay
-                    account = it.account
+                    user = it.user
                     dataSource = if (it.file.isDown) it.file.storagePath else null
                     listener?.onRunning(it.file)
                 } else {
@@ -94,8 +93,9 @@ internal class Player(
         override fun onStartDownloading() {
             trace("onStartDownloading()")
             checkNotNull(playedFile) { "File not set." }
+            checkNotNull(user)
             playedFile?.let {
-                val client = buildClient()
+                val client = clientFactory.create(user)
                 val task = LoadUrlTask(client, it.remoteId, this@Player::onDownloaded)
                 task.execute()
                 loadUrlTask = task
@@ -125,7 +125,7 @@ internal class Player(
 
             playedFile = null
             startPositionMs = 0
-            account = null
+            user = null
             autoPlay = true
             dataSource = null
             loadUrlTask?.cancel(true)
@@ -232,17 +232,6 @@ internal class Player(
             AudioFocus.FOCUS -> stateMachine.post(Event.FOCUS_GAIN)
             AudioFocus.DUCK -> stateMachine.post(Event.FOCUS_DUCK)
             AudioFocus.LOST -> stateMachine.post(Event.FOCUS_LOST)
-        }
-    }
-
-    // this should be refactored into a proper, injectable factory
-    private fun buildClient(): OwnCloudClient {
-        val account = this.account
-        if (account != null) {
-            val ocAccount = OwnCloudAccount(account, context)
-            return OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
-        } else {
-            throw IllegalArgumentException("Account not set")
         }
     }
 
