@@ -98,7 +98,9 @@
             </LinearLayout>
         </LinearLayout>
 
-        <include layout="@layout/file_details_share_public_link_add_new_item" />
+        <include
+            android:id="@+id/file_details_share_public_link_add_new_item_include"
+            layout="@layout/file_details_share_public_link_add_new_item" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sharesList"

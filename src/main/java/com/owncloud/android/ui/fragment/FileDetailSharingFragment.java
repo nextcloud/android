@@ -38,13 +38,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -77,14 +76,9 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 public class FileDetailSharingFragment extends Fragment implements ShareeListAdapterListener,
     DisplayUtils.AvatarGenerationListener,
@@ -102,37 +96,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private FileActivity fileActivity;
     private FileDataStorageManager fileDataStorageManager;
 
-    private Unbinder unbinder;
-
-    @BindView(R.id.searchView)
-    SearchView searchView;
-
-    @BindView(R.id.sharesList)
-    RecyclerView sharesList;
-
-    @BindView(R.id.new_public_share)
-    View addPublicShare;
-
-    @BindView(R.id.shared_with_you_container)
-    LinearLayout sharedWithYouContainer;
-
-    @BindView(R.id.shared_with_you_avatar)
-    ImageView sharedWithYouAvatar;
-
-    @BindView(R.id.shared_with_you_username)
-    TextView sharedWithYouUsername;
-
-    @BindView(R.id.shared_with_you_note_container)
-    View sharedWithYouNoteContainer;
-
-    @BindView(R.id.shared_with_you_note)
-    TextView sharedWithYouNote;
-
-    @BindView(R.id.copy_internal_link_icon)
-    ImageView internalLinkIcon;
-
-    @BindView(R.id.shareInternalLinkText)
-    TextView internalLinkText;
+    private FileDetailsSharingFragmentBinding binding;
 
     @Inject UserAccountManager accountManager;
 
@@ -185,8 +149,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.file_details_sharing_fragment, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        binding = FileDetailsSharingFragmentBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
         fileOperationsHelper = fileActivity.getFileOperationsHelper();
         fileDataStorageManager = fileActivity.getStorageManager();
@@ -194,15 +158,15 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         setupView();
 
         // todo extract
-        internalLinkIcon.getBackground().setColorFilter(getResources().getColor(R.color.grey_db),
-                                                        PorterDuff.Mode.SRC_IN);
-        internalLinkIcon.getDrawable().mutate().setColorFilter(getResources().getColor(R.color.black),
-                                                               PorterDuff.Mode.SRC_IN);
+        binding.copyInternalLinkIcon.getBackground().setColorFilter(getResources().getColor(R.color.grey_db),
+                                                                    PorterDuff.Mode.SRC_IN);
+        binding.copyInternalLinkIcon.getDrawable().mutate().setColorFilter(getResources().getColor(R.color.black),
+                                                                           PorterDuff.Mode.SRC_IN);
 
         if (file.isFolder()) {
-            internalLinkText.setText(getString(R.string.share_internal_link_to_folder_text));
+            binding.shareInternalLinkText.setText(getString(R.string.share_internal_link_to_folder_text));
         } else {
-            internalLinkText.setText(getString(R.string.share_internal_link_to_file_text));
+            binding.shareInternalLinkText.setText(getString(R.string.share_internal_link_to_file_text));
         }
 
         return view;
@@ -211,7 +175,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
+        binding = null;
     }
 
     @Override
@@ -226,16 +190,17 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         setShareWithYou();
 
         FileDetailSharingFragmentHelper.setupSearchView(
-            (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE), searchView,
+            (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
+            binding.searchView,
             fileActivity.getComponentName());
-        ThemeUtils.themeSearchView(searchView, requireContext());
+        ThemeUtils.themeSearchView(binding.searchView, requireContext());
 
         if (file.canReshare()) {
             setShareWithUserInfo();
         } else {
-            searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
-            searchView.setInputType(InputType.TYPE_NULL);
-            disableSearchView(searchView);
+            binding.searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
+            binding.searchView.setInputType(InputType.TYPE_NULL);
+            disableSearchView(binding.searchView);
         }
     }
 
@@ -253,22 +218,27 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     private void setShareWithYou() {
         if (accountManager.userOwnsFile(file, user)) {
-            sharedWithYouContainer.setVisibility(View.GONE);
+            binding.sharedWithYouContainer.setVisibility(View.GONE);
         } else {
-            sharedWithYouUsername.setText(
+            binding.sharedWithYouUsername.setText(
                 String.format(getString(R.string.shared_with_you_by), file.getOwnerDisplayName()));
-            DisplayUtils.setAvatar(user, file.getOwnerId(), this, getResources().getDimension(
-                R.dimen.file_list_item_avatar_icon_radius), getResources(), sharedWithYouAvatar,
-                getContext());
-            sharedWithYouAvatar.setVisibility(View.VISIBLE);
+            DisplayUtils.setAvatar(user,
+                                   file.getOwnerId(),
+                                   this,
+                                   getResources().getDimension(
+                                       R.dimen.file_list_item_avatar_icon_radius),
+                                   getResources(),
+                                   binding.sharedWithYouAvatar,
+                                   getContext());
+            binding.sharedWithYouAvatar.setVisibility(View.VISIBLE);
 
             String note = file.getNote();
 
             if (!TextUtils.isEmpty(note)) {
-                sharedWithYouNote.setText(file.getNote());
-                sharedWithYouNoteContainer.setVisibility(View.VISIBLE);
+                binding.sharedWithYouNote.setText(file.getNote());
+                binding.sharedWithYouNoteContainer.setVisibility(View.VISIBLE);
             } else {
-                sharedWithYouNoteContainer.setVisibility(View.GONE);
+                binding.sharedWithYouNoteContainer.setVisibility(View.GONE);
             }
         }
     }
@@ -284,15 +254,15 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             String userId = accountManager.getUserData(user.toPlatformAccount(),
                                                        com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
-            sharesList.setVisibility(View.VISIBLE);
-            sharesList.setAdapter(new ShareeListAdapter(fileActivity,
-                                                        shares,
-                                                        this,
-                                                        userId));
-            sharesList.setLayoutManager(new LinearLayoutManager(getContext()));
-            sharesList.addItemDecoration(new SimpleListItemDividerDecoration(getContext()));
+            binding.sharesList.setVisibility(View.VISIBLE);
+            binding.sharesList.setAdapter(new ShareeListAdapter(fileActivity,
+                                                                shares,
+                                                                this,
+                                                                userId));
+            binding.sharesList.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.sharesList.addItemDecoration(new SimpleListItemDividerDecoration(getContext()));
         } else {
-            sharesList.setVisibility(View.GONE);
+            binding.sharesList.setVisibility(View.GONE);
         }
     }
 
@@ -469,7 +439,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             }
             case R.id.action_unshare: {
                 unshareWith(share);
-                ((ShareeListAdapter) sharesList.getAdapter()).remove(share);
+                ((ShareeListAdapter) binding.sharesList.getAdapter()).remove(share);
                 return true;
             }
             case R.id.action_password: {
@@ -642,7 +612,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                                              "");
 
         if (shares.isEmpty()) {
-            addPublicShare.setVisibility(View.VISIBLE);
+            binding.fileDetailsSharePublicLinkAddNewItemInclude.addPublicShare.setVisibility(View.VISIBLE);
             ImageView icon = requireView().findViewById(R.id.copy_internal_link_icon);
             icon.getBackground().setColorFilter(requireContext()
                                                     .getResources()
@@ -652,8 +622,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                        PorterDuff.Mode.SRC_IN);
             requireView().findViewById(R.id.add_new_public_share_link).setOnClickListener(v -> createShareLink());
         } else {
-            addPublicShare.setVisibility(View.GONE);
-            ((ShareeListAdapter) sharesList.getAdapter()).addShares(shares);
+            binding.fileDetailsSharePublicLinkAddNewItemInclude.addPublicShare.setVisibility(View.GONE);
+            ((ShareeListAdapter) binding.sharesList.getAdapter()).addShares(shares);
         }
     }
 
@@ -667,7 +637,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
-        sharedWithYouAvatar.setImageDrawable(avatarDrawable);
+        binding.sharedWithYouAvatar.setImageDrawable(avatarDrawable);
     }
 
     @Override

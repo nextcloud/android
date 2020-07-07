@@ -27,38 +27,46 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.owncloud.android.R;
-import com.owncloud.android.databinding.FileDetailsSharePublicLinkItemBinding;
+import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.utils.ThemeUtils;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-class PublicShareViewHolder extends RecyclerView.ViewHolder {
-    private FileDetailsSharePublicLinkItemBinding binding;
+class LinkShareViewHolder extends RecyclerView.ViewHolder {
+    private FileDetailsShareLinkShareItemBinding binding;
     private Context context;
 
-    public PublicShareViewHolder(@NonNull View itemView) {
+    public LinkShareViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
-    public PublicShareViewHolder(FileDetailsSharePublicLinkItemBinding binding, Context context) {
+    public LinkShareViewHolder(FileDetailsShareLinkShareItemBinding binding, Context context) {
         this(binding.getRoot());
         this.binding = binding;
         this.context = context;
     }
 
     public void bind(OCShare publicShare, ShareeListAdapterListener listener) {
-        if (!TextUtils.isEmpty(publicShare.getLabel())) {
-            String text = String.format(context.getString(R.string.share_link), publicShare.getLabel());
-            binding.publicShareLabel.setText(text);
+        if (ShareType.EMAIL == publicShare.getShareType()) {
+            binding.name.setText(publicShare.getSharedWithDisplayName());
+            binding.icon.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),
+                                                                      R.drawable.ic_email,
+                                                                      null));
+            binding.copyLink.setVisibility(View.GONE);
+        } else {
+            if (!TextUtils.isEmpty(publicShare.getLabel())) {
+                String text = String.format(context.getString(R.string.share_link), publicShare.getLabel());
+                binding.name.setText(text);
+            }
         }
 
-        ThemeUtils.colorIconImageViewWithBackground(binding.copyInternalLinkIcon, context);
+        ThemeUtils.colorIconImageViewWithBackground(binding.icon, context);
 
-        binding.shareLinkCopyIcon.setOnClickListener(v -> listener.copyLink(publicShare));
-
-        binding.overflowMenuShareLink.setOnClickListener(
-            v -> listener.showLinkOverflowMenu(publicShare, binding.overflowMenuShareLink));
+        binding.copyLink.setOnClickListener(v -> listener.copyLink(publicShare));
+        binding.overflowMenu.setOnClickListener(v -> listener.showLinkOverflowMenu(publicShare, binding.overflowMenu));
     }
 }

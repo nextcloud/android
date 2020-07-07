@@ -27,7 +27,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.databinding.FileDetailsShareUserItemBinding;
+import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.TextDrawable;
 
@@ -37,16 +37,16 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-class UserViewHolder extends RecyclerView.ViewHolder {
-    private FileDetailsShareUserItemBinding binding;
+class ShareViewHolder extends RecyclerView.ViewHolder {
+    private FileDetailsShareShareItemBinding binding;
     private float avatarRadiusDimension;
     private Context context;
 
-    public UserViewHolder(@NonNull View itemView) {
+    public ShareViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
-    public UserViewHolder(FileDetailsShareUserItemBinding binding, Context context) {
+    public ShareViewHolder(FileDetailsShareShareItemBinding binding, Context context) {
         this(binding.getRoot());
         this.binding = binding;
         this.context = context;
@@ -62,34 +62,33 @@ class UserViewHolder extends RecyclerView.ViewHolder {
         switch (share.getShareType()) {
             case GROUP:
                 name = context.getString(R.string.share_group_clarification, name);
-                setImage(binding.avatar, name, R.drawable.ic_group);
+                setImage(binding.icon, name, R.drawable.ic_group);
                 break;
             case EMAIL:
                 name = context.getString(R.string.share_email_clarification, name);
-                setImage(binding.avatar, name, R.drawable.ic_email);
+                setImage(binding.icon, name, R.drawable.ic_email);
                 break;
             case ROOM:
                 name = context.getString(R.string.share_room_clarification, name);
-                setImage(binding.avatar, name, R.drawable.ic_chat_bubble);
+                setImage(binding.icon, name, R.drawable.ic_chat_bubble);
                 break;
             case CIRCLE:
-                binding.avatar.setImageResource(R.drawable.ic_circles);
+                binding.icon.setImageResource(R.drawable.ic_circles);
                 break;
             default:
-                setImage(binding.avatar, name, R.drawable.ic_user);
+                setImage(binding.icon, name, R.drawable.ic_user);
                 break;
         }
 
         binding.name.setText(name);
 
         if (share.getShareWith().equalsIgnoreCase(userId) || share.getUserId().equalsIgnoreCase(userId)) {
-            binding.editShareButton.setVisibility(View.VISIBLE);
+            binding.overflowMenu.setVisibility(View.VISIBLE);
 
             // bind listener to edit privileges
-            binding.editShareButton.setOnClickListener(v -> listener.showUserOverflowMenu(share,
-                                                                                          binding.editShareButton));
+            binding.overflowMenu.setOnClickListener(v -> listener.showUserOverflowMenu(share, binding.overflowMenu));
         } else {
-            binding.editShareButton.setVisibility(View.GONE);
+            binding.overflowMenu.setVisibility(View.GONE);
         }
     }
 
