@@ -38,6 +38,7 @@ import android.view.View;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -127,13 +128,15 @@ public class PreviewImageActivity extends FileActivity implements
 
     }
 
-    private void initViewPager() {
+    private void initViewPager(User user) {
         // virtual folder
         if (getIntent().getSerializableExtra(EXTRA_VIRTUAL_TYPE) != null) {
             VirtualFolderType type = (VirtualFolderType) getIntent().getSerializableExtra(EXTRA_VIRTUAL_TYPE);
 
             mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
-                    type, getAccount(), getStorageManager());
+                                                                     type,
+                                                                     user,
+                                                                     getStorageManager());
         } else {
             // get parent from path
             OCFile parentFolder = getStorageManager().getFileById(getFile().getParentId());
@@ -146,7 +149,7 @@ public class PreviewImageActivity extends FileActivity implements
             mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(
                 getSupportFragmentManager(),
                 parentFolder,
-                getAccount(),
+                user,
                 getStorageManager(),
                 MainApp.isOnlyOnDevice(),
                 preferences
@@ -172,7 +175,8 @@ public class PreviewImageActivity extends FileActivity implements
     @Override
     public void onStart() {
         super.onStart();
-        if (getAccount() != null) {
+        Optional<User> optionalUser = getUser();
+        if (optionalUser.isPresent()) {
             OCFile file = getFile();
             /// Validate handled file (first image to preview)
             if (file == null) {
@@ -192,7 +196,7 @@ public class PreviewImageActivity extends FileActivity implements
                 setFile(file);  // reset after getting it fresh from storageManager
                 getSupportActionBar().setTitle(getFile().getFileName());
                 //if (!stateWasRecovered) {
-                initViewPager();
+                initViewPager(optionalUser.get());
                 //}
 
             } else {
