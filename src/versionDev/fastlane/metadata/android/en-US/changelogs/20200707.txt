@@ -1,0 +1,7 @@
+fix possible NPE
+minor code formatting
+Fix ReceiveExternalFilesActivity account -> user
+Migrate MumeTypeUtil.folderTypeIcon to user model
+Migrate UploadListAdapter to User model
+Migrate player service and preview fragment to User model
+Update translations
