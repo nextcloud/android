@@ -32,12 +32,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.databinding.FileDetailsSharePublicLinkItemBinding;
-import com.owncloud.android.databinding.FileDetailsShareUserItemBinding;
+import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
+import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.utils.DisplayUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         avatarRadiusDimension = context.getResources().getDimension(R.dimen.user_icon_radius);
 
-        sort(this.shares);
+        sortShares();
     }
 
     @Override
@@ -81,15 +82,15 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         switch (ShareType.fromValue(viewType)) {
             case PUBLIC_LINK:
             case EMAIL:
-                return new PublicShareViewHolder(FileDetailsSharePublicLinkItemBinding.inflate(LayoutInflater.from(context),
-                                                                                               parent,
-                                                                                               false),
-                                                 context);
+                return new LinkShareViewHolder(FileDetailsShareLinkShareItemBinding.inflate(LayoutInflater.from(context),
+                                                                                            parent,
+                                                                                            false),
+                                               context);
             default:
-                return new UserViewHolder(FileDetailsShareUserItemBinding.inflate(LayoutInflater.from(context),
-                                                                                  parent,
-                                                                                  false),
-                                          context);
+                return new ShareViewHolder(FileDetailsShareShareItemBinding.inflate(LayoutInflater.from(context),
+                                                                                    parent,
+                                                                                    false),
+                                           context);
         }
     }
 
@@ -101,11 +102,11 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         final OCShare share = shares.get(position);
 
-        if (holder instanceof PublicShareViewHolder) {
-            PublicShareViewHolder publicShareViewHolder = (PublicShareViewHolder) holder;
+        if (holder instanceof LinkShareViewHolder) {
+            LinkShareViewHolder publicShareViewHolder = (LinkShareViewHolder) holder;
             publicShareViewHolder.bind(share, listener);
         } else {
-            UserViewHolder userViewHolder = (UserViewHolder) holder;
+            ShareViewHolder userViewHolder = (ShareViewHolder) holder;
             userViewHolder.bind(share, listener, userId, avatarRadiusDimension);
         }
     }
@@ -122,7 +123,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void addShares(List<OCShare> sharesToAdd) {
         shares.addAll(sharesToAdd);
-        sort(shares);
+        sortShares();
         notifyDataSetChanged();
     }
 
@@ -148,13 +149,29 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
-    private void sort(List<OCShare> shares) {
-        Collections.sort(shares, (o1, o2) -> {
-            if (o1.getShareType() != o2.getShareType()) {
-                return o1.getShareType().compareTo(o2.getShareType());
-            }
+    /**
+     * sort all by creation time, then email/link shares on top
+     */
+    protected void sortShares() {
+        List<OCShare> links = new ArrayList<>();
+        List<OCShare> users = new ArrayList<>();
 
-            return o1.getSharedWithDisplayName().compareTo(o2.getSharedWithDisplayName());
-        });
+        for (OCShare share : shares) {
+            if (ShareType.PUBLIC_LINK == share.getShareType() || ShareType.EMAIL == share.getShareType()) {
+                links.add(share);
+            } else {
+                users.add(share);
+            }
+        }
+
+        Collections.sort(links, (o1, o2) -> Long.compare(o2.getSharedDate(), o1.getSharedDate()));
+        Collections.sort(users, (o1, o2) -> Long.compare(o2.getSharedDate(), o1.getSharedDate()));
+
+        shares = links;
+        shares.addAll(users);
+    }
+
+    protected List<OCShare> getShares() {
+        return shares;
     }
 }
