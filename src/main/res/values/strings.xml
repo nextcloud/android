@@ -483,6 +483,7 @@
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
     <string name="share_privilege_unshare">Unshare</string>
+    <string name="share_privilege_can_edit">can edit</string>
     <string name="share_privilege_can_share">can share</string>
     <string name="share_privilege_can_edit_create">can create</string>
     <string name="share_privilege_can_edit_change">can change</string>
@@ -933,4 +934,12 @@
     <string name="add_new_public_share">Add new public share link</string>
     <string name="edit_label">Change name</string>
     <string name="public_share_name">New name</string>
+    <string name="share_link">Share link (%1$s)</string>
+    <string name="allow_creating">Allow creating</string>
+    <string name="allow_deleting">Allow deleting</string>
+    <string name="allow_resharing">Allow resharing</string>
+    <string name="link_share_read_only">Read only</string>
+    <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
+    <string name="link_share_file_drop">File drop (upload only)</string>
+    <string name="link_share_video_verification">Video verification</string>
 </resources>
