@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -75,7 +76,7 @@ public class ThemeableSwitchPreference extends SwitchPreference {
 
                 if(thumbColorStateList == null && trackColorStateList == null) {
                     int thumbColor = ThemeUtils.primaryAccentColor(getContext());
-                    if (ThemeUtils.darkTheme(getContext()) &&
+                    if (ColorsUtils.darkColor(getContext()) &&
                         AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
                         thumbColor = Color.WHITE;
                     }

@@ -58,6 +58,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.ui.theming.ThemePreferenceUtils;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -187,9 +188,11 @@ public class SettingsActivity extends ThemedPreferenceActivity
         // Dev category
         PreferenceCategory preferenceCategoryDev = (PreferenceCategory) findPreference("dev_category");
 
+
         if (getResources().getBoolean(R.bool.is_beta)) {
-            preferenceCategoryDev.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_dev),
-                    accentColor));
+            ThemePreferenceUtils.colorPreferenceCategory(this,
+                                                         preferenceCategoryDev,
+                                                         R.string.prefs_category_dev);
 
             /* Link to dev apks */
             Preference pDevLink = findPreference("dev_link");
@@ -228,8 +231,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupAboutCategory(int accentColor, String appVersion) {
         PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("about");
-        preferenceCategoryAbout.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_about),
-                accentColor));
+        ThemePreferenceUtils.colorPreferenceCategory(this, preferenceCategoryAbout, R.string.prefs_category_about);
 
         /* About App */
         Preference pAboutApp = findPreference("about_app");
@@ -314,8 +316,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupMoreCategory(int accentColor) {
         PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
-        preferenceCategoryMore.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_more),
-                accentColor));
+        ThemePreferenceUtils.colorPreferenceCategory(this,
+                                                     preferenceCategoryMore,
+                                                     R.string.prefs_category_more);
 
         setupAutoUploadPreference(preferenceCategoryMore);
 
@@ -512,8 +515,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupDetailsCategory(int accentColor, PreferenceScreen preferenceScreen) {
         PreferenceCategory preferenceCategoryDetails = (PreferenceCategory) findPreference("details");
-        preferenceCategoryDetails.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_details),
-                accentColor));
+        ThemePreferenceUtils.colorPreferenceCategory(this,
+                                                     preferenceCategoryDetails,
+                                                     R.string.prefs_category_details);
 
         boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
         boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials_enabled);
@@ -608,8 +612,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private void setupAutoUploadCategory(int accentColor, PreferenceScreen preferenceScreen) {
         PreferenceCategory preferenceCategorySyncedFolders =
                 (PreferenceCategory) findPreference("synced_folders_category");
-        preferenceCategorySyncedFolders.setTitle(ThemeUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
-                accentColor));
+        ThemePreferenceUtils.colorPreferenceCategory(this,
+                                                     preferenceCategorySyncedFolders,
+                                                     R.string.drawer_synced_folders);
 
         if (!getResources().getBoolean(R.bool.syncedFolder_light)) {
             preferenceScreen.removePreference(preferenceCategorySyncedFolders);
@@ -680,8 +685,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupGeneralCategory(int accentColor) {
         PreferenceCategory preferenceCategoryGeneral = (PreferenceCategory) findPreference("general");
-        preferenceCategoryGeneral.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_general),
-                accentColor));
+        ThemePreferenceUtils.colorPreferenceCategory(this, preferenceCategoryGeneral, R.string.prefs_category_general);
 
         prefStoragePath = (ListPreference) findPreference(AppPreferencesImpl.STORAGE_PATH);
         if (prefStoragePath != null) {

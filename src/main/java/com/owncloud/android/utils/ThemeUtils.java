@@ -47,7 +47,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.nextcloud.client.account.User;
@@ -72,7 +71,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.widget.CompoundButtonCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -85,25 +83,20 @@ public final class ThemeUtils {
 
     private static final String TAG = ThemeUtils.class.getSimpleName();
 
-    private static final int INDEX_LUMINATION = 2;
-    private static final double MAX_LIGHTNESS = 0.92;
-    public static final double LUMINATION_THRESHOLD = 0.8;
-
     private ThemeUtils() {
         // utility class -> private constructor
     }
 
     public static int primaryAccentColor(Context context) {
-        OCCapability capability = getCapability(context);
 
         try {
             float adjust;
-            if (isDarkModeActive(context)) {
+            if (ColorsUtils.darkColor(context)) {
                 adjust = +0.5f;
             } else {
                 adjust = -0.1f;
             }
-            return adjustLightness(adjust, Color.parseColor(capability.getServerColor()), 0.35f);
+            return ColorsUtils.adjustLightness(adjust, ColorsUtils.elementColor(context), 0.35f);
         } catch (Exception e) {
             return context.getResources().getColor(R.color.color_accent);
         }
@@ -125,7 +118,7 @@ public final class ThemeUtils {
 
     public static int calculateDarkColor(int color, Context context) {
         try {
-            return adjustLightness(-0.2f, color, -1f);
+            return ColorsUtils.adjustLightness(-0.2f, color, -1f);
         } catch (Exception e) {
             return context.getResources().getColor(R.color.primary_dark);
         }
@@ -178,7 +171,7 @@ public final class ThemeUtils {
                         if (replaceEdgeColorsByInvertedColor) {
                             return Color.WHITE;
                         } else {
-                            return getNeutralGrey(context);
+                            return ColorsUtils.getNeutralGrey(context);
                         }
                     } else {
                         return color;
@@ -188,7 +181,7 @@ public final class ThemeUtils {
                         if (replaceEdgeColorsByInvertedColor) {
                             return Color.BLACK;
                         } else {
-                            return getNeutralGrey(context);
+                            return ColorsUtils.getNeutralGrey(context);
                         }
                     } else {
                         return color;
@@ -200,10 +193,6 @@ public final class ThemeUtils {
         } catch (Exception e) {
             return context.getResources().getColor(R.color.primary);
         }
-    }
-
-    public static int getNeutralGrey(Context context) {
-        return darkTheme(context) ? context.getResources().getColor(R.color.fg_contrast) : Color.GRAY;
     }
 
     public static boolean themingEnabled(Context context) {
@@ -228,9 +217,9 @@ public final class ThemeUtils {
         }
 
         try {
-            return Color.parseColor(getCapability(context).getServerTextColor());
+            return ColorsUtils.elementTextColor(context);
         } catch (Exception e) {
-            if (darkTheme(context)) {
+            if (ColorsUtils.darkColor(context)) {
                 return Color.WHITE;
             } else {
                 return Color.BLACK;
@@ -240,30 +229,6 @@ public final class ThemeUtils {
 
     public static int fontColor(Context context) {
         return fontColor(context, false);
-    }
-
-    /**
-     * Tests if light color is set
-     *
-     * @param color the color
-     * @return true if primaryColor is lighter than MAX_LIGHTNESS
-     */
-    public static boolean lightTheme(int color) {
-        float[] hsl = colorToHSL(color);
-
-        return hsl[INDEX_LUMINATION] >= MAX_LIGHTNESS;
-    }
-
-    /**
-     * Tests if dark color is set
-     *
-     * @return true if dark theme -> e.g.use light font color, darker accent color
-     */
-    public static boolean darkTheme(Context context) {
-        int primaryColor = primaryColor(context);
-        float[] hsl = colorToHSL(primaryColor);
-
-        return hsl[INDEX_LUMINATION] <= 0.55;
     }
 
     public static int primaryAppbarColor(Context context) {
@@ -370,33 +335,6 @@ public final class ThemeUtils {
         }
     }
 
-    /**
-     * Adjust lightness of given color
-     *
-     * @param lightnessDelta values -1..+1
-     * @param color          original color
-     * @param threshold      0..1 as maximum value, -1 to disable
-     * @return color adjusted by lightness
-     */
-    public static int adjustLightness(float lightnessDelta, int color, float threshold) {
-        float[] hsl = colorToHSL(color);
-
-        if (threshold == -1f) {
-            hsl[INDEX_LUMINATION] += lightnessDelta;
-        } else {
-            hsl[INDEX_LUMINATION] = Math.min(hsl[INDEX_LUMINATION] + lightnessDelta, threshold);
-        }
-
-        return ColorUtils.HSLToColor(hsl);
-    }
-
-    private static float[] colorToHSL(int color) {
-        float[] hsl = new float[3];
-        ColorUtils.RGBToHSL(Color.red(color), Color.green(color), Color.blue(color), hsl);
-
-        return hsl;
-    }
-
     public static void colorPrimaryButton(Button button, Context context) {
         int primaryColor = ThemeUtils.primaryColor(null, true, false, context);
         int fontColor = ThemeUtils.fontColor(context, false);
@@ -495,7 +433,7 @@ public final class ThemeUtils {
      */
     public static void colorStatusBar(Activity fragmentActivity, @ColorInt int color) {
         Window window = fragmentActivity.getWindow();
-        boolean isLightTheme = lightTheme(color);
+        boolean isLightTheme = ColorsUtils.isLightColor(color);
         if (window != null) {
             window.setStatusBarColor(color);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -569,7 +507,7 @@ public final class ThemeUtils {
         int color = ContextCompat.getColor(context, R.color.text_color);
 
         if (themedBackground) {
-            if (darkTheme(context)) {
+            if (ColorsUtils.darkColor(context)) {
                 color = ContextCompat.getColor(context, R.color.themed_fg);
             } else {
                 color = ContextCompat.getColor(context, R.color.themed_fg_inverse);

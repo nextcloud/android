@@ -258,34 +258,34 @@ public final class ColorsUtils {
     }
 
     /**
-     * Tests if light color is set
-     *
-     * @param color the color
-     * @return true if primaryColor is lighter than MAX_LIGHTNESS
-     */
-    public static boolean lightTheme(int color) {
-        float[] hsl = ColorsUtils.colorToHSL(color);
-
-        return hsl[INDEX_LUMINATION] >= MAX_LIGHTNESS;
-    }
-
-    /**
      * Tests if dark color is set
      *
      * @return true if dark theme -> e.g.use light font color, darker accent color
      */
     public static boolean darkColor(Context context) {
-        int primaryColor = ColorsUtils.elementColor(context);
-        float[] hsl = ColorsUtils.colorToHSL(primaryColor);
+        int elementColor = ColorsUtils.elementColor(context);
+        float[] hsl = ColorsUtils.colorToHSL(elementColor);
 
         return hsl[INDEX_LUMINATION] <= 0.55;
     }
 
-    private static float[] colorToHSL(int color) {
+    public static float[] colorToHSL(int color) {
         float[] hsl = new float[3];
         ColorUtils.RGBToHSL(Color.red(color), Color.green(color), Color.blue(color), hsl);
 
         return hsl;
+    }
+
+    /**
+     * Tests if color is light
+     *
+     * @param color the color
+     * @return true if color is lighter than MAX_LIGHTNESS
+     */
+    public static boolean isLightColor(int color) {
+        float[] hsl = colorToHSL(color);
+
+        return hsl[INDEX_LUMINATION] >= MAX_LIGHTNESS;
     }
 
     private static boolean isDarkModeActive(Context context) {
