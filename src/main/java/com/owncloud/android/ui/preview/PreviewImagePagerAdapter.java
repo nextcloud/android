@@ -19,8 +19,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import android.accounts.Account;
-import android.graphics.Matrix;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
@@ -32,8 +30,6 @@ import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.List;
@@ -147,7 +143,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     }
 
 
-    @NotNull
+    @NonNull
     public Fragment getItem(int i) {
         OCFile file = getFileAt(i);
         Fragment fragment;
