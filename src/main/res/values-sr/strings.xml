@@ -33,6 +33,7 @@
     <string name="activity_chooser_title">Пошаљи везу…</string>
     <string name="activity_icon">Активност</string>
     <string name="add_another_public_share_link">Додај још једну везу</string>
+    <string name="add_new_public_share">Додај везу новог јавног дељења</string>
     <string name="add_to_cloud">Додај у %1$s</string>
     <string name="allow_editing">Дозволи уређивање</string>
     <string name="appbar_search_in">Претражи у %s</string>
@@ -116,6 +117,8 @@
     <string name="common_save">Сачувај</string>
     <string name="common_send">Пошаљи</string>
     <string name="common_share">Подели</string>
+    <string name="common_switch_account">Пребаци налог</string>
+    <string name="common_switch_to_account">Пребаци на налог</string>
     <string name="common_unknown">непознато</string>
     <string name="common_yes">Да</string>
     <string name="community_beta_headline">Тестирајте развојну верзију</string>
@@ -298,6 +301,7 @@
     <string name="file_list_empty_headline_server_search_photos">Нема слика</string>
     <string name="file_list_empty_headline_server_search_videos">Нема видео снимака</string>
     <string name="file_list_empty_moving">Овде нема ничег. Можете додати фасциклу.</string>
+    <string name="file_list_empty_on_device">Преузети фајлови и фасцикле ће се појавити овде.</string>
     <string name="file_list_empty_recently_added">Нема недавно додатих фајлова</string>
     <string name="file_list_empty_recently_added_filter">Нема недавно додатих фајлова.</string>
     <string name="file_list_empty_recently_modified">Нема фајлова измењених у последњих 7 дана</string>
@@ -380,6 +384,7 @@
     <string name="instant_upload_on_charging">Отпремај само на пуњењу</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Неисправан УРЛ</string>
+    <string name="label_empty">Ознака не може да буде празна</string>
     <string name="learn_more">Сазнајте више</string>
     <string name="link">Веза</string>
     <string name="list_layout">Распоред као листа</string>
@@ -439,6 +444,7 @@
     <string name="no_pdf_app_available">Нема апликације која приказује ПДФ</string>
     <string name="note_confirm">Пошаљи</string>
     <string name="note_could_not_sent">Не могу да пошаљем белешку</string>
+    <string name="note_icon_hint">Иконица белешке</string>
     <string name="notification_action_failed">Не могу да извршим радњу.</string>
     <string name="notification_channel_download_description">Приказ напретка преузимања</string>
     <string name="notification_channel_download_name">Канал обавештења о преузимању</string>
@@ -535,9 +541,11 @@
     <string name="preview_image_error_unknown_format">Не могу да прикажем слику</string>
     <string name="preview_sorry">Извините</string>
     <string name="privacy">Приватност</string>
+    <string name="public_share_name">Ново име</string>
     <string name="push_notifications_not_implemented">Брза обавештења искључена јер зависе од власничког Гугл плеј сервиса.</string>
     <string name="push_notifications_old_login">Нема брзих обавештења јер је сесија застарела. Избришите и додајте поново налог.</string>
     <string name="push_notifications_temp_error">Брза обавештења тренутно нису доступна.</string>
+    <string name="qr_could_not_be_read">QR код може да се прочита!</string>
     <string name="recommend_subject">Испробај %1$s на свом уређају!</string>
     <string name="recommend_text">Желим да те позовем да испробаш %1$s на свом уређају.\nПреузми га овде: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
