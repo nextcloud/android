@@ -679,27 +679,6 @@ public final class ThemeUtils {
         return String.format("#%06X", 0xFFFFFF & color);
     }
 
-    public static void colorFloatingActionButton(FloatingActionButton button, @DrawableRes int drawable,
-                                                 Context context) {
-        int primaryColor = ThemeUtils.primaryColor(null, true, false, context);
-
-        colorFloatingActionButton(button, context, primaryColor);
-        button.setImageDrawable(ThemeUtils.tintDrawable(drawable, getColorForPrimary(primaryColor, context)));
-    }
-
-    public static void colorFloatingActionButton(FloatingActionButton button, Context context) {
-        colorFloatingActionButton(button, context, ThemeUtils.primaryColor(null, true, false, context));
-    }
-
-    public static void colorFloatingActionButton(FloatingActionButton button, Context context, int primaryColor) {
-        colorFloatingActionButton(button, primaryColor, calculateDarkColor(primaryColor, context));
-    }
-
-    public static void colorFloatingActionButton(FloatingActionButton button, int backgroundColor, int rippleColor) {
-        button.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
-        button.setRippleColor(rippleColor);
-    }
-
     public static void colorIconImageViewWithBackground(ImageView imageView, Context context) {
         int primaryColor = ThemeUtils.primaryColor(null, true, false, context);
 
