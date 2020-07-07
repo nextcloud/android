@@ -50,8 +50,9 @@ import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -169,7 +170,7 @@ public class UploadFilesActivity extends FileActivity implements LocalFileListFr
 
         // Set input controllers
         MaterialButton cancelButton = findViewById(R.id.upload_files_btn_cancel);
-        cancelButton.setTextColor(ThemeUtils.primaryColor(this, true));
+        cancelButton.setTextColor(ColorsUtils.elementColor(this));
         cancelButton.setOnClickListener(this);
 
         MaterialButton uploadButton = findViewById(R.id.upload_files_btn_upload);
@@ -408,7 +409,7 @@ public class UploadFilesActivity extends FileActivity implements LocalFileListFr
         if (checked) {
             selectAll.setIcon(R.drawable.ic_select_none);
         } else {
-            selectAll.setIcon(ThemeUtils.tintDrawable(R.drawable.ic_select_all, ThemeUtils.primaryColor(this)));
+            selectAll.setIcon(ThemeUtils.tintDrawable(R.drawable.ic_select_all, ColorsUtils.elementColor(this)));
         }
     }
 

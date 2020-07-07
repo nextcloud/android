@@ -62,7 +62,7 @@ import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.adapter.TemplateAdapter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.lang.ref.WeakReference;
 

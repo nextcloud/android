@@ -68,7 +68,7 @@ import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.util.List;
 

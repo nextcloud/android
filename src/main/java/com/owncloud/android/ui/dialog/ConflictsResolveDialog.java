@@ -36,8 +36,9 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -148,8 +149,8 @@ public class ConflictsResolveDialog extends DialogFragment {
         binding = ConflictResolveDialogBinding.inflate(requireActivity().getLayoutInflater());
         int accentColor = ThemeUtils.primaryAccentColor(getContext());
 
-        ThemeUtils.tintCheckbox(binding.newCheckbox, ThemeUtils.primaryColor(getContext()));
-        ThemeUtils.tintCheckbox(binding.existingCheckbox, ThemeUtils.primaryColor(getContext()));
+        ThemeUtils.tintCheckbox(binding.newCheckbox, ColorsUtils.elementColor(getContext()));
+        ThemeUtils.tintCheckbox(binding.existingCheckbox, ColorsUtils.elementColor(getContext()));
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());

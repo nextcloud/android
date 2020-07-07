@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.features.FeatureItem;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

@@ -57,7 +57,7 @@ import com.owncloud.android.ui.adapter.UserListItem;
 import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

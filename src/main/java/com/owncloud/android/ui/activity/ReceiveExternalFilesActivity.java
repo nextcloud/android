@@ -34,7 +34,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.ColorStateList;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -86,12 +85,13 @@ import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.UriUploader;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeType;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -412,7 +412,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             final EditText userInput = view.findViewById(R.id.user_input);
             setFilename(userInput, selectPos);
-            userInput.setHighlightColor(ThemeUtils.primaryColor(getContext()));
+            userInput.setHighlightColor(ColorsUtils.elementColor(getContext()));
             userInput.requestFocus();
 
             final Spinner spinner = view.findViewById(R.id.file_type);
@@ -781,7 +781,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             ThemeUtils.tintBackButton(actionBar, this);
 
             Button btnNewFolder = findViewById(R.id.uploader_cancel);
-            btnNewFolder.setTextColor(ThemeUtils.primaryColor(this, true));
+            btnNewFolder.setTextColor(ColorsUtils.elementColor(this));
             btnNewFolder.setOnClickListener(this);
 
             mListView.setOnItemClickListener(this);
@@ -799,7 +799,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         mEmptyListHeadline = findViewById(R.id.empty_list_view_headline);
         mEmptyListIcon = findViewById(R.id.empty_list_icon);
         mEmptyListProgress = findViewById(R.id.empty_list_progress);
-        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(this),
+        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ColorsUtils.elementColor(this),
                 PorterDuff.Mode.SRC_IN);
     }
 
@@ -810,7 +810,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mEmptyListHeadline.setText(headline);
                 mEmptyListMessage.setText(message);
 
-                mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(this, true)));
+                mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ColorsUtils.elementColor(this)));
 
                 mEmptyListIcon.setVisibility(View.VISIBLE);
                 mEmptyListProgress.setVisibility(View.GONE);

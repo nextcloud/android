@@ -32,9 +32,8 @@ import androidx.core.app.NotificationCompat
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.utils.ThemeUtils
+import com.nextcloud.ui.theming.ColorsUtils
 import dagger.android.AndroidInjection
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 class PlayerService : Service() {
@@ -92,7 +91,7 @@ class PlayerService : Service() {
         AndroidInjection.inject(this)
         player = Player(applicationContext, playerListener, audioManager)
         notificationBuilder = NotificationCompat.Builder(this)
-        notificationBuilder.color = ThemeUtils.primaryColor(this)
+        notificationBuilder.color = ColorsUtils.elementColor(this)
         val stop = Intent(this, PlayerService::class.java)
         stop.action = ACTION_STOP
         val pendingStop = PendingIntent.getService(this, 0, stop, 0)

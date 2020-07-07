@@ -54,7 +54,7 @@ import com.owncloud.android.ui.asynctasks.DeleteAllNotificationsTask;
 import com.owncloud.android.ui.notifications.NotificationsContract;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.util.List;
 

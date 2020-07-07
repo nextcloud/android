@@ -42,8 +42,9 @@ import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -106,7 +107,7 @@ public class RenameFileDialogFragment
         // Setup layout
         String currentName = mTargetFile.getFileName();
         EditText inputText = binding.userInput;
-        inputText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
+        inputText.setHighlightColor(ColorsUtils.elementColor(getActivity()));
         inputText.setText(currentName);
         ThemeUtils.themeEditText(getContext(), inputText, false);
         int selectionStart = 0;

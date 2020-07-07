@@ -28,7 +28,7 @@ import android.view.View;
 
 import com.owncloud.android.databinding.FileDetailsSharePublicLinkItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

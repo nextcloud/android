@@ -43,7 +43,8 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ColorsUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.util.Arrays;
 
@@ -95,7 +96,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.passcodelock);
 
-        int elementColor = ThemeUtils.primaryColor(this);
+        int elementColor = ColorsUtils.elementColor(this);
 
         mBCancel = findViewById(R.id.cancel);
         ThemeUtils.colorPrimaryButton(mBCancel, this);

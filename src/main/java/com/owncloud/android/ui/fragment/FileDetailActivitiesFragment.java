@@ -23,7 +23,6 @@
 
 package com.owncloud.android.ui.fragment;
 
-import android.accounts.Account;
 import android.content.ContentResolver;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
@@ -64,7 +63,7 @@ import com.owncloud.android.ui.events.CommentsEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.interfaces.VersionListInterface;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;

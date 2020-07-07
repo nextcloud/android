@@ -36,8 +36,9 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -99,7 +100,7 @@ public class CreateFolderDialogFragment
         inputText.setText("");
         inputText.requestFocus();
         inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
-        inputText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
+        inputText.setHighlightColor(ColorsUtils.elementColor(getActivity()));
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

@@ -118,7 +118,7 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertL
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

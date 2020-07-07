@@ -62,9 +62,9 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.AbstractList;
@@ -146,7 +146,7 @@ public class FileDownloader extends Service
                 .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_download))
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
-                .setColor(ThemeUtils.primaryColor(getApplicationContext(), true));
+                .setColor(ColorsUtils.elementColor(getApplicationContext()));
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD);

@@ -44,10 +44,10 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.StringUtils;
-import com.owncloud.android.utils.ThemeUtils;
 
 import javax.inject.Inject;
 
@@ -185,13 +185,13 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
         Prism4j prism4j = new Prism4j(new MarkwonGrammarLocator());
         Prism4jTheme prism4jTheme = Prism4jThemeDefault.create();
         TaskListDrawable drawable = new TaskListDrawable(Color.GRAY, Color.GRAY, Color.WHITE);
-        drawable.setColorFilter(ThemeUtils.primaryColor(activity, true), PorterDuff.Mode.SRC_ATOP);
+        drawable.setColorFilter(ColorsUtils.elementColor(activity), PorterDuff.Mode.SRC_ATOP);
 
         final Markwon markwon = Markwon.builder(activity)
             .usePlugin(new AbstractMarkwonPlugin() {
                 @Override
                 public void configureTheme(@NonNull MarkwonTheme.Builder builder) {
-                    builder.linkColor(ThemeUtils.primaryColor(activity, true));
+                    builder.linkColor(ColorsUtils.elementColor(activity));
                     builder.headingBreakHeight(0);
                 }
 

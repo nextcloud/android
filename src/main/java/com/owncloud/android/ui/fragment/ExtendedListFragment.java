@@ -69,7 +69,8 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ColorsUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.parceler.Parcel;
@@ -426,7 +427,7 @@ public class ExtendedListFragment extends Fragment implements
         mEmptyListHeadline = view.findViewById(R.id.empty_list_view_headline);
         mEmptyListIcon = view.findViewById(R.id.empty_list_icon);
         mEmptyListProgress = view.findViewById(R.id.empty_list_progress);
-        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(getContext(), true),
+        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ColorsUtils.elementColor(getContext()),
                                                                      PorterDuff.Mode.SRC_IN);
     }
 
@@ -620,7 +621,7 @@ public class ExtendedListFragment extends Fragment implements
                     if (tintIcon) {
                         if (getContext() != null) {
                             mEmptyListIcon.setImageDrawable(
-                                ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(getContext(), true)));
+                                ThemeUtils.tintDrawable(icon, ColorsUtils.elementColor(getContext())));
                         }
                     } else {
                         mEmptyListIcon.setImageResource(icon);

@@ -28,7 +28,7 @@ import android.view.KeyEvent;
 import android.widget.ProgressBar;
 
 import com.owncloud.android.R;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;

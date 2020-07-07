@@ -33,7 +33,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ColorsUtils;
 
 import java.util.Calendar;
 
@@ -143,9 +143,9 @@ public class ExpirationDatePickerDialogFragment
                 });
 
         dialog.show();
-        dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(ThemeUtils.primaryColor(getContext(), true));
-        dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryColor(getContext(), true));
-        dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryColor(getContext(), true));
+        dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(ColorsUtils.elementColor(getContext()));
+        dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ColorsUtils.elementColor(getContext()));
+        dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ColorsUtils.elementColor(getContext()));
 
         // Prevent days in the past may be chosen
         DatePicker picker = dialog.getDatePicker();

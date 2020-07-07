@@ -43,8 +43,9 @@ import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -115,7 +116,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         unbinder = ButterKnife.bind(this, view);
 
-        int primaryColor = ThemeUtils.primaryColor(getContext(), true);
+        int primaryColor = ColorsUtils.elementColor(getContext());
         ThemeUtils.tintDrawable(iconUploadFiles.getDrawable(), primaryColor);
         ThemeUtils.tintDrawable(iconUploadFromApp.getDrawable(), primaryColor);
         ThemeUtils.tintDrawable(iconDirectCameraUpload.getDrawable(), primaryColor);

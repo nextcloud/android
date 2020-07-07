@@ -52,7 +52,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ManageAccountsActivity
 import com.owncloud.android.ui.activity.SyncedFoldersActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.utils.ThemeUtils
+import com.nextcloud.ui.theming.ColorsUtils
 import java.util.ArrayList
 import java.util.Random
 
@@ -199,7 +199,7 @@ class MediaFoldersDetectionWork constructor(
         )
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-            .setColor(ThemeUtils.primaryColor(context))
+            .setColor(ColorsUtils.elementColor(context))
             .setSubText(user.accountName)
             .setContentTitle(contentTitle)
             .setContentText(subtitle)

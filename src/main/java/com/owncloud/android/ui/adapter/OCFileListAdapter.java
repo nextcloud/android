@@ -79,11 +79,12 @@ import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.BitmapUtils;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -336,7 +337,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof OCFileListFooterViewHolder) {
             OCFileListFooterViewHolder footerViewHolder = (OCFileListFooterViewHolder) holder;
             footerViewHolder.footerText.setText(getFooterText());
-            footerViewHolder.progressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(activity),
+            footerViewHolder.progressBar.getIndeterminateDrawable().setColorFilter(ColorsUtils.elementColor(activity),
                                                                                    PorterDuff.Mode.SRC_IN);
             footerViewHolder.progressBar.setVisibility(
                 ocFileListFragmentInterface.isLoading() ? View.VISIBLE : View.GONE);
@@ -370,7 +371,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
                                                                  .getColor(R.color.selected_item_background));
                 gridViewHolder.checkbox.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_checkbox_marked,
-                                                                                 ThemeUtils.primaryColor(activity)));
+                                                                                 ColorsUtils.elementColor(activity)));
             } else {
                 gridViewHolder.itemLayout.setBackgroundColor(activity.getResources().getColor(R.color.bg_default));
                 gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);

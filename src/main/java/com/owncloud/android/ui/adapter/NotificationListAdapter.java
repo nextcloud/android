@@ -20,7 +20,6 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.PictureDrawable;
@@ -54,8 +53,9 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.ui.asynctasks.DeleteNotificationTask;
 import com.owncloud.android.ui.asynctasks.NotificationExecuteActionTask;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
@@ -160,7 +160,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         for (Action action : notification.getActions()) {
             button = new MaterialButton(notificationsActivity);
 
-            int primaryColor = ThemeUtils.primaryColor(notificationsActivity);
+            int primaryColor = ColorsUtils.elementColor(notificationsActivity);
 
             if (action.primary) {
                 ThemeUtils.colorPrimaryButton(button, notificationsActivity);

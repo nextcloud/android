@@ -38,7 +38,7 @@ import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;

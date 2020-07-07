@@ -38,9 +38,10 @@ import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.adapter.UserListAdapter
 import com.owncloud.android.ui.adapter.UserListItem
+import com.nextcloud.ui.theming.ColorsUtils
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
-import com.owncloud.android.utils.ThemeUtils
+import com.nextcloud.ui.theming.ThemeUtils
 import kotlinx.android.synthetic.main.account_item.*
 import kotlinx.android.synthetic.main.dialog_choose_account.*
 import java.util.ArrayList
@@ -91,7 +92,7 @@ class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, 
             // Defining user right indicator
             val icon = ThemeUtils.tintDrawable(
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_check_circle),
-                ThemeUtils.primaryColor(requireContext(), true)
+                ColorsUtils.elementColor(requireContext())
             )
             account_menu.setImageDrawable(icon)
 

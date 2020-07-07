@@ -6,7 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 public class DeepLinkLoginActivity extends AuthenticatorActivity {
     @Override

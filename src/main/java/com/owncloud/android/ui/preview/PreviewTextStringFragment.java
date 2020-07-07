@@ -41,7 +41,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeFabUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -113,7 +113,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
             fabMain.setVisibility(View.VISIBLE);
             fabMain.setEnabled(true);
             fabMain.setOnClickListener(v -> edit());
-            ThemeUtils.colorFloatingActionButton(fabMain, R.drawable.ic_edit, requireContext());
+            ThemeFabUtils.colorFloatingActionButton(fabMain, R.drawable.ic_edit, requireContext());
         }
 
         return view;

@@ -28,6 +28,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
+import com.nextcloud.ui.theming.ColorsUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -110,7 +112,7 @@ public final class MimeTypeUtil {
             Drawable icon = ContextCompat.getDrawable(context, iconId);
 
             if (R.drawable.file_zip == iconId) {
-                ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(account, true, context));
+                ThemeUtils.tintDrawable(icon, ColorsUtils.elementColor(account, context));
             }
 
             return icon;
@@ -177,7 +179,7 @@ public final class MimeTypeUtil {
             drawableId = R.drawable.folder;
         }
 
-        return ThemeUtils.tintDrawable(drawableId, ThemeUtils.primaryColor(account, true, context));
+        return ThemeUtils.tintDrawable(drawableId, ColorsUtils.elementColor(account, context));
     }
 
     public static Drawable getDefaultFolderIcon(Context context) {

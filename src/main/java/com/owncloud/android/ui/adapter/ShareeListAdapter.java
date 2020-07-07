@@ -49,7 +49,7 @@ import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.NoteDialogFragment;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;

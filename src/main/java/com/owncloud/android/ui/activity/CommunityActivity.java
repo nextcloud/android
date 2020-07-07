@@ -31,8 +31,9 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 /**
  * Activity providing information about ways to participate in the app's development.
@@ -64,21 +65,21 @@ public class CommunityActivity extends FileActivity {
         contributeIrcView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeIrcView.setText(Html.fromHtml(getString(R.string.community_contribute_irc_text) + " " +
                                                     getString(R.string.community_contribute_irc_text_link,
-                        ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this, true)),
+                                                              ColorsUtils.colorToHexString(ColorsUtils.elementColor(this)),
                         getString(R.string.irc_weblink))));
 
         TextView contributeForumView = findViewById(R.id.community_contribute_forum_text);
         contributeForumView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeForumView.setText(Html.fromHtml(getString(R.string.community_contribute_forum_text) + " " +
                                                       getString(R.string.community_contribute_forum_text_link,
-                                                                ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this, true)),
+                                                                ColorsUtils.colorToHexString(ColorsUtils.elementColor(this)),
                                                                 getString(R.string.help_link), getString(R.string.community_contribute_forum_forum))));
 
         TextView contributeTranslationView = findViewById(R.id.community_contribute_translate_text);
         contributeTranslationView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeTranslationView.setText(Html.fromHtml(
             getString(R.string.community_contribute_translate_link,
-                      ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this, true)),
+                      ColorsUtils.colorToHexString(ColorsUtils.elementColor(this)),
                       getString(R.string.translation_link),
                       getString(R.string.community_contribute_translate_translate)) + " " +
                 getString(R.string.community_contribute_translate_text)));
@@ -88,7 +89,7 @@ public class CommunityActivity extends FileActivity {
         contributeGithubView.setText(Html.fromHtml(
             getString(R.string.community_contribute_github_text,
                       getString(R.string.community_contribute_github_text_link,
-                                ThemeUtils.colorToHexString(ThemeUtils.primaryColor(this, true)),
+                                ColorsUtils.colorToHexString(ColorsUtils.elementColor(this)),
                                 getString(R.string.contributing_link)))));
 
         MaterialButton reportButton = findViewById(R.id.community_testing_report);

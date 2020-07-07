@@ -25,7 +25,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ColorsUtils;
 
 import java.security.SecureRandom;
 
@@ -62,7 +62,7 @@ public final class NotificationUtils {
      * @return              An instance of the regular {@link NotificationCompat.Builder}.
      */
     public static NotificationCompat.Builder newNotificationBuilder(Context context) {
-        return new NotificationCompat.Builder(context).setColor(ThemeUtils.primaryColor(context));
+        return new NotificationCompat.Builder(context).setColor(ColorsUtils.elementColor(context));
     }
 
     @SuppressFBWarnings("DMI")

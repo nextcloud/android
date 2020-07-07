@@ -74,8 +74,8 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -222,7 +222,7 @@ public class FileUploader extends Service
             .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_upload))
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
-            .setColor(ThemeUtils.primaryColor(getApplicationContext(), true));
+            .setColor(ColorsUtils.elementColor(getApplicationContext()));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);

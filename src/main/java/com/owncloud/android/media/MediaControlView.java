@@ -40,7 +40,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.util.Formatter;
 import java.util.Locale;

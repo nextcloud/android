@@ -59,9 +59,10 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -154,7 +155,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
             ThemeUtils.tintBackButton(actionBar, this);
         }
 
-        mUserInfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount(), true, this)));
+        mUserInfoList.setAdapter(new UserInfoAdapter(null, ColorsUtils.elementColor(getAccount(), this)));
 
         if (userInfo != null) {
             populateUserInfoUi(userInfo);
@@ -214,7 +215,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
 
             emptyContentIcon.setVisibility(View.GONE);
             emptyContentMessage.setVisibility(View.GONE);
-            multiListProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(this),
+            multiListProgressBar.getIndeterminateDrawable().setColorFilter(ColorsUtils.elementColor(this),
                     PorterDuff.Mode.SRC_IN);
             multiListProgressBar.setVisibility(View.VISIBLE);
         }
@@ -239,7 +240,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
             if (backgroundImageView != null) {
 
                 String background = getStorageManager().getCapability(user.getAccountName()).getServerBackground();
-                int primaryColor = ThemeUtils.primaryColor(getAccount(), false, this);
+                int primaryColor = ColorsUtils.elementColor(getAccount(), this, false);
 
                 if (URLUtil.isValidUrl(background)) {
                     // background image
@@ -282,7 +283,7 @@ public class UserInfoActivity extends FileActivity implements Injectable {
         avatar.setTag(user.getAccountName());
         DisplayUtils.setAvatar(user, this, mCurrentAccountAvatarRadiusDimension, getResources(), avatar, this);
 
-        int tint = ThemeUtils.primaryColor(user.toPlatformAccount(), true, this);
+        int tint = ColorsUtils.elementColor(user.toPlatformAccount(), this);
 
         if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
             fullName.setText(userInfo.getDisplayName());

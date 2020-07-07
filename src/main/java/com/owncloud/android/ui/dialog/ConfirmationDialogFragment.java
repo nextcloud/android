@@ -21,7 +21,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 
 import com.owncloud.android.R;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;

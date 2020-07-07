@@ -43,7 +43,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;

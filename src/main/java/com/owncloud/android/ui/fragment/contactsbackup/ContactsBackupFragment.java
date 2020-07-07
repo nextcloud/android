@@ -25,7 +25,6 @@ import android.accounts.Account;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -51,9 +50,10 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -450,8 +450,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             datePickerDialog.setTitle("");
             datePickerDialog.show();
             // TODO How do we deal with primary colours that are too light or dark
-            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryColor(getContext()));
-            datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryColor(getContext()));
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ColorsUtils.elementColor(getContext()));
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ColorsUtils.elementColor(getContext()));
         } else {
             DisplayUtils.showSnackMessage(getView().findViewById(R.id.contacts_linear_layout),
                     R.string.contacts_preferences_something_strange_happened);

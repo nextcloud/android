@@ -53,11 +53,12 @@ import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -407,7 +408,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             if (this instanceof FilePickerActivity) {
                 ThemeUtils.colorPrimaryButton(mCancelBtn, this);
             } else {
-                mCancelBtn.setTextColor(ThemeUtils.primaryColor(this, true));
+                mCancelBtn.setTextColor(ColorsUtils.elementColor(this));
             }
             mCancelBtn.setOnClickListener(this);
         }

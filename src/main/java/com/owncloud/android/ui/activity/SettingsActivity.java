@@ -75,7 +75,7 @@ import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;

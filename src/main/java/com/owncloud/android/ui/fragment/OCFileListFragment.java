@@ -28,7 +28,6 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -102,7 +101,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeFabUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
@@ -125,7 +125,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -293,7 +292,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mFabMain = requireActivity().findViewById(R.id.fab_main);
 
         if (mFabMain != null) { // is not available in FolderPickerActivity
-            ThemeUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
+            ThemeFabUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
         }
 
         Log_OC.i(TAG, "onCreateView() end");
@@ -1759,7 +1758,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (visible) {
                     mFabMain.show();
-                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext());
+                    ThemeFabUtils.colorFloatingActionButton(mFabMain, requireContext());
                 } else {
                     mFabMain.hide();
                 }
@@ -1809,10 +1808,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (enabled) {
                     mFabMain.setEnabled(true);
-                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext());
+                    ThemeFabUtils.colorFloatingActionButton(mFabMain, requireContext());
                 } else {
                     mFabMain.setEnabled(false);
-                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext(), Color.GRAY);
+                    ThemeFabUtils.colorFloatingActionButton(mFabMain, requireContext(), Color.GRAY);
                 }
             });
         }

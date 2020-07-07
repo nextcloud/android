@@ -58,7 +58,7 @@ import com.owncloud.android.ui.adapter.RichDocumentsTemplateAdapter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.NextcloudServer;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import org.parceler.Parcels;
 

@@ -33,8 +33,9 @@ import android.widget.TextView;
 import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -130,7 +131,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
      * tints the icon reflecting the actual sorting choice in the apps primary color.
      */
     private void setupActiveOrderSelection() {
-        final int color = ThemeUtils.primaryColor(null, true, true, getContext());
+        final int color = ColorsUtils.elementColor(getContext());
         for (View view: mTaggedViews) {
             if (!((FileSortOrder) view.getTag()).name.equals(mCurrentSortOrderName)) {
                 continue;

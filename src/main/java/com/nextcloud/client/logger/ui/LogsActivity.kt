@@ -33,7 +33,7 @@ import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.LogsActivityBinding
 import com.owncloud.android.ui.activity.ToolbarActivity
-import com.owncloud.android.utils.ThemeUtils
+import com.nextcloud.ui.theming.ThemeUtils
 import javax.inject.Inject
 
 class LogsActivity : ToolbarActivity() {

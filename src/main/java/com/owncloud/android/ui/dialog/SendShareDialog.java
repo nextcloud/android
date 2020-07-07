@@ -24,8 +24,9 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.SendButtonAdapter;
 import com.owncloud.android.ui.components.SendButtonData;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -194,7 +195,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     }
 
     private void themeShareButtonImage(ImageView shareImageView) {
-        shareImageView.getBackground().setColorFilter(ThemeUtils.primaryColor(getContext()), PorterDuff.Mode.SRC_IN);
+        shareImageView.getBackground().setColorFilter(ColorsUtils.elementColor(getContext()), PorterDuff.Mode.SRC_IN);
         shareImageView.getDrawable().mutate().setColorFilter(ThemeUtils.fontColor(getContext()),
                 PorterDuff.Mode.SRC_IN);
     }

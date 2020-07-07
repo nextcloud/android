@@ -35,8 +35,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -109,7 +110,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
         // Setup layout
         noteEditText.setText(share.getNote());
-        noteEditText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
+        noteEditText.setHighlightColor(ColorsUtils.elementColor(getActivity()));
         noteEditText.requestFocus();
         ThemeUtils.colorTextInputLayout(noteEditTextInputLayout, accentColor);
 

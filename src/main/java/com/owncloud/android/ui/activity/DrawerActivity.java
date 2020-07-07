@@ -84,10 +84,11 @@ import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.PhotoFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.ThemeUtils;
+import com.nextcloud.ui.theming.ThemeUtils;
 import com.owncloud.android.utils.svg.MenuSimpleTarget;
 
 import org.greenrobot.eventbus.EventBus;
@@ -265,14 +266,14 @@ public abstract class DrawerActivity extends ToolbarActivity
         mQuotaProgressBar = (ProgressBar) findQuotaViewById(R.id.drawer_quota_ProgressBar);
         mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
         mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
-        ThemeUtils.colorProgressBar(mQuotaProgressBar, ThemeUtils.primaryColor(this));
+        ThemeUtils.colorProgressBar(mQuotaProgressBar, ColorsUtils.elementColor(this));
     }
 
     /**
      * setup drawer header, basically the logo color
      */
     private void setupDrawerHeader(FrameLayout drawerHeader) {
-        drawerHeader.setBackgroundColor(ThemeUtils.primaryColor(getAccount(), true, this));
+        drawerHeader.setBackgroundColor(ColorsUtils.elementColor(getAccount(), this));
     }
 
     /**
@@ -703,7 +704,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             mCheckedMenuItem = menuItemId;
             MenuItem currentItem = mNavigationView.getMenu().findItem(menuItemId);
             int drawerColor = getResources().getColor(R.color.drawer_text_color);
-            int activeColor = ThemeUtils.primaryColor(null, true, true, this);
+            int activeColor = ThemeUtils.activeDrawerItemColor(this);
 
             currentItem.setChecked(true);
 
