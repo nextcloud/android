@@ -52,6 +52,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManagerImpl;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -675,8 +676,8 @@ public final class ThemeUtils {
         item.setTitle(newItemTitle);
     }
 
-    public static String colorToHexString(int color) {
-        return String.format("#%06X", 0xFFFFFF & color);
+    public static String primaryColorHexString(Context context) {
+        return ColorsUtils.colorToHexString(primaryColor(context, true));
     }
 
     public static void colorIconImageViewWithBackground(ImageView imageView, Context context) {
