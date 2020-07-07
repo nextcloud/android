@@ -28,8 +28,6 @@ import android.view.ViewGroup;
 import com.owncloud.android.databinding.SendButtonBinding;
 import com.owncloud.android.ui.components.SendButtonData;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -68,7 +66,7 @@ public class SendButtonAdapter extends RecyclerView.Adapter<SendButtonAdapter.Vi
         private ClickListener clickListener;
         private SendButtonData sendButtonDataData;
 
-        public ViewHolder(@NotNull SendButtonBinding binding, ClickListener clickListener) {
+        public ViewHolder(@NonNull SendButtonBinding binding, ClickListener clickListener) {
             super(binding.getRoot());
             this.binding = binding;
             this.clickListener = clickListener;
