@@ -35,11 +35,11 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
-import org.jetbrains.annotations.NotNull;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static junit.framework.TestCase.assertFalse;
@@ -80,7 +80,7 @@ public class UploadIT extends AbstractIT {
             return false;
         }
 
-        @NotNull
+        @NonNull
         @Override
         public BatteryStatus getBattery() {
             return new BatteryStatus(false, 0);
@@ -206,7 +206,7 @@ public class UploadIT extends AbstractIT {
                 return false;
             }
 
-            @NotNull
+            @NonNull
             @Override
             public BatteryStatus getBattery() {
                 return new BatteryStatus(true, 100);
