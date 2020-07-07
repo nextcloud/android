@@ -21,30 +21,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AppCompatResource">
+    <item
+        android:id="@+id/allow_editing"
+        android:checkable="true"
+        android:showAsAction="never"
+        android:title="@string/allow_editing"
+        app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_can_edit_create"
+        android:id="@+id/allow_creating"
         android:checkable="true"
         android:showAsAction="never"
-        android:title="@string/share_privilege_can_edit_create"
+        android:title="@string/allow_creating"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_can_edit_change"
+        android:id="@+id/allow_deleting"
         android:checkable="true"
         android:showAsAction="never"
-        android:title="@string/share_privilege_can_edit_change"
+        android:title="@string/allow_deleting"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_can_edit_delete"
+        android:id="@+id/allow_resharing"
         android:checkable="true"
         android:showAsAction="never"
-        android:title="@string/share_privilege_can_edit_delete"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_can_reshare"
-        android:checkable="true"
-        android:showAsAction="never"
-        android:title="@string/share_privilege_can_share"
+        android:title="@string/allow_resharing"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_hide_file_listing"

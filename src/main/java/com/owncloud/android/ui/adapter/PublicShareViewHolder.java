@@ -26,6 +26,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsSharePublicLinkItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.utils.ThemeUtils;
@@ -47,9 +48,10 @@ class PublicShareViewHolder extends RecyclerView.ViewHolder {
         this.context = context;
     }
 
-    public void bind(OCShare publicShare, ShareeListAdapter.ShareeListAdapterListener listener) {
+    public void bind(OCShare publicShare, ShareeListAdapterListener listener) {
         if (!TextUtils.isEmpty(publicShare.getLabel())) {
-            binding.publicShareLabel.setText(publicShare.getLabel());
+            String text = String.format(context.getString(R.string.share_link), publicShare.getLabel());
+            binding.publicShareLabel.setText(text);
         }
 
         ThemeUtils.colorIconImageViewWithBackground(binding.copyInternalLinkIcon, context);

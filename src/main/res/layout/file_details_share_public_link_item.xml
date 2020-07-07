@@ -45,6 +45,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:textColor="@color/text_color"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/file_details_username_text_size"
         android:text="@string/share_via_link_section_title" />
 
     <ImageView

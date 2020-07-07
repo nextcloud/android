@@ -52,14 +52,6 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/file_details_username_text_size" />
 
-    <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/allowEditing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textSize="16sp"
-            android:text="@string/edit_permission_label" />
-
         <ImageView
             android:id="@+id/editShareButton"
             android:layout_width="wrap_content"
