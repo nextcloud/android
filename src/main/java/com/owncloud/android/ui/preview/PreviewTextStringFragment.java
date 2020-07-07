@@ -43,8 +43,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
-import org.jetbrains.annotations.NotNull;
-
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
@@ -123,7 +121,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
      * {@inheritDoc}
      */
     @Override
-    public void onCreateOptionsMenu(@NotNull Menu menu, @NotNull MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
         MenuItem menuItem = menu.findItem(R.id.action_search);
