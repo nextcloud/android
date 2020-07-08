@@ -1397,6 +1397,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                         webViewUser = loginUrlInfo.username;
                         webViewPassword = loginUrlInfo.password;
                         doOnResumeAndBound();
+                        checkOcServer();
                     } catch (Exception e) {
                         mServerStatusIcon = R.drawable.ic_alert;
                         mServerStatusText = getString(R.string.qr_could_not_be_read);
