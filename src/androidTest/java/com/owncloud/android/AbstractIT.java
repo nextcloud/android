@@ -40,7 +40,6 @@ import junit.framework.TestCase;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.io.FileUtils;
-import org.jetbrains.annotations.NotNull;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -52,6 +51,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
+import androidx.annotation.NonNull;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -284,7 +284,7 @@ public abstract class AbstractIT {
         };
 
         PowerManagementService powerManagementServiceMock = new PowerManagementService() {
-            @NotNull
+            @NonNull
             @Override
             public BatteryStatus getBattery() {
                 return new BatteryStatus();

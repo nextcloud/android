@@ -1,3 +1,11 @@
+## 3.12.1 (July, 07, 2020)
+
+- UI does not hang when changing auto upload
+- fix crash on contacts backup settings
+- bugfixes
+
+For a full list, please see https://github.com/nextcloud/android/milestone/49
+
 ## 3.12.0 (June, 10, 2020)
 
 - add circle support for searching/displaying

@@ -33,6 +33,7 @@
     <string name="activity_chooser_title">Отправить ссылку…</string>
     <string name="activity_icon">События</string>
     <string name="add_another_public_share_link">Добавить другую ссылку</string>
+    <string name="add_new_public_share">Добавить новую общедоступную ссылку</string>
     <string name="add_to_cloud">Добавить в %1$s</string>
     <string name="allow_editing">Разрешить редактирование</string>
     <string name="appbar_search_in">Искать в %s</string>
@@ -383,6 +384,7 @@
     <string name="instant_upload_on_charging">Необходимо подключение внешнего питания</string>
     <string name="instant_upload_path">/Автозагрузка</string>
     <string name="invalid_url">Неверный адрес</string>
+    <string name="label_empty">Метка не может быть пустой</string>
     <string name="learn_more">Узнать больше</string>
     <string name="link">Ссылка</string>
     <string name="list_layout">Вид списком</string>
@@ -442,6 +444,7 @@
     <string name="no_pdf_app_available">Отсутствует приложение, которое может отображать формат PDF</string>
     <string name="note_confirm">Отправить</string>
     <string name="note_could_not_sent">Не удалось отправить примечание</string>
+    <string name="note_icon_hint">Значок примечания</string>
     <string name="notification_action_failed">Не удалось выполнить задание.</string>
     <string name="notification_channel_download_description">Показывает выполнение получения</string>
     <string name="notification_channel_download_name">Канал уведомления о получении</string>
@@ -538,9 +541,11 @@
     <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
     <string name="preview_sorry">Приносим извинения</string>
     <string name="privacy">Конфиденциальность</string>
+    <string name="public_share_name">Новое имя</string>
     <string name="push_notifications_not_implemented">Всплывающие уведомления отключены, так как зависят от Google Play сервисов</string>
     <string name="push_notifications_old_login">Нет аккаунтов для уведомлений. Пожалуйста добавьте аккаунт.</string>
     <string name="push_notifications_temp_error">Всплывающие уведомления недоступны</string>
+    <string name="qr_could_not_be_read">QR Код не может быть прочтен!</string>
     <string name="recommend_subject">Испытайте %1$s на своём устройстве!</string>
     <string name="recommend_text">Хочу посоветовать использовать %1$s на твоём устройстве!\nСкачай здесь: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>

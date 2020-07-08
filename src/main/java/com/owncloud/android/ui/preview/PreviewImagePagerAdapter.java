@@ -19,11 +19,10 @@
  */
 package com.owncloud.android.ui.preview;
 
-import android.accounts.Account;
-import android.graphics.Matrix;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -49,7 +48,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
     private List<OCFile> mImageFiles;
-    private Account mAccount;
+    private User user;
     private Set<Object> mObsoleteFragments;
     private Set<Integer> mObsoletePositions;
     private Set<Integer> mDownloadErrors;
@@ -64,14 +63,13 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      * @param parentFolder      Folder where images will be searched for.
      * @param storageManager    Bridge to database.
      */
-    public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder,
-                                    Account account, FileDataStorageManager storageManager,
-                                    boolean onlyOnDevice, AppPreferences preferences) {
+    public PreviewImagePagerAdapter(FragmentManager fragmentManager,
+                                    OCFile parentFolder,
+                                    User user,
+                                    FileDataStorageManager storageManager,
+                                    boolean onlyOnDevice,
+                                    AppPreferences preferences) {
         super(fragmentManager);
-
-        if (fragmentManager == null) {
-            throw new IllegalArgumentException("NULL FragmentManager instance");
-        }
         if (parentFolder == null) {
             throw new IllegalArgumentException("NULL parent folder");
         }
@@ -79,7 +77,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
             throw new IllegalArgumentException("NULL storage manager");
         }
 
-        mAccount = account;
+        this.user = user;
         mStorageManager = storageManager;
         mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
 
@@ -100,8 +98,10 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      * @param type            Type of virtual folder, e.g. favorite or photos
      * @param storageManager  Bridge to database.
      */
-    public PreviewImagePagerAdapter(FragmentManager fragmentManager, VirtualFolderType type,
-                                    Account account, FileDataStorageManager storageManager) {
+    public PreviewImagePagerAdapter(FragmentManager fragmentManager,
+                                    VirtualFolderType type,
+                                    User user,
+                                    FileDataStorageManager storageManager) {
         super(fragmentManager);
 
         if (fragmentManager == null) {
@@ -114,7 +114,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
             throw new IllegalArgumentException("NULL storage manager");
         }
 
-        mAccount = account;
+        this.user = user;
         mStorageManager = storageManager;
         mImageFiles = mStorageManager.getVirtualFolderContent(type, true);
 
@@ -143,6 +143,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     }
 
 
+    @NonNull
     public Fragment getItem(int i) {
         OCFile file = getFileAt(i);
         Fragment fragment;
@@ -154,11 +155,11 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
             fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false);
         } else {
             if (mDownloadErrors.remove(i)) {
-                fragment = FileDownloadFragment.newInstance(file, mAccount, true);
+                fragment = FileDownloadFragment.newInstance(file, user, true);
                 ((FileDownloadFragment) fragment).setError(true);
             } else {
                 if (file.isEncrypted()) {
-                    fragment = FileDownloadFragment.newInstance(file, mAccount, mObsoletePositions.contains(i));
+                    fragment = FileDownloadFragment.newInstance(file, user, mObsoletePositions.contains(i));
                 } else {
                     fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
                 }
@@ -233,20 +234,5 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
     public boolean pendingErrorAt(int position) {
         return mDownloadErrors.contains(position);
-    }
-
-    /**
-     * Reset the image zoom to default value for each CachedFragments
-     */
-    public void resetZoom() {
-        Matrix matrix = new Matrix();
-        for (int i = 0; i < mCachedFragments.size(); i++) {
-            FileFragment fileFragment = mCachedFragments.valueAt(i);
-
-            if (fileFragment instanceof PreviewImageFragment) {
-                ((PreviewImageFragment) fileFragment).getImageView().setDisplayMatrix(matrix);
-                ((PreviewImageFragment) fileFragment).getImageView().setSuppMatrix(matrix);
-            }
-        }
     }
 }
