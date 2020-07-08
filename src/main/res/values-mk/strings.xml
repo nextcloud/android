@@ -349,6 +349,7 @@
     <string name="host_your_own_server">Хостирајте го вашиот сервер</string>
     <string name="instant_upload_on_charging">Прикачувај само додека се полни</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="invalid_url">Неправилна URL</string>
     <string name="learn_more">Научи повеќе</string>
     <string name="link">Линк</string>
     <string name="list_layout">Listed layout</string>
@@ -646,6 +647,7 @@
     <string name="sync_foreign_files_forgotten_explanation">Од верзијата 1.3.16, датотеките прикачени од овој уред се копираат во локалната папка %1$s за да се спречи загуба на податоци кога една датотека се синхронизира со повеќе сметки.\n\nПоради оваа промена, сите датотеки прикачени во претходните верзии на оваа апликација се копирани во папката %2$s. Меѓутоа, се појави грешка при синхронизацијата на сметката и го спречи комплетирањето на оваа операција. Можете да ја оставите датотеката(ките) како што е/се или да го отстраните линкот до %3$s или да ја преместите датотеката(ките) во папката %1$s, и да го зачувате линкот до %4$s.\n\nПодолу се наведени локалните датотеки и датотеките на серверот во %5$s каде што беа поврзани.</string>
     <string name="sync_foreign_files_forgotten_ticker">Некои локални датотеки беа заборавени</string>
     <string name="sync_in_progress">Преземање на најновата верзија на датотеката.</string>
+    <string name="sync_not_enough_space_dialog_action_choose">Изберете што да се синхронизира</string>
     <string name="sync_status_button">Копче за статус на синхронизацијата</string>
     <string name="sync_string_files">Датотеки</string>
     <string name="synced_folder_settings_button">Копче за параметри</string>
