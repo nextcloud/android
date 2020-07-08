@@ -146,7 +146,6 @@ public class ConflictsResolveDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Inflate the layout for the dialog
         binding = ConflictResolveDialogBinding.inflate(requireActivity().getLayoutInflater());
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
 
         ThemeUtils.tintCheckbox(binding.newCheckbox, ThemeUtils.primaryColor(getContext()));
         ThemeUtils.tintCheckbox(binding.existingCheckbox, ThemeUtils.primaryColor(getContext()));
@@ -170,8 +169,7 @@ public class ConflictsResolveDialog extends DialogFragment {
                     listener.conflictDecisionMade(Decision.CANCEL);
                 }
             })
-            .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.conflict_message_headline),
-                                                 accentColor));
+            .setTitle(R.string.conflict_message_headline);
 
         // set info for new file
         binding.newSize.setText(DisplayUtils.bytesToHumanReadable(newFile.length()));

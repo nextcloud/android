@@ -93,8 +93,7 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
         listView.setLayoutManager(new LinearLayoutManager(activity));
         listView.setAdapter(adapter);
 
-        builder.setView(view)
-            .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.common_choose_account), accentColor));
+        builder.setView(view).setTitle(R.string.common_choose_account);
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();

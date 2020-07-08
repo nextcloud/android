@@ -171,7 +171,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view)
             .setNegativeButton(R.string.common_cancel, this)
-            .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.select_template), accentColor));
+            .setTitle(R.string.select_template);
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();

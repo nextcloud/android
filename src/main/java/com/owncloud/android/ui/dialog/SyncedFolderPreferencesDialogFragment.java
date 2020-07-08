@@ -451,9 +451,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
     private void showBehaviourDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(ThemeUtils.getColoredTitle(
-                getResources().getString(R.string.prefs_instant_behaviour_dialogTitle),
-                ThemeUtils.primaryAccentColor(getContext())))
+        builder.setTitle(R.string.prefs_instant_behaviour_dialogTitle)
                 .setSingleChoiceItems(getResources().getTextArray(R.array.pref_behaviour_entries),
                         mSyncedFolder.getUploadActionInteger(),
                         new
@@ -482,9 +480,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private void showNameCollisionPolicyDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle(ThemeUtils.getColoredTitle(
-                getResources().getString(R.string.pref_instant_name_collision_policy_dialogTitle),
-                ThemeUtils.primaryAccentColor(getContext())))
+        builder.setTitle(R.string.pref_instant_name_collision_policy_dialogTitle)
             .setSingleChoiceItems(getResources().getTextArray(R.array.pref_name_collision_policy_entries),
                                   getSelectionIndexForNameCollisionPolicy(mSyncedFolder.getNameCollisionPolicy()),
                                   new OnNameCollisionDialogClickListener())
