@@ -47,6 +47,7 @@ import android.os.Parcelable;
 import android.os.Process;
 import android.util.Pair;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
@@ -1207,19 +1208,19 @@ public class FileUploader extends Service
          * Adds a listener interested in the progress of the upload for a concrete file.
          *
          * @param listener Object to notify about progress of transfer.
-         * @param account  ownCloud account holding the file of interest.
+         * @param user  user owning the file of interest.
          * @param file     {@link OCFile} of interest for listener.
          */
         public void addDatatransferProgressListener(
             OnDatatransferProgressListener listener,
-            Account account,
+            User user,
             OCFile file
         ) {
-            if (account == null || file == null || listener == null) {
+            if (user == null || file == null || listener == null) {
                 return;
             }
 
-            String targetKey = buildRemoteName(account.name, file.getRemotePath());
+            String targetKey = buildRemoteName(user.getAccountName(), file.getRemotePath());
             mBoundListeners.put(targetKey, listener);
         }
 
@@ -1245,19 +1246,19 @@ public class FileUploader extends Service
          * Removes a listener interested in the progress of the upload for a concrete file.
          *
          * @param listener Object to notify about progress of transfer.
-         * @param account  ownCloud account holding the file of interest.
-         * @param file     {@link OCFile} of interest for listener.
+         * @param user user owning the file of interest.
+         * @param file {@link OCFile} of interest for listener.
          */
         public void removeDatatransferProgressListener(
             OnDatatransferProgressListener listener,
-            Account account,
+            User user,
             OCFile file
         ) {
-            if (account == null || file == null || listener == null) {
+            if (user == null || file == null || listener == null) {
                 return;
             }
 
-            String targetKey = buildRemoteName(account.name, file.getRemotePath());
+            String targetKey = buildRemoteName(user.getAccountName(), file.getRemotePath());
             if (mBoundListeners.get(targetKey) == listener) {
                 mBoundListeners.remove(targetKey);
             }
