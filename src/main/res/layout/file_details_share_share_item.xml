@@ -20,8 +20,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:layout_height="@dimen/standard_list_item_size"
     android:weightSum="1"
     tools:ignore="UseCompoundDrawables">
 
@@ -39,29 +39,25 @@
             android:contentDescription="@string/user_icon"
             android:src="@drawable/ic_user" />
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/standard_quarter_margin"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:text="@string/username"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/file_details_username_text_size" />
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textColor="@color/text_color"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/file_details_username_text_size"
+        android:text="@string/username" />
 
-        <ImageView
-            android:id="@+id/overflow_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/standard_half_margin"
-            android:layout_marginStart="@dimen/standard_half_margin"
-            android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_marginRight="@dimen/standard_half_margin"
-            android:contentDescription="@string/overflow_menu"
-            android:padding="@dimen/standard_half_padding"
-            android:src="@drawable/ic_dots_vertical" />
+    <ImageView
+        android:id="@+id/overflow_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/overflow_menu"
+        android:paddingStart="@dimen/standard_padding"
+        android:paddingEnd="@dimen/standard_padding"
+        android:src="@drawable/ic_dots_vertical" />
 </LinearLayout>

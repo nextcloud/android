@@ -88,7 +88,6 @@ public class CreateShareViaLinkOperation extends SyncOperation {
         // Update OCFile with data from share: ShareByLink  and publicLink
         OCFile file = getStorageManager().getFileByEncryptedRemotePath(path);
         if (file != null) {
-            file.setPublicLink(share.getShareLink());
             file.setSharedViaLink(true);
             getStorageManager().saveFile(file);
         }

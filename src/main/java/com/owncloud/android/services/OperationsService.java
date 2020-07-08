@@ -106,6 +106,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_SHARE_PUBLIC_UPLOAD = "SHARE_PUBLIC_UPLOAD";
     public static final String EXTRA_SHARE_PUBLIC_LABEL = "SHARE_PUBLIC_LABEL";
     public static final String EXTRA_SHARE_HIDE_FILE_DOWNLOAD = "HIDE_FILE_DOWNLOAD";
+    public static final String EXTRA_SHARE_VIDEO_VERIFICATION = "VIDEO_VERIFICATION";
     public static final String EXTRA_SHARE_ID = "SHARE_ID";
     public static final String EXTRA_SHARE_NOTE = "SHARE_NOTE";
     public static final String EXTRA_IN_BACKGROUND = "IN_BACKGROUND";
@@ -552,6 +553,11 @@ public class OperationsService extends Service {
                             boolean hideFileDownload = operationIntent.getBooleanExtra(EXTRA_SHARE_HIDE_FILE_DOWNLOAD,
                                                                                        false);
                             updateLinkOperation.setHideFileDownload(hideFileDownload);
+
+                            boolean videoVerificationEnabled =
+                                operationIntent.getBooleanExtra(EXTRA_SHARE_VIDEO_VERIFICATION, false);
+
+                            updateLinkOperation.setVideoVerification(videoVerificationEnabled);
 
                             if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_UPLOAD)) {
                                 updateLinkOperation.setPublicUpload(true);

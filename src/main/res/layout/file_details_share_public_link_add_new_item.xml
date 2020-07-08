@@ -26,8 +26,7 @@
     android:id="@+id/add_public_share"
     android:layout_width="match_parent"
     android:layout_height="@dimen/standard_list_item_size"
-    android:orientation="horizontal"
-    android:visibility="gone">
+    android:orientation="horizontal">
 
     <ImageView
         android:layout_width="@dimen/share_icon_size"

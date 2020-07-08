@@ -68,7 +68,6 @@ public class UnshareOperation extends SyncOperation {
 
                 if (ShareType.PUBLIC_LINK.equals(share.getShareType())) {
                     file.setSharedViaLink(false);
-                    file.setPublicLink("");
                 } else if (ShareType.USER.equals(share.getShareType()) || ShareType.GROUP.equals(share.getShareType())
                     || ShareType.FEDERATED.equals(share.getShareType())) {
                     // Check if it is the last share

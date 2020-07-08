@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 59;
+    public static final int DB_VERSION = 60;
 
     private ProviderMeta() {
         // No instance
@@ -102,7 +102,6 @@ public class ProviderMeta {
         public static final String FILE_ETAG_ON_SERVER = "etag_on_server";
         public static final String FILE_SHARED_VIA_LINK = "share_by_link";
         public static final String FILE_SHARED_WITH_SHAREE = "shared_via_users";
-        public static final String FILE_PUBLIC_LINK = "public_link";
         public static final String FILE_PERMISSIONS = "permissions";
         public static final String FILE_REMOTE_ID = "remote_id";
         public static final String FILE_UPDATE_THUMBNAIL = "update_thumbnail";
@@ -137,7 +136,6 @@ public class ProviderMeta {
             FILE_ETAG_ON_SERVER,
             FILE_SHARED_VIA_LINK,
             FILE_SHARED_WITH_SHAREE,
-            FILE_PUBLIC_LINK,
             FILE_PERMISSIONS,
             FILE_REMOTE_ID,
             FILE_UPDATE_THUMBNAIL,
@@ -173,6 +171,7 @@ public class ProviderMeta {
         public static final String OCSHARES_HIDE_DOWNLOAD = "hide_download";
         public static final String OCSHARES_SHARE_LINK = "share_link";
         public static final String OCSHARES_SHARE_LABEL = "share_label";
+        public static final String OCSHARES_VIDEO_VERIFICATION = "video_verification";
 
         public static final String OCSHARES_DEFAULT_SORT_ORDER = OCSHARES_FILE_SOURCE
                 + " collate nocase asc";

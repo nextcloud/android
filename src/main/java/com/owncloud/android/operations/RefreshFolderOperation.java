@@ -576,7 +576,6 @@ public class RefreshFolderOperation extends RemoteOperation {
                 Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
             }
 
-            updatedFile.setPublicLink(localFile.getPublicLink());
             updatedFile.setSharedViaLink(localFile.isSharedViaLink());
             updatedFile.setSharedWithSharee(localFile.isSharedWithSharee());
         } else {

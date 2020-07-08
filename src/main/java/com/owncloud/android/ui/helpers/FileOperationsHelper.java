@@ -733,6 +733,16 @@ public class FileOperationsHelper {
         queueShareIntent(updateShareIntent);
     }
 
+    public void setVideoVerificationToPublicShare(OCShare share, boolean videoVerificationEnabled) {
+        Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_PUBLIC_SHARE);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_VIDEO_VERIFICATION, videoVerificationEnabled);
+
+        queueShareIntent(updateShareIntent);
+    }
+
     public void updateNoteToShare(OCShare share, String note) {
         Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE_NOTE);
