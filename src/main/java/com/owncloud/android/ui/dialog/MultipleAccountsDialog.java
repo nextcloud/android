@@ -42,7 +42,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.adapter.UserListItem;
-import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
