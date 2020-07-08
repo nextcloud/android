@@ -71,8 +71,6 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
             throw new IllegalArgumentException("Activity may not be null");
         }
 
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
-
         // Inflate the layout for the dialog
         LayoutInflater inflater = activity.getLayoutInflater();
         @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.multiple_accounts, null);
