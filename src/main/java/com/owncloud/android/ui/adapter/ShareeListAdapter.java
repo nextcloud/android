@@ -32,7 +32,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.FileDetailsShareInternalShareLinkBinding;
 import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
+import com.owncloud.android.databinding.FileDetailsSharePublicLinkAddNewItemBinding;
 import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -82,10 +84,21 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         switch (ShareType.fromValue(viewType)) {
             case PUBLIC_LINK:
             case EMAIL:
-                return new LinkShareViewHolder(FileDetailsShareLinkShareItemBinding.inflate(LayoutInflater.from(context),
-                                                                                            parent,
-                                                                                            false),
-                                               context);
+                return new LinkShareViewHolder(
+                    FileDetailsShareLinkShareItemBinding.inflate(LayoutInflater.from(context),
+                                                                 parent,
+                                                                 false),
+                    context);
+            case NEW_PUBLIC_LINK:
+                return new NewLinkShareViewHolder(
+                    FileDetailsSharePublicLinkAddNewItemBinding.inflate(LayoutInflater.from(context),
+                                                                        parent,
+                                                                        false)
+                );
+            case INTERNAL:
+                return new InternalShareViewHolder(
+                    FileDetailsShareInternalShareLinkBinding.inflate(LayoutInflater.from(context), parent, false),
+                    context);
             default:
                 return new ShareViewHolder(FileDetailsShareShareItemBinding.inflate(LayoutInflater.from(context),
                                                                                     parent,
@@ -105,6 +118,12 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof LinkShareViewHolder) {
             LinkShareViewHolder publicShareViewHolder = (LinkShareViewHolder) holder;
             publicShareViewHolder.bind(share, listener);
+        } else if (holder instanceof InternalShareViewHolder) {
+            InternalShareViewHolder internalShareViewHolder = (InternalShareViewHolder) holder;
+            internalShareViewHolder.bind(share, listener);
+        } else if (holder instanceof NewLinkShareViewHolder) {
+            NewLinkShareViewHolder newLinkShareViewHolder = (NewLinkShareViewHolder) holder;
+            newLinkShareViewHolder.bind(listener);
         } else {
             ShareViewHolder userViewHolder = (ShareViewHolder) holder;
             userViewHolder.bind(share, listener, userId, avatarRadiusDimension);
@@ -159,7 +178,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         for (OCShare share : shares) {
             if (ShareType.PUBLIC_LINK == share.getShareType() || ShareType.EMAIL == share.getShareType()) {
                 links.add(share);
-            } else {
+            } else if (share.getShareType() != ShareType.INTERNAL) {
                 users.add(share);
             }
         }
@@ -169,9 +188,21 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         shares = links;
         shares.addAll(users);
+
+        // add internal share link at end
+        shares.add(new OCShare().setShareType(ShareType.INTERNAL));
     }
 
-    protected List<OCShare> getShares() {
+    public List<OCShare> getShares() {
         return shares;
+    }
+
+    public void removeNewPublicShare() {
+        for (OCShare share : shares) {
+            if (share.getShareType() == ShareType.NEW_PUBLIC_LINK) {
+                shares.remove(share);
+                break;
+            }
+        }
     }
 }

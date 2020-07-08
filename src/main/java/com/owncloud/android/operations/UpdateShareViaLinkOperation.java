@@ -39,6 +39,7 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
      */
     private boolean publicUpload;
     private Boolean hideFileDownload;
+    private Boolean videoVerification;
     private long expirationDateInMillis;
     private long shareId;
     private String label;
@@ -56,6 +57,7 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
         updateOp.setPassword(password);
         updateOp.setExpirationDate(expirationDateInMillis);
         updateOp.setHideFileDownload(hideFileDownload);
+        updateOp.setVideoVerification(videoVerification);
         updateOp.setLabel(label);
 
         if (publicShare.isFolder()) {
@@ -101,5 +103,9 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public void setVideoVerification(Boolean enabled) {
+        this.videoVerification = enabled;
     }
 }

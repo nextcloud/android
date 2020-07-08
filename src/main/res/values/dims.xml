@@ -31,7 +31,7 @@
     <dimen name="standard_double_padding">32dp</dimen>
     <dimen name="standard_half_padding">8dp</dimen>
     <dimen name="standard_quarter_padding">4dp</dimen>
-    <dimen name="standard_eigth_padding">2dp</dimen>
+    <dimen name="standard_eight_padding">2dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
     <dimen name="standard_icon_list_horizontal_margin">24dp</dimen>
     <dimen name="standard_double_margin">32dp</dimen>
