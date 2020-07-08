@@ -26,6 +26,7 @@ import android.content.Context;
 import android.os.Build;
 import android.util.Pair;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
@@ -63,15 +64,15 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
     protected String remotePath;
     private RemoteFile createdRemoteFolder;
-    private Account account;
+    private User user;
     private Context context;
 
     /**
      * Constructor
      */
-    public CreateFolderOperation(String remotePath, Account account, Context context) {
+    public CreateFolderOperation(String remotePath, User user, Context context) {
         this.remotePath = remotePath;
-        this.account = account;
+        this.user = user;
         this.context = context;
     }
 
@@ -112,8 +113,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private RemoteOperationResult encryptedCreate(OCFile parent, String remoteParentPath, OwnCloudClient client) {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
-        String privateKey = arbitraryDataProvider.getValue(account.name, EncryptionUtils.PRIVATE_KEY);
-        String publicKey = arbitraryDataProvider.getValue(account.name, EncryptionUtils.PUBLIC_KEY);
+        String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
+        String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
 
         String token = null;
         Boolean metadataExists;
@@ -236,7 +237,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             if (encryptedRemotePath != null) {
                 RemoteOperationResult removeResult = new RemoveRemoteEncryptedFileOperation(encryptedRemotePath,
                                                                                             parent.getLocalId(),
-                                                                                            account,
+                                                                                            user.toPlatformAccount(),
                                                                                             context,
                                                                                             filename).execute(client);
 
