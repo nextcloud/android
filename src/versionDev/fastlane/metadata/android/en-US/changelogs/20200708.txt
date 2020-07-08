@@ -1,0 +1,5 @@
+do not user NotNull, but NonNull
+Migrate SetupEncryptionDialogFragment to User model
+Migrate MimeTypeUtil.getFileTypeIcon to User model
+Migrate PreviewImagePagerAdapter to User model
+Update translations
