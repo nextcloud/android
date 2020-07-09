@@ -925,23 +925,23 @@ public class FileOperationsHelper {
      * @param file OCFile
      */
     public void cancelTransference(OCFile file) {
-        Account account = fileActivity.getAccount();
+        User currentUser = fileActivity.getUser().orElseThrow(IllegalStateException::new);
         if (file.isFolder()) {
             OperationsService.OperationsServiceBinder opsBinder =
                     fileActivity.getOperationsServiceBinder();
             if (opsBinder != null) {
-                opsBinder.cancel(account, file);
+                opsBinder.cancel(currentUser.toPlatformAccount(), file);
             }
         }
 
         // for both files and folders
         FileDownloaderBinder downloaderBinder = fileActivity.getFileDownloaderBinder();
-        if (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) {
-            downloaderBinder.cancel(account, file);
+        if (downloaderBinder != null && downloaderBinder.isDownloading(currentUser, file)) {
+            downloaderBinder.cancel(currentUser.toPlatformAccount(), file);
         }
         FileUploaderBinder uploaderBinder = fileActivity.getFileUploaderBinder();
-        if (uploaderBinder != null && uploaderBinder.isUploading(account, file)) {
-            uploaderBinder.cancel(account, file);
+        if (uploaderBinder != null && uploaderBinder.isUploading(currentUser, file)) {
+            uploaderBinder.cancel(currentUser.toPlatformAccount(), file);
         }
     }
 

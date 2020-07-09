@@ -358,7 +358,7 @@ public class PreviewImageActivity extends FileActivity implements
         if (mDownloaderBinder == null) {
             Log_OC.d(TAG, "requestForDownload called without binder to download service");
 
-        } else if (!mDownloaderBinder.isDownloading(getAccount(), file)) {
+        } else if (!mDownloaderBinder.isDownloading(getUserAccountManager().getUser(), file)) {
             final User user = getUser().orElseThrow(RuntimeException::new);
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_USER, user);

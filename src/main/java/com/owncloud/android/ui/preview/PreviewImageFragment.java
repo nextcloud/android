@@ -55,6 +55,7 @@ import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
@@ -368,20 +369,19 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             // Update the file
             setFile(containerActivity.getStorageManager().getFileById(getFile().getFileId()));
 
-            Account currentAccount = containerActivity.getStorageManager().getAccount();
+            User currentUser = accountManager.getUser();
             FileMenuFilter mf = new FileMenuFilter(
                 getFile(),
-                currentAccount,
                 containerActivity,
                 getActivity(),
                 false,
                 deviceInfo,
-                accountManager.getUser()
+                currentUser
             );
 
             mf.filter(menu,
                       true,
-                      accountManager.isMediaStreamingSupported(currentAccount));
+                      currentUser.getServer().getVersion().isMediaStreamingSupported());
         }
 
         // additional restriction for this fragment
