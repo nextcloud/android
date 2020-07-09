@@ -347,13 +347,10 @@ public class FileDownloader extends Service
          * Adds a listener interested in the progress of the download for a concrete file.
          *
          * @param listener Object to notify about progress of transfer.
-         * @param account  ownCloud account holding the file of interest.
          * @param file     {@link OCFile} of interest for listener.
          */
-        public void addDatatransferProgressListener(
-                OnDatatransferProgressListener listener, Account account, OCFile file
-        ) {
-            if (account == null || file == null || listener == null) {
+        public void addDatatransferProgressListener(OnDatatransferProgressListener listener, OCFile file) {
+            if (file == null || listener == null) {
                 return;
             }
             mBoundListeners.put(file.getFileId(), listener);
@@ -364,13 +361,10 @@ public class FileDownloader extends Service
          * Removes a listener interested in the progress of the download for a concrete file.
          *
          * @param listener      Object to notify about progress of transfer.
-         * @param account       ownCloud account holding the file of interest.
          * @param file          {@link OCFile} of interest for listener.
          */
-        public void removeDatatransferProgressListener(
-                OnDatatransferProgressListener listener, Account account, OCFile file
-        ) {
-            if (account == null || file == null || listener == null) {
+        public void removeDatatransferProgressListener(OnDatatransferProgressListener listener, OCFile file) {
+            if (file == null || listener == null) {
                 return;
             }
             Long fileId = file.getFileId();
