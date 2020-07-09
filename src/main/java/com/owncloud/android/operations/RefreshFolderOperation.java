@@ -535,7 +535,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                     localFile.getModificationTimestampAtLastSyncForData()
             );
             if (localFile.isEncrypted()) {
-                updatedFile.setStoragePath(mLocalFolder.getRemotePath() + PATH_SEPARATOR + localFile.getFileName());
+                updatedFile.setStoragePath(mLocalFolder.getDecryptedRemotePath() + localFile.getFileName());
             } else {
                 updatedFile.setStoragePath(localFile.getStoragePath());
             }
