@@ -510,17 +510,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             OperationsService.OperationsServiceBinder operationsServiceBinder = transferServiceGetter.getOperationsServiceBinder();
             FileDownloader.FileDownloaderBinder fileDownloaderBinder = transferServiceGetter.getFileDownloaderBinder();
             FileUploader.FileUploaderBinder fileUploaderBinder = transferServiceGetter.getFileUploaderBinder();
-            if (operationsServiceBinder != null && operationsServiceBinder.isSynchronizing(user.toPlatformAccount(), file)) {
+            if (operationsServiceBinder != null && operationsServiceBinder.isSynchronizing(user, file)) {
                 //synchronizing
                 gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing);
                 gridViewHolder.localFileIndicator.setVisibility(View.VISIBLE);
 
-            } else if (fileDownloaderBinder != null && fileDownloaderBinder.isDownloading(user.toPlatformAccount(), file)) {
+            } else if (fileDownloaderBinder != null && fileDownloaderBinder.isDownloading(user, file)) {
                 // downloading
                 gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing);
                 gridViewHolder.localFileIndicator.setVisibility(View.VISIBLE);
 
-            } else if (fileUploaderBinder != null && fileUploaderBinder.isUploading(user.toPlatformAccount(), file)) {
+            } else if (fileUploaderBinder != null && fileUploaderBinder.isUploading(user, file)) {
                 //uploading
                 gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing);
                 gridViewHolder.localFileIndicator.setVisibility(View.VISIBLE);
