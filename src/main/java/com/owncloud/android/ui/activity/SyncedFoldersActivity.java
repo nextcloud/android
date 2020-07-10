@@ -226,8 +226,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         AlertDialog alertDialog = new AlertDialog.Builder(this)
             .setView(findViewById(R.id.root_layout))
             .setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
-            .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.autoupload_disable_power_save_check),
-                                                 ThemeUtils.primaryAccentColor(this)))
+            .setTitle(R.string.autoupload_disable_power_save_check)
             .setMessage(getString(R.string.power_save_check_dialog_message))
             .show();
 
