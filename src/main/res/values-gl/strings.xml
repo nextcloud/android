@@ -405,7 +405,7 @@
     <string name="logs_title">Rexistros</string>
     <string name="maintenance_mode">Servidor en modo de mantemento</string>
     <string name="manage_space_clear_data">Limpar os datos</string>
-    <string name="manage_space_description">Van ser eliminados permanentemente os axustes , base de datos e certificados do servidor de %1$s.\n\nOs ficheiros descargados manteranse sen cambios.\n\nEste proceso pode levar bastante tempo.</string>
+    <string name="manage_space_description">Van ser eliminados de xeito permanente os axustes , base de datos e certificados do servidor de %1$s.\n\nOs ficheiros descargados manteranse sen cambios.\n\nEste proceso pode levar bastante tempo.</string>
     <string name="manage_space_title">Administrar o espazo</string>
     <string name="media_err_invalid_progressive_playback">O ficheiro multimedia non pode ser transformado nun fluxo</string>
     <string name="media_err_io">Non foi posíbel ler o ficheiro multimedia</string>
@@ -731,7 +731,7 @@
     <string name="trashbin_file_not_deleted">Non foi posíbel eliminar o ficheiro %1$s!</string>
     <string name="trashbin_file_not_restored">Non foi posíbel restaurar o ficheiro %1$s!</string>
     <string name="trashbin_loading_failed">Produciuse un fallo ao cargar o cesto do lixo!</string>
-    <string name="trashbin_not_emptied">Non foi posíbel eliminar permanentemente o ficheiro!</string>
+    <string name="trashbin_not_emptied">Non foi posíbel eliminar de xeito permanente o ficheiro!</string>
     <string name="unread_comments">Existen comentarios sen ler</string>
     <string name="unset_encrypted">Estabelecer como NON cifrado</string>
     <string name="unset_favorite">Retirar dos favoritos</string>

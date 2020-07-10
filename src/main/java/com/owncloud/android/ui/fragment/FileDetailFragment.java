@@ -715,11 +715,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (progressListener != null) {
             if (containerActivity.getFileDownloaderBinder() != null) {
                 containerActivity.getFileDownloaderBinder().
-                        addDatatransferProgressListener(progressListener, user.toPlatformAccount(), getFile());
+                        addDatatransferProgressListener(progressListener, getFile());
             }
             if (containerActivity.getFileUploaderBinder() != null) {
                 containerActivity.getFileUploaderBinder().
-                        addDatatransferProgressListener(progressListener, user.toPlatformAccount(), getFile());
+                        addDatatransferProgressListener(progressListener, user, getFile());
             }
         } else {
             Log_OC.d(TAG, "progressListener == null");
@@ -730,11 +730,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (progressListener != null) {
             if (containerActivity.getFileDownloaderBinder() != null) {
                 containerActivity.getFileDownloaderBinder().
-                        removeDatatransferProgressListener(progressListener, user.toPlatformAccount(), getFile());
+                        removeDatatransferProgressListener(progressListener, getFile());
             }
             if (containerActivity.getFileUploaderBinder() != null) {
                 containerActivity.getFileUploaderBinder().
-                        removeDatatransferProgressListener(progressListener, user.toPlatformAccount(), getFile());
+                        removeDatatransferProgressListener(progressListener, user, getFile());
             }
         }
     }
