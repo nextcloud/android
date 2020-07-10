@@ -102,8 +102,7 @@ public class RenamePublicShareDialogFragment
         builder.setView(view)
             .setPositiveButton(R.string.file_rename, this)
             .setNegativeButton(R.string.common_cancel, this)
-            .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.public_share_name),
-                                                 accentColor));
+            .setTitle(R.string.public_share_name);
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();

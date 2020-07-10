@@ -42,7 +42,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.adapter.UserListItem;
-import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,8 +70,6 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
             throw new IllegalArgumentException("Activity may not be null");
         }
 
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
-
         // Inflate the layout for the dialog
         LayoutInflater inflater = activity.getLayoutInflater();
         @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.multiple_accounts, null);
@@ -93,8 +90,7 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
         listView.setLayoutManager(new LinearLayoutManager(activity));
         listView.setAdapter(adapter);
 
-        builder.setView(view)
-            .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.common_choose_account), accentColor));
+        builder.setView(view).setTitle(R.string.common_choose_account);
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();

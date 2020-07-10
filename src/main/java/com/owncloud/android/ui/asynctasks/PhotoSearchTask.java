@@ -97,7 +97,6 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
     @Override
     protected void onPostExecute(RemoteOperationResult result) {
         if (photoFragmentWeakReference.get() != null) {
-            Boolean loadingStatus = false;
             PhotoFragment photoFragment = photoFragmentWeakReference.get();
 
             if (result.isSuccess() && result.getData() != null && !isCancelled()) {

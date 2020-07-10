@@ -118,8 +118,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         builder.setView(view)
             .setPositiveButton(R.string.note_confirm, this)
             .setNegativeButton(R.string.common_cancel, this)
-            .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.send_note),
-                accentColor));
+            .setTitle(R.string.send_note);
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();
