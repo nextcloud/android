@@ -35,6 +35,7 @@ import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -59,6 +60,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     private boolean returnCode;
 
     @Test
+    @ScreenshotTest
     public void screenshotTextFiles() {
         OCFile newFile = new OCFile("/newFile.txt");
         newFile.setFileLength(56000);
@@ -94,6 +96,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     }
 
     @Test
+    @ScreenshotTest
     public void screenshotImages() throws IOException {
         FileDataStorageManager storageManager = new FileDataStorageManager(account,
                                                                            targetContext.getContentResolver());
@@ -187,6 +190,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     }
 
     @Test
+    @ScreenshotTest
     public void keepExisting() {
         returnCode = false;
 
@@ -231,6 +235,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     }
 
     @Test
+    @ScreenshotTest
     public void keepNew() {
         returnCode = false;
 
@@ -275,6 +280,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     }
 
     @Test
+    @ScreenshotTest
     public void keepBoth() {
         returnCode = false;
 
