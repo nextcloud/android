@@ -98,7 +98,7 @@ public final class FileStorageUtils {
      * file.
      */
     public static String getDefaultSavePathFor(String accountName, OCFile file) {
-        return getSavePath(accountName) + file.getDecryptedRemotePath();
+        return getSavePath(accountName) + file.getStoragePath();
     }
 
     /**
@@ -334,7 +334,7 @@ public final class FileStorageUtils {
      * @param account   Account holding file.
      */
     public static void searchForLocalFileInDefaultPath(OCFile file, Account account) {
-        if (file.getStoragePath() == null && !file.isFolder()) {
+        if ((file.getStoragePath() == null || !new File(file.getStoragePath()).exists()) && !file.isFolder()) {
             File f = new File(FileStorageUtils.getDefaultSavePathFor(account.name, file));
             if (f.exists()) {
                 file.setStoragePath(f.getAbsolutePath());
