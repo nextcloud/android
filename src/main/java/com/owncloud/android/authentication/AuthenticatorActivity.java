@@ -52,6 +52,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.net.http.SslCertificate;
 import android.net.http.SslError;
@@ -92,6 +93,8 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
@@ -105,6 +108,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
@@ -134,6 +139,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -234,6 +240,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject OnboardingService onboarding;
     @Inject DeviceInfo deviceInfo;
     private boolean onlyAdd = false;
+    @SuppressLint("ResourceAsColor") @ColorInt
+    private int primaryColor = R.color.primary;
 
     /**
      * {@inheritDoc}
@@ -413,6 +421,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 progressBar.setVisibility(View.GONE);
                 mLoginWebView.setVisibility(View.VISIBLE);
+
+                ThemeUtils.colorStatusBar(AuthenticatorActivity.this, primaryColor);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    getWindow().setNavigationBarColor(primaryColor);
+                }
             }
 
             @Override
@@ -866,6 +879,24 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 webViewPassword != null && !webViewPassword.isEmpty()) {
                 checkBasicAuthorization(webViewUser, webViewPassword);
             } else {
+                new Thread(() -> {
+                    OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mServerInfo.mBaseUrl),
+                                                                                       this,
+                                                                                       true);
+                    RemoteOperationResult remoteOperationResult = new GetCapabilitiesRemoteOperation().execute(client);
+
+                    if (remoteOperationResult.isSuccess() &&
+                        remoteOperationResult.getData() != null &&
+                        remoteOperationResult.getData().size() > 0) {
+                        OCCapability capability = (OCCapability) remoteOperationResult.getData().get(0);
+                        try {
+                            primaryColor = Color.parseColor(capability.getServerColor());
+                        } catch (IllegalArgumentException e) {
+                            // falls back to primary color
+                        }
+                    }
+                }).start();
+
                 setContentView(R.layout.account_setup_webview);
                 mLoginWebView = findViewById(R.id.login_webview);
                 initWebViewLogin(mServerInfo.mBaseUrl + WEB_LOGIN, false);
@@ -1397,6 +1428,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                         webViewUser = loginUrlInfo.username;
                         webViewPassword = loginUrlInfo.password;
                         doOnResumeAndBound();
+                        checkOcServer();
                     } catch (Exception e) {
                         mServerStatusIcon = R.drawable.ic_alert;
                         mServerStatusText = getString(R.string.qr_could_not_be_read);

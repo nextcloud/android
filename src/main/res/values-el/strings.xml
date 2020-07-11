@@ -33,6 +33,7 @@
     <string name="activity_chooser_title">Αποστολή συνδέσμου σε…</string>
     <string name="activity_icon">Δραστηριότητα</string>
     <string name="add_another_public_share_link">Προσθήκη άλλου συνδέσμου</string>
+    <string name="add_new_public_share">Προσθήκη νέου δημόσιου κοινόχρηστου συνδέσμου</string>
     <string name="add_to_cloud">Προσθήκη στο %1$s</string>
     <string name="allow_editing">Επιτρέπεται η επεξεργασία</string>
     <string name="appbar_search_in">Αναζήτηση στο %s</string>
@@ -383,6 +384,7 @@
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Μη έγκυρη διεύθυνση URL</string>
+    <string name="label_empty">Η ετικέτα δεν μπορεί να είναι κενή</string>
     <string name="learn_more">Μάθετε περισσότερα</string>
     <string name="link">Σύνδεσμος</string>
     <string name="list_layout">Διάταξη λίστας</string>
@@ -442,6 +444,7 @@
     <string name="no_pdf_app_available">Δεν υπάρχει διαθέσιμη εφαρμογή για χειρισμό PDF</string>
     <string name="note_confirm">Αποστολή</string>
     <string name="note_could_not_sent">Αδυναμία αποστολής σημείωσης</string>
+    <string name="note_icon_hint">Εικονίδιο σημείωσης</string>
     <string name="notification_action_failed">Αποτυχία εκτέλεσης ενέργειας</string>
     <string name="notification_channel_download_description">Εμφάνιση προόδου λήψης</string>
     <string name="notification_channel_download_name">Κατέβασμα καναλιού ειδοποιήσεων</string>
@@ -538,6 +541,7 @@
     <string name="preview_image_error_unknown_format">Αδυναμία προβολής εικόνας</string>
     <string name="preview_sorry">Σας ζητούμε συγγνώμη</string>
     <string name="privacy">Ιδιωτικότητα</string>
+    <string name="public_share_name">Νέο όνομα</string>
     <string name="push_notifications_not_implemented">Οι ειδοποιήσεις απενεργοποιήθηκαν λόγω εξαρτήσεων στις ιδιόκτητες υπηρεσίες Google Play.</string>
     <string name="push_notifications_old_login">Δεν υπάρχουν ειδοποιήσεις λόγω παρωχημένης συνεδρίας σύνδεσης. Παρακαλούμε επανεξετάσετε το ενδεχόμενο να ξανά προσθέσετε τον λογαριασμό σας.</string>
     <string name="push_notifications_temp_error">Οι ειδοποιήσεις push δεν είναι διαθέσιμες αυτήν τη στιγμή.</string>

@@ -99,8 +99,6 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
                 "StoragePathAdapter.StoragePathAdapterListener");
         }
 
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
-
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.storage_path_dialog, null, false);
@@ -115,8 +113,7 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setView(view)
             .setNegativeButton(R.string.common_cancel, this)
-            .setTitle(ThemeUtils.getColoredTitle(getResources().getString(R.string.storage_choose_location),
-                accentColor));
+            .setTitle(R.string.storage_choose_location);
 
         return builder.create();
     }
