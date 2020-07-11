@@ -1,0 +1,10 @@
+Theme login with server capability
+remove unused import
+spotbugs: remove unused variables
+dialog buttons shouldn't have a background color
+make sure dialog button text is not allCaps and title is standard material colored
+remove unused variable
+Remove title theming of modal dialog
+show downloaded encrypted files in subfolders
+direct login works again
+Update translations
