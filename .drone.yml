@@ -187,6 +187,7 @@ steps:
       - scripts/wait_for_emulator.sh
       - ./gradlew installGplayDebugAndroidTest
       - scripts/wait_for_server.sh "server"
+      - sed -i s"#5#1#" ./src/androidTest/java/com/nextcloud/client/RetryTestRule.kt
       - ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest && scripts/deleteOutdatedComments.sh "stable" "Screenshot" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "Screenshot" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
   - name: notify
     image: drillster/drone-email
@@ -262,6 +263,7 @@ steps:
       - scripts/wait_for_emulator.sh
       - ./gradlew installGplayDebugAndroidTest
       - scripts/wait_for_server.sh "server"
+      - sed -i s"#5#1#" ./src/androidTest/java/com/nextcloud/client/RetryTestRule.kt
       - ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest && scripts/deleteOutdatedComments.sh "master" "Screenshot" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "Screenshot" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
   - name: notify
     image: drillster/drone-email
