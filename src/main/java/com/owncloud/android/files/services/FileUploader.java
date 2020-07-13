@@ -53,6 +53,7 @@ import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -292,10 +293,15 @@ public class FileUploader extends Service
             return Service.START_NOT_STICKY;
         }
 
-        Account account = intent.getParcelableExtra(KEY_ACCOUNT);
-        if (!accountManager.exists(account)) {
+        final Account account = intent.getParcelableExtra(KEY_ACCOUNT);
+        if (account == null) {
             return Service.START_NOT_STICKY;
         }
+        Optional<User> optionalUser = accountManager.getUser(account.name);
+        if (!optionalUser.isPresent()) {
+            return Service.START_NOT_STICKY;
+        }
+        final User user = optionalUser.get();
 
         boolean retry = intent.getBooleanExtra(KEY_RETRY, false);
         List<String> requestedUploads = new ArrayList<>();
@@ -309,7 +315,7 @@ public class FileUploader extends Service
                 return Service.START_NOT_STICKY;
             }
 
-            Integer error = gatherAndStartNewUploads(intent, account, requestedUploads, onWifiOnly, whileChargingOnly);
+            Integer error = gatherAndStartNewUploads(intent, user, requestedUploads, onWifiOnly, whileChargingOnly);
             if (error != null) {
                 return error;
             }
@@ -318,7 +324,7 @@ public class FileUploader extends Service
                 Log_OC.e(TAG, "Not enough information provided in intent: no KEY_RETRY_UPLOAD_KEY");
                 return START_NOT_STICKY;
             }
-            retryUploads(intent, account, requestedUploads);
+            retryUploads(intent, user, requestedUploads);
         }
 
         if (requestedUploads.size() > 0) {
@@ -339,7 +345,7 @@ public class FileUploader extends Service
     @Nullable
     private Integer gatherAndStartNewUploads(
         Intent intent,
-        Account account,
+        User user,
         List<String> requestedUploads,
         boolean onWifiOnly,
         boolean whileChargingOnly
@@ -402,7 +408,7 @@ public class FileUploader extends Service
         try {
             for (OCFile file : files) {
                 startNewUpload(
-                    account,
+                    user,
                     requestedUploads,
                     onWifiOnly,
                     whileChargingOnly,
@@ -430,7 +436,7 @@ public class FileUploader extends Service
      * Start a new {@link UploadFileOperation}.
      */
     private void startNewUpload(
-        Account account,
+        User user,
         List<String> requestedUploads,
         boolean onWifiOnly,
         boolean whileChargingOnly,
@@ -440,7 +446,7 @@ public class FileUploader extends Service
         int createdBy,
         OCFile file
     ) {
-        OCUpload ocUpload = new OCUpload(file, account);
+        OCUpload ocUpload = new OCUpload(file, user.toPlatformAccount());
         ocUpload.setFileSize(file.getFileLength());
         ocUpload.setNameCollisionPolicy(nameCollisionPolicy);
         ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
@@ -454,7 +460,7 @@ public class FileUploader extends Service
             mUploadsStorageManager,
             connectivityService,
             powerManagementService,
-            account,
+            user,
             file,
             ocUpload,
             nameCollisionPolicy,
@@ -473,7 +479,7 @@ public class FileUploader extends Service
         newUpload.addRenameUploadListener(this);
 
         Pair<String, String> putResult = mPendingUploads.putIfAbsent(
-            account.name,
+            user.getAccountName(),
             file.getRemotePath(),
             newUpload
         );
@@ -490,7 +496,7 @@ public class FileUploader extends Service
     /**
      * Retries a list of uploads.
      */
-    private void retryUploads(Intent intent, Account account, List<String> requestedUploads) {
+    private void retryUploads(Intent intent, User user, List<String> requestedUploads) {
         boolean onWifiOnly;
         boolean whileChargingOnly;
         OCUpload upload = intent.getParcelableExtra(KEY_RETRY_UPLOAD);
@@ -502,7 +508,7 @@ public class FileUploader extends Service
             mUploadsStorageManager,
             connectivityService,
             powerManagementService,
-            account,
+            user,
             null,
             upload,
             upload.getNameCollisionPolicy(),
@@ -518,7 +524,7 @@ public class FileUploader extends Service
         newUpload.addRenameUploadListener(this);
 
         Pair<String, String> putResult = mPendingUploads.putIfAbsent(
-            account.name,
+            user.getAccountName(),
             upload.getRemotePath(),
             newUpload
         );
