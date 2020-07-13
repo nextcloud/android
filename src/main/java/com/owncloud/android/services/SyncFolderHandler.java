@@ -27,6 +27,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Pair;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
@@ -71,14 +72,14 @@ class SyncFolderHandler extends Handler {
      * Returns True when the folder located in 'remotePath' in the ownCloud account 'account', or any of its
      * descendants, is being synchronized (or waiting for it).
      *
-     * @param account       ownCloud account where the remote folder is stored.
+     * @param user          user where the remote folder is stored.
      * @param remotePath    The path to a folder that could be in the queue of synchronizations.
      */
-    public boolean isSynchronizing(Account account, String remotePath) {
-        if (account == null || remotePath == null) {
+    public boolean isSynchronizing(User user, String remotePath) {
+        if (user == null || remotePath == null) {
             return false;
         }
-        return mPendingOperations.contains(account.name, remotePath);
+        return mPendingOperations.contains(user.getAccountName(), remotePath);
     }
 
     @Override

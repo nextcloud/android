@@ -24,11 +24,9 @@
  */
 package com.owncloud.android.ui.fragment;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -509,17 +507,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onOverflowIconClicked(OCFile file, View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
         popup.inflate(R.menu.item_file);
-        Account currentAccount = ((FileActivity) getActivity()).getAccount();
+        User currentUser = ((FileActivity) getActivity()).getUser().orElseThrow(IllegalStateException::new);
         FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
                                                Collections.singleton(file),
-                                               currentAccount,
                                                mContainerActivity, getActivity(),
                                                true,
                                                deviceInfo,
                                                accountManager.getUser());
+        final boolean isMediaStreamingSupported = currentUser.getServer().getVersion().isMediaStreamingSupported();
         mf.filter(popup.getMenu(),
                   true,
-                  accountManager.isMediaStreamingSupported(currentAccount));
+                  isMediaStreamingSupported);
         popup.setOnMenuItemClickListener(item -> {
             Set<OCFile> checkedFiles = new HashSet<>();
             checkedFiles.add(file);
@@ -670,11 +668,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             Set<OCFile> checkedFiles = mAdapter.getCheckedItems();
             String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
             mode.setTitle(title);
-            Account currentAccount = ((FileActivity) getActivity()).getAccount();
+            User currentUser = accountManager.getUser();
             FileMenuFilter mf = new FileMenuFilter(
                 mAdapter.getFiles().size(),
                 checkedFiles,
-                currentAccount,
                 mContainerActivity,
                 getActivity(),
                 false,
@@ -682,9 +679,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 accountManager.getUser()
             );
 
+            final boolean isMediaStreamingSupported = currentUser.getServer().getVersion().isMediaStreamingSupported();
             mf.filter(menu,
                       false,
-                      accountManager.isMediaStreamingSupported(currentAccount));
+                      isMediaStreamingSupported);
 
             // Determine if we need to finish the action mode because there are no items selected
             if (checkedCount == 0 && !mIsActionModeNew) {
@@ -1525,7 +1523,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
 
-        final User currentAccount = accountManager.getUser();
+        final User currentUser = accountManager.getUser();
 
         final RemoteOperation remoteOperation;
         if (currentSearchType != SearchType.SHARED_FILTER) {
@@ -1546,7 +1544,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 setTitle();
                 if (getContext() != null && !isCancelled()) {
                     RemoteOperationResult remoteOperationResult = remoteOperation.execute(
-                        currentAccount.toPlatformAccount(), getContext());
+                        currentUser.toPlatformAccount(), getContext());
 
                     FileDataStorageManager storageManager = null;
                     if (mContainerActivity != null && mContainerActivity.getStorageManager() != null) {

@@ -366,12 +366,12 @@ public class OperationsService extends Service {
          * If 'file' is a directory, returns 'true' if some of its descendant files is downloading
          * or waiting to download.
          *
-         * @param account       ownCloud account where the remote file is stored.
+         * @param user          user where the remote file is stored.
          * @param file          File to check if something is synchronizing
          *                      / downloading / uploading inside.
          */
-        public boolean isSynchronizing(Account account, OCFile file) {
-            return mSyncFolderHandler.isSynchronizing(account, file.getRemotePath());
+        public boolean isSynchronizing(User user, OCFile file) {
+            return mSyncFolderHandler.isSynchronizing(user, file.getRemotePath());
         }
 
     }
