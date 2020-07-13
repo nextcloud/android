@@ -404,20 +404,19 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void prepareOptionsMenu(Menu menu) {
         if (containerActivity.getStorageManager() != null) {
-            Account currentAccount = containerActivity.getStorageManager().getAccount();
+            User currentUser = accountManager.getUser();
             FileMenuFilter mf = new FileMenuFilter(
                 getFile(),
-                currentAccount,
                 containerActivity,
                 getActivity(),
                 false,
                 deviceInfo,
-                accountManager.getUser()
+                currentUser
             );
 
             mf.filter(menu,
                       true,
-                      accountManager.isMediaStreamingSupported(currentAccount));
+                      currentUser.getServer().getVersion().isMediaStreamingSupported());
         }
 
         if (getFile().isFolder()) {
@@ -564,8 +563,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             FileDownloaderBinder downloaderBinder = containerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = containerActivity.getFileUploaderBinder();
             if (transferring
-                    || (downloaderBinder != null && downloaderBinder.isDownloading(user.toPlatformAccount(), file))
-                    || (uploaderBinder != null && uploaderBinder.isUploading(user.toPlatformAccount(), file))) {
+                    || (downloaderBinder != null && downloaderBinder.isDownloading(user, file))
+                    || (uploaderBinder != null && uploaderBinder.isUploading(user, file))) {
                 setButtonsForTransferring();
 
             } else if (file.isDown()) {
@@ -680,11 +679,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             FileDownloaderBinder downloaderBinder = containerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = containerActivity.getFileUploaderBinder();
             //if (getFile().isDownloading()) {
-            if (downloaderBinder != null && downloaderBinder.isDownloading(user.toPlatformAccount(), getFile())) {
+            if (downloaderBinder != null && downloaderBinder.isDownloading(user, getFile())) {
                 progressText.setText(R.string.downloader_download_in_progress_ticker);
             }
             else {
-                if (uploaderBinder != null && uploaderBinder.isUploading(user.toPlatformAccount(), getFile())) {
+                if (uploaderBinder != null && uploaderBinder.isUploading(user, getFile())) {
                     progressText.setText(R.string.uploader_upload_in_progress_ticker);
                 }
             }

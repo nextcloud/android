@@ -63,9 +63,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.StreamMediaFileOperation;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.media.MediaControlView;
@@ -348,20 +346,19 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         super.onPrepareOptionsMenu(menu);
 
         if (containerActivity.getStorageManager() != null) {
-            Account currentAccount = containerActivity.getStorageManager().getAccount();
+            User currentUser = accountManager.getUser();
             FileMenuFilter mf = new FileMenuFilter(
                 getFile(),
-                currentAccount,
                 containerActivity,
                 getActivity(),
                 false,
                 deviceInfo,
-                accountManager.getUser()
+                currentUser
             );
 
             mf.filter(menu,
                       true,
-                      accountManager.isMediaStreamingSupported(currentAccount));
+                      currentUser.getServer().getVersion().isMediaStreamingSupported());
         }
 
         // additional restriction for this fragment

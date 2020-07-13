@@ -1185,15 +1185,15 @@ public class FileUploader extends Service
          * Warning: If remote file exists and target was renamed the original file is being returned here. That is, it
          * seems as if the original file is being updated when actually a new file is being uploaded.
          *
-         * @param account Owncloud account where the remote file will be stored.
+         * @param user    user where the remote file will be stored.
          * @param file    A file that could be in the queue of pending uploads
          */
-        public boolean isUploading(Account account, OCFile file) {
-            if (account == null || file == null) {
+        public boolean isUploading(User user, OCFile file) {
+            if (user == null || file == null) {
                 return false;
             }
 
-            return mPendingUploads.contains(account.name, file.getRemotePath());
+            return mPendingUploads.contains(user.getAccountName(), file.getRemotePath());
         }
 
         public boolean isUploadingNow(OCUpload upload) {
