@@ -91,7 +91,7 @@ class OCFileListFragmentIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun showRichWorkspace() {
-        assertTrue(CreateFolderOperation("/test/", account, targetContext).execute(client, storageManager).isSuccess)
+        assertTrue(CreateFolderOperation("/test/", user, targetContext).execute(client, storageManager).isSuccess)
 
         val ocUpload = OCUpload(
             FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt",
@@ -102,7 +102,7 @@ class OCFileListFragmentIT : AbstractIT() {
             UploadsStorageManager(UserAccountManagerImpl.fromContext(targetContext), targetContext.contentResolver),
             connectivityServiceMock,
             powerManagementServiceMock,
-            account,
+            user,
             null,
             ocUpload,
             FileUploader.NameCollisionPolicy.DEFAULT,
@@ -180,7 +180,7 @@ class OCFileListFragmentIT : AbstractIT() {
     fun createAndShowShareToUser() {
         val path = "/shareToAdmin/"
         TestCase.assertTrue(
-            CreateFolderOperation(path, account, targetContext)
+            CreateFolderOperation(path, user, targetContext)
                 .execute(client, storageManager)
                 .isSuccess
         )
@@ -211,7 +211,7 @@ class OCFileListFragmentIT : AbstractIT() {
     fun createAndShowShareToGroup() {
         val path = "/shareToGroup/"
         TestCase.assertTrue(
-            CreateFolderOperation(path, account, targetContext)
+            CreateFolderOperation(path, user, targetContext)
                 .execute(client, storageManager)
                 .isSuccess
         )
@@ -275,7 +275,7 @@ class OCFileListFragmentIT : AbstractIT() {
     fun createAndShowShareViaLink() {
         val path = "/shareViaLink/"
         TestCase.assertTrue(
-            CreateFolderOperation(path, account, targetContext)
+            CreateFolderOperation(path, user, targetContext)
                 .execute(client, storageManager)
                 .isSuccess
         )

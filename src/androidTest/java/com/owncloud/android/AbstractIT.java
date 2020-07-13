@@ -12,12 +12,14 @@ import android.os.Bundle;
 
 import com.facebook.testing.screenshot.Screenshot;
 import com.nextcloud.client.RetryTestRule;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -73,6 +75,7 @@ public abstract class AbstractIT {
 
     protected static OwnCloudClient client;
     protected static Account account;
+    protected static User user;
     protected static Context targetContext;
 
     private Activity currentActivity;
@@ -108,6 +111,9 @@ public abstract class AbstractIT {
             if (account == null) {
                 throw new ActivityNotFoundException();
             }
+
+            Optional<User> optionalUser = userAccountManager.getUser(account.name);
+            user = optionalUser.orElseThrow(IllegalAccessError::new);
 
             client = OwnCloudClientFactory.createOwnCloudClient(account, targetContext);
 
@@ -263,7 +269,7 @@ public abstract class AbstractIT {
     }
 
     public OCFile createFolder(String remotePath) {
-        TestCase.assertTrue(new CreateFolderOperation(remotePath, account, targetContext)
+        TestCase.assertTrue(new CreateFolderOperation(remotePath, user, targetContext)
                                 .execute(client, getStorageManager())
                                 .isSuccess());
 
@@ -309,7 +315,7 @@ public abstract class AbstractIT {
             uploadsStorageManager,
             connectivityServiceMock,
             powerManagementServiceMock,
-            account,
+            user,
             null,
             ocUpload,
             FileUploader.NameCollisionPolicy.DEFAULT,
