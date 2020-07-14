@@ -159,7 +159,7 @@ public class FileDisplayActivityIT extends AbstractIT {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
         // given test folder
-        assertTrue(new CreateFolderOperation("/test/", account, targetContext)
+        assertTrue(new CreateFolderOperation("/test/", user, targetContext)
                        .execute(client, getStorageManager())
                        .isSuccess());
 

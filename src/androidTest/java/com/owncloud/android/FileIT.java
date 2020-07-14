@@ -27,7 +27,7 @@ public class FileIT extends AbstractIT {
         // folder does not exist yet
         assertNull(getStorageManager().getFileByPath(path));
 
-        SyncOperation syncOp = new CreateFolderOperation(path, account, targetContext);
+        SyncOperation syncOp = new CreateFolderOperation(path, user, targetContext);
         RemoteOperationResult result = syncOp.execute(client, getStorageManager());
 
         assertTrue(result.toString(), result.isSuccess());
@@ -46,7 +46,7 @@ public class FileIT extends AbstractIT {
         // folder does not exist yet
         assertNull(getStorageManager().getFileByPath(path));
 
-        SyncOperation syncOp = new CreateFolderOperation(path, account, targetContext);
+        SyncOperation syncOp = new CreateFolderOperation(path, user, targetContext);
         RemoteOperationResult result = syncOp.execute(client, getStorageManager());
         assertTrue(result.toString(), result.isSuccess());
 

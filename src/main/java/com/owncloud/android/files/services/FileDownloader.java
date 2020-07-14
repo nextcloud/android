@@ -335,11 +335,11 @@ public class FileDownloader extends Service
          * If 'file' is a directory, returns 'true' if any of its descendant files is downloading or
          * waiting to download.
          *
-         * @param account ownCloud account where the remote file is stored.
+         * @param user    user where the remote file is stored.
          * @param file    A file that could be in the queue of downloads.
          */
-        public boolean isDownloading(Account account, OCFile file) {
-            return account != null && file != null && mPendingDownloads.contains(account.name, file.getRemotePath());
+        public boolean isDownloading(User user, OCFile file) {
+            return user != null && file != null && mPendingDownloads.contains(user.getAccountName(), file.getRemotePath());
         }
 
 

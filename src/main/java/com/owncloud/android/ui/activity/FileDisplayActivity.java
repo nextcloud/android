@@ -1939,7 +1939,7 @@ public class FileDisplayActivity extends FileActivity
     private void requestForDownload() {
         User user = getUser().orElseThrow(RuntimeException::new);
         //if (!mWaitingToPreview.isDownloading()) {
-        if (!mDownloaderBinder.isDownloading(user.toPlatformAccount(), mWaitingToPreview)) {
+        if (!mDownloaderBinder.isDownloading(user, mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_USER, user);
             i.putExtra(FileDownloader.EXTRA_FILE, mWaitingToPreview);
@@ -2032,7 +2032,7 @@ public class FileDisplayActivity extends FileActivity
 
     private void requestForDownload(OCFile file, String downloadBehaviour, String packageName, String activityName) {
         final User currentUser = getUser().orElseThrow(RuntimeException::new);
-        if (!mDownloaderBinder.isDownloading(currentUser.toPlatformAccount(), mWaitingToPreview)) {
+        if (!mDownloaderBinder.isDownloading(currentUser, mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_USER, currentUser);
             i.putExtra(FileDownloader.EXTRA_FILE, file);

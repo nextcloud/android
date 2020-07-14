@@ -277,7 +277,7 @@
     <string name="etm_background_jobs_stop_test_job">Zatrzymaj zadanie testowe</string>
     <string name="etm_migrations">Migracje (aktualizacja aplikacji)</string>
     <string name="etm_preferences">Preferencje</string>
-    <string name="etm_title">Tryb Testowy Techniczny</string>
+    <string name="etm_title">Tryb testowy techniczny</string>
     <string name="fab_label">Dodaj lub wyślij</string>
     <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>
     <string name="failed_to_print">Nie udało się wydrukować pliku</string>

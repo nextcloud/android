@@ -366,12 +366,12 @@ public class OperationsService extends Service {
          * If 'file' is a directory, returns 'true' if some of its descendant files is downloading
          * or waiting to download.
          *
-         * @param account       ownCloud account where the remote file is stored.
+         * @param user          user where the remote file is stored.
          * @param file          File to check if something is synchronizing
          *                      / downloading / uploading inside.
          */
-        public boolean isSynchronizing(Account account, OCFile file) {
-            return mSyncFolderHandler.isSynchronizing(account, file.getRemotePath());
+        public boolean isSynchronizing(User user, OCFile file) {
+            return mSyncFolderHandler.isSynchronizing(user, file.getRemotePath());
         }
 
     }
@@ -516,6 +516,7 @@ public class OperationsService extends Service {
 
             } else {
                 Account account = operationIntent.getParcelableExtra(EXTRA_ACCOUNT);
+                User user = toUser(account);
                 String serverUrl = operationIntent.getStringExtra(EXTRA_SERVER_URL);
                 target = new Target(account, (serverUrl == null) ? null : Uri.parse(serverUrl));
 
@@ -640,13 +641,13 @@ public class OperationsService extends Service {
 
                     case ACTION_CREATE_FOLDER:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        operation = new CreateFolderOperation(remotePath, account, getApplicationContext());
+                        operation = new CreateFolderOperation(remotePath, user, getApplicationContext());
                         break;
 
                     case ACTION_SYNC_FILE:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         boolean syncFileContents = operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
-                        operation = new SynchronizeFileOperation(remotePath, toUser(account), syncFileContents,
+                        operation = new SynchronizeFileOperation(remotePath, user, syncFileContents,
                                 getApplicationContext());
                         break;
 
@@ -655,7 +656,7 @@ public class OperationsService extends Service {
                         operation = new SynchronizeFolderOperation(
                                 this,                       // TODO remove this dependency from construction time
                                 remotePath,
-                                toUser(account),
+                                user,
                                 System.currentTimeMillis()  // TODO remove this dependency from construction time
                         );
                         break;
