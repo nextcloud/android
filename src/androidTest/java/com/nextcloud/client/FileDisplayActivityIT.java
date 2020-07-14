@@ -90,7 +90,7 @@ public class FileDisplayActivityIT extends AbstractIT {
     }
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest // todo run without real server
     public void showShares() {
         assertTrue(new ExistenceCheckRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
