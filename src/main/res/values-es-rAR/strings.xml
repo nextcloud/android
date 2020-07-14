@@ -31,8 +31,11 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar Link a…</string>
     <string name="activity_icon">Actividad</string>
+    <string name="add_another_public_share_link">Agregar otro enlace</string>
+    <string name="add_new_public_share">Agregar un nuevo enlace publico</string>
     <string name="add_to_cloud">Añadir %1$s</string>
     <string name="allow_editing">Permitir edición</string>
+    <string name="appbar_search_in">Buscar en %s</string>
     <string name="associated_account_not_found">¡Cuenta asociada no encontrada!</string>
     <string name="auth_access_failed">Acceso fallido: %1$s</string>
     <string name="auth_account_does_not_exist">La cuenta aún no se ha agregado a este dispositivo.</string>
@@ -43,6 +46,7 @@
     <string name="auth_check_server">Verficar el servidor</string>
     <string name="auth_connection_established">Conexión establecida</string>
     <string name="auth_expired_basic_auth_toast">Por favor ingrese su contraseña actual</string>
+    <string name="auth_fail_get_user_name">Su servidor no está devolviendo una ID de usuario correcta. Por favor comuníquese con un administrador</string>
     <string name="auth_host_address">Dirección del servidor</string>
     <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_illegal_login_used">URL de datos de inicio de sesión ilegal utilizada</string>
@@ -70,6 +74,7 @@
     <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
     <string name="auth_username">Nombre de usuario</string>
     <string name="auth_wrong_connection_title">No fue posible establecer la conexión</string>
+    <string name="auth_wtf_reenter_URL">Condición inesperada. Por favor ingrese la dirección del servidor nuevamente.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantenido en la carpeta original, ya que es de solo lectura.</string>
     <string name="auto_upload_on_wifi">Cargar sólo en Wi-Fi sin medidor</string>
     <string name="auto_upload_path">/SubidasAutomáticas</string>
@@ -110,6 +115,7 @@
     <string name="common_save">Guardar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
+    <string name="common_switch_account">Cambie de cuenta</string>
     <string name="common_unknown">desconocido</string>
     <string name="common_yes">Sí</string>
     <string name="community_beta_headline">Probar la versión de desarrollo</string>
@@ -136,7 +142,9 @@
     <string name="confirmation_remove_folder_alert">¿Realmente quieres eliminar %1$s y su contenido?</string>
     <string name="confirmation_remove_folders_alert">¿Realmente desea eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Sólo local</string>
+    <string name="conflict_already_existing_file">Archivo ya existente</string>
     <string name="conflict_message_headline">¿Cuales archivos desea mantener?</string>
+    <string name="conflict_new_file">Nuevo archivo</string>
     <string name="contaclist_restore_selected">Restaurar los contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Seleccione la cuenta a importar</string>
     <string name="contactlist_item_icon">Icono de usuario para la lista de contactos</string>
@@ -160,10 +168,13 @@
     <string name="copy_to">Copiar a…</string>
     <string name="could_not_download_image">No se pudo descargar la imágen completa</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
+    <string name="create_new">Crear nuevo</string>
     <string name="create_new_document">Crear nuevo documento</string>
     <string name="create_new_folder">Crear nueva carpeta</string>
     <string name="create_new_presentation">Crear nueva presentación</string>
     <string name="create_new_spreadsheet">Crear nueva hoja de cálculo</string>
+    <string name="create_rich_workspace">Agregar información de carpeta</string>
+    <string name="creates_rich_workspace">Crear información de carpeta</string>
     <string name="credentials_disabled">Contraseña deshabilitada</string>
     <string name="date_unknown">Desconocido</string>
     <string name="default_credentials_wrong">Contraseña incorrecta</string>
@@ -213,6 +224,7 @@
     <string name="drawer_quota">%1$s de %2$s usados</string>
     <string name="drawer_quota_unlimited">%1$s usado</string>
     <string name="drawer_synced_folders">Carga automática</string>
+    <string name="edit_label">Cambiar nombre</string>
     <string name="edit_permission_label">editar</string>
     <string name="encrypted">Establecer como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
@@ -235,11 +247,18 @@
     <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Error crítico: No se pueden realizar operaciones</string>
     <string name="error_comment_file">Error al comentar el archivo</string>
+    <string name="error_crash_title">%1$s Fallo </string>
     <string name="error_report_issue_action">Reporte</string>
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
     <string name="etm_accounts">Cuentas</string>
+    <string name="etm_background_job_progress">Progreso</string>
+    <string name="etm_background_job_started">Iniciado</string>
+    <string name="etm_background_job_state">Estado</string>
+    <string name="etm_background_job_user">Usuario</string>
+    <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Trabajos en segundo plano</string>
+    <string name="etm_background_jobs_cancel_all">Cancelar todos los trabajos</string>
     <string name="etm_preferences">Preferencias</string>
     <string name="etm_title">Modo de prueba de ingeniería</string>
     <string name="fab_label">Añadir o subir</string>
@@ -343,6 +362,7 @@
     <string name="host_your_own_server">Aloje su propio servidor</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_path">/SubidasInstantáneas</string>
+    <string name="invalid_url">URL invalida</string>
     <string name="learn_more">Conozca más</string>
     <string name="link">Link</string>
     <string name="list_layout">Vista enlistada</string>
