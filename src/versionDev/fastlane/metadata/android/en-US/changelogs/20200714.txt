@@ -1,0 +1,5 @@
+Migrate FileMenuFiler to User model
+Migrate UploadFileOperation to User model
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
