@@ -96,7 +96,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     }
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest // todo run without real server
     public void screenshotImages() throws IOException {
         FileDataStorageManager storageManager = new FileDataStorageManager(account,
                                                                            targetContext.getContentResolver());

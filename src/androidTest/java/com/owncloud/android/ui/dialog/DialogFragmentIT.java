@@ -53,7 +53,7 @@ import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
-public class DialogFragmentTest extends AbstractIT {
+public class DialogFragmentIT extends AbstractIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule =
         new IntentsTestRule<>(FileDisplayActivity.class, true, false);
 
@@ -62,7 +62,7 @@ public class DialogFragmentTest extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
-    @ScreenshotTest
+//    @ScreenshotTest
     public void testRenameFileDialog() {
         RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(new OCFile("/Test/"));
         showDialog(dialog);
@@ -112,7 +112,7 @@ public class DialogFragmentTest extends AbstractIT {
     }
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     public void testNewFolderDialog() {
         CreateFolderDialogFragment sut = CreateFolderDialogFragment.newInstance(new OCFile("/"));
         showDialog(sut);
