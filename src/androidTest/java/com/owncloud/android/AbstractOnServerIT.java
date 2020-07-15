@@ -208,7 +208,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             uploadsStorageManager,
             connectivityServiceMock,
             powerManagementServiceMock,
-            account,
+            user,
             null,
             ocUpload,
             FileUploader.NameCollisionPolicy.DEFAULT,
