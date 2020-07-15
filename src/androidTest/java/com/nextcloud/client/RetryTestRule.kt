@@ -30,7 +30,7 @@ import org.junit.runners.model.Statement
 /**
  * C&p from https://stackoverflow.com/questions/45635833/how-can-i-use-flakytest-annotation-now on 18.03.2020
  */
-class RetryTestRule(val retryCount: Int = 5) : TestRule {
+class RetryTestRule(val retryCount: Int = 1) : TestRule {
 
     companion object {
         private val TAG = RetryTestRule::class.java.simpleName

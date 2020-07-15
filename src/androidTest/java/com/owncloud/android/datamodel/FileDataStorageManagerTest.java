@@ -24,7 +24,7 @@ package com.owncloud.android.datamodel;
 
 import android.content.ContentValues;
 
-import com.owncloud.android.AbstractIT;
+import com.owncloud.android.AbstractOnServerIT;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
@@ -50,7 +50,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-abstract public class FileDataStorageManagerTest extends AbstractIT {
+abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
 
     protected FileDataStorageManager sut;
 

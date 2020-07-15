@@ -23,16 +23,25 @@
 package com.nextcloud.client;
 
 import android.Manifest;
+import android.content.Intent;
 
+import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
+import com.owncloud.android.datamodel.MediaFolderType;
+import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
+import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.Objects;
+
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.rule.GrantPermissionRule;
+
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 
 public class SyncedFoldersActivityIT extends AbstractIT {
@@ -48,5 +57,36 @@ public class SyncedFoldersActivityIT extends AbstractIT {
     @ScreenshotTest
     public void openDrawer() {
         super.openDrawer(activityRule);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testSyncedFolderDialog() {
+        SyncedFolderDisplayItem item = new SyncedFolderDisplayItem(1,
+                                                                   "/sdcard/DCIM/",
+                                                                   "/InstantUpload/",
+                                                                   true,
+                                                                   false,
+                                                                   false,
+                                                                   true,
+                                                                   "test@server.com",
+                                                                   0,
+                                                                   0,
+                                                                   true,
+                                                                   1000,
+                                                                   "Name",
+                                                                   MediaFolderType.IMAGE,
+                                                                   false);
+        SyncedFolderPreferencesDialogFragment sut = SyncedFolderPreferencesDialogFragment.newInstance(item, 0);
+
+        Intent intent = new Intent(targetContext, SyncedFoldersActivity.class);
+        SyncedFoldersActivity activity = activityRule.launchActivity(intent);
+
+        sut.show(activity.getSupportFragmentManager(), "");
+
+        getInstrumentation().waitForIdleSync();
+        shortSleep();
+
+        Screenshot.snap(Objects.requireNonNull(sut.requireDialog().getWindow()).getDecorView()).record();
     }
 }
