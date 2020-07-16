@@ -44,7 +44,7 @@ import java.io.IOException;
 import androidx.annotation.NonNull;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
@@ -115,7 +115,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
         deleteAllFiles();
 
         OCFile root = fileDataStorageManager.getFileByDecryptedRemotePath("/");
-        assertEquals(0, fileDataStorageManager.getFolderContent(root, false).size());
+        assertEquals(1, fileDataStorageManager.getFolderContent(root, false).size());
     }
 
     public static void deleteAllFiles() {
