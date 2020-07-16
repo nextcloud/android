@@ -32,10 +32,13 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetPrivateKeyOperation;
 import com.owncloud.android.lib.resources.users.GetPublicKeyOperation;
 import com.owncloud.android.lib.resources.users.SendCSROperation;
 import com.owncloud.android.lib.resources.users.StorePrivateKeyOperation;
+import com.owncloud.android.operations.GetCapabilitiesOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.utils.CsrHelper;
 import com.owncloud.android.utils.EncryptionUtils;
@@ -52,9 +55,11 @@ import java.io.IOException;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static com.owncloud.android.lib.resources.status.OwnCloudVersion.nextcloud_19;
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assume.assumeTrue;
@@ -80,6 +85,12 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
 
     @Before
     public void before() {
+        OCCapability capability = getStorageManager().getCapability(account.name);
+
+        if (capability.getVersion().equals(new OwnCloudVersion("0.0.0"))) {
+            // fetch new one
+            assertTrue(new GetCapabilitiesOperation().execute(client, getStorageManager()).isSuccess());
+        }
         // tests only for NC19+
         assumeTrue(getStorageManager()
                        .getCapability(account.name)
@@ -282,6 +293,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
         }
 
         OCFile fileToDelete = files.get(new Random().nextInt(files.size()));
+        assertNotNull(fileToDelete.getRemoteId());
 
         Log_OC.d(this,
                  "[" + i + "/" + actionCount + "] " +
@@ -394,5 +406,59 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
 
     private String generateMnemonicString() {
         return "1 2 3 4 5 6";
+    }
+
+    public void after() {
+        // remove all encrypted files
+        OCFile root = fileDataStorageManager.getFileByDecryptedRemotePath("/");
+        removeFolder(root);
+
+//        List<OCFile> files = fileDataStorageManager.getFolderContent(root, false);
+//
+//        for (OCFile child : files) {
+//            removeFolder(child);
+//        }
+
+        assertEquals(0, fileDataStorageManager.getFolderContent(root, false).size());
+
+        super.after();
+    }
+
+    private void removeFolder(OCFile folder) {
+        Log_OC.d(this, "Start removing content of folder: " + folder.getDecryptedRemotePath());
+
+        List<OCFile> children = fileDataStorageManager.getFolderContent(folder, false);
+
+        // remove children
+        for (OCFile child : children) {
+            if (child.isFolder()) {
+                removeFolder(child);
+
+                // remove folder
+                Log_OC.d(this, "Remove folder: " + child.getDecryptedRemotePath());
+                if (!folder.isEncrypted() && child.isEncrypted()) {
+                    assertTrue(new ToggleEncryptionRemoteOperation(child.getLocalId(),
+                                                                   child.getRemotePath(),
+                                                                   false)
+                                   .execute(client)
+                                   .isSuccess());
+
+                    OCFile f = getStorageManager().getFileByEncryptedRemotePath(child.getRemotePath());
+                    f.setEncrypted(false);
+                    getStorageManager().saveFile(f);
+
+                    child.setEncrypted(false);
+                }
+            } else {
+                Log_OC.d(this, "Remove file: " + child.getDecryptedRemotePath());
+            }
+
+            assertTrue(new RemoveFileOperation(child, false, account, false, targetContext)
+                           .execute(client, getStorageManager())
+                           .isSuccess()
+                      );
+        }
+
+        Log_OC.d(this, "Finished removing content of folder: " + folder.getDecryptedRemotePath());
     }
 }

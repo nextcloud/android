@@ -9,7 +9,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 
 import com.facebook.testing.screenshot.Screenshot;
-import com.nextcloud.client.RetryTestRule;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
@@ -35,7 +34,6 @@ import junit.framework.TestCase;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
-import org.junit.Rule;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -61,7 +59,7 @@ import static org.junit.Assert.assertTrue;
  */
 
 public abstract class AbstractIT {
-    @Rule public RetryTestRule retryTestRule = new RetryTestRule();
+    //@Rule public RetryTestRule retryTestRule = new RetryTestRule();
 
     protected static OwnCloudClient client;
     protected static Account account;
