@@ -16,7 +16,6 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
@@ -44,7 +43,6 @@ import java.io.IOException;
 import androidx.annotation.NonNull;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
@@ -113,9 +111,6 @@ public abstract class AbstractOnServerIT extends AbstractIT {
     @After
     public void after() {
         deleteAllFiles();
-
-        OCFile root = fileDataStorageManager.getFileByDecryptedRemotePath("/");
-        assertEquals(1, fileDataStorageManager.getFolderContent(root, false).size());
     }
 
     public static void deleteAllFiles() {
