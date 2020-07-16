@@ -269,7 +269,11 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             try {
                 View viewItem = binding.userIcon;
                 viewItem.setTag(user.getAccountName());
-                DisplayUtils.setAvatar(user, avatarGenerationListener, accountAvatarRadiusDimension, context.getResources(), viewItem,
+                DisplayUtils.setAvatar(user,
+                                       avatarGenerationListener,
+                                       accountAvatarRadiusDimension,
+                                       context.getResources(),
+                                       viewItem,
                                        context);
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
