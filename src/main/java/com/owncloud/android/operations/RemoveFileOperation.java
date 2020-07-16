@@ -106,7 +106,7 @@ public class RemoveFileOperation extends SyncOperation {
                                                                    context,
                                                                    fileToRemove.getEncryptedFileName());
             } else {
-                operation = new RemoveFileRemoteOperation(fileToRemove.getDecryptedRemotePath());
+                operation = new RemoveFileRemoteOperation(fileToRemove.getRemotePath());
             }
             result = operation.execute(client);
             if (result.isSuccess() || result.getCode() == ResultCode.FILE_NOT_FOUND) {
