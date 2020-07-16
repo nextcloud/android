@@ -171,6 +171,7 @@ public class FileFragment extends Fragment {
          */
         void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading);
 
+        void showSortListGroup(boolean show);
     }
 
 }

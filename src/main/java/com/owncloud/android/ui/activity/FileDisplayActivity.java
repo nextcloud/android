@@ -1046,6 +1046,8 @@ public class FileDisplayActivity extends FileActivity
             }
             if (listOfFiles != null) {  // should never be null, indeed
                 setFile(listOfFiles.getCurrentFile());
+                listOfFiles.setFabVisible(true);
+                showSortListGroup(true);
             }
             cleanSecondFragment();
         }
@@ -2159,6 +2161,7 @@ public class FileDisplayActivity extends FileActivity
      */
     public void startTextPreview(OCFile file, boolean showPreview) {
         if (showPreview) {
+            showSortListGroup(false);
             Bundle args = new Bundle();
             args.putParcelable(EXTRA_FILE, file);
             args.putParcelable(EXTRA_ACCOUNT, getAccount());
