@@ -26,7 +26,7 @@ import android.Manifest;
 import android.app.Activity;
 
 import com.facebook.testing.screenshot.Screenshot;
-import com.owncloud.android.AbstractIT;
+import com.owncloud.android.AbstractOnServerIT;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
@@ -38,7 +38,6 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.utils.ScreenshotTest;
 
 import org.greenrobot.eventbus.EventBus;
 import org.junit.Assert;
@@ -56,7 +55,7 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
-public class FileDisplayActivityIT extends AbstractIT {
+public class FileDisplayActivityIT extends AbstractOnServerIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
                                                                                            true,
                                                                                            false);
@@ -64,30 +63,6 @@ public class FileDisplayActivityIT extends AbstractIT {
     @Rule
     public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-    @Test
-    @ScreenshotTest
-    public void open() {
-        FileDisplayActivity sut = activityRule.launchActivity(null);
-
-        sut.getListOfFilesFragment().setFabEnabled(false);
-        sut.getListOfFilesFragment().setEmptyListLoadingMessage();
-
-        Screenshot.snapActivity(sut).record();
-    }
-
-    @Test
-    @ScreenshotTest
-    public void drawer() {
-        FileDisplayActivity sut = activityRule.launchActivity(null);
-
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-
-        sut.getListOfFilesFragment().setFabEnabled(false);
-        sut.getListOfFilesFragment().setEmptyListLoadingMessage();
-
-        Screenshot.snapActivity(sut).record();
-    }
 
     @Test
     // @ScreenshotTest // todo run without real server

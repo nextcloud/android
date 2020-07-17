@@ -24,7 +24,7 @@ package com.nextcloud.client;
 
 import android.accounts.AccountManager;
 
-import com.owncloud.android.AbstractIT;
+import com.owncloud.android.AbstractOnServerIT;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
@@ -59,7 +59,7 @@ import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
-public class EndToEndRandomIT extends AbstractIT {
+public class EndToEndRandomIT extends AbstractOnServerIT {
     public enum Action {
         CREATE_FOLDER,
         GO_INTO_FOLDER,

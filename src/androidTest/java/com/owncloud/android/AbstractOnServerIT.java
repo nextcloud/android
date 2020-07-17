@@ -8,12 +8,14 @@ import android.content.ActivityNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
@@ -77,6 +79,9 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             if (account == null) {
                 throw new ActivityNotFoundException();
             }
+
+            Optional<User> optionalUser = userAccountManager.getUser(account.name);
+            user = optionalUser.orElseThrow(IllegalAccessError::new);
 
             client = OwnCloudClientFactory.createOwnCloudClient(account, targetContext);
 

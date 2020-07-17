@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNull;
  * Tests related to file operations
  */
 @RunWith(AndroidJUnit4.class)
-public class FileIT extends AbstractIT {
+public class FileIT extends AbstractOnServerIT {
 
     @Test
     public void testCreateFolder() {

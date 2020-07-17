@@ -36,7 +36,7 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.client.preferences.DarkMode
-import com.owncloud.android.AbstractIT
+import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
@@ -54,7 +54,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
-class OCFileListFragmentIT : AbstractIT() {
+class OCFileListFragmentIT : AbstractOnServerIT() {
     companion object {
         val SECOND_IN_MILLIS = 1000L
         val RESULT_PER_PAGE = 50
