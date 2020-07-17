@@ -123,7 +123,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -994,6 +993,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
                         ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
                     } else if (PreviewTextFileFragment.canBePreviewed(file)) {
+                        setFabVisible(false);
                         ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
                     } else if (file.isDown()) {
                         if (PreviewMediaFragment.canBePreviewed(file)) {
@@ -1112,6 +1112,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         mActiveActionMode.finish();
                     }
                     mContainerActivity.showDetails(singleFile);
+                    setFabVisible(false);
+                    mContainerActivity.showSortListGroup(false);
                     return true;
                 }
                 case R.id.action_set_as_wallpaper: {
@@ -1750,7 +1752,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      * @param visible Desired visibility for the FAB.
      */
-    void setFabVisible(final boolean visible) {
+    public void setFabVisible(final boolean visible) {
         if (mFabMain == null) {
             // is not available in FolderPickerActivity
             return;

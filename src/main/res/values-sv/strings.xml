@@ -33,6 +33,7 @@
     <string name="activity_chooser_title">Skicka länk till…</string>
     <string name="activity_icon">Aktivitet</string>
     <string name="add_another_public_share_link">Lägg till en annan länk</string>
+    <string name="add_new_public_share">Lägg till en ny publik delad länk</string>
     <string name="add_to_cloud">Lägg till %1$s</string>
     <string name="allow_editing">Tillåt redigering</string>
     <string name="appbar_search_in">Sök i %s</string>
@@ -383,6 +384,7 @@
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
     <string name="invalid_url">Ogiltig URL</string>
+    <string name="label_empty">Etiketten kan inte vara tom</string>
     <string name="learn_more">Läs mer</string>
     <string name="link">Länk</string>
     <string name="list_layout">Listad layout</string>
@@ -539,6 +541,7 @@
     <string name="preview_image_error_unknown_format">Kan inte visa bild</string>
     <string name="preview_sorry">Tyvärr</string>
     <string name="privacy">Privat</string>
+    <string name="public_share_name">Nytt namn</string>
     <string name="push_notifications_not_implemented">Push-aviseringar har inaktiverats på grund av beroenden till skyddade Google Play-tjänster</string>
     <string name="push_notifications_old_login">Inga push-aviseringar på grund av utgången inloggningssession. Överväg att lägga till ditt konto på nytt.</string>
     <string name="push_notifications_temp_error">Push-aviseringar är inte tillgängligt för tillfället.</string>
