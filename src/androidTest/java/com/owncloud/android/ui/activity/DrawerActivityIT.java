@@ -68,10 +68,15 @@ public class DrawerActivityIT extends AbstractOnServerIT {
         String loginName = "user1";
         String password = "user1";
 
+        AccountManager platformAccountManager = AccountManager.get(targetContext);
+
+        for (Account account : platformAccountManager.getAccounts()) {
+            platformAccountManager.removeAccountExplicitly(account);
+        }
+
         Account temp = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
         UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
         if (!accountManager.exists(temp)) {
-            AccountManager platformAccountManager = AccountManager.get(targetContext);
             platformAccountManager.addAccountExplicitly(temp, password, null);
             platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
                                                Integer.toString(UserAccountManager.ACCOUNT_VERSION));
