@@ -84,7 +84,7 @@
         <item name="android:windowBackground">@color/bg_default</item>
         <item name="colorAccent">@color/color_accent</item>
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/primary</item>
         <item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="windowActionBar">false</item>
         <item name="windowActionModeOverlay">true</item>
