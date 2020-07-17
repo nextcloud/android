@@ -77,9 +77,13 @@ public abstract class AbstractIT {
     public static void beforeAll() {
         try {
             targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+            AccountManager platformAccountManager = AccountManager.get(targetContext);
+
+            for (Account account : platformAccountManager.getAccounts()) {
+                platformAccountManager.removeAccountExplicitly(account);
+            }
 
             Account temp = new Account("test@server.com", MainApp.getAccountType(targetContext));
-            AccountManager platformAccountManager = AccountManager.get(targetContext);
             platformAccountManager.addAccountExplicitly(temp, "password", null);
             platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
             platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, "test");
