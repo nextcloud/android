@@ -116,6 +116,7 @@
     <string name="common_send">发送</string>
     <string name="common_share">共享</string>
     <string name="common_switch_account">切换账号</string>
+    <string name="common_switch_to_account">切换到账号</string>
     <string name="common_unknown">未知</string>
     <string name="common_yes">是</string>
     <string name="community_beta_headline">测试开发版本</string>
@@ -298,6 +299,7 @@
     <string name="file_list_empty_headline_server_search_photos">没有照片</string>
     <string name="file_list_empty_headline_server_search_videos">没有视频</string>
     <string name="file_list_empty_moving">这里是空的。您可以添加一个文件夹。</string>
+    <string name="file_list_empty_on_device">已下载的文件和文件夹会在这里显示。</string>
     <string name="file_list_empty_recently_added">没找到最近添加的文件</string>
     <string name="file_list_empty_recently_added_filter">没有最近添加的文件。</string>
     <string name="file_list_empty_recently_modified">在过去的7天内没有被修改过的文件</string>
@@ -380,6 +382,7 @@
     <string name="instant_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_path">/实时上传</string>
     <string name="invalid_url">无效的 URL</string>
+    <string name="label_empty">标签不能是空白</string>
     <string name="learn_more">学习更多</string>
     <string name="link">链接</string>
     <string name="list_layout">列出的布局</string>
@@ -538,6 +541,7 @@
     <string name="push_notifications_not_implemented">由于依赖于专有的Google Play服务，推送通知被禁用。</string>
     <string name="push_notifications_old_login">由于登录会话已过期，因此没有推送通知。 请考虑重新添加您的账号。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
+    <string name="qr_could_not_be_read">不能读取二维码</string>
     <string name="recommend_subject">在你的设备上尝试%1$s！</string>
     <string name="recommend_text">我想邀请你在你的设备上使用 %1$s。\n在这里下载：%2$s</string>
     <string name="recommend_urls">%1$s 或 %2$s</string>

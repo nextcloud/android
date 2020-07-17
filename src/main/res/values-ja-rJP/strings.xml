@@ -33,6 +33,7 @@
     <string name="activity_chooser_title">リンク送信…</string>
     <string name="activity_icon">アクティビティ</string>
     <string name="add_another_public_share_link">別のリンクを追加</string>
+    <string name="add_new_public_share">新規公開共有リンクを追加</string>
     <string name="add_to_cloud">%1$s に追加</string>
     <string name="allow_editing">編集を許可</string>
     <string name="appbar_search_in">%s の中を検索</string>
@@ -383,6 +384,7 @@
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">無効なURL</string>
+    <string name="label_empty">ラベルは空にできません</string>
     <string name="learn_more">もっと見る</string>
     <string name="link">リンク</string>
     <string name="list_layout">リスト表示</string>
@@ -442,6 +444,7 @@
     <string name="no_pdf_app_available">PDFを処理するアプリケーションがありません</string>
     <string name="note_confirm">送信</string>
     <string name="note_could_not_sent">メモを送信できませんでした</string>
+    <string name="note_icon_hint">アイコンを記録</string>
     <string name="notification_action_failed">アクションの実行に失敗しました。</string>
     <string name="notification_channel_download_description">ダウンロードの進行状況を表示</string>
     <string name="notification_channel_download_name">通知チャンネルをダウンロード</string>
@@ -538,9 +541,11 @@
     <string name="preview_image_error_unknown_format">画像を表示できません</string>
     <string name="preview_sorry">申し訳ありません</string>
     <string name="privacy">プライバシー</string>
+    <string name="public_share_name">新しい名前</string>
     <string name="push_notifications_not_implemented">独自のGoogle Playサービスの依存関係のため、プッシュ通知が無効になっています。</string>
     <string name="push_notifications_old_login">古くなったログインセッションによるプッシュ通知はありません。 アカウントを再追加することを検討してください。</string>
     <string name="push_notifications_temp_error">プッシュ通知は現在利用できません。</string>
+    <string name="qr_could_not_be_read">QRコードを読み込めませんでした！</string>
     <string name="recommend_subject">デバイスで %1$s をお試しください</string>
     <string name="recommend_text">あなたのデバイスで %1$s を使用してください。\nダウンロードはこちらです: %2$s</string>
     <string name="recommend_urls">%1$s または %2$s</string>
