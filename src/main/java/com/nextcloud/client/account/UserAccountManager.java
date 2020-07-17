@@ -80,6 +80,9 @@ public interface UserAccountManager extends CurrentAccountProvider {
     @NonNull
     Optional<User> getUser(CharSequence accountName);
 
+
+    User getAnonymousUser();
+
     /**
      * Check if Nextcloud account is registered in {@link android.accounts.AccountManager}
      *

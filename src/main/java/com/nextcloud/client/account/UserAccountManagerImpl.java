@@ -22,10 +22,10 @@ package com.nextcloud.client.account;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -243,8 +243,13 @@ public class UserAccountManagerImpl implements UserAccountManager {
     @NonNull
     public Optional<User> getUser(CharSequence accountName) {
         Account account = getAccountByName(accountName.toString());
-        User user =  createUserFromAccount(account);
+        User user = createUserFromAccount(account);
         return Optional.ofNullable(user);
+    }
+
+    @Override
+    public User getAnonymousUser() {
+        return AnonymousUser.fromContext(context);
     }
 
     @Override
