@@ -27,7 +27,6 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
-import com.facebook.testing.screenshot.Screenshot
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
@@ -137,9 +136,9 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
         shortSleep()
         shortSleep()
 
-        sut.onActivity { activity ->
-            Screenshot.snapActivity(activity).setName("richworkspaces_light").record()
-        }
+//        sut.onActivity { activity ->
+//            Screenshot.snapActivity(activity).setName("richworkspaces_light").record()
+//        }
 
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(targetContext)
         preferences.darkThemeMode = DarkMode.DARK
@@ -160,9 +159,9 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
         shortSleep()
         shortSleep()
 
-        sut.onActivity { activity ->
-            Screenshot.snapActivity(activity).setName("richworkspaces_dark").record()
-        }
+//        sut.onActivity { activity ->
+//            Screenshot.snapActivity(activity).setName("richworkspaces_dark").record()
+//        }
 
         // switch back to light mode
         preferences.darkThemeMode = DarkMode.LIGHT
@@ -202,7 +201,7 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
 
         shortSleep()
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-        Screenshot.snapActivity(sut).record()
+//        Screenshot.snapActivity(sut).record()
     }
 
     @Test
@@ -234,7 +233,7 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
 
         shortSleep()
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-        Screenshot.snapActivity(sut).record()
+//        Screenshot.snapActivity(sut).record()
     }
 
 //    @Test
@@ -298,6 +297,6 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
 
         shortSleep()
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-        Screenshot.snapActivity(sut).record()
+//        Screenshot.snapActivity(sut).record()
     }
 }
