@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+    echo "1: record: true/false
+2: class name
+3: method name" 
+    
+    exit
+fi
+
+sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
+
+emulator -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
+
+cd src/androidTest/java
+
+class=$(find | grep $2 | grep java | head -n1|sed s'/\//\./'g | sed s'#^\.\.##' | sed s'#\.java##')
+
+cd ../../../
+
+if [ $1 == "true" ] ; then
+    record="-Precord"
+else 
+    record=""
+fi
+
+if [ -e $3 ] ; then
+    method=""
+else
+    method="#$3"
+fi
+
+./gradlew gplayDebugExecuteScreenshotTests $record -Pandroid.testInstrumentationRunnerArguments.class=$class$method
+
+sed -i s'#<bool name="is_beta">true</bool>#<bool name="is_beta">false</bool>#'g src/main/res/values/setup.xml
