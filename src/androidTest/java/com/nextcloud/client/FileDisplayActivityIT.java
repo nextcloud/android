@@ -68,9 +68,10 @@ public class FileDisplayActivityIT extends AbstractIT {
     @Test
     @ScreenshotTest
     public void open() {
-        Activity sut = activityRule.launchActivity(null);
+        FileDisplayActivity sut = activityRule.launchActivity(null);
 
-        shortSleep();
+        sut.getListOfFilesFragment().setFabEnabled(false);
+        sut.getListOfFilesFragment().setEmptyListLoadingMessage();
 
         Screenshot.snapActivity(sut).record();
     }
@@ -82,9 +83,8 @@ public class FileDisplayActivityIT extends AbstractIT {
 
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
 
-        waitForIdleSync();
-        shortSleep();
         sut.getListOfFilesFragment().setFabEnabled(false);
+        sut.getListOfFilesFragment().setEmptyListLoadingMessage();
 
         Screenshot.snapActivity(sut).record();
     }
