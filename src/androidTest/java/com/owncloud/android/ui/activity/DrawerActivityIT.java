@@ -30,7 +30,7 @@ import android.os.Bundle;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.owncloud.android.AbstractIT;
+import com.owncloud.android.AbstractOnServerIT;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -49,7 +49,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.anyOf;
 import static org.junit.Assert.assertEquals;
 
-public class DrawerActivityIT extends AbstractIT {
+public class DrawerActivityIT extends AbstractOnServerIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
                                                                                            true,
                                                                                            false);
