@@ -1,0 +1,6 @@
+new screenshots, disabled non working
+Add tests for dialogs
+fix wrong show of sort/list group and FAB in details or text preview
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
