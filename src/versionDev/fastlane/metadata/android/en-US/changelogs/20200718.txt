@@ -1,0 +1,5 @@
+Use same color for status bar
+Fix crash on missing user
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
