@@ -80,6 +80,7 @@ import java.util.concurrent.ConcurrentMap;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import dagger.android.AndroidInjection;
 
 public class OperationsService extends Service {
@@ -647,17 +648,19 @@ public class OperationsService extends Service {
                     case ACTION_SYNC_FILE:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         boolean syncFileContents = operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
-                        operation = new SynchronizeFileOperation(remotePath, user, syncFileContents,
-                                getApplicationContext());
+                        operation = new SynchronizeFileOperation(remotePath,
+                                                                 user,
+                                                                 syncFileContents,
+                                                                 getApplicationContext());
                         break;
 
                     case ACTION_SYNC_FOLDER:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         operation = new SynchronizeFolderOperation(
-                                this,                       // TODO remove this dependency from construction time
-                                remotePath,
-                                user,
-                                System.currentTimeMillis()  // TODO remove this dependency from construction time
+                            this,                       // TODO remove this dependency from construction time
+                            remotePath,
+                            user,
+                            System.currentTimeMillis()  // TODO remove this dependency from construction time
                         );
                         break;
 
@@ -702,17 +705,20 @@ public class OperationsService extends Service {
     }
 
     /**
-     * This is a temporary compatibility helper to convert legacy {@link Account} instance
-     * to new {@link User} model.
+     * This is a temporary compatibility helper to convert legacy {@link Account} instance to new {@link User} model.
      *
      * @param account Account instance
      * @return User model that corresponds to Account
-     * @throws RuntimeException if account cannot be converted
      */
     @NonNull
-    private User toUser(Account account) {
-        Optional<User> optionalUser = accountManager.getUser(account.name);
-        return optionalUser.orElseThrow(RuntimeException::new); // if account is valid, this should never fail
+    private User toUser(@Nullable Account account) {
+        String accountName = account != null ? account.name : "";
+        Optional<User> optionalUser = accountManager.getUser(accountName);
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
+        } else {
+            return accountManager.getAnonymousUser();
+        }
     }
 
     /**
