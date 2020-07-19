@@ -222,7 +222,7 @@
     <string name="drawer_item_recently_added">Nyligen tillagd</string>
     <string name="drawer_item_recently_modified">Nyligen ändrad</string>
     <string name="drawer_item_shared">Delat</string>
-    <string name="drawer_item_trashbin">Raderade filer</string>
+    <string name="drawer_item_trashbin">Borttagna filer</string>
     <string name="drawer_item_uploads_list">Uppladdningar</string>
     <string name="drawer_item_videos">Videor</string>
     <string name="drawer_logout">Logga ut</string>
@@ -724,9 +724,9 @@
     <string name="thumbnail_for_existing_file_description">Miniatyrbild för befintlig fil</string>
     <string name="thumbnail_for_new_file_desc">Miniatyrbild för ny fil</string>
     <string name="timeout_richDocuments">Laddning tar väldigt länge...</string>
-    <string name="trashbin_activity_title">Raderade filer</string>
-    <string name="trashbin_empty_headline">Inga raderade filer</string>
-    <string name="trashbin_empty_message">Du kan återställa raderade filer här.</string>
+    <string name="trashbin_activity_title">Borttagna filer</string>
+    <string name="trashbin_empty_headline">Inga borttagna filer</string>
+    <string name="trashbin_empty_message">Du kan återställa borttagna filer här.</string>
     <string name="trashbin_file_not_deleted">Filen %1$s kunde inte tas bort!</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunde inte återställas!</string>
     <string name="trashbin_loading_failed">Laddning av papperskorg misslyckades!</string>
