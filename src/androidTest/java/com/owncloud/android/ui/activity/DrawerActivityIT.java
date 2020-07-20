@@ -57,6 +57,7 @@ public class DrawerActivityIT extends AbstractOnServerIT {
     @Rule
     public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    private static Account account1;
     private static Account account2;
     private static String account2Name;
     private static String account2DisplayName;
@@ -65,37 +66,49 @@ public class DrawerActivityIT extends AbstractOnServerIT {
     public static void beforeClass() {
         Bundle arguments = androidx.test.platform.app.InstrumentationRegistry.getArguments();
         Uri baseUrl = Uri.parse(arguments.getString("TEST_SERVER_URL"));
-        String loginName = "user1";
-        String password = "user1";
 
         AccountManager platformAccountManager = AccountManager.get(targetContext);
+        UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
 
         for (Account account : platformAccountManager.getAccounts()) {
             platformAccountManager.removeAccountExplicitly(account);
         }
 
-        Account temp = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
-        UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
-        if (!accountManager.exists(temp)) {
-            platformAccountManager.addAccountExplicitly(temp, password, null);
-            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
-                                               Integer.toString(UserAccountManager.ACCOUNT_VERSION));
-            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
-            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
-            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
-        }
+        String loginName = "user1";
+        String password = "user1";
 
-        final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
+        Account temp = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
+        platformAccountManager.addAccountExplicitly(temp, password, null);
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
+                                           Integer.toString(UserAccountManager.ACCOUNT_VERSION));
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
+
+        account1 = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
+
+        baseUrl = Uri.parse("server.com");
+        loginName = "user2";
+        password = "user2";
+
+        temp = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
+        platformAccountManager.addAccountExplicitly(temp, password, null);
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
+                                           Integer.toString(UserAccountManager.ACCOUNT_VERSION));
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
+
         account2 = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
         account2Name = loginName + "@" + baseUrl;
-        account2DisplayName = "User One@" + baseUrl;
+        account2DisplayName = "User Two@" + baseUrl;
     }
 
     @Test
     public void switchAccountViaAccountList() {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
-        assertEquals(account, sut.getUser().get().toPlatformAccount());
+        assertEquals(account1, sut.getUser().get().toPlatformAccount());
 
         onView(withId(R.id.switch_account_button)).perform(click());
 
@@ -106,6 +119,6 @@ public class DrawerActivityIT extends AbstractOnServerIT {
         assertEquals(account2, sut.getUser().get().toPlatformAccount());
 
         onView(withId(R.id.switch_account_button)).perform(click());
-        onView(withText(account.name)).perform(click());
+        onView(withText(account1.name)).perform(click());
     }
 }

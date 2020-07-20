@@ -165,7 +165,7 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
 
         // switch back to light mode
         preferences.darkThemeMode = DarkMode.LIGHT
-        MainApp.setAppTheme(DarkMode.LIGHT)
+        sut.onActivity { MainApp.setAppTheme(DarkMode.LIGHT) }
 
         shortSleep()
         sut.onActivity { activity -> activity.onBackPressed() }

@@ -76,6 +76,7 @@ public abstract class AbstractIT {
     @BeforeClass
     public static void beforeAll() {
         try {
+            // clean up
             targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
             AccountManager platformAccountManager = AccountManager.get(targetContext);
 

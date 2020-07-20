@@ -54,7 +54,14 @@ public abstract class AbstractOnServerIT extends AbstractIT {
     @BeforeClass
     public static void beforeAll() {
         try {
+            // clean up
             targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+            AccountManager platformAccountManager = AccountManager.get(targetContext);
+
+            for (Account account : platformAccountManager.getAccounts()) {
+                platformAccountManager.removeAccountExplicitly(account);
+            }
+
             Bundle arguments = androidx.test.platform.app.InstrumentationRegistry.getArguments();
 
             Uri baseUrl = Uri.parse(arguments.getString("TEST_SERVER_URL"));
@@ -64,7 +71,6 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             Account temp = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
             UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
             if (!accountManager.exists(temp)) {
-                AccountManager platformAccountManager = AccountManager.get(targetContext);
                 platformAccountManager.addAccountExplicitly(temp, password, null);
                 platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
                                                    Integer.toString(UserAccountManager.ACCOUNT_VERSION));
