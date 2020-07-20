@@ -27,7 +27,6 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
-import com.facebook.testing.screenshot.Screenshot
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
@@ -36,7 +35,7 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.client.preferences.DarkMode
-import com.owncloud.android.AbstractIT
+import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
@@ -54,7 +53,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
-class OCFileListFragmentIT : AbstractIT() {
+class OCFileListFragmentIT : AbstractOnServerIT() {
     companion object {
         val SECOND_IN_MILLIS = 1000L
         val RESULT_PER_PAGE = 50
@@ -137,9 +136,9 @@ class OCFileListFragmentIT : AbstractIT() {
         shortSleep()
         shortSleep()
 
-        sut.onActivity { activity ->
-            Screenshot.snapActivity(activity).setName("richworkspaces_light").record()
-        }
+//        sut.onActivity { activity ->
+//            Screenshot.snapActivity(activity).setName("richworkspaces_light").record()
+//        }
 
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(targetContext)
         preferences.darkThemeMode = DarkMode.DARK
@@ -160,13 +159,13 @@ class OCFileListFragmentIT : AbstractIT() {
         shortSleep()
         shortSleep()
 
-        sut.onActivity { activity ->
-            Screenshot.snapActivity(activity).setName("richworkspaces_dark").record()
-        }
+//        sut.onActivity { activity ->
+//            Screenshot.snapActivity(activity).setName("richworkspaces_dark").record()
+//        }
 
         // switch back to light mode
         preferences.darkThemeMode = DarkMode.LIGHT
-        MainApp.setAppTheme(DarkMode.LIGHT)
+        sut.onActivity { MainApp.setAppTheme(DarkMode.LIGHT) }
 
         shortSleep()
         sut.onActivity { activity -> activity.onBackPressed() }
@@ -202,7 +201,7 @@ class OCFileListFragmentIT : AbstractIT() {
 
         shortSleep()
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-        Screenshot.snapActivity(sut).record()
+//        Screenshot.snapActivity(sut).record()
     }
 
     @Test
@@ -234,7 +233,7 @@ class OCFileListFragmentIT : AbstractIT() {
 
         shortSleep()
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-        Screenshot.snapActivity(sut).record()
+//        Screenshot.snapActivity(sut).record()
     }
 
 //    @Test
@@ -298,6 +297,6 @@ class OCFileListFragmentIT : AbstractIT() {
 
         shortSleep()
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-        Screenshot.snapActivity(sut).record()
+//        Screenshot.snapActivity(sut).record()
     }
 }

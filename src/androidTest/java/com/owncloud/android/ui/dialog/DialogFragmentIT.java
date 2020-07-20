@@ -26,6 +26,7 @@ import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
+import android.os.Looper;
 
 import com.facebook.testing.screenshot.Screenshot;
 import com.nextcloud.client.account.RegisteredUser;
@@ -62,8 +63,11 @@ public class DialogFragmentIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
-//    @ScreenshotTest
+    @ScreenshotTest
     public void testRenameFileDialog() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare();
+        }
         RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(new OCFile("/Test/"));
         showDialog(dialog);
     }
@@ -112,8 +116,11 @@ public class DialogFragmentIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testNewFolderDialog() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare();
+        }
         CreateFolderDialogFragment sut = CreateFolderDialogFragment.newInstance(new OCFile("/"));
         showDialog(sut);
     }
@@ -126,7 +133,7 @@ public class DialogFragmentIT extends AbstractIT {
             accountManager.removeAccountExplicitly(account);
         }
 
-        Account newAccount = new Account("test@server.com", MainApp.getAccountType(targetContext));
+        Account newAccount = new Account("test@https://server.com", MainApp.getAccountType(targetContext));
         accountManager.addAccountExplicitly(newAccount, "password", null);
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");

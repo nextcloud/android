@@ -39,7 +39,7 @@ import static org.junit.Assert.assertTrue;
 
 @LargeTest
 @RunWith(JUnit4.class)
-public class ScreenshotsIT extends AbstractIT {
+public class ScreenshotsIT extends AbstractOnServerIT {
     @ClassRule
     public static final LocaleTestRule localeTestRule = new LocaleTestRule();
 

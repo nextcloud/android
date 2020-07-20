@@ -69,7 +69,7 @@ public class SyncedFoldersActivityIT extends AbstractIT {
                                                                    false,
                                                                    false,
                                                                    true,
-                                                                   "test@server.com",
+                                                                   "test@https://server.com",
                                                                    0,
                                                                    0,
                                                                    true,
