@@ -914,13 +914,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             .getCapability(user.getAccountName());
 
                         if (ocCapability.getEndToEndEncryption().isFalse() ||
-                                ocCapability.getEndToEndEncryption().isUnknown()) {
+                            ocCapability.getEndToEndEncryption().isUnknown()) {
                             Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_not_enabled,
-                                    Snackbar.LENGTH_LONG).show();
+                                          Snackbar.LENGTH_LONG).show();
                             return;
-                        }// check if keys are stored
+                        }
+                        // check if keys are stored
                         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
-                                getContext().getContentResolver());
+                            getContext().getContentResolver());
 
 
                         String publicKey = arbitraryDataProvider.getValue(user.toPlatformAccount(),
@@ -1598,19 +1599,46 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(EncryptionEvent event) {
+        final User user = accountManager.getUser();
+
         try {
-            final User user = accountManager.getUser();
-            final OwnCloudClient client = clientFactory.create(user);
-            final ToggleEncryptionRemoteOperation toggleEncryptionOperation = new ToggleEncryptionRemoteOperation(
-                event.localId, event.remotePath, event.shouldBeEncrypted);
-            final RemoteOperationResult remoteOperationResult = toggleEncryptionOperation.execute(client);
+            OwnCloudClient client = clientFactory.create(user);
+            RemoteOperationResult remoteOperationResult = new ToggleEncryptionRemoteOperation(event.localId,
+                                                                                              event.remotePath,
+                                                                                              event.shouldBeEncrypted)
+                .execute(client);
 
             if (remoteOperationResult.isSuccess()) {
                 mAdapter.setEncryptionAttributeForItemID(event.remoteId, event.shouldBeEncrypted);
+
+                // check if keys are stored
+                ArbitraryDataProvider arbitraryDataProvider =
+                    new ArbitraryDataProvider(requireContext().getContentResolver());
+
+
+                String publicKey = arbitraryDataProvider.getValue(user.toPlatformAccount(),
+                                                                  EncryptionUtils.PUBLIC_KEY);
+                String privateKey = arbitraryDataProvider.getValue(user.toPlatformAccount(),
+                                                                   EncryptionUtils.PRIVATE_KEY);
+
+                if (publicKey.isEmpty() || privateKey.isEmpty()) {
+                    Log_OC.d(TAG, "no public key for " + user.getAccountName());
+
+
+                    FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+                    int position = mAdapter.getItemPosition(storageManager.getFileByRemoteId(event.remoteId));
+                    SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
+                    dialog.setTargetFragment(this, SetupEncryptionDialogFragment.SETUP_ENCRYPTION_REQUEST_CODE);
+                    dialog.show(getParentFragmentManager(), SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG);
+                }
             } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
-                Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_folder_not_empty, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getRecyclerView(),
+                              R.string.end_to_end_encryption_folder_not_empty,
+                              Snackbar.LENGTH_LONG).show();
             } else {
-                Snackbar.make(getRecyclerView(), R.string.common_error_unknown, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getRecyclerView(),
+                              R.string.common_error_unknown,
+                              Snackbar.LENGTH_LONG).show();
             }
 
         } catch (ClientFactory.CreationException e) {
