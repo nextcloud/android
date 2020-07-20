@@ -87,7 +87,7 @@ public class DrawerActivityIT extends AbstractOnServerIT {
 
         account1 = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
 
-        baseUrl = Uri.parse("server.com");
+        baseUrl = Uri.parse("https://server.com");
         loginName = "user2";
         password = "user2";
 

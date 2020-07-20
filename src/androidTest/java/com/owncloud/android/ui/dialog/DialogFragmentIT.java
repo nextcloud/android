@@ -133,7 +133,7 @@ public class DialogFragmentIT extends AbstractIT {
             accountManager.removeAccountExplicitly(account);
         }
 
-        Account newAccount = new Account("test@server.com", MainApp.getAccountType(targetContext));
+        Account newAccount = new Account("test@https://server.com", MainApp.getAccountType(targetContext));
         accountManager.addAccountExplicitly(newAccount, "password", null);
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");
