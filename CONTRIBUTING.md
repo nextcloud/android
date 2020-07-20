@@ -379,6 +379,7 @@ Generally, whenever you need:
 * media playback
 * networking
 * logging
+* notifications management
 
 we have something more suitable.
 

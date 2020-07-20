@@ -218,6 +218,13 @@ public class FileDisplayActivity extends FileActivity
     @Inject
     ConnectivityService connectivityService;
 
+    public static Intent openFileIntent(Context context, User user, OCFile file) {
+        final Intent intent = new Intent(context, PreviewImageActivity.class);
+        intent.putExtra(FileActivity.EXTRA_FILE, file);
+        intent.putExtra(FileActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");

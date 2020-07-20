@@ -22,23 +22,32 @@ package com.nextcloud.client.core
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * This is a wrapper for a function run in background.
- *
- * Runs task function and posts result if task is not cancelled.
+ * This is a wrapper for a task function runing in background.
+ * It executes task function and handles result or error delivery.
  */
-internal class Task<T>(
-    private val postResult: (Runnable) -> Unit,
-    private val taskBody: () -> T,
+@Suppress("LongParameterList")
+internal class Task<T, P>(
+    private val postResult: (Runnable) -> Boolean,
+    private val removeFromQueue: (Runnable) -> Boolean,
+    private val taskBody: TaskFunction<T, P>,
     private val onSuccess: OnResultCallback<T>?,
-    private val onError: OnErrorCallback?
+    private val onError: OnErrorCallback?,
+    private val onProgress: OnProgressCallback<P>?
 ) : Runnable, Cancellable {
+
+    val isCancelled: Boolean
+        get() = cancelled.get()
 
     private val cancelled = AtomicBoolean(false)
 
+    private fun postProgress(p: P) {
+        postResult(Runnable { onProgress?.invoke(p) })
+    }
+
+    @Suppress("TooGenericExceptionCaught") // this is exactly what we want here
     override fun run() {
-        @Suppress("TooGenericExceptionCaught") // this is exactly what we want here
         try {
-            val result = taskBody.invoke()
+            val result = taskBody.invoke({ postProgress(it) }, this::isCancelled)
             if (!cancelled.get()) {
                 postResult.invoke(
                     Runnable {
@@ -51,9 +60,11 @@ internal class Task<T>(
                 postResult(Runnable { onError?.invoke(t) })
             }
         }
+        removeFromQueue(this)
     }
 
     override fun cancel() {
         cancelled.set(true)
+        removeFromQueue(this)
     }
 }

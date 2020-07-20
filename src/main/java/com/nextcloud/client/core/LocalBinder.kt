@@ -1,8 +1,8 @@
-/*
+/**
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,20 +19,10 @@
  */
 package com.nextcloud.client.core
 
-/**
- * Interface allowing cancellation of a running task.
- * Once must be careful when cancelling a non-idempotent task,
- * as cancellation does not guarantee a task termination.
- * One trivial case would be a task finished and cancelled
- * before result delivery.
- *
- * @see [com.nextcloud.client.core.AsyncRunner]
- */
-interface Cancellable {
+import android.app.Service
+import android.os.Binder
 
-    /**
-     * Cancel running task. Task termination is not guaranteed, as some
-     * tasks cannot be interrupted, but the result will not be delivered.
-     */
-    fun cancel()
-}
+/**
+ * This is a generic binder that provides access to a locally bound service instance.
+ */
+abstract class LocalBinder<S : Service>(val service: S) : Binder()

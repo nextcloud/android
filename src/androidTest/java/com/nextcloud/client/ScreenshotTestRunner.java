@@ -22,13 +22,32 @@
 
 package com.nextcloud.client;
 
+import android.app.Application;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.facebook.testing.screenshot.ScreenshotRunner;
+import com.github.tmurakami.dexopener.DexOpener;
 
 import androidx.test.runner.AndroidJUnitRunner;
 
 public class ScreenshotTestRunner extends AndroidJUnitRunner {
+
+    @Override
+    public Application newApplication(ClassLoader cl, String className, Context context)
+        throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+
+        /*
+         * Initialize DexOpener only on API below 28 to enable mocking of Kotlin classes.
+         * On API 28+ the platform supports mocking natively.
+         */
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+            DexOpener.install(this);
+        }
+
+        return super.newApplication(cl, className, context);
+    }
 
     @Override
     public void onCreate(Bundle args) {
