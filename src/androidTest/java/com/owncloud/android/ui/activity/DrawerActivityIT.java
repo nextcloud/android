@@ -28,9 +28,10 @@ import android.accounts.AccountManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.owncloud.android.AbstractOnServerIT;
+import com.owncloud.android.AbstractIT;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -49,7 +50,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.anyOf;
 import static org.junit.Assert.assertEquals;
 
-public class DrawerActivityIT extends AbstractOnServerIT {
+public class DrawerActivityIT extends AbstractIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
                                                                                            true,
                                                                                            false);
@@ -58,6 +59,7 @@ public class DrawerActivityIT extends AbstractOnServerIT {
     public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
     private static Account account1;
+    private static User user1;
     private static Account account2;
     private static String account2Name;
     private static String account2DisplayName;
@@ -86,8 +88,8 @@ public class DrawerActivityIT extends AbstractOnServerIT {
         platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
 
         account1 = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
+        user1 = userAccountManager.getUser(account1.name).orElseThrow(IllegalAccessError::new);
 
-        baseUrl = Uri.parse("https://server.com");
         loginName = "user2";
         password = "user2";
 
@@ -107,6 +109,8 @@ public class DrawerActivityIT extends AbstractOnServerIT {
     @Test
     public void switchAccountViaAccountList() {
         FileDisplayActivity sut = activityRule.launchActivity(null);
+
+        sut.setUser(user1);
 
         assertEquals(account1, sut.getUser().get().toPlatformAccount());
 
