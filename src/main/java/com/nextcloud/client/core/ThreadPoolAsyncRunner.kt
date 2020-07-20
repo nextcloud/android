@@ -28,17 +28,44 @@ import java.util.concurrent.ScheduledThreadPoolExecutor
  *
  * Tasks are run on multi-threaded pool. If serialized execution is desired, set [corePoolSize] to 1.
  */
-internal class ThreadPoolAsyncRunner(private val uiThreadHandler: Handler, corePoolSize: Int) : AsyncRunner {
+internal class ThreadPoolAsyncRunner(
+    private val uiThreadHandler: Handler,
+    corePoolSize: Int,
+    val tag: String = "default"
+) : AsyncRunner {
 
     private val executor = ScheduledThreadPoolExecutor(corePoolSize)
 
-    override fun <T> post(task: () -> T, onResult: OnResultCallback<T>?, onError: OnErrorCallback?): Cancellable {
-        val taskWrapper = Task(this::postResult, task, onResult, onError)
-        executor.execute(taskWrapper)
-        return taskWrapper
+    override fun <T> postQuickTask(
+        task: () -> T,
+        onResult: OnResultCallback<T>?,
+        onError: OnErrorCallback?
+    ): Cancellable {
+        val taskAdapter = { _: OnProgressCallback<Void>, _: IsCancelled -> task.invoke() }
+        return postTask(
+            taskAdapter,
+            onResult,
+            onError,
+            null
+        )
     }
 
-    private fun postResult(r: Runnable) {
-        uiThreadHandler.post(r)
+    override fun <T, P> postTask(
+        task: TaskFunction<T, P>,
+        onResult: OnResultCallback<T>?,
+        onError: OnErrorCallback?,
+        onProgress: OnProgressCallback<P>?
+    ): Cancellable {
+        val remove: Function1<Runnable, Boolean> = executor::remove
+        val taskWrapper = Task(
+            postResult = uiThreadHandler::post,
+            removeFromQueue = remove,
+            taskBody = task,
+            onSuccess = onResult,
+            onError = onError,
+            onProgress = onProgress
+        )
+        executor.execute(taskWrapper)
+        return taskWrapper
     }
 }

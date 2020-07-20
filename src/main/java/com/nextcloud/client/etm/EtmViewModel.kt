@@ -21,15 +21,21 @@ package com.nextcloud.client.etm
 
 import android.accounts.Account
 import android.accounts.AccountManager
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.etm.pages.EtmAccountsFragment
 import com.nextcloud.client.etm.pages.EtmBackgroundJobsFragment
+import com.nextcloud.client.etm.pages.EtmDownloaderFragment
 import com.nextcloud.client.etm.pages.EtmMigrations
 import com.nextcloud.client.etm.pages.EtmPreferencesFragment
+import com.nextcloud.client.files.downloader.DownloaderConnection
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.JobInfo
 import com.nextcloud.client.migrations.MigrationInfo
@@ -40,9 +46,12 @@ import com.owncloud.android.lib.common.accounts.AccountUtils
 import javax.inject.Inject
 
 @Suppress("LongParameterList") // Dependencies Injection
+@SuppressLint("StaticFieldLeak")
 class EtmViewModel @Inject constructor(
+    private val context: Context,
     private val defaultPreferences: SharedPreferences,
     private val platformAccountManager: AccountManager,
+    private val accountManager: UserAccountManager,
     private val resources: Resources,
     private val backgroundJobManager: BackgroundJobManager,
     private val migrationsManager: MigrationsManager,
@@ -71,6 +80,7 @@ class EtmViewModel @Inject constructor(
      */
     data class AccountData(val account: Account, val userData: Map<String, String?>)
 
+    val currentUser: User get() = accountManager.user
     val currentPage: LiveData<EtmMenuEntry?> = MutableLiveData()
     val pages: List<EtmMenuEntry> = listOf(
         EtmMenuEntry(
@@ -92,8 +102,14 @@ class EtmViewModel @Inject constructor(
             iconRes = R.drawable.ic_arrow_up,
             titleRes = R.string.etm_migrations,
             pageClass = EtmMigrations::class
+        ),
+        EtmMenuEntry(
+            iconRes = R.drawable.ic_download_grey600,
+            titleRes = R.string.etm_downloader,
+            pageClass = EtmDownloaderFragment::class
         )
     )
+    val downloaderConnection = DownloaderConnection(context, accountManager.user)
 
     val preferences: Map<String, String> get() {
         return defaultPreferences.all

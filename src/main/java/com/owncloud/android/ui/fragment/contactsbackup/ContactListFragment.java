@@ -4,6 +4,7 @@
  * @author Tobias Kaminsky
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2017 Nextcloud GmbH.
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,11 +23,9 @@
 package com.owncloud.android.ui.fragment.contactsbackup;
 
 import android.Manifest;
-import android.content.BroadcastReceiver;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -58,12 +57,15 @@ import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.files.downloader.Download;
+import com.nextcloud.client.files.downloader.DownloadState;
+import com.nextcloud.client.files.downloader.DownloaderConnection;
+import com.nextcloud.client.files.downloader.Request;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
@@ -101,6 +103,7 @@ import butterknife.ButterKnife;
 import ezvcard.Ezvcard;
 import ezvcard.VCard;
 import ezvcard.property.Photo;
+import kotlin.Unit;
 
 import static com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment.getDisplayName;
 
@@ -148,6 +151,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject BackgroundJobManager backgroundJobManager;
+    private DownloaderConnection fileDownloader;
 
     public static ContactListFragment newInstance(OCFile file, User user) {
         ContactListFragment frag = new ContactListFragment();
@@ -209,18 +213,12 @@ public class ContactListFragment extends FileFragment implements Injectable {
         ocFile = getArguments().getParcelable(FILE_NAME);
         setFile(ocFile);
         user = getArguments().getParcelable(USER);
-
+        fileDownloader = new DownloaderConnection(getActivity(), user);
+        fileDownloader.registerDownloadListener(this::onDownloadUpdate);
+        fileDownloader.bind();
         if (!ocFile.isDown()) {
-            Intent i = new Intent(getContext(), FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_USER, user);
-            i.putExtra(FileDownloader.EXTRA_FILE, ocFile);
-            getContext().startService(i);
-
-            // Listen for download messages
-            IntentFilter downloadIntentFilter = new IntentFilter(FileDownloader.getDownloadAddedMessage());
-            downloadIntentFilter.addAction(FileDownloader.getDownloadFinishMessage());
-            DownloadFinishReceiver mDownloadFinishReceiver = new DownloadFinishReceiver();
-            getContext().registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
+            Request request = new Request(user, ocFile);
+            fileDownloader.download(request);
         } else {
             loadContactsTask.execute();
         }
@@ -238,6 +236,14 @@ public class ContactListFragment extends FileFragment implements Injectable {
         restoreContacts.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
 
         return view;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (fileDownloader != null) {
+            fileDownloader.unbind();
+        }
     }
 
     @Override
@@ -497,19 +503,13 @@ public class ContactListFragment extends FileFragment implements Injectable {
         }
     }
 
-    private class DownloadFinishReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (FileDownloader.getDownloadFinishMessage().equalsIgnoreCase(intent.getAction())) {
-                String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
-
-                FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(),
-                                                                                   context.getContentResolver());
-                ocFile = storageManager.getFileByPath(downloadedRemotePath);
-                loadContactsTask.execute();
-            }
+    private Unit onDownloadUpdate(Download download) {
+        final Activity activity = getActivity();
+        if (download.getState() == DownloadState.COMPLETED && activity != null) {
+            ocFile = download.getFile();
+            loadContactsTask.execute();
         }
+        return Unit.INSTANCE;
     }
 
     public static class VCardComparator implements Comparator<VCard> {

@@ -61,7 +61,7 @@ internal class MigrationsManagerImpl(
             return 0
         }
         (status as MutableLiveData<Status>).value = Status.RUNNING
-        asyncRunner.post(
+        asyncRunner.postQuickTask(
             task = { asyncApplyMigrations(toApply) },
             onResult = { onMigrationSuccess() },
             onError = { onMigrationFailed(it) }
