@@ -21,6 +21,7 @@ package com.nextcloud.client.etm
 
 import android.accounts.Account
 import android.accounts.AccountManager
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
@@ -45,6 +46,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils
 import javax.inject.Inject
 
 @Suppress("LongParameterList") // Dependencies Injection
+@SuppressLint("StaticFieldLeak")
 class EtmViewModel @Inject constructor(
     private val context: Context,
     private val defaultPreferences: SharedPreferences,
