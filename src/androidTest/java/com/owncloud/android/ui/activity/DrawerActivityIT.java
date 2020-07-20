@@ -28,6 +28,7 @@ import android.accounts.AccountManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.AbstractIT;
@@ -57,6 +58,8 @@ public class DrawerActivityIT extends AbstractIT {
     @Rule
     public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    private static Account account1;
+    private static User user1;
     private static Account account2;
     private static String account2Name;
     private static String account2DisplayName;
@@ -65,32 +68,51 @@ public class DrawerActivityIT extends AbstractIT {
     public static void beforeClass() {
         Bundle arguments = androidx.test.platform.app.InstrumentationRegistry.getArguments();
         Uri baseUrl = Uri.parse(arguments.getString("TEST_SERVER_URL"));
+
+        AccountManager platformAccountManager = AccountManager.get(targetContext);
+        UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
+
+        for (Account account : platformAccountManager.getAccounts()) {
+            platformAccountManager.removeAccountExplicitly(account);
+        }
+
         String loginName = "user1";
         String password = "user1";
 
         Account temp = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
-        UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
-        if (!accountManager.exists(temp)) {
-            AccountManager platformAccountManager = AccountManager.get(targetContext);
-            platformAccountManager.addAccountExplicitly(temp, password, null);
-            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
-                                               Integer.toString(UserAccountManager.ACCOUNT_VERSION));
-            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
-            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
-            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
-        }
+        platformAccountManager.addAccountExplicitly(temp, password, null);
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
+                                           Integer.toString(UserAccountManager.ACCOUNT_VERSION));
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
 
-        final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
+        account1 = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
+        user1 = userAccountManager.getUser(account1.name).orElseThrow(IllegalAccessError::new);
+
+        loginName = "user2";
+        password = "user2";
+
+        temp = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
+        platformAccountManager.addAccountExplicitly(temp, password, null);
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
+                                           Integer.toString(UserAccountManager.ACCOUNT_VERSION));
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
+
         account2 = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
         account2Name = loginName + "@" + baseUrl;
-        account2DisplayName = "User One@" + baseUrl;
+        account2DisplayName = "User Two@" + baseUrl;
     }
 
     @Test
     public void switchAccountViaAccountList() {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
-        assertEquals(account, sut.getUser().get().toPlatformAccount());
+        sut.setUser(user1);
+
+        assertEquals(account1, sut.getUser().get().toPlatformAccount());
 
         onView(withId(R.id.switch_account_button)).perform(click());
 
@@ -101,6 +123,6 @@ public class DrawerActivityIT extends AbstractIT {
         assertEquals(account2, sut.getUser().get().toPlatformAccount());
 
         onView(withId(R.id.switch_account_button)).perform(click());
-        onView(withText(account.name)).perform(click());
+        onView(withText(account1.name)).perform(click());
     }
 }
