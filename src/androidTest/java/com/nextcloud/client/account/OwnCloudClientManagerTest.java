@@ -34,7 +34,7 @@ import android.accounts.OperationCanceledException;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.owncloud.android.AbstractIT;
+import com.owncloud.android.AbstractOnServerIT;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManager;
@@ -48,7 +48,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import static org.junit.Assert.assertEquals;
 
-public class OwnCloudClientManagerTest extends AbstractIT {
+public class OwnCloudClientManagerTest extends AbstractOnServerIT {
 
     /**
      * Like on files app we create & store an account in Android's account manager.

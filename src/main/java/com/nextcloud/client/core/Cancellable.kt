@@ -31,8 +31,8 @@ package com.nextcloud.client.core
 interface Cancellable {
 
     /**
-     * Cancel running task. Task termination is not guaranteed, but the result
-     * shall not be delivered.
+     * Cancel running task. Task termination is not guaranteed, as some
+     * tasks cannot be interrupted, but the result will not be delivered.
      */
     fun cancel()
 }

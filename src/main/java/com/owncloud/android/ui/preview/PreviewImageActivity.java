@@ -80,11 +80,16 @@ public class PreviewImageActivity extends FileActivity implements
         Injectable {
 
     public static final String TAG = PreviewImageActivity.class.getSimpleName();
-
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
     private static final String KEY_SYSTEM_VISIBLE = "TRUE";
-
     public static final String EXTRA_VIRTUAL_TYPE = "EXTRA_VIRTUAL_TYPE";
+
+    public static Intent previewFileIntent(Context context, User user, OCFile file) {
+        final Intent intent = new Intent(context, PreviewImageActivity.class);
+        intent.putExtra(FileActivity.EXTRA_FILE, file);
+        intent.putExtra(FileActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
+        return intent;
+    }
 
     private ViewPager mViewPager;
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;

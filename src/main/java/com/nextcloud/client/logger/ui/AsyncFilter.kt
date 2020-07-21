@@ -62,10 +62,8 @@ class AsyncFilter(private val asyncRunner: AsyncRunner, private val time: () -> 
 
     private fun <T> filterAsync(collection: Iterable<T>, predicate: (T) -> Boolean, onResult: (List<T>, Long) -> Unit) {
         startTime = time.invoke()
-        filterTask = asyncRunner.post(
-            task = {
-                collection.filter { predicate.invoke(it) }
-            },
+        filterTask = asyncRunner.postQuickTask(
+            task = { collection.filter { predicate.invoke(it) } },
             onResult = { filtered: List<T> ->
                 onFilterCompleted(filtered, onResult)
             }

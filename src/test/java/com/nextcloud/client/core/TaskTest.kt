@@ -33,24 +33,33 @@ import org.mockito.MockitoAnnotations
 class TaskTest {
 
     @Mock
-    private lateinit var taskBody: () -> String
+    private lateinit var taskBody: TaskFunction<String, Int>
+    @Mock
+    private lateinit var removeFromQueue: (Runnable) -> Boolean
     @Mock
     private lateinit var onResult: OnResultCallback<String>
     @Mock
     private lateinit var onError: OnErrorCallback
+    @Mock
+    private lateinit var onProgress: OnProgressCallback<Int>
 
-    private lateinit var task: Task<String>
+    private lateinit var task: Task<String, Int>
+
+    fun post(r: Runnable): Boolean {
+        r.run()
+        return true
+    }
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        val postResult = { r: Runnable -> r.run() }
-        task = Task(postResult, taskBody, onResult, onError)
+        val postResult = { r: Runnable -> r.run(); true }
+        task = Task(this::post, removeFromQueue, taskBody, onResult, onError, onProgress)
     }
 
     @Test
     fun `task result is posted`() {
-        whenever(taskBody.invoke()).thenReturn("result")
+        whenever(taskBody.invoke(any(), any())).thenReturn("result")
         task.run()
         verify(onResult).invoke(eq("result"))
         verify(onError, never()).invoke(any())
@@ -58,7 +67,7 @@ class TaskTest {
 
     @Test
     fun `task result is not posted when cancelled`() {
-        whenever(taskBody.invoke()).thenReturn("result")
+        whenever(taskBody.invoke(any(), any())).thenReturn("result")
         task.cancel()
         task.run()
         verify(onResult, never()).invoke(any())
@@ -68,7 +77,7 @@ class TaskTest {
     @Test
     fun `task error is posted`() {
         val exception = RuntimeException("")
-        whenever(taskBody.invoke()).thenThrow(exception)
+        whenever(taskBody.invoke(any(), any())).thenThrow(exception)
         task.run()
         verify(onResult, never()).invoke(any())
         verify(onError).invoke(same(exception))
@@ -77,7 +86,7 @@ class TaskTest {
     @Test
     fun `task error is not posted when cancelled`() {
         val exception = RuntimeException("")
-        whenever(taskBody.invoke()).thenThrow(exception)
+        whenever(taskBody.invoke(any(), any())).thenThrow(exception)
         task.cancel()
         task.run()
         verify(onResult, never()).invoke(any())

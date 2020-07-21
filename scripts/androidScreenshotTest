@@ -3,8 +3,8 @@
 if [ $# -lt 2 ]; then
     echo "1: record: true/false
 2: class name
-3: method name" 
-    
+3: method name"
+
     exit
 fi
 
@@ -20,7 +20,7 @@ cd ../../../
 
 if [ $1 == "true" ] ; then
     record="-Precord"
-else 
+else
     record=""
 fi
 
@@ -30,6 +30,8 @@ else
     method="#$3"
 fi
 
-./gradlew gplayDebugExecuteScreenshotTests $record -Pandroid.testInstrumentationRunnerArguments.class=$class$method
+./gradlew gplayDebugExecuteScreenshotTests $record \
+-Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
+-Pandroid.testInstrumentationRunnerArguments.class=$class$method
 
 sed -i s'#<bool name="is_beta">true</bool>#<bool name="is_beta">false</bool>#'g src/main/res/values/setup.xml

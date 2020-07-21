@@ -85,6 +85,10 @@ public class DownloadFileOperation extends RemoteOperation {
         this.context = context;
     }
 
+    public DownloadFileOperation(Account account, OCFile file, Context context) {
+        this(account, file, null, null, null, context);
+    }
+
     public String getSavePath() {
         if (file.getStoragePath() != null) {
             File parentFile = new File(file.getStoragePath()).getParentFile();
