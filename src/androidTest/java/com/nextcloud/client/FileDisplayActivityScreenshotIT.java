@@ -24,9 +24,11 @@ package com.nextcloud.client;
 
 import android.Manifest;
 
+import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.ScreenshotTest;
 
@@ -55,13 +57,28 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
     @ScreenshotTest
     public void open() {
         FileDisplayActivity sut = activityRule.launchActivity(null);
+        assert sut.getListOfFilesFragment() != null;
 
         sut.getListOfFilesFragment().setFabEnabled(false);
         sut.getListOfFilesFragment().setEmptyListLoadingMessage();
         sut.getListOfFilesFragment().setLoading(false);
-        waitForIdleSync();
+        sut.getListOfFilesFragment().setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
 
         shortSleep();
+
+        screenshot(sut);
+    }
+
+
+    @Test
+    @ScreenshotTest
+    public void fabEnabled() {
+        FileDisplayActivity sut = activityRule.launchActivity(null);
+        assert sut.getListOfFilesFragment() != null;
+
+        sut.getListOfFilesFragment().setLoading(false);
+        sut.getListOfFilesFragment().setFabEnabled(true);
+        sut.getListOfFilesFragment().setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
 
         screenshot(sut);
     }
@@ -102,8 +119,26 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
 
     @Test
     @ScreenshotTest
+    public void allSearchTypes() {
+        FileDisplayActivity sut = activityRule.launchActivity(null);
+        assert sut.getListOfFilesFragment() != null;
+
+        for (ExtendedListFragment.SearchType searchType : ExtendedListFragment.SearchType.values()) {
+            sut.getListOfFilesFragment().setLoading(false);
+            sut.getListOfFilesFragment().setEmptyListMessage(searchType);
+
+            Screenshot.snapActivity(sut)
+                .setName(searchType.name())
+                .record();
+        }
+
+    }
+
+    @Test
+    @ScreenshotTest
     public void drawer() {
         FileDisplayActivity sut = activityRule.launchActivity(null);
+        assert sut.getListOfFilesFragment() != null;
 
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
 
