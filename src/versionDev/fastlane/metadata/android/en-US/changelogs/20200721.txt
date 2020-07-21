@@ -1,0 +1,6 @@
+upon encryption directly ask for mnemonic/setup
+supprss lint warning
+New download manager
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
