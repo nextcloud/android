@@ -47,3 +47,5 @@ fastlane/Fastfile
 
 # scan temporary files
 **/fastlane/test_output
+/fastlane/vendor/
+/.bundle/
