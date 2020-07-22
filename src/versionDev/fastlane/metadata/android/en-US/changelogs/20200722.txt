@@ -1,0 +1,3 @@
+Warn on NC16 as outdated server
+Test login on integrationTests
+Update 3rd-party dependencies
