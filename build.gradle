@@ -372,16 +372,17 @@ dependencies {
     // Espresso core
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-web:3.2.0'
 
     // Mocking support
     androidTestImplementation 'com.github.tmurakami:dexopener:2.0.5' // required to allow mocking on API 27 and older
     androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     androidTestImplementation 'org.mockito:mockito-core:3.4.4'
-    androidTestImplementation("org.mockito:mockito-android:3.3.3") {
+    androidTestImplementation("org.mockito:mockito-android:3.4.4") {
         exclude group: "net.bytebuddy", module: "byte-buddy-android"
     }
     androidTestImplementation 'net.bytebuddy:byte-buddy:1.10.13'
-    androidTestImplementation "net.bytebuddy:byte-buddy-android:1.10.10"
+    androidTestImplementation "net.bytebuddy:byte-buddy-android:1.10.13"
     androidTestImplementation "io.mockk:mockk-android:1.10.0"
     androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
 
