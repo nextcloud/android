@@ -277,10 +277,6 @@
     <string name="etm_background_jobs_stop_test_job">Parar tarefa de teste</string>
     <string name="etm_download_enqueue_test_download">Enfileirar o download de teste</string>
     <string name="etm_download_path">Caminho remoto</string>
-    <string name="etm_download_progress">@string/etm_background_job_progress</string>
-    <string name="etm_download_state">@string/etm_background_job_state</string>
-    <string name="etm_download_user">@string/etm_background_job_user</string>
-    <string name="etm_download_uuid">@string/etm_background_job_uuid</string>
     <string name="etm_downloader">Baixador</string>
     <string name="etm_migrations">Migrações (atualização do aplicativo)</string>
     <string name="etm_preferences">Preferências</string>
