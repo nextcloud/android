@@ -275,6 +275,13 @@
     <string name="etm_background_jobs_schedule_test_job">Naplánovať testovaciu úlohu</string>
     <string name="etm_background_jobs_start_test_job">Začať testovaciu úlohu</string>
     <string name="etm_background_jobs_stop_test_job">Zastaviť testovaciu úlohu</string>
+    <string name="etm_download_enqueue_test_download">Vyžadovať stiahnutie testu</string>
+    <string name="etm_download_path">Vzdialená cesta</string>
+    <string name="etm_download_progress">@string/etm_background_job_progress</string>
+    <string name="etm_download_state">@string/etm_background_job_state</string>
+    <string name="etm_download_user">@string/etm_background_job_user</string>
+    <string name="etm_download_uuid">@string/etm_background_job_uuid</string>
+    <string name="etm_downloader">Zavádzač</string>
     <string name="etm_migrations">Migrácie (aktualizácia aplikácie)</string>
     <string name="etm_preferences">Nastavenia</string>
     <string name="etm_title">Vývojársky testovací režim</string>

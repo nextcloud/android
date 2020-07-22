@@ -275,6 +275,9 @@
     <string name="etm_background_jobs_schedule_test_job">Zaplanuj zadanie testowe</string>
     <string name="etm_background_jobs_start_test_job">Rozpocznij zadanie testowe</string>
     <string name="etm_background_jobs_stop_test_job">Zatrzymaj zadanie testowe</string>
+    <string name="etm_download_enqueue_test_download">Umieść pobieranie testowe w kolejce</string>
+    <string name="etm_download_path">Zdalna ścieżka</string>
+    <string name="etm_downloader">Aplikacja do pobierania</string>
     <string name="etm_migrations">Migracje (aktualizacja aplikacji)</string>
     <string name="etm_preferences">Preferencje</string>
     <string name="etm_title">Tryb testowy techniczny</string>
