@@ -275,6 +275,13 @@
     <string name="etm_background_jobs_schedule_test_job">Test-Aufgabe planen</string>
     <string name="etm_background_jobs_start_test_job">Test-Aufgabe starten</string>
     <string name="etm_background_jobs_stop_test_job">Test-Aufgabe stoppen</string>
+    <string name="etm_download_enqueue_test_download">Test-Download in die Warteschlange stellen</string>
+    <string name="etm_download_path">Externer Pfad</string>
+    <string name="etm_download_progress">@string/etm_background_job_progress</string>
+    <string name="etm_download_state">@string/etm_background_job_state</string>
+    <string name="etm_download_user">@string/etm_background_job_user</string>
+    <string name="etm_download_uuid">@string/etm_background_job_uuid</string>
+    <string name="etm_downloader">Downloader</string>
     <string name="etm_migrations">Migrationen (App-Aktualisierung)</string>
     <string name="etm_preferences">Einstellungen</string>
     <string name="etm_title">Technischer Testmodus</string>
