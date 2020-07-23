@@ -21,7 +21,6 @@
 
 package com.owncloud.android.operations;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.os.Build;
 import android.util.Pair;
@@ -159,31 +158,6 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                 .execute(client);
 
             if (result.isSuccess()) {
-                RemoteOperationResult remoteFolderOperationResult = new ReadFolderRemoteOperation(encryptedRemotePath)
-                    .execute(client);
-
-                createdRemoteFolder = (RemoteFile) remoteFolderOperationResult.getData().get(0);
-                OCFile newDir = new OCFile(createdRemoteFolder.getRemotePath());
-                newDir.setMimeType(MimeType.DIRECTORY);
-
-                newDir.setParentId(parent.getFileId());
-                newDir.setRemoteId(createdRemoteFolder.getRemoteId());
-                newDir.setModificationTimestamp(System.currentTimeMillis());
-                newDir.setEncrypted(true);
-                newDir.setPermissions(createdRemoteFolder.getPermissions());
-                newDir.setDecryptedRemotePath(parent.getDecryptedRemotePath() + filename + "/");
-                getStorageManager().saveFile(newDir);
-
-                RemoteOperationResult encryptionOperationResult = new ToggleEncryptionRemoteOperation(
-                    newDir.getLocalId(),
-                    newDir.getRemotePath(),
-                    true)
-                    .execute(client);
-
-                if (!encryptionOperationResult.isSuccess()) {
-                    throw new RuntimeException("Error creating encrypted subfolder!");
-                }
-
                 // Key, always generate new one
                 byte[] key = EncryptionUtils.generateKey();
 
@@ -212,6 +186,43 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                token,
                                                client,
                                                metadataExists);
+
+                // unlock folder
+                if (token != null) {
+                    RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parent, client, token);
+
+                    if (unlockFolderResult.isSuccess()) {
+                        token = null;
+                    } else {
+                        // TODO do better
+                        throw new RuntimeException("Could not unlock folder!");
+                    }
+                }
+
+                RemoteOperationResult remoteFolderOperationResult = new ReadFolderRemoteOperation(encryptedRemotePath)
+                    .execute(client);
+
+                createdRemoteFolder = (RemoteFile) remoteFolderOperationResult.getData().get(0);
+                OCFile newDir = new OCFile(createdRemoteFolder.getRemotePath());
+                newDir.setMimeType(MimeType.DIRECTORY);
+
+                newDir.setParentId(parent.getFileId());
+                newDir.setRemoteId(createdRemoteFolder.getRemoteId());
+                newDir.setModificationTimestamp(System.currentTimeMillis());
+                newDir.setEncrypted(true);
+                newDir.setPermissions(createdRemoteFolder.getPermissions());
+                newDir.setDecryptedRemotePath(parent.getDecryptedRemotePath() + filename + "/");
+                getStorageManager().saveFile(newDir);
+
+                RemoteOperationResult encryptionOperationResult = new ToggleEncryptionRemoteOperation(
+                    newDir.getLocalId(),
+                    newDir.getRemotePath(),
+                    true)
+                    .execute(client);
+
+                if (!encryptionOperationResult.isSuccess()) {
+                    throw new RuntimeException("Error creating encrypted subfolder!");
+                }
             } else {
                 // revert to sane state in case of any error
                 Log_OC.e(TAG, remotePath + " hasn't been created");
@@ -249,7 +260,6 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             // TODO do better
             return new RemoteOperationResult(e);
         } finally {
-
             // unlock folder
             if (token != null) {
                 RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parent, client, token);

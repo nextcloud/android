@@ -236,5 +236,10 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
         RemoteOperationResult result = newUpload.execute(client, getStorageManager());
         assertTrue(result.getLogMessage(), result.isSuccess());
+//
+//        shortSleep();
+//        shortSleep();
+//
+//        assertNotNull(getStorageManager().getFileByDecryptedRemotePath(ocUpload.getRemotePath()).getRemoteId());
     }
 }

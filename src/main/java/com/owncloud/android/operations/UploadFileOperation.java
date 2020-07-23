@@ -604,7 +604,7 @@ public class UploadFileOperation extends SyncOperation {
                 metadata.getFiles().put(encryptedFileName, decryptedFile);
 
                 EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
-                        privateKey);
+                                                                                                        privateKey);
                 String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
 
                 // upload metadata
@@ -613,6 +613,13 @@ public class UploadFileOperation extends SyncOperation {
                                                token,
                                                client,
                                                metadataExists);
+
+                // unlock
+                result = EncryptionUtils.unlockFolder(parentFile, client, token);
+
+                if (result.isSuccess()) {
+                    token = null;
+                }
             }
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, mFile.getStoragePath() + " not exists anymore");
@@ -650,13 +657,14 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         // unlock must be done always
-        // TODO check if in good state
-        RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parentFile,
-                                                                                client,
-                                                                                token);
+        if (token != null) {
+            RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parentFile,
+                                                                                    client,
+                                                                                    token);
 
-        if (!unlockFolderResult.isSuccess()) {
-            return unlockFolderResult;
+            if (!unlockFolderResult.isSuccess()) {
+                return unlockFolderResult;
+            }
         }
 
         // delete temporal file
