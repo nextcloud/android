@@ -8,6 +8,9 @@ fastlane_version "2.58.0"
 # export FASTLANE_NEXTCLOUD_KEY_ALIAS=""
 # export FASTLANE_NEXTCLOUD_KEY_PASSWORD=""
 # export FASTLANE_NEXTCLOUD_GITHUB_API_TOKEN=""
+# export FASTLANE_NEXTCLOUD_HUAWEI_CLIENT_ID=""
+# export FASTLANE_NEXTCLOUD_HUAWEI_CLIENT_SECRET=""
+# export FASTLANE_NEXTCLOUD_HUAWEI_APP_ID=""
 
 skip_docs
 
@@ -70,6 +73,7 @@ lane :releasePhase2_Final do |options|
     checkIfAPKexists()
     tag(info)
     uploadToPlaystore_Final(info)
+    uploadToHuawei_Final(info)
     createGithubRelease_Final(info)
     fdroidMergeRequest_Final(info)
     createChangelogPullRequest_Final(info)
@@ -114,6 +118,19 @@ lane :beautifyPhone do
     sh("adb shell am broadcast -a com.android.systemui.demo -e command network -e mobile show -e level 4 -e datatype false")
     sh("adb shell am broadcast -a com.android.systemui.demo -e command notifications -e visible false")
     sh("adb shell am broadcast -a com.android.systemui.demo -e command battery -e plugged false -e level 100")
+end
+
+# to install
+# bundle exec fastlane add_plugin huawei_appgallery_connect
+# bundle install --path build/vendor/bundle
+private_lane :uploadToHuawei_Final do |options|
+    huawei_appgallery_connect(
+        client_id: ENV["FASTLANE_NEXTCLOUD_HUAWEI_CLIENT_ID"],
+        client_secret: ENV["FASTLANE_NEXTCLOUD_HUAWEI_CLIENT_SECRET"],
+        app_id: ENV["FASTLANE_NEXTCLOUD_HUAWEI_APP_ID"],
+        apk_path: "release/nextcloud-" + options["versionCode"] + ".apk",
+        submit_for_review: true,
+    )
 end
 
 ## private lanes

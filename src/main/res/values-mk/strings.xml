@@ -35,6 +35,7 @@
     <string name="add_another_public_share_link">Додади линк</string>
     <string name="add_to_cloud">Додади во %1$s</string>
     <string name="allow_editing">Овозможи уредување</string>
+    <string name="appbar_search_in">Барај во %s</string>
     <string name="associated_account_not_found">Не е пронајдена поврзана сметка!</string>
     <string name="auth_access_failed">Неуспешен пристап: %1$s</string>
     <string name="auth_account_does_not_exist">Сметката сеуште не е додадена на овој уред</string>
@@ -113,6 +114,7 @@
     <string name="common_save">Зачувај</string>
     <string name="common_send">Испрати</string>
     <string name="common_share">Сподели</string>
+    <string name="common_switch_account">Промени сметка</string>
     <string name="common_unknown">непознат</string>
     <string name="common_yes">Да</string>
     <string name="community_beta_headline">Test the dev version</string>
@@ -139,7 +141,11 @@
     <string name="confirmation_remove_folder_alert">али си сигурен дека сакаш да ја избришеш %1$s и содржината во истата?</string>
     <string name="confirmation_remove_folders_alert">Дали си сигурен дека сакаш да ја избришеш означената ставкаи содржината во неа?</string>
     <string name="confirmation_remove_local">Само локално</string>
+    <string name="conflict_already_existing_file">Постоечка датотека</string>
+    <string name="conflict_dialog_error">Грешка при креирање конфликтен извештај!</string>
+    <string name="conflict_message_description">Ако ги одберете и двете верзии, локалната датотека ќе има број додаден на нејзиното име.</string>
     <string name="conflict_message_headline">Кои датотеки сакате да ги задржите?</string>
+    <string name="conflict_new_file">Нова датотека</string>
     <string name="contaclist_restore_selected">Врати ги означените контакти</string>
     <string name="contactlist_account_chooser_title">Избери сметка за увоз</string>
     <string name="contactlist_item_icon">Корисничка икона за листа со контакти</string>
@@ -167,6 +173,7 @@
     <string name="create_new_folder">Креирај нова папка</string>
     <string name="create_new_presentation">Креирај нова презентација</string>
     <string name="create_new_spreadsheet">Креирајте нова табела</string>
+    <string name="create_rich_workspace">Додади информации за папката</string>
     <string name="credentials_disabled">Акредитивите се оневозможени</string>
     <string name="date_unknown">Непознат</string>
     <string name="default_credentials_wrong">Погрешни акредитиви</string>
@@ -246,6 +253,7 @@
     <string name="error_retrieving_templates">Грешка при превземањето на шаблоните</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартување на камерата</string>
     <string name="etm_accounts">Сметки</string>
+    <string name="etm_background_job_user">Корисник</string>
     <string name="etm_background_jobs">Задачи кој се извршуваат во позадина</string>
     <string name="etm_preferences">Перформанси</string>
     <string name="etm_title">Инженерски мод за тестирање</string>
@@ -264,17 +272,20 @@
     <string name="file_list_empty">Прикачете некоја содржина или синхронизирајте со вашите уреди!</string>
     <string name="file_list_empty_favorite_headline">Сеуште нема фаворити</string>
     <string name="file_list_empty_favorites_filter">Вашето пребарување не даде резултати во фаворитите.</string>
+    <string name="file_list_empty_favorites_filter_list">Датотеките и папките кои ќе ги означите како фаворити ќе се појават тука.</string>
     <string name="file_list_empty_headline">Тука нема датотеки</string>
     <string name="file_list_empty_headline_search">Нема резултати во оваа папка</string>
     <string name="file_list_empty_headline_server_search">Нема резултати</string>
     <string name="file_list_empty_headline_server_search_photos">Нема слики</string>
     <string name="file_list_empty_headline_server_search_videos">Нема видеа</string>
     <string name="file_list_empty_moving">Тука нема ништо. Можете да додадете папка!</string>
+    <string name="file_list_empty_on_device">Превземените датотеки и папки  ќе се појават тука.</string>
     <string name="file_list_empty_recently_added">Нема пронајдено скоро додадени датотеки</string>
     <string name="file_list_empty_recently_added_filter">Нема скоро додадени датотеки</string>
     <string name="file_list_empty_recently_modified">Нема пронајдено датотеки изменети во последните 7 дена.</string>
     <string name="file_list_empty_recently_modified_filter">Нема изменети датотеки во последните 7 дена.</string>
     <string name="file_list_empty_search">Можеби е во друга папка?</string>
+    <string name="file_list_empty_shared">Датотеките и папките кои ги споделувате ќе се појават тука.</string>
     <string name="file_list_empty_shared_headline">Уште ништо не е споделено</string>
     <string name="file_list_empty_text_photos">Прикачете некоја слика или активирајте автоматско прикачување.</string>
     <string name="file_list_empty_text_photos_filter">Нема слики.</string>
@@ -347,6 +358,7 @@
     <string name="hint_password">Лозинка</string>
     <string name="host_not_available">Серверот не е достапен</string>
     <string name="host_your_own_server">Хостирајте го вашиот сервер</string>
+    <string name="instant_upload_existing">Прикачување на постоечките датотеки</string>
     <string name="instant_upload_on_charging">Прикачувај само додека се полни</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Неправилна URL</string>
@@ -355,6 +367,7 @@
     <string name="list_layout">Listed layout</string>
     <string name="local_file_list_empty">Нема датотеки во оваа папка.</string>
     <string name="local_file_not_found_message">Датотеката не е пронајдена во локалното складиште</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">.Нема повеќе папки</string>
     <string name="log_send_mail_subject">%1$s Апликација на Андроид за логови</string>
     <string name="log_send_no_mail_app">Нема пронајдено апликација за испраќање на записи. Инсталирајте клиент за е-пошта.</string>
@@ -448,6 +461,11 @@
     <string name="pref_behaviour_entries_delete_file">избришана</string>
     <string name="pref_behaviour_entries_keep_file">зачувај во оргиналната папка</string>
     <string name="pref_behaviour_entries_move">премести во папката на апликацијата</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Што ако датотеката веќе постои?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Прашувај ме стално</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Пребриши ја верзијата на серверот</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Преименувај ја новата верзија</string>
+    <string name="pref_instant_name_collision_policy_title">Што ако датотеката веќе постои?</string>
     <string name="prefs_add_account">Додади сметка</string>
     <string name="prefs_calendar_contacts">Синхронизирај календар &amp; контакти</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Адресата на серверот за сметката неможе да разреши за DAVx5 (поранешно познат како DAVdroid)</string>
@@ -494,9 +512,11 @@
     <string name="preview_image_error_unknown_format">Неможе да се прикаже сликата</string>
     <string name="preview_sorry">Извинете</string>
     <string name="privacy">Приватност</string>
+    <string name="public_share_name">Ново име</string>
     <string name="push_notifications_not_implemented">Push известувањата се оневозможени поради зависноста на Google Play сервисот.</string>
     <string name="push_notifications_old_login">Нема push известувања бидејќи вашата сесија е истечена. Ве молиме повторно најавете се на вашта сметка.</string>
     <string name="push_notifications_temp_error">Не се достапни Push известувања.</string>
+    <string name="qr_could_not_be_read">QR Кодот неможе да се прочита!</string>
     <string name="recommend_subject">Пробајте го %1$s на вашиот уред!</string>
     <string name="recommend_text">Сакам да те поканам за да ја користиш %1$s апликацијата на твојот уред.\nПревземи ја овде: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
@@ -648,6 +668,8 @@
     <string name="sync_foreign_files_forgotten_ticker">Некои локални датотеки беа заборавени</string>
     <string name="sync_in_progress">Преземање на најновата верзија на датотеката.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Изберете што да се синхронизира</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Ослободи простор</string>
+    <string name="sync_not_enough_space_dialog_title">Нема доволно простор</string>
     <string name="sync_status_button">Копче за статус на синхронизацијата</string>
     <string name="sync_string_files">Датотеки</string>
     <string name="synced_folder_settings_button">Копче за параметри</string>
@@ -693,6 +715,7 @@
     <string name="upload_list_delete">Избриши</string>
     <string name="upload_list_empty_headline">Нема прикачувања</string>
     <string name="upload_list_empty_text_auto_upload">Прикачете некоја содржина или активирајте автоматско прикачување.</string>
+    <string name="upload_list_resolve_conflict">Реши проблем</string>
     <string name="upload_local_storage_full">Локалното складиште е полно</string>
     <string name="upload_local_storage_not_copied">Датотеката неможе да се копира во локалното складиште</string>
     <string name="upload_lock_failed">Неуспешно пребарување на папка</string>
@@ -711,6 +734,8 @@
     <string name="uploader_top_message">Изберете папка за прикачување</string>
     <string name="uploader_upload_failed_content_single">Неможе да се прикачи %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Прикачувањето не беше успешно, најавете се повторно</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Конфликт на датотека при прикачување</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Избери која верзија да се зачува за %1$s</string>
     <string name="uploader_upload_failed_ticker">Прикачувањето не успеа</string>
     <string name="uploader_upload_files_behaviour">Опции за прикачување:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Премести ја датотеката во папката %1$s</string>
@@ -739,6 +764,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Локалната датотека не е пронајдена</string>
     <string name="uploads_view_upload_status_failed_permission_error">Грешка во дозволите</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Сертификатот на серверот е недоверлив</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Превземање на верзијата од серверот ...</string>
     <string name="uploads_view_upload_status_service_interrupted">Апликацијата е прекината</string>
     <string name="uploads_view_upload_status_succeeded">Завршено</string>
     <string name="uploads_view_upload_status_unknown_fail">Непозната грешка</string>
