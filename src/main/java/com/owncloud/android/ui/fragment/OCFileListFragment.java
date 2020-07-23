@@ -419,12 +419,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
      */
     private void registerFabListener() {
         FileActivity activity = (FileActivity) getActivity();
-        mFabMain.setOnClickListener(v -> new OCFileListBottomSheetDialog(activity,
-                                                                         this,
-                                                                         deviceInfo,
-                                                                         accountManager.getUser(),
-                                                                         getCurrentFile())
-            .show());
+
+        if (mFabMain != null) { // is not available in FolderPickerActivity
+            mFabMain.setOnClickListener(v -> new OCFileListBottomSheetDialog(activity,
+                                                                             this,
+                                                                             deviceInfo,
+                                                                             accountManager.getUser(),
+                                                                             getCurrentFile())
+                .show());
+        }
     }
 
     @Override
