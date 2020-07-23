@@ -275,7 +275,7 @@
     <string name="etm_background_jobs_schedule_test_job">Programar traballo de proba</string>
     <string name="etm_background_jobs_start_test_job">Iniciar o traballo de proba</string>
     <string name="etm_background_jobs_stop_test_job">Deter o traballo de proba</string>
-    <string name="etm_download_enqueue_test_download">Descarga da proba na cola</string>
+    <string name="etm_download_enqueue_test_download">Poñer na cola a descarga de proba</string>
     <string name="etm_download_path">Ruta remota</string>
     <string name="etm_downloader">Descargador</string>
     <string name="etm_migrations">Migracións (anovación de aplicación)</string>
