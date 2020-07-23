@@ -55,7 +55,13 @@ abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
     protected FileDataStorageManager sut;
 
     @Before
-    abstract public void before();
+    public void before() {
+        // make sure everything is removed
+        sut.deleteAllFiles();
+        sut.deleteVirtuals(VirtualFolderType.PHOTOS);
+
+        assertEquals(0, sut.getAllFiles().size());
+    }
 
     @After
     public void after() {
