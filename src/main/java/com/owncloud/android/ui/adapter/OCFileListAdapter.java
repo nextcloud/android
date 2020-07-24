@@ -433,30 +433,53 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             avatar.setImageResource(R.drawable.ic_people);
                             ThemeUtils.setIconColor(avatar.getDrawable());
                         } else {
-                            if (sharee.getShareType().equals(ShareType.GROUP)) {
-                                try {
-                                    avatar.setImageDrawable(
-                                        TextDrawable.createAvatarByUserId(sharee.getUserId(), avatarRadius));
-                                } catch (Exception e) {
-                                    Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                                    avatar.setImageResource(R.drawable.ic_people);
+                            switch (sharee.getShareType()) {
+                                case GROUP:
+                                    try {
+                                        avatar.setImageDrawable(TextDrawable.createAvatarByUserId(sharee.getUserId(),
+                                                                                                  avatarRadius));
+                                    } catch (Exception e) {
+                                        Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
+                                        avatar.setImageResource(R.drawable.ic_people);
+                                        ThemeUtils.setIconColor(avatar.getDrawable());
+                                    }
+                                    break;
+
+                                case ROOM:
+                                    try {
+                                        if (!TextUtils.isEmpty(sharee.getDisplayName())) {
+                                            avatar.setImageDrawable(
+                                                TextDrawable.createNamedAvatar(sharee.getDisplayName(), avatarRadius));
+                                        } else {
+                                            avatar.setImageDrawable(
+                                                TextDrawable.createAvatarByUserId(sharee.getUserId(), avatarRadius));
+                                        }
+                                    } catch (Exception e) {
+                                        Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
+                                        avatar.setImageResource(R.drawable.ic_people);
+                                        ThemeUtils.setIconColor(avatar.getDrawable());
+                                    }
+                                    break;
+
+                                case CIRCLE:
+                                    avatar.setImageResource(R.drawable.ic_circles);
                                     ThemeUtils.setIconColor(avatar.getDrawable());
-                                }
-                            } else if (sharee.getShareType().equals(ShareType.CIRCLE)) {
-                                avatar.setImageResource(R.drawable.ic_circles);
-                                ThemeUtils.setIconColor(avatar.getDrawable());
-                            } else if (sharee.getUserId().contains("@")) {
-                                showFederatedShareAvatar(sharee.getUserId(), avatarRadius, resources, avatar);
-                            } else {
-                                avatar.setTag(sharee);
-                                DisplayUtils.setAvatar(user,
-                                                       sharee.getUserId(),
-                                                       sharee.getDisplayName(),
-                                                       this,
-                                                       avatarRadius,
-                                                       resources,
-                                                       avatar,
-                                                       activity);
+                                    break;
+
+                                default:
+                                    if (sharee.getUserId().contains("@")) {
+                                        showFederatedShareAvatar(sharee.getUserId(), avatarRadius, resources, avatar);
+                                    } else {
+                                        avatar.setTag(sharee);
+                                        DisplayUtils.setAvatar(user,
+                                                               sharee.getUserId(),
+                                                               sharee.getDisplayName(),
+                                                               this,
+                                                               avatarRadius,
+                                                               resources,
+                                                               avatar,
+                                                               activity);
+                                    }
                             }
                         }
 
@@ -581,7 +604,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             placeholder = TextDrawable.createAvatarByUserId(userId, avatarRadius);
         } catch (Exception e) {
             Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-            placeholder = ResourcesCompat.getDrawable(resources, R.drawable.account_circle_white, null);
+            placeholder = ThemeUtils.tintDrawable(ResourcesCompat.getDrawable(resources,
+                                                                              R.drawable.account_circle_white, null),
+                                                  R.color.black);
         }
 
         avatar.setTag(null);
