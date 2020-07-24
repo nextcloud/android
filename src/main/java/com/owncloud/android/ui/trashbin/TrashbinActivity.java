@@ -69,10 +69,16 @@ import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFrag
  * Presenting trashbin data, received from presenter
  */
 public class TrashbinActivity extends FileActivity implements
-        TrashbinActivityInterface,
-        SortingOrderDialogFragment.OnSortingOrderListener,
-        TrashbinContract.View,
-        Injectable {
+    TrashbinActivityInterface,
+    SortingOrderDialogFragment.OnSortingOrderListener,
+    TrashbinContract.View,
+    Injectable {
+
+    @BindView(R.id.empty_list_progress)
+    public View emptyListProgress;
+
+    @BindView(R.id.empty_list_view)
+    public View emptyListView;
 
     @BindView(R.id.empty_list_view_text)
     public TextView emptyContentMessage;
@@ -131,8 +137,8 @@ public class TrashbinActivity extends FileActivity implements
 
     private void setupContent() {
         recyclerView = findViewById(android.R.id.list);
-        recyclerView.setEmptyView(findViewById(R.id.empty_list_view));
-        findViewById(R.id.empty_list_progress).setVisibility(View.GONE);
+        recyclerView.setEmptyView(emptyListView);
+        emptyListView.setVisibility(View.GONE);
         emptyContentIcon.setImageResource(R.drawable.ic_delete);
         emptyContentIcon.setVisibility(View.VISIBLE);
         emptyContentHeadline.setText(noResultsHeadline);
@@ -276,6 +282,7 @@ public class TrashbinActivity extends FileActivity implements
         if (active) {
             trashbinListAdapter.setTrashbinFiles(trashbinFiles, true);
             swipeListRefreshLayout.setRefreshing(false);
+            emptyListProgress.setVisibility(View.GONE);
         }
     }
 
@@ -314,6 +321,8 @@ public class TrashbinActivity extends FileActivity implements
 
                 emptyContentMessage.setVisibility(View.VISIBLE);
                 emptyContentIcon.setVisibility(View.VISIBLE);
+                emptyListView.setVisibility(View.VISIBLE);
+                emptyListProgress.setVisibility(View.GONE);
             }
         }
     }
