@@ -33,6 +33,7 @@
     <string name="activity_chooser_title">Pošlji povezavo …</string>
     <string name="activity_icon">Dejavnosti</string>
     <string name="add_another_public_share_link">Dodaj novo povezavo</string>
+    <string name="add_new_public_share">Nova javna povezava za souporabo</string>
     <string name="add_to_cloud">Dodaj v %1$s</string>
     <string name="allow_editing">Dovoli urejanje</string>
     <string name="appbar_search_in">Poišči v %s</string>
@@ -274,6 +275,7 @@
     <string name="etm_background_jobs_schedule_test_job">Načrtovano preizkusno opravilo</string>
     <string name="etm_background_jobs_start_test_job">Začni preizkusno opravilo</string>
     <string name="etm_background_jobs_stop_test_job">Zaustavi preizkusno opravilo</string>
+    <string name="etm_download_path">Oddaljena pot</string>
     <string name="etm_migrations">Preselitev (posodobitev programa)</string>
     <string name="etm_preferences">Nastavitve</string>
     <string name="etm_title">Inženirski preizkusni način</string>
@@ -383,6 +385,7 @@
     <string name="instant_upload_on_charging">Usklajuj le med polnjenjem naprave</string>
     <string name="instant_upload_path">/Hipno nalaganje</string>
     <string name="invalid_url">Neveljaven naslov URL</string>
+    <string name="label_empty">Oznaka ne sme biti prazno polje</string>
     <string name="learn_more">Prikaži več</string>
     <string name="link">Povezava</string>
     <string name="list_layout">Izpisana razporeditev</string>
@@ -538,6 +541,7 @@
     <string name="preview_image_error_no_local_file">Ni krajevne datoteke za predogled</string>
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
     <string name="privacy">Zasebnost</string>
+    <string name="public_share_name">Novo ime</string>
     <string name="push_notifications_not_implemented">Potisna obvestila so onemogočena zaradi odvisnosti od storitev Google Play.</string>
     <string name="push_notifications_old_login">Ni mogoče prikazati potisnih obvestil zaradi pretečene prijavne seje. Priporočljivo je ponovno dodati račun med nastavitvami.</string>
     <string name="push_notifications_temp_error">Potisna obvestila trenutno niso na voljo.</string>
