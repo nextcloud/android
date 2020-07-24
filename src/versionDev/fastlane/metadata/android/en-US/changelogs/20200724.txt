@@ -1,0 +1,5 @@
+fix crash on folder picker of synced folder
+Fixed create folder due to new system (write on server is only performed upon unlock) added test case for remove file
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
