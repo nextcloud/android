@@ -36,6 +36,7 @@ import com.owncloud.android.utils.NextcloudServer;
 
 import androidx.annotation.Nullable;
 import androidx.core.graphics.ColorUtils;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Utility class with methods for color values used for theming.
@@ -227,6 +228,7 @@ public final class ColorsUtils {
         }
     }
 
+    @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
     private static int luminationAwareColor(Context context, int color) {
         float[] hsl = colorToHSL(color);
 
@@ -245,6 +247,7 @@ public final class ColorsUtils {
      * @param threshold      0..1 as maximum value, -1 to disable
      * @return color adjusted by lightness
      */
+    @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
     public static int adjustLightness(float lightnessDelta, int color, float threshold) {
         float[] hsl = colorToHSL(color);
 
@@ -262,6 +265,7 @@ public final class ColorsUtils {
      *
      * @return true if dark theme -> e.g.use light font color, darker accent color
      */
+    @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
     public static boolean darkColor(Context context) {
         int elementColor = ColorsUtils.elementColor(context);
         float[] hsl = ColorsUtils.colorToHSL(elementColor);
@@ -282,6 +286,7 @@ public final class ColorsUtils {
      * @param color the color
      * @return true if color is lighter than MAX_LIGHTNESS
      */
+    @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
     public static boolean isLightColor(int color) {
         float[] hsl = colorToHSL(color);
 
