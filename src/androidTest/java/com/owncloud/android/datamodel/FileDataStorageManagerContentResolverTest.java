@@ -26,5 +26,7 @@ public class FileDataStorageManagerContentResolverTest extends FileDataStorageMa
     @Override
     public void before() {
         sut = new FileDataStorageManager(account, targetContext.getContentResolver());
+
+        super.before();
     }
 }
