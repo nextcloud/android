@@ -25,8 +25,6 @@
  */
 package com.owncloud.android.ui.fragment;
 
-import android.accounts.Account;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -226,11 +224,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
-    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
@@ -396,7 +389,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
         FileMenuFilter.hideAll(menu);
@@ -528,8 +521,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * TODO Remove parameter when the transferring state of files is kept in database.
      *
      * @param transferring Flag signaling if the file should be considered as downloading or uploading,
-     *                     although {@link FileDownloaderBinder#isDownloading(Account, OCFile)}  and
-     *                     {@link FileUploaderBinder#isUploading(Account, OCFile)} return false.
+     *                     although {@link FileDownloaderBinder#isDownloading(User, OCFile)}  and
+     *                     {@link FileUploaderBinder#isUploading(User, OCFile)} return false.
      * @param refresh      If 'true', try to refresh the whole file from the database
      */
     public void updateFileDetails(boolean transferring, boolean refresh) {

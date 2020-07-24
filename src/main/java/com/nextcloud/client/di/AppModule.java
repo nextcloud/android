@@ -71,7 +71,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(includes = {ComponentsModule.class, VariantComponentsModule.class})
+@Module(includes = {ComponentsModule.class, VariantComponentsModule.class, BuildTypeComponentsModule.class})
 class AppModule {
 
     @Provides
