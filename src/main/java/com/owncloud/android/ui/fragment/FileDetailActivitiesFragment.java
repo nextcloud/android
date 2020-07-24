@@ -23,7 +23,6 @@
 
 package com.owncloud.android.ui.fragment;
 
-import android.accounts.Account;
 import android.content.ContentResolver;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
@@ -340,7 +339,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 }
 
                 Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
-                final RemoteOperationResult result = nextcloudClient.execute(getRemoteNotificationOperation);
+                RemoteOperationResult result = nextcloudClient.execute(getRemoteNotificationOperation);
+                result = new RemoteOperationResult(RemoteOperationResult.ResultCode.UNHANDLED_HTTP_CODE);
 
                 ArrayList<Object> versions = null;
                 if (restoreFileVersionSupported) {

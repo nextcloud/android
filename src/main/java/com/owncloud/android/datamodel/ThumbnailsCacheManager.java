@@ -83,6 +83,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Manager for concurrent access to thumbnails cache.
  */
 public final class ThumbnailsCacheManager {
+    private static final int READ_TIMEOUT = 40000;
+    private static final int CONNECTION_TIMEOUT = 5000;
 
     public static final String PREFIX_RESIZED_IMAGE = "r";
     public static final String PREFIX_THUMBNAIL = "t";
@@ -632,7 +634,7 @@ public final class ThumbnailsCacheManager {
                                 getMethod.setRequestHeader(RemoteOperation.OCS_API_HEADER,
                                         RemoteOperation.OCS_API_HEADER_VALUE);
 
-                                int status = mClient.executeMethod(getMethod);
+                                int status = mClient.executeMethod(getMethod, READ_TIMEOUT, CONNECTION_TIMEOUT);
                                 if (status == HttpStatus.SC_OK) {
                                     InputStream inputStream = getMethod.getResponseBodyAsStream();
                                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);

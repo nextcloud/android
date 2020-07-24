@@ -41,6 +41,7 @@ import java.io.File;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.content.FileProvider;
 import third_parties.daveKoeller.AlphanumComparator;
 
@@ -119,6 +120,12 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
             throw new IllegalArgumentException("Trying to create a OCFile with a non valid remote path: " + path);
         }
         remotePath = path;
+    }
+
+    @VisibleForTesting
+    public OCFile(String path, String remoteId) {
+        this(path);
+        setRemoteId(remoteId);
     }
 
     /**
