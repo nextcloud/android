@@ -54,9 +54,11 @@ object ThemeFabUtils {
      */
     @JvmStatic
     @JvmOverloads
-    fun colorFloatingActionButton(fab: FloatingActionButton,
-                                  context: Context?,
-                                  backgroundColor: Int = ColorsUtils.elementColor(context)) {
+    fun colorFloatingActionButton(
+        fab: FloatingActionButton,
+        context: Context?,
+        backgroundColor: Int = ColorsUtils.elementColor(context)
+    ) {
         fab.backgroundTintList = ColorStateList.valueOf(backgroundColor)
         fab.rippleColor = ColorsUtils.calculateDarkColor(backgroundColor, context)
     }
