@@ -692,8 +692,8 @@
     <string name="stream">Przesyłaj strumieniowo...</string>
     <string name="stream_not_possible_headline">Wewnętrzne przesyłanie strumieniowe nie jest możliwe</string>
     <string name="stream_not_possible_message">Pobierz plik lub użyj zewnętrznej aplikacji.</string>
-    <string name="subject_shared_with_you">Udostępniono Ci \"%1$s\"</string>
-    <string name="subject_user_shared_with_you">%1$s udostępnił Ci \"%2$s\"</string>
+    <string name="subject_shared_with_you">Udostępniono Tobie \"%1$s\"</string>
+    <string name="subject_user_shared_with_you">%1$s udostępnił Tobie \"%2$s\"</string>
     <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>
     <string name="sync_current_folder_was_removed">Katalog %1$s nie istnieje</string>
     <string name="sync_fail_content">Nie udała się synchronizacja %1$s</string>
