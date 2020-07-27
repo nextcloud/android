@@ -33,13 +33,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/toolbar_standard" />
+        <include
+            android:id="@+id/toolbar_standard_include"
+            layout="@layout/toolbar_standard" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/list_fragment_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/appbar">
+            android:layout_below="@id/toolbar_standard_include">
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_containing_list"
@@ -52,10 +54,12 @@
                 <com.owncloud.android.ui.EmptyRecyclerView
                     android:id="@android:id/list"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <include layout="@layout/empty_list"/>
+            <include
+                android:id="@+id/empty_list"
+                layout="@layout/empty_list" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
