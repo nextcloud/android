@@ -41,6 +41,7 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
     private WeakReference<PhotoFragment> photoFragmentWeakReference;
     private SearchRemoteOperation searchRemoteOperation;
     private FileDataStorageManager storageManager;
+    private int limit;
 
     public PhotoSearchTask(int columnsCount,
                            PhotoFragment photoFragment,
@@ -76,7 +77,7 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
         if (isCancelled()) {
             return new RemoteOperationResult(new Exception("Cancelled"));
         } else {
-            int limit = 15 * columnCount;
+            limit = 15 * columnCount;
 
             long timestamp = -1;
             if (adapter.getLastTimestamp() > 0) {
@@ -104,6 +105,11 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
                     photoFragment.setSearchDidNotFindNewPhotos(true);
                 } else {
                     OCFileListAdapter adapter = photoFragment.getAdapter();
+
+                    if (result.getData().size() < limit) {
+                        // stop loading spinner
+                        photoFragment.setSearchDidNotFindNewPhotos(true);
+                    }
 
                     adapter.setData(result.getData(),
                                     ExtendedListFragment.SearchType.PHOTO_SEARCH,
