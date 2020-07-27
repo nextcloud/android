@@ -1,5 +1,4 @@
 /*
- *
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
@@ -49,16 +48,15 @@ class ContactsBackupIT : AbstractOnServerIT() {
     @get:Rule
     val readContactsRule = GrantPermissionRule.grant(Manifest.permission.READ_CONTACTS)
 
+    private val vcard: String = "vcard.vcf"
+
     @Test
     fun importExport() {
         val intArray = IntArray(1)
         intArray[0] = 0
 
         // import file to local contacts
-        backgroundJobManager.startImmediateContactsImport(null,
-            null,
-            getFile("vcard.vcf").absolutePath,
-            intArray)
+        backgroundJobManager.startImmediateContactsImport(null, null, getFile(vcard).absolutePath, intArray)
 
         shortSleep()
 
@@ -76,8 +74,10 @@ class ContactsBackupIT : AbstractOnServerIT() {
         refreshFolder(backupFolder)
         longSleep()
 
-        val backupOCFile = storageManager.getFolderContent(storageManager.getFileByDecryptedRemotePath(backupFolder),
-            false)[0]
+        val backupOCFile = storageManager.getFolderContent(
+            storageManager.getFileByDecryptedRemotePath(backupFolder),
+            false
+        )[0]
 
         assertTrue(DownloadFileOperation(account, backupOCFile, AbstractIT.targetContext).execute(client).isSuccess)
 
@@ -85,7 +85,7 @@ class ContactsBackupIT : AbstractOnServerIT() {
 
         // verify same
         val originalCards: ArrayList<VCard> = ArrayList()
-        originalCards.addAll(Ezvcard.parse(getFile("vcard.vcf")).all())
+        originalCards.addAll(Ezvcard.parse(getFile(vcard)).all())
 
         val backupCards: ArrayList<VCard> = ArrayList()
         backupCards.addAll(Ezvcard.parse(backupFile).all())
