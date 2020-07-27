@@ -166,7 +166,7 @@ class ContactsBackupWork(
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            FileUploader.NameCollisionPolicy.ASK_USER
+            FileUploader.NameCollisionPolicy.RENAME
         )
     }
 
