@@ -88,7 +88,9 @@ public abstract class AbstractIT {
             AccountManager platformAccountManager = AccountManager.get(targetContext);
 
             for (Account account : platformAccountManager.getAccounts()) {
-                platformAccountManager.removeAccountExplicitly(account);
+                if (account.type.equalsIgnoreCase("nextcloud")) {
+                    platformAccountManager.removeAccountExplicitly(account);
+                }
             }
 
             Account temp = new Account("test@https://server.com", MainApp.getAccountType(targetContext));
