@@ -65,41 +65,50 @@ class NotificationsActivityIT : AbstractIT() {
         date.set(110, 2, 2, 10, 20, 30)
 
         val notifications = ArrayList<Notification>()
-        notifications.add(Notification(1,
-            "files",
-            "user",
-            date.time,
-            "objectType",
-            "objectId",
-            "App recommendation: Tasks",
-            "SubjectRich",
-            HashMap<String, RichObject>(),
-            "Sync tasks from various devices with your Nextcloud and edit them online.",
-            "MessageRich",
-            HashMap<String, RichObject>(),
-            "link",
-            "icon",
-            ArrayList<Action>()))
+        notifications.add(
+            Notification(
+                1,
+                "files",
+                "user",
+                date.time,
+                "objectType",
+                "objectId",
+                "App recommendation: Tasks",
+                "SubjectRich",
+                HashMap<String, RichObject>(),
+                "Sync tasks from various devices with your Nextcloud and edit them online.",
+                "MessageRich",
+                HashMap<String, RichObject>(),
+                "link",
+                "icon",
+                ArrayList<Action>()
+            )
+        )
 
         val actions = ArrayList<Action>()
         actions.add(Action("Send usage", "link", "url", true))
         actions.add(Action("Not now", "link", "url", false))
 
-        notifications.add(Notification(1,
-            "files",
-            "user",
-            date.time,
-            "objectType",
-            "objectId",
-            "Help improve Nextcloud",
-            "SubjectRich",
-            HashMap<String, RichObject>(),
-            "Do you want to help us to improve Nextcloud by providing some anonymize data about your setup and usage?",
-            "MessageRich",
-            HashMap<String, RichObject>(),
-            "link",
-            "icon",
-            actions))
+        notifications.add(
+            Notification(
+                1,
+                "files",
+                "user",
+                date.time,
+                "objectType",
+                "objectId",
+                "Help improve Nextcloud",
+                "SubjectRich",
+                HashMap<String, RichObject>(),
+                "Do you want to help us to improve Nextcloud" +
+                    " by providing some anonymize data about your setup and usage?",
+                "MessageRich",
+                HashMap<String, RichObject>(),
+                "link",
+                "icon",
+                actions
+            )
+        )
 
         sut.runOnUiThread { sut.populateList(notifications) }
 
