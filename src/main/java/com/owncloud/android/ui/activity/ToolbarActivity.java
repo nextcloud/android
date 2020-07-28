@@ -63,7 +63,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     private AppBarLayout mAppBar;
     private RelativeLayout mDefaultToolbar;
     private Toolbar mToolbar;
-    private LinearLayout mHomeSearchToolbar;
+    private MaterialCardView mHomeSearchToolbar;
     private ImageView mPreviewImage;
     private FrameLayout mPreviewImageContainer;
     private LinearLayout mInfoBox;
