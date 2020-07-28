@@ -62,7 +62,7 @@ class NotificationsActivityIT : AbstractIT() {
         val sut: NotificationsActivity = activityRule.launchActivity(null)
 
         val date = GregorianCalendar()
-        date.set(110, 2, 2, 10, 20, 30)
+        date.set(2005, 4, 17, 10, 35, 30)
 
         val notifications = ArrayList<Notification>()
         notifications.add(
