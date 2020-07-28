@@ -25,7 +25,6 @@ package com.nextcloud.client;
 import android.Manifest;
 import android.app.Activity;
 
-import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractOnServerIT;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -126,7 +125,7 @@ public class FileDisplayActivityIT extends AbstractOnServerIT {
         shortSleep();
         shortSleep();
 
-        Screenshot.snapActivity(sut).record();
+        screenshot(sut);
     }
 
     @Test

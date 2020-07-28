@@ -3,10 +3,16 @@
 if [ $# -lt 2 ]; then
     echo "1: record: true/false
 2: class name
-3: method name"
+3: method name
+4: darkMode / \"all\" to run all screenshot combinations
+5: color"
 
     exit
 fi
+
+sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
+
+emulator -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
 
 cd src/androidTest/java
 
@@ -37,8 +43,27 @@ else
     fi
 fi
 
-./gradlew gplayDebugExecuteScreenshotTests $record \
--Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
--Pandroid.testInstrumentationRunnerArguments.class=$class$method
+if [ -e $4 ] ; then
+    darkMode=""
+else
+    darkMode="-Pandroid.testInstrumentationRunnerArguments.DARKMODE=$4"
+fi
+
+if [ -e $5 ] ; then
+    color=""
+else
+    color="-Pandroid.testInstrumentationRunnerArguments.COLOR=$5"
+fi
+
+if [[ $4 = "all" ]]; then
+    scripts/runAllScreenshotCombinations "noCI" "$1" "-Pandroid.testInstrumentationRunnerArguments.class=$class$method"
+else
+    ./gradlew gplayDebugExecuteScreenshotTests $record \
+    -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
+    -Pandroid.testInstrumentationRunnerArguments.class=$class$method \
+    $darkMode \
+    $color
+fi
+
 
 sed -i s'#<bool name="is_beta">true</bool>#<bool name="is_beta">false</bool>#'g src/main/res/values/setup.xml
