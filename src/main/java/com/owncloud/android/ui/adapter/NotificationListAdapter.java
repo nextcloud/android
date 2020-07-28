@@ -176,8 +176,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             button.setLayoutParams(params);
             button.setGravity(Gravity.CENTER);
 
-            button.setPadding(40, 40, 40, 40);
-
             button.setOnClickListener(v -> {
                 setButtonEnabled(holder, false);
 
