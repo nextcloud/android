@@ -16,6 +16,7 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
@@ -43,6 +44,7 @@ import java.io.IOException;
 import androidx.annotation.NonNull;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 
@@ -137,8 +139,13 @@ public abstract class AbstractOnServerIT extends AbstractIT {
         }
     }
 
-    private static void createDummyFiles() throws IOException {
-        new File(FileStorageUtils.getSavePath(account.name)).mkdirs();
+    protected static void createDummyFiles() throws IOException {
+        File tempPath = new File(FileStorageUtils.getTemporalPath(account.name));
+        if (!tempPath.exists()) {
+            assertTrue(tempPath.mkdirs());
+        }
+
+        assertTrue(tempPath.exists());
 
         createFile("empty.txt", 0);
         createFile("nonEmpty.txt", 100);
@@ -181,6 +188,10 @@ public abstract class AbstractOnServerIT extends AbstractIT {
     }
 
     public void uploadOCUpload(OCUpload ocUpload) {
+        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_COPY);
+    }
+
+    public void uploadOCUpload(OCUpload ocUpload, int localBehaviour) {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
             public boolean isInternetWalled() {
@@ -223,7 +234,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             null,
             ocUpload,
             FileUploader.NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            localBehaviour,
             targetContext,
             false,
             false
@@ -236,10 +247,18 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
         RemoteOperationResult result = newUpload.execute(client, getStorageManager());
         assertTrue(result.getLogMessage(), result.isSuccess());
-//
-//        shortSleep();
-//        shortSleep();
-//
-//        assertNotNull(getStorageManager().getFileByDecryptedRemotePath(ocUpload.getRemotePath()).getRemoteId());
+
+        OCFile parentFolder = getStorageManager()
+            .getFileByEncryptedRemotePath(new File(ocUpload.getRemotePath()).getParent() + "/");
+        String uploadedFileName = new File(ocUpload.getRemotePath()).getName();
+        OCFile uploadedFile = getStorageManager().
+            getFileByDecryptedRemotePath(parentFolder.getDecryptedRemotePath() + uploadedFileName);
+
+        assertNotNull(uploadedFile.getRemoteId());
+
+        if (localBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY ||
+            localBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE) {
+            assertTrue(new File(uploadedFile.getStoragePath()).exists());
+        }
     }
 }
