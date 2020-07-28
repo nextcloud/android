@@ -154,7 +154,12 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         Resources resources = notificationsActivity.getResources();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                                                                          LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(20, 0, 20, 0);
+        params.setMargins(
+            resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
+            0,
+            resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
+            0
+        );
 
         for (Action action : notification.getActions()) {
             button = new MaterialButton(notificationsActivity);
