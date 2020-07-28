@@ -164,12 +164,12 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
             if (action.primary) {
                 ThemeUtils.colorPrimaryButton(button, notificationsActivity);
-                button.setTypeface(button.getTypeface(), Typeface.BOLD);
             } else {
                 button.setBackgroundColor(resources.getColor(R.color.grey_200));
                 button.setTextColor(primaryColor);
-                button.setTypeface(button.getTypeface(), Typeface.BOLD);
             }
+
+            button.setAllCaps(false);
 
             button.setText(action.label);
             button.setCornerRadiusResource(R.dimen.button_corner_radius);
