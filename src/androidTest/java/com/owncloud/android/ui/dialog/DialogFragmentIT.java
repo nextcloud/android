@@ -28,7 +28,6 @@ import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Looper;
 
-import com.facebook.testing.screenshot.Screenshot;
 import com.nextcloud.client.account.RegisteredUser;
 import com.nextcloud.client.account.Server;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
@@ -162,6 +161,6 @@ public class DialogFragmentIT extends AbstractIT {
         getInstrumentation().waitForIdleSync();
         shortSleep();
 
-        Screenshot.snap(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView()).record();
+        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
     }
 }

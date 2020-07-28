@@ -24,7 +24,6 @@ package com.owncloud.android.ui.activity;
 
 import android.app.Activity;
 
-import com.facebook.testing.screenshot.Screenshot;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.utils.ScreenshotTest;
@@ -47,7 +46,7 @@ public class ManageAccountsActivityIT extends AbstractIT {
 
         shortSleep();
 
-        Screenshot.snapActivity(sut).record();
+        screenshot(sut);
     }
 
     @Test
@@ -61,6 +60,6 @@ public class ManageAccountsActivityIT extends AbstractIT {
         shortSleep();
         shortSleep();
 
-        Screenshot.snapActivity(getCurrentActivity()).record();
+        screenshot(getCurrentActivity());
     }
 }

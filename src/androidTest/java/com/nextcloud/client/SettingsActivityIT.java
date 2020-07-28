@@ -25,7 +25,6 @@ package com.nextcloud.client;
 import android.Manifest;
 import android.app.Activity;
 
-import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.ScreenshotTest;
@@ -49,8 +48,8 @@ public class SettingsActivityIT extends AbstractIT {
     @Test
     @ScreenshotTest
     public void open() {
-        Activity test = activityRule.launchActivity(null);
+        Activity sut = activityRule.launchActivity(null);
 
-        Screenshot.snapActivity(test).record();
+        screenshot(sut);
     }
 }

@@ -1,0 +1,43 @@
+#!/bin/bash
+
+## $1 noCI/stable/master: wether to run deleteOutdatedComments.sh or uploadReport.sh
+## $2 true/false: record or verify screenshots
+## $3 classMethod: piped from androidScreenshotTest
+
+if [[ $2 = "true" ]]; then
+    record="-Precord"
+else
+    record=""
+fi
+
+classMethod=$3
+
+while read line
+do
+    darkMode=$(echo "$line" | cut -d" " -f1)
+    color=$(echo "$line" | cut -d" " -f2)
+
+    echo "Run $color on $darkMode mode"
+
+    if [[ $1 = "noCI" ]]; then
+        ./gradlew --console plain gplayDebugExecuteScreenshotTests \
+        $record \
+        -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
+        -Pandroid.testInstrumentationRunnerArguments.COLOR="$color" \
+        -Pandroid.testInstrumentationRunnerArguments.DARKMODE="$darkMode" \
+        $classMethod </dev/null > /dev/null
+        if [[ $? -ne 0 ]]; then
+            exit
+        fi
+    else
+        ./gradlew gplayDebugExecuteScreenshotTests \
+        $record \
+        -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
+        -Pandroid.testInstrumentationRunnerArguments.COLOR="$color" \
+        -Pandroid.testInstrumentationRunnerArguments.DARKMODE="$darkMode" \
+        && scripts/deleteOutdatedComments.sh "$1-$darkMode-$color" "Screenshot" "$DRONE_PULL_REQUEST" \
+        "$GIT_USERNAME" "$GIT_TOKEN" \
+        || scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" "$DRONE_BUILD_NUMBER" \
+        "$1-$darkMode-$color" "Screenshot" "$DRONE_PULL_REQUEST" "$GIT_USERNAME" "$GIT_TOKEN"
+    fi
+done < scripts/screenshotCombinations
