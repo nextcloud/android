@@ -655,13 +655,13 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     }
 
     private LayerDrawable generateCheckerboardLayeredDrawable(LoadImage result, Bitmap bitmap) {
-        Resources r = getResources();
+        Resources resources = getResources();
         Drawable[] layers = new Drawable[2];
-        layers[0] = r.getDrawable(R.color.bg_default);
+        layers[0] = ResourcesCompat.getDrawable(resources, R.color.bg_default, null);
         Drawable bitmapDrawable;
 
         if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType())) {
-            bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+            bitmapDrawable = new BitmapDrawable(resources, bitmap);
         } else if (MIME_TYPE_SVG.equalsIgnoreCase(result.ocFile.getMimeType())) {
             bitmapDrawable = result.drawable;
         } else if (MIME_TYPE_GIF.equalsIgnoreCase(result.ocFile.getMimeType())) {
@@ -671,7 +671,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 bitmapDrawable = result.drawable;
             }
         } else {
-            bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+            bitmapDrawable = new BitmapDrawable(resources, bitmap);
         }
 
         layers[1] = bitmapDrawable;
