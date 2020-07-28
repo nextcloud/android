@@ -8,13 +8,14 @@ if [ $# -lt 2 ]; then
     exit
 fi
 
-sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
-
-emulator -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
-
 cd src/androidTest/java
 
-class=$(find | grep $2 | grep java | head -n1|sed s'/\//\./'g | sed s'#^\.\.##' | sed s'#\.java##')
+class=$(find | grep $2 | grep -E "java$|kt$" | head -n1|sed s'/\//\./'g | sed s'#^\.\.##' | sed s'#\.java##'| sed s'#\.kt##')
+
+if [[ -z $class ]]; then
+    echo "Class not found!"
+    exit 1
+fi
 
 cd ../../../
 
@@ -28,6 +29,12 @@ if [ -e $3 ] ; then
     method=""
 else
     method="#$3"
+
+    # check if method exists
+    if [[ $(grep -c $3 $(find | grep $2 | grep -E "java$|kt$" | head -n1)) -eq 0 ]]; then
+        echo "Method not found!"
+        exit 1
+    fi
 fi
 
 ./gradlew gplayDebugExecuteScreenshotTests $record \
