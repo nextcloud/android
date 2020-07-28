@@ -186,7 +186,7 @@ public abstract class AbstractIT {
     }
 
     public static File createFile(String name, int iteration) throws IOException {
-        File file = new File(FileStorageUtils.getSavePath(account.name) + File.separator + name);
+        File file = new File(FileStorageUtils.getTemporalPath(account.name) + File.separator + name);
         file.createNewFile();
 
         FileWriter writer = new FileWriter(file);
