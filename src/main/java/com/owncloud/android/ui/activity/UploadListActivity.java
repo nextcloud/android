@@ -189,17 +189,6 @@ public class UploadListActivity extends FileActivity {
     private void refresh() {
         backgroundJobManager.startImmediateFilesSyncJob(false, true);
 
-        // retry failed uploads
-        new Thread(() -> FileUploader.retryFailedUploads(
-            this,
-            null,
-            uploadsStorageManager,
-            connectivityService,
-            userAccountManager,
-            powerManagementService,
-            null
-        )).start();
-
         // update UI
         uploadListAdapter.loadUploadItemsFromDb();
         swipeListRefreshLayout.setRefreshing(false);

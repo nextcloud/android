@@ -71,7 +71,9 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import butterknife.BindView;
@@ -101,7 +103,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
     @Override
     public int getItemCount(int section) {
-        return uploadGroups[section].getItems().length;
+        return uploadGroups[section].getItems().size();
     }
 
     @Override
@@ -145,12 +147,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 case FAILED:
                     new Thread(() -> FileUploader.retryFailedUploads(
                         parentActivity,
-                        null,
                         uploadsStorageManager,
                         connectivityService,
                         accountManager,
-                        powerManagementService,
-                        null
+                        powerManagementService
                     )).start();
                     break;
 
@@ -815,44 +815,44 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
     abstract class UploadGroup implements Refresh {
         private Type type;
-        private OCUpload[] items;
+        private List<OCUpload> items;
         private String name;
 
         UploadGroup(Type type, String groupName) {
             this.type = type;
             this.name = groupName;
-            items = new OCUpload[0];
+            items = new ArrayList<>();
         }
 
         private String getGroupName() {
             return name;
         }
 
-        public OCUpload[] getItems() {
+        public List<OCUpload> getItems() {
             return items;
         }
 
         public OCUpload getItem(int position) {
-            return items[position];
+            return items.get(position);
         }
 
-        public void setItems(OCUpload... items) {
+        public void setItems(List<OCUpload> items) {
             this.items = items;
         }
 
-        void fixAndSortItems(OCUpload... array) {
+        void fixAndSortItems(List<OCUpload> list) {
             FileUploader.FileUploaderBinder binder = parentActivity.getFileUploaderBinder();
 
-            for (OCUpload upload : array) {
+            for (OCUpload upload : list) {
                 upload.setDataFixed(binder);
             }
-            Arrays.sort(array, new OCUploadComparator());
+            Collections.sort(list, new OCUploadComparator());
 
-            setItems(array);
+            setItems(list);
         }
 
         private int getGroupItemCount() {
-            return items == null ? 0 : items.length;
+            return items == null ? 0 : items.size();
         }
     }
 }

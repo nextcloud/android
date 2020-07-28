@@ -682,7 +682,7 @@ public final class ThumbnailsCacheManager {
         private Bitmap doFileInBackground() {
             File file = (File)mFile;
 
-            final String imageKey;
+            String imageKey;
             if (mImageKey != null) {
                 imageKey = mImageKey;
             } else {
@@ -690,7 +690,7 @@ public final class ThumbnailsCacheManager {
             }
 
             // local file should always generate a thumbnail
-            mImageKey = PREFIX_THUMBNAIL + mImageKey;
+            imageKey = PREFIX_THUMBNAIL + imageKey;
 
             // Check disk cache in background thread
             Bitmap thumbnail = getBitmapFromDiskCache(imageKey);

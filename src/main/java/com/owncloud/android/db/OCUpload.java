@@ -194,16 +194,20 @@ public class OCUpload implements Parcelable {
      * Sets uploadStatus AND SETS lastResult = null;
      * @param uploadStatus the uploadStatus to set
      */
-    public void setUploadStatus(UploadStatus uploadStatus) {
+    public OCUpload setUploadStatus(UploadStatus uploadStatus) {
         this.uploadStatus = uploadStatus;
         setLastResult(UploadResult.UNKNOWN);
+
+        return this;
     }
 
     /**
      * @param lastResult the lastResult to set
      */
-    public void setLastResult(UploadResult lastResult) {
+    public OCUpload setLastResult(UploadResult lastResult) {
         this.lastResult = lastResult != null ? lastResult : UploadResult.UNKNOWN;
+
+        return this;
     }
 
     public UploadStatus getFixedUploadStatus() {
@@ -440,12 +444,16 @@ public class OCUpload implements Parcelable {
         this.uploadEndTimestamp = uploadEndTimestamp;
     }
 
-    public void setUseWifiOnly(boolean useWifiOnly) {
+    public OCUpload setUseWifiOnly(boolean useWifiOnly) {
         this.useWifiOnly = useWifiOnly;
+
+        return this;
     }
 
-    public void setWhileChargingOnly(boolean whileChargingOnly) {
+    public OCUpload setWhileChargingOnly(boolean whileChargingOnly) {
         this.whileChargingOnly = whileChargingOnly;
+
+        return this;
     }
 
     public void setFolderUnlockToken(String folderUnlockToken) {
