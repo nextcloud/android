@@ -20,7 +20,6 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.PictureDrawable;
@@ -154,7 +153,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
         Resources resources = notificationsActivity.getResources();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                                                                         ViewGroup.LayoutParams.WRAP_CONTENT);
+                                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(20, 0, 20, 0);
 
         for (Action action : notification.getActions()) {
