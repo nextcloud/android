@@ -20,7 +20,10 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
@@ -135,10 +138,16 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
         holder.message.setText(notification.getMessage());
 
-        // Todo set proper action icon (to be clarified how to pick)
         if (!TextUtils.isEmpty(notification.getIcon())) {
             downloadIcon(notification.getIcon(), holder.icon);
         }
+
+        int nightModeFlag = notificationsActivity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
+                holder.icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+            } else {
+                holder.icon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+            }
 
         setButtons(holder, notification);
 
