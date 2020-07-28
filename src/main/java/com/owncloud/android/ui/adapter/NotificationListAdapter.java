@@ -20,8 +20,10 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
@@ -136,10 +138,16 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
         holder.message.setText(notification.getMessage());
 
-        // Todo set proper action icon (to be clarified how to pick)
         if (!TextUtils.isEmpty(notification.getIcon())) {
             downloadIcon(notification.getIcon(), holder.icon);
         }
+
+        int nightModeFlag = notificationsActivity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
+                holder.icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+            } else {
+                holder.icon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+            }
 
         setButtons(holder, notification);
 
@@ -154,8 +162,13 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
         Resources resources = notificationsActivity.getResources();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                                                                         ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(20, 0, 20, 0);
+                                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(
+            resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
+            0,
+            resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
+            0
+        );
 
         for (Action action : notification.getActions()) {
             button = new MaterialButton(notificationsActivity);
@@ -164,20 +177,18 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
             if (action.primary) {
                 ThemeUtils.colorPrimaryButton(button, notificationsActivity);
-                button.setTypeface(button.getTypeface(), Typeface.BOLD);
             } else {
                 button.setBackgroundColor(resources.getColor(R.color.grey_200));
                 button.setTextColor(primaryColor);
-                button.setTypeface(button.getTypeface(), Typeface.BOLD);
             }
+
+            button.setAllCaps(false);
 
             button.setText(action.label);
             button.setCornerRadiusResource(R.dimen.button_corner_radius);
 
             button.setLayoutParams(params);
             button.setGravity(Gravity.CENTER);
-
-            button.setPadding(40, 40, 40, 40);
 
             button.setOnClickListener(v -> {
                 setButtonEnabled(holder, false);

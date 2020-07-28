@@ -60,6 +60,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -239,7 +240,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
     private void setupContent() {
         emptyContentIcon.setImageResource(R.drawable.ic_notification);
         emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(this),
-                PorterDuff.Mode.SRC_IN);
+                                                                          PorterDuff.Mode.SRC_IN);
         setLoadingMessage();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -249,8 +250,18 @@ public class NotificationsActivity extends FileActivity implements Notifications
         fetchAndSetData();
     }
 
-    private void populateList(List<Notification> notifications) {
+    @VisibleForTesting
+    public void populateList(List<Notification> notifications) {
         adapter.setNotificationItems(notifications);
+
+        if (notifications.size() > 0) {
+            swipeEmptyListRefreshLayout.setVisibility(View.GONE);
+            swipeListRefreshLayout.setVisibility(View.VISIBLE);
+        } else {
+            setEmptyContent(noResultsHeadline, noResultsMessage);
+            swipeListRefreshLayout.setVisibility(View.GONE);
+            swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     private void fetchAndSetData() {
@@ -275,17 +286,7 @@ public class NotificationsActivity extends FileActivity implements Notifications
             if (result.isSuccess() && result.getNotificationData() != null) {
                 final List<Notification> notifications = result.getNotificationData();
 
-                runOnUiThread(() -> {
-                    populateList(notifications);
-                    if (notifications.size() > 0) {
-                        swipeEmptyListRefreshLayout.setVisibility(View.GONE);
-                        swipeListRefreshLayout.setVisibility(View.VISIBLE);
-                    } else {
-                        setEmptyContent(noResultsHeadline, noResultsMessage);
-                        swipeListRefreshLayout.setVisibility(View.GONE);
-                        swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
-                    }
-                });
+                runOnUiThread(() -> populateList(notifications));
             } else {
                 Log_OC.d(TAG, result.getLogMessage());
                 // show error
@@ -344,7 +345,8 @@ public class NotificationsActivity extends FileActivity implements Notifications
         emptyContentProgressBar.setVisibility(View.VISIBLE);
     }
 
-    private void setEmptyContent(String headline, String message) {
+    @VisibleForTesting
+    public void setEmptyContent(String headline, String message) {
         if (emptyContentContainer != null && emptyContentMessage != null) {
             emptyContentHeadline.setText(headline);
             emptyContentMessage.setText(message);
