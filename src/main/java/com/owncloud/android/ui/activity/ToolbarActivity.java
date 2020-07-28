@@ -53,7 +53,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
 /**
- * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean)}.
+ * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean, boolean)}.
  */
 public abstract class ToolbarActivity extends BaseActivity {
     protected MaterialButton mMenuButton;
@@ -63,7 +63,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     private AppBarLayout mAppBar;
     private RelativeLayout mDefaultToolbar;
     private Toolbar mToolbar;
-    private MaterialCardView mHomeSearchToolbar;
+    private LinearLayout mHomeSearchToolbar;
     private ImageView mPreviewImage;
     private FrameLayout mPreviewImageContainer;
     private LinearLayout mInfoBox;
