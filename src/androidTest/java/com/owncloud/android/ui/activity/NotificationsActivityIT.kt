@@ -53,7 +53,7 @@ class NotificationsActivityIT : AbstractIT() {
 
         shortSleep()
 
-        Screenshot.snapActivity(sut).record()
+        screenshot(sut)
     }
 
     @Test
@@ -114,7 +114,7 @@ class NotificationsActivityIT : AbstractIT() {
 
         shortSleep()
 
-        Screenshot.snapActivity(sut).record()
+        screenshot(sut)
     }
 
     @Test
@@ -126,6 +126,6 @@ class NotificationsActivityIT : AbstractIT() {
 
         sut.runOnUiThread { sut.setEmptyContent("Error", "Error! Please try again later!") }
 
-        Screenshot.snapActivity(sut).record()
+        screenshot(sut)
     }
 }

@@ -25,7 +25,6 @@ package com.nextcloud.client;
 import android.Manifest;
 import android.content.Intent;
 
-import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
@@ -87,6 +86,6 @@ public class SyncedFoldersActivityIT extends AbstractIT {
         getInstrumentation().waitForIdleSync();
         shortSleep();
 
-        Screenshot.snap(Objects.requireNonNull(sut.requireDialog().getWindow()).getDecorView()).record();
+        screenshot(Objects.requireNonNull(sut.requireDialog().getWindow()).getDecorView());
     }
 }

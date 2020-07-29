@@ -25,7 +25,6 @@ package com.nextcloud.client;
 import android.Manifest;
 import android.app.Activity;
 
-import com.facebook.testing.screenshot.Screenshot;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.utils.ScreenshotTest;
@@ -51,7 +50,7 @@ public class FirstRunActivityIT extends AbstractIT {
     public void open() {
         Activity sut = activityRule.launchActivity(null);
 
-        Screenshot.snapActivity(sut).record();
+        screenshot(sut);
     }
 
 }

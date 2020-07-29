@@ -25,7 +25,6 @@ package com.nextcloud.client;
 import android.Manifest;
 import android.view.View;
 
-import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
@@ -60,16 +59,13 @@ public class ActivitiesActivityIT extends AbstractIT {
 
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
 
-        sut.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                sut.emptyContentContainer.setVisibility(View.VISIBLE);
-                sut.recyclerView.setVisibility(View.INVISIBLE);
-            }
+        sut.runOnUiThread(() -> {
+            sut.emptyContentContainer.setVisibility(View.VISIBLE);
+            sut.recyclerView.setVisibility(View.INVISIBLE);
         });
 
         waitForIdleSync();
 
-        Screenshot.snapActivity(sut).record();
+        screenshot(sut);
     }
 }

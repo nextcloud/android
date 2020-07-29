@@ -24,13 +24,14 @@ package com.owncloud.android.ui.dialog;
 
 import android.Manifest;
 
-import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.util.Objects;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -58,7 +59,7 @@ public class SyncFileNotEnoughSpaceDialogFragmentTest extends AbstractIT {
 
         getInstrumentation().waitForIdleSync();
 
-        Screenshot.snap(dialog.getDialog().getWindow().getDecorView()).record();
+        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
     }
 
     @Test
@@ -72,6 +73,6 @@ public class SyncFileNotEnoughSpaceDialogFragmentTest extends AbstractIT {
 
         getInstrumentation().waitForIdleSync();
 
-        Screenshot.snap(dialog.getDialog().getWindow().getDecorView()).record();
+        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
     }
 }
