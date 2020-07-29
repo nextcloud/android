@@ -183,9 +183,7 @@ public class UploadStorageManagerTest extends AbstractIT {
     }
 
     private void deleteAllUploads() {
-        for (Account account : getAllAccounts()) {
-            uploadsStorageManager.removeAccountUploads(account);
-        }
+        uploadsStorageManager.removeAllUploads();
 
         assertEquals(0, uploadsStorageManager.getAllStoredUploads().length);
     }
