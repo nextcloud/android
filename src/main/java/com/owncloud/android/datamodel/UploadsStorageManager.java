@@ -46,6 +46,7 @@ import java.util.Locale;
 import java.util.Observable;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 /**
  * Database helper for storing list of files to be uploaded, including status
@@ -581,17 +582,17 @@ public class UploadsStorageManager extends Observable {
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.UPLOADS_STATUS, UploadStatus.UPLOAD_FAILED.getValue());
         cv.put(
-                ProviderTableMeta.UPLOADS_LAST_RESULT,
-                fail != null ? fail.getValue() : UploadResult.UNKNOWN.getValue()
-        );
+            ProviderTableMeta.UPLOADS_LAST_RESULT,
+            fail != null ? fail.getValue() : UploadResult.UNKNOWN.getValue()
+              );
         cv.put(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP, Calendar.getInstance().getTimeInMillis());
 
         int result = getDB().update(
-                ProviderTableMeta.CONTENT_URI_UPLOADS,
-                cv,
-                ProviderTableMeta.UPLOADS_STATUS + "=?",
-                new String[]{String.valueOf(UploadStatus.UPLOAD_IN_PROGRESS.getValue())}
-        );
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            cv,
+            ProviderTableMeta.UPLOADS_STATUS + "=?",
+            new String[]{String.valueOf(UploadStatus.UPLOAD_IN_PROGRESS.getValue())}
+                                   );
 
         if (result == 0) {
             Log_OC.v(TAG, "No upload was killed");
@@ -603,12 +604,21 @@ public class UploadsStorageManager extends Observable {
         return result;
     }
 
+    @VisibleForTesting
+    public int removeAllUploads() {
+        Log_OC.v(TAG, "Delete all uploads!");
+        return getDB().delete(
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            "",
+            new String[]{});
+    }
+
     public int removeAccountUploads(Account account) {
         Log_OC.v(TAG, "Delete all uploads for account " + account.name);
         return getDB().delete(
-                ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
-                new String[]{account.name});
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
+            new String[]{account.name});
     }
 
     public enum UploadStatus {
