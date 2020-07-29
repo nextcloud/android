@@ -4,7 +4,7 @@ if [ $# -lt 2 ]; then
     echo "1: record: true/false
 2: class name
 3: method name
-4: darkMode / \"all\" to run all screenshot combinations
+4: darkMode: dark/light / \"all\" to run all screenshot combinations
 5: color"
 
     exit

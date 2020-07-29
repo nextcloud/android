@@ -57,6 +57,7 @@
                     android:scrollbarStyle="outsideOverlay"
                     android:scrollbars="vertical"
                     android:visibility="visible"
+                    android:background="@color/bg_default"
                     tools:listitem="@layout/notification_list_item" />
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -76,7 +77,7 @@
 
     <include
         layout="@layout/drawer"
-        android:layout_width="240dp"
+        android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"/>
 
