@@ -2144,6 +2144,7 @@ public class FileDisplayActivity extends FileActivity
             return; // not reachable under normal conditions
         }
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
+            showSortListGroup(false);
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay);
             setSecondFragment(mediaFragment);
             updateFragmentsVisibility(true);
@@ -2197,6 +2198,7 @@ public class FileDisplayActivity extends FileActivity
      * @param folder {@link OCFile} to preview its rich workspace.
      */
     public void startRichWorkspacePreview(OCFile folder) {
+        showSortListGroup(false);
         Bundle args = new Bundle();
         args.putParcelable(EXTRA_FILE, folder);
         Fragment textPreviewFragment = Fragment.instantiate(getApplicationContext(),
