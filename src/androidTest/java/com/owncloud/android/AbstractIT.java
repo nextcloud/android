@@ -7,8 +7,12 @@ import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 
 import com.facebook.testing.screenshot.Screenshot;
+import com.facebook.testing.screenshot.internal.TestNameDetector;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
@@ -16,6 +20,8 @@ import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -26,6 +32,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -65,6 +72,8 @@ public abstract class AbstractIT {
     protected static Account account;
     protected static User user;
     protected static Context targetContext;
+    protected static String DARK_MODE = "";
+    protected static String COLOR = "";
 
     protected Activity currentActivity;
 
@@ -106,6 +115,63 @@ public abstract class AbstractIT {
             e.printStackTrace();
         } catch (AccountUtils.AccountNotFoundException e) {
             e.printStackTrace();
+        }
+
+        Bundle arguments = androidx.test.platform.app.InstrumentationRegistry.getArguments();
+
+        // color
+        String colorParameter = arguments.getString("COLOR");
+        if (!TextUtils.isEmpty(colorParameter)) {
+            FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(account,
+                                                                                       targetContext.getContentResolver());
+
+            String colorHex = null;
+            COLOR = colorParameter;
+            switch (colorParameter) {
+                case "red":
+                    colorHex = "#7c0000";
+                    break;
+
+                case "green":
+                    colorHex = "#00ff00";
+                    break;
+
+                case "white":
+                    colorHex = "#ffffff";
+                    break;
+
+                case "black":
+                    colorHex = "#000000";
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (colorHex != null) {
+                OCCapability capability = fileDataStorageManager.getCapability(account.name);
+                capability.setServerColor(colorHex);
+                fileDataStorageManager.saveCapabilities(capability);
+            }
+        }
+
+        // dark / light
+        String darkModeParameter = arguments.getString("DARKMODE");
+
+        if (darkModeParameter != null) {
+            if (darkModeParameter.equalsIgnoreCase("dark")) {
+                DARK_MODE = "dark";
+                AppPreferencesImpl.fromContext(targetContext).setDarkThemeMode(DarkMode.DARK);
+                MainApp.setAppTheme(DarkMode.DARK);
+            } else {
+                DARK_MODE = "light";
+            }
+        }
+
+        if (DARK_MODE.equalsIgnoreCase("light") && COLOR.equalsIgnoreCase("blue")) {
+            // use already existing names
+            DARK_MODE = "";
+            COLOR = "";
         }
     }
 
@@ -151,7 +217,7 @@ public abstract class AbstractIT {
 
         waitForIdleSync();
 
-        Screenshot.snapActivity(sut).record();
+        screenshot(sut);
     }
 
     protected Activity getCurrentActivity() {
@@ -248,5 +314,27 @@ public abstract class AbstractIT {
 
         RemoteOperationResult result = newUpload.execute(client, getStorageManager());
         assertTrue(result.getLogMessage(), result.isSuccess());
+    }
+
+    protected void screenshot(View view) {
+        Screenshot.snap(view).setName(createName()).record();
+    }
+
+    protected void screenshot(Activity sut) {
+        Screenshot.snapActivity(sut).setName(createName()).record();
+    }
+
+    private String createName() {
+        String name = TestNameDetector.getTestClass() + "_" + TestNameDetector.getTestName();
+
+        if (!DARK_MODE.isEmpty()) {
+            name = name + "_" + DARK_MODE;
+        }
+
+        if (!COLOR.isEmpty()) {
+            name = name + "_" + COLOR;
+        }
+
+        return name;
     }
 }
