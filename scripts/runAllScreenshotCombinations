@@ -30,11 +30,11 @@ do
             exit
         fi
     else
-        ./gradlew gplayDebugExecuteScreenshotTests \
+        ./gradlew --console plain gplayDebugExecuteScreenshotTests \
         $record \
         -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
         -Pandroid.testInstrumentationRunnerArguments.COLOR="$color" \
-        -Pandroid.testInstrumentationRunnerArguments.DARKMODE="$darkMode" \
+        -Pandroid.testInstrumentationRunnerArguments.DARKMODE="$darkMode" </dev/null > /dev/null \
         && scripts/deleteOutdatedComments.sh "$1-$darkMode-$color" "Screenshot" "$DRONE_PULL_REQUEST" \
         "$GIT_USERNAME" "$GIT_TOKEN" \
         || scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" "$DRONE_BUILD_NUMBER" \
