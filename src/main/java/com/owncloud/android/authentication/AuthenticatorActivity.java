@@ -147,6 +147,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import de.cotech.hw.fido.WebViewFidoBridge;
+import de.cotech.hw.fido.ui.FidoDialogOptions;
+import de.cotech.hw.fido2.WebViewWebauthnBridge;
+import de.cotech.hw.fido2.ui.WebauthnDialogOptions;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -219,7 +222,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private TextView mAuthStatusView;
     private WebView mLoginWebView;
 
-    private WebViewFidoBridge webViewFidoBridge;
+    private WebViewFidoBridge webViewFidoU2fBridge;
+    private WebViewWebauthnBridge webViewWebauthnBridge;
 
     private String mAuthStatusText = EMPTY_STRING;
     private int mAuthStatusIcon;
@@ -361,7 +365,16 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mLoginWebView.getSettings().setSaveFormData(false);
         mLoginWebView.getSettings().setSavePassword(false);
 
-        webViewFidoBridge = WebViewFidoBridge.createInstanceForWebView(this, mLoginWebView);
+        FidoDialogOptions.Builder dialogOptionsBuilder = FidoDialogOptions.builder();
+        dialogOptionsBuilder.setShowSdkLogo(true);
+        dialogOptionsBuilder.setTheme(R.style.FidoDialog);
+        webViewFidoU2fBridge = WebViewFidoBridge.createInstanceForWebView(this, mLoginWebView, dialogOptionsBuilder);
+
+        WebauthnDialogOptions.Builder webauthnOptionsBuilder = WebauthnDialogOptions.builder();
+        webauthnOptionsBuilder.setShowSdkLogo(true);
+        webauthnOptionsBuilder.setAllowSkipPin(true);
+        webauthnOptionsBuilder.setTheme(R.style.FidoDialog);
+        webViewWebauthnBridge = WebViewWebauthnBridge.createInstanceForWebView(this, mLoginWebView, webauthnOptionsBuilder);
 
         Map<String, String> headers = new HashMap<>();
         headers.put(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
@@ -396,14 +409,16 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mLoginWebView.setWebViewClient(new WebViewClient() {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-                webViewFidoBridge.delegateShouldInterceptRequest(view, request);
+                webViewFidoU2fBridge.delegateShouldInterceptRequest(view, request);
+                webViewWebauthnBridge.delegateShouldInterceptRequest(view, request);
                 return super.shouldInterceptRequest(view, request);
             }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                webViewFidoBridge.delegateOnPageStarted(view, url, favicon);
+                webViewFidoU2fBridge.delegateOnPageStarted(view, url, favicon);
+                webViewWebauthnBridge.delegateOnPageStarted(view, url, favicon);
             }
 
             @Override
