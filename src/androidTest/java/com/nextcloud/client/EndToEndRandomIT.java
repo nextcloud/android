@@ -42,7 +42,6 @@ import com.owncloud.android.operations.GetCapabilitiesOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.utils.CsrHelper;
 import com.owncloud.android.utils.EncryptionUtils;
-import com.owncloud.android.utils.FileStorageUtils;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -271,15 +270,22 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
 
     private void uploadFile(int i) throws IOException {
         String fileName = RandomString.make(5) + ".txt";
-        createFile(fileName, new Random().nextInt(50000));
-        String path = currentFolder.getRemotePath() + fileName;
+
+        File file;
+        if (new Random().nextBoolean()) {
+            file = createFile(fileName, new Random().nextInt(50000));
+        } else {
+            file = createFile(fileName, 500000 + new Random().nextInt(50000));
+        }
+
+        String remotePath = currentFolder.getRemotePath() + fileName;
 
         Log_OC.d(this,
                  "[" + i + "/" + actionCount + "] " +
                      "Upload file to: " + currentFolder.getDecryptedRemotePath() + fileName);
 
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + File.separator + fileName,
-                                         path,
+        OCUpload ocUpload = new OCUpload(file.getAbsolutePath(),
+                                         remotePath,
                                          account.name);
         uploadOCUpload(ocUpload);
     }
