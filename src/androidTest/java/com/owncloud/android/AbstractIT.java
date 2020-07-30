@@ -249,4 +249,8 @@ public abstract class AbstractIT {
         RemoteOperationResult result = newUpload.execute(client, getStorageManager());
         assertTrue(result.getLogMessage(), result.isSuccess());
     }
+
+    protected void screenshot(Activity sut) {
+        Screenshot.snapActivity(sut).record();
+    }
 }

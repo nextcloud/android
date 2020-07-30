@@ -45,8 +45,8 @@ import androidx.fragment.app.FragmentTransaction;
  */
 public class ContactsPreferenceActivity extends FileActivity implements FileFragment.ContainerActivity {
     public static final String TAG = ContactsPreferenceActivity.class.getSimpleName();
-    private static final String EXTRA_FILE = "FILE";
-    private static final String EXTRA_USER = "USER";
+    protected static final String EXTRA_FILE = "FILE";
+    protected static final String EXTRA_USER = "USER";
     /**
      * Warning: default for this extra is different between this activity and {@link ContactsBackupFragment}
      */
@@ -103,13 +103,13 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         Intent intent = getIntent();
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            if (intent == null || intent.getParcelableExtra(ContactListFragment.FILE_NAME) == null ||
-                    intent.getParcelableExtra(ContactListFragment.USER) == null) {
+            if (intent == null || intent.getParcelableExtra(EXTRA_FILE) == null ||
+                intent.getParcelableExtra(EXTRA_USER) == null) {
                 ContactsBackupFragment fragment = ContactsBackupFragment.create(showSidebar);
                 transaction.add(R.id.frame_container, fragment);
             } else {
-                OCFile file = intent.getParcelableExtra(ContactListFragment.FILE_NAME);
-                User user = intent.getParcelableExtra(ContactListFragment.USER);
+                OCFile file = intent.getParcelableExtra(EXTRA_FILE);
+                User user = intent.getParcelableExtra(EXTRA_USER);
                 ContactListFragment contactListFragment = ContactListFragment.newInstance(file, user);
                 transaction.add(R.id.frame_container, contactListFragment);
             }
