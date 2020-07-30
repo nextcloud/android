@@ -27,6 +27,7 @@ import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -59,7 +60,9 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             AccountManager platformAccountManager = AccountManager.get(targetContext);
 
             for (Account account : platformAccountManager.getAccounts()) {
-                platformAccountManager.removeAccountExplicitly(account);
+                if (account.type.equalsIgnoreCase("nextcloud")) {
+                    platformAccountManager.removeAccountExplicitly(account);
+                }
             }
 
             Bundle arguments = androidx.test.platform.app.InstrumentationRegistry.getArguments();
@@ -241,5 +244,16 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 //        shortSleep();
 //
 //        assertNotNull(getStorageManager().getFileByDecryptedRemotePath(ocUpload.getRemotePath()).getRemoteId());
+    }
+
+    protected void refreshFolder(String path) {
+        assertTrue(new RefreshFolderOperation(getStorageManager().getFileByEncryptedRemotePath(path),
+                                              System.currentTimeMillis(),
+                                              false,
+                                              false,
+                                              getStorageManager(),
+                                              account,
+                                              targetContext
+        ).execute(client).isSuccess());
     }
 }
