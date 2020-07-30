@@ -98,7 +98,7 @@ public final class FileStorageUtils {
      * file.
      */
     public static String getDefaultSavePathFor(String accountName, OCFile file) {
-        return getSavePath(accountName) + file.getStoragePath();
+        return getSavePath(accountName) + file.getDecryptedRemotePath();
     }
 
     /**
