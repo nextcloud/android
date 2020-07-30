@@ -185,7 +185,7 @@ public abstract class AbstractIT {
         return AccountManager.get(targetContext).getAccounts();
     }
 
-    public static void createFile(String name, int iteration) throws IOException {
+    public static File createFile(String name, int iteration) throws IOException {
         File file = new File(FileStorageUtils.getSavePath(account.name) + File.separator + name);
         file.createNewFile();
 
@@ -196,6 +196,8 @@ public abstract class AbstractIT {
         }
         writer.flush();
         writer.close();
+
+        return file;
     }
 
     protected File getFile(String filename) throws IOException {
