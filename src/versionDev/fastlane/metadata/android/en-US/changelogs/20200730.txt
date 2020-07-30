@@ -1,0 +1,22 @@
+Remove all uploads after test for sure
+hide sort/list group on previews
+optimize sorting/layout bar spacing for home/search bar
+optimize toolbar layout
+properly reset header for preview fragments
+proper coloring and sizing for toolbar_standard.xml(s)
+lint: Use ResourcesCompat.getDrawable()
+lint: remove unused resources
+improve notification icon dark theming
+proper margin calculations
+remove padding
+Write some UI tests for NotificationsActivity
+make button text non-all-caps for consistent styling
+When going into subfolder or show details: show header even if it was scrolled away
+if photo search returns less photos than limit -> hide spinner
+Trashbin: show empty message only if empty
+Activity list: - show correct placeholder - click on preview open file
+add ROOM handling for sharees
+align grid/sort buttons
+add WebAuthn support using hwsecurity-fido2:4.1.0
+Update translations
+Update Nextcloud Android library
