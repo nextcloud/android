@@ -33,6 +33,7 @@
     <string name="activity_chooser_title">Envia l\'enllaç a…</string>
     <string name="activity_icon">Activitat</string>
     <string name="add_another_public_share_link">Afegeix un altre enllaç</string>
+    <string name="add_new_public_share">Afegir nou enllaç d\'accés públic</string>
     <string name="add_to_cloud">Afegeix a %1$s</string>
     <string name="allow_editing">Permet l\'edició</string>
     <string name="appbar_search_in">Cerca a %s</string>
@@ -274,6 +275,8 @@
     <string name="etm_background_jobs_schedule_test_job">Planificar tasca de prova</string>
     <string name="etm_background_jobs_start_test_job">Iniciar tasca de prova</string>
     <string name="etm_background_jobs_stop_test_job">Aturar tasca de prova</string>
+    <string name="etm_download_path">Ruta remota</string>
+    <string name="etm_downloader">Descàrrega</string>
     <string name="etm_migrations">Migracions (actualització d\'aplicació)</string>
     <string name="etm_preferences">Preferències</string>
     <string name="etm_title">Mode de proves d\'enginyeria</string>
@@ -383,6 +386,7 @@
     <string name="instant_upload_on_charging">Carrega només durant la càrrega de bateria</string>
     <string name="instant_upload_path">/CàrregaInstantània</string>
     <string name="invalid_url">URL no vàlida</string>
+    <string name="label_empty">L\'etiqueta no pot estar buida</string>
     <string name="learn_more">Més informació</string>
     <string name="link">Enllaç</string>
     <string name="list_layout">Disposició llistada</string>
@@ -442,6 +446,7 @@
     <string name="no_pdf_app_available">No hi ha cap aplicació disponible per manegar els PDF</string>
     <string name="note_confirm">Envia</string>
     <string name="note_could_not_sent">No s\'ha pogut enviar la nota</string>
+    <string name="note_icon_hint">Icona de nota</string>
     <string name="notification_action_failed">L\'execució de l\'acció ha fallat.</string>
     <string name="notification_channel_download_description">Mostra el progrés de les descàrregues</string>
     <string name="notification_channel_download_name">Canal de notificació de descàrregues</string>
@@ -538,9 +543,11 @@
     <string name="preview_image_error_unknown_format">No es pot mostrar la imatge</string>
     <string name="preview_sorry">Ho sento</string>
     <string name="privacy">Privadesa</string>
+    <string name="public_share_name">Nou nom</string>
     <string name="push_notifications_not_implemented">Les notificacions \"push\" s\'han deshabilitat a causa de dependències de serveis propietaris de Google Play.</string>
     <string name="push_notifications_old_login">No hi ha notificacions \"push\" a causa d\'un inici de sessió no actualitzat. Si us plau valoreu tornar a afegir el vostre compte.</string>
     <string name="push_notifications_temp_error">Les notificacions \"push\" no estan disponibles actualment.</string>
+    <string name="qr_could_not_be_read">No s\'ha pogut llegir el codi QR!</string>
     <string name="recommend_subject">Proveu %1$s al vostre dispositiu!</string>
     <string name="recommend_text">Us vull convidar a fer servir %1$s al vostre dispositiu.\nDescarregueu-lo d\'aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>

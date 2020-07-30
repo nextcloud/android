@@ -24,7 +24,6 @@ package com.owncloud.android.ui.preview;
 
 import android.Manifest;
 
-import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -64,7 +63,7 @@ public class PreviewTextFileFragmentTest extends AbstractIT {
 
         shortSleep();
 
-        Screenshot.snapActivity(sut).record();
+        screenshot(sut);
     }
 
     @Test
@@ -82,6 +81,6 @@ public class PreviewTextFileFragmentTest extends AbstractIT {
 
         shortSleep();
 
-        Screenshot.snapActivity(sut).record();
+        screenshot(sut);
     }
 }
