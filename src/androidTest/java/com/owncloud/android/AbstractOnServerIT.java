@@ -30,7 +30,6 @@ import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.utils.FileStorageUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -139,19 +138,6 @@ public abstract class AbstractOnServerIT extends AbstractIT {
                           );
             }
         }
-    }
-
-    protected static void createDummyFiles() throws IOException {
-        File tempPath = new File(FileStorageUtils.getTemporalPath(account.name));
-        if (!tempPath.exists()) {
-            assertTrue(tempPath.mkdirs());
-        }
-
-        assertTrue(tempPath.exists());
-
-        createFile("empty.txt", 0);
-        createFile("nonEmpty.txt", 100);
-        createFile("chunkedFile.txt", 500000);
     }
 
     private static void waitForServer(OwnCloudClient client, Uri baseUrl) {
