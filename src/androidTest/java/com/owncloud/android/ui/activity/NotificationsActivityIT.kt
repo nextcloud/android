@@ -58,11 +58,12 @@ class NotificationsActivityIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
+    @SuppressWarnings("MagicNumber")
     fun showNotifications() {
         val sut: NotificationsActivity = activityRule.launchActivity(null)
 
         val date = GregorianCalendar()
-        date.set(2005, 4, 17, 10, 35, 30)
+        date.set(2005, 4, 17, 10, 35, 30) // random date
 
         val notifications = ArrayList<Notification>()
         notifications.add(
