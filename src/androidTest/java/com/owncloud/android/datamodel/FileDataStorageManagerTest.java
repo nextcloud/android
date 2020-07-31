@@ -89,13 +89,13 @@ abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
 
         assertTrue(new CreateFolderRemoteOperation("/1/2/", true).execute(client).isSuccess());
 
-        assertTrue(new UploadFileRemoteOperation(FileStorageUtils.getSavePath(account.name) + "/chunkedFile.txt",
+        assertTrue(new UploadFileRemoteOperation(getDummyFile("/chunkedFile.txt").getAbsolutePath(),
                                                  "/1/1/chunkedFile.txt",
                                                  "text/plain",
                                                  String.valueOf(System.currentTimeMillis() / 1000))
                        .execute(client).isSuccess());
 
-        assertTrue(new UploadFileRemoteOperation(FileStorageUtils.getSavePath(account.name) + "/chunkedFile.txt",
+        assertTrue(new UploadFileRemoteOperation(getDummyFile("/chunkedFile.txt").getAbsolutePath(),
                                                  "/1/1/chunkedFile2.txt",
                                                  "text/plain",
                                                  String.valueOf(System.currentTimeMillis() / 1000))

@@ -47,7 +47,6 @@ import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.utils.FileStorageUtils
 import junit.framework.TestCase
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -92,7 +91,7 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
         assertTrue(CreateFolderOperation("/test/", user, targetContext).execute(client, storageManager).isSuccess)
 
         val ocUpload = OCUpload(
-            FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt",
+            getDummyFile("/nonEmpty.txt").absolutePath,
             "/test/Readme.md",
             account.name
         )
