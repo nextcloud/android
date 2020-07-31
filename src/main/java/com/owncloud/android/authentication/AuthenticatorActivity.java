@@ -891,7 +891,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                         OCCapability capability = (OCCapability) remoteOperationResult.getData().get(0);
                         try {
                             primaryColor = Color.parseColor(capability.getServerColor());
-                        } catch (IllegalArgumentException e) {
+                        } catch (Exception e) {
                             // falls back to primary color
                         }
                     }
