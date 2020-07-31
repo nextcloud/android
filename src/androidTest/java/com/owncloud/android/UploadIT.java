@@ -30,6 +30,8 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -38,8 +40,14 @@ import com.owncloud.android.utils.FileStorageUtils;
 import org.junit.After;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
+
 import androidx.annotation.NonNull;
 
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
@@ -309,5 +317,24 @@ public class UploadIT extends AbstractOnServerIT {
                                 false,
                                 targetContext)
             .execute(client, getStorageManager());
+    }
+
+    @Test
+    public void testUploadSameModificationDate() throws IOException {
+        File file = new File(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt");
+        BasicFileAttributes attributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+        long modifiedDate = attributes.lastModifiedTime().toMillis();
+
+        OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt",
+                                         FOLDER + "nonEmpty.txt",
+                                         account.name);
+
+        shortSleep();
+        uploadOCUpload(ocUpload);
+
+        RemoteOperationResult readFileResult = new ReadFileRemoteOperation(FOLDER + "nonEmpty.txt").execute(client);
+        RemoteFile remoteFile = (RemoteFile) readFileResult.getData().get(0);
+
+        assertEquals(modifiedDate, remoteFile.getModifiedTimestamp());
     }
 }
