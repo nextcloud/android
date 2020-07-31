@@ -28,7 +28,6 @@ import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.junit.Rule;
@@ -51,12 +50,12 @@ public class PreviewTextFileFragmentTest extends AbstractIT {
 
     @Test
     // @ScreenshotTest // todo run without real server
-    public void displaySimpleTextFile() {
+    public void displaySimpleTextFile() throws IOException {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
         shortSleep();
 
-        File file = new File(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt");
+        File file = getDummyFile("nonEmpty.txt");
         OCFile test = new OCFile("/text.md");
         test.setMimeType(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN);
         test.setStoragePath(file.getAbsolutePath());

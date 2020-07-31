@@ -475,6 +475,7 @@ public class UploadFileOperation extends SyncOperation {
                 return collisionResult;
             }
 
+            mFile.setDecryptedRemotePath(parentFile.getDecryptedRemotePath() + originalFile.getName());
             String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
             expectedFile = new File(expectedPath);
 
@@ -794,10 +795,14 @@ public class UploadFileOperation extends SyncOperation {
                                                                         mFile.getRemotePath(),
                                                                         mFile.getMimeType(),
                                                                         mFile.getEtagInConflict(),
-                                                                        timeStamp, onWifiConnection);
+                                                                        timeStamp,
+                                                                        onWifiConnection);
             } else {
                 mUploadOperation = new UploadFileRemoteOperation(mFile.getStoragePath(),
-                                                                 mFile.getRemotePath(), mFile.getMimeType(), mFile.getEtagInConflict(), timeStamp);
+                                                                 mFile.getRemotePath(),
+                                                                 mFile.getMimeType(),
+                                                                 mFile.getEtagInConflict(),
+                                                                 timeStamp);
             }
 
             for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
@@ -932,7 +937,9 @@ public class UploadFileOperation extends SyncOperation {
         return null;
     }
 
-    private void handleSuccessfulUpload(File temporalFile, File expectedFile, File originalFile,
+    private void handleSuccessfulUpload(File temporalFile,
+                                        File expectedFile,
+                                        File originalFile,
                                         OwnCloudClient client) {
         switch (mLocalBehaviour) {
             case FileUploader.LOCAL_BEHAVIOUR_FORGET:
@@ -952,6 +959,12 @@ public class UploadFileOperation extends SyncOperation {
                 if (temporalFile != null) {
                     try {
                         move(temporalFile, expectedFile);
+                    } catch (IOException e) {
+                        Log_OC.e(TAG, e.getMessage());
+                    }
+                } else if (originalFile != null) {
+                    try {
+                        copy(originalFile, expectedFile);
                     } catch (IOException e) {
                         Log_OC.e(TAG, e.getMessage());
                     }
