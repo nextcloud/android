@@ -185,8 +185,48 @@ public abstract class AbstractIT {
         return AccountManager.get(targetContext).getAccounts();
     }
 
+    protected static void createDummyFiles() throws IOException {
+        File tempPath = new File(FileStorageUtils.getTemporalPath(account.name));
+        if (!tempPath.exists()) {
+            assertTrue(tempPath.mkdirs());
+        }
+
+        assertTrue(tempPath.exists());
+
+        createFile("empty.txt", 0);
+        createFile("nonEmpty.txt", 100);
+        createFile("chunkedFile.txt", 500000);
+    }
+
+    protected static File getDummyFile(String name) throws IOException {
+        File file = new File(FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + name);
+
+        if (file.exists()) {
+            return file;
+        } else {
+            switch (name) {
+                case "empty.txt":
+                    return createFile("empty.txt", 0);
+
+                case "nonEmpty.txt":
+                    return createFile("nonEmpty.txt", 100);
+
+                case "chunkedFile.txt":
+                    return createFile("chunkedFile.txt", 500000);
+
+                default:
+                    return createFile(name, 0);
+            }
+        }
+    }
+
     public static File createFile(String name, int iteration) throws IOException {
-        File file = new File(FileStorageUtils.getSavePath(account.name) + File.separator + name);
+        File tempPath = new File(FileStorageUtils.getTemporalPath(account.name));
+        if (!tempPath.exists()) {
+            assertTrue(tempPath.mkdirs());
+        }
+
+        File file = new File(FileStorageUtils.getTemporalPath(account.name) + File.separator + name);
         file.createNewFile();
 
         FileWriter writer = new FileWriter(file);
