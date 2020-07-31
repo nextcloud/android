@@ -28,8 +28,8 @@ import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.utils.FileStorageUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -38,7 +38,6 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
@@ -139,32 +138,6 @@ public abstract class AbstractOnServerIT extends AbstractIT {
         }
     }
 
-    protected static void createDummyFiles() throws IOException {
-        File tempPath = new File(FileStorageUtils.getTemporalPath(account.name));
-        if (!tempPath.exists()) {
-            assertTrue(tempPath.mkdirs());
-        }
-
-        assertTrue(tempPath.exists());
-
-        createFile("empty.txt", 0);
-        createFile("nonEmpty.txt", 100);
-        createFile("chunkedFile.txt", 500000);
-    }
-
-    public static void createFile(String name, int iteration) throws IOException {
-        File file = new File(FileStorageUtils.getSavePath(account.name) + File.separator + name);
-        file.createNewFile();
-
-        FileWriter writer = new FileWriter(file);
-
-        for (int i = 0; i < iteration; i++) {
-            writer.write("123123123123123123123123123\n");
-        }
-        writer.flush();
-        writer.close();
-    }
-
     private static void waitForServer(OwnCloudClient client, Uri baseUrl) {
         GetMethod get = new GetMethod(baseUrl + "/status.php");
 
@@ -260,5 +233,16 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             localBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE) {
             assertTrue(new File(uploadedFile.getStoragePath()).exists());
         }
+    }
+
+    protected void refreshFolder(String path) {
+        assertTrue(new RefreshFolderOperation(getStorageManager().getFileByEncryptedRemotePath(path),
+                                              System.currentTimeMillis(),
+                                              false,
+                                              false,
+                                              getStorageManager(),
+                                              account,
+                                              targetContext
+        ).execute(client).isSuccess());
     }
 }
