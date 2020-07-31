@@ -25,9 +25,10 @@ package com.owncloud.android.operations;
 import com.owncloud.android.AbstractOnServerIT;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.utils.FileStorageUtils;
 
 import org.junit.Test;
+
+import java.io.IOException;
 
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
@@ -65,10 +66,10 @@ public class RemoveFileOperationIT extends AbstractOnServerIT {
     }
 
     @Test
-    public void deleteFile() {
+    public void deleteFile() throws IOException {
         String parent = "/test/";
         String path = parent + "empty.txt";
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/empty.txt", path, account.name);
+        OCUpload ocUpload = new OCUpload(getDummyFile("/empty.txt").getAbsolutePath(), path, account.name);
 
         uploadOCUpload(ocUpload);
 
