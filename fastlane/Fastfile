@@ -39,19 +39,14 @@ lane :screenshotsTablet do
 end
 
 desc "Release phase 1: make gplay/generic for RC, then test it"
-lane :releasePhase1_RC do
+lane :RC_releasePhase1 do
     disableLogger()
     makeReleases()
     enableLogger()
 end
 
-desc "Release phase 1: make gplay/generic for FINAL, then test it"
-lane :releasePhase1_Final do
-    makeReleases()
-end
-
 desc "Release phase 2 for RC: checks, tag, upload gplay to playstore with values from build.gradle"
-lane :releasePhase2_RC do |options|
+lane :RC_releasePhase2 do |options|
     info = androidVersion
     checkChangelog(info)
     checkLibrary_RC()
@@ -64,8 +59,13 @@ lane :releasePhase2_RC do |options|
     createChangelogPullRequest_RC(info)
 end
 
+desc "Release phase 1: make gplay/generic for FINAL, then test it"
+lane :Final_releasePhase1 do
+    makeReleases()
+end
+
 desc "Release phase 2 for FINAL: checks, tag, upload gplay to playstore with values from build.gradle"
-lane :releasePhase2_Final do |options|
+lane :Final_releasePhase2 do |options|
     info = androidVersion
     checkChangelog(info)
     checkLibrary_Final()
