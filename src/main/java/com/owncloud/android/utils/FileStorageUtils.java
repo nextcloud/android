@@ -22,7 +22,6 @@ package com.owncloud.android.utils;
 import android.Manifest;
 import android.accounts.Account;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -98,7 +97,7 @@ public final class FileStorageUtils {
      * file.
      */
     public static String getDefaultSavePathFor(String accountName, OCFile file) {
-        return getSavePath(accountName) + file.getStoragePath();
+        return getSavePath(accountName) + file.getDecryptedRemotePath();
     }
 
     /**
@@ -473,7 +472,7 @@ public final class FileStorageUtils {
      */
     @SuppressFBWarnings(value = "DMI_HARDCODED_ABSOLUTE_FILENAME",
         justification = "Default Android fallback storage path")
-    public static List<String> getStorageDirectories(Activity activity) {
+    public static List<String> getStorageDirectories(Context context) {
         // Final set of paths
         final List<String> rv = new ArrayList<>();
         // Primary physical SD-CARD (not emulated)
@@ -524,11 +523,11 @@ public final class FileStorageUtils {
             final String[] rawSecondaryStorages = rawSecondaryStoragesStr.split(File.pathSeparator);
             Collections.addAll(rv, rawSecondaryStorages);
         }
-        if (SDK_INT >= Build.VERSION_CODES.M && checkStoragePermission(activity)) {
+        if (SDK_INT >= Build.VERSION_CODES.M && checkStoragePermission(context)) {
             rv.clear();
         }
         if (SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            String strings[] = getExtSdCardPathsForActivity(activity);
+            String strings[] = getExtSdCardPathsForActivity(context);
             File f;
             for (String s : strings) {
                 f = new File(s);
@@ -543,17 +542,17 @@ public final class FileStorageUtils {
 
     /**
      * Update the local path summary display. If a special directory is recognized, it is replaced by its name.
-     *
-     * Example: /storage/emulated/0/Movies -> Internal Storage / Movies
-     * Example: /storage/ABC/non/standard/directory -> ABC /non/standard/directory
+     * <p>
+     * Example: /storage/emulated/0/Movies -> Internal Storage / Movies Example: /storage/ABC/non/standard/directory ->
+     * ABC /non/standard/directory
      *
      * @param path the path to display
      * @return a user friendly path as defined in examples, or {@param path} if the storage device isn't recognized.
      */
-    public static String pathToUserFriendlyDisplay(String path, Activity activity, Resources resources) {
+    public static String pathToUserFriendlyDisplay(String path, Context context, Resources resources) {
         // Determine storage device (external, sdcard...)
         String storageDevice = null;
-        for (String storageDirectory : FileStorageUtils.getStorageDirectories(activity)) {
+        for (String storageDirectory : FileStorageUtils.getStorageDirectories(context)) {
             if (path.startsWith(storageDirectory)) {
                 storageDevice = storageDirectory;
                 break;
@@ -566,7 +565,13 @@ public final class FileStorageUtils {
         }
 
         // Default to full path without storage device path
-        String storageFolder = path.substring(storageDevice.length() + 1);
+        String storageFolder;
+        try {
+            storageFolder = path.substring(storageDevice.length() + 1);
+        } catch (StringIndexOutOfBoundsException e) {
+            storageFolder = "";
+        }
+
         FileStorageUtils.StandardDirectory standardDirectory = FileStorageUtils.StandardDirectory.fromPath(storageFolder);
         if (standardDirectory != null) { // Friendly name of standard directory
             storageFolder = " " + resources.getString(standardDirectory.getDisplayName());
@@ -584,12 +589,11 @@ public final class FileStorageUtils {
 
     /**
      * Taken from https://github.com/TeamAmaze/AmazeFileManager/blob/d11e0d2874c6067910e58e059859431a31ad6aee/app/src
-     * /main/java/com/amaze/filemanager/activities/superclasses/PermissionsActivity.java#L47 on
-     * 14.02.2019
+     * /main/java/com/amaze/filemanager/activities/superclasses/PermissionsActivity.java#L47 on 14.02.2019
      */
-    private static boolean checkStoragePermission(Activity activity) {
+    private static boolean checkStoragePermission(Context context) {
         // Verify that all required contact permissions have been granted.
-        return ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        return ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             == PackageManager.PERMISSION_GRANTED;
     }
 

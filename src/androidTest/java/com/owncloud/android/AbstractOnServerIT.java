@@ -16,6 +16,7 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
@@ -27,8 +28,8 @@ import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.utils.FileStorageUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -37,12 +38,12 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 
@@ -59,7 +60,9 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             AccountManager platformAccountManager = AccountManager.get(targetContext);
 
             for (Account account : platformAccountManager.getAccounts()) {
-                platformAccountManager.removeAccountExplicitly(account);
+                if (account.type.equalsIgnoreCase("nextcloud")) {
+                    platformAccountManager.removeAccountExplicitly(account);
+                }
             }
 
             Bundle arguments = androidx.test.platform.app.InstrumentationRegistry.getArguments();
@@ -137,27 +140,6 @@ public abstract class AbstractOnServerIT extends AbstractIT {
         }
     }
 
-    private static void createDummyFiles() throws IOException {
-        new File(FileStorageUtils.getSavePath(account.name)).mkdirs();
-
-        createFile("empty.txt", 0);
-        createFile("nonEmpty.txt", 100);
-        createFile("chunkedFile.txt", 500000);
-    }
-
-    public static void createFile(String name, int iteration) throws IOException {
-        File file = new File(FileStorageUtils.getSavePath(account.name) + File.separator + name);
-        file.createNewFile();
-
-        FileWriter writer = new FileWriter(file);
-
-        for (int i = 0; i < iteration; i++) {
-            writer.write("123123123123123123123123123\n");
-        }
-        writer.flush();
-        writer.close();
-    }
-
     private static void waitForServer(OwnCloudClient client, Uri baseUrl) {
         GetMethod get = new GetMethod(baseUrl + "/status.php");
 
@@ -181,6 +163,10 @@ public abstract class AbstractOnServerIT extends AbstractIT {
     }
 
     public void uploadOCUpload(OCUpload ocUpload) {
+        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_COPY);
+    }
+
+    public void uploadOCUpload(OCUpload ocUpload, int localBehaviour) {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
             public boolean isInternetWalled() {
@@ -223,7 +209,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             null,
             ocUpload,
             FileUploader.NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            localBehaviour,
             targetContext,
             false,
             false
@@ -236,10 +222,29 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
         RemoteOperationResult result = newUpload.execute(client, getStorageManager());
         assertTrue(result.getLogMessage(), result.isSuccess());
-//
-//        shortSleep();
-//        shortSleep();
-//
-//        assertNotNull(getStorageManager().getFileByDecryptedRemotePath(ocUpload.getRemotePath()).getRemoteId());
+
+        OCFile parentFolder = getStorageManager()
+            .getFileByEncryptedRemotePath(new File(ocUpload.getRemotePath()).getParent() + "/");
+        String uploadedFileName = new File(ocUpload.getRemotePath()).getName();
+        OCFile uploadedFile = getStorageManager().
+            getFileByDecryptedRemotePath(parentFolder.getDecryptedRemotePath() + uploadedFileName);
+
+        assertNotNull(uploadedFile.getRemoteId());
+
+        if (localBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY ||
+            localBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE) {
+            assertTrue(new File(uploadedFile.getStoragePath()).exists());
+        }
+    }
+
+    protected void refreshFolder(String path) {
+        assertTrue(new RefreshFolderOperation(getStorageManager().getFileByEncryptedRemotePath(path),
+                                              System.currentTimeMillis(),
+                                              false,
+                                              false,
+                                              getStorageManager(),
+                                              account,
+                                              targetContext
+        ).execute(client).isSuccess());
     }
 }
