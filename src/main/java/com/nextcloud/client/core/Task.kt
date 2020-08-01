@@ -30,8 +30,8 @@ internal class Task<T, P>(
     private val postResult: (Runnable) -> Boolean,
     private val removeFromQueue: (Runnable) -> Boolean,
     private val taskBody: TaskFunction<T, P>,
-    private val onSuccess: OnResultCallback<T>?,
-    private val onError: OnErrorCallback?,
+    val onSuccess: OnResultCallback<T>?,
+    val onError: OnErrorCallback?,
     private val onProgress: OnProgressCallback<P>?
 ) : Runnable, Cancellable {
 

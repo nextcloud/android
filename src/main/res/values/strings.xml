@@ -582,6 +582,7 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">No activity yet</string>
     <string name="activities_no_results_message">No events like additions, changes and shares yet.</string>
+    <string name="activities_error">Error while downloading activities</string>
     <string name="prefs_category_about">About</string>
 
     <string name="actionbar_contacts">Back up contacts</string>

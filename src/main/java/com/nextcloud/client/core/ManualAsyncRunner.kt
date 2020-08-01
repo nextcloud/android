@@ -94,4 +94,19 @@ class ManualAsyncRunner : AsyncRunner {
         t?.run()
         return t != null
     }
+
+    fun <T> runOneSuccessful(result: T): Boolean {
+        val t = queue.pollFirst()
+        t?.let {
+            t as Task<T, *>
+            t.onSuccess?.invoke(result)
+        }
+        return t != null
+    }
+
+    fun runOneFailed(error: Throwable): Boolean {
+        val t = queue.pollFirst() as Task<*, *>?
+        t?.onError?.invoke(error)
+        return t != null
+    }
 }

@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.etm.EtmViewModel
 import com.nextcloud.client.logger.ui.LogsViewModel
+import com.owncloud.android.ui.activities.ActivitiesViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -38,6 +39,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(LogsViewModel::class)
     abstract fun logsViewModel(vm: LogsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ActivitiesViewModel::class)
+    abstract fun activitiesViewModel(vm: ActivitiesViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

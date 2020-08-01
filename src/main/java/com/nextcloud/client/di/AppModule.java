@@ -48,18 +48,10 @@ import com.nextcloud.client.migrations.Migrations;
 import com.nextcloud.client.migrations.MigrationsDb;
 import com.nextcloud.client.migrations.MigrationsManager;
 import com.nextcloud.client.migrations.MigrationsManagerImpl;
-import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.notifications.AppNotificationManager;
 import com.nextcloud.client.notifications.AppNotificationManagerImpl;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
-import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApi;
-import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApiImpl;
-import com.owncloud.android.ui.activities.data.activities.RemoteActivitiesRepository;
-import com.owncloud.android.ui.activities.data.files.FilesRepository;
-import com.owncloud.android.ui.activities.data.files.FilesServiceApiImpl;
-import com.owncloud.android.ui.activities.data.files.RemoteFilesRepository;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -112,21 +104,6 @@ class AppModule {
     ArbitraryDataProvider arbitraryDataProvider(Context context) {
         final ContentResolver resolver = context.getContentResolver();
         return new ArbitraryDataProvider(resolver);
-    }
-
-    @Provides
-    ActivitiesServiceApi activitiesServiceApi(UserAccountManager accountManager) {
-        return new ActivitiesServiceApiImpl(accountManager);
-    }
-
-    @Provides
-    ActivitiesRepository activitiesRepository(ActivitiesServiceApi api) {
-        return new RemoteActivitiesRepository(api);
-    }
-
-    @Provides
-    FilesRepository filesRepository(UserAccountManager accountManager, ClientFactory clientFactory) {
-        return new RemoteFilesRepository(new FilesServiceApiImpl(accountManager, clientFactory));
     }
 
     @Provides

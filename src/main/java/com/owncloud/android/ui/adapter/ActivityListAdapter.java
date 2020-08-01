@@ -93,7 +93,6 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final ActivityListInterface activityListInterface;
     private final int px;
     private static final String TAG = ActivityListAdapter.class.getSimpleName();
-    protected NextcloudClient client;
 
     protected Context context;
     private CurrentAccountProvider currentAccountProvider;
@@ -119,34 +118,28 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.storageManager = storageManager;
         this.capability = capability;
         this.clientFactory = clientFactory;
-        px = getThumbnailDimension();
+        this.px = getThumbnailDimension();
         this.isDetailView = isDetailView;
     }
 
-    public void setActivityItems(List<Object> activityItems, NextcloudClient client, boolean clear) {
-        this.client = client;
-        String sTime = "";
-
-        if (clear) {
-            values.clear();
-        }
-
-        for (Object o : activityItems) {
-            Activity activity = (Activity) o;
-            String time;
+    public void setActivityItems(List<Activity> activityItems) {
+        values.clear();
+        String sectionTime = "";
+        for (Activity activity : activityItems) {
+            String itemTime;
             if (activity.getDatetime() != null) {
-                time = getHeaderDateString(context, activity.getDatetime().getTime()).toString();
+                itemTime = getHeaderDateString(context, activity.getDatetime().getTime()).toString();
             } else if (activity.getDate() != null) {
-                time = getHeaderDateString(context, activity.getDate().getTime()).toString();
+                itemTime = getHeaderDateString(context, activity.getDate().getTime()).toString();
             } else {
-                time = context.getString(R.string.date_unknown);
+                itemTime = context.getString(R.string.date_unknown);
             }
 
-            if (sTime.equalsIgnoreCase(time)) {
+            if (sectionTime.equalsIgnoreCase(itemTime)) {
                 values.add(activity);
             } else {
-                sTime = time;
-                values.add(sTime);
+                sectionTime = itemTime;
+                values.add(sectionTime);
                 values.add(activity);
             }
         }
@@ -335,7 +328,12 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     placeholder = R.drawable.file_movie;
                 }
 
-                String uri = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + px + "/" + px +
+                String uri = currentAccountProvider.getUser().getServer().getUri().toString() +
+                    "/index" +
+                    ".php/apps/files/api" +
+                    "/v1/thumbnail" +
+                    "/" + px +
+                    "/" + px +
                     Uri.encode(file.getRemotePath(), "/");
 
                 Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider, clientFactory))

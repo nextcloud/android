@@ -2,6 +2,7 @@
  *   Nextcloud Android client application
  *
  *   Copyright (C) 2018 Edvard Holst
+ *   Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -19,7 +20,6 @@
 package com.owncloud.android.ui.activities;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,17 +28,20 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.di.ViewModelFactory;
 import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.lib.resources.activities.model.RichObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activity.DrawerActivity;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
@@ -52,20 +55,18 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_ACCOUNT;
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_FILE;
 
-public class ActivitiesActivity extends DrawerActivity implements ActivityListInterface, ActivitiesContract.View {
+public class ActivitiesActivity extends DrawerActivity implements ActivityListInterface {
     private static final String TAG = ActivitiesActivity.class.getSimpleName();
-    private static final int UNDEFINED = -1;
 
     @BindView(R.id.empty_list_view)
     public LinearLayout emptyContentContainer;
@@ -88,70 +89,37 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     @BindView(android.R.id.list)
     public RecyclerView recyclerView;
 
-    @BindString(R.string.activities_no_results_headline)
-    public String noResultsHeadline;
-
-    @BindString(R.string.activities_no_results_message)
-    public String noResultsMessage;
-
     private ActivityListAdapter adapter;
-    private Unbinder unbinder;
-    private int lastGiven;
 
-    private boolean isLoadingActivities;
-
-    private ActivitiesContract.ActionListener mActionListener;
-    @Inject ActivitiesRepository activitiesRepository;
-    @Inject FilesRepository filesRepository;
     @Inject ClientFactory clientFactory;
+    @Inject ViewModelFactory vmFactory;
+    @Inject UserAccountManager accountManager;
+    private ActivitiesViewModel vm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log_OC.v(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
-
-        mActionListener = new ActivitiesPresenter(activitiesRepository, filesRepository, this);
-
         setContentView(R.layout.activity_list_layout);
-        unbinder = ButterKnife.bind(this);
-
-        // setup toolbar
-        setupToolbar();
-
-        ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
-
-        // setup drawer
         setupDrawer(R.id.nav_activity);
+        vm = new ViewModelProvider(this, vmFactory).get(ActivitiesViewModel.class);
+        ButterKnife.bind(this);
+        setupToolbar();
+        setupUi();
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_activities));
 
         swipeListRefreshLayout.setOnRefreshListener(() -> {
-            // We set lastGiven variable to undefined here since when manually refreshing
-            // activities data we want to clear the list and reset the pagination.
-            lastGiven = UNDEFINED;
-            mActionListener.loadActivities(lastGiven);
+            vm.refresh();
         });
 
-        // Since we use swipe-to-refresh for progress indication we can hide the inherited
-        // progressBar, message and headline
-        emptyContentProgressBar.setVisibility(View.GONE);
-        emptyContentMessage.setVisibility(View.INVISIBLE);
-        emptyContentHeadline.setVisibility(View.INVISIBLE);
+        vm.getActivities().observe(this, this::onActivitiesChanged);
+        vm.isLoading().observe(this, this::onIsLoadingChanged);
+        vm.getError().observe(this, this::onError);
+        vm.getFile().observe(this, this::onLoadedActivity);
+        vm.startLoading();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
-    }
-
-    /**
-     * sets up the UI elements and loads all activity items.
-     */
-    private void setupContent() {
-        emptyContentIcon.setImageResource(R.drawable.ic_activity);
-        emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(this),
-                                                                          PorterDuff.Mode.SRC_IN);
-
+    private void setupUi() {
+        ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
         FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
         adapter = new ActivityListAdapter(this,
                                           getUserAccountManager(),
@@ -162,29 +130,74 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
                                           false);
         recyclerView.setAdapter(adapter);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
                 int visibleItemCount = recyclerView.getChildCount();
                 int totalItemCount = layoutManager.getItemCount();
                 int firstVisibleItemIndex = layoutManager.findFirstVisibleItemPosition();
-
-                // synchronize loading state when item count changes
-                if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5)
-                    && lastGiven > 0) {
-                    // Almost reached the end, continue to load new activities
-                    mActionListener.loadActivities(lastGiven);
+                if ((totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5)) {
+                    vm.loadMore();
                 }
             }
         });
 
-        mActionListener.loadActivities(UNDEFINED);
+        emptyContentHeadline.setText(R.string.activities_no_results_headline);
+        emptyContentMessage.setText(R.string.activities_no_results_message);
+        emptyContentProgressBar.setVisibility(View.GONE);
+        emptyContentIcon.setVisibility(View.VISIBLE);
+        emptyContentIcon.setImageResource(R.drawable.ic_activity);
+        emptyContentHeadline.setVisibility(View.VISIBLE);
+        emptyContentMessage.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showFiles(boolean onDeviceOnly) {
+        super.showFiles(onDeviceOnly);
+        Intent i = new Intent(getApplicationContext(), FileDisplayActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
+    private void onIsLoadingChanged(boolean isLoading) {
+        swipeListRefreshLayout.setRefreshing(isLoading);
+    }
+
+    private void onActivitiesChanged(List<Activity> activities) {
+        adapter.setActivityItems(activities);
+        if (activities.isEmpty()) {
+            emptyContentContainer.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+        } else {
+            emptyContentContainer.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void onError(String error) {
+        if (error != null && !error.isEmpty()) {
+            DisplayUtils.showSnackMessage(this, error);
+            vm.clearError();
+        }
+    }
+
+    private void onLoadedActivity(OCFile file) {
+        if (file != null) {
+            Intent showDetailsIntent;
+            if (PreviewImageFragment.canBePreviewed(file)) {
+                showDetailsIntent = new Intent(getBaseContext(), PreviewImageActivity.class);
+            } else {
+                showDetailsIntent = new Intent(getBaseContext(), FileDisplayActivity.class);
+            }
+            showDetailsIntent.putExtra(EXTRA_FILE, file);
+            showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
+            startActivity(showDetailsIntent);
+        } else {
+            DisplayUtils.showSnackMessage(this, R.string.file_not_found);
+        }
     }
 
     @Override
@@ -208,108 +221,15 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
         return retval;
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-
-        mActionListener.onResume();
-
         setDrawerMenuItemChecked(R.id.nav_activity);
-
-        setupContent();
     }
 
     @Override
     public void onActivityClicked(RichObject richObject) {
         String path = FileUtils.PATH_SEPARATOR + richObject.getPath();
-        mActionListener.openActivity(path, this);
-    }
-
-    @Override
-    public void showActivities(List<Object> activities, NextcloudClient client, int lastGiven) {
-        boolean clear = false;
-        if (this.lastGiven == UNDEFINED) {
-            clear = true;
-        }
-        adapter.setActivityItems(activities, client, clear);
-        this.lastGiven = lastGiven;
-
-        // Hide the recyclerView if list is empty
-        if (adapter.isEmpty()) {
-            showEmptyContent(noResultsHeadline, noResultsMessage);
-            recyclerView.setVisibility(View.INVISIBLE);
-        } else {
-            emptyContentMessage.setVisibility(View.INVISIBLE);
-            emptyContentHeadline.setVisibility(View.INVISIBLE);
-
-            recyclerView.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void showActivitiesLoadError(String error) {
-        DisplayUtils.showSnackMessage(this, error);
-    }
-
-    @Override
-    public void showActivityDetailUI(OCFile ocFile) {
-        Intent showDetailsIntent;
-        if (PreviewImageFragment.canBePreviewed(ocFile)) {
-            showDetailsIntent = new Intent(getBaseContext(), PreviewImageActivity.class);
-        } else {
-            showDetailsIntent = new Intent(getBaseContext(), FileDisplayActivity.class);
-        }
-        showDetailsIntent.putExtra(EXTRA_FILE, ocFile);
-        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
-        startActivity(showDetailsIntent);
-
-    }
-
-    @Override
-    public void showActivityDetailUIIsNull() {
-        DisplayUtils.showSnackMessage(this, R.string.file_not_found);
-    }
-
-    @Override
-    public void showActivityDetailError(String error) {
-        DisplayUtils.showSnackMessage(this, error);
-    }
-
-    @Override
-    public void showLoadingMessage() {
-        emptyContentHeadline.setText(R.string.file_list_loading);
-        emptyContentMessage.setText("");
-
-        emptyContentIcon.setVisibility(View.GONE);
-        emptyContentProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void showEmptyContent(String headline, String message) {
-        if (emptyContentContainer != null && emptyContentMessage != null) {
-            emptyContentHeadline.setText(headline);
-            emptyContentMessage.setText(message);
-
-            emptyContentProgressBar.setVisibility(View.GONE);
-            emptyContentIcon.setVisibility(View.VISIBLE);
-            emptyContentHeadline.setVisibility(View.VISIBLE);
-            emptyContentMessage.setVisibility(View.VISIBLE);
-
-        }
-    }
-
-    @Override
-    public void setProgressIndicatorState(boolean isActive) {
-        isLoadingActivities = isActive;
-        swipeListRefreshLayout.post(() -> swipeListRefreshLayout.setRefreshing(isActive));
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        mActionListener.onStop();
+        vm.openFile(path);
     }
 }

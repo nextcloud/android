@@ -72,9 +72,6 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
     }
 
     public void setActivityAndVersionItems(List<Object> items, NextcloudClient newClient, boolean clear) {
-        if (client == null) {
-            client = newClient;
-        }
         if (clear) {
             values.clear();
             Collections.sort(items, (o1, o2) -> {
