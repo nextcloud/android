@@ -1,0 +1,10 @@
+l10n: Add a period in the text string
+updated tests Upload: - obey LOCAL_BEHAVIOUR_COPY - correct storage path for encrypted files in subdirectories
+Fix crash when showing default storage friendly name
+parseColor("") throws IndexOutOfBounds, so catch all Exceptions is better
+open vcf works again
+only remove nextcloud accounts (no permission for others) contact backup job: better rename than ask user, as we want to have backup not delayed add test for contacts backup/import/vcard
+wrong storage location
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
