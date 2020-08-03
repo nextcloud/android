@@ -1,4 +1,4 @@
-## 3.13.0 RC2 (July, 30, 2020)
+## 3.13.0 RC2 (July, 31, 2020)
 
 - new UI overhaul @Shagequi @JorisBodin
 - E2EE beta support
