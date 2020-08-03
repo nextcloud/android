@@ -1864,10 +1864,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void resetHeaderScrollingState() {
-        AppBarLayout appBarLayout = ((FileDisplayActivity) requireActivity()).findViewById(R.id.appbar);
+        if (requireActivity() instanceof FileDisplayActivity) {
+            AppBarLayout appBarLayout = ((FileDisplayActivity) requireActivity()).findViewById(R.id.appbar);
 
-        if (appBarLayout != null) {
-            appBarLayout.setExpanded(true);
+            if (appBarLayout != null) {
+                appBarLayout.setExpanded(true);
+            }
         }
     }
 }
