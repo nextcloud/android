@@ -19,7 +19,7 @@
  */
 package com.nextcloud.client.files.downloader
 
-enum class DownloadState {
+enum class TransferState {
     PENDING,
     RUNNING,
     COMPLETED,

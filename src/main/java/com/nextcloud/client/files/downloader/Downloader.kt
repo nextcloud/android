@@ -28,9 +28,9 @@ interface Downloader {
      * Snapshot of downloader status. All data is immutable and can be safely shared.
      */
     data class Status(
-        val pending: List<Download>,
-        val running: List<Download>,
-        val completed: List<Download>
+        val pending: List<Transfer>,
+        val running: List<Transfer>,
+        val completed: List<Transfer>
     ) {
         companion object {
             val EMPTY = Status(emptyList(), emptyList(), emptyList())
@@ -50,12 +50,12 @@ interface Downloader {
     /**
      * Register download progress listener. Registration is idempotent - listener can be registered only once.
      */
-    fun registerDownloadListener(listener: (Download) -> Unit)
+    fun registerDownloadListener(listener: (Transfer) -> Unit)
 
     /**
      * Removes registered listener if exists.
      */
-    fun removeDownloadListener(listener: (Download) -> Unit)
+    fun removeDownloadListener(listener: (Transfer) -> Unit)
 
     /**
      * Register downloader status listener. Registration is idempotent - listener can be registered only once.
@@ -80,7 +80,7 @@ interface Downloader {
      * @param uuid Download process uuid
      * @return download status or null if not found
      */
-    fun getDownload(uuid: UUID): Download?
+    fun getDownload(uuid: UUID): Transfer?
 
     /**
      * Query user's downloader for a download status. It performs linear search
@@ -94,5 +94,5 @@ interface Downloader {
      * @param file Downloaded file
      * @return download status or null, if download does not exist
      */
-    fun getDownload(file: OCFile): Download?
+    fun getDownload(file: OCFile): Transfer?
 }

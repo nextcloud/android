@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.etm.EtmBaseFragment
-import com.nextcloud.client.files.downloader.Download
+import com.nextcloud.client.files.downloader.Direction
+import com.nextcloud.client.files.downloader.Transfer
 import com.nextcloud.client.files.downloader.Downloader
 import com.nextcloud.client.files.downloader.Request
 import com.owncloud.android.R
@@ -48,7 +49,7 @@ class EtmDownloaderFragment : EtmBaseFragment() {
                 }
         }
 
-        private var downloads = listOf<Download>()
+        private var downloads = listOf<Transfer>()
 
         fun setStatus(status: Downloader.Status) {
             downloads = listOf(status.pending, status.running, status.completed).flatten().reversed()
@@ -123,7 +124,12 @@ class EtmDownloaderFragment : EtmBaseFragment() {
     }
 
     private fun scheduleTestDownload() {
-        val request = Request(user = vm.currentUser, file = OCFile(TEST_DOWNLOAD_DUMMY_PATH), test = true)
+        val request = Request(
+            vm.currentUser,
+            OCFile(TEST_DOWNLOAD_DUMMY_PATH),
+            Direction.DOWNLOAD,
+            true
+        )
         vm.downloaderConnection.download(request)
     }
 

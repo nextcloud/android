@@ -50,11 +50,11 @@ class DownloaderImpl(
     }
 
     private val registry = Registry(
-        onStartDownload = this::onStartDownload,
-        onDownloadChanged = this::onDownloadUpdate,
+        onStartTransfer = this::onStartDownload,
+        onTransferChanged = this::onDownloadUpdate,
         maxRunning = threads
     )
-    private val downloadListeners: MutableSet<(Download) -> Unit> = mutableSetOf()
+    private val downloadListeners: MutableSet<(Transfer) -> Unit> = mutableSetOf()
     private val statusListeners: MutableSet<(Downloader.Status) -> Unit> = mutableSetOf()
 
     override val isRunning: Boolean get() = registry.isRunning
@@ -66,11 +66,11 @@ class DownloaderImpl(
             completed = registry.completed
         )
 
-    override fun registerDownloadListener(listener: (Download) -> Unit) {
+    override fun registerDownloadListener(listener: (Transfer) -> Unit) {
         downloadListeners.add(listener)
     }
 
-    override fun removeDownloadListener(listener: (Download) -> Unit) {
+    override fun removeDownloadListener(listener: (Transfer) -> Unit) {
         downloadListeners.remove(listener)
     }
 
@@ -87,9 +87,9 @@ class DownloaderImpl(
         registry.startNext()
     }
 
-    override fun getDownload(uuid: UUID): Download? = registry.getDownload(uuid)
+    override fun getDownload(uuid: UUID): Transfer? = registry.getTransfer(uuid)
 
-    override fun getDownload(file: OCFile): Download? = registry.getDownload(file)
+    override fun getDownload(file: OCFile): Transfer? = registry.getTransfer(file)
 
     private fun onStartDownload(uuid: UUID, request: Request) {
         val downloadTask = createDownloadTask(request)
@@ -115,8 +115,8 @@ class DownloaderImpl(
         }
     }
 
-    private fun onDownloadUpdate(download: Download) {
-        downloadListeners.forEach { it.invoke(download) }
+    private fun onDownloadUpdate(transfer: Transfer) {
+        downloadListeners.forEach { it.invoke(transfer) }
         if (statusListeners.isNotEmpty()) {
             val status = this.status
             statusListeners.forEach { it.invoke(status) }
