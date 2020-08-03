@@ -57,14 +57,14 @@ import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.files.downloader.Download;
-import com.nextcloud.client.files.downloader.DownloadState;
+import com.nextcloud.client.files.downloader.Direction;
+import com.nextcloud.client.files.downloader.Transfer;
+import com.nextcloud.client.files.downloader.TransferState;
 import com.nextcloud.client.files.downloader.DownloaderConnection;
 import com.nextcloud.client.files.downloader.Request;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
@@ -217,7 +217,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
         fileDownloader.registerDownloadListener(this::onDownloadUpdate);
         fileDownloader.bind();
         if (!ocFile.isDown()) {
-            Request request = new Request(user, ocFile);
+            Request request = new Request(user, ocFile, Direction.DOWNLOAD);
             fileDownloader.download(request);
         } else {
             loadContactsTask.execute();
@@ -503,9 +503,9 @@ public class ContactListFragment extends FileFragment implements Injectable {
         }
     }
 
-    private Unit onDownloadUpdate(Download download) {
+    private Unit onDownloadUpdate(Transfer download) {
         final Activity activity = getActivity();
-        if (download.getState() == DownloadState.COMPLETED && activity != null) {
+        if (download.getState() == TransferState.COMPLETED && activity != null) {
             ocFile = download.getFile();
             loadContactsTask.execute();
         }

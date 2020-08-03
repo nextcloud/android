@@ -29,7 +29,7 @@ import java.util.UUID
 
 class DownloaderConnection(context: Context, val user: User) : LocalConnection<DownloaderService>(context), Downloader {
 
-    private var downloadListeners: MutableSet<(Download) -> Unit> = mutableSetOf()
+    private var downloadListeners: MutableSet<(Transfer) -> Unit> = mutableSetOf()
     private var statusListeners: MutableSet<(Downloader.Status) -> Unit> = mutableSetOf()
     private var binder: DownloaderService.Binder? = null
     private val downloadsRequiringStatusRedelivery: MutableSet<UUID> = mutableSetOf()
@@ -40,9 +40,9 @@ class DownloaderConnection(context: Context, val user: User) : LocalConnection<D
     override val status: Downloader.Status
         get() = binder?.status ?: Downloader.Status.EMPTY
 
-    override fun getDownload(uuid: UUID): Download? = binder?.getDownload(uuid)
+    override fun getDownload(uuid: UUID): Transfer? = binder?.getDownload(uuid)
 
-    override fun getDownload(file: OCFile): Download? = binder?.getDownload(file)
+    override fun getDownload(file: OCFile): Transfer? = binder?.getDownload(file)
 
     override fun download(request: Request) {
         val intent = DownloaderService.createDownloadIntent(context, request)
@@ -52,12 +52,12 @@ class DownloaderConnection(context: Context, val user: User) : LocalConnection<D
         }
     }
 
-    override fun registerDownloadListener(listener: (Download) -> Unit) {
+    override fun registerDownloadListener(listener: (Transfer) -> Unit) {
         downloadListeners.add(listener)
         binder?.registerDownloadListener(listener)
     }
 
-    override fun removeDownloadListener(listener: (Download) -> Unit) {
+    override fun removeDownloadListener(listener: (Transfer) -> Unit) {
         downloadListeners.remove(listener)
         binder?.removeDownloadListener(listener)
     }

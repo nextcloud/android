@@ -45,14 +45,14 @@ import java.util.UUID
     RegistryTest.Start::class,
     RegistryTest.Progress::class,
     RegistryTest.Complete::class,
-    RegistryTest.GetDownloads::class,
+    RegistryTest.GetTransfers::class,
     RegistryTest.IsRunning::class
 )
 class RegistryTest {
 
     abstract class Base {
         companion object {
-            const val MAX_DOWNLOAD_THREADS = 4
+            const val MAX_TRANSFER_THREADS = 4
             const val PROGRESS_FULL = 100
             const val PROGRESS_HALF = 50
         }
@@ -63,10 +63,10 @@ class RegistryTest {
         lateinit var file: OCFile
 
         @MockK
-        lateinit var onDownloadStart: (UUID, Request) -> Unit
+        lateinit var onTransferStart: (UUID, Request) -> Unit
 
         @MockK
-        lateinit var onDownloadChanged: (Download) -> Unit
+        lateinit var onTransferChanged: (Transfer) -> Unit
 
         internal lateinit var registry: Registry
 
@@ -74,36 +74,36 @@ class RegistryTest {
         fun setUpBase() {
             MockKAnnotations.init(this, relaxed = true)
             file = OCFile("/test/path")
-            registry = Registry(onDownloadStart, onDownloadChanged, MAX_DOWNLOAD_THREADS)
+            registry = Registry(onTransferStart, onTransferChanged, MAX_TRANSFER_THREADS)
             resetMocks()
         }
 
         fun resetMocks() {
             clearAllMocks()
-            every { onDownloadStart(any(), any()) } answers {}
-            every { onDownloadChanged(any()) } answers {}
+            every { onTransferStart(any(), any()) } answers {}
+            every { onTransferChanged(any()) } answers {}
         }
     }
 
     class Pending : Base() {
 
         @Test
-        fun inserting_pending_download() {
+        fun inserting_pending_transfer() {
             // GIVEN
-            //      registry has no pending downloads
+            //      registry has no pending transfers
             assertEquals(0, registry.pending.size)
 
             // WHEN
-            //      new download requests added
-            val addedDownloadsCount = 10
-            for (i in 0 until addedDownloadsCount) {
+            //      new transfer requests added
+            val addedTransfersCount = 10
+            for (i in 0 until addedTransfersCount) {
                 val request = Request(user, file)
                 registry.add(request)
             }
 
             // THEN
-            //      download is added to the pending queue
-            assertEquals(addedDownloadsCount, registry.pending.size)
+            //      transfer is added to the pending queue
+            assertEquals(addedTransfersCount, registry.pending.size)
         }
     }
 
@@ -122,7 +122,7 @@ class RegistryTest {
         }
 
         @Test
-        fun starting_download() {
+        fun starting_transfer() {
             // WHEN
             //      started
             registry.startNext()
@@ -130,47 +130,47 @@ class RegistryTest {
             // THEN
             //      up to max threads requests are started
             //      start callback is triggered
-            //      update callback is triggered on download transition
-            //      started downloads are in running state
+            //      update callback is triggered on transfer transition
+            //      started transfers are in running state
             assertEquals(
-                "Downloads not moved to running queue",
-                MAX_DOWNLOAD_THREADS,
+                "Transfers not moved to running queue",
+                MAX_TRANSFER_THREADS,
                 registry.running.size
             )
             assertEquals(
-                "Downloads not moved from pending queue",
-                ENQUEUED_REQUESTS_COUNT - MAX_DOWNLOAD_THREADS,
+                "Transfers not moved from pending queue",
+                ENQUEUED_REQUESTS_COUNT - MAX_TRANSFER_THREADS,
                 registry.pending.size
             )
-            verify(exactly = MAX_DOWNLOAD_THREADS) { onDownloadStart(any(), any()) }
-            val startedDownloads = mutableListOf<Download>()
-            verify(exactly = MAX_DOWNLOAD_THREADS) { onDownloadChanged(capture(startedDownloads)) }
+            verify(exactly = MAX_TRANSFER_THREADS) { onTransferStart(any(), any()) }
+            val startedTransfers = mutableListOf<Transfer>()
+            verify(exactly = MAX_TRANSFER_THREADS) { onTransferChanged(capture(startedTransfers)) }
             assertEquals(
-                "Callbacks not invoked for running downloads",
-                MAX_DOWNLOAD_THREADS,
-                startedDownloads.size
+                "Callbacks not invoked for running transfers",
+                MAX_TRANSFER_THREADS,
+                startedTransfers.size
             )
-            startedDownloads.forEach {
-                assertEquals("Download not placed into running state", DownloadState.RUNNING, it.state)
+            startedTransfers.forEach {
+                assertEquals("Transfer not placed into running state", TransferState.RUNNING, it.state)
             }
         }
 
         @Test
         fun start_is_ignored_if_no_more_free_threads() {
             // WHEN
-            //      max number of running downloads
+            //      max number of running transfers
             registry.startNext()
-            assertEquals(MAX_DOWNLOAD_THREADS, registry.running.size)
+            assertEquals(MAX_TRANSFER_THREADS, registry.running.size)
             clearAllMocks()
 
             // WHEN
-            //      starting more downloads
+            //      starting more transfers
             registry.startNext()
 
             // THEN
-            //      no more downloads can be started
-            assertEquals(MAX_DOWNLOAD_THREADS, registry.running.size)
-            verify(exactly = 0) { onDownloadStart(any(), any()) }
+            //      no more transfers can be started
+            assertEquals(MAX_TRANSFER_THREADS, registry.running.size)
+            verify(exactly = 0) { onTransferStart(any(), any()) }
         }
     }
 
@@ -189,54 +189,54 @@ class RegistryTest {
         }
 
         @Test
-        fun download_progress_is_updated() {
+        fun transfer_progress_is_updated() {
             // GIVEN
-            //      a download is running
+            //      a transfer is running
 
             // WHEN
-            //      download progress is updated
+            //      transfer progress is updated
             val progressHalf = 50
             registry.progress(uuid, progressHalf)
 
             // THEN
             //      progress is updated
             //      update callback is invoked
-            val download = mutableListOf<Download>()
-            verify { onDownloadChanged(capture(download)) }
-            assertEquals(1, download.size)
-            assertEquals(progressHalf, download.first().progress)
+            val transfer = mutableListOf<Transfer>()
+            verify { onTransferChanged(capture(transfer)) }
+            assertEquals(1, transfer.size)
+            assertEquals(progressHalf, transfer.first().progress)
         }
 
         @Test
-        fun updates_for_non_running_downloads_are_ignored() {
+        fun updates_for_non_running_transfers_are_ignored() {
             // GIVEN
-            //      download is not running
+            //      transfer is not running
             registry.complete(uuid, true)
             assertEquals(0, registry.running.size)
             resetMocks()
 
             // WHEN
-            //      progress for a non-running download is updated
+            //      progress for a non-running transfer is updated
             registry.progress(uuid, PROGRESS_HALF)
 
             // THEN
             //      progress update is ignored
-            verify(exactly = 0) { onDownloadChanged(any()) }
+            verify(exactly = 0) { onTransferChanged(any()) }
         }
 
         @Test
-        fun updates_for_non_existing_downloads_are_ignored() {
+        fun updates_for_non_existing_transfers_are_ignored() {
             // GIVEN
-            //      some download is running
+            //      some transfer is running
 
             // WHEN
-            //      progress is updated for non-existing download
-            val nonExistingDownloadId = UUID.randomUUID()
-            registry.progress(nonExistingDownloadId, PROGRESS_HALF)
+            //      progress is updated for non-existing transfer
+            val nonExistingTransferId = UUID.randomUUID()
+            registry.progress(nonExistingTransferId, PROGRESS_HALF)
 
             // THEN
             //      progress uppdate is ignored
-            verify(exactly = 0) { onDownloadChanged(any()) }
+            verify(exactly = 0) { onTransferChanged(any()) }
         }
     }
 
@@ -253,81 +253,81 @@ class RegistryTest {
         }
 
         @Test
-        fun complete_successful_download_with_updated_file() {
+        fun complete_successful_transfer_with_updated_file() {
             // GIVEN
-            //      a download is running
+            //      a transfer is running
 
             // WHEN
-            //      download is completed
+            //      transfer is completed
             //      file has been updated
             val updatedFile = OCFile("/updated/file")
             registry.complete(uuid, true, updatedFile)
 
             // THEN
-            //      download is completed successfully
+            //      transfer is completed successfully
             //      status carries updated file
-            val slot = CapturingSlot<Download>()
-            verify { onDownloadChanged(capture(slot)) }
-            assertEquals(DownloadState.COMPLETED, slot.captured.state)
+            val slot = CapturingSlot<Transfer>()
+            verify { onTransferChanged(capture(slot)) }
+            assertEquals(TransferState.COMPLETED, slot.captured.state)
             assertSame(slot.captured.file, updatedFile)
         }
 
         @Test
-        fun complete_successful_download() {
+        fun complete_successful_transfer() {
             // GIVEN
-            //      a download is running
+            //      a transfer is running
 
             // WHEN
-            //      download is completed
+            //      transfer is completed
             //      file is not updated
             registry.complete(uuid = uuid, success = true, file = null)
 
             // THEN
-            //      download is completed successfully
+            //      transfer is completed successfully
             //      status carries previous file
-            val slot = CapturingSlot<Download>()
-            verify { onDownloadChanged(capture(slot)) }
-            assertEquals(DownloadState.COMPLETED, slot.captured.state)
+            val slot = CapturingSlot<Transfer>()
+            verify { onTransferChanged(capture(slot)) }
+            assertEquals(TransferState.COMPLETED, slot.captured.state)
             assertSame(slot.captured.file, file)
         }
 
         @Test
-        fun complete_failed_download() {
+        fun complete_failed_transfer() {
             // GIVEN
-            //      a download is running
+            //      a transfer is running
 
             // WHEN
-            //      download is failed
+            //      transfer is failed
             registry.complete(uuid, false)
 
             // THEN
-            //      download is completed successfully
-            val slot = CapturingSlot<Download>()
-            verify { onDownloadChanged(capture(slot)) }
-            assertEquals(DownloadState.FAILED, slot.captured.state)
+            //      transfer is completed successfully
+            val slot = CapturingSlot<Transfer>()
+            verify { onTransferChanged(capture(slot)) }
+            assertEquals(TransferState.FAILED, slot.captured.state)
         }
     }
 
-    class GetDownloads : Base() {
+    class GetTransfers : Base() {
 
-        val pendingDownloadFile = OCFile("/pending")
-        val runningDownloadFile = OCFile("/running")
-        val completedDownloadFile = OCFile("/completed")
+        val pendingTransferFile = OCFile("/pending")
+        val runningTransferFile = OCFile("/running")
+        val completedTransferFile = OCFile("/completed")
 
-        lateinit var pendingDownloadId: UUID
-        lateinit var runningDownloadId: UUID
-        lateinit var completedDownloadId: UUID
+        lateinit var pendingTransferId: UUID
+        lateinit var runningTransferId: UUID
+        lateinit var completedTransferId: UUID
 
         @Before
         fun setUp() {
-            completedDownloadId = registry.add(Request(user, completedDownloadFile))
+            completedTransferId = registry.add(Request(user, completedTransferFile))
             registry.startNext()
-            registry.complete(completedDownloadId, true)
+            registry.complete(completedTransferId, true)
 
-            runningDownloadId = registry.add(Request(user, runningDownloadFile))
+            runningTransferId = registry.add(Request(user, runningTransferFile))
             registry.startNext()
 
-            pendingDownloadId = registry.add(Request(user, pendingDownloadFile))
+            pendingTransferId = registry.add(Request(user, pendingTransferFile))
             resetMocks()
 
             assertEquals(1, registry.pending.size)
@@ -338,121 +338,121 @@ class RegistryTest {
         @Test
         fun get_by_path_searches_pending_queue() {
             // GIVEN
-            //      file download is pending
+            //      file transfer is pending
 
             // WHEN
-            //      download status is retrieved
-            val download = registry.getDownload(pendingDownloadFile)
+            //      transfer status is retrieved
+            val transfer = registry.getTransfer(pendingTransferFile)
 
             // THEN
-            //      download from pending queue is returned
-            assertNotNull(download)
-            assertEquals(pendingDownloadId, download?.uuid)
+            //      transfer from pending queue is returned
+            assertNotNull(transfer)
+            assertEquals(pendingTransferId, transfer?.uuid)
         }
 
         @Test
         fun get_by_id_searches_pending_queue() {
             // GIVEN
-            //      file download is pending
+            //      file transfer is pending
 
             // WHEN
-            //      download status is retrieved
-            val download = registry.getDownload(pendingDownloadId)
+            //      transfer status is retrieved
+            val transfer = registry.getTransfer(pendingTransferId)
 
             // THEN
-            //      download from pending queue is returned
-            assertNotNull(download)
-            assertEquals(pendingDownloadId, download?.uuid)
+            //      transfer from pending queue is returned
+            assertNotNull(transfer)
+            assertEquals(pendingTransferId, transfer?.uuid)
         }
 
         @Test
         fun get_by_path_searches_running_queue() {
             // GIVEN
-            //      file download is running
+            //      file transfer is running
 
             // WHEN
-            //      download status is retrieved
-            val download = registry.getDownload(runningDownloadFile)
+            //      transfer status is retrieved
+            val transfer = registry.getTransfer(runningTransferFile)
 
             // THEN
-            //      download from pending queue is returned
-            assertNotNull(download)
-            assertEquals(runningDownloadId, download?.uuid)
+            //      transfer from pending queue is returned
+            assertNotNull(transfer)
+            assertEquals(runningTransferId, transfer?.uuid)
         }
 
         @Test
         fun get_by_id_searches_running_queue() {
             // GIVEN
-            //      file download is running
+            //      file transfer is running
 
             // WHEN
-            //      download status is retrieved
-            val download = registry.getDownload(runningDownloadId)
+            //      transfer status is retrieved
+            val transfer = registry.getTransfer(runningTransferId)
 
             // THEN
-            //      download from pending queue is returned
-            assertNotNull(download)
-            assertEquals(runningDownloadId, download?.uuid)
+            //      transfer from pending queue is returned
+            assertNotNull(transfer)
+            assertEquals(runningTransferId, transfer?.uuid)
         }
 
         @Test
         fun get_by_path_searches_completed_queue() {
             // GIVEN
-            //      file download is pending
+            //      file transfer is pending
 
             // WHEN
-            //      download status is retrieved
-            val download = registry.getDownload(completedDownloadFile)
+            //      transfer status is retrieved
+            val transfer = registry.getTransfer(completedTransferFile)
 
             // THEN
-            //      download from pending queue is returned
-            assertNotNull(download)
-            assertEquals(completedDownloadId, download?.uuid)
+            //      transfer from pending queue is returned
+            assertNotNull(transfer)
+            assertEquals(completedTransferId, transfer?.uuid)
         }
 
         @Test
         fun get_by_id_searches_completed_queue() {
             // GIVEN
-            //      file download is pending
+            //      file transfer is pending
 
             // WHEN
-            //      download status is retrieved
-            val download = registry.getDownload(completedDownloadId)
+            //      transfer status is retrieved
+            val transfer = registry.getTransfer(completedTransferId)
 
             // THEN
-            //      download from pending queue is returned
-            assertNotNull(download)
-            assertEquals(completedDownloadId, download?.uuid)
+            //      transfer from pending queue is returned
+            assertNotNull(transfer)
+            assertEquals(completedTransferId, transfer?.uuid)
         }
 
         @Test
         fun not_found_by_path() {
             // GIVEN
-            //      no download for a file
-            val nonExistingDownloadFile = OCFile("/non-nexisting/download")
+            //      no transfer for a file
+            val nonExistingTransferFile = OCFile("/non-nexisting/transfer")
 
             // WHEN
-            //      download status is retrieved for a file
-            val download = registry.getDownload(nonExistingDownloadFile)
+            //      transfer status is retrieved for a file
+            val transfer = registry.getTransfer(nonExistingTransferFile)
 
             // THEN
-            //      no download is found
-            assertNull(download)
+            //      no transfer is found
+            assertNull(transfer)
         }
 
         @Test
         fun not_found_by_id() {
             // GIVEN
-            //      no download for an id
+            //      no transfer for an id
             val nonExistingId = UUID.randomUUID()
 
             // WHEN
-            //      download status is retrieved for a file
-            val download = registry.getDownload(nonExistingId)
+            //      transfer status is retrieved for a file
+            val transfer = registry.getTransfer(nonExistingId)
 
             // THEN
-            //      no download is found
-            assertNull(download)
+            //      no transfer is found
+            assertNull(transfer)
         }
     }
 
