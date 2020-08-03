@@ -28,11 +28,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
@@ -40,6 +38,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.TrashbinActivityBinding;
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 import com.owncloud.android.ui.EmptyRecyclerView;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -55,13 +54,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.VisibleForTesting;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
@@ -74,44 +69,16 @@ public class TrashbinActivity extends FileActivity implements
     TrashbinContract.View,
     Injectable {
 
-    @BindView(R.id.empty_list_progress)
-    public View emptyListProgress;
-
-    @BindView(R.id.empty_list_view)
-    public View emptyListView;
-
-    @BindView(R.id.empty_list_view_text)
-    public TextView emptyContentMessage;
-
-    @BindView(R.id.empty_list_view_headline)
-    public TextView emptyContentHeadline;
-
-    @BindView(R.id.empty_list_icon)
-    public ImageView emptyContentIcon;
-
-    @BindView(android.R.id.list)
-    public EmptyRecyclerView recyclerView;
-
-    @BindView(R.id.swipe_containing_list)
-    public SwipeRefreshLayout swipeListRefreshLayout;
-
-    @BindView(R.id.sort_button)
-    public MaterialButton sortButton;
-
-    @BindString(R.string.trashbin_empty_headline)
-    public String noResultsHeadline;
-
-    @BindString(R.string.trashbin_empty_message)
-    public String noResultsMessage;
-
     @Inject AppPreferences preferences;
     @Inject CurrentAccountProvider accountProvider;
     @Inject ClientFactory clientFactory;
-    private Unbinder unbinder;
     private TrashbinListAdapter trashbinListAdapter;
-    private TrashbinPresenter trashbinPresenter;
+
+    @VisibleForTesting
+    TrashbinPresenter trashbinPresenter;
 
     private boolean active;
+    private TrashbinActivityBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,8 +86,10 @@ public class TrashbinActivity extends FileActivity implements
         final User user = accountProvider.getUser();
         final RemoteTrashbinRepository trashRepository = new RemoteTrashbinRepository(user, clientFactory);
         trashbinPresenter = new TrashbinPresenter(trashRepository, this);
-        setContentView(R.layout.trashbin_activity);
-        unbinder = ButterKnife.bind(this);
+
+        binding = TrashbinActivityBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         setupToolbar();
         findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
         findViewById(R.id.switch_grid_view_button).setVisibility(View.GONE);
@@ -136,14 +105,14 @@ public class TrashbinActivity extends FileActivity implements
     }
 
     private void setupContent() {
-        recyclerView = findViewById(android.R.id.list);
-        recyclerView.setEmptyView(emptyListView);
-        emptyListView.setVisibility(View.GONE);
-        emptyContentIcon.setImageResource(R.drawable.ic_delete);
-        emptyContentIcon.setVisibility(View.VISIBLE);
-        emptyContentHeadline.setText(noResultsHeadline);
-        emptyContentMessage.setText(noResultsMessage);
-        emptyContentMessage.setVisibility(View.VISIBLE);
+        EmptyRecyclerView recyclerView = binding.list;
+        recyclerView.setEmptyView(binding.emptyList.emptyListView);
+        binding.emptyList.emptyListView.setVisibility(View.GONE);
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_delete);
+        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListViewHeadline.setText(getString(R.string.trashbin_empty_headline));
+        binding.emptyList.emptyListViewText.setText(getString(R.string.trashbin_empty_message));
+        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
 
         trashbinListAdapter = new TrashbinListAdapter(
             this,
@@ -157,21 +126,21 @@ public class TrashbinActivity extends FileActivity implements
         recyclerView.setHasFooter(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
-        swipeListRefreshLayout.setOnRefreshListener(this::loadFolder);
+        ThemeUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
+        binding.swipeContainingList.setOnRefreshListener(this::loadFolder);
 
-        sortButton.setOnClickListener(l ->
-                                          openSortingOrderDialogFragment(getSupportFragmentManager(),
-                                                                         preferences.getSortOrderByType(
-                                                                             FileSortOrder.Type.trashBinView,
-                                                                             FileSortOrder.sort_new_to_old))
-                                     );
+        findViewById(R.id.sort_button).setOnClickListener(l ->
+                                                              openSortingOrderDialogFragment(getSupportFragmentManager(),
+                                                                                             preferences.getSortOrderByType(
+                                                                                                 FileSortOrder.Type.trashBinView,
+                                                                                                 FileSortOrder.sort_new_to_old))
+                                                         );
 
         loadFolder();
     }
 
-    private void loadFolder() {
-        swipeListRefreshLayout.setRefreshing(true);
+    protected void loadFolder() {
+        binding.swipeContainingList.setRefreshing(true);
         trashbinPresenter.loadFolder();
     }
 
@@ -207,12 +176,6 @@ public class TrashbinActivity extends FileActivity implements
         }
 
         return retval;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
     }
 
     @Override
@@ -273,6 +236,7 @@ public class TrashbinActivity extends FileActivity implements
 
     @Override
     public void onSortingOrderChosen(FileSortOrder sortOrder) {
+        TextView sortButton = findViewById(R.id.sort_button);
         sortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
         trashbinListAdapter.setSortOrder(sortOrder);
     }
@@ -281,8 +245,8 @@ public class TrashbinActivity extends FileActivity implements
     public void showTrashbinFolder(List<Object> trashbinFiles) {
         if (active) {
             trashbinListAdapter.setTrashbinFiles(trashbinFiles, true);
-            swipeListRefreshLayout.setRefreshing(false);
-            emptyListProgress.setVisibility(View.GONE);
+            binding.swipeContainingList.setRefreshing(false);
+            binding.emptyList.emptyListProgress.setVisibility(View.GONE);
         }
     }
 
@@ -301,8 +265,9 @@ public class TrashbinActivity extends FileActivity implements
     @Override
     public void showSnackbarError(int message, TrashbinFile file) {
         if (active) {
-            swipeListRefreshLayout.setRefreshing(false);
-            Snackbar.make(recyclerView, String.format(getString(message), file.getFileName()), Snackbar.LENGTH_LONG)
+            binding.swipeContainingList.setRefreshing(false);
+            Snackbar.make(binding.list,
+                          String.format(getString(message), file.getFileName()), Snackbar.LENGTH_LONG)
                 .show();
         }
     }
@@ -310,20 +275,17 @@ public class TrashbinActivity extends FileActivity implements
     @Override
     public void showError(int message) {
         if (active) {
-            swipeListRefreshLayout.setRefreshing(false);
+            binding.swipeContainingList.setRefreshing(false);
 
-            if (emptyContentMessage != null) {
-                emptyContentHeadline.setText(R.string.common_error);
-                emptyContentIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
-                                                                              R.drawable.ic_list_empty_error,
-                                                                              null));
-                emptyContentMessage.setText(message);
-
-                emptyContentMessage.setVisibility(View.VISIBLE);
-                emptyContentIcon.setVisibility(View.VISIBLE);
-                emptyListView.setVisibility(View.VISIBLE);
-                emptyListProgress.setVisibility(View.GONE);
-            }
+            binding.emptyList.emptyListViewHeadline.setText(R.string.common_error);
+            binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
+                                                                                         R.drawable.ic_list_empty_error,
+                                                                                         null));
+            binding.emptyList.emptyListViewText.setText(message);
+            binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
+            binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
+            binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
+            binding.emptyList.emptyListProgress.setVisibility(View.GONE);
         }
     }
 }
