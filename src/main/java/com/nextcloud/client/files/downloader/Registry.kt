@@ -27,9 +27,9 @@ import kotlin.math.max
 import kotlin.math.min
 
 /**
- * This class tracks status of all downloads. It serves as a state
- * machine and drives the download background task scheduler via callbacks.
- * Download status updates are triggering change callbacks that should be used
+ * This class tracks status of file transfers. It serves as a state
+ * machine and drives the transfer background task scheduler via callbacks.
+ * Transfer status updates trigger change callbacks that should be used
  * to notify listeners.
  *
  * No listener registration mechanism is provided at this level.
@@ -37,106 +37,106 @@ import kotlin.math.min
  * This class is not thread-safe. All access from multiple threads shall
  * be lock protected.
  *
- * @property onStartDownload callback triggered when download is switched into running state
- * @property onDownloadChanged callback triggered whenever download status update
- * @property maxRunning maximum number of allowed simultaneous downloads
+ * @property onStartTransfer callback triggered when transfer is switched into running state
+ * @property onTransferChanged callback triggered whenever transfer status update
+ * @property maxRunning maximum number of allowed simultaneous transfers
  */
 internal class Registry(
-    private val onStartDownload: (UUID, Request) -> Unit,
-    private val onDownloadChanged: (Download) -> Unit,
+    private val onStartTransfer: (UUID, Request) -> Unit,
+    private val onTransferChanged: (Transfer) -> Unit,
     private val maxRunning: Int = 2
 ) {
-    private val pendingQueue = TreeMap<UUID, Download>()
-    private val runningQueue = TreeMap<UUID, Download>()
-    private val completedQueue = TreeMap<UUID, Download>()
+    private val pendingQueue = TreeMap<UUID, Transfer>()
+    private val runningQueue = TreeMap<UUID, Transfer>()
+    private val completedQueue = TreeMap<UUID, Transfer>()
 
     val isRunning: Boolean get() = pendingQueue.size > 0 || runningQueue.size > 0
 
-    val pending: List<Download> get() = pendingQueue.map { it.value }
-    val running: List<Download> get() = runningQueue.map { it.value }
-    val completed: List<Download> get() = completedQueue.map { it.value }
+    val pending: List<Transfer> get() = pendingQueue.map { it.value }
+    val running: List<Transfer> get() = runningQueue.map { it.value }
+    val completed: List<Transfer> get() = completedQueue.map { it.value }
 
     /**
-     * Insert new download into a pending queue.
+     * Insert new transfer into a pending queue.
      *
-     * @return scheduled download id
+     * @return scheduled transfer id
      */
     fun add(request: Request): UUID {
-        val download = Download(
+        val transfer = Transfer(
             uuid = request.uuid,
-            state = DownloadState.PENDING,
+            state = TransferState.PENDING,
             progress = 0,
             file = request.file,
             request = request
         )
-        pendingQueue[download.uuid] = download
-        return download.uuid
+        pendingQueue[transfer.uuid] = transfer
+        return transfer.uuid
     }
 
     /**
-     * Move pending downloads into a running queue up
-     * to max allowed simultaneous downloads.
+     * Move pending transfers into a running queue up
+     * to max allowed simultaneous transfers.
      */
     fun startNext() {
         val freeThreads = max(0, maxRunning - runningQueue.size)
         for (i in 0 until min(freeThreads, pendingQueue.size)) {
             val key = pendingQueue.firstKey()
-            val pendingDownload = pendingQueue.remove(key) ?: throw IllegalStateException("Download $key not exist.")
-            val runningDownload = pendingDownload.copy(state = DownloadState.RUNNING)
-            runningQueue[key] = runningDownload
-            onStartDownload.invoke(key, runningDownload.request)
-            onDownloadChanged(runningDownload)
+            val pendingTransfer = pendingQueue.remove(key) ?: throw IllegalStateException("Transfer $key not found")
+            val runningTransfer = pendingTransfer.copy(state = TransferState.RUNNING)
+            runningQueue[key] = runningTransfer
+            onStartTransfer.invoke(key, runningTransfer.request)
+            onTransferChanged(runningTransfer)
         }
     }
 
     /**
-     * Update progress for a given download. If no download of a given id is currently running,
+     * Update progress for a given transfer. If no transfer of a given id is currently running,
      * update is ignored.
      *
-     * @param uuid ID of the download to update
+     * @param uuid ID of the transfer to update
      * @param progress progress 0-100%
      */
     fun progress(uuid: UUID, progress: Int) {
-        val download = runningQueue[uuid]
-        if (download != null) {
-            val runningDownload = download.copy(progress = progress)
-            runningQueue[uuid] = runningDownload
-            onDownloadChanged(runningDownload)
+        val transfer = runningQueue[uuid]
+        if (transfer != null) {
+            val runningTransfer = transfer.copy(progress = progress)
+            runningQueue[uuid] = runningTransfer
+            onTransferChanged(runningTransfer)
         }
     }
 
     /**
-     * Complete currently running download. If no download of a given id is currently running,
+     * Complete currently running transfer. If no transfer of a given id is currently running,
      * update is ignored.
      *
-     * @param uuid of the download to complete
-     * @param success if true, download will be marked as completed; if false - as failed
-     * @param file if provided, update file in download status; if null, existing value is retained
+     * @param uuid of the transfer to complete
+     * @param success if true, transfer will be marked as completed; if false - as failed
+     * @param file if provided, update file in transfer status; if null, existing value is retained
      */
     fun complete(uuid: UUID, success: Boolean, file: OCFile? = null) {
-        val download = runningQueue.remove(uuid)
-        if (download != null) {
+        val transfer = runningQueue.remove(uuid)
+        if (transfer != null) {
             val status = if (success) {
-                DownloadState.COMPLETED
+                TransferState.COMPLETED
             } else {
-                DownloadState.FAILED
+                TransferState.FAILED
             }
-            val completedDownload = download.copy(state = status, file = file ?: download.file)
-            completedQueue[uuid] = completedDownload
-            onDownloadChanged(completedDownload)
+            val completedTransfer = transfer.copy(state = status, file = file ?: transfer.file)
+            completedQueue[uuid] = completedTransfer
+            onTransferChanged(completedTransfer)
         }
     }
 
     /**
-     * Search for a download by file path. It traverses
+     * Search for a transfer by file path. It traverses
      * through all queues in order of pending, running and completed
-     * downloads and returns first download status matching
+     * transfers and returns first transfer status matching
      * file path.
      *
-     * @param file Search for a file download
-     * @return download status if found, null otherwise
+     * @param file Search for a file transfer
+     * @return transfer status if found, null otherwise
      */
-    fun getDownload(file: OCFile): Download? {
+    fun getTransfer(file: OCFile): Transfer? {
         arrayOf(pendingQueue, runningQueue, completedQueue).forEach { queue ->
             queue.forEach { entry ->
                 if (entry.value.request.file.remotePath == file.remotePath) {
@@ -148,15 +148,15 @@ internal class Registry(
     }
 
     /**
-     * Get download status by id. It traverses
+     * Get transfer status by id. It traverses
      * through all queues in order of pending, running and completed
-     * downloads and returns first download status matching
+     * transfers and returns first transfer status matching
      * file path.
      *
-     * @param id download id
-     * @return download status if found, null otherwise
+     * @param id transfer id
+     * @return transfer status if found, null otherwise
      */
-    fun getDownload(uuid: UUID): Download? {
+    fun getTransfer(uuid: UUID): Transfer? {
         return pendingQueue[uuid] ?: runningQueue[uuid] ?: completedQueue[uuid]
     }
 }

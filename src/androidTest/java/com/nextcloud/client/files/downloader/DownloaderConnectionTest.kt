@@ -42,10 +42,10 @@ class DownloaderConnectionTest {
     lateinit var context: Context
 
     @MockK
-    lateinit var firstDownloadListener: (Download) -> Unit
+    lateinit var firstDownloadListener: (Transfer) -> Unit
 
     @MockK
-    lateinit var secondDownloadListener: (Download) -> Unit
+    lateinit var secondDownloadListener: (Transfer) -> Unit
 
     @MockK
     lateinit var firstStatusListener: (Downloader.Status) -> Unit
@@ -80,7 +80,7 @@ class DownloaderConnectionTest {
 
         // THEN
         //      all listeners are passed to the service
-        val listeners = mutableListOf<(Download) -> Unit>()
+        val listeners = mutableListOf<(Transfer) -> Unit>()
         verify { binder.registerDownloadListener(capture(listeners)) }
         assertEquals(listOf(firstDownloadListener, secondDownloadListener), listeners)
     }
@@ -130,11 +130,11 @@ class DownloaderConnectionTest {
 
         val request1 = Request(user, file)
         connection.download(request1)
-        val download1 = Download(request1.uuid, DownloadState.RUNNING, 50, request1.file, request1)
+        val download1 = Transfer(request1.uuid, TransferState.RUNNING, 50, request1.file, request1)
 
         val request2 = Request(user, file)
         connection.download(request2)
-        val download2 = Download(request2.uuid, DownloadState.RUNNING, 50, request2.file, request1)
+        val download2 = Transfer(request2.uuid, TransferState.RUNNING, 50, request2.file, request1)
 
         every { binder.getDownload(request1.uuid) } returns download1
         every { binder.getDownload(request2.uuid) } returns download2
@@ -145,11 +145,11 @@ class DownloaderConnectionTest {
 
         // THEN
         //      listeners receive current download state for pending downloads
-        val firstListenerNotifications = mutableListOf<Download>()
+        val firstListenerNotifications = mutableListOf<Transfer>()
         verify { firstDownloadListener(capture(firstListenerNotifications)) }
         assertEquals(listOf(download1, download2), firstListenerNotifications)
 
-        val secondListenerNotifications = mutableListOf<Download>()
+        val secondListenerNotifications = mutableListOf<Transfer>()
         verify { secondDownloadListener(capture(secondListenerNotifications)) }
         assertEquals(listOf(download1, download2), secondListenerNotifications)
     }
@@ -225,7 +225,7 @@ class DownloaderConnectionTest {
         //      some downloads requested without listener
         val request = Request(user, file)
         connection.download(request)
-        val download = Download(request.uuid, DownloadState.RUNNING, 50, request.file, request)
+        val download = Transfer(request.uuid, TransferState.RUNNING, 50, request.file, request)
         connection.registerDownloadListener(firstDownloadListener)
         every { binder.getDownload(request.uuid) } returns download
 
