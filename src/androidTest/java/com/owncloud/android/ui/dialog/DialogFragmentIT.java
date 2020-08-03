@@ -27,6 +27,9 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Looper;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.nextcloud.client.account.RegisteredUser;
 import com.nextcloud.client.account.Server;
@@ -161,6 +164,23 @@ public class DialogFragmentIT extends AbstractIT {
         getInstrumentation().waitForIdleSync();
         shortSleep();
 
+        ViewGroup viewGroup = dialog.requireDialog().getWindow().findViewById(android.R.id.content);
+        hideCursors(viewGroup);
+
         screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
+    }
+
+    private void hideCursors(ViewGroup viewGroup) {
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            View child = viewGroup.getChildAt(i);
+
+            if (child instanceof ViewGroup) {
+                hideCursors((ViewGroup) child);
+            }
+
+            if (child instanceof TextView) {
+                ((TextView) child).setCursorVisible(false);
+            }
+        }
     }
 }
