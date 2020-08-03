@@ -428,11 +428,15 @@ public class RefreshFolderOperation extends RemoteOperation {
         // update richWorkspace
         mLocalFolder.setRichWorkspace(remoteFolder.getRichWorkspace());
 
-        DecryptedFolderMetadata metadata = getDecryptedFolderMetadata(encryptedAncestor);
+        DecryptedFolderMetadata metadata = getDecryptedFolderMetadata(encryptedAncestor,
+                                                                      mLocalFolder,
+                                                                      getClient(),
+                                                                      mAccount,
+                                                                      mContext);
 
         // get current data about local contents of the folder to synchronize
         Map<String, OCFile> localFilesMap = prefillLocalFilesMap(metadata,
-                mStorageManager.getFolderContent(mLocalFolder, false));
+                                                                 mStorageManager.getFolderContent(mLocalFolder, false));
 
         // loop to update every child
         OCFile remoteFile;
@@ -468,7 +472,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
             // update file name for encrypted files
             if (metadata != null) {
-                updateFileNameForEncryptedFile(metadata, updatedFile);
+                updateFileNameForEncryptedFile(mStorageManager, metadata, updatedFile);
             }
 
             // we parse content, so either the folder itself or its direct parent (which we check) must be encrypted
@@ -481,7 +485,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         // save updated contents in local database
         // update file name for encrypted files
         if (metadata != null) {
-            updateFileNameForEncryptedFile(metadata, mLocalFolder);
+            updateFileNameForEncryptedFile(mStorageManager, metadata, mLocalFolder);
         }
         mStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
 
@@ -489,23 +493,29 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     @Nullable
-    private DecryptedFolderMetadata getDecryptedFolderMetadata(boolean encryptedAncestor) {
+    public static DecryptedFolderMetadata getDecryptedFolderMetadata(boolean encryptedAncestor,
+                                                                     OCFile localFolder,
+                                                                     OwnCloudClient client,
+                                                                     Account account,
+                                                                     Context context) {
         DecryptedFolderMetadata metadata;
         if (encryptedAncestor && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            metadata = EncryptionUtils.downloadFolderMetadata(mLocalFolder, getClient(), mContext, mAccount);
+            metadata = EncryptionUtils.downloadFolderMetadata(localFolder, client, context, account);
         } else {
             metadata = null;
         }
         return metadata;
     }
 
-    private void updateFileNameForEncryptedFile(@NonNull DecryptedFolderMetadata metadata, OCFile updatedFile) {
+    public static void updateFileNameForEncryptedFile(FileDataStorageManager storageManager,
+                                                      @NonNull DecryptedFolderMetadata metadata,
+                                                      OCFile updatedFile) {
         try {
             String decryptedFileName = metadata.getFiles().get(updatedFile.getFileName()).getEncrypted()
-                    .getFilename();
+                .getFilename();
             String mimetype = metadata.getFiles().get(updatedFile.getFileName()).getEncrypted().getMimetype();
 
-            OCFile parentFile = mStorageManager.getFileById(updatedFile.getParentId());
+            OCFile parentFile = storageManager.getFileById(updatedFile.getParentId());
             String decryptedRemotePath = parentFile.getDecryptedRemotePath() + decryptedFileName;
 
             if (updatedFile.isFolder()) {
@@ -535,7 +545,14 @@ public class RefreshFolderOperation extends RemoteOperation {
                     localFile.getModificationTimestampAtLastSyncForData()
             );
             if (localFile.isEncrypted()) {
-                updatedFile.setStoragePath(mLocalFolder.getStoragePath() + PATH_SEPARATOR + localFile.getFileName());
+                if (mLocalFolder.getStoragePath() == null) {
+                    updatedFile.setStoragePath(FileStorageUtils.getDefaultSavePathFor(mAccount.name, mLocalFolder) +
+                                                   localFile.getFileName());
+                } else {
+                    updatedFile.setStoragePath(mLocalFolder.getStoragePath() +
+                                                   PATH_SEPARATOR +
+                                                   localFile.getFileName());
+                }
             } else {
                 updatedFile.setStoragePath(localFile.getStoragePath());
             }
@@ -571,7 +588,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     @NonNull
-    private Map<String, OCFile> prefillLocalFilesMap(DecryptedFolderMetadata metadata, List<OCFile> localFiles) {
+    public static Map<String, OCFile> prefillLocalFilesMap(DecryptedFolderMetadata metadata, List<OCFile> localFiles) {
         Map<String, OCFile> localFilesMap = new HashMap<>(localFiles.size());
 
         for (OCFile file : localFiles) {
