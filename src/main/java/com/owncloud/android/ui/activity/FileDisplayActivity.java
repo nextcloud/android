@@ -49,6 +49,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -144,7 +145,7 @@ import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
  */
 
 public class FileDisplayActivity extends FileActivity
-        implements FileFragment.ContainerActivity,
+        implements FileFragment.ScrollableHeaderContainerActivity,
         OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener,
         SendShareDialog.SendShareDialogDownloader, Injectable {
 
@@ -1192,6 +1193,15 @@ public class FileDisplayActivity extends FileActivity
     @Override
     public void downloadFile(OCFile file, String packageName, String activityName) {
         startDownloadForSending(file, OCFileListFragment.DOWNLOAD_SEND, packageName, activityName);
+    }
+
+    @Override
+    public void resetHeaderScrollingState() {
+        AppBarLayout appBarLayout = findViewById(R.id.appbar);
+
+        if (appBarLayout != null) {
+            appBarLayout.setExpanded(true);
+        }
     }
 
     private class SyncBroadcastReceiver extends BroadcastReceiver {
