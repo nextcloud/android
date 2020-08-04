@@ -1,0 +1,6 @@
+Rename Download into Transfer
+TrashbinActivity: - moved to ViewBindings - add UI test for error/view
+OCFileListFragment can be used witout FDA, and this crashed
+change order of fastlane lanes
+Update Nextcloud Android library
+Update 3rd-party dependencies
