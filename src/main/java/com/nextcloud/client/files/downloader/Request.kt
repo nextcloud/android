@@ -26,33 +26,44 @@ import com.owncloud.android.datamodel.OCFile
 import java.util.UUID
 
 /**
- * Download request. This class should collect all information
- * required to trigger download operation.
+ * Transfer request. This class should collect all information
+ * required to trigger transfer operation.
  *
  * Class is immutable by design, although [OCFile] or other
  * types might not be immutable. Clients should no modify
  * contents of this object.
  *
- * @property user Download will be triggered for a given user
- * @property file Remote file to download
- * @property uuid Unique request identifier; this identifier can be set in [Download]
- * @property dummy if true, this requests a dummy test download; no real file transfer will occur
+ * @property user Transfer will be triggered for a given user
+ * @property file File to transfer
+ * @property uuid Unique request identifier; this identifier can be set in [Transfer]
+ * @property dummy if true, this requests a dummy test transfer; no real file transfer will occur
  */
 class Request internal constructor(
     val user: User,
     val file: OCFile,
     val uuid: UUID,
+    val type: Direction = Direction.DOWNLOAD,
     val test: Boolean = false
 ) : Parcelable {
 
-    constructor(user: User, file: OCFile) : this(user, file, UUID.randomUUID())
+    constructor(
+        user: User,
+        file: OCFile,
+        type: Direction = Direction.DOWNLOAD
+    ) : this(user, file, UUID.randomUUID(), type)
 
-    constructor(user: User, file: OCFile, test: Boolean) : this(user, file, UUID.randomUUID(), test)
+    constructor(
+        user: User,
+        file: OCFile,
+        type: Direction,
+        test: Boolean
+    ) : this(user, file, UUID.randomUUID(), type, test)
 
     constructor(parcel: Parcel) : this(
         user = parcel.readParcelable<User>(User::class.java.classLoader) as User,
         file = parcel.readParcelable<OCFile>(OCFile::class.java.classLoader) as OCFile,
         uuid = parcel.readSerializable() as UUID,
+        type = parcel.readSerializable() as Direction,
         test = parcel.readInt() != 0
     )
 
@@ -60,6 +71,7 @@ class Request internal constructor(
         parcel.writeParcelable(user, flags)
         parcel.writeParcelable(file, flags)
         parcel.writeSerializable(uuid)
+        parcel.writeSerializable(type)
         parcel.writeInt(if (test) 1 else 0)
     }
 

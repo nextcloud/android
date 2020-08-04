@@ -115,7 +115,7 @@ class DownloaderService : Service() {
         }
     }
 
-    private fun onDownloadUpdate(download: Download) {
+    private fun onDownloadUpdate(transfer: Transfer) {
         if (!isRunning) {
             logger.d(TAG, "All downloads completed")
             notificationsManager.cancelDownloadProgress()
@@ -123,10 +123,10 @@ class DownloaderService : Service() {
             stopSelf()
         } else {
             notificationsManager.postDownloadProgress(
-                fileOwner = download.request.user,
-                file = download.request.file,
-                progress = download.progress,
-                allowPreview = !download.request.test
+                fileOwner = transfer.request.user,
+                file = transfer.request.file,
+                progress = transfer.progress,
+                allowPreview = !transfer.request.test
             )
         }
     }

@@ -42,7 +42,7 @@ import org.mockito.MockitoAnnotations
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
     DownloaderTest.Enqueue::class,
-    DownloaderTest.DownloadStatusUpdates::class
+    DownloaderTest.TransferStatusUpdates::class
 )
 class DownloaderTest {
 
@@ -125,7 +125,7 @@ class DownloaderTest {
             // THEN
             //      download is started immediately
             val download = downloader.getDownload(request.uuid)
-            assertEquals(DownloadState.RUNNING, download?.state)
+            assertEquals(TransferState.RUNNING, download?.state)
         }
 
         @Test
@@ -137,7 +137,7 @@ class DownloaderTest {
                 val request = Request(user, file)
                 downloader.download(request)
                 val runningDownload = downloader.getDownload(request.uuid)
-                assertEquals(runningDownload?.state, DownloadState.RUNNING)
+                assertEquals(runningDownload?.state, TransferState.RUNNING)
             }
 
             // WHEN
@@ -149,11 +149,11 @@ class DownloaderTest {
             // THEN
             //      download is pending
             val download = downloader.getDownload(request.uuid)
-            assertEquals(DownloadState.PENDING, download?.state)
+            assertEquals(TransferState.PENDING, download?.state)
         }
     }
 
-    class DownloadStatusUpdates : Base() {
+    class TransferStatusUpdates : Base() {
 
         @get:Rule
         val rule = InstantTaskExecutorRule()
@@ -165,7 +165,7 @@ class DownloaderTest {
             // GIVEN
             //      download is running
             //      download is being observed
-            val downloadUpdates = mutableListOf<Download>()
+            val downloadUpdates = mutableListOf<Transfer>()
             downloader.registerDownloadListener { downloadUpdates.add(it) }
             downloader.download(Request(user, file))
 
@@ -175,8 +175,8 @@ class DownloaderTest {
 
             // THEN
             //      listener is notified about status change
-            assertEquals(DownloadState.RUNNING, downloadUpdates[0].state)
-            assertEquals(DownloadState.COMPLETED, downloadUpdates[1].state)
+            assertEquals(TransferState.RUNNING, downloadUpdates[0].state)
+            assertEquals(TransferState.COMPLETED, downloadUpdates[1].state)
         }
 
         @Test
@@ -184,7 +184,7 @@ class DownloaderTest {
             // GIVEN
             //      download is running
             //      download is being observed
-            val downloadUpdates = mutableListOf<Download>()
+            val downloadUpdates = mutableListOf<Transfer>()
             downloader.registerDownloadListener { downloadUpdates.add(it) }
             downloader.download(Request(user, file))
 
@@ -195,15 +195,15 @@ class DownloaderTest {
 
             // THEN
             //      listener is notified about status change
-            assertEquals(DownloadState.RUNNING, downloadUpdates[0].state)
-            assertEquals(DownloadState.FAILED, downloadUpdates[1].state)
+            assertEquals(TransferState.RUNNING, downloadUpdates[0].state)
+            assertEquals(TransferState.FAILED, downloadUpdates[1].state)
         }
 
         @Test
         fun download_progress_is_updated() {
             // GIVEN
             //      download is running
-            val downloadUpdates = mutableListOf<Download>()
+            val downloadUpdates = mutableListOf<Transfer>()
             downloader.registerDownloadListener { downloadUpdates.add(it) }
             downloader.download(Request(user, file))
 
@@ -219,12 +219,12 @@ class DownloaderTest {
             //          completion
             assertEquals(6, downloadUpdates.size)
             if (downloadUpdates.size >= 6) {
-                assertEquals(DownloadState.RUNNING, downloadUpdates[0].state)
+                assertEquals(TransferState.RUNNING, downloadUpdates[0].state)
                 assertEquals(25, downloadUpdates[1].progress)
                 assertEquals(50, downloadUpdates[2].progress)
                 assertEquals(75, downloadUpdates[3].progress)
                 assertEquals(100, downloadUpdates[4].progress)
-                assertEquals(DownloadState.COMPLETED, downloadUpdates[5].state)
+                assertEquals(TransferState.COMPLETED, downloadUpdates[5].state)
             }
         }
 
