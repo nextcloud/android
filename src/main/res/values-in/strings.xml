@@ -25,10 +25,8 @@
     <string name="actionbar_send_file">Kirim</string>
     <string name="actionbar_settings">Pengaturan</string>
     <string name="actionbar_sort">Urutkan</string>
-    <string name="actionbar_sync">Segarkan akun</string>
     <string name="active_user">Pengguna aktif</string>
     <string name="activities_no_results_headline">Tidak ada aktivitas.</string>
-    <string name="activities_no_results_message">Belum ada perubahan seperti penambahan, perubahan, dan dibagikan</string>
     <string name="activity_chooser_send_file_title">Kirim</string>
     <string name="activity_chooser_title">Kirim taukan ke…</string>
     <string name="activity_icon">Aktifitas</string>
@@ -41,13 +39,9 @@
     <string name="auth_account_not_new">Akun untuk pengguna dan server yang sama sudah ada dalam perangkat</string>
     <string name="auth_account_not_the_same">Pengguna yang dimasukkan tidak cocok dengan pengguna akun ini</string>
     <string name="auth_bad_oc_version_title">Versi server tidak dikenal</string>
-    <string name="auth_can_not_auth_against_server">Tidak terotentikasi ke server ini</string>
-    <string name="auth_check_server">Periksa peladen</string>
     <string name="auth_connection_established">Sambungan dibuat</string>
-    <string name="auth_expired_basic_auth_toast">Masukkan kata sandi saat ini</string>
     <string name="auth_host_address">Alamat server</string>
     <string name="auth_host_url">Alamat server https://…</string>
-    <string name="auth_illegal_login_used">URL data masuk ilegal digunakan</string>
     <string name="auth_incorrect_address_title">Format alamat server salah</string>
     <string name="auth_incorrect_path_title">Server tidak ditemukan</string>
     <string name="auth_no_net_conn_title">Tidak ada koneksi internet</string>
@@ -55,9 +49,7 @@
     <string name="auth_not_configured_title">Konfigurasi server cacat</string>
     <string name="auth_oauth_error">Otorisasi tidak berhasil</string>
     <string name="auth_oauth_error_access_denied">Akses ditolak oleh server otorisasi</string>
-    <string name="auth_password">Kata sandi</string>
     <string name="auth_redirect_non_secure_connection_title">Sambungan aman dialihkan melalui rute yang tidak aman.</string>
-    <string name="auth_refresh_button">Menyegarkan sambungan</string>
     <string name="auth_secure_connection">Sambungan aman dibuat</string>
     <string name="auth_ssl_general_error_title">Menginisiasi SSL gagal</string>
     <string name="auth_ssl_unverified_server_title">Identitas server SSL tidak dapat diverifikasi</string>
@@ -70,7 +62,6 @@
     <string name="auth_unknown_error_title">Terjadi kesalahan yang tidak diketahui!</string>
     <string name="auth_unknown_host_title">Tidak menemukan host</string>
     <string name="auth_unsupported_multiaccount">%1$s tidak mendukung banyak akun </string>
-    <string name="auth_username">Nama Pengguna</string>
     <string name="auth_wrong_connection_title">Tidak dapat memulai koneksi</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">disimpan di folder original karena readonly</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -167,7 +158,6 @@
     <string name="downloader_download_succeeded_ticker">Unggahan</string>
     <string name="downloader_not_downloaded_yet">Belum diunduh</string>
     <string name="drawer_close">Tutup jendela samping</string>
-    <string name="drawer_current_account">Akun sekarang</string>
     <string name="drawer_item_activities">Aktivitas</string>
     <string name="drawer_item_all_files">Semua berkas</string>
     <string name="drawer_item_favorites">Disukai</string>
@@ -182,8 +172,6 @@
     <string name="drawer_item_uploads_list">Unggah</string>
     <string name="drawer_item_videos">Video</string>
     <string name="drawer_logout">Keluar</string>
-    <string name="drawer_manage_accounts">Kelola akun</string>
-    <string name="drawer_middle_account">Akun tengah</string>
     <string name="drawer_open">Buka jendela samping</string>
     <string name="drawer_quota">%1$s dari %2$s sudah digunakan</string>
     <string name="drawer_quota_unlimited">%1$s digunakan</string>
@@ -204,7 +192,6 @@
     <string name="etm_accounts">Akun</string>
     <string name="etm_background_jobs">Pekerjaan latar belakang</string>
     <string name="fab_label">Tambahkan atau unggah</string>
-    <string name="fallback_weblogin_back">Kembali</string>
     <string name="favorite">Tambah ke favorit</string>
     <string name="favorite_icon">Favorit</string>
     <string name="file_delete">Hapus</string>
@@ -286,7 +273,6 @@
     <string name="hint_password">Kata kunci</string>
     <string name="instant_upload_on_charging">Hanya unggah ketika dicas</string>
     <string name="instant_upload_path">/UnggahInstan</string>
-    <string name="learn_more">Pelajari lebih lanjut</string>
     <string name="link">Tautan</string>
     <string name="list_layout">Daftar tampilan</string>
     <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
@@ -402,9 +388,6 @@
     <string name="restore">Pulihkan berkas</string>
     <string name="restore_button_description">Pulihkan berkas yang terhapus</string>
     <string name="richdocuments_failed_to_load_document">Gagal memuat dokumen!</string>
-    <string name="saml_authentication_required_text">Kata sandi diperlukan</string>
-    <string name="saml_authentication_wrong_pass">Kata sandi salah</string>
-    <string name="search_users_and_groups_hint">Cari pengguna dan grup</string>
     <string name="select_all">Pilih semua</string>
     <string name="select_template">Pilih template</string>
     <string name="send">Kirim</string>
@@ -412,14 +395,11 @@
     <string name="sendbutton_description">Ikon tombol kirim</string>
     <string name="set_as">Gunakan sebagai</string>
     <string name="set_picture_as">Gunakan gambar sebagai</string>
-    <string name="setup_btn_connect">Sambungkan</string>
     <string name="share">Bagikan</string>
-    <string name="share_add_user_or_group">Tambah pengguna atau grup</string>
     <string name="share_dialog_title">Berbagi</string>
     <string name="share_email_clarification">%1$s (surel)</string>
     <string name="share_expiration_date_label">Kadaluarsa %1$s</string>
     <string name="share_file">Bagikan %1$s</string>
-    <string name="share_get_public_link_button">Dapatkan tautan</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_known_remote_clarification">%1$s ( di %2$s )</string>
     <string name="share_link_empty_password">Anda harus memasukkan kata sandi</string>
@@ -427,9 +407,7 @@
     <string name="share_link_password_title">Masukkan kata sandi</string>
     <string name="share_no_expiration_date_label">Atur tanggal kedaluwarsa</string>
     <string name="share_no_password_title">Atur kata sandi</string>
-    <string name="share_no_users">Tidak ada data yang dibagikan dengan pengguna</string>
     <string name="share_password_title">Sandi dilindungi</string>
-    <string name="share_privilege_can_edit">dapat disunting</string>
     <string name="share_privilege_can_edit_change">dapat mengubah</string>
     <string name="share_privilege_can_edit_create">dapat membuat</string>
     <string name="share_privilege_can_edit_delete">dapat menghapus</string>
@@ -437,18 +415,12 @@
     <string name="share_privilege_unshare">Batalkan berbagi</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_send_note">Catatan untuk penerima</string>
-    <string name="share_via_link_edit_permission_label">Izinkan penyuntingan</string>
-    <string name="share_via_link_expiration_date_label">Atur tanggal kedaluwarsa</string>
     <string name="share_via_link_hide_download">Sembunyikan unduhan</string>
     <string name="share_via_link_hide_file_listing_permission_label">Sembunyikan daftar berkas</string>
     <string name="share_via_link_menu_password_label">Lindungi dengan sandi (%1$s)</string>
-    <string name="share_via_link_password_label">Lindungi dengan kata sandi.</string>
-    <string name="share_via_link_password_title">Diamankan</string>
     <string name="share_via_link_section_title">Bagikan tautan</string>
     <string name="share_via_link_send_link_label">Kirim taukan</string>
-    <string name="share_with_edit_title">Bagikan dengan %1$s</string>
     <string name="share_with_title">Bagikan dengan…</string>
-    <string name="share_with_user_section_title">Bagikan dengan pengguna atau grup</string>
     <string name="shared_icon_shared">dibagikan</string>
     <string name="single_sign_on_request_token" formatted="true">Izinkan %1$s untuk mengakses akun NextCloud %2$s?</string>
     <string name="sort_by">Urut berdasarkan</string>
