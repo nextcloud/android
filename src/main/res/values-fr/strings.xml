@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Trier</string>
     <string name="active_user">Utilisateur actif</string>
     <string name="activities_no_results_headline">Aucune activité</string>
+    <string name="activities_no_results_message">Aucun évènement d\'ajout, modification ou partage pour l\'instant</string>
     <string name="activity_chooser_send_file_title">Envoyer</string>
     <string name="activity_chooser_title">Envoyer le lien vers…</string>
     <string name="activity_icon">Activité</string>
