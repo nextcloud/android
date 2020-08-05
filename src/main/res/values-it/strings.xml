@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Ordina</string>
     <string name="active_user">Utente attivo</string>
     <string name="activities_no_results_headline">Ancora nessuna attività</string>
+    <string name="activities_no_results_message">Ancora nessun evento come aggiunte, modifiche e condivisioni.</string>
     <string name="activity_chooser_send_file_title">Invia</string>
     <string name="activity_chooser_title">Invia collegamento a…</string>
     <string name="activity_icon">Attività</string>

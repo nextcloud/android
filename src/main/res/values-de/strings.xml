@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Sortieren</string>
     <string name="active_user">Aktiver Nutzer</string>
     <string name="activities_no_results_headline">Bislang keine Aktivitäten</string>
+    <string name="activities_no_results_message">Bisher keine Ereignisse wie Hinzugekommenes, Änderungen und Freigaben</string>
     <string name="activity_chooser_send_file_title">Senden</string>
     <string name="activity_chooser_title">Link senden an…</string>
     <string name="activity_icon">Aktivitäten</string>
