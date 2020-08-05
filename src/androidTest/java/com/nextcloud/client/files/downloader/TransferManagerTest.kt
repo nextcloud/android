@@ -41,15 +41,15 @@ import org.mockito.MockitoAnnotations
 
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
-    DownloaderTest.Enqueue::class,
-    DownloaderTest.TransferStatusUpdates::class
+    TransferManagerTest.Enqueue::class,
+    TransferManagerTest.TransferStatusUpdates::class
 )
-class DownloaderTest {
+class TransferManagerTest {
 
     abstract class Base {
 
         companion object {
-            const val MAX_DOWNLOAD_THREADS = 4
+            const val MAX_TRANSFER_THREADS = 4
         }
 
         @MockK
@@ -67,7 +67,7 @@ class DownloaderTest {
          */
         lateinit var downloadTaskMocks: MutableList<DownloadTask>
         lateinit var runner: ManualAsyncRunner
-        lateinit var downloader: DownloaderImpl
+        lateinit var transferManager: TransferManagerImpl
 
         /**
          * Response value for all download tasks
@@ -86,10 +86,10 @@ class DownloaderTest {
             MockitoAnnotations.initMocks(this)
             downloadTaskMocks = mutableListOf()
             runner = ManualAsyncRunner()
-            downloader = DownloaderImpl(
+            transferManager = TransferManagerImpl(
                 runner = runner,
                 taskFactory = mockTaskFactory,
-                threads = MAX_DOWNLOAD_THREADS
+                threads = MAX_TRANSFER_THREADS
             )
             downloadTaskResult = true
             every { mockTaskFactory.create() } answers { createMockTask() }
@@ -120,11 +120,11 @@ class DownloaderTest {
             //      download is enqueued
             val file = OCFile("/path")
             val request = Request(user, file)
-            downloader.download(request)
+            transferManager.enqueue(request)
 
             // THEN
             //      download is started immediately
-            val download = downloader.getDownload(request.uuid)
+            val download = transferManager.getTransfer(request.uuid)
             assertEquals(TransferState.RUNNING, download?.state)
         }
 
@@ -132,11 +132,11 @@ class DownloaderTest {
         fun enqueued_downloads_are_pending_if_running_queue_is_full() {
             // GIVEN
             //      downloader is downloading max simultaneous files
-            for (i in 0 until MAX_DOWNLOAD_THREADS) {
+            for (i in 0 until MAX_TRANSFER_THREADS) {
                 val file = OCFile("/running/download/path/$i")
                 val request = Request(user, file)
-                downloader.download(request)
-                val runningDownload = downloader.getDownload(request.uuid)
+                transferManager.enqueue(request)
+                val runningDownload = transferManager.getTransfer(request.uuid)
                 assertEquals(runningDownload?.state, TransferState.RUNNING)
             }
 
@@ -144,11 +144,11 @@ class DownloaderTest {
             //      another download is enqueued
             val file = OCFile("/path")
             val request = Request(user, file)
-            downloader.download(request)
+            transferManager.enqueue(request)
 
             // THEN
             //      download is pending
-            val download = downloader.getDownload(request.uuid)
+            val download = transferManager.getTransfer(request.uuid)
             assertEquals(TransferState.PENDING, download?.state)
         }
     }
@@ -166,8 +166,8 @@ class DownloaderTest {
             //      download is running
             //      download is being observed
             val downloadUpdates = mutableListOf<Transfer>()
-            downloader.registerDownloadListener { downloadUpdates.add(it) }
-            downloader.download(Request(user, file))
+            transferManager.registerTransferListener { downloadUpdates.add(it) }
+            transferManager.enqueue(Request(user, file))
 
             // WHEN
             //      download task finishes successfully
@@ -185,8 +185,8 @@ class DownloaderTest {
             //      download is running
             //      download is being observed
             val downloadUpdates = mutableListOf<Transfer>()
-            downloader.registerDownloadListener { downloadUpdates.add(it) }
-            downloader.download(Request(user, file))
+            transferManager.registerTransferListener { downloadUpdates.add(it) }
+            transferManager.enqueue(Request(user, file))
 
             // WHEN
             //      download task fails
@@ -204,8 +204,8 @@ class DownloaderTest {
             // GIVEN
             //      download is running
             val downloadUpdates = mutableListOf<Transfer>()
-            downloader.registerDownloadListener { downloadUpdates.add(it) }
-            downloader.download(Request(user, file))
+            transferManager.registerTransferListener { downloadUpdates.add(it) }
+            transferManager.enqueue(Request(user, file))
 
             // WHEN
             //      download progress updated 4 times before completion
@@ -232,13 +232,13 @@ class DownloaderTest {
         fun download_task_is_created_only_for_running_downloads() {
             // WHEN
             //      multiple downloads are enqueued
-            for (i in 0 until MAX_DOWNLOAD_THREADS * 2) {
-                downloader.download(Request(user, file))
+            for (i in 0 until MAX_TRANSFER_THREADS * 2) {
+                transferManager.enqueue(Request(user, file))
             }
 
             // THEN
             //      download task is created only for running downloads
-            assertEquals(MAX_DOWNLOAD_THREADS, downloadTaskMocks.size)
+            assertEquals(MAX_TRANSFER_THREADS, downloadTaskMocks.size)
         }
     }
 
@@ -253,11 +253,11 @@ class DownloaderTest {
             //      download is enqueued
             val file = OCFile("/path/to/file")
             val request = Request(user, file)
-            downloader.download(request)
+            transferManager.enqueue(request)
 
             // THEN
             //      is running changes
-            assertTrue(downloader.isRunning)
+            assertTrue(transferManager.isRunning)
         }
 
         @Test
@@ -266,8 +266,8 @@ class DownloaderTest {
             //      a download is in progress
             val file = OCFile("/path/to/file")
             val request = Request(user, file)
-            downloader.download(request)
-            assertTrue(downloader.isRunning)
+            transferManager.enqueue(request)
+            assertTrue(transferManager.isRunning)
 
             // WHEN
             //      download is processed
@@ -275,7 +275,7 @@ class DownloaderTest {
 
             // THEN
             //      downloader is not running
-            assertFalse(downloader.isRunning)
+            assertFalse(transferManager.isRunning)
         }
     }
 }

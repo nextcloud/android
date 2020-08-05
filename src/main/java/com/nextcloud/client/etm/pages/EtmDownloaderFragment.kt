@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.etm.EtmBaseFragment
 import com.nextcloud.client.files.downloader.Direction
 import com.nextcloud.client.files.downloader.Transfer
-import com.nextcloud.client.files.downloader.Downloader
+import com.nextcloud.client.files.downloader.TransferManager
 import com.nextcloud.client.files.downloader.Request
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -51,7 +51,7 @@ class EtmDownloaderFragment : EtmBaseFragment() {
 
         private var downloads = listOf<Transfer>()
 
-        fun setStatus(status: Downloader.Status) {
+        fun setStatus(status: TransferManager.Status) {
             downloads = listOf(status.pending, status.running, status.completed).flatten().reversed()
             notifyDataSetChanged()
         }
@@ -130,10 +130,10 @@ class EtmDownloaderFragment : EtmBaseFragment() {
             Direction.DOWNLOAD,
             true
         )
-        vm.downloaderConnection.download(request)
+        vm.downloaderConnection.enqueue(request)
     }
 
-    private fun onDownloaderStatusChanged(status: Downloader.Status) {
+    private fun onDownloaderStatusChanged(status: TransferManager.Status) {
         adapter.setStatus(status)
     }
 }
