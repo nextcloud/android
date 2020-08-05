@@ -62,6 +62,7 @@ ext {
     daggerVersion = "2.28.3"
     markwonVersion =  "4.4.0"
     prismVersion = "2.0.0"
+    butterknifeVersion = "10.2.2"
 androidLibraryVersion ="85b7f0339e5a5c8422df6bae660896f5c22d3e71"
 
     travisBuild = System.getenv("TRAVIS") == "true"
