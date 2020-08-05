@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Seřadit</string>
     <string name="active_user">Aktivní uživatel</string>
     <string name="activities_no_results_headline">Zatím žádná aktivita</string>
+    <string name="activities_no_results_message">Zatím žádné události jako přidání, změny či sdílení.</string>
     <string name="activity_chooser_send_file_title">Odeslat</string>
     <string name="activity_chooser_title">Poslat odkaz na…</string>
     <string name="activity_icon">Aktivita</string>
