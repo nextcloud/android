@@ -266,7 +266,13 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         imageView.setLayoutParams(params);
 
         for (RichObject object : richObjectList) {
-            if (Integer.parseInt(object.getId()) == previewObject.getFileId()) {
+            int objectId = -1;
+            try {
+                objectId = Integer.parseInt(object.getId());
+            } catch (NumberFormatException e) {
+                // object.getId() can also be a string if RichObjects refers to an user
+            }
+            if (objectId == previewObject.getFileId()) {
                 imageView.setOnClickListener(v -> activityListInterface.onActivityClicked(object));
                 break;
             }
