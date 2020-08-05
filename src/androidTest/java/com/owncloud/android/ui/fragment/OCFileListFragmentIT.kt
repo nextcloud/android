@@ -41,11 +41,6 @@ import org.junit.rules.TestRule
 import java.io.File
 
 class OCFileListFragmentIT : AbstractOnServerIT() {
-    companion object {
-        val SECOND_IN_MILLIS = 1000L
-        val RESULT_PER_PAGE = 50
-    }
-
     @get:Rule
     val activityRule = IntentsTestRule(FileDisplayActivity::class.java, true, false)
 

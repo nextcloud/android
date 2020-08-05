@@ -35,7 +35,6 @@ import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestRule;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
@@ -46,9 +45,6 @@ public class SettingsActivityIT extends AbstractIT {
     @Rule public IntentsTestRule<SettingsActivity> activityRule = new IntentsTestRule<>(SettingsActivity.class,
                                                                                         true,
                                                                                         false);
-
-    @Rule
-    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
     @ScreenshotTest

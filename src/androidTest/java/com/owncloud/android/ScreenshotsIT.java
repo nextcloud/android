@@ -1,6 +1,5 @@
 package com.owncloud.android;
 
-import com.nextcloud.client.GrantStoragePermissionRule;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.common.SyncOperation;
@@ -11,9 +10,7 @@ import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -41,9 +38,6 @@ import static org.junit.Assert.assertTrue;
 public class ScreenshotsIT extends AbstractOnServerIT {
     @ClassRule
     public static final LocaleTestRule localeTestRule = new LocaleTestRule();
-
-    @Rule
-    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @BeforeClass
     public static void beforeScreenshot() {
