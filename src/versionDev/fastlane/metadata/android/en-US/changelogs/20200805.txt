@@ -1,0 +1,5 @@
+update build.gradle
+Sync of encrypted folders, in sync with RefreshFolderOperation.synchronizeData
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
