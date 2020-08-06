@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Sortuj</string>
     <string name="active_user">Aktywny użytkownik</string>
     <string name="activities_no_results_headline">Brak aktywności</string>
+    <string name="activities_no_results_message">Brak zdarzeń, takich jak dodatki, zmiany i udostępnienia.</string>
     <string name="activity_chooser_send_file_title">Wyślij</string>
     <string name="activity_chooser_title">Wyślij link do…</string>
     <string name="activity_icon">Aktywność</string>
