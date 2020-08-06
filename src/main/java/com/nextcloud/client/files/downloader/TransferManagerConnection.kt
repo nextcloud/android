@@ -27,47 +27,50 @@ import com.nextcloud.client.core.LocalConnection
 import com.owncloud.android.datamodel.OCFile
 import java.util.UUID
 
-class DownloaderConnection(context: Context, val user: User) : LocalConnection<DownloaderService>(context), Downloader {
+class TransferManagerConnection(
+    context: Context,
+    val user: User
+) : LocalConnection<DownloaderService>(context), TransferManager {
 
-    private var downloadListeners: MutableSet<(Transfer) -> Unit> = mutableSetOf()
-    private var statusListeners: MutableSet<(Downloader.Status) -> Unit> = mutableSetOf()
+    private var transferListeners: MutableSet<(Transfer) -> Unit> = mutableSetOf()
+    private var statusListeners: MutableSet<(TransferManager.Status) -> Unit> = mutableSetOf()
     private var binder: DownloaderService.Binder? = null
-    private val downloadsRequiringStatusRedelivery: MutableSet<UUID> = mutableSetOf()
+    private val transfersRequiringStatusRedelivery: MutableSet<UUID> = mutableSetOf()
 
     override val isRunning: Boolean
         get() = binder?.isRunning ?: false
 
-    override val status: Downloader.Status
-        get() = binder?.status ?: Downloader.Status.EMPTY
+    override val status: TransferManager.Status
+        get() = binder?.status ?: TransferManager.Status.EMPTY
 
-    override fun getDownload(uuid: UUID): Transfer? = binder?.getDownload(uuid)
+    override fun getTransfer(uuid: UUID): Transfer? = binder?.getTransfer(uuid)
 
-    override fun getDownload(file: OCFile): Transfer? = binder?.getDownload(file)
+    override fun getTransfer(file: OCFile): Transfer? = binder?.getTransfer(file)
 
-    override fun download(request: Request) {
+    override fun enqueue(request: Request) {
         val intent = DownloaderService.createDownloadIntent(context, request)
         context.startService(intent)
-        if (!isConnected && downloadListeners.size > 0) {
-            downloadsRequiringStatusRedelivery.add(request.uuid)
+        if (!isConnected && transferListeners.size > 0) {
+            transfersRequiringStatusRedelivery.add(request.uuid)
         }
     }
 
-    override fun registerDownloadListener(listener: (Transfer) -> Unit) {
-        downloadListeners.add(listener)
-        binder?.registerDownloadListener(listener)
+    override fun registerTransferListener(listener: (Transfer) -> Unit) {
+        transferListeners.add(listener)
+        binder?.registerTransferListener(listener)
     }
 
-    override fun removeDownloadListener(listener: (Transfer) -> Unit) {
-        downloadListeners.remove(listener)
-        binder?.removeDownloadListener(listener)
+    override fun removeTransferListener(listener: (Transfer) -> Unit) {
+        transferListeners.remove(listener)
+        binder?.removeTransferListener(listener)
     }
 
-    override fun registerStatusListener(listener: (Downloader.Status) -> Unit) {
+    override fun registerStatusListener(listener: (TransferManager.Status) -> Unit) {
         statusListeners.add(listener)
         binder?.registerStatusListener(listener)
     }
 
-    override fun removeStatusListener(listener: (Downloader.Status) -> Unit) {
+    override fun removeStatusListener(listener: (TransferManager.Status) -> Unit) {
         statusListeners.remove(listener)
         binder?.removeStatusListener(listener)
     }
@@ -79,8 +82,8 @@ class DownloaderConnection(context: Context, val user: User) : LocalConnection<D
     override fun onBound(binder: IBinder) {
         super.onBound(binder)
         this.binder = binder as DownloaderService.Binder
-        downloadListeners.forEach { listener ->
-            binder.registerDownloadListener(listener)
+        transferListeners.forEach { listener ->
+            binder.registerTransferListener(listener)
         }
         statusListeners.forEach { listener ->
             binder.registerStatusListener(listener)
@@ -89,23 +92,23 @@ class DownloaderConnection(context: Context, val user: User) : LocalConnection<D
     }
 
     /**
-     * Since binding and download start are both asynchronous and the order
-     * is not guaranteed, some downloads might already finish when service is bound,
+     * Since binding and transfer start are both asynchronous and the order
+     * is not guaranteed, some transfers might already finish when service is bound,
      * resulting in lost notifications.
      *
-     * Deliver all updates for pending downloads that were scheduled
-     * before service has been bound.
+     * Deliver all updates for pending transfers that were scheduled
+     * before service was bound.
      */
     private fun deliverMissedUpdates() {
-        val downloadUpdates = downloadsRequiringStatusRedelivery.mapNotNull { uuid ->
-            binder?.getDownload(uuid)
+        val transferUpdates = transfersRequiringStatusRedelivery.mapNotNull { uuid ->
+            binder?.getTransfer(uuid)
         }
-        downloadListeners.forEach { listener ->
-            downloadUpdates.forEach { update ->
+        transferListeners.forEach { listener ->
+            transferUpdates.forEach { update ->
                 listener.invoke(update)
             }
         }
-        downloadsRequiringStatusRedelivery.clear()
+        transfersRequiringStatusRedelivery.clear()
 
         if (statusListeners.isNotEmpty()) {
             binder?.status?.let { status ->
@@ -116,7 +119,7 @@ class DownloaderConnection(context: Context, val user: User) : LocalConnection<D
 
     override fun onUnbind() {
         super.onUnbind()
-        downloadListeners.forEach { binder?.removeDownloadListener(it) }
+        transferListeners.forEach { binder?.removeTransferListener(it) }
         statusListeners.forEach { binder?.removeStatusListener(it) }
     }
 }
