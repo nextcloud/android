@@ -62,6 +62,8 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
     public ImageView iconUploadFromApp;
     @BindView(R.id.menu_icon_direct_camera_upload)
     public ImageView iconDirectCameraUpload;
+    @BindView(R.id.menu_icon_scan_doc_upload)
+    public ImageView iconScanDocUpload;
     @BindView(R.id.menu_icon_mkdir)
     public ImageView iconMakeDir;
 
@@ -79,6 +81,9 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
     @BindView(R.id.menu_direct_camera_upload)
     public View cameraView;
+
+    @BindView(R.id.menu_scan_doc_upload)
+    public View scanDocView;
 
     @BindView(R.id.menu_create_rich_workspace)
     public View createRichWorkspace;
@@ -119,6 +124,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         ThemeUtils.tintDrawable(iconUploadFiles.getDrawable(), primaryColor);
         ThemeUtils.tintDrawable(iconUploadFromApp.getDrawable(), primaryColor);
         ThemeUtils.tintDrawable(iconDirectCameraUpload.getDrawable(), primaryColor);
+        ThemeUtils.tintDrawable(iconScanDocUpload.getDrawable(), primaryColor);
         ThemeUtils.tintDrawable(iconMakeDir.getDrawable(), primaryColor);
 
         headline.setText(getContext().getResources().getString(R.string.add_to_cloud,
@@ -171,6 +177,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         if (!deviceInfo.hasCamera(getContext())) {
             cameraView.setVisibility(View.GONE);
+            scanDocView.setVisibility(View.GONE);
         }
 
         // create rich workspace
@@ -217,6 +224,12 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
     @OnClick(R.id.menu_direct_camera_upload)
     public void directCameraUpload() {
         actions.directCameraUpload();
+        dismiss();
+    }
+
+    @OnClick(R.id.menu_scan_doc_upload)
+    public void scanDocUpload() {
+        actions.scanDocUpload();
         dismiss();
     }
 
