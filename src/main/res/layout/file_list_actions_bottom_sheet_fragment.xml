@@ -123,7 +123,36 @@
             android:text="@string/upload_direct_camera_upload"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/menu_scan_doc_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/menu_icon_scan_doc_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_camera"
+            app:tint="@color/primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/upload_scan_doc_upload"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/bottom_sheet_text_size" />
     </LinearLayout>
 
     <View

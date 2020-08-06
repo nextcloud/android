@@ -35,10 +35,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -88,6 +96,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -966,7 +975,7 @@ public class FileOperationsHelper {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_checking_credentials));
     }
 
-    public void uploadFromCamera(Activity activity, int requestCode) {
+    public void takePictureFromCamera(Activity activity, int requestCode) {
         Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         deleteOldFiles(activity);
@@ -1000,6 +1009,51 @@ public class FileOperationsHelper {
         }
     }
 
+    private static PdfDocument tmpPdfDocument;
+
+    public static PdfDocument convertAddImageToPDFDocument(Bitmap bitmap){
+        int pageWidth = 960;
+        int pageHeight = 1280;
+        PdfDocument pdfDocument;
+        if (tmpPdfDocument != null){
+            pdfDocument = tmpPdfDocument;
+        }else {
+            pdfDocument = new PdfDocument();
+        }
+        PdfDocument.PageInfo myPageInfo =
+            new PdfDocument.PageInfo.Builder(pageWidth,pageHeight,pdfDocument.getPages().size()+1).create();
+        PdfDocument.Page page = pdfDocument.startPage(myPageInfo);
+        Canvas canvas = page.getCanvas();
+
+        //set white background
+        Paint paint = new Paint();
+        paint.setColor(Color.parseColor("#ffffff"));
+        canvas.drawPaint(paint);
+        // resize if necessary
+        Matrix m = new Matrix();
+        m.setRectToRect(new RectF(0, 0, bitmap.getWidth(), bitmap.getHeight()), new RectF(0, 0, pageWidth, pageHeight), Matrix.ScaleToFit.CENTER);
+        bitmap =  Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
+
+        // center image
+        float centerWidth = ((float) pageWidth - bitmap.getWidth()) / 2;
+        float centerHeight = ((float) pageHeight - bitmap.getHeight()) / 2;
+        canvas.drawBitmap(bitmap,centerWidth,centerHeight, null);
+        pdfDocument.finishPage(page);
+        bitmap.recycle();
+        tmpPdfDocument = pdfDocument;
+        return pdfDocument;
+    }
+
+    public static void cleanTmpPdfDocument(){
+        tmpPdfDocument = null;
+    }
+
+    public static File createOrGetPdfFile(Activity activity) {
+        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        return new File(storageDir + "/scanDocUpload.pdf");
+    }
+
     public static File createImageFile(Activity activity) {
         File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
@@ -1008,6 +1062,10 @@ public class FileOperationsHelper {
 
     public static String getCapturedImageName() {
         return new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(new Date()) + ".jpg";
+    }
+
+    public static String getScanDocName() {
+        return "scan_"+new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(new Date()) + ".pdf";
     }
 
     /**

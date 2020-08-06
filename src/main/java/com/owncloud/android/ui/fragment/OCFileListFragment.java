@@ -467,7 +467,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (fileDisplayActivity != null) {
             fileDisplayActivity.getFileOperationsHelper()
-                .uploadFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA);
+                .takePictureFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA);
+        } else {
+            DisplayUtils.showSnackMessage(getView(), getString(R.string.error_starting_direct_camera_upload));
+        }
+    }
+
+    @Override
+    public void scanDocUpload() {
+        FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+
+        if (fileDisplayActivity != null) {
+            fileDisplayActivity.getFileOperationsHelper()
+                .takePictureFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA);
         } else {
             DisplayUtils.showSnackMessage(getView(), getString(R.string.error_starting_direct_camera_upload));
         }
