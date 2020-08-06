@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Renkañ</string>
     <string name="active_user">Implijourien ooc\'h ober</string>
     <string name="activities_no_results_headline">Oberiantiz ebet</string>
+    <string name="activities_no_results_message">Darvoud ebet ouzhpennañ, cheñchañ pe rannañ c\'hoaz.</string>
     <string name="activity_chooser_send_file_title">Kas</string>
     <string name="activity_chooser_title">Kas al liamm da ...</string>
     <string name="activity_icon">Oberantiz</string>
