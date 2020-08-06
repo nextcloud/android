@@ -1,0 +1,2 @@
+object.getId() can also be a string if RichObjects refers to an user
+Update 3rd-party dependencies
