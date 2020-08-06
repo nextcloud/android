@@ -20,8 +20,7 @@
 package com.nextcloud.client.files.downloader
 
 import com.owncloud.android.datamodel.OCFile
-import java.lang.IllegalStateException
-import java.util.TreeMap
+import java.util.LinkedHashMap
 import java.util.UUID
 import kotlin.math.max
 import kotlin.math.min
@@ -46,9 +45,9 @@ internal class Registry(
     private val onTransferChanged: (Transfer) -> Unit,
     private val maxRunning: Int = 2
 ) {
-    private val pendingQueue = TreeMap<UUID, Transfer>()
-    private val runningQueue = TreeMap<UUID, Transfer>()
-    private val completedQueue = TreeMap<UUID, Transfer>()
+    private val pendingQueue = LinkedHashMap<UUID, Transfer>()
+    private val runningQueue = LinkedHashMap<UUID, Transfer>()
+    private val completedQueue = LinkedHashMap<UUID, Transfer>()
 
     val isRunning: Boolean get() = pendingQueue.size > 0 || runningQueue.size > 0
 
@@ -80,7 +79,7 @@ internal class Registry(
     fun startNext() {
         val freeThreads = max(0, maxRunning - runningQueue.size)
         for (i in 0 until min(freeThreads, pendingQueue.size)) {
-            val key = pendingQueue.firstKey()
+            val key = pendingQueue.keys.first()
             val pendingTransfer = pendingQueue.remove(key) ?: throw IllegalStateException("Transfer $key not found")
             val runningTransfer = pendingTransfer.copy(state = TransferState.RUNNING)
             runningQueue[key] = runningTransfer

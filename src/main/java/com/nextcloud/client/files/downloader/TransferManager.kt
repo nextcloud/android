@@ -22,10 +22,10 @@ package com.nextcloud.client.files.downloader
 import com.owncloud.android.datamodel.OCFile
 import java.util.UUID
 
-interface Downloader {
+interface TransferManager {
 
     /**
-     * Snapshot of downloader status. All data is immutable and can be safely shared.
+     * Snapshot of transfer manager status. All data is immutable and can be safely shared.
      */
     data class Status(
         val pending: List<Transfer>,
@@ -38,27 +38,27 @@ interface Downloader {
     }
 
     /**
-     * True if downloader has any pending or running downloads.
+     * True if transfer manager has any pending or running transfers.
      */
     val isRunning: Boolean
 
     /**
-     * Status snapshot of all downloads.
+     * Status snapshot of all transfers.
      */
     val status: Status
 
     /**
-     * Register download progress listener. Registration is idempotent - listener can be registered only once.
+     * Register transfer progress listener. Registration is idempotent - listener can be registered only once.
      */
-    fun registerDownloadListener(listener: (Transfer) -> Unit)
+    fun registerTransferListener(listener: (Transfer) -> Unit)
 
     /**
      * Removes registered listener if exists.
      */
-    fun removeDownloadListener(listener: (Transfer) -> Unit)
+    fun removeTransferListener(listener: (Transfer) -> Unit)
 
     /**
-     * Register downloader status listener. Registration is idempotent - listener can be registered only once.
+     * Register transfer manager status listener. Registration is idempotent - listener can be registered only once.
      */
     fun registerStatusListener(listener: (Status) -> Unit)
 
@@ -68,31 +68,31 @@ interface Downloader {
     fun removeStatusListener(listener: (Status) -> Unit)
 
     /**
-     * Adds download request to pending queue and returns immediately.
+     * Adds transfer request to pending queue and returns immediately.
      *
-     * @param request Download request
+     * @param request Transfer request
      */
-    fun download(request: Request)
+    fun enqueue(request: Request)
 
     /**
-     * Find download status by UUID.
+     * Find transfer status by UUID.
      *
      * @param uuid Download process uuid
-     * @return download status or null if not found
+     * @return transfer status or null if not found
      */
-    fun getDownload(uuid: UUID): Transfer?
+    fun getTransfer(uuid: UUID): Transfer?
 
     /**
-     * Query user's downloader for a download status. It performs linear search
-     * of all queues and returns first download matching [OCFile.remotePath].
+     * Query user's transfer manager for a transfer status. It performs linear search
+     * of all queues and returns first transfer matching [OCFile.remotePath].
      *
-     * Since there can be multiple downloads with identical file in downloader's queues,
+     * Since there can be multiple transfers with identical file in the queues,
      * order of search matters.
      *
-     * It looks for pending downloads first, then running and completed queue last.
+     * It looks for pending transfers first, then running and completed queue last.
      *
      * @param file Downloaded file
-     * @return download status or null, if download does not exist
+     * @return transfer status or null, if transfer does not exist
      */
-    fun getDownload(file: OCFile): Transfer?
+    fun getTransfer(file: OCFile): Transfer?
 }

@@ -60,7 +60,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.downloader.Direction;
 import com.nextcloud.client.files.downloader.Transfer;
 import com.nextcloud.client.files.downloader.TransferState;
-import com.nextcloud.client.files.downloader.DownloaderConnection;
+import com.nextcloud.client.files.downloader.TransferManagerConnection;
 import com.nextcloud.client.files.downloader.Request;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
@@ -151,7 +151,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject BackgroundJobManager backgroundJobManager;
-    private DownloaderConnection fileDownloader;
+    private TransferManagerConnection fileDownloader;
 
     public static ContactListFragment newInstance(OCFile file, User user) {
         ContactListFragment frag = new ContactListFragment();
@@ -213,12 +213,12 @@ public class ContactListFragment extends FileFragment implements Injectable {
         ocFile = getArguments().getParcelable(FILE_NAME);
         setFile(ocFile);
         user = getArguments().getParcelable(USER);
-        fileDownloader = new DownloaderConnection(getActivity(), user);
-        fileDownloader.registerDownloadListener(this::onDownloadUpdate);
+        fileDownloader = new TransferManagerConnection(getActivity(), user);
+        fileDownloader.registerTransferListener(this::onDownloadUpdate);
         fileDownloader.bind();
         if (!ocFile.isDown()) {
             Request request = new Request(user, ocFile, Direction.DOWNLOAD);
-            fileDownloader.download(request);
+            fileDownloader.enqueue(request);
         } else {
             loadContactsTask.execute();
         }

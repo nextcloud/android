@@ -34,9 +34,9 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-class DownloaderConnectionTest {
+class TransferManagerConnectionTest {
 
-    lateinit var connection: DownloaderConnection
+    lateinit var connection: TransferManagerConnection
 
     @MockK
     lateinit var context: Context
@@ -48,10 +48,10 @@ class DownloaderConnectionTest {
     lateinit var secondDownloadListener: (Transfer) -> Unit
 
     @MockK
-    lateinit var firstStatusListener: (Downloader.Status) -> Unit
+    lateinit var firstStatusListener: (TransferManager.Status) -> Unit
 
     @MockK
-    lateinit var secondStatusListener: (Downloader.Status) -> Unit
+    lateinit var secondStatusListener: (TransferManager.Status) -> Unit
 
     @MockK
     lateinit var binder: DownloaderService.Binder
@@ -63,7 +63,7 @@ class DownloaderConnectionTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this, relaxed = true)
-        connection = DownloaderConnection(context, user)
+        connection = TransferManagerConnection(context, user)
     }
 
     @Test
@@ -71,8 +71,8 @@ class DownloaderConnectionTest {
         // GIVEN
         //      not connected
         //      listener is added
-        connection.registerDownloadListener(firstDownloadListener)
-        connection.registerDownloadListener(secondDownloadListener)
+        connection.registerTransferListener(firstDownloadListener)
+        connection.registerTransferListener(secondDownloadListener)
 
         // WHEN
         //      service is bound
@@ -81,7 +81,7 @@ class DownloaderConnectionTest {
         // THEN
         //      all listeners are passed to the service
         val listeners = mutableListOf<(Transfer) -> Unit>()
-        verify { binder.registerDownloadListener(capture(listeners)) }
+        verify { binder.registerTransferListener(capture(listeners)) }
         assertEquals(listOf(firstDownloadListener, secondDownloadListener), listeners)
     }
 
@@ -93,11 +93,11 @@ class DownloaderConnectionTest {
 
         // WHEN
         //      listeners are added
-        connection.registerDownloadListener(firstDownloadListener)
+        connection.registerTransferListener(firstDownloadListener)
 
         // THEN
         //      listener is forwarded to service
-        verify { binder.registerDownloadListener(firstDownloadListener) }
+        verify { binder.registerTransferListener(firstDownloadListener) }
     }
 
     @Test
@@ -106,8 +106,8 @@ class DownloaderConnectionTest {
         //      service is bound
         //      service has some listeners
         connection.onServiceConnected(componentName, binder)
-        connection.registerDownloadListener(firstDownloadListener)
-        connection.registerDownloadListener(secondDownloadListener)
+        connection.registerTransferListener(firstDownloadListener)
+        connection.registerTransferListener(secondDownloadListener)
 
         // WHEN
         //      service unbound
@@ -115,8 +115,8 @@ class DownloaderConnectionTest {
 
         // THEN
         //      listeners removed from service
-        verify { binder.removeDownloadListener(firstDownloadListener) }
-        verify { binder.removeDownloadListener(secondDownloadListener) }
+        verify { binder.removeTransferListener(firstDownloadListener) }
+        verify { binder.removeTransferListener(secondDownloadListener) }
     }
 
     @Test
@@ -125,19 +125,19 @@ class DownloaderConnectionTest {
         //      not bound
         //      has listeners
         //      download is scheduled and is progressing
-        connection.registerDownloadListener(firstDownloadListener)
-        connection.registerDownloadListener(secondDownloadListener)
+        connection.registerTransferListener(firstDownloadListener)
+        connection.registerTransferListener(secondDownloadListener)
 
         val request1 = Request(user, file)
-        connection.download(request1)
+        connection.enqueue(request1)
         val download1 = Transfer(request1.uuid, TransferState.RUNNING, 50, request1.file, request1)
 
         val request2 = Request(user, file)
-        connection.download(request2)
+        connection.enqueue(request2)
         val download2 = Transfer(request2.uuid, TransferState.RUNNING, 50, request2.file, request1)
 
-        every { binder.getDownload(request1.uuid) } returns download1
-        every { binder.getDownload(request2.uuid) } returns download2
+        every { binder.getTransfer(request1.uuid) } returns download1
+        every { binder.getTransfer(request2.uuid) } returns download2
 
         // WHEN
         //      service is bound
@@ -159,7 +159,7 @@ class DownloaderConnectionTest {
         // GIVEN
         //      not bound
         //      has status listeners
-        val mockStatus: Downloader.Status = mockk()
+        val mockStatus: TransferManager.Status = mockk()
         every { binder.status } returns mockStatus
         connection.registerStatusListener(firstStatusListener)
         connection.registerStatusListener(secondStatusListener)
@@ -224,10 +224,10 @@ class DownloaderConnectionTest {
         //      not bound
         //      some downloads requested without listener
         val request = Request(user, file)
-        connection.download(request)
+        connection.enqueue(request)
         val download = Transfer(request.uuid, TransferState.RUNNING, 50, request.file, request)
-        connection.registerDownloadListener(firstDownloadListener)
-        every { binder.getDownload(request.uuid) } returns download
+        connection.registerTransferListener(firstDownloadListener)
+        every { binder.getTransfer(request.uuid) } returns download
 
         // WHEN
         //      service is bound
