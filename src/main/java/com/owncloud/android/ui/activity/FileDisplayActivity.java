@@ -1054,6 +1054,7 @@ public class FileDisplayActivity extends FileActivity
             if (listOfFiles != null) {  // should never be null, indeed
                 setFile(listOfFiles.getCurrentFile());
                 listOfFiles.setFabVisible(true);
+                listOfFiles.registerFabListener();
                 showSortListGroup(true);
             }
             cleanSecondFragment();
@@ -1101,6 +1102,7 @@ public class FileDisplayActivity extends FileActivity
             searchView.setQuery(searchQuery, false);
         } else if (ocFileListFragment != null && !ocFileListFragment.isSearchFragment() && startFile == null) {
             updateListOfFilesFragment(false);
+            ocFileListFragment.registerFabListener();
         } else {
             if (ocFileListFragment != null) {
                 ocFileListFragment.listDirectory(startFile, false, false);
