@@ -114,6 +114,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
         // Action bar setup
         setupToolbar();
+        findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
+        findViewById(R.id.switch_grid_view_button).setVisibility(View.GONE);
 
         if (getIntent().getStringExtra(EXTRA_ACTION) != null) {
             switch (getIntent().getStringExtra(EXTRA_ACTION)) {
