@@ -421,7 +421,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             }
             case R.id.action_share_expiration_date: {
                 ExpirationDatePickerDialogFragment expirationDialog = ExpirationDatePickerDialogFragment
-                    .newInstance(file, publicShare.getExpirationDate());
+                    .newInstance(publicShare, publicShare.getExpirationDate());
                 expirationDialog.show(fileActivity.getSupportFragmentManager(),
                                       ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG);
                 return true;
