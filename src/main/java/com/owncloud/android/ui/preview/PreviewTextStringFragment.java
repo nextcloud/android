@@ -103,7 +103,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
             throw new RuntimeException("View may not be null");
         }
 
-        FloatingActionButton fabMain = view.findViewById(R.id.text_preview_fab);
+        FloatingActionButton fabMain = requireActivity().findViewById(R.id.fab_main);
 
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             fabMain.setVisibility(View.GONE);
