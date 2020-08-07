@@ -27,21 +27,21 @@ import com.owncloud.android.datamodel.OCFile
 import java.util.UUID
 
 /**
- * Per-user file downloader.
+ * Per-user file transfer manager.
  *
- * All notifications are performed on main thread. All download processes are run
+ * All notifications are performed on main thread. All transfer processes are run
  * in the background.
  *
  * @param runner Background task runner. It is important to provide runner that is not shared with UI code.
  * @param taskFactory Download task factory
- * @param threads maximum number of concurrent download processes
+ * @param threads maximum number of concurrent transfer processes
  */
-@Suppress("LongParameterList") // download operations requires those resources
-class DownloaderImpl(
+@Suppress("LongParameterList") // transfer operations requires those resources
+class TransferManagerImpl(
     private val runner: AsyncRunner,
     private val taskFactory: DownloadTask.Factory,
     threads: Int = 1
-) : Downloader {
+) : TransferManager {
 
     companion object {
         const val PROGRESS_PERCENTAGE_MAX = 100
@@ -50,51 +50,54 @@ class DownloaderImpl(
     }
 
     private val registry = Registry(
-        onStartTransfer = this::onStartDownload,
-        onTransferChanged = this::onDownloadUpdate,
+        onStartTransfer = this::onStartTransfer,
+        onTransferChanged = this::onTransferUpdate,
         maxRunning = threads
     )
-    private val downloadListeners: MutableSet<(Transfer) -> Unit> = mutableSetOf()
-    private val statusListeners: MutableSet<(Downloader.Status) -> Unit> = mutableSetOf()
+    private val transferListeners: MutableSet<(Transfer) -> Unit> = mutableSetOf()
+    private val statusListeners: MutableSet<(TransferManager.Status) -> Unit> = mutableSetOf()
 
     override val isRunning: Boolean get() = registry.isRunning
 
-    override val status: Downloader.Status
-        get() = Downloader.Status(
+    override val status: TransferManager.Status
+        get() = TransferManager.Status(
             pending = registry.pending,
             running = registry.running,
             completed = registry.completed
         )
 
-    override fun registerDownloadListener(listener: (Transfer) -> Unit) {
-        downloadListeners.add(listener)
+    override fun registerTransferListener(listener: (Transfer) -> Unit) {
+        transferListeners.add(listener)
     }
 
-    override fun removeDownloadListener(listener: (Transfer) -> Unit) {
-        downloadListeners.remove(listener)
+    override fun removeTransferListener(listener: (Transfer) -> Unit) {
+        transferListeners.remove(listener)
     }
 
-    override fun registerStatusListener(listener: (Downloader.Status) -> Unit) {
+    override fun registerStatusListener(listener: (TransferManager.Status) -> Unit) {
         statusListeners.add(listener)
     }
 
-    override fun removeStatusListener(listener: (Downloader.Status) -> Unit) {
+    override fun removeStatusListener(listener: (TransferManager.Status) -> Unit) {
         statusListeners.remove(listener)
     }
 
-    override fun download(request: Request) {
+    override fun enqueue(request: Request) {
         registry.add(request)
         registry.startNext()
     }
 
-    override fun getDownload(uuid: UUID): Transfer? = registry.getTransfer(uuid)
+    override fun getTransfer(uuid: UUID): Transfer? = registry.getTransfer(uuid)
 
-    override fun getDownload(file: OCFile): Transfer? = registry.getTransfer(file)
+    override fun getTransfer(file: OCFile): Transfer? = registry.getTransfer(file)
 
-    private fun onStartDownload(uuid: UUID, request: Request) {
-        val downloadTask = createDownloadTask(request)
+    private fun onStartTransfer(uuid: UUID, request: Request) {
+        val transferTask = when (request.type) {
+            Direction.DOWNLOAD -> createDownloadTask(request)
+            Direction.UPLOAD -> createDownloadTask(request) // plug a hole for now - uploads are not supported
+        }
         runner.postTask(
-            task = downloadTask,
+            task = transferTask,
             onProgress = { progress: Int -> registry.progress(uuid, progress) },
             onResult = { result -> registry.complete(uuid, result.success, result.file); registry.startNext() },
             onError = { registry.complete(uuid, false); registry.startNext() }
@@ -115,8 +118,8 @@ class DownloaderImpl(
         }
     }
 
-    private fun onDownloadUpdate(transfer: Transfer) {
-        downloadListeners.forEach { it.invoke(transfer) }
+    private fun onTransferUpdate(transfer: Transfer) {
+        transferListeners.forEach { it.invoke(transfer) }
         if (statusListeners.isNotEmpty()) {
             val status = this.status
             statusListeners.forEach { it.invoke(status) }
