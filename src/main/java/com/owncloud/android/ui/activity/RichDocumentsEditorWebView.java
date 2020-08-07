@@ -251,6 +251,17 @@ public class RichDocumentsEditorWebView extends EditorWebView {
         startActivity(intent);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+            if (webview.canGoBackOrForward(-2)) {
+                webview.goBack();
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     private class RichDocumentsMobileInterface extends MobileInterface {
         @JavascriptInterface
         public void insertGraphic() {
