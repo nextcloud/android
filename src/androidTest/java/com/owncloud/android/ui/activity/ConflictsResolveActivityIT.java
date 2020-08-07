@@ -34,6 +34,7 @@ import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.ScreenshotTest;
 
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -242,6 +243,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         OCFile existingFile = new OCFile("/newFile.txt");
         existingFile.setFileLength(1024000);
         existingFile.setModificationTimestamp(1582019340);
+        existingFile.setRemoteId("123abc");
 
         OCFile newFile = new OCFile("/newFile.txt");
         newFile.setFileLength(56000);
@@ -319,5 +321,10 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         onView(withText("OK")).perform(click());
 
         assertTrue(returnCode);
+    }
+
+    @After
+    public void after() {
+        getStorageManager().deleteAllFiles();
     }
 }
