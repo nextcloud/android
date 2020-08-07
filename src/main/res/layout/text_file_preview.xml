@@ -17,50 +17,29 @@
 
 -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <TextView
+            android:id="@+id/text_preview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/standard_padding"
+            android:textColor="@color/text_color"
+            android:textIsSelectable="true"
+            android:visibility="gone"
+            tools:maxLength="40"
+            tools:text="@tools:sample/lorem/random"
+            tools:visibility="visible" />
 
-            <TextView
-                android:id="@+id/text_preview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/standard_padding"
-                android:textIsSelectable="true"
-                android:textColor="@color/text_color"
-                android:visibility="gone"
-                tools:visibility="visible"
-                tools:maxLength="40"
-                tools:text="@tools:sample/lorem/random" />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <include layout="@layout/empty_list" />
-
-            </ScrollView>
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </ScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/text_preview_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="end|bottom"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginBottom="@dimen/standard_margin"
-        android:contentDescription="@string/edit_rich_workspace"
-        android:visibility="gone"
-        tools:visibility="visible" />
-
+    <include layout="@layout/empty_list" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
