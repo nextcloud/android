@@ -1,0 +1,6 @@
+add sort option to UploadFilesActivity and FolderPickerActivity added UI tests
+removed FAB from text file preview and use FDA one
+fix npe on setting expiration date on public share
+make + icon grey600 for proper icon coloring dark/light
+Update translations
+Update Nextcloud Android library
