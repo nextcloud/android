@@ -195,6 +195,8 @@ public class UploadFilesActivity extends FileActivity implements LocalFileListFr
 
         // setup the toolbar
         setupToolbar();
+        findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
+        findViewById(R.id.switch_grid_view_button).setVisibility(View.GONE);
 
         // Action bar setup
         ActionBar actionBar = getSupportActionBar();

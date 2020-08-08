@@ -21,7 +21,9 @@ package com.owncloud.android.ui.activity;
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import com.owncloud.android.AbstractIT;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Assert;
 import org.junit.Rule;
@@ -33,7 +35,7 @@ import androidx.test.rule.ActivityTestRule;
 
 @RunWith(AndroidJUnit4.class)
 //@LargeTest
-public class FolderPickerActivityIT {
+public class FolderPickerActivityIT extends AbstractIT {
     @Rule
     public ActivityTestRule<FolderPickerActivity> activityRule =
         new ActivityTestRule<>(FolderPickerActivity.class);
@@ -117,5 +119,15 @@ public class FolderPickerActivityIT {
 
         // Assert
         Assert.assertEquals(origin, target);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void open() {
+        FolderPickerActivity sut = activityRule.getActivity();
+        OCFile origin = new OCFile("/test/file.txt");
+        sut.setFile(origin);
+
+        screenshot(sut);
     }
 }
