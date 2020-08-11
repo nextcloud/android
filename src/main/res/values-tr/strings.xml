@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Sırala</string>
     <string name="active_user">Etkin kullanıcı</string>
     <string name="activities_no_results_headline">Henüz bir işlem yapılmamış</string>
+    <string name="activities_no_results_message">Henüz ekleme, değiştirme, paylaşma gibi bir işlem yapılmamış.</string>
     <string name="activity_chooser_send_file_title">Gönder</string>
     <string name="activity_chooser_title">Bağlantıyı şuraya gönder …</string>
     <string name="activity_icon">İşlem</string>
