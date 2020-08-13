@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Ταξινόμηση</string>
     <string name="active_user">Ενεργός χρήστης</string>
     <string name="activities_no_results_headline">Καμία δραστηριότητα ακόμα</string>
+    <string name="activities_no_results_message">Δεν υπάρχουν ακόμη συμβάντα όπως προσθήκες, αλλαγές και κοινοποιήσεις.</string>
     <string name="activity_chooser_send_file_title">Αποστολή</string>
     <string name="activity_chooser_title">Αποστολή συνδέσμου σε…</string>
     <string name="activity_icon">Δραστηριότητα</string>

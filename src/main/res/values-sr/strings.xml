@@ -35,7 +35,7 @@
     <string name="add_new_public_share">Додај везу новог јавног дељења</string>
     <string name="add_to_cloud">Додај у %1$s</string>
     <string name="allow_editing">Дозволи уређивање</string>
-    <string name="appbar_search_in">Претражи у %s</string>
+    <string name="appbar_search_in">Тражи у %s</string>
     <string name="associated_account_not_found">Придружени налог није нађен!</string>
     <string name="auth_access_failed">Неуспешан приступ: %1$s</string>
     <string name="auth_account_does_not_exist">Налог још није додат на овај уређај</string>
@@ -116,7 +116,7 @@
     <string name="community_beta_text">Ово укључује све надолазеће функционалности па може бити нестабилна. Ако приметите пропусте или грешке, пријавите нам.</string>
     <string name="community_contribute_forum_forum">форуму</string>
     <string name="community_contribute_forum_text">Помозите другима на</string>
-    <string name="community_contribute_github_text">Прегледај, дорађуј и мењај кôд, погледај %1$s за детаље.</string>
+    <string name="community_contribute_github_text">Прегледај, дорађуј и мењај кôд. Погледајте %1$s за детаље.</string>
     <string name="community_contribute_headline">Активно допринесите</string>
     <string name="community_contribute_irc_text">Придружите се ћаскању на ИРЦ-у:</string>
     <string name="community_contribute_translate_text">апликације</string>
@@ -417,7 +417,7 @@
     <string name="network_error_connect_timeout_exception">Десила се грешка при чекању на сервер. Не могу да довршим радњу.</string>
     <string name="network_error_socket_exception">Десила се грешка при повезивању на сервер</string>
     <string name="network_error_socket_timeout_exception">Десила се грешка при чекању на сервер. Не могу да довршим радњу.</string>
-    <string name="network_host_not_available">Нисам могао да довршим радњу. Сервер није доступан.</string>
+    <string name="network_host_not_available">Не могу да довршим радњу. Сервер није доступан.</string>
     <string name="new_comment">Нови коментар…</string>
     <string name="new_media_folder_detected">Нађена је нова медијска фасцикла са %1$s</string>
     <string name="new_media_folder_photos">сликама</string>
@@ -477,7 +477,7 @@
     <string name="pref_instant_name_collision_policy_dialogTitle">Шта радити ако фајл већ постоји?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Питај ме сваки пут</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Препиши удаљену верзију</string>
-    <string name="pref_instant_name_collision_policy_entries_rename">Преименуј нову вертију</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Преименуј нову верзију</string>
     <string name="pref_instant_name_collision_policy_title">Шта радити ако фајл већ постоји?</string>
     <string name="prefs_add_account">Додај налог</string>
     <string name="prefs_calendar_contacts">Синхронизуј календар и контакте</string>
@@ -705,7 +705,7 @@
     <string name="unread_comments">Постоје непрочитани коментари</string>
     <string name="unset_encrypted">Искључи шифровање</string>
     <string name="unset_favorite">Уклони из омиљених</string>
-    <string name="unshare">Не дели</string>
+    <string name="unshare">Укини дељење</string>
     <string name="unshare_link_file_error">Десила се грешка при покушају укидања дељења фајла или фасцикле.</string>
     <string name="unshare_link_file_no_exist">Не могу да укинем дељење. Проверите да ли фајл постоји.</string>
     <string name="unshare_link_forbidden_permissions">да укинете дељење овог фајла</string>
