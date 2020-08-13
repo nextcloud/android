@@ -391,7 +391,7 @@
     <string name="maintenance_mode">Servidor en modo de mantemento</string>
     <string name="manage_space_clear_data">Limpar os datos</string>
     <string name="manage_space_description">Van ser eliminados de xeito permanente os axustes , base de datos e certificados do servidor de %1$s.\n\nOs ficheiros descargados manteranse sen cambios.\n\nEste proceso pode levar bastante tempo.</string>
-    <string name="manage_space_title">Administrar o espazo</string>
+    <string name="manage_space_title">Xestionar o espazo</string>
     <string name="media_err_invalid_progressive_playback">O ficheiro multimedia non pode ser transformado nun fluxo</string>
     <string name="media_err_io">Non foi posíbel ler o ficheiro multimedia</string>
     <string name="media_err_malformed">O ficheiro multimedia ten unha codificación incorrecta</string>
@@ -441,8 +441,8 @@
     <string name="notification_channel_general_name">Notificacións xerais</string>
     <string name="notification_channel_media_description">Progreso do reprodutor de música</string>
     <string name="notification_channel_media_name">Reprodutor de medios</string>
-    <string name="notification_channel_push_description">Amosa as notificacións «push» enviadas polo servidor: mencións en comentarios, recepción de novos ficheiros compartidos remotos, anuncios publicados por un administrador, etc.</string>
-    <string name="notification_channel_push_name">Notificacións «push»</string>
+    <string name="notification_channel_push_description">Amosa as notificacións enviadas polo servidor: mencións en comentarios, recepción de novos ficheiros compartidos remotos, anuncios publicados por un administrador, etc.</string>
+    <string name="notification_channel_push_name">Notificacións do servidor</string>
     <string name="notification_channel_upload_description">Amosa o progreso do envío</string>
     <string name="notification_channel_upload_name">Canle de notificación de envíos</string>
     <string name="notification_icon">Icona de notificación</string>
@@ -528,9 +528,9 @@
     <string name="preview_sorry">Desculpe.</string>
     <string name="privacy">Privacidade</string>
     <string name="public_share_name">Nome novo</string>
-    <string name="push_notifications_not_implemented">Foron desactivadas as notificacións «push» por depender de servizos propietarios de Google Play.</string>
-    <string name="push_notifications_old_login">Non hai notificacións «push» por mor dun acceso á sesión caducado. Considere volver engadir a súa conta.</string>
-    <string name="push_notifications_temp_error">Actualmente non están dispoñíbeis as notificacións «push».</string>
+    <string name="push_notifications_not_implemented">Foron desactivadas as notificacións do servidor por depender de servizos propietarios de Google Play.</string>
+    <string name="push_notifications_old_login">Non hai notificacións do servidor por mor dun acceso á sesión caducado. Considere volver engadir a súa conta.</string>
+    <string name="push_notifications_temp_error">Actualmente non están dispoñíbeis as notificacións do servidor.</string>
     <string name="qr_could_not_be_read">Non foi posíbel crear o código QR!</string>
     <string name="recommend_subject">Probe %1$s no seu dispositivo!</string>
     <string name="recommend_text">Quixera convidalo a usar %1$s no seu dispositivo\nDescargueo aquí: %2$s</string>
