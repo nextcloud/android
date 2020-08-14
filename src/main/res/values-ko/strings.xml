@@ -27,10 +27,12 @@
     <string name="actionbar_sort">정렬</string>
     <string name="active_user">활성 사용자</string>
     <string name="activities_no_results_headline">아직 활동 없음</string>
+    <string name="activities_no_results_message">추가, 변경 및 공유와 같은 이벤트가 아직 없음</string>
     <string name="activity_chooser_send_file_title">보내기</string>
     <string name="activity_chooser_title">다음으로 링크 보내기…</string>
     <string name="activity_icon">활동</string>
     <string name="add_another_public_share_link">다른 링크 추가</string>
+    <string name="add_new_public_share">새 공개된 공유 링크</string>
     <string name="add_to_cloud">%1$s(으)로 추가</string>
     <string name="allow_editing">Allow editing</string>
     <string name="appbar_search_in">%s 검색</string>
@@ -217,6 +219,7 @@
     <string name="drawer_quota">%2$s 중 %1$s 사용됨</string>
     <string name="drawer_quota_unlimited">%1$s 사용됨</string>
     <string name="drawer_synced_folders">자동 업로드</string>
+    <string name="edit_label">이름 변경</string>
     <string name="edit_permission_label">편집</string>
     <string name="edit_rich_workspace">폴더 정보 수정</string>
     <string name="encrypted">암호화하도록 설정</string>
@@ -259,6 +262,8 @@
     <string name="etm_background_jobs_schedule_test_job">테스트 작업 계획</string>
     <string name="etm_background_jobs_start_test_job">테스트 작업 시작하기</string>
     <string name="etm_background_jobs_stop_test_job">테스트 작업 정지하기</string>
+    <string name="etm_download_path">원격 경로</string>
+    <string name="etm_downloader">다운로더</string>
     <string name="etm_migrations">이전 작업 (앱 업그레이드)</string>
     <string name="etm_preferences">환경 설정</string>
     <string name="etm_title">엔지니어링 테스트 모드</string>
@@ -364,10 +369,12 @@
     <string name="instant_upload_on_charging">충전 중에만 업로드</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">잘못된 URL</string>
+    <string name="label_empty">라벨은 비어있을 수 없습니다</string>
     <string name="link">링크</string>
     <string name="list_layout">목록 보기</string>
     <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
     <string name="local_file_not_found_message">내부 파일 시스템에서 파일을 찾을 수 없음</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">더 이상의 폴더가 없습니다.</string>
     <string name="log_send_mail_subject">%1$s Android 앱 로그</string>
     <string name="log_send_no_mail_app">로그를 보내는 데 사용할 수 있는 앱이 없습니다. 이메일 앱을 설치하십시오.</string>
@@ -421,6 +428,7 @@
     <string name="no_pdf_app_available">PDF를 실행할 앱이 없습니다.</string>
     <string name="note_confirm">전송</string>
     <string name="note_could_not_sent">메모를 보낼 수 없습니다.</string>
+    <string name="note_icon_hint">노트 아이콘</string>
     <string name="notification_action_failed">작업을 실행할 수 없음</string>
     <string name="notification_channel_download_description">다운로드 진행 표시</string>
     <string name="notification_channel_download_name">다운로드 알림 채널</string>
@@ -517,9 +525,11 @@
     <string name="preview_image_error_unknown_format">이 사진을 미리 볼 수 없음</string>
     <string name="preview_sorry">죄송합니다</string>
     <string name="privacy">개인 정보</string>
+    <string name="public_share_name">새 이름</string>
     <string name="push_notifications_not_implemented">비자유 Google Play 서비스 의존성 때문에 푸시 알림이 비활성화되었습니다.</string>
     <string name="push_notifications_old_login">로그인 세션이 오래되어 푸시 알림이 비활성화되었습니다. 계정을 다시 추가하십시오.</string>
     <string name="push_notifications_temp_error">푸시 알림을 사용할 수 없습니다.</string>
+    <string name="qr_could_not_be_read">QR코드를 읽을 수 없습니다!</string>
     <string name="recommend_subject">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요!</string>
     <string name="recommend_text">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요.\n다운로드 링크: %2$s</string>
     <string name="recommend_urls">%1$s 및 %2$s</string>
