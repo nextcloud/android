@@ -863,8 +863,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
                         .setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
                         .create();
 
-                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(accentColor);
                     alertDialog.show();
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(accentColor);
                 }
             }
         }
