@@ -27,10 +27,12 @@
     <string name="actionbar_sort">Rendezés</string>
     <string name="active_user">Aktív felhasználó</string>
     <string name="activities_no_results_headline">Még nincsenek tevékenységek</string>
+    <string name="activities_no_results_message">Még nincsenek események, mint a hozzáadások, módosítások és megosztások.</string>
     <string name="activity_chooser_send_file_title">Küldés</string>
     <string name="activity_chooser_title">Hivatkozás küldése…</string>
     <string name="activity_icon">Tevékenység</string>
     <string name="add_another_public_share_link">További hivatkozás hozzáadása</string>
+    <string name="add_new_public_share">Új nyilvános megosztási link hozzáadása</string>
     <string name="add_to_cloud">Hozzáadás ehhez: %1$s</string>
     <string name="allow_editing">Szerkesztés engedélyezése</string>
     <string name="appbar_search_in">Keresés itt: %s</string>
@@ -260,6 +262,9 @@
     <string name="etm_background_jobs_schedule_test_job">Tesztfeladat ütemezése</string>
     <string name="etm_background_jobs_start_test_job">Tesztfeladat indítása</string>
     <string name="etm_background_jobs_stop_test_job">Tesztfeladat leállítása</string>
+    <string name="etm_download_enqueue_test_download">Várakozás tesztletöltésre</string>
+    <string name="etm_download_path">Távoli elérési útvonal</string>
+    <string name="etm_downloader">Letöltő</string>
     <string name="etm_migrations">Migrációk (alkalmazásfrissítés)</string>
     <string name="etm_preferences">Beállítások</string>
     <string name="etm_title">Mérnöki teszt mód</string>
@@ -365,6 +370,7 @@
     <string name="instant_upload_on_charging">Feltöltés csak töltés közben</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Érvénytelen URL</string>
+    <string name="label_empty">A címke nem lehet üres</string>
     <string name="link">Hivatkozás</string>
     <string name="list_layout">Listás elrendezés</string>
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
@@ -423,6 +429,7 @@
     <string name="no_pdf_app_available">Nincs elérhető alkalmazás PDF kezeléséhez</string>
     <string name="note_confirm">Küldés</string>
     <string name="note_could_not_sent">A jegyzet nem küldhető el</string>
+    <string name="note_icon_hint">Megjegyzés ikon</string>
     <string name="notification_action_failed">A művelet végrehajtása sikertelen.</string>
     <string name="notification_channel_download_description">Megjeleníti a letöltési folyamatokat</string>
     <string name="notification_channel_download_name">Letöltési értesítési csatorna</string>
@@ -519,9 +526,11 @@
     <string name="preview_image_error_unknown_format">A kép nem jeleníthető meg</string>
     <string name="preview_sorry">Sajnáljuk</string>
     <string name="privacy">Adatvédelem</string>
+    <string name="public_share_name">Új név</string>
     <string name="push_notifications_not_implemented">A leküldéses üzenetek ki vannak kapcsolva, mert azok a zárt Google Play szolgáltatásoktól függenek.</string>
     <string name="push_notifications_old_login">Nincsenek leküldéses értesítések, mert a munkamenet lejárt. Adja hozzá újra a fiókját.</string>
     <string name="push_notifications_temp_error">A leküldéses értesítések jelenleg nem érhetőek el.</string>
+    <string name="qr_could_not_be_read">A QR kód nem olvasható!</string>
     <string name="recommend_subject">Próbálja ki a %1$sot az eszközén!</string>
     <string name="recommend_text">Meg akarom hívni a %1$s használatára az eszközén.\nTöltse le itt: %2$s</string>
     <string name="recommend_urls">%1$s vagy %2$s</string>
