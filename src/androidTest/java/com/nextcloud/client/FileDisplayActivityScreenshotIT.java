@@ -54,7 +54,7 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
         sut.getListOfFilesFragment().setFabEnabled(false);
-        sut.getListOfFilesFragment().setEmptyListLoadingMessage();
+        sut.getListOfFilesFragment().setEmptyListLoadingMessage(false);
 
         screenshot(sut);
     }
@@ -67,7 +67,7 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
 
         sut.getListOfFilesFragment().setFabEnabled(false);
-        sut.getListOfFilesFragment().setEmptyListLoadingMessage();
+        sut.getListOfFilesFragment().setEmptyListLoadingMessage(false);
 
         screenshot(sut);
     }
