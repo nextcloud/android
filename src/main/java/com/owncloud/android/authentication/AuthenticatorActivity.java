@@ -88,6 +88,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.ui.theming.ColorsUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountSetupBinding;
@@ -905,7 +906,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                         remoteOperationResult.getData().size() > 0) {
                         OCCapability capability = (OCCapability) remoteOperationResult.getData().get(0);
                         try {
-                            primaryColor = Color.parseColor(capability.getServerColor());
+                            primaryColor = ColorsUtils.elementColor(this);
                         } catch (Exception e) {
                             // falls back to primary color
                         }
