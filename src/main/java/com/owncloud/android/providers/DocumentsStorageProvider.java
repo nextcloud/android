@@ -618,15 +618,29 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Log.d(TAG, "isChildDocument(), parent=" + parentDocumentId + ", id=" + documentId);
 
         try {
-            Document currentDocument = toDocument(documentId);
+            // get file for parent document
             Document parentDocument = toDocument(parentDocumentId);
-
-            while (!ROOT_PATH.equals(currentDocument.getRemotePath())) {
-                currentDocument = currentDocument.getParent();
-                if (parentDocument.getFile().equals(currentDocument.getFile())) {
-                    return true;
-                }
+            OCFile parentFile = parentDocument.getFile();
+            if (parentFile == null) {
+                throw new FileNotFoundException("No parent file with ID " + parentDocumentId);
             }
+            // get file for child candidate document
+            Document currentDocument = toDocument(documentId);
+            OCFile childFile = currentDocument.getFile();
+            if (childFile == null) {
+                throw new FileNotFoundException("No child file with ID " + documentId);
+            }
+
+            String parentPath = parentFile.getDecryptedRemotePath();
+            String childPath = childFile.getDecryptedRemotePath();
+
+            // The alternative is to go up the folder hierarchy from currentDocument with getParent()
+            // until we arrive at parentDocument or the storage root.
+            // However, especially for long paths this is expensive and can take substantial time.
+            // The solution below uses paths and is faster by a factor of 2-10 depending on the nesting level of child.
+            // So far, the same document with its unique ID can never be in two places at once.
+            // If this assumption ever changes, this code would need to be adapted.
+            return parentDocument.getAccount() == currentDocument.getAccount() && childPath.startsWith(parentPath);
 
         } catch (FileNotFoundException e) {
             Log.e(TAG, "failed to check for child document", e);
