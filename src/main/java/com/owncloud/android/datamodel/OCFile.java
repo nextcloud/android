@@ -215,7 +215,12 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
                 return decryptedRemotePath + PATH_SEPARATOR;
             }
         } else {
-            return decryptedRemotePath;
+            if (decryptedRemotePath == null) {
+                // last fallback
+                return remotePath;
+            } else {
+                return decryptedRemotePath;
+            }
         }
     }
 
