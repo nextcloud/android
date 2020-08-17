@@ -1557,6 +1557,12 @@ public class FileDisplayActivity extends FileActivity
         User currentUser = getUser().orElseThrow(RuntimeException::new);
         Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser, activeTab);
         setSecondFragment(detailFragment);
+
+        OCFileListFragment listOfFiles = getListOfFilesFragment();
+        if (listOfFiles != null) {
+            listOfFiles.setFabVisible(false);
+        }
+
         updateFragmentsVisibility(true);
         updateActionBarTitleAndHomeButton(file);
         setFile(file);
