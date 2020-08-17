@@ -49,6 +49,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -1560,12 +1561,22 @@ public class FileDisplayActivity extends FileActivity
 
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null) {
+            resetHeaderScrollingState();
+            showSortListGroup(false);
             listOfFiles.setFabVisible(false);
         }
 
         updateFragmentsVisibility(true);
         updateActionBarTitleAndHomeButton(file);
         setFile(file);
+    }
+
+    private void resetHeaderScrollingState() {
+        AppBarLayout appBarLayout = findViewById(R.id.appbar);
+
+        if (appBarLayout != null) {
+            appBarLayout.setExpanded(true);
+        }
     }
 
     @Override
