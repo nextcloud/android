@@ -715,6 +715,9 @@ public class FileUploader extends Service
             String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
             String text = String.format(getString(R.string.uploader_upload_in_progress_content), percent, fileName);
             mNotificationBuilder.setContentText(text);
+            if (mNotificationManager == null) {
+                mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            }
             mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
         }
         mLastPercent = percent;
