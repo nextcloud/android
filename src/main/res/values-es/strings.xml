@@ -491,8 +491,8 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_daily_contacts_sync_summary">Copia de seguridad diaria de tus contactos</string>
-    <string name="prefs_e2e_mnemonic">Nemotécnico del cifrado E2E</string>
-    <string name="prefs_e2e_no_device_credentials">Para mostrar el nemotécnico, habilite las credenciales del dispositivo</string>
+    <string name="prefs_e2e_mnemonic">Regla mnemotécnica del cifrado E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Para mostrar la regla mnemotécnica, habilite las credenciales del dispositivo</string>
     <string name="prefs_enable_media_scan_notifications">Mostrar notificaciones de escaneo de medios</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notificar cuando se encuentren nuevas carpetas de medios</string>
     <string name="prefs_gpl_v2">Licencia GNU GPL, versión 2</string>
@@ -640,7 +640,7 @@
     <string name="ssl_validator_not_saved">No se ha podido guardar el certificado</string>
     <string name="ssl_validator_null_cert">No se ha podido mostrar el certificado</string>
     <string name="ssl_validator_question">¿Quieres confiar de todas formas en este certificado?</string>
-    <string name="ssl_validator_reason_cert_expired">- El certificado del servidor ha expirado</string>
+    <string name="ssl_validator_reason_cert_expired">- El certificado del servidor ha caducado</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- El certificado del servidor es de una fecha que aún no ha llegado</string>
     <string name="ssl_validator_reason_hostname_not_verified">- La URL no coincide con el nombre de dominio del certificado</string>

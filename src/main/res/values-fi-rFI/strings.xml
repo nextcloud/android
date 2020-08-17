@@ -260,6 +260,7 @@
     <string name="etm_background_jobs_schedule_test_job">Ajoita testityö</string>
     <string name="etm_background_jobs_start_test_job">Käynnistä testityö</string>
     <string name="etm_background_jobs_stop_test_job">Pysäytä testityö</string>
+    <string name="etm_download_path">Etäpolku</string>
     <string name="etm_migrations">Yhdistäminen (sovelluksen päivitys)</string>
     <string name="etm_preferences">Asetukset</string>
     <string name="etm_title">Kehittäjän testitila</string>
@@ -369,6 +370,7 @@
     <string name="list_layout">Luettelonäkymä</string>
     <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
     <string name="local_file_not_found_message">Tiedostoa ei löytynyt paikallisesta tiedostojärjestelmästä</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Kansioita ei ole enempää.</string>
     <string name="log_send_mail_subject">%1$sin Android-sovelluksen lokit</string>
     <string name="log_send_no_mail_app">Lokien lähettämiseen soveltuvaa sovellusta ei löytynyt. Asenna sähköpostisovellus.</string>
@@ -519,9 +521,11 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="preview_image_error_unknown_format">Kuvan näyttäminen ei onnistunut</string>
     <string name="preview_sorry">Anteeksi</string>
     <string name="privacy">Yksityisyys</string>
+    <string name="public_share_name">Uusi nimi</string>
     <string name="push_notifications_not_implemented">Push-ilmoitukset ovat pois käytöstä, koska ne riippuvat suljetuista Google Play -palveluista.</string>
     <string name="push_notifications_old_login">Ei puskusanomia johtuen vanhentuneesta kirjautumisistunnosta. Harkitse tilin uudelleenlisäämistä.</string>
     <string name="push_notifications_temp_error">Push-ilmoitukset eivät ole nyt käytettävissä.</string>
+    <string name="qr_could_not_be_read">QR-koodia ei voitu lukea!</string>
     <string name="recommend_subject">Kokeile %1$sia laitteellasi!</string>
     <string name="recommend_text">Haluan, että kokeilet %1$sia laitteellasi.\nLataa tästä: %2$s</string>
     <string name="recommend_urls">%1$s tai %2$s</string>
