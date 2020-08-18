@@ -24,10 +24,15 @@ package com.nextcloud.client;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Looper;
 
 import com.facebook.testing.screenshot.Screenshot;
 import com.owncloud.android.AbstractIT;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.ui.activity.RequestCredentialsActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
+import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
@@ -35,6 +40,8 @@ import org.junit.Test;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.rule.GrantPermissionRule;
+
+import static org.junit.Assert.assertTrue;
 
 
 public class SettingsActivityIT extends AbstractIT {
@@ -52,5 +59,32 @@ public class SettingsActivityIT extends AbstractIT {
         Activity test = activityRule.launchActivity(null);
 
         Screenshot.snapActivity(test).record();
+    }
+
+    @Test
+    @ScreenshotTest
+    public void showMnemonic_Error() {
+        SettingsActivity sut = activityRule.launchActivity(null);
+        sut.handleMnemonicRequest(null);
+
+        screenshot(sut);
+    }
+
+    @Test
+    public void showMnemonic() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare();
+        }
+
+        Intent intent = new Intent();
+        intent.putExtra(RequestCredentialsActivity.KEY_CHECK_RESULT, RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE);
+
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(targetContext.getContentResolver());
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.MNEMONIC, "Secret mnemonic");
+
+        SettingsActivity sut = activityRule.launchActivity(null);
+        sut.handleMnemonicRequest(intent);
+
+        assertTrue(true); // if we reach this, everything is ok
     }
 }
