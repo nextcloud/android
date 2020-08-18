@@ -158,7 +158,7 @@
     <string name="copy_link">Копирај врска</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Не е поддржано копирање/преместување во папка која е шифрирана.</string>
     <string name="copy_to">Копирај во…</string>
-    <string name="could_not_download_image">Неможе да се превземе целосната слика</string>
+    <string name="could_not_download_image">Неможе да се преземе целосната слика</string>
     <string name="create_dir_fail_msg">Не множе да креира папка</string>
     <string name="create_new_document">Креирај нов документ</string>
     <string name="create_new_folder">Креирај нова папка</string>
@@ -250,7 +250,7 @@
     <string name="favorite">Додади во фаворити</string>
     <string name="favorite_icon">Омилен</string>
     <string name="file_delete">Избриши</string>
-    <string name="file_detail_activity_error">Грешка при превземањето на активностите за датотеката</string>
+    <string name="file_detail_activity_error">Грешка при преземањето на активностите за датотеката</string>
     <string name="file_details_no_content">Неуспешно вчитување на деталите</string>
     <string name="file_icon">Датотека</string>
     <string name="file_keep">Задржи</string>
@@ -264,7 +264,7 @@
     <string name="file_list_empty_headline_server_search_photos">Нема слики</string>
     <string name="file_list_empty_headline_server_search_videos">Нема видеа</string>
     <string name="file_list_empty_moving">Тука нема ништо. Можете да додадете папка!</string>
-    <string name="file_list_empty_on_device">Превземените датотеки и папки  ќе се појават тука.</string>
+    <string name="file_list_empty_on_device">Преземените датотеки и папки  ќе се појават тука.</string>
     <string name="file_list_empty_recently_added">Нема пронајдено скоро додадени датотеки</string>
     <string name="file_list_empty_recently_added_filter">Нема скоро додадени датотеки</string>
     <string name="file_list_empty_recently_modified">Нема пронајдено датотеки изменети во последните 7 дена.</string>
@@ -732,7 +732,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Локалната датотека не е пронајдена</string>
     <string name="uploads_view_upload_status_failed_permission_error">Грешка во дозволите</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Сертификатот на серверот е недоверлив</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Превземање на верзијата од серверот ...</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Преземање на верзијата од серверот ...</string>
     <string name="uploads_view_upload_status_service_interrupted">Апликацијата е прекината</string>
     <string name="uploads_view_upload_status_succeeded">Завршено</string>
     <string name="uploads_view_upload_status_unknown_fail">Непозната грешка</string>
