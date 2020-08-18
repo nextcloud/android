@@ -701,10 +701,14 @@ public class ExtendedListFragment extends Fragment implements
         });
     }
 
+    public void setEmptyListLoadingMessage() {
+        setEmptyListLoadingMessage(true);
+    }
+
     /**
      * Set message for empty list view.
      */
-    public void setEmptyListLoadingMessage() {
+    public void setEmptyListLoadingMessage(boolean showSpinner) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
@@ -713,7 +717,7 @@ public class ExtendedListFragment extends Fragment implements
                     mEmptyListMessage.setText("");
 
                     mEmptyListIcon.setVisibility(View.GONE);
-                    mEmptyListProgress.setVisibility(View.VISIBLE);
+                    mEmptyListProgress.setVisibility(showSpinner ? View.VISIBLE : View.INVISIBLE);
                 }
             }
         });
