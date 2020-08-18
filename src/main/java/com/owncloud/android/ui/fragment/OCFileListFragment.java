@@ -1125,10 +1125,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         mActiveActionMode.finish();
                     }
 
-                    resetHeaderScrollingState();
-
                     mContainerActivity.showDetails(singleFile);
-                    setFabVisible(false);
                     mContainerActivity.showSortListGroup(false);
                     return true;
                 }
