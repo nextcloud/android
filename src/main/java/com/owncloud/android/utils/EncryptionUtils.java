@@ -93,6 +93,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.VisibleForTesting;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Utils for encryption
@@ -106,6 +108,7 @@ public final class EncryptionUtils {
     public static final int ivLength = 16;
     public static final int saltLength = 40;
     public static final String ivDelimiter = "|"; // not base64 encoded
+    public static final String ivDelimiterOld = "fA=="; // "|" base64 encoded
 
     private static final String HASH_DELIMITER = "$";
     private static final int iterationCount = 1024;
@@ -438,10 +441,9 @@ public final class EncryptionUtils {
         return decodeBase64BytesToString(encodedBytes);
     }
 
-
     /**
-     * Encrypt string with RSA algorithm, ECB mode, OAEPWithSHA-256AndMGF1 padding
-     * Asymmetric encryption, with private and public key
+     * Encrypt string with RSA algorithm, ECB mode, OAEPWithSHA-256AndMGF1 padding Asymmetric encryption, with private
+     * and public key
      *
      * @param string             String to encrypt
      * @param encryptionKeyBytes key, either from metadata or {@link EncryptionUtils#generateKey()}
@@ -449,9 +451,37 @@ public final class EncryptionUtils {
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static String encryptStringSymmetric(String string, byte[] encryptionKeyBytes)
-            throws NoSuchAlgorithmException,
-            InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
-            BadPaddingException, IllegalBlockSizeException {
+        throws NoSuchPaddingException,
+        InvalidKeyException,
+        NoSuchAlgorithmException,
+        IllegalBlockSizeException,
+        BadPaddingException,
+        InvalidAlgorithmParameterException {
+        return encryptStringSymmetric(string, encryptionKeyBytes, ivDelimiter);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @VisibleForTesting
+    public static String encryptStringSymmetricOld(String string, byte[] encryptionKeyBytes)
+        throws NoSuchPaddingException,
+        InvalidKeyException,
+        NoSuchAlgorithmException,
+        IllegalBlockSizeException,
+        BadPaddingException,
+        InvalidAlgorithmParameterException {
+        return encryptStringSymmetric(string, encryptionKeyBytes, ivDelimiterOld);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private static String encryptStringSymmetric(String string,
+                                                 byte[] encryptionKeyBytes,
+                                                 String delimiter)
+        throws NoSuchAlgorithmException,
+        InvalidAlgorithmParameterException,
+        NoSuchPaddingException,
+        InvalidKeyException,
+        BadPaddingException,
+        IllegalBlockSizeException {
 
         Cipher cipher = Cipher.getInstance(AES_CIPHER);
         byte[] iv = randomBytes(ivLength);
@@ -466,7 +496,7 @@ public final class EncryptionUtils {
         String encodedCryptedBytes = encodeBytesToBase64String(cryptedBytes);
         String encodedIV = encodeBytesToBase64String(iv);
 
-        return encodedCryptedBytes + ivDelimiter + encodedIV;
+        return encodedCryptedBytes + delimiter + encodedIV;
     }
 
 
@@ -486,9 +516,18 @@ public final class EncryptionUtils {
 
         Cipher cipher = Cipher.getInstance(AES_CIPHER);
 
+        String ivString;
         int delimiterPosition = string.lastIndexOf(ivDelimiter);
+
+        if (delimiterPosition == -1) {
+            // backward compatibility
+            delimiterPosition = string.lastIndexOf(ivDelimiterOld);
+            ivString = string.substring(delimiterPosition + ivDelimiterOld.length());
+        } else {
+            ivString = string.substring(delimiterPosition + ivDelimiter.length());
+        }
+
         String cipherString = string.substring(0, delimiterPosition);
-        String ivString = string.substring(delimiterPosition + ivDelimiter.length());
 
         byte[] iv = new IvParameterSpec(decodeStringToBase64Bytes(ivString)).getIV();
 
@@ -507,13 +546,38 @@ public final class EncryptionUtils {
      * Encrypt private key with symmetric AES encryption, GCM mode mode and no padding
      *
      * @param privateKey byte64 encoded string representation of private key
-     * @param keyPhrase  key used for encryption, e.g. 12 random words
-     *                   {@link EncryptionUtils#getRandomWords(int, Context)}
+     * @param keyPhrase  key used for encryption, e.g. 12 random words {@link EncryptionUtils#getRandomWords(int,
+     *                   Context)}
      * @return encrypted string, bytes first encoded base64, IV separated with "|", then to string
      */
-    public static String encryptPrivateKey(String privateKey, String keyPhrase) throws NoSuchPaddingException,
-            NoSuchAlgorithmException, InvalidKeyException, BadPaddingException,
-            IllegalBlockSizeException, InvalidKeySpecException {
+    public static String encryptPrivateKey(String privateKey, String keyPhrase)
+        throws NoSuchPaddingException,
+        NoSuchAlgorithmException,
+        InvalidKeyException,
+        BadPaddingException,
+        IllegalBlockSizeException,
+        InvalidKeySpecException {
+        return encryptPrivateKey(privateKey, keyPhrase, ivDelimiter);
+    }
+
+    @VisibleForTesting
+    public static String encryptPrivateKeyOld(String privateKey, String keyPhrase)
+        throws NoSuchPaddingException,
+        NoSuchAlgorithmException,
+        InvalidKeyException,
+        BadPaddingException,
+        IllegalBlockSizeException,
+        InvalidKeySpecException {
+        return encryptPrivateKey(privateKey, keyPhrase, ivDelimiterOld);
+    }
+
+    private static String encryptPrivateKey(String privateKey, String keyPhrase, String delimiter)
+        throws NoSuchPaddingException,
+        NoSuchAlgorithmException,
+        InvalidKeyException,
+        BadPaddingException,
+        IllegalBlockSizeException,
+        InvalidKeySpecException {
         Cipher cipher = Cipher.getInstance(AES_CIPHER);
 
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
@@ -531,7 +595,7 @@ public final class EncryptionUtils {
         String encodedSalt = encodeBytesToBase64String(salt);
         String encodedEncryptedBytes = encodeBytesToBase64String(encrypted);
 
-        return encodedEncryptedBytes + ivDelimiter + encodedIV + ivDelimiter + encodedSalt;
+        return encodedEncryptedBytes + delimiter + encodedIV + delimiter + encodedSalt;
     }
 
     /**
@@ -542,12 +606,21 @@ public final class EncryptionUtils {
      *                   {@link EncryptionUtils#getRandomWords(int, Context)}
      * @return decrypted string
      */
+    @SuppressFBWarnings("UCPM_USE_CHARACTER_PARAMETERIZED_METHOD")
     public static String decryptPrivateKey(String privateKey, String keyPhrase) throws NoSuchPaddingException,
             NoSuchAlgorithmException, InvalidKeyException, BadPaddingException,
             IllegalBlockSizeException, InvalidKeySpecException, InvalidAlgorithmParameterException {
 
+        String[] strings;
+
         // split up iv, salt
-        String[] strings = privateKey.split("\\" + ivDelimiter);
+        if (privateKey.lastIndexOf(ivDelimiter) == -1) {
+            // backward compatibility
+            strings = privateKey.split(ivDelimiterOld);
+        } else {
+            strings = privateKey.split("\\" + ivDelimiter);
+        }
+
         String realPrivateKey = strings[0];
         byte[] iv = decodeStringToBase64Bytes(strings[1]);
         byte[] salt = decodeStringToBase64Bytes(strings[2]);

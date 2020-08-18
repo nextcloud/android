@@ -50,6 +50,7 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 import androidx.annotation.RequiresApi;
@@ -71,6 +72,7 @@ import static com.owncloud.android.utils.EncryptionUtils.generateKey;
 import static com.owncloud.android.utils.EncryptionUtils.generateSHA512;
 import static com.owncloud.android.utils.EncryptionUtils.getMD5Sum;
 import static com.owncloud.android.utils.EncryptionUtils.ivDelimiter;
+import static com.owncloud.android.utils.EncryptionUtils.ivDelimiterOld;
 import static com.owncloud.android.utils.EncryptionUtils.ivLength;
 import static com.owncloud.android.utils.EncryptionUtils.randomBytes;
 import static com.owncloud.android.utils.EncryptionUtils.saltLength;
@@ -152,7 +154,17 @@ public class EncryptionTestIT {
             Log_OC.d("EncryptionTestIT", i + " of " + max);
             byte[] key = generateKey();
 
-            String encryptedString = EncryptionUtils.encryptStringSymmetric(privateKey, key);
+            String encryptedString;
+            if (new Random().nextBoolean()) {
+                encryptedString = EncryptionUtils.encryptStringSymmetric(privateKey, key);
+            } else {
+                encryptedString = EncryptionUtils.encryptStringSymmetricOld(privateKey, key);
+
+                if (encryptedString.indexOf(ivDelimiterOld) != encryptedString.lastIndexOf(ivDelimiterOld)) {
+                    Log_OC.d("EncryptionTestIT", "skip due to duplicated iv (old system) -> ignoring");
+                    continue;
+                }
+            }
             String decryptedString = decryptStringSymmetric(encryptedString, key);
 
             assertEquals(privateKey, decryptedString);
@@ -192,19 +204,29 @@ public class EncryptionTestIT {
 
     @Test
     public void encryptPrivateKey() throws Exception {
-        String keyPhrase = "moreovertelevisionfactorytendencyindependenceinternationalintellectualimpress" +
+        int max = 10;
+        for (int i = 0; i < max; i++) {
+            Log_OC.d("EncryptionTestIT", i + " of " + max);
+
+            String keyPhrase = "moreovertelevisionfactorytendencyindependenceinternationalintellectualimpress" +
                 "interestvolunteer";
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-        keyGen.initialize(4096, new SecureRandom());
-        KeyPair keyPair = keyGen.generateKeyPair();
-        PrivateKey privateKey = keyPair.getPrivate();
-        byte[] privateKeyBytes = privateKey.getEncoded();
-        String privateKeyString = encodeBytesToBase64String(privateKeyBytes);
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+            keyGen.initialize(4096, new SecureRandom());
+            KeyPair keyPair = keyGen.generateKeyPair();
+            PrivateKey privateKey = keyPair.getPrivate();
+            byte[] privateKeyBytes = privateKey.getEncoded();
+            String privateKeyString = encodeBytesToBase64String(privateKeyBytes);
 
-        String encryptedString = EncryptionUtils.encryptPrivateKey(privateKeyString, keyPhrase);
-        String decryptedString = decryptPrivateKey(encryptedString, keyPhrase);
+            String encryptedString;
+            if (new Random().nextBoolean()) {
+                encryptedString = EncryptionUtils.encryptPrivateKey(privateKeyString, keyPhrase);
+            } else {
+                encryptedString = EncryptionUtils.encryptPrivateKeyOld(privateKeyString, keyPhrase);
+            }
+            String decryptedString = decryptPrivateKey(encryptedString, keyPhrase);
 
-        assertEquals(privateKeyString, decryptedString);
+            assertEquals(privateKeyString, decryptedString);
+        }
     }
 
     @Test
