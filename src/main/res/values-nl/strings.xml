@@ -27,10 +27,12 @@
     <string name="actionbar_sort">Sorteren</string>
     <string name="active_user">Actieve gebruiker</string>
     <string name="activities_no_results_headline">Nog geen activiteit</string>
+    <string name="activities_no_results_message">Er zijn nog geen evenementen zoals toevoegingen, wijzigingen en shares.</string>
     <string name="activity_chooser_send_file_title">Versturen</string>
     <string name="activity_chooser_title">Verstuur link naar…</string>
     <string name="activity_icon">Activiteit</string>
     <string name="add_another_public_share_link">Nog een  link toevoegen </string>
+    <string name="add_new_public_share">Voeg een nieuwe openbare deellink toe</string>
     <string name="add_to_cloud">Voeg toe aan %1$s</string>
     <string name="allow_editing">Bewerken toestaan</string>
     <string name="appbar_search_in">Zoeken in %s</string>
@@ -260,6 +262,9 @@
     <string name="etm_background_jobs_schedule_test_job">Inplannen test-job</string>
     <string name="etm_background_jobs_start_test_job">Start testtaak</string>
     <string name="etm_background_jobs_stop_test_job">Stop testtaak</string>
+    <string name="etm_download_enqueue_test_download">Testdownload in wachtrij plaatsen</string>
+    <string name="etm_download_path">Extern pad</string>
+    <string name="etm_downloader">Downloader</string>
     <string name="etm_migrations">Migratie (app upgrade)</string>
     <string name="etm_preferences">Voorkeuren</string>
     <string name="etm_title">Engineering Testmodus</string>
@@ -365,6 +370,7 @@
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Ongeldige URL</string>
+    <string name="label_empty">Label mag niet leeg zijn</string>
     <string name="link">Link</string>
     <string name="list_layout">Lijstoverzicht</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
@@ -406,7 +412,7 @@
     <string name="move_file_error">Er trad een fout op bij het verplaatsen van dit bestand of deze map</string>
     <string name="move_file_invalid_into_descendent">De map kan niet naar een onderliggende map worden verplaatst</string>
     <string name="move_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
-    <string name="move_file_not_found">Kan bestand niet verplaatsen. Ga na of het wel bestaat.</string>
+    <string name="move_file_not_found">Kan bestand niet verplaatsen. Ga alstublieft na of het wel bestaat.</string>
     <string name="move_to">Verplaats naar…</string>
     <string name="network_error_connect_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden.</string>
     <string name="network_error_socket_exception">Er trad een fout op bij het verbinden met de server.</string>
@@ -423,6 +429,7 @@
     <string name="no_pdf_app_available">Geen app bechikbaar voor het openen van de pdf</string>
     <string name="note_confirm">Versturen</string>
     <string name="note_could_not_sent">Kon notitie niet versturen</string>
+    <string name="note_icon_hint">Notitie icoon</string>
     <string name="notification_action_failed">Niet gelukt om actie uit te voeren</string>
     <string name="notification_channel_download_description">Geef download voortgang weer</string>
     <string name="notification_channel_download_name">Download notificatie kanaal</string>
@@ -519,9 +526,11 @@
     <string name="preview_image_error_unknown_format">Kan afbeelding niet tonen</string>
     <string name="preview_sorry">Sorry</string>
     <string name="privacy">Privacy</string>
+    <string name="public_share_name">Nieuwe naam</string>
     <string name="push_notifications_not_implemented">Push notificaties uitgeschakeld door afhankelijkheden op eigen Google Play-services.</string>
     <string name="push_notifications_old_login">Geen push-notificaties als gevolg van de verouderde inlogsessie. Overweeg het opnieuw toevoegen van je account.</string>
     <string name="push_notifications_temp_error">Push notificaties momenteel niet beschikbaar.</string>
+    <string name="qr_could_not_be_read">QR-code kan niet worden gelezen!</string>
     <string name="recommend_subject">Probeer %1$s op je toestel!</string>
     <string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
