@@ -244,7 +244,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                             showToast();
                         }
                     }
-                } catch (Exception exception) {
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Error syncing file", e);
                     showToast();
                 }
             });
@@ -253,7 +254,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             try {
                 syncThread.join();
             } catch (InterruptedException e) {
-                Log.e(TAG, "Failed to wait for thread to finish");
+                Log.e(TAG, "Failed to wait for thread to finish", e);
             }
         }
 
@@ -266,6 +267,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         if (isWrite) {
             try {
+                // reset last sync date to ensure we will be syncing this write to the server
+                ocFile.setLastSyncDateForData(0);
                 Handler handler = new Handler(context.getMainLooper());
                 return ParcelFileDescriptor.open(file, accessMode, handler, l -> {
                     RemoteOperationResult result = new SynchronizeFileOperation(newFile, oldFile, user, true,
