@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Zoradiť</string>
     <string name="active_user">Aktívny používateľ</string>
     <string name="activities_no_results_headline">Zatiaľ žiadna aktivita</string>
+    <string name="activities_no_results_message">Zatiaľ neexistujú žiadne udalosti, ako sú prírastky, zmeny a zdieľania.</string>
     <string name="activity_chooser_send_file_title">Odoslať</string>
     <string name="activity_chooser_title">Odoslať odkaz…</string>
     <string name="activity_icon">Aktivita</string>
