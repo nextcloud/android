@@ -66,6 +66,8 @@ public class SettingsActivityIT extends AbstractIT {
     public void showMnemonic_Error() {
         SettingsActivity sut = activityRule.launchActivity(null);
         sut.handleMnemonicRequest(null);
+        shortSleep();
+        waitForIdleSync();
 
         screenshot(sut);
     }
