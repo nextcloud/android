@@ -33,7 +33,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.UserAccountManager;
@@ -91,7 +90,6 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
     private TextView mMultiListMessage;
     private TextView mMultiListHeadline;
     private ImageView mMultiListIcon;
-    private ProgressBar mMultiListProgress;
 
     @Inject UserAccountManager accountManager;
     @Inject DeviceInfo deviceInfo;
@@ -119,16 +117,13 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
         mMultiListMessage = view.findViewById(R.id.empty_list_view_text);
         mMultiListHeadline = view.findViewById(R.id.empty_list_view_headline);
         mMultiListIcon = view.findViewById(R.id.empty_list_icon);
-        mMultiListProgress = view.findViewById(R.id.empty_list_progress);
     }
 
     private void setMultiListLoadingMessage() {
         if (mMultiListContainer != null) {
             mMultiListHeadline.setText(R.string.file_list_loading);
             mMultiListMessage.setText("");
-
             mMultiListIcon.setVisibility(View.GONE);
-            mMultiListProgress.setVisibility(View.VISIBLE);
         }
     }
 

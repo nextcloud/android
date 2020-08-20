@@ -236,7 +236,6 @@ public class TrashbinActivity extends DrawerActivity implements
         if (active) {
             trashbinListAdapter.setTrashbinFiles(trashbinFiles, true);
             binding.swipeContainingList.setRefreshing(false);
-            binding.emptyList.emptyListProgress.setVisibility(View.GONE);
         }
     }
 
@@ -275,7 +274,6 @@ public class TrashbinActivity extends DrawerActivity implements
             binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
             binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
             binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
-            binding.emptyList.emptyListProgress.setVisibility(View.GONE);
         }
     }
 }

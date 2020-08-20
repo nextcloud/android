@@ -48,7 +48,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.caverock.androidsvg.SVG;
@@ -114,11 +113,10 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     private PhotoView imageView;
 
-    private LinearLayout multiListContainer;
-    private TextView multiListMessage;
-    private TextView multiListHeadline;
-    private ImageView multiListIcon;
-    private ProgressBar multiListProgress;
+    private LinearLayout mMultiListContainer;
+    private TextView mMultiListMessage;
+    private TextView mMultiListHeadline;
+    private ImageView mMultiListIcon;
 
     private Boolean showResizedImage;
 
@@ -218,7 +216,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         multiListMessage = binding.emptyList.emptyListViewText;
         multiListHeadline = binding.emptyList.emptyListViewHeadline;
         multiListIcon = binding.emptyList.emptyListIcon;
-        multiListProgress = binding.emptyList.emptyListProgress;
     }
 
     /**
@@ -706,8 +703,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             multiListHeadline.setText(R.string.file_list_loading);
             multiListMessage.setText("");
 
-            multiListIcon.setVisibility(View.GONE);
-            multiListProgress.setVisibility(View.VISIBLE);
+            mMultiListIcon.setVisibility(View.GONE);
         }
     }
 
@@ -721,9 +717,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             multiListHeadline.setTextColor(getResources().getColor(R.color.standard_grey));
             multiListMessage.setTextColor(getResources().getColor(R.color.standard_grey));
 
-            multiListMessage.setVisibility(View.VISIBLE);
-            multiListIcon.setVisibility(View.VISIBLE);
-            multiListProgress.setVisibility(View.GONE);
+            mMultiListMessage.setVisibility(View.VISIBLE);
+            mMultiListIcon.setVisibility(View.VISIBLE);
         }
     }
 

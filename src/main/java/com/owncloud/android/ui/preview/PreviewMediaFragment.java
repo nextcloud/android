@@ -47,7 +47,6 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -118,7 +117,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private TextView mMultiListMessage;
     private TextView mMultiListHeadline;
     private ImageView mMultiListIcon;
-    private ProgressBar mMultiListProgress;
 
     private MediaControlView mMediaController;
     private boolean mAutoplay;
@@ -207,16 +205,13 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         mMultiListMessage = view.findViewById(R.id.empty_list_view_text);
         mMultiListHeadline = view.findViewById(R.id.empty_list_view_headline);
         mMultiListIcon = view.findViewById(R.id.empty_list_icon);
-        mMultiListProgress = view.findViewById(R.id.empty_list_progress);
     }
 
     private void setMultiListLoadingMessage() {
         if (mMultiListContainer != null) {
             mMultiListHeadline.setText(R.string.file_list_loading);
             mMultiListMessage.setText("");
-
             mMultiListIcon.setVisibility(View.GONE);
-            mMultiListProgress.setVisibility(View.VISIBLE);
         }
     }
 
@@ -225,10 +220,8 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             mMultiListHeadline.setText(headline);
             mMultiListMessage.setText(message);
             mMultiListIcon.setImageResource(icon);
-
             mMultiListMessage.setVisibility(View.VISIBLE);
             mMultiListIcon.setVisibility(View.VISIBLE);
-            mMultiListProgress.setVisibility(View.GONE);
         }
     }
 
@@ -340,14 +333,14 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.removeItem(R.id.action_search);
         inflater.inflate(R.menu.item_file, menu);
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
         if (containerActivity.getStorageManager() != null) {

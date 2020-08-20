@@ -27,7 +27,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -194,9 +193,6 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
 
         binding.emptyList.emptyListIcon.setVisibility(View.GONE);
         binding.emptyList.emptyListViewText.setVisibility(View.GONE);
-        binding.emptyList.emptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(this),
-                                                                                      PorterDuff.Mode.SRC_IN);
-        binding.emptyList.emptyListProgress.setVisibility(View.VISIBLE);
     }
 
     private void setErrorMessageForMultiList(String headline, String message, @DrawableRes int errorResource) {
@@ -204,7 +200,6 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         binding.emptyList.emptyListViewText.setText(message);
         binding.emptyList.emptyListIcon.setImageResource(errorResource);
 
-        binding.emptyList.emptyListProgress.setVisibility(View.GONE);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
     }
