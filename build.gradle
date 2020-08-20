@@ -334,7 +334,7 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
     ktlint "com.pinterest:ktlint:0.37.2"
-    implementation 'org.conscrypt:conscrypt-android:2.4.0'
+    implementation 'org.conscrypt:conscrypt-android:2.5.0'
 
     // Shimmer animation
     implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
