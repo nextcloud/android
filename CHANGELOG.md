@@ -1,3 +1,13 @@
+## 3.13.0 (August, 18, 2020)
+
+- new UI overhaul @Shagequi @JorisBodin
+- E2EE beta support
+- dark mode enhancement @AndyScherzinger
+- warn on outdated NC16 server
+- requires Android 4.3 or newer
+
+For a full list, please see https://github.com/nextcloud/android/milestone/48
+
 ## 3.12.1 (July, 07, 2020)
 
 - UI does not hang when changing auto upload

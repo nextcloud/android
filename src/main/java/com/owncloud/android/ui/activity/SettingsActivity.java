@@ -84,6 +84,8 @@ import javax.inject.Inject;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -845,27 +847,33 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 enableLock(pendingLock);
             }
         } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (data == null) {
-                DisplayUtils.showSnackMessage(this, "Error retrieving mnemonic!");
-            } else {
-                if (data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
-                        RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
-                        RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
+            handleMnemonicRequest(data);
+        }
+    }
 
-                    ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
-                    String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @VisibleForTesting
+    public void handleMnemonicRequest(Intent data) {
+        if (data == null) {
+            DisplayUtils.showSnackMessage(this, "Error retrieving mnemonic!");
+        } else {
+            if (data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
+                                 RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
+                RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
 
-                    int accentColor = ThemeUtils.primaryAccentColor(this);
+                ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+                String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);
-                    AlertDialog alertDialog = builder.setTitle(R.string.prefs_e2e_mnemonic)
-                        .setMessage(mnemonic)
-                        .setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
-                        .create();
+                int accentColor = ThemeUtils.primaryAccentColor(this);
 
-                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(accentColor);
-                    alertDialog.show();
-                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);
+                AlertDialog alertDialog = builder.setTitle(R.string.prefs_e2e_mnemonic)
+                    .setMessage(mnemonic)
+                    .setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
+                    .create();
+
+                alertDialog.show();
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(accentColor);
             }
         }
     }
