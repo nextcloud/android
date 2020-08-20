@@ -1,0 +1,11 @@
+Bump to 3.14.0 Alpha
+Do not show big spinner when initial loading a folder that is known to be not empty, or on PhotoFragment
+E2E: support old iv delimiter, read only
+Ensure that mNotificationManager is not null when updating transfer progress
+make sure sorting is hidden too for details view remove redundant calls
+hide FAB on sharing view
+add tests - for error: UI test - for mnemonic: we cannot capture dialog, so it is only an integration test
+Fixes #6675 correct call order when tinting the dialog button
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
