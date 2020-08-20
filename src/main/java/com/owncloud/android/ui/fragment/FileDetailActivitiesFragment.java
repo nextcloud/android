@@ -200,7 +200,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
         binding.emptyList.emptyListViewHeadline.setText(R.string.file_list_loading);
         binding.emptyList.emptyListViewText.setText("");
         binding.emptyList.emptyListIcon.setVisibility(View.GONE);
-        binding.emptyList.emptyListProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -217,8 +216,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
         OCCapability capability = storageManager.getCapability(user.getAccountName());
         restoreFileVersionSupported = capability.getFilesVersioning().isTrue();
 
-        binding.emptyList.emptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
-                                                                          PorterDuff.Mode.SRC_IN);
         binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_activity, null));
 
         adapter = new ActivityAndVersionListAdapter(getContext(),
@@ -396,7 +393,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
         binding.emptyList.emptyListViewText.setText(message);
 
         binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListProgress.setVisibility(View.GONE);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
     }
 
@@ -409,7 +405,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
         binding.emptyList.emptyListViewText.setText(message);
 
         binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListProgress.setVisibility(View.GONE);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
         binding.swipeContainingList.setVisibility(View.GONE);
         binding.swipeContainingEmpty.setVisibility(View.VISIBLE);

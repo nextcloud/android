@@ -491,7 +491,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
      */
     private void showList() {
         binding.list.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListProgress.setVisibility(View.GONE);
         checkAndShowEmptyListContent();
     }
 
@@ -632,10 +631,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
 
         if (loading) {
-            binding.emptyList.emptyListProgress.setVisibility(View.VISIBLE);
             binding.emptyList.emptyListIcon.setVisibility(View.GONE);
         } else {
-            binding.emptyList.emptyListProgress.setVisibility(View.GONE);
             binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
         }
     }

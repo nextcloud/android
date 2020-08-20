@@ -91,9 +91,6 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
     @BindView(R.id.empty_list_icon)
     public ImageView emptyContentIcon;
 
-    @BindView(R.id.empty_list_progress)
-    public ProgressBar emptyContentProgressBar;
-
     @BindView(android.R.id.list)
     public RecyclerView recyclerView;
 
@@ -230,8 +227,6 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
      */
     private void setupContent() {
         emptyContentIcon.setImageResource(R.drawable.ic_notification);
-        emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(this),
-                                                                          PorterDuff.Mode.SRC_IN);
         setLoadingMessage();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -331,9 +326,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
     private void setLoadingMessage() {
         emptyContentHeadline.setText(R.string.notifications_loading_activity);
         emptyContentMessage.setText("");
-
         emptyContentIcon.setVisibility(View.GONE);
-        emptyContentProgressBar.setVisibility(View.VISIBLE);
     }
 
     @VisibleForTesting
@@ -342,8 +335,6 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
             emptyContentHeadline.setText(headline);
             emptyContentMessage.setText(message);
             emptyContentMessage.setVisibility(View.VISIBLE);
-
-            emptyContentProgressBar.setVisibility(View.GONE);
             emptyContentIcon.setImageResource(R.drawable.ic_notification);
             emptyContentIcon.setVisibility(View.VISIBLE);
         }
