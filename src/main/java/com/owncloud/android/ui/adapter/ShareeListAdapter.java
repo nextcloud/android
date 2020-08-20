@@ -334,7 +334,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<ShareeListAdapter.Us
                 return true;
             }
             case R.id.action_password: {
-                listener.requestPasswordForShare(share);
+                listener.requestPasswordForShare(share, false);
                 return true;
             }
             case R.id.action_expiration_date: {
@@ -428,6 +428,6 @@ public class ShareeListAdapter extends RecyclerView.Adapter<ShareeListAdapter.Us
          *
          * @param share the share for which a password shall be configured/removed
          */
-        void requestPasswordForShare(OCShare share);
+        void requestPasswordForShare(OCShare share, boolean askForPassword);
     }
 }
