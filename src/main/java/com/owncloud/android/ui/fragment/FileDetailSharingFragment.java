@@ -415,8 +415,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                   RenamePublicShareDialogFragment.RENAME_PUBLIC_SHARE_FRAGMENT);
                 return true;
             case R.id.action_password: {
-                requestPasswordForShareViaLink(false,
-                                               capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
+                requestPasswordForShare(publicShare,
+                                        capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
                 return true;
             }
             case R.id.action_share_expiration_date: {
@@ -517,8 +517,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     @Override
-    public void requestPasswordForShare(OCShare share) {
-        SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(share);
+    public void requestPasswordForShare(OCShare share, boolean askForPassword) {
+        SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(share, askForPassword);
         dialog.show(getChildFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT);
     }
 
