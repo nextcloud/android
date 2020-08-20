@@ -96,7 +96,22 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
     /**
      * Public factory method to create new SharePasswordDialogFragment instances.
      *
-     * @param share        OCFile bound to the public share that which password will be set or updated
+     * @param share OCFile bound to the public share that which password will be set or updated
+     * @return Dialog ready to show.
+     */
+    public static SharePasswordDialogFragment newInstance(OCShare share, boolean askForPassword) {
+        SharePasswordDialogFragment frag = new SharePasswordDialogFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_SHARE, share);
+        args.putBoolean(ARG_ASK_FOR_PASSWORD, askForPassword);
+        frag.setArguments(args);
+        return frag;
+    }
+
+    /**
+     * Public factory method to create new SharePasswordDialogFragment instances.
+     *
+     * @param share OCFile bound to the public share that which password will be set or updated
      * @return Dialog ready to show.
      */
     public static SharePasswordDialogFragment newInstance(OCShare share) {
@@ -195,7 +210,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         if (createShare) {
             ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaPublicShare(file, password);
         } else {
-            ((FileActivity) getActivity()).getFileOperationsHelper().setPasswordToPublicShare(share, password);
+            ((FileActivity) getActivity()).getFileOperationsHelper().setPasswordToShare(share, password);
         }
     }
 
