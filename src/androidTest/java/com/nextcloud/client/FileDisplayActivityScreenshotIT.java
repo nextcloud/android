@@ -56,6 +56,8 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
 
         sut.getListOfFilesFragment().setFabEnabled(false);
         sut.getListOfFilesFragment().setEmptyListLoadingMessage(false);
+        sut.getListOfFilesFragment().setLoading(false);
+        waitForIdleSync();
 
         Screenshot.snapActivity(sut).record();
     }
@@ -69,6 +71,8 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
 
         sut.getListOfFilesFragment().setFabEnabled(false);
         sut.getListOfFilesFragment().setEmptyListLoadingMessage(false);
+        sut.getListOfFilesFragment().setLoading(false);
+        waitForIdleSync();
 
         Screenshot.snapActivity(sut).record();
     }
