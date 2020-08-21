@@ -381,7 +381,7 @@ dependencies {
     androidTestImplementation 'com.github.tmurakami:dexopener:2.0.5' // required to allow mocking on API 27 and older
     androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     androidTestImplementation 'org.mockito:mockito-core:3.4.4'
-    androidTestImplementation("org.mockito:mockito-android:3.4.6") {
+    androidTestImplementation("org.mockito:mockito-android:3.5.3") {
         exclude group: "net.bytebuddy", module: "byte-buddy-android"
     }
     androidTestImplementation 'net.bytebuddy:byte-buddy:1.10.14'
