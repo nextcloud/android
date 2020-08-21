@@ -376,6 +376,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         unsupportedTypes.add("text/vnd.rn-realtext");
         unsupportedTypes.add("text/vnd.wap.wml");
         unsupportedTypes.add("text/vnd.wap.wmlscript");
+        unsupportedTypes.add("text/html");
         return file != null && file.isDown() && MimeTypeUtil.isText(file) &&
             !unsupportedTypes.contains(file.getMimeType()) &&
             !unsupportedTypes.contains(MimeTypeUtil.getMimeTypeFromPath(file.getRemotePath()));
