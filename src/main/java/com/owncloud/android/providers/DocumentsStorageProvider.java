@@ -52,7 +52,6 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -62,6 +61,7 @@ import com.owncloud.android.files.services.FileUploader.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
@@ -92,6 +92,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
@@ -106,7 +107,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     UserAccountManager accountManager;
 
-    private static final String DOCUMENTID_SEPARATOR = "/";
+    @VisibleForTesting
+    static final String DOCUMENTID_SEPARATOR = "/";
     private static final int DOCUMENTID_PARTS = 2;
     private final SparseArray<FileDataStorageManager> rootIdToStorageManager = new SparseArray<>();
 
@@ -169,13 +171,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         boolean isLoading = false;
         if (parentFolder.isExpired()) {
-            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
-
-            final ReloadFolderDocumentTask task = new ReloadFolderDocumentTask(arbitraryDataProvider,
-                                                                               parentFolder,
-                                                                               result -> {
-                getContext().getContentResolver().notifyChange(toNotifyUri(parentFolder), null, false);
-            });
+            final ReloadFolderDocumentTask task = new ReloadFolderDocumentTask(parentFolder, result ->
+                getContext().getContentResolver().notifyChange(toNotifyUri(parentFolder), null, false));
             task.executeOnExecutor(executor);
             resultCursor.setLoadingTask(task);
             isLoading = true;
@@ -460,7 +457,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         if (DocumentsContract.Document.MIME_TYPE_DIR.equalsIgnoreCase(mimeType)) {
             return createFolder(folderDocument, displayName);
         } else {
-            return createFile(folderDocument, displayName);
+            return createFile(folderDocument, displayName, mimeType);
         }
     }
 
@@ -503,7 +500,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         return newFolder.getDocumentId();
     }
 
-    private String createFile(Document targetFolder, String displayName) throws FileNotFoundException {
+    private String createFile(Document targetFolder, String displayName, String mimeType) throws FileNotFoundException {
         Context context = getContext();
         if (context == null) {
             throw new FileNotFoundException("Context may not be null!");
@@ -534,11 +531,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         String newFilePath = targetFolder.getRemotePath() + displayName;
 
+        // FIXME we need to update the mimeType somewhere else as well
+
         // perform the upload, no need for chunked operation as we have a empty file
         OwnCloudClient client = targetFolder.getClient();
         RemoteOperationResult result = new UploadFileRemoteOperation(emptyFile.getAbsolutePath(),
                                                                      newFilePath,
-                                                                     null,
+                                                                     mimeType,
                                                                      "",
                                                                      String.valueOf(System.currentTimeMillis() / 1000))
             .execute(client);
@@ -737,14 +736,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         private final Document folder;
         private final OnTaskFinishedCallback callback;
-        private final ArbitraryDataProvider arbitraryDataProvider;
 
-        ReloadFolderDocumentTask(ArbitraryDataProvider arbitraryDataProvider,
-                                 Document folder,
-                                 OnTaskFinishedCallback callback) {
+        ReloadFolderDocumentTask(Document folder, OnTaskFinishedCallback callback) {
             this.folder = folder;
             this.callback = callback;
-            this.arbitraryDataProvider = arbitraryDataProvider;
         }
 
         @Override
@@ -812,8 +807,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             try {
                 OwnCloudAccount ocAccount = new OwnCloudAccount(getAccount(), MainApp.getAppContext());
                 return OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, getContext());
-            } catch (OperationCanceledException | IOException | AuthenticatorException |
-                com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+            } catch (OperationCanceledException | IOException | AuthenticatorException | AccountNotFoundException e) {
                 Log_OC.e(TAG, "Failed to set client", e);
             }
             return null;
