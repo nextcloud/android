@@ -403,23 +403,23 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         List<String> filePaths = getDisplayFilePathList(files);
 
         return new SyncedFolderDisplayItem(
-                syncedFolder.getId(),
-                syncedFolder.getLocalPath(),
-                syncedFolder.getRemotePath(),
-                syncedFolder.isWifiOnly(),
-                syncedFolder.isChargingOnly(),
-                syncedFolder.isExisting(),
-                syncedFolder.isSubfolderByDate(),
-                syncedFolder.getAccount(),
-                syncedFolder.getUploadAction(),
-                syncedFolder.getNameCollisionPolicy(),
-                syncedFolder.isEnabled(),
-                clock.getCurrentTime(),
-                filePaths,
-                localFolder.getName(),
-                files.length,
-                syncedFolder.getType(),
-                syncedFolder.isHidden());
+            syncedFolder.getId(),
+            syncedFolder.getLocalPath(),
+            syncedFolder.getRemotePath(),
+            syncedFolder.isWifiOnly(),
+            syncedFolder.isChargingOnly(),
+            syncedFolder.isExisting(),
+            syncedFolder.isSubfolderByDate(),
+            syncedFolder.getAccount(),
+            syncedFolder.getUploadAction(),
+            syncedFolder.getNameCollisionPolicyInt(),
+            syncedFolder.isEnabled(),
+            clock.getCurrentTime(),
+            filePaths,
+            localFolder.getName(),
+            files.length,
+            syncedFolder.getType(),
+            syncedFolder.isHidden());
     }
 
     /**
@@ -432,23 +432,23 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     @NonNull
     private SyncedFolderDisplayItem createSyncedFolder(@NonNull SyncedFolder syncedFolder, @NonNull MediaFolder mediaFolder) {
         return new SyncedFolderDisplayItem(
-                syncedFolder.getId(),
-                syncedFolder.getLocalPath(),
-                syncedFolder.getRemotePath(),
-                syncedFolder.isWifiOnly(),
-                syncedFolder.isChargingOnly(),
-                syncedFolder.isExisting(),
-                syncedFolder.isSubfolderByDate(),
-                syncedFolder.getAccount(),
-                syncedFolder.getUploadAction(),
-                syncedFolder.getNameCollisionPolicy(),
-                syncedFolder.isEnabled(),
-                clock.getCurrentTime(),
-                mediaFolder.filePaths,
-                mediaFolder.folderName,
-                mediaFolder.numberOfFiles,
-                mediaFolder.type,
-                syncedFolder.isHidden());
+            syncedFolder.getId(),
+            syncedFolder.getLocalPath(),
+            syncedFolder.getRemotePath(),
+            syncedFolder.isWifiOnly(),
+            syncedFolder.isChargingOnly(),
+            syncedFolder.isExisting(),
+            syncedFolder.isSubfolderByDate(),
+            syncedFolder.getAccount(),
+            syncedFolder.getUploadAction(),
+            syncedFolder.getNameCollisionPolicyInt(),
+            syncedFolder.isEnabled(),
+            clock.getCurrentTime(),
+            mediaFolder.filePaths,
+            mediaFolder.folderName,
+            mediaFolder.numberOfFiles,
+            mediaFolder.type,
+            syncedFolder.isHidden());
     }
 
     /**
