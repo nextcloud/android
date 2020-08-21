@@ -30,6 +30,7 @@ import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Database provider for handling the persistence aspects of arbitrary data table.
@@ -52,40 +53,51 @@ public class ArbitraryDataProvider {
 
     public int deleteKeyForAccount(String account, String key) {
         return contentResolver.delete(
-                ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
-                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? AND " +
-                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + "= ?",
-                new String[]{account, key}
-        );
+            ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
+            ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? AND " +
+                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + "= ?",
+            new String[]{account, key}
+                                     );
     }
 
     public void storeOrUpdateKeyValue(String accountName, String key, long newValue) {
         storeOrUpdateKeyValue(accountName, key, String.valueOf(newValue));
     }
 
-    public void storeOrUpdateKeyValue(String accountName, String key, String newValue) {
+    public void storeOrUpdateKeyValue(@NonNull String accountName,
+                                      @NonNull String key,
+                                      @Nullable String newValue) {
         ArbitraryDataSet data = getArbitraryDataSet(accountName, key);
+
+        String value;
+        if (newValue == null) {
+            value = "";
+        } else {
+            value = newValue;
+        }
+
         if (data == null) {
             Log_OC.v(TAG, "Adding arbitrary data with cloud id: " + accountName + " key: " + key
-                    + " value: " + newValue);
+                + " value: " + value);
+
             ContentValues cv = new ContentValues();
             cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID, accountName);
             cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY, key);
-            cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE, newValue);
+            cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE, value);
 
             Uri result = contentResolver.insert(ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA, cv);
 
             if (result == null) {
                 Log_OC.v(TAG, "Failed to store arbitrary data with cloud id: " + accountName + " key: " + key
-                        + " value: " + newValue);
+                    + " value: " + value);
             }
         } else {
             Log_OC.v(TAG, "Updating arbitrary data with cloud id: " + accountName + " key: " + key
-                    + " value: " + newValue);
+                + " value: " + value);
             ContentValues cv = new ContentValues();
             cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID, data.getCloudId());
             cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY, data.getKey());
-            cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE, newValue);
+            cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE, value);
 
             int result = contentResolver.update(
                     ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
@@ -96,7 +108,7 @@ public class ArbitraryDataProvider {
 
             if (result == 0) {
                 Log_OC.v(TAG, "Failed to update arbitrary data with cloud id: " + accountName + " key: " + key
-                        + " value: " + newValue);
+                    + " value: " + value);
             }
         }
     }
@@ -204,6 +216,9 @@ public class ArbitraryDataProvider {
                 if (id == -1) {
                     Log_OC.e(TAG, "Arbitrary value could not be created from cursor");
                 } else {
+                    if (dbValue == null) {
+                        dbValue = "";
+                    }
                     dataSet = new ArbitraryDataSet(id, dbAccount, dbKey, dbValue);
                 }
             }
