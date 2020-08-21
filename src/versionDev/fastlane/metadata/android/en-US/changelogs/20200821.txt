@@ -1,0 +1,2 @@
+Fix crash on setting password
+Update translations
