@@ -83,7 +83,7 @@
     <string name="battery_optimization_title">Optimización da batería</string>
     <string name="certificate_load_problem">Hai un problema ao cargar o certificado.</string>
     <string name="changelog_dev_version">Cambios na versión de desenvolvemento</string>
-    <string name="checkbox">Caixa de verificación</string>
+    <string name="checkbox">Caixa de selección</string>
     <string name="choose_local_folder">Escoller cartafol local…</string>
     <string name="choose_remote_folder">Escoller cartafol remoto…</string>
     <string name="clear_notifications_failed">Produciuse un fallo ao limpar as notificacións.</string>
@@ -764,7 +764,7 @@
     <string name="uploader_upload_in_progress_ticker">Enviando…</string>
     <string name="uploader_upload_succeeded_content_single">Enviado %1$s</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Saír</string>
-    <string name="uploader_wrn_no_account_setup_btn_text">Instalación</string>
+    <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
     <string name="uploader_wrn_no_account_text">Non existen contas %1$s no seu dispositivo. Estabeleza primeiro unha conta.</string>
     <string name="uploader_wrn_no_account_title">Non se atopou a conta</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
