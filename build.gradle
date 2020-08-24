@@ -352,7 +352,7 @@ dependencies {
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.13'
-    testImplementation 'org.mockito:mockito-core:3.4.6'
+    testImplementation 'org.mockito:mockito-core:3.5.5'
     testImplementation 'androidx.test:core:1.2.0'
     testImplementation 'org.powermock:powermock-core:2.0.7'
     testImplementation 'org.powermock:powermock-module-junit4:2.0.7'
@@ -379,7 +379,7 @@ dependencies {
     // Mocking support
     androidTestImplementation 'com.github.tmurakami:dexopener:2.0.5' // required to allow mocking on API 27 and older
     androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
-    androidTestImplementation 'org.mockito:mockito-core:3.4.4'
+    androidTestImplementation 'org.mockito:mockito-core:3.5.5'
     androidTestImplementation("org.mockito:mockito-android:3.4.6") {
         exclude group: "net.bytebuddy", module: "byte-buddy-android"
     }
