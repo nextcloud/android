@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Sortera</string>
     <string name="active_user">Aktivera användare</string>
     <string name="activities_no_results_headline">Ingen aktivitet än</string>
+    <string name="activities_no_results_message">Inga händelser som tillägg, ändringar och delningar ännu.</string>
     <string name="activity_chooser_send_file_title">Skicka</string>
     <string name="activity_chooser_title">Skicka länk till…</string>
     <string name="activity_icon">Aktivitet</string>
