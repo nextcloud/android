@@ -150,7 +150,8 @@ class AccountRemovalWork(
             )
             pushArbitraryData.isShouldBeDeleted = true
             arbitraryDataProvider.storeOrUpdateKeyValue(
-                user.accountName, PushUtils.KEY_PUSH,
+                user.accountName,
+                PushUtils.KEY_PUSH,
                 gson.toJson(pushArbitraryData)
             )
             PushUtils.pushRegistrationToServer(userAccountManager, pushArbitraryData.getPushToken())

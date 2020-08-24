@@ -58,9 +58,7 @@ class TextEditorWebView : EditorWebView() {
 
         webview.addJavascriptInterface(MobileInterface(), "DirectEditingMobileInterface")
 
-        webview.setDownloadListener({ url, userAgent, contentDisposition, mimetype, contentLength ->
-            downloadFile(Uri.parse(url))
-        })
+        webview.setDownloadListener { url, _, _, _, _ -> downloadFile(Uri.parse(url)) }
 
         loadUrl(intent.getStringExtra(ExternalSiteWebView.EXTRA_URL))
     }

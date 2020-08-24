@@ -49,7 +49,8 @@ class ShowErrorActivity : AppCompatActivity() {
 
         val snackbar = DisplayUtils.createSnackbar(
             error_page_container,
-            R.string.error_report_issue_text, Snackbar.LENGTH_INDEFINITE
+            R.string.error_report_issue_text,
+            Snackbar.LENGTH_INDEFINITE
         )
             .setAction(R.string.error_report_issue_action) { reportIssue() }
 
