@@ -179,13 +179,16 @@ class NotificationWork constructor(
             disableDetection.putExtra(PUSH_NOTIFICATION_ID, pushNotificationId)
             disableDetection.putExtra(KEY_NOTIFICATION_ACCOUNT, user.accountName)
             val disableIntent = PendingIntent.getBroadcast(
-                context, pushNotificationId, disableDetection,
+                context,
+                pushNotificationId,
+                disableDetection,
                 PendingIntent.FLAG_CANCEL_CURRENT
             )
             notificationBuilder.addAction(
                 NotificationCompat.Action(
                     R.drawable.ic_close,
-                    context.getString(R.string.remove_push_notification), disableIntent
+                    context.getString(R.string.remove_push_notification),
+                    disableIntent
                 )
             )
         } else { // Actions
@@ -197,7 +200,8 @@ class NotificationWork constructor(
                 actionIntent.putExtra(KEY_NOTIFICATION_ACTION_LINK, action.link)
                 actionIntent.putExtra(KEY_NOTIFICATION_ACTION_TYPE, action.type)
                 val actionPendingIntent = PendingIntent.getBroadcast(
-                    context, randomId.nextInt(),
+                    context,
+                    randomId.nextInt(),
                     actionIntent,
                     PendingIntent.FLAG_CANCEL_CURRENT
                 )
