@@ -49,6 +49,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -112,6 +113,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private VideoView mVideoPreview;
     private int mSavedPlaybackPosition;
 
+    private ScrollView mMultiView;
     private RelativeLayout mPreviewContainer;
 
     private LinearLayout mMultiListContainer;
@@ -196,6 +198,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         mVideoPreview.setOnTouchListener(this);
 
         mMediaController = view.findViewById(R.id.media_controller);
+        mMultiView = view.findViewById(R.id.multi_view);
 
         setupMultiView(view);
         setMultiListLoadingMessage();
@@ -211,7 +214,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     }
 
     private void setMultiListLoadingMessage() {
-        if (mMultiListContainer != null) {
+        if (mMultiView != null) {
             mMultiListHeadline.setText(R.string.file_list_loading);
             mMultiListMessage.setText("");
 
@@ -321,7 +324,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 mMediaController.setMediaPlayer(mMediaPlayerServiceConnection);
                 mMediaPlayerServiceConnection.bind();
                 mMediaPlayerServiceConnection.start(user, file, mAutoplay, mSavedPlaybackPosition);
-                mMultiListContainer.setVisibility(View.GONE);
+                mMultiView.setVisibility(View.GONE);
                 mPreviewContainer.setVisibility(View.VISIBLE);
             } else if (MimeTypeUtil.isVideo(file)) {
                 stopAudio();
