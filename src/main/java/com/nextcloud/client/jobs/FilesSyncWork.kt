@@ -118,7 +118,12 @@ class FilesSyncWork(
         for (syncedFolder in syncedFolderProvider.syncedFolders) {
             if (syncedFolder.isEnabled && (!skipCustom || MediaFolderType.CUSTOM != syncedFolder.type)) {
                 syncFolder(
-                    context, resources, lightVersion, filesystemDataProvider, currentLocale, dateFormat,
+                    context,
+                    resources,
+                    lightVersion,
+                    filesystemDataProvider,
+                    currentLocale,
+                    dateFormat,
                     syncedFolder
                 )
             }
