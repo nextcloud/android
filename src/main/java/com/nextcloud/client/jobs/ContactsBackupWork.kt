@@ -124,8 +124,11 @@ class ContactsBackupWork(
     private fun backupContact(user: User, backupFolder: String) {
         val vCard = ArrayList<String>()
         val cursor = contentResolver.query(
-            ContactsContract.Contacts.CONTENT_URI, null,
-            null, null, null
+            ContactsContract.Contacts.CONTENT_URI,
+            null,
+            null,
+            null,
+            null
         )
         if (cursor != null && cursor.count > 0) {
             cursor.moveToFirst()
