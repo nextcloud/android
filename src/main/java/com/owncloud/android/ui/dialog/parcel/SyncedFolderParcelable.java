@@ -61,7 +61,7 @@ public class SyncedFolderParcelable implements Parcelable {
         account = syncedFolderDisplayItem.getAccount();
         uploadAction = syncedFolderDisplayItem.getUploadAction();
         nameCollisionPolicy = FileUploader.NameCollisionPolicy.deserialize(
-            syncedFolderDisplayItem.getNameCollisionPolicy());
+            syncedFolderDisplayItem.getNameCollisionPolicyInt());
         this.section = section;
         hidden = syncedFolderDisplayItem.isHidden();
     }

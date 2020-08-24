@@ -903,7 +903,9 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     @CheckResult
-    private RemoteOperationResult checkNameCollision(OwnCloudClient client, DecryptedFolderMetadata metadata, boolean encrypted)
+    private RemoteOperationResult checkNameCollision(OwnCloudClient client,
+                                                     DecryptedFolderMetadata metadata,
+                                                     boolean encrypted)
         throws OperationCancelledException {
         Log_OC.d(TAG, "Checking name collision in server");
 
