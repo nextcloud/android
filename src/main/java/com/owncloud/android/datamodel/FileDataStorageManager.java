@@ -1260,7 +1260,7 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD, share.isHideFileDownload());
         contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LINK, share.getShareLink());
         contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LABEL, share.getLabel());
-        contentValues.put(ProviderTableMeta.OCSHARES_VIDEO_VERIFICATION, share.isSendPasswordByTalk());
+        //contentValues.put(ProviderTableMeta.OCSHARES_VIDEO_VERIFICATION, share.isSendPasswordByTalk());
 
         return contentValues;
     }
@@ -1285,7 +1285,7 @@ public class FileDataStorageManager {
         share.setHideFileDownload(getInt(cursor, ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD) == 1);
         share.setShareLink(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK));
         share.setLabel(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LABEL));
-        share.setSendPasswordByTalk(getInt(cursor, ProviderTableMeta.OCSHARES_VIDEO_VERIFICATION) == 1);
+        //share.setSendPasswordByTalk(getInt(cursor, ProviderTableMeta.OCSHARES_VIDEO_VERIFICATION) == 1);
 
         return share;
     }

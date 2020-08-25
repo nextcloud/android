@@ -404,8 +404,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         menu.findItem(R.id.action_share_send_note).setVisible(capabilities.getVersion().isNoteOnShareSupported());
 
         MenuItem videoVerification = menu.findItem(R.id.link_share_video_verification);
-        if (videoVerification != null) {
-            videoVerification.setChecked(publicShare.isSendPasswordByTalk());
+//        if (videoVerification != null) {
+//            videoVerification.setChecked(publicShare.isSendPasswordByTalk());
 
 
 //            -When enabling it:
@@ -414,7 +414,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 //                -When disabling it:
 //            -If it is for a mail share, you must always set a new password (which is also different from the previous one)
 //                -If it is for a link share, you do not need to set a new password
-        }
+//        }
     }
 
     private boolean userOptionsItemSelected(Menu menu,
@@ -438,7 +438,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 return true;
             }
             case R.id.action_password: {
-                requestPasswordForShare(share);
+                requestPasswordForShare(share, capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
                 return true;
             }
             case R.id.action_expiration_date: {

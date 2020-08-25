@@ -21,7 +21,7 @@
   -->
 
 <LinearLayout android:id="@+id/copy_internal_container"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/sharee_list_item_size"
     android:layout_width="match_parent"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/standard_half_padding"

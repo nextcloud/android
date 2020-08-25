@@ -25,7 +25,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/share_by_link_container"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/standard_list_item_size"
+    android:layout_height="@dimen/sharee_list_item_size"
     android:orientation="horizontal">
 
     <ImageView

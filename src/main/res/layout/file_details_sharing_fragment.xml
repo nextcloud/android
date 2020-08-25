@@ -17,7 +17,7 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout android:id="@+id/shareContainer"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:paddingTop="@dimen/standard_eight_padding"
@@ -97,6 +97,7 @@
         android:dividerHeight="1dp"
         android:id="@+id/sharesList"
         android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_marginBottom="72dp" />
 
 </LinearLayout>
