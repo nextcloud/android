@@ -514,15 +514,9 @@ public final class ThumbnailsCacheManager {
 
             } catch(OutOfMemoryError oome) {
                 Log_OC.e(TAG, "Out of memory");
-                isError = true;
             } catch (Throwable t) {
                 // the app should never break due to a problem with thumbnails
                 Log_OC.e(TAG, "Generation of thumbnail for " + mFile + " failed", t);
-                isError = true;
-            } finally {
-                if (isError && mListener != null){
-                    mListener.onError();
-                }
             }
 
             return thumbnail;
@@ -532,6 +526,7 @@ public final class ThumbnailsCacheManager {
             if (bitmap != null && mImageViewReference != null) {
                 final ImageView imageView = mImageViewReference.get();
                 final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
+
                 if (this == bitmapWorkerTask) {
                     String tagId = "";
                     if (mFile instanceof OCFile) {
@@ -542,17 +537,21 @@ public final class ThumbnailsCacheManager {
                         tagId = String.valueOf(((TrashbinFile) mFile).getRemoteId());
                     }
                     if (String.valueOf(imageView.getTag()).equals(tagId)) {
-                        if (gridViewEnabled){
+                        if (gridViewEnabled) {
                             BitmapUtils.setRoundedBitmapForGridMode(bitmap, imageView);
                         } else {
-                        BitmapUtils.setRoundedBitmap(bitmap, imageView);
+                            BitmapUtils.setRoundedBitmap(bitmap, imageView);
                         }
                     }
                 }
-            }
 
-            if (mListener !=null){
-                mListener.onSuccess();
+                if (mListener != null) {
+                    mListener.onSuccess();
+                }
+            } else {
+                if (mListener != null) {
+                    mListener.onError();
+                }
             }
 
             if (mAsyncTasks != null) {

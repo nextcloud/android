@@ -70,8 +70,7 @@ class FilesSyncWork(
     private val uploadsStorageManager: UploadsStorageManager,
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
-    private val clock: Clock,
-    private val backgroundJobManager: BackgroundJobManager
+    private val clock: Clock
 ) : Worker(context, params) {
 
     companion object {
@@ -118,7 +117,12 @@ class FilesSyncWork(
         for (syncedFolder in syncedFolderProvider.syncedFolders) {
             if (syncedFolder.isEnabled && (!skipCustom || MediaFolderType.CUSTOM != syncedFolder.type)) {
                 syncFolder(
-                    context, resources, lightVersion, filesystemDataProvider, currentLocale, dateFormat,
+                    context,
+                    resources,
+                    lightVersion,
+                    filesystemDataProvider,
+                    currentLocale,
+                    dateFormat,
                     syncedFolder
                 )
             }
@@ -197,7 +201,7 @@ class FilesSyncWork(
                 UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
                 needsWifi,
                 needsCharging,
-                FileUploader.NameCollisionPolicy.ASK_USER
+                syncedFolder.nameCollisionPolicy
             )
             filesystemDataProvider.updateFilesystemFileAsSentForUpload(
                 path,

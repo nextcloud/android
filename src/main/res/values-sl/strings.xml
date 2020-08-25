@@ -524,6 +524,7 @@
     <string name="preview_image_description">Predogled slike</string>
     <string name="preview_image_error_no_local_file">Ni krajevne datoteke za predogled</string>
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
+    <string name="preview_sorry">Na žalost</string>
     <string name="privacy">Zasebnost</string>
     <string name="public_share_name">Novo ime</string>
     <string name="push_notifications_not_implemented">Potisna obvestila so onemogočena zaradi odvisnosti od storitev Google Play.</string>
