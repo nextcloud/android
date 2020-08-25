@@ -934,7 +934,8 @@
     <string name="add_new_public_share">Add new public share link</string>
     <string name="edit_label">Change name</string>
     <string name="public_share_name">New name</string>
-    <string name="share_link">Share link (%1$s)</string>
+    <string name="share_link_with_label">Share link (%1$s)</string>
+    <string name="share_link">Share link</string>
     <string name="allow_creating">Allow creating</string>
     <string name="allow_deleting">Allow deleting</string>
     <string name="allow_resharing">Allow resharing</string>

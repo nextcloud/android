@@ -36,4 +36,6 @@ public interface ShareeListAdapterListener {
     void copyInternalLink();
 
     void createPublicShareLink();
+
+    void requestPasswordForShare(OCShare share, boolean askForPassword);
 }

@@ -95,7 +95,7 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
     private void setImage(ImageView avatar, String name, @DrawableRes int fallback) {
         try {
             avatar.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
-        } catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException | StringIndexOutOfBoundsException e) {
             avatar.setImageResource(fallback);
         }
     }

@@ -21,7 +21,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="horizontal"
-    android:layout_height="@dimen/standard_list_item_size"
+    android:layout_height="@dimen/sharee_list_item_size"
     android:weightSum="1"
     tools:ignore="UseCompoundDrawables">
 

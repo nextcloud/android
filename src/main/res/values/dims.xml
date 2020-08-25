@@ -40,6 +40,7 @@
     <dimen name="standard_eighth_margin">2dp</dimen>
     <dimen name="min_list_item_size">56dp</dimen>
     <dimen name="standard_list_item_size">72dp</dimen>
+    <dimen name="sharee_list_item_size">56dp</dimen>
     <dimen name="two_line_primary_text_size">16sp</dimen>
     <dimen name="two_line_secondary_text_size">12sp</dimen>
     <dimen name="list_item_share_right_margin">12dp</dimen>
