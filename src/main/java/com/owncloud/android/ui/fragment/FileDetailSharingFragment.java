@@ -75,6 +75,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -375,7 +376,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         popup.show();
     }
 
-    private void prepareLinkOptionsMenu(Menu menu, OCShare publicShare) {
+    @VisibleForTesting
+    public void prepareLinkOptionsMenu(Menu menu, OCShare publicShare) {
         if (publicShare.isFolder()) {
             menu.setGroupVisible(R.id.folder_permission, true);
             menu.findItem(R.id.allow_editing).setVisible(false);
@@ -403,6 +405,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         menu.findItem(R.id.action_share_send_note).setVisible(capabilities.getVersion().isNoteOnShareSupported());
 
+        // TODO move to separate PR
         MenuItem videoVerification = menu.findItem(R.id.link_share_video_verification);
 //        if (videoVerification != null) {
 //            videoVerification.setChecked(publicShare.isSendPasswordByTalk());
