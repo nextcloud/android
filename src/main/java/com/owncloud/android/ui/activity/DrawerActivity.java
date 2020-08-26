@@ -473,14 +473,6 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     /**
-     * show the file list to the user.
-     *
-     * @param onDeviceOnly flag to decide if all files or only the ones on the device should be shown
-     */
-    public abstract void showFiles(boolean onDeviceOnly);
-
-
-    /**
      * sets the new/current account and restarts. In case the given account equals the actual/current account the call
      * will be ignored.
      *
@@ -947,7 +939,26 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * restart helper method which is called after a changing the current account.
      */
-    protected abstract void restart();
+    private void restart() {
+        Intent i = new Intent(this, FileDisplayActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.setAction(FileDisplayActivity.RESTART);
+        startActivity(i);
+
+        fetchExternalLinks(false);
+    }
+
+    /**
+     * show the file list to the user.
+     *
+     * @param onDeviceOnly flag to decide if all files or only the ones on the device should be shown
+     */
+    public void showFiles(boolean onDeviceOnly) {
+        MainApp.showOnlyFilesOnDevice(onDeviceOnly);
+        Intent fileDisplayActivity = new Intent(getApplicationContext(), FileDisplayActivity.class);
+        fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(fileDisplayActivity);
+    }
 
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {

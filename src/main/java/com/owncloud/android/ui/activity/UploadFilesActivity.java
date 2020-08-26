@@ -67,10 +67,12 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import static com.owncloud.android.ui.activity.FileActivity.EXTRA_ACCOUNT;
+
 /**
  * Displays local files and let the user choose what of them wants to upload to the current ownCloud account.
  */
-public class UploadFilesActivity extends FileActivity implements LocalFileListFragment.ContainerActivity,
+public class UploadFilesActivity extends DrawerActivity implements LocalFileListFragment.ContainerActivity,
     OnClickListener, ConfirmationDialogFragmentListener, SortingOrderDialogFragment.OnSortingOrderListener,
     CheckAvailableSpaceTask.CheckAvailableSpaceListener, StoragePathAdapter.StoragePathAdapterListener, Injectable {
 

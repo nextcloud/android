@@ -22,7 +22,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Build;
 import android.os.Bundle;
@@ -218,14 +217,6 @@ public class ExternalSiteWebView extends FileActivity {
                 break;
         }
         return retval;
-    }
-
-    @Override
-    public void showFiles(boolean onDeviceOnly) {
-        super.showFiles(onDeviceOnly);
-        Intent fileDisplayActivity = new Intent(getApplicationContext(), FileDisplayActivity.class);
-        fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(fileDisplayActivity);
     }
 
     @Override
