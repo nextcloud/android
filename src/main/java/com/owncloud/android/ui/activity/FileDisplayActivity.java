@@ -96,8 +96,8 @@ import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.ui.fragment.PhotoFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.helpers.UriUploader;
@@ -498,7 +498,7 @@ public class FileDisplayActivity extends FileActivity
                     if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.searchType)) {
                         Log_OC.d(this, "Switch to photo search fragment");
 
-                        PhotoFragment photoFragment = new PhotoFragment(true);
+                        GalleryFragment photoFragment = new GalleryFragment(true);
                         Bundle bundle = new Bundle();
                         bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
                         photoFragment.setArguments(bundle);
@@ -1182,8 +1182,8 @@ public class FileDisplayActivity extends FileActivity
             setDrawerMenuItemChecked(menuItemId);
         }
 
-        if (ocFileListFragment instanceof PhotoFragment) {
-            updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_photos));
+        if (ocFileListFragment instanceof GalleryFragment) {
+            updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
         }
 
         Log_OC.v(TAG, "onResume() end");
@@ -2329,7 +2329,7 @@ public class FileDisplayActivity extends FileActivity
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
             Log_OC.d(this, "Switch to photo search fragment");
 
-            fragment = new PhotoFragment(true);
+            fragment = new GalleryFragment(true);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
             transaction.commit();

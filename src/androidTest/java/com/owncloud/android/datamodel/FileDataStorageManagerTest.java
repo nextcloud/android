@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType.GALLERY_SEARCH;
 import static com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType.PHOTO_SEARCH;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -60,7 +61,7 @@ abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
     public void before() {
         // make sure everything is removed
         sut.deleteAllFiles();
-        sut.deleteVirtuals(VirtualFolderType.PHOTOS);
+        sut.deleteVirtuals(VirtualFolderType.GALLERY);
 
         assertEquals(0, sut.getAllFiles().size());
     }
@@ -70,7 +71,7 @@ abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
         super.after();
 
         sut.deleteAllFiles();
-        sut.deleteVirtuals(VirtualFolderType.PHOTOS);
+        sut.deleteVirtuals(VirtualFolderType.GALLERY);
     }
 
     @Test
@@ -147,7 +148,7 @@ abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
     @Test
     public void testPhotoSearch() throws IOException {
         String remotePath = "/imageFile.png";
-        VirtualFolderType virtualType = VirtualFolderType.PHOTOS;
+        VirtualFolderType virtualType = VirtualFolderType.GALLERY;
 
         assertEquals(0, sut.getFolderContent(sut.getFileByPath("/"), false).size());
         assertEquals(1, sut.getAllFiles().size());
@@ -202,6 +203,82 @@ abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
         assertEquals(1, sut.getFolderContent(sut.getFileByPath("/"), false).size());
         assertEquals(1, sut.getVirtualFolderContent(virtualType, false).size());
         assertEquals(2, sut.getAllFiles().size());
+
+        assertEquals(sut.getVirtualFolderContent(virtualType, false).get(0),
+                     sut.getFolderContent(sut.getFileByPath("/"), false).get(0));
+    }
+
+    /**
+     * This test creates an image and a video, does a gallery search (now returned image and video is not yet in file
+     * hierarchy), then root folder is refreshed and it is verified that the same image file is used in database
+     */
+    @Test
+    public void testGallerySearch() throws IOException {
+        String remotePath = "/imageFile.png";
+        VirtualFolderType virtualType = VirtualFolderType.GALLERY;
+
+        assertEquals(0, sut.getFolderContent(sut.getFileByPath("/"), false).size());
+        assertEquals(1, sut.getAllFiles().size());
+
+        File imageFile = getFile("imageFile.png");
+        assertTrue(new UploadFileRemoteOperation(imageFile.getAbsolutePath(),
+                                                 remotePath,
+                                                 "image/png",
+                                                 String.valueOf(System.currentTimeMillis() / 1000))
+                       .execute(client).isSuccess());
+
+        assertNull(sut.getFileByPath(remotePath));
+
+        File videoFile = getFile("videoFile.mp4");
+        assertTrue(new UploadFileRemoteOperation(videoFile.getAbsolutePath(),
+                                                 remotePath,
+                                                 "video/mpeg",
+                                                 String.valueOf(System.currentTimeMillis() / 1000))
+                       .execute(client).isSuccess());
+
+        assertNull(sut.getFileByPath(remotePath));
+
+        // search
+        SearchRemoteOperation searchRemoteOperation = new SearchRemoteOperation("",
+                                                                                GALLERY_SEARCH,
+                                                                                false);
+
+        RemoteOperationResult searchResult = searchRemoteOperation.execute(client);
+        TestCase.assertTrue(searchResult.isSuccess());
+        TestCase.assertEquals(1, searchResult.getData().size());
+
+        OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) searchResult.getData().get(0));
+        sut.saveFile(ocFile);
+
+        List<ContentValues> contentValues = new ArrayList<>();
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, virtualType.toString());
+        cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.getFileId());
+
+        contentValues.add(cv);
+
+        sut.saveVirtuals(contentValues);
+
+        assertEquals(remotePath, ocFile.getRemotePath());
+
+        assertEquals(0, sut.getFolderContent(sut.getFileByPath("/"), false).size());
+
+        assertEquals(2, sut.getVirtualFolderContent(virtualType, false).size());
+        assertEquals(3, sut.getAllFiles().size());
+
+        // update root
+        assertTrue(new RefreshFolderOperation(sut.getFileByPath("/"),
+                                              System.currentTimeMillis() / 1000,
+                                              false,
+                                              false,
+                                              sut,
+                                              account,
+                                              targetContext).execute(client).isSuccess());
+
+
+        assertEquals(1, sut.getFolderContent(sut.getFileByPath("/"), false).size());
+        assertEquals(2, sut.getVirtualFolderContent(virtualType, false).size());
+        assertEquals(3, sut.getAllFiles().size());
 
         assertEquals(sut.getVirtualFolderContent(virtualType, false).get(0),
                      sut.getFolderContent(sut.getFileByPath("/"), false).get(0));

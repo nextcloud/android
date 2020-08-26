@@ -40,9 +40,9 @@
             android:orderInCategory="0"
             android:title="@string/drawer_item_favorites"/>
         <item
-            android:id="@+id/nav_photos"
+            android:id="@+id/nav_gallery"
             android:icon="@drawable/nav_photos"
-            android:title="@string/drawer_item_photos" />
+            android:title="@string/drawer_item_gallery" />
         <item
             android:id="@+id/nav_videos"
             android:icon="@drawable/nav_videos"
