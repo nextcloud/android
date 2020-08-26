@@ -27,7 +27,7 @@
     <string name="actionbar_sort">Ordenar</string>
     <string name="active_user">Usuario activo</string>
     <string name="activities_no_results_headline">Aun no hay actividad</string>
-    <string name="activities_no_results_message">No hay todavía eventos tales como adiciones, cambios y compartidos.</string>
+    <string name="activities_no_results_message">Aún no hay eventos como añadidos, cambios y compartidos.</string>
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar enlace a…</string>
     <string name="activity_icon">Actividad</string>

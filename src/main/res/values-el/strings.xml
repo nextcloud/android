@@ -262,6 +262,9 @@
     <string name="etm_background_jobs_schedule_test_job">Προγραμματισμός δοκιμαστικής εργασίας</string>
     <string name="etm_background_jobs_start_test_job">Έναρξη δοκιμαστικής εργασίας</string>
     <string name="etm_background_jobs_stop_test_job">Τερματισμός δοκιμαστικής εργασίας</string>
+    <string name="etm_download_enqueue_test_download">Προσθήκη στην ουρά δοκιμαστικής λήψης</string>
+    <string name="etm_download_path">Διαδρομή απομακρυσμένου αρχείου</string>
+    <string name="etm_downloader">Λογισμικό λήψης αρχείων</string>
     <string name="etm_migrations">Μεταβίβαση (αναβάθμιση εφαρμογής)</string>
     <string name="etm_preferences">Προτιμήσεις</string>
     <string name="etm_title">Κατάσταση Δοκιμών για Τεχνικούς</string>
