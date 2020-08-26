@@ -144,7 +144,10 @@ public class RichDocumentsEditorWebView extends EditorWebView {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (RESULT_OK != resultCode) {
-            // TODO
+            if (requestCode == REQUEST_LOCAL_FILE) {
+                this.uploadMessage.onReceiveValue(null);
+                this.uploadMessage = null;
+            }
             return;
         }
 
