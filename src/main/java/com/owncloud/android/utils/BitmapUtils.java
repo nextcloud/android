@@ -39,9 +39,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
+import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.exifinterface.media.ExifInterface;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Utility class with methods for decoding Bitmaps.
@@ -49,24 +51,17 @@ import androidx.exifinterface.media.ExifInterface;
 public final class BitmapUtils {
     public static final String TAG = BitmapUtils.class.getSimpleName();
 
-    private static final int INDEX_RED = 0;
-    private static final int INDEX_GREEN = 1;
-    private static final int INDEX_BLUE = 2;
-    private static final int INDEX_HUE = 0;
-    private static final int INDEX_SATURATION = 1;
-    private static final int INDEX_LUMINATION = 2;
-
     private BitmapUtils() {
         // utility class -> private constructor
     }
 
     /**
-     * Decodes a bitmap from a file containing it minimizing the memory use, known that the bitmap
-     * will be drawn in a surface of reqWidth x reqHeight
+     * Decodes a bitmap from a file containing it minimizing the memory use, known that the bitmap will be drawn in a
+     * surface of reqWidth x reqHeight
      *
-     * @param srcPath       Absolute path to the file containing the image.
-     * @param reqWidth      Width of the surface where the Bitmap will be drawn on, in pixels.
-     * @param reqHeight     Height of the surface where the Bitmap will be drawn on, in pixels.
+     * @param srcPath   Absolute path to the file containing the image.
+     * @param reqWidth  Width of the surface where the Bitmap will be drawn on, in pixels.
+     * @param reqHeight Height of the surface where the Bitmap will be drawn on, in pixels.
      * @return decoded bitmap
      */
     public static Bitmap decodeSampledBitmapFromFile(String srcPath, int reqWidth, int reqHeight) {
@@ -93,16 +88,14 @@ public final class BitmapUtils {
 
 
     /**
-     * Calculates a proper value for options.inSampleSize in order to decode a Bitmap minimizing
-     * the memory overload and covering a target surface of reqWidth x reqHeight if the original
-     * image is big enough.
+     * Calculates a proper value for options.inSampleSize in order to decode a Bitmap minimizing the memory overload and
+     * covering a target surface of reqWidth x reqHeight if the original image is big enough.
      *
-     * @param options       Bitmap decoding options; options.outHeight and options.inHeight should
-     *                      be set.
-     * @param reqWidth      Width of the surface where the Bitmap will be drawn on, in pixels.
-     * @param reqHeight     Height of the surface where the Bitmap will be drawn on, in pixels.
-     * @return The largest inSampleSize value that is a power of 2 and keeps both
-     *                      height and width larger than reqWidth and reqHeight.
+     * @param options   Bitmap decoding options; options.outHeight and options.inHeight should be set.
+     * @param reqWidth  Width of the surface where the Bitmap will be drawn on, in pixels.
+     * @param reqHeight Height of the surface where the Bitmap will be drawn on, in pixels.
+     * @return The largest inSampleSize value that is a power of 2 and keeps both height and width larger than reqWidth
+     * and reqHeight.
      */
     public static int calculateSampleFactor(Options options, int reqWidth, int reqHeight) {
 
@@ -142,9 +135,9 @@ public final class BitmapUtils {
     }
 
     /**
-     * Rotate bitmap according to EXIF orientation.
-     * Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/
-     * @param bitmap Bitmap to be rotated
+     * Rotate bitmap according to EXIF orientation. Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/
+     *
+     * @param bitmap      Bitmap to be rotated
      * @param storagePath Path to source file of bitmap. Needed for EXIF information.
      * @return correctly EXIF-rotated bitmap
      */
@@ -201,167 +194,115 @@ public final class BitmapUtils {
         return resultBitmap;
     }
 
-    /**
-     *  Convert HSL values to a RGB Color.
-     *
-     *  @param h Hue is specified as degrees in the range 0 - 360.
-     *  @param s Saturation is specified as a percentage in the range 1 - 100.
-     *  @param l Luminance is specified as a percentage in the range 1 - 100.
-     *  @param alpha  the alpha value between 0 - 1
-     *  adapted from https://svn.codehaus.org/griffon/builders/gfxbuilder/tags/GFXBUILDER_0.2/
-     *  gfxbuilder-core/src/main/com/camick/awt/HSLColor.java
-     */
-    @SuppressWarnings("PMD.MethodNamingConventions")
-    public static int[] HSLtoRGB(float h, float s, float l, float alpha) {
-        if (s < 0.0f || s > 100.0f) {
-            String message = "Color parameter outside of expected range - Saturation";
-            throw new IllegalArgumentException(message);
-        }
+    public static Color usernameToColor(String name) throws NoSuchAlgorithmException {
+        String hash = name.toLowerCase(Locale.ROOT);
 
-        if (l < 0.0f || l > 100.0f) {
-            String message = "Color parameter outside of expected range - Luminance";
-            throw new IllegalArgumentException(message);
-        }
-
-        if (alpha < 0.0f || alpha > 1.0f) {
-            String message = "Color parameter outside of expected range - Alpha";
-            throw new IllegalArgumentException(message);
-        }
-
-        //  Formula needs all values between 0 - 1.
-
-        h = h % 360.0f;
-        h /= 360f;
-        s /= 100f;
-        l /= 100f;
-
-        float q;
-
-        if (l < 0.5) {
-            q = l * (1 + s);
-        } else {
-            q = (l + s) - (s * l);
-        }
-
-        float p = 2 * l - q;
-
-        int r = Math.round(Math.max(0, HueToRGB(p, q, h + (1.0f / 3.0f)) * 256));
-        int g = Math.round(Math.max(0, HueToRGB(p, q, h) * 256));
-        int b = Math.round(Math.max(0, HueToRGB(p, q, h - (1.0f / 3.0f)) * 256));
-
-        return new int[]{r, g, b};
-    }
-
-    @SuppressWarnings("PMD.MethodNamingConventions")
-    private static float HueToRGB(float p, float q, float h) {
-        if (h < 0) {
-            h += 1;
-        }
-
-        if (h > 1) {
-            h -= 1;
-        }
-
-        if (6 * h < 1) {
-            return p + ((q - p) * 6 * h);
-        }
-
-        if (2 * h < 1) {
-            return q;
-        }
-
-        if (3 * h < 2) {
-            return p + ((q - p) * 6 * (2.0f / 3.0f - h));
-        }
-
-        return p;
-    }
-
-    /**
-     * calculates the RGB value based on a given account name.
-     *
-     * @param name The name
-     * @return corresponding RGB color
-     * @throws NoSuchAlgorithmException     if the specified algorithm is not available
-     */
-    public static int[] calculateHSL(String name) throws NoSuchAlgorithmException {
-        // using adapted algorithm from https://github.com/nextcloud/server/blob/master/core/js/placeholder.js#L126
-
-        String[] result = new String[]{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"};
-        double[] rgb = new double[]{0, 0, 0};
-        int sat = 70;
-        int lum = 68;
-        int modulo = 16;
-
-        String hash = name.toLowerCase(Locale.ROOT).replaceAll("[^0-9a-f]", "");
-
-        if (!hash.matches("^[0-9a-f]{32}")) {
+        // already a md5 hash?
+        if (!hash.matches("([0-9a-f]{4}-?){8}$")) {
             hash = md5(hash);
         }
 
-        // Splitting evenly the string
-        for (int i = 0; i < hash.length(); i++) {
-            result[i % modulo] = result[i % modulo] + Integer.parseInt(hash.substring(i, i + 1), 16);
-        }
+        hash = hash.replaceAll("[^0-9a-f]", "");
+        int steps = 6;
 
-        // Converting our data into a usable rgb format
-        // Start at 1 because 16%3=1 but 15%3=0 and makes the repartition even
-        for (int count = 1; count < modulo; count++) {
-            rgb[count % 3] += Integer.parseInt(result[count]);
-        }
+        Color[] finalPalette = generateColors(steps);
 
-        // Reduce values bigger than rgb requirements
-        rgb[INDEX_RED] = rgb[INDEX_RED] % 255;
-        rgb[INDEX_GREEN] = rgb[INDEX_GREEN] % 255;
-        rgb[INDEX_BLUE] = rgb[INDEX_BLUE] % 255;
-
-        double[] hsl = rgbToHsl(rgb[INDEX_RED], rgb[INDEX_GREEN], rgb[INDEX_BLUE]);
-
-        // Classic formula to check the brightness for our eye
-        // If too bright, lower the sat
-        double bright = Math.sqrt(0.299 * Math.pow(rgb[INDEX_RED], 2) + 0.587 * Math.pow(rgb[INDEX_GREEN], 2) + 0.114
-                * Math.pow(rgb[INDEX_BLUE], 2));
-
-        if (bright >= 200) {
-            sat = 60;
-        }
-
-        return new int[]{(int) (hsl[INDEX_HUE] * 360), sat, lum};
+        return finalPalette[hashToInt(hash, steps * 3)];
     }
 
-    private static double[] rgbToHsl(double rUntrimmed, double gUntrimmed, double bUntrimmed) {
-        double r = rUntrimmed / 255;
-        double g = gUntrimmed / 255;
-        double b = bUntrimmed / 255;
+    private static int hashToInt(String hash, int maximum) {
+        int finalInt = 0;
+        int[] result = new int[hash.length()];
 
-        double max = Math.max(r, Math.max(g, b));
-        double min = Math.min(r, Math.min(g, b));
-        double h = (max + min) / 2;
-        double s;
-        double l = (max + min) / 2;
-
-        if (max == min) {
-            h = s = 0; // achromatic
-        } else {
-            double d = max - min;
-            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-
-            if (max == r) {
-                h = (g - b) / d + (g < b ? 6 : 0);
-            } else if (max == g) {
-                h = (b - r) / d + 2;
-            } else if (max == b) {
-                h = (r - g) / d + 4;
-            }
-            h /= 6;
+        // splitting evenly the string
+        for (int i = 0; i < hash.length(); i++) {
+            // chars in md5 goes up to f, hex: 16
+            result[i] = Integer.parseInt(String.valueOf(hash.charAt(i)), 16) % 16;
         }
 
-        double[] hsl = new double[]{0.0, 0.0, 0.0};
-        hsl[INDEX_HUE] = h;
-        hsl[INDEX_SATURATION] = s;
-        hsl[INDEX_LUMINATION] = l;
+        // adds up all results
+        for (int value : result) {
+            finalInt += value;
+        }
 
-        return hsl;
+        // chars in md5 goes up to f, hex:16
+        // make sure we're always using int in our operation
+        return Integer.parseInt(String.valueOf(Integer.parseInt(String.valueOf(finalInt), 10) % maximum), 10);
+    }
+
+    private static Color[] generateColors(int steps) {
+        Color red = new Color(182, 70, 157);
+        Color yellow = new Color(221, 203, 85);
+        Color blue = new Color(0, 130, 201); // Nextcloud blue
+
+        Color[] palette1 = mixPalette(steps, red, yellow);
+        Color[] palette2 = mixPalette(steps, yellow, blue);
+        Color[] palette3 = mixPalette(steps, blue, red);
+
+        Color[] resultPalette = new Color[palette1.length + palette2.length + palette3.length];
+        System.arraycopy(palette1, 0, resultPalette, 0, palette1.length);
+        System.arraycopy(palette2, 0, resultPalette, palette1.length, palette2.length);
+        System.arraycopy(palette3,
+                         0,
+                         resultPalette,
+                         palette1.length + palette2.length,
+                         palette1.length);
+
+        return resultPalette;
+    }
+
+    @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
+    private static Color[] mixPalette(int steps, Color color1, Color color2) {
+        Color[] palette = new Color[steps];
+        palette[0] = color1;
+
+        float[] step = stepCalc(steps, color1, color2);
+        for (int i = 1; i < steps; i++) {
+            int r = (int) (color1.r + step[0] * i);
+            int g = (int) (color1.g + step[1] * i);
+            int b = (int) (color1.b + step[2] * i);
+
+            palette[i] = new Color(r, g, b);
+        }
+
+        return palette;
+    }
+
+    private static float[] stepCalc(int steps, Color color1, Color color2) {
+        float[] step = new float[3];
+
+        step[0] = (color2.r - color1.r) / (float) steps;
+        step[1] = (color2.g - color1.g) / (float) steps;
+        step[2] = (color2.b - color1.b) / (float) steps;
+
+        return step;
+    }
+
+    public static class Color {
+        public int r;
+        public int g;
+        public int b;
+
+        public Color(int r, int g, int b) {
+            this.r = r;
+            this.g = g;
+            this.b = b;
+        }
+
+        @Override
+        public boolean equals(@Nullable Object obj) {
+            if (!(obj instanceof Color)) {
+                return false;
+            }
+
+            Color other = (Color) obj;
+            return this.r == other.r && this.g == other.g && this.b == other.b;
+        }
+
+        @Override
+        public int hashCode() {
+            return r * 10000 + g * 1000 + b;
+        }
     }
 
     public static String md5(String string) throws NoSuchAlgorithmException {
@@ -372,11 +313,11 @@ public final class BitmapUtils {
     }
 
     /**
-     * Returns a new circular bitmap drawable by creating it from a bitmap, setting initial target density based on
-     * the display metrics of the resources.
+     * Returns a new circular bitmap drawable by creating it from a bitmap, setting initial target density based on the
+     * display metrics of the resources.
      *
      * @param resources the resources for initial target density
-     * @param bitmap the original bitmap
+     * @param bitmap    the original bitmap
      * @return the circular bitmap
      */
     public static RoundedBitmapDrawable bitmapToCircularBitmapDrawable(Resources resources,
@@ -420,7 +361,7 @@ public final class BitmapUtils {
             bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
         } else {
             bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
-                    Bitmap.Config.ARGB_8888);
+                                         Bitmap.Config.ARGB_8888);
         }
 
         Canvas canvas = new Canvas(bitmap);
@@ -436,14 +377,14 @@ public final class BitmapUtils {
                                      imageView);
     }
 
-    public static void setRoundedBitmapForGridMode(Bitmap thumbnail, ImageView imageView){
+    public static void setRoundedBitmapForGridMode(Bitmap thumbnail, ImageView imageView) {
         BitmapUtils.setRoundedBitmap(getResources(),
                                      thumbnail,
                                      getResources().getDimension(R.dimen.file_icon_rounded_corner_radius_for_grid_mode),
                                      imageView);
     }
 
-    private static Resources getResources(){
+    private static Resources getResources() {
         return MainApp.getAppContext().getResources();
     }
 }
