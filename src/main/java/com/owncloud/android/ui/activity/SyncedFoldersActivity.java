@@ -602,21 +602,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     }
 
     @Override
-    public void restart() {
-        Intent i = new Intent(this, FileDisplayActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
-    }
-
-    @Override
-    public void showFiles(boolean onDeviceOnly) {
-        MainApp.showOnlyFilesOnDevice(onDeviceOnly);
-        Intent fileDisplayActivity = new Intent(getApplicationContext(), FileDisplayActivity.class);
-        fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(fileDisplayActivity);
-    }
-
-    @Override
     public void onSyncStatusToggleClick(int section, SyncedFolderDisplayItem syncedFolderDisplayItem) {
         if (syncedFolderDisplayItem.getId() > UNPERSISTED_ID) {
             syncedFolderProvider.updateSyncedFolderEnabled(syncedFolderDisplayItem.getId(),
