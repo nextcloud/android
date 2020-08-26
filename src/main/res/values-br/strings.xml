@@ -71,8 +71,8 @@
     <string name="auto_upload_on_wifi">Pelkas war ur WI-FI divuzulied nemetken.</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_configure">Stumañ</string>
-    <string name="autoupload_create_new_custom_folder">Krouiñ ur stumm teuliad custom nevez</string>
-    <string name="autoupload_custom_folder">Krouiñ ur stumm teuliad nevez</string>
+    <string name="autoupload_create_new_custom_folder">Krouiñ ur stumm teuliad personelaet nevez</string>
+    <string name="autoupload_custom_folder">Krouiñ ur stumm teuliad personelaet</string>
     <string name="autoupload_disable_power_save_check">Disaotreañ ar gwiriañ gwarez ar pod-tredan</string>
     <string name="autoupload_hide_folder">Kouachañ an teuliad</string>
     <string name="avatar">Avatar</string>
@@ -81,7 +81,7 @@
     <string name="battery_optimization_message">Posuple eo e vefe aotreet ar gwelaer ped-tredan war o ardivink. AutoUpload a labour mat nemet ma vez lammet ar meziant man euz an ardivink.</string>
     <string name="battery_optimization_no_setting">Diposupl eo lakaat en dro stumm ar pod-tredan diouztu. Adlakit ar stumm gant an dorn mar-plij.</string>
     <string name="battery_optimization_title">Gwelaer pod-tredan</string>
-    <string name="certificate_load_problem">Ur gudenn a=zo bet n ur karga ar sertifikat</string>
+    <string name="certificate_load_problem">Ur gudenn a zo bet n ur karga ar sertifikad</string>
     <string name="changelog_dev_version">Stumm diorenañ ar gazetenn-cheñchoù</string>
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Choazit un touliad diabarzh...</string>
@@ -113,7 +113,7 @@
     <string name="common_unknown">dianv</string>
     <string name="common_yes">Ya</string>
     <string name="community_beta_headline">Arnodañ ar stumm diorenañ</string>
-    <string name="community_beta_text">Endalc\'h a ra pep keweriuster a ze a n\'eo ket stabil. Fazioù a c\'hell don, m\'a ha pa vez outo, mar-plij kelaouit petra o peus kavet.</string>
+    <string name="community_beta_text">Endalc\'h a ra pep perzh a ze a n\'eo ket stabil. Fazioù a c\'hell don, m\'a ha pa vez outo, mar-plij kelaouit petra o peus kavet.</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Sikour ar re all war</string>
     <string name="community_contribute_github_text">Evit gwiriañ, ouzhpennañ pe skrivañ kode, sellit ouzh %1$s evit ar munudoù.</string>
@@ -143,16 +143,16 @@
     <string name="conflict_message_headline">Peseurt restroù o peus c\'houant gwarn</string>
     <string name="conflict_new_file">Restr nevez</string>
     <string name="contaclist_restore_selected">Adkrouiñ an darempredoù choazet</string>
-    <string name="contactlist_account_chooser_title">Chaozit ur c\'hont da enbroañ</string>
+    <string name="contactlist_account_chooser_title">Chaozit ur c\'hont da emporzhiañ</string>
     <string name="contactlist_item_icon">Skeudenn  implijer evit ar roll darempredoù</string>
-    <string name="contactlist_no_permission">Oaetre ebet roet, netra a zo bet enbroet.</string>
+    <string name="contactlist_no_permission">Oaetre ebet roet, netra a zo bet emporzhiet.</string>
     <string name="contacts_automatic_backup">Enrolladen otomatek</string>
     <string name="contacts_backup_button">Enrollañ bremañ</string>
     <string name="contacts_last_backup">Enrolladen divezhañ</string>
     <string name="contacts_preference_backup_never">james</string>
     <string name="contacts_preference_choose_date">Chazit un deizat</string>
     <string name="contacts_preferences_backup_scheduled">Enriolladen raktresset a grogo a benn neubeut amzer</string>
-    <string name="contacts_preferences_import_scheduled">Enbroañ raktresset a grogo a benn neubeut amzer</string>
+    <string name="contacts_preferences_import_scheduled">Emporzhiañ raktresset a grogo a benn neubeut amzer</string>
     <string name="contacts_preferences_no_file_found">Restr  kavet ebet</string>
     <string name="contacts_preferences_something_strange_happened">N\'eo ket posuple kavout an enrolladenn divezhañ !</string>
     <string name="contacts_read_permission">Ezhomp a zo eus un aotre evit lenn roll an darempredoù</string>
@@ -390,7 +390,7 @@
     <string name="logs_title">Kazetennoù</string>
     <string name="maintenance_mode">Servijour er mod trezalc\'hiñ</string>
     <string name="manage_space_clear_data">Lemel ar roadennoù</string>
-    <string name="manage_space_description">Stummoù, rouadennoù-diaz ha sertifikat ar servijour eus roadennoù %1$s a vo lamet da virvikenn.\n\nAr restroù pellgarget a vo gwarnet ep cheñch anezho.\n\nKemmer a raio un tammig amzer.</string>
+    <string name="manage_space_description">Stummoù, rouadennoù-diaz ha sertifikad ar servijour eus roadennoù %1$s a vo lamet da virvikenn.\n\nAr restroù pellgarget a vo gwarnet ep cheñch anezho.\n\nKemmer a raio un tammig amzer.</string>
     <string name="manage_space_title">Mera ar blas</string>
     <string name="media_err_invalid_progressive_playback">N\'eo ket posuple d\'ar restr media bezhañ lakaet e red</string>
     <string name="media_err_io">ne vez ket lennet ar restr media</string>
@@ -552,7 +552,7 @@
     <string name="scanQR_description">Mont-tre de QR kod</string>
     <string name="screenshot_01_gridView_heading">Difennit o roadennoù</string>
     <string name="screenshot_01_gridView_subline">frouezhder osted e-barzh</string>
-    <string name="screenshot_02_listView_heading">Hentit ha rannit</string>
+    <string name="screenshot_02_listView_heading">Furcheañ ha rannit</string>
     <string name="screenshot_02_listView_subline">pep oberenn gant beg o biziet</string>
     <string name="screenshot_03_drawer_heading">Orerezioù, rannadennoù, ...</string>
     <string name="screenshot_03_drawer_subline">pep tra diarezus buhañ</string>
@@ -637,13 +637,13 @@
     <string name="ssl_validator_label_validity_from">Eus :</string>
     <string name="ssl_validator_label_validity_to">Da :</string>
     <string name="ssl_validator_no_info_about_error">- Titour ebet diwar benn ar fazi</string>
-    <string name="ssl_validator_not_saved">Dibosuple enrollañ ar sertifikat</string>
-    <string name="ssl_validator_null_cert">Dibosuple diskwell ar sertiikat</string>
-    <string name="ssl_validator_question">Fiziañs o peus er sertifikat memestra ?</string>
-    <string name="ssl_validator_reason_cert_expired">- Re gozh eo sertifikat ar servijour</string>
-    <string name="ssl_validator_reason_cert_not_trusted">- Ne vez ket fiziet e sertifiçkat ar servijour</string>
-    <string name="ssl_validator_reason_cert_not_yet_valid">- Deizadoù mat sertvikat ar servijour a zo en dazont</string>
-    <string name="ssl_validator_reason_hostname_not_verified">- Ne glot ket anv ost ar sertifikat gant an URL</string>
+    <string name="ssl_validator_not_saved">Dibosuple enrollañ ar sertifikad</string>
+    <string name="ssl_validator_null_cert">Dibosuple diskwell ar sertiikad</string>
+    <string name="ssl_validator_question">Fiziañs o peus er sertifikad memestra ?</string>
+    <string name="ssl_validator_reason_cert_expired">- Re gozh eo sertifikad ar servijour</string>
+    <string name="ssl_validator_reason_cert_not_trusted">- Ne vez ket fiziet e sertifikad ar servijour</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">- Deizadoù mat sertvikad ar servijour a zo en dazont</string>
+    <string name="ssl_validator_reason_hostname_not_verified">- Ne glot ket anv ost ar sertifikad gant an URL</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Choaz all lec\'h enrollañ</string>
     <string name="storage_description_default">Dre ziouer</string>
@@ -653,7 +653,7 @@
     <string name="storage_movies">Filmoù</string>
     <string name="storage_music">Musik</string>
     <string name="storage_pictures">Skeudennom</string>
-    <string name="store_full_desc">Ar bladenn labour ostet e unan a laosk ac\'hanoc\'h e kàontrol.\n\nKewesturioù :\n* Un etrefas aes ha modern, temed pen-kil-ha-troad evel tem o servijer.\n* Pellgasit o restroù war o servijer Nextcloud.\n* Rannit o restroù gant ar re all.\n* Mirit o teuliadoù ha restroù karetañ kempreded.\n* Klaskit etre holl o teuliadoù en o servijer.\n* Adnevesadur otomatek evit ar fotoioù hag ar videoioù kemeret gant o venvigi.\n* Chomit a giz gant ar c\'hemenadennoù.\n* Skoazel meur-gont.\n* Guardit digor au roadenn gant ur pin pe roudoù-bizel.\n*Lakaet gant DAVx5 (anvet evel DAVdroid) evit ur staliadur aes eus an deizataer &amp; Kemprenn Darempredoù\n\nMar-plij, dezrevit ar gudennoù war https://github.com/nextcloud/android/issues, hag arguzit war https://help.nextcloud.com/c/clients/android\n\n Nevez war Nextcloud ? Nexcloud a zo ur ranner ha kemprener restroù &amp; hag ur servijour darempred prevez. Ur meziant dieub eo, ha posupl o deoc\'h ostañ anezhañ ho unan pe paeañ ur companiunez evit ma rafe ze evideoc\'h. Evel-se, controled e vo ganeoc\'h roadenn o fotoioù, o deizataer hag o darempredoù, o teuliadoù ha pep tra all.\n\nTaolit ur zel ouzh Nexcloud war https://nextcloud.com</string>
+    <string name="store_full_desc">Ar bladenn labour ostet e unan a laosk ac\'hanoc\'h e kàontrol.\n\nperzhioù :\n* Un etrefas aes ha modern, temed pen-kil-ha-troad evel tem o servijer.\n* Pellgasit o restroù war o servijer Nextcloud.\n* Rannit o restroù gant ar re all.\n* Mirit o teuliadoù ha restroù karetañ kempreded.\n* Klaskit etre holl o teuliadoù en o servijer.\n* Adnevesadur otomatek evit ar fotoioù hag ar videoioù kemeret gant o venvigi.\n* Chomit a giz gant ar c\'hemenadennoù.\n* Skoazel meur-gont.\n* Guardit digor au roadenn gant ur pin pe roudoù-bizel.\n*Lakaet gant DAVx5 (anvet evel DAVdroid) evit ur staliadur aes eus an deizataer &amp; Kemprenn Darempredoù\n\nMar-plij, dezrevit ar gudennoù war https://github.com/nextcloud/android/issues, hag arguzit war https://help.nextcloud.com/c/clients/android\n\n Nevez war Nextcloud ? Nexcloud a zo ur ranner ha kemprener restroù &amp; hag ur servijour darempred prevez. Ur meziant dieub eo, ha posupl o deoc\'h ostañ anezhañ ho unan pe paeañ ur companiunez evit ma rafe ze evideoc\'h. Evel-se, controled e vo ganeoc\'h roadenn o fotoioù, o deizataer hag o darempredoù, o teuliadoù ha pep tra all.\n\nTaolit ur zel ouzh Nexcloud war https://nextcloud.com</string>
     <string name="store_full_dev_desc">Ur pladenn ober a ost anezhi e unan a laosk ac\'hanoc\'h e kontrol.\nAr stumm digelañ efisiel an hini eo, keweriusteriañ sjkouerioù bemdez eus pep keweriusterioù da amprouiñ, pez a zo distabil, ha posupl eo kol roadennoù. Ar meziant a zo evit an implijourien o deus c\'hoant amprouiñ, ha kemennañ ar gudennoù a gwellont. Na implijit ket evit al labour !\n\n Ar stumm amprouiñ hag ar stumm reizh a zo posupl kavout war F-droid, ha posupl; eo staliañ anezho e memes lec\'h.</string>
     <string name="store_short_desc">Ur pladenn ober a ost anezhi e unan a laosk ac\'hanoc\'h e kontrol</string>
     <string name="store_short_dev_desc">Ur pladenn ober a ost anezhi e unan a laosk ac\'hanoc\'h e kontrol (stumm ragwellout amprouiñ)</string>
@@ -669,7 +669,7 @@
     <string name="sync_fail_in_favourites_ticker">C\'hwitet gwarn ar restroù kemprennet</string>
     <string name="sync_fail_ticker">Kempren c\'hwitet</string>
     <string name="sync_fail_ticker_unauthorized">Kemprenn c\'hwitet, deuit-tre en dro</string>
-    <string name="sync_file_nothing_to_do_msg">Diabarzh ar restr kemprennet dija</string>
+    <string name="sync_file_nothing_to_do_msg">Diabarzh ar restr kempredet dija</string>
     <string name="sync_folder_failed_content">Kemprenn an teuliad %1$s n\'eo ket bet graet penn-da-benn</string>
     <string name="sync_foreign_files_forgotten_explanation">Evel ar stumm 1.3.16, restroù pelkaset diouz an ardivink a vez eilet en teuliat diabarzh %1$s evit ampech ar c\'holl roadenn pa vez kemprennet ur restr nemetken war meur a gont\n\nabalamour d\'ar cheñchamant zen pep restr pelkasset gant stummoù kosoc\'h ar meziant a vez eilet en teuliad %2$s. Evelota, ur fazi en deus arested an oberenn e pad kempredenn ar c\'hont. Posupl eo doc\'h lezel ar restr(où) evet m\'emaint ha lemel al liamm da %3$s, pe diblasañ ar restr en teuliad %1$s ha gwarn al liamm da %4$s.\n\nListenn ar restroù diabarzh a zo dindan, ha ar restroù diavezh e %5$s a oa liamet outo.</string>
     <string name="sync_foreign_files_forgotten_ticker">Restroù diabarzh a zo bet ankouaet</string>
@@ -779,7 +779,7 @@
     <string name="uploads_view_upload_status_failed_folder_error">Fazi teuliad</string>
     <string name="uploads_view_upload_status_failed_localfile_error">N\'eo ket bet kavet ar restr diabarzh</string>
     <string name="uploads_view_upload_status_failed_permission_error">Fazi aotre</string>
-    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Sertifikat servijour difiziet</string>
+    <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Sertifikad servijour difiziet</string>
     <string name="uploads_view_upload_status_fetching_server_version">O tapoout stumm ar servijour...</string>
     <string name="uploads_view_upload_status_service_interrupted">Meziant achuet</string>
     <string name="uploads_view_upload_status_succeeded">Achuet</string>
