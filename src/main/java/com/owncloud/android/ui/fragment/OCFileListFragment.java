@@ -981,8 +981,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                 case FAVORITE_SEARCH:
                                     type = VirtualFolderType.FAVORITE;
                                     break;
-                                case PHOTO_SEARCH:
-                                    type = VirtualFolderType.PHOTOS;
+                                case GALLERY_SEARCH:
+                                    type = VirtualFolderType.GALLERY;
                                     break;
                                 default:
                                     type = VirtualFolderType.NONE;
@@ -1410,8 +1410,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 case FAVORITE_SEARCH:
                     setTitle(R.string.drawer_item_favorites);
                     break;
-                case VIDEO_SEARCH:
-                    setTitle(R.string.drawer_item_videos);
+                case GALLERY_SEARCH:
+                    setTitle(R.string.drawer_item_gallery);
                     break;
                 case RECENTLY_ADDED_SEARCH:
                     setTitle(R.string.drawer_item_recently_added);

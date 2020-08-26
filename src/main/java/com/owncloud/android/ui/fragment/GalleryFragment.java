@@ -30,7 +30,7 @@ import android.view.ViewGroup;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
-import com.owncloud.android.ui.asynctasks.PhotoSearchTask;
+import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 
@@ -44,7 +44,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * A Fragment that lists all files and folders in a given path. TODO refactor to get rid of direct dependency on
  * FileDisplayActivity
  */
-public class PhotoFragment extends OCFileListFragment {
+public class GalleryFragment extends OCFileListFragment {
     private static final int MAX_ITEMS_PER_ROW = 10;
     private boolean photoSearchQueryRunning = false;
     private boolean photoSearchNoNew = false;
@@ -53,11 +53,11 @@ public class PhotoFragment extends OCFileListFragment {
     private SearchEvent searchEvent;
     private boolean refresh;
 
-    public PhotoFragment() {
+    public GalleryFragment() {
         this.refresh = false;
     }
 
-    public PhotoFragment(boolean refresh) {
+    public GalleryFragment(boolean refresh) {
         this.refresh = refresh;
     }
 
@@ -65,7 +65,7 @@ public class PhotoFragment extends OCFileListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
+        searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.GALLERY_SEARCH);
 
         searchRemoteOperation = new SearchRemoteOperation(searchEvent.getSearchQuery(),
                                                           searchEvent.getSearchType(),
@@ -95,7 +95,7 @@ public class PhotoFragment extends OCFileListFragment {
             }
         });
 
-        Log_OC.i(this, "onCreateView() in PhotoFragment end");
+        Log_OC.i(this, "onCreateView() in GalleryFragment end");
         return v;
     }
 
@@ -103,7 +103,7 @@ public class PhotoFragment extends OCFileListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        currentSearchType = SearchType.PHOTO_SEARCH;
+        currentSearchType = SearchType.GALLERY_SEARCH;
 
         switchToGridView();
 
@@ -135,14 +135,14 @@ public class PhotoFragment extends OCFileListFragment {
             System.currentTimeMillis() - preferences.getPhotoSearchTimestamp() >= 30 * 1000) {
             mAdapter.setData(
                 new ArrayList<>(),
-                SearchType.PHOTO_SEARCH,
+                SearchType.GALLERY_SEARCH,
                 mContainerActivity.getStorageManager(),
                 mFile,
                 true);
 
             refresh = false;
         } else {
-            mAdapter.showVirtuals(VirtualFolderType.PHOTOS, true, mContainerActivity.getStorageManager());
+            mAdapter.showVirtuals(VirtualFolderType.GALLERY, true, mContainerActivity.getStorageManager());
             preferences.setPhotoSearchTimestamp(System.currentTimeMillis());
 
             return;
@@ -155,11 +155,11 @@ public class PhotoFragment extends OCFileListFragment {
 
     private void searchAndDisplay() {
         if (!photoSearchQueryRunning && !photoSearchNoNew) {
-            photoSearchTask = new PhotoSearchTask(getColumnsCount(),
-                                                  this,
-                                                  accountManager.getUser(),
-                                                  searchRemoteOperation,
-                                                  mContainerActivity.getStorageManager())
+            photoSearchTask = new GallerySearchTask(getColumnsCount(),
+                                                    this,
+                                                    accountManager.getUser(),
+                                                    searchRemoteOperation,
+                                                    mContainerActivity.getStorageManager())
                 .execute();
         }
     }
