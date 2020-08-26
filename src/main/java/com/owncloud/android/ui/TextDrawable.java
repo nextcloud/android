@@ -35,11 +35,11 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.NextcloudServer;
 
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 /**
  * A Drawable object that draws text (1 character) on top of a circular/filled background.
@@ -97,13 +97,11 @@ public class TextDrawable extends Drawable {
      * @param account user account
      * @param radiusInDp  the circle's radius
      * @return the avatar as a TextDrawable
-     * @throws UnsupportedEncodingException if the charset is not supported when calculating the color values
      * @throws NoSuchAlgorithmException     if the specified algorithm is not available when calculating the color values
      */
     @NonNull
     @NextcloudServer(max = 12)
-    public static TextDrawable createAvatar(Account account, float radiusInDp) throws
-            NoSuchAlgorithmException {
+    public static TextDrawable createAvatar(Account account, float radiusInDp) throws NoSuchAlgorithmException {
         String username = UserAccountManager.getUsername(account);
         return createNamedAvatar(username, radiusInDp);
     }
@@ -115,13 +113,11 @@ public class TextDrawable extends Drawable {
      * @param userId      userId to use
      * @param radiusInDp  the circle's radius
      * @return the avatar as a TextDrawable
-     * @throws UnsupportedEncodingException if the charset is not supported when calculating the color values
      * @throws NoSuchAlgorithmException     if the specified algorithm is not available when calculating the color values
      */
     @NonNull
     @NextcloudServer(max = 12)
-    public static TextDrawable createAvatarByUserId(String userId, float radiusInDp) throws
-            NoSuchAlgorithmException {
+    public static TextDrawable createAvatarByUserId(String userId, float radiusInDp) throws NoSuchAlgorithmException {
         return createNamedAvatar(userId, radiusInDp);
     }
 
@@ -139,8 +135,24 @@ public class TextDrawable extends Drawable {
         int[] hsl = BitmapUtils.calculateHSL(name);
         int[] rgb = BitmapUtils.HSLtoRGB(hsl[0], hsl[1], hsl[2], 1);
 
-        return new TextDrawable(name.substring(0, 1).toUpperCase(Locale.getDefault()), rgb[0], rgb[1], rgb[2],
-                radiusInDp);
+        return new TextDrawable(extractCharsFromDisplayName(name), rgb[0], rgb[1], rgb[2],
+                                radiusInDp);
+    }
+
+    @VisibleForTesting
+    public static String extractCharsFromDisplayName(@NonNull String displayName) {
+        if (displayName.isEmpty()) {
+            return "";
+        }
+
+        String[] nameParts = displayName.split("\\s+");
+
+        StringBuilder firstTwoLetters = new StringBuilder();
+        for (int i = 0; i < Math.min(2, nameParts.length); i++) {
+            firstTwoLetters.append(nameParts[i].substring(0, 1).toUpperCase(Locale.getDefault()));
+        }
+
+        return firstTwoLetters.toString();
     }
 
     /**
