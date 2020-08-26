@@ -1136,13 +1136,10 @@ public final class ThumbnailsCacheManager {
     }
 
     public static class AsyncMediaThumbnailDrawable extends BitmapDrawable {
-        private final WeakReference<MediaThumbnailGenerationTask> bitmapWorkerTaskReference;
 
-        public AsyncMediaThumbnailDrawable(Resources res, Bitmap bitmap,
-                                           MediaThumbnailGenerationTask bitmapWorkerTask) {
+        public AsyncMediaThumbnailDrawable(Resources res, Bitmap bitmap) {
 
             super(res, bitmap);
-            bitmapWorkerTaskReference = new WeakReference<>(bitmapWorkerTask);
         }
     }
 
