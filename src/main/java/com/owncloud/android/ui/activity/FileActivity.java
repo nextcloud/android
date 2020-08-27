@@ -104,8 +104,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import static com.owncloud.android.ui.activity.FileDisplayActivity.TAG_PUBLIC_LINK;
-import static com.owncloud.android.ui.activity.FileDisplayActivity.TAG_SECOND_FRAGMENT;
-
+import static com.owncloud.android.ui.activity.FileDisplayActivity.TAG_ROOT_LAYOUT;
 
 /**
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud {@link Account}s .
@@ -861,7 +860,7 @@ public abstract class FileActivity extends DrawerActivity
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(ShareActivity.TAG_SHARE_FRAGMENT);
 
         if (fragment == null) {
-            fragment = getSupportFragmentManager().findFragmentByTag(TAG_SECOND_FRAGMENT);
+            fragment = getSupportFragmentManager().findFragmentByTag(TAG_ROOT_LAYOUT);
         }
 
         if (fragment instanceof FileDetailSharingFragment) {

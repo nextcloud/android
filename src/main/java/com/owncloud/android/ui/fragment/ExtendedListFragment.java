@@ -292,7 +292,7 @@ public class ExtendedListFragment extends Fragment implements
         }
 
         if (getFragmentManager() != null && getFragmentManager().
-            findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT) instanceof ExtendedListFragment) {
+            findFragmentByTag(FileDisplayActivity.TAG_ROOT_LAYOUT) instanceof ExtendedListFragment) {
             performSearch(query, false);
             return true;
         } else {
