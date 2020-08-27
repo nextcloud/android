@@ -1,0 +1,9 @@
+Fix insert image file picker only opens once
+fix code formatting according to new ktlint
+Reset last sync date of files written via DocumentsProvider
+do not preview html within our text view
+return onError in onPostExecute (which runs on UI thread)
+Fix #5755 - use correct name collision info by synced folder - syncedFolder.getNameCollisionPolicyInt -> returns int - syncedFolder.getNameColllisionPolicy -> returns enum - remove not needed backgroundJobManager from FilesSyncWork.kt
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
