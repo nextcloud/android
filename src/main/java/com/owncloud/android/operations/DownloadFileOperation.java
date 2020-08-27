@@ -171,7 +171,7 @@ public class DownloadFileOperation extends RemoteOperation {
             modificationTimestamp = downloadOperation.getModificationTimestamp();
             etag = downloadOperation.getEtag();
             newFile = new File(getSavePath());
-            if (!newFile.getParentFile().mkdirs()) {
+            if (!newFile.getParentFile().exists() && !newFile.getParentFile().mkdirs()) {
                 Log_OC.e(TAG, "Unable to create parent folder " + newFile.getParentFile().getAbsolutePath());
             }
 
