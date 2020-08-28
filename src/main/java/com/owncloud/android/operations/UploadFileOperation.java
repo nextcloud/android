@@ -730,6 +730,8 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // check name collision
+            // TODO when the NameCollisionPolicy is OVERWRITE anyway, we can skip this check and save a HTTP request
+            //  if (mNameCollisionPolicy == NameCollisionPolicy.OVERWRITE) skip
             RemoteOperationResult collisionResult = checkNameCollision(client, null, false);
             if (collisionResult != null) {
                 result = collisionResult;

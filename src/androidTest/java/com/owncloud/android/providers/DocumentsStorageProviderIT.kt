@@ -3,6 +3,7 @@ package com.owncloud.android.providers
 import android.provider.DocumentsContract
 import android.util.Log
 import androidx.documentfile.provider.DocumentFile
+import androidx.test.filters.LargeTest
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile.ROOT_PATH
@@ -21,13 +22,17 @@ import net.bytebuddy.utility.RandomString
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import kotlin.random.Random
 
 private const val MAX_FILE_NAME_LENGTH = 225
+private const val STRESS_TEST_ROUNDS = 100
+private const val STRESS_TEST_MAX_SIZE = 1024 * 1024
 
+@Suppress("BlockingMethodInNonBlockingContext")
 class DocumentsStorageProviderIT : AbstractOnServerIT() {
 
     private val context = targetContext
@@ -171,5 +176,29 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         // ensure file got deleted with it
         assertFalse(file1.exists())
         assertExistsOnServer(client, ocFile1.remotePath, false)
+    }
+
+    @Test
+    @LargeTest
+    fun testStressFindCreationUpload() = runBlocking {
+        val metadataFile = rootDir.createFile("application/octet-stream", "meta")
+        assertNotNull(metadataFile)
+        for (i in (1..STRESS_TEST_ROUNDS)) {
+            val name = RandomString.make()
+            val file = rootDir.findFileBlocking(context, name) ?: {
+                rootDir.createFile("application/octet-stream", name)
+            }()
+            assertNotNull("Error creating file at iteration $i", file)
+            val data = Random.nextBytes(Random.nextInt(1, STRESS_TEST_MAX_SIZE))
+            contentResolver.openOutputStream(file!!.uri, "wt").use {
+                it!!.write(data)
+            }
+            val metaData = Random.nextBytes(Random.nextInt(1, STRESS_TEST_MAX_SIZE / 2))
+            contentResolver.openOutputStream(metadataFile!!.uri, "wt").use {
+                it!!.write(metaData)
+            }
+        }
+        metadataFile!!.delete()
+        Unit
     }
 }
