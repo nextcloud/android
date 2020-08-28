@@ -142,8 +142,7 @@ class BackgroundJobFactory @Inject constructor(
             uploadsStorageManager = uploadsStorageManager,
             connectivityService = connectivityService,
             powerManagementService = powerManagementService,
-            clock = clock,
-            backgroundJobManager = backgroundJobManager.get()
+            clock = clock
         )
     }
 
