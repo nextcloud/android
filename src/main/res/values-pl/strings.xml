@@ -713,7 +713,7 @@
     <string name="untrusted_domain">Dostęp przez niezaufaną domenę. Więcej informacji można znaleźć w dokumentacji.</string>
     <string name="update_link_file_error">Wystąpił błąd podczas próby aktualizacji udostępnienia.</string>
     <string name="update_link_file_no_exist">Nie można zaktualizować. Sprawdź, czy plik istnieje.</string>
-    <string name="update_link_forbidden_permissions">aby zaktualizować te udostępnianie</string>
+    <string name="update_link_forbidden_permissions">aby zaktualizować te udostępnienie</string>
     <string name="updating_share_failed">Zmiana udostępniania nie powiodła się</string>
     <string name="upload_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
     <string name="upload_chooser_title">Wyślij plik z…</string>

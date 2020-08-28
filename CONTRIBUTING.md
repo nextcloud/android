@@ -445,7 +445,7 @@ Examples for different versions:
 * 8.12.2 ```80120200```
 * 9.8.4-rc18 ```90080418```
 
-beware, that beta releases for an upcoming version will always use the minor and hotfix version of the release they are targeting. So to make sure the version code of the upcoming stable release will always be higher stable releases set the 2 beta digits to '99' as seen above in the examples.
+beware, that beta releases for an upcoming version will always use the minor and hotfix version of the release they are targeting. So to make sure the version code of the upcoming stable release will always be higher stable releases set the 2 beta digits to '99' as seen above in the examples. For major versions, as we're not a library and thus 'incompatible API changes' is not something that happens, decisions are essentially marketing-based. If we deem a release to be very impactful, we might increase the major version number.
 
 ### Dev
 For dev the version name is in format YYYYMMDD. It is mainly as a reference for reporting bugs and is not related to stable/release candidates as it is an independent app.

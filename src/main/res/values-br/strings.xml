@@ -43,7 +43,7 @@
     <string name="auth_account_not_the_same">An implijer lakaet na glot ket gant implijer ar c\'hont</string>
     <string name="auth_bad_oc_version_title">Stumm ar servijour n\'eo ket anavezet</string>
     <string name="auth_connection_established">Kenstagadenn graet</string>
-    <string name="auth_fail_get_user_name">Ne vez ket roet an ID implijer mat gant o servijour, galvit o administratour.</string>
+    <string name="auth_fail_get_user_name">Ne vez ket roet an ID implijer mat gant o servijour, galvit o merour.</string>
     <string name="auth_host_address">Chom-lec\'h ar servijour</string>
     <string name="auth_host_url">Chom-lec\'h ar servijour https://…</string>
     <string name="auth_incorrect_address_title">Stumm chom-lec\'h fall evit ar servijour</string>
@@ -441,7 +441,7 @@
     <string name="notification_channel_general_name">Kemenadennoù jeneral</string>
     <string name="notification_channel_media_description">Araokadenn al lenner musik</string>
     <string name="notification_channel_media_name">Lenner media</string>
-    <string name="notification_channel_push_description">Diskwez ar gemenadenoù push kaset gant ar servijour : Meneget en displegoù, degemeret ur rannaden pell nevez, kemenadennoù kaset digant an administratour, hag-all-hag-all.</string>
+    <string name="notification_channel_push_description">Diskwez ar gemenadenoù push kaset gant ar servijour : Meneget en displegoù, degemeret ur rannaden pell nevez, kemenadennoù kaset digant ar merour, hag-all-hag-all.</string>
     <string name="notification_channel_push_name">Kemenadennoù push</string>
     <string name="notification_channel_upload_description">Diskouez araokadur ar pallkas</string>
     <string name="notification_channel_upload_name">Pellkas chadenn ar gemenadenn</string>
