@@ -1,0 +1,6 @@
+Fix unresponsive preview player controls
+Improve performance of DocumentsProvider#isChildDocument()
+arbitrary data set: store "" instead of null
+Update CONTRIBUTING.md
+Update translations
+Update 3rd-party dependencies
