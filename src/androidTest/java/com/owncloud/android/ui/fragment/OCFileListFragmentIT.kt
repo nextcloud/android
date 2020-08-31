@@ -37,6 +37,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.client.preferences.DarkMode
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.MainApp
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.files.services.FileUploader
@@ -48,9 +49,11 @@ import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import junit.framework.TestCase
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
+import java.io.File
 
 class OCFileListFragmentIT : AbstractOnServerIT() {
     companion object {
@@ -297,5 +300,101 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
         shortSleep()
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
 //        Screenshot.snapActivity(sut).record()
+    }
+
+    @Test
+    @SuppressWarnings("MagicNumber")
+    fun testEnoughSpaceWithoutLocalFile() {
+        val sut = OCFileListFragment()
+        val ocFile = OCFile("/test.txt")
+        val file = File("/sdcard/test.txt")
+        file.createNewFile()
+
+        ocFile.storagePath = file.absolutePath
+
+        ocFile.fileLength = 100
+        assertTrue(sut.checkIfEnoughSpace(200L, ocFile))
+
+        ocFile.fileLength = 0
+        assertTrue(sut.checkIfEnoughSpace(200L, ocFile))
+
+        ocFile.fileLength = 100
+        assertFalse(sut.checkIfEnoughSpace(50L, ocFile))
+
+        ocFile.fileLength = 100
+        assertFalse(sut.checkIfEnoughSpace(100L, ocFile))
+    }
+
+    @Test
+    @SuppressWarnings("MagicNumber")
+    fun testEnoughSpaceWithLocalFile() {
+        val sut = OCFileListFragment()
+        val ocFile = OCFile("/test.txt")
+        val file = File("/sdcard/test.txt")
+        file.writeText("123123")
+
+        ocFile.storagePath = file.absolutePath
+
+        ocFile.fileLength = 100
+        assertTrue(sut.checkIfEnoughSpace(200L, ocFile))
+
+        ocFile.fileLength = 0
+        assertTrue(sut.checkIfEnoughSpace(200L, ocFile))
+
+        ocFile.fileLength = 100
+        assertFalse(sut.checkIfEnoughSpace(50L, ocFile))
+
+        ocFile.fileLength = 100
+        assertFalse(sut.checkIfEnoughSpace(100L, ocFile))
+    }
+
+    @Test
+    @SuppressWarnings("MagicNumber")
+    fun testEnoughSpaceWithoutLocalFolder() {
+        val sut = OCFileListFragment()
+        val ocFile = OCFile("/test/")
+        val file = File("/sdcard/test/")
+        File("/sdcard/test/1.txt").writeText("123123")
+
+        ocFile.storagePath = file.absolutePath
+
+        ocFile.fileLength = 100
+        assertTrue(sut.checkIfEnoughSpace(200L, ocFile))
+
+        ocFile.fileLength = 0
+        assertTrue(sut.checkIfEnoughSpace(200L, ocFile))
+
+        ocFile.fileLength = 100
+        assertFalse(sut.checkIfEnoughSpace(50L, ocFile))
+
+        ocFile.fileLength = 100
+        assertFalse(sut.checkIfEnoughSpace(100L, ocFile))
+    }
+
+    @Test
+    @SuppressWarnings("MagicNumber")
+    fun testEnoughSpaceWithLocalFolder() {
+        val sut = OCFileListFragment()
+        val ocFile = OCFile("/test/")
+        val folder = File("/sdcard/test/")
+        folder.mkdirs()
+        val file = File("/sdcard/test/1.txt")
+        file.createNewFile()
+        file.writeText("123123")
+
+        ocFile.storagePath = folder.absolutePath
+        ocFile.mimeType = "DIR"
+
+        ocFile.fileLength = 100
+        assertTrue(sut.checkIfEnoughSpace(200L, ocFile))
+
+        ocFile.fileLength = 0
+        assertTrue(sut.checkIfEnoughSpace(200L, ocFile))
+
+        ocFile.fileLength = 100
+        assertTrue(sut.checkIfEnoughSpace(50L, ocFile))
+
+        ocFile.fileLength = 100
+        assertTrue(sut.checkIfEnoughSpace(100L, ocFile))
     }
 }
