@@ -227,7 +227,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             if (!mIgnoreFirstSavedState) {
                 OCFile file = savedInstanceState.getParcelable(EXTRA_FILE);
                 setFile(file);
-                mImageView.setScale(savedInstanceState.getFloat(EXTRA_ZOOM));
+                mImageView.setScale(Math.min(mImageView.getMaximumScale(), savedInstanceState.getFloat(EXTRA_ZOOM)));
             } else {
                 mIgnoreFirstSavedState = false;
             }
