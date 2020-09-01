@@ -122,6 +122,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -1759,7 +1760,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             // Determine if space is enough to download the file, -1 available space if there in error while computing
             boolean isSpaceEnough = true;
             if (availableSpaceOnDevice >= 0) {
-                isSpaceEnough = availableSpaceOnDevice > file.getFileLength();
+                isSpaceEnough = checkIfEnoughSpace(availableSpaceOnDevice, file);
             }
 
             if (isSpaceEnough) {
@@ -1767,6 +1768,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
             } else {
                 showSpaceErrorDialog(file, availableSpaceOnDevice);
             }
+        }
+    }
+
+    @VisibleForTesting
+    public boolean checkIfEnoughSpace(long availableSpaceOnDevice, OCFile file) {
+        if (file.isFolder()) {
+            // on folders we assume that we only need difference
+            return availableSpaceOnDevice > (file.getFileLength() - new File(file.getStoragePath()).length());
+        } else {
+            // on files complete file must first be stored, then target gets overwritten
+            return availableSpaceOnDevice > file.getFileLength();
         }
     }
 
