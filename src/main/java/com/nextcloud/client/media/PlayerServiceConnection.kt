@@ -23,6 +23,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.os.Build
 import android.os.IBinder
 import android.widget.MediaController
 import com.nextcloud.client.account.User
@@ -56,20 +57,20 @@ class PlayerServiceConnection(private val context: Context) : MediaController.Me
         i.putExtra(PlayerService.EXTRA_AUTO_PLAY, playImmediately)
         i.putExtra(PlayerService.EXTRA_START_POSITION_MS, position)
         i.action = PlayerService.ACTION_PLAY
-        context.startService(i)
+        startForegroundService(i)
     }
 
     fun stop(file: OCFile) {
         val i = Intent(context, PlayerService::class.java)
         i.putExtra(PlayerService.EXTRA_FILE, file)
         i.action = PlayerService.ACTION_STOP_FILE
-        context.startService(i)
+        startForegroundService(i)
     }
 
     fun stop() {
         val i = Intent(context, PlayerService::class.java)
         i.action = PlayerService.ACTION_STOP
-        context.startService(i)
+        startForegroundService(i)
     }
 
     private val connection = object : ServiceConnection {
@@ -131,4 +132,12 @@ class PlayerServiceConnection(private val context: Context) : MediaController.Me
     }
 
     // endregion
+
+    private fun startForegroundService(i: Intent) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(i)
+        } else {
+            context.startService(i)
+        }
+    }
 }
