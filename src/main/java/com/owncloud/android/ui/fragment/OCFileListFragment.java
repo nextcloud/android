@@ -1389,6 +1389,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             });
 
         } else {
+            // TODO if tablet then two columns: getResources().getBoolean(R.bool.large_land_layout)
             layoutManager = new LinearLayoutManager(getContext());
         }
 

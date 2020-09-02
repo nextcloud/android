@@ -40,20 +40,6 @@
             android:contentDescription="@string/list_layout"
             android:orientation="horizontal"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <FrameLayout
-                android:id="@+id/left_fragment_container"
-                android:layout_width="@dimen/zero"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-            <FrameLayout
-                android:id="@+id/right_fragment_container"
-                android:layout_width="@dimen/zero"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -26,11 +26,6 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
         <LinearLayout
             android:id="@+id/detail_container"
             android:layout_width="match_parent"
@@ -185,8 +180,8 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/bg_default"
+                android:layout_height="match_parent"
+                android:background="@color/hwSecurityRed"
                 app:tabGravity="center"
                 app:tabMode="fixed"
                 app:tabTextColor="@color/text_color"
@@ -195,9 +190,9 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent" />
-        </LinearLayout>
+                android:layout_height="match_parent" />
 
-        <include layout="@layout/empty_list" />
-    </LinearLayout>
+            <include layout="@layout/empty_list" />
+
+        </LinearLayout>
 </ScrollView>
