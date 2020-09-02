@@ -125,7 +125,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @VisibleForTesting
     public OCFile(String path, String remoteId) {
         this(path);
-        setRemoteId(remoteId);
+        this.remoteId = remoteId;
     }
 
     /**
