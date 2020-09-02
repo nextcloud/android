@@ -23,7 +23,6 @@
  */
 package com.owncloud.android.ui.trashbin;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,8 +40,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.TrashbinActivityBinding;
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 import com.owncloud.android.ui.EmptyRecyclerView;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.adapter.TrashbinListAdapter;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.interfaces.TrashbinActivityInterface;
@@ -63,7 +61,7 @@ import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFrag
 /**
  * Presenting trashbin data, received from presenter
  */
-public class TrashbinActivity extends FileActivity implements
+public class TrashbinActivity extends DrawerActivity implements
     TrashbinActivityInterface,
     SortingOrderDialogFragment.OnSortingOrderListener,
     TrashbinContract.View,
@@ -142,14 +140,6 @@ public class TrashbinActivity extends FileActivity implements
     protected void loadFolder() {
         binding.swipeContainingList.setRefreshing(true);
         trashbinPresenter.loadFolder();
-    }
-
-    @Override
-    public void showFiles(boolean onDeviceOnly) {
-        super.showFiles(onDeviceOnly);
-        Intent i = new Intent(getApplicationContext(), FileDisplayActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
     }
 
     @Override

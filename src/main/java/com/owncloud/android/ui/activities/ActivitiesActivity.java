@@ -38,7 +38,7 @@ import com.owncloud.android.lib.resources.activities.model.RichObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesRepository;
-import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
@@ -60,7 +60,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class ActivitiesActivity extends FileActivity implements ActivityListInterface, ActivitiesContract.View {
+import static com.owncloud.android.ui.activity.FileActivity.EXTRA_ACCOUNT;
+import static com.owncloud.android.ui.activity.FileActivity.EXTRA_FILE;
+
+public class ActivitiesActivity extends DrawerActivity implements ActivityListInterface, ActivitiesContract.View {
     private static final String TAG = ActivitiesActivity.class.getSimpleName();
     private static final int UNDEFINED = -1;
 
@@ -139,14 +142,6 @@ public class ActivitiesActivity extends FileActivity implements ActivityListInte
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
-    }
-
-    @Override
-    public void showFiles(boolean onDeviceOnly) {
-        super.showFiles(onDeviceOnly);
-        Intent i = new Intent(getApplicationContext(), FileDisplayActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
     }
 
     /**

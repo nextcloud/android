@@ -608,16 +608,6 @@ public abstract class FileActivity extends DrawerActivity
         return mUploaderBinder;
     }
 
-    @Override
-    public void restart() {
-        Intent i = new Intent(this, FileDisplayActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.setAction(FileDisplayActivity.RESTART);
-        startActivity(i);
-
-        fetchExternalLinks(false);
-    }
-
     public OCFile getCurrentDir() {
         OCFile file = getFile();
         if (file != null) {
