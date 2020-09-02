@@ -118,14 +118,6 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
     }
 
     @Override
-    public void showFiles(boolean onDeviceOnly) {
-        super.showFiles(onDeviceOnly);
-        Intent fileDisplayActivity = new Intent(getApplicationContext(), FileDisplayActivity.class);
-        fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(fileDisplayActivity);
-    }
-
-    @Override
     public void showDetails(OCFile file) {
         // not needed
     }

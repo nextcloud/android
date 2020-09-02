@@ -90,7 +90,7 @@ import butterknife.Unbinder;
 /**
  * This Activity presents the user information.
  */
-public class UserInfoActivity extends FileActivity implements Injectable {
+public class UserInfoActivity extends DrawerActivity implements Injectable {
     public static final String KEY_ACCOUNT = "ACCOUNT";
 
     private static final String TAG = UserInfoActivity.class.getSimpleName();
