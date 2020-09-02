@@ -1132,7 +1132,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 }
             } else {
                 // init webView again
-                mLoginWebView.setVisibility(View.GONE);
+                if (mLoginWebView != null) {
+                    mLoginWebView.setVisibility(View.GONE);
+                }
                 setContentView(R.layout.account_setup);
                 initOverallUi();
 
