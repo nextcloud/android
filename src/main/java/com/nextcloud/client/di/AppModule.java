@@ -68,6 +68,7 @@ import java.io.File;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import dagger.Module;
 import dagger.Provides;
 
@@ -216,5 +217,10 @@ class AppModule {
     @Singleton
     AppNotificationManager notificationsManager(Context context, NotificationManager platformNotificationsManager) {
         return new AppNotificationManagerImpl(context, context.getResources(), platformNotificationsManager);
+    }
+
+    @Provides
+    LocalBroadcastManager localBroadcastManager(Context context) {
+        return LocalBroadcastManager.getInstance(context);
     }
 }
