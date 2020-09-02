@@ -73,6 +73,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         shortSleep()
         shortSleep()
         shortSleep()
+        shortSleep()
 
         Screenshot.snapActivity(sut).record()
     }
