@@ -31,7 +31,7 @@
     <string name="activity_chooser_send_file_title">Versturen</string>
     <string name="activity_chooser_title">Verstuur link naar…</string>
     <string name="activity_icon">Activiteit</string>
-    <string name="add_another_public_share_link">Nog een  link toevoegen </string>
+    <string name="add_another_public_share_link">Nog een link toevoegen </string>
     <string name="add_new_public_share">Voeg een nieuwe openbare deellink toe</string>
     <string name="add_to_cloud">Voeg toe aan %1$s</string>
     <string name="allow_editing">Bewerken toestaan</string>
@@ -43,7 +43,7 @@
     <string name="auth_account_not_the_same">De opgegeven gebruiker komt niet overeen met de gebruiker van dit account</string>
     <string name="auth_bad_oc_version_title">Niet-herkende serverversie</string>
     <string name="auth_connection_established">Verbinding tot stand gebracht</string>
-    <string name="auth_fail_get_user_name">Je server geeft geen geldige userID terug, neem contact op met je serverbeheerder</string>
+    <string name="auth_fail_get_user_name">Je server geeft geen geldige user ID terug, neem contact op met je serverbeheerder</string>
     <string name="auth_host_address">Serveradres</string>
     <string name="auth_host_url">Serveradres https://…</string>
     <string name="auth_incorrect_address_title">Verkeerd adresformaat voor server</string>

@@ -262,6 +262,7 @@
     <string name="etm_background_jobs_schedule_test_job">Schemalägg ett testjobb</string>
     <string name="etm_background_jobs_start_test_job">Starta ett provuppdrag</string>
     <string name="etm_background_jobs_stop_test_job">Stoppa ett provuppdrag</string>
+    <string name="etm_downloader">Nedladdare</string>
     <string name="etm_migrations">Sammanslagningar (appuppgradering)</string>
     <string name="etm_preferences">Inställningar</string>
     <string name="etm_title">Teknisk testläge</string>
@@ -426,6 +427,7 @@
     <string name="no_pdf_app_available">Ingen app tillgänglig för att hantera PDF</string>
     <string name="note_confirm">Skicka</string>
     <string name="note_could_not_sent">Kunde inte skicka meddelande</string>
+    <string name="note_icon_hint">Antecknings ikon</string>
     <string name="notification_action_failed">Misslyckades utföra åtgärd.</string>
     <string name="notification_channel_download_description">Visar hämtningsförloppet</string>
     <string name="notification_channel_download_name">Hämta aviseringskanal</string>

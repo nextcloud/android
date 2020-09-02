@@ -27,12 +27,14 @@
     <string name="actionbar_sort">مرتب‌سازی</string>
     <string name="active_user">کاربر فعال</string>
     <string name="activities_no_results_headline">هنوز فعّالیت ندارد</string>
+    <string name="activities_no_results_message">رویدادی نظیر افزودن، تغییر و هم‌رسانی هنوز وجود ندارد.</string>
     <string name="activity_chooser_send_file_title">ارسال</string>
     <string name="activity_chooser_title">ارسال لینک به ....</string>
     <string name="activity_icon">فعّالیت</string>
     <string name="add_another_public_share_link">پیوند دیگری اضافه کنید</string>
+    <string name="add_new_public_share">افزودن پیوند هم‌رسانی عمومی جدید</string>
     <string name="add_to_cloud">افزودن به %1$s</string>
-    <string name="allow_editing">اجازه‌ی ویرایش</string>
+    <string name="allow_editing">اجازهٔ ویرایش</string>
     <string name="appbar_search_in">جست‌وجو در %s</string>
     <string name="associated_account_not_found">حساب مرتبط یافت نشد!</string>
     <string name="auth_access_failed">دسترسی خطای  %1$s</string>
