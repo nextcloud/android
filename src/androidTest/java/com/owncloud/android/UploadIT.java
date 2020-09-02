@@ -215,6 +215,7 @@ public class UploadIT extends AbstractOnServerIT {
 
         uploadOCUpload(ocUpload);
     }
+
     @Test
     public void testUploadOnChargingOnlyButNotCharging() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
@@ -241,6 +242,7 @@ public class UploadIT extends AbstractOnServerIT {
 
         RemoteOperationResult result = newUpload.execute(client, getStorageManager());
         assertFalse(result.toString(), result.isSuccess());
+        assertEquals(RemoteOperationResult.ResultCode.DELAYED_FOR_CHARGING, result.getCode());
     }
 
     @Test
@@ -326,6 +328,7 @@ public class UploadIT extends AbstractOnServerIT {
 
         RemoteOperationResult result = newUpload.execute(client, getStorageManager());
         assertFalse(result.toString(), result.isSuccess());
+        assertEquals(RemoteOperationResult.ResultCode.DELAYED_FOR_WIFI, result.getCode());
     }
 
     @Test
@@ -362,6 +365,47 @@ public class UploadIT extends AbstractOnServerIT {
                                 false,
                                 targetContext)
             .execute(client, getStorageManager());
+    }
+
+    @Test
+    public void testUploadOnWifiOnlyButMeteredWifi() {
+        ConnectivityService connectivityServiceMock = new ConnectivityService() {
+            @Override
+            public boolean isInternetWalled() {
+                return false;
+            }
+
+            @Override
+            public Connectivity getConnectivity() {
+                return new Connectivity(true, true, true, true);
+            }
+        };
+        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
+                                         FOLDER + "noWifi.txt",
+                                         account.name);
+        ocUpload.setUseWifiOnly(true);
+
+        UploadFileOperation newUpload = new UploadFileOperation(
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            user,
+            null,
+            ocUpload,
+            FileUploader.NameCollisionPolicy.DEFAULT,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            true,
+            false
+        );
+        newUpload.setRemoteFolderToBeCreated();
+        newUpload.addRenameUploadListener(() -> {
+            // dummy
+        });
+
+        RemoteOperationResult result = newUpload.execute(client, getStorageManager());
+        assertFalse(result.toString(), result.isSuccess());
+        assertEquals(RemoteOperationResult.ResultCode.DELAYED_FOR_WIFI, result.getCode());
     }
 
     private void verifyStoragePath(OCFile file) {
