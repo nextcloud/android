@@ -165,7 +165,7 @@
     <string name="uploads_view_upload_status_conflict">Conflict</string>
     <string name="uploads_view_upload_status_service_interrupted">App terminated</string>
     <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Waiting for Wi-Fi</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Waiting for non-metered Wi-Fi</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Waiting to exit power save mode</string>
     <string name="uploads_view_upload_status_fetching_server_version">Fetching server version…</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
