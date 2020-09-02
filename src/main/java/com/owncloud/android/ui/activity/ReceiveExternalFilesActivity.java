@@ -120,6 +120,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
@@ -140,6 +141,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public static final int SINGLE_PARENT = 1;
 
     @Inject AppPreferences preferences;
+    @Inject LocalBroadcastManager localBroadcastManager;
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
     private List<Parcelable> mStreamsToUpload;
@@ -189,7 +191,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
         syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
         mSyncBroadcastReceiver = new SyncBroadcastReceiver();
-        registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+        localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
 
         // Init Fragment without UI to retain AsyncTask across configuration changes
         FragmentManager fm = getSupportFragmentManager();
@@ -266,7 +268,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Override
     protected void onDestroy() {
         if (mSyncBroadcastReceiver != null) {
-            unregisterReceiver(mSyncBroadcastReceiver);
+            localBroadcastManager.unregisterReceiver(mSyncBroadcastReceiver);
         }
         super.onDestroy();
     }
@@ -1151,14 +1153,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
                             }
                         }
                     }
-                    removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
 
                 }
             } catch (RuntimeException e) {
                 // avoid app crashes after changing the serial id of RemoteOperationResult
                 // in owncloud library with broadcast notifications pending to process
-                removeStickyBroadcast(intent);
                 DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
             }
         }

@@ -59,6 +59,7 @@ import java.util.Map;
 
 import androidx.annotation.PluralsRes;
 import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 /**
  * Implementation of {@link AbstractThreadedSyncAdapter} responsible for synchronizing
@@ -379,8 +380,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         }
 
         intent.setPackage(getContext().getPackageName());
-        getContext().sendStickyBroadcast(intent);
-        //LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
     }
 
 
