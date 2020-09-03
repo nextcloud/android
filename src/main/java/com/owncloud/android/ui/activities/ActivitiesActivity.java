@@ -38,10 +38,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.lib.resources.activities.model.RichObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
-import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activity.DrawerActivity;
-import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
@@ -107,9 +104,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
         setupUi();
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_activities));
 
-        swipeListRefreshLayout.setOnRefreshListener(() -> {
-            vm.refresh();
-        });
+        swipeListRefreshLayout.setOnRefreshListener(() -> vm.refresh());
 
         vm.getActivities().observe(this, this::onActivitiesChanged);
         vm.isLoading().observe(this, this::onIsLoadingChanged);
@@ -204,18 +199,15 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (isDrawerOpen()) {
-                    closeDrawer();
-                } else {
-                    openDrawer();
-                }
-                break;
-            default:
-                Log_OC.w(TAG, "Unknown menu item triggered");
-                retval = super.onOptionsItemSelected(item);
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            if (isDrawerOpen()) {
+                closeDrawer();
+            } else {
+                openDrawer();
+            }
+        } else {
+            Log_OC.w(TAG, "Unknown menu item triggered");
+            retval = super.onOptionsItemSelected(item);
         }
 
         return retval;
