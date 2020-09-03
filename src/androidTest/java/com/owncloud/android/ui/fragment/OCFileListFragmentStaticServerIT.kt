@@ -70,10 +70,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         sut.runOnUiThread { fragment.listDirectory(root, false, false) }
 
         waitForIdleSync()
-        shortSleep()
-        shortSleep()
-        shortSleep()
-        shortSleep()
+        longSleep()
 
         Screenshot.snapActivity(sut).record()
     }
