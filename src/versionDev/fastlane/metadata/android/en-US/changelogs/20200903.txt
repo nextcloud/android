@@ -1,0 +1,11 @@
+use same version for all espresso releases
+Fix not waiting for non-metered wifi
+Fix crashing app when adding same account for second time when using qrCode
+no sticky broadcast: - use local broadcast system instead - no need to remove sticky broadcasts then
+Instrumentation tests for DocumentsProvider
+Improve DocumentsProvider implementation
+Reduce extend of FileActivity, use DrawerActivity instead
+Start audio player using foreground service API on Android 26+
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
