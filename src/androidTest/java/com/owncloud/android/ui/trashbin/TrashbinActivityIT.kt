@@ -63,9 +63,10 @@ class TrashbinActivityIT : AbstractIT() {
 
         sut.runOnUiThread { sut.loadFolder() }
 
+        waitForIdleSync()
         shortSleep()
 
-        Screenshot.snapActivity(sut).record()
+        screenshot(sut)
     }
 
     @Test

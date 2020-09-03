@@ -59,6 +59,7 @@ import com.owncloud.android.utils.ThemeUtils;
 
 import javax.inject.Inject;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -95,6 +96,9 @@ public class UploadListActivity extends FileActivity {
     @Inject
     BackgroundJobManager backgroundJobManager;
 
+    @Inject
+    LocalBroadcastManager localBroadcastManager;
+
     private UploadListLayoutBinding binding;
 
     public static Intent createIntent(OCFile file, Account account, Integer flag, Context context) {
@@ -106,14 +110,6 @@ public class UploadListActivity extends FileActivity {
         intent.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
 
         return intent;
-    }
-
-    @Override
-    public void showFiles(boolean onDeviceOnly) {
-        super.showFiles(onDeviceOnly);
-        Intent i = new Intent(getApplicationContext(), FileDisplayActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
     }
 
     @Override
@@ -223,7 +219,7 @@ public class UploadListActivity extends FileActivity {
         uploadIntentFilter.addAction(FileUploader.getUploadsAddedMessage());
         uploadIntentFilter.addAction(FileUploader.getUploadStartMessage());
         uploadIntentFilter.addAction(FileUploader.getUploadFinishMessage());
-        registerReceiver(uploadMessagesReceiver, uploadIntentFilter);
+        localBroadcastManager.registerReceiver(uploadMessagesReceiver, uploadIntentFilter);
 
         Log_OC.v(TAG, "onResume() end");
 
@@ -233,7 +229,7 @@ public class UploadListActivity extends FileActivity {
     protected void onPause() {
         Log_OC.v(TAG, "onPause() start");
         if (uploadMessagesReceiver != null) {
-            unregisterReceiver(uploadMessagesReceiver);
+            localBroadcastManager.unregisterReceiver(uploadMessagesReceiver);
             uploadMessagesReceiver = null;
         }
         super.onPause();
@@ -355,14 +351,7 @@ public class UploadListActivity extends FileActivity {
          */
         @Override
         public void onReceive(Context context, Intent intent) {
-            try {
-                uploadListAdapter.loadUploadItemsFromDb();
-            } finally {
-                if (intent != null) {
-                    removeStickyBroadcast(intent);
-                }
-            }
-
+            uploadListAdapter.loadUploadItemsFromDb();
         }
     }
 }

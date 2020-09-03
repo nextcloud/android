@@ -21,7 +21,6 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -37,7 +36,7 @@ import com.owncloud.android.utils.ThemeUtils;
 /**
  * Activity providing information about ways to participate in the app's development.
  */
-public class CommunityActivity extends FileActivity {
+public class CommunityActivity extends DrawerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,15 +129,6 @@ public class CommunityActivity extends FileActivity {
                 break;
         }
         return retval;
-    }
-
-    @Override
-    public void showFiles(boolean onDeviceOnly) {
-        super.showFiles(onDeviceOnly);
-        Intent fileDisplayActivity = new Intent(getApplicationContext(),
-                FileDisplayActivity.class);
-        fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(fileDisplayActivity);
     }
 
     @Override

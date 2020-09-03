@@ -24,7 +24,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.Menu;
@@ -72,7 +71,7 @@ import butterknife.Unbinder;
 /**
  * Activity displaying all server side stored notification items.
  */
-public class NotificationsActivity extends FileActivity implements NotificationsContract.View {
+public class NotificationsActivity extends DrawerActivity implements NotificationsContract.View {
 
     private static final String TAG = NotificationsActivity.class.getSimpleName();
 
@@ -224,14 +223,6 @@ public class NotificationsActivity extends FileActivity implements Notifications
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
-    }
-
-    @Override
-    public void showFiles(boolean onDeviceOnly) {
-        super.showFiles(onDeviceOnly);
-        Intent i = new Intent(getApplicationContext(), FileDisplayActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
     }
 
     /**

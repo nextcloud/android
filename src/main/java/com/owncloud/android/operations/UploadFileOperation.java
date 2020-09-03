@@ -686,7 +686,7 @@ public class UploadFileOperation extends SyncOperation {
 
         // check that connectivity conditions are met and delays the upload otherwise
         Connectivity connectivity = connectivityService.getConnectivity();
-        if (mOnWifiOnly && !connectivity.isWifi()) {
+        if (mOnWifiOnly && (!connectivity.isWifi() || connectivity.isMetered())) {
             Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
             remoteOperationResult = new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
         }
@@ -1286,6 +1286,10 @@ public class UploadFileOperation extends SyncOperation {
         OCFile file = mFile;
         if (file.fileExists()) {
             file = getStorageManager().getFileById(file.getFileId());
+        }
+        if (file == null) {
+            // this can happen e.g. when the file gets deleted during upload
+            return;
         }
         long syncDate = System.currentTimeMillis();
         file.setLastSyncDateForData(syncDate);
