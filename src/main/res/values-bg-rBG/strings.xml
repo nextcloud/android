@@ -660,7 +660,6 @@
     <string name="uploads_view_upload_status_virus_detected">Засечен е вирус. Качването не може да бъде завършено!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Изчакване да излезете от режима за икономия на енергия</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Изчакване за зареждане на устройството</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Изчакване на Wi-Fi връзка</string>
     <string name="user_icon">Потребител</string>
     <string name="user_info_address">Адрес</string>
     <string name="user_info_email">Имейл</string>

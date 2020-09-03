@@ -786,7 +786,6 @@
     <string name="uploads_view_upload_status_virus_detected">Виявлено вірус. Завантаження не буде виконано!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Очікую виходу із режиму заощадження заряду батареї</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Очікую на заряджання</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Очікування з\'єднання з WiFi</string>
     <string name="user_icon">Користувач</string>
     <string name="user_info_address">Адреса</string>
     <string name="user_info_email">Електронна пошта</string>

@@ -711,7 +711,6 @@
     <string name="uploads_view_upload_status_virus_detected">Virus primećen. Otpremanje ne može da se završi!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Čekam da telefon izađe iz moda očuvanja energije</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Čekam punjenje</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Čekam na bežičnu mrežu</string>
     <string name="user_icon">Korisnik </string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">Adresa e-pošte</string>

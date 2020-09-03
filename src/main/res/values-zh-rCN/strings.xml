@@ -782,7 +782,6 @@
     <string name="uploads_view_upload_status_virus_detected">检测到病毒。无法完成上传！</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">等待退出节能模式</string>
     <string name="uploads_view_upload_status_waiting_for_charging">等待充电</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">等待 Wi-Fi 连接</string>
     <string name="user_icon">用户</string>
     <string name="user_info_address">地址</string>
     <string name="user_info_email">电子邮箱</string>

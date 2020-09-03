@@ -262,6 +262,8 @@
     <string name="etm_background_jobs_schedule_test_job">Schemalägg ett testjobb</string>
     <string name="etm_background_jobs_start_test_job">Starta ett provuppdrag</string>
     <string name="etm_background_jobs_stop_test_job">Stoppa ett provuppdrag</string>
+    <string name="etm_download_enqueue_test_download">Lägg nedladdningstest i kön</string>
+    <string name="etm_download_path">Fjärr-sökväg</string>
     <string name="etm_downloader">Nedladdare</string>
     <string name="etm_migrations">Sammanslagningar (appuppgradering)</string>
     <string name="etm_preferences">Inställningar</string>
@@ -786,7 +788,6 @@
     <string name="uploads_view_upload_status_virus_detected">Virus upptäckt. Uppladdningen kan inte slutföras!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Väntar på att avsluta energisparläge</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Väntar på laddning</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Väntar på Wi-Fi</string>
     <string name="user_icon">Användare</string>
     <string name="user_info_address">Adress</string>
     <string name="user_info_email">E-post</string>

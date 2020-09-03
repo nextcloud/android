@@ -787,7 +787,6 @@
     <string name="uploads_view_upload_status_virus_detected">Vírus fannst í skránni. Ekki er hægt að ljúka innsendingu!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Bíð eftir að hætt sé í orkusparnaðarham</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Bíð eftir hleðslu</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Bíð eftir Wi-Fi tengingu</string>
     <string name="user_icon">Notandi</string>
     <string name="user_info_address">Vistfang</string>
     <string name="user_info_email">Tölvupóstur</string>

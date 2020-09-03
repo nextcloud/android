@@ -548,7 +548,6 @@
     <string name="uploads_view_upload_status_virus_detected">Atrasts Vīruss. Augšupielādi nevar pabeigt!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Gaida lai izietu no enerģijas taupīšanas režīma</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Gaida uzlādi</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Gaida uz Wi-Fi </string>
     <string name="user_icon">Lietotājs</string>
     <string name="user_info_address">Adrese</string>
     <string name="user_info_email">E-pasts</string>

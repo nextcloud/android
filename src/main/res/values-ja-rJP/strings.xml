@@ -783,7 +783,6 @@
     <string name="uploads_view_upload_status_virus_detected">ウイルスが検出されました！アップロードを完了できません。</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">省電力モード解除待機中</string>
     <string name="uploads_view_upload_status_waiting_for_charging">料金を待つ</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fi 待機中</string>
     <string name="user_icon">ユーザー</string>
     <string name="user_info_address">住所</string>
     <string name="user_info_email">メール</string>

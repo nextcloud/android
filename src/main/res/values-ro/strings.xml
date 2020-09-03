@@ -586,7 +586,6 @@
     <string name="uploads_view_upload_status_unknown_fail">Eroare necunoscută</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Se așteaptă ieșirea din modul de economisire a energiei</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Se așteaptă încărcarea dispozitivului</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Se așteaptă WiFi</string>
     <string name="user_icon">Utilizator</string>
     <string name="user_info_address">Adresă</string>
     <string name="user_info_email">E-mail</string>

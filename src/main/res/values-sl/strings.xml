@@ -787,7 +787,6 @@
     <string name="uploads_view_upload_status_virus_detected">Zaznan je virus! Pošiljanja ni mogoče dokončati!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Poteka čakanje na konec načina varčevanja</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Čakam polnjenje</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Čakanje na vzpostavitev povezave Wi-Fi …</string>
     <string name="user_icon">Uporabnik</string>
     <string name="user_info_address">Naslov</string>
     <string name="user_info_email">E-pošta</string>
