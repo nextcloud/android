@@ -667,7 +667,6 @@
     <string name="uploads_view_upload_status_virus_detected">Komputila viruso eltrovita. Alŝuto ne povas plui!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Atendo de eliro el energiŝpara reĝimo</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Atendo de la ŝargo de via aparato</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Atendado de sendrata reto („Wi-Fi“)</string>
     <string name="user_icon">Uzanto</string>
     <string name="user_info_address">Adreso</string>
     <string name="user_info_email">Retpoŝtadreso</string>

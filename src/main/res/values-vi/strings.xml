@@ -464,7 +464,6 @@
     <string name="uploads_view_upload_status_unknown_fail">Lỗi chưa biết</string>
     <string name="uploads_view_upload_status_virus_detected">Phát hiện virus. Tải lên không thể hoàn tât!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Đang chờ thoát chế độ tiết kiệm điện</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Chờ kết nối WIFI</string>
     <string name="user_icon">Người dùng</string>
     <string name="user_info_address">Địa chỉ</string>
     <string name="user_info_email">Email</string>

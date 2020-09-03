@@ -787,7 +787,6 @@
     <string name="uploads_view_upload_status_virus_detected">Virus detectado. ¡No se ha podido subir!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando a salir del modo de ahorro de batería</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Esperando la carga del dispositivo</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Esperando la conexión Wi-Fi</string>
     <string name="user_icon">Usuario</string>
     <string name="user_info_address">Dirección</string>
     <string name="user_info_email">Correo electrónico</string>

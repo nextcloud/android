@@ -782,7 +782,6 @@
     <string name="uploads_view_upload_status_virus_detected">Virus oppdaget. Opplasting kan ikke fullføres.</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Venter på å gå ut av strømsparingsmodus</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Venter på lading av enhet.</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Venter på trådløstilkobling</string>
     <string name="user_icon">Bruker</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">E-post</string>

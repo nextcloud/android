@@ -788,7 +788,6 @@
     <string name="uploads_view_upload_status_virus_detected">Aptiktas virusas. Įkėlimas negali būti užbaigtas!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Laukiama išeiti iš energijos taupymo režimo</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Laukiama mokėjimo </string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Laukiama belaidžio tinklo (Wi-Fi)</string>
     <string name="user_icon">Naudotojas</string>
     <string name="user_info_address">Adresas</string>
     <string name="user_info_email">El. paštas</string>

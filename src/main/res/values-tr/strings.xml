@@ -787,7 +787,6 @@
     <string name="uploads_view_upload_status_virus_detected">Virus bulundu. Yükleme tamamlanamadı!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Güç tasarrufu kipinden çıkılması bekleniyor</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Aygıtın şarj olması bekleniyor</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fi bağlantısı bekleniyor</string>
     <string name="user_icon">Kullanıcı</string>
     <string name="user_info_address">Adres</string>
     <string name="user_info_email">E-posta</string>

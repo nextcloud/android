@@ -612,7 +612,6 @@
     <string name="uploads_view_upload_status_virus_detected">Virus detectado. ¡La carga no puede ser completada!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando a salir de modo de conservación de energía</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la regarga del dispositivo </string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Esperando a la red inalámbrica</string>
     <string name="user_icon">Usuario</string>
     <string name="user_info_address">Dirección</string>
     <string name="user_info_email">Correo electrónico</string>

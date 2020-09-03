@@ -788,7 +788,6 @@
     <string name="uploads_view_upload_status_virus_detected">Detectouse un virus. Non é posíbel completar o envío!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Agardando a saír do modo de aforro de enerxía</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Agardando pola carga</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Agardando pola wifi</string>
     <string name="user_icon">Usuario</string>
     <string name="user_info_address">Enderezo</string>
     <string name="user_info_email">Correo-e</string>

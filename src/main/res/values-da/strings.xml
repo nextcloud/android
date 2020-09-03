@@ -762,7 +762,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="uploads_view_upload_status_virus_detected">Virus fundet. Kan ikke afslutte afsending!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Venter på at komme ud af strømsparetilstand</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Venter på opladning</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Venter på Wi-Fi</string>
     <string name="user_icon">Bruger</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">E-mail</string>
