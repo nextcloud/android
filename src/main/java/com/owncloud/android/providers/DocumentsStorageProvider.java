@@ -76,7 +76,6 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.UriUtils;
 
 import org.nextcloud.providers.cursors.FileCursor;
 import org.nextcloud.providers.cursors.RootCursor;
@@ -312,19 +311,18 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("Context may not be null!");
         }
 
-        Document document = toDocument(documentId);
+        OCFile file = toDocument(documentId).getFile();
 
         boolean exists = ThumbnailsCacheManager.containsBitmap(ThumbnailsCacheManager.PREFIX_THUMBNAIL
-                                                                   + document.getFile().getRemoteId());
+                                                                   + file.getRemoteId());
 
         if (!exists) {
-            ThumbnailsCacheManager.generateThumbnailFromOCFile(document.getFile());
+            ThumbnailsCacheManager.generateThumbnailFromOCFile(file);
         }
 
-        Uri uri = Uri.parse(UriUtils.URI_CONTENT_SCHEME + context.getResources().getString(
-            R.string.image_cache_provider_authority) + document.getRemotePath());
-        Log.d(TAG, "open thumbnail, uri=" + uri);
-        return context.getContentResolver().openAssetFileDescriptor(uri, "r");
+        return new AssetFileDescriptor(DiskLruImageCacheFileProvider.getParcelFileDescriptorForOCFile(file),
+                                       0,
+                                       file.getFileLength());
     }
 
     @Override
