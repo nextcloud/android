@@ -54,7 +54,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
 
         val imageFile = OCFile("/image.png", "00000002")
         imageFile.mimeType = "image/png"
-        imageFile.isPreviewAvailable = true
+        imageFile.isPreviewAvailable = false
         imageFile.fileLength = 3072000
         imageFile.modificationTimestamp = 746443755000
         imageFile.parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
@@ -70,7 +70,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         sut.runOnUiThread { fragment.listDirectory(root, false, false) }
 
         waitForIdleSync()
-        longSleep()
 
         Screenshot.snapActivity(sut).record()
     }
