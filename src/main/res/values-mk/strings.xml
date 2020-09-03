@@ -739,7 +739,6 @@
     <string name="uploads_view_upload_status_virus_detected">Детектиран е ВИРУС. Прикачувањето неможе да продолжи!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Чекање за излез од заштеда на енергија</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Чека полнење</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Чека за Wi-Fi мрежа</string>
     <string name="user_icon">Корисник</string>
     <string name="user_info_address">Адреса</string>
     <string name="user_info_email">е-пошта</string>

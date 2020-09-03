@@ -428,7 +428,6 @@
     <string name="uploads_view_upload_status_unknown_fail">Tundmatu viga</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Voolusäästurežiimist väljumise ootamine</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Laadimise ootel</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fi ootamine</string>
     <string name="user_icon">Kasutaja</string>
     <string name="user_info_address">Aadress</string>
     <string name="user_info_email">E-post</string>

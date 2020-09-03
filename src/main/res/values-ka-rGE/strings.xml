@@ -510,7 +510,6 @@
     <string name="uploads_view_upload_status_unknown_fail">უცნობი შეცდომა</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">ველოდებით ეკონომიური რეჟიმიდან გამოსვლას</string>
     <string name="uploads_view_upload_status_waiting_for_charging">გადახდის მოლოდინშია</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">ველოდებით Wi-Fi-ს</string>
     <string name="user_icon">მომხმარებელი</string>
     <string name="user_info_address">მისამართი</string>
     <string name="user_info_email">ელ-ფოსტა</string>

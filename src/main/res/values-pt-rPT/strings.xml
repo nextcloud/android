@@ -711,7 +711,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="uploads_view_upload_status_virus_detected">Vírus detectado. O envio não pode ser completado!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">A aguardar para sair do modo de poupança de bateria</string>
     <string name="uploads_view_upload_status_waiting_for_charging">A aguardar carregamento</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">A aguardar por Wi-Fi</string>
     <string name="user_icon">Utilizador</string>
     <string name="user_info_address">Endereço</string>
     <string name="user_info_email">E-mail</string>

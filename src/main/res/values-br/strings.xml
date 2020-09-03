@@ -787,7 +787,6 @@
     <string name="uploads_view_upload_status_virus_detected">Virus kavet. Ne vo ket achuet ar pellkarga !</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">O gortoz kuitaat ar mod gwarez tredan</string>
     <string name="uploads_view_upload_status_waiting_for_charging">O gortoz kargañ</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">O gortoz ar Wi-Fi</string>
     <string name="user_icon">Implijer</string>
     <string name="user_info_address">Chom-lec\'h</string>
     <string name="user_info_email">Postel</string>

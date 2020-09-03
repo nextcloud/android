@@ -783,7 +783,6 @@
     <string name="uploads_view_upload_status_virus_detected">התגלה וירוס. לא ניתן להשלים העלאה!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">בהמתנה ליציאה ממצב חסכון בחשמל</string>
     <string name="uploads_view_upload_status_waiting_for_charging">בהמתנה לטעינה</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">בהמתנה לחיבור אלחוטי</string>
     <string name="user_icon">משתמש</string>
     <string name="user_info_address">כתובת</string>
     <string name="user_info_email">דוא״ל</string>

@@ -768,7 +768,6 @@
     <string name="uploads_view_upload_status_virus_detected">病毒已偵測，上傳失敗！</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">等待省電模式解除</string>
     <string name="uploads_view_upload_status_waiting_for_charging">等待充電</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">等待 Wi-Fi</string>
     <string name="user_icon">使用者</string>
     <string name="user_info_address">地址</string>
     <string name="user_info_email">E-mail</string>

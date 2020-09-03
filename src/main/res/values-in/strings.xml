@@ -544,7 +544,6 @@
     <string name="uploads_view_upload_status_unknown_fail">Kesalahan tidak diketahui</string>
     <string name="uploads_view_upload_status_virus_detected">Virus terdeteksi. Unggahan tidak bisa diselesaikan!</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Menunggu dicas.</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Menunggu Wi-Fi</string>
     <string name="user_icon">Pengguna</string>
     <string name="user_info_address">Alamat</string>
     <string name="user_info_email">Surel</string>

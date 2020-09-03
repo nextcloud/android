@@ -787,7 +787,6 @@
     <string name="uploads_view_upload_status_virus_detected">Вирус откривен. Отпремање не може да се заврши!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Чекам излазак из режима уштеде енергије</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Чекам пуњење</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Чекам на бежичну мрежу</string>
     <string name="user_icon">Корисник </string>
     <string name="user_info_address">Адреса</string>
     <string name="user_info_email">Адреса е-поште</string>

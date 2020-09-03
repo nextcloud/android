@@ -749,7 +749,6 @@
     <string name="uploads_view_upload_status_virus_detected">U gjet virus. Ngarkimi nuk mund të përfundojë!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Duke pritur të dalë nga modaliteti i kursimit të energjisë</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Duke pritur që pajisja të karikohet</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Duke pritur për Wi-Fi</string>
     <string name="user_icon">Përdorues</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">E-mail</string>

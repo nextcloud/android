@@ -787,7 +787,6 @@
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Waiting to exit power save mode</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Waiting for Wi-Fi</string>
     <string name="user_icon">User</string>
     <string name="user_info_address">Address</string>
     <string name="user_info_email">E-mail</string>
