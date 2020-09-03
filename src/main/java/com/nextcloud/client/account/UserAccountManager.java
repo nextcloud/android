@@ -20,12 +20,15 @@
 package com.nextcloud.client.account;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 
 import com.nextcloud.java.util.Optional;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
 import java.util.List;
@@ -154,13 +157,14 @@ public interface UserAccountManager extends CurrentAccountProvider {
 
     /**
      * Extract username from account.
-     *
+     * <p>
      * Full account name is in form of "username@nextcloud.domain".
      *
      * @param account Account instance
      * @return User name (without domain) or null, if name cannot be extracted.
      */
-    static String getUsername(Account account) {
+    static @Nullable
+    String getUsername(Account account) {
         if (account != null && account.name != null) {
             return account.name.substring(0, account.name.lastIndexOf('@'));
         } else {
@@ -168,9 +172,15 @@ public interface UserAccountManager extends CurrentAccountProvider {
         }
     }
 
+    static @Nullable
+    String getDisplayName(Account account) {
+        return AccountManager.get(MainApp.getAppContext()).getUserData(account,
+                                                                       AccountUtils.Constants.KEY_DISPLAY_NAME);
+    }
+
     /**
      * Launch account registration activity.
-     *
+     * <p>
      * This method returns immediately. Authenticator activity will be launched asynchronously.
      *
      * @param activity Activity used to launch authenticator flow via {@link Activity#startActivity(Intent)}

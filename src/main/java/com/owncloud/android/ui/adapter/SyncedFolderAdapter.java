@@ -337,8 +337,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
             ThumbnailsCacheManager.AsyncMediaThumbnailDrawable asyncDrawable =
                     new ThumbnailsCacheManager.AsyncMediaThumbnailDrawable(
                         context.getResources(),
-                        ThumbnailsCacheManager.mDefaultImg,
-                        task
+                        ThumbnailsCacheManager.mDefaultImg
                     );
             holder.image.setImageDrawable(asyncDrawable);
 

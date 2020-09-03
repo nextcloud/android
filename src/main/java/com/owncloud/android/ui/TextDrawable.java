@@ -69,19 +69,17 @@ public class TextDrawable extends Drawable {
      * Create a TextDrawable with the given radius.
      *
      * @param text   the text to be rendered
-     * @param r      rgb red value
-     * @param g      rgb green value
-     * @param b      rgb blue value
+     * @param color  color
      * @param radius circle radius
      */
-    public TextDrawable(String text, int r, int g, int b, float radius) {
+    public TextDrawable(String text, BitmapUtils.Color color, float radius) {
         mRadius = radius;
         mText = text;
 
         mBackground = new Paint();
         mBackground.setStyle(Paint.Style.FILL);
         mBackground.setAntiAlias(true);
-        mBackground.setColor(Color.rgb(r, g, b));
+        mBackground.setColor(Color.rgb(color.r, color.g, color.b));
 
         mTextPaint = new Paint();
         mTextPaint.setColor(Color.WHITE);
@@ -101,8 +99,9 @@ public class TextDrawable extends Drawable {
      */
     @NonNull
     @NextcloudServer(max = 12)
-    public static TextDrawable createAvatar(Account account, float radiusInDp) throws NoSuchAlgorithmException {
-        String username = UserAccountManager.getUsername(account);
+    public static TextDrawable createAvatar(Account account, float radiusInDp) throws
+            NoSuchAlgorithmException {
+        String username = UserAccountManager.getDisplayName(account);
         return createNamedAvatar(username, radiusInDp);
     }
 
@@ -132,11 +131,8 @@ public class TextDrawable extends Drawable {
      */
     @NonNull
     public static TextDrawable createNamedAvatar(String name, float radiusInDp) throws NoSuchAlgorithmException {
-        int[] hsl = BitmapUtils.calculateHSL(name);
-        int[] rgb = BitmapUtils.HSLtoRGB(hsl[0], hsl[1], hsl[2], 1);
-
-        return new TextDrawable(extractCharsFromDisplayName(name), rgb[0], rgb[1], rgb[2],
-                                radiusInDp);
+        BitmapUtils.Color color = BitmapUtils.usernameToColor(name);
+        return new TextDrawable(extractCharsFromDisplayName(name), color, radiusInDp);
     }
 
     @VisibleForTesting
