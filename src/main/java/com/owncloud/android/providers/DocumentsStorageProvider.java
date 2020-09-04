@@ -249,8 +249,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                             account,
                             ocFile,
                             LOCAL_BEHAVIOUR_MOVE,
-                            NameCollisionPolicy.OVERWRITE
-                                                     );
+                            NameCollisionPolicy.OVERWRITE,
+                            false);
                     } else { // error, no upload needed
                         Log_OC.e(TAG, "File was closed with an error: " + ocFile.getFileName(), error);
                     }
@@ -537,7 +537,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                                                                      newFilePath,
                                                                      mimeType,
                                                                      "",
-                                                                     String.valueOf(System.currentTimeMillis() / 1000))
+                                                                     String.valueOf(System.currentTimeMillis() / 1000),
+                                                                     false)
             .execute(client);
 
         if (!result.isSuccess()) {
