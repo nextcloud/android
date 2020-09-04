@@ -1,0 +1,5 @@
+- use display name for avatar generation - use new server algorithm Ref: https://github.com/nextcloud/nextcloud-vue/blob/master/src/functions/usernameToColor/usernameToColor.js
+fix inplace scrollview in sharing fragment
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
