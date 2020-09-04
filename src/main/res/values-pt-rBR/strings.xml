@@ -787,6 +787,7 @@
     <string name="uploads_view_upload_status_virus_detected">Vírus encontrado. Envio não foi finalizado!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando sair do modo de economia de energia</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Esperando carregar</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Aguardando pelo Wi-Fi não medido</string>
     <string name="user_icon">Usuário</string>
     <string name="user_info_address">Endereço</string>
     <string name="user_info_email">E-mail</string>
