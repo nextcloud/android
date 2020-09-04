@@ -782,7 +782,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="uploads_view_upload_status_virus_detected">Virus havaittu. Lähetystä ei voi suorittaa loppuun!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Odotetaan virransäästötilasta poistumista</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Odotetaan latausta</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Odotetaan wifiä</string>
     <string name="user_icon">Käyttäjä</string>
     <string name="user_info_address">Osoite</string>
     <string name="user_info_email">Sähköposti</string>

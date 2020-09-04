@@ -785,7 +785,6 @@
     <string name="uploads_view_upload_status_virus_detected">S\'ha detectat un virus. No es pot completar la càrrega!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">S\'està esperant al mode d\'apagada segur</string>
     <string name="uploads_view_upload_status_waiting_for_charging">S\'està esperant càrrega de bateria</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">S\'està esperant Wi-Fi</string>
     <string name="user_icon">Usuari</string>
     <string name="user_info_address">Adreça</string>
     <string name="user_info_email">Correu electrònic</string>

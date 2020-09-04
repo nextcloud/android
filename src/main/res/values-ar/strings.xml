@@ -778,7 +778,6 @@
     <string name="uploads_view_upload_status_virus_detected">تم اكتشاف فيروس. لا يمكن إتمام التحميل!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">في انتظار الخروج من وضع توفير الطاقة</string>
     <string name="uploads_view_upload_status_waiting_for_charging">في انتظار الشحن</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">في انتظار الربط بالواي فاي</string>
     <string name="user_icon">المستخدم</string>
     <string name="user_info_address"> العنوان</string>
     <string name="user_info_email">البريد الإلكتروني</string>

@@ -758,7 +758,6 @@
     <string name="uploads_view_upload_status_virus_detected">Otkriven je virus. Nije moguće dovršiti otpremanje!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Čekanje izlaza iz načina uštede energije</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Čekanje punjenja</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Čekanje bežične (Wi-Fi) mreže</string>
     <string name="user_icon">Korisnik</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">E-pošta</string>

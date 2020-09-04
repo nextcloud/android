@@ -807,7 +807,6 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="uploads_view_upload_status_virus_detected">파이러스 탐지됨. 업로드를 완료할 수 없습니다!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">배터리 절약 모드 종료를 기다리는 중</string>
     <string name="uploads_view_upload_status_waiting_for_charging">충전 대기 중</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Wi-Fi 대기 중</string>
     <string name="user_icon">사용자</string>
     <string name="user_info_address">주소</string>
     <string name="user_info_email">이메일</string>

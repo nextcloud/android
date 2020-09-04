@@ -289,7 +289,7 @@ dependencies {
     implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.1' // remove after entire switch to lib v2
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.jakewharton:disklrucache:2.0.2'
     implementation 'androidx.appcompat:appcompat:1.2.0-rc01'
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -310,7 +310,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.afollestad:sectioned-recyclerview:0.5.0'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.20'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.21'
     implementation 'com.github.tobiaskaminsky:qrcodescanner:0.1.2.2' // 'com.github.blikoon:QRCodeScanner:0.1.2'
     implementation 'com.google.android:flexbox:2.0.1'
     implementation 'org.parceler:parceler-api:1.1.13'

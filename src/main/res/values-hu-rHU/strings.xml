@@ -805,7 +805,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="uploads_view_upload_status_virus_detected">Vírus észlelve. A feltöltés nem fejezhető be!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Várakozás az energiatakarékos üzemmód elhagyására</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Töltésre vár</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Várakozás a Wi-Fi kapcsolatra</string>
     <string name="user_icon">Felhasználó</string>
     <string name="user_info_address">Cím</string>
     <string name="user_info_email">E-mail cím</string>
