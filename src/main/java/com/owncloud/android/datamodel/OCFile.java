@@ -47,7 +47,8 @@ import third_parties.daveKoeller.AlphanumComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
     private final static String PERMISSION_SHARED_WITH_ME = "S";
-    private final static String PERMISSION_CAN_RESHARE = "R";
+    @VisibleForTesting
+    public final static String PERMISSION_CAN_RESHARE = "R";
     private final static String PERMISSION_CAN_WRITE = "CK";
 
     public static final String PATH_SEPARATOR = "/";

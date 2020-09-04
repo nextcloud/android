@@ -68,6 +68,7 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 
 public class FileDataStorageManager {
@@ -1347,7 +1348,8 @@ public class FileDataStorageManager {
         }
     }
 
-    private void cleanShares() {
+    @VisibleForTesting
+    public void cleanShares() {
         String where = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
         String[] whereArgs = new String[]{account.name};
 

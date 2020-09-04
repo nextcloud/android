@@ -196,6 +196,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         if (file.canReshare()) {
             refreshSharesFromDB();
+            binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
         } else {
             binding.searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
             binding.searchView.setInputType(InputType.TYPE_NULL);

@@ -62,18 +62,22 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
         switch (share.getShareType()) {
             case GROUP:
                 name = context.getString(R.string.share_group_clarification, name);
-                setImage(binding.icon, name, R.drawable.ic_group);
+                setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_group);
                 break;
             case EMAIL:
                 name = context.getString(R.string.share_email_clarification, name);
-                setImage(binding.icon, name, R.drawable.ic_email);
+                setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_email);
                 break;
             case ROOM:
                 name = context.getString(R.string.share_room_clarification, name);
-                setImage(binding.icon, name, R.drawable.ic_chat_bubble);
+                setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_chat_bubble);
                 break;
             case CIRCLE:
                 binding.icon.setImageResource(R.drawable.ic_circles);
+                break;
+            case FEDERATED:
+                name = context.getString(R.string.share_remote_clarification, name);
+                setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_user);
                 break;
             default:
                 setImage(binding.icon, name, R.drawable.ic_user);
