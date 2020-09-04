@@ -23,30 +23,19 @@
 package com.owncloud.android.ui.fragment
 
 import android.Manifest
-import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
-import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
-import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.client.preferences.AppPreferencesImpl
-import com.nextcloud.client.preferences.DarkMode
 import com.owncloud.android.AbstractOnServerIT
-import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.UploadsStorageManager
-import com.owncloud.android.db.OCUpload
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.lib.resources.shares.CreateShareRemoteOperation
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.operations.CreateFolderOperation
-import com.owncloud.android.operations.RefreshFolderOperation
-import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import junit.framework.TestCase
 import org.junit.Assert.assertFalse
@@ -86,93 +75,6 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
 
         override val battery: BatteryStatus
             get() = BatteryStatus()
-    }
-
-    @Test
-    // @ScreenshotTest // todo run without real server
-    fun showRichWorkspace() {
-        assertTrue(CreateFolderOperation("/test/", user, targetContext).execute(client, storageManager).isSuccess)
-
-        val ocUpload = OCUpload(
-            getDummyFile("/nonEmpty.txt").absolutePath,
-            "/test/Readme.md",
-            account.name
-        )
-        val newUpload = UploadFileOperation(
-            UploadsStorageManager(UserAccountManagerImpl.fromContext(targetContext), targetContext.contentResolver),
-            connectivityServiceMock,
-            powerManagementServiceMock,
-            user,
-            null,
-            ocUpload,
-            FileUploader.NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
-            targetContext,
-            false,
-            false
-        )
-
-        newUpload.addRenameUploadListener {}
-        newUpload.setRemoteFolderToBeCreated()
-
-        assertTrue(newUpload.execute(client, storageManager).isSuccess)
-
-        assertTrue(
-            RefreshFolderOperation(
-                storageManager.getFileByPath("/test/"),
-                System.currentTimeMillis() / SECOND_IN_MILLIS,
-                false,
-                true,
-                storageManager,
-                account,
-                targetContext
-            )
-                .execute(client)
-                .isSuccess
-        )
-
-        val sut = ActivityScenario.launch(FileDisplayActivity::class.java)
-        shortSleep()
-        sut.onActivity { activity -> activity.onBrowsedDownTo(storageManager.getFileByPath("/test/")) }
-
-        shortSleep()
-        shortSleep()
-
-//        sut.onActivity { activity ->
-//            Screenshot.snapActivity(activity).setName("richworkspaces_light").record()
-//        }
-
-        val preferences: AppPreferences = AppPreferencesImpl.fromContext(targetContext)
-        preferences.darkThemeMode = DarkMode.DARK
-
-        sut.onActivity { activity ->
-            MainApp.setAppTheme(DarkMode.DARK)
-        }
-
-        shortSleep()
-        sut.onActivity { activity -> activity.onBackPressed() }
-
-        shortSleep()
-
-        sut.recreate()
-
-        sut.onActivity { activity -> activity.onBrowsedDownTo(storageManager.getFileByPath("/test/")) }
-
-        shortSleep()
-        shortSleep()
-
-//        sut.onActivity { activity ->
-//            Screenshot.snapActivity(activity).setName("richworkspaces_dark").record()
-//        }
-
-        // switch back to light mode
-        preferences.darkThemeMode = DarkMode.LIGHT
-        sut.onActivity { MainApp.setAppTheme(DarkMode.LIGHT) }
-
-        shortSleep()
-        sut.onActivity { activity -> activity.onBackPressed() }
-
-        sut.recreate()
     }
 
     @Test
