@@ -787,6 +787,7 @@
     <string name="uploads_view_upload_status_virus_detected">Virus rilevato! Impossibile caricare il file!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">In attesa di uscire dal risparmio energetico</string>
     <string name="uploads_view_upload_status_waiting_for_charging">In attesa della carica</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">In attesa di Wi-Fi senza limitazioni</string>
     <string name="user_icon">Utente</string>
     <string name="user_info_address">Indirizzo</string>
     <string name="user_info_email">Email</string>
