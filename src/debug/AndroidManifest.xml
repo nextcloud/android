@@ -14,5 +14,8 @@
 
     <application
         android:testOnly="false"
-        tools:ignore="GoogleAppIndexingWarning"/>
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name="com.nextcloud.client.TestActivity" />
+    </application>
 </manifest>

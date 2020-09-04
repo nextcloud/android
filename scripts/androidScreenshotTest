@@ -10,10 +10,6 @@ if [ $# -lt 2 ]; then
     exit
 fi
 
-sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
-
-emulator -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
-
 cd src/androidTest/java
 
 class=$(find | grep $2 | grep -E "java$|kt$" | head -n1|sed s'/\//\./'g | sed s'#^\.\.##' | sed s'#\.java##'| sed s'#\.kt##')
@@ -48,6 +44,10 @@ if [ -e $4 ] ; then
 else
     darkMode="-Pandroid.testInstrumentationRunnerArguments.DARKMODE=$4"
 fi
+
+sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
+
+emulator -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
 
 if [ -e $5 ] ; then
     color=""

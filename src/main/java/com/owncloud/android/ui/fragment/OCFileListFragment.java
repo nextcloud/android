@@ -130,7 +130,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
@@ -261,7 +260,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         } catch (ClassCastException e) {
             throw new IllegalArgumentException(context.toString() + " must implement " +
-                    SwipeRefreshLayout.OnRefreshListener.class.getSimpleName(), e);
+                                                   OnEnforceableRefreshListener.class.getSimpleName(), e);
         }
     }
 
@@ -368,17 +367,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
         prepareCurrentSearch(searchEvent);
 
-        mSortButton.setOnClickListener(v -> openSortingOrderDialogFragment(requireFragmentManager(),
-                                                                           preferences.getSortOrderByFolder(mFile)));
+        if (mSortButton != null) {
+            mSortButton.setOnClickListener(v -> openSortingOrderDialogFragment(requireFragmentManager(),
+                                                                               preferences.getSortOrderByFolder(mFile)));
+        }
 
-        mSwitchGridViewButton.setOnClickListener(v -> {
-            if (isGridEnabled()) {
-                setListAsPreferred();
-            } else {
-                setGridAsPreferred();
-            }
-            setGridSwitchButton();
-        });
+        if (mSwitchGridViewButton != null) {
+            mSwitchGridViewButton.setOnClickListener(v -> {
+                if (isGridEnabled()) {
+                    setListAsPreferred();
+                } else {
+                    setGridAsPreferred();
+                }
+                setGridSwitchButton();
+            });
+        }
 
         setTitle();
 
@@ -1305,8 +1308,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
             switchToListView();
         }
 
-        mSortButton.setText(DisplayUtils.getSortOrderStringId(preferences.getSortOrderByFolder(mFile)));
-        setGridSwitchButton();
+        if (mSortButton != null) {
+            mSortButton.setText(DisplayUtils.getSortOrderStringId(preferences.getSortOrderByFolder(mFile)));
+        }
+        if (mSwitchGridViewButton != null) {
+            setGridSwitchButton();
+        }
 
         if (mHideFab) {
             setFabVisible(false);
