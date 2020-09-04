@@ -167,6 +167,11 @@ public class FileUploader extends Service
 
     public static final String KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR";
 
+    /**
+     * Set to true if the HTTP library should disable automatic retries of uploads.
+     */
+    public static final String KEY_DISABLE_RETRIES = "DISABLE_RETRIES";
+
     public static final int LOCAL_BEHAVIOUR_COPY = 0;
     public static final int LOCAL_BEHAVIOUR_MOVE = 1;
     public static final int LOCAL_BEHAVIOUR_FORGET = 2;
@@ -407,6 +412,7 @@ public class FileUploader extends Service
         int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
         boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
         int createdBy = intent.getIntExtra(KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
+        boolean disableRetries = intent.getBooleanExtra(KEY_DISABLE_RETRIES, true);
         try {
             for (OCFile file : files) {
                 startNewUpload(
@@ -418,7 +424,8 @@ public class FileUploader extends Service
                     localAction,
                     isCreateRemoteFolder,
                     createdBy,
-                    file
+                    file,
+                    disableRetries
                 );
             }
         } catch (IllegalArgumentException e) {
@@ -446,7 +453,8 @@ public class FileUploader extends Service
         int localAction,
         boolean isCreateRemoteFolder,
         int createdBy,
-        OCFile file
+        OCFile file,
+        boolean disableRetries
     ) {
         OCUpload ocUpload = new OCUpload(file, user.toPlatformAccount());
         ocUpload.setFileSize(file.getFileLength());
@@ -469,7 +477,8 @@ public class FileUploader extends Service
             localAction,
             this,
             onWifiOnly,
-            whileChargingOnly
+            whileChargingOnly,
+            disableRetries
         );
         newUpload.setCreatedBy(createdBy);
         if (isCreateRemoteFolder) {
@@ -517,7 +526,8 @@ public class FileUploader extends Service
             upload.getLocalAction(),
             this,
             onWifiOnly,
-            whileChargingOnly
+            whileChargingOnly,
+            true
         );
 
         newUpload.addDataTransferProgressListener(this);
@@ -957,7 +967,7 @@ public class FileUploader extends Service
     }
 
     /**
-     * Upload and overwrite an already uploaded file
+     * Upload and overwrite an already uploaded file with disabled retries
      */
     public static void uploadUpdateFile(
         Context context,
@@ -966,7 +976,21 @@ public class FileUploader extends Service
         Integer behaviour,
         NameCollisionPolicy nameCollisionPolicy
     ) {
-        uploadUpdateFile(context, account, new OCFile[]{existingFile}, behaviour, nameCollisionPolicy);
+        uploadUpdateFile(context, account, new OCFile[]{existingFile}, behaviour, nameCollisionPolicy, true);
+    }
+
+    /**
+     * Upload and overwrite an already uploaded file
+     */
+    public static void uploadUpdateFile(
+        Context context,
+        Account account,
+        OCFile existingFile,
+        Integer behaviour,
+        NameCollisionPolicy nameCollisionPolicy,
+        boolean disableRetries
+    ) {
+        uploadUpdateFile(context, account, new OCFile[]{existingFile}, behaviour, nameCollisionPolicy, disableRetries);
     }
 
     /**
@@ -977,7 +1001,8 @@ public class FileUploader extends Service
         Account account,
         OCFile[] existingFiles,
         Integer behaviour,
-        NameCollisionPolicy nameCollisionPolicy
+        NameCollisionPolicy nameCollisionPolicy,
+        boolean disableRetries
     ) {
         Intent intent = new Intent(context, FileUploader.class);
 
@@ -985,6 +1010,7 @@ public class FileUploader extends Service
         intent.putExtra(FileUploader.KEY_FILE, existingFiles);
         intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
         intent.putExtra(FileUploader.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
+        intent.putExtra(FileUploader.KEY_DISABLE_RETRIES, disableRetries);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(intent);
