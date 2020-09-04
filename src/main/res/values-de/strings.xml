@@ -788,6 +788,7 @@
     <string name="uploads_view_upload_status_virus_detected">Virus gefunden. Das Hochladen kann nicht abgeschlossen werden!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Warte auf Verlassen des Energiesparmodus</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Warte auf das Aufladen des Gerätes</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Warte auf nicht gebührenpflichtiges WLAN</string>
     <string name="user_icon">Nutzer</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">E-Mail</string>
