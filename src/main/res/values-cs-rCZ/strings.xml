@@ -808,6 +808,7 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="uploads_view_upload_status_virus_detected">Zjištěn virus. Nahrávání není možné dokončit!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Čeká se na ukončení úsporného režimu</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Čekání na nabití</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Čekání na bezplatnou Wi-Fi</string>
     <string name="user_icon">Uživatel</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">E-mail</string>
