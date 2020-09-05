@@ -1,0 +1,5 @@
+fix spotbugs
+removed unneeded layout
+add TestActivity to launch fragments in it fix wrong class cast exception message
+Update translations
+Update Nextcloud Android library
