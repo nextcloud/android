@@ -787,6 +787,7 @@
     <string name="uploads_view_upload_status_virus_detected">Wykryto wirusa. Wysyłanie nie może być ukończone!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Oczekiwanie na wyjście z trybu oszczędzania energii</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Oczekiwanie na ładowanie urządzenia</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Oczekiwanie na połączenie Wi-Fi</string>
     <string name="user_icon">Użytkownik</string>
     <string name="user_info_address">Adres</string>
     <string name="user_info_email">E-mail</string>
