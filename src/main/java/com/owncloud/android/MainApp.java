@@ -246,6 +246,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         setAppTheme(preferences.getDarkThemeMode());
         super.onCreate();
 
+        System.setProperty("java.net.preferIPv6Addresses", "true");
+	
         insertConscrypt();
 
         initSecurityKeyManager();
