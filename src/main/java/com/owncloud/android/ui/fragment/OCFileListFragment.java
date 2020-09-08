@@ -100,6 +100,7 @@ import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -1782,10 +1783,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public boolean checkIfEnoughSpace(long availableSpaceOnDevice, OCFile file) {
         if (file.isFolder()) {
             // on folders we assume that we only need difference
-            return availableSpaceOnDevice > (file.getFileLength() - new File(file.getStoragePath()).length());
+            return availableSpaceOnDevice > (file.getFileLength() - localFolderSize(file));
         } else {
             // on files complete file must first be stored, then target gets overwritten
             return availableSpaceOnDevice > file.getFileLength();
+        }
+    }
+
+    private long localFolderSize(OCFile file) {
+        if (file.getStoragePath() == null) {
+            // not yet downloaded anything
+            return 0;
+        } else {
+            return FileStorageUtils.getFolderSize(new File(file.getStoragePath()));
         }
     }
 
