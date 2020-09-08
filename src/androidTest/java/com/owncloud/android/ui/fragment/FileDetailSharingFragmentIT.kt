@@ -75,13 +75,13 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
-    fun listShares_file_none() {
+    fun listSharesFileNone() {
         show(file)
     }
 
     @Test
     @ScreenshotTest
-    fun listShares_file_resharing_not_allowed() {
+    fun listSharesFileResharingNotAllowed() {
         file.permissions = ""
 
         show(file)
@@ -89,7 +89,8 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
-    fun listShares_file_allShareTypes() {
+    @Suppress("MagicNumber")
+    fun listSharesFileAllShareTypes() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 1
             shareType = ShareType.USER
@@ -171,8 +172,9 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
+    @Suppress("MagicNumber")
     // public link and email are handled the same way
-    fun publicLink_optionMenu_Folder() {
+    fun publicLinkOptionMenuFolder() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
         shortSleep()
@@ -312,8 +314,9 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
+    @Suppress("MagicNumber")
     // public link and email are handled the same way
-    fun publicLink_optionMenu_File() {
+    fun publicLinkOptionMenuFile() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
         shortSleep()
@@ -390,12 +393,13 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
+    @Suppress("MagicNumber")
     // also applies for
     // group
     // conversation
     // circle
     // federated share
-    fun user_optionMenu_File() {
+    fun userOptionMenuFile() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
         shortSleep()
@@ -447,12 +451,13 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
+    @Suppress("MagicNumber")
     // also applies for
     // group
     // conversation
     // circle
     // federated share
-    fun user_optionMenu_Folder() {
+    fun userOptionMenuFolder() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
         shortSleep()
@@ -529,6 +534,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
+    @Suppress("MagicNumber")
     fun testReadOnlySharePermissions() {
         val sut = FileDetailSharingFragment()
 
@@ -560,6 +566,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
+    @Suppress("MagicNumber")
     fun testFileDropSharePermissions() {
         val sut = FileDetailSharingFragment()
 

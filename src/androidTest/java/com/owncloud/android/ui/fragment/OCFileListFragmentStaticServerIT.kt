@@ -42,6 +42,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
+    @Suppress("MagicNumber")
     fun showFiles() {
         val sut = testActivityRule.launchActivity(null)
 
