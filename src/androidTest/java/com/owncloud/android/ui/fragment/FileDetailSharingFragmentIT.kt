@@ -168,8 +168,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         waitForIdleSync()
 
         screenshot(activity)
-
-        longSleep()
     }
 
     @Test
