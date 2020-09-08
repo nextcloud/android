@@ -748,8 +748,7 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.OCSHARES_NOTE + TEXT
                        + ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD + INTEGER
                        + ProviderTableMeta.OCSHARES_SHARE_LINK + TEXT
-                       + ProviderTableMeta.OCSHARES_SHARE_LABEL + TEXT
-                       + ProviderTableMeta.OCSHARES_VIDEO_VERIFICATION + " INTEGER );");
+                       + ProviderTableMeta.OCSHARES_SHARE_LABEL + " TEXT );");
     }
 
     private void createCapabilitiesTable(SQLiteDatabase db) {
@@ -2256,24 +2255,6 @@ public class FileContentProvider extends ContentProvider {
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.OCSHARES_TABLE_NAME +
                                    ADD_COLUMN + ProviderTableMeta.OCSHARES_SHARE_LABEL + " TEXT ");
-
-                    upgraded = true;
-                    db.setTransactionSuccessful();
-                } finally {
-                    db.endTransaction();
-                }
-            }
-
-            if (!upgraded) {
-                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
-            }
-
-            if (oldVersion < 60 && newVersion >= 60) {
-                Log_OC.i(SQL, "Entering in the #60 add video verification to share table");
-                db.beginTransaction();
-                try {
-                    db.execSQL(ALTER_TABLE + ProviderTableMeta.OCSHARES_TABLE_NAME +
-                                   ADD_COLUMN + ProviderTableMeta.OCSHARES_VIDEO_VERIFICATION + " INTEGER ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();

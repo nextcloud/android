@@ -106,7 +106,6 @@ public class OperationsService extends Service {
     public static final String EXTRA_SHARE_PUBLIC_UPLOAD = "SHARE_PUBLIC_UPLOAD";
     public static final String EXTRA_SHARE_PUBLIC_LABEL = "SHARE_PUBLIC_LABEL";
     public static final String EXTRA_SHARE_HIDE_FILE_DOWNLOAD = "HIDE_FILE_DOWNLOAD";
-    public static final String EXTRA_SHARE_VIDEO_VERIFICATION = "VIDEO_VERIFICATION";
     public static final String EXTRA_SHARE_ID = "SHARE_ID";
     public static final String EXTRA_SHARE_NOTE = "SHARE_NOTE";
     public static final String EXTRA_IN_BACKGROUND = "IN_BACKGROUND";

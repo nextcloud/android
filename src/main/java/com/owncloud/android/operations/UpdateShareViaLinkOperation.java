@@ -58,12 +58,6 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
         updateOp.setHideFileDownload(hideFileDownload);
         updateOp.setLabel(label);
 
-//        if (publicShare.isFolder()) {
-//            updateOp.setPublicUploadOnFolder(publicUpload);
-//        } else {
-//            updateOp.setPublicUploadOnFile(publicUpload);
-//        }
-
         RemoteOperationResult result = updateOp.execute(client);
 
         if (result.isSuccess()) {

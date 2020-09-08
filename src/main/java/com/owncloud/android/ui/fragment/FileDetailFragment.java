@@ -374,7 +374,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         super.onAttach(context);
         if (context instanceof ToolbarActivity) {
             toolbarActivity = (ToolbarActivity) context;
-            //toolbarActivity.hideSortListGroup(); TODO check if needed?
         }
     }
 
