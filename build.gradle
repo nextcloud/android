@@ -63,7 +63,7 @@ ext {
     markwonVersion =  "4.5.1"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
-    androidLibraryVersion = "master-SNAPSHOT"
+    androidLibraryVersion = "sharingPart2-SNAPSHOT"
     mockitoVersion = "3.5.10"
     espressoVersion = "3.3.0"
 
@@ -271,11 +271,11 @@ android {
 dependencies {
     // dependencies for app building
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation project('nextcloud-android-library')
-//    genericImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
-//    gplayImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
-//    versionDevImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
-//    qaImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
+//    implementation project('nextcloud-android-library')
+    genericImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
+    gplayImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
+    versionDevImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
+    qaImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
 
     kapt 'javax.xml.bind:jaxb-api:2.3.1'
     kapt 'org.glassfish.jaxb:jaxb-core:2.3.0.1'
@@ -434,21 +434,21 @@ android.applicationVariants.all { variant ->
     }
 }
 
-//tasks.register("combinedTestReport", JacocoReport) {
-//
-//    reports {
-//        xml.enabled true
-//        html.enabled true
-//        csv.enabled false
-//    }
-//
-//    additionalSourceDirs.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
-//    sourceDirectories.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
-//    classDirectories.setFrom files(subprojects.sourceSets.main.output)
-//    executionData.setFrom project.fileTree(dir: project.buildDir, includes: [
-//        'jacoco/testGplayDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/GPLAY/*coverage.ec'
-//    ])
-//}
+tasks.register("combinedTestReport", JacocoReport) {
+
+    reports {
+        xml.enabled true
+        html.enabled true
+        csv.enabled false
+    }
+
+    additionalSourceDirs.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
+    sourceDirectories.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories.setFrom files(subprojects.sourceSets.main.output)
+    executionData.setFrom project.fileTree(dir: project.buildDir, includes: [
+        'jacoco/testGplayDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/GPLAY/*coverage.ec'
+    ])
+}
 
 task ktlint(type: JavaExec, group: "verification") {
     description = "Check Kotlin code style."
