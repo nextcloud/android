@@ -520,7 +520,7 @@
     <string name="prefs_theme_title">Thema</string>
     <string name="prefs_value_theme_dark">Donker</string>
     <string name="prefs_value_theme_light">Licht</string>
-    <string name="prefs_value_theme_system">Volgsysteem</string>
+    <string name="prefs_value_theme_system">Systeem volgen</string>
     <string name="preview_image_description">Voorvertoning van afbeelding</string>
     <string name="preview_image_error_no_local_file">Er is geen lokaal bestand om te bekijken</string>
     <string name="preview_image_error_unknown_format">Kan afbeelding niet tonen</string>
