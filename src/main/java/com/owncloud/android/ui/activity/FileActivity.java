@@ -899,8 +899,8 @@ public abstract class FileActivity extends DrawerActivity
         if (getFile().isSharedWithMe()) {
             return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
         } else if (ShareType.FEDERATED.equals(shareType)) {
-            return getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9 :
-                OCShare.FEDERATED_PERMISSIONS_FOR_FILE_AFTER_OC9;
+            return getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER :
+                OCShare.FEDERATED_PERMISSIONS_FOR_FILE;
         } else {
             return getFile().isFolder() ? OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER :
                 OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;

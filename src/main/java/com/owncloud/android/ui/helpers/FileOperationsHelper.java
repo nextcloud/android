@@ -717,7 +717,7 @@ public class FileOperationsHelper {
             updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.CREATE_PERMISSION_FLAG);
         } else {
             updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS,
-                                       OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9);
+                                       OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER);
         }
 
         queueShareIntent(updateShareIntent);
@@ -729,16 +729,6 @@ public class FileOperationsHelper {
         updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
-
-        queueShareIntent(updateShareIntent);
-    }
-
-    public void setVideoVerificationToPublicShare(OCShare share, boolean videoVerificationEnabled) {
-        Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
-        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_PUBLIC_SHARE);
-        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
-        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_VIDEO_VERIFICATION, videoVerificationEnabled);
 
         queueShareIntent(updateShareIntent);
     }
