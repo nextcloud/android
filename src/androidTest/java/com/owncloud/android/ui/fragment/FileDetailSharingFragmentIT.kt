@@ -223,13 +223,15 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         // password protection
         publicShare.shareWith = "someValue"
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertTrue(popup.menu.findItem(R.id.action_password).title ==
-            targetContext.getString(R.string.share_password_title))
+        assertTrue(
+            popup.menu.findItem(R.id.action_password).title == targetContext.getString(R.string.share_password_title)
+        )
 
         publicShare.shareWith = ""
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertTrue(popup.menu.findItem(R.id.action_password).title ==
-            targetContext.getString(R.string.share_no_password_title))
+        assertTrue(
+            popup.menu.findItem(R.id.action_password).title == targetContext.getString(R.string.share_no_password_title)
+        )
 
         // hide download
         publicShare.isHideFileDownload = true
@@ -243,13 +245,17 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
         publicShare.expirationDate = 1582019340000
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertTrue(popup.menu.findItem(R.id.action_share_expiration_date).title.startsWith(
-            targetContext.getString(R.string.share_expiration_date_label).split(" ")[0]))
+        assertTrue(
+            popup.menu.findItem(R.id.action_share_expiration_date).title
+                .startsWith(targetContext.getString(R.string.share_expiration_date_label).split(" ")[0])
+        )
 
         publicShare.expirationDate = 0
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertTrue(popup.menu.findItem(R.id.action_share_expiration_date).title ==
-            targetContext.getString(R.string.share_no_expiration_date_label))
+        assertTrue(
+            popup.menu.findItem(R.id.action_share_expiration_date).title ==
+                targetContext.getString(R.string.share_no_expiration_date_label)
+        )
 
         // file
         publicShare.isFolder = false
@@ -292,25 +298,31 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         publicShare.isPasswordProtected = true
         publicShare.shareWith = "someValue"
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertTrue(popup.menu.findItem(R.id.action_password).title ==
-            targetContext.getString(R.string.share_password_title))
+        assertTrue(
+            popup.menu.findItem(R.id.action_password).title == targetContext.getString(R.string.share_password_title)
+        )
 
         publicShare.isPasswordProtected = false
         publicShare.shareWith = ""
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertTrue(popup.menu.findItem(R.id.action_password).title ==
-            targetContext.getString(R.string.share_no_password_title))
+        assertTrue(
+            popup.menu.findItem(R.id.action_password).title == targetContext.getString(R.string.share_no_password_title)
+        )
 
         // expires
         publicShare.expirationDate = 1582019340
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertTrue(popup.menu.findItem(R.id.action_share_expiration_date).title.startsWith(
-            targetContext.getString(R.string.share_expiration_date_label).split(" ")[0]))
+        assertTrue(
+            popup.menu.findItem(R.id.action_share_expiration_date).title
+                .startsWith(targetContext.getString(R.string.share_expiration_date_label).split(" ")[0])
+        )
 
         publicShare.expirationDate = 0
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertTrue(popup.menu.findItem(R.id.action_share_expiration_date).title ==
-            targetContext.getString(R.string.share_no_expiration_date_label))
+        assertTrue(
+            popup.menu.findItem(R.id.action_share_expiration_date).title ==
+                targetContext.getString(R.string.share_no_expiration_date_label)
+        )
     }
 
     @Test
@@ -351,13 +363,15 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         // password protection
         publicShare.shareWith = "someValue"
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertTrue(popup.menu.findItem(R.id.action_password).title ==
-            targetContext.getString(R.string.share_password_title))
+        assertTrue(
+            popup.menu.findItem(R.id.action_password).title == targetContext.getString(R.string.share_password_title)
+        )
 
         publicShare.shareWith = ""
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertTrue(popup.menu.findItem(R.id.action_password).title ==
-            targetContext.getString(R.string.share_no_password_title))
+        assertTrue(
+            popup.menu.findItem(R.id.action_password).title == targetContext.getString(R.string.share_no_password_title)
+        )
 
         // hide download
         publicShare.isHideFileDownload = true
@@ -371,13 +385,17 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         // expiration date
         publicShare.expirationDate = 1582019340000
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertTrue(popup.menu.findItem(R.id.action_share_expiration_date).title.startsWith(
-            targetContext.getString(R.string.share_expiration_date_label).split(" ")[0]))
+        assertTrue(
+            popup.menu.findItem(R.id.action_share_expiration_date).title
+                .startsWith(targetContext.getString(R.string.share_expiration_date_label).split(" ")[0])
+        )
 
         publicShare.expirationDate = 0
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertTrue(popup.menu.findItem(R.id.action_share_expiration_date).title ==
-            targetContext.getString(R.string.share_no_expiration_date_label))
+        assertTrue(
+            popup.menu.findItem(R.id.action_share_expiration_date).title ==
+                targetContext.getString(R.string.share_no_expiration_date_label)
+        )
 
         publicShare.isFolder = false
         publicShare.permissions = READ_PERMISSION_FLAG
@@ -438,13 +456,17 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         // set expiration date
         userShare.expirationDate = 1582019340000
         sut.prepareUserOptionsMenu(popup.menu, userShare)
-        assertTrue(popup.menu.findItem(R.id.action_expiration_date).title.startsWith(
-            targetContext.getString(R.string.share_expiration_date_label).split(" ")[0]))
+        assertTrue(
+            popup.menu.findItem(R.id.action_expiration_date).title
+                .startsWith(targetContext.getString(R.string.share_expiration_date_label).split(" ")[0])
+        )
 
         userShare.expirationDate = 0
         sut.prepareUserOptionsMenu(popup.menu, userShare)
-        assertTrue(popup.menu.findItem(R.id.action_expiration_date).title ==
-            targetContext.getString(R.string.share_no_expiration_date_label))
+        assertTrue(
+            popup.menu.findItem(R.id.action_expiration_date).title ==
+                targetContext.getString(R.string.share_no_expiration_date_label)
+        )
 
         // note
         assertTrue(popup.menu.findItem(R.id.action_share_send_note).isVisible)
@@ -496,13 +518,17 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         // set expiration date
         userShare.expirationDate = 1582019340000
         sut.prepareUserOptionsMenu(popup.menu, userShare)
-        assertTrue(popup.menu.findItem(R.id.action_expiration_date).title.startsWith(
-            targetContext.getString(R.string.share_expiration_date_label).split(" ")[0]))
+        assertTrue(
+            popup.menu.findItem(R.id.action_expiration_date).title
+                .startsWith(targetContext.getString(R.string.share_expiration_date_label).split(" ")[0])
+        )
 
         userShare.expirationDate = 0
         sut.prepareUserOptionsMenu(popup.menu, userShare)
-        assertTrue(popup.menu.findItem(R.id.action_expiration_date).title ==
-            targetContext.getString(R.string.share_no_expiration_date_label))
+        assertTrue(
+            popup.menu.findItem(R.id.action_expiration_date).title ==
+                targetContext.getString(R.string.share_no_expiration_date_label)
+        )
 
         // note
         assertTrue(popup.menu.findItem(R.id.action_share_send_note).isVisible)
