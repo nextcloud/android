@@ -94,7 +94,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             remoteId = 1
             shareType = ShareType.USER
             sharedWithDisplayName = "Admin"
-            permissions = OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
+            permissions = MAXIMUM_PERMISSIONS_FOR_FILE
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
         }
@@ -103,7 +103,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             remoteId = 2
             shareType = ShareType.GROUP
             sharedWithDisplayName = "Group"
-            permissions = OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
+            permissions = MAXIMUM_PERMISSIONS_FOR_FILE
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
         }
@@ -143,7 +143,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             remoteId = 7
             shareType = ShareType.CIRCLE
             sharedWithDisplayName = "Private circle"
-            permissions = OCShare.SHARE_PERMISSION_FLAG
+            permissions = SHARE_PERMISSION_FLAG
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
         }
@@ -152,7 +152,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             remoteId = 8
             shareType = ShareType.ROOM
             sharedWithDisplayName = "Meeting"
-            permissions = OCShare.SHARE_PERMISSION_FLAG
+            permissions = SHARE_PERMISSION_FLAG
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
         }
@@ -205,7 +205,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         assertFalse(popup.menu.findItem(R.id.link_share_file_drop).isChecked)
 
         // upload and editing
-        publicShare.permissions = OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
+        publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
         assertFalse(popup.menu.findItem(R.id.link_share_read_only).isChecked)
         assertTrue(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isChecked)
@@ -231,6 +231,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
         // hide download
         publicShare.isHideFileDownload = true
+        publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
         assertTrue(popup.menu.findItem(R.id.action_hide_file_download).isChecked)
 
@@ -250,7 +251,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
         // file
         publicShare.isFolder = false
-        publicShare.permissions = OCShare.READ_PERMISSION_FLAG
+        publicShare.permissions = READ_PERMISSION_FLAG
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
         // check if items are visible
         assertTrue(popup.menu.findItem(R.id.action_hide_file_download).isVisible)
@@ -376,7 +377,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             targetContext.getString(R.string.share_no_expiration_date_label))
 
         publicShare.isFolder = false
-        publicShare.permissions = OCShare.READ_PERMISSION_FLAG
+        publicShare.permissions = READ_PERMISSION_FLAG
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
 
         // allow editing
