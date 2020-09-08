@@ -81,11 +81,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import static com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSION_FLAG;
+import static com.owncloud.android.lib.resources.shares.OCShare.DELETE_PERMISSION_FLAG;
 import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
 import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
 import static com.owncloud.android.lib.resources.shares.OCShare.NO_PERMISSION;
 import static com.owncloud.android.lib.resources.shares.OCShare.READ_PERMISSION_FLAG;
 import static com.owncloud.android.lib.resources.shares.OCShare.SHARE_PERMISSION_FLAG;
+import static com.owncloud.android.lib.resources.shares.OCShare.UPDATE_PERMISSION_FLAG;
 
 public class FileDetailSharingFragment extends Fragment implements ShareeListAdapterListener,
     DisplayUtils.AvatarGenerationListener,
@@ -377,7 +379,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             menu.findItem(R.id.allow_editing).setVisible(false);
 
             // read only / allow upload and editing / file drop
-            if ((isUploadAndEditingAllowed(publicShare))) {
+            if (isUploadAndEditingAllowed(publicShare)) {
                 menu.findItem(R.id.link_share_allow_upload_and_editing).setChecked(true);
             } else if (isFileDrop(publicShare)) {
                 menu.findItem(R.id.link_share_file_drop).setChecked(true);
@@ -454,7 +456,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             }
             case R.id.action_unshare: {
                 unshareWith(share);
-                ShareeListAdapter adapter = ((ShareeListAdapter) binding.sharesList.getAdapter());
+                ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesList.getAdapter();
                 if (adapter == null) {
                     DisplayUtils.showSnackMessage(getView(), getString(R.string.failed_update_ui));
                     return true;
@@ -694,23 +696,23 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     private boolean isReshareForbidden(OCShare share) {
         return ShareType.FEDERATED.equals(share.getShareType()) ||
-            (capabilities != null && capabilities.getFilesSharingResharing().isFalse());
+            capabilities != null && capabilities.getFilesSharingResharing().isFalse();
     }
 
     private boolean canEdit(OCShare share) {
         return (share.getPermissions() &
-            (OCShare.CREATE_PERMISSION_FLAG | OCShare.UPDATE_PERMISSION_FLAG | OCShare.DELETE_PERMISSION_FLAG)) > 0;
+            (CREATE_PERMISSION_FLAG | UPDATE_PERMISSION_FLAG | DELETE_PERMISSION_FLAG)) > 0;
     }
 
     private boolean canCreate(OCShare share) {
-        return (share.getPermissions() & OCShare.CREATE_PERMISSION_FLAG) > 0;
+        return (share.getPermissions() & CREATE_PERMISSION_FLAG) > 0;
     }
 
     private boolean canDelete(OCShare share) {
-        return (share.getPermissions() & OCShare.DELETE_PERMISSION_FLAG) > 0;
+        return (share.getPermissions() & DELETE_PERMISSION_FLAG) > 0;
     }
 
     private boolean canReshare(OCShare share) {
-        return (share.getPermissions() & OCShare.SHARE_PERMISSION_FLAG) > 0;
+        return (share.getPermissions() & SHARE_PERMISSION_FLAG) > 0;
     }
 }
