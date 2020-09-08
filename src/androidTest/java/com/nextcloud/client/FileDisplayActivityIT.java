@@ -43,14 +43,12 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
-import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.NavigationViewActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static junit.framework.TestCase.assertEquals;
@@ -174,5 +172,16 @@ public class FileDisplayActivityIT extends AbstractOnServerIT {
         activityRule.launchActivity(null);
 
         Espresso.onView(withId(R.id.switch_account_button)).perform(click());
+    }
+
+    @Test
+    public void audioPlayerRemoveFile() {
+        FileDisplayActivity sut = activityRule.launchActivity(null);
+
+        sut.tryStopPlaying(new OCFile("/test.mp3"));
+
+        longSleep();
+
+        Assert.assertTrue(true); // if we reach this, everything is ok
     }
 }
