@@ -31,6 +31,13 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.OCShare
+import com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSION_FLAG
+import com.owncloud.android.lib.resources.shares.OCShare.DELETE_PERMISSION_FLAG
+import com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
+import com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
+import com.owncloud.android.lib.resources.shares.OCShare.NO_PERMISSION
+import com.owncloud.android.lib.resources.shares.OCShare.READ_PERMISSION_FLAG
+import com.owncloud.android.lib.resources.shares.OCShare.SHARE_PERMISSION_FLAG
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
@@ -166,7 +173,8 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
-    fun publicLink_optionMenu() {
+    // public link and email are handled the same way
+    fun publicLink_optionMenu_Folder() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
         shortSleep()
@@ -178,7 +186,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         val publicShare = OCShare().apply {
             isFolder = true
             shareType = ShareType.PUBLIC_LINK
-            permissions = OCShare.READ_PERMISSION_FLAG
+            permissions = 17
         }
 
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
@@ -193,22 +201,24 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         assertTrue(popup.menu.findItem(R.id.action_unshare).isVisible)
         assertTrue(popup.menu.findItem(R.id.action_add_another_public_share_link).isVisible)
 
+        // read-only
         assertTrue(popup.menu.findItem(R.id.link_share_read_only).isChecked)
         assertFalse(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isChecked)
         assertFalse(popup.menu.findItem(R.id.link_share_file_drop).isChecked)
 
+        // upload and editing
         publicShare.permissions = OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
         assertFalse(popup.menu.findItem(R.id.link_share_read_only).isChecked)
         assertTrue(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isChecked)
         assertFalse(popup.menu.findItem(R.id.link_share_file_drop).isChecked)
 
-        // TODO
-//        publicShare.permissions = OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
-//        sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-//        assertFalse(popup.menu.findItem(R.id.link_share_read_only).isChecked)
-//        assertFalse(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isChecked)
-//        assertTrue(popup.menu.findItem(R.id.link_share_file_drop).isChecked)
+        // file drop
+        publicShare.permissions = 4
+        sut.prepareLinkOptionsMenu(popup.menu, publicShare)
+        assertFalse(popup.menu.findItem(R.id.link_share_read_only).isChecked)
+        assertFalse(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isChecked)
+        assertTrue(popup.menu.findItem(R.id.link_share_file_drop).isChecked)
 
         // password protection
         publicShare.shareWith = "someValue"
@@ -230,11 +240,10 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
         assertFalse(popup.menu.findItem(R.id.action_hide_file_download).isChecked)
 
-        // TODO expires
-//        publicShare.expirationDate =  1582019340000
-//        sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-//        assertTrue(popup.menu.findItem(R.id.action_share_expiration_date).title.startsWith(
-//            targetContext.getString(R.string.share_expiration_date_label)))
+        publicShare.expirationDate = 1582019340000
+        sut.prepareLinkOptionsMenu(popup.menu, publicShare)
+        assertTrue(popup.menu.findItem(R.id.action_share_expiration_date).title.startsWith(
+            targetContext.getString(R.string.share_expiration_date_label).split(" ")[0]))
 
         publicShare.expirationDate = 0
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
@@ -261,9 +270,11 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         assertTrue(popup.menu.findItem(R.id.allow_editing).isVisible)
 
         // allow editing
+        publicShare.permissions = 17 // from server
+        sut.prepareLinkOptionsMenu(popup.menu, publicShare)
         assertFalse(popup.menu.findItem(R.id.allow_editing).isChecked)
 
-        publicShare.permissions = OCShare.UPDATE_PERMISSION_FLAG
+        publicShare.permissions = 19 // from server
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
         assertTrue(popup.menu.findItem(R.id.allow_editing).isChecked)
 
@@ -278,13 +289,14 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
         // password protection
         publicShare.isPasswordProtected = true
+        publicShare.shareWith = "someValue"
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
         assertTrue(popup.menu.findItem(R.id.action_password).title ==
             targetContext.getString(R.string.share_password_title))
 
         publicShare.isPasswordProtected = false
+        publicShare.shareWith = ""
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertFalse(popup.menu.findItem(R.id.action_password).isChecked)
         assertTrue(popup.menu.findItem(R.id.action_password).title ==
             targetContext.getString(R.string.share_no_password_title))
 
@@ -292,15 +304,291 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         publicShare.expirationDate = 1582019340
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
         assertTrue(popup.menu.findItem(R.id.action_share_expiration_date).title.startsWith(
-            targetContext.getString(R.string.share_expiration_date_label)))
+            targetContext.getString(R.string.share_expiration_date_label).split(" ")[0]))
 
         publicShare.expirationDate = 0
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
+        assertTrue(popup.menu.findItem(R.id.action_share_expiration_date).title ==
+            targetContext.getString(R.string.share_no_expiration_date_label))
+    }
+
+    @Test
+    // public link and email are handled the same way
+    fun publicLink_optionMenu_File() {
+        val sut = FileDetailSharingFragment.newInstance(file, user)
+        activity.addFragment(sut)
+        shortSleep()
+        sut.refreshCapabilitiesFromDB()
+
+        val overflowMenuShareLink = ImageView(targetContext)
+        val popup = PopupMenu(targetContext, overflowMenuShareLink)
+        popup.inflate(R.menu.fragment_file_detail_sharing_public_link)
+        val publicShare = OCShare().apply {
+            isFolder = false
+            shareType = ShareType.PUBLIC_LINK
+            permissions = 17
+        }
+
+        sut.prepareLinkOptionsMenu(popup.menu, publicShare)
+
+        // check if items are visible
+        assertTrue(popup.menu.findItem(R.id.action_hide_file_download).isVisible)
+        assertTrue(popup.menu.findItem(R.id.action_password).isVisible)
+        assertTrue(popup.menu.findItem(R.id.action_share_expiration_date).isVisible)
+        assertTrue(popup.menu.findItem(R.id.action_share_send_link).isVisible)
+        assertTrue(popup.menu.findItem(R.id.action_share_send_note).isVisible)
+        assertTrue(popup.menu.findItem(R.id.action_edit_label).isVisible)
+        assertTrue(popup.menu.findItem(R.id.action_unshare).isVisible)
+        assertTrue(popup.menu.findItem(R.id.action_add_another_public_share_link).isVisible)
+
+        assertFalse(popup.menu.findItem(R.id.link_share_read_only).isVisible)
+        assertFalse(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isVisible)
+        assertFalse(popup.menu.findItem(R.id.link_share_file_drop).isVisible)
+        assertTrue(popup.menu.findItem(R.id.allow_editing).isVisible)
+
+        // password protection
+        publicShare.shareWith = "someValue"
+        sut.prepareLinkOptionsMenu(popup.menu, publicShare)
         assertTrue(popup.menu.findItem(R.id.action_password).title ==
+            targetContext.getString(R.string.share_password_title))
+
+        publicShare.shareWith = ""
+        sut.prepareLinkOptionsMenu(popup.menu, publicShare)
+        assertTrue(popup.menu.findItem(R.id.action_password).title ==
+            targetContext.getString(R.string.share_no_password_title))
+
+        // hide download
+        publicShare.isHideFileDownload = true
+        sut.prepareLinkOptionsMenu(popup.menu, publicShare)
+        assertTrue(popup.menu.findItem(R.id.action_hide_file_download).isChecked)
+
+        publicShare.isHideFileDownload = false
+        sut.prepareLinkOptionsMenu(popup.menu, publicShare)
+        assertFalse(popup.menu.findItem(R.id.action_hide_file_download).isChecked)
+
+        // expiration date
+        publicShare.expirationDate = 1582019340000
+        sut.prepareLinkOptionsMenu(popup.menu, publicShare)
+        assertTrue(popup.menu.findItem(R.id.action_share_expiration_date).title.startsWith(
+            targetContext.getString(R.string.share_expiration_date_label).split(" ")[0]))
+
+        publicShare.expirationDate = 0
+        sut.prepareLinkOptionsMenu(popup.menu, publicShare)
+        assertTrue(popup.menu.findItem(R.id.action_share_expiration_date).title ==
             targetContext.getString(R.string.share_no_expiration_date_label))
 
-        // TODO check all options
-        // scenarios: public link, email, …, both for file/folder
+        publicShare.isFolder = false
+        publicShare.permissions = OCShare.READ_PERMISSION_FLAG
+        sut.prepareLinkOptionsMenu(popup.menu, publicShare)
+
+        // allow editing
+        publicShare.permissions = 17 // from server
+        assertFalse(popup.menu.findItem(R.id.allow_editing).isChecked)
+
+        publicShare.permissions = 19 // from server
+        sut.prepareLinkOptionsMenu(popup.menu, publicShare)
+        assertTrue(popup.menu.findItem(R.id.allow_editing).isChecked)
+    }
+
+    @Test
+    // also applies for
+    // group
+    // conversation
+    // circle
+    // federated share
+    fun user_optionMenu_File() {
+        val sut = FileDetailSharingFragment.newInstance(file, user)
+        activity.addFragment(sut)
+        shortSleep()
+        sut.refreshCapabilitiesFromDB()
+
+        val overflowMenuShareLink = ImageView(targetContext)
+        val popup = PopupMenu(targetContext, overflowMenuShareLink)
+        popup.inflate(R.menu.item_user_sharing_settings)
+        val userShare = OCShare().apply {
+            isFolder = false
+            shareType = ShareType.USER
+            permissions = 17
+        }
+
+        sut.prepareUserOptionsMenu(popup.menu, userShare)
+        assertFalse(popup.menu.findItem(R.id.allow_creating).isVisible)
+        assertFalse(popup.menu.findItem(R.id.allow_deleting).isVisible)
+
+        // allow editing
+        userShare.permissions = 17 // from server
+        assertFalse(popup.menu.findItem(R.id.allow_editing).isChecked)
+
+        userShare.permissions = 19 // from server
+        sut.prepareUserOptionsMenu(popup.menu, userShare)
+        assertTrue(popup.menu.findItem(R.id.allow_editing).isChecked)
+
+        // allow reshare
+        userShare.permissions = 1 // from server
+        sut.prepareUserOptionsMenu(popup.menu, userShare)
+        assertFalse(popup.menu.findItem(R.id.allow_resharing).isChecked)
+
+        userShare.permissions = 17 // from server
+        sut.prepareUserOptionsMenu(popup.menu, userShare)
+        assertTrue(popup.menu.findItem(R.id.allow_resharing).isChecked)
+
+        // set expiration date
+        userShare.expirationDate = 1582019340000
+        sut.prepareUserOptionsMenu(popup.menu, userShare)
+        assertTrue(popup.menu.findItem(R.id.action_expiration_date).title.startsWith(
+            targetContext.getString(R.string.share_expiration_date_label).split(" ")[0]))
+
+        userShare.expirationDate = 0
+        sut.prepareUserOptionsMenu(popup.menu, userShare)
+        assertTrue(popup.menu.findItem(R.id.action_expiration_date).title ==
+            targetContext.getString(R.string.share_no_expiration_date_label))
+
+        // note
+        assertTrue(popup.menu.findItem(R.id.action_share_send_note).isVisible)
+    }
+
+    @Test
+    // also applies for
+    // group
+    // conversation
+    // circle
+    // federated share
+    fun user_optionMenu_Folder() {
+        val sut = FileDetailSharingFragment.newInstance(file, user)
+        activity.addFragment(sut)
+        shortSleep()
+        sut.refreshCapabilitiesFromDB()
+
+        val overflowMenuShareLink = ImageView(targetContext)
+        val popup = PopupMenu(targetContext, overflowMenuShareLink)
+        popup.inflate(R.menu.item_user_sharing_settings)
+        val userShare = OCShare().apply {
+            isFolder = true
+            shareType = ShareType.USER
+            permissions = 17
+        }
+
+        sut.prepareUserOptionsMenu(popup.menu, userShare)
+        assertTrue(popup.menu.findItem(R.id.allow_creating).isVisible)
+        assertTrue(popup.menu.findItem(R.id.allow_deleting).isVisible)
+
+        // allow editing
+        userShare.permissions = 17 // from server
+        assertFalse(popup.menu.findItem(R.id.allow_editing).isChecked)
+
+        userShare.permissions = 19 // from server
+        sut.prepareUserOptionsMenu(popup.menu, userShare)
+        assertTrue(popup.menu.findItem(R.id.allow_editing).isChecked)
+
+        // allow reshare
+        userShare.permissions = 1 // from server
+        sut.prepareUserOptionsMenu(popup.menu, userShare)
+        assertFalse(popup.menu.findItem(R.id.allow_resharing).isChecked)
+
+        userShare.permissions = 17 // from server
+        sut.prepareUserOptionsMenu(popup.menu, userShare)
+        assertTrue(popup.menu.findItem(R.id.allow_resharing).isChecked)
+
+        // set expiration date
+        userShare.expirationDate = 1582019340000
+        sut.prepareUserOptionsMenu(popup.menu, userShare)
+        assertTrue(popup.menu.findItem(R.id.action_expiration_date).title.startsWith(
+            targetContext.getString(R.string.share_expiration_date_label).split(" ")[0]))
+
+        userShare.expirationDate = 0
+        sut.prepareUserOptionsMenu(popup.menu, userShare)
+        assertTrue(popup.menu.findItem(R.id.action_expiration_date).title ==
+            targetContext.getString(R.string.share_no_expiration_date_label))
+
+        // note
+        assertTrue(popup.menu.findItem(R.id.action_share_send_note).isVisible)
+    }
+
+    @Test
+    fun testUploadAndEditingSharePermissions() {
+        val sut = FileDetailSharingFragment()
+
+        val share = OCShare().apply {
+            permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
+        }
+        assertTrue(sut.isUploadAndEditingAllowed(share))
+
+        share.permissions = NO_PERMISSION
+        assertFalse(sut.isUploadAndEditingAllowed(share))
+
+        share.permissions = READ_PERMISSION_FLAG
+        assertFalse(sut.isUploadAndEditingAllowed(share))
+
+        share.permissions = CREATE_PERMISSION_FLAG
+        assertFalse(sut.isUploadAndEditingAllowed(share))
+
+        share.permissions = DELETE_PERMISSION_FLAG
+        assertFalse(sut.isUploadAndEditingAllowed(share))
+
+        share.permissions = SHARE_PERMISSION_FLAG
+        assertFalse(sut.isUploadAndEditingAllowed(share))
+    }
+
+    @Test
+    fun testReadOnlySharePermissions() {
+        val sut = FileDetailSharingFragment()
+
+        val share = OCShare().apply {
+            permissions = 17
+        }
+        assertTrue(sut.isReadOnly(share))
+
+        share.permissions = NO_PERMISSION
+        assertFalse(sut.isReadOnly(share))
+
+        share.permissions = READ_PERMISSION_FLAG
+        assertTrue(sut.isReadOnly(share))
+
+        share.permissions = CREATE_PERMISSION_FLAG
+        assertFalse(sut.isReadOnly(share))
+
+        share.permissions = DELETE_PERMISSION_FLAG
+        assertFalse(sut.isReadOnly(share))
+
+        share.permissions = SHARE_PERMISSION_FLAG
+        assertFalse(sut.isReadOnly(share))
+
+        share.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
+        assertFalse(sut.isReadOnly(share))
+
+        share.permissions = MAXIMUM_PERMISSIONS_FOR_FILE
+        assertFalse(sut.isReadOnly(share))
+    }
+
+    @Test
+    fun testFileDropSharePermissions() {
+        val sut = FileDetailSharingFragment()
+
+        val share = OCShare().apply {
+            permissions = 4
+        }
+        assertTrue(sut.isFileDrop(share))
+
+        share.permissions = NO_PERMISSION
+        assertFalse(sut.isFileDrop(share))
+
+        share.permissions = READ_PERMISSION_FLAG
+        assertFalse(sut.isFileDrop(share))
+
+        share.permissions = CREATE_PERMISSION_FLAG
+        assertTrue(sut.isFileDrop(share))
+
+        share.permissions = DELETE_PERMISSION_FLAG
+        assertFalse(sut.isFileDrop(share))
+
+        share.permissions = SHARE_PERMISSION_FLAG
+        assertFalse(sut.isFileDrop(share))
+
+        share.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
+        assertFalse(sut.isFileDrop(share))
+
+        share.permissions = MAXIMUM_PERMISSIONS_FOR_FILE
+        assertFalse(sut.isFileDrop(share))
     }
 
     @After
