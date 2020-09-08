@@ -56,14 +56,13 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
         updateOp.setPassword(password);
         updateOp.setExpirationDate(expirationDateInMillis);
         updateOp.setHideFileDownload(hideFileDownload);
-        //updateOp.setVideoVerification(videoVerification);
         updateOp.setLabel(label);
 
-        if (publicShare.isFolder()) {
-            updateOp.setPublicUploadOnFolder(publicUpload);
-        } else {
-            updateOp.setPublicUploadOnFile(publicUpload);
-        }
+//        if (publicShare.isFolder()) {
+//            updateOp.setPublicUploadOnFolder(publicUpload);
+//        } else {
+//            updateOp.setPublicUploadOnFile(publicUpload);
+//        }
 
         RemoteOperationResult result = updateOp.execute(client);
 

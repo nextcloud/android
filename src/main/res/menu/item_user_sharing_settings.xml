@@ -47,17 +47,6 @@
         android:title="@string/allow_resharing"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_hide_file_listing"
-        android:showAsAction="never"
-        android:title="@string/share_via_link_hide_file_listing_permission_label"
-        android:checkable="true"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_password"
-        android:showAsAction="never"
-        android:title="@string/share_via_link_menu_password_label"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_expiration_date"
         android:showAsAction="never"
         android:title="@string/share_expiration_date_label"

@@ -943,4 +943,6 @@
     <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
     <string name="link_share_file_drop">File drop (upload only)</string>
     <string name="link_share_video_verification">Video verification</string>
+    <string name="could_not_retrieve_shares">Could not retrieve shares</string>
+    <string name="failed_update_ui">Failed to update UI</string>
 </resources>

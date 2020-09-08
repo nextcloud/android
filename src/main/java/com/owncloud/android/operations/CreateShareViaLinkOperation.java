@@ -52,7 +52,7 @@ public class CreateShareViaLinkOperation extends SyncOperation {
                                                                              "",
                                                                              false,
                                                                              password,
-                                                                             OCShare.DEFAULT_PERMISSION);
+                                                                             OCShare.NO_PERMISSION);
         createOp.setGetShareDetails(true);
         RemoteOperationResult result = createOp.execute(client);
 

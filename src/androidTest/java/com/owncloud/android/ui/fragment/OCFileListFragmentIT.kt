@@ -224,7 +224,7 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
                 "users",
                 false,
                 "",
-                OCShare.DEFAULT_PERMISSION
+                OCShare.NO_PERMISSION
             )
                 .execute(client)
                 .isSuccess

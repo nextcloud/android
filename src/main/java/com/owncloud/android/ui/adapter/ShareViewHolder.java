@@ -64,10 +64,6 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
                 name = context.getString(R.string.share_group_clarification, name);
                 setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_group);
                 break;
-            case EMAIL:
-                name = context.getString(R.string.share_email_clarification, name);
-                setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_email);
-                break;
             case ROOM:
                 name = context.getString(R.string.share_room_clarification, name);
                 setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_chat_bubble);

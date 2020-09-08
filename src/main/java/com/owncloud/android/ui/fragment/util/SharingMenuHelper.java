@@ -65,11 +65,15 @@ public final class SharingMenuHelper {
 
     /**
      * Sets checked/visibility state on the given {@link MenuItem} based on the given criteria.
-     *  @param menuItem the {@link MenuItem} to be setup
+     *
+     * @param menuItem     the {@link MenuItem} to be setup
      * @param capabilities Capabilities of server to check if hide download is supported
      */
-    public static void setupHideFileDownload(MenuItem menuItem, boolean hideFileDownload, OCCapability capabilities) {
-        if (!capabilities.getVersion().isHideFileDownloadSupported()) {
+    public static void setupHideFileDownload(MenuItem menuItem,
+                                             boolean hideFileDownload,
+                                             boolean isFileDrop,
+                                             OCCapability capabilities) {
+        if (!capabilities.getVersion().isHideFileDownloadSupported() || isFileDrop) {
             menuItem.setVisible(false);
         } else {
             menuItem.setVisible(true);
