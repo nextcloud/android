@@ -1,0 +1,2 @@
+DocumentsStorageProvider: open thumbnail directly fix #6884
+Update translations
