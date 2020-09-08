@@ -97,7 +97,6 @@
         android:dividerHeight="1dp"
         android:id="@+id/sharesList"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="72dp" />
+        android:layout_width="match_parent" />
 
 </LinearLayout>

@@ -554,11 +554,6 @@ public class OperationsService extends Service {
                                                                                        false);
                             updateLinkOperation.setHideFileDownload(hideFileDownload);
 
-                            boolean videoVerificationEnabled =
-                                operationIntent.getBooleanExtra(EXTRA_SHARE_VIDEO_VERIFICATION, false);
-
-                            updateLinkOperation.setVideoVerification(videoVerificationEnabled);
-
                             if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_UPLOAD)) {
                                 updateLinkOperation.setPublicUpload(true);
                             }

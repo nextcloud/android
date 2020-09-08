@@ -80,6 +80,8 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
+
 public class FileDetailSharingFragment extends Fragment implements ShareeListAdapterListener,
     DisplayUtils.AvatarGenerationListener,
     Injectable {
@@ -387,6 +389,12 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             MenuItem readOnly = menu.findItem(R.id.link_share_read_only);
             MenuItem uploadAndEditing = menu.findItem(R.id.link_share_allow_upload_and_editing);
             MenuItem fileDrop = menu.findItem(R.id.link_share_file_drop);
+
+            if ((publicShare.getPermissions() & MAXIMUM_PERMISSIONS_FOR_FOLDER) == MAXIMUM_PERMISSIONS_FOR_FOLDER) {
+                uploadAndEditing.setChecked(true);
+            } else if ((publicShare.getPermissions() & OCShare.READ_PERMISSION_FLAG) == 1) {
+                readOnly.setChecked(true);
+            }
         } else {
             menu.setGroupVisible(R.id.folder_permission, false);
             menu.findItem(R.id.allow_editing).setVisible(true);
@@ -405,20 +413,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                       res);
 
         menu.findItem(R.id.action_share_send_note).setVisible(capabilities.getVersion().isNoteOnShareSupported());
-
-        // TODO move to separate PR
-        MenuItem videoVerification = menu.findItem(R.id.link_share_video_verification);
-//        if (videoVerification != null) {
-//            videoVerification.setChecked(publicShare.isSendPasswordByTalk());
-
-
-//            -When enabling it:
-//            -If it is for a mail share, you must always set a new password (which is also different from the previous one)
-//                -If it is for a link share, you only need to set a new password if the share didn't have one yet (but you can repeat the previous password)
-//                -When disabling it:
-//            -If it is for a mail share, you must always set a new password (which is also different from the previous one)
-//                -If it is for a link share, you do not need to set a new password
-//        }
     }
 
     private boolean userOptionsItemSelected(Menu menu,
@@ -514,10 +508,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             case R.id.action_unshare:
                 fileOperationsHelper.unshareShare(file, publicShare);
                 return true;
-            case R.id.link_share_video_verification:
-                item.setChecked(!item.isChecked());
-                fileOperationsHelper.setVideoVerificationToPublicShare(publicShare, item.isChecked());
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -601,12 +591,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     /**
      * Get public link from the DB to fill in the "Share link" section in the UI.
-     * <p>
      * Takes into account server capabilities before reading database.
      */
     public void refreshSharesFromDB() {
         // TODO check if this is not called too often
-        ShareeListAdapter adapter = ((ShareeListAdapter) binding.sharesList.getAdapter());
+        ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesList.getAdapter();
         adapter.getShares().clear();
 
         // to show share with users/groups info
