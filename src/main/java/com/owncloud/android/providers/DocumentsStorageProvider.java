@@ -153,11 +153,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         throws FileNotFoundException {
         Log.d(TAG, "queryChildDocuments(), id=" + parentDocumentId);
 
-        Context context = getContext();
-        if (context == null) {
-            throw new FileNotFoundException("Context may not be null");
-        }
-
         Document parentFolder = toDocument(parentDocumentId);
 
         FileDataStorageManager storageManager = parentFolder.getStorageManager();
@@ -306,16 +301,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throws FileNotFoundException {
         Log.d(TAG, "openDocumentThumbnail(), id=" + documentId);
 
-        Context context = getContext();
-        if (context == null) {
-            throw new FileNotFoundException("Context may not be null!");
-        }
-
         OCFile file = toDocument(documentId).getFile();
 
         boolean exists = ThumbnailsCacheManager.containsBitmap(ThumbnailsCacheManager.PREFIX_THUMBNAIL
                                                                    + file.getRemoteId());
-
         if (!exists) {
             ThumbnailsCacheManager.generateThumbnailFromOCFile(file);
         }
@@ -329,10 +318,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public String renameDocument(String documentId, String displayName) throws FileNotFoundException {
         Log.d(TAG, "renameDocument(), id=" + documentId);
 
-        Context context = getContext();
-        if (context == null) {
-            throw new FileNotFoundException("Context may not be null!");
-        }
+        Context context = getNonNullContext();
 
         Document document = toDocument(documentId);
 
@@ -354,10 +340,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public String copyDocument(String sourceDocumentId, String targetParentDocumentId) throws FileNotFoundException {
         Log.d(TAG, "copyDocument(), id=" + sourceDocumentId);
 
-        Context context = getContext();
-        if (context == null) {
-            throw new FileNotFoundException("Context may not be null!");
-        }
+        Context context = getNonNullContext();
 
         Document document = toDocument(sourceDocumentId);
 
@@ -402,11 +385,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public String moveDocument(String sourceDocumentId, String sourceParentDocumentId, String targetParentDocumentId)
         throws FileNotFoundException {
         Log.d(TAG, "moveDocument(), id=" + sourceDocumentId);
-
-        Context context = getContext();
-        if (context == null) {
-            throw new FileNotFoundException("Context may not be null!");
-        }
 
         Document document = toDocument(sourceDocumentId);
         Document targetFolder = toDocument(targetParentDocumentId);
@@ -461,11 +439,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     private String createFolder(Document targetFolder, String displayName) throws FileNotFoundException {
 
-        Context context = getContext();
-
-        if (context == null) {
-            throw new FileNotFoundException("Context may not be null!");
-        }
+        Context context = getNonNullContext();
 
         String newDirPath = targetFolder.getRemotePath() + displayName + PATH_SEPARATOR;
         FileDataStorageManager storageManager = targetFolder.getStorageManager();
@@ -499,10 +473,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private String createFile(Document targetFolder, String displayName, String mimeType) throws FileNotFoundException {
-        Context context = getContext();
-        if (context == null) {
-            throw new FileNotFoundException("Context may not be null!");
-        }
+
+        Context context = getNonNullContext();
 
         Account account = targetFolder.getAccount();
 
@@ -576,10 +548,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public void deleteDocument(String documentId) throws FileNotFoundException {
         Log.d(TAG, "deleteDocument(), id=" + documentId);
 
-        Context context = getContext();
-        if (context == null) {
-            throw new FileNotFoundException("Context may not be null!");
-        }
+        Context context = getNonNullContext();
 
         Document document = toDocument(documentId);
         // get parent here, because it is not available anymore after the document was deleted
