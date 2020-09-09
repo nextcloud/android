@@ -469,8 +469,6 @@
     <string name="share_via_link_send_link_label">Send link</string>
     <string name="share_password_title">Password-protected</string>
     <string name="share_no_password_title">Set password</string>
-    <string name="edit_permission_label">edit</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Hide file listing</string>
     <string name="share_with_title">Share with…</string>
     <string name="share_via_link_unset_password">Unset</string>
 
@@ -483,11 +481,6 @@
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
     <string name="share_privilege_unshare">Unshare</string>
-    <string name="share_privilege_can_edit">can edit</string>
-    <string name="share_privilege_can_share">can share</string>
-    <string name="share_privilege_can_edit_create">can create</string>
-    <string name="share_privilege_can_edit_change">can change</string>
-    <string name="share_privilege_can_edit_delete">can delete</string>
 
     <string name="action_clear_failed_uploads">Clear failed uploads</string>
 
@@ -906,7 +899,6 @@
     <string name="failed_to_start_editor">Failed to start editor</string>
     <string name="create_rich_workspace">Add folder info</string>
     <string name="creates_rich_workspace">creates folder info</string>
-    <string name="edit_rich_workspace">edit folder info</string>
     <string name="uploader_upload_failed_sync_conflict_error">File upload conflict</string>
     <string name="uploader_upload_failed_sync_conflict_error_content">Pick which version to keep of %1$s</string>
     <string name="upload_list_resolve_conflict">Resolve conflict</string>
@@ -942,7 +934,6 @@
     <string name="link_share_read_only">Read only</string>
     <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
     <string name="link_share_file_drop">File drop (upload only)</string>
-    <string name="link_share_video_verification">Video verification</string>
     <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="failed_update_ui">Failed to update UI</string>
 </resources>
