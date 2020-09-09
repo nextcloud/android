@@ -1,3 +1,14 @@
+## 3.13.1 RC1 (September, 08, 2020)
+
+- bugfix release
+- auto upload obey metered network
+- fix adding account via qrCode
+- fix deleting password on share
+- fix conflict handling on auto upload
+- lots more
+
+For a full list, please see https://github.com/nextcloud/android/milestone/51
+
 ## 3.13.0 RC4 (August, 07, 2020)
 
 - new UI overhaul @Shagequi @JorisBodin
