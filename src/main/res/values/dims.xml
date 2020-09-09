@@ -72,7 +72,6 @@
     <dimen name="search_users_groups_layout_width">200dp</dimen>
     <dimen name="search_users_groups_layout_list_view_margin">20dp</dimen>
     <dimen name="share_file_layout_text_size">12sp</dimen>
-    <dimen name="unshare_icon_size">36dp</dimen>
     <dimen name="ssl_untrusted_cert_layout_padding">20dp</dimen>
     <dimen name="scroll_view_height">180dp</dimen>
     <dimen name="upload_list_item_frame_layout_width">60dp</dimen>
@@ -103,8 +102,6 @@
     <dimen name="empty_list_icon_layout_height">72dp</dimen>
     <dimen name="empty_list_progress_layout_width">72dp</dimen>
     <dimen name="empty_list_progress_layout_height">72dp</dimen>
-    <dimen name="file_details_user_icon_layout_width">32dp</dimen>
-    <dimen name="file_details_user_icon_layout_height">32dp</dimen>
     <dimen name="file_details_username_text_size">16sp</dimen>
     <dimen name="grid_image_shared_icon_layout_top_margin">24dp</dimen>
     <dimen name="grid_image_local_file_indicator_layout_width">16dp</dimen>
