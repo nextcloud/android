@@ -64,7 +64,9 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.DownloadFileOperation;
@@ -187,7 +189,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @SuppressLint("LongLogTag")
     @Override
     public ParcelFileDescriptor openDocument(String documentId, String mode, CancellationSignal cancellationSignal)
-            throws FileNotFoundException {
+        throws FileNotFoundException {
         Log.d(TAG, "openDocument(), id=" + documentId);
 
         Document document = toDocument(documentId);
@@ -196,27 +198,32 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         OCFile ocFile = document.getFile();
         Account account = document.getAccount();
-        final User user = accountManager.getUser(account.name).orElseThrow(RuntimeException::new); // should exist
 
-        if (ocFile.isDown()) {
-            RemoteOperationResult result;
-            try {
-                result = new SynchronizeFileOperation(ocFile, null, user, true, context)
-                    .execute(document.getClient(), document.getStorageManager());
-            } catch (Exception e) {
-                throw getFileNotFoundExceptionWithCause("Error synchronizing file: " + ocFile.getFileName(), e);
-            }
-            if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
-                // TODO show a conflict notification with a pending intent that shows a ConflictResolveDialog
-                Log_OC.w(TAG, "Conflict found: " + result);
-            } else if (!result.isSuccess()) {
+        int accessMode = ParcelFileDescriptor.parseMode(mode);
+
+        boolean needsDownload = (accessMode != ParcelFileDescriptor.MODE_WRITE_ONLY);
+        if (needsDownload && ocFile.isDown()) {
+            RemoteOperationResult result = new ReadFileRemoteOperation(ocFile.getRemotePath())
+                .execute(document.getClient());
+            if (result.isSuccess()) {
+                OCFile serverFile = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+                boolean serverChanged = !serverFile.getEtag().equals(ocFile.getEtag());
+                boolean localChanged = ocFile.getLocalModificationTimestamp() > ocFile.getLastSyncDateForData();
+                if (localChanged && serverChanged) {
+                    // TODO show a conflict notification with a pending intent that shows a ConflictResolveDialog
+                    Log_OC.w(TAG, "Conflict found: " + result);
+                    // open local version for now
+                    needsDownload = false;
+                } else {
+                    needsDownload = serverChanged;
+                }
+            } else if (result.getCode() == RemoteOperationResult.ResultCode.FILE_NOT_FOUND) {
                 Log_OC.e(TAG, result.toString());
                 throw new FileNotFoundException("Error synchronizing file: " + ocFile.getFileName());
             }
-            // TODO test if this needed here
-            // block thread until file is saved
-            FileStorageUtils.checkIfFileFinishedSaving(ocFile);
-        } else {
+        }
+
+        if (needsDownload) {
             DownloadFileOperation downloadFileOperation = new DownloadFileOperation(account, ocFile, context);
             RemoteOperationResult result = downloadFileOperation.execute(document.getClient());
             if (!result.isSuccess()) {
@@ -227,10 +234,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         File file = new File(ocFile.getStoragePath());
-        int accessMode = ParcelFileDescriptor.parseMode(mode);
-        boolean isWrite = accessMode != ParcelFileDescriptor.MODE_READ_ONLY;
 
-        if (isWrite) {
+        if (accessMode != ParcelFileDescriptor.MODE_READ_ONLY) {
             // The calling thread is not guaranteed to have a Looper, so we can't block it with the OnCloseListener.
             // Thus, we are unable to do a synchronous upload and have to start an asynchronous one.
             Handler handler = new Handler(context.getMainLooper());
