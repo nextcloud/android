@@ -201,7 +201,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         int accessMode = ParcelFileDescriptor.parseMode(mode);
 
-        boolean needsDownload = (accessMode != ParcelFileDescriptor.MODE_WRITE_ONLY);
+        boolean needsDownload = accessMode != ParcelFileDescriptor.MODE_WRITE_ONLY;
         if (needsDownload && ocFile.isDown()) {
             RemoteOperationResult result = new ReadFileRemoteOperation(ocFile.getRemotePath())
                 .execute(document.getClient());
