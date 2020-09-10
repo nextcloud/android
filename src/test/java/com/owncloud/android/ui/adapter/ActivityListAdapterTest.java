@@ -28,8 +28,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.util.reflection.FieldSetter;
+import org.mockito.internal.util.reflection.InstanceField;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public final class ActivityListAdapterTest {
@@ -42,7 +43,9 @@ public final class ActivityListAdapterTest {
     public void setUp() throws NoSuchFieldException {
         MockitoAnnotations.initMocks(this);
         MockitoAnnotations.initMocks(activityListAdapter);
-        FieldSetter.setField(activityListAdapter, activityListAdapter.getClass().getDeclaredField("values"), new ArrayList<>());
+        Field field = activityListAdapter.getClass().getDeclaredField("values");
+        InstanceField instanceField = new InstanceField(field, activityListAdapter);
+        instanceField.set(new ArrayList<>());
     }
 
     @Test
