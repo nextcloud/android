@@ -27,6 +27,7 @@
     <string name="actionbar_sort">ソート</string>
     <string name="active_user">アクティブなユーザー</string>
     <string name="activities_no_results_headline">まだアクティビティはありません</string>
+    <string name="activities_no_results_message">追加、変更、共有のようなイベントはまだありません</string>
     <string name="activity_chooser_send_file_title">送信</string>
     <string name="activity_chooser_title">リンク送信…</string>
     <string name="activity_icon">アクティビティ</string>
@@ -261,6 +262,9 @@
     <string name="etm_background_jobs_schedule_test_job">テストジョブをスケジュール</string>
     <string name="etm_background_jobs_start_test_job">テストジョブを開始</string>
     <string name="etm_background_jobs_stop_test_job">テストジョブを中断</string>
+    <string name="etm_download_enqueue_test_download">エンキューのダウンロードテスト</string>
+    <string name="etm_download_path">リモートパス</string>
+    <string name="etm_downloader">ダウンローダー</string>
     <string name="etm_migrations">マイグレーション（アプリのアップグレード）</string>
     <string name="etm_preferences">環境設定</string>
     <string name="etm_title">開発者用テストモード</string>
@@ -783,6 +787,7 @@
     <string name="uploads_view_upload_status_virus_detected">ウイルスが検出されました！アップロードを完了できません。</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">省電力モード解除待機中</string>
     <string name="uploads_view_upload_status_waiting_for_charging">料金を待つ</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">制限なしのWi-Fiを待機中</string>
     <string name="user_icon">ユーザー</string>
     <string name="user_info_address">住所</string>
     <string name="user_info_email">メール</string>
