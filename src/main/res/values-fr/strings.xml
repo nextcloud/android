@@ -789,6 +789,7 @@ Attention la suppression est irréversible.</string>
     <string name="uploads_view_upload_status_virus_detected">Un virus a été détecté. L\'envoi ne peut donc pas être réalisé !</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">En attente de sortie du mode d’économie d’énergie</string>
     <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">En attente d\'une connexion Wifi non limitée</string>
     <string name="user_icon">Utilisateur</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">Adresse e-mail</string>

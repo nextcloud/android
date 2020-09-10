@@ -787,6 +787,7 @@
     <string name="uploads_view_upload_status_virus_detected">Bol zistený víru.  Nahrávanie nebude ukončené!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Čaká sa na ukončenie úsporného režimu</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Čakám na nabitie</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Čakanie na nemerané Wi-Fi</string>
     <string name="user_icon">Používateľ</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">E-mail</string>
