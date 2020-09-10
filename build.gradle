@@ -416,7 +416,7 @@ spotbugs {
 configurations.all {
     resolutionStrategy{
         cacheChangingModulesFor 0, 'seconds'
-        force 'org.objenesis:objenesis:2.6'
+        force 'org.objenesis:objenesis:3.1'
     }
 
 }
