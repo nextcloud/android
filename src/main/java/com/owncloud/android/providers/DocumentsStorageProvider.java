@@ -153,10 +153,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         throws FileNotFoundException {
         Log.d(TAG, "queryChildDocuments(), id=" + parentDocumentId);
 
+        Context context = getNonNullContext();
         Document parentFolder = toDocument(parentDocumentId);
-
         FileDataStorageManager storageManager = parentFolder.getStorageManager();
-
         final FileCursor resultCursor = new FileCursor(projection);
 
         for (OCFile file : storageManager.getFolderContent(parentFolder.getFile(), false)) {
@@ -166,7 +165,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         boolean isLoading = false;
         if (parentFolder.isExpired()) {
             final ReloadFolderDocumentTask task = new ReloadFolderDocumentTask(parentFolder, result ->
-                getContext().getContentResolver().notifyChange(toNotifyUri(parentFolder), null, false));
+                context.getContentResolver().notifyChange(toNotifyUri(parentFolder), null, false));
             task.executeOnExecutor(executor);
             resultCursor.setLoadingTask(task);
             isLoading = true;
@@ -175,7 +174,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         final Bundle extra = new Bundle();
         extra.putBoolean(DocumentsContract.EXTRA_LOADING, isLoading);
         resultCursor.setExtras(extra);
-        resultCursor.setNotificationUri(getContext().getContentResolver(), toNotifyUri(parentFolder));
+        resultCursor.setNotificationUri(context.getContentResolver(), toNotifyUri(parentFolder));
         return resultCursor;
     }
 
@@ -186,7 +185,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Log.d(TAG, "openDocument(), id=" + documentId);
 
         Document document = toDocument(documentId);
-
         Context context = getNonNullContext();
 
         OCFile ocFile = document.getFile();
@@ -318,8 +316,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public String renameDocument(String documentId, String displayName) throws FileNotFoundException {
         Log.d(TAG, "renameDocument(), id=" + documentId);
 
-        Context context = getNonNullContext();
-
         Document document = toDocument(documentId);
 
         RemoteOperationResult result = new RenameFileOperation(document.getRemotePath(), displayName)
@@ -331,6 +327,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                                                 result.getException());
         }
 
+        Context context = getNonNullContext();
         context.getContentResolver().notifyChange(toNotifyUri(document.getParent()), null, false);
 
         return null;
@@ -339,8 +336,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @Override
     public String copyDocument(String sourceDocumentId, String targetParentDocumentId) throws FileNotFoundException {
         Log.d(TAG, "copyDocument(), id=" + sourceDocumentId);
-
-        Context context = getNonNullContext();
 
         Document document = toDocument(sourceDocumentId);
 
@@ -356,6 +351,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                                                 + " to " + targetParentDocumentId);
         }
 
+        Context context = getNonNullContext();
         Account account = document.getAccount();
 
         RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(), System.currentTimeMillis(),
@@ -400,8 +396,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         Document sourceFolder = toDocument(sourceParentDocumentId);
 
-        getContext().getContentResolver().notifyChange(toNotifyUri(sourceFolder), null, false);
-        getContext().getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
+        Context context = getNonNullContext();
+        context.getContentResolver().notifyChange(toNotifyUri(sourceFolder), null, false);
+        context.getContentResolver().notifyChange(toNotifyUri(targetFolder), null, false);
 
         return sourceDocumentId;
     }
@@ -440,13 +437,12 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     private String createFolder(Document targetFolder, String displayName) throws FileNotFoundException {
 
         Context context = getNonNullContext();
-
         String newDirPath = targetFolder.getRemotePath() + displayName + PATH_SEPARATOR;
         FileDataStorageManager storageManager = targetFolder.getStorageManager();
 
         RemoteOperationResult result = new CreateFolderOperation(newDirPath,
                                                                  accountManager.getUser(),
-                                                                 getContext())
+                                                                 context)
             .execute(targetFolder.getClient(), storageManager);
 
         if (!result.isSuccess()) {
@@ -473,8 +469,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private String createFile(Document targetFolder, String displayName, String mimeType) throws FileNotFoundException {
-
-        Context context = getNonNullContext();
 
         Account account = targetFolder.getAccount();
 
@@ -516,6 +510,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             Log_OC.e(TAG, result.toString());
             throw new FileNotFoundException("Failed to upload document with path " + newFilePath);
         }
+
+        Context context = getNonNullContext();
 
         RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(),
                                                                         System.currentTimeMillis(),
