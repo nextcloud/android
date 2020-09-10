@@ -25,7 +25,6 @@ package com.owncloud.android.ui.fragment
 import android.Manifest
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.rule.GrantPermissionRule
-import com.facebook.testing.screenshot.Screenshot
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
@@ -42,6 +41,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
+    @Suppress("MagicNumber")
     fun showFiles() {
         val sut = testActivityRule.launchActivity(null)
 
@@ -71,6 +71,33 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
 
         waitForIdleSync()
 
-        Screenshot.snapActivity(sut).record()
+        screenshot(sut)
+    }
+
+    @Test
+    @ScreenshotTest
+    fun showRichWorkspace() {
+        val sut = testActivityRule.launchActivity(null)
+        val fragment = OCFileListFragment()
+
+        val folder = OCFile("/test/")
+        folder.setFolder()
+        sut.storageManager.saveFile(folder)
+
+        val textFile = OCFile("/test/Readme.md", "00000001")
+        textFile.mimeType = "text/markdown"
+        textFile.fileLength = 1024000
+        textFile.modificationTimestamp = 1188206955000
+        textFile.parentId = sut.storageManager.getFileByEncryptedRemotePath("/test/").fileId
+        textFile.storagePath = getFile("java.md").absolutePath
+        sut.storageManager.saveFile(textFile)
+
+        sut.addFragment(fragment)
+        val testFolder: OCFile = sut.storageManager.getFileByEncryptedRemotePath("/test/")
+        testFolder.richWorkspace = getFile("java.md").readText()
+
+        sut.runOnUiThread { fragment.listDirectory(testFolder, false, false) }
+
+        screenshot(sut)
     }
 }
