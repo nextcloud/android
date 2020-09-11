@@ -1,0 +1,6 @@
+add tests for rich workspaces: as we will have light/dark screenshots for all, we do not have to do this here manually
+use same version for all org.mockito releases
+Fix npe on computing enough space with non-downloaded folder content
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
