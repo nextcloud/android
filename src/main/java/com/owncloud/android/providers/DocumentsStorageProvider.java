@@ -44,7 +44,6 @@ import android.provider.DocumentsProvider;
 import android.util.Log;
 import android.util.SparseArray;
 
-import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.files.downloader.DownloadTask;
@@ -64,9 +63,8 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.CheckEtagRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
-import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.DownloadFileOperation;
@@ -74,7 +72,6 @@ import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
-import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -201,36 +198,20 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         int accessMode = ParcelFileDescriptor.parseMode(mode);
 
-        boolean needsDownload = accessMode != ParcelFileDescriptor.MODE_WRITE_ONLY;
-        if (needsDownload && ocFile.isDown()) {
-            RemoteOperationResult result = new ReadFileRemoteOperation(ocFile.getRemotePath())
-                .execute(document.getClient());
-            if (result.isSuccess()) {
-                OCFile serverFile = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
-                boolean serverChanged = !serverFile.getEtag().equals(ocFile.getEtag());
-                boolean localChanged = ocFile.getLocalModificationTimestamp() > ocFile.getLastSyncDateForData();
-                if (localChanged && serverChanged) {
-                    // TODO show a conflict notification with a pending intent that shows a ConflictResolveDialog
-                    Log_OC.w(TAG, "Conflict found: " + result);
-                    // open local version for now
-                    needsDownload = false;
-                } else {
-                    needsDownload = serverChanged;
-                }
-            } else if (result.getCode() == RemoteOperationResult.ResultCode.FILE_NOT_FOUND) {
-                Log_OC.e(TAG, result.toString());
-                throw new FileNotFoundException("Error synchronizing file: " + ocFile.getFileName());
-            }
-        }
-
+        boolean needsDownload = (accessMode != ParcelFileDescriptor.MODE_WRITE_ONLY) && (!ocFile.isDown() || hasServerChange(ocFile, account));
         if (needsDownload) {
-            DownloadFileOperation downloadFileOperation = new DownloadFileOperation(account, ocFile, context);
-            RemoteOperationResult result = downloadFileOperation.execute(document.getClient());
-            if (!result.isSuccess()) {
-                Log_OC.e(TAG, result.toString());
-                throw new FileNotFoundException("Error downloading file: " + ocFile.getFileName());
+            if (ocFile.getLocalModificationTimestamp() > ocFile.getLastSyncDateForData()) {
+                // TODO show a conflict notification with a pending intent that shows a ConflictResolveDialog
+                Log_OC.w(TAG, "Conflict found!");
+            } else {
+                DownloadFileOperation downloadFileOperation = new DownloadFileOperation(account, ocFile, context);
+                RemoteOperationResult result = downloadFileOperation.execute(document.getClient());
+                if (!result.isSuccess()) {
+                    Log_OC.e(TAG, result.toString());
+                    throw new FileNotFoundException("Error downloading file: " + ocFile.getFileName());
+                }
+                saveDownloadedFile(document.getStorageManager(), downloadFileOperation, ocFile);
             }
-            saveDownloadedFile(document.getStorageManager(), downloadFileOperation, ocFile);
         }
 
         File file = new File(ocFile.getStoragePath());
@@ -265,6 +246,22 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             }
         } else {
             return ParcelFileDescriptor.open(file, accessMode);
+        }
+    }
+
+    private boolean hasServerChange(OCFile ocFile, Account account) throws FileNotFoundException {
+        Context context = getNonNullContext();
+        RemoteOperationResult result = new CheckEtagRemoteOperation(ocFile.getRemotePath(), ocFile.getEtag())
+            .execute(account, context);
+        switch (result.getCode()) {
+            case ETAG_CHANGED:
+                return true;
+            case ETAG_UNCHANGED:
+                return false;
+            case FILE_NOT_FOUND:
+            default:
+                Log_OC.e(TAG, result.toString());
+                throw new FileNotFoundException("Error synchronizing file: " + ocFile.getFileName());
         }
     }
 
