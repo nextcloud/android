@@ -553,6 +553,7 @@
     <string name="screenshot_01_gridView_heading">Beskytter din data</string>
     <string name="screenshot_01_gridView_subline">produktivitet på egen tjener</string>
     <string name="screenshot_02_listView_heading">Bla gjennom og del</string>
+    <string name="screenshot_02_listView_subline">alle handlinger tilgjengelig ved fingertuppene</string>
     <string name="screenshot_03_drawer_heading">Aktivitet, delinger...</string>
     <string name="screenshot_03_drawer_subline">Alt så hurtig som mulig</string>
     <string name="screenshot_04_accounts_heading">Alle kontoene dine</string>
@@ -652,6 +653,10 @@
     <string name="storage_movies">Filmer</string>
     <string name="storage_music">Musikk</string>
     <string name="storage_pictures">Bilder</string>
+    <string name="store_full_desc">Den selvstyrte produktivitetsplattformen som du har kontroll over.\n\nFunksjoner:\n* Last opp filer til din Nextcloud server\n* Del dem med andre\n* Hold favorittfilene og mappene dine synkroniserte\n* Søk gjennom alle mappene dine på serveren\n* Automatisk opplasting av bilder og videoer tatt med enheten din\n* Hold deg oppdatert via notifikasjoner\n* Støtte for flere kontoer\n* Sikker tilgang til dataene dine med fingeravtrykk eller PIN\n* Integrasjon med DAVx5 (tidligere kjent som DAVdroid) for enkel oppsett av synkronisering av kalendre og kontakter\n* Vennligst rapporter alle problemer på https://github.com/nextcloud/android/issues og diskuter appen på https://help.nextcloud.com/c/clients/android\n\nEr Nextcloud nytt for deg? Nextcloud er en privat filsynkroniserings, -deling og kommunikasjonsserver. Det er gratis programvare, og du kan ha den på din egen server, eller betale et selskap for å gjøre det for deg. På den måten har du kontroll over bildene dine, kalenderen og kontaktdata, dokumentene og alt annet.\n\nSjekk ut Nextcloud på https://nextcloud.com</string>
+    <string name="store_full_dev_desc">Den selvstyrte produktivitetsplattformen som du har kontroll over.\nDette er den offisielle utviklingsversjonen, med et daglig utvalg av ny uprøvd funksjonalitet, som kan forårsake ustabilitet og tap av data. Appen er for brukere som er villige til å teste, og rapporterer feil hvis de skulle oppstå. Ikke bruk den til ditt produktive arbeid!\n\nBåde den offisielle utvikler versjonen og den vanlige versjonen er tilgjengelig på F-droid, og kan installeres samtidig.</string>
+    <string name="store_short_desc">Den selvstyrte produktivitetsplattformen som du har kontroll over</string>
+    <string name="store_short_dev_desc">Den selvstyrte produktivitetsplattformen som du har kontroll over (dev forhåndsvisningsversjon)</string>
     <string name="stream">Strøm med…</string>
     <string name="stream_not_possible_headline">Intern strøming ikke mulig</string>
     <string name="stream_not_possible_message">Vennligst last ned media i stedet, eller bruk ekstern app.</string>
@@ -782,6 +787,7 @@
     <string name="uploads_view_upload_status_virus_detected">Virus oppdaget. Opplasting kan ikke fullføres.</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Venter på å gå ut av strømsparingsmodus</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Venter på lading av enhet.</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Venter på ubegrenset trådløs tilkobling</string>
     <string name="user_icon">Bruker</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">E-post</string>
