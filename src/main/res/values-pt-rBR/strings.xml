@@ -29,7 +29,7 @@
     <string name="activities_no_results_headline">Nenhuma atividade</string>
     <string name="activities_no_results_message">Ainda nenhum evento como adições, alterações e compartilhamentos.</string>
     <string name="activity_chooser_send_file_title">Enviar</string>
-    <string name="activity_chooser_title">Enviar o link para…</string>
+    <string name="activity_chooser_title">Enviar link para…</string>
     <string name="activity_icon">Atividade</string>
     <string name="add_another_public_share_link">Adicionar um novo link</string>
     <string name="add_new_public_share">Adicionar um novo link público de compartilhamento</string>
