@@ -426,7 +426,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             output = resources.getQuantityString(R.plurals.file_list__footer__folder, foldersCount, foldersCount);
         } else {
             output = resources.getQuantityString(R.plurals.file_list__footer__file, filesCount, filesCount) + ", " +
-                    resources.getQuantityString(R.plurals.file_list__footer__folder, foldersCount, foldersCount);
+                resources.getQuantityString(R.plurals.file_list__footer__folder, foldersCount, foldersCount);
         }
 
         return output;
@@ -434,6 +434,10 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public void setGridView(boolean gridView) {
         this.gridView = gridView;
+    }
+
+    public int checkedFilesCount() {
+        return checkedFiles.size();
     }
 
     private static class LocalFileListItemViewHolder extends LocalFileListGridItemViewHolder {

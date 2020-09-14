@@ -294,6 +294,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         return mAdapter.getCheckedFilesPath();
     }
 
+    public int getCheckedFilesCount() {
+        return mAdapter.checkedFilesCount();
+    }
+
     public void sortFiles(FileSortOrder sortOrder) {
         mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
         mAdapter.setSortOrder(sortOrder);
