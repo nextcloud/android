@@ -60,7 +60,7 @@
         <ignore path="**/fragment-1.2.5/**/lint.jar" />
         <ignore path="**/work-runtime-2.**/**/lint.jar" />
         <ignore path="**/jetified-butterknife-runtime-10.**/**/lint.jar" />
-        <ignore path="**/jetified-dagger-lint-aar-2.28.**/**/lint.jar" />
+        <ignore path="**/jetified-dagger-lint-aar-2.29.**/**/lint.jar" />
         <ignore path="**/jetified-annotation-experimental-1.**/**/lint.jar" />
     </issue>
 </lint>
