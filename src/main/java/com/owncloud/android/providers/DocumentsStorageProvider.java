@@ -196,9 +196,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         OCFile ocFile = document.getFile();
         Account account = document.getAccount();
 
-        int accessMode = ParcelFileDescriptor.parseMode(mode);
-
-        boolean needsDownload = (accessMode != ParcelFileDescriptor.MODE_WRITE_ONLY) && (!ocFile.isDown() || hasServerChange(ocFile, account));
+        boolean needsDownload = !ocFile.isDown() || hasServerChange(document);
         if (needsDownload) {
             if (ocFile.getLocalModificationTimestamp() > ocFile.getLastSyncDateForData()) {
                 // TODO show a conflict notification with a pending intent that shows a ConflictResolveDialog
@@ -216,6 +214,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         File file = new File(ocFile.getStoragePath());
 
+        int accessMode = ParcelFileDescriptor.parseMode(mode);
         if (accessMode != ParcelFileDescriptor.MODE_READ_ONLY) {
             // The calling thread is not guaranteed to have a Looper, so we can't block it with the OnCloseListener.
             // Thus, we are unable to do a synchronous upload and have to start an asynchronous one.
@@ -249,10 +248,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
     }
 
-    private boolean hasServerChange(OCFile ocFile, Account account) throws FileNotFoundException {
+    private boolean hasServerChange(Document document) throws FileNotFoundException {
         Context context = getNonNullContext();
+        OCFile ocFile = document.getFile();
         RemoteOperationResult result = new CheckEtagRemoteOperation(ocFile.getRemotePath(), ocFile.getEtag())
-            .execute(account, context);
+            .execute(document.getAccount(), context);
         switch (result.getCode()) {
             case ETAG_CHANGED:
                 return true;
