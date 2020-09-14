@@ -806,8 +806,8 @@ public class FileDisplayActivity extends FileActivity
                 if (isDrawerOpen()) {
                     closeDrawer();
                 } else if (
-                    (currentDir != null && currentDir.getParentId() != 0) ||
-                        (second != null && second.getFile() != null) ||
+                    currentDir != null && currentDir.getParentId() != 0 ||
+                        second != null && second.getFile() != null ||
                         isSearchOpen() ||
                         second == null
                 ) {
