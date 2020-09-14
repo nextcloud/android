@@ -616,6 +616,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     public @androidx.annotation.Nullable
+    @Deprecated
     OCFileListFragment getListOfFilesFragment() {
         Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(
             FileDisplayActivity.TAG_LIST_OF_FILES);
@@ -1111,10 +1112,15 @@ public class FileDisplayActivity extends FileActivity
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
         // Instead of onPostCreate, starting the loading in onResume for children fragments
-        OCFileListFragment ocFileListFragment = getListOfFilesFragment();
-        if (ocFileListFragment != null) {
-            ocFileListFragment.setLoading(mSyncInProgress);
+        Fragment leftFragment = getLeftFragment();
+
+        if (!(leftFragment instanceof OCFileListFragment)) {
+            return;
         }
+
+        OCFileListFragment ocFileListFragment = (OCFileListFragment) leftFragment;
+
+        ocFileListFragment.setLoading(mSyncInProgress);
         syncAndUpdateFolder(false);
 
         OCFile startFile = null;
@@ -1126,18 +1132,16 @@ public class FileDisplayActivity extends FileActivity
         // refresh list of files
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView.setQuery(searchQuery, false);
-        } else if (ocFileListFragment != null && !ocFileListFragment.isSearchFragment() && startFile == null) {
+        } else if (!ocFileListFragment.isSearchFragment() && startFile == null) {
             updateListOfFilesFragment(false);
             ocFileListFragment.registerFabListener();
         } else {
-            if (ocFileListFragment != null) {
-                ocFileListFragment.listDirectory(startFile, false, false);
-            }
+            ocFileListFragment.listDirectory(startFile, false, false);
             updateActionBarTitleAndHomeButton(startFile);
         }
 
         // Listen for sync messages
-        if (ocFileListFragment != null && !ocFileListFragment.isSearchFragment()) {
+        if (!ocFileListFragment.isSearchFragment()) {
             IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
             syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
             syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
@@ -2206,10 +2210,7 @@ public class FileDisplayActivity extends FileActivity
                                                                 PreviewTextFileFragment.class.getName(), args);
             setLeftFragment(textPreviewFragment);
             binding.rightFragmentContainer.setVisibility(View.GONE);
-
-            //updateFragmentsVisibility(true);
             super.updateActionBarTitleAndHomeButton(file);
-            //setFile(file);
         } else {
             Intent previewIntent = new Intent();
             previewIntent.putExtra(EXTRA_FILE, file);
@@ -2222,7 +2223,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     /**
-     * Stars rich workspace preview for a folder.
+     * Starts rich workspace preview for a folder.
      *
      * @param folder {@link OCFile} to preview its rich workspace.
      */
@@ -2233,10 +2234,9 @@ public class FileDisplayActivity extends FileActivity
         Fragment textPreviewFragment = Fragment.instantiate(getApplicationContext(),
                                                             PreviewTextStringFragment.class.getName(),
                                                             args);
-        setSecondFragment(textPreviewFragment);
-        updateFragmentsVisibility(true);
-        updateActionBarTitleAndHomeButton(folder);
-        setFile(folder);
+        setLeftFragment(textPreviewFragment);
+        binding.rightFragmentContainer.setVisibility(View.GONE);
+        super.updateActionBarTitleAndHomeButton(folder);
     }
 
     public void startContactListFragment(OCFile file) {
