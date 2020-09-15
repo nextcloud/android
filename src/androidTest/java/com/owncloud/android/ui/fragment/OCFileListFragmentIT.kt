@@ -24,7 +24,6 @@ package com.owncloud.android.ui.fragment
 
 import android.Manifest
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
@@ -32,12 +31,7 @@ import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.resources.shares.CreateShareRemoteOperation
-import com.owncloud.android.lib.resources.shares.OCShare
-import com.owncloud.android.lib.resources.shares.ShareType
-import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import junit.framework.TestCase
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -75,133 +69,6 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
 
         override val battery: BatteryStatus
             get() = BatteryStatus()
-    }
-
-    @Test
-    // @ScreenshotTest // todo run without real server
-    fun createAndShowShareToUser() {
-        val path = "/shareToAdmin/"
-        TestCase.assertTrue(
-            CreateFolderOperation(path, user, targetContext)
-                .execute(client, storageManager)
-                .isSuccess
-        )
-
-        // share folder to user "admin"
-        TestCase.assertTrue(
-            CreateShareRemoteOperation(
-                path,
-                ShareType.USER,
-                "admin",
-                false,
-                "",
-                OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
-            )
-                .execute(client).isSuccess
-        )
-
-        val sut: FileDisplayActivity = activityRule.launchActivity(null)
-        sut.startSyncFolderOperation(storageManager.getFileByPath("/"), true)
-
-        shortSleep()
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-//        Screenshot.snapActivity(sut).record()
-    }
-
-    @Test
-    // @ScreenshotTest // todo run without real server
-    fun createAndShowShareToGroup() {
-        val path = "/shareToGroup/"
-        TestCase.assertTrue(
-            CreateFolderOperation(path, user, targetContext)
-                .execute(client, storageManager)
-                .isSuccess
-        )
-
-        // share folder to group
-        assertTrue(
-            CreateShareRemoteOperation(
-                "/shareToGroup/",
-                ShareType.GROUP,
-                "users",
-                false,
-                "",
-                OCShare.DEFAULT_PERMISSION
-            )
-                .execute(client)
-                .isSuccess
-        )
-
-        val sut: FileDisplayActivity = activityRule.launchActivity(null)
-        sut.startSyncFolderOperation(storageManager.getFileByPath("/"), true)
-
-        shortSleep()
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-//        Screenshot.snapActivity(sut).record()
-    }
-
-//    @Test
-//    @ScreenshotTest
-//    fun createAndShowShareToCircle() {
-//        val path = "/shareToCircle/"
-//        TestCase.assertTrue(CreateFolderOperation(path, account, targetContext)
-//            .execute(client, storageManager)
-//            .isSuccess)
-//
-//        // share folder to circle
-//        // get circleId
-//        val searchResult = GetShareesRemoteOperation("publicCircle", 1, RESULT_PER_PAGE).execute(client)
-//        assertTrue(searchResult.logMessage, searchResult.isSuccess)
-//
-//        val resultJson: JSONObject = searchResult.data[0] as JSONObject
-//        val circleId: String = resultJson.getJSONObject("value").getString("shareWith")
-//
-//        assertTrue(CreateShareRemoteOperation("/shareToCircle/",
-//            ShareType.CIRCLE,
-//            circleId,
-//            false,
-//            "",
-//            OCShare.DEFAULT_PERMISSION)
-//            .execute(client).isSuccess)
-//
-//        val sut: FileDisplayActivity = activityRule.launchActivity(null)
-//        sut.startSyncFolderOperation(storageManager.getFileByPath("/"), true)
-//
-//        shortSleep()
-//        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-//        Screenshot.snapActivity(sut).record()
-//    }
-
-    @Test
-    // @ScreenshotTest // todo run without real server
-    fun createAndShowShareViaLink() {
-        val path = "/shareViaLink/"
-        TestCase.assertTrue(
-            CreateFolderOperation(path, user, targetContext)
-                .execute(client, storageManager)
-                .isSuccess
-        )
-
-        // share folder via public link
-        TestCase.assertTrue(
-            CreateShareRemoteOperation(
-                "/shareViaLink/",
-                ShareType.PUBLIC_LINK,
-                "",
-                true,
-                "",
-                OCShare.READ_PERMISSION_FLAG
-            )
-                .execute(client)
-                .isSuccess
-        )
-
-        val sut: FileDisplayActivity = activityRule.launchActivity(null)
-        sut.startSyncFolderOperation(storageManager.getFileByPath("/"), true)
-
-        shortSleep()
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-//        Screenshot.snapActivity(sut).record()
     }
 
     @Test
