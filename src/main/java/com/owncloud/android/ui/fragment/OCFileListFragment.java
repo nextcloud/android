@@ -329,7 +329,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         super.onActivityCreated(savedInstanceState);
         Log_OC.i(TAG, "onActivityCreated() start");
 
-
         if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(KEY_FILE);
         }
@@ -389,6 +388,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (searchEvent != null) {
             onMessageEvent(searchEvent);
         }
+
+        FragmentActivity fragmentActivity;
+        if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity) {
+            FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) fragmentActivity;
+            fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir());
+        }
+        listDirectory(false, false);
     }
 
     protected void prepareCurrentSearch(SearchEvent event) {
@@ -771,6 +777,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
      */
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
         outState.putParcelable(KEY_FILE, mFile);
         if (searchFragment) {
             outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, Parcels.wrap(currentSearchType));
@@ -779,8 +787,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
         }
         mMultiChoiceModeListener.storeStateIn(outState);
-
-        super.onSaveInstanceState(outState);
     }
 
     @Override
