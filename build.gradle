@@ -335,7 +335,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
-    ktlint "com.pinterest:ktlint:0.38.1"
+    ktlint "com.pinterest:ktlint:0.39.0"
     implementation 'org.conscrypt:conscrypt-android:2.5.1'
 
     // Shimmer animation
