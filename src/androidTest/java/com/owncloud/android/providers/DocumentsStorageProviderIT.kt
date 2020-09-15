@@ -183,23 +183,23 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         val file1 = rootDir.createFile("text/plain", RandomString.make())!!
         file1.assertRegularFile(size = 0L)
 
-        val content1 = "initial content".toByteArray();
+        val content1 = "initial content".toByteArray()
 
         // write content bytes to file
         contentResolver.openOutputStream(file1.uri, "wt").use {
             it!!.write(content1)
         }
 
-        val remotePath = file1.getOCFile(storageManager)!!.remotePath;
+        val remotePath = file1.getOCFile(storageManager)!!.remotePath
 
-        val content2 = "new content".toByteArray();
+        val content2 = "new content".toByteArray()
 
         // modify content on server side
-        val putMethod = PutMethod(client.webdavUri.toString() + WebdavUtils.encodePath(remotePath));
-        putMethod.setRequestEntity(ByteArrayRequestEntity(content2));
-        assertEquals(HttpStatus.SC_NO_CONTENT, client.executeMethod(putMethod));
-        client.exhaustResponse(putMethod.responseBodyAsStream);
-        putMethod.releaseConnection(); // let the connection available for other methods
+        val putMethod = PutMethod(client.webdavUri.toString() + WebdavUtils.encodePath(remotePath))
+        putMethod.setRequestEntity(ByteArrayRequestEntity(content2))
+        assertEquals(HttpStatus.SC_NO_CONTENT, client.executeMethod(putMethod))
+        client.exhaustResponse(putMethod.responseBodyAsStream)
+        putMethod.releaseConnection() // let the connection available for other methods
 
         // read back content bytes
         assertReadEquals(content2, contentResolver.openInputStream(file1.uri))
