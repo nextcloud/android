@@ -87,4 +87,6 @@ else
         BRANCH_TYPE=$BRANCH-$TYPE
         upload "build/reports/shot/verification"
     fi
+
+    exit 1 # always fail
 fi

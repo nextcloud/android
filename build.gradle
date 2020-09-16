@@ -25,7 +25,7 @@ buildscript {
         classpath('com.hiya:jacoco-android:0.2')
         classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.5.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.12.0"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.13.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:4.4.0'
     }
@@ -59,7 +59,7 @@ configurations {
 
 ext {
     jacocoVersion = "0.8.2"
-    daggerVersion = "2.28.3"
+    daggerVersion = "2.29.1"
     markwonVersion =  "4.5.1"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
@@ -335,7 +335,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
-    ktlint "com.pinterest:ktlint:0.38.1"
+    ktlint "com.pinterest:ktlint:0.39.0"
     implementation 'org.conscrypt:conscrypt-android:2.5.1'
 
     // Shimmer animation
