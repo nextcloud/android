@@ -1,0 +1,7 @@
+new tests for avatars, shares in OCFileList
+remove unneeded parentheses
+open PreviewTextFragment within left fragment
+detect tablet mode again
+detect tablet mode again
+Update translations
+Update 3rd-party dependencies
