@@ -990,4 +990,5 @@
     <string name="more">More</string>
     <string name="write_email">Send email</string>
     <string name="no_actions">No actions for this user</string>
+    <string name="search_error">Error getting search results</string>
 </resources>

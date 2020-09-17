@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2020 Tobias Kaminsky
+  Copyright (C) 2020 Nextcloud
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/upload_list_item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/standard_list_item_size"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/standard_list_item_size"
+        android:layout_height="@dimen/standard_list_item_size"
+        android:layout_marginStart="@dimen/zero"
+        android:layout_marginEnd="@dimen/standard_quarter_padding"
+        android:layout_marginBottom="@dimen/standard_padding">
+
+        <FrameLayout
+            android:id="@+id/thumbnail_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="@dimen/file_icon_size"
+                android:layout_height="@dimen/file_icon_size"
+                android:contentDescription="@null"
+                android:src="@drawable/folder" />
+
+            <com.elyeproj.loaderviewlibrary.LoaderImageView
+                android:id="@+id/thumbnail_shimmer"
+                android:layout_width="@dimen/file_icon_size"
+                android:layout_height="@dimen/file_icon_size"
+                android:visibility="gone"
+                app:corners="8" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/localFileIndicator"
+            android:layout_width="@dimen/list_item_local_file_indicator_layout_width"
+            android:layout_height="@dimen/list_item_local_file_indicator_layout_height"
+            android:contentDescription="@string/downloader_download_succeeded_ticker"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_synced"
+            app:layout_constraintBottom_toBottomOf="@+id/thumbnail_layout"
+            app:layout_constraintEnd_toEndOf="@+id/thumbnail_layout"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail_layout"
+            app:layout_constraintTop_toBottomOf="@+id/thumbnail_layout" />
+
+        <ImageView
+            android:id="@+id/favorite_action"
+            android:layout_width="@dimen/list_item_favorite_action_layout_width"
+            android:layout_height="@dimen/list_item_favorite_action_layout_height"
+            android:contentDescription="@string/favorite"
+            android:src="@drawable/favorite"
+            app:layout_constraintBottom_toTopOf="@+id/thumbnail_layout"
+            app:layout_constraintEnd_toEndOf="@+id/thumbnail_layout"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail_layout"
+            app:layout_constraintTop_toTopOf="@+id/thumbnail_layout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/two_line_primary_text_size"
+            tools:text="Test 123" />
+
+        <TextView
+            android:id="@+id/subline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:textColor="@color/list_item_lastmod_and_filesize_text"
+            android:textSize="@dimen/two_line_secondary_text_size"
+            tools:text="in TestFolder" />
+
+    </LinearLayout>
+</LinearLayout>
+
