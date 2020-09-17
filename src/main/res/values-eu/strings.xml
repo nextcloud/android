@@ -787,6 +787,7 @@
     <string name="uploads_view_upload_status_virus_detected">Birusa detektatuta. Igoera ezin da osatu!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Itxaron irteteko energia aurrezteko modutik</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Karga itxoiten</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Mugarik ez duen Wi-Fiaren zain</string>
     <string name="user_icon">Erabiltzailea</string>
     <string name="user_info_address">Helbidea</string>
     <string name="user_info_email">E-posta</string>
