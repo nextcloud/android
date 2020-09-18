@@ -1,0 +1,4 @@
+Remove dual pane for rich workspaces
+- removed test data - added tests
+Update translations
+Update 3rd-party dependencies
