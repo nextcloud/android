@@ -27,6 +27,7 @@
     <string name="actionbar_sort">排序</string>
     <string name="active_user">活躍使用者</string>
     <string name="activities_no_results_headline">目前沒有任何活動</string>
+    <string name="activities_no_results_message">尚未有任何新增、更動或分享事件。</string>
     <string name="activity_chooser_send_file_title">寄出</string>
     <string name="activity_chooser_title">傳送連結到…</string>
     <string name="activity_icon">活動</string>
@@ -216,6 +217,7 @@
     <string name="drawer_quota">在  %2$s中使用了%1$s </string>
     <string name="drawer_quota_unlimited">%1$s已使用</string>
     <string name="drawer_synced_folders">自動上傳</string>
+    <string name="edit_label">更改名稱</string>
     <string name="edit_permission_label">編輯</string>
     <string name="edit_rich_workspace">編輯資料夾資訊</string>
     <string name="encrypted">設為已加密的</string>
@@ -257,6 +259,7 @@
     <string name="etm_background_jobs_schedule_test_job">排程測試作業</string>
     <string name="etm_background_jobs_start_test_job">開始測試作業</string>
     <string name="etm_background_jobs_stop_test_job">停止測試作業</string>
+    <string name="etm_download_path">遠端路徑</string>
     <string name="etm_preferences">設定</string>
     <string name="etm_title">工程測試模式</string>
     <string name="fab_label">新增或上傳</string>
@@ -365,6 +368,7 @@
     <string name="list_layout">清單顯示</string>
     <string name="local_file_list_empty">這個資料夾中沒有任何檔案</string>
     <string name="local_file_not_found_message">本地檔案系統中找不到檔案</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">沒有其他資料夾了</string>
     <string name="log_send_mail_subject">%1$s Android 應用程式記錄</string>
     <string name="log_send_no_mail_app">無應用程式送出的紀錄，請安裝 Email 客戶端。</string>
@@ -512,9 +516,11 @@
     <string name="preview_image_error_unknown_format">無法顯示圖像</string>
     <string name="preview_sorry">很抱歉</string>
     <string name="privacy">隱私權</string>
+    <string name="public_share_name">新名稱</string>
     <string name="push_notifications_not_implemented">由於私人Google Play服務的相依性，推送通知已停用</string>
     <string name="push_notifications_old_login">由於過期的登入工作階段，沒有推送通知。請考慮重新登入您的帳號</string>
     <string name="push_notifications_temp_error">推送通知目前無法使用</string>
+    <string name="qr_could_not_be_read">QR 碼無法讀取！</string>
     <string name="recommend_subject">在您的裝置上試用 %1$s！</string>
     <string name="recommend_text">我想邀請您在您的裝置也使用%1$s
 請從這裡下載:%2$s</string>

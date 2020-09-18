@@ -787,6 +787,7 @@
     <string name="uploads_view_upload_status_virus_detected">Ανιχνεύθηκε ιός. Η μεταφόρτωση δεν μπορεί να ολοκληρωθεί!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Αναμονή για έξοδο από τη λειτουργία εξοικονόμησης ενέργειας</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Αναμονή για φόρτιση συσκευής</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Αναμονή για ασύρματο δίκτυο.</string>
     <string name="user_icon">Χρήστης</string>
     <string name="user_info_address">Διεύθυνση</string>
     <string name="user_info_email">E-mail</string>
