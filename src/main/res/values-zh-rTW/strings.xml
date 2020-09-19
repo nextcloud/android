@@ -32,6 +32,7 @@
     <string name="activity_chooser_title">傳送連結到…</string>
     <string name="activity_icon">活動</string>
     <string name="add_another_public_share_link">加入另一個連結</string>
+    <string name="add_new_public_share">增加一個新的公開連結</string>
     <string name="add_to_cloud">新增到 %1$s </string>
     <string name="allow_editing">允許編輯</string>
     <string name="appbar_search_in">%s內搜尋</string>
