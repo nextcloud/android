@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Сортировка</string>
     <string name="active_user">Активный пользователь</string>
     <string name="activities_no_results_headline">Событий ещё нет</string>
+    <string name="activities_no_results_message">Отсутствуют события добавления, изменения и предоставления общего доступа.</string>
     <string name="activity_chooser_send_file_title">Отправить</string>
     <string name="activity_chooser_title">Отправить ссылку…</string>
     <string name="activity_icon">События</string>

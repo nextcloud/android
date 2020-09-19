@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Ordena</string>
     <string name="active_user">Usuari actiu</string>
     <string name="activities_no_results_headline">Encara no hi ha activitat</string>
+    <string name="activities_no_results_message">Encara no hi ha esdeveniments com ara addicions, canvis i comparticions.</string>
     <string name="activity_chooser_send_file_title">Envia</string>
     <string name="activity_chooser_title">Envia l\'enllaç a…</string>
     <string name="activity_icon">Activitat</string>

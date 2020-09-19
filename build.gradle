@@ -63,8 +63,8 @@ ext {
     markwonVersion =  "4.5.1"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
-    androidLibraryVersion ="e447ff7839280857d44bb36b379fac609cbe4513"
-    mockitoVersion = "3.5.10"
+    androidLibraryVersion = "master-SNAPSHOT"
+    mockitoVersion = "3.5.11"
     espressoVersion = "3.3.0"
 
     travisBuild = System.getenv("TRAVIS") == "true"
