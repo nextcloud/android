@@ -72,7 +72,7 @@
     <string name="auto_upload_path">/EnvoiAuto</string>
     <string name="autoupload_configure">Configurer</string>
     <string name="autoupload_create_new_custom_folder">Créer une nouvelle configuration de dossier personnalisé</string>
-    <string name="autoupload_custom_folder">Configurer un dossier personnalisé</string>
+    <string name="autoupload_custom_folder">Définir un dossier personnalisé</string>
     <string name="autoupload_disable_power_save_check">Désactiver l\'économie de batterie</string>
     <string name="autoupload_hide_folder">Masquer le dossier</string>
     <string name="avatar">Avatar</string>
