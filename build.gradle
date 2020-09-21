@@ -386,7 +386,7 @@ dependencies {
         exclude group: "net.bytebuddy", module: "byte-buddy-android"
     }
     androidTestImplementation 'net.bytebuddy:byte-buddy:1.10.14'
-    androidTestImplementation "net.bytebuddy:byte-buddy-android:1.10.14"
+    androidTestImplementation "net.bytebuddy:byte-buddy-android:1.10.15"
     androidTestImplementation "io.mockk:mockk-android:1.10.0"
     androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
 
