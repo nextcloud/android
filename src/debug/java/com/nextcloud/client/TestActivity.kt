@@ -79,7 +79,7 @@ class TestActivity :
     }
 
     override fun showSortListGroup(show: Boolean) {
-        TODO("Not yet implemented")
+        // not needed
     }
 
     override fun showDetails(file: OCFile?) {

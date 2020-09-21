@@ -348,9 +348,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     public void onResume() {
         super.onResume();
 
-        if (toolbarActivity != null && previewLoaded) {
-            toolbarActivity.setPreviewImageVisibility(true);
+        if (toolbarActivity != null) {
+            toolbarActivity.showSortListGroup(false);
+
+            if (previewLoaded) {
+                toolbarActivity.setPreviewImageVisibility(true);
+            }
         }
+
     }
 
     @Override
