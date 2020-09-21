@@ -788,6 +788,7 @@
     <string name="uploads_view_upload_status_virus_detected">Virus upptäckt. Uppladdningen kan inte slutföras!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Väntar på att avsluta energisparläge</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Väntar på laddning</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Väntar på icke-uppmätt Wi-Fi</string>
     <string name="user_icon">Användare</string>
     <string name="user_info_address">Adress</string>
     <string name="user_info_email">E-post</string>
