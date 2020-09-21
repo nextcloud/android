@@ -60,7 +60,7 @@ configurations {
 ext {
     jacocoVersion = "0.8.2"
     daggerVersion = "2.29.1"
-    markwonVersion =  "4.5.1"
+    markwonVersion =  "4.6.0"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
     androidLibraryVersion = "master-SNAPSHOT"
