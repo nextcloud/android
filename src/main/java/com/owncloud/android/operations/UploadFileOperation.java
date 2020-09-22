@@ -121,6 +121,7 @@ public class UploadFileOperation extends SyncOperation {
     private boolean mOnWifiOnly;
     private boolean mWhileChargingOnly;
     private boolean mIgnoringPowerSaveMode;
+    private final boolean mDisableRetries;
 
     private boolean mWasRenamed;
     private long mOCUploadId;
@@ -184,15 +185,30 @@ public class UploadFileOperation extends SyncOperation {
                                int localBehaviour,
                                Context context,
                                boolean onWifiOnly,
-                               boolean whileChargingOnly
-    ) {
+                               boolean whileChargingOnly) {
+        this(uploadsStorageManager, connectivityService, powerManagementService, user, file, upload,
+             nameCollisionPolicy, localBehaviour, context, onWifiOnly, whileChargingOnly, true);
+    }
+
+    public UploadFileOperation(UploadsStorageManager uploadsStorageManager,
+                               ConnectivityService connectivityService,
+                               PowerManagementService powerManagementService,
+                               User user,
+                               OCFile file,
+                               OCUpload upload,
+                               FileUploader.NameCollisionPolicy nameCollisionPolicy,
+                               int localBehaviour,
+                               Context context,
+                               boolean onWifiOnly,
+                               boolean whileChargingOnly,
+                               boolean disableRetries) {
         if (upload == null) {
             throw new IllegalArgumentException("Illegal NULL file in UploadFileOperation creation");
         }
         if (TextUtils.isEmpty(upload.getLocalPath())) {
             throw new IllegalArgumentException(
-                    "Illegal file in UploadFileOperation; storage path invalid: "
-                            + upload.getLocalPath());
+                "Illegal file in UploadFileOperation; storage path invalid: "
+                    + upload.getLocalPath());
         }
 
         this.uploadsStorageManager = uploadsStorageManager;
@@ -222,6 +238,7 @@ public class UploadFileOperation extends SyncOperation {
         // Ignore power save mode only if user explicitly created this upload
         mIgnoringPowerSaveMode = mCreatedBy == CREATED_BY_USER;
         mFolderUnlockToken = upload.getFolderUnlockToken();
+        mDisableRetries = disableRetries;
     }
 
     public boolean isWifiRequired() {
@@ -561,14 +578,18 @@ public class UploadFileOperation extends SyncOperation {
                                                                         mFile.getEtagInConflict(),
                                                                         timeStamp,
                                                                         onWifiConnection,
-                                                                        token);
+                                                                        token,
+                                                                        mDisableRetries
+                );
             } else {
                 mUploadOperation = new UploadFileRemoteOperation(encryptedTempFile.getAbsolutePath(),
                                                                  mFile.getParentRemotePath() + encryptedFileName,
                                                                  mFile.getMimeType(),
                                                                  mFile.getEtagInConflict(),
                                                                  timeStamp,
-                                                                 token);
+                                                                 token,
+                                                                 mDisableRetries
+                );
             }
 
             for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
@@ -796,13 +817,15 @@ public class UploadFileOperation extends SyncOperation {
                                                                         mFile.getMimeType(),
                                                                         mFile.getEtagInConflict(),
                                                                         timeStamp,
-                                                                        onWifiConnection);
+                                                                        onWifiConnection,
+                                                                        mDisableRetries);
             } else {
                 mUploadOperation = new UploadFileRemoteOperation(mFile.getStoragePath(),
                                                                  mFile.getRemotePath(),
                                                                  mFile.getMimeType(),
                                                                  mFile.getEtagInConflict(),
-                                                                 timeStamp);
+                                                                 timeStamp,
+                                                                 mDisableRetries);
             }
 
             for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {

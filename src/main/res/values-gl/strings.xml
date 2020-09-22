@@ -304,7 +304,7 @@
     <string name="file_list_folder">cartafol</string>
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">Non foi estabelecida unha aplicación para manexar este tipo de ficheiro.</string>
-    <string name="file_list_seconds_ago">segundos atrás</string>
+    <string name="file_list_seconds_ago">hai uns segundos</string>
     <string name="file_migration_checking_destination">Comprobando o destino…</string>
     <string name="file_migration_cleaning">Limpando…</string>
     <string name="file_migration_dialog_title">Actualizando a ruta do almacenamento</string>

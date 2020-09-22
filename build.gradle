@@ -8,7 +8,7 @@ import com.github.spotbugs.snom.SpotBugsTask
 // its root folder, another one for the app module in subfolder of root.
 
 buildscript {
-    ext.kotlin_version = '1.4.0'
+    ext.kotlin_version = '1.4.10'
     repositories {
         google()
         jcenter()
@@ -25,7 +25,7 @@ buildscript {
         classpath('com.hiya:jacoco-android:0.2')
         classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.5.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.12.0"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.13.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:4.4.0'
     }
@@ -59,12 +59,13 @@ configurations {
 
 ext {
     jacocoVersion = "0.8.2"
-    daggerVersion = "2.28.3"
-    markwonVersion =  "4.5.1"
+    daggerVersion = "2.29.1"
+    markwonVersion =  "4.6.0"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
     androidLibraryVersion = "sharingPart2-SNAPSHOT"
-    mockitoVersion = "3.5.10"
+    mockitoVersion = "3.5.11"
+    byteBuddyVersion = "1.10.15"
     espressoVersion = "3.3.0"
 
     travisBuild = System.getenv("TRAVIS") == "true"
@@ -294,14 +295,14 @@ dependencies {
     implementation 'com.jakewharton:disklrucache:2.0.2'
     implementation 'androidx.appcompat:appcompat:1.2.0-rc01'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.exifinterface:exifinterface:1.2.0'
+    implementation 'androidx.exifinterface:exifinterface:1.3.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.work:work-runtime:2.4.0"
     implementation "androidx.work:work-runtime-ktx:2.4.0"
     implementation "androidx.fragment:fragment:1.2.5"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:2.0.1'
-    implementation 'commons-io:commons-io:2.7'
+    implementation 'commons-io:commons-io:2.8.0'
     implementation "com.jakewharton:butterknife:$butterknifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
     implementation 'org.greenrobot:eventbus:3.2.0'
@@ -335,8 +336,8 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
-    ktlint "com.pinterest:ktlint:0.38.1"
-    implementation 'org.conscrypt:conscrypt-android:2.5.0'
+    ktlint "com.pinterest:ktlint:0.39.0"
+    implementation 'org.conscrypt:conscrypt-android:2.5.1'
 
     // Shimmer animation
     implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
@@ -385,8 +386,8 @@ dependencies {
     androidTestImplementation("org.mockito:mockito-android:$mockitoVersion") {
         exclude group: "net.bytebuddy", module: "byte-buddy-android"
     }
-    androidTestImplementation 'net.bytebuddy:byte-buddy:1.10.14'
-    androidTestImplementation "net.bytebuddy:byte-buddy-android:1.10.14"
+    androidTestImplementation "net.bytebuddy:byte-buddy:$byteBuddyVersion"
+    androidTestImplementation "net.bytebuddy:byte-buddy-android:$byteBuddyVersion"
     androidTestImplementation "io.mockk:mockk-android:1.10.0"
     androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
 

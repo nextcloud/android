@@ -542,15 +542,31 @@ public class FileDisplayActivity extends FileActivity
         return secondFragment;
     }
 
+    /**
+     * Replaces the first fragment managed by the activity with the received as a parameter.
+     *
+     * @param fragment New Fragment to set.
+     */
+    private void setLeftFragment(Fragment fragment) {
+        if (searchView != null) {
+            searchView.post(() -> searchView.setQuery(searchQuery, true));
+        }
+        setDrawerIndicatorEnabled(false);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
+        transaction.commit();
+    }
+
 
     /**
-     * Replaces the second fragment managed by the activity with the received as
-     * a parameter.
-     *
+     * Replaces the second fragment managed by the activity with the received as a parameter.
+     * <p>
      * Assumes never will be more than two fragments managed at the same time.
      *
      * @param fragment New second Fragment to set.
      */
+    @Deprecated // in future no dual pane
     private void setSecondFragment(Fragment fragment) {
         if (searchView != null) {
             searchView.post(new Runnable() {
@@ -594,11 +610,16 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
+    public @androidx.annotation.Nullable
+    Fragment getLeftFragment() {
+        return getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+    }
 
     public @androidx.annotation.Nullable
+    @Deprecated
     OCFileListFragment getListOfFilesFragment() {
         Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(
-                FileDisplayActivity.TAG_LIST_OF_FILES);
+            FileDisplayActivity.TAG_LIST_OF_FILES);
         if (listOfFiles != null) {
             return (OCFileListFragment) listOfFiles;
         }
@@ -785,10 +806,13 @@ public class FileDisplayActivity extends FileActivity
                 OCFile currentDir = getCurrentDir();
                 if (isDrawerOpen()) {
                     closeDrawer();
-                } else if ((currentDir != null && currentDir.getParentId() != 0) ||
-                        (second != null && second.getFile() != null) || isSearchOpen()) {
+                } else if (
+                    currentDir != null && currentDir.getParentId() != 0 ||
+                        second != null && second.getFile() != null ||
+                        isSearchOpen() ||
+                        second == null
+                ) {
                     onBackPressed();
-
                 } else {
                     openDrawer();
                 }
@@ -1022,45 +1046,45 @@ public class FileDisplayActivity extends FileActivity
         boolean isDrawerOpen = isDrawerOpen();
         boolean isSearchOpen = isSearchOpen();
 
-        OCFileListFragment listOfFiles = getListOfFilesFragment();
+        Fragment leftFragment = getLeftFragment();
 
-        if (isSearchOpen && searchView != null) {
-            searchView.setQuery("", true);
-            searchView.onActionViewCollapsed();
-            searchView.clearFocus();
+        if (leftFragment instanceof OCFileListFragment) {
+            OCFileListFragment listOfFiles = (OCFileListFragment) leftFragment;
 
-            // Remove the list to the original state
-            if (listOfFiles != null) {
+            if (isSearchOpen && searchView != null) {
+                searchView.setQuery("", true);
+                searchView.onActionViewCollapsed();
+                searchView.clearFocus();
+
+                // Remove the list to the original state
                 listOfFiles.performSearch("", true);
-            }
 
-            hideSearchView(getCurrentDir());
+                hideSearchView(getCurrentDir());
 
-            setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
-        } else if (isDrawerOpen) {
-            // close drawer first
-            super.onBackPressed();
-        } else {
-            // all closed
-
-            listOfFiles = getListOfFilesFragment();
-            if (mDualPane || getSecondFragment() == null) {
-                OCFile currentDir = getCurrentDir();
-                if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
-                    finish();
-                    return;
-                }
-                if (listOfFiles != null) {  // should never be null, indeed
+                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+            } else if (isDrawerOpen) {
+                // close drawer first
+                super.onBackPressed();
+            } else {
+                // all closed
+                if (mDualPane || getSecondFragment() == null) {
+                    OCFile currentDir = getCurrentDir();
+                    if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
+                        finish();
+                        return;
+                    }
                     listOfFiles.onBrowseUp();
                 }
-            }
-            if (listOfFiles != null) {  // should never be null, indeed
                 setFile(listOfFiles.getCurrentFile());
                 listOfFiles.setFabVisible(true);
                 listOfFiles.registerFabListener();
                 showSortListGroup(true);
+                cleanSecondFragment();
             }
-            cleanSecondFragment();
+        } else {
+            // pop back
+            hideSearchView(getCurrentDir());
+            super.onBackPressed();
         }
     }
 
@@ -1088,10 +1112,15 @@ public class FileDisplayActivity extends FileActivity
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
         // Instead of onPostCreate, starting the loading in onResume for children fragments
-        OCFileListFragment ocFileListFragment = getListOfFilesFragment();
-        if (ocFileListFragment != null) {
-            ocFileListFragment.setLoading(mSyncInProgress);
+        Fragment leftFragment = getLeftFragment();
+
+        if (!(leftFragment instanceof OCFileListFragment)) {
+            return;
         }
+
+        OCFileListFragment ocFileListFragment = (OCFileListFragment) leftFragment;
+
+        ocFileListFragment.setLoading(mSyncInProgress);
         syncAndUpdateFolder(false);
 
         OCFile startFile = null;
@@ -1103,18 +1132,16 @@ public class FileDisplayActivity extends FileActivity
         // refresh list of files
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView.setQuery(searchQuery, false);
-        } else if (ocFileListFragment != null && !ocFileListFragment.isSearchFragment() && startFile == null) {
+        } else if (!ocFileListFragment.isSearchFragment() && startFile == null) {
             updateListOfFilesFragment(false);
             ocFileListFragment.registerFabListener();
         } else {
-            if (ocFileListFragment != null) {
-                ocFileListFragment.listDirectory(startFile, false, false);
-            }
+            ocFileListFragment.listDirectory(startFile, false, false);
             updateActionBarTitleAndHomeButton(startFile);
         }
 
         // Listen for sync messages
-        if (ocFileListFragment != null && !ocFileListFragment.isSearchFragment()) {
+        if (!ocFileListFragment.isSearchFragment()) {
             IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
             syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
             syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
@@ -1565,6 +1592,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     @Override
+    @Deprecated // in future no dual pane
     public void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
         if (chosenFile == null) {
             chosenFile = getFile();     // if no file is passed, current file decides
@@ -1576,7 +1604,6 @@ public class FileDisplayActivity extends FileActivity
         } else {
             super.updateActionBarTitleAndHomeButton(chosenFile);
         }
-
     }
 
     @Override
@@ -2181,10 +2208,9 @@ public class FileDisplayActivity extends FileActivity
             args.putString(EXTRA_SEARCH_QUERY, searchQuery);
             Fragment textPreviewFragment = Fragment.instantiate(getApplicationContext(),
                                                                 PreviewTextFileFragment.class.getName(), args);
-            setSecondFragment(textPreviewFragment);
-            updateFragmentsVisibility(true);
-            updateActionBarTitleAndHomeButton(file);
-            setFile(file);
+            setLeftFragment(textPreviewFragment);
+            binding.rightFragmentContainer.setVisibility(View.GONE);
+            super.updateActionBarTitleAndHomeButton(file);
         } else {
             Intent previewIntent = new Intent();
             previewIntent.putExtra(EXTRA_FILE, file);
@@ -2197,7 +2223,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     /**
-     * Stars rich workspace preview for a folder.
+     * Starts rich workspace preview for a folder.
      *
      * @param folder {@link OCFile} to preview its rich workspace.
      */
@@ -2208,10 +2234,9 @@ public class FileDisplayActivity extends FileActivity
         Fragment textPreviewFragment = Fragment.instantiate(getApplicationContext(),
                                                             PreviewTextStringFragment.class.getName(),
                                                             args);
-        setSecondFragment(textPreviewFragment);
-        updateFragmentsVisibility(true);
-        updateActionBarTitleAndHomeButton(folder);
-        setFile(folder);
+        setLeftFragment(textPreviewFragment);
+        binding.rightFragmentContainer.setVisibility(View.GONE);
+        super.updateActionBarTitleAndHomeButton(folder);
     }
 
     public void startContactListFragment(OCFile file) {

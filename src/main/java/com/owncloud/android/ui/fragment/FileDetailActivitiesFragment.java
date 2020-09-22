@@ -74,6 +74,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -340,7 +341,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
                 Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
                 RemoteOperationResult result = nextcloudClient.execute(getRemoteNotificationOperation);
-                result = new RemoteOperationResult(RemoteOperationResult.ResultCode.UNHANDLED_HTTP_CODE);
 
                 ArrayList<Object> versions = null;
                 if (restoreFileVersionSupported) {
@@ -368,15 +368,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
                     activity.runOnUiThread(() -> {
                         populateList(activitiesAndVersions, lastGiven == -1);
-                        if (adapter.getItemCount() == 0) {
-                            setEmptyContent(noResultsHeadline, noResultsMessage);
-                            list.setVisibility(View.GONE);
-                            empty.setVisibility(View.VISIBLE);
-                        } else {
-                            empty.setVisibility(View.GONE);
-                            list.setVisibility(View.VISIBLE);
-                        }
-                        isLoadingActivities = false;
                     });
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());
@@ -415,8 +406,19 @@ public class FileDetailActivitiesFragment extends Fragment implements
         }).start();
     }
 
-    private void populateList(List<Object> activities, boolean clear) {
+    @VisibleForTesting
+    public void populateList(List<Object> activities, boolean clear) {
         adapter.setActivityAndVersionItems(activities, nextcloudClient, clear);
+
+        if (adapter.getItemCount() == 0) {
+            setEmptyContent(noResultsHeadline, noResultsMessage);
+            swipeListRefreshLayout.setVisibility(View.GONE);
+            swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
+        } else {
+            swipeListRefreshLayout.setVisibility(View.VISIBLE);
+            swipeEmptyListRefreshLayout.setVisibility(View.GONE);
+        }
+        isLoadingActivities = false;
     }
 
     private void setEmptyContent(String headline, String message) {
@@ -433,7 +435,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
         }
     }
 
-    private void setErrorContent(String message) {
+    @VisibleForTesting
+    public void setErrorContent(String message) {
         if (emptyContentContainer != null && emptyContentMessage != null) {
             emptyContentHeadline.setText(R.string.common_error);
             emptyContentIcon.setImageDrawable(ResourcesCompat.getDrawable(requireContext().getResources(),
@@ -444,6 +447,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
             emptyContentMessage.setVisibility(View.VISIBLE);
             emptyContentProgressBar.setVisibility(View.GONE);
             emptyContentIcon.setVisibility(View.VISIBLE);
+            swipeListRefreshLayout.setVisibility(View.GONE);
+            swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
         }
     }
 
