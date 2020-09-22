@@ -25,8 +25,6 @@ package com.nextcloud.client.jobs
 
 import android.accounts.Account
 import android.content.Context
-import android.os.Build
-import android.provider.DocumentsContract
 import android.text.TextUtils
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -48,6 +46,7 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.users.RemoteWipeSuccessRemoteOperation
+import com.owncloud.android.providers.DocumentsStorageProvider
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity
 import com.owncloud.android.ui.activity.ManageAccountsActivity
 import com.owncloud.android.ui.events.AccountRemovedEvent
@@ -127,11 +126,7 @@ class AccountRemovalWork(
             }
         }
         // notify Document Provider
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            val authority = context.resources.getString(R.string.document_provider_authority)
-            val rootsUri = DocumentsContract.buildRootsUri(authority)
-            context.contentResolver.notifyChange(rootsUri, null)
-        }
+        DocumentsStorageProvider.notifyRootsChanged(context)
         return Result.success()
     }
 
