@@ -1,0 +1,5 @@
+Add debug webview when using versionDev built
+fix #6818
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
