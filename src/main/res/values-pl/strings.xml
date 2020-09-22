@@ -113,7 +113,7 @@
     <string name="common_unknown">nieznane</string>
     <string name="common_yes">Tak</string>
     <string name="community_beta_headline">Sprawdź wersję deweloperską</string>
-    <string name="community_beta_text">Zawiera w sobie wszystkie nadchodzące funkcje i może być mało stabilna. Przy występowaniu błędów, należy zgłosić je do nas.</string>
+    <string name="community_beta_text">Zawiera w sobie wszystkie nadchodzące funkcje i może być mało stabilna. Przy wystąpieniu błędów, należy zgłosić je do nas.</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Pomóż innym na</string>
     <string name="community_contribute_github_text">Przejrzyj, zmodyfikuj i napisz kod. Szczegóły znajdziesz w %1$s.</string>

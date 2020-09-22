@@ -787,6 +787,7 @@
     <string name="uploads_view_upload_status_virus_detected">Virus gevonden. Upload kan niet vervolledigd worden!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Wachten om de energiemodus te verlaten</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Wachten to apparaat wordt opgeladen</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Wachten op niet-gemeten Wi-Fi</string>
     <string name="user_icon">Gebruiker</string>
     <string name="user_info_address">Adres</string>
     <string name="user_info_email">Email</string>

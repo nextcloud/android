@@ -96,6 +96,7 @@ import java.util.Vector;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -1280,6 +1281,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void setGridView(boolean bool) {
         gridView = bool;
+    }
+
+    @VisibleForTesting
+    public void setShowShareAvatar(boolean bool) {
+        showShareAvatar = bool;
     }
 
     static class OCFileListItemViewHolder extends OCFileListGridItemViewHolder {

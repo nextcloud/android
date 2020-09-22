@@ -28,7 +28,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.util.reflection.FieldSetter;
 
 import java.util.ArrayList;
 
@@ -39,10 +38,10 @@ public final class ActivityListAdapterTest {
     private ActivityListAdapter activityListAdapter;
 
     @Before
-    public void setUp() throws NoSuchFieldException {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         MockitoAnnotations.initMocks(activityListAdapter);
-        FieldSetter.setField(activityListAdapter, activityListAdapter.getClass().getDeclaredField("values"), new ArrayList<>());
+        activityListAdapter.values = new ArrayList<>();
     }
 
     @Test

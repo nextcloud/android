@@ -72,7 +72,7 @@
     <string name="auto_upload_path">/EnvoiAuto</string>
     <string name="autoupload_configure">Configurer</string>
     <string name="autoupload_create_new_custom_folder">Créer une nouvelle configuration de dossier personnalisé</string>
-    <string name="autoupload_custom_folder">Configurer un dossier personnalisé</string>
+    <string name="autoupload_custom_folder">Définir un dossier personnalisé</string>
     <string name="autoupload_disable_power_save_check">Désactiver l\'économie de batterie</string>
     <string name="autoupload_hide_folder">Masquer le dossier</string>
     <string name="avatar">Avatar</string>
@@ -789,6 +789,7 @@ Attention la suppression est irréversible.</string>
     <string name="uploads_view_upload_status_virus_detected">Un virus a été détecté. L\'envoi ne peut donc pas être réalisé !</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">En attente de sortie du mode d’économie d’énergie</string>
     <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">En attente d\'une connexion Wifi non limitée</string>
     <string name="user_icon">Utilisateur</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">Adresse e-mail</string>
