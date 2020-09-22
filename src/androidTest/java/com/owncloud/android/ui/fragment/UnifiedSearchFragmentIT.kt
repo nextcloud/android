@@ -25,10 +25,13 @@ import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResult
+import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import org.junit.Rule
 import org.junit.Test
+import java.io.File
 
 class UnifiedSearchFragmentIT : AbstractIT() {
     @get:Rule
@@ -47,19 +50,19 @@ class UnifiedSearchFragmentIT : AbstractIT() {
             sut.onSearchResultChanged(
                 mutableListOf(
                     SearchResult(
-                        "files",
+                        "Files",
                         false,
-                        listOf(ex
-                            SearchResultEntry ("thumbnailUrl",
-                            "Test",
-                            "in /Files/",
-                            "resourceUrl",
-                            "icon",
-                            false
+                        listOf(
+                            SearchResultEntry("thumbnailUrl",
+                                "Test",
+                                "in /Files/",
+                                "resourceUrl",
+                                "icon",
+                                false
+                            )
                         )
                     )
                 )
-            )
             )
         }
 
@@ -73,6 +76,13 @@ class UnifiedSearchFragmentIT : AbstractIT() {
         val testViewModel = UnifiedSearchViewModel()
         val localRepository = UnifiedSearchLocalRepository()
         testViewModel.setRepository(localRepository)
+
+        val ocFile = OCFile("/folder/test1.txt").apply {
+            storagePath = "/sdcard/1.txt"
+            storageManager.saveFile(this)
+        }
+
+        File(ocFile.storagePath).createNewFile()
 
         activity.addFragment(sut)
 

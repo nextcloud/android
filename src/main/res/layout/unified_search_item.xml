@@ -22,7 +22,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/upload_list_item_layout"
+    android:id="@+id/unified_search_item_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/standard_list_item_size"
     android:baselineAligned="false"
@@ -66,21 +66,11 @@
             android:contentDescription="@string/downloader_download_succeeded_ticker"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_synced"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/thumbnail_layout"
             app:layout_constraintEnd_toEndOf="@+id/thumbnail_layout"
             app:layout_constraintStart_toEndOf="@+id/thumbnail_layout"
             app:layout_constraintTop_toBottomOf="@+id/thumbnail_layout" />
-
-        <ImageView
-            android:id="@+id/favorite_action"
-            android:layout_width="@dimen/list_item_favorite_action_layout_width"
-            android:layout_height="@dimen/list_item_favorite_action_layout_height"
-            android:contentDescription="@string/favorite"
-            android:src="@drawable/favorite"
-            app:layout_constraintBottom_toTopOf="@+id/thumbnail_layout"
-            app:layout_constraintEnd_toEndOf="@+id/thumbnail_layout"
-            app:layout_constraintStart_toEndOf="@+id/thumbnail_layout"
-            app:layout_constraintTop_toTopOf="@+id/thumbnail_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

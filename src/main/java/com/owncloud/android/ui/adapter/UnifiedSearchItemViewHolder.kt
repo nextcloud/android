@@ -22,15 +22,31 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
+import android.view.View
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.SearchResultEntry
+import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 
-class UnifiedSearchItemViewHolder(val binding: UnifiedSearchItemBinding, val context: Context) :
+class UnifiedSearchItemViewHolder(val binding: UnifiedSearchItemBinding,
+                                  val context: Context,
+                                  val storageManager: FileDataStorageManager,
+                                  val listInterface: UnifiedSearchListInterface) :
     SectionedViewHolder(binding.root) {
 
     fun bind(entry: SearchResultEntry) {
         binding.title.text = entry.title
         binding.subline.text = entry.subline
+
+        val ocFile = storageManager.getFileByDecryptedRemotePath(entry.remotePath())
+
+        if (ocFile?.isDown == true) {
+            binding.localFileIndicator.visibility = View.VISIBLE
+        } else {
+            binding.localFileIndicator.visibility = View.GONE
+        }
+
+        binding.unifiedSearchItemLayout.setOnClickListener { listInterface.onSearchResultClicked(entry) }
     }
 }

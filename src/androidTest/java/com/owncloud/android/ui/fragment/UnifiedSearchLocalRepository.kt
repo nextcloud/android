@@ -43,9 +43,16 @@ class UnifiedSearchLocalRepository : IUnifiedSearchRepository {
         ("thumbnailUrl",
             "Test",
             "in Files",
-            "resourceUrl",
+            "http://localhost/nc/index.php/apps/files/?dir=/Files&scrollto=Test",
             "icon",
-            false))))
+            false),
+            SearchResultEntry
+            ("thumbnailUrl",
+                "Test1",
+                "in Folder",
+                "http://localhost/nc/index.php/apps/files/?dir=/folder&scrollto=test1.txt",
+                "icon",
+                false))))
         vm.onSearchResult(result)
         Log_OC.d(this, "loadMore")
     }

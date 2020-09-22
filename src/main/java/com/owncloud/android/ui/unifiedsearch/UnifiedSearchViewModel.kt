@@ -19,6 +19,7 @@
  */
 package com.owncloud.android.ui.unifiedsearch
 
+import android.content.Context
 import android.content.res.Resources
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
@@ -27,8 +28,10 @@ import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.SearchResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.activities.GetRemoteFileTask
 import javax.inject.Inject
 
 @Suppress("LongParameterList")
@@ -38,6 +41,7 @@ class UnifiedSearchViewModel() : ViewModel() {
     lateinit var runner: AsyncRunner
     lateinit var clientFactory: ClientFactory
     lateinit var resources: Resources
+    lateinit var context: Context
 
     private lateinit var repository: IUnifiedSearchRepository
     private var loadingStarted: Boolean = false
@@ -53,11 +57,13 @@ class UnifiedSearchViewModel() : ViewModel() {
         currentAccountProvider: CurrentAccountProvider,
         runner: AsyncRunner,
         clientFactory: ClientFactory,
-        resources: Resources) : this() {
+        resources: Resources,
+        context: Context) : this() {
         this.currentAccountProvider = currentAccountProvider
         this.runner = runner
         this.clientFactory = clientFactory
         this.resources = resources
+        this.context = context
 
         repository = UnifiedSearchRemoteRepository(
             clientFactory,
@@ -90,20 +96,20 @@ class UnifiedSearchViewModel() : ViewModel() {
     }
 
 
-//    fun openFile(fileUrl: String) {
-//        if (isLoading.value == false) {
-//            (isLoading as MutableLiveData).value = true
-//            val user = currentUser.user
-//            val task = GetRemoteFileTask(
-//                context,
-//                fileUrl,
-//                clientFactory.create(currentUser.user),
-//                FileDataStorageManager(user.toPlatformAccount(), contentResolver),
-//                user
-//            )
-//            runner.postQuickTask(task, onResult = this::onFileRequestResult)
-//        }
-//    }
+    fun openFile(fileUrl: String) {
+        if (isLoading.value == false) {
+            isLoading.value = true
+            val user = currentAccountProvider.user
+            val task = GetRemoteFileTask(
+                context,
+                fileUrl,
+                clientFactory.create(currentAccountProvider.user),
+                FileDataStorageManager(user.toPlatformAccount(), context.contentResolver),
+                user
+            )
+            runner.postQuickTask(task, onResult = this::onFileRequestResult)
+        }
+    }
 
     open fun clearError() {
         error.value = ""
@@ -144,12 +150,13 @@ class UnifiedSearchViewModel() : ViewModel() {
 //        }
 //    }
 
-//    private fun onFileRequestResult(result: GetRemoteFileTask.Result) {
-//        (isLoading as MutableLiveData).value = false
-//        if (result.success) {
-//            (file as MutableLiveData).value = result.file
-//        } else {
-//            (file as MutableLiveData).value = null
-//        }
-//    }
+    private fun onFileRequestResult(result: GetRemoteFileTask.Result) {
+        isLoading.value = false
+        if (result.success) {
+            // unifiedSearchFragment.showFile(result.file)
+            //(file as MutableLiveData).value = result.file
+        } else {
+            error.value = "Error showing search result"
+        }
+    }
 }

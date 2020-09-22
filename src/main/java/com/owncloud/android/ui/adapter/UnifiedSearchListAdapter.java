@@ -77,6 +77,7 @@ import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
+import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
@@ -122,7 +123,7 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
 
     private List<SearchResult> list = new ArrayList<>();
 
-    private FileDataStorageManager mStorageManager;
+    private FileDataStorageManager storageManager;
     private User user;
     private OCFileListFragmentInterface ocFileListFragmentInterface;
 
@@ -140,8 +141,11 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
     private boolean showShareAvatar = false;
     private OCFile highlightedItem;
     private Context context;
+    private UnifiedSearchListInterface listInterface;
 
-    public UnifiedSearchListAdapter(Context context) {
+    public UnifiedSearchListAdapter(FileDataStorageManager storageManager,
+                                    UnifiedSearchListInterface listInterface,
+                                    Context context) {
 //        this.ocFileListFragmentInterface = ocFileListFragmentInterface;
 //        this.activity = activity;
 //        this.preferences = preferences;
@@ -150,6 +154,8 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
 //        this.gridView = gridView;
         checkedFiles = new HashSet<>();
         this.context = context;
+        this.storageManager = storageManager;
+        this.listInterface = listInterface;
 
         if (this.user != null) {
             AccountManager platformAccountManager = AccountManager.get(this.activity);
@@ -177,7 +183,7 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
                                                                                 parent,
                                                                                 false);
 
-            return new UnifiedSearchItemViewHolder(binding, context);
+            return new UnifiedSearchItemViewHolder(binding, context, storageManager, listInterface);
         }
     }
 
@@ -296,7 +302,7 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
             if (mFiles.get(i).getRemoteId().equals(fileId)) {
                 OCFile file = mFiles.get(i);
                 file.setEncrypted(encrypted);
-                mStorageManager.saveFile(file);
+                storageManager.saveFile(file);
 
                 break;
             }
@@ -628,13 +634,13 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
                              ) {
         this.onlyOnDevice = onlyOnDevice;
 
-        if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
-            mStorageManager = updatedStorageManager;
-            showShareAvatar = mStorageManager.getCapability(account.getAccountName()).getVersion().isShareesOnDavSupported();
+        if (updatedStorageManager != null && !updatedStorageManager.equals(storageManager)) {
+            storageManager = updatedStorageManager;
+            showShareAvatar = storageManager.getCapability(account.getAccountName()).getVersion().isShareesOnDavSupported();
             this.user = account;
         }
-        if (mStorageManager != null) {
-            mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
+        if (storageManager != null) {
+            mFiles = storageManager.getFolderContent(directory, onlyOnDevice);
 
             if (!preferences.isShowHiddenFilesEnabled()) {
                 mFiles = filterHiddenFiles(mFiles);
@@ -662,13 +668,13 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
                         FileDataStorageManager storageManager,
                         @Nullable OCFile folder,
                         boolean clear) {
-        if (storageManager != null && mStorageManager == null) {
-            mStorageManager = storageManager;
-            showShareAvatar = mStorageManager.getCapability(user.getAccountName()).getVersion().isShareesOnDavSupported();
+        if (storageManager != null && this.storageManager == null) {
+            this.storageManager = storageManager;
+            showShareAvatar = this.storageManager.getCapability(user.getAccountName()).getVersion().isShareesOnDavSupported();
         }
 
-        if (mStorageManager == null) {
-            mStorageManager = new FileDataStorageManager(user.toPlatformAccount(), activity.getContentResolver());
+        if (this.storageManager == null) {
+            this.storageManager = new FileDataStorageManager(user.toPlatformAccount(), activity.getContentResolver());
         }
 
         if (clear) {
@@ -689,11 +695,11 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
                     break;
             }
 
-            mStorageManager.deleteVirtuals(type);
+            this.storageManager.deleteVirtuals(type);
         }
 
         // early exit
-        if (objects.size() > 0 && mStorageManager != null) {
+        if (objects.size() > 0 && this.storageManager != null) {
             if (searchType == ExtendedListFragment.SearchType.SHARED_FILTER) {
                 parseShares(objects);
             } else {
@@ -734,7 +740,7 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
                 if (result.isSuccess()) {
                     OCFile file = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
                     FileStorageUtils.searchForLocalFileInDefaultPath(file, user.toPlatformAccount());
-                    file = mStorageManager.saveFileWithParent(file, activity);
+                    file = storageManager.saveFileWithParent(file, activity);
 
                     ShareType newShareType = ocShare.getShareType();
                     if (newShareType == ShareType.PUBLIC_LINK) {
@@ -748,7 +754,7 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
                         file.setSharedWithSharee(true);
                     }
 
-                    mStorageManager.saveFile(file);
+                    storageManager.saveFile(file);
 
                     if (!mFiles.contains(file)) {
                         mFiles.add(file);
@@ -759,7 +765,7 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
             }
         }
 
-        mStorageManager.saveShares(shares);
+        storageManager.saveShares(shares);
     }
 
     private void parseVirtuals(List<Object> objects, ExtendedListFragment.SearchType searchType) {
@@ -797,10 +803,10 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
 
             try {
                 if (ExtendedListFragment.SearchType.PHOTO_SEARCH == searchType) {
-                    mStorageManager.saveFile(ocFile);
+                    storageManager.saveFile(ocFile);
                 } else {
 
-                    ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
+                    ocFile = storageManager.saveFileWithParent(ocFile, activity);
 
                     // also sync folder content
                     if (ocFile.isFolder()) {
@@ -809,7 +815,7 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
                                                                                             currentSyncTime,
                                                                                             true,
                                                                                             false,
-                                                                                            mStorageManager,
+                                                                                            storageManager,
                                                                                             user.toPlatformAccount(),
                                                                                             activity);
                         refreshFolderOperation.execute(user.toPlatformAccount(), activity);
@@ -831,7 +837,7 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
         }
 
         preferences.setPhotoSearchTimestamp(System.currentTimeMillis());
-        mStorageManager.saveVirtuals(contentValues);
+        storageManager.saveVirtuals(contentValues);
     }
 
     public void showVirtuals(VirtualFolderType type, boolean onlyImages, FileDataStorageManager storageManager) {
