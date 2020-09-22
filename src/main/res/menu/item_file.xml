@@ -75,11 +75,18 @@
         android:title="@string/stream"
         app:showAsAction="never"
         android:showAsAction="never"
-        android:orderInCategory="1"/>
+        android:orderInCategory="1" />
 
     <item
         android:id="@+id/action_send_share_file"
         android:title="@string/action_send_share"
+        app:showAsAction="never"
+        android:showAsAction="never"
+        android:icon="@drawable/ic_share" />
+
+    <item
+        android:id="@+id/action_send_file"
+        android:title="@string/common_send"
         app:showAsAction="never"
         android:showAsAction="never"
         android:icon="@drawable/ic_share" />

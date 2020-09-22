@@ -203,6 +203,7 @@ public class FileMenuFilter {
         filterCancelSync(toShow, toHide, synchronizing);
         filterSync(toShow, toHide, synchronizing);
         filterShareFile(toShow, toHide, capability);
+        filterSendFiles(toShow, toHide);
         filterDetails(toShow, toHide);
         filterFavorite(toShow, toHide, synchronizing);
         filterUnfavorite(toShow, toHide, synchronizing);
@@ -219,6 +220,15 @@ public class FileMenuFilter {
             toHide.add(R.id.action_send_share_file);
         } else {
             toShow.add(R.id.action_send_share_file);
+        }
+    }
+
+    private void filterSendFiles(List<Integer> toShow, List<Integer> toHide) {
+        if (containsEncryptedFile() || isSingleSelection() || overflowMenu || !anyFileDown() ||
+            "off".equalsIgnoreCase(context.getString(R.string.send_files_to_other_apps))) {
+            toHide.add(R.id.action_send_file);
+        } else {
+            toShow.add(R.id.action_send_file);
         }
     }
 
