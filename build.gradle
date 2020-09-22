@@ -60,11 +60,12 @@ configurations {
 ext {
     jacocoVersion = "0.8.2"
     daggerVersion = "2.29.1"
-    markwonVersion =  "4.5.1"
+    markwonVersion =  "4.6.0"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
     androidLibraryVersion ="b45d4b2ff598bf6345896cc22d6d980ebea824a5"
     mockitoVersion = "3.5.11"
+    byteBuddyVersion = "1.10.15"
     espressoVersion = "3.3.0"
 
     travisBuild = System.getenv("TRAVIS") == "true"
@@ -385,8 +386,8 @@ dependencies {
     androidTestImplementation("org.mockito:mockito-android:$mockitoVersion") {
         exclude group: "net.bytebuddy", module: "byte-buddy-android"
     }
-    androidTestImplementation 'net.bytebuddy:byte-buddy:1.10.14'
-    androidTestImplementation "net.bytebuddy:byte-buddy-android:1.10.14"
+    androidTestImplementation "net.bytebuddy:byte-buddy:$byteBuddyVersion"
+    androidTestImplementation "net.bytebuddy:byte-buddy-android:$byteBuddyVersion"
     androidTestImplementation "io.mockk:mockk-android:1.10.0"
     androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
 
