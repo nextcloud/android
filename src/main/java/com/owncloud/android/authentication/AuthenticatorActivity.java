@@ -262,7 +262,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             onboarding.launchFirstRunIfNeeded(this);
         }
 
-        onlyAdd = getIntent().getBooleanExtra(KEY_ONLY_ADD, false);
+        onlyAdd = getIntent().getBooleanExtra(KEY_ONLY_ADD, false) || checkIfViaSSO(getIntent());
 
         // delete cookies for webView
         deleteCookies();
@@ -676,7 +676,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             super.finish();
         }
 
-        onlyAdd = intent.getBooleanExtra(KEY_ONLY_ADD, false);
+        onlyAdd = intent.getBooleanExtra(KEY_ONLY_ADD, false) || checkIfViaSSO(intent);
 
         // Passcode
         PassCodeManager passCodeManager = new PassCodeManager(preferences);
@@ -699,6 +699,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             setContentView(R.layout.account_setup_webview);
             mLoginWebView = findViewById(R.id.login_webview);
             initWebViewLogin(getString(R.string.provider_registration_server), true);
+        }
+    }
+
+    private boolean checkIfViaSSO(Intent intent) {
+        Bundle extras = intent.getExtras();
+        if (extras == null) {
+            return false;
+        } else {
+            return extras.getParcelable("accountAuthenticatorResponse") != null;
         }
     }
 
@@ -1124,7 +1133,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             if (success) {
                 accountManager.setCurrentOwnCloudAccount(mAccount.name);
-                if (!onlyAdd) {
+                if (onlyAdd) {
+                    finish();
+                } else {
                     Intent i = new Intent(this, FileDisplayActivity.class);
                     i.setAction(FileDisplayActivity.RESTART);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
