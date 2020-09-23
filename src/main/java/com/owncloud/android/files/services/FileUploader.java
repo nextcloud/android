@@ -255,7 +255,7 @@ public class FileUploader extends Service
      */
     private void resurrection() {
         // remove stucked notification
-        mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
+        mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
     }
 
     /**
@@ -269,6 +269,9 @@ public class FileUploader extends Service
         mServiceHandler = null;
         mServiceLooper.quit();
         mServiceLooper = null;
+        if (mNotificationManager != null) {
+            mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
+        }
         mNotificationManager = null;
 
         // remove AccountsUpdatedListener
@@ -705,7 +708,7 @@ public class FileUploader extends Service
                 mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             }
 
-            mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
+            mNotificationManager.notify(FOREGROUND_SERVICE_ID, mNotificationBuilder.build());
         }   // else wait until the upload really start (onTransferProgress is called), so that if it's discarded
         // due to lack of Wifi, no notification is shown
         // TODO generalize for automated uploads
@@ -730,7 +733,7 @@ public class FileUploader extends Service
             if (mNotificationManager == null) {
                 mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             }
-            mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
+            mNotificationManager.notify(FOREGROUND_SERVICE_ID, mNotificationBuilder.build());
         }
         mLastPercent = percent;
     }
@@ -747,8 +750,6 @@ public class FileUploader extends Service
         if (mNotificationManager == null) {
             mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         }
-
-        mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
 
         // Only notify if the upload fails
         if (!uploadResult.isCancelled() &&
