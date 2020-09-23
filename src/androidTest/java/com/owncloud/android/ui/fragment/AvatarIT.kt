@@ -40,7 +40,7 @@ class AvatarIT : AbstractIT() {
     @ScreenshotTest
     fun showAvatars() {
         val avatarRadius = targetContext.resources.getDimension(R.dimen.list_item_avatar_icon_radius)
-        val width = DisplayUtils.convertDpToPixel(2f * R.dimen.list_item_avatar_icon_radius, targetContext)
+        val width = DisplayUtils.convertDpToPixel(2 * avatarRadius, targetContext)
         val sut = testActivityRule.launchActivity(null)
         val fragment = AvatarTestFragment()
 
