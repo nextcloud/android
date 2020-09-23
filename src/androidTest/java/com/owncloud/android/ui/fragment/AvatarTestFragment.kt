@@ -45,7 +45,7 @@ internal class AvatarTestFragment : Fragment() {
     }
 
     fun addAvatar(name: String, avatarRadius: Float, width: Int, targetContext: Context) {
-        val margin = 10
+        val margin = padding
         val imageView = ImageView(targetContext)
         imageView.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadius))
 
@@ -55,5 +55,9 @@ internal class AvatarTestFragment : Fragment() {
         imageView.layoutParams = layoutParams
 
         list.addView(imageView)
+    }
+
+    companion object {
+        private const val padding = 10
     }
 }

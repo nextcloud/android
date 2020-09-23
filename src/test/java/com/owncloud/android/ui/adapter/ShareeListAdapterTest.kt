@@ -42,30 +42,42 @@ class ShareeListAdapterTest {
         val resources = Mockito.mock(Resources::class.java)
         Mockito.`when`(context!!.resources).thenReturn(resources)
         val expectedSortOrder: MutableList<OCShare?> = ArrayList()
-        expectedSortOrder.add(OCShare("/1").apply {
-            shareType = ShareType.EMAIL
-            sharedDate = 1004
-        })
-        expectedSortOrder.add(OCShare("/2").apply {
-            shareType = ShareType.PUBLIC_LINK
-            sharedDate = 1003
-        })
-        expectedSortOrder.add(OCShare("/3").apply {
-            shareType = ShareType.PUBLIC_LINK
-            sharedDate = 1001
-        })
-        expectedSortOrder.add(OCShare("/4").apply {
-            shareType = ShareType.EMAIL
-            sharedDate = 1000
-        })
-        expectedSortOrder.add(OCShare("/5").apply {
-            shareType = ShareType.USER
-            sharedDate = 80
-        })
-        expectedSortOrder.add(OCShare("/6").apply {
-            shareType = ShareType.CIRCLE
-            sharedDate = 20
-        })
+        expectedSortOrder.add(
+            OCShare("/1").apply {
+                shareType = ShareType.EMAIL
+                sharedDate = 1004
+            }
+        )
+        expectedSortOrder.add(
+            OCShare("/2").apply {
+                shareType = ShareType.PUBLIC_LINK
+                sharedDate = 1003
+            }
+        )
+        expectedSortOrder.add(
+            OCShare("/3").apply {
+                shareType = ShareType.PUBLIC_LINK
+                sharedDate = 1001
+            }
+        )
+        expectedSortOrder.add(
+            OCShare("/4").apply {
+                shareType = ShareType.EMAIL
+                sharedDate = 1000
+            }
+        )
+        expectedSortOrder.add(
+            OCShare("/5").apply {
+                shareType = ShareType.USER
+                sharedDate = 80
+            }
+        )
+        expectedSortOrder.add(
+            OCShare("/6").apply {
+                shareType = ShareType.CIRCLE
+                sharedDate = 20
+            }
+        )
 
         val randomOrder: MutableList<OCShare?> = ArrayList(expectedSortOrder)
         randomOrder.shuffle()
