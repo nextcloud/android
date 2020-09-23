@@ -89,12 +89,10 @@ public class OperationsService extends Service {
 
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
-    public static final String EXTRA_OAUTH2_QUERY_PARAMETERS = "OAUTH2_QUERY_PARAMETERS";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_NEWNAME = "NEWNAME";
     public static final String EXTRA_REMOVE_ONLY_LOCAL = "REMOVE_LOCAL_COPY";
     public static final String EXTRA_SYNC_FILE_CONTENTS = "SYNC_FILE_CONTENTS";
-    public static final String EXTRA_RESULT = "RESULT";
     public static final String EXTRA_NEW_PARENT_PATH = "NEW_PARENT_PATH";
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_FILE_VERSION = "FILE_VERSION";
@@ -103,7 +101,6 @@ public class OperationsService extends Service {
     public static final String EXTRA_SHARE_WITH = "SHARE_WITH";
     public static final String EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS = "SHARE_EXPIRATION_YEAR";
     public static final String EXTRA_SHARE_PERMISSIONS = "SHARE_PERMISSIONS";
-    public static final String EXTRA_SHARE_PUBLIC_UPLOAD = "SHARE_PUBLIC_UPLOAD";
     public static final String EXTRA_SHARE_PUBLIC_LABEL = "SHARE_PUBLIC_LABEL";
     public static final String EXTRA_SHARE_HIDE_FILE_DOWNLOAD = "HIDE_FILE_DOWNLOAD";
     public static final String EXTRA_SHARE_ID = "SHARE_ID";
@@ -384,9 +381,7 @@ public class OperationsService extends Service {
      * Created with the Looper of a new thread, started in {@link OperationsService#onCreate()}.
      */
     private static class ServiceHandler extends Handler {
-        // don't make it a final class, and don't remove the static ; lint will warn about a p
-        // ossible memory leak
-
+        // don't make it a final class, and don't remove the static ; lint will warn about a possible memory leak
 
         OperationsService mService;
 
@@ -428,7 +423,7 @@ public class OperationsService extends Service {
 
             if (next != null) {
                 mCurrentOperation = next.second;
-                RemoteOperationResult result = null;
+                RemoteOperationResult result;
                 try {
                     /// prepare client object to send the request to the ownCloud server
                     if (mLastTarget == null || !mLastTarget.equals(next.first)) {
@@ -553,9 +548,9 @@ public class OperationsService extends Service {
                                                                                        false);
                             updateLinkOperation.setHideFileDownload(hideFileDownload);
 
-                            if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_UPLOAD)) {
-                                updateLinkOperation.setPublicUpload(true);
-                            }
+//                            if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_UPLOAD)) {
+//                                updateLinkOperation.setPublicUpload(true);
+//                            }
 
                             if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_LABEL)) {
                                 updateLinkOperation.setLabel(operationIntent.getStringExtra(EXTRA_SHARE_PUBLIC_LABEL));
@@ -698,7 +693,7 @@ public class OperationsService extends Service {
         }
 
         if (operation != null) {
-            return new Pair<Target, RemoteOperation>(target, operation);
+            return new Pair<>(target, operation);
         } else {
             return null;
         }

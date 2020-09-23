@@ -34,10 +34,6 @@ import com.owncloud.android.operations.common.SyncOperation;
  */
 public class UpdateShareViaLinkOperation extends SyncOperation {
     private String password;
-    /**
-     * Enable upload permissions to update in Share resource.
-     */
-    private boolean publicUpload;
     private Boolean hideFileDownload;
     private long expirationDateInMillis;
     private long shareId;
@@ -79,10 +75,6 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setPublicUpload(boolean publicUpload) {
-        this.publicUpload = publicUpload;
     }
 
     public void setHideFileDownload(Boolean hideFileDownload) {

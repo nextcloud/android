@@ -171,7 +171,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     /**
      * sort all by creation time, then email/link shares on top
      */
-    protected void sortShares() {
+    protected final void sortShares() {
         List<OCShare> links = new ArrayList<>();
         List<OCShare> users = new ArrayList<>();
 
