@@ -172,7 +172,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
-    fun showDetails_Sharing() {
+    fun showDetailsSharing() {
         val sut = testActivityRule.launchActivity(null)
         sut.addFragment(FileDetailFragment.newInstance(file, user, 1))
 

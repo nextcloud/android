@@ -25,11 +25,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/share_by_link_container"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/standard_list_item_size"
+    android:layout_height="@dimen/sharee_list_item_size"
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/copy_internal_link_icon"
+        android:id="@+id/icon"
         android:layout_width="@dimen/share_icon_size"
         android:layout_height="@dimen/share_icon_size"
         android:layout_gravity="center_vertical"
@@ -41,28 +41,33 @@
         android:src="@drawable/shared_via_link" />
 
     <TextView
-        android:id="@+id/public_share_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="@string/share_via_link_section_title" />
-
-    <ImageView
-        android:id="@+id/share_link_copy_icon"
+        android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:textColor="@color/text_color"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/file_details_username_text_size"
+        android:text="@string/share_via_link_section_title" />
+
+    <ImageView
+        android:id="@+id/copy_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:contentDescription="@string/copy_link"
-        android:paddingStart="@dimen/standard_half_margin"
         android:paddingTop="@dimen/standard_quarter_margin"
-        android:paddingEnd="@dimen/standard_eighth_margin"
         android:paddingBottom="@dimen/standard_quarter_margin"
-        android:scaleType="fitStart"
+        android:scaleType="fitCenter"
+        android:paddingStart="@dimen/standard_padding"
+        android:paddingEnd="@dimen/standard_padding"
         android:src="@drawable/ic_content_copy" />
 
     <ImageView
-        android:id="@+id/overflow_menu_share_link"
+        android:id="@+id/overflow_menu"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:contentDescription="@string/overflow_menu"
