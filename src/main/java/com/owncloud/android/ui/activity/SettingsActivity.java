@@ -70,6 +70,7 @@ import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
@@ -641,10 +642,15 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_not_setup);
             } else {
                 DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_enabled);
-                this.lock.setValue(LOCK_DEVICE_CREDENTIALS);
-                this.lock.setSummary(this.lock.getEntry());
+                changeLockSetting(LOCK_DEVICE_CREDENTIALS);
             }
         }
+    }
+
+    private void changeLockSetting(String value) {
+        lock.setValue(value);
+        lock.setSummary(lock.getEntry());
+        DocumentsStorageProvider.notifyRootsChanged(this);
     }
 
     private void disableLock(String lock) {
@@ -819,14 +825,12 @@ public class SettingsActivity extends ThemedPreferenceActivity
                     appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i - 1, i));
                 }
                 appPrefs.apply();
-                lock.setValue(LOCK_PASSCODE);
-                lock.setSummary(lock.getEntry());
+                changeLockSetting(LOCK_PASSCODE);
                 DisplayUtils.showSnackMessage(this, R.string.pass_code_stored);
             }
         } else if (requestCode == ACTION_CONFIRM_PASSCODE && resultCode == RESULT_OK) {
             if (data.getBooleanExtra(PassCodeActivity.KEY_CHECK_RESULT, false)) {
-                lock.setValue(LOCK_NONE);
-                lock.setSummary(lock.getEntry());
+                changeLockSetting(LOCK_NONE);
 
                 DisplayUtils.showSnackMessage(this, R.string.pass_code_removed);
                 if (!LOCK_NONE.equals(pendingLock)) {
@@ -840,8 +844,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
                         RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
                         RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
-            lock.setValue(LOCK_NONE);
-            lock.setSummary(lock.getEntry());
+            changeLockSetting(LOCK_NONE);
             DisplayUtils.showSnackMessage(this, R.string.credentials_disabled);
             if (!LOCK_NONE.equals(pendingLock)) {
                 enableLock(pendingLock);
