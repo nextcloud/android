@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  Nesxtcloud Android client application
+<?xml version="1.0" encoding="utf-8"?><!--
+  Nextcloud Android client application
 
   Copyright (C) 2018 Andy Scherzinger
 
@@ -21,31 +20,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AppCompatResource">
-
+    <group
+        android:id="@+id/folder_permission"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/link_share_read_only"
+            android:title="@string/link_share_read_only" />
+        <item
+            android:id="@+id/link_share_allow_upload_and_editing"
+            android:title="@string/link_share_allow_upload_and_editing" />
+        <item
+            android:id="@+id/link_share_file_drop"
+            android:title="@string/link_share_file_drop" />
+    </group>
     <item
-        android:id="@+id/action_allow_editing"
+        android:id="@+id/allow_editing"
+        android:checkable="true"
         android:showAsAction="never"
         android:title="@string/allow_editing"
-        android:checkable="true"
-        android:textSize="16sp"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_hide_file_listing"
-        android:showAsAction="never"
-        android:title="@string/share_via_link_hide_file_listing_permission_label"
-        android:checkable="true"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_hide_file_download"
+        android:checkable="true"
         android:showAsAction="never"
         android:title="@string/share_via_link_hide_download"
-        android:checkable="true"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_edit_label"
-        android:showAsAction="never"
-        android:title="@string/edit_label"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_password"
@@ -66,6 +64,11 @@
         android:id="@+id/action_share_send_note"
         android:showAsAction="never"
         android:title="@string/share_send_note"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_edit_label"
+        android:showAsAction="never"
+        android:title="@string/edit_label"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_unshare"

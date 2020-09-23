@@ -97,7 +97,7 @@ public class FileDisplayActivityIT extends AbstractOnServerIT {
                                                          "users",
                                                          false,
                                                          "",
-                                                         OCShare.DEFAULT_PERMISSION)
+                                                         OCShare.NO_PERMISSION)
                               .execute(client).isSuccess());
 
         // share folder to circle

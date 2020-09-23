@@ -236,13 +236,6 @@
 		<item name="colorAccent">@color/color_accent</item>
 	</style>
 
-	<style name="Theme.ownCloud.Dialog.NoButtonBarStyle" parent="@style/Theme.MaterialComponents.DayNight.Dialog.Alert">
-		<item name="windowNoTitle">false</item>
-		<item name="colorAccent">@color/bg_fallback_highlight</item>
-        <item name="android:colorBackground">@color/bg_default</item>
-        <item name="colorControlActivated">@color/bg_fallback_highlight</item>
-	</style>
-
 	<style name="NavigationView_ItemTextAppearance">
 		<item name="android:ellipsize">end</item>
 		<item name="android:listDivider">@color/transparent</item>
