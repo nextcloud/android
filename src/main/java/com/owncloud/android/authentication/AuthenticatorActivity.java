@@ -61,7 +61,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.provider.DocumentsContract;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
 import android.view.KeyEvent;
@@ -114,6 +113,7 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
 import com.owncloud.android.operations.GetServerInfoOperation;
+import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -1287,11 +1287,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             setResult(RESULT_OK, intent);
 
             // notify Document Provider
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                String authority = getResources().getString(R.string.document_provider_authority);
-                Uri rootsUri = DocumentsContract.buildRootsUri(authority);
-                getContentResolver().notifyChange(rootsUri, null);
-            }
+            DocumentsStorageProvider.notifyRootsChanged(this);
 
             return true;
         }
