@@ -1,0 +1,1 @@
+New media scanner: only use with valid path
