@@ -63,7 +63,7 @@ ext {
     markwonVersion =  "4.6.0"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
-    androidLibraryVersion = "sharingPart2-SNAPSHOT"
+    androidLibraryVersion = "master-SNAPSHOT"
     mockitoVersion = "3.5.11"
     byteBuddyVersion = "1.10.15"
     espressoVersion = "3.3.0"

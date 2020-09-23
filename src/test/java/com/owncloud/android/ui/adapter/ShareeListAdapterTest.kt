@@ -19,83 +19,77 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.adapter
 
-package com.owncloud.android.ui.adapter;
+import android.content.Context
+import android.content.res.Resources
+import com.owncloud.android.lib.resources.shares.OCShare
+import com.owncloud.android.lib.resources.shares.ShareType
+import org.junit.Assert
+import org.junit.Test
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.MockitoAnnotations
+import java.util.ArrayList
 
-import android.content.Context;
-import android.content.res.Resources;
-
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
-
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.Assert.assertTrue;
-
-public class ShareeListAdapterTest {
+class ShareeListAdapterTest {
     @Mock
-    private Context context;
+    private val context: Context? = null
 
     @Test
-    public void testSorting() {
-        MockitoAnnotations.initMocks(this);
-        Resources resources = Mockito.mock(Resources.class);
-        Mockito.when(context.getResources()).thenReturn(resources);
+    fun testSorting() {
+        MockitoAnnotations.openMocks(this)
+        val resources = Mockito.mock(Resources::class.java)
+        Mockito.`when`(context!!.resources).thenReturn(resources)
+        val expectedSortOrder: MutableList<OCShare?> = ArrayList()
+        expectedSortOrder.add(OCShare("/1").apply {
+            shareType = ShareType.EMAIL
+            sharedDate = 1004
+        })
+        expectedSortOrder.add(OCShare("/2").apply {
+            shareType = ShareType.PUBLIC_LINK
+            sharedDate = 1003
+        })
+        expectedSortOrder.add(OCShare("/3").apply {
+            shareType = ShareType.PUBLIC_LINK
+            sharedDate = 1001
+        })
+        expectedSortOrder.add(OCShare("/4").apply {
+            shareType = ShareType.EMAIL
+            sharedDate = 1000
+        })
+        expectedSortOrder.add(OCShare("/5").apply {
+            shareType = ShareType.USER
+            sharedDate = 80
+        })
+        expectedSortOrder.add(OCShare("/6").apply {
+            shareType = ShareType.CIRCLE
+            sharedDate = 20
+        })
 
-        List<OCShare> expectedSortOrder = new ArrayList<>();
-        expectedSortOrder.add(new OCShare("/1")
-                                  .setShareType(ShareType.EMAIL)
-                                  .setSharedDate(1004));
-        expectedSortOrder.add(new OCShare("/2")
-                                  .setShareType(ShareType.PUBLIC_LINK)
-                                  .setSharedDate(1003));
-        expectedSortOrder.add(new OCShare("/3")
-                                  .setShareType(ShareType.PUBLIC_LINK)
-                                  .setSharedDate(1001));
-        expectedSortOrder.add(new OCShare("/4")
-                                  .setShareType(ShareType.EMAIL)
-                                  .setSharedDate(1000));
-        expectedSortOrder.add(new OCShare("/5")
-                                  .setShareType(ShareType.USER)
-                                  .setSharedDate(80));
-        expectedSortOrder.add(new OCShare("/6")
-                                  .setShareType(ShareType.CIRCLE)
-                                  .setSharedDate(20));
-
-        List<OCShare> randomOrder = new ArrayList<>(expectedSortOrder);
-        Collections.shuffle(randomOrder);
-
-        ShareeListAdapter sut = new ShareeListAdapter(context, randomOrder, null, null);
-
-        sut.sortShares();
+        val randomOrder: MutableList<OCShare?> = ArrayList(expectedSortOrder)
+        randomOrder.shuffle()
+        val sut = ShareeListAdapter(context, randomOrder, null, null)
+        sut.sortShares()
 
         // compare
-        boolean compare = true;
-        for (int i = 0; i < expectedSortOrder.size() && compare; i++) {
-            compare = expectedSortOrder.get(i) == sut.getShares().get(i);
+        var compare = true
+        var i = 0
+        while (i < expectedSortOrder.size && compare) {
+            compare = expectedSortOrder[i] === sut.shares[i]
+            i++
         }
-
         if (!compare) {
-            System.out.println("Expected:");
-
-            for (OCShare item : expectedSortOrder) {
-                System.out.println(item.getPath() + " " + item.getShareType() + " " + item.getSharedDate());
+            println("Expected:")
+            for (item in expectedSortOrder) {
+                println(item!!.path + " " + item.shareType + " " + item.sharedDate)
             }
-
-            System.out.println();
-            System.out.println("Actual:");
-            for (OCShare item : sut.getShares()) {
-                System.out.println(item.getPath() + " " + item.getShareType() + " " + item.getSharedDate());
+            println()
+            println("Actual:")
+            for (item in sut.shares) {
+                println(item.path + " " + item.shareType + " " + item.sharedDate)
             }
         }
-
-        assertTrue(compare);
+        Assert.assertTrue(compare)
     }
 }
