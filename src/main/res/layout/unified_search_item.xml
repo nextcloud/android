@@ -20,8 +20,8 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/unified_search_item_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/standard_list_item_size"
@@ -76,11 +76,11 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:gravity="top"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/standard_padding">
 
         <TextView
             android:id="@+id/title"
@@ -100,6 +100,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="middle"
             android:singleLine="true"
+            android:text=""
             android:textColor="@color/list_item_lastmod_and_filesize_text"
             android:textSize="@dimen/two_line_secondary_text_size"
             tools:text="in TestFolder" />

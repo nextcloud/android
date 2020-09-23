@@ -56,7 +56,6 @@ import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ActivityListItemBinding;
@@ -269,10 +268,12 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             } else {
                 placeholder = R.drawable.file_movie;
             }
-            Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider, clientFactory))
+            Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider.getUser(), clientFactory))
                 .load(previewObject.getSource())
                 .placeholder(placeholder)
-                .error(placeholder)
+                .error(android.R.color.holo_red_light)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(imageView);
         } else {
             if (MimeTypeUtil.isFolder(previewObject.getMimeType())) {

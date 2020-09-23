@@ -89,14 +89,20 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = ListFragmentBinding.inflate(inflater, container, false)
 
-        return binding.root;
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val gridLayoutManager = GridLayoutManager(requireContext(), 1)
-        adapter = UnifiedSearchListAdapter(storageManager, this, requireContext())
+        adapter = UnifiedSearchListAdapter(
+            storageManager,
+            this,
+            currentAccountProvider.user,
+            clientFactory,
+            requireContext()
+        )
         adapter.setLayoutManager(gridLayoutManager)
         binding.listRoot.layoutManager = gridLayoutManager
         binding.listRoot.adapter = adapter
@@ -112,7 +118,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         _binding = null
     }
 
-    fun showFile(result: GetRemoteFileTask.Result) {
+    private fun showFile(result: GetRemoteFileTask.Result) {
         activity.let {
             if (activity is FileDisplayActivity) {
                 val fda = activity as FileDisplayActivity
@@ -153,7 +159,6 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
 
     companion object {
         const val ARG_QUERY = "ARG_QUERY"
-        private const val MAX_ITEMS_PER_ROW = 10
 
         /**
          * Public factory method to get fragment.
