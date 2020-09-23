@@ -56,6 +56,7 @@ class AvatarIT : AbstractIT() {
             fragment.addAvatar("email@server.com", avatarRadius, width, targetContext)
         }
 
+        shortSleep()
         waitForIdleSync()
         screenshot(sut)
     }
