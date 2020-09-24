@@ -135,6 +135,14 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         return result;
     }
 
+    public static void notifyRootsChanged(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            String authority = context.getString(R.string.document_provider_authority);
+            Uri rootsUri = DocumentsContract.buildRootsUri(authority);
+            context.getContentResolver().notifyChange(rootsUri, null);
+        }
+    }
+
     @Override
     public Cursor queryDocument(String documentId, String[] projection) throws FileNotFoundException {
         Log.d(TAG, "queryDocument(), id=" + documentId);
