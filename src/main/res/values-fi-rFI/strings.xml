@@ -31,6 +31,7 @@
     <string name="activity_chooser_title">Lähetä linkki…</string>
     <string name="activity_icon">Aktiviteetti</string>
     <string name="add_another_public_share_link">Lisää toinen linkki</string>
+    <string name="add_new_public_share">Lisää uusi julkinen jakolinkki</string>
     <string name="add_to_cloud">Lisää kohteeseen %1$s</string>
     <string name="allow_editing">Salli muokkaus</string>
     <string name="appbar_search_in">Etsi kohteesta %s</string>
@@ -260,6 +261,7 @@
     <string name="etm_background_jobs_schedule_test_job">Ajoita testityö</string>
     <string name="etm_background_jobs_start_test_job">Käynnistä testityö</string>
     <string name="etm_background_jobs_stop_test_job">Pysäytä testityö</string>
+    <string name="etm_download_enqueue_test_download">Jonota testilataus</string>
     <string name="etm_download_path">Etäpolku</string>
     <string name="etm_migrations">Yhdistäminen (sovelluksen päivitys)</string>
     <string name="etm_preferences">Asetukset</string>
