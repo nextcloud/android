@@ -32,6 +32,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.services.FileDownloader
 import com.owncloud.android.files.services.FileUploader
+import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import com.owncloud.android.services.OperationsService
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener
@@ -101,6 +103,10 @@ class TestActivity :
     override fun getStorageManager(): FileDataStorageManager {
         if (!this::storage.isInitialized) {
             storage = FileDataStorageManager(account, contentResolver)
+
+            val ocCapability = OCCapability()
+            ocCapability.versionMayor = OwnCloudVersion.nextcloud_20.majorVersionNumber
+            storage.saveCapabilities(ocCapability)
         }
 
         return storage

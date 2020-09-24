@@ -426,7 +426,7 @@ public class FileUploader extends Service
                     createdBy,
                     file,
                     disableRetries
-                );
+                              );
             }
         } catch (IllegalArgumentException e) {
             Log_OC.e(TAG, "Not enough information provided in intent: " + e.getMessage());
@@ -455,7 +455,7 @@ public class FileUploader extends Service
         int createdBy,
         OCFile file,
         boolean disableRetries
-    ) {
+                               ) {
         OCUpload ocUpload = new OCUpload(file, user.toPlatformAccount());
         ocUpload.setFileSize(file.getFileLength());
         ocUpload.setNameCollisionPolicy(nameCollisionPolicy);
@@ -975,7 +975,7 @@ public class FileUploader extends Service
         OCFile existingFile,
         Integer behaviour,
         NameCollisionPolicy nameCollisionPolicy
-    ) {
+                                       ) {
         uploadUpdateFile(context, account, new OCFile[]{existingFile}, behaviour, nameCollisionPolicy, true);
     }
 
@@ -989,7 +989,7 @@ public class FileUploader extends Service
         Integer behaviour,
         NameCollisionPolicy nameCollisionPolicy,
         boolean disableRetries
-    ) {
+                                       ) {
         uploadUpdateFile(context, account, new OCFile[]{existingFile}, behaviour, nameCollisionPolicy, disableRetries);
     }
 
@@ -1003,7 +1003,7 @@ public class FileUploader extends Service
         Integer behaviour,
         NameCollisionPolicy nameCollisionPolicy,
         boolean disableRetries
-    ) {
+                                       ) {
         Intent intent = new Intent(context, FileUploader.class);
 
         intent.putExtra(FileUploader.KEY_ACCOUNT, account);
