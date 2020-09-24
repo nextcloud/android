@@ -716,7 +716,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     /**
      * Load upload items from {@link UploadsStorageManager}.
      */
-    public void loadUploadItemsFromDb() {
+    public final void loadUploadItemsFromDb() {
         Log_OC.d(TAG, "loadUploadItemsFromDb");
 
         for (UploadGroup group : uploadGroups) {

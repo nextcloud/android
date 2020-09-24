@@ -27,13 +27,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.PasswordDialogBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -41,7 +40,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
@@ -58,6 +56,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
     private static final String ARG_ASK_FOR_PASSWORD = "ASK_FOR_PASSWORD";
     public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
 
+    private PasswordDialogBinding binding;
     private OCFile file;
     private OCShare share;
     private boolean createShare;
@@ -122,12 +121,6 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         return frag;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -137,17 +130,18 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         askForPassword = getArguments().getBoolean(ARG_ASK_FOR_PASSWORD, false);
 
         // Inflate the layout for the dialog
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View v = inflater.inflate(R.layout.password_dialog, null);
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        binding = PasswordDialogBinding.inflate(inflater, null, false);
+        View view = binding.getRoot();
 
         // Setup layout
-        EditText inputText = v.findViewById(R.id.share_password);
-        inputText.getBackground().setColorFilter(
-                ThemeUtils.primaryAccentColor(getContext()),
-                PorterDuff.Mode.SRC_ATOP
-        );
+        EditText inputText = binding.sharePassword;
+        inputText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
         inputText.setText("");
+        ThemeUtils.themeEditText(getContext(), inputText, false);
         inputText.requestFocus();
+        inputText.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
+                                                 PorterDuff.Mode.SRC_ATOP);
 
         int title;
         if (askForPassword) {
@@ -157,10 +151,9 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         }
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
-                R.style.Theme_ownCloud_Dialog_NoButtonBarStyle);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setView(v)
+        builder.setView(view)
                 .setPositiveButton(R.string.common_ok, this)
                 .setNegativeButton(R.string.common_cancel, this)
                 .setNeutralButton(R.string.common_delete, this)
@@ -178,11 +171,10 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
-            String password = ((TextView) (getDialog().findViewById(R.id.share_password))).getText().toString();
+            String password = binding.sharePassword.getText().toString();
 
             if (!askForPassword && TextUtils.isEmpty(password)) {
-                DisplayUtils.showSnackMessage(getActivity().findViewById(android.R.id.content),
-                                              R.string.share_link_empty_password);
+                DisplayUtils.showSnackMessage(binding.getRoot(), R.string.share_link_empty_password);
                 return;
             }
 
@@ -216,5 +208,11 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
 
     private void setPassword(OCShare share, String password) {
         ((FileActivity) getActivity()).getFileOperationsHelper().setPasswordToShare(share, password);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

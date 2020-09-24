@@ -708,7 +708,6 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.FILE_ETAG + TEXT
                        + ProviderTableMeta.FILE_ETAG_ON_SERVER + TEXT
                        + ProviderTableMeta.FILE_SHARED_VIA_LINK + INTEGER
-                       + ProviderTableMeta.FILE_PUBLIC_LINK + TEXT
                        + ProviderTableMeta.FILE_PERMISSIONS + " TEXT null,"
                        + ProviderTableMeta.FILE_REMOTE_ID + " TEXT null,"
                        + ProviderTableMeta.FILE_UPDATE_THUMBNAIL + INTEGER //boolean
@@ -1147,10 +1146,6 @@ public class FileContentProvider extends ContentProvider {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
                                    ADD_COLUMN + ProviderTableMeta.FILE_SHARED_VIA_LINK + " INTEGER " +
                                    " DEFAULT 0");
-
-                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
-                                   ADD_COLUMN + ProviderTableMeta.FILE_PUBLIC_LINK + " TEXT " +
-                                   " DEFAULT NULL");
 
                     // Create table OCShares
                     createOCSharesTable(db);

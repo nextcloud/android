@@ -88,7 +88,6 @@ public class OCFileUnitTest {
         mFile.setEtag(ETAG);
         mFile.setSharedViaLink(true);
         mFile.setSharedWithSharee(true);
-        mFile.setPublicLink(PUBLIC_LINK);
         mFile.setPermissions(PERMISSIONS);
         mFile.setRemoteId(REMOTE_ID);
         mFile.setUpdateThumbnailNeeded(true);
@@ -122,7 +121,6 @@ public class OCFileUnitTest {
         assertThat(fileReadFromParcel.getEtag(), is(ETAG));
         assertThat(fileReadFromParcel.isSharedViaLink(), is(true));
         assertThat(fileReadFromParcel.isSharedWithSharee(), is(true));
-        assertThat(fileReadFromParcel.getPublicLink(), is(PUBLIC_LINK));
         assertThat(fileReadFromParcel.getPermissions(), is(PERMISSIONS));
         assertThat(fileReadFromParcel.getRemoteId(), is(REMOTE_ID));
         assertThat(fileReadFromParcel.isUpdateThumbnailNeeded(), is(true));

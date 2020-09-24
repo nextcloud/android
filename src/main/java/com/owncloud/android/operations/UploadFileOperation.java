@@ -207,8 +207,8 @@ public class UploadFileOperation extends SyncOperation {
         }
         if (TextUtils.isEmpty(upload.getLocalPath())) {
             throw new IllegalArgumentException(
-                    "Illegal file in UploadFileOperation; storage path invalid: "
-                            + upload.getLocalPath());
+                "Illegal file in UploadFileOperation; storage path invalid: "
+                    + upload.getLocalPath());
         }
 
         this.uploadsStorageManager = uploadsStorageManager;

@@ -360,7 +360,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 updatedFile.setUpdateThumbnailNeeded(true);
                 Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
             }
-            updatedFile.setPublicLink(localFile.getPublicLink());
             updatedFile.setSharedViaLink(localFile.isSharedViaLink());
             updatedFile.setSharedWithSharee(localFile.isSharedWithSharee());
             updatedFile.setEtagInConflict(localFile.getEtagInConflict());
