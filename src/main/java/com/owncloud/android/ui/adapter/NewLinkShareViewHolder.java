@@ -22,12 +22,26 @@
 
 package com.owncloud.android.ui.adapter;
 
-import android.widget.ImageView;
+import android.view.View;
 
-import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.databinding.FileDetailsSharePublicLinkAddNewItemBinding;
 
-public interface PublicShareInterface {
-    void copyLink(OCShare share);
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-    void showLinkOverflowMenu(OCShare publicShare, ImageView overflowMenuShareLink);
+class NewLinkShareViewHolder extends RecyclerView.ViewHolder {
+    private FileDetailsSharePublicLinkAddNewItemBinding binding;
+
+    public NewLinkShareViewHolder(@NonNull View itemView) {
+        super(itemView);
+    }
+
+    public NewLinkShareViewHolder(FileDetailsSharePublicLinkAddNewItemBinding binding) {
+        this(binding.getRoot());
+        this.binding = binding;
+    }
+
+    public void bind(ShareeListAdapterListener listener) {
+        binding.addNewPublicShareLink.setOnClickListener(v -> listener.createPublicShareLink());
+    }
 }

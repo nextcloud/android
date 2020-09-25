@@ -58,6 +58,7 @@ import androidx.test.runner.lifecycle.Stage;
 import static androidx.test.InstrumentationRegistry.getInstrumentation;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID;
 import static org.junit.Assert.assertTrue;
 
 
@@ -96,7 +97,7 @@ public abstract class AbstractIT {
             Account temp = new Account("test@https://server.com", MainApp.getAccountType(targetContext));
             platformAccountManager.addAccountExplicitly(temp, "password", null);
             platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
-            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, "test");
+            platformAccountManager.setUserData(temp, KEY_USER_ID, "test");
 
             final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
             account = userAccountManager.getAccountByName("test@https://server.com");
@@ -380,5 +381,9 @@ public abstract class AbstractIT {
         }
 
         return name;
+    }
+
+    public static String getUserId(User user) {
+        return AccountManager.get(targetContext).getUserData(user.toPlatformAccount(), KEY_USER_ID);
     }
 }

@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="?attr/actionBarSize"
             android:background="@color/bg_default"
-            android:paddingTop="@dimen/standard_eigth_padding"
+            android:paddingTop="@dimen/standard_eight_padding"
             android:visibility="gone"
             tools:visibility="visible">
 
