@@ -38,7 +38,8 @@
             android:paddingLeft="@dimen/standard_padding"
             android:paddingRight="@dimen/standard_padding"
             android:paddingTop="@dimen/standard_padding"
-            android:paddingBottom="@dimen/standard_list_item_size" />
+            android:paddingBottom="@dimen/standard_list_item_size"
+            android:textIsSelectable="true" />
 
     </ScrollView>
 
