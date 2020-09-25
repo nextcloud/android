@@ -1,0 +1,22 @@
+use new server for tests
+detekt, ktlint
+wip
+Rename .java to .kt
+wip
+Update DocumentsProvider roots when enabling/disabling app lock feature
+directly go back to app if SSO is used
+wip
+codacy
+cleanup
+wip
+wip
+wip
+wip
+wip
+wip
+wip
+wip
+wip
+wip
+Update translations
+Update Nextcloud Android library
