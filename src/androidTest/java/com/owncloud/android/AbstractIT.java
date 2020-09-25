@@ -1,5 +1,6 @@
 package com.owncloud.android;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
@@ -41,6 +42,7 @@ import junit.framework.TestCase;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -52,6 +54,7 @@ import androidx.annotation.NonNull;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
@@ -67,7 +70,9 @@ import static org.junit.Assert.assertTrue;
  */
 
 public abstract class AbstractIT {
-    //@Rule public RetryTestRule retryTestRule = new RetryTestRule();
+    @Rule
+    public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
+        Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     protected static OwnCloudClient client;
     protected static Account account;

@@ -22,8 +22,6 @@
 
 package com.owncloud.android.ui.dialog;
 
-import android.Manifest;
-
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -34,7 +32,6 @@ import org.junit.Test;
 import java.util.Objects;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
@@ -42,11 +39,6 @@ public class SyncFileNotEnoughSpaceDialogFragmentTest extends AbstractIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
                                                                                            true,
                                                                                            false);
-
-    @Rule
-    public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
 
     @Test
     public void showNotEnoughSpaceDialogForFolder() {

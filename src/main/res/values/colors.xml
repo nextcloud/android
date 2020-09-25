@@ -37,7 +37,6 @@
 
     <!-- Colors -->
     <color name="standard_grey">#757575</color>
-    <color name="grey_200">#EEEEEE</color>
     <color name="grey_db">#dbdbdb</color>
     <color name="actionbar_shadow">#222222</color>
 
@@ -47,6 +46,7 @@
     <color name="infolevel_warning">#e9322d</color>
 
     <!-- Colors -->
+    <color name="dark">#000000</color>
     <color name="login_btn_tint">#ffffff</color>
     <color name="login_btn_stroke">#ffffff</color>
     <color name="bg_default">#FFFFFF</color>
