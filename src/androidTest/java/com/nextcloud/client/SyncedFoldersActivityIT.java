@@ -30,7 +30,7 @@ import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
-import com.owncloud.android.utils.ScreenshotTest;
+import com.owncloud.android.utils.ScreenshotTest2;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -53,13 +53,13 @@ public class SyncedFoldersActivityIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
-    @ScreenshotTest
+    @ScreenshotTest2
     public void openDrawer() {
         super.openDrawer(activityRule);
     }
 
     @Test
-    @ScreenshotTest
+    @ScreenshotTest2
     public void testSyncedFolderDialog() {
         SyncedFolderDisplayItem item = new SyncedFolderDisplayItem(1,
                                                                    "/sdcard/DCIM/",
