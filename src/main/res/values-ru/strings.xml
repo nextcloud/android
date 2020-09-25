@@ -34,7 +34,10 @@
     <string name="add_another_public_share_link">Добавить другую ссылку</string>
     <string name="add_new_public_share">Добавить новую общедоступную ссылку</string>
     <string name="add_to_cloud">Добавить в %1$s</string>
+    <string name="allow_creating">Разрешить создавать</string>
+    <string name="allow_deleting">Разрешить удалять</string>
     <string name="allow_editing">Разрешить редактирование</string>
+    <string name="allow_resharing">Разрешить повторную публикацию</string>
     <string name="appbar_search_in">Искать в %s</string>
     <string name="associated_account_not_found">Связанный аккаунт не найден!</string>
     <string name="auth_access_failed">Доступ запрещен: %1$s</string>
@@ -372,6 +375,9 @@
     <string name="invalid_url">Неверный адрес</string>
     <string name="label_empty">Метка не может быть пустой</string>
     <string name="link">Ссылка</string>
+    <string name="link_share_allow_upload_and_editing">Разрешить приём и редактирование</string>
+    <string name="link_share_file_drop">Хранилище (только приём файлов)</string>
+    <string name="link_share_read_only">Только для чтения</string>
     <string name="list_layout">Вид списком</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
     <string name="local_file_not_found_message">Файл не найден в локальной файловой системе</string>
@@ -579,6 +585,7 @@
     <string name="share_internal_link_to_file_text">Внутренние ссылки могут быть использованы только пользователями, у которых есть доступ к этому файлу</string>
     <string name="share_internal_link_to_folder_text">Внутренние ссылки могут быть использованы только пользователями, у которых есть доступ к этой папке</string>
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
+    <string name="share_link">Предоставление общего доступа по ссылке</string>
     <string name="share_link_empty_password">Необходимо ввести пароль</string>
     <string name="share_link_file_error">При публикации этого файла или папки произошла ошибка.</string>
     <string name="share_link_file_no_exist">Не удалось опубликовать файл, убедитесь, что он существует.</string>

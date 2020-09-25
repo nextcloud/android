@@ -34,7 +34,10 @@
     <string name="add_another_public_share_link">Aggiungi un altro collegamento</string>
     <string name="add_new_public_share">Aggiungi nuovo collegamento pubblico di condivisione</string>
     <string name="add_to_cloud">Aggiungi a %1$s</string>
+    <string name="allow_creating">Consenti la creazione</string>
+    <string name="allow_deleting">Consenti l\'eliminazione</string>
     <string name="allow_editing">Consenti la modifica</string>
+    <string name="allow_resharing">Consenti la ri-condivisione</string>
     <string name="appbar_search_in">Cerca in %s</string>
     <string name="associated_account_not_found">Account associato non trovato.</string>
     <string name="auth_access_failed">Accesso non riuscito: %1$s</string>
@@ -372,6 +375,9 @@
     <string name="invalid_url">URL non valido</string>
     <string name="label_empty">L\'etichetta non può essere vuota</string>
     <string name="link">Collegamento</string>
+    <string name="link_share_allow_upload_and_editing">Consenti caricamento e modifica</string>
+    <string name="link_share_file_drop">Rilascio file (solo caricamento)</string>
+    <string name="link_share_read_only">Sola lettura</string>
     <string name="list_layout">Struttura a elenco</string>
     <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
     <string name="local_file_not_found_message">File non trovato nel file system locale</string>
@@ -579,6 +585,7 @@
     <string name="share_internal_link_to_file_text">Il collegamento di condivisione funziona solo per gli utenti con accesso a questo file</string>
     <string name="share_internal_link_to_folder_text">Il collegamento di condivisione funziona solo per gli utenti con accesso a questa cartella</string>
     <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>
+    <string name="share_link">Condividi collegamento</string>
     <string name="share_link_empty_password">Devi digitare una password</string>
     <string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella.</string>
     <string name="share_link_file_no_exist">Impossibile condividere. Assicurati che il file esista.</string>

@@ -34,7 +34,10 @@
     <string name="add_another_public_share_link">Weiteren Link hinzufügen</string>
     <string name="add_new_public_share">Öffentlichen Link zum Teilen hinzufügen</string>
     <string name="add_to_cloud">Hinzufügen zu %1$s</string>
+    <string name="allow_creating">Erstellen erlauben</string>
+    <string name="allow_deleting">Löschen erlauben</string>
     <string name="allow_editing">Bearbeitung erlauben</string>
+    <string name="allow_resharing">Weiterteilen erlauben</string>
     <string name="appbar_search_in">Suche in %s</string>
     <string name="associated_account_not_found">Verknüpftes Konto nicht gefunden!</string>
     <string name="auth_access_failed">Zugriffsfehler: %1$s</string>
@@ -372,6 +375,9 @@
     <string name="invalid_url">Ungültige URL</string>
     <string name="label_empty">Bezeichnung darf nicht leer sein</string>
     <string name="link">Link</string>
+    <string name="link_share_allow_upload_and_editing">Hochladen und Bearbeiten erlauben</string>
+    <string name="link_share_file_drop">Dateien ablegen (nur Hochladen)</string>
+    <string name="link_share_read_only">Schreibgeschützt</string>
     <string name="list_layout">Layout der Liste</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
     <string name="local_file_not_found_message">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
@@ -579,6 +585,7 @@
     <string name="share_internal_link_to_file_text">Der interne Freigabelink funktioniert nur für Benutzer mit Zugriff auf diese Datei</string>
     <string name="share_internal_link_to_folder_text">Der interne Freigabelink funktioniert nur für Benutzer mit Zugriff auf diesen Ordner</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
+    <string name="share_link">Link teilen</string>
     <string name="share_link_empty_password">Sie müssen ein Passwort eingeben</string>
     <string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
     <string name="share_link_file_no_exist">Teilen nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>

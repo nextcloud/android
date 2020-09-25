@@ -522,6 +522,7 @@
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_internal_link">Podeli internu vezu</string>
     <string name="share_known_remote_clarification">%1$s (na %2$s)</string>
+    <string name="share_link">Podeli vezu</string>
     <string name="share_link_empty_password">Morate uneti lozinku</string>
     <string name="share_link_forbidden_permissions">da delite ovaj fajl</string>
     <string name="share_link_optional_password_title">Unesite opcionu lozinku</string>

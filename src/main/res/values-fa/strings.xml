@@ -34,7 +34,10 @@
     <string name="add_another_public_share_link">پیوند دیگری اضافه کنید</string>
     <string name="add_new_public_share">افزودن پیوند هم‌رسانی عمومی جدید</string>
     <string name="add_to_cloud">افزودن به %1$s</string>
+    <string name="allow_creating">اجازه ایجاد</string>
+    <string name="allow_deleting">اجازه حذف</string>
     <string name="allow_editing">اجازهٔ ویرایش</string>
+    <string name="allow_resharing">مجوز اشتراک گذاری مجدد</string>
     <string name="appbar_search_in">جست‌وجو در %s</string>
     <string name="associated_account_not_found">حساب مرتبط یافت نشد!</string>
     <string name="auth_access_failed">دسترسی خطای  %1$s</string>
@@ -348,6 +351,9 @@
     <string name="instant_upload_path">آپلود فوری</string>
     <string name="invalid_url">آدرس اینترنتی اشتباه</string>
     <string name="link">Link</string>
+    <string name="link_share_allow_upload_and_editing">اجازه آپلود و ویرایش</string>
+    <string name="link_share_file_drop">انداختن فایل (فقط آپلود)</string>
+    <string name="link_share_read_only">فقط خواندنی</string>
     <string name="list_layout">Listed layout</string>
     <string name="local_file_list_empty">هیچ فایلی در این پوشه نیست.</string>
     <string name="local_file_not_found_message">پرونده در سیستم پرونده محلی یافت نمی شود</string>
@@ -541,6 +547,7 @@
     <string name="share_group_clarification">%1$s (گروه)</string>
     <string name="share_internal_link">پیوند داخلی را به اشتراک بگذارید</string>
     <string name="share_known_remote_clarification">%1$s ( در%2$s )</string>
+    <string name="share_link">لینک را به اشتراک بگذارید</string>
     <string name="share_link_empty_password">شما باید یک رمزعبور را وارد کنید</string>
     <string name="share_link_forbidden_permissions">اشتراک‌گذاری این فایل</string>
     <string name="share_link_optional_password_title">رمزعبور اختیاری را وارد کنید</string>

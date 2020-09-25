@@ -33,6 +33,7 @@
     <string name="add_another_public_share_link">Tambah tautan lain</string>
     <string name="add_to_cloud">Tambahkan ke %1$s</string>
     <string name="allow_editing">Izinkan penyuntingan</string>
+    <string name="allow_resharing">Izinkan pembagian ulang</string>
     <string name="associated_account_not_found">Akun terkait tidak ditemukan!</string>
     <string name="auth_access_failed">Akses gagal: %1$s</string>
     <string name="auth_account_does_not_exist">Akun ini belum ditambahkan ke perangkat ini</string>
@@ -274,6 +275,9 @@
     <string name="instant_upload_on_charging">Hanya unggah ketika dicas</string>
     <string name="instant_upload_path">/UnggahInstan</string>
     <string name="link">Tautan</string>
+    <string name="link_share_allow_upload_and_editing">Izinkan pengunggahan dan penyuntingan</string>
+    <string name="link_share_file_drop">Berkas jatuh (hanya unggah)</string>
+    <string name="link_share_read_only">Hanya baca</string>
     <string name="list_layout">Daftar tampilan</string>
     <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
     <string name="local_file_not_found_message">Berkas tidak ditemukan di sistem berkas lokal</string>
@@ -402,6 +406,7 @@
     <string name="share_file">Bagikan %1$s</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_known_remote_clarification">%1$s ( di %2$s )</string>
+    <string name="share_link">Bagi tautan</string>
     <string name="share_link_empty_password">Anda harus memasukkan kata sandi</string>
     <string name="share_link_forbidden_permissions">untuk membagikan berkas ini</string>
     <string name="share_link_password_title">Masukkan kata sandi</string>
