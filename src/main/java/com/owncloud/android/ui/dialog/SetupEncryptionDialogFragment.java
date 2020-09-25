@@ -55,6 +55,7 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.DialogFragment;
@@ -284,21 +285,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             if (privateKey == null) {
                 // first show info
                 try {
-                    keyWords = EncryptionUtils.getRandomWords(12, getContext());
-
-                    getDialog().setTitle(R.string.end_to_end_encryption_passphrase_title);
-
-                    textView.setText(R.string.end_to_end_encryption_keywords_description);
-
-                    passphraseTextView.setText(generateMnemonicString(true));
-
-                    passphraseTextView.setVisibility(View.VISIBLE);
-                    positiveButton.setText(R.string.end_to_end_encryption_confirm_button);
-                    positiveButton.setVisibility(View.VISIBLE);
-
-                    negativeButton.setVisibility(View.VISIBLE);
-
-                    keyResult = KEY_GENERATE;
+                    keyWords = EncryptionUtils.getRandomWords(12, requireContext());
+                    showMnemonicInfo();
                 } catch (IOException e) {
                     textView.setText(R.string.common_error);
                 }
@@ -386,20 +374,15 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             super.onPostExecute(s);
 
             if (s.isEmpty()) {
-                keyResult = KEY_FAILED;
-
-                getDialog().setTitle(R.string.common_error);
-                textView.setText(R.string.end_to_end_encryption_unsuccessful);
-                positiveButton.setText(R.string.end_to_end_encryption_dialog_close);
-                positiveButton.setVisibility(View.VISIBLE);
+                errorSavingKeys();
             } else {
-                getDialog().dismiss();
+                requireDialog().dismiss();
 
                 Intent intentExisting = new Intent();
                 intentExisting.putExtra(SUCCESS, true);
-                intentExisting.putExtra(ARG_POSITION, getArguments().getInt(ARG_POSITION));
+                intentExisting.putExtra(ARG_POSITION, requireArguments().getInt(ARG_POSITION));
                 getTargetFragment().onActivityResult(getTargetRequestCode(),
-                        SETUP_ENCRYPTION_RESULT_CODE, intentExisting);
+                                                     SETUP_ENCRYPTION_RESULT_CODE, intentExisting);
             }
         }
     }
@@ -415,5 +398,37 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         }
 
         return stringBuilder.toString();
+    }
+
+    @VisibleForTesting
+    public void showMnemonicInfo() {
+        requireDialog().setTitle(R.string.end_to_end_encryption_passphrase_title);
+
+        textView.setText(R.string.end_to_end_encryption_keywords_description);
+
+        passphraseTextView.setText(generateMnemonicString(true));
+
+        passphraseTextView.setVisibility(View.VISIBLE);
+        positiveButton.setText(R.string.end_to_end_encryption_confirm_button);
+        positiveButton.setVisibility(View.VISIBLE);
+
+        negativeButton.setVisibility(View.VISIBLE);
+
+        keyResult = KEY_GENERATE;
+    }
+
+    @VisibleForTesting
+    public void errorSavingKeys() {
+        keyResult = KEY_FAILED;
+
+        requireDialog().setTitle(R.string.common_error);
+        textView.setText(R.string.end_to_end_encryption_unsuccessful);
+        positiveButton.setText(R.string.end_to_end_encryption_dialog_close);
+        positiveButton.setVisibility(View.VISIBLE);
+    }
+
+    @VisibleForTesting
+    public void setMnemonic(List<String> keyWords) {
+        this.keyWords = keyWords;
     }
 }
