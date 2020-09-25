@@ -3,6 +3,7 @@
 ## $1 noCI/stable/master: wether to run deleteOutdatedComments.sh or uploadReport.sh
 ## $2 true/false: record or verify screenshots
 ## $3 classMethod: piped from androidScreenshotTest
+## $4 github event number
 
 if [[ $2 = "true" ]]; then
     record="-Precord"
@@ -36,10 +37,10 @@ do
         -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
         -Pandroid.testInstrumentationRunnerArguments.COLOR="$color" \
         -Pandroid.testInstrumentationRunnerArguments.DARKMODE="$darkMode" </dev/null > /dev/null \
-        && scripts/deleteOutdatedComments.sh "$1-$darkMode-$color" "Screenshot" "$DRONE_PULL_REQUEST" \
+        && scripts/deleteOutdatedComments.sh "$1-$darkMode-$color" "Screenshot" "$4" \
         "$GIT_USERNAME" "$GIT_TOKEN" \
-        || resultCode=1 && scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" "$DRONE_BUILD_NUMBER" \
-        "$1-$darkMode-$color" "Screenshot" "$DRONE_PULL_REQUEST" "$GIT_USERNAME" "$GIT_TOKEN"
+        || resultCode=1 && scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" "$4" \
+        "$1-$darkMode-$color" "Screenshot" "$4" "$GIT_USERNAME" "$GIT_TOKEN"
     fi
 done < scripts/screenshotCombinations
 
