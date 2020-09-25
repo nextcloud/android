@@ -34,7 +34,10 @@
     <string name="add_another_public_share_link">別のリンクを追加</string>
     <string name="add_new_public_share">新規公開共有リンクを追加</string>
     <string name="add_to_cloud">%1$s に追加</string>
+    <string name="allow_creating">作成許可</string>
+    <string name="allow_deleting">削除許可</string>
     <string name="allow_editing">編集を許可</string>
+    <string name="allow_resharing">再共有を許可する</string>
     <string name="appbar_search_in">%s の中を検索</string>
     <string name="associated_account_not_found">関連付けられたアカウントが見つかりません！</string>
     <string name="auth_access_failed">アクセスに失敗しました: %1$s</string>
@@ -372,6 +375,9 @@
     <string name="invalid_url">無効なURL</string>
     <string name="label_empty">ラベルは空にできません</string>
     <string name="link">リンク</string>
+    <string name="link_share_allow_upload_and_editing">アップロードと編集を許可</string>
+    <string name="link_share_file_drop">ファイルドロップ(アップロードのみ)</string>
+    <string name="link_share_read_only">読み込み専用</string>
     <string name="list_layout">リスト表示</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
     <string name="local_file_not_found_message">ローカルファイルシステムにファイルが見つかりません</string>
@@ -579,6 +585,7 @@
     <string name="share_internal_link_to_file_text">内部共有リンクは、このファイルにアクセスできるユーザーにのみ機能します。</string>
     <string name="share_internal_link_to_folder_text">内部共有リンクは、このフォルダにアクセスできるユーザーにのみ機能します。</string>
     <string name="share_known_remote_clarification">%1$s ( %2$s で)</string>
+    <string name="share_link">URLで共有</string>
     <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
     <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
     <string name="share_link_file_no_exist">共有できません。ファイルがあるか確認してください。</string>

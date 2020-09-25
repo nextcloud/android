@@ -34,7 +34,10 @@
     <string name="add_another_public_share_link">Ajouter un autre lien</string>
     <string name="add_new_public_share">Ajouter un nouveau lien de partage public</string>
     <string name="add_to_cloud">Ajouter à %1$s</string>
+    <string name="allow_creating">Autoriser la création</string>
+    <string name="allow_deleting">Autoriser la suppression</string>
     <string name="allow_editing">Autoriser la modification</string>
+    <string name="allow_resharing">Autoriser le repartage</string>
     <string name="appbar_search_in">Recherche dans %s</string>
     <string name="associated_account_not_found">Compte associé introuvable !</string>
     <string name="auth_access_failed">L\'accès a échoué: %1$s</string>
@@ -374,6 +377,9 @@ Attention la suppression est irréversible.</string>
     <string name="invalid_url">URL invalide</string>
     <string name="label_empty">Le libellé ne peut pas être vide</string>
     <string name="link">Lien</string>
+    <string name="link_share_allow_upload_and_editing">Autoriser l’envoi et la modification</string>
+    <string name="link_share_file_drop">Dépôt de fichier (envoi uniquement)</string>
+    <string name="link_share_read_only">Lecture seule</string>
     <string name="list_layout">Affichage en liste</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
     <string name="local_file_not_found_message">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
@@ -482,7 +488,7 @@ Attention la suppression est irréversible.</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Renommer la nouvelle version</string>
     <string name="pref_instant_name_collision_policy_title">Que faire si le fichier existe déjà ?</string>
     <string name="prefs_add_account">Ajouter un compte</string>
-    <string name="prefs_calendar_contacts">Synchroniser les contacts du calendrier&amp;</string>
+    <string name="prefs_calendar_contacts">Synchroniser les contacts &amp; l\'agenda</string>
     <string name="prefs_calendar_contacts_address_resolve_error">L\'adresse du serveur pour le compte n\'a pas pu être résolu pour DAVx5 (autrefois connu comme DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni Google Play Store ou F-Droid ne sont installés</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVx5 (autrefois connu comme DAVdroid) (v1.3.0+) pour le compte actuel</string>
@@ -581,6 +587,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_internal_link_to_file_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce fichier</string>
     <string name="share_internal_link_to_folder_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce dossier</string>
     <string name="share_known_remote_clarification">%1$s (sur %2$s)</string>
+    <string name="share_link">Lien de partage</string>
     <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
     <string name="share_link_file_error">Une erreur s\'est produite lors de la tentative de partage de ce fichier ou dossier.</string>
     <string name="share_link_file_no_exist">Impossible de partager. Veuillez vérifier si le fichier existe.</string>
