@@ -35,6 +35,7 @@
     <string name="add_new_public_share">Bæta við nýjum opinberum tengli</string>
     <string name="add_to_cloud">Bæta við %1$s</string>
     <string name="allow_editing">Leyfa breytingar</string>
+    <string name="allow_resharing">Leyfa endurdeilingu</string>
     <string name="appbar_search_in">Leita í %s</string>
     <string name="associated_account_not_found">Tengdur notandaaðgangur fannst ekki!</string>
     <string name="auth_access_failed">Aðgangur mistókst: %1$s</string>
@@ -372,6 +373,9 @@
     <string name="invalid_url">Ógild slóð</string>
     <string name="label_empty">Merki má ekki vera tómt</string>
     <string name="link">Tengill</string>
+    <string name="link_share_allow_upload_and_editing">Leyfa innsendingu og breytingar</string>
+    <string name="link_share_file_drop">Slepping skráa (einungis innsending)</string>
+    <string name="link_share_read_only">Skrifvarið</string>
     <string name="list_layout">Framsetning sem listi</string>
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
     <string name="local_file_not_found_message">Skrá fannst ekki á staðværu skráakerfi</string>
@@ -579,6 +583,7 @@
     <string name="share_internal_link_to_file_text">Innri deilingartengill virkar bara fyrir notendur sem eiga aðgang að þessari skrá</string>
     <string name="share_internal_link_to_folder_text">Innri deilingartengill virkar bara fyrir notendur sem eiga aðgang að þessari möppu</string>
     <string name="share_known_remote_clarification">%1$s kl. %2$s</string>
+    <string name="share_link">Deila tengli</string>
     <string name="share_link_empty_password">Þú verður að setja lykilorð</string>
     <string name="share_link_file_error">Villa kom upp við að reyna að deila þessari skrá eða möppu.</string>
     <string name="share_link_file_no_exist">Get ekki deilt. Athugaðu hvort skráin sé til.</string>

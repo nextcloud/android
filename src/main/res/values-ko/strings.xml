@@ -34,7 +34,10 @@
     <string name="add_another_public_share_link">다른 링크 추가</string>
     <string name="add_new_public_share">새 공개된 공유 링크</string>
     <string name="add_to_cloud">%1$s(으)로 추가</string>
+    <string name="allow_creating">생성 수락</string>
+    <string name="allow_deleting">삭제 수락</string>
     <string name="allow_editing">Allow editing</string>
+    <string name="allow_resharing">재공유 허용</string>
     <string name="appbar_search_in">%s 검색</string>
     <string name="associated_account_not_found">관련 계정을 찾을 수 없음!</string>
     <string name="auth_access_failed">접근 실패: %1$s</string>
@@ -371,6 +374,9 @@
     <string name="invalid_url">잘못된 URL</string>
     <string name="label_empty">라벨은 비어있을 수 없습니다</string>
     <string name="link">링크</string>
+    <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
+    <string name="link_share_file_drop">File drop (upload only)</string>
+    <string name="link_share_read_only">Read only</string>
     <string name="list_layout">목록 보기</string>
     <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
     <string name="local_file_not_found_message">내부 파일 시스템에서 파일을 찾을 수 없음</string>
@@ -578,6 +584,7 @@
     <string name="share_internal_link_to_file_text">내부 공유 링크 (이 파일에 접근 권한이 있는 사람만 사용가능)</string>
     <string name="share_internal_link_to_folder_text">내부 공유 링크 (이 폴더에 접근 권한이 있는 사람만 사용가능)</string>
     <string name="share_known_remote_clarification">%1$s(%2$s에서)</string>
+    <string name="share_link">링크 공유</string>
     <string name="share_link_empty_password">암호를 입력해야 합니다</string>
     <string name="share_link_file_error">파일과 폴더를 공유하던 중 에러가 발생했습니다.</string>
     <string name="share_link_file_no_exist">공유할 수 없습니다. 파일이 존재하는지 확인해주십시오.</string>

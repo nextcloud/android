@@ -32,6 +32,7 @@
     <string name="activity_icon">Veprimtari</string>
     <string name="add_to_cloud">Shtojeni tek %1$s</string>
     <string name="allow_editing">Lejo redaktimin</string>
+    <string name="allow_resharing">Lejo rindarje</string>
     <string name="associated_account_not_found">Llogaria e lidhur nuk u gjet!</string>
     <string name="auth_access_failed">Hyrja dështoi: %1$s</string>
     <string name="auth_account_does_not_exist">Kjo llogari nuk është shtuar në këtë paisje akoma</string>
@@ -354,6 +355,9 @@
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">URL e pavlefshme</string>
     <string name="link">Link</string>
+    <string name="link_share_allow_upload_and_editing">Lejo ngarkim dhe editim</string>
+    <string name="link_share_file_drop">Lësho skedar (vetëm ngarkim)</string>
+    <string name="link_share_read_only">Vetëm i lexueshëm</string>
     <string name="list_layout">Strukturë e listuar</string>
     <string name="local_file_list_empty">Në këtë dosje s’ka skedar.</string>
     <string name="local_file_not_found_message">Skedari s’u gjet te sistemi vendor i skedarëve</string>
@@ -548,6 +552,7 @@
     <string name="share_internal_link_to_file_text">Lidhja e brendshme të ndarjes funksionon vetëm për përdoruesit që kanë qasje në këtë skedar</string>
     <string name="share_internal_link_to_folder_text">Lidhja e ndarjes së brendshme funksionon vetëm për përdoruesit me qasje në këtë dosje</string>
     <string name="share_known_remote_clarification">%1$s ( te %2$s )</string>
+    <string name="share_link">Share link</string>
     <string name="share_link_empty_password">Duhet të jepni një fjalëkalim</string>
     <string name="share_link_forbidden_permissions">për ndarje me të tjerët të kësaj kartele</string>
     <string name="share_link_optional_password_title">Shkruani një fjalëkalim jo të detyrueshëm</string>

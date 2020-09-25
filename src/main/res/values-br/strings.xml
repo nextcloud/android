@@ -35,6 +35,7 @@
     <string name="add_new_public_share">Ouzhpennañ ul liamm rannan publik nevez</string>
     <string name="add_to_cloud">Ouzhpennañ da %1$s</string>
     <string name="allow_editing">Cheñchamentoù aotreet</string>
+    <string name="allow_resharing">Aotrea an adrannañ</string>
     <string name="appbar_search_in">Klask e %s</string>
     <string name="associated_account_not_found">N\'eo ket bet kavet ur c\'hont kenstaget</string>
     <string name="auth_access_failed">Aksed c\'hwitet: %1$s</string>
@@ -372,6 +373,9 @@
     <string name="invalid_url">URL fall</string>
     <string name="label_empty">Ne c\'hell ket an dikettenn bezha goulo</string>
     <string name="link">Liamm</string>
+    <string name="link_share_allow_upload_and_editing">Aotreañ ar pellkargañ hag an embann</string>
+    <string name="link_share_file_drop">Lakaat ur restr (evit pellkes nemetken)</string>
+    <string name="link_share_read_only">Da lenn nemetken</string>
     <string name="list_layout">Kempennerezhioù listet</string>
     <string name="local_file_list_empty">N\'ez eus restr ebet en teuliad</string>
     <string name="local_file_not_found_message">N\'ez eus restr ebet kavet e restroù diabarzh ar sistem</string>
@@ -579,6 +583,7 @@
     <string name="share_internal_link_to_file_text">Ar liammoù rannañ diabarzh na gerzh evit an implijourien a c\'hell tizout ar restr nemetken</string>
     <string name="share_internal_link_to_folder_text">Ar liammoù rannañ diabarzh na gerzh evit an implijourien a c\'hell tizout ar restr nemetken</string>
     <string name="share_known_remote_clarification">%1$s ( e %2$s ) </string>
+    <string name="share_link">Rannan liamm</string>
     <string name="share_link_empty_password">Red eo deoc\'h lakaat o ger-tremen</string>
     <string name="share_link_file_error">Ur fazi zo bet en ur rannañur restr pe un teuliad</string>
     <string name="share_link_file_no_exist">Dibosupl rannañ. Gwiriit m\'az eus eus ar restr mar-plij.</string>

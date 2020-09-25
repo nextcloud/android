@@ -34,7 +34,10 @@
     <string name="add_another_public_share_link">Dodaj novo povezavo</string>
     <string name="add_new_public_share">Nova javna povezava za souporabo</string>
     <string name="add_to_cloud">Dodaj v %1$s</string>
+    <string name="allow_creating">Dovoli ustvarjanje</string>
+    <string name="allow_deleting">Dovoli brisanje</string>
     <string name="allow_editing">Dovoli urejanje</string>
+    <string name="allow_resharing">Dovoli nadaljnje omogočanje souporabe</string>
     <string name="appbar_search_in">Poišči v %s</string>
     <string name="associated_account_not_found">Povezanega računa ni mogoče najti!</string>
     <string name="auth_access_failed">Dostop je spodletel: %1$s</string>
@@ -372,6 +375,9 @@
     <string name="invalid_url">Neveljaven naslov URL</string>
     <string name="label_empty">Oznaka ne sme biti prazno polje</string>
     <string name="link">Povezava</string>
+    <string name="link_share_allow_upload_and_editing">Dovoli pošiljanje in urejanje</string>
+    <string name="link_share_file_drop">Povleci datoteke (samo nalaganje)</string>
+    <string name="link_share_read_only">Le za branje</string>
     <string name="list_layout">Izpisana razporeditev</string>
     <string name="local_file_list_empty">V tej mapi ni datotek.</string>
     <string name="local_file_not_found_message">Na krajevnem sistemu datoteke ni mogoče najti</string>
@@ -579,6 +585,7 @@
     <string name="share_internal_link_to_file_text">Notranja povezava mesta souporabe deluje le za uporabnike z dostopom do datoteke.</string>
     <string name="share_internal_link_to_folder_text">Notranja povezava mesta souporabe deluje le za uporabnike z dostopom do mape.</string>
     <string name="share_known_remote_clarification">%1$s ( pri %2$s )</string>
+    <string name="share_link">Povezava za souporabo</string>
     <string name="share_link_empty_password">Vpisati je treba geslo.</string>
     <string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
     <string name="share_link_file_no_exist">Souporaba ni mogoča. Preverite, ali datoteka obstaja.</string>

@@ -34,7 +34,10 @@
     <string name="add_another_public_share_link">Nog een link toevoegen </string>
     <string name="add_new_public_share">Voeg een nieuwe openbare deellink toe</string>
     <string name="add_to_cloud">Voeg toe aan %1$s</string>
+    <string name="allow_creating">Toestaan creëren</string>
+    <string name="allow_deleting">Toestaan verwijderen</string>
     <string name="allow_editing">Bewerken toestaan</string>
+    <string name="allow_resharing">Opnieuw delen toestaan</string>
     <string name="appbar_search_in">Zoeken in %s</string>
     <string name="associated_account_not_found">Geassocieerd account niet gevonden!</string>
     <string name="auth_access_failed">Toegang mislukt: %1$s</string>
@@ -372,6 +375,9 @@
     <string name="invalid_url">Ongeldige URL</string>
     <string name="label_empty">Label mag niet leeg zijn</string>
     <string name="link">Link</string>
+    <string name="link_share_allow_upload_and_editing">Uploaden en bewerken toestaan</string>
+    <string name="link_share_file_drop">Bestand droppen (alleen uploaden)</string>
+    <string name="link_share_read_only">Alleen lezen</string>
     <string name="list_layout">Lijstoverzicht</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
     <string name="local_file_not_found_message">Het bestand is niet te vinden binnen het lokale bestandssysteem.</string>
@@ -579,6 +585,7 @@
     <string name="share_internal_link_to_file_text">Interne link voor delen werkt alleen voor gebruikers met toegang tot dit bestand</string>
     <string name="share_internal_link_to_folder_text">Interne link voor delen werkt alleen voor gebruikers met toegang tot deze map</string>
     <string name="share_known_remote_clarification">%1$s ( op %2$s )</string>
+    <string name="share_link">Link delen</string>
     <string name="share_link_empty_password">Je moet een wachtwoord opgeven</string>
     <string name="share_link_file_error">Er trad een fout op bij je poging dit bestand of deze map te delen.</string>
     <string name="share_link_file_no_exist">Kan dit niet delen. Controleer of dit bestand wel bestaat.</string>
