@@ -39,6 +39,7 @@
     <color name="standard_grey">#757575</color>
     <color name="grey_db">#dbdbdb</color>
     <color name="actionbar_shadow">#222222</color>
+    <color name="grey_200">#EEEEEE</color>
 
     <!-- standard material color definitions -->
 
