@@ -34,10 +34,10 @@
     <string name="add_another_public_share_link">Adicionar um novo link</string>
     <string name="add_new_public_share">Adicionar um novo link público de compartilhamento</string>
     <string name="add_to_cloud">Adicionar à %1$s</string>
-    <string name="allow_creating">Permitir criar</string>
-    <string name="allow_deleting">Permitir excluir</string>
+    <string name="allow_creating">Permitir criação</string>
+    <string name="allow_deleting">Permitir exclusão</string>
     <string name="allow_editing">Permitir edição</string>
-    <string name="allow_resharing">Permitir recompartilhar</string>
+    <string name="allow_resharing">Permitir recompartilhamento</string>
     <string name="appbar_search_in">Pesquisar em %s</string>
     <string name="associated_account_not_found">Conta associada não encontrada!</string>
     <string name="auth_access_failed">O acesso falhou: %1$s</string>

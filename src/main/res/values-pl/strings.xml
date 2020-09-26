@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiuj/przenieś do zaszyfrowanego katalogu, który nie jest obecnie obsługiwany.</string>
     <string name="copy_to">Kopiuj do…</string>
     <string name="could_not_download_image">Nie można pobrać pełnego obrazu</string>
+    <string name="could_not_retrieve_shares">Nie udało się pobrać udziałów</string>
     <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć katalogu</string>
     <string name="create_new">Utwórz nowy</string>
@@ -275,6 +276,7 @@
     <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>
     <string name="failed_to_print">Nie udało się wydrukować pliku</string>
     <string name="failed_to_start_editor">Nie można uruchomić edytora</string>
+    <string name="failed_update_ui">Nie udało się zaktualizować UI</string>
     <string name="favorite">Dodaj do ulubionych</string>
     <string name="favorite_icon">Ulubiony</string>
     <string name="file_delete">Usuń</string>
@@ -592,6 +594,7 @@
     <string name="share_link_forbidden_permissions">do udostępniania tego pliku</string>
     <string name="share_link_optional_password_title">Wprowadź opcjonalne hasło</string>
     <string name="share_link_password_title">Wprowadź hasło</string>
+    <string name="share_link_with_label">Udostępnij link (%1$s)</string>
     <string name="share_no_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_no_password_title">Ustaw hasło</string>
     <string name="share_password_title">Zabezpieczone hasłem</string>

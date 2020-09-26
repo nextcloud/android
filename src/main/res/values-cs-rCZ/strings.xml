@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírování/přesouvání do šifrované složky není v tuto chvíli podporováno.</string>
     <string name="copy_to">Zkopírovat do…</string>
     <string name="could_not_download_image">Nepodařilo se stáhnout celý obrázek</string>
+    <string name="could_not_retrieve_shares">Nedaří se získat sdílení</string>
     <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
     <string name="create_new">Vytvořit nové</string>
@@ -275,6 +276,7 @@
     <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
     <string name="failed_to_print">Soubor se nepodařilo vytisknout</string>
     <string name="failed_to_start_editor">Editor se nepodařilo spustit</string>
+    <string name="failed_update_ui">Nepodařilo se aktualizovat uživatelské rozhraní</string>
     <string name="favorite">Přidat do oblíbených</string>
     <string name="favorite_icon">Oblíbené</string>
     <string name="file_delete">Smazat</string>
@@ -592,6 +594,7 @@
     <string name="share_link_forbidden_permissions">pro sdílení tohoto souboru</string>
     <string name="share_link_optional_password_title">Zadejte nepovinné heslo</string>
     <string name="share_link_password_title">Zadejte heslo</string>
+    <string name="share_link_with_label">Odkaz na sdílení (%1$s)</string>
     <string name="share_no_expiration_date_label">Nastavit datum skončení platnosti</string>
     <string name="share_no_password_title">Nastavit heslo</string>
     <string name="share_password_title">Chráněno heslem</string>
