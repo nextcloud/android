@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover dentro dun cartafol cifrado aínda non está admitido.</string>
     <string name="copy_to">Copiar en…</string>
     <string name="could_not_download_image">Non foi posíbel descargar a imaxe completa</string>
+    <string name="could_not_retrieve_shares">Non foi posíbel recuperar as comparticións</string>
     <string name="could_not_retrieve_url">Non foi posíbel recuperar o URL</string>
     <string name="create_dir_fail_msg">Non foi posíbel crear o cartafol</string>
     <string name="create_new">Crear novo</string>
@@ -275,6 +276,7 @@
     <string name="failed_to_download">Produciuse un fallo ao pasar o ficheiro para o xestor de descargas</string>
     <string name="failed_to_print">Produciuse un fallo ao imprimir o ficheiro</string>
     <string name="failed_to_start_editor">Produciuse un fallo ao iniciar o editor</string>
+    <string name="failed_update_ui">Produciuse un fallo ao actualizar a IU</string>
     <string name="favorite">Engadir a favoritos</string>
     <string name="favorite_icon">Favorito</string>
     <string name="file_delete">Eliminar</string>
@@ -593,6 +595,7 @@
     <string name="share_link_forbidden_permissions">para compartir este ficheiro</string>
     <string name="share_link_optional_password_title">Escriba un contrasinal opcional</string>
     <string name="share_link_password_title">Introduza un contrasinal</string>
+    <string name="share_link_with_label">Compartir ligazón (%1$s)</string>
     <string name="share_no_expiration_date_label">Estabelecer a data de caducidade</string>
     <string name="share_no_password_title">Estabelecer o contrasinal</string>
     <string name="share_password_title">Protexido con contrasinal</string>

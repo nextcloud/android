@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
     <string name="copy_to">Copiar a…</string>
     <string name="could_not_download_image">No se ha podido descargar la imagen completa</string>
+    <string name="could_not_retrieve_shares">No se han podido recuperar los recursos compartidos</string>
     <string name="could_not_retrieve_url">No se ha podido recuperar la URL</string>
     <string name="create_dir_fail_msg">No se ha podido crear la carpeta</string>
     <string name="create_new">Crear nuevo</string>
@@ -275,6 +276,7 @@
     <string name="failed_to_download">Error al enviar el fichero al gestor de descargas</string>
     <string name="failed_to_print">Fallo al imprimir el archivo</string>
     <string name="failed_to_start_editor">Fallo al inicial el editor</string>
+    <string name="failed_update_ui">Fallo al actualizar la UI</string>
     <string name="favorite">Añadir a favoritos</string>
     <string name="favorite_icon">Favorito</string>
     <string name="file_delete">Eliminar</string>
@@ -592,6 +594,7 @@
     <string name="share_link_forbidden_permissions">para compartir este archivo</string>
     <string name="share_link_optional_password_title">Escriba un contraseña opcional</string>
     <string name="share_link_password_title">Introduce una contraseña</string>
+    <string name="share_link_with_label">Link para compartir (%1$s)</string>
     <string name="share_no_expiration_date_label">Establecer fecha de caducidad</string>
     <string name="share_no_password_title">Establecer contraseña</string>
     <string name="share_password_title">Protegido con contraseña</string>
@@ -794,6 +797,7 @@
     <string name="uploads_view_upload_status_virus_detected">Virus detectado. ¡No se ha podido subir!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando a salir del modo de ahorro de batería</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Esperando la carga del dispositivo</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Esperando a una Wi-Fi de uso no medido</string>
     <string name="user_icon">Usuario</string>
     <string name="user_info_address">Dirección</string>
     <string name="user_info_email">Correo electrónico</string>

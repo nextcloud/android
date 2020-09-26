@@ -594,6 +594,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_link_forbidden_permissions">de partager ce fichier</string>
     <string name="share_link_optional_password_title">Saisissez un mot de passe optionnel</string>
     <string name="share_link_password_title">Saisissez un mot de passe</string>
+    <string name="share_link_with_label">Partager le lien (%1$s)</string>
     <string name="share_no_expiration_date_label">Définir une date d\'expiration</string>
     <string name="share_no_password_title">Définir le mot de passe</string>
     <string name="share_password_title">Protégé par mot de passe</string>
