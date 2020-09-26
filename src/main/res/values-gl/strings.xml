@@ -34,7 +34,10 @@
     <string name="add_another_public_share_link">Engadir outra ligazón</string>
     <string name="add_new_public_share">Engadir unha nova ligazón pública</string>
     <string name="add_to_cloud">Engadir en %1$s</string>
+    <string name="allow_creating">Permitir a creación</string>
+    <string name="allow_deleting">Permitir a eliminación</string>
     <string name="allow_editing">Permitir a edición</string>
+    <string name="allow_resharing">Permitir compartir</string>
     <string name="appbar_search_in">Buscar en %s</string>
     <string name="associated_account_not_found">Non se atopou unha conta asociada!</string>
     <string name="auth_access_failed">Acceso fallado: %1$s</string>
@@ -372,6 +375,9 @@
     <string name="invalid_url">URL incorrecto</string>
     <string name="label_empty">A etiqueta non pode estar baleira</string>
     <string name="link">Ligazón</string>
+    <string name="link_share_allow_upload_and_editing">Permitir o envío e a edición</string>
+    <string name="link_share_file_drop">Soltar ficheiro (só envíos) </string>
+    <string name="link_share_read_only">Só lectura</string>
     <string name="list_layout">Ver como lista</string>
     <string name="local_file_list_empty">Non hai ficheiros neste cartafol.</string>
     <string name="local_file_not_found_message">Non se atopou o ficheiro no sistema local de ficheiros</string>
@@ -580,6 +586,7 @@
     <string name="share_internal_link_to_file_text">A ligazón de compartición interna só funciona para usuarios con acceso a este ficheiro</string>
     <string name="share_internal_link_to_folder_text">A ligazón de compartición interna só funciona para usuarios con acceso a este cartafol</string>
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
+    <string name="share_link">Compartir ligazón</string>
     <string name="share_link_empty_password">Ten que introducir un contrasinal</string>
     <string name="share_link_file_error">Produciuse un erro ao tentar compartir este ficheiro ou cartafol.</string>
     <string name="share_link_file_no_exist">Non é posíbel compartir, Comprobe que o ficheiro existe.</string>

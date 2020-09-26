@@ -32,7 +32,10 @@
     <string name="activity_icon">激活</string>
     <string name="add_another_public_share_link">添加其他链接</string>
     <string name="add_to_cloud">添加到%1$s</string>
+    <string name="allow_creating">允许创建</string>
+    <string name="allow_deleting">允许删除</string>
     <string name="allow_editing">允许编辑</string>
+    <string name="allow_resharing">允许二次共享</string>
     <string name="associated_account_not_found">相关账号未找到！</string>
     <string name="auth_access_failed">访问已失败: %1$s</string>
     <string name="auth_account_does_not_exist">该账号尚未添加到此设备上</string>
@@ -366,6 +369,9 @@
     <string name="invalid_url">无效的 URL</string>
     <string name="label_empty">标签不能是空白</string>
     <string name="link">链接</string>
+    <string name="link_share_allow_upload_and_editing">允许上传和编辑</string>
+    <string name="link_share_file_drop">文件拖拽（仅上传）</string>
+    <string name="link_share_read_only">只读</string>
     <string name="list_layout">列出的布局</string>
     <string name="local_file_list_empty">此文件夹中没有文件。</string>
     <string name="local_file_not_found_message">本地文件系统无法找到此文件</string>
@@ -571,6 +577,7 @@
     <string name="share_internal_link_to_file_text">内部共享链接仅对有权访问此文件的用户有效</string>
     <string name="share_internal_link_to_folder_text">内部共享链接仅对有权访问此文件夹的用户有效</string>
     <string name="share_known_remote_clarification">%1$s ( 在 %2$s )</string>
+    <string name="share_link">共享链接</string>
     <string name="share_link_empty_password">您必须输入密码</string>
     <string name="share_link_file_error">尝试共享此文件或文件夹时发生错误。</string>
     <string name="share_link_file_no_exist">无法共享。请检查文件是否存在。</string>

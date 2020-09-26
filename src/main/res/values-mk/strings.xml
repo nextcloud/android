@@ -32,7 +32,10 @@
     <string name="activity_icon">Активност</string>
     <string name="add_another_public_share_link">Додади линк</string>
     <string name="add_to_cloud">Додади во %1$s</string>
+    <string name="allow_creating">Дозволи креирање</string>
+    <string name="allow_deleting">Дозволи бришење</string>
     <string name="allow_editing">Овозможи уредување</string>
+    <string name="allow_resharing">Дозволи повторно споделување</string>
     <string name="appbar_search_in">Барај во %s</string>
     <string name="associated_account_not_found">Не е пронајдена поврзана сметка!</string>
     <string name="auth_access_failed">Неуспешен пристап: %1$s</string>
@@ -346,6 +349,9 @@
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Неправилна URL</string>
     <string name="link">Линк</string>
+    <string name="link_share_allow_upload_and_editing">Дозволи прикачување и уредување</string>
+    <string name="link_share_file_drop">Испуши датотека (само за прикачување)</string>
+    <string name="link_share_read_only">Само читај</string>
     <string name="list_layout">Listed layout</string>
     <string name="local_file_list_empty">Нема датотеки во оваа папка.</string>
     <string name="local_file_not_found_message">Датотеката не е пронајдена во локалното складиште</string>
@@ -543,6 +549,7 @@
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_internal_link">Сподели внатрешен линк</string>
     <string name="share_known_remote_clarification">%1$s ( на %2$s )</string>
+    <string name="share_link">Сподели линк</string>
     <string name="share_link_empty_password">Морате да внесете лозинка</string>
     <string name="share_link_forbidden_permissions">да ја споделите оваа датотека</string>
     <string name="share_link_optional_password_title">Опционално внесете лозинка</string>

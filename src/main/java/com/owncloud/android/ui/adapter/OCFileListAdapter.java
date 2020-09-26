@@ -646,6 +646,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                      LoaderImageView shimmerThumbnail,
                                      AppPreferences preferences) {
         if (file.isFolder()) {
+            stopShimmer(shimmerThumbnail, thumbnailView);
             thumbnailView.setImageDrawable(MimeTypeUtil
                                                .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
                                                                   file.isSharedViaLink(), file.isEncrypted(),
@@ -727,6 +728,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     thumbnailView.setBackgroundColor(context.getResources().getColor(R.color.bg_default));
                 }
             } else {
+                stopShimmer(shimmerThumbnail, thumbnailView);
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                             file.getFileName(),
                                                                             user,
@@ -784,10 +786,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private static void stopShimmer(@Nullable LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
-        if (thumbnailShimmer != null){
+        if (thumbnailShimmer != null) {
             thumbnailShimmer.setVisibility(View.GONE);
-            thumbnailView.setVisibility(View.VISIBLE);
         }
+
+        thumbnailView.setVisibility(View.VISIBLE);
     }
 
     private String getFooterText() {

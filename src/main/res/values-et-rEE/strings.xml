@@ -29,7 +29,10 @@
     <string name="activity_chooser_send_file_title">Saada</string>
     <string name="activity_chooser_title">Saada link…</string>
     <string name="activity_icon">Tegevus</string>
+    <string name="allow_creating">Luba loomine</string>
+    <string name="allow_deleting">Luba kustutamine</string>
     <string name="allow_editing">Luba muutmine</string>
+    <string name="allow_resharing">Luba edasijagamine</string>
     <string name="auth_access_failed">Ligipääs ebaõnnestus: %1$s</string>
     <string name="auth_account_does_not_exist">Seda kontot pole veel sellesse seadmesse lisatud</string>
     <string name="auth_account_not_new">Sama konto  kasutaja ja server on juba selles seadmes olemas</string>
@@ -223,6 +226,9 @@
     <string name="instant_upload_on_charging">Lae ülesse ainult laadimise ajal</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="link">Link</string>
+    <string name="link_share_allow_upload_and_editing">Luba üleslaadimine ja muutmine</string>
+    <string name="link_share_file_drop">Faili lohistamine (ainult üleslaadimine)</string>
+    <string name="link_share_read_only">kirjutuskaitstud</string>
     <string name="local_file_list_empty">Kaustas pole faile.</string>
     <string name="local_folder_list_empty">Rohkem kaustu ei ole.</string>
     <string name="log_send_mail_subject">%1$s Androidi rakenduse logid</string>
@@ -314,6 +320,7 @@
     <string name="share_email_clarification">%1$s (e-kiri)</string>
     <string name="share_file">Jaga %1$s</string>
     <string name="share_group_clarification">%1$s (grupp)</string>
+    <string name="share_link">Jaga link</string>
     <string name="share_link_empty_password">Sa pead parooli sisestama</string>
     <string name="share_link_forbidden_permissions">faili jagamiseks</string>
     <string name="share_link_password_title">Sisesta parool</string>

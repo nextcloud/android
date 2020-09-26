@@ -65,7 +65,7 @@ ext {
     butterknifeVersion = "10.2.3"
     androidLibraryVersion ="2292555b24a89f7a18eb61c401cb31584ae51491"
     mockitoVersion = "3.5.11"
-    byteBuddyVersion = "1.10.15"
+    byteBuddyVersion = "1.10.16"
     espressoVersion = "3.3.0"
 
     travisBuild = System.getenv("TRAVIS") == "true"

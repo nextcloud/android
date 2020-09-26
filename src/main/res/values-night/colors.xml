@@ -26,10 +26,12 @@
     <color name="list_divider_background">#222222</color>
 
     <!-- Colors -->
+    <color name="dark">#ffffff</color>
     <color name="bg_default">#121212</color>
     <color name="fg_contrast">#717171</color>
     <color name="primary_button_text_color">#000000</color>
     <color name="bg_elevation_one">#2D2D2D</color>
+    <color name="grey_200">#818181</color>
 
     <!-- Multiselect backgrounds -->
     <color name="action_mode_background">@color/appbar</color>

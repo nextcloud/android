@@ -34,7 +34,10 @@
     <string name="add_another_public_share_link">Lägg till en annan länk</string>
     <string name="add_new_public_share">Lägg till en ny publik delad länk</string>
     <string name="add_to_cloud">Lägg till %1$s</string>
+    <string name="allow_creating">Tillåt skapa</string>
+    <string name="allow_deleting">Tillåt radera</string>
     <string name="allow_editing">Tillåt redigering</string>
+    <string name="allow_resharing">Tillåt dela vidare</string>
     <string name="appbar_search_in">Sök i %s</string>
     <string name="associated_account_not_found">Associerat konto kunde inte hittas!</string>
     <string name="auth_access_failed">Åtkomst misslyckades: %1$s</string>
@@ -372,6 +375,9 @@
     <string name="invalid_url">Ogiltig URL</string>
     <string name="label_empty">Etiketten kan inte vara tom</string>
     <string name="link">Länk</string>
+    <string name="link_share_allow_upload_and_editing">Tillåt uppladdning och redigering</string>
+    <string name="link_share_file_drop">Göm fillista (endast uppladdning)</string>
+    <string name="link_share_read_only">Läsbehörighet</string>
     <string name="list_layout">Listad layout</string>
     <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
     <string name="local_file_not_found_message">Filen hittades inte i det lokala filsystemet</string>
@@ -580,6 +586,7 @@
     <string name="share_internal_link_to_file_text">Intern länkdelning fungerar bara för användare med åtkomst till den här filen</string>
     <string name="share_internal_link_to_folder_text">Intern länkdelning fungerar bara för användare med åtkomst till den här mappen</string>
     <string name="share_known_remote_clarification">%1$s ( på %2$s )</string>
+    <string name="share_link">Dela länk</string>
     <string name="share_link_empty_password">Du måste ange ett lösenord</string>
     <string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp.</string>
     <string name="share_link_file_no_exist">Det går inte att dela. Vänligen kontrollera om filen finns.</string>

@@ -27,6 +27,7 @@
     <string name="activity_icon">Hoạt động</string>
     <string name="add_to_cloud">Thêm vào %1$s</string>
     <string name="allow_editing">Cho phép chỉnh sửa</string>
+    <string name="allow_resharing">Cho phép chia sẻ lại</string>
     <string name="auth_access_failed">Lỗi truy cập: %1$s</string>
     <string name="auth_account_not_the_same">Tên người dùng đã nhập không đúng với tên người dùng của tài khoản này</string>
     <string name="auth_bad_oc_version_title">Không chấp nhận phiên bản máy chủ</string>
@@ -230,6 +231,9 @@
     <string name="hint_password">Mật khẩu</string>
     <string name="instant_upload_path">/Upload tức thì</string>
     <string name="link">Liên kết</string>
+    <string name="link_share_allow_upload_and_editing">Cho phép tải lên và chỉnh sửa</string>
+    <string name="link_share_file_drop">Kéo thả file (chỉ áp dụng trong trường hợp tải lên)</string>
+    <string name="link_share_read_only">Chỉ xem</string>
     <string name="list_layout">Bố cục được liệt kê</string>
     <string name="local_file_list_empty">Không có tệp nào trong thư mục này.</string>
     <string name="local_folder_list_empty">Không có thư mục nào khác.</string>
@@ -335,6 +339,7 @@
     <string name="share_dialog_title">Chia sẻ</string>
     <string name="share_expiration_date_label">Hết hạn %1$s</string>
     <string name="share_file">Chia sẽ %1$s</string>
+    <string name="share_link">Chia sẽ liên kết</string>
     <string name="share_link_empty_password">Bạn hãy nhập một mật khẩu</string>
     <string name="share_link_forbidden_permissions">chia sẽ tập tin này</string>
     <string name="share_link_password_title">Nhập mật khẩu</string>
