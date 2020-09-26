@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
     <string name="copy_to">Kopieren nach…</string>
     <string name="could_not_download_image">Originalbild konnte nicht heruntergeladen werden</string>
+    <string name="could_not_retrieve_shares">Konnte die Freigaben nicht abrufen</string>
     <string name="could_not_retrieve_url">Konnte URL nicht abrufen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
     <string name="create_new">Neu erstellen</string>
@@ -275,6 +276,7 @@
     <string name="failed_to_download">Datei konnte nicht an den Downloadmanager übergeben werden</string>
     <string name="failed_to_print">Drucken der Datei fehlgeschlagen</string>
     <string name="failed_to_start_editor">Starten des Editors fehlgeschlagen</string>
+    <string name="failed_update_ui">Oberfläche konnte nicht aktualisiert werden</string>
     <string name="favorite">Zu den Favoriten hinzufügen</string>
     <string name="favorite_icon">Favoriten</string>
     <string name="file_delete">Löschen</string>
@@ -592,6 +594,7 @@
     <string name="share_link_forbidden_permissions">diese Datei zu teilen</string>
     <string name="share_link_optional_password_title">Passwort eingeben (optional)</string>
     <string name="share_link_password_title">Passwort eingeben</string>
+    <string name="share_link_with_label">Teile Link (%1$s)</string>
     <string name="share_no_expiration_date_label">Ablaufdatum setzen</string>
     <string name="share_no_password_title">Passwort setzen</string>
     <string name="share_password_title">Passwortgeschützt</string>
