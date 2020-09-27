@@ -27,10 +27,12 @@
     <string name="actionbar_sort">Сортирај</string>
     <string name="active_user">Активен корисник</string>
     <string name="activities_no_results_headline">Сеуште нема активности</string>
+    <string name="activities_no_results_message">Сè уште нема настани како дополнувања, промени и споделувања.</string>
     <string name="activity_chooser_send_file_title">Прати</string>
     <string name="activity_chooser_title">Испрати линк до…</string>
     <string name="activity_icon">Активност</string>
     <string name="add_another_public_share_link">Додади линк</string>
+    <string name="add_new_public_share">Додади нов линк за споделување</string>
     <string name="add_to_cloud">Додади во %1$s</string>
     <string name="allow_creating">Дозволи креирање</string>
     <string name="allow_deleting">Дозволи бришење</string>
@@ -44,6 +46,7 @@
     <string name="auth_account_not_the_same">Внесениот корисник не се совпаѓа со корисникот на оваа сметка</string>
     <string name="auth_bad_oc_version_title">Верзијата на серверот не е препознаена</string>
     <string name="auth_connection_established">Конекцијата е воспоставена</string>
+    <string name="auth_fail_get_user_name">Вашиот сервер не испраќа точен кориснички ID, контактирајте го администраторот</string>
     <string name="auth_host_address">Адреса на сервер</string>
     <string name="auth_host_url">Адреса на серверот https://…</string>
     <string name="auth_incorrect_address_title">Погрешен формат за адреса на сервер</string>
@@ -109,6 +112,7 @@
     <string name="common_send">Испрати</string>
     <string name="common_share">Сподели</string>
     <string name="common_switch_account">Промени сметка</string>
+    <string name="common_switch_to_account">Промени сметка</string>
     <string name="common_unknown">непознат</string>
     <string name="common_yes">Да</string>
     <string name="community_beta_headline">Test the dev version</string>
@@ -158,11 +162,15 @@
     <string name="copy_file_error">Настана грешка при обидот за копирање на оваа датотека или папка</string>
     <string name="copy_file_invalid_into_descendent">Не е возможно да се копира папката во истата таа папка</string>
     <string name="copy_file_invalid_overwrite">Датотеката веќе постои во папката</string>
+    <string name="copy_file_not_found">Не може да се копира. Проверете дали постои датотеката.</string>
     <string name="copy_link">Копирај врска</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Не е поддржано копирање/преместување во папка која е шифрирана.</string>
     <string name="copy_to">Копирај во…</string>
     <string name="could_not_download_image">Неможе да се преземе целосната слика</string>
+    <string name="could_not_retrieve_shares">Неможе да се превземат споделувањата</string>
+    <string name="could_not_retrieve_url">Неможе да се превземе адресата</string>
     <string name="create_dir_fail_msg">Не множе да креира папка</string>
+    <string name="create_new">Креирај нова</string>
     <string name="create_new_document">Креирај нов документ</string>
     <string name="create_new_folder">Креирај нова папка</string>
     <string name="create_new_presentation">Креирај нова презентација</string>
@@ -215,6 +223,7 @@
     <string name="drawer_synced_folders">Автоматско прикачување</string>
     <string name="edit_label">Промени име</string>
     <string name="edit_permission_label">уреди</string>
+    <string name="edit_rich_workspace">уреди информации за папката</string>
     <string name="encrypted">Постави како енкриптирано</string>
     <string name="end_to_end_encryption_confirm_button">Постави енкрипција</string>
     <string name="end_to_end_encryption_decrypting">Дешифрирање…</string>
@@ -243,8 +252,14 @@
     <string name="error_retrieving_templates">Грешка при превземањето на шаблоните</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартување на камерата</string>
     <string name="etm_accounts">Сметки</string>
+    <string name="etm_background_job_progress">Напредок</string>
+    <string name="etm_background_job_started">Започна</string>
+    <string name="etm_background_job_state">Статус</string>
     <string name="etm_background_job_user">Корисник</string>
+    <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Задачи кој се извршуваат во позадина</string>
+    <string name="etm_background_jobs_cancel_all">Откажи ги сите активности</string>
+    <string name="etm_downloader">Преземач</string>
     <string name="etm_preferences">Перформанси</string>
     <string name="etm_title">Инженерски мод за тестирање</string>
     <string name="fab_label">Додади или прикачи</string>
