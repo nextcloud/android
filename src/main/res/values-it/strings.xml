@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copia/Spostamento in una cartella cifrata attualmente non supportati.</string>
     <string name="copy_to">Copia in…</string>
     <string name="could_not_download_image">Impossibile scaricare l\'immagine completa</string>
+    <string name="could_not_retrieve_shares">Impossibile recuperare le condivisioni</string>
     <string name="could_not_retrieve_url">Impossibile recuperare l\'URL</string>
     <string name="create_dir_fail_msg">Impossibile creare la cartella</string>
     <string name="create_new">Crea nuovo</string>
@@ -275,6 +276,7 @@
     <string name="failed_to_download">Passaggio del file al gestore degli scaricamenti non riuscito</string>
     <string name="failed_to_print">Stampa del file non riuscita</string>
     <string name="failed_to_start_editor">Avvio dell\'editor non riuscito</string>
+    <string name="failed_update_ui">Aggiornamento interfaccia non riuscito</string>
     <string name="favorite">Aggiungi ai preferiti</string>
     <string name="favorite_icon">Preferito</string>
     <string name="file_delete">Elimina</string>
@@ -592,6 +594,7 @@
     <string name="share_link_forbidden_permissions">per condividere questo file</string>
     <string name="share_link_optional_password_title">Digita una password facoltativa</string>
     <string name="share_link_password_title">Digita una password</string>
+    <string name="share_link_with_label">Collegamento di condivisione (%1$s)</string>
     <string name="share_no_expiration_date_label">Imposta data di scadenza</string>
     <string name="share_no_password_title">Imposta password</string>
     <string name="share_password_title">Protetta da password</string>

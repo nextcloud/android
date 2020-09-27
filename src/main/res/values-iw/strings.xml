@@ -32,7 +32,10 @@
     <string name="activity_icon">פעילות</string>
     <string name="add_another_public_share_link">הוספת קישור נוסף</string>
     <string name="add_to_cloud">הוספה אל %1$s</string>
+    <string name="allow_creating">לאפשר יצירה</string>
+    <string name="allow_deleting">לאפשר מחיקה</string>
     <string name="allow_editing">לאפשר עריכה</string>
+    <string name="allow_resharing">לאפשר שיתוף מחדש</string>
     <string name="appbar_search_in">חפש ב %s</string>
     <string name="associated_account_not_found">לא נמצא חשבון משויך!</string>
     <string name="auth_access_failed">גישה נכשלה: %1$s</string>
@@ -363,6 +366,9 @@
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">כתובת שגויה</string>
     <string name="link">קישור</string>
+    <string name="link_share_allow_upload_and_editing">לאפשר העלאה ועריכה</string>
+    <string name="link_share_file_drop">השלכת קבצים (העלאה בלבד)</string>
+    <string name="link_share_read_only">קריאה בלבד</string>
     <string name="list_layout">פריסה מוצגת</string>
     <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
     <string name="local_file_not_found_message">הקובץ לא נמצא במערכת הקבצים המקומית</string>
@@ -563,6 +569,7 @@
     <string name="share_internal_link_to_file_text">קישורי שיתוף פנימיים עובדים רק עבור משתמש עם גישה לקובץ הזה</string>
     <string name="share_internal_link_to_folder_text">קישורי שיתוף פנימיים עובדים רק עבור משתמש עם גישה לתיקייה הזו</string>
     <string name="share_known_remote_clarification">%1$s ( ב- %2$s )</string>
+    <string name="share_link">קישור שיתוף</string>
     <string name="share_link_empty_password">יש להכניס סיסמא</string>
     <string name="share_link_forbidden_permissions">לשתף קובץ זה</string>
     <string name="share_link_optional_password_title">ניתן להקליד ססמה</string>
