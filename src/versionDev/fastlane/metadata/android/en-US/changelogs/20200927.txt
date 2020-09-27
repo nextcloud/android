@@ -1,0 +1,8 @@
+re-add grey200
+enhance mnemonic on dark mode
+Stacktrace is selectable in error activity
+Re-use the existing foreground notification for FileUploader progress
+Do not show shimmer on non-media files
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
