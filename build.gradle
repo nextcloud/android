@@ -364,7 +364,7 @@ dependencies {
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation 'io.mockk:mockk:1.10.0'
-    testImplementation 'io.mockk:mockk-android:1.10.0'
+    testImplementation 'io.mockk:mockk-android:1.10.2'
 
     // dependencies for instrumented tests
     // JUnit4 Rules
