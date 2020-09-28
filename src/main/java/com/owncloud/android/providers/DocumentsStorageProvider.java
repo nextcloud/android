@@ -96,7 +96,6 @@ import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.files.services.FileUploader.LOCAL_BEHAVIOUR_MOVE;
 
-@TargetApi(Build.VERSION_CODES.KITKAT)
 public class DocumentsStorageProvider extends DocumentsProvider {
 
     private static final String TAG = DocumentsStorageProvider.class.getSimpleName();
@@ -135,11 +134,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     public static void notifyRootsChanged(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            String authority = context.getString(R.string.document_provider_authority);
-            Uri rootsUri = DocumentsContract.buildRootsUri(authority);
-            context.getContentResolver().notifyChange(rootsUri, null);
-        }
+        String authority = context.getString(R.string.document_provider_authority);
+        Uri rootsUri = DocumentsContract.buildRootsUri(authority);
+        context.getContentResolver().notifyChange(rootsUri, null);
     }
 
     @Override

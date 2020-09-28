@@ -21,17 +21,13 @@
 package org.nextcloud.providers.cursors;
 
 import android.accounts.Account;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.MatrixCursor;
-import android.os.Build;
 import android.provider.DocumentsContract.Root;
 
 import com.owncloud.android.R;
 import com.owncloud.android.providers.DocumentsStorageProvider;
 
-
-@TargetApi(Build.VERSION_CODES.KITKAT)
 public class RootCursor extends MatrixCursor {
 
     private static final String[] DEFAULT_ROOT_PROJECTION = new String[] {

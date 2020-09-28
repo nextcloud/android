@@ -918,13 +918,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     resetHeaderScrollingState();
 
                     if (file.isEncrypted()) {
-                        // check if API >= 19
-                        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
-                            Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_not_supported,
-                                          Snackbar.LENGTH_LONG).show();
-                            return;
-                        }
-
                         User user = ((FileActivity) mContainerActivity).getUser().orElseThrow(RuntimeException::new);
 
                         // check if e2e app is enabled
