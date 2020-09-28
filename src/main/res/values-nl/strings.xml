@@ -592,6 +592,7 @@
     <string name="share_link_forbidden_permissions">om dit bestand te delen</string>
     <string name="share_link_optional_password_title">Geef een niet verplicht wachtwoord in</string>
     <string name="share_link_password_title">Vul het wachtwoord in</string>
+    <string name="share_link_with_label">Delen link (%1$s)</string>
     <string name="share_no_expiration_date_label">Stel vervaldatum in</string>
     <string name="share_no_password_title">Instellen wachtwoord</string>
     <string name="share_password_title">Wachtwoord beveiligd</string>
