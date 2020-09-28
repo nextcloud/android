@@ -500,7 +500,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                                                                      Account account,
                                                                      Context context) {
         DecryptedFolderMetadata metadata;
-        if (encryptedAncestor && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+        if (encryptedAncestor) {
             metadata = EncryptionUtils.downloadFolderMetadata(localFolder, client, context, account);
         } else {
             metadata = null;

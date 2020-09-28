@@ -526,14 +526,13 @@ public final class FileStorageUtils {
         if (SDK_INT >= Build.VERSION_CODES.M && checkStoragePermission(context)) {
             rv.clear();
         }
-        if (SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            String strings[] = getExtSdCardPathsForActivity(context);
-            File f;
-            for (String s : strings) {
-                f = new File(s);
-                if (!rv.contains(s) && canListFiles(f)) {
-                    rv.add(s);
-                }
+
+        String[] extSdCardPaths = getExtSdCardPathsForActivity(context);
+        File f;
+        for (String extSdCardPath : extSdCardPaths) {
+            f = new File(extSdCardPath);
+            if (!rv.contains(extSdCardPath) && canListFiles(f)) {
+                rv.add(extSdCardPath);
             }
         }
 
@@ -601,7 +600,6 @@ public final class FileStorageUtils {
      * Taken from https://github.com/TeamAmaze/AmazeFileManager/blob/616f2a696823ab0e64ea7a017602dc08e783162e/app/src
      * /main/java/com/amaze/filemanager/filesystem/FileUtil.java#L764 on 14.02.2019
      */
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     private static String[] getExtSdCardPathsForActivity(Context context) {
         List<String> paths = new ArrayList<>();
         for (File file : context.getExternalFilesDirs("external")) {
@@ -652,15 +650,11 @@ public final class FileStorageUtils {
         public static final StandardDirectory DOCUMENTS;
 
         static {
-            if (SDK_INT > Build.VERSION_CODES.KITKAT) {
-                DOCUMENTS = new StandardDirectory(
-                    Environment.DIRECTORY_DOCUMENTS,
-                    R.string.storage_documents,
-                    R.drawable.ic_document_grey600
-                );
-            } else {
-                DOCUMENTS = null;
-            }
+            DOCUMENTS = new StandardDirectory(
+                Environment.DIRECTORY_DOCUMENTS,
+                R.string.storage_documents,
+                R.drawable.ic_document_grey600
+            );
         }
 
         public static final StandardDirectory DOWNLOADS = new StandardDirectory(

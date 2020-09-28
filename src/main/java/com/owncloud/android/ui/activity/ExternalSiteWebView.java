@@ -23,7 +23,6 @@ package com.owncloud.android.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ApplicationInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -99,9 +98,8 @@ public class ExternalSiteWebView extends FileActivity {
 
         // allow debugging (when building the debug version); see details in
         // https://developers.google.com/web/tools/chrome-devtools/remote-debugging/webviews
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
-            ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0 ||
-                getResources().getBoolean(R.bool.is_beta))) {
+        if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0 ||
+                getResources().getBoolean(R.bool.is_beta)) {
             Log_OC.d(this, "Enable debug for webView");
             WebView.setWebContentsDebuggingEnabled(true);
         }
