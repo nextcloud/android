@@ -62,5 +62,6 @@
         <ignore path="**/jetified-butterknife-runtime-10.**/**/lint.jar" />
         <ignore path="**/jetified-dagger-lint-aar-2.29.**/**/lint.jar" />
         <ignore path="**/jetified-annotation-experimental-1.**/**/lint.jar" />
+        <ignore path="**/jetified-firebase-installations**/**/lint.jar" />
     </issue>
 </lint>
