@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
     <string name="copy_to">Şuraya kopyala …</string>
     <string name="could_not_download_image">Tam boyuttaki görsel indirilemedi</string>
+    <string name="could_not_retrieve_shares">Paylaşımlar alınamadı</string>
     <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
     <string name="create_new">Yeni ekle</string>
@@ -275,6 +276,7 @@
     <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
     <string name="failed_to_print">Dosya yazdırılamadı</string>
     <string name="failed_to_start_editor">Düzenleyici başlatılamadı</string>
+    <string name="failed_update_ui">Kullanıcı arayüzü güncellenemedi</string>
     <string name="favorite">Sık Kullanılanlara Ekle</string>
     <string name="favorite_icon">Sık Kullanılanlara Ekle</string>
     <string name="file_delete">Sil</string>
@@ -592,6 +594,7 @@
     <string name="share_link_forbidden_permissions">bu dosyayı paylaşın</string>
     <string name="share_link_optional_password_title">İsteğe bağlı olarak parola yazın</string>
     <string name="share_link_password_title">Bir parola yazın</string>
+    <string name="share_link_with_label">Bağlantı paylaş (%1$s)</string>
     <string name="share_no_expiration_date_label">Son kullanma tarihini ayarla</string>
     <string name="share_no_password_title">Parolayı ayarla</string>
     <string name="share_password_title">Parola korumalı</string>
