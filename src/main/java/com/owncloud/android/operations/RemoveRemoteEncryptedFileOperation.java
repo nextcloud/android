@@ -23,7 +23,6 @@ package com.owncloud.android.operations;
 
 import android.accounts.Account;
 import android.content.Context;
-import android.os.Build;
 
 import com.google.gson.reflect.TypeToken;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -54,12 +53,9 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import androidx.annotation.RequiresApi;
-
 /**
  * Remote operation performing the removal of a remote encrypted file or folder
  */
-@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
     private static final String TAG = RemoveRemoteEncryptedFileOperation.class.getSimpleName();
 

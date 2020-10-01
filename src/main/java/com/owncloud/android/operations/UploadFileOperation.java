@@ -430,12 +430,7 @@ public class UploadFileOperation extends SyncOperation {
 
         if (encryptedAncestor) {
             Log_OC.d(TAG, "encrypted upload");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                return encryptedUpload(client, parent);
-            } else {
-                Log_OC.e(TAG, "Encrypted upload on old Android API");
-                return new RemoteOperationResult(ResultCode.OLD_ANDROID_API);
-            }
+            return encryptedUpload(client, parent);
         } else {
             Log_OC.d(TAG, "normal upload");
             return normalUpload(client);
@@ -443,7 +438,6 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     @SuppressLint("AndroidLintUseSparseArrays") // gson cannot handle sparse arrays easily, therefore use hashmap
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private RemoteOperationResult encryptedUpload(OwnCloudClient client, OCFile parentFile) {
         RemoteOperationResult result = null;
         File temporalFile = null;

@@ -23,7 +23,6 @@ package com.owncloud.android.utils;
 
 import android.accounts.Account;
 import android.content.Context;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Pair;
@@ -92,7 +91,6 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -144,7 +142,6 @@ public final class EncryptionUtils {
      * @param decryptedFolderMetadata folder metaData to encrypt
      * @return EncryptedFolderMetadata encrypted folder metadata
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static EncryptedFolderMetadata encryptFolderMetadata(DecryptedFolderMetadata decryptedFolderMetadata,
                                                                 String privateKey)
             throws NoSuchAlgorithmException, InvalidKeyException,
@@ -183,7 +180,6 @@ public final class EncryptionUtils {
     /*
      * decrypt folder metaData with private key
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static DecryptedFolderMetadata decryptFolderMetaData(EncryptedFolderMetadata encryptedFolderMetadata,
                                                                 String privateKey)
             throws NoSuchAlgorithmException, InvalidKeyException,
@@ -225,7 +221,6 @@ public final class EncryptionUtils {
      *
      * @return decrypted metadata or null
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static @Nullable
     DecryptedFolderMetadata downloadFolderMetadata(OCFile folder, OwnCloudClient client,
                                                    Context context, Account account) {
@@ -291,7 +286,6 @@ public final class EncryptionUtils {
      * @param iv                 initialization vector, either from metadata or {@link EncryptionUtils#randomBytes(int)}
      * @return encryptedFile with encryptedBytes and authenticationTag
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static EncryptedFile encryptFile(OCFile ocFile, byte[] encryptionKeyBytes, byte[] iv)
             throws NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
@@ -307,7 +301,6 @@ public final class EncryptionUtils {
      * @param iv                 initialization vector, either from metadata or {@link EncryptionUtils#randomBytes(int)}
      * @return encryptedFile with encryptedBytes and authenticationTag
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static EncryptedFile encryptFile(File file, byte[] encryptionKeyBytes, byte[] iv)
             throws NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
@@ -338,7 +331,6 @@ public final class EncryptionUtils {
      * @param authenticationTag  authenticationTag from metadata
      * @return decrypted byte[]
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static byte[] decryptFile(File file, byte[] encryptionKeyBytes, byte[] iv, byte[] authenticationTag)
             throws NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
@@ -383,7 +375,6 @@ public final class EncryptionUtils {
      * @param cert   contains public key in it
      * @return encrypted string
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static String encryptStringAsymmetric(String string, String cert)
             throws NoSuchAlgorithmException,
             NoSuchPaddingException, InvalidKeyException,
@@ -419,7 +410,6 @@ public final class EncryptionUtils {
      * @param privateKeyString private key
      * @return decrypted string
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static String decryptStringAsymmetric(String string, String privateKeyString)
             throws NoSuchAlgorithmException,
             NoSuchPaddingException, InvalidKeyException,
@@ -449,7 +439,6 @@ public final class EncryptionUtils {
      * @param encryptionKeyBytes key, either from metadata or {@link EncryptionUtils#generateKey()}
      * @return encrypted string
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static String encryptStringSymmetric(String string, byte[] encryptionKeyBytes)
         throws NoSuchPaddingException,
         InvalidKeyException,
@@ -460,7 +449,6 @@ public final class EncryptionUtils {
         return encryptStringSymmetric(string, encryptionKeyBytes, ivDelimiter);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @VisibleForTesting
     public static String encryptStringSymmetricOld(String string, byte[] encryptionKeyBytes)
         throws NoSuchPaddingException,
@@ -472,7 +460,6 @@ public final class EncryptionUtils {
         return encryptStringSymmetric(string, encryptionKeyBytes, ivDelimiterOld);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private static String encryptStringSymmetric(String string,
                                                  byte[] encryptionKeyBytes,
                                                  String delimiter)
@@ -508,7 +495,6 @@ public final class EncryptionUtils {
      * @param encryptionKeyBytes key from metadata
      * @return decrypted string
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static String decryptStringSymmetric(String string, byte[] encryptionKeyBytes)
             throws NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
@@ -805,7 +791,6 @@ public final class EncryptionUtils {
      * @param parentFile file metadata should be retrieved for
      * @return Pair: boolean: true: metadata already exists, false: metadata new created
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static Pair<Boolean, DecryptedFolderMetadata> retrieveMetadata(OCFile parentFile,
                                                                           OwnCloudClient client,
                                                                           String privateKey,

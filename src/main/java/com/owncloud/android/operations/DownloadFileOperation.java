@@ -176,7 +176,7 @@ public class DownloadFileOperation extends RemoteOperation {
             }
 
             // decrypt file
-            if (file.isEncrypted() && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            if (file.isEncrypted()) {
                 FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(account, context.getContentResolver());
 
                 OCFile parent = fileDataStorageManager.getFileByPath(file.getParentRemotePath());

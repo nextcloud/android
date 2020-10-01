@@ -21,7 +21,6 @@
 
 package com.owncloud.android.util;
 
-import android.os.Build;
 import android.text.TextUtils;
 
 import com.google.gson.JsonElement;
@@ -53,7 +52,6 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import androidx.annotation.RequiresApi;
 import androidx.test.runner.AndroidJUnit4;
 
 import static androidx.test.InstrumentationRegistry.getInstrumentation;
@@ -82,7 +80,6 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 @RunWith(AndroidJUnit4.class)
 public class EncryptionTestIT {
     private String privateKey = "MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAo" +

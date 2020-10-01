@@ -97,8 +97,7 @@ public class RemoveFileOperation extends SyncOperation {
 
         boolean localRemovalFailed = false;
         if (!onlyLocalCopy) {
-            if (fileToRemove.isEncrypted() &&
-                    android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            if (fileToRemove.isEncrypted()) {
                 OCFile parent = getStorageManager().getFileByPath(fileToRemove.getParentRemotePath());
                 operation = new RemoveRemoteEncryptedFileOperation(fileToRemove.getRemotePath(),
                                                                    parent.getLocalId(),

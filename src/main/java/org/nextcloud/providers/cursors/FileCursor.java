@@ -20,7 +20,6 @@
 
 package org.nextcloud.providers.cursors;
 
-import android.annotation.TargetApi;
 import android.database.MatrixCursor;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -31,7 +30,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.utils.MimeTypeUtil;
 
-@TargetApi(Build.VERSION_CODES.KITKAT)
 public class FileCursor extends MatrixCursor {
 
     static final String[] DEFAULT_DOCUMENT_PROJECTION = new String[]{
