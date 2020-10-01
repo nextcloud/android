@@ -123,10 +123,11 @@ import com.owncloud.android.utils.ThemeUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.lukhnos.nnio.file.Files;
+import org.lukhnos.nnio.file.Paths;
 import org.parceler.Parcels;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -863,7 +864,7 @@ public class FileDisplayActivity extends FileActivity
             (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)){
 
                 ScannerConstants.selectedImageBitmap = BitmapFactory.decodeFile(FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath());
-                startActivityForResult(new Intent(FileDisplayActivity.this, ScanDocActivity.class),
+                startActivityForResult(new Intent(this, ScanDocActivity.class),
                                        FileDisplayActivity.REQUEST_CODE__CROP_SCAN_DOC_FROM_CAMERA);
 
         } else if (requestCode == FileDisplayActivity.REQUEST_CODE__CROP_SCAN_DOC_FROM_CAMERA &&
@@ -880,10 +881,9 @@ public class FileDisplayActivity extends FileActivity
                 }else if (resultCode == RESULT_OK){
                     String pdfFilePath = FileOperationsHelper.createOrGetPdfFile(getActivity()).getAbsolutePath();
                     try {
-                        pdf.writeTo(new FileOutputStream(pdfFilePath));
+                        pdf.writeTo(Files.newOutputStream(Paths.get(pdfFilePath)));
                     } catch (IOException e) {
-                        e.printStackTrace();
-                        // TODO handle errors
+                        Log_OC.e(this,"onActivityResult pdf write to file",e);
                     }
                     pdf.close();
                     FileOperationsHelper.cleanTmpPdfDocument();
@@ -918,7 +918,7 @@ public class FileDisplayActivity extends FileActivity
                     }, new String[]{pdfFilePath}).execute();
                 }
             } else {
-               //TODO Toast.makeText(MainActivity@this, "Not OK", Toast.LENGTH_LONG).show();
+                DisplayUtils.showSnackMessage(getActivity(), "Fail to get cropped image");
             }
         }
 

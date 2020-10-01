@@ -46,7 +46,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
-import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -96,7 +95,6 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -130,6 +128,9 @@ public class FileOperationsHelper {
     private static final String FILE_EXTENSION_DESKTOP = "desktop";
     private static final String FILE_EXTENSION_WEBLOC = "webloc";
     public static final int SINGLE_LINK_SIZE = 1;
+
+    private static PdfDocument tmpPdfDocument;
+    private static boolean pdfAlreadyExist = Boolean.FALSE;
 
     private FileActivity fileActivity;
     private CurrentAccountProvider currentAccount;
@@ -1009,13 +1010,11 @@ public class FileOperationsHelper {
         }
     }
 
-    private static PdfDocument tmpPdfDocument;
-
     public static PdfDocument convertAddImageToPDFDocument(Bitmap bitmap){
         int pageWidth = 960;
         int pageHeight = 1280;
         PdfDocument pdfDocument;
-        if (tmpPdfDocument != null){
+        if (pdfAlreadyExist){
             pdfDocument = tmpPdfDocument;
         }else {
             pdfDocument = new PdfDocument();
@@ -1032,20 +1031,23 @@ public class FileOperationsHelper {
         // resize if necessary
         Matrix m = new Matrix();
         m.setRectToRect(new RectF(0, 0, bitmap.getWidth(), bitmap.getHeight()), new RectF(0, 0, pageWidth, pageHeight), Matrix.ScaleToFit.CENTER);
-        bitmap =  Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
+        Bitmap scaledBitmap =  Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
 
         // center image
         float centerWidth = ((float) pageWidth - bitmap.getWidth()) / 2;
         float centerHeight = ((float) pageHeight - bitmap.getHeight()) / 2;
         canvas.drawBitmap(bitmap,centerWidth,centerHeight, null);
         pdfDocument.finishPage(page);
+
         bitmap.recycle();
+        scaledBitmap.recycle();
         tmpPdfDocument = pdfDocument;
+        pdfAlreadyExist = Boolean.TRUE;
         return pdfDocument;
     }
 
     public static void cleanTmpPdfDocument(){
-        tmpPdfDocument = null;
+        pdfAlreadyExist = Boolean.FALSE;
     }
 
     public static File createOrGetPdfFile(Activity activity) {
