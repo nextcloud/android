@@ -65,6 +65,7 @@ ext {
     butterknifeVersion = "10.2.3"
     androidLibraryVersion = "master-SNAPSHOT"
     mockitoVersion = "3.5.13"
+    mockkVersion = "1.10.2"
     byteBuddyVersion = "1.10.16"
     espressoVersion = "3.3.0"
 
@@ -363,8 +364,8 @@ dependencies {
     testImplementation 'org.json:json:20200518'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
-    testImplementation 'io.mockk:mockk:1.10.0'
-    testImplementation 'io.mockk:mockk-android:1.10.0'
+    testImplementation "io.mockk:mockk:$mockkVersion"
+    testImplementation "io.mockk:mockk-android:$mockkVersion"
 
     // dependencies for instrumented tests
     // JUnit4 Rules
