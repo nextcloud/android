@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copier/déplacer dans ce dossier chiffré n\'est pas actuellement supporté</string>
     <string name="copy_to">Copier vers…</string>
     <string name="could_not_download_image">Impossible de télécharger l\'image complète</string>
+    <string name="could_not_retrieve_shares">Impossible de récupérer les partages</string>
     <string name="could_not_retrieve_url">Impossible de récupérer l\'URL</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
     <string name="create_new">Créer un nouveau</string>
@@ -277,6 +278,7 @@ Attention la suppression est irréversible.</string>
     <string name="failed_to_download">Transmission du fichier au gestionnaire de téléchargement échoué</string>
     <string name="failed_to_print">Impossible d\'imprimer le fichier</string>
     <string name="failed_to_start_editor">Impossible de lancer l\'éditeur</string>
+    <string name="failed_update_ui">Échec de la mise à jour de l\'interface utilisateur</string>
     <string name="favorite">Ajouter aux favoris</string>
     <string name="favorite_icon">Favoris</string>
     <string name="file_delete">Supprimer</string>
