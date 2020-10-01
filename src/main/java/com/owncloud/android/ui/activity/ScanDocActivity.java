@@ -34,7 +34,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.labters.documentscanner.base.CropperErrorType;
@@ -43,19 +42,21 @@ import com.labters.documentscanner.helpers.ScannerConstants;
 import com.labters.documentscanner.libraries.PolygonView;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
+import org.lukhnos.nnio.file.Files;
+import org.lukhnos.nnio.file.Paths;
+
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
@@ -72,9 +73,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ScanDocActivity extends DocumentScanActivity {
 
     public static final int RESULT_OK_AND_ADD_ADD_ANOTHER_SCAN_TO_DOC = 11;
-    private static final int RESULT_STRING_RENAME = Activity.RESULT_FIRST_USER + 100;
     public static final String SCAN_DOC_ACTIVITY_RESULT_PDFNAME = "SCAN_DOC_ACTIVITY_RESULT_PDFNAME";
-    public static final String SCAN_DOC_ACTIVITY_RESULT_RENAME_PDF = "SCAN_DOC_ACTIVITY_RESULT_RENAME_PDF";
 
     private FrameLayout holderImageCrop;
     private ImageView imageView;
@@ -92,7 +91,11 @@ public class ScanDocActivity extends DocumentScanActivity {
     @BindView(R.id.btnValidate)
     Button btnValidate;
 
-    static final String FTAG_RENAME_STRING = "RENAME_FILE_FRAGMENT";
+    @BindView(R.id.btnValidateAndAddAnOtherScanToDoc)
+    Button btnValidateAndAddAnOtherScanToDoc;
+
+    @BindView(R.id.rlContainer)
+    ConstraintLayout rlContainer;
 
     @OnClick(R.id.ivRename)
     void buttonRenameClick(){
@@ -124,12 +127,12 @@ public class ScanDocActivity extends DocumentScanActivity {
                 }
 
                 if (TextUtils.isEmpty(newFileName)) {
-                    DisplayUtils.showSnackMessage(ScanDocActivity.this, R.string.filename_empty);
+                    DisplayUtils.showSnackMessage(this, R.string.filename_empty);
                     return;
                 }
 
                 if (!FileUtils.isValidName(newFileName)) {
-                    DisplayUtils.showSnackMessage(ScanDocActivity.this, R.string.filename_forbidden_charaters_from_server);
+                    DisplayUtils.showSnackMessage(this, R.string.filename_forbidden_charaters_from_server);
 
                     return;
                 }
@@ -153,23 +156,19 @@ public class ScanDocActivity extends DocumentScanActivity {
         d.show();
     }
 
-    @BindView(R.id.btnValidateAndAddAnOtherScanToDoc)
-    Button btnValidateAndAddAnOtherScanToDoc;
-
-    @BindView(R.id.rlContainer)
-    ConstraintLayout rlContainer;
-
     @OnClick(R.id.btnValidate)
     void buttonValidateClick(){
         showProgressBar();
         disposable.add(
             Observable.fromCallable(() -> {
                 cropImage = getCroppedImage();
-                if (cropImage == null)
-                    return false;
-                if (ScannerConstants.saveStorage)
+                if (cropImage == null) {
+                    return Boolean.FALSE;
+                }
+                if (ScannerConstants.saveStorage) {
                     saveToInternalStorage(cropImage);
-                return false;
+                }
+                return Boolean.FALSE;
             })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -206,7 +205,7 @@ public class ScanDocActivity extends DocumentScanActivity {
         disposable.add(
             Observable.fromCallable(() -> {
                 invertColor();
-                return false;
+                return Boolean.FALSE;
             })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -227,10 +226,11 @@ public class ScanDocActivity extends DocumentScanActivity {
         showProgressBar();
         disposable.add(
             Observable.fromCallable(() -> {
-                if (isInverted)
+                if (isInverted) {
                     invertColor();
+                }
                 cropImage = rotateBitmap(cropImage, 90);
-                return false;
+                return Boolean.FALSE;
             })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -247,11 +247,13 @@ public class ScanDocActivity extends DocumentScanActivity {
         disposable.add(
             Observable.fromCallable(() -> {
                 cropImage = getCroppedImage();
-                if (cropImage == null)
-                    return false;
-                if (ScannerConstants.saveStorage)
+                if (cropImage == null) {
+                    return Boolean.FALSE;
+                }
+                if (ScannerConstants.saveStorage) {
                     saveToInternalStorage(cropImage);
-                return false;
+                }
+                return Boolean.FALSE;
             })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -276,8 +278,9 @@ public class ScanDocActivity extends DocumentScanActivity {
         unbinder = ButterKnife.bind(this);
         cropImage = ScannerConstants.selectedImageBitmap;
         isInverted = false;
-        if (ScannerConstants.selectedImageBitmap != null)
+        if (ScannerConstants.selectedImageBitmap != null) {
             initView();
+        }
         else {
             Toast.makeText(this, ScannerConstants.imageError, Toast.LENGTH_LONG).show();
             finish();
@@ -343,10 +346,12 @@ public class ScanDocActivity extends DocumentScanActivity {
         btnClose.setText(getString(R.string.common_cancel));
         polygonView = findViewById(R.id.polygonView);
         progressBar = findViewById(R.id.progressBar);
-        if (progressBar.getIndeterminateDrawable() != null && ScannerConstants.progressColor != null)
+        if (progressBar.getIndeterminateDrawable() != null && ScannerConstants.progressColor != null) {
             progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor(ScannerConstants.progressColor), android.graphics.PorterDuff.Mode.MULTIPLY);
-        else if (progressBar.getProgressDrawable() != null && ScannerConstants.progressColor != null)
+        }
+        else if (progressBar.getProgressDrawable() != null && ScannerConstants.progressColor != null) {
             progressBar.getProgressDrawable().setColorFilter(Color.parseColor(ScannerConstants.progressColor), android.graphics.PorterDuff.Mode.MULTIPLY);
+        }
         btnValidate.setBackgroundColor(Color.parseColor(ScannerConstants.cropColor));
         btnClose.setBackgroundColor(Color.parseColor(ScannerConstants.backColor));
         startCropping();
@@ -376,17 +381,17 @@ public class ScanDocActivity extends DocumentScanActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = "cropped_" + timeStamp + ".png";
         File mypath = new File(directory, imageFileName);
-        FileOutputStream fos = null;
+        OutputStream fos = null;
         try {
-            fos = new FileOutputStream(mypath);
+            fos = Files.newOutputStream(Paths.get(mypath.getAbsolutePath()));
             bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log_OC.e(this,"saveToInternalStorage",e);
         } finally {
             try {
                 fos.close();
             } catch (Exception e) {
-                e.printStackTrace();
+                Log_OC.e(this,"saveToInternalStorage fos close",e);
             }
         }
         return directory.getAbsolutePath();

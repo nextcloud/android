@@ -78,7 +78,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <FrameLayout
         android:id="@+id/frameLayout"
-        app:layout_constraintBottom_toTopOf="@+id/edit_text_pdffilename"
+        app:layout_constraintBottom_toTopOf="@+id/relative_layout_choice_buttons"
         app:layout_constraintTop_toBottomOf="@+id/relative_layout_scan_doc_buttons"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -108,17 +108,10 @@
             android:layout_gravity="center"
             android:visibility="gone"/>
     </FrameLayout>
-    <EditText
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-        app:layout_constraintBottom_toTopOf="@+id/relative_layout_choice_buttons"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:id="@+id/edit_text_pdffilename"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relative_layout_choice_buttons"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_pdffilename"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -130,7 +123,6 @@
             android:id="@+id/btnValidate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:foreground="?android:selectableItemBackground"
             app:backgroundTint="@color/primary_button_background_color"
             android:shadowRadius="10"
             android:textColor="#ffffff" />
@@ -141,7 +133,6 @@
             app:layout_constraintEnd_toStartOf="@+id/btnValidateAndAddAnOtherScanToDoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:foreground="?android:selectableItemBackground"
             app:backgroundTint="@color/primary_button_background_color"
             android:shadowRadius="10"
             android:textColor="#ffffff" />
@@ -152,7 +143,6 @@
             android:id="@+id/btnValidateAndAddAnOtherScanToDoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:foreground="?android:selectableItemBackground"
             app:backgroundTint="@color/primary_button_background_color"
             android:shadowRadius="10"
             android:textColor="#ffffff" />
