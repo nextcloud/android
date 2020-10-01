@@ -66,7 +66,7 @@ public final class PassCodeManager {
         this.preferences = preferences;
     }
 
-    public void onActivityCreated(Activity activity) {
+    private void setSecureFlag(Activity activity) {
         Window window = activity.getWindow();
         if (window != null) {
             if (isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) {
@@ -80,6 +80,8 @@ public final class PassCodeManager {
     public boolean onActivityStarted(Activity activity) {
         boolean askedForPin = false;
         Long timestamp = AppPreferencesImpl.fromContext(activity).getLockTimestamp();
+
+        setSecureFlag(activity);
 
         if (!exemptOfPasscodeActivities.contains(activity.getClass()) && passCodeShouldBeRequested(timestamp)) {
             askedForPin = true;
