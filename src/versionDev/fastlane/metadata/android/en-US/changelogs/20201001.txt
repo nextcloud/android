@@ -1,0 +1,7 @@
+fix review comments
+fix review comments
+fix codacy comments
+DocumentsStorageProvider: prevent opening stale file contents fix #6883
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies

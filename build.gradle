@@ -63,7 +63,7 @@ ext {
     markwonVersion =  "4.6.0"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
-    androidLibraryVersion = "master-SNAPSHOT"
+    androidLibraryVersion ="82d05a2529b80e467cc4a8d954564001a36ea326"
     mockitoVersion = "3.5.13"
     byteBuddyVersion = "1.10.16"
     espressoVersion = "3.3.0"
@@ -175,8 +175,8 @@ android {
             versionDev {
                 applicationId "com.nextcloud.android.beta"
                 dimension "default"
-                versionCode 20200927
-                versionName "20200927"
+                versionCode 20201001
+                versionName "20201001"
             }
 
             qa {
