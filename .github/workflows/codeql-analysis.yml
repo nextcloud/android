@@ -59,6 +59,9 @@ jobs:
         #    uses a compiled language
 
     -   run: |
+            echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;21.0.6113669" --sdk_root=${ANDROID_SDK_ROOT}
+            mkdir -p $HOME/.gradle
+            echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
             ./gradlew assembleGplayDebug
 
     -   name: Perform CodeQL Analysis
