@@ -293,16 +293,12 @@ public final class ThemeUtils {
      */
     public static void setColoredTitle(@Nullable ActionBar actionBar, String title, Context context) {
         if (actionBar != null) {
-            if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
-                actionBar.setTitle(title);
-            } else {
-                Spannable text = new SpannableString(title);
-                text.setSpan(new ForegroundColorSpan(appBarPrimaryFontColor(context)),
-                             0,
-                             text.length(),
-                             Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                actionBar.setTitle(text);
-            }
+            Spannable text = new SpannableString(title);
+            text.setSpan(new ForegroundColorSpan(appBarPrimaryFontColor(context)),
+                         0,
+                         text.length(),
+                         Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            actionBar.setTitle(text);
         }
     }
 
@@ -318,16 +314,12 @@ public final class ThemeUtils {
      */
     public static void setColoredSubtitle(@Nullable ActionBar actionBar, String title, Context context) {
         if (actionBar != null) {
-            if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
-                actionBar.setSubtitle(title);
-            } else {
-                Spannable text = new SpannableString(title);
-                text.setSpan(new ForegroundColorSpan(appBarSecondaryFontColor(context)),
-                             0,
-                             text.length(),
-                             Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                actionBar.setSubtitle(text);
-            }
+            Spannable text = new SpannableString(title);
+            text.setSpan(new ForegroundColorSpan(appBarSecondaryFontColor(context)),
+                         0,
+                         text.length(),
+                         Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            actionBar.setSubtitle(text);
         }
     }
 
