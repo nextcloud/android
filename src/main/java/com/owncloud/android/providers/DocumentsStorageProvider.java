@@ -44,7 +44,6 @@ import android.provider.DocumentsProvider;
 import android.util.Log;
 import android.util.SparseArray;
 
-import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.files.downloader.DownloadTask;
@@ -64,6 +63,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.CheckEtagRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
@@ -72,7 +72,6 @@ import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
-import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -189,7 +188,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @SuppressLint("LongLogTag")
     @Override
     public ParcelFileDescriptor openDocument(String documentId, String mode, CancellationSignal cancellationSignal)
-            throws FileNotFoundException {
+        throws FileNotFoundException {
         Log.d(TAG, "openDocument(), id=" + documentId);
 
         Document document = toDocument(documentId);
@@ -197,41 +196,27 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         OCFile ocFile = document.getFile();
         Account account = document.getAccount();
-        final User user = accountManager.getUser(account.name).orElseThrow(RuntimeException::new); // should exist
 
-        if (ocFile.isDown()) {
-            RemoteOperationResult result;
-            try {
-                result = new SynchronizeFileOperation(ocFile, null, user, true, context)
-                    .execute(document.getClient(), document.getStorageManager());
-            } catch (Exception e) {
-                throw getFileNotFoundExceptionWithCause("Error synchronizing file: " + ocFile.getFileName(), e);
-            }
-            if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+        boolean needsDownload = !ocFile.isDown() || hasServerChange(document);
+        if (needsDownload) {
+            if (ocFile.getLocalModificationTimestamp() > ocFile.getLastSyncDateForData()) {
                 // TODO show a conflict notification with a pending intent that shows a ConflictResolveDialog
-                Log_OC.w(TAG, "Conflict found: " + result);
-            } else if (!result.isSuccess()) {
-                Log_OC.e(TAG, result.toString());
-                throw new FileNotFoundException("Error synchronizing file: " + ocFile.getFileName());
+                Log_OC.w(TAG, "Conflict found!");
+            } else {
+                DownloadFileOperation downloadFileOperation = new DownloadFileOperation(account, ocFile, context);
+                RemoteOperationResult result = downloadFileOperation.execute(document.getClient());
+                if (!result.isSuccess()) {
+                    Log_OC.e(TAG, result.toString());
+                    throw new FileNotFoundException("Error downloading file: " + ocFile.getFileName());
+                }
+                saveDownloadedFile(document.getStorageManager(), downloadFileOperation, ocFile);
             }
-            // TODO test if this needed here
-            // block thread until file is saved
-            FileStorageUtils.checkIfFileFinishedSaving(ocFile);
-        } else {
-            DownloadFileOperation downloadFileOperation = new DownloadFileOperation(account, ocFile, context);
-            RemoteOperationResult result = downloadFileOperation.execute(document.getClient());
-            if (!result.isSuccess()) {
-                Log_OC.e(TAG, result.toString());
-                throw new FileNotFoundException("Error downloading file: " + ocFile.getFileName());
-            }
-            saveDownloadedFile(document.getStorageManager(), downloadFileOperation, ocFile);
         }
 
         File file = new File(ocFile.getStoragePath());
-        int accessMode = ParcelFileDescriptor.parseMode(mode);
-        boolean isWrite = accessMode != ParcelFileDescriptor.MODE_READ_ONLY;
 
-        if (isWrite) {
+        int accessMode = ParcelFileDescriptor.parseMode(mode);
+        if (accessMode != ParcelFileDescriptor.MODE_READ_ONLY) {
             // The calling thread is not guaranteed to have a Looper, so we can't block it with the OnCloseListener.
             // Thus, we are unable to do a synchronous upload and have to start an asynchronous one.
             Handler handler = new Handler(context.getMainLooper());
@@ -261,6 +246,23 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             }
         } else {
             return ParcelFileDescriptor.open(file, accessMode);
+        }
+    }
+
+    private boolean hasServerChange(Document document) throws FileNotFoundException {
+        Context context = getNonNullContext();
+        OCFile ocFile = document.getFile();
+        RemoteOperationResult result = new CheckEtagRemoteOperation(ocFile.getRemotePath(), ocFile.getEtag())
+            .execute(document.getAccount(), context);
+        switch (result.getCode()) {
+            case ETAG_CHANGED:
+                return true;
+            case ETAG_UNCHANGED:
+                return false;
+            case FILE_NOT_FOUND:
+            default:
+                Log_OC.e(TAG, result.toString());
+                throw new FileNotFoundException("Error synchronizing file: " + ocFile.getFileName());
         }
     }
 
