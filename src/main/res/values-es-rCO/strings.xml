@@ -34,6 +34,7 @@
     <string name="auth_account_not_the_same">El usuario ingresado no corresponde con el usuario de esta cuenta</string>
     <string name="auth_bad_oc_version_title">Versión del servidor no reconocida</string>
     <string name="auth_connection_established">Conexión establecida</string>
+    <string name="auth_fail_get_user_name">Tu servidor no esta devolviendo un ID de usuario valido, por favor contacta un administrador</string>
     <string name="auth_host_address">Dirección del servidor</string>
     <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_incorrect_address_title">El formato de dirección para el servidor es erróneo</string>
@@ -70,6 +71,7 @@
     <string name="choose_remote_folder">Elige la carpeta remota…</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido texto para copiar al portapapeles</string>
+    <string name="clipboard_text_copied">Enlace copiado</string>
     <string name="clipboard_unexpected_error">Se presentó un error inesperado al copiar al portapapeles</string>
     <string name="common_back">Atrás</string>
     <string name="common_cancel">Cancelar</string>
@@ -470,6 +472,7 @@
     <string name="sync_fail_ticker">Falla en la sincronización</string>
     <string name="sync_fail_ticker_unauthorized">La sincronización falló, inicia sesión de nuevo</string>
     <string name="sync_file_nothing_to_do_msg">Los contenidos del archivo ya han sido sincronizados</string>
+    <string name="sync_folder_failed_content">La sincronización del directorio %1$sno pudo ser completada</string>
     <string name="sync_foreign_files_forgotten_explanation">A partir de la versión 1.3.16, los archivos cargados desde este dispositivo serán copiados a la carpeta local %1$spara prevenir perdidas de datos cuando un archivo se sincroniza entre múltiples cuentas. \n\nDerivado de este cambio, todos los archivos cargados con versiones anteriores de la aplicación fueron copiados a la carpeta %2$s. Sin embargo, un error evitó que se completara esta operación durante la sincronizacion de la cuenta. Puedes dejar el(los) archivo(s) como está(n) y eliminar la liga a %3$s, o bien, mover el(los) archivo(s) a la carpeta%1$s y mantener la liga a %4$s.\n\nSe enlistan a continuación los archivos locales así como los archivos remotos en %5$s a donde estaban ligados</string>
     <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales se han perdido</string>
     <string name="sync_in_progress">Obteniendo la versión más reciente del archivo.</string>
@@ -491,6 +494,7 @@
     <string name="unshare">Dejar de compartir</string>
     <string name="unshare_link_forbidden_permissions">para dejar de compartir este archivo</string>
     <string name="untrusted_domain">Accede a través de un dominio no de confianza. Por favor consulta la documentación para más información.</string>
+    <string name="update_link_file_error">Ha ocurrido un error mientras se intentaba actualizar el enlace compartido</string>
     <string name="update_link_forbidden_permissions">para actualizar este recurso compartido</string>
     <string name="upload_chooser_title">Cargar forma…</string>
     <string name="upload_content_from_other_apps">Cargar contenido de otras aplicaciones</string>
