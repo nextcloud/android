@@ -23,7 +23,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
         classpath('com.hiya:jacoco-android:0.2')
-        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.5.0'
+        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.5.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.0"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
