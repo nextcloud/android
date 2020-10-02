@@ -26,7 +26,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.style.StyleSpan;
@@ -113,11 +112,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         if (!(activity instanceof OnSyncedFolderPreferenceListener)) {
             throw new IllegalArgumentException("The host activity must implement "
-                    + OnSyncedFolderPreferenceListener.class.getCanonicalName());
+                                                   + OnSyncedFolderPreferenceListener.class.getCanonicalName());
         }
     }
 
@@ -584,7 +583,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
     /**
      * Get index for name collision selection dialog.
-     * @return 0 if ASK_USER, 1 if OVERWRITE, 2 if RENAME. Otherwise: 0
+     * @return 0 if ASK_USER, 1 if OVERWRITE, 2 if RENAME, 3 if SKIP, Otherwise: 0
      */
     static private Integer getSelectionIndexForNameCollisionPolicy(FileUploader.NameCollisionPolicy nameCollisionPolicy) {
         switch (nameCollisionPolicy) {
@@ -592,6 +591,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                 return 1;
             case RENAME:
                 return 2;
+            case CANCEL:
+                return 3;
             case ASK_USER:
             default:
                 return 0;
@@ -599,9 +600,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     }
 
     /**
-     * Get index for name collision selection dialog.
-     * Inverse of getSelectionIndexForNameCollisionPolicy.
-     * @return ASK_USER if 0, OVERWRITE if 1, RENAME if 2. Otherwise: ASK_USEr
+     * Get index for name collision selection dialog. Inverse of getSelectionIndexForNameCollisionPolicy.
+     *
+     * @return ASK_USER if 0, OVERWRITE if 1, RENAME if 2, SKIP if 3. Otherwise: ASK_USER
      */
     static private FileUploader.NameCollisionPolicy getNameCollisionPolicyForSelectionIndex(int index) {
         switch (index) {
@@ -609,6 +610,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                 return FileUploader.NameCollisionPolicy.OVERWRITE;
             case 2:
                 return FileUploader.NameCollisionPolicy.RENAME;
+            case 3:
+                return FileUploader.NameCollisionPolicy.CANCEL;
             case 0:
             default:
                 return FileUploader.NameCollisionPolicy.ASK_USER;
