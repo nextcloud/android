@@ -71,6 +71,7 @@ import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.SyncedFolderUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
@@ -378,13 +379,17 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 SyncedFolder syncedFolder = syncedFoldersMap.get(mediaFolder.absolutePath + "-" + mediaFolder.type);
                 syncedFoldersMap.remove(mediaFolder.absolutePath + "-" + mediaFolder.type);
 
-                if (MediaFolderType.CUSTOM == syncedFolder.getType()) {
-                    result.add(createSyncedFolderWithoutMediaFolder(syncedFolder));
-                } else {
-                    result.add(createSyncedFolder(syncedFolder, mediaFolder));
+                if (syncedFolder != null && SyncedFolderUtils.isQualifyingMediaFolder(syncedFolder)) {
+                    if (MediaFolderType.CUSTOM == syncedFolder.getType()) {
+                        result.add(createSyncedFolderWithoutMediaFolder(syncedFolder));
+                    } else {
+                        result.add(createSyncedFolder(syncedFolder, mediaFolder));
+                    }
                 }
             } else {
-                result.add(createSyncedFolderFromMediaFolder(mediaFolder));
+                if (SyncedFolderUtils.isQualifyingMediaFolder(mediaFolder)) {
+                    result.add(createSyncedFolderFromMediaFolder(mediaFolder));
+                }
             }
         }
 
@@ -399,7 +404,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     private SyncedFolderDisplayItem createSyncedFolderWithoutMediaFolder(@NonNull SyncedFolder syncedFolder) {
 
         File localFolder = new File(syncedFolder.getLocalPath());
-        File[] files = getFileList(localFolder);
+        File[] files = SyncedFolderUtils.getFileList(localFolder);
         List<String> filePaths = getDisplayFilePathList(files);
 
         return new SyncedFolderDisplayItem(
@@ -477,18 +482,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 mediaFolder.numberOfFiles,
                 mediaFolder.type,
                 false);
-    }
-
-    private File[] getFileList(File localFolder) {
-        File[] files = localFolder.listFiles(pathname -> !pathname.isDirectory());
-
-        if (files != null) {
-            Arrays.sort(files, (f1, f2) -> Long.compare(f1.lastModified(), f2.lastModified()));
-        } else {
-            files = new File[]{};
-        }
-
-        return files;
     }
 
     private List<String> getDisplayFilePathList(File... files) {
