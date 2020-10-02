@@ -16,5 +16,6 @@
         <item>@string/pref_instant_name_collision_policy_entries_always_ask</item>
         <item>@string/pref_instant_name_collision_policy_entries_overwrite</item>
         <item>@string/pref_instant_name_collision_policy_entries_rename</item>
+        <item>@string/pref_instant_name_collision_policy_entries_cancel</item>
     </string-array>
 </resources>

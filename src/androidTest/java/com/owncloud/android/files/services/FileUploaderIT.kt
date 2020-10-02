@@ -32,6 +32,7 @@ import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.lib.common.operations.OperationCancelledException
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.UploadFileOperation
@@ -356,6 +357,111 @@ class FileUploaderIT : AbstractOnServerIT() {
      */
     @Test
     fun testKeepServerStatic() {
+        val file = getDummyFile("/chunkedFile.txt")
+
+        FileUploader.uploadNewFile(
+            targetContext,
+            account,
+            file.absolutePath,
+            "/testFile.txt",
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            null,
+            true,
+            UploadFileOperation.CREATED_BY_USER,
+            false,
+            false,
+            FileUploader.NameCollisionPolicy.DEFAULT
+        )
+
+        longSleep()
+
+        val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        assertTrue(result.isSuccess)
+
+        assertEquals(file.length(), (result.data[0] as RemoteFile).length)
+
+        val ocFile2 = OCFile("/testFile.txt")
+        ocFile2.setStoragePath(getDummyFile("/empty.txt").absolutePath)
+
+        FileUploader.uploadUpdateFile(
+            targetContext,
+            account,
+            ocFile2,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            FileUploader.NameCollisionPolicy.CANCEL
+        )
+
+        shortSleep()
+
+        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        assertTrue(result2.isSuccess)
+
+        assertEquals(file.length(), (result2.data[0] as RemoteFile).length)
+    }
+
+    /**
+     * uploads a file with "skip if exists" option set, so do nothing if file exists
+     */
+    @Test
+    fun testCancelServer() {
+        val file = getDummyFile("/chunkedFile.txt")
+        val ocUpload = OCUpload(file.absolutePath, "/testFile.txt", account.name)
+
+        assertTrue(
+            UploadFileOperation(
+                uploadsStorageManager,
+                connectivityServiceMock,
+                powerManagementServiceMock,
+                user,
+                null,
+                ocUpload,
+                FileUploader.NameCollisionPolicy.CANCEL,
+                FileUploader.LOCAL_BEHAVIOUR_COPY,
+                targetContext,
+                false,
+                false
+            )
+                .setRemoteFolderToBeCreated()
+                .execute(client, storageManager)
+                .isSuccess
+        )
+
+        val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        assertTrue(result.isSuccess)
+
+        assertEquals(file.length(), (result.data[0] as RemoteFile).length)
+
+        val ocUpload2 = OCUpload(getDummyFile("/empty.txt").absolutePath, "/testFile.txt", account.name)
+
+        val uploadResult = UploadFileOperation(
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            user,
+            null,
+            ocUpload2,
+            FileUploader.NameCollisionPolicy.CANCEL,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            false,
+            false
+        )
+            .execute(client, storageManager)
+
+        assertFalse(uploadResult.isSuccess)
+        assertTrue(uploadResult.exception is OperationCancelledException)
+
+        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        assertTrue(result2.isSuccess)
+
+        assertEquals(file.length(), (result2.data[0] as RemoteFile).length)
+    }
+
+    /**
+     * uploads a file with "skip if exists" option set, so do nothing if file exists
+     */
+    @Test
+    fun testKeepCancelStatic() {
         val file = getDummyFile("/chunkedFile.txt")
 
         FileUploader.uploadNewFile(
