@@ -33,8 +33,6 @@ import androidx.annotation.NonNull;
 
 public class DeckApiImpl implements DeckApi {
 
-    private static final String TAG = DeckApiImpl.class.getSimpleName();
-
     static final String APP_NAME = "deck";
     static final String[] DECK_APP_PACKAGES = new String[] {
         "it.niedermann.nextcloud.deck",
