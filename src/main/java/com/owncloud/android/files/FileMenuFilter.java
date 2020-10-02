@@ -58,6 +58,7 @@ import androidx.annotation.Nullable;
 public class FileMenuFilter {
 
     private static final int SINGLE_SELECT_ITEMS = 1;
+    public static final String SEND_OFF = "off";
 
     private int numberOfAllFiles;
     private Collection<OCFile> files;
@@ -225,7 +226,7 @@ public class FileMenuFilter {
 
     private void filterSendFiles(List<Integer> toShow, List<Integer> toHide) {
         if (containsEncryptedFile() || isSingleSelection() || overflowMenu || !anyFileDown() ||
-            "off".equalsIgnoreCase(context.getString(R.string.send_files_to_other_apps))) {
+            SEND_OFF.equalsIgnoreCase(context.getString(R.string.send_files_to_other_apps))) {
             toHide.add(R.id.action_send_file);
         } else {
             toShow.add(R.id.action_send_file);
