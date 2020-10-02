@@ -18,7 +18,6 @@
 
 package com.owncloud.android.utils;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
