@@ -26,7 +26,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.style.StyleSpan;
@@ -113,11 +112,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         if (!(activity instanceof OnSyncedFolderPreferenceListener)) {
             throw new IllegalArgumentException("The host activity must implement "
-                    + OnSyncedFolderPreferenceListener.class.getCanonicalName());
+                                                   + OnSyncedFolderPreferenceListener.class.getCanonicalName());
         }
     }
 
@@ -601,9 +600,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     }
 
     /**
-     * Get index for name collision selection dialog.
-     * Inverse of getSelectionIndexForNameCollisionPolicy.
-     * @return ASK_USER if 0, OVERWRITE if 1, RENAME if 2, SKIP if 3. Otherwise: ASK_USEr
+     * Get index for name collision selection dialog. Inverse of getSelectionIndexForNameCollisionPolicy.
+     *
+     * @return ASK_USER if 0, OVERWRITE if 1, RENAME if 2, SKIP if 3. Otherwise: ASK_USER
      */
     static private FileUploader.NameCollisionPolicy getNameCollisionPolicyForSelectionIndex(int index) {
         switch (index) {
