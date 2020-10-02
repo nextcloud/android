@@ -1197,6 +1197,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 selectAllFiles(false);
                 return true;
             }
+            case R.id.action_send_file:
+                mContainerActivity.getFileOperationsHelper().sendFiles(checkedFiles);
+                return true;
             default:
                 return false;
         }
