@@ -32,7 +32,14 @@ public final class FileUtil {
         // utility class -> private constructor
     }
 
-    public static @NonNull String getFilenameFromPathString(@Nullable String filePath) {
+    /**
+     * returns the file name of a given path.
+     *
+     * @param filePath (absolute) file path
+     * @return the filename including its file extension, <code>empty String</code> for invalid input values
+     */
+    public static @NonNull
+    String getFilenameFromPathString(@Nullable String filePath) {
         if (filePath != null && filePath.length() > EMPTY_LENGTH) {
             File file = new File(filePath);
             if (file.isFile()) {
