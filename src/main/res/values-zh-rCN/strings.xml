@@ -31,6 +31,7 @@
     <string name="activity_chooser_title">发送链接到…</string>
     <string name="activity_icon">激活</string>
     <string name="add_another_public_share_link">添加其他链接</string>
+    <string name="add_new_public_share">添加新的公共共享链接</string>
     <string name="add_to_cloud">添加到%1$s</string>
     <string name="allow_creating">允许创建</string>
     <string name="allow_deleting">允许删除</string>
