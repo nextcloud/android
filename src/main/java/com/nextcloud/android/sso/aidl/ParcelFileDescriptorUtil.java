@@ -20,7 +20,6 @@
 package com.nextcloud.android.sso.aidl;
 
 import android.os.ParcelFileDescriptor;
-import android.util.Log;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
 
