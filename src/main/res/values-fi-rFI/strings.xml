@@ -266,6 +266,7 @@
     <string name="etm_background_jobs_stop_test_job">Pysäytä testityö</string>
     <string name="etm_download_enqueue_test_download">Jonota testilataus</string>
     <string name="etm_download_path">Etäpolku</string>
+    <string name="etm_downloader">Lataaja</string>
     <string name="etm_migrations">Yhdistäminen (sovelluksen päivitys)</string>
     <string name="etm_preferences">Asetukset</string>
     <string name="etm_title">Kehittäjän testitila</string>
@@ -273,6 +274,7 @@
     <string name="failed_to_download">Tiedoston välittäminen latausmanagerille epäonnistui</string>
     <string name="failed_to_print">Tiedoston tulostaminen epäonnistui</string>
     <string name="failed_to_start_editor">Editorin kaynnistäminen epäonnistui</string>
+    <string name="failed_update_ui">Käyttöliittymän päivitys epäonnistui</string>
     <string name="favorite">Lisää suosikkeihin</string>
     <string name="favorite_icon">Suosikki</string>
     <string name="file_delete">Poista</string>
@@ -589,6 +591,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share_link_forbidden_permissions">jakaa tiedostoa</string>
     <string name="share_link_optional_password_title">Syötä vaihtoehtoinen salasanan</string>
     <string name="share_link_password_title">Anna salasana</string>
+    <string name="share_link_with_label">Jaa linkki (%1$s)</string>
     <string name="share_no_expiration_date_label">Aseta vanhenemispäivä</string>
     <string name="share_no_password_title">Aseta salasana</string>
     <string name="share_password_title">Salasanasuojattu</string>
@@ -791,6 +794,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="uploads_view_upload_status_virus_detected">Virus havaittu. Lähetystä ei voi suorittaa loppuun!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Odotetaan virransäästötilasta poistumista</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Odotetaan latausta</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Odotetaan laskuttamatonta Wi-Fi-yhteyttä</string>
     <string name="user_icon">Käyttäjä</string>
     <string name="user_info_address">Osoite</string>
     <string name="user_info_email">Sähköposti</string>
