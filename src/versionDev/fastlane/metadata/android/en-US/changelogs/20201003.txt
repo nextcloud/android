@@ -1,0 +1,12 @@
+spotbugs: Method does not presize the allocation of a collection
+use a constant for equals statement
+Add send multiple files, if downloaded
+add tests
+Prevent firebase crashes
+re-add flag_secure to prevent showing content if app is locked
+unify mockk version
+drop Android 4.3, new min version is Android 4.4
+add skip option in case of name collision
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
