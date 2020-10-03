@@ -22,7 +22,6 @@
 package com.owncloud.android.operations;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
@@ -46,8 +45,6 @@ import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
 import java.util.UUID;
-
-import androidx.annotation.RequiresApi;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
@@ -98,18 +95,12 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         boolean encryptedAncestor = FileStorageUtils.checkEncryptionStatus(parent, getStorageManager());
 
         if (encryptedAncestor) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                return encryptedCreate(parent, remoteParentPath, client);
-            } else {
-                Log_OC.e(TAG, "Encrypted upload on old Android API");
-                return new RemoteOperationResult(RemoteOperationResult.ResultCode.OLD_ANDROID_API);
-            }
+            return encryptedCreate(parent, remoteParentPath, client);
         } else {
             return normalCreate(client);
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private RemoteOperationResult encryptedCreate(OCFile parent, String remoteParentPath, OwnCloudClient client) {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
         String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);

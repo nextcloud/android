@@ -241,11 +241,15 @@ public class SendShareDialog extends BottomSheetDialogFragment {
 
     @NonNull
     private List<SendButtonData> setupSendButtonData(Intent sendIntent) {
-        List<SendButtonData> sendButtonDataList = new ArrayList<>();
-        for (ResolveInfo match : getActivity().getPackageManager().queryIntentActivities(sendIntent, 0)) {
-            Drawable icon = match.loadIcon(getActivity().getPackageManager());
-            CharSequence label = match.loadLabel(getActivity().getPackageManager());
-            SendButtonData sendButtonData = new SendButtonData(icon, label,
+        Drawable icon;
+        SendButtonData sendButtonData;
+        CharSequence label;
+        List<ResolveInfo> matches = requireActivity().getPackageManager().queryIntentActivities(sendIntent, 0);
+        List<SendButtonData> sendButtonDataList = new ArrayList<>(matches.size());
+        for (ResolveInfo match : matches) {
+            icon = match.loadIcon(requireActivity().getPackageManager());
+            label = match.loadLabel(requireActivity().getPackageManager());
+            sendButtonData = new SendButtonData(icon, label,
                     match.activityInfo.packageName,
                     match.activityInfo.name);
 

@@ -73,6 +73,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.activity.TextEditorWebView;
+import com.owncloud.android.ui.dialog.SendFilesDialog;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
@@ -97,6 +98,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -701,6 +703,16 @@ public class FileOperationsHelper {
         SendShareDialog mSendShareDialog = SendShareDialog.newInstance(file, hideNcSharingOptions, capability);
         mSendShareDialog.setFileOperationsHelper(this);
         mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
+    }
+
+    public void sendFiles(Set<OCFile> files) {
+        // Show dialog
+        FragmentManager fm = fileActivity.getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.addToBackStack(null);
+
+        SendFilesDialog sendFilesDialog = SendFilesDialog.newInstance(files);
+        sendFilesDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
     }
 
     public void sendShareFile(OCFile file) {

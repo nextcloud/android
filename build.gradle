@@ -23,9 +23,9 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
         classpath('com.hiya:jacoco-android:0.2')
-        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.5.0'
+        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.5.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.0"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:4.4.0'
     }
@@ -47,9 +47,6 @@ configurations {
     ktlint
 
     all {
-        exclude group: 'com.google.firebase', module: 'firebase-core'
-        exclude group: 'com.google.firebase', module: 'firebase-analytics'
-        exclude group: 'com.google.firebase', module: 'firebase-measurement-connector'
         exclude group: 'org.jetbrains', module: 'annotations-java5' // via prism4j, already using annotations explicitly
 
         // check for updates every build
@@ -65,6 +62,7 @@ ext {
     butterknifeVersion = "10.2.3"
     androidLibraryVersion ="82d05a2529b80e467cc4a8d954564001a36ea326"
     mockitoVersion = "3.5.13"
+    mockkVersion = "1.10.2"
     byteBuddyVersion = "1.10.16"
     espressoVersion = "3.3.0"
 
@@ -127,7 +125,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion 18
+        minSdkVersion 19
         targetSdkVersion 29
 
         // arguments to be passed to functional tests
@@ -363,8 +361,8 @@ dependencies {
     testImplementation 'org.json:json:20200518'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
-    testImplementation 'io.mockk:mockk:1.10.0'
-    testImplementation 'io.mockk:mockk-android:1.10.0'
+    testImplementation "io.mockk:mockk:$mockkVersion"
+    testImplementation "io.mockk:mockk-android:$mockkVersion"
 
     // dependencies for instrumented tests
     // JUnit4 Rules

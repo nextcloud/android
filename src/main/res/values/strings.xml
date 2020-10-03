@@ -459,6 +459,7 @@
     <string name="pref_instant_name_collision_policy_entries_always_ask">Ask me every time</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Rename new version</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Overwrite remote version</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Skip uploading</string>
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_file">Share %1$s</string>
