@@ -484,6 +484,7 @@
     <string name="pref_behaviour_entries_move">movido cara ao cartafol da aplicación</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Que facer se o ficheiro xa existe?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Pregúntarme cada vez</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Omitir o envío</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Sobrescribir a versión remota</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Renomear a versión nova</string>
     <string name="pref_instant_name_collision_policy_title">Que facer se o ficheiro xa existe?</string>

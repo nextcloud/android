@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Ainda não há suporte para cópia/movimentação em pasta criptografada.</string>
     <string name="copy_to">Copiar para…</string>
     <string name="could_not_download_image">Não foi possível baixar a imagem completa</string>
+    <string name="could_not_retrieve_shares">Não foi possível recuperar os compartilhamentos</string>
     <string name="could_not_retrieve_url">Não foi possível recuperar a URL</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
     <string name="create_new">Criar novo</string>
@@ -275,6 +276,7 @@
     <string name="failed_to_download">Erro ao enviar o arquivo ao gerenciador de downloads</string>
     <string name="failed_to_print">Erro ao imprimir o arquivo</string>
     <string name="failed_to_start_editor">Erro ao iniciar editor</string>
+    <string name="failed_update_ui">Falha ao atualizar a interface gráfica</string>
     <string name="favorite">Adicionar aos favoritos</string>
     <string name="favorite_icon">Favorito</string>
     <string name="file_delete">Excluir</string>
@@ -482,6 +484,7 @@
     <string name="pref_behaviour_entries_move">movido para a pasta aplicativos</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">O que fazer se o arquivo já existir?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Perguntar sempre</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Ignorar envio</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Sobrescrever a versão remota</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Renomear a nova versão</string>
     <string name="pref_instant_name_collision_policy_title">O que fazer se o arquivo já existir?</string>
@@ -592,6 +595,7 @@
     <string name="share_link_forbidden_permissions">para compartilhar este arquivo</string>
     <string name="share_link_optional_password_title">Digite uma senha opcional</string>
     <string name="share_link_password_title">Digite uma senha</string>
+    <string name="share_link_with_label">Compartilhar link (%1$s)</string>
     <string name="share_no_expiration_date_label">Definir data de expiração</string>
     <string name="share_no_password_title">Definir senha</string>
     <string name="share_password_title">Protegido por senha</string>
