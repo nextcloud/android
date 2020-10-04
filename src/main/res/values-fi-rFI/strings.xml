@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Lajittele</string>
     <string name="active_user">Aktiivinen käyttäjä</string>
     <string name="activities_no_results_headline">Ei vielä toimia</string>
+    <string name="activities_no_results_message">Ei vielä tapahtumia kuten lisäyksiä, muutoksia tai jakoja.</string>
     <string name="activity_chooser_send_file_title">Lähetä</string>
     <string name="activity_chooser_title">Lähetä linkki…</string>
     <string name="activity_icon">Aktiviteetti</string>
@@ -167,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiointi/siirto salattuun kansioon ei ole mahdollista.</string>
     <string name="copy_to">Kopio kohteeseen…</string>
     <string name="could_not_download_image">Koko kuvan lataaminen epäonnistui</string>
+    <string name="could_not_retrieve_shares">Jakojen nouto ei onnistunut</string>
     <string name="could_not_retrieve_url">URL:n palautus epännistui</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
     <string name="create_new">Luo uusi</string>
@@ -373,6 +375,7 @@
     <string name="instant_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Virheellinen URL</string>
+    <string name="label_empty">Nimike ei voi olla tyhjä</string>
     <string name="link">Linkki</string>
     <string name="link_share_allow_upload_and_editing">Salli lähetys ja muokkaus</string>
     <string name="link_share_file_drop">Tiedostojen pudotus (vain lähetys)</string>
@@ -480,6 +483,7 @@
     <string name="pref_behaviour_entries_move">Siirretään sovelluskansioon</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Mitä tehdään, jos tiedosto on jo olemassa?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Kysy minulta joka kerta</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Ohita lähettäminen</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Korvaa palvelimen versio</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Nimeä uusi versio uudelleen</string>
     <string name="pref_instant_name_collision_policy_title">Mitä tehdään, jos tiedosto on jo olemassa?</string>
