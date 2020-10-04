@@ -484,6 +484,7 @@
     <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Was tun, wenn die Datei bereits vorhanden ist?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Mich jedesmal fragen</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Hochladen überspringen</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Version auf dem Server überschreiben</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Neue Version umbenennen</string>
     <string name="pref_instant_name_collision_policy_title">Was tun, wenn die Datei bereits vorhanden ist?</string>

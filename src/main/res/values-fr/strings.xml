@@ -486,6 +486,7 @@ Attention la suppression est irréversible.</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Que faire si le fichier existe déjà ?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Me demander à chaque fois</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Ignorer l\'envoi</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Écraser la version distante</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Renommer la nouvelle version</string>
     <string name="pref_instant_name_collision_policy_title">Que faire si le fichier existe déjà ?</string>
