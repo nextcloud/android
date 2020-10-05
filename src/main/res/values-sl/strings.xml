@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiranje/Premikanje predmetov v šifrirano mapo trenutno ni podprto.</string>
     <string name="copy_to">Kopiraj v ...</string>
     <string name="could_not_download_image">Slike ni mogoče prejeti v celoti.</string>
+    <string name="could_not_retrieve_shares">Naslovov mest souporabe ni mogoče pridobiti</string>
     <string name="could_not_retrieve_url">Naslova URL ni mogoče pridobiti</string>
     <string name="create_dir_fail_msg">Ni mogoče ustvariti mape</string>
     <string name="create_new">Ustvari novo</string>
@@ -275,6 +276,7 @@
     <string name="failed_to_download">Podajanje datoteke na upravljalnik prenosov je spodletelo</string>
     <string name="failed_to_print">Tiskanje datoteke je spodletelo</string>
     <string name="failed_to_start_editor">Začenjanje urejevalnika je spodletelo</string>
+    <string name="failed_update_ui">Posodabljanje uporabniškega vmesnika je spodletelo</string>
     <string name="favorite">Dodaj med priljubljene</string>
     <string name="favorite_icon">Priljubljeno</string>
     <string name="file_delete">Izbriši</string>
@@ -376,7 +378,7 @@
     <string name="label_empty">Oznaka ne sme biti prazno polje</string>
     <string name="link">Povezava</string>
     <string name="link_share_allow_upload_and_editing">Dovoli pošiljanje in urejanje</string>
-    <string name="link_share_file_drop">Povleci datoteke (samo nalaganje)</string>
+    <string name="link_share_file_drop">Poteg datotek v okno (samo nalaganje)</string>
     <string name="link_share_read_only">Le za branje</string>
     <string name="list_layout">Izpisana razporeditev</string>
     <string name="local_file_list_empty">V tej mapi ni datotek.</string>
@@ -482,6 +484,7 @@
     <string name="pref_behaviour_entries_move">premaknjeno v mapo programa</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Kaj storiti, če datoteka že obstaja?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Vedno vprašaj</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Preskoči pošiljanje</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Prepiši oddaljeno različico</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Preimenuj novo različico</string>
     <string name="pref_instant_name_collision_policy_title">Kaj storiti, če datoteka že obstaja?</string>
@@ -794,6 +797,7 @@
     <string name="uploads_view_upload_status_virus_detected">Zaznan je virus! Pošiljanja ni mogoče dokončati!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Poteka čakanje na konec načina varčevanja</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Čakam polnjenje</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Poteka čakanje na vzpostavitev ne-merjene povezave Wi-Fi …</string>
     <string name="user_icon">Uporabnik</string>
     <string name="user_info_address">Naslov</string>
     <string name="user_info_email">E-pošta</string>
