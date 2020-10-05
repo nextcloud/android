@@ -751,6 +751,8 @@ public class FileUploader extends Service
             mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         }
 
+        mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
+
         // Only notify if the upload fails
         if (!uploadResult.isCancelled() &&
             !uploadResult.isSuccess() &&
