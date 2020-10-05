@@ -484,6 +484,7 @@
     <string name="pref_behaviour_entries_move">přesunuto do složky aplikace</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Co udělat pokud soubor už existuje?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Pokaždé se zeptat</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Přeskočit nahrávání</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Přepsat vzdálenou verzi</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Přejmenovat novou verzi</string>
     <string name="pref_instant_name_collision_policy_title">Co udělat pokud soubor už existuje?</string>
