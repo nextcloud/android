@@ -94,7 +94,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
     public static final String KEY_ACCOUNT = "ACCOUNT";
 
     private static final String TAG = UserInfoActivity.class.getSimpleName();
-    private static final String KEY_USER_DATA = "USER_DATA";
+    public static final String KEY_USER_DATA = "USER_DATA";
 
     @BindView(R.id.empty_list_view) protected LinearLayout emptyContentContainer;
     @BindView(R.id.empty_list_view_text) protected TextView emptyContentMessage;
