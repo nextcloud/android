@@ -156,6 +156,7 @@ android {
         buildTypes {
             debug {
                 testCoverageEnabled (project.hasProperty('coverage'))
+                minSdkVersion 21 // remove once we use 21 globally, only needed for karumi.shot
             }
         }
 
