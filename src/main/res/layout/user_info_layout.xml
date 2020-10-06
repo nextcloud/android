@@ -40,15 +40,16 @@
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/userinfo_icon"
-            android:layout_width="@dimen/nav_drawer_header_avatar"
-            android:layout_height="@dimen/nav_drawer_header_avatar"
-            android:layout_marginStart="@dimen/account_item_layout_user_image_left_start_margin"
-            android:layout_marginBottom="@dimen/account_item_layout_user_image_left_start_margin"
+            android:layout_width="@dimen/user_icon_size"
+            android:layout_height="@dimen/user_icon_size"
+            android:layout_margin="@dimen/standard_margin"
             android:contentDescription="@string/avatar"
             android:src="@drawable/account_circle_white"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -58,8 +59,8 @@
             android:id="@+id/userinfo_fullName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
             android:ellipsize="end"
             android:lines="1"
             android:shadowColor="@color/drawer_shadow"
@@ -78,6 +79,7 @@
             android:id="@+id/userinfo_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_margin"
             android:ellipsize="end"
             android:lines="2"
             android:shadowColor="@color/drawer_shadow"
@@ -97,13 +99,12 @@
         android:id="@+id/userinfo_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/standard_margin"
         android:orientation="vertical"
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:visibility="visible"
+        tools:itemCount="3"
         tools:listitem="@layout/user_info_details_table_item"
-        tools:itemCount="3" />
+        tools:visibility="visible" />
 
     <include layout="@layout/empty_list" />
 
