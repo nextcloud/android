@@ -782,6 +782,8 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.CAPABILITIES_SERVER_COLOR + TEXT
                        + ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR + TEXT
                        + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR + TEXT
+                       + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR_BRIGHT + TEXT
+                       + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR_DARK + TEXT
                        + ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN + TEXT
                        + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + TEXT
                        + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + INTEGER
@@ -2257,6 +2259,23 @@ public class FileContentProvider extends ContentProvider {
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.OCSHARES_TABLE_NAME +
                                    ADD_COLUMN + ProviderTableMeta.OCSHARES_SHARE_LABEL + " TEXT ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (oldVersion < 60 && newVersion >= 60) {
+                Log_OC.i(SQL, "Entering in the #60 Adding element color bright/dark to capabilities");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR_BRIGHT + " TEXT ");
+
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR_DARK + " TEXT ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();

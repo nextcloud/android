@@ -29,7 +29,8 @@ import com.owncloud.android.utils.ThemeUtils
  */
 object ThemePreferenceUtils {
     @JvmStatic
-    fun colorPreferenceCategory(context: Context?, preferenceCategory: PreferenceCategory?, @StringRes title: Int) {
+    fun colorPreferenceCategory(context: Context?, preferenceCategory: PreferenceCategory?, @StringRes
+    title: Int) {
         if (context != null && preferenceCategory != null) {
             preferenceCategory.title = ThemeUtils.getColoredTitle(
                 context.getString(title),

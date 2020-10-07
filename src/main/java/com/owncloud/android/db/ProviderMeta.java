@@ -209,6 +209,8 @@ public class ProviderMeta {
         public static final String CAPABILITIES_SERVER_COLOR = "server_color";
         public static final String CAPABILITIES_SERVER_TEXT_COLOR = "server_text_color";
         public static final String CAPABILITIES_SERVER_ELEMENT_COLOR = "server_element_color";
+        public static final String CAPABILITIES_SERVER_ELEMENT_COLOR_BRIGHT = "server_element_color_bright";
+        public static final String CAPABILITIES_SERVER_ELEMENT_COLOR_DARK = "server_element_color_dark";
         public static final String CAPABILITIES_SERVER_BACKGROUND_URL = "background_url";
         public static final String CAPABILITIES_SERVER_SLOGAN = "server_slogan";
         public static final String CAPABILITIES_SERVER_BACKGROUND_DEFAULT = "background_default";

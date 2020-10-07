@@ -685,7 +685,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupGeneralCategory() {
         PreferenceCategory preferenceCategoryGeneral = (PreferenceCategory) findPreference("general");
-        ThemePreferenceUtils.colorPreferenceCategory(this, preferenceCategoryGeneral, R.string.prefs_category_general);
+        ThemePreferenceUtils.colorPreferenceCategory(this, preferenceCategoryGeneral,
+                                                     R.string.prefs_category_general);
 
         prefStoragePath = (ListPreference) findPreference(AppPreferencesImpl.STORAGE_PATH);
         if (prefStoragePath != null) {

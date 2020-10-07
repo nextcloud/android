@@ -110,10 +110,6 @@ public final class ColorsUtils {
             return Color.GRAY;
         }
 
-        if (account == null) {
-            return context.getResources().getColor(R.color.primary);
-        }
-
         OCCapability capability = getCapability(account, context);
 
         if (!TextUtils.isEmpty(capability.getServerElementColorDark())
@@ -144,10 +140,6 @@ public final class ColorsUtils {
                                           boolean replaceEdgeColorsByInvertedColor) {
         if (context == null) {
             return Color.GRAY;
-        }
-
-        if (account == null) {
-            return context.getResources().getColor(R.color.primary);
         }
 
         OCCapability capability = getCapability(account, context);

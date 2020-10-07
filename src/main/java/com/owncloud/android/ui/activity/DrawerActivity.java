@@ -692,7 +692,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             mCheckedMenuItem = menuItemId;
             MenuItem currentItem = mNavigationView.getMenu().findItem(menuItemId);
             int drawerColor = getResources().getColor(R.color.drawer_text_color);
-            int activeColor = ThemeUtils.primaryColor(null, true, true, this);
+            int activeColor = ThemeUtils.primaryColor(getAccount(), true, true, this);
 
             currentItem.setChecked(true);
 
