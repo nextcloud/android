@@ -275,6 +275,7 @@
     <string name="failed_to_download">Αποτυχία ενημέρωσης διαχειριστή λήψεων </string>
     <string name="failed_to_print">Απέτυχε να εκτυπώσει το αρχείο</string>
     <string name="failed_to_start_editor">Ο επεξεργαστής απέτυχε να ξεκινησει</string>
+    <string name="failed_update_ui">Η ενημέρωση του UI απέτυχε</string>
     <string name="favorite">Προσθήκη στα αγαπημένα</string>
     <string name="favorite_icon">Αγαπημένο</string>
     <string name="file_delete">Διαγραφή</string>
@@ -482,6 +483,7 @@
     <string name="pref_behaviour_entries_move">μετακινηθεί στον φάκελο εφαρμογών</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Τι κάνετε όταν το αρχείο υπάρχει;</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Ερώτηση πάντα</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Παράβλεψη μεταφόρτωσης</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Επικάλυψη απομακρυσμένη έκδοσης</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Μετονομασία νέας έκδοσης</string>
     <string name="pref_instant_name_collision_policy_title">Τι κάνετε όταν το αρχείο υπάρχει;</string>
@@ -592,6 +594,7 @@
     <string name="share_link_forbidden_permissions">για να διαμοιραστείτε αυτό το αρχείο</string>
     <string name="share_link_optional_password_title">Εισάγετε προαιρετικό συνθηματικό</string>
     <string name="share_link_password_title">Εισάγετε ένα συνθηματικό</string>
+    <string name="share_link_with_label">Κοινή χρήση συνδέσμου (%1$s)</string>
     <string name="share_no_expiration_date_label">Ορισμός ημερομηνίας λήξης</string>
     <string name="share_no_password_title">Ορισμός κωδικού πρόσβασης</string>
     <string name="share_password_title">Προστασία με συνθηματικό</string>

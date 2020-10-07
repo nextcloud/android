@@ -484,6 +484,7 @@
     <string name="pref_behaviour_entries_move">movido cara ao cartafol da aplicación</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Que facer se o ficheiro xa existe?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Pregúntarme cada vez</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Omitir o envío</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Sobrescribir a versión remota</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Renomear a versión nova</string>
     <string name="pref_instant_name_collision_policy_title">Que facer se o ficheiro xa existe?</string>
@@ -684,7 +685,7 @@
     <string name="sync_folder_failed_content">Non foi posíbel completar a sincronización do cartafol %1$s</string>
     <string name="sync_foreign_files_forgotten_explanation">A partires da versión 1.3.16, os ficheiros enviados dende este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un único ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados con versións anteriores desta aplicación foron copiados no cartafol %2$s. Porén, un erro impediu que se completara esta operación durante a sincronización da conta. Pode deixar o(s) ficheiro(s) tal e como está(n) e eliminar a ligazón cara a %3$s ou mover o(s) ficheiro(s) para o cartafol %1$s e manter a ligazón cara a %4$s.\n\nEmbaixo amósanse os ficheiros locais e os ficheiros remotos en %5$s aos que foron enlazados.</string>
     <string name="sync_foreign_files_forgotten_ticker">Esquecéronse algúns ficheiros locais</string>
-    <string name="sync_in_progress">Recuperando a versión mais recente do ficheiro.</string>
+    <string name="sync_in_progress">Obtendo a versión mais recente do ficheiro.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Escolla que sincronizar</string>
     <string name="sync_not_enough_space_dialog_action_free_space">Liberar espazo</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s son %2$s, mais só hai %3$sdispoñíbeis no dispositivo.</string>

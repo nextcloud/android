@@ -484,6 +484,7 @@
     <string name="pref_behaviour_entries_move">spostato nella cartella dell\'applicazione</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Cosa fare se il file esiste già?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Chiedimi ogni volta</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Salta il caricamento</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Sovrascrivi la versione remota</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Rinomina la nuova versione</string>
     <string name="pref_instant_name_collision_policy_title">Cosa fare se il file esiste già?</string>
