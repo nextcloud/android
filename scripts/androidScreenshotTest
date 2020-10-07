@@ -47,7 +47,19 @@ fi
 
 sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
 
-emulator -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
+# check if emulator is running
+emulatorIsRunning=false
+while read line ; do
+    if [[ $(adb -s $line emu avd name 2>/dev/null | head -n1) =~ uiComparison.* ]]; then
+        emulatorIsRunning=true
+        export ANDROID_SERIAL=$line
+        break
+    fi
+done < <(adb devices | cut -f1)
+
+if [ ! $emulatorIsRunning ] ; then
+    emulator -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
+fi
 
 if [ -e $5 ] ; then
     color=""
@@ -67,3 +79,4 @@ fi
 
 
 sed -i s'#<bool name="is_beta">true</bool>#<bool name="is_beta">false</bool>#'g src/main/res/values/setup.xml
+unset ANDROID_SERIAL
