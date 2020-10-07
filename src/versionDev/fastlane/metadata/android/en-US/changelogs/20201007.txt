@@ -1,0 +1,3 @@
+remove unused resource
+Update translations
+Update Nextcloud Android library
