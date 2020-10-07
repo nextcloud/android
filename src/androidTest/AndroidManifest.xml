@@ -25,10 +25,8 @@
     the normal release/debug builds.
 -->
 
-<manifest xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="${applicationId}.test"
     android:sharedUserId="${applicationId}.uid">
 
-    <uses-sdk tools:overrideLibrary="android_libs.ub_uiautomator, tools.fastlane.screengrab" />
 </manifest>
