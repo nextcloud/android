@@ -500,7 +500,7 @@
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
     <string name="prefs_daily_contacts_sync_summary">Dnevno usklajevanje stikov</string>
-    <string name="prefs_e2e_mnemonic">Mnemonično E2E</string>
+    <string name="prefs_e2e_mnemonic">Mnemonika E2E</string>
     <string name="prefs_e2e_no_device_credentials">Za prikaz mnemonike izberite poverila naprave.</string>
     <string name="prefs_enable_media_scan_notifications">Pokaži obvestila iskanja predstavnih vsebin</string>
     <string name="prefs_enable_media_scan_notifications_summary">Obvesti o na novo zaznanih mapah s predstavno vsebino</string>
