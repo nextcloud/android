@@ -139,7 +139,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             userInfo = Parcels.unwrap(bundle.getParcelable(KEY_USER_DATA));
         }
 
-        mCurrentAccountAvatarRadiusDimension = getResources().getDimension(R.dimen.nav_drawer_header_avatar_radius);
+        mCurrentAccountAvatarRadiusDimension = getResources().getDimension(R.dimen.user_icon_radius);
 
         setContentView(R.layout.user_info_layout);
         unbinder = ButterKnife.bind(this);
