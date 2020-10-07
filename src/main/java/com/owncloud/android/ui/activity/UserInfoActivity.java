@@ -135,6 +135,8 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
 
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_USER_DATA)) {
             userInfo = Parcels.unwrap(savedInstanceState.getParcelable(KEY_USER_DATA));
+        } else if (bundle.containsKey(KEY_ACCOUNT)) {
+            userInfo = Parcels.unwrap(bundle.getParcelable(KEY_USER_DATA));
         }
 
         mCurrentAccountAvatarRadiusDimension = getResources().getDimension(R.dimen.nav_drawer_header_avatar_radius);
