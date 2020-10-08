@@ -71,8 +71,6 @@
     must request the FOREGROUND_SERVICE permission -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
-    <uses-sdk tools:overrideLibrary="com.blikoon.qrcodescanner, io.noties.markwon.ext.latex, io.noties.markwon.ext.strikethrough, io.noties.markwon.ext.tables, io.noties.markwon.ext.tasklist, io.noties.markwon.html, io.noties.markwon.linkify, io.noties.markwon.syntax, io.noties.markwon, ru.noties.jlatexmath.android" />
-
     <!-- Some Chromebooks don't support touch. Although not essential,
          it's a good idea to explicitly include this declaration. -->
     <uses-feature
