@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Η αντιγραφή/μετακίνηση σε κρυπτογραφημένο φάκελο δεν υποστηρίζεται αυτή τη στιγμή</string>
     <string name="copy_to">Αντιγραφή σε…</string>
     <string name="could_not_download_image">Αδυναμία λήψης της πλήρους εικόνας</string>
+    <string name="could_not_retrieve_shares">Αδυναμία ανάκτησης κοινόχρηστων</string>
     <string name="could_not_retrieve_url">Αδυναμία ανάκτησης URL</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
     <string name="create_new">Δημιουργία νέου</string>
