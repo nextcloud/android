@@ -276,6 +276,7 @@
     <string name="failed_to_download">Не вдалося передати файл до менеджера звантажень</string>
     <string name="failed_to_print">Не вдалося роздрукувати файл</string>
     <string name="failed_to_start_editor">Не вдалося запустити редактор</string>
+    <string name="failed_update_ui">Неможливо оновити інтерфейс</string>
     <string name="favorite">Додати до обраного</string>
     <string name="favorite_icon">Улюблений</string>
     <string name="file_delete">Вилучити</string>
@@ -483,6 +484,7 @@
     <string name="pref_behaviour_entries_move">переміщено до теки застосунку</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Що робити, якщо такий файл уже наявний?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Питати щоразу</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Пропустити загрузку</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Переписувати віддалену версію</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Перейменовувати нову версію </string>
     <string name="pref_instant_name_collision_policy_title">Що робити, якщо такий файл уже наявний?</string>
@@ -593,6 +595,7 @@
     <string name="share_link_forbidden_permissions">для надання доступу до файла</string>
     <string name="share_link_optional_password_title">Зазначте пароль (необов\'язково)</string>
     <string name="share_link_password_title">Ввести пароль</string>
+    <string name="share_link_with_label">Поділитись посиланням (%1$s)</string>
     <string name="share_no_expiration_date_label">Встановити термін дії</string>
     <string name="share_no_password_title">Встановити пароль</string>
     <string name="share_password_title">Захищено паролем</string>
