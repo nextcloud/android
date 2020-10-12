@@ -337,7 +337,7 @@
     <string name="file_version_restored_error">Prišlo je do napake med obnavljanjem različice datoteke!</string>
     <string name="file_version_restored_successfully">Različica datoteke je uspešno obnovljena.</string>
     <string name="filedetails_download">Prejmi</string>
-    <string name="filedetails_renamed_in_upload_msg">Datoteka je bila pmed nalaganjem reimenovana v %1$s.</string>
+    <string name="filedetails_renamed_in_upload_msg">Datoteka je bila med nalaganjem preimenovana v %1$s.</string>
     <string name="filedetails_sync_file">Uskladi</string>
     <string name="filedisplay_no_file_selected">Ni izbranih datotek</string>
     <string name="filename_empty">Ime datoteke ne sme biti prazno</string>
