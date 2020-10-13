@@ -851,7 +851,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return false;
         }
 
-        return !TextUtils.isEmpty(currentDirectory.getRichWorkspace());
+        return !TextUtils.isEmpty(currentDirectory.getRichWorkspace().trim());
     }
 
     @Override
