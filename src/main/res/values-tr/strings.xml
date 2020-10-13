@@ -484,6 +484,7 @@
     <string name="pref_behaviour_entries_move">app klasörüne taşındı</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Dosya zaten varsa ne yapılsın?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Her defasında sorulsun</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Yüklemeyi atla</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Uzak sürümün üzerine yazılsın</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Yeni sürümün adı değiştirilsin</string>
     <string name="pref_instant_name_collision_policy_title">Dosya zaten varsa ne yapılsın?</string>
