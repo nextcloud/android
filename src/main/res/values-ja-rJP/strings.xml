@@ -482,6 +482,7 @@
     <string name="pref_behaviour_entries_move">アプリフォルダーに移動</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">ファイルはすでに存在する場合、どうしますか？</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">常に尋ねる</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">アップロードをスキップ</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">リモートのバージョンを上書きする</string>
     <string name="pref_instant_name_collision_policy_entries_rename">新しいバージョンの名前を変更</string>
     <string name="pref_instant_name_collision_policy_title">ファイルがすでに存在する場合、どうしますか？</string>
@@ -592,6 +593,7 @@
     <string name="share_link_forbidden_permissions">ファイルを共有</string>
     <string name="share_link_optional_password_title">オプションのパスワードを入力</string>
     <string name="share_link_password_title">パスワードを入力</string>
+    <string name="share_link_with_label">リンクを共有(%1$s)</string>
     <string name="share_no_expiration_date_label">有効期限を設定</string>
     <string name="share_no_password_title">パスワードを設定</string>
     <string name="share_password_title">パスワード保護</string>
