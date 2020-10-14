@@ -32,6 +32,7 @@ import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.shares.ShareeUser
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
+import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 
@@ -199,5 +200,33 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         sut.runOnUiThread { fragment.listDirectory(testFolder, false, false) }
 
         screenshot(sut)
+    }
+
+    @Test
+    fun shouldShowHeader() {
+        val activity = testActivityRule.launchActivity(null)
+        val sut = OCFileListFragment()
+
+        val folder = OCFile("/test/", "00001")
+        folder.setFolder()
+        activity.storageManager.saveFile(folder)
+
+        activity.addFragment(sut)
+        val testFolder: OCFile = activity.storageManager.getFileByEncryptedRemotePath("/test/")
+
+        activity.runOnUiThread {
+            // richWorkspace is not set
+            Assert.assertFalse(sut.adapter.shouldShowHeader())
+
+            testFolder.richWorkspace = " "
+            activity.storageManager.saveFile(testFolder)
+            sut.adapter.swapDirectory(user, testFolder, activity.storageManager, false, "")
+            Assert.assertFalse(sut.adapter.shouldShowHeader())
+
+            testFolder.richWorkspace = "1"
+            activity.storageManager.saveFile(testFolder)
+            sut.adapter.setCurrentDirectory(testFolder)
+            Assert.assertTrue(sut.adapter.shouldShowHeader())
+        }
     }
 }
