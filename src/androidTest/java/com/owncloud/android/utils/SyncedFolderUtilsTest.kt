@@ -35,26 +35,27 @@ import java.util.Arrays
 class SyncedFolderUtilsTest : AbstractIT() {
     @Test
     fun assertCoverFilenameUnqualified() {
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForMediaDetection(COVER))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForMediaDetection("cover.JPG"))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForMediaDetection("cover.jpeg"))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForMediaDetection("cover.JPEG"))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForMediaDetection("COVER.jpg"))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForMediaDetection(FOLDER))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForMediaDetection("Folder.jpeg"))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForMediaDetection("FOLDER.jpg"))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForMediaDetection(".thumbdata4--1967290299"))
+        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload(COVER))
+        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("cover.JPG"))
+        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("cover.jpeg"))
+        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("cover.JPEG"))
+        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("COVER.jpg"))
+        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload(FOLDER))
+        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("Folder.jpeg"))
+        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("FOLDER.jpg"))
+        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload(THUMBDATA_FILE))
+        THUMBDATA_FILE
     }
 
     @Test
     fun assertImageFilenameQualified() {
-        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForMediaDetection("image.jpg"))
-        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForMediaDetection("screenshot.JPG"))
-        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForMediaDetection(IMAGE_JPEG))
-        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForMediaDetection("image.JPEG"))
-        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForMediaDetection("SCREENSHOT.jpg"))
-        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForMediaDetection(SELFIE))
-        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForMediaDetection("screenshot.PNG"))
+        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("image.jpg"))
+        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("screenshot.JPG"))
+        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForAutoUpload(IMAGE_JPEG))
+        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("image.JPEG"))
+        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("SCREENSHOT.jpg"))
+        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForAutoUpload(SELFIE))
+        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("screenshot.PNG"))
     }
 
     @Test
@@ -154,32 +155,8 @@ class SyncedFolderUtilsTest : AbstractIT() {
     }
 
     @Test
-    fun assertUnqualifiedSyncedFolder() {
-        val tempPath = File(FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + ".thumbnail")
-        if (!tempPath.exists()) {
-            Assert.assertTrue(tempPath.mkdirs())
-        }
-        getDummyFile(".thumbnail/image.jpg")
-        val folder = SyncedFolder(
-            tempPath.absolutePath,
-            "",
-            true,
-            false,
-            false,
-            true,
-            account.name,
-            1,
-            1,
-            true,
-            0L,
-            MediaFolderType.IMAGE,
-            false)
-        Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
-    }
-
-    @Test
     fun assertUnqualifiedContentSyncedFolder() {
-        val image = getDummyFile(THUMBDATA_FOLDER + File.pathSeparator + IMAGE_JPEG)
+        getDummyFile(THUMBDATA_FOLDER + File.pathSeparator + THUMBDATA_FILE)
         val folder = SyncedFolder(
             FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + THUMBDATA_FOLDER,
             "",
@@ -193,7 +170,30 @@ class SyncedFolderUtilsTest : AbstractIT() {
             true,
             0L,
             MediaFolderType.IMAGE,
-            false)
+            false
+        )
+        Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+    }
+
+    @Test
+    fun assertUnqualifiedSyncedFolder() {
+        getDummyFile(THUMBNAILS_FOLDER + File.pathSeparator + IMAGE_JPEG)
+        getDummyFile(THUMBNAILS_FOLDER + File.pathSeparator + IMAGE_BITMAP)
+        val folder = SyncedFolder(
+            FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + THUMBNAILS_FOLDER,
+            "",
+            true,
+            false,
+            false,
+            true,
+            account.name,
+            1,
+            1,
+            true,
+            0L,
+            MediaFolderType.IMAGE,
+            false
+        )
         Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }
 
@@ -207,13 +207,14 @@ class SyncedFolderUtilsTest : AbstractIT() {
         private const val SONG_TWO = "song2.mp3"
         private const val FOLDER = "folder.JPG"
         private const val COVER = "cover.jpg"
-        private const val THUMBDATA_FOLDER = "thumbdata_test";
-        private const val THUMBDATA_FILE = "thumbdata_test";
+        private const val THUMBNAILS_FOLDER = ".thumbnails"
+        private const val THUMBDATA_FOLDER = "valid_folder"
+        private const val THUMBDATA_FILE = ".thumbdata4--1967290299"
         private const val ITERATION = 100
 
         @BeforeClass
         fun setUp() {
-            val tempPath = File(FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + THUMBDATA_FOLDER)
+            val tempPath = File(FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + THUMBNAILS_FOLDER)
             if (!tempPath.exists()) {
                 tempPath.mkdirs()
             }
@@ -229,6 +230,8 @@ class SyncedFolderUtilsTest : AbstractIT() {
             createFile(COVER, ITERATION)
 
             createFile(THUMBDATA_FOLDER + File.pathSeparator + THUMBDATA_FILE, ITERATION)
+            createFile(THUMBNAILS_FOLDER + File.pathSeparator + IMAGE_JPEG, ITERATION)
+            createFile(THUMBNAILS_FOLDER + File.pathSeparator + IMAGE_BITMAP, ITERATION)
         }
 
         @AfterClass
