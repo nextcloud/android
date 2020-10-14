@@ -529,7 +529,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         } else {
             mBehaviourSpinner.setSelection(1);
             textView.setText(new StringBuilder().append(getString(R.string.uploader_upload_files_behaviour))
-                                 .append(" ")
+                                 .append(' ')
                                  .append(getString(R.string.uploader_upload_files_behaviour_not_writable))
                                  .toString());
         }

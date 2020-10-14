@@ -75,7 +75,6 @@ public class FileDataStorageManager {
     private static final String TAG = FileDataStorageManager.class.getSimpleName();
 
     private static final String AND = " = ? AND ";
-    private static final String FAILED_TO_UPDATE_MSG = "Fail to update file to database ";
     private static final String FAILED_TO_INSERT_MSG = "Fail to insert insert file to database ";
     private static final String SENDING_TO_FILECONTENTPROVIDER_MSG = "Sending %d operations to FileContentProvider";
     private static final String EXCEPTION_MSG = "Exception in batch of operations ";
