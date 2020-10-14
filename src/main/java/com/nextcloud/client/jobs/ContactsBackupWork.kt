@@ -88,7 +88,7 @@ class ContactsBackupWork(
         }
         val user = optionalUser.get()
         val lastExecution = arbitraryDataProvider.getLongValue(
-            user.toPlatformAccount(),
+            user,
             ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP
         )
         val force = inputData.getBoolean(FORCE, false)

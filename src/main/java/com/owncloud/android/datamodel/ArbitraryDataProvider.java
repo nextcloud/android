@@ -26,6 +26,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -124,14 +125,19 @@ public class ArbitraryDataProvider {
     }
 
 
-    public Long getLongValue(Account account, String key) {
-        return getLongValue(account.name, key);
+    public Long getLongValue(User user, String key) {
+        return getLongValue(user.getAccountName(), key);
     }
 
     public boolean getBooleanValue(String accountName, String key) {
         return TRUE.equalsIgnoreCase(getValue(accountName, key));
     }
 
+    public boolean getBooleanValue(User user, String key) {
+        return getBooleanValue(user.getAccountName(), key);
+    }
+
+    @Deprecated
     public boolean getBooleanValue(Account account, String key) {
         return getBooleanValue(account.name, key);
     }
@@ -155,22 +161,34 @@ public class ArbitraryDataProvider {
 
     /**
      * Returns stored value as string or empty string
+     *
      * @return string if value found or empty string
      */
     @NonNull
+    @Deprecated
     public String getValue(Account account, String key) {
         return account != null ? getValue(account.name, key) : "";
     }
 
+    /**
+     * Returns stored value as string or empty string
+     *
+     * @return string if value found or empty string
+     */
+    @NonNull
+    public String getValue(@Nullable User user, String key) {
+        return user != null ? getValue(user.getAccountName(), key) : "";
+    }
+
     public String getValue(String accountName, String key) {
         Cursor cursor = contentResolver.query(
-                ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
-                null,
-                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? and " +
-                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + " = ?",
-                new String[]{accountName, key},
-                null
-        );
+            ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
+            null,
+            ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? and " +
+                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + " = ?",
+            new String[]{accountName, key},
+            null
+                                             );
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -229,8 +247,4 @@ public class ArbitraryDataProvider {
 
         return dataSet;
     }
-
-
-
-
 }
