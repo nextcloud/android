@@ -1291,6 +1291,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         showShareAvatar = bool;
     }
 
+    @VisibleForTesting
+    public void setCurrentDirectory(OCFile folder) {
+        currentDirectory = folder;
+    }
+
     static class OCFileListItemViewHolder extends OCFileListGridItemViewHolder {
         @BindView(R.id.file_size)
         public TextView fileSize;
