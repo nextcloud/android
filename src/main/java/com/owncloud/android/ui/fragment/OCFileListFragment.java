@@ -935,10 +935,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             getContext().getContentResolver());
 
 
-                        String publicKey = arbitraryDataProvider.getValue(user.toPlatformAccount(),
-                                                                          EncryptionUtils.PUBLIC_KEY);
-                        String privateKey = arbitraryDataProvider.getValue(user.toPlatformAccount(),
-                                                                           EncryptionUtils.PRIVATE_KEY);
+                        String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
+                        String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
 
                         if (publicKey.isEmpty() || privateKey.isEmpty()) {
                             Log_OC.d(TAG, "no public key for " + user.getAccountName());
@@ -1639,10 +1637,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     new ArbitraryDataProvider(requireContext().getContentResolver());
 
 
-                String publicKey = arbitraryDataProvider.getValue(user.toPlatformAccount(),
-                                                                  EncryptionUtils.PUBLIC_KEY);
-                String privateKey = arbitraryDataProvider.getValue(user.toPlatformAccount(),
-                                                                   EncryptionUtils.PRIVATE_KEY);
+                String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
+                String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
 
                 if (publicKey.isEmpty() || privateKey.isEmpty()) {
                     Log_OC.d(TAG, "no public key for " + user.getAccountName());
