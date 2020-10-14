@@ -135,7 +135,7 @@ class AccountRemovalWork(
         user: User,
         arbitraryDataProvider: ArbitraryDataProvider
     ) {
-        val arbitraryDataPushString = arbitraryDataProvider.getValue(user.toPlatformAccount(), PushUtils.KEY_PUSH)
+        val arbitraryDataPushString = arbitraryDataProvider.getValue(user, PushUtils.KEY_PUSH)
         val pushServerUrl = context.resources.getString(R.string.push_server_url)
         if (!TextUtils.isEmpty(arbitraryDataPushString) && !TextUtils.isEmpty(pushServerUrl)) {
             val gson = Gson()

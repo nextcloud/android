@@ -194,7 +194,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         List<User> users = accountManager.getAllUsers();
         List<User> newList = new ArrayList<>();
         for (User user : users) {
-            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(user.toPlatformAccount(), PENDING_FOR_REMOVAL);
+            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(user, PENDING_FOR_REMOVAL);
 
             if (!pendingForRemoval) {
                 newList.add(user);
@@ -246,8 +246,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         List<User> users = accountManager.getAllUsers();
         List<UserListItem> userListItems = new ArrayList<>(users.size());
         for (User user : users) {
-            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(user.toPlatformAccount(),
-                                                                              PENDING_FOR_REMOVAL);
+            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(user, PENDING_FOR_REMOVAL);
             userListItems.add(new UserListItem(user, !pendingForRemoval));
         }
 
