@@ -106,6 +106,8 @@
         tools:listitem="@layout/user_info_details_table_item"
         tools:visibility="visible" />
 
-    <include layout="@layout/empty_list" />
+    <include
+        android:id="@+id/emptyList"
+        layout="@layout/empty_list" />
 
 </LinearLayout>
