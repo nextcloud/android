@@ -70,7 +70,7 @@ public final class SyncedFolderUtils {
         }
 
         // thumbnail folder
-        if (isQualifiedFolder(mediaFolder.absolutePath)) {
+        if (!isQualifiedFolder(mediaFolder.absolutePath)) {
             return false;
         }
 
@@ -104,7 +104,7 @@ public final class SyncedFolderUtils {
         }
 
         // thumbnail folder
-        if (isQualifiedFolder(syncedFolder.getLocalPath())) {
+        if (!isQualifiedFolder(syncedFolder.getLocalPath())) {
             return false;
         }
 
@@ -142,7 +142,7 @@ public final class SyncedFolderUtils {
         }
 
         // thumbnail folder
-        if (isQualifiedFolder(folderPath)) {
+        if (!isQualifiedFolder(folderPath)) {
             return false;
         }
 
@@ -169,7 +169,7 @@ public final class SyncedFolderUtils {
     public static boolean isQualifiedFolder(String folderPath) {
         File folder = new File(folderPath);
         // check if folder starts with thumbnail praefix
-        return !folder.isDirectory() || folder.getName() == null || !folder.getName().startsWith(THUMBNAIL_FOLDER_PREFIX);
+        return folder.isDirectory() && !folder.getName().startsWith(THUMBNAIL_FOLDER_PREFIX);
     }
 
     /**
