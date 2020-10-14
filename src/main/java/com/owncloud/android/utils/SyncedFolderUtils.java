@@ -166,7 +166,7 @@ public final class SyncedFolderUtils {
      * @param folderPath the folder's path string
      * @return code>true</code> if folder qualifies for auto upload else <code>false</code>
      */
-    private static boolean isQualifiedFolder(String folderPath) {
+    public static boolean isQualifiedFolder(String folderPath) {
         File folder = new File(folderPath);
         // check if folder starts with thumbnail praefix
         return !folder.isDirectory() || folder.getName() == null || !folder.getName().startsWith(THUMBNAIL_FOLDER_PREFIX);
@@ -180,7 +180,7 @@ public final class SyncedFolderUtils {
      */
     private static boolean containsQualifiedImages(List<String> filePaths) {
         for (String filePath : filePaths) {
-            if (isFileNameQualifiedForMediaDetection(FileUtil.getFilenameFromPathString(filePath))
+            if (isFileNameQualifiedForAutoUpload(FileUtil.getFilenameFromPathString(filePath))
                 && MimeTypeUtil.isImage(MimeTypeUtil.getMimeTypeFromPath(filePath))) {
                 return true;
             }
@@ -197,7 +197,7 @@ public final class SyncedFolderUtils {
      */
     private static boolean containsQualifiedImages(File... files) {
         for (File file : files) {
-            if (isFileNameQualifiedForMediaDetection(file.getName()) && MimeTypeUtil.isImage(file)) {
+            if (isFileNameQualifiedForAutoUpload(file.getName()) && MimeTypeUtil.isImage(file)) {
                 return true;
             }
         }
@@ -211,7 +211,7 @@ public final class SyncedFolderUtils {
      * @param fileName file name to be checked
      * @return <code>true</code> if the file qualifies as auto upload relevant else <code>false</code>
      */
-    public static boolean isFileNameQualifiedForMediaDetection(String fileName) {
+    public static boolean isFileNameQualifiedForAutoUpload(String fileName) {
         if (fileName != null) {
             return !DISQUALIFIED_MEDIA_DETECTION_FILE_SET.contains(fileName.toLowerCase(Locale.ROOT))
                 && !fileName.startsWith(THUMBNAIL_DATA_FILE_PREFIX);

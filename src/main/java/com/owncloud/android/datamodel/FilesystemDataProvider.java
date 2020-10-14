@@ -26,6 +26,7 @@ import android.net.Uri;
 
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.SyncedFolderUtils;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -96,8 +97,13 @@ public class FilesystemDataProvider {
                     if (value == null) {
                         Log_OC.e(TAG, "Cannot get local path");
                     } else {
-                        if (".thumbnail".equals(new File(value).getName())) {
-                            Log_OC.d(TAG, "Ignoring file for upload: " + value);
+                        File file = new File(value);
+                        if (!file.exists()) {
+                            Log_OC.d(TAG, "Ignoring file for upload (doesn't exist): " + value);
+                        } else if (SyncedFolderUtils.isQualifiedFolder(file.getParent())) {
+                            Log_OC.d(TAG, "Ignoring file for upload (unqualified folder): " + value);
+                        } else if (SyncedFolderUtils.isFileNameQualifiedForAutoUpload(file.getName())) {
+                            Log_OC.d(TAG, "Ignoring file for upload (unqualified file): " + value);
                         } else {
                             localPathsToUpload.add(value);
                         }
