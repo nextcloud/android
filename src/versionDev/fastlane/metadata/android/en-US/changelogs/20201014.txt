@@ -1,0 +1,4 @@
+Update to Android Studio 4.1
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
