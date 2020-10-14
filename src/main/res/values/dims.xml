@@ -17,8 +17,7 @@
 -->
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="nav_drawer_header_height">140dp</dimen>
-    <dimen name="nav_drawer_header_avatar">56dp</dimen>
+    <dimen name="nav_drawer_header_height">164dp</dimen>
     <dimen name="nav_drawer_menu_avatar_radius">12sp</dimen>
     <dimen name="list_item_avatar_icon_radius">20dp</dimen>
     <dimen name="bottom_sheet_menu_item_divider_standard_margin">56dp</dimen>
@@ -33,7 +32,6 @@
     <dimen name="standard_quarter_padding">4dp</dimen>
     <dimen name="standard_eight_padding">2dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
-    <dimen name="standard_icon_list_horizontal_margin">24dp</dimen>
     <dimen name="standard_double_margin">32dp</dimen>
     <dimen name="standard_half_margin">8dp</dimen>
     <dimen name="standard_quarter_margin">4dp</dimen>
@@ -47,6 +45,9 @@
     <dimen name="file_list_item_avatar_icon_radius">10dp</dimen>
     <dimen name="account_action_layout_height">72dp</dimen>
     <dimen name="zero">0dp</dimen>
+    <dimen name="iconized_single_line_item_layout_height">56dp</dimen>
+    <dimen name="iconized_single_line_item_icon_size">24dp</dimen>
+    <dimen name="user_info_icon_horizontal_margin">24dp</dimen>
     <dimen name="account_item_layout_height">72dp</dimen>
     <dimen name="user_icon_size">40dp</dimen>
     <dimen name="user_icon_radius">20dp</dimen>
