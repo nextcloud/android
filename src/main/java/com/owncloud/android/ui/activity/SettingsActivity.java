@@ -604,7 +604,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
             final SwitchPreference pUploadOnWifiCheckbox = (SwitchPreference) findPreference("synced_folder_on_wifi");
             pUploadOnWifiCheckbox.setChecked(
-                    arbitraryDataProvider.getBooleanValue(user.toPlatformAccount(), SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
+                arbitraryDataProvider.getBooleanValue(user, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
 
             pUploadOnWifiCheckbox.setOnPreferenceClickListener(preference -> {
                 arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
@@ -920,7 +920,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         getDelegate().onConfigurationChanged(newConfig);
     }

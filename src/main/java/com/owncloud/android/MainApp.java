@@ -96,6 +96,7 @@ import javax.inject.Inject;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
@@ -303,40 +304,40 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
 
             @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onCreate(Bundle) starting");
                 onboarding.launchActivityIfNeeded(activity);
             }
 
             @Override
-            public void onActivityStarted(Activity activity) {
+            public void onActivityStarted(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onStart() starting");
             }
 
             @Override
-            public void onActivityResumed(Activity activity) {
+            public void onActivityResumed(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onResume() starting");
                 passCodeManager.onActivityStarted(activity);
             }
 
             @Override
-            public void onActivityPaused(Activity activity) {
+            public void onActivityPaused(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onPause() ending");
             }
 
             @Override
-            public void onActivityStopped(Activity activity) {
+            public void onActivityStopped(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending");
                 passCodeManager.onActivityStopped(activity);
             }
 
             @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+            public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onSaveInstanceState(Bundle) starting");
             }
 
             @Override
-            public void onActivityDestroyed(Activity activity) {
+            public void onActivityDestroyed(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onDestroy() ending");
             }
         });
@@ -354,7 +355,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext.getContentResolver());
         List<User> users = accountManager.getAllUsers();
         for (User user : users) {
-            if (arbitraryDataProvider.getBooleanValue(user.toPlatformAccount(), PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {
+            if (arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {
                 backgroundJobManager.schedulePeriodicContactsBackup(user);
 
             }

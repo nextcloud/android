@@ -122,10 +122,9 @@ class MediaFoldersDetectionWork constructor(
                 if (!imageMediaFolderPaths.isEmpty() || !videoMediaFolderPaths.isEmpty()) {
                     val allUsers = userAccountManager.allUsers
                     val activeUsers: MutableList<User> = ArrayList()
-                    for (account in allUsers) {
-                        if (!arbitraryDataProvider.getBooleanValue(account.toPlatformAccount(), PENDING_FOR_REMOVAL)
-                        ) {
-                            activeUsers.add(account)
+                    for (user in allUsers) {
+                        if (!arbitraryDataProvider.getBooleanValue(user, PENDING_FOR_REMOVAL)) {
+                            activeUsers.add(user)
                         }
                     }
                     for (user in activeUsers) {
