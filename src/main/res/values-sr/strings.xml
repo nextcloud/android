@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Копирање/премештање у шифровану фасциклу тренутно није подржано.</string>
     <string name="copy_to">Копирај у…</string>
     <string name="could_not_download_image">Не могу да преузмем целу слику</string>
+    <string name="could_not_retrieve_shares">Не могу да дохватим дељења</string>
     <string name="could_not_retrieve_url">Не могу да добавим УРЛ</string>
     <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
     <string name="create_new">Направи нови</string>
@@ -275,6 +276,7 @@
     <string name="failed_to_download">Неуспело прослеђивање фајла менаџеру преузимања</string>
     <string name="failed_to_print">Неуспело штампање фајла</string>
     <string name="failed_to_start_editor">Неуспело покретање уређивача</string>
+    <string name="failed_update_ui">Грешка при ажурирању корисничког сучеља</string>
     <string name="favorite">Додај у омиљене</string>
     <string name="favorite_icon">Омиљени</string>
     <string name="file_delete">Обриши</string>
@@ -482,6 +484,7 @@
     <string name="pref_behaviour_entries_move">премештен у фасциклу апликације</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Шта радити ако фајл већ постоји?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Питај ме сваки пут</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Прескочи отпремање</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Препиши удаљену верзију</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Преименуј нову верзију</string>
     <string name="pref_instant_name_collision_policy_title">Шта радити ако фајл већ постоји?</string>
@@ -592,6 +595,7 @@
     <string name="share_link_forbidden_permissions">да делите овај фајл</string>
     <string name="share_link_optional_password_title">Унесите опциону лозинку</string>
     <string name="share_link_password_title">Унесите лозинку</string>
+    <string name="share_link_with_label">Подели везу (%1$s)</string>
     <string name="share_no_expiration_date_label">Постави датум истека</string>
     <string name="share_no_password_title">Постави лозинку</string>
     <string name="share_password_title">Заштићено лозинком</string>
@@ -794,6 +798,7 @@
     <string name="uploads_view_upload_status_virus_detected">Вирус откривен. Отпремање не може да се заврши!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Чекам излазак из режима уштеде енергије</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Чекам пуњење</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Чекам на бежичну мрежу без ограничења протока</string>
     <string name="user_icon">Корисник </string>
     <string name="user_info_address">Адреса</string>
     <string name="user_info_email">Адреса е-поште</string>
