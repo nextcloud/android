@@ -25,6 +25,7 @@ import com.owncloud.android.datamodel.SyncedFolder;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -40,8 +41,12 @@ public final class SyncedFolderUtils {
         "cover.jpg", "cover.jpeg",
         "folder.jpg", "folder.jpeg"
     };
-    private static final Set<String> DISQUALIFIED_MEDIA_DETECTION_SET =
+    private static final Set<String> DISQUALIFIED_MEDIA_DETECTION_FILE_SET =
         new HashSet<>(Arrays.asList(DISQUALIFIED_MEDIA_DETECTION_SOURCE));
+    private static final Set<MediaFolderType> AUTO_QUALIFYING_FOLDER_TYPE_SET =
+        new HashSet<>(Collections.singletonList(MediaFolderType.CUSTOM));
+    private static final String THUMBNAIL_FOLDER_PREFIX = ".thumbnail";
+    private static final String THUMBNAIL_DATA_FILE_PREFIX = ".thumbdata";
     private static final int SINGLE_FILE = 1;
 
     private SyncedFolderUtils() {
@@ -60,8 +65,13 @@ public final class SyncedFolderUtils {
         }
 
         // custom folders are always fine
-        if (MediaFolderType.CUSTOM == mediaFolder.type) {
+        if (AUTO_QUALIFYING_FOLDER_TYPE_SET.contains(mediaFolder.type)) {
             return true;
+        }
+
+        // thumbnail folder
+        if (isQualifiedFolder(mediaFolder.absolutePath)) {
+            return false;
         }
 
         // filter media folders
@@ -89,8 +99,13 @@ public final class SyncedFolderUtils {
         }
 
         // custom folders are always fine
-        if (MediaFolderType.CUSTOM == syncedFolder.getType()) {
+        if (AUTO_QUALIFYING_FOLDER_TYPE_SET.contains(syncedFolder.getType())) {
             return true;
+        }
+
+        // thumbnail folder
+        if (isQualifiedFolder(syncedFolder.getLocalPath())) {
+            return false;
         }
 
         // filter media folders
@@ -121,6 +136,16 @@ public final class SyncedFolderUtils {
             return true;
         }
 
+        // custom folders are always fine
+        if (AUTO_QUALIFYING_FOLDER_TYPE_SET.contains(folderType)) {
+            return true;
+        }
+
+        // thumbnail folder
+        if (isQualifiedFolder(folderPath)) {
+            return false;
+        }
+
         // filter media folders
         File[] files = getFileList(new File(folderPath));
 
@@ -133,6 +158,18 @@ public final class SyncedFolderUtils {
         }
 
         return true;
+    }
+
+    /**
+     * check if folder is qualified for auto upload.
+     *
+     * @param folderPath the folder's path string
+     * @return code>true</code> if folder qualifies for auto upload else <code>false</code>
+     */
+    private static boolean isQualifiedFolder(String folderPath) {
+        File folder = new File(folderPath);
+        // check if folder starts with thumbnail praefix
+        return !folder.isDirectory() || folder.getName() == null || !folder.getName().startsWith(THUMBNAIL_FOLDER_PREFIX);
     }
 
     /**
@@ -176,7 +213,8 @@ public final class SyncedFolderUtils {
      */
     public static boolean isFileNameQualifiedForMediaDetection(String fileName) {
         if (fileName != null) {
-            return !DISQUALIFIED_MEDIA_DETECTION_SET.contains(fileName.toLowerCase(Locale.ROOT));
+            return !DISQUALIFIED_MEDIA_DETECTION_FILE_SET.contains(fileName.toLowerCase(Locale.ROOT))
+                && !fileName.startsWith(THUMBNAIL_DATA_FILE_PREFIX);
         } else {
             return false;
         }
