@@ -40,7 +40,9 @@
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <include layout="@layout/empty_list" />
+            <include
+                android:id="@+id/emptyList"
+                layout="@layout/empty_list" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@android:id/list"
