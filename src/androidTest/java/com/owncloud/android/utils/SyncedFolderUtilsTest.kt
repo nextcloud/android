@@ -24,10 +24,12 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
+import org.apache.commons.io.FileUtils
 import org.junit.AfterClass
 import org.junit.Assert
 import org.junit.BeforeClass
 import org.junit.Test
+import java.io.File
 import java.util.Arrays
 
 class SyncedFolderUtilsTest : AbstractIT() {
@@ -41,6 +43,7 @@ class SyncedFolderUtilsTest : AbstractIT() {
         Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForMediaDetection(FOLDER))
         Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForMediaDetection("Folder.jpeg"))
         Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForMediaDetection("FOLDER.jpg"))
+        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForMediaDetection(".thumbdata4--1967290299"))
     }
 
     @Test
@@ -150,6 +153,50 @@ class SyncedFolderUtilsTest : AbstractIT() {
         Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }
 
+    @Test
+    fun assertUnqualifiedSyncedFolder() {
+        val tempPath = File(FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + ".thumbnail")
+        if (!tempPath.exists()) {
+            Assert.assertTrue(tempPath.mkdirs())
+        }
+        getDummyFile(".thumbnail/image.jpg")
+        val folder = SyncedFolder(
+            tempPath.absolutePath,
+            "",
+            true,
+            false,
+            false,
+            true,
+            account.name,
+            1,
+            1,
+            true,
+            0L,
+            MediaFolderType.IMAGE,
+            false)
+        Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+    }
+
+    @Test
+    fun assertUnqualifiedContentSyncedFolder() {
+        val image = getDummyFile(THUMBDATA_FOLDER + File.pathSeparator + IMAGE_JPEG)
+        val folder = SyncedFolder(
+            FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + THUMBDATA_FOLDER,
+            "",
+            true,
+            false,
+            false,
+            true,
+            account.name,
+            1,
+            1,
+            true,
+            0L,
+            MediaFolderType.IMAGE,
+            false)
+        Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+    }
+
     companion object {
         private const val SELFIE = "selfie.png"
         private const val SCREENSHOT = "screenshot.JPG"
@@ -160,10 +207,17 @@ class SyncedFolderUtilsTest : AbstractIT() {
         private const val SONG_TWO = "song2.mp3"
         private const val FOLDER = "folder.JPG"
         private const val COVER = "cover.jpg"
+        private const val THUMBDATA_FOLDER = "thumbdata_test";
+        private const val THUMBDATA_FILE = "thumbdata_test";
         private const val ITERATION = 100
 
         @BeforeClass
         fun setUp() {
+            val tempPath = File(FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + THUMBDATA_FOLDER)
+            if (!tempPath.exists()) {
+                tempPath.mkdirs()
+            }
+
             createFile(SELFIE, ITERATION)
             createFile(SCREENSHOT, ITERATION)
             createFile(IMAGE_JPEG, ITERATION)
@@ -173,19 +227,13 @@ class SyncedFolderUtilsTest : AbstractIT() {
             createFile(SONG_TWO, ITERATION)
             createFile(FOLDER, ITERATION)
             createFile(COVER, ITERATION)
+
+            createFile(THUMBDATA_FOLDER + File.pathSeparator + THUMBDATA_FILE, ITERATION)
         }
 
         @AfterClass
         fun tearDown() {
-            getDummyFile(SELFIE).delete()
-            getDummyFile(SCREENSHOT).delete()
-            getDummyFile(IMAGE_JPEG).delete()
-            getDummyFile(IMAGE_BITMAP).delete()
-            getDummyFile(SONG_ZERO).delete()
-            getDummyFile(SONG_ONE).delete()
-            getDummyFile(SONG_TWO).delete()
-            getDummyFile(FOLDER).delete()
-            getDummyFile(COVER).delete()
+            FileUtils.deleteDirectory(File(FileStorageUtils.getTemporalPath(account.name)))
         }
     }
 }
