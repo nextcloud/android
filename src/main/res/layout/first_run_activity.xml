@@ -97,6 +97,7 @@
             android:id="@+id/host_own_server"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="@dimen/minimum_size_for_touchable_area"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
