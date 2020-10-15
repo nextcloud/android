@@ -59,7 +59,9 @@
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <include layout="@layout/empty_list" />
+            <include
+                android:id="@+id/empty_list"
+                layout="@layout/empty_list" />
 
             <LinearLayout
                 android:id="@+id/loading_content"
@@ -72,7 +74,7 @@
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/standard_list_item_size"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/standard_margin"
                     android:layout_marginBottom="40dp" />
 
                 <include layout="@layout/activity_list_item_schimmer" />
