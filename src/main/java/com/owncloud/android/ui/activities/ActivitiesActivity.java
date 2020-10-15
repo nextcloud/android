@@ -22,13 +22,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.ActivityListLayoutBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -52,52 +50,22 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_ACCOUNT;
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_FILE;
 
+/**
+ * This Activity presents activities feed.
+ */
 public class ActivitiesActivity extends DrawerActivity implements ActivityListInterface, ActivitiesContract.View {
     private static final String TAG = ActivitiesActivity.class.getSimpleName();
 
-    @BindView(R.id.loading_content)
-    public LinearLayout loadingContent;
-
-    @BindView(R.id.empty_list_view)
-    public LinearLayout emptyContentContainer;
-
-    @BindView(R.id.swipe_containing_list)
-    public SwipeRefreshLayout swipeListRefreshLayout;
-
-    @BindView(R.id.empty_list_view_text)
-    public TextView emptyContentMessage;
-
-    @BindView(R.id.empty_list_view_headline)
-    public TextView emptyContentHeadline;
-
-    @BindView(R.id.empty_list_icon)
-    public ImageView emptyContentIcon;
-
-    @BindView(android.R.id.list)
-    public RecyclerView recyclerView;
-
-    @BindString(R.string.activities_no_results_headline)
-    public String noResultsHeadline;
-
-    @BindString(R.string.activities_no_results_message)
-    public String noResultsMessage;
-
+    private ActivityListLayoutBinding binding;
     private ActivityListAdapter adapter;
-    private Unbinder unbinder;
     private int lastGiven;
-
     private boolean isLoadingActivities;
+    private ActivitiesContract.ActionListener actionListener;
 
-    private ActivitiesContract.ActionListener mActionListener;
     @Inject ActivitiesRepository activitiesRepository;
     @Inject FilesRepository filesRepository;
     @Inject ClientFactory clientFactory;
@@ -107,39 +75,33 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
         Log_OC.v(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
 
-        mActionListener = new ActivitiesPresenter(activitiesRepository, filesRepository, this);
+        actionListener = new ActivitiesPresenter(activitiesRepository, filesRepository, this);
 
-        setContentView(R.layout.activity_list_layout);
-        unbinder = ButterKnife.bind(this);
+        binding = ActivityListLayoutBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // setup toolbar
         setupToolbar();
 
-        ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
+        ThemeUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
 
         // setup drawer
         setupDrawer(R.id.nav_activity);
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_activities));
 
-        swipeListRefreshLayout.setOnRefreshListener(() -> {
+        binding.swipeContainingList.setOnRefreshListener(() -> {
             // We set lastGiven variable to undefined here since when manually refreshing
             // activities data we want to clear the list and reset the pagination.
             lastGiven = ActivitiesContract.ActionListener.UNDEFINED;
-            mActionListener.loadActivities(lastGiven);
+            actionListener.loadActivities(lastGiven);
         });
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
     }
 
     /**
      * sets up the UI elements and loads all activity items.
      */
     private void setupContent() {
-        emptyContentIcon.setImageResource(R.drawable.ic_activity);
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_activity);
 
         FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
         adapter = new ActivityListAdapter(this,
@@ -149,12 +111,12 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
                                           getCapabilities(),
                                           clientFactory,
                                           false);
-        recyclerView.setAdapter(adapter);
+        binding.list.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        binding.list.setLayoutManager(layoutManager);
+        binding.list.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -168,41 +130,37 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
                 if (!isLoadingActivities && (totalItemCount - visibleItemCount) <= (firstVisibleItemIndex + 5)
                     && lastGiven > 0) {
                     // Almost reached the end, continue to load new activities
-                    mActionListener.loadActivities(lastGiven);
+                    actionListener.loadActivities(lastGiven);
                 }
             }
         });
 
-        mActionListener.loadActivities(ActivitiesContract.ActionListener.UNDEFINED);
+        actionListener.loadActivities(ActivitiesContract.ActionListener.UNDEFINED);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (isDrawerOpen()) {
-                    closeDrawer();
-                } else {
-                    openDrawer();
-                }
-                break;
-            default:
-                Log_OC.w(TAG, "Unknown menu item triggered");
-                retval = super.onOptionsItemSelected(item);
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            if (isDrawerOpen()) {
+                closeDrawer();
+            } else {
+                openDrawer();
+            }
+        } else {
+            Log_OC.w(TAG, "Unknown menu item triggered");
+            retval = super.onOptionsItemSelected(item);
         }
 
         return retval;
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
 
-        mActionListener.onResume();
+        actionListener.onResume();
 
         setDrawerMenuItemChecked(R.id.nav_activity);
 
@@ -212,7 +170,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     @Override
     public void onActivityClicked(RichObject richObject) {
         String path = FileUtils.PATH_SEPARATOR + richObject.getPath();
-        mActionListener.openActivity(path, this);
+        actionListener.openActivity(path, this);
     }
 
     @Override
@@ -226,12 +184,13 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
 
         // Hide the recyclerView if list is empty
         if (adapter.isEmpty()) {
-            showEmptyContent(noResultsHeadline, noResultsMessage);
-            recyclerView.setVisibility(View.GONE);
+            showEmptyContent(getString(R.string.activities_no_results_headline), getString(R.string.activities_no_results_message));
+            binding.loadingContent.setVisibility(View.GONE);
+            binding.list.setVisibility(View.GONE);
         } else {
-            emptyContentContainer.setVisibility(View.GONE);
-            loadingContent.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
+            binding.emptyList.emptyListView.setVisibility(View.GONE);
+            binding.loadingContent.setVisibility(View.GONE);
+            binding.list.setVisibility(View.VISIBLE);
         }
     }
 
@@ -266,34 +225,30 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
 
     @Override
     public void showLoadingMessage() {
-        loadingContent.setVisibility(View.VISIBLE);
-        emptyContentContainer.setVisibility(View.GONE);
+        binding.emptyList.emptyListView.setVisibility(View.GONE);
     }
 
     @Override
     public void showEmptyContent(String headline, String message) {
-        if (emptyContentContainer != null && emptyContentMessage != null) {
-            emptyContentHeadline.setText(headline);
-            emptyContentMessage.setText(message);
-            emptyContentIcon.setVisibility(View.VISIBLE);
-            emptyContentHeadline.setVisibility(View.VISIBLE);
-            emptyContentMessage.setVisibility(View.VISIBLE);
-            emptyContentContainer.setVisibility(View.VISIBLE);
-            loadingContent.setVisibility(View.GONE);
-        }
+        binding.emptyList.emptyListViewHeadline.setText(headline);
+        binding.emptyList.emptyListViewText.setText(message);
+        binding.loadingContent.setVisibility(View.GONE);
+        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListViewHeadline.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setProgressIndicatorState(boolean isActive) {
         isLoadingActivities = isActive;
-        swipeListRefreshLayout.post(() -> swipeListRefreshLayout.setRefreshing(isActive));
-
+        binding.swipeContainingList.post(() -> binding.swipeContainingList.setRefreshing(isActive));
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        mActionListener.onStop();
+        actionListener.onStop();
     }
 }
