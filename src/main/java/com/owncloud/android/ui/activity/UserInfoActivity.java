@@ -188,11 +188,8 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
     }
 
     private void setMultiListLoadingMessage() {
-        binding.emptyList.emptyListViewHeadline.setText(R.string.file_list_loading);
-        binding.emptyList.emptyListViewText.setText("");
-
-        binding.emptyList.emptyListIcon.setVisibility(View.GONE);
-        binding.emptyList.emptyListViewText.setVisibility(View.GONE);
+        binding.userinfoList.setVisibility(View.GONE);
+        binding.emptyList.emptyListView.setVisibility(View.GONE);
     }
 
     private void setErrorMessageForMultiList(String headline, String message, @DrawableRes int errorResource) {
@@ -202,6 +199,8 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
 
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
+        binding.userinfoList.setVisibility(View.GONE);
+        binding.loadingContent.setVisibility(View.GONE);
     }
 
     private void setHeaderImage() {
@@ -265,18 +264,25 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             binding.userinfoFullName.setText(userInfo.getDisplayName());
         }
 
-        if (userInfo.getPhone() == null && userInfo.getEmail() == null && userInfo.getAddress() == null
-            && userInfo.getTwitter() == null && userInfo.getWebsite() == null) {
+        if (TextUtils.isEmpty(userInfo.getPhone()) && TextUtils.isEmpty(userInfo.getEmail())
+            && TextUtils.isEmpty(userInfo.getAddress()) && TextUtils.isEmpty(userInfo.getTwitter())
+            && TextUtils.isEmpty(userInfo.getWebsite())) {
+            binding.userinfoList.setVisibility(View.GONE);
+            binding.loadingContent.setVisibility(View.GONE);
+            binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
 
             setErrorMessageForMultiList(getString(R.string.userinfo_no_info_headline),
                                         getString(R.string.userinfo_no_info_text), R.drawable.ic_user);
         } else {
+            binding.loadingContent.setVisibility(View.VISIBLE);
             binding.emptyList.emptyListView.setVisibility(View.GONE);
-            binding.userinfoList.setVisibility(View.VISIBLE);
 
             if (binding.userinfoList.getAdapter() instanceof UserInfoAdapter) {
                 binding.userinfoList.setAdapter(new UserInfoAdapter(createUserInfoDetails(userInfo), tint));
             }
+
+            binding.loadingContent.setVisibility(View.GONE);
+            binding.userinfoList.setVisibility(View.VISIBLE);
         }
     }
 
