@@ -60,8 +60,8 @@ public class ActivitiesActivityIT extends AbstractIT {
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
 
         sut.runOnUiThread(() -> {
-            sut.emptyContentContainer.setVisibility(View.VISIBLE);
-            sut.recyclerView.setVisibility(View.INVISIBLE);
+            sut.getBinding().emptyList.emptyListView.setVisibility(View.VISIBLE);
+            sut.getBinding().list.setVisibility(View.INVISIBLE);
         });
 
         waitForIdleSync();
