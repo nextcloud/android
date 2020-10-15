@@ -223,6 +223,11 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             sut.adapter.swapDirectory(user, testFolder, activity.storageManager, false, "")
             Assert.assertFalse(sut.adapter.shouldShowHeader())
 
+            testFolder.richWorkspace = null
+            activity.storageManager.saveFile(testFolder)
+            sut.adapter.swapDirectory(user, testFolder, activity.storageManager, false, "")
+            Assert.assertFalse(sut.adapter.shouldShowHeader())
+
             testFolder.richWorkspace = "1"
             activity.storageManager.saveFile(testFolder)
             sut.adapter.setCurrentDirectory(testFolder)
