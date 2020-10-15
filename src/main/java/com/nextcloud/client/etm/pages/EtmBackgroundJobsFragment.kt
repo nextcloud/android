@@ -65,7 +65,7 @@ class EtmBackgroundJobsFragment : EtmBaseFragment() {
                 }
         }
 
-        private val dateFormat = SimpleDateFormat("YYYY-MM-dd HH:MM:ssZ", Locale.getDefault())
+        private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:MM:ssZ", Locale.getDefault())
         var backgroundJobs: List<JobInfo> = emptyList()
             set(value) {
                 field = value
