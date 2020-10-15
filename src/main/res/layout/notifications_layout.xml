@@ -39,6 +39,19 @@
             android:layout_below="@id/appbar"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+            <LinearLayout
+                android:id="@+id/loading_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/activity_list_item_schimmer" />
+                <include layout="@layout/activity_list_item_schimmer" />
+                <include layout="@layout/activity_list_item_schimmer" />
+                <include layout="@layout/activity_list_item_schimmer" />
+
+            </LinearLayout>
+
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_containing_list"
                 android:layout_width="match_parent"
@@ -69,7 +82,9 @@
                 android:footerDividersEnabled="false"
                 android:visibility="visible">
 
-                <include layout="@layout/empty_list"/>
+                <include
+                    android:id="@+id/empty_list"
+                    layout="@layout/empty_list"/>
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         </FrameLayout>
