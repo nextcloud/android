@@ -48,6 +48,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -95,6 +96,11 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
             lastGiven = ActivitiesContract.ActionListener.UNDEFINED;
             actionListener.loadActivities(lastGiven);
         });
+    }
+
+    @VisibleForTesting
+    public ActivityListLayoutBinding getBinding() {
+        return binding;
     }
 
     /**
