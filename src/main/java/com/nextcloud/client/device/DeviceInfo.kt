@@ -32,7 +32,7 @@ class DeviceInfo {
     val androidVersion = Build.VERSION.RELEASE
 
     fun hasCamera(context: Context): Boolean {
-        return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)
+        return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
     }
 
     fun editorSupported(): Boolean {
