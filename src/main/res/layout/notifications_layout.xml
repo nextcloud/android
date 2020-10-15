@@ -45,10 +45,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/activity_list_item_schimmer" />
-                <include layout="@layout/activity_list_item_schimmer" />
-                <include layout="@layout/activity_list_item_schimmer" />
-                <include layout="@layout/activity_list_item_schimmer" />
+                <include layout="@layout/activity_list_item_shimmer" />
+                <include layout="@layout/activity_list_item_shimmer" />
+                <include layout="@layout/activity_list_item_shimmer" />
+                <include layout="@layout/activity_list_item_shimmer" />
 
             </LinearLayout>
 
