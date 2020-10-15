@@ -28,7 +28,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public final class FileUtil {
-    private static final int EMPTY_LENGTH = 0;
 
     private FileUtil() {
         // utility class -> private constructor
