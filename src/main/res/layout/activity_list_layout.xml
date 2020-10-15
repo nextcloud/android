@@ -77,10 +77,10 @@
                     android:layout_marginTop="@dimen/standard_margin"
                     android:layout_marginBottom="40dp" />
 
-                <include layout="@layout/activity_list_item_schimmer" />
-                <include layout="@layout/activity_list_item_schimmer" />
-                <include layout="@layout/activity_list_item_schimmer" />
-                <include layout="@layout/activity_list_item_schimmer" />
+                <include layout="@layout/activity_list_item_shimmer" />
+                <include layout="@layout/activity_list_item_shimmer" />
+                <include layout="@layout/activity_list_item_shimmer" />
+                <include layout="@layout/activity_list_item_shimmer" />
 
             </LinearLayout>
         </FrameLayout>
