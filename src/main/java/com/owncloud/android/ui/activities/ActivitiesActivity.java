@@ -63,7 +63,9 @@ import static com.owncloud.android.ui.activity.FileActivity.EXTRA_FILE;
 
 public class ActivitiesActivity extends DrawerActivity implements ActivityListInterface, ActivitiesContract.View {
     private static final String TAG = ActivitiesActivity.class.getSimpleName();
-    private static final int UNDEFINED = -1;
+
+    @BindView(R.id.loading_content)
+    public LinearLayout loadingContent;
 
     @BindView(R.id.empty_list_view)
     public LinearLayout emptyContentContainer;
@@ -122,14 +124,9 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
         swipeListRefreshLayout.setOnRefreshListener(() -> {
             // We set lastGiven variable to undefined here since when manually refreshing
             // activities data we want to clear the list and reset the pagination.
-            lastGiven = UNDEFINED;
+            lastGiven = ActivitiesContract.ActionListener.UNDEFINED;
             mActionListener.loadActivities(lastGiven);
         });
-
-        // Since we use swipe-to-refresh for progress indication we can hide the inherited
-        // progressBar, message and headline
-        emptyContentMessage.setVisibility(View.INVISIBLE);
-        emptyContentHeadline.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -176,7 +173,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
             }
         });
 
-        mActionListener.loadActivities(UNDEFINED);
+        mActionListener.loadActivities(ActivitiesContract.ActionListener.UNDEFINED);
     }
 
     @Override
@@ -221,7 +218,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     @Override
     public void showActivities(List<Object> activities, NextcloudClient client, int lastGiven) {
         boolean clear = false;
-        if (this.lastGiven == UNDEFINED) {
+        if (this.lastGiven == ActivitiesContract.ActionListener.UNDEFINED) {
             clear = true;
         }
         adapter.setActivityItems(activities, client, clear);
@@ -230,11 +227,10 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
         // Hide the recyclerView if list is empty
         if (adapter.isEmpty()) {
             showEmptyContent(noResultsHeadline, noResultsMessage);
-            recyclerView.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.GONE);
         } else {
-            emptyContentMessage.setVisibility(View.INVISIBLE);
-            emptyContentHeadline.setVisibility(View.INVISIBLE);
-
+            emptyContentContainer.setVisibility(View.GONE);
+            loadingContent.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         }
     }
@@ -270,9 +266,8 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
 
     @Override
     public void showLoadingMessage() {
-        emptyContentHeadline.setText(R.string.file_list_loading);
-        emptyContentMessage.setText("");
-        emptyContentIcon.setVisibility(View.GONE);
+        loadingContent.setVisibility(View.VISIBLE);
+        emptyContentContainer.setVisibility(View.GONE);
     }
 
     @Override
@@ -283,7 +278,8 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
             emptyContentIcon.setVisibility(View.VISIBLE);
             emptyContentHeadline.setVisibility(View.VISIBLE);
             emptyContentMessage.setVisibility(View.VISIBLE);
-
+            emptyContentContainer.setVisibility(View.VISIBLE);
+            loadingContent.setVisibility(View.GONE);
         }
     }
 
