@@ -20,6 +20,8 @@
 
 package com.owncloud.android.utils;
 
+import android.text.TextUtils;
+
 import java.io.File;
 
 import androidx.annotation.NonNull;
@@ -40,7 +42,7 @@ public final class FileUtil {
      */
     public static @NonNull
     String getFilenameFromPathString(@Nullable String filePath) {
-        if (filePath != null && filePath.length() > EMPTY_LENGTH) {
+        if (!TextUtils.isEmpty(filePath)) {
             File file = new File(filePath);
             if (file.isFile()) {
                 return file.getName();

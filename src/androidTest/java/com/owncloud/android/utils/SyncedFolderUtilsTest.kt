@@ -44,7 +44,6 @@ class SyncedFolderUtilsTest : AbstractIT() {
         Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("Folder.jpeg"))
         Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("FOLDER.jpg"))
         Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload(THUMBDATA_FILE))
-        THUMBDATA_FILE
     }
 
     @Test
