@@ -436,35 +436,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         } else {
                             switch (sharee.getShareType()) {
                                 case GROUP:
-                                    try {
-                                        avatar.setImageDrawable(TextDrawable.createAvatarByUserId(sharee.getUserId(),
-                                                                                                  avatarRadius));
-                                    } catch (Exception e) {
-                                        Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                                        avatar.setImageResource(R.drawable.ic_people);
-                                        ThemeUtils.setIconColor(avatar.getDrawable());
-                                    }
-                                    break;
-
+                                case EMAIL:
                                 case ROOM:
-                                    try {
-                                        if (!TextUtils.isEmpty(sharee.getDisplayName())) {
-                                            avatar.setImageDrawable(
-                                                TextDrawable.createNamedAvatar(sharee.getDisplayName(), avatarRadius));
-                                        } else {
-                                            avatar.setImageDrawable(
-                                                TextDrawable.createAvatarByUserId(sharee.getUserId(), avatarRadius));
-                                        }
-                                    } catch (Exception e) {
-                                        Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                                        avatar.setImageResource(R.drawable.ic_people);
-                                        ThemeUtils.setIconColor(avatar.getDrawable());
-                                    }
-                                    break;
-
                                 case CIRCLE:
-                                    avatar.setImageResource(R.drawable.ic_circles);
-                                    ThemeUtils.setIconColor(avatar.getDrawable());
+                                    ThemeUtils.createAvatar(sharee.getShareType(), avatar, activity);
                                     break;
 
                                 default:

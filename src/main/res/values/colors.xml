@@ -37,7 +37,6 @@
 
     <!-- Colors -->
     <color name="standard_grey">#757575</color>
-    <color name="grey_db">#dbdbdb</color>
     <color name="actionbar_shadow">#222222</color>
     <color name="grey_200">#EEEEEE</color>
 
@@ -57,6 +56,8 @@
     <color name="primary_button_text_color">#ffffff</color>
     <color name="secondary_button_background_color">#D6D7D7</color>
     <color name="secondary_button_text_color">#000000</color>
+    <color name="nc_grey">#ededed</color>
+    <color name="icon_on_nc_grey">#000000</color>
 
     <color name="process_dialog_background">#ffffff</color>
     <color name="indicator_dot_selected">#ffffff</color>
