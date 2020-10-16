@@ -231,13 +231,27 @@ public class UploadsStorageManager extends Observable {
      * @param upload Upload instance to remove from persisted storage.
      * @return true when the upload was stored and could be removed.
      */
-    public int removeUpload(OCUpload upload) {
+    public int removeUpload(@Nullable OCUpload upload) {
+        if (upload == null) {
+            return 0;
+        } else {
+            return removeUpload(upload.getUploadId());
+        }
+    }
+
+    /**
+     * Remove an upload from the uploads list, known its target account and remote path.
+     *
+     * @param id to remove from persisted storage.
+     * @return true when the upload was stored and could be removed.
+     */
+    public int removeUpload(long id) {
         int result = getDB().delete(
-                ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta._ID + "=?",
-                new String[]{Long.toString(upload.getUploadId())}
-        );
-        Log_OC.d(TAG, "delete returns " + result + " for upload " + upload);
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            ProviderTableMeta._ID + "=?",
+            new String[]{Long.toString(id)}
+                                   );
+        Log_OC.d(TAG, "delete returns " + result + " for upload with id " + id);
         if (result > 0) {
             notifyObserversNow();
         }
@@ -285,6 +299,25 @@ public class UploadsStorageManager extends Observable {
 
     public OCUpload[] getAllStoredUploads() {
         return getUploads(null, (String[]) null);
+    }
+
+    public @Nullable
+    OCUpload getUploadById(long id) {
+        OCUpload result = null;
+        Cursor cursor = getDB().query(
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            null,
+            ProviderTableMeta._ID + "=?",
+            new String[]{Long.toString(id)},
+            "_id ASC");
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                result = createOCUploadFromCursor(cursor);
+            }
+        }
+        Log_OC.d(TAG, "Retrieve job " + result + " for id " + id);
+        return result;
     }
 
     private OCUpload[] getUploads(@Nullable String selection, @Nullable String... selectionArgs) {
