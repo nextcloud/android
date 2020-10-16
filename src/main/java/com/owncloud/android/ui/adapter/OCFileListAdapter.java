@@ -851,7 +851,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return false;
         }
 
-        return !TextUtils.isEmpty(currentDirectory.getRichWorkspace());
+        if (currentDirectory.getRichWorkspace() == null) {
+            return false;
+        }
+
+        return !TextUtils.isEmpty(currentDirectory.getRichWorkspace().trim());
     }
 
     @Override
@@ -1289,6 +1293,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @VisibleForTesting
     public void setShowShareAvatar(boolean bool) {
         showShareAvatar = bool;
+    }
+
+    @VisibleForTesting
+    public void setCurrentDirectory(OCFile folder) {
+        currentDirectory = folder;
     }
 
     static class OCFileListItemViewHolder extends OCFileListGridItemViewHolder {

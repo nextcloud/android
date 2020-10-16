@@ -481,7 +481,6 @@ public final class ThumbnailsCacheManager {
         @Override
         protected Bitmap doInBackground(ThumbnailGenerationTaskObject... params) {
             Bitmap thumbnail = null;
-            boolean isError = false;
             try {
                 if (mAccount != null) {
                     OwnCloudAccount ocAccount = new OwnCloudAccount(

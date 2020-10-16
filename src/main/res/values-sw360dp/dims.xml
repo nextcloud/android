@@ -17,10 +17,5 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
-  <!-- Default screen margins, per the Android Design guidelines. -->
-  <dimen name="nav_drawer_header_height">164dp</dimen>
-  <dimen name="nav_drawer_header_avatar">64dp</dimen>
-  <!-- avatar radius needs to 1/2 of the avatar dp value -->
-  <dimen name="nav_drawer_header_avatar_radius">32dp</dimen>
   <integer name="media_grid_width">4</integer>
 </resources>

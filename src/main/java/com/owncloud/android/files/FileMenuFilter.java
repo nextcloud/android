@@ -309,8 +309,7 @@ public class FileMenuFilter {
 
     @Nullable
     public static Editor getEditor(ContentResolver contentResolver, User user, String mimeType) {
-        String json = new ArbitraryDataProvider(contentResolver).getValue(user.toPlatformAccount(),
-                                                                          ArbitraryDataProvider.DIRECT_EDITING);
+        String json = new ArbitraryDataProvider(contentResolver).getValue(user, ArbitraryDataProvider.DIRECT_EDITING);
 
         if (json.isEmpty()) {
             return null;

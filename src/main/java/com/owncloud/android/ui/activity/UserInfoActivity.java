@@ -41,8 +41,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -52,6 +50,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.UserInfoLayoutBinding;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -82,10 +81,8 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * This Activity presents the user information.
@@ -94,27 +91,14 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
     public static final String KEY_ACCOUNT = "ACCOUNT";
 
     private static final String TAG = UserInfoActivity.class.getSimpleName();
-    private static final String KEY_USER_DATA = "USER_DATA";
-
-    @BindView(R.id.empty_list_view) protected LinearLayout emptyContentContainer;
-    @BindView(R.id.empty_list_view_text) protected TextView emptyContentMessage;
-    @BindView(R.id.empty_list_view_headline) protected TextView emptyContentHeadline;
-    @BindView(R.id.empty_list_icon) protected ImageView emptyContentIcon;
-    @BindView(R.id.userinfo_icon) protected ImageView avatar;
-    @BindView(R.id.userinfo_username) protected TextView userName;
-    @BindView(R.id.userinfo_fullName) protected TextView fullName;
-    @BindView(R.id.userinfo_list) protected RecyclerView mUserInfoList;
-    @BindView(R.id.empty_list_progress) protected ProgressBar multiListProgressBar;
-
-    @BindString(R.string.user_information_retrieval_error) protected String sorryMessage;
+    public static final String KEY_USER_DATA = "USER_DATA";
 
     @Inject AppPreferences preferences;
     private float mCurrentAccountAvatarRadiusDimension;
 
-    private Unbinder unbinder;
-
     private UserInfo userInfo;
     private User user;
+    private UserInfoLayoutBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -135,12 +119,14 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
 
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_USER_DATA)) {
             userInfo = Parcels.unwrap(savedInstanceState.getParcelable(KEY_USER_DATA));
+        } else if (bundle.containsKey(KEY_ACCOUNT)) {
+            userInfo = Parcels.unwrap(bundle.getParcelable(KEY_USER_DATA));
         }
 
-        mCurrentAccountAvatarRadiusDimension = getResources().getDimension(R.dimen.nav_drawer_header_avatar_radius);
+        mCurrentAccountAvatarRadiusDimension = getResources().getDimension(R.dimen.user_icon_radius);
 
-        setContentView(R.layout.user_info_layout);
-        unbinder = ButterKnife.bind(this);
+        binding = UserInfoLayoutBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         setupToolbar();
 
@@ -154,7 +140,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             ThemeUtils.tintBackButton(actionBar, this);
         }
 
-        mUserInfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount(), true, this)));
+        binding.userinfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount(), true, this)));
 
         if (userInfo != null) {
             populateUserInfoUi(userInfo);
@@ -202,34 +188,25 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         return retval;
     }
 
-    public void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
-    }
-
     private void setMultiListLoadingMessage() {
-        if (emptyContentContainer != null) {
-            emptyContentHeadline.setText(R.string.file_list_loading);
-            emptyContentMessage.setText("");
+        binding.emptyList.emptyListViewHeadline.setText(R.string.file_list_loading);
+        binding.emptyList.emptyListViewText.setText("");
 
-            emptyContentIcon.setVisibility(View.GONE);
-            emptyContentMessage.setVisibility(View.GONE);
-            multiListProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(this),
-                    PorterDuff.Mode.SRC_IN);
-            multiListProgressBar.setVisibility(View.VISIBLE);
-        }
+        binding.emptyList.emptyListIcon.setVisibility(View.GONE);
+        binding.emptyList.emptyListViewText.setVisibility(View.GONE);
+        binding.emptyList.emptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(this),
+                                                                                      PorterDuff.Mode.SRC_IN);
+        binding.emptyList.emptyListProgress.setVisibility(View.VISIBLE);
     }
 
     private void setErrorMessageForMultiList(String headline, String message, @DrawableRes int errorResource) {
-        if (emptyContentContainer != null && emptyContentMessage != null) {
-            emptyContentHeadline.setText(headline);
-            emptyContentMessage.setText(message);
-            emptyContentIcon.setImageResource(errorResource);
+        binding.emptyList.emptyListViewHeadline.setText(headline);
+        binding.emptyList.emptyListViewText.setText(message);
+        binding.emptyList.emptyListIcon.setImageResource(errorResource);
 
-            multiListProgressBar.setVisibility(View.GONE);
-            emptyContentIcon.setVisibility(View.VISIBLE);
-            emptyContentMessage.setVisibility(View.VISIBLE);
-        }
+        binding.emptyList.emptyListProgress.setVisibility(View.GONE);
+        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
     }
 
     private void setHeaderImage() {
@@ -278,27 +255,32 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
     }
 
     private void populateUserInfoUi(UserInfo userInfo) {
-        userName.setText(user.getAccountName());
-        avatar.setTag(user.getAccountName());
-        DisplayUtils.setAvatar(user, this, mCurrentAccountAvatarRadiusDimension, getResources(), avatar, this);
+        binding.userinfoUsername.setText(user.getAccountName());
+        binding.userinfoIcon.setTag(user.getAccountName());
+        DisplayUtils.setAvatar(user,
+                               this,
+                               mCurrentAccountAvatarRadiusDimension,
+                               getResources(),
+                               binding.userinfoIcon,
+                               this);
 
         int tint = ThemeUtils.primaryColor(user.toPlatformAccount(), true, this);
 
         if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
-            fullName.setText(userInfo.getDisplayName());
+            binding.userinfoFullName.setText(userInfo.getDisplayName());
         }
 
         if (userInfo.getPhone() == null && userInfo.getEmail() == null && userInfo.getAddress() == null
-                && userInfo.getTwitter() == null && userInfo.getWebsite() == null) {
+            && userInfo.getTwitter() == null && userInfo.getWebsite() == null) {
 
             setErrorMessageForMultiList(getString(R.string.userinfo_no_info_headline),
-                getString(R.string.userinfo_no_info_text), R.drawable.ic_user);
+                                        getString(R.string.userinfo_no_info_text), R.drawable.ic_user);
         } else {
-            emptyContentContainer.setVisibility(View.GONE);
-            mUserInfoList.setVisibility(View.VISIBLE);
+            binding.emptyList.emptyListView.setVisibility(View.GONE);
+            binding.userinfoList.setVisibility(View.VISIBLE);
 
-            if (mUserInfoList.getAdapter() instanceof UserInfoAdapter) {
-                mUserInfoList.setAdapter(new UserInfoAdapter(createUserInfoDetails(userInfo), tint));
+            if (binding.userinfoList.getAdapter() instanceof UserInfoAdapter) {
+                binding.userinfoList.setAdapter(new UserInfoAdapter(createUserInfoDetails(userInfo), tint));
             }
         }
     }
@@ -343,9 +325,11 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
                     runOnUiThread(() -> populateUserInfoUi(userInfo));
                 } else {
                     // show error
-                    runOnUiThread(() -> setErrorMessageForMultiList(sorryMessage,
-                                                                    result.getLogMessage(),
-                                                                    R.drawable.ic_list_empty_error));
+                    runOnUiThread(() -> setErrorMessageForMultiList(
+                        getString(R.string.user_information_retrieval_error),
+                        result.getLogMessage(),
+                        R.drawable.ic_list_empty_error)
+                                 );
                     Log_OC.d(TAG, result.getLogMessage());
                 }
             }
@@ -368,7 +352,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
     }
 
 
-    protected class UserInfoDetailsItem {
+    protected static class UserInfoDetailsItem {
         @DrawableRes public int icon;
         public String text;
         public String iconContentDescription;
@@ -380,11 +364,11 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         }
     }
 
-    protected class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHolder> {
+    protected static class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHolder> {
         protected List<UserInfoDetailsItem> mDisplayList;
         @ColorInt protected int mTintColor;
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+        public static class ViewHolder extends RecyclerView.ViewHolder {
 
             @BindView(R.id.icon) protected ImageView icon;
             @BindView(R.id.text) protected TextView text;

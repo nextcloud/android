@@ -581,7 +581,7 @@
     <string name="share">Compartilhar</string>
     <string name="share_dialog_title">Compartilhamento</string>
     <string name="share_email_clarification">%1$s (e-mail)</string>
-    <string name="share_expiration_date_label">Expira %1$s</string>
+    <string name="share_expiration_date_label">Expira em %1$s</string>
     <string name="share_file">Compartilhar %1$s</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_internal_link">Compartilhar o link interno</string>
@@ -609,7 +609,7 @@
     <string name="share_search">Nome, ID da nuvem federada ou e-mail…</string>
     <string name="share_send_note">Anotação para o destinatário</string>
     <string name="share_via_link_hide_download">Ocultar download</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Ocultar a listagem de arquivos</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Ocultar listagem de arquivos</string>
     <string name="share_via_link_menu_password_label">Protegido por senha (%1$s)</string>
     <string name="share_via_link_section_title">Compartilhar link</string>
     <string name="share_via_link_send_link_label">Enviar link</string>
