@@ -1,0 +1,27 @@
+codacy: remove unused variable
+utilze TextUtils, remove unused code
+invert folder name filter check, move to standard Android view binding
+remove unused import
+ignore thumbnail-related data on auto upload
+ignore thumbnauil folders for detection/display - related to #7085 ignore thumbdata files for detection - related to #3177
+add tests
+ignore image-media folders that have no-images _or_ seem to be music albums (just a single cover art image) block detection notification and hide in lists
+lint: use proper date format
+Null safe
+add tests
+Do not show rich workspace if it only contains whitespaces
+Any camera (front/back) is enough for scanning QR or taking an image
+switch to users
+use view bindings
+remove unused dimension value
+use correct avatar radius
+trigger save state info processing in test
+User Info screen tests
+streamline layout for user infos
+codacy: Avoid appending characters as strings in StringBuffer.append
+codacy: Avoid unused imports
+codacy: Avoid unused local variables
+codacy: Avoid unused private fields
+Ensure that upload notification gets cancelled
+Update translations
+Update 3rd-party dependencies
