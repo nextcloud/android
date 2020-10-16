@@ -169,7 +169,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
         intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
         intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD, newUpload);
+        intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.getUploadId());
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
@@ -210,7 +210,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
         intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
         intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD, newUpload);
+        intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.getUploadId());
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
@@ -256,7 +256,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
         intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
         intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD, newUpload);
+        intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.getUploadId());
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
@@ -301,7 +301,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
         intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
         intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD, newUpload);
+        intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.getUploadId());
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 

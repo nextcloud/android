@@ -237,6 +237,7 @@ public class FileOperationsHelper {
             // this can be very intrusive; a notification should be preferred
             Intent intent = ConflictsResolveActivity.createIntent(file,
                                                                   user.toPlatformAccount(),
+                                                                  -1,
                                                                   Intent.FLAG_ACTIVITY_NEW_TASK,
                                                                   fileActivity);
 
@@ -306,6 +307,7 @@ public class FileOperationsHelper {
                         // this can be very intrusive; a notification should be preferred
                         Intent intent = ConflictsResolveActivity.createIntent(file,
                                                                               user.toPlatformAccount(),
+                                                                              -1,
                                                                               Intent.FLAG_ACTIVITY_NEW_TASK,
                                                                               fileActivity);
                         fileActivity.startActivity(intent);
