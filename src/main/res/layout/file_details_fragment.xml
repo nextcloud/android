@@ -185,5 +185,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <include layout="@layout/empty_list" />
+    <include
+        android:id="@+id/empty_list"
+        layout="@layout/empty_list" />
 </LinearLayout>
