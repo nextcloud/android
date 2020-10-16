@@ -962,6 +962,8 @@ public class FileUploader extends Service
         intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
         intent.putExtra(FileUploader.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
 
+        Log_OC.d("ExternalUpload", "upload file: " + localPaths[0]);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(intent);
         } else {

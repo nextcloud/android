@@ -37,6 +37,7 @@ import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -91,6 +92,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.UriUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -865,6 +867,18 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mStreamsToUpload.add(intent.getParcelableExtra(Intent.EXTRA_STREAM));
         } else if (Intent.ACTION_SEND_MULTIPLE.equals(intent.getAction())) {
             mStreamsToUpload = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+        }
+
+        if (mStreamsToUpload != null) {
+            Log_OC.d("ExternalUpload", "Received: " + mStreamsToUpload.size());
+
+            for (Parcelable parcelable : mStreamsToUpload) {
+                if (parcelable instanceof Uri) {
+                    Log_OC.d("ExternalUpload", "URI: " + UriUtils.getDisplayNameForUri((Uri) parcelable, this));
+                } else {
+                    Log_OC.d("ExternalUpload", "no URI: " + parcelable.toString());
+                }
+            }
         }
 
         if (mStreamsToUpload == null || mStreamsToUpload.isEmpty() || mStreamsToUpload.get(0) == null) {
