@@ -100,9 +100,9 @@ public class FilesystemDataProvider {
                         File file = new File(value);
                         if (!file.exists()) {
                             Log_OC.d(TAG, "Ignoring file for upload (doesn't exist): " + value);
-                        } else if (SyncedFolderUtils.isQualifiedFolder(file.getParent())) {
+                        } else if (!SyncedFolderUtils.isQualifiedFolder(file.getParent())) {
                             Log_OC.d(TAG, "Ignoring file for upload (unqualified folder): " + value);
-                        } else if (SyncedFolderUtils.isFileNameQualifiedForAutoUpload(file.getName())) {
+                        } else if (!SyncedFolderUtils.isFileNameQualifiedForAutoUpload(file.getName())) {
                             Log_OC.d(TAG, "Ignoring file for upload (unqualified file): " + value);
                         } else {
                             localPathsToUpload.add(value);
