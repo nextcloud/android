@@ -56,7 +56,6 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ShareeListAdapter;
 import com.owncloud.android.ui.adapter.ShareeListAdapterListener;
-import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.NoteDialogFragment;
 import com.owncloud.android.ui.dialog.RenamePublicShareDialogFragment;
@@ -173,7 +172,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                             this,
                                                             userId));
         binding.sharesList.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.sharesList.addItemDecoration(new SimpleListItemDividerDecoration(getContext()));
 
         setupView();
 
