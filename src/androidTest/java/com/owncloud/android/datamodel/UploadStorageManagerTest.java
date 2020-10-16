@@ -34,6 +34,8 @@ import androidx.test.filters.SmallTest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -148,6 +150,25 @@ public class UploadStorageManagerTest extends AbstractIT {
         uploadsStorageManager.storeUpload(corruptUpload);
 
         uploadsStorageManager.getAllStoredUploads();
+    }
+
+    @Test
+    public void getById() {
+        OCUpload upload = createUpload(account);
+        long id = uploadsStorageManager.storeUpload(upload);
+
+        OCUpload newUpload = uploadsStorageManager.getUploadById(id);
+
+        assertNotNull(newUpload);
+        assertEquals(upload.getLocalAction(), newUpload.getLocalAction());
+        assertEquals(upload.getFolderUnlockToken(), newUpload.getFolderUnlockToken());
+    }
+
+    @Test
+    public void getByIdNull() {
+        OCUpload newUpload = uploadsStorageManager.getUploadById(-1);
+
+        assertNull(newUpload);
     }
 
     private void insertUploads(Account account, int rowsToInsert) {
