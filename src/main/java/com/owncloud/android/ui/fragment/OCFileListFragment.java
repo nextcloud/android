@@ -405,6 +405,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     currentSearchType = SearchType.FILE_SEARCH;
                     break;
 
+                case CONTENT_TYPE_SEARCH:
+                    if ("video/%".equals(event.getSearchQuery())) {
+                        currentSearchType = SearchType.VIDEO_SEARCH;
+                    }
+                    break;
+
+
                 case FAVORITE_SEARCH:
                     currentSearchType = SearchType.FAVORITE_SEARCH;
                     break;
