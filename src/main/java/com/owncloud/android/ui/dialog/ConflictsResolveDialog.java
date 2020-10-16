@@ -25,6 +25,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
@@ -47,6 +49,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -64,6 +67,7 @@ public class ConflictsResolveDialog extends DialogFragment {
     public OnConflictDecisionMadeListener listener;
     private User user;
     private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
+    private Button positiveButton;
 
     private static final String KEY_NEW_FILE = "file";
     private static final String KEY_EXISTING_FILE = "ocfile";
@@ -111,7 +115,9 @@ public class ConflictsResolveDialog extends DialogFragment {
         }
 
         int color = ThemeUtils.primaryAccentColor(getContext());
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
+        positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        setPositiveButtonStatus(false);
+
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
     }
 
@@ -159,9 +165,10 @@ public class ConflictsResolveDialog extends DialogFragment {
                         listener.conflictDecisionMade(Decision.KEEP_BOTH);
                     } else if (binding.newCheckbox.isChecked()) {
                         listener.conflictDecisionMade(Decision.KEEP_LOCAL);
-                    } else {
+                    } else if (binding.existingCheckbox.isChecked()) {
                         listener.conflictDecisionMade(Decision.KEEP_SERVER);
-                    }
+                    }  // else do nothing
+
                 }
             })
             .setNegativeButton(R.string.common_cancel, (dialog, which) -> {
@@ -192,10 +199,34 @@ public class ConflictsResolveDialog extends DialogFragment {
                                        false,
                                        getContext());
 
-        binding.newFileContainer.setOnClickListener(v -> binding.newCheckbox.setChecked(!binding.newCheckbox.isChecked()));
-        binding.existingFileContainer.setOnClickListener(v -> binding.existingCheckbox.setChecked(!binding.existingCheckbox.isChecked()));
+        View.OnClickListener checkBoxClickListener = v -> {
+            setPositiveButtonStatus(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());
+        };
+
+        binding.newCheckbox.setOnClickListener(checkBoxClickListener);
+        binding.existingCheckbox.setOnClickListener(checkBoxClickListener);
+
+        binding.newFileContainer.setOnClickListener(v -> {
+            binding.newCheckbox.setChecked(!binding.newCheckbox.isChecked());
+            setPositiveButtonStatus(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());
+        });
+        binding.existingFileContainer.setOnClickListener(v -> {
+            binding.existingCheckbox.setChecked(!binding.existingCheckbox.isChecked());
+            setPositiveButtonStatus(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());
+        });
 
         return builder.create();
+    }
+
+    private void setPositiveButtonStatus(boolean enabled) {
+        if (enabled) {
+            positiveButton.setTextColor(ThemeUtils.primaryAccentColor(requireContext()));
+        } else {
+            positiveButton.setTextColor(ResourcesCompat.getColor(requireContext().getResources(),
+                                                                 R.color.grey_200,
+                                                                 null));
+        }
+        positiveButton.setEnabled(enabled);
     }
 
     public void showDialog(AppCompatActivity activity) {
