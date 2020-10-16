@@ -159,6 +159,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             mDrawerToggle.setDrawerIndicatorEnabled(false);
         }
 
+        // TODO: The content loading should be done asynchronously
         setupContent();
 
         if (ThemeUtils.themingEnabled(this)) {
@@ -491,6 +492,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
      */
     private void showList() {
         binding.list.setVisibility(View.VISIBLE);
+        binding.loadingContent.setVisibility(View.GONE);
         checkAndShowEmptyListContent();
     }
 
@@ -601,40 +603,28 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         checkAndShowEmptyListContent();
     }
 
-    private void showEmptyContent(String headline, String message) {
-        showEmptyContent(headline, message, false);
-        binding.emptyList.emptyListViewAction.setVisibility(View.GONE);
-    }
-
     private void showEmptyContent(String headline, String message, String action) {
-        showEmptyContent(headline, message, false);
+        showEmptyContent(headline, message);
         binding.emptyList.emptyListViewAction.setText(action);
         binding.emptyList.emptyListViewAction.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListViewText.setVisibility(View.GONE);
     }
 
     private void showLoadingContent() {
-        showEmptyContent(
-            getString(R.string.drawer_synced_folders),
-            getString(R.string.synced_folders_loading_folders),
-            true
-        );
+        binding.loadingContent.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListViewAction.setVisibility(View.GONE);
     }
 
-    private void showEmptyContent(String headline, String message, boolean loading) {
+    private void showEmptyContent(String headline, String message) {
+        binding.emptyList.emptyListViewAction.setVisibility(View.GONE);
         binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
         binding.list.setVisibility(View.GONE);
+        binding.loadingContent.setVisibility(View.GONE);
 
         binding.emptyList.emptyListViewHeadline.setText(headline);
         binding.emptyList.emptyListViewText.setText(message);
         binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
-
-        if (loading) {
-            binding.emptyList.emptyListIcon.setVisibility(View.GONE);
-        } else {
-            binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
-        }
+        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
     }
 
     @Override
