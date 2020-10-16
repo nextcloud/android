@@ -809,9 +809,7 @@ public class FileDisplayActivity extends FileActivity
                 } else if (
                     currentDir != null && currentDir.getParentId() != 0 ||
                         second != null && second.getFile() != null ||
-                        isSearchOpen() ||
-                        second == null
-                ) {
+                        isSearchOpen()) {
                     onBackPressed();
                 } else {
                     openDrawer();
