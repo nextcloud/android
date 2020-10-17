@@ -458,7 +458,7 @@
     <string name="notifications_no_results_headline">Non hai notificacións</string>
     <string name="notifications_no_results_message">Compróbeo máis adiante.</string>
     <string name="offline_mode">Sen conexión coa Internet</string>
-    <string name="outdated_server">O servidor acadou a fin da súa vida. Actualíceo!</string>
+    <string name="outdated_server">O servidor acadou a fin da súa vida. Anóveo!</string>
     <string name="overflow_menu">Máis menús</string>
     <string name="pass_code_configure_your_pass_code">Introduza o seu código de seguridade</string>
     <string name="pass_code_configure_your_pass_code_explanation">Solicitaráselle o código de seguridade cada vez que inicie a aplicación</string>
