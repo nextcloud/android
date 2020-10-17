@@ -1,0 +1,5 @@
+#7103 Remove item divider in share list
+If file is valid, then allow upload
+Fix wrong handling of back button (#7067)
+Update translations
+Update Nextcloud Android library
