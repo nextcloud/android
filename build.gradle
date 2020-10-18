@@ -10,6 +10,9 @@ import com.github.spotbugs.snom.SpotBugsTask
 buildscript {
     ext.kotlin_version = '1.4.10'
     repositories {
+        maven {
+            url 'https://dl.bintray.com/kotlin/kotlin-dev/'
+        }
         google()
         jcenter()
         maven {
@@ -73,6 +76,9 @@ ext {
 }
 
 repositories {
+    maven {
+        url 'https://dl.bintray.com/kotlin/kotlin-dev/'
+    }
     google()
     jcenter()
     maven { url "https://jitpack.io" }
