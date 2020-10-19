@@ -168,7 +168,7 @@ public final class SyncedFolderUtils {
      */
     public static boolean isQualifiedFolder(String folderPath) {
         File folder = new File(folderPath);
-        // check if folder starts with thumbnail praefix
+        // check if folder starts with thumbnail prefix
         return folder.isDirectory() && !folder.getName().startsWith(THUMBNAIL_FOLDER_PREFIX);
     }
 

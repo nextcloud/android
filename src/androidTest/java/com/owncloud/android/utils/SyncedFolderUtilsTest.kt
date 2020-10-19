@@ -72,78 +72,93 @@ class SyncedFolderUtilsTest : AbstractIT() {
 
     @Test
     fun assertMediaFolderVideoUnqualified() {
-        val folder = MediaFolder()
-        folder.type = MediaFolderType.VIDEO
-        folder.numberOfFiles = 0L
+        val folder = MediaFolder().apply {
+            absolutePath = getDummyFile(THUMBDATA_FOLDER).absolutePath
+            type = MediaFolderType.VIDEO
+            numberOfFiles = 0L
+        }
         Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
     fun assertMediaFolderVideoQualified() {
-        val folder = MediaFolder()
-        folder.type = MediaFolderType.VIDEO
-        folder.numberOfFiles = 20L
+        val folder = MediaFolder().apply {
+            absolutePath = getDummyFile(THUMBDATA_FOLDER).absolutePath
+            type = MediaFolderType.VIDEO
+            numberOfFiles = 20L
+        }
         Assert.assertTrue(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
     fun assertMediaFolderImagesQualified() {
-        val folder = MediaFolder()
-        folder.type = MediaFolderType.IMAGE
-        folder.numberOfFiles = 4L
-        folder.filePaths = Arrays.asList(
-            getDummyFile(SELFIE).absolutePath,
-            getDummyFile(SCREENSHOT).absolutePath,
-            getDummyFile(IMAGE_JPEG).absolutePath,
-            getDummyFile(IMAGE_BITMAP).absolutePath
-        )
+        val folder = MediaFolder().apply {
+            absolutePath = getDummyFile(THUMBDATA_FOLDER).absolutePath
+            type = MediaFolderType.IMAGE
+            numberOfFiles = 4L
+            filePaths = Arrays.asList(
+                getDummyFile(SELFIE).absolutePath,
+                getDummyFile(SCREENSHOT).absolutePath,
+                getDummyFile(IMAGE_JPEG).absolutePath,
+                getDummyFile(IMAGE_BITMAP).absolutePath
+            )
+        }
         Assert.assertTrue(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
     fun assertMediaFolderImagesEmptyUnqualified() {
-        val folder = MediaFolder()
-        folder.type = MediaFolderType.IMAGE
-        folder.numberOfFiles = 0L
+        val folder = MediaFolder().apply {
+            absolutePath = getDummyFile(THUMBDATA_FOLDER).absolutePath
+            type = MediaFolderType.IMAGE
+            numberOfFiles = 0L
+        }
         Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
     fun assertMediaFolderImagesNoImagesUnqualified() {
-        val folder = MediaFolder()
-        folder.type = MediaFolderType.IMAGE
-        folder.numberOfFiles = 3L
-        folder.filePaths = Arrays.asList(
-            getDummyFile(SONG_ZERO).absolutePath,
-            getDummyFile(SONG_ONE).absolutePath,
-            getDummyFile(SONG_TWO).absolutePath
-        )
+        val folder = MediaFolder().apply {
+            absolutePath = getDummyFile(THUMBDATA_FOLDER).absolutePath
+            type = MediaFolderType.IMAGE
+            numberOfFiles = 3L
+            filePaths = Arrays.asList(
+                getDummyFile(SONG_ZERO).absolutePath,
+                getDummyFile(SONG_ONE).absolutePath,
+                getDummyFile(SONG_TWO).absolutePath
+            )
+        }
         Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
     fun assertMediaFolderImagesMusicAlbumWithCoverArtUnqualified() {
-        val folder = MediaFolder()
-        folder.type = MediaFolderType.IMAGE
-        folder.numberOfFiles = 3L
-        folder.filePaths = Arrays.asList(
-            getDummyFile(COVER).absolutePath,
-            getDummyFile(SONG_ONE).absolutePath,
-            getDummyFile(SONG_TWO).absolutePath
-        )
+        val folder = MediaFolder().apply {
+            absolutePath = getDummyFile(THUMBDATA_FOLDER).absolutePath
+            type = MediaFolderType.IMAGE
+            numberOfFiles = 3L
+            filePaths = Arrays.asList(
+                getDummyFile(COVER).absolutePath,
+                getDummyFile(SONG_ONE).absolutePath,
+                getDummyFile(SONG_TWO).absolutePath
+            )
+        }
         Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
     fun assertMediaFolderImagesMusicAlbumWithFolderArtUnqualified() {
-        val folder = MediaFolder()
-        folder.type = MediaFolderType.IMAGE
-        folder.numberOfFiles = 3L
-        folder.filePaths = Arrays.asList(
-            getDummyFile(FOLDER).absolutePath,
-            getDummyFile(SONG_ONE).absolutePath,
-            getDummyFile(SONG_TWO).absolutePath
-        )
+        val folder = MediaFolder().apply {
+            absolutePath = getDummyFile(THUMBDATA_FOLDER).absolutePath
+            type = MediaFolderType.IMAGE
+            numberOfFiles = 3L
+            filePaths = Arrays.asList(
+                getDummyFile(FOLDER).absolutePath,
+                getDummyFile(SONG_ONE).absolutePath,
+                getDummyFile(SONG_TWO).absolutePath
+            )
+        }
+
         Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }
 
@@ -155,9 +170,10 @@ class SyncedFolderUtilsTest : AbstractIT() {
 
     @Test
     fun assertUnqualifiedContentSyncedFolder() {
-        getDummyFile(THUMBDATA_FOLDER + File.pathSeparator + THUMBDATA_FILE)
+        val localFolder = getDummyFile(THUMBDATA_FOLDER + File.separatorChar)
+        getDummyFile(THUMBDATA_FOLDER + File.separatorChar + THUMBDATA_FILE)
         val folder = SyncedFolder(
-            FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + THUMBDATA_FOLDER,
+            localFolder.absolutePath,
             "",
             true,
             false,
@@ -176,10 +192,10 @@ class SyncedFolderUtilsTest : AbstractIT() {
 
     @Test
     fun assertUnqualifiedSyncedFolder() {
-        getDummyFile(THUMBNAILS_FOLDER + File.pathSeparator + IMAGE_JPEG)
-        getDummyFile(THUMBNAILS_FOLDER + File.pathSeparator + IMAGE_BITMAP)
+        getDummyFile(THUMBNAILS_FOLDER + File.separatorChar + IMAGE_JPEG)
+        getDummyFile(THUMBNAILS_FOLDER + File.separatorChar + IMAGE_BITMAP)
         val folder = SyncedFolder(
-            FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + THUMBNAILS_FOLDER,
+            FileStorageUtils.getTemporalPath(account.name) + File.separatorChar + THUMBNAILS_FOLDER,
             "",
             true,
             false,
@@ -206,14 +222,15 @@ class SyncedFolderUtilsTest : AbstractIT() {
         private const val SONG_TWO = "song2.mp3"
         private const val FOLDER = "folder.JPG"
         private const val COVER = "cover.jpg"
-        private const val THUMBNAILS_FOLDER = ".thumbnails"
-        private const val THUMBDATA_FOLDER = "valid_folder"
+        private const val THUMBNAILS_FOLDER = ".thumbnails/"
+        private const val THUMBDATA_FOLDER = "valid_folder/"
         private const val THUMBDATA_FILE = ".thumbdata4--1967290299"
         private const val ITERATION = 100
 
         @BeforeClass
+        @JvmStatic
         fun setUp() {
-            val tempPath = File(FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + THUMBNAILS_FOLDER)
+            val tempPath = File(FileStorageUtils.getTemporalPath(account.name) + File.separatorChar + THUMBNAILS_FOLDER)
             if (!tempPath.exists()) {
                 tempPath.mkdirs()
             }
@@ -228,12 +245,13 @@ class SyncedFolderUtilsTest : AbstractIT() {
             createFile(FOLDER, ITERATION)
             createFile(COVER, ITERATION)
 
-            createFile(THUMBDATA_FOLDER + File.pathSeparator + THUMBDATA_FILE, ITERATION)
-            createFile(THUMBNAILS_FOLDER + File.pathSeparator + IMAGE_JPEG, ITERATION)
-            createFile(THUMBNAILS_FOLDER + File.pathSeparator + IMAGE_BITMAP, ITERATION)
+            createFile(THUMBDATA_FOLDER + File.separatorChar + THUMBDATA_FILE, ITERATION)
+            createFile(THUMBNAILS_FOLDER + File.separatorChar + IMAGE_JPEG, ITERATION)
+            createFile(THUMBNAILS_FOLDER + File.separatorChar + IMAGE_BITMAP, ITERATION)
         }
 
         @AfterClass
+        @JvmStatic
         fun tearDown() {
             FileUtils.deleteDirectory(File(FileStorageUtils.getTemporalPath(account.name)))
         }
