@@ -202,6 +202,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         putMethod.releaseConnection() // let the connection available for other methods
 
         // read back content bytes
-        assertReadEquals(content2, contentResolver.openInputStream(file1.uri))
+        val bytes = contentResolver.openInputStream(file1.uri)?.readBytes() ?: ByteArray(0)
+        assertEquals(String(content2), String(bytes))
     }
 }
