@@ -76,6 +76,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -712,5 +713,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     private boolean canReshare(OCShare share) {
         return (share.getPermissions() & SHARE_PERMISSION_FLAG) > 0;
+    }
+
+    @VisibleForTesting
+    public void search(String query) {
+        SearchView searchView = getView().findViewById(R.id.searchView);
+        searchView.setQuery(query, true);
     }
 }

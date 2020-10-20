@@ -31,8 +31,6 @@ import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.TextDrawable;
 
-import java.security.NoSuchAlgorithmException;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -95,7 +93,7 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
     private void setImage(ImageView avatar, String name, @DrawableRes int fallback) {
         try {
             avatar.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
-        } catch (NoSuchAlgorithmException | StringIndexOutOfBoundsException e) {
+        } catch (StringIndexOutOfBoundsException e) {
             avatar.setImageResource(fallback);
         }
     }

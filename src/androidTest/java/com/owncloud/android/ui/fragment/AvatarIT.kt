@@ -22,15 +22,20 @@
 
 package com.owncloud.android.ui.fragment
 
+import android.graphics.BitmapFactory
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import com.nextcloud.client.TestActivity
+import com.nextcloud.client.account.StatusType
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
+import com.owncloud.android.ui.TextDrawable
+import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
+
 
 class AvatarIT : AbstractIT() {
     @get:Rule
@@ -60,4 +65,124 @@ class AvatarIT : AbstractIT() {
         waitForIdleSync()
         screenshot(sut)
     }
+
+    @Test
+    @ScreenshotTest
+    fun showAvatarsWithStatus() {
+        val avatarRadius = targetContext.resources.getDimension(R.dimen.list_item_avatar_icon_radius)
+        val width = DisplayUtils.convertDpToPixel(2 * avatarRadius, targetContext)
+        val sut = testActivityRule.launchActivity(null)
+        val fragment = AvatarTestFragment()
+
+        val paulette = BitmapFactory.decodeFile(getFile("paulette.jpg").absolutePath)
+        val christine = BitmapFactory.decodeFile(getFile("christine.jpg").absolutePath)
+        val textBitmap = BitmapUtils.drawableToBitmap(TextDrawable.createNamedAvatar("Admin", avatarRadius))
+
+        sut.addFragment(fragment)
+
+        runOnUiThread {
+            fragment.addBitmap(
+                BitmapUtils.createAvatarWithStatus(paulette, StatusType.online, "😘", targetContext),
+                width * 2,
+                1,
+                targetContext
+            )
+
+            fragment.addBitmap(
+                BitmapUtils.createAvatarWithStatus(christine, StatusType.online, "☁️", targetContext),
+                width * 2,
+                1,
+                targetContext
+            )
+
+            fragment.addBitmap(
+                BitmapUtils.createAvatarWithStatus(christine, StatusType.online, "🌴️", targetContext),
+                width * 2,
+                1,
+                targetContext
+            )
+
+            fragment.addBitmap(
+                BitmapUtils.createAvatarWithStatus(christine, StatusType.online, "", targetContext),
+                width * 2,
+                1,
+                targetContext
+            )
+
+            fragment.addBitmap(
+                BitmapUtils.createAvatarWithStatus(paulette, StatusType.dnd, "", targetContext),
+                width * 2,
+                1,
+                targetContext
+            )
+
+            fragment.addBitmap(
+                BitmapUtils.createAvatarWithStatus(christine, StatusType.away, "", targetContext),
+                width * 2,
+                1,
+                targetContext
+            )
+
+            fragment.addBitmap(
+                BitmapUtils.createAvatarWithStatus(paulette, StatusType.offline, "", targetContext),
+                width * 2,
+                1,
+                targetContext
+            )
+
+            fragment.addBitmap(
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.online, "😘", targetContext),
+                width,
+                2,
+                targetContext
+            )
+
+            fragment.addBitmap(
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.online, "☁️", targetContext),
+                width,
+                2,
+                targetContext
+            )
+
+            fragment.addBitmap(
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.online, "🌴️", targetContext),
+                width,
+                2,
+                targetContext
+            )
+
+            fragment.addBitmap(
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.online, "", targetContext),
+                width,
+                2,
+                targetContext
+            )
+
+            fragment.addBitmap(
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.dnd, "", targetContext),
+                width,
+                2,
+                targetContext
+            )
+
+            fragment.addBitmap(
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.away, "", targetContext),
+                width,
+                2,
+                targetContext
+            )
+
+            fragment.addBitmap(
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.offline, "", targetContext),
+                width,
+                2,
+                targetContext
+            )
+        }
+
+        shortSleep()
+        waitForIdleSync()
+        screenshot(sut)
+    }
+
 }
