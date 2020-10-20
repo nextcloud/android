@@ -183,11 +183,17 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         val file1 = rootDir.createFile("text/plain", RandomString.make())!!
         file1.assertRegularFile(size = 0L)
 
+        val createdETag = file1.getOCFile(storageManager)!!.etag
+
         val content1 = "initial content".toByteArray()
 
         // write content bytes to file
         contentResolver.openOutputStream(file1.uri, "wt").use {
             it!!.write(content1)
+        }
+
+        while (file1.getOCFile(storageManager)!!.etag == createdETag) {
+            shortSleep()
         }
 
         val remotePath = file1.getOCFile(storageManager)!!.remotePath
@@ -202,6 +208,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         putMethod.releaseConnection() // let the connection available for other methods
 
         // read back content bytes
-        assertReadEquals(content2, contentResolver.openInputStream(file1.uri))
+        val bytes = contentResolver.openInputStream(file1.uri)?.readBytes() ?: ByteArray(0)
+        assertEquals(String(content2), String(bytes))
     }
 }
