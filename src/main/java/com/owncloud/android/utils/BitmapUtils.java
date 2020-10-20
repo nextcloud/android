@@ -18,6 +18,7 @@
  */
 package com.owncloud.android.utils;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,14 +28,21 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.nextcloud.client.account.StatusType;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.StatusDrawable;
 
 import org.apache.commons.codec.binary.Hex;
 
@@ -237,12 +245,19 @@ public final class BitmapUtils {
         return resultBitmap;
     }
 
-    public static Color usernameToColor(String name) throws NoSuchAlgorithmException {
+    public static Color usernameToColor(String name) {
         String hash = name.toLowerCase(Locale.ROOT);
 
         // already a md5 hash?
         if (!hash.matches("([0-9a-f]{4}-?){8}$")) {
-            hash = md5(hash);
+            try {
+                hash = md5(hash);
+            } catch (NoSuchAlgorithmException e) {
+                int color = getResources().getColor(R.color.primary_dark);
+                return new Color(android.graphics.Color.red(color),
+                                 android.graphics.Color.green(color),
+                                 android.graphics.Color.blue(color));
+            }
         }
 
         hash = hash.replaceAll("[^0-9a-f]", "");
@@ -322,11 +337,19 @@ public final class BitmapUtils {
     }
 
     public static class Color {
+        public int a = 255;
         public int r;
         public int g;
         public int b;
 
         public Color(int r, int g, int b) {
+            this.r = r;
+            this.g = g;
+            this.b = b;
+        }
+
+        public Color(int a, int r, int g, int b) {
+            this.a = a;
             this.r = r;
             this.g = g;
             this.b = b;
@@ -401,9 +424,16 @@ public final class BitmapUtils {
 
         Bitmap bitmap;
         if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+            if (drawable.getBounds().width() > 0 && drawable.getBounds().height() > 0) {
+                bitmap = Bitmap.createBitmap(drawable.getBounds().width(),
+                                             drawable.getBounds().height(),
+                                             Bitmap.Config.ARGB_8888);
+            } else {
+                bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+            }
         } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                                         drawable.getIntrinsicHeight(),
                                          Bitmap.Config.ARGB_8888);
         }
 
@@ -425,6 +455,90 @@ public final class BitmapUtils {
                                      thumbnail,
                                      getResources().getDimension(R.dimen.file_icon_rounded_corner_radius_for_grid_mode),
                                      imageView);
+    }
+
+    public static Bitmap createAvatarWithStatus(Bitmap avatar, StatusType status, String icon, Context context) {
+        float avatarRadius = getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
+        int width = DisplayUtils.convertDpToPixel(2 * avatarRadius, context);
+
+        Bitmap output = Bitmap.createBitmap(width, width, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        // avatar
+        Bitmap croppedBitmap = getCroppedBitmap(avatar, width);
+
+        canvas.drawBitmap(croppedBitmap, 0f, 0f, null);
+
+        // status
+        int statusSize = width / 4;
+
+        StatusDrawable statusDrawable;
+        if (TextUtils.isEmpty(icon)) {
+            switch (status) {
+                case dnd:
+                    statusDrawable = new StatusDrawable(R.drawable.ic_user_status_dnd, statusSize, context);
+                    statusDrawable.setBounds(width / 2,
+                                             width / 2,
+                                             width,
+                                             width);
+                    break;
+
+                case online:
+                    statusDrawable = new StatusDrawable(new Color(255, 73, 179, 130), statusSize);
+                    statusDrawable.setBounds(width,
+                                             width,
+                                             width,
+                                             width);
+                    break;
+
+                case away:
+                    statusDrawable = new StatusDrawable(R.drawable.ic_user_status_away, statusSize, context);
+                    statusDrawable.setBounds(width / 2,
+                                             width / 2,
+                                             width,
+                                             width);
+                    break;
+
+                default:
+                    // do not show
+                    statusDrawable = null;
+                    break;
+            }
+        } else {
+            statusDrawable = new StatusDrawable(icon, statusSize);
+            statusDrawable.setBounds(width / 2,
+                                     width / 2,
+                                     width,
+                                     width);
+        }
+
+        if (statusDrawable != null) {
+            canvas.translate(width / 2f, width / 2f);
+            statusDrawable.draw(canvas);
+        }
+
+        return output;
+    }
+
+    /**
+     * from https://stackoverflow.com/a/12089127
+     */
+    private static Bitmap getCroppedBitmap(Bitmap bitmap, int width) {
+        Bitmap output = Bitmap.createBitmap(width, width, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+        int color = -0xbdbdbe;
+        Paint paint = new Paint();
+        Rect rect = new Rect(0, 0, width, width);
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+
+        canvas.drawCircle(width / 2f, width / 2f, width / 2f, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+
+        canvas.drawBitmap(Bitmap.createScaledBitmap(bitmap, width, width, false), rect, rect, paint);
+
+        return output;
     }
 
     private static Resources getResources() {
