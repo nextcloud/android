@@ -40,7 +40,7 @@ class AvatarWithStatus(val roundedBitmapDrawable: RoundedBitmapDrawable) : Drawa
         val radius: Float = Math.min(width, height).toFloat() / 2f
 
         // Draw a red circle in the center
-        //canvas.drawBitmap(roundedBitmapDrawable.bitmap!!, 0f, 0f, null)
+        // canvas.drawBitmap(roundedBitmapDrawable.bitmap!!, 0f, 0f, null)
         canvas.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), radius, redPaint)
     }
 
