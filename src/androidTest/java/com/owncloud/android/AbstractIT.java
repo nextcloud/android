@@ -205,9 +205,12 @@ public abstract class AbstractIT {
     }
 
     protected static File getDummyFile(String name) throws IOException {
-        File file = new File(FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + name);
+        File file = new File(FileStorageUtils.getTemporalPath(account.name) + File.separator + name);
 
         if (file.exists()) {
+            return file;
+        } else if (name.endsWith("/")) {
+            file.mkdirs();
             return file;
         } else {
             switch (name) {
@@ -227,12 +230,11 @@ public abstract class AbstractIT {
     }
 
     public static File createFile(String name, int iteration) throws IOException {
-        File tempPath = new File(FileStorageUtils.getTemporalPath(account.name));
-        if (!tempPath.exists()) {
-            assertTrue(tempPath.mkdirs());
+        File file = new File(FileStorageUtils.getTemporalPath(account.name) + File.separator + name);
+        if (!file.getParentFile().exists()) {
+            assertTrue(file.getParentFile().mkdirs());
         }
 
-        File file = new File(FileStorageUtils.getTemporalPath(account.name) + File.separator + name);
         file.createNewFile();
 
         FileWriter writer = new FileWriter(file);

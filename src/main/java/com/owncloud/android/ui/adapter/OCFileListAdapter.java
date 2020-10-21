@@ -659,6 +659,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 );
 
                 if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
+                    stopShimmer(shimmerThumbnail, thumbnailView);
+
                     if (MimeTypeUtil.isVideo(file)) {
                         Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
                         thumbnailView.setImageBitmap(withOverlay);
