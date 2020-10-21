@@ -1,5 +1,4 @@
 /*
- *
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
@@ -40,10 +39,10 @@ import androidx.core.content.res.ResourcesCompat;
  * A Drawable object that draws a status
  */
 public class StatusDrawable extends Drawable {
-    private String mText = null;
+    private String text;
     private @DrawableRes int icon = -1;
-    private Paint mTextPaint;
-    private final Paint mBackground;
+    private Paint textPaint;
+    private final Paint backgroundPaint;
     private final float radius;
     private Context context;
 
@@ -52,35 +51,35 @@ public class StatusDrawable extends Drawable {
         this.icon = icon;
         this.context = context;
 
-        mBackground = new Paint();
-        mBackground.setStyle(Paint.Style.FILL);
-        mBackground.setAntiAlias(true);
-        mBackground.setColor(Color.argb(200, 255, 255, 255));
+        backgroundPaint = new Paint();
+        backgroundPaint.setStyle(Paint.Style.FILL);
+        backgroundPaint.setAntiAlias(true);
+        backgroundPaint.setColor(Color.argb(200, 255, 255, 255));
     }
 
     public StatusDrawable(BitmapUtils.Color color, float size) {
         radius = size;
 
-        mBackground = new Paint();
-        mBackground.setStyle(Paint.Style.FILL);
-        mBackground.setAntiAlias(true);
-        mBackground.setColor(Color.argb(color.a, color.r, color.g, color.b));
+        backgroundPaint = new Paint();
+        backgroundPaint.setStyle(Paint.Style.FILL);
+        backgroundPaint.setAntiAlias(true);
+        backgroundPaint.setColor(Color.argb(color.a, color.r, color.g, color.b));
     }
 
     public StatusDrawable(String icon, float size) {
-        mText = icon;
+        text = icon;
         radius = size;
 
-        mBackground = new Paint();
-        mBackground.setStyle(Paint.Style.FILL);
-        mBackground.setAntiAlias(true);
-        mBackground.setColor(Color.argb(200, 255, 255, 255));
+        backgroundPaint = new Paint();
+        backgroundPaint.setStyle(Paint.Style.FILL);
+        backgroundPaint.setAntiAlias(true);
+        backgroundPaint.setColor(Color.argb(200, 255, 255, 255));
 
-        mTextPaint = new Paint();
-        mTextPaint.setColor(Color.WHITE);
-        mTextPaint.setTextSize(size);
-        mTextPaint.setAntiAlias(true);
-        mTextPaint.setTextAlign(Paint.Align.CENTER);
+        textPaint = new Paint();
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTextSize(size);
+        textPaint.setAntiAlias(true);
+        textPaint.setTextAlign(Paint.Align.CENTER);
     }
 
     /**
@@ -91,13 +90,13 @@ public class StatusDrawable extends Drawable {
      */
     @Override
     public void draw(@NonNull Canvas canvas) {
-        if (mBackground != null) {
-            canvas.drawCircle(radius, radius, radius, mBackground);
+        if (backgroundPaint != null) {
+            canvas.drawCircle(radius, radius, radius, backgroundPaint);
         }
 
-        if (mText != null) {
-            mTextPaint.setTextSize(1.6f * radius);
-            canvas.drawText(mText, radius, radius - ((mTextPaint.descent() + mTextPaint.ascent()) / 2), mTextPaint);
+        if (text != null) {
+            textPaint.setTextSize(1.6f * radius);
+            canvas.drawText(text, radius, radius - ((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
         }
 
         if (icon != -1) {
@@ -112,12 +111,12 @@ public class StatusDrawable extends Drawable {
 
     @Override
     public void setAlpha(int alpha) {
-        mTextPaint.setAlpha(alpha);
+        textPaint.setAlpha(alpha);
     }
 
     @Override
     public void setColorFilter(ColorFilter cf) {
-        mTextPaint.setColorFilter(cf);
+        textPaint.setColorFilter(cf);
     }
 
     @Override
