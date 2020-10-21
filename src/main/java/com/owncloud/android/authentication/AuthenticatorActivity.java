@@ -707,7 +707,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (extras == null) {
             return false;
         } else {
-            return extras.getParcelable("accountAuthenticatorResponse") != null;
+            String authTokenType = extras.getString("authTokenType");
+            return "SSO".equals(authTokenType);
         }
     }
 
