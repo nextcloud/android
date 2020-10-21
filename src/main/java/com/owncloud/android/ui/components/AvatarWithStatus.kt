@@ -32,9 +32,11 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawable
 class AvatarWithStatus(val roundedBitmapDrawable: RoundedBitmapDrawable) : Drawable() {
     private val redPaint: Paint = Paint().apply { setARGB(255, 255, 0, 0) }
 
+    private val avatarSize = 100
+
     override fun draw(canvas: Canvas) {
-        val width = 100
-        val height = 100
+        val width = avatarSize
+        val height = avatarSize
         val radius: Float = Math.min(width, height).toFloat() / 2f
 
         // Draw a red circle in the center
