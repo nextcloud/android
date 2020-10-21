@@ -33,14 +33,13 @@ class AvatarWithStatus(val roundedBitmapDrawable: RoundedBitmapDrawable) : Drawa
     private val redPaint: Paint = Paint().apply { setARGB(255, 255, 0, 0) }
 
     override fun draw(canvas: Canvas) {
-        val width: Int = 100
-        val height: Int = 100
+        val width = 100
+        val height = 100
         val radius: Float = Math.min(width, height).toFloat() / 2f
 
         // Draw a red circle in the center
         //canvas.drawBitmap(roundedBitmapDrawable.bitmap!!, 0f, 0f, null)
         canvas.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), radius, redPaint)
-
     }
 
     override fun setAlpha(alpha: Int) {
