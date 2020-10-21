@@ -1,0 +1,5 @@
+fix tests
+As soon as we have a thumbnail we should stop shimmer. This happens when a thumbnail is available, but one scrolls and then come back to the thumbnail, as image view is recycled
+Collabora: click on hyperlink opens it in browser, not in webview
+Update Nextcloud Android library
+Update 3rd-party dependencies
