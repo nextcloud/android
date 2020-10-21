@@ -23,5 +23,5 @@
 package com.nextcloud.client.account
 
 enum class StatusType {
-    online, offline, dnd, away, unknown
+    Online, Offline, Dnd, Away, Unknown
 }
