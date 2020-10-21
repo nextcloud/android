@@ -475,7 +475,7 @@ public final class BitmapUtils {
         StatusDrawable statusDrawable;
         if (TextUtils.isEmpty(icon)) {
             switch (status) {
-                case dnd:
+                case Dnd:
                     statusDrawable = new StatusDrawable(R.drawable.ic_user_status_dnd, statusSize, context);
                     statusDrawable.setBounds(width / 2,
                                              width / 2,
@@ -483,7 +483,7 @@ public final class BitmapUtils {
                                              width);
                     break;
 
-                case online:
+                case Online:
                     statusDrawable = new StatusDrawable(new Color(255, 73, 179, 130), statusSize);
                     statusDrawable.setBounds(width,
                                              width,
@@ -491,7 +491,7 @@ public final class BitmapUtils {
                                              width);
                     break;
 
-                case away:
+                case Away:
                     statusDrawable = new StatusDrawable(R.drawable.ic_user_status_away, statusSize, context);
                     statusDrawable.setBounds(width / 2,
                                              width / 2,
