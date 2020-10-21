@@ -1,5 +1,4 @@
 /*
- *
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
@@ -35,7 +34,6 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
-
 
 class AvatarIT : AbstractIT() {
     @get:Rule
@@ -184,5 +182,4 @@ class AvatarIT : AbstractIT() {
         waitForIdleSync()
         screenshot(sut)
     }
-
 }

@@ -75,7 +75,6 @@ internal class AvatarTestFragment : Fragment() {
         } else {
             list2.addView(imageView)
         }
-
     }
 
     companion object {
