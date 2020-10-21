@@ -595,6 +595,7 @@
     <string name="share_link_forbidden_permissions">za omogočanje souporabe datoteke.</string>
     <string name="share_link_optional_password_title">Vpis gesla na željo</string>
     <string name="share_link_password_title">Vpis gesla</string>
+    <string name="share_link_with_label">Povezava souporabe (%1$s)</string>
     <string name="share_no_expiration_date_label">Nastavi datum preteka</string>
     <string name="share_no_password_title">Nastavi geslo</string>
     <string name="share_password_title">Zaščiteno z geslom</string>
