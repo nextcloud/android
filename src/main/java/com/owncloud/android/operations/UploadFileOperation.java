@@ -25,7 +25,6 @@ import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -87,7 +86,6 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.CheckResult;
-import androidx.annotation.RequiresApi;
 
 
 /**
