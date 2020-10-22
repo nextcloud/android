@@ -34,6 +34,7 @@ public class SvgDecoder implements ResourceDecoder<InputStream, SVG> {
     }
 
     public SvgDecoder() {
+        // empty constructor
     }
 
     public Resource<SVG> decode(InputStream source, int w, int h) throws IOException {

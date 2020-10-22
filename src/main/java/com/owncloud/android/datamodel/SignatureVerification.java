@@ -34,6 +34,7 @@ public class SignatureVerification {
     }
 
     public SignatureVerification() {
+        // empty constructor
     }
 
     public boolean isSignatureValid() {

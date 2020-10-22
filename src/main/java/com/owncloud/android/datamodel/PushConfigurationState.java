@@ -38,6 +38,7 @@ public class PushConfigurationState {
     }
 
     public PushConfigurationState() {
+        // empty constructor for JSON parser
     }
 
     public String getPushToken() {

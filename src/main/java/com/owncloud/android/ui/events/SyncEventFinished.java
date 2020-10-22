@@ -32,6 +32,7 @@ public class SyncEventFinished {
     }
 
     public SyncEventFinished() {
+        // empty constructor
     }
 
     public Intent getIntent() {

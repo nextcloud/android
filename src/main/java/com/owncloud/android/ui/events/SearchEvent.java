@@ -37,6 +37,7 @@ public class SearchEvent {
     }
 
     public SearchEvent() {
+        // empty constructor to create empty object
     }
 
     public String getSearchQuery() {
