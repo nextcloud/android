@@ -55,6 +55,8 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
     public static final String PREFERENCE_CONTACTS_LAST_BACKUP = "PREFERENCE_CONTACTS_LAST_BACKUP";
     public static final String BACKUP_TO_LIST = "BACKUP_TO_LIST";
 
+    @Inject BackgroundJobManager backgroundJobManager;
+
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, ContactsPreferenceActivity.class);
         context.startActivity(intent);
@@ -72,8 +74,6 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         intent.putExtra(EXTRA_SHOW_SIDEBAR, false);
         context.startActivity(intent);
     }
-
-    @Inject BackgroundJobManager backgroundJobManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
