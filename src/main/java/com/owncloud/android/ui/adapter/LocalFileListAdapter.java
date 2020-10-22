@@ -365,9 +365,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             mFiles = mFilesAll;
         } else {
             List<File> result = new ArrayList<>();
-            text = text.toLowerCase(Locale.getDefault());
+            String filterText = text.toLowerCase(Locale.getDefault());
             for (File file : mFilesAll) {
-                if (file.getName().toLowerCase(Locale.getDefault()).contains(text)) {
+                if (file.getName().toLowerCase(Locale.getDefault()).contains(filterText)) {
                     result.add(file);
                 }
             }
