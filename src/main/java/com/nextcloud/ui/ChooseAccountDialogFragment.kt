@@ -37,6 +37,7 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.resources.users.Status
 import com.owncloud.android.lib.resources.users.StatusType
+import com.owncloud.android.ui.StatusDrawable
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.adapter.UserListAdapter
@@ -129,9 +130,9 @@ class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, 
 
             val status = Status(StatusType.dnd, "Do not disturb", "", -1)
 
-            if (status) {
-                ticker.
-            }
+//            if (status) {
+            ticker.setImageDrawable(StatusDrawable(R.drawable.ic_user_status_dnd, 18f, context))
+//            }
         }
     }
 
