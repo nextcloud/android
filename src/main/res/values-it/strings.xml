@@ -204,7 +204,7 @@
     <string name="downloader_not_downloaded_yet">Non ancora scaricato</string>
     <string name="drawer_close">Chiudi barra laterale</string>
     <string name="drawer_community">Comunità</string>
-    <string name="drawer_header_background">Immagine di sgondo sull\'intestazione del pacchetto</string>
+    <string name="drawer_header_background">Immagine di sfondo sull\'intestazione del cassetto</string>
     <string name="drawer_item_activities">Attività</string>
     <string name="drawer_item_all_files">Tutti i file</string>
     <string name="drawer_item_favorites">Preferiti</string>
