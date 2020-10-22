@@ -933,7 +933,7 @@ public final class ThumbnailsCacheManager {
             avatar = getBitmapFromDiskCache(avatarKey);
 
             // Download avatar from server, only if older than 60 min or avatar does not exist
-            if ((System.currentTimeMillis() - timestamp >= 60 * 60 * 1000 || avatar == null)) {
+            if (System.currentTimeMillis() - timestamp >= 60 * 60 * 1000 || avatar == null) {
                 GetMethod get = null;
                 try {
                     if (mAccount != null) {
