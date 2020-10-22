@@ -21,7 +21,6 @@ package com.owncloud.android.utils;
 
 import android.Manifest;
 import android.accounts.Account;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -63,7 +62,6 @@ import androidx.core.app.ActivityCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static android.os.Build.VERSION.SDK_INT;
-
 
 /**
  * Static methods to help in access to local file system.
