@@ -165,13 +165,11 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            int pos;
             if (msg.what == SHOW_PROGRESS) {
                 updatePausePlay();
-                pos = setProgress();
+                int pos = setProgress();
                 if (!isDragging) {
-                    msg = obtainMessage(SHOW_PROGRESS);
-                    sendMessageDelayed(msg, 1000 - (pos % 1000));
+                    sendMessageDelayed(obtainMessage(SHOW_PROGRESS), 1000 - (pos % 1000));
                 }
             }
         }
