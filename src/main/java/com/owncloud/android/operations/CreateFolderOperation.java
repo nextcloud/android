@@ -43,6 +43,8 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.util.UUID;
 
@@ -126,20 +128,12 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             metadata = metadataPair.second;
 
             // check if filename already exists
-            for (String key : metadata.getFiles().keySet()) {
-                DecryptedFolderMetadata.DecryptedFile file = metadata.getFiles().get(key);
-
-                if (file != null && filename.equalsIgnoreCase(file.getEncrypted().getFilename())) {
-                    return new RemoteOperationResult(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS);
-                }
+            if (isFileExisting(metadata, filename)) {
+                return new RemoteOperationResult(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS);
             }
 
             // generate new random file name, check if it exists in metadata
-            String encryptedFileName = UUID.randomUUID().toString().replaceAll("-", "");
-
-            while (metadata.getFiles().get(encryptedFileName) != null) {
-                encryptedFileName = UUID.randomUUID().toString().replaceAll("-", "");
-            }
+            String encryptedFileName = createRandomFileName(metadata);
             encryptedRemotePath = parent.getRemotePath() + encryptedFileName;
 
             RemoteOperationResult result = new CreateFolderRemoteOperation(encryptedRemotePath,
@@ -148,23 +142,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                 .execute(client);
 
             if (result.isSuccess()) {
-                // Key, always generate new one
-                byte[] key = EncryptionUtils.generateKey();
-
-                // IV, always generate new one
-                byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
-
                 // update metadata
-                DecryptedFolderMetadata.DecryptedFile decryptedFile = new DecryptedFolderMetadata.DecryptedFile();
-                DecryptedFolderMetadata.Data data = new DecryptedFolderMetadata.Data();
-                data.setFilename(filename);
-                data.setMimetype(MimeType.WEBDAV_FOLDER);
-                data.setKey(EncryptionUtils.encodeBytesToBase64String(key));
-
-                decryptedFile.setEncrypted(data);
-                decryptedFile.setInitializationVector(EncryptionUtils.encodeBytesToBase64String(iv));
-
-                metadata.getFiles().put(encryptedFileName, decryptedFile);
+                metadata.getFiles().put(encryptedFileName, createDecryptedFile(filename));
 
                 EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
                                                                                                         privateKey);
@@ -193,15 +172,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                     .execute(client);
 
                 createdRemoteFolder = (RemoteFile) remoteFolderOperationResult.getData().get(0);
-                OCFile newDir = new OCFile(createdRemoteFolder.getRemotePath());
-                newDir.setMimeType(MimeType.DIRECTORY);
-
-                newDir.setParentId(parent.getFileId());
-                newDir.setRemoteId(createdRemoteFolder.getRemoteId());
-                newDir.setModificationTimestamp(System.currentTimeMillis());
-                newDir.setEncrypted(true);
-                newDir.setPermissions(createdRemoteFolder.getPermissions());
-                newDir.setDecryptedRemotePath(parent.getDecryptedRemotePath() + filename + "/");
+                OCFile newDir = createRemoteFolderOcFile(parent, filename, createdRemoteFolder);
                 getStorageManager().saveFile(newDir);
 
                 RemoteOperationResult encryptionOperationResult = new ToggleEncryptionRemoteOperation(
@@ -220,16 +191,6 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
             return result;
         } catch (Exception e) {
-//            // revert to latest metadata
-//            try {
-//                Pair<Boolean, DecryptedFolderMetadata> metadataPair = EncryptionUtils.retrieveMetadata(parent,
-//                                                                                                       client,
-//                                                                                                       privateKey,
-//                                                                                                       publicKey);
-//            } catch (Exception metadataException) {
-//                throw new RuntimeException(metadataException);
-//            }
-
             if (!EncryptionUtils.unlockFolder(parent, client, token).isSuccess()) {
                 throw new RuntimeException("Could not clean up after failing folder creation!");
             }
@@ -260,6 +221,62 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                 }
             }
         }
+    }
+
+    private boolean isFileExisting(DecryptedFolderMetadata metadata, String filename) {
+        for (String key : metadata.getFiles().keySet()) {
+            DecryptedFolderMetadata.DecryptedFile file = metadata.getFiles().get(key);
+
+            if (file != null && filename.equalsIgnoreCase(file.getEncrypted().getFilename())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @NotNull
+    private OCFile createRemoteFolderOcFile(OCFile parent, String filename, RemoteFile remoteFolder) {
+        OCFile newDir = new OCFile(remoteFolder.getRemotePath());
+
+        newDir.setMimeType(MimeType.DIRECTORY);
+        newDir.setParentId(parent.getFileId());
+        newDir.setRemoteId(remoteFolder.getRemoteId());
+        newDir.setModificationTimestamp(System.currentTimeMillis());
+        newDir.setEncrypted(true);
+        newDir.setPermissions(remoteFolder.getPermissions());
+        newDir.setDecryptedRemotePath(parent.getDecryptedRemotePath() + filename + "/");
+
+        return newDir;
+    }
+
+    @NotNull
+    private DecryptedFolderMetadata.DecryptedFile createDecryptedFile(String filename) {
+        // Key, always generate new one
+        byte[] key = EncryptionUtils.generateKey();
+
+        // IV, always generate new one
+        byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
+
+        DecryptedFolderMetadata.DecryptedFile decryptedFile = new DecryptedFolderMetadata.DecryptedFile();
+        DecryptedFolderMetadata.Data data = new DecryptedFolderMetadata.Data();
+        data.setFilename(filename);
+        data.setMimetype(MimeType.WEBDAV_FOLDER);
+        data.setKey(EncryptionUtils.encodeBytesToBase64String(key));
+
+        decryptedFile.setEncrypted(data);
+        decryptedFile.setInitializationVector(EncryptionUtils.encodeBytesToBase64String(iv));
+
+        return decryptedFile;
+    }
+
+    @NotNull
+    private String createRandomFileName(DecryptedFolderMetadata metadata) {
+        String encryptedFileName = UUID.randomUUID().toString().replaceAll("-", "");
+
+        while (metadata.getFiles().get(encryptedFileName) != null) {
+            encryptedFileName = UUID.randomUUID().toString().replaceAll("-", "");
+        }
+        return encryptedFileName;
     }
 
     private RemoteOperationResult normalCreate(OwnCloudClient client) {
