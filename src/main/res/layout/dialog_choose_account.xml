@@ -33,6 +33,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/statusView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/current_account"
+        tools:visibility="visible">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/standard_quarter_margin"
+            android:background="@color/list_divider_background" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/set_status"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/account_action_button_height"
+            android:layout_marginStart="@dimen/account_action_button_margin"
+            android:layout_marginEnd="@dimen/account_action_button_margin"
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp"
+            android:text="@string/set_status"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/fontAppbar"
+            app:icon="@drawable/ic_edit"
+            app:iconGravity="start"
+            app:iconPadding="22dp"
+            app:iconTint="@color/fontAppbar" />
+    </LinearLayout>
+
     <View
         android:id="@+id/separator_line"
         android:layout_width="0dp"
@@ -41,7 +77,7 @@
         android:background="@color/list_divider_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/current_account" />
+        app:layout_constraintTop_toBottomOf="@id/statusView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/accounts_list"

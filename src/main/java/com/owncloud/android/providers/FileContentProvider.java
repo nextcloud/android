@@ -796,6 +796,8 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ASK_FOR_OPTIONAL_PASSWORD + INTEGER
                        + ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_PRODUCT_NAME + TEXT
                        + ProviderTableMeta.CAPABILITIES_DIRECT_EDITING_ETAG + TEXT
+                       + ProviderTableMeta.CAPABILITIES_USER_STATUS + INTEGER
+                       + ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI + INTEGER
                        + ProviderTableMeta.CAPABILITIES_ETAG + " TEXT );");
     }
 
@@ -2255,6 +2257,26 @@ public class FileContentProvider extends ContentProvider {
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.OCSHARES_TABLE_NAME +
                                    ADD_COLUMN + ProviderTableMeta.OCSHARES_SHARE_LABEL + " TEXT ");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 60 && newVersion >= 60) {
+                Log_OC.i(SQL, "Entering in the #60 add user status to capability table");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.CAPABILITIES_USER_STATUS + " INTEGER ");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI + " INTEGER ");
 
                     upgraded = true;
                     db.setTransactionSuccessful();

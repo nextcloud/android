@@ -937,4 +937,6 @@
     <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="failed_update_ui">Failed to update UI</string>
     <string name="remote">(remote)</string>
+    <string name="status_description">Your avatar with status</string>
+    <string name="set_status">Set status</string>
 </resources>
