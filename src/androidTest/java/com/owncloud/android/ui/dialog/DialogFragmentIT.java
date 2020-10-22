@@ -36,9 +36,12 @@ import com.nextcloud.client.account.Server;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
+import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.ScreenshotTest;
@@ -131,7 +134,7 @@ public class DialogFragmentIT extends AbstractIT {
     @ScreenshotTest
     public void testAccountChooserDialog() throws AccountUtils.AccountNotFoundException {
         AccountManager accountManager = AccountManager.get(targetContext);
-        for (Account account : accountManager.getAccounts()) {
+        for (Account account : accountManager.getAccountsByType(MainApp.getAccountType(targetContext))) {
             accountManager.removeAccountExplicitly(account);
         }
 
@@ -145,13 +148,50 @@ public class DialogFragmentIT extends AbstractIT {
         accountManager.addAccountExplicitly(newAccount2, "password", null);
         accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
         accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_USER_ID, "user1");
-        accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_VERSION, "19.0.0.0");
+        accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_VERSION, "20.0.0");
+
+        FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(newAccount,
+                                                                                   targetContext.getContentResolver());
+
+        OCCapability capability = new OCCapability();
+        capability.setUserStatus(CapabilityBooleanType.TRUE);
+        capability.setUserStatusSupportsEmoji(CapabilityBooleanType.TRUE);
+        fileDataStorageManager.saveCapabilities(capability);
 
         ChooseAccountDialogFragment sut =
             ChooseAccountDialogFragment.newInstance(new RegisteredUser(newAccount,
                                                                        new OwnCloudAccount(newAccount, targetContext),
                                                                        new Server(URI.create("https://server.com"),
-                                                                                  OwnCloudVersion.nextcloud_19)));
+                                                                                  OwnCloudVersion.nextcloud_20)));
+        showDialog(sut);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testAccountChooserDialogWithStatusDisabled() throws AccountUtils.AccountNotFoundException {
+        AccountManager accountManager = AccountManager.get(targetContext);
+        for (Account account : accountManager.getAccounts()) {
+            accountManager.removeAccountExplicitly(account);
+        }
+
+        Account newAccount = new Account("test@https://server.com", MainApp.getAccountType(targetContext));
+        accountManager.addAccountExplicitly(newAccount, "password", null);
+        accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
+        accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");
+
+        FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(newAccount,
+                                                                                   targetContext.getContentResolver());
+
+        OCCapability capability = new OCCapability();
+        capability.setUserStatus(CapabilityBooleanType.FALSE);
+
+        fileDataStorageManager.saveCapabilities(capability);
+
+        ChooseAccountDialogFragment sut =
+            ChooseAccountDialogFragment.newInstance(new RegisteredUser(newAccount,
+                                                                       new OwnCloudAccount(newAccount, targetContext),
+                                                                       new Server(URI.create("https://server.com"),
+                                                                                  OwnCloudVersion.nextcloud_20)));
         showDialog(sut);
     }
 
