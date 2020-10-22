@@ -27,9 +27,17 @@ import java.util.Locale;
 /**
  * Template for creating a file from it via RichDocuments app
  */
-
 @Parcel
 public class Template {
+    public int id;
+    public String name;
+    public String thumbnailLink;
+    public Type type;
+    public String extension;
+
+    public Template() {
+    }
+
     public Template(int id, String name, String thumbnailLink, Type type, String extension) {
         this.id = id;
         this.name = name;
@@ -38,7 +46,21 @@ public class Template {
         this.extension = extension;
     }
 
-    public Template() {
+    public enum Type {
+        DOCUMENT, SPREADSHEET, PRESENTATION, UNKNOWN
+    }
+
+    public static Type parse(String type) {
+        switch (type.toLowerCase(Locale.US)) {
+            case "document":
+                return Type.DOCUMENT;
+            case "spreadsheet":
+                return Type.SPREADSHEET;
+            case "presentation":
+                return Type.PRESENTATION;
+            default:
+                return Type.UNKNOWN;
+        }
     }
 
     public int getId() {
@@ -80,27 +102,4 @@ public class Template {
     public void setExtension(String extension) {
         this.extension = extension;
     }
-
-    public enum Type {
-        DOCUMENT, SPREADSHEET, PRESENTATION, UNKNOWN
-    }
-
-    public static Type parse(String type) {
-        switch (type.toLowerCase(Locale.US)) {
-            case "document":
-                return Type.DOCUMENT;
-            case "spreadsheet":
-                return Type.SPREADSHEET;
-            case "presentation":
-                return Type.PRESENTATION;
-            default:
-                return Type.UNKNOWN;
-        }
-    }
-
-    public int id;
-    public String name;
-    public String thumbnailLink;
-    public Type type;
-    public String extension;
 }

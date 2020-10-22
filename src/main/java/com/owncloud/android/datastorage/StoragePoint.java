@@ -25,6 +25,11 @@ package com.owncloud.android.datastorage;
  * @author Bartosz Przybylski
  */
 public class StoragePoint implements Comparable<StoragePoint> {
+    private String description;
+    private String path;
+    private StorageType storageType;
+    private PrivacyType privacyType;
+    
     public StoragePoint(String description, String path, StorageType storageType, PrivacyType privacyType) {
         this.description = description;
         this.path = path;
@@ -74,11 +79,6 @@ public class StoragePoint implements Comparable<StoragePoint> {
     public enum PrivacyType {
         PRIVATE, PUBLIC
     }
-
-    private String description;
-    private String path;
-    private StorageType storageType;
-    private PrivacyType privacyType;
 
     @Override
     public int compareTo(StoragePoint another) {
