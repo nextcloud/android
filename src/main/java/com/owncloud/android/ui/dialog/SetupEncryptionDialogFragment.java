@@ -144,11 +144,11 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         DrawableCompat.setTint(wrappedDrawable, primaryColor);
         passwordField.setBackgroundDrawable(wrappedDrawable);
 
-        return createDialog(primaryColor, v);
+        return createDialog(v);
     }
 
     @NonNull
-    private Dialog createDialog(int accentColor, View v) {
+    private Dialog createDialog(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v).setPositiveButton(R.string.common_ok, null)
                 .setNegativeButton(R.string.common_cancel, null)
