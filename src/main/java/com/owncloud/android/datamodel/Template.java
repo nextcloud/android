@@ -36,6 +36,7 @@ public class Template {
     public String extension;
 
     public Template() {
+        // empty constructor
     }
 
     public Template(int id, String name, String thumbnailLink, Type type, String extension) {

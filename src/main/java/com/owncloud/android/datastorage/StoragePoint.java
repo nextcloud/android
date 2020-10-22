@@ -29,7 +29,7 @@ public class StoragePoint implements Comparable<StoragePoint> {
     private String path;
     private StorageType storageType;
     private PrivacyType privacyType;
-    
+
     public StoragePoint(String description, String path, StorageType storageType, PrivacyType privacyType) {
         this.description = description;
         this.path = path;
@@ -38,6 +38,7 @@ public class StoragePoint implements Comparable<StoragePoint> {
     }
 
     public StoragePoint() {
+        // empty constructor
     }
 
     public String getDescription() {
