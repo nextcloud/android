@@ -1782,14 +1782,13 @@ public class FileDataStorageManager {
     }
 
     public void saveConflict(OCFile ocFile, String etagInConflict) {
-        String etag;
-        if (!ocFile.isDown()) {
-            etag = null;
-        } else {
-            etag = etagInConflict;
-        }
         ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, etag);
+        if (!ocFile.isDown()) {
+            cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, (String) null);
+        } else {
+            cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, etagInConflict);
+        }
+
         int updated = 0;
         if (getContentResolver() != null) {
             updated = getContentResolver().update(
@@ -1814,7 +1813,7 @@ public class FileDataStorageManager {
         Log_OC.d(TAG, "Number of files updated with CONFLICT: " + updated);
 
         if (updated > 0) {
-            if (etag != null) {
+            if (etagInConflict != null && ocFile.isDown()) {
                 /// set conflict in all ancestor folders
 
                 long parentId = ocFile.getParentId();
