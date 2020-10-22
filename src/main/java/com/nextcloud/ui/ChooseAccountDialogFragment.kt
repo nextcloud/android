@@ -34,6 +34,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.lib.resources.users.Status
+import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.adapter.UserListAdapter
@@ -115,6 +118,19 @@ class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, 
             }
             manage_accounts.setOnClickListener {
                 (activity as DrawerActivity).openManageAccounts()
+            }
+
+            val capability = FileDataStorageManager(user.toPlatformAccount(), context?.contentResolver)
+                .getCapability(user)
+
+            if (capability.userStatus.isTrue) {
+                statusView.visibility = View.VISIBLE
+            }
+
+            val status = Status(StatusType.dnd, "Do not disturb", "", -1)
+
+            if (status) {
+                ticker.
             }
         }
     }
