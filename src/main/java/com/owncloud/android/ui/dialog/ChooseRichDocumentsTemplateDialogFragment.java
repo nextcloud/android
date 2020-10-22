@@ -144,7 +144,6 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         int accentColor = ThemeUtils.primaryAccentColor(getContext());
 
         parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER);
-        Type type = Type.valueOf(arguments.getString(ARG_TYPE));
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -160,6 +159,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
             throw new RuntimeException(e); // we'll NPE without the client
         }
 
+        Type type = Type.valueOf(arguments.getString(ARG_TYPE));
         new FetchTemplateTask(this, client).execute(type);
 
         listView.setHasFixedSize(true);
