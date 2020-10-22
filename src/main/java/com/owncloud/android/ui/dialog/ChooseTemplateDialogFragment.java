@@ -252,8 +252,6 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
                     return "";
                 }
 
-                OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) newFileResult.getData().get(0));
-
                 final ChooseTemplateDialogFragment fragment = chooseTemplateDialogFragmentWeakReference.get();
                 if (fragment == null) {
                     return "";
@@ -267,6 +265,8 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
 
                 FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(),
                                                                                    context.getContentResolver());
+
+                OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) newFileResult.getData().get(0));
                 storageManager.saveFile(temp);
                 file = storageManager.getFileByPath(path);
 
