@@ -28,7 +28,7 @@ buildscript {
         classpath('com.hiya:jacoco-android:0.2')
         classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.5.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.1"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.2"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:4.4.0'
     }
@@ -64,7 +64,7 @@ ext {
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
     androidLibraryVersion = "master-SNAPSHOT"
-    mockitoVersion = "3.5.13"
+    mockitoVersion = "3.5.15"
     mockkVersion = "1.10.2"
     byteBuddyVersion = "1.10.17"
     espressoVersion = "3.3.0"

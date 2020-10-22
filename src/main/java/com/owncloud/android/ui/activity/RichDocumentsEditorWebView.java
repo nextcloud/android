@@ -74,6 +74,7 @@ public class RichDocumentsEditorWebView extends EditorWebView {
     public static final int REQUEST_LOCAL_FILE = 101;
     private static final int REQUEST_REMOTE_FILE = 100;
     private static final String URL = "URL";
+    private static final String HYPERLINK = "Url";
     private static final String TYPE = "Type";
     private static final String PRINT = "print";
     private static final String SLIDESHOW = "slideshow";
@@ -287,7 +288,6 @@ public class RichDocumentsEditorWebView extends EditorWebView {
                 }
             } catch (JSONException e) {
                 Log_OC.e(this, "Failed to parse download json message: " + e);
-                return;
             }
         }
 
@@ -310,6 +310,18 @@ public class RichDocumentsEditorWebView extends EditorWebView {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 webview.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_PASTE));
                 webview.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_PASTE));
+            }
+        }
+
+        @JavascriptInterface
+        public void hyperlink(String hyperlink) {
+            try {
+                String url = new JSONObject(hyperlink).getString(HYPERLINK);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            } catch (JSONException e) {
+                Log_OC.e(this, "Failed to parse download json message: " + e);
             }
         }
     }
