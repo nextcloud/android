@@ -49,10 +49,9 @@ import java.util.UUID;
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 
-
 /**
- * Access to remote operation performing the creation of a new folder in the ownCloud server. Save the new folder in
- * Database
+ * Access to remote operation performing the creation of a new folder in the ownCloud server.
+ * Save the new folder in Database.
  */
 public class CreateFolderOperation extends SyncOperation implements OnRemoteOperationListener {
 
@@ -75,8 +74,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         String remoteParentPath = new File(getRemotePath()).getParent();
-        remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
-            remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
+        remoteParentPath = remoteParentPath.endsWith(PATH_SEPARATOR) ?
+            remoteParentPath : remoteParentPath + PATH_SEPARATOR;
 
         OCFile parent = getStorageManager().getFileByDecryptedRemotePath(remoteParentPath);
 
@@ -84,8 +83,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         while (parent == null) {
             tempRemoteParentPath = new File(tempRemoteParentPath).getParent();
 
-            if (!tempRemoteParentPath.endsWith(OCFile.PATH_SEPARATOR)) {
-                tempRemoteParentPath = tempRemoteParentPath + OCFile.PATH_SEPARATOR;
+            if (!tempRemoteParentPath.endsWith(PATH_SEPARATOR)) {
+                tempRemoteParentPath = tempRemoteParentPath + PATH_SEPARATOR;
             }
 
             parent = getStorageManager().getFileByDecryptedRemotePath(tempRemoteParentPath);
