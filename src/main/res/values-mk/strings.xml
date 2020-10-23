@@ -408,7 +408,9 @@
     <string name="move_file_invalid_into_descendent">Не е возможно да се копира папката во истата таа папка</string>
     <string name="move_file_invalid_overwrite">Датотеката веќе постои во папката</string>
     <string name="move_to">Премести во…</string>
+    <string name="network_error_connect_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши.</string>
     <string name="network_error_socket_exception">Настана грешка при обидот за поврзување со серверот</string>
+    <string name="network_error_socket_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши.</string>
     <string name="new_comment">Нов коментар…</string>
     <string name="new_media_folder_detected">Нова папка %1$s е детектирана.</string>
     <string name="new_media_folder_photos">слика</string>
