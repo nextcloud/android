@@ -825,4 +825,5 @@
     <plurals name="items_selected_count">
         <item quantity="other">已选择 %d 个</item>
     </plurals>
+    <string name="more">更多</string>
 </resources>

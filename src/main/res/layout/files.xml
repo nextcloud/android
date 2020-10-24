@@ -16,64 +16,103 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawer_layout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="true"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:fitsSystemWindows="true">
 
-        <include layout="@layout/toolbar_standard" />
-
-        <!-- The main content view -->
-        <LinearLayout
-            android:id="@+id/root_layout"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/toolbar_standard" />
+
+            <!-- The main content view -->
+            <LinearLayout
+                android:id="@+id/root_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg_default"
+                android:baselineAligned="false"
+                android:contentDescription="@string/list_layout"
+                android:orientation="horizontal"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <FrameLayout
+                    android:id="@+id/left_fragment_container"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                <FrameLayout
+                    android:id="@+id/right_fragment_container"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </LinearLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <include
+            layout="@layout/drawer"
+            android:layout_width="@dimen/drawer_width"
             android:layout_height="match_parent"
-            android:background="@color/bg_default"
-            android:baselineAligned="false"
-            android:contentDescription="@string/list_layout"
-            android:orientation="horizontal"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_gravity="start" />
 
-            <FrameLayout
-                android:id="@+id/left_fragment_container"
-                android:layout_width="@dimen/zero"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </androidx.drawerlayout.widget.DrawerLayout>
 
-            <FrameLayout
-                android:id="@+id/right_fragment_container"
-                android:layout_width="@dimen/zero"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-        </LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/home_bottomNavigation_iv_bg"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:background="@drawable/home_img_bottom_navigation_bg"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/pager_bottom_tab"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#00000000"
+            app:elevation="0dp"
+            app:itemBackground="@null"
+            app:itemHorizontalTranslationEnabled="false"
+            app:itemIconSize="19dp"
+            app:itemTextColor="@color/main_tab_color"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="@+id/home_bottomNavigation_iv_bg"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="end|bottom"
-            android:layout_marginEnd="@dimen/standard_margin"
-            android:layout_marginBottom="@dimen/standard_margin"
+            android:layout_marginBottom="30dp"
             android:contentDescription="@string/fab_label"
-            android:visibility="gone"
-            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include
-        layout="@layout/drawer"
-        android:layout_width="@dimen/drawer_width"
-        android:layout_height="match_parent"
-        android:layout_gravity="start" />
-
-</androidx.drawerlayout.widget.DrawerLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

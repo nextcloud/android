@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="nav_all_files" type="id" />
+    <item name="nav_favorites" type="id" />
+    <item name="nav_empty" type="id" />
+    <item name="nav_photos" type="id" />
+    <item name="nav_more" type="id" />
+
+</resources>

@@ -324,7 +324,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
 
-    private void onNavigationItemClicked(final MenuItem menuItem) {
+    public void onNavigationItemClicked(final MenuItem menuItem) {
         setDrawerMenuItemChecked(menuItem.getItemId());
 
         switch (menuItem.getItemId()) {
@@ -347,7 +347,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                                    menuItem.getItemId());
                 break;
             case R.id.nav_photos:
-                startPhotoSearch(menuItem);
+                startPhotoSearch(menuItem.getItemId());
                 break;
             case R.id.nav_on_device:
                 EventBus.getDefault().post(new ChangeMenuEvent());
@@ -438,7 +438,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private void startPhotoSearch(MenuItem menuItem) {
+    public void startPhotoSearch(int itemId) {
         SearchEvent searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
         MainApp.showOnlyFilesOnDevice(false);
 
@@ -446,11 +446,11 @@ public abstract class DrawerActivity extends ToolbarActivity
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setAction(Intent.ACTION_SEARCH);
         intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
-        intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
+        intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, itemId);
         startActivity(intent);
     }
 
-    private void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
+    public void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
         if (this instanceof FileDisplayActivity) {
             if (((FileDisplayActivity) this).getListOfFilesFragment() instanceof PhotoFragment) {
                 Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);

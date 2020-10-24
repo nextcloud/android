@@ -936,4 +936,5 @@
     <string name="link_share_file_drop">File drop (upload only)</string>
     <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="failed_update_ui">Failed to update UI</string>
+    <string name="more">More</string>
 </resources>

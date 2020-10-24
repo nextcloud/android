@@ -140,10 +140,10 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         LinearLayout bottomLayout = findViewById(R.id.bottomLayout);
         if (isProviderOrOwnInstallationVisible) {
             layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
+                                                         ViewGroup.LayoutParams.WRAP_CONTENT);
         } else {
             layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    DisplayUtils.convertDpToPixel(isLandscape ? 100f : 150f, this));
+                                                         DisplayUtils.convertDpToPixel(isLandscape ? 100f : 150f, this));
         }
 
         bottomLayout.setLayoutParams(layoutParams);
@@ -224,6 +224,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
             Intent i = new Intent(this, FileDisplayActivity.class);
             i.setAction(FileDisplayActivity.RESTART);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.putExtra("Main", true);
             startActivity(i);
 
             finish();
@@ -231,12 +232,11 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     }
 
 
-
     public static FeatureItem[] getFirstRun() {
         return new FeatureItem[]{
-                new FeatureItem(R.drawable.logo, R.string.first_run_1_text, R.string.empty, true, false),
-                new FeatureItem(R.drawable.first_run_files, R.string.first_run_2_text, R.string.empty, true, false),
-                new FeatureItem(R.drawable.first_run_groupware, R.string.first_run_3_text, R.string.empty, true, false),
-                new FeatureItem(R.drawable.first_run_talk, R.string.first_run_4_text, R.string.empty, true, false)};
+            new FeatureItem(R.drawable.logo, R.string.first_run_1_text, R.string.empty, true, false),
+            new FeatureItem(R.drawable.first_run_files, R.string.first_run_2_text, R.string.empty, true, false),
+            new FeatureItem(R.drawable.first_run_groupware, R.string.first_run_3_text, R.string.empty, true, false),
+            new FeatureItem(R.drawable.first_run_talk, R.string.first_run_4_text, R.string.empty, true, false)};
     }
 }
