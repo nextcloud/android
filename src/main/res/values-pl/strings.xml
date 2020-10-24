@@ -142,7 +142,7 @@
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="conflict_already_existing_file">Już istniejący plik</string>
     <string name="conflict_dialog_error">Błąd podczas tworzenia dialogu konfliktu!</string>
-    <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do lokalnego pliku będzie dodany numer.</string>
+    <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
     <string name="conflict_message_headline">Które pliki chcesz zachować?</string>
     <string name="conflict_new_file">Nowy plik</string>
     <string name="contaclist_restore_selected">Przywróć wybrane kontakty</string>
