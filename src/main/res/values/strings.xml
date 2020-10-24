@@ -473,7 +473,7 @@
     <string name="share_with_title">Share with…</string>
     <string name="share_via_link_unset_password">Unset</string>
 
-    <string name="share_search">Name, federated cloud ID or email address…</string>
+    <string name="share_search">Name, Federated Cloud ID or email address…</string>
 
     <string name="share_group_clarification">%1$s (group)</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
