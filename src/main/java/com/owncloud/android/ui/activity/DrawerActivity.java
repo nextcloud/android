@@ -568,7 +568,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         // set home button properties
         if (mDrawerToggle != null) {
-            if (chosenFile != null && isRoot(chosenFile)) {
+            if (chosenFile == null || isRoot(chosenFile)) {
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
             } else {
                 mDrawerToggle.setDrawerIndicatorEnabled(false);
