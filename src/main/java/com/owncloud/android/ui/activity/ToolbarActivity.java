@@ -96,6 +96,8 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         if (showSortListButtonGroup) {
             findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.sort_list_button_group).setVisibility(View.GONE);
         }
 
         this.isHomeSearchToolbarShow = isHomeSearchToolbarShow;
@@ -134,7 +136,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         boolean isRoot = isRoot(chosenFile);
 
         title = isRoot ? ThemeUtils.getDefaultDisplayNameForRootFolder(this) : chosenFile.getFileName();
-        updateActionBarTitleAndHomeButtonByString(title);
+//        updateActionBarTitleAndHomeButtonByString(title);
 
         if (mAppBar != null) {
             showHomeSearchToolbar(title, isRoot);
@@ -186,7 +188,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     /**
      * Updates title bar and home buttons (state and icon).
      */
-    protected void updateActionBarTitleAndHomeButtonByString(String title) {
+    public void updateActionBarTitleAndHomeButtonByString(String title) {
         String titleToSet = getString(R.string.app_name);    // default
 
         if (title != null) {

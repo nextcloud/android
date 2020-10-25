@@ -98,6 +98,7 @@ import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.MoreFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.PhotoFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
@@ -213,6 +214,7 @@ public class FileDisplayActivity extends FileActivity
     private PlayerServiceConnection mPlayerConnection;
     private Account mLastDisplayedAccount;
     private int menuItemId = -1;
+    private MoreFragment moreFragment = new MoreFragment();
 
     @Inject
     AppPreferences preferences;
@@ -283,13 +285,30 @@ public class FileDisplayActivity extends FileActivity
 
         if (getIntent().getBooleanExtra("Main", false) || isTaskRoot()) {
             binding.bottomContainer.setVisibility(View.VISIBLE);
+            ThemeUtils.colorFloatingActionButton(binding.fabMain, this);
             BottomNavigationManager bottomNavigationManager = new BottomNavigationManager(binding.pagerBottomTab, R.menu.main_navigation);
             bottomNavigationManager.setOnNavigationListener((menuItem, reselect) -> {
                 if (!reselect) {
+                    if (menuItem.getItemId() == R.id.nav_more) {
+                        getSupportFragmentManager().beginTransaction()
+                            .show(moreFragment)
+                            .commitAllowingStateLoss();
+                        return true;
+                    }
+                    getSupportFragmentManager().beginTransaction()
+                        .hide(moreFragment)
+                        .commitAllowingStateLoss();
+                    browseToRoot();
+                    showSortListGroup(true);
+                    cleanSecondFragment();
                     onNavigationItemClicked(menuItem);
                 }
                 return true;
             });
+            getSupportFragmentManager().beginTransaction()
+                .replace(R.id.more_fragment_container, moreFragment)
+                .hide(moreFragment)
+                .commitAllowingStateLoss();
         }
     }
 
@@ -503,7 +522,9 @@ public class FileDisplayActivity extends FileActivity
         } else // Verify the action and get the query
             if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
                 setIntent(intent);
-
+                getSupportFragmentManager().beginTransaction()
+                    .hide(moreFragment)
+                    .commitAllowingStateLoss();
                 SearchEvent searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
                 if (searchEvent != null) {
                     if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.searchType)) {

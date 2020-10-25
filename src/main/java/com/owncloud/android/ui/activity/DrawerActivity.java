@@ -181,6 +181,10 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Inject
     ClientFactory clientFactory;
 
+    public ClientFactory getClientFactory() {
+        return clientFactory;
+    }
+
     /**
      * Initializes the drawer, its content and highlights the menu item with the given id. This method needs to be
      * called after the content view has been set.
@@ -197,7 +201,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     protected void setupDrawer() {
         mDrawerLayout = findViewById(R.id.drawer_layout);
-
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         mNavigationView = findViewById(R.id.nav_view);
         if (mNavigationView != null) {
 
@@ -451,25 +455,25 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     public void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
-        if (this instanceof FileDisplayActivity) {
-            if (((FileDisplayActivity) this).getListOfFilesFragment() instanceof PhotoFragment) {
-                Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.setAction(Intent.ACTION_SEARCH);
-                intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
-                intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
-                startActivity(intent);
-            } else {
-                EventBus.getDefault().post(searchEvent);
-            }
-        } else {
-            Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.setAction(Intent.ACTION_SEARCH);
-            intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
-            intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
-            startActivity(intent);
-        }
+//        if (this instanceof FileDisplayActivity) {
+//            if (((FileDisplayActivity) this).getListOfFilesFragment() instanceof PhotoFragment) {
+//                Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                intent.setAction(Intent.ACTION_SEARCH);
+//                intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+//                intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
+//                startActivity(intent);
+//            } else {
+//                EventBus.getDefault().post(searchEvent);
+//            }
+//        } else {
+        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setAction(Intent.ACTION_SEARCH);
+        intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+        intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
+        startActivity(intent);
+//        }
     }
 
     /**
@@ -527,9 +531,9 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     public void openDrawer() {
         if (mDrawerLayout != null) {
-            mDrawerLayout.openDrawer(GravityCompat.START);
-            updateExternalLinksInDrawer();
-            updateQuotaLink();
+//            mDrawerLayout.openDrawer(GravityCompat.START);
+//            updateExternalLinksInDrawer();
+//            updateQuotaLink();
         }
     }
 

@@ -33,7 +33,9 @@
         <com.owncloud.android.ui.EmptyRecyclerView
             android:id="@+id/list_root"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:paddingBottom="30dp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <include layout="@layout/empty_list" />

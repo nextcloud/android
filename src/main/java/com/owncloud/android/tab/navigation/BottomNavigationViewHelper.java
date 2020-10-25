@@ -1,6 +1,8 @@
 package com.owncloud.android.tab.navigation;
 
 import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -36,6 +38,10 @@ public class BottomNavigationViewHelper {
             iv.setLayoutParams(layoutParams);
             item.setPadding(0, DpUtil.INSTANCE.dp2px(2F), 0, 0);
         }
+        Resources resource = menuView.getContext().getResources();
+        ColorStateList csl = resource.getColorStateList(R.color.main_tab_color);
+        menuView.setItemTextColor(csl);
+        menuView.setIconTintList(csl);
         menuView.updateMenuView();
     }
 }

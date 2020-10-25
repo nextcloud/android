@@ -62,6 +62,12 @@
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             </LinearLayout>
 
+            <FrameLayout
+                android:id="@+id/more_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <include
@@ -89,7 +95,7 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/pager_bottom_tab"
+            android:id="@+id/pagerBottomTab"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#00000000"
@@ -97,7 +103,7 @@
             app:itemBackground="@null"
             app:itemHorizontalTranslationEnabled="false"
             app:itemIconSize="19dp"
-            app:itemTextColor="@color/main_tab_color"
+            app:itemRippleColor="#ffffff"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="@+id/home_bottomNavigation_iv_bg"
             app:layout_constraintLeft_toLeftOf="parent"

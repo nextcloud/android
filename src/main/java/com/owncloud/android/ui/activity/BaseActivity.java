@@ -53,6 +53,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         return accountManager;
     }
 
+    public AppPreferences getAppPreferences() {
+        return preferences;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
