@@ -39,6 +39,10 @@ public class BottomNavigationManager implements BottomNavigationView.OnNavigatio
         });
     }
 
+    public int getSelectedItemId() {
+        return mBottomNavigationView.getSelectedItemId();
+    }
+
     @Override
     public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
         if (mNavigationListener != null) {
