@@ -1422,7 +1422,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 //                            ((FileDisplayActivity) mContainerActivity).updateActionBarTitleAndHomeButton(null);
 //                        }
 //                    });
-                        setTitle(R.string.drawer_item_favorites);
+                    setTitle(R.string.drawer_item_favorites);
                     break;
                 case VIDEO_SEARCH:
                     setTitle(R.string.drawer_item_videos);
@@ -1529,12 +1529,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    private long lastRefreshTime = 0;
+
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(final SearchEvent event) {
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
             return;
         }
-
+        if (System.currentTimeMillis() - lastRefreshTime < 500) {
+            return;
+        }
+        lastRefreshTime = System.currentTimeMillis();
         prepareCurrentSearch(event);
         searchFragment = true;
         setEmptyListLoadingMessage();
@@ -1566,7 +1571,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else {
             remoteOperation = new GetSharesRemoteOperation();
         }
-
         remoteOperationAsyncTask = new AsyncTask<Void, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(Void... voids) {

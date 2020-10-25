@@ -295,12 +295,12 @@ public class FileDisplayActivity extends FileActivity
                             .commitAllowingStateLoss();
                         return true;
                     }
-                    getSupportFragmentManager().beginTransaction()
-                        .hide(moreFragment)
-                        .commitAllowingStateLoss();
                     browseToRoot();
                     showSortListGroup(true);
                     cleanSecondFragment();
+                    getSupportFragmentManager().beginTransaction()
+                        .hide(moreFragment)
+                        .commitAllowingStateLoss();
                     onNavigationItemClicked(menuItem);
                 }
                 return true;
