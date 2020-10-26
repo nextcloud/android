@@ -61,7 +61,7 @@ class ChooseAccountDialogFragment : DialogFragment(),
     private lateinit var dialogView: View
     private var currentUser: User? = null
     private lateinit var accountManager: UserAccountManager
-    private lateinit var currentStatus: Status
+    private var currentStatus: Status? = null
 
     @Inject
     lateinit var clientFactory: ClientFactory
