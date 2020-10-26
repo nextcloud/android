@@ -98,7 +98,7 @@ class SetStatusDialogFragment : DialogFragment(),
         super.onViewCreated(view, savedInstanceState)
         accountManager = (activity as BaseActivity).userAccountManager
 
-        adapter = PredefinedStatusListAdapter()
+        adapter = PredefinedStatusListAdapter(requireContext())
         if (this::predefinedStatus.isInitialized) {
             adapter.list = predefinedStatus
         }
