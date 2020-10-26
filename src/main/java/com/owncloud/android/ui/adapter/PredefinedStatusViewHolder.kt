@@ -28,6 +28,7 @@ import com.owncloud.android.lib.resources.users.PredefinedStatus
 
 class PredefinedStatusViewHolder(private val binding: PredefinedStatusBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(status: PredefinedStatus) {
+        binding.icon.text = status.icon
         binding.name.text = status.message
         binding.clearAt.text = status.clearAt?.time // TODO better
     }

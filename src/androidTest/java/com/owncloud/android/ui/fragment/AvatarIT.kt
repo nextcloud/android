@@ -80,98 +80,98 @@ class AvatarIT : AbstractIT() {
 
         runOnUiThread {
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(paulette, StatusType.online, "😘", targetContext),
+                BitmapUtils.createAvatarWithStatus(paulette, StatusType.ONLINE, "😘", targetContext),
                 width * 2,
                 1,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(christine, StatusType.online, "☁️", targetContext),
+                BitmapUtils.createAvatarWithStatus(christine, StatusType.ONLINE, "☁️", targetContext),
                 width * 2,
                 1,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(christine, StatusType.online, "🌴️", targetContext),
+                BitmapUtils.createAvatarWithStatus(christine, StatusType.ONLINE, "🌴️", targetContext),
                 width * 2,
                 1,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(christine, StatusType.online, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(christine, StatusType.ONLINE, "", targetContext),
                 width * 2,
                 1,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(paulette, StatusType.dnd, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(paulette, StatusType.DND, "", targetContext),
                 width * 2,
                 1,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(christine, StatusType.away, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(christine, StatusType.AWAY, "", targetContext),
                 width * 2,
                 1,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(paulette, StatusType.offline, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(paulette, StatusType.OFFLINE, "", targetContext),
                 width * 2,
                 1,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.online, "😘", targetContext),
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.ONLINE, "😘", targetContext),
                 width,
                 2,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.online, "☁️", targetContext),
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.ONLINE, "☁️", targetContext),
                 width,
                 2,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.online, "🌴️", targetContext),
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.ONLINE, "🌴️", targetContext),
                 width,
                 2,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.online, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.ONLINE, "", targetContext),
                 width,
                 2,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.dnd, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.DND, "", targetContext),
                 width,
                 2,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.away, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.AWAY, "", targetContext),
                 width,
                 2,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.offline, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.OFFLINE, "", targetContext),
                 width,
                 2,
                 targetContext
