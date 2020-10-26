@@ -56,7 +56,7 @@ public class RetrieveStatusAsyncTask extends AsyncTask<Void, Void, Status> {
             return (com.owncloud.android.lib.resources.users.Status) result.getSingleData();
 
         } catch (ClientFactory.CreationException e) {
-            return new com.owncloud.android.lib.resources.users.Status(StatusType.offline, "", "", -1);
+            return new com.owncloud.android.lib.resources.users.Status(StatusType.OFFLINE, "", "", -1);
         }
     }
 
