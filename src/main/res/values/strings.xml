@@ -953,4 +953,6 @@
     <string name="away">Away</string>
     <string name="invisible">Invisible</string>
     <string translatable="false" name="divider">—</string>
+    <string name="dontClear">Don\'t clear</string>
+    <string name="today">Today</string>
 </resources>
