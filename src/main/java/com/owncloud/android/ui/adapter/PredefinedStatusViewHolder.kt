@@ -30,7 +30,8 @@ import com.owncloud.android.lib.resources.users.PredefinedStatus
 import com.owncloud.android.utils.DisplayUtils
 
 class PredefinedStatusViewHolder(private val binding: PredefinedStatusBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(status: PredefinedStatus, context: Context) {
+    fun bind(status: PredefinedStatus, clickListener: PredefinedStatusClickListener, context: Context) {
+        binding.root.setOnClickListener { clickListener.onClick(status) }
         binding.icon.text = status.icon
         binding.name.text = status.message
 

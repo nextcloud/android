@@ -29,7 +29,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.databinding.PredefinedStatusBinding
 import com.owncloud.android.lib.resources.users.PredefinedStatus
 
-class PredefinedStatusListAdapter(val context: Context) : RecyclerView.Adapter<PredefinedStatusViewHolder>() {
+class PredefinedStatusListAdapter(private val clickListener: PredefinedStatusClickListener,
+                                  val context: Context) : RecyclerView.Adapter<PredefinedStatusViewHolder>() {
     internal var list: List<PredefinedStatus> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PredefinedStatusViewHolder {
@@ -38,7 +39,7 @@ class PredefinedStatusListAdapter(val context: Context) : RecyclerView.Adapter<P
     }
 
     override fun onBindViewHolder(holder: PredefinedStatusViewHolder, position: Int) {
-        holder.bind(list[position], context)
+        holder.bind(list[position], clickListener, context)
     }
 
     override fun getItemCount(): Int {
