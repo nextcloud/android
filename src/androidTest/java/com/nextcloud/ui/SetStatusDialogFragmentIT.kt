@@ -46,7 +46,7 @@ class SetStatusDialogFragmentIT : AbstractIT() {
             PredefinedStatus("commuting", "🚌", "Commuting", ClearAt("period", "1800")),
             PredefinedStatus("remote-work", "🏡", "Working remotely", ClearAt("end-of", "day")),
             PredefinedStatus("sick-leave", "🤒", "Out sick", ClearAt("end-of", "day")),
-            PredefinedStatus("vacationing", "🌴", "Vacationing", null)
+            PredefinedStatus("vacationing", "🌴", "Vacationing", ClearAt("", "")) // switch to null
         )
 
         shortSleep()
