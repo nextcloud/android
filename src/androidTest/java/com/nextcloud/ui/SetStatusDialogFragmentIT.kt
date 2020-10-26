@@ -20,8 +20,25 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.client.account
+package com.nextcloud.ui
 
-enum class StatusType {
-    Online, Offline, Dnd, Away, Unknown
+import androidx.test.espresso.intent.rule.IntentsTestRule
+import com.owncloud.android.AbstractIT
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import org.junit.Rule
+import org.junit.Test
+
+class SetStatusDialogFragmentIT : AbstractIT() {
+    @get:Rule
+    var activityRule = IntentsTestRule(FileDisplayActivity::class.java, true, false)
+
+    @Test
+    fun open() {
+        val sut = SetStatusDialogFragment.newInstance(user)
+        val activity = activityRule.launchActivity(null)
+
+        sut.show(activity.supportFragmentManager, "")
+
+        longSleep()
+    }
 }
