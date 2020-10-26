@@ -25,6 +25,7 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,7 @@ import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
+import com.owncloud.android.databinding.DialogSetStatusBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.lib.common.OwnCloudClientFactory
 import com.owncloud.android.lib.resources.users.ClearStatusMessageRemoteOperation
@@ -68,7 +70,9 @@ private const val ARG_CURRENT_STATUS_PARAM = "currentStatus"
 class SetStatusDialogFragment : DialogFragment(),
     PredefinedStatusClickListener,
     Injectable {
-    private lateinit var dialogView: View
+
+    private lateinit var binding: DialogSetStatusBinding
+
     private var currentUser: User? = null
     private var currentStatus: Status? = null
     private lateinit var accountManager: UserAccountManager
@@ -109,9 +113,18 @@ class SetStatusDialogFragment : DialogFragment(),
 
     @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_set_status, null)
+        binding = DialogSetStatusBinding.inflate(LayoutInflater.from(context))
+
+        binding.clearStatus.setOnClickListener { /* ... */ }
+        binding.setStatus.setOnClickListener { /* ... */ }
+
+        binding.onlineStatus.setOnClickListener { /* ... */ }
+        binding.awayStatus.setOnClickListener { /* ... */ }
+        binding.dndStatus.setOnClickListener { /* ... */ }
+        binding.invisibleStatus.setOnClickListener { /* ... */ }
+
         return MaterialAlertDialogBuilder(requireContext())
-            .setView(dialogView)
+            .setView(binding.root)
             .create()
     }
 
@@ -258,7 +271,7 @@ class SetStatusDialogFragment : DialogFragment(),
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return dialogView
+        return binding.root
     }
 
     override fun onClick(predefinedStatus: PredefinedStatus) {
