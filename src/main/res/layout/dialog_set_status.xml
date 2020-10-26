@@ -165,12 +165,13 @@
         tools:layout_editor_absoluteX="201dp"
         tools:layout_editor_absoluteY="141dp">
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/emoji"
+            android:layout_width="48dp"
             android:layout_height="match_parent"
-            android:contentDescription="@string/set_status_icon"
-            android:src="@drawable/ic_cloud_sync_on" />
+            android:textSize="25sp"
+            android:gravity="center"
+            tools:text="☁️" />
 
         <EditText
             android:id="@+id/customStatusInput"
