@@ -36,8 +36,6 @@ import android.provider.BaseColumns;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.nextcloud.client.account.Status;
-import com.nextcloud.client.account.StatusType;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
@@ -48,6 +46,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.users.Status;
+import com.owncloud.android.lib.resources.users.StatusType;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -264,9 +264,9 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                         status = new Status(StatusType.valueOf(statusObject.getString("status")),
                                             statusObject.isNull("message") ? "" : statusObject.getString("message"),
                                             statusObject.isNull("icon") ? "" : statusObject.getString("icon"),
-                                            statusObject.isNull("clearAt") ? "" : statusObject.getString("clearAt"));
+                                            statusObject.isNull("clearAt") ? -1 : statusObject.getLong("clearAt"));
                     } else {
-                        status = new Status(StatusType.Unknown, "", "", "");
+                        status = new Status(StatusType.offline, "", "", -1);
                     }
 
                     switch (type) {

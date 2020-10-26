@@ -35,13 +35,13 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.nextcloud.client.account.StatusType;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.users.Status;
+import com.owncloud.android.lib.resources.users.StatusType;
 import com.owncloud.android.ui.StatusDrawable;
 
 import org.apache.commons.codec.binary.Hex;
@@ -457,7 +457,7 @@ public final class BitmapUtils {
                                      imageView);
     }
 
-    public static Bitmap createAvatarWithStatus(Bitmap avatar, StatusType status, String icon, Context context) {
+    public static Bitmap createAvatarWithStatus(Bitmap avatar, StatusType statusType, String icon, Context context) {
         float avatarRadius = getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
         int width = DisplayUtils.convertDpToPixel(2 * avatarRadius, context);
 
@@ -472,50 +472,11 @@ public final class BitmapUtils {
         // status
         int statusSize = width / 4;
 
-        StatusDrawable statusDrawable;
-        if (TextUtils.isEmpty(icon)) {
-            switch (status) {
-                case Dnd:
-                    statusDrawable = new StatusDrawable(R.drawable.ic_user_status_dnd, statusSize, context);
-                    statusDrawable.setBounds(width / 2,
-                                             width / 2,
-                                             width,
-                                             width);
-                    break;
+        Status status = new Status(statusType, "", icon, -1);
+        StatusDrawable statusDrawable = new StatusDrawable(status, statusSize, context);
 
-                case Online:
-                    statusDrawable = new StatusDrawable(new Color(255, 73, 179, 130), statusSize);
-                    statusDrawable.setBounds(width,
-                                             width,
-                                             width,
-                                             width);
-                    break;
-
-                case Away:
-                    statusDrawable = new StatusDrawable(R.drawable.ic_user_status_away, statusSize, context);
-                    statusDrawable.setBounds(width / 2,
-                                             width / 2,
-                                             width,
-                                             width);
-                    break;
-
-                default:
-                    // do not show
-                    statusDrawable = null;
-                    break;
-            }
-        } else {
-            statusDrawable = new StatusDrawable(icon, statusSize);
-            statusDrawable.setBounds(width / 2,
-                                     width / 2,
-                                     width,
-                                     width);
-        }
-
-        if (statusDrawable != null) {
-            canvas.translate(width / 2f, width / 2f);
-            statusDrawable.draw(canvas);
-        }
+        canvas.translate(width / 2f, width / 2f);
+        statusDrawable.draw(canvas);
 
         return output;
     }
