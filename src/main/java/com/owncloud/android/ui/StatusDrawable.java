@@ -59,17 +59,17 @@ public class StatusDrawable extends Drawable {
 
         if (TextUtils.isEmpty(status.getIcon())) {
             switch (status.getStatus()) {
-                case dnd:
+                case DND:
                     icon = R.drawable.ic_user_status_dnd;
                     backgroundPaint.setColor(whiteBackground);
                     this.context = context;
                     break;
 
-                case online:
+                case ONLINE:
                     backgroundPaint.setColor(onlineStatus);
                     break;
 
-                case away:
+                case AWAY:
                     icon = R.drawable.ic_user_status_away;
                     backgroundPaint.setColor(whiteBackground);
                     this.context = context;

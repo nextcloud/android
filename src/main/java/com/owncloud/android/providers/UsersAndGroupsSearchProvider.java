@@ -266,7 +266,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                                             statusObject.isNull("icon") ? "" : statusObject.getString("icon"),
                                             statusObject.isNull("clearAt") ? -1 : statusObject.getLong("clearAt"));
                     } else {
-                        status = new Status(StatusType.offline, "", "", -1);
+                        status = new Status(StatusType.OFFLINE, "", "", -1);
                     }
 
                     switch (type) {

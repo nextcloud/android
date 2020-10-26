@@ -183,11 +183,11 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/customStatusList"
+        android:id="@+id/predefinedStatusList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:itemCount="5"
-        tools:listitem="@layout/custom_status">
+        tools:listitem="@layout/predefined_status">
 
     </androidx.recyclerview.widget.RecyclerView>
 

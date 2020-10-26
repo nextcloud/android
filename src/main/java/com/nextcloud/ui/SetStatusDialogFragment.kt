@@ -28,7 +28,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -43,11 +45,12 @@ import com.owncloud.android.lib.resources.users.Status
 import com.owncloud.android.ui.StatusDrawable
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.adapter.PredefinedStatusListAdapter
 import com.owncloud.android.ui.adapter.UserListAdapter
-import com.owncloud.android.ui.adapter.UserListItem
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import kotlinx.android.synthetic.main.account_item.*
+import kotlinx.android.synthetic.main.dialog_set_status.*
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -61,8 +64,10 @@ class SetStatusDialogFragment : DialogFragment(),
     private var currentUser: User? = null
     private lateinit var accountManager: UserAccountManager
     private lateinit var predefinedStatus: ArrayList<PredefinedStatus>
+
     @Inject
     lateinit var arbitraryDataProvider: ArbitraryDataProvider
+    private lateinit var adapter: PredefinedStatusListAdapter
 
     @Inject
     lateinit var clientFactory: ClientFactory
@@ -74,12 +79,10 @@ class SetStatusDialogFragment : DialogFragment(),
 
             val json = arbitraryDataProvider.getValue(currentUser, ArbitraryDataProvider.PREDEFINED_STATUS)
 
-            if (!json.isEmpty()) {
+            if (json.isNotEmpty()) {
                 val myType = object : TypeToken<ArrayList<PredefinedStatus>>() {}.type
                 predefinedStatus = Gson().fromJson(json, myType)
             }
-
-            val size = predefinedStatus.size
         }
     }
 
@@ -95,18 +98,12 @@ class SetStatusDialogFragment : DialogFragment(),
         super.onViewCreated(view, savedInstanceState)
         accountManager = (activity as BaseActivity).userAccountManager
 
-    }
-
-    private fun getAccountListItems(): List<UserListItem>? {
-        val users = accountManager.allUsers
-        val adapterUserList: MutableList<UserListItem> = ArrayList(users.size)
-        // Remove the current account from the adapter to display only other accounts
-        for (user in users) {
-            if (user != currentUser) {
-                adapterUserList.add(UserListItem(user))
-            }
+        adapter = PredefinedStatusListAdapter()
+        if (this::predefinedStatus.isInitialized) {
+            adapter.list = predefinedStatus
         }
-        return adapterUserList
+        predefinedStatusList.adapter = adapter
+        predefinedStatusList.layoutManager = LinearLayoutManager(context)
     }
 
     /**
@@ -159,5 +156,11 @@ class SetStatusDialogFragment : DialogFragment(),
         }
 
         view?.invalidate()
+    }
+
+    @VisibleForTesting
+    fun setPredefinedStatus(predefinedStatus: ArrayList<PredefinedStatus>) {
+        adapter.list = predefinedStatus
+        predefinedStatusList.adapter?.notifyDataSetChanged()
     }
 }
