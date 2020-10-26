@@ -28,8 +28,10 @@ import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 
-import com.owncloud.android.utils.BitmapUtils;
+import com.owncloud.android.R;
+import com.owncloud.android.lib.resources.users.Status;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -42,44 +44,53 @@ public class StatusDrawable extends Drawable {
     private String text;
     private @DrawableRes int icon = -1;
     private Paint textPaint;
-    private final Paint backgroundPaint;
-    private final float radius;
+    private Paint backgroundPaint;
+    private float radius;
     private Context context;
+    private final static int whiteBackground = Color.argb(200, 255, 255, 255);
+    private final static int onlineStatus = Color.argb(255, 73, 179, 130);
 
-    public StatusDrawable(@DrawableRes int icon, float size, Context context) {
-        radius = size;
-        this.icon = icon;
-        this.context = context;
-
+    public StatusDrawable(Status status, float statusSize, Context context) {
         backgroundPaint = new Paint();
         backgroundPaint.setStyle(Paint.Style.FILL);
         backgroundPaint.setAntiAlias(true);
-        backgroundPaint.setColor(Color.argb(200, 255, 255, 255));
-    }
 
-    public StatusDrawable(BitmapUtils.Color color, float size) {
-        radius = size;
+        radius = statusSize;
 
-        backgroundPaint = new Paint();
-        backgroundPaint.setStyle(Paint.Style.FILL);
-        backgroundPaint.setAntiAlias(true);
-        backgroundPaint.setColor(Color.argb(color.a, color.r, color.g, color.b));
-    }
+        if (TextUtils.isEmpty(status.getIcon())) {
+            switch (status.getStatus()) {
+                case dnd:
+                    icon = R.drawable.ic_user_status_dnd;
+                    backgroundPaint.setColor(whiteBackground);
+                    this.context = context;
+                    break;
 
-    public StatusDrawable(String icon, float size) {
-        text = icon;
-        radius = size;
+                case online:
+                    backgroundPaint.setColor(onlineStatus);
+                    break;
 
-        backgroundPaint = new Paint();
-        backgroundPaint.setStyle(Paint.Style.FILL);
-        backgroundPaint.setAntiAlias(true);
-        backgroundPaint.setColor(Color.argb(200, 255, 255, 255));
+                case away:
+                    icon = R.drawable.ic_user_status_away;
+                    backgroundPaint.setColor(whiteBackground);
+                    this.context = context;
+                    break;
 
-        textPaint = new Paint();
-        textPaint.setColor(Color.WHITE);
-        textPaint.setTextSize(size);
-        textPaint.setAntiAlias(true);
-        textPaint.setTextAlign(Paint.Align.CENTER);
+                default:
+                    // do not show
+                    backgroundPaint = null;
+                    break;
+            }
+        } else {
+            text = status.getIcon();
+
+            backgroundPaint.setColor(whiteBackground);
+
+            textPaint = new Paint();
+            textPaint.setColor(Color.WHITE);
+            textPaint.setTextSize(statusSize);
+            textPaint.setAntiAlias(true);
+            textPaint.setTextAlign(Paint.Align.CENTER);
+        }
     }
 
     /**

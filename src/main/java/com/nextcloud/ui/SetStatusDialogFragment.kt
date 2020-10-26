@@ -28,39 +28,41 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
-import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.lib.resources.users.PredefinedStatus
 import com.owncloud.android.lib.resources.users.Status
 import com.owncloud.android.ui.StatusDrawable
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.adapter.UserListAdapter
 import com.owncloud.android.ui.adapter.UserListItem
-import com.owncloud.android.ui.asynctasks.RetrieveStatusAsyncTask
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
-import com.owncloud.android.utils.ThemeUtils
 import kotlinx.android.synthetic.main.account_item.*
-import kotlinx.android.synthetic.main.dialog_choose_account.*
 import java.util.ArrayList
 import javax.inject.Inject
 
 private const val ARG_CURRENT_USER_PARAM = "currentUser"
 
-class ChooseAccountDialogFragment : DialogFragment(),
+class SetStatusDialogFragment : DialogFragment(),
     AvatarGenerationListener,
     UserListAdapter.ClickListener,
     Injectable {
     private lateinit var dialogView: View
     private var currentUser: User? = null
     private lateinit var accountManager: UserAccountManager
+    private lateinit var predefinedStatus: ArrayList<PredefinedStatus>
+    @Inject
+    lateinit var arbitraryDataProvider: ArbitraryDataProvider
 
     @Inject
     lateinit var clientFactory: ClientFactory
@@ -69,12 +71,21 @@ class ChooseAccountDialogFragment : DialogFragment(),
         super.onCreate(savedInstanceState)
         arguments?.let {
             currentUser = it.getParcelable(ARG_CURRENT_USER_PARAM)
+
+            val json = arbitraryDataProvider.getValue(currentUser, ArbitraryDataProvider.PREDEFINED_STATUS)
+
+            if (!json.isEmpty()) {
+                val myType = object : TypeToken<ArrayList<PredefinedStatus>>() {}.type
+                predefinedStatus = Gson().fromJson(json, myType)
+            }
+
+            val size = predefinedStatus.size
         }
     }
 
     @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_choose_account, null)
+        dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_set_status, null)
         return MaterialAlertDialogBuilder(requireContext())
             .setView(dialogView)
             .create()
@@ -83,69 +94,7 @@ class ChooseAccountDialogFragment : DialogFragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         accountManager = (activity as BaseActivity).userAccountManager
-        currentUser?.let { user ->
 
-            // Defining user picture
-            user_icon.tag = user.accountName
-            DisplayUtils.setAvatar(
-                user,
-                this,
-                resources.getDimension(R.dimen.list_item_avatar_icon_radius),
-                resources,
-                user_icon,
-                context
-            )
-
-            // Defining user texts, accounts, etc.
-            user_name.text = user.toOwnCloudAccount().displayName
-            ticker.visibility = View.GONE
-            account.text = user.accountName
-
-            // Defining user right indicator
-            val icon = ThemeUtils.tintDrawable(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_check_circle),
-                ThemeUtils.primaryColor(requireContext(), true)
-            )
-            account_menu.setImageDrawable(icon)
-
-            // Creating adapter for accounts list
-            val adapter = UserListAdapter(
-                activity as BaseActivity,
-                accountManager,
-                getAccountListItems(),
-                this,
-                false,
-                false
-            )
-            accounts_list.adapter = adapter
-
-            // Creating listeners for quick-actions
-            current_account.setOnClickListener {
-                dismiss()
-            }
-            add_account.setOnClickListener {
-                (activity as DrawerActivity).openAddAccount()
-            }
-            manage_accounts.setOnClickListener {
-                (activity as DrawerActivity).openManageAccounts()
-            }
-
-            set_status.setOnClickListener {
-                val setStatusDialog = SetStatusDialogFragment.newInstance(accountManager.user)
-                setStatusDialog.show((activity as DrawerActivity).supportFragmentManager, "fragment_set_status")
-
-                dismiss()
-            }
-
-            val capability = FileDataStorageManager(user.toPlatformAccount(), context?.contentResolver)
-                .getCapability(user)
-
-            if (capability.userStatus.isTrue) {
-                statusView.visibility = View.VISIBLE
-            }
-
-            RetrieveStatusAsyncTask(user, this, clientFactory).execute()
-        }
     }
 
     private fun getAccountListItems(): List<UserListItem>? {
@@ -166,7 +115,7 @@ class ChooseAccountDialogFragment : DialogFragment(),
     companion object {
         @JvmStatic
         fun newInstance(user: User) =
-            ChooseAccountDialogFragment().apply {
+            SetStatusDialogFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_CURRENT_USER_PARAM, user)
                 }

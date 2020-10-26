@@ -26,12 +26,15 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemoteOperation;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -42,6 +45,8 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.GetSharesForFileRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.users.GetPredefinedStatusesRemoteOperation;
+import com.owncloud.android.lib.resources.users.PredefinedStatus;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.EncryptionUtils;
@@ -295,6 +300,8 @@ public class RefreshFolderOperation extends RemoteOperation {
             if (!oldDirectEditingEtag.equalsIgnoreCase(newDirectEditingEtag)) {
                 updateDirectEditing(arbitraryDataProvider, newDirectEditingEtag);
             }
+
+            updatePredefinedStatus(arbitraryDataProvider);
         } else {
             Log_OC.w(TAG, "Update Capabilities unsuccessfully");
         }
@@ -314,6 +321,27 @@ public class RefreshFolderOperation extends RemoteOperation {
         arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name,
                                                     ArbitraryDataProvider.DIRECT_EDITING_ETAG,
                                                     newDirectEditingEtag);
+    }
+
+    private void updatePredefinedStatus(ArbitraryDataProvider arbitraryDataProvider) {
+        NextcloudClient client;
+
+        try {
+            client = OwnCloudClientFactory.createNextcloudClient(mAccount, mContext);
+        } catch (AccountUtils.AccountNotFoundException e) {
+            Log_OC.e(this, "Update of predefined status not possible!");
+            return;
+        }
+
+        RemoteOperationResult result = new GetPredefinedStatusesRemoteOperation().execute(client);
+
+        if (result.isSuccess()) {
+            ArrayList<PredefinedStatus> predefinedStatuses = (ArrayList<PredefinedStatus>) result.getSingleData();
+            String json = new Gson().toJson(predefinedStatuses);
+            arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, ArbitraryDataProvider.PREDEFINED_STATUS, json);
+        } else {
+            arbitraryDataProvider.deleteKeyForAccount(mAccount.name, ArbitraryDataProvider.PREDEFINED_STATUS);
+        }
     }
 
     private RemoteOperationResult checkForChanges(OwnCloudClient client) {

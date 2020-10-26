@@ -25,9 +25,9 @@ import android.graphics.BitmapFactory
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import com.nextcloud.client.TestActivity
-import com.nextcloud.client.account.StatusType
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
+import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.TextDrawable
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
@@ -80,98 +80,98 @@ class AvatarIT : AbstractIT() {
 
         runOnUiThread {
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(paulette, StatusType.Online, "😘", targetContext),
+                BitmapUtils.createAvatarWithStatus(paulette, StatusType.online, "😘", targetContext),
                 width * 2,
                 1,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(christine, StatusType.Online, "☁️", targetContext),
+                BitmapUtils.createAvatarWithStatus(christine, StatusType.online, "☁️", targetContext),
                 width * 2,
                 1,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(christine, StatusType.Online, "🌴️", targetContext),
+                BitmapUtils.createAvatarWithStatus(christine, StatusType.online, "🌴️", targetContext),
                 width * 2,
                 1,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(christine, StatusType.Online, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(christine, StatusType.online, "", targetContext),
                 width * 2,
                 1,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(paulette, StatusType.Dnd, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(paulette, StatusType.dnd, "", targetContext),
                 width * 2,
                 1,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(christine, StatusType.Away, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(christine, StatusType.away, "", targetContext),
                 width * 2,
                 1,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(paulette, StatusType.Offline, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(paulette, StatusType.offline, "", targetContext),
                 width * 2,
                 1,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.Online, "😘", targetContext),
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.online, "😘", targetContext),
                 width,
                 2,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.Online, "☁️", targetContext),
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.online, "☁️", targetContext),
                 width,
                 2,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.Online, "🌴️", targetContext),
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.online, "🌴️", targetContext),
                 width,
                 2,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.Online, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.online, "", targetContext),
                 width,
                 2,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.Dnd, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.dnd, "", targetContext),
                 width,
                 2,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.Away, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.away, "", targetContext),
                 width,
                 2,
                 targetContext
             )
 
             fragment.addBitmap(
-                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.Offline, "", targetContext),
+                BitmapUtils.createAvatarWithStatus(textBitmap, StatusType.offline, "", targetContext),
                 width,
                 2,
                 targetContext
