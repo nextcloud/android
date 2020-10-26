@@ -244,9 +244,8 @@
                             android:ellipsize="end"
                             android:gravity="top"
                             android:maxLines="1"
-                            android:text="..."
-                            android:textColor="?android:attr/textColorSecondary"
-                            tools:text="Mute notifications" />
+                            android:text="Mute notifications"
+                            android:textColor="?android:attr/textColorSecondary" />
 
                     </LinearLayout>
 
@@ -307,9 +306,8 @@
                             android:ellipsize="end"
                             android:gravity="top"
                             android:maxLines="1"
-                            android:text="..."
-                            android:textColor="?android:attr/textColorSecondary"
-                            tools:text="Appear offline" />
+                            android:text="Appear offline"
+                            android:textColor="?android:attr/textColorSecondary" />
 
                     </LinearLayout>
 
