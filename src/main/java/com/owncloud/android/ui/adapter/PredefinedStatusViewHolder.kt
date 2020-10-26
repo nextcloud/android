@@ -22,14 +22,33 @@
 
 package com.owncloud.android.ui.adapter
 
+import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
+import com.owncloud.android.R
 import com.owncloud.android.databinding.PredefinedStatusBinding
 import com.owncloud.android.lib.resources.users.PredefinedStatus
+import com.owncloud.android.utils.DisplayUtils
 
 class PredefinedStatusViewHolder(private val binding: PredefinedStatusBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(status: PredefinedStatus) {
+    fun bind(status: PredefinedStatus, context: Context) {
         binding.icon.text = status.icon
         binding.name.text = status.message
-        binding.clearAt.text = status.clearAt?.time // TODO better
+
+        if (status.clearAt == null) {
+            binding.clearAt.text = context.getString(R.string.dontClear)
+        } else {
+            val clearAt = status.clearAt!!
+            if (clearAt.type.equals("period")) {
+                binding.clearAt.text = DisplayUtils.getRelativeTimestamp(
+                    context,
+                    System.currentTimeMillis() + clearAt.time.toInt() * 1000,
+                    true)
+            } else {
+                // end-of
+                if (clearAt.time.equals("day")) {
+                    binding.clearAt.text = context.getString(R.string.today)
+                }
+            }
+        }
     }
 }
