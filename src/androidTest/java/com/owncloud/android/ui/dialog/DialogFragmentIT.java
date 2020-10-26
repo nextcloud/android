@@ -22,7 +22,6 @@
 
 package com.owncloud.android.ui.dialog;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
@@ -43,6 +42,8 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.lib.resources.users.Status;
+import com.owncloud.android.lib.resources.users.StatusType;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.ScreenshotTest;
 
@@ -55,17 +56,12 @@ import java.util.Objects;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 public class DialogFragmentIT extends AbstractIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule =
         new IntentsTestRule<>(FileDisplayActivity.class, true, false);
-
-    @Rule
-    public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
     @ScreenshotTest
@@ -163,7 +159,36 @@ public class DialogFragmentIT extends AbstractIT {
                                                                        new OwnCloudAccount(newAccount, targetContext),
                                                                        new Server(URI.create("https://server.com"),
                                                                                   OwnCloudVersion.nextcloud_20)));
-        showDialog(sut);
+        FileDisplayActivity activity = showDialog(sut);
+
+        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.dnd,
+                                                              "Busy fixing 🐛…",
+                                                              "",
+                                                              -1)));
+        shortSleep();
+        screenshot(sut, "dnd");
+
+        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.online,
+                                                              "",
+                                                              "",
+                                                              -1)));
+        shortSleep();
+        screenshot(sut, "online");
+
+        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.online,
+                                                              "Let's have some fun",
+                                                              "🎉",
+                                                              -1)));
+        shortSleep();
+        screenshot(sut, "fun");
+
+        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.offline, "", "", -1)));
+        shortSleep();
+        screenshot(sut, "offline");
+
+        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.away, "Vacation", "🌴", -1)));
+        shortSleep();
+        screenshot(sut, "away");
     }
 
     @Test
@@ -195,7 +220,7 @@ public class DialogFragmentIT extends AbstractIT {
         showDialog(sut);
     }
 
-    private void showDialog(DialogFragment dialog) {
+    private FileDisplayActivity showDialog(DialogFragment dialog) {
         Intent intent = new Intent(targetContext, FileDisplayActivity.class);
         FileDisplayActivity sut = activityRule.launchActivity(intent);
 
@@ -208,6 +233,8 @@ public class DialogFragmentIT extends AbstractIT {
         hideCursors(viewGroup);
 
         screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
+
+        return sut;
     }
 
     private void hideCursors(ViewGroup viewGroup) {
