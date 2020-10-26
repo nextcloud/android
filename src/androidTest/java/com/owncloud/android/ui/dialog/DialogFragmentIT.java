@@ -161,32 +161,32 @@ public class DialogFragmentIT extends AbstractIT {
                                                                                   OwnCloudVersion.nextcloud_20)));
         FileDisplayActivity activity = showDialog(sut);
 
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.dnd,
+        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.DND,
                                                               "Busy fixing 🐛…",
                                                               "",
                                                               -1)));
         shortSleep();
         screenshot(sut, "dnd");
 
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.online,
+        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.ONLINE,
                                                               "",
                                                               "",
                                                               -1)));
         shortSleep();
         screenshot(sut, "online");
 
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.online,
+        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.ONLINE,
                                                               "Let's have some fun",
                                                               "🎉",
                                                               -1)));
         shortSleep();
         screenshot(sut, "fun");
 
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.offline, "", "", -1)));
+        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.OFFLINE, "", "", -1)));
         shortSleep();
         screenshot(sut, "offline");
 
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.away, "Vacation", "🌴", -1)));
+        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.AWAY, "Vacation", "🌴", -1)));
         shortSleep();
         screenshot(sut, "away");
     }

@@ -26,7 +26,7 @@
     android:layout_height="48dp">
 
     <TextView
-        android:id="@+id/imageView"
+        android:id="@+id/icon"
         android:layout_width="48dp"
         android:layout_height="match_parent"
         android:textSize="25sp"
