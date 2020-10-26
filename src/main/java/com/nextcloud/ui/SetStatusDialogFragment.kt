@@ -24,18 +24,18 @@ import android.accounts.Account
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.VisibleForTesting
+import androidx.appcompat.app.AlertDialog
 import androidx.emoji.bundled.BundledEmojiCompatConfig
 import androidx.emoji.text.EmojiCompat
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
@@ -57,6 +57,7 @@ import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.adapter.PredefinedStatusClickListener
 import com.owncloud.android.ui.adapter.PredefinedStatusListAdapter
+import com.owncloud.android.utils.ThemeUtils
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.EmojiPopup
 import com.vanniktech.emoji.googlecompat.GoogleCompatEmojiProvider
@@ -115,15 +116,7 @@ class SetStatusDialogFragment : DialogFragment(),
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = DialogSetStatusBinding.inflate(LayoutInflater.from(context))
 
-        binding.clearStatus.setOnClickListener { /* ... */ }
-        binding.setStatus.setOnClickListener { /* ... */ }
-
-        binding.onlineStatus.setOnClickListener { /* ... */ }
-        binding.awayStatus.setOnClickListener { /* ... */ }
-        binding.dndStatus.setOnClickListener { /* ... */ }
-        binding.invisibleStatus.setOnClickListener { /* ... */ }
-
-        return MaterialAlertDialogBuilder(requireContext())
+        return AlertDialog.Builder(requireContext())
             .setView(binding.root)
             .create()
     }
@@ -182,8 +175,38 @@ class SetStatusDialogFragment : DialogFragment(),
             SetStatusTask(
                 statusType,
                 accountManager.currentOwnCloudAccount?.savedAccount,
-                context)
+                context),
+            onResult = { visualizeStatus(statusType) }
         )
+    }
+
+    private fun visualizeStatus(statusType: StatusType) {
+        when (statusType) {
+            StatusType.ONLINE -> {
+                clearTopStatus()
+                onlineStatus.strokeColor = ThemeUtils.primaryColor(context)
+            }
+            StatusType.AWAY -> {
+                clearTopStatus()
+                awayStatus.strokeColor = ThemeUtils.primaryColor(context)
+            }
+            StatusType.DND -> {
+                clearTopStatus()
+                dndStatus.strokeColor = ThemeUtils.primaryColor(context)
+            }
+            StatusType.INVISIBLE -> {
+                clearTopStatus()
+                invisibleStatus.strokeColor = ThemeUtils.primaryColor(context)
+            }
+            else -> clearTopStatus()
+        }
+    }
+
+    private fun clearTopStatus() {
+        onlineStatus.strokeColor = Color.TRANSPARENT
+        awayStatus.strokeColor = Color.TRANSPARENT
+        dndStatus.strokeColor = Color.TRANSPARENT
+        invisibleStatus.strokeColor = Color.TRANSPARENT
     }
 
     private fun setStatusMessage() {
@@ -261,13 +284,15 @@ class SetStatusDialogFragment : DialogFragment(),
      */
     companion object {
         @JvmStatic
-        fun newInstance(user: User, status: Status?) =
-            SetStatusDialogFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(ARG_CURRENT_USER_PARAM, user)
-                    putParcelable(ARG_CURRENT_STATUS_PARAM, status)
-                }
-            }
+        fun newInstance(user: User, status: Status?): SetStatusDialogFragment {
+            val args = Bundle()
+            args.putParcelable(ARG_CURRENT_USER_PARAM, user)
+            args.putParcelable(ARG_CURRENT_STATUS_PARAM, status)
+            val dialogFragment = SetStatusDialogFragment()
+            dialogFragment.arguments = args
+            dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog)
+            return dialogFragment
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
