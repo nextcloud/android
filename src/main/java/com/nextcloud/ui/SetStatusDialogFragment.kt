@@ -28,7 +28,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.VisibleForTesting
+import androidx.emoji.bundled.BundledEmojiCompatConfig
+import androidx.emoji.text.EmojiCompat
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -52,6 +55,9 @@ import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.adapter.PredefinedStatusClickListener
 import com.owncloud.android.ui.adapter.PredefinedStatusListAdapter
+import com.vanniktech.emoji.EmojiManager
+import com.vanniktech.emoji.EmojiPopup
+import com.vanniktech.emoji.googlecompat.GoogleCompatEmojiProvider
 import kotlinx.android.synthetic.main.dialog_set_status.*
 import java.util.ArrayList
 import javax.inject.Inject
@@ -69,6 +75,7 @@ class SetStatusDialogFragment : DialogFragment(),
     private lateinit var predefinedStatus: ArrayList<PredefinedStatus>
     private lateinit var adapter: PredefinedStatusListAdapter
     private var selectedPredefinedMessageId: String? = null
+    private lateinit var popup: EmojiPopup
 
     @Inject
     lateinit var arbitraryDataProvider: ArbitraryDataProvider
@@ -92,6 +99,12 @@ class SetStatusDialogFragment : DialogFragment(),
                 predefinedStatus = Gson().fromJson(json, myType)
             }
         }
+
+        val config = BundledEmojiCompatConfig(requireContext())
+        config.setReplaceAll(true)
+        val emojiCompat = EmojiCompat.init(config)
+
+        EmojiManager.install(GoogleCompatEmojiProvider(emojiCompat))
     }
 
     @SuppressLint("InflateParams")
@@ -107,9 +120,9 @@ class SetStatusDialogFragment : DialogFragment(),
         accountManager = (activity as BaseActivity).userAccountManager
 
         currentStatus?.let {
-            emoji.text = it.icon
+            emoji.setText(it.icon)
             customStatusInput.text.clear()
-            customStatusInput.text.append(it.message)
+            customStatusInput.setText(it.message)
         }
 
         adapter = PredefinedStatusListAdapter(this, requireContext())
@@ -126,6 +139,24 @@ class SetStatusDialogFragment : DialogFragment(),
 
         clearStatus.setOnClickListener { clearStatus() }
         setStatus.setOnClickListener { setStatusMessage() }
+        emoji.setOnClickListener { openEmojiPopup() }
+
+        popup = EmojiPopup.Builder
+            .fromRootView(view)
+            .setOnEmojiClickListener { _, _ ->
+                popup.dismiss()
+                emoji.clearFocus()
+                val imm: InputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as
+                    InputMethodManager
+                imm.hideSoftInputFromWindow(emoji.windowToken, 0)
+            }
+            .build(emoji)
+        emoji.disableKeyboardInput(popup)
+        emoji.forceSingleEmoji()
+    }
+
+    private fun openEmojiPopup() {
+        popup.show()
     }
 
     private fun clearStatus() {
@@ -232,7 +263,7 @@ class SetStatusDialogFragment : DialogFragment(),
 
     override fun onClick(predefinedStatus: PredefinedStatus) {
         selectedPredefinedMessageId = predefinedStatus.id
-        emoji.text = predefinedStatus.icon
+        emoji.setText(predefinedStatus.icon)
         customStatusInput.text.clear()
         customStatusInput.text.append(predefinedStatus.message)
     }
