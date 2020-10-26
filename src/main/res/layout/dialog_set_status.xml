@@ -1,6 +1,7 @@
 <!--
   Nextcloud Android client application
 
+  Copyright (C) 2020 Andy Scherzinger
   Copyright (C) 2020 Tobias Kaminsky
   Copyright (C) 2020 Nextcloud GmbH
 
@@ -28,7 +29,10 @@
         android:id="@+id/onlineStatusView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standard_half_margin"
         android:text="@string/online_status"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/activity_list_item_title_header_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/onlineStatusView">
@@ -46,95 +50,272 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/onlineStatus"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/account_action_button_margin"
-                android:layout_marginEnd="@dimen/account_action_button_margin"
-                android:paddingStart="10dp"
-                android:paddingEnd="0dp"
-                android:text="@string/online"
-                android:textAlignment="textStart"
-                android:textAllCaps="false"
-                android:textColor="@color/fontAppbar"
-                app:backgroundTint="@color/grey_200"
-                app:cornerRadius="5dp"
-                app:icon="@drawable/online_status"
-                app:iconGravity="start"
-                app:iconPadding="22dp"
-                app:iconTint="@color/hwSecurityGreen" />
+                android:layout_height="@dimen/account_item_layout_height"
+                android:layout_marginEnd="@dimen/standard_half_margin"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                app:cardBackgroundColor="@color/grey_200"
+                app:cardElevation="0dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/dndStatus"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/standard_margin"
+                    android:orientation="horizontal"
+                    tools:ignore="UnusedAttribute">
+
+                    <ImageView
+                        android:id="@+id/online_icon"
+                        android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                        android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="top|start"
+                        android:layout_marginEnd="@dimen/standard_half_margin"
+                        android:contentDescription="@null"
+                        android:src="@drawable/online_status"
+                        app:tint="@color/hwSecurityGreen" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="@dimen/standard_margin"
+                        android:layout_toEndOf="@id/online_icon"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/online_headline"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="bottom"
+                            android:maxLines="1"
+                            android:text="@string/online"
+                            android:textAppearance="?android:attr/textAppearanceListItem" />
+
+                        <TextView
+                            android:id="@+id/online_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/standard_half_margin"
+                            android:layout_marginBottom="@dimen/standard_quarter_margin"
+                            android:ellipsize="end"
+                            android:gravity="top"
+                            android:maxLines="1"
+                            android:textColor="?android:attr/textColorSecondary"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/awayStatus"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/account_action_button_margin"
-                android:layout_marginEnd="@dimen/account_action_button_margin"
-                android:paddingStart="10dp"
-                android:paddingEnd="0dp"
-                android:text="@string/dnd"
-                android:textAlignment="textStart"
-                android:textAllCaps="false"
-                android:textColor="@color/fontAppbar"
-                app:backgroundTint="@color/grey_200"
-                app:cornerRadius="5dp"
-                app:icon="@drawable/ic_user_status_dnd"
-                app:iconGravity="start"
-                app:iconPadding="22dp" />
+                android:layout_height="@dimen/account_item_layout_height"
+                android:layout_marginStart="@dimen/standard_half_margin"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                app:cardBackgroundColor="@color/grey_200"
+                app:cardElevation="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/standard_margin"
+                    android:orientation="horizontal"
+                    tools:ignore="UnusedAttribute">
+
+                    <ImageView
+                        android:id="@+id/away_icon"
+                        android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                        android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="top|start"
+                        android:layout_marginEnd="@dimen/standard_half_margin"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_user_status_away"
+                        app:tint="#f4a331" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="@dimen/standard_margin"
+                        android:layout_toEndOf="@id/away_icon"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/away_headline"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="bottom"
+                            android:maxLines="1"
+                            android:text="@string/away"
+                            android:textAppearance="?android:attr/textAppearanceListItem" />
+
+                        <TextView
+                            android:id="@+id/away_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/standard_half_margin"
+                            android:layout_marginBottom="@dimen/standard_quarter_margin"
+                            android:ellipsize="end"
+                            android:gravity="top"
+                            android:maxLines="1"
+                            android:textColor="?android:attr/textColorSecondary"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/awayStatus"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dndStatus"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/account_action_button_margin"
-                android:layout_marginEnd="@dimen/account_action_button_margin"
-                android:paddingStart="10dp"
-                android:paddingEnd="0dp"
-                android:text="@string/away"
-                android:textAlignment="textStart"
-                android:textAllCaps="false"
-                android:textColor="@color/fontAppbar"
-                app:backgroundTint="@color/grey_200"
-                app:cornerRadius="5dp"
-                app:icon="@drawable/ic_user_status_away"
-                app:iconGravity="start"
-                app:iconPadding="22dp"
-                app:iconTint="#f4a331" />
+                android:layout_height="@dimen/account_item_layout_height"
+                android:layout_marginEnd="@dimen/standard_half_margin"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                app:cardBackgroundColor="@color/grey_200"
+                app:cardElevation="0dp">
 
-            <com.google.android.material.button.MaterialButton
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/standard_margin"
+                    android:orientation="horizontal"
+                    tools:ignore="UnusedAttribute">
+
+                    <ImageView
+                        android:id="@+id/dnd_icon"
+                        android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                        android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="top|start"
+                        android:layout_marginEnd="@dimen/standard_half_margin"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_user_status_dnd" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_toEndOf="@id/dnd_icon"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/dnd_headline"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="bottom"
+                            android:maxLines="1"
+                            android:text="@string/dnd"
+                            android:textAppearance="?android:attr/textAppearanceListItem" />
+
+                        <TextView
+                            android:id="@+id/dnd_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="top"
+                            android:maxLines="1"
+                            android:text="..."
+                            android:textColor="?android:attr/textColorSecondary"
+                            tools:text="Mute notifications" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/invisibleStatus"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/account_action_button_margin"
-                android:layout_marginEnd="@dimen/account_action_button_margin"
-                android:paddingStart="10dp"
-                android:paddingEnd="0dp"
-                android:text="@string/invisible"
-                android:textAlignment="textStart"
-                android:textAllCaps="false"
-                android:textColor="@color/fontAppbar"
-                app:backgroundTint="@color/grey_200"
-                app:cornerRadius="5dp"
-                app:icon="@drawable/ic_user_status_invisible"
-                app:iconGravity="start"
-                app:iconPadding="22dp"
-                app:iconTint="@color/black" />
+                android:layout_height="@dimen/account_item_layout_height"
+                android:layout_marginStart="@dimen/standard_half_margin"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                app:cardBackgroundColor="@color/grey_200"
+                app:cardElevation="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/standard_margin"
+                    android:orientation="horizontal"
+                    tools:ignore="UnusedAttribute">
+
+                    <ImageView
+                        android:id="@+id/invisible_icon"
+                        android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                        android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="top|start"
+                        android:layout_marginEnd="@dimen/standard_half_margin"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_user_status_invisible" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="@dimen/standard_margin"
+                        android:layout_toEndOf="@id/invisible_icon"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/invisible_headline"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="bottom"
+                            android:maxLines="1"
+                            android:text="@string/invisible"
+                            android:textAppearance="?android:attr/textAppearanceListItem" />
+
+                        <TextView
+                            android:id="@+id/invisible_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="top"
+                            android:maxLines="1"
+                            android:text="..."
+                            android:textColor="?android:attr/textColorSecondary"
+                            tools:text="Appear offline" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </LinearLayout>
@@ -154,9 +335,11 @@
         android:id="@+id/statusMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standard_half_margin"
         android:text="@string/status_message"
-        app:layout_constraintTop_toBottomOf="@+id/statusView"
-        tools:layout_editor_absoluteX="175dp" />
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/activity_list_item_title_header_text_size"
+        app:layout_constraintTop_toBottomOf="@+id/statusView" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -195,13 +378,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_margin"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/clear_status_message_after" />
+            android:text="@string/clear_status_message_after"
+            android:textColor="@color/text_color" />
 
         <Spinner
             android:id="@+id/spinner"
@@ -213,6 +398,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_margin"
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
@@ -220,7 +406,7 @@
             style="@style/OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_padding"
+            android:layout_marginEnd="@dimen/standard_half_margin"
             android:layout_weight="1"
             android:text="@string/clear_status_message"
             app:cornerRadius="@dimen/button_corner_radius" />
@@ -229,7 +415,6 @@
             android:id="@+id/setStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_padding"
             android:layout_weight="1"
             android:text="@string/set_status_message"
             android:theme="@style/Button.Primary"
