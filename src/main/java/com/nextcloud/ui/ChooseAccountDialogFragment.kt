@@ -61,6 +61,7 @@ class ChooseAccountDialogFragment : DialogFragment(),
     private lateinit var dialogView: View
     private var currentUser: User? = null
     private lateinit var accountManager: UserAccountManager
+    private lateinit var currentStatus: Status
 
     @Inject
     lateinit var clientFactory: ClientFactory
@@ -131,7 +132,7 @@ class ChooseAccountDialogFragment : DialogFragment(),
             }
 
             set_status.setOnClickListener {
-                val setStatusDialog = SetStatusDialogFragment.newInstance(accountManager.user)
+                val setStatusDialog = SetStatusDialogFragment.newInstance(accountManager.user, currentStatus)
                 setStatusDialog.show((activity as DrawerActivity).supportFragmentManager, "fragment_set_status")
 
                 dismiss()
@@ -196,6 +197,8 @@ class ChooseAccountDialogFragment : DialogFragment(),
     }
 
     fun setStatus(newStatus: Status) {
+        currentStatus = newStatus
+
         val size = DisplayUtils.convertDpToPixel(9f, context)
         ticker.background = null
         ticker.setImageDrawable(StatusDrawable(newStatus, size.toFloat(), context))
