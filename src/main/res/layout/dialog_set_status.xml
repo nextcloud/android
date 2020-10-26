@@ -348,12 +348,15 @@
         tools:layout_editor_absoluteX="201dp"
         tools:layout_editor_absoluteY="141dp">
 
-        <TextView
+        <com.vanniktech.emoji.EmojiEditText
             android:id="@+id/emoji"
             android:layout_width="48dp"
             android:layout_height="match_parent"
             android:textSize="25sp"
             android:gravity="center"
+            android:cursorVisible="false"
+            app:maxEmojiCount="1"
+            android:background="@color/grey_200"
             tools:text="☁️" />
 
         <EditText
