@@ -148,6 +148,7 @@ else
 
     if [ $notNull -gt 0 ]; then
         exit 1
+    fi
 
     if [ $findbugsValue -eq 2 ]; then
         exit 0
