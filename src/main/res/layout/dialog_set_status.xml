@@ -62,7 +62,6 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 app:cardBackgroundColor="@color/grey_200"
-                app:strokeWidth="2dp"
                 app:cardElevation="0dp">
 
                 <RelativeLayout
@@ -128,7 +127,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/standard_half_margin"
                 android:layout_weight="1"
-                app:strokeWidth="2dp"
                 android:orientation="horizontal"
                 app:cardBackgroundColor="@color/grey_200"
                 app:cardElevation="0dp">
@@ -205,7 +203,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="@dimen/standard_half_margin"
                 android:layout_weight="1"
-                app:strokeWidth="2dp"
                 android:orientation="horizontal"
                 app:cardBackgroundColor="@color/grey_200"
                 app:cardElevation="0dp">
@@ -393,16 +390,24 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/clearStatusMessageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/clear_status_message_after"
             android:textColor="@color/text_color" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/clearStatusAfterSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/remainingClearTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="4dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
