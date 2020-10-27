@@ -19,12 +19,15 @@ import com.owncloud.android.datamodel.ExternalLinksProvider
 import com.owncloud.android.lib.common.ExternalLink
 import com.owncloud.android.lib.common.ExternalLinkType
 import com.owncloud.android.lib.common.UserInfo
+import com.owncloud.android.lib.resources.files.SearchRemoteOperation
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation
 import com.owncloud.android.ui.activity.ExternalSiteWebView
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ThemeUtils
 import kotlinx.android.synthetic.main.fragment_more.*
+import org.parceler.Parcels
 import kotlin.math.ceil
 import kotlin.math.roundToInt
 
@@ -38,6 +41,8 @@ class MoreFragment : Fragment() {
 
     private val externalLinksProvider by lazy { ExternalLinksProvider(requireActivity().contentResolver) }
 
+    private var isDevice = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_more, container, false)
     }
@@ -45,7 +50,20 @@ class MoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navView.setNavigationItemSelectedListener { menuItem ->
-            (activity as FileDisplayActivity).onNavigationItemClicked(menuItem)
+            when (menuItem.itemId) {
+                R.id.nav_shared -> {
+                    MainApp.showOnlyFilesOnDevice(false)
+                    showFiles(SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER))
+                }
+                R.id.nav_on_device -> {
+                    MainApp.showOnlyFilesOnDevice(true)
+                    isDevice = true
+                    showFiles(SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER))
+                }
+                else -> {
+                    (activity as FileDisplayActivity).onNavigationItemClicked(menuItem)
+                }
+            }
             true
         }
         (activity as? FileDisplayActivity)?.setupToolbar()
@@ -60,6 +78,7 @@ class MoreFragment : Fragment() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
+            MainApp.showOnlyFilesOnDevice(isDevice)
             (activity as? FileDisplayActivity)?.setupToolbar()
             ThemeUtils.setColoredTitle(
                 (activity as FileDisplayActivity?)?.supportActionBar,
@@ -67,6 +86,17 @@ class MoreFragment : Fragment() {
             )
             updateQuotaLink()
         }
+    }
+
+    private fun showFiles(searchEvent: SearchEvent) {
+        val bundle = Bundle()
+        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent))
+        val fragment = OCFileListFragment()
+        fragment.arguments = bundle
+        childFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment, FileDisplayActivity.TAG_LIST_OF_FILES)
+            .commit()
+        navView.visibility = View.GONE
     }
 
     private fun getAndDisplayUserQuota() {

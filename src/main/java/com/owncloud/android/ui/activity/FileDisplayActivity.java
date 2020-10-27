@@ -87,18 +87,17 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.tab.navigation.BottomNavigationManager;
+import com.owncloud.android.ui.FileDisplayPage;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
-import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.ui.fragment.MoreFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.PhotoFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
@@ -214,7 +213,6 @@ public class FileDisplayActivity extends FileActivity
     private PlayerServiceConnection mPlayerConnection;
     private Account mLastDisplayedAccount;
     private int menuItemId = -1;
-    private MoreFragment moreFragment = new MoreFragment();
 
     @Inject
     AppPreferences preferences;
@@ -227,8 +225,7 @@ public class FileDisplayActivity extends FileActivity
 
     private BottomNavigationManager bottomNavigationManager;
 
-    PhotoFragment photoFragment = new PhotoFragment(true);
-    OCFileListFragment favFragment = new OCFileListFragment();
+    FileDisplayPage fileDisplayPage = new FileDisplayPage();
 
     public static Intent openFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
@@ -294,26 +291,23 @@ public class FileDisplayActivity extends FileActivity
             bottomNavigationManager = new BottomNavigationManager(binding.pagerBottomTab, R.menu.main_navigation);
             bottomNavigationManager.setOnNavigationListener((menuItem, reselect) -> {
                 if (!reselect) {
-                    if (menuItem.getItemId() == R.id.nav_more) {
-                        getSupportFragmentManager().beginTransaction()
-                            .show(moreFragment)
-                            .commitAllowingStateLoss();
-                        return true;
+                    switch (menuItem.getItemId()) {
+                        case R.id.nav_all_files:
+                            fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.homeFragment);
+                            break;
+                        case R.id.nav_favorites:
+                            fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.favFragment);
+                            break;
+                        case R.id.nav_photos:
+                            fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.photoFragment);
+                            break;
+                        case R.id.nav_more:
+                            fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.moreFragment);
+                            break;
                     }
-                    browseToRoot();
-                    showSortListGroup(true);
-                    cleanSecondFragment();
-                    getSupportFragmentManager().beginTransaction()
-                        .hide(moreFragment)
-                        .commitAllowingStateLoss();
-                    onNavigationItemClicked(menuItem);
                 }
                 return true;
             });
-            getSupportFragmentManager().beginTransaction()
-                .replace(R.id.more_fragment_container, moreFragment)
-                .hide(moreFragment)
-                .commitAllowingStateLoss();
         }
     }
 
@@ -462,13 +456,7 @@ public class FileDisplayActivity extends FileActivity
 
     private void createMinFragments(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
-            OCFileListFragment listOfFiles = new OCFileListFragment();
-            Bundle args = new Bundle();
-            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
-            listOfFiles.setArguments(args);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
-            transaction.commit();
+            fileDisplayPage.show(this, fileDisplayPage.homeFragment);
         } else {
             getSupportFragmentManager().findFragmentByTag(TAG_LIST_OF_FILES);
         }
@@ -527,47 +515,22 @@ public class FileDisplayActivity extends FileActivity
         } else // Verify the action and get the query
             if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
                 setIntent(intent);
-                getSupportFragmentManager().beginTransaction()
-                    .hide(moreFragment)
-                    .commitAllowingStateLoss();
                 SearchEvent searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
                 if (searchEvent != null) {
                     if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.searchType)) {
                         Log_OC.d(this, "Switch to photo search fragment");
-
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
-                        photoFragment.setArguments(bundle);
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.left_fragment_container, photoFragment, TAG_LIST_OF_FILES);
-                        transaction.commit();
+                        fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.photoFragment);
                     } else if (SearchRemoteOperation.SearchType.FAVORITE_SEARCH.equals(searchEvent.searchType)) {
                         Log_OC.d(this, "Switch to oc file search fragment");
-                        OCFileListFragment photoFragment = new OCFileListFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
-                        photoFragment.setArguments(bundle);
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.left_fragment_container, photoFragment, TAG_LIST_OF_FILES);
-                        transaction.commit();
+                        fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.favFragment);
                     } else {
                         Log_OC.d(this, "Switch to oc file search fragment");
-                        OCFileListFragment photoFragment = new OCFileListFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
-                        photoFragment.setArguments(bundle);
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.left_fragment_container, photoFragment, TAG_LIST_OF_FILES);
-                        transaction.commit();
+                        fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.homeFragment);
                     }
                 }
             } else if (ALL_FILES.equals(intent.getAction())) {
                 Log_OC.d(this, "Switch to oc file fragment");
-
-                OCFileListFragment fragment = new OCFileListFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
-                transaction.commit();
+                fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.homeFragment);
             }
     }
 
@@ -663,8 +626,7 @@ public class FileDisplayActivity extends FileActivity
     public @androidx.annotation.Nullable
     @Deprecated
     OCFileListFragment getListOfFilesFragment() {
-        Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(
-            FileDisplayActivity.TAG_LIST_OF_FILES);
+        Fragment listOfFiles = fileDisplayPage.currentFragment;
         if (listOfFiles != null) {
             return (OCFileListFragment) listOfFiles;
         }
@@ -854,8 +816,7 @@ public class FileDisplayActivity extends FileActivity
                 } else if (
                     currentDir != null && currentDir.getParentId() != 0 ||
                         second != null && second.getFile() != null ||
-                        isSearchOpen()
-                        || (bottomNavigationManager.getSelectedItemId() == R.id.nav_more && moreFragment.isHidden())) {
+                        isSearchOpen()) {
                     onBackPressed();
                 } else {
                     openDrawer();
@@ -1114,13 +1075,7 @@ public class FileDisplayActivity extends FileActivity
                 if (mDualPane || getSecondFragment() == null) {
                     OCFile currentDir = getCurrentDir();
                     if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
-                        if (bottomNavigationManager.getSelectedItemId() == R.id.nav_more && moreFragment.isHidden()) {
-                            getSupportFragmentManager().beginTransaction()
-                                .show(moreFragment)
-                                .commitAllowingStateLoss();
-                        } else {
-                            finish();
-                        }
+                        finish();
                         return;
                     }
                     listOfFiles.onBrowseUp();
@@ -2347,22 +2302,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     @Override
-    public boolean isRoot(OCFile file) {
-        if (bottomNavigationManager != null && moreFragment != null
-            && bottomNavigationManager.getSelectedItemId() == R.id.nav_more && moreFragment.isHidden()) {
-            return false;
-        }
-        return super.isRoot(file);
-    }
-
-    @Override
     public void showFiles(boolean onDeviceOnly) {
-        if (!moreFragment.isHidden()) {
-            getSupportFragmentManager().beginTransaction()
-                .hide(moreFragment)
-                .commitAllowingStateLoss();
-            getSupportFragmentManager().executePendingTransactions();
-        }
         super.showFiles(onDeviceOnly);
         if (onDeviceOnly) {
             updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_on_device));
