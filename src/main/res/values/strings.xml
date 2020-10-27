@@ -954,4 +954,8 @@
     <string translatable="false" name="default_emoji">😃</string>
     <string name="dontClear">Don\'t clear</string>
     <string name="today">Today</string>
+    <string name="thirtyMinutes">30 minutes</string>
+    <string name="oneHour">1 hour</string>
+    <string name="fourHours">4 hour</string>
+    <string name="thisWeek">This week</string>
 </resources>
