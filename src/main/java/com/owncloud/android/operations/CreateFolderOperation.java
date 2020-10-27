@@ -43,10 +43,10 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.util.UUID;
+
+import androidx.annotation.NonNull;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
@@ -234,7 +234,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         return false;
     }
 
-    @NotNull
+    @NonNull
     private OCFile createRemoteFolderOcFile(OCFile parent, String filename, RemoteFile remoteFolder) {
         OCFile newDir = new OCFile(remoteFolder.getRemotePath());
 
@@ -249,7 +249,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         return newDir;
     }
 
-    @NotNull
+    @NonNull
     private DecryptedFolderMetadata.DecryptedFile createDecryptedFile(String filename) {
         // Key, always generate new one
         byte[] key = EncryptionUtils.generateKey();
@@ -269,7 +269,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         return decryptedFile;
     }
 
-    @NotNull
+    @NonNull
     private String createRandomFileName(DecryptedFolderMetadata metadata) {
         String encryptedFileName = UUID.randomUUID().toString().replaceAll("-", "");
 
