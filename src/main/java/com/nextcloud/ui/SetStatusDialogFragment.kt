@@ -20,16 +20,17 @@
 
 package com.nextcloud.ui
 
-import android.accounts.Account
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.emoji.bundled.BundledEmojiCompatConfig
@@ -46,23 +47,22 @@ import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogSetStatusBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
-import com.owncloud.android.lib.common.OwnCloudClientFactory
-import com.owncloud.android.lib.resources.users.ClearStatusMessageRemoteOperation
+import com.owncloud.android.lib.resources.users.ClearAt
 import com.owncloud.android.lib.resources.users.PredefinedStatus
-import com.owncloud.android.lib.resources.users.SetPredefinedCustomStatusMessageRemoteOperation
-import com.owncloud.android.lib.resources.users.SetStatusRemoteOperation
-import com.owncloud.android.lib.resources.users.SetUserDefinedCustomStatusMessageRemoteOperation
 import com.owncloud.android.lib.resources.users.Status
 import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.adapter.PredefinedStatusClickListener
 import com.owncloud.android.ui.adapter.PredefinedStatusListAdapter
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ThemeUtils
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.EmojiPopup
 import com.vanniktech.emoji.googlecompat.GoogleCompatEmojiProvider
 import kotlinx.android.synthetic.main.dialog_set_status.*
 import java.util.ArrayList
+import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 private const val ARG_CURRENT_USER_PARAM = "currentUser"
@@ -80,6 +80,7 @@ class SetStatusDialogFragment : DialogFragment(),
     private lateinit var predefinedStatus: ArrayList<PredefinedStatus>
     private lateinit var adapter: PredefinedStatusListAdapter
     private var selectedPredefinedMessageId: String? = null
+    private var clearAt: Long? = -1
     private lateinit var popup: EmojiPopup
 
     @Inject
@@ -129,6 +130,23 @@ class SetStatusDialogFragment : DialogFragment(),
             emoji.setText(it.icon)
             customStatusInput.text.clear()
             customStatusInput.setText(it.message)
+            visualizeStatus(it.status)
+
+            if (it.clearAt > 0) {
+                clearStatusAfterSpinner.visibility = View.GONE
+                remainingClearTime.apply {
+                    clearStatusMessageTextView.text = getString(R.string.clear_status_message)
+                    visibility = View.VISIBLE
+                    text = DisplayUtils.getRelativeTimestamp(context, it.clearAt * 1000, true)
+                        .toString()
+                        .decapitalize(Locale.getDefault())
+                    setOnClickListener {
+                        visibility = View.GONE
+                        clearStatusAfterSpinner.visibility = View.VISIBLE
+                        clearStatusMessageTextView.text = getString(R.string.clear_status_message_after)
+                    }
+                }
+            }
         }
 
         adapter = PredefinedStatusListAdapter(this, requireContext())
@@ -159,6 +177,96 @@ class SetStatusDialogFragment : DialogFragment(),
             .build(emoji)
         emoji.disableKeyboardInput(popup)
         emoji.forceSingleEmoji()
+
+        val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter.add(getString(R.string.dontClear))
+        adapter.add(getString(R.string.thirtyMinutes))
+        adapter.add(getString(R.string.oneHour))
+        adapter.add(getString(R.string.fourHours))
+        adapter.add(getString(R.string.today))
+        adapter.add(getString(R.string.thisWeek))
+
+        clearStatusAfterSpinner.apply {
+            this.adapter = adapter
+            onItemSelectedListener = object : OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                    setClearStatusAfterValue(position)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // nothing to do
+                }
+            }
+        }
+    }
+
+    private fun setClearStatusAfterValue(item: Int) {
+        when (item) {
+            0 -> {
+                // don't clear
+                clearAt = null
+            }
+
+            1 -> {
+                // 30 minutes
+                clearAt = System.currentTimeMillis() / 1000 + 30 * 60
+            }
+
+            2 -> {
+                // one hour
+                clearAt = System.currentTimeMillis() / 1000 + 60 * 60
+            }
+
+            3 -> {
+                // four hours
+                clearAt = System.currentTimeMillis() / 1000 + 4 * 60 * 60
+            }
+
+            4 -> {
+                // today
+                val date = Calendar.getInstance().apply {
+                    set(Calendar.HOUR_OF_DAY, 23)
+                    set(Calendar.MINUTE, 59)
+                    set(Calendar.SECOND, 59)
+                }
+                clearAt = date.timeInMillis / 1000
+            }
+
+            5 -> {
+                // end of week
+                val date = Calendar.getInstance().apply {
+                    set(Calendar.HOUR_OF_DAY, 23)
+                    set(Calendar.MINUTE, 59)
+                    set(Calendar.SECOND, 59)
+                }
+
+                while (date.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+                    date.add(Calendar.DAY_OF_YEAR, 1)
+                }
+
+                clearAt = date.timeInMillis / 1000
+            }
+        }
+    }
+
+    private fun clearAtToUnixTime(clearAt: ClearAt?): Long {
+        if (clearAt != null) {
+            if (clearAt.type.equals("period")) {
+                return System.currentTimeMillis() / 1000 + clearAt.time.toLong()
+            } else if (clearAt.type.equals("end-of")) {
+                if (clearAt.time.equals("day")) {
+                    val date = Calendar.getInstance().apply {
+                        set(Calendar.HOUR_OF_DAY, 23)
+                        set(Calendar.MINUTE, 59)
+                        set(Calendar.SECOND, 59)
+                    }
+                    return date.timeInMillis / 1000
+                }
+            }
+        }
+
+        return -1
     }
 
     private fun openEmojiPopup() {
@@ -171,12 +279,19 @@ class SetStatusDialogFragment : DialogFragment(),
     }
 
     private fun setStatus(statusType: StatusType) {
+        visualizeStatus(statusType)
+
         asyncRunner.postQuickTask(
             SetStatusTask(
                 statusType,
                 accountManager.currentOwnCloudAccount?.savedAccount,
                 context),
-            onResult = { visualizeStatus(statusType) }
+            {
+                if (!it) {
+                    clearTopStatus()
+                }
+            },
+            { clearTopStatus() }
         )
     }
 
@@ -184,29 +299,31 @@ class SetStatusDialogFragment : DialogFragment(),
         when (statusType) {
             StatusType.ONLINE -> {
                 clearTopStatus()
-                onlineStatus.strokeColor = ThemeUtils.primaryColor(context)
+                onlineStatus.setBackgroundColor(ThemeUtils.primaryColor(context))
             }
             StatusType.AWAY -> {
                 clearTopStatus()
-                awayStatus.strokeColor = ThemeUtils.primaryColor(context)
+                awayStatus.setBackgroundColor(ThemeUtils.primaryColor(context))
             }
             StatusType.DND -> {
                 clearTopStatus()
-                dndStatus.strokeColor = ThemeUtils.primaryColor(context)
+                dndStatus.setBackgroundColor(ThemeUtils.primaryColor(context))
             }
             StatusType.INVISIBLE -> {
                 clearTopStatus()
-                invisibleStatus.strokeColor = ThemeUtils.primaryColor(context)
+                invisibleStatus.setBackgroundColor(ThemeUtils.primaryColor(context))
             }
             else -> clearTopStatus()
         }
     }
 
     private fun clearTopStatus() {
-        onlineStatus.strokeColor = Color.TRANSPARENT
-        awayStatus.strokeColor = Color.TRANSPARENT
-        dndStatus.strokeColor = Color.TRANSPARENT
-        invisibleStatus.strokeColor = Color.TRANSPARENT
+        val grey = resources.getColor(R.color.grey_200)
+
+        onlineStatus.setBackgroundColor(grey)
+        awayStatus.setBackgroundColor(grey)
+        dndStatus.setBackgroundColor(grey)
+        invisibleStatus.setBackgroundColor(grey)
     }
 
     private fun setStatusMessage() {
@@ -214,7 +331,7 @@ class SetStatusDialogFragment : DialogFragment(),
             asyncRunner.postQuickTask(
                 SetPredefinedCustomStatusTask(
                     selectedPredefinedMessageId!!,
-                    1603719631,
+                    clearAt,
                     accountManager.currentOwnCloudAccount?.savedAccount,
                     context),
                 { dismiss(it) }
@@ -224,7 +341,7 @@ class SetStatusDialogFragment : DialogFragment(),
                 SetUserDefinedCustomStatusTask(
                     customStatusInput.text.toString(),
                     emoji.text.toString(),
-                    1603719631,
+                    clearAt,
                     accountManager.currentOwnCloudAccount?.savedAccount,
                     context),
                 { dismiss(it) }
@@ -235,47 +352,6 @@ class SetStatusDialogFragment : DialogFragment(),
     private fun dismiss(boolean: Boolean) {
         if (boolean) {
             dismiss()
-        }
-    }
-
-    private class SetPredefinedCustomStatusTask(val messageId: String,
-                                                val clearAt: Long,
-                                                val account: Account?,
-                                                val context: Context?) : Function0<Boolean> {
-        override fun invoke(): Boolean {
-            val client = OwnCloudClientFactory.createNextcloudClient(account, context)
-
-            return SetPredefinedCustomStatusMessageRemoteOperation(messageId, clearAt).execute(client).isSuccess
-        }
-    }
-
-    private class SetUserDefinedCustomStatusTask(val message: String,
-                                                 val icon: String,
-                                                 val clearAt: Long,
-                                                 val account: Account?,
-                                                 val context: Context?) : Function0<Boolean> {
-        override fun invoke(): Boolean {
-            val client = OwnCloudClientFactory.createNextcloudClient(account, context)
-
-            return SetUserDefinedCustomStatusMessageRemoteOperation(message, icon, clearAt).execute(client).isSuccess
-        }
-    }
-
-    private class SetStatusTask(val statusType: StatusType,
-                                val account: Account?,
-                                val context: Context?) : Function0<Boolean> {
-        override fun invoke(): Boolean {
-            val client = OwnCloudClientFactory.createNextcloudClient(account, context)
-
-            return SetStatusRemoteOperation(statusType).execute(client).isSuccess
-        }
-    }
-
-    private class ClearStatusTask(val account: Account?, val context: Context?) : Function0<Boolean> {
-        override fun invoke(): Boolean {
-            val client = OwnCloudClientFactory.createNextcloudClient(account, context)
-
-            return ClearStatusMessageRemoteOperation().execute(client).isSuccess
         }
     }
 
@@ -301,9 +377,35 @@ class SetStatusDialogFragment : DialogFragment(),
 
     override fun onClick(predefinedStatus: PredefinedStatus) {
         selectedPredefinedMessageId = predefinedStatus.id
+        clearAt = clearAtToUnixTime(predefinedStatus.clearAt)
         emoji.setText(predefinedStatus.icon)
         customStatusInput.text.clear()
         customStatusInput.text.append(predefinedStatus.message)
+
+        remainingClearTime.visibility = View.GONE
+        clearStatusAfterSpinner.visibility = View.VISIBLE
+        clearStatusMessageTextView.text = getString(R.string.clear_status_message_after)
+
+        if (predefinedStatus.clearAt == null) {
+            clearStatusAfterSpinner.setSelection(0)
+        } else {
+            val clearAt = predefinedStatus.clearAt!!
+            if (clearAt.type.equals("period")) {
+                when (clearAt.time) {
+                    "1800" -> clearStatusAfterSpinner.setSelection(1)
+                    "3600" -> clearStatusAfterSpinner.setSelection(2)
+                    "14400" -> clearStatusAfterSpinner.setSelection(3)
+                    else -> clearStatusAfterSpinner.setSelection(0)
+                }
+            } else if (clearAt.type.equals("end-of")) {
+                when (clearAt.time) {
+                    "day" -> clearStatusAfterSpinner.setSelection(4)
+                    "week" -> clearStatusAfterSpinner.setSelection(5)
+                    else -> clearStatusAfterSpinner.setSelection(0)
+                }
+            }
+        }
+        setClearStatusAfterValue(clearStatusAfterSpinner.selectedItemPosition)
     }
 
     @VisibleForTesting
