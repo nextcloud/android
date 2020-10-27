@@ -128,7 +128,7 @@ else
     fi
 
     # check for NotNull
-    if [[ $(grep org.jetbrains.annotations * -ir | grep src/main -c) -gt 0 ]] ; then
+    if [[ $(grep org.jetbrains.annotations src/main/* -ir -c) -gt 0 ]] ; then
         notNull="org.jetbrains.annotations.NotNull is used. Please use androidx.annotation.NonNull instead.<br><br>"
     fi
 
