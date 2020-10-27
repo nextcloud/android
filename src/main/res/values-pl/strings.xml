@@ -563,7 +563,7 @@
     <string name="screenshot_01_gridView_subline">oprogramowanie biurowe uruchamiane na własnym hostingu</string>
     <string name="screenshot_02_listView_heading">Przeglądaj i udostępniaj</string>
     <string name="screenshot_02_listView_subline">wszystkie działania na wyciągnięcie ręki</string>
-    <string name="screenshot_03_drawer_heading">Aktywność, udostępnienia...</string>
+    <string name="screenshot_03_drawer_heading">Aktywność, udostępnienia…</string>
     <string name="screenshot_03_drawer_subline">wszystko szybko dostępne</string>
     <string name="screenshot_04_accounts_heading">Wszystkie Twoje konta</string>
     <string name="screenshot_04_accounts_subline">w jednym miejscu</string>
@@ -668,7 +668,7 @@
     <string name="store_full_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.\nJest to oficjalna wersja deweloperska, zawierająca codzienną próbkę każdej nowej niesprawdzonej funkcji, która może powodować niestabilność i utratę danych. Aplikacja jest przeznaczona dla użytkowników chcących przetestować i zgłosić błędy w przypadku ich wystąpienia. Nie używaj jej do ciągłej pracy!\n\nZarówno oficjalna wersja dev jak i zwykła są dostępne na F-droid i mogą być instalowane równocześnie.</string>
     <string name="store_short_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę</string>
     <string name="store_short_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę (wersja deweloperska)</string>
-    <string name="stream">Przesyłaj strumieniowo...</string>
+    <string name="stream">Przesyłaj strumieniowo…</string>
     <string name="stream_not_possible_headline">Wewnętrzne przesyłanie strumieniowe nie jest możliwe</string>
     <string name="stream_not_possible_message">Pobierz plik lub użyj zewnętrznej aplikacji.</string>
     <string name="subject_shared_with_you">Udostępniono Tobie \"%1$s\"</string>
@@ -705,7 +705,7 @@
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniaturka dla istniejącego pliku</string>
     <string name="thumbnail_for_new_file_desc">Miniaturka dla nowego pliku</string>
-    <string name="timeout_richDocuments">Ładowanie potrwa długo...</string>
+    <string name="timeout_richDocuments">Ładowanie potrwa długo…</string>
     <string name="trashbin_activity_title">Usunięte pliki</string>
     <string name="trashbin_empty_headline">Brak usuniętych plików</string>
     <string name="trashbin_empty_message">Tutaj będziesz mógł odzyskać usunięte pliki.</string>
