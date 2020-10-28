@@ -330,7 +330,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         switch (menuItem.getItemId()) {
             case R.id.nav_all_files:
-                if ((this instanceof FileDisplayActivity) &&
+                if (this instanceof FileDisplayActivity &&
                     !(((FileDisplayActivity) this).getLeftFragment() instanceof PhotoFragment) &&
                     !(((FileDisplayActivity) this).getLeftFragment() instanceof PreviewTextStringFragment)) {
                     showFiles(false);

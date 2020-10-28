@@ -85,6 +85,7 @@ public class SyncedFolderParcelable implements Parcelable {
     }
 
     public SyncedFolderParcelable() {
+        // empty constructor
     }
 
     @Override

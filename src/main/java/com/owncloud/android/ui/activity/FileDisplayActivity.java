@@ -144,7 +144,6 @@ import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
  */
-
 public class FileDisplayActivity extends FileActivity
         implements FileFragment.ContainerActivity,
         OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener,
@@ -153,6 +152,7 @@ public class FileDisplayActivity extends FileActivity
     public static final String RESTART = "RESTART";
     public static final String ALL_FILES = "ALL_FILES";
     public static final String PHOTO_SEARCH = "PHOTO_SEARCH";
+    public static final int SINGLE_USER_SIZE = 1;
 
     private FilesBinding binding;
 
@@ -2466,7 +2466,7 @@ public class FileDisplayActivity extends FileActivity
         } else if (match.getUsers().isEmpty()) {
             dismissLoadingDialog();
             DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
-        } else if (match.getUsers().size() == 1) {
+        } else if (match.getUsers().size() == SINGLE_USER_SIZE) {
             openFile(match.getUsers().get(0), match.getFileId());
         } else {
             selectUserAndOpenFile(match.getUsers(), match.getFileId());

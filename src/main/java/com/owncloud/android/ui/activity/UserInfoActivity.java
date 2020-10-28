@@ -154,7 +154,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if ((accountManager.getUser()).equals(user)) {
+        if (accountManager.getUser().equals(user)) {
             menu.findItem(R.id.action_open_account).setVisible(false);
         }
         return super.onPrepareOptionsMenu(menu);

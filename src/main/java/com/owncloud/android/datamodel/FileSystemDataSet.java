@@ -49,6 +49,7 @@ public class FileSystemDataSet {
     }
 
     public FileSystemDataSet() {
+        // empty constructor
     }
 
     public int getId() {
