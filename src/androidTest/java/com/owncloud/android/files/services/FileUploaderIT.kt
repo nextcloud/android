@@ -103,23 +103,22 @@ class FileUploaderIT : AbstractOnServerIT() {
 
         val ocUpload2 = OCUpload(getDummyFile("/empty.txt").absolutePath, remoteFile, account.name)
 
-        assertTrue(
-            UploadFileOperation(
-                uploadsStorageManager,
-                connectivityServiceMock,
-                powerManagementServiceMock,
-                user,
-                null,
-                ocUpload2,
-                FileUploader.NameCollisionPolicy.OVERWRITE,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
-                targetContext,
-                false,
-                false
-            )
-                .execute(client, storageManager)
-                .isSuccess
+        val uploadResult = UploadFileOperation(
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            user,
+            null,
+            ocUpload2,
+            FileUploader.NameCollisionPolicy.OVERWRITE,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            false,
+            false
         )
+            .execute(client, storageManager)
+
+        assertTrue(uploadResult.logMessage, uploadResult.isSuccess)
 
         val result2 = ReadFileRemoteOperation(remoteFile).execute(client)
         assertTrue(result2.isSuccess)
