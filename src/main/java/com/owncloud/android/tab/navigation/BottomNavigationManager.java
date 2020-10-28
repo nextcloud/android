@@ -31,11 +31,7 @@ public class BottomNavigationManager implements BottomNavigationView.OnNavigatio
             if (id == mBottomNavigationView.getSelectedItemId()) {
                 return;
             }
-            mBottomNavigationView.setOnNavigationItemSelectedListener(null);
-            mBottomNavigationView.setOnNavigationItemReselectedListener(null);
             mBottomNavigationView.setSelectedItemId(id);
-            mBottomNavigationView.setOnNavigationItemSelectedListener(BottomNavigationManager.this);
-            mBottomNavigationView.setOnNavigationItemReselectedListener(BottomNavigationManager.this);
         });
     }
 

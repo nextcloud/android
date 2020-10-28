@@ -197,7 +197,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected String mLimitToMimeType;
     private FloatingActionButton mFabMain;
 
-    @Inject DeviceInfo deviceInfo;
+    public @Inject DeviceInfo deviceInfo;
 
     protected enum MenuItemAddRemove {
         DO_NOTHING,
@@ -357,7 +357,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             setFabVisible(false);
         } else {
             setFabVisible(true);
-            registerFabListener();
         }
 
         if (getArguments() == null) {
@@ -404,11 +403,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 case FILE_SEARCH:
                     currentSearchType = SearchType.FILE_SEARCH;
                     break;
-
                 case FAVORITE_SEARCH:
                     currentSearchType = SearchType.FAVORITE_SEARCH;
                     break;
-
+                case PHOTO_SEARCH:
+                    currentSearchType = SearchType.PHOTO_SEARCH;
+                    break;
                 case RECENTLY_MODIFIED_SEARCH:
                     currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
                     break;
@@ -423,23 +423,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
 
             prepareActionBarItems(event);
-        }
-    }
-
-    /**
-     * register listener on FAB.
-     */
-    public void registerFabListener() {
-        FileActivity activity = (FileActivity) getActivity();
-
-        if (mFabMain != null) { // is not available in FolderPickerActivity
-            ThemeUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
-            mFabMain.setOnClickListener(v -> new OCFileListBottomSheetDialog(activity,
-                                                                             this,
-                                                                             deviceInfo,
-                                                                             accountManager.getUser(),
-                                                                             getCurrentFile())
-                .show());
         }
     }
 
@@ -797,16 +780,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
         switch (menuItemAddRemoveValue) {
             case ADD_GRID_AND_SORT_WITH_SEARCH:
                 mSwitchGridViewButton.setVisibility(View.VISIBLE);
-                mSortButton.setVisibility(View.VISIBLE);
+//                mSortButton.setVisibility(View.VISIBLE);
                 break;
 
             case REMOVE_SORT:
-                mSortButton.setVisibility(View.GONE);
+//                mSortButton.setVisibility(View.GONE);
                 break;
 
             case REMOVE_GRID_AND_SORT:
                 menu.removeItem(R.id.action_search);
-                mSortButton.setVisibility(View.GONE);
+//                mSortButton.setVisibility(View.GONE);
                 mSwitchGridViewButton.setVisibility(View.GONE);
                 break;
 
@@ -1416,13 +1399,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (getActivity() instanceof FileDisplayActivity && currentSearchType != null) {
             switch (currentSearchType) {
                 case FAVORITE_SEARCH:
-//                    getActivity().runOnUiThread(() -> {
-//                        if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
-//                            ((FileDisplayActivity) mContainerActivity).setupHomeSearchToolbarWithSortAndListButtons();
-//                            ((FileDisplayActivity) mContainerActivity).updateActionBarTitleAndHomeButton(null);
-//                        }
-//                    });
                     setTitle(R.string.drawer_item_favorites);
+                    break;
+                case PHOTO_SEARCH:
+                    setTitle(R.string.drawer_item_photos);
                     break;
                 case VIDEO_SEARCH:
                     setTitle(R.string.drawer_item_videos);

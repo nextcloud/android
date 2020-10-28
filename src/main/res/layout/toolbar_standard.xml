@@ -41,7 +41,7 @@
             android:background="@color/bg_default"
             android:paddingTop="@dimen/standard_eight_padding"
             android:visibility="gone"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/sort_button"

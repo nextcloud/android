@@ -43,6 +43,8 @@ class MoreFragment : Fragment() {
 
     private var isDevice = false
 
+    private var fileFragment: Fragment? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_more, container, false)
     }
@@ -75,6 +77,17 @@ class MoreFragment : Fragment() {
         getAndDisplayUserQuota()
     }
 
+    fun getListOfFilesFragment(): OCFileListFragment? {
+        if (!isAdded) {
+            return null
+        }
+        val listOfFiles: Fragment? = childFragmentManager.findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES)
+        if (listOfFiles != null) {
+            return listOfFiles as OCFileListFragment
+        }
+        return null
+    }
+
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
@@ -88,6 +101,20 @@ class MoreFragment : Fragment() {
         }
     }
 
+    fun isRoot(): Boolean {
+        return fileFragment == null
+    }
+
+    fun removeFiles() {
+        fileFragment?.apply {
+            this@MoreFragment.childFragmentManager.beginTransaction()
+                .remove(this)
+                .commit()
+        }
+        fileFragment = null
+        navView.visibility = View.VISIBLE
+    }
+
     private fun showFiles(searchEvent: SearchEvent) {
         val bundle = Bundle()
         bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent))
@@ -97,6 +124,7 @@ class MoreFragment : Fragment() {
             .replace(R.id.container, fragment, FileDisplayActivity.TAG_LIST_OF_FILES)
             .commit()
         navView.visibility = View.GONE
+        fileFragment = fragment
     }
 
     private fun getAndDisplayUserQuota() {

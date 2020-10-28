@@ -98,6 +98,8 @@ import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.MoreFragment;
+import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.PhotoFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
@@ -286,6 +288,7 @@ public class FileDisplayActivity extends FileActivity
         mPlayerConnection = new PlayerServiceConnection(this);
 
         if (getIntent().getBooleanExtra("Main", false) || isTaskRoot()) {
+            registerFabListener();
             binding.bottomContainer.setVisibility(View.VISIBLE);
             ThemeUtils.colorFloatingActionButton(binding.fabMain, this);
             bottomNavigationManager = new BottomNavigationManager(binding.pagerBottomTab, R.menu.main_navigation);
@@ -294,21 +297,45 @@ public class FileDisplayActivity extends FileActivity
                     switch (menuItem.getItemId()) {
                         case R.id.nav_all_files:
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.homeFragment);
+                            showSortListGroup(true);
+                            setupHomeSearchToolbarWithSortAndListButtons();
                             break;
                         case R.id.nav_favorites:
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.favFragment);
+                            showSortListGroup(false);
+                            setupToolbar();
                             break;
                         case R.id.nav_photos:
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.photoFragment);
+                            showSortListGroup(false);
+                            setupToolbar();
                             break;
                         case R.id.nav_more:
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.moreFragment);
+                            showSortListGroup(false);
+                            setupToolbar();
                             break;
                     }
+                    OCFileListFragment fragment = getListOfFilesFragment();
+                    if (fragment != null && fragment.getCurrentFile() != null) {
+                        setFile(fragment.getCurrentFile());
+                    } else {
+                        setFile(getStorageManager().getFileByPath(OCFile.ROOT_PATH));
+                    }
+                    updateActionBarTitleAndHomeButton(getCurrentDir());
+                    ThemeUtils.setColoredTitle(getSupportActionBar(), menuItem.getTitle().toString(), FileDisplayActivity.this);
                 }
                 return true;
             });
         }
+    }
+
+    @Override
+    public boolean isRoot(OCFile file) {
+        if (fileDisplayPage.currentFragment instanceof MoreFragment) {
+            return ((MoreFragment) fileDisplayPage.currentFragment).isRoot();
+        }
+        return super.isRoot(file);
     }
 
     @Override
@@ -519,18 +546,18 @@ public class FileDisplayActivity extends FileActivity
                 if (searchEvent != null) {
                     if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.searchType)) {
                         Log_OC.d(this, "Switch to photo search fragment");
-                        fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.photoFragment);
+                        bottomNavigationManager.setSelectedById(R.id.nav_photos);
                     } else if (SearchRemoteOperation.SearchType.FAVORITE_SEARCH.equals(searchEvent.searchType)) {
                         Log_OC.d(this, "Switch to oc file search fragment");
-                        fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.favFragment);
+                        bottomNavigationManager.setSelectedById(R.id.nav_favorites);
                     } else {
                         Log_OC.d(this, "Switch to oc file search fragment");
-                        fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.homeFragment);
+                        bottomNavigationManager.setSelectedById(R.id.nav_all_files);
                     }
                 }
             } else if (ALL_FILES.equals(intent.getAction())) {
                 Log_OC.d(this, "Switch to oc file fragment");
-                fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.homeFragment);
+                bottomNavigationManager.setSelectedById(R.id.nav_all_files);
             }
     }
 
@@ -620,13 +647,16 @@ public class FileDisplayActivity extends FileActivity
 
     public @androidx.annotation.Nullable
     Fragment getLeftFragment() {
-        return getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        return getListOfFilesFragment();
     }
 
     public @androidx.annotation.Nullable
     @Deprecated
     OCFileListFragment getListOfFilesFragment() {
         Fragment listOfFiles = fileDisplayPage.currentFragment;
+        if (listOfFiles instanceof MoreFragment) {
+            listOfFiles = ((MoreFragment) listOfFiles).getListOfFilesFragment();
+        }
         if (listOfFiles != null) {
             return (OCFileListFragment) listOfFiles;
         }
@@ -816,7 +846,8 @@ public class FileDisplayActivity extends FileActivity
                 } else if (
                     currentDir != null && currentDir.getParentId() != 0 ||
                         second != null && second.getFile() != null ||
-                        isSearchOpen()) {
+                        isSearchOpen()
+                        || !mDrawerToggle.isDrawerIndicatorEnabled()) {
                     onBackPressed();
                 } else {
                     openDrawer();
@@ -1075,6 +1106,13 @@ public class FileDisplayActivity extends FileActivity
                 if (mDualPane || getSecondFragment() == null) {
                     OCFile currentDir = getCurrentDir();
                     if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
+                        if (fileDisplayPage.currentFragment instanceof MoreFragment) {
+                            if (!((MoreFragment) fileDisplayPage.currentFragment).isRoot()) {
+                                ((MoreFragment) fileDisplayPage.currentFragment).removeFiles();
+                                updateActionBarTitleAndHomeButton(null);
+                                return;
+                            }
+                        }
                         finish();
                         return;
                     }
@@ -1082,7 +1120,6 @@ public class FileDisplayActivity extends FileActivity
                 }
                 setFile(listOfFiles.getCurrentFile());
                 listOfFiles.setFabVisible(true);
-                listOfFiles.registerFabListener();
                 showSortListGroup(true);
                 cleanSecondFragment();
             }
@@ -1139,7 +1176,6 @@ public class FileDisplayActivity extends FileActivity
             searchView.setQuery(searchQuery, false);
         } else if (!ocFileListFragment.isSearchFragment() && startFile == null) {
             updateListOfFilesFragment(false);
-            ocFileListFragment.registerFabListener();
         } else {
             ocFileListFragment.listDirectory(startFile, false, false);
             updateActionBarTitleAndHomeButton(startFile);
@@ -2503,5 +2539,24 @@ public class FileDisplayActivity extends FileActivity
                                                                           this);
         fetchRemoteFileTask.execute();
 
+    }
+
+    /**
+     * register listener on FAB.
+     */
+    public void registerFabListener() {
+        FileActivity activity = (FileActivity) getActivity();
+        ThemeUtils.colorFloatingActionButton(binding.fabMain, R.drawable.ic_plus, this);
+        binding.fabMain.setOnClickListener(v -> {
+            if (fileDisplayPage.homeFragment.getCurrentFile() == null) {
+                return;
+            }
+            new OCFileListBottomSheetDialog(activity,
+                                            fileDisplayPage.homeFragment,
+                                            fileDisplayPage.homeFragment.deviceInfo,
+                                            accountManager.getUser(),
+                                            fileDisplayPage.homeFragment.getCurrentFile())
+                .show();
+        });
     }
 }
