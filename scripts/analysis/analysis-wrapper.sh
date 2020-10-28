@@ -127,7 +127,12 @@ else
         gplayLimitation="<h1>Following files are beyond 500 char limit:</h1><br><br>"$gplayLimitation
     fi
 
-    curl -u $1:$2 -X POST https://api.github.com/repos/nextcloud/android/issues/$7/comments -d "{ \"body\" : \"$codacyResult $lintResult $findbugsResultNew $findbugsResultOld $checkLibraryMessage $lintMessage $findbugsMessage $gplayLimitation \" }"
+    # check for NotNull
+    if [[ $(grep org.jetbrains.annotations src/main/* -ir -c) -gt 0 ]] ; then
+        notNull="org.jetbrains.annotations.NotNull is used. Please use androidx.annotation.NonNull instead.<br><br>"
+    fi
+
+    curl -u $1:$2 -X POST https://api.github.com/repos/nextcloud/android/issues/$7/comments -d "{ \"body\" : \"$codacyResult $lintResult $findbugsResultNew $findbugsResultOld $checkLibraryMessage $lintMessage $findbugsMessage $gplayLimitation $notNull\" }"
 
     if [ ! -z "$gplayLimitation" ]; then
         exit 1
@@ -139,6 +144,10 @@ else
 
     if [ ! $lintValue -eq 2 ]; then
         exit $lintValue
+    fi
+
+    if [ $notNull -gt 0 ]; then
+        exit 1
     fi
 
     if [ $findbugsValue -eq 2 ]; then

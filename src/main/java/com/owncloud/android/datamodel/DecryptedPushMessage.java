@@ -24,10 +24,10 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
-@Parcel
 /*
  * Push data from server, https://github.com/nextcloud/notifications/blob/master/docs/push-v2.md#encrypted-subject-data
  */
+@Parcel
 public class DecryptedPushMessage {
     public String app;
     public String type;
@@ -49,6 +49,7 @@ public class DecryptedPushMessage {
     }
 
     public DecryptedPushMessage() {
+        // empty constructor
     }
 
     public String getApp() {
