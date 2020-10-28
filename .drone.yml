@@ -58,6 +58,7 @@ services:
     image: nextcloudci/server:server-17 # also change in updateScreenshots.sh
     environment:
       EVAL: true
+      REDIS: true
     commands:
       - BRANCH='stable20' /usr/local/bin/initnc.sh
       - echo 127.0.0.1 server >> /etc/hosts
@@ -142,6 +143,7 @@ services:
     image: nextcloudci/server:server-17 # also change in updateScreenshots.sh
     environment:
       EVAL: true
+      REDIS: true
     commands:
       - /usr/local/bin/initnc.sh
       - echo 127.0.0.1 server >> /etc/hosts
