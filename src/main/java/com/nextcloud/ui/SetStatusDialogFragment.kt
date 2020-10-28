@@ -122,6 +122,7 @@ class SetStatusDialogFragment : DialogFragment(),
             .create()
     }
 
+    @SuppressLint("DefaultLocale")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         accountManager = (activity as BaseActivity).userAccountManager

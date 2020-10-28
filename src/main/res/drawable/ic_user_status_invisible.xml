@@ -20,12 +20,14 @@
   ~ along with this program. If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<vector android:autoMirrored="true"
+<vector xmlns:tools="http://schemas.android.com/tools"
+    android:autoMirrored="true"
     android:height="24dp"
     android:viewportHeight="24"
     android:viewportWidth="24"
     android:width="24dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="VectorRaster">
     <path
         android:fillColor="#000000"
         android:pathData="m12,2c-5.52,0 -10,4.48 -10,10s4.48,10 10,10 10,-4.48 10,-10 -4.48,-10 -10,-10zM12,6a6,6 0,0 1,6 6,6 6,0 0,1 -6,6 6,6 0,0 1,-6 -6,6 6,0 0,1 6,-6z" />
