@@ -54,11 +54,13 @@ steps:
         - master
 
 services:
+  - name: cache
+    image: redis
   - name: server
     image: nextcloudci/server:server-17 # also change in updateScreenshots.sh
     environment:
       EVAL: true
-      REDIS: true
+      REDIS: cache
     commands:
       - BRANCH='stable20' /usr/local/bin/initnc.sh
       - echo 127.0.0.1 server >> /etc/hosts
@@ -139,11 +141,13 @@ steps:
         - master
 
 services:
+  - name: cache
+    image: redis
   - name: server
-    image: nextcloudci/server:server-17 # also change in updateScreenshots.sh
+    image: nextcloudci/server:server # also change in updateScreenshots.sh
     environment:
       EVAL: true
-      REDIS: true
+      REDIS: cache
     commands:
       - /usr/local/bin/initnc.sh
       - echo 127.0.0.1 server >> /etc/hosts
