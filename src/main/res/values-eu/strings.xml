@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Une honetan ez da onartzen enkriptatutako karpetara kopiatzea/mugitzea.</string>
     <string name="copy_to">Kopiatu hona…</string>
     <string name="could_not_download_image">Ezin izan da irudi osoa deskargatu</string>
+    <string name="could_not_retrieve_shares">Ezin izan dira partekatzeak berreskuratu</string>
     <string name="could_not_retrieve_url">Ezin izan da URLa berreskuratu</string>
     <string name="create_dir_fail_msg">Ezin izan da karpeta sortu</string>
     <string name="create_new">Sortu berria</string>
@@ -275,6 +276,7 @@
     <string name="failed_to_download">Huts egin du fitxategia deskarga-kudeatzailera pasatzean</string>
     <string name="failed_to_print">Huts egin du fitxategia inprimatzean</string>
     <string name="failed_to_start_editor">Ezin izan da editorea abiatu</string>
+    <string name="failed_update_ui">UIa eguneratzeak huts egin du</string>
     <string name="favorite">Gehitu gogokoetara</string>
     <string name="favorite_icon">Gogokoa</string>
     <string name="file_delete">Ezabatu</string>
@@ -482,6 +484,7 @@
     <string name="pref_behaviour_entries_move">aplikazioaren karpetara mugitu da</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Zer egin fitxategia existitzen bada dagoeneko?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Galdetu beti</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Saltatu karga</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Urruneko bertsioa gainidatzi</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Izena aldatu bertsio berriari</string>
     <string name="pref_instant_name_collision_policy_title">Zer egin fitxategia existitzen bada dagoeneko?</string>
@@ -592,6 +595,7 @@
     <string name="share_link_forbidden_permissions">fitxategi hau partekatzeko</string>
     <string name="share_link_optional_password_title">Sartu hautazko pasahitz bat</string>
     <string name="share_link_password_title">Sartu pasahitza</string>
+    <string name="share_link_with_label">Partekatze-esteka (%1$s)</string>
     <string name="share_no_expiration_date_label">Ezarri iraungitze-data</string>
     <string name="share_no_password_title">Ezarri pasahitza</string>
     <string name="share_password_title">Pasahitzez babestua</string>
