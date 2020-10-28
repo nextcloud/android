@@ -57,7 +57,7 @@ services:
   - name: cache
     image: redis
   - name: server
-    image: nextcloudci/server:server-17 # also change in updateScreenshots.sh
+    image: nextcloudci/server # also change in updateScreenshots.sh
     environment:
       EVAL: true
       REDIS: cache
@@ -144,7 +144,7 @@ services:
   - name: cache
     image: redis
   - name: server
-    image: nextcloudci/server:server # also change in updateScreenshots.sh
+    image: nextcloudci/server # also change in updateScreenshots.sh
     environment:
       EVAL: true
       REDIS: cache
