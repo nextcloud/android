@@ -372,6 +372,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     @Nullable
     @Override
+    @SuppressFBWarnings("IOI_USE_OF_FILE_STREAM_CONSTRUCTORS") // TODO remove with API26
     public ParcelFileDescriptor openFile(@NonNull Uri uri, @NonNull String mode) throws FileNotFoundException {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
 
@@ -398,7 +399,9 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         // create a file to write bitmap data
         File f = new File(getContext().getCacheDir(), "test");
         try {
-            f.createNewFile();
+            if (!f.createNewFile()) {
+                throw new IllegalStateException("File could not be created!");
+            }
 
             //Convert bitmap to byte array
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
