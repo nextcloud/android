@@ -795,4 +795,5 @@
         <item quantity="one">%di zgjedhur</item>
         <item quantity="other">%di zgjedhur</item>
     </plurals>
+    <string name="upload_scan_doc_upload">Skanoni dokumentin nga kamera</string>
 </resources>

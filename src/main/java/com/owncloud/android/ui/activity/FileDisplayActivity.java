@@ -38,8 +38,6 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
-import android.graphics.BitmapFactory;
-import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -53,7 +51,6 @@ import android.view.ViewTreeObserver;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
-import com.labters.documentscanner.helpers.ScannerConstants;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.Injectable;
@@ -123,12 +120,9 @@ import com.owncloud.android.utils.ThemeUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.lukhnos.nnio.file.Files;
-import org.lukhnos.nnio.file.Paths;
 import org.parceler.Parcels;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -146,7 +140,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
-import static com.owncloud.android.ui.activity.ScanDocActivity.RESULT_OK_AND_ADD_ADD_ANOTHER_SCAN_TO_DOC;
 
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
@@ -191,7 +184,6 @@ public class FileDisplayActivity extends FileActivity
     public static final int REQUEST_CODE__COPY_FILES = REQUEST_CODE__LAST_SHARED + 4;
     public static final int REQUEST_CODE__UPLOAD_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 5;
     public static final int REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 6;
-    public static final int REQUEST_CODE__CROP_SCAN_DOC_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 7;
 
     protected static final long DELAY_TO_REQUEST_REFRESH_OPERATION_LATER = DELAY_TO_REQUEST_OPERATIONS_LATER + 350;
 
@@ -402,7 +394,7 @@ public class FileDisplayActivity extends FileActivity
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
-                    getFileOperationsHelper()
+                    FileOperationsHelper
                         .takePictureFromCamera(this, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA);
                 } else {
                     // permission denied
@@ -861,65 +853,34 @@ public class FileDisplayActivity extends FileActivity
             requestUploadOfFilesFromFileSystem(data, resultCode);
 
         } else if (requestCode == FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA &&
-            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)){
-
-                ScannerConstants.selectedImageBitmap = BitmapFactory.decodeFile(FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath());
-                startActivityForResult(new Intent(this, ScanDocActivity.class),
-                                       FileDisplayActivity.REQUEST_CODE__CROP_SCAN_DOC_FROM_CAMERA);
-
-        } else if (requestCode == FileDisplayActivity.REQUEST_CODE__CROP_SCAN_DOC_FROM_CAMERA &&
-            (resultCode == RESULT_OK || resultCode==RESULT_OK_AND_ADD_ADD_ANOTHER_SCAN_TO_DOC || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
-
-            if (ScannerConstants.selectedImageBitmap != null) {
-                // override image from camera with croped image
-                PdfDocument pdf = FileOperationsHelper.convertAddImageToPDFDocument(ScannerConstants.selectedImageBitmap);
-
-                if(resultCode == RESULT_OK_AND_ADD_ADD_ANOTHER_SCAN_TO_DOC){
-                    // relaunch scanner to add an other scan to the current pdf
-                    getFileOperationsHelper()
-                        .takePictureFromCamera(this, FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA);
-                }else if (resultCode == RESULT_OK){
-                    String pdfFilePath = FileOperationsHelper.createOrGetPdfFile(getActivity()).getAbsolutePath();
-                    try {
-                        pdf.writeTo(Files.newOutputStream(Paths.get(pdfFilePath)));
-                    } catch (IOException e) {
-                        Log_OC.e(this,"onActivityResult pdf write to file",e);
-                    }
-                    pdf.close();
-                    FileOperationsHelper.cleanTmpPdfDocument();
-
-                    String pdfName = data.getStringExtra(ScanDocActivity.SCAN_DOC_ACTIVITY_RESULT_PDFNAME);
-                    //upload pdf
-                    new CheckAvailableSpaceTask(new CheckAvailableSpaceTask.CheckAvailableSpaceListener() {
-                        @Override
-                        public void onCheckAvailableSpaceStart() {
-                            Log_OC.d(this, "onCheckAvailableSpaceStart");
-                        }
-
-                        @Override
-                        public void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String... filesToUpload) {
-                            Log_OC.d(this, "onCheckAvailableSpaceFinish");
-
-                            if (hasEnoughSpaceAvailable) {
-
-                                File file = new File(filesToUpload[0]);
-                                // TODO add ability to set custompdf file name
-                                File renamedFile = new File(file.getParent() + PATH_SEPARATOR + pdfName);
-
-                                if (!file.renameTo(renamedFile)) {
-                                    DisplayUtils.showSnackMessage(getActivity(), "Fail to upload taken image!");
-                                    return;
-                                }
-
-                                requestUploadOfFilesFromFileSystem(new String[]{renamedFile.getAbsolutePath()},
-                                                                   FileUploader.LOCAL_BEHAVIOUR_MOVE);
-                            }
-                        }
-                    }, new String[]{pdfFilePath}).execute();
+            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+            String pdfName = data.getStringExtra(ScanDocActivity.SCAN_DOC_ACTIVITY_RESULT_PDFNAME);
+            //upload pdf
+            new CheckAvailableSpaceTask(new CheckAvailableSpaceTask.CheckAvailableSpaceListener() {
+                @Override
+                public void onCheckAvailableSpaceStart() {
+                    Log_OC.d(this, "onCheckAvailableSpaceStart");
                 }
-            } else {
-                DisplayUtils.showSnackMessage(getActivity(), "Fail to get cropped image");
-            }
+
+                @Override
+                public void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String... filesToUpload) {
+                    Log_OC.d(this, "onCheckAvailableSpaceFinish");
+
+                    if (hasEnoughSpaceAvailable) {
+
+                        File file = new File(filesToUpload[0]);
+                        File renamedFile = new File(file.getParent() + PATH_SEPARATOR + pdfName);
+
+                        if (!file.renameTo(renamedFile)) {
+                            DisplayUtils.showSnackMessage(getActivity(), "Fail to upload scan document!");
+                            return;
+                        }
+
+                        requestUploadOfFilesFromFileSystem(new String[]{renamedFile.getAbsolutePath()},
+                                                           FileUploader.LOCAL_BEHAVIOUR_MOVE);
+                    }
+                }
+            }, new String[]{FileOperationsHelper.createPdfFile(this).getAbsolutePath()}).execute();
         }
 
         else if (requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA &&

@@ -35,13 +35,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -97,7 +90,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -129,12 +122,9 @@ public class FileOperationsHelper {
     private static final String FILE_EXTENSION_WEBLOC = "webloc";
     public static final int SINGLE_LINK_SIZE = 1;
 
-    private static PdfDocument tmpPdfDocument;
-    private static boolean pdfAlreadyExist = Boolean.FALSE;
-
-    private FileActivity fileActivity;
-    private CurrentAccountProvider currentAccount;
-    private ConnectivityService connectivityService;
+    private final FileActivity fileActivity;
+    private final CurrentAccountProvider currentAccount;
+    private final ConnectivityService connectivityService;
 
     /// Identifier of operation in progress which result shouldn't be lost
     private long mWaitingForOpId = Long.MAX_VALUE;
@@ -147,44 +137,26 @@ public class FileOperationsHelper {
         this.connectivityService = connectivityService;
     }
 
-    @Nullable
-    private String getUrlFromFile(String storagePath, Pattern pattern) {
-        String url = null;
+    public static void takePictureFromCamera(Activity activity, int requestCode) {
+        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        InputStreamReader fr = null;
-        BufferedReader br = null;
-        try {
-            fr = new InputStreamReader(new FileInputStream(storagePath), Charset.forName("UTF-8"));
-            br = new BufferedReader(fr);
+        deleteOldFiles(activity);
 
-            String line;
-            while ((line = br.readLine()) != null) {
-                Matcher m = pattern.matcher(line);
-                if (m.find()) {
-                    url = m.group(1);
-                    break;
-                }
-            }
-        } catch (IOException e) {
-            Log_OC.d(TAG, e.getMessage());
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, "Error closing buffered reader for URL file", e);
-                }
-            }
+        File photoFile = createImageFile(activity);
 
-            if (fr != null) {
-                try {
-                    fr.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, "Error closing file reader for URL file", e);
-                }
+        Uri photoUri = FileProvider.getUriForFile(activity.getApplicationContext(),
+                                                  activity.getResources().getString(R.string.file_provider_authority), photoFile);
+        pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+
+        if (pictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+            if (PermissionUtil.checkSelfPermission(activity, Manifest.permission.CAMERA)) {
+                activity.startActivityForResult(pictureIntent, requestCode);
+            } else {
+                PermissionUtil.requestCameraPermission(activity);
             }
+        } else {
+            DisplayUtils.showSnackMessage(activity, "No Camera found");
         }
-        return url;
     }
 
     @Nullable
@@ -976,84 +948,62 @@ public class FileOperationsHelper {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_checking_credentials));
     }
 
-    public void takePictureFromCamera(Activity activity, int requestCode) {
-        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        deleteOldFiles(activity);
-
-        File photoFile = createImageFile(activity);
-
-        Uri photoUri = FileProvider.getUriForFile(activity.getApplicationContext(),
-                                                  activity.getResources().getString(R.string.file_provider_authority), photoFile);
-        pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-
-        if (pictureIntent.resolveActivity(activity.getPackageManager()) != null) {
-            if (PermissionUtil.checkSelfPermission(activity, Manifest.permission.CAMERA)) {
-                activity.startActivityForResult(pictureIntent, requestCode);
-            } else {
-                PermissionUtil.requestCameraPermission(activity);
-            }
-        } else {
-            DisplayUtils.showSnackMessage(activity, "No Camera found");
-        }
-    }
-
-    private void deleteOldFiles(Activity activity) {
+    public static void deleteOldFiles(Activity activity) {
         File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         if (storageDir != null) {
             for (File file : storageDir.listFiles()) {
                 if (!file.delete()) {
-                    Log_OC.d(this, "Failed to delete: " + file.getAbsolutePath());
+                    Log_OC.d(TAG, "Failed to delete: " + file.getAbsolutePath());
                 }
             }
         }
     }
 
-    public static PdfDocument convertAddImageToPDFDocument(Bitmap bitmap){
-        int pageWidth = 960;
-        int pageHeight = 1280;
-        PdfDocument pdfDocument;
-        if (pdfAlreadyExist){
-            pdfDocument = tmpPdfDocument;
-        }else {
-            pdfDocument = new PdfDocument();
-        }
-        PdfDocument.PageInfo myPageInfo =
-            new PdfDocument.PageInfo.Builder(pageWidth,pageHeight,pdfDocument.getPages().size()+1).create();
-        PdfDocument.Page page = pdfDocument.startPage(myPageInfo);
-        Canvas canvas = page.getCanvas();
-
-        //set white background
-        Paint paint = new Paint();
-        paint.setColor(Color.parseColor("#ffffff"));
-        canvas.drawPaint(paint);
-        // resize if necessary
-        Matrix m = new Matrix();
-        m.setRectToRect(new RectF(0, 0, bitmap.getWidth(), bitmap.getHeight()), new RectF(0, 0, pageWidth, pageHeight), Matrix.ScaleToFit.CENTER);
-        Bitmap scaledBitmap =  Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
-
-        // center image
-        float centerWidth = ((float) pageWidth - bitmap.getWidth()) / 2;
-        float centerHeight = ((float) pageHeight - bitmap.getHeight()) / 2;
-        canvas.drawBitmap(bitmap,centerWidth,centerHeight, null);
-        pdfDocument.finishPage(page);
-
-        bitmap.recycle();
-        scaledBitmap.recycle();
-        tmpPdfDocument = pdfDocument;
-        pdfAlreadyExist = Boolean.TRUE;
-        return pdfDocument;
-    }
-
-    public static void cleanTmpPdfDocument(){
-        pdfAlreadyExist = Boolean.FALSE;
-    }
-
-    public static File createOrGetPdfFile(Activity activity) {
+    public static File createPdfFile(Activity activity) {
         File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         return new File(storageDir + "/scanDocUpload.pdf");
+    }
+
+    @Nullable
+    private String getUrlFromFile(String storagePath, Pattern pattern) {
+        String url = null;
+
+        InputStreamReader fr = null;
+        BufferedReader br = null;
+        try {
+            fr = new InputStreamReader(new FileInputStream(storagePath), StandardCharsets.UTF_8);
+            br = new BufferedReader(fr);
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                Matcher m = pattern.matcher(line);
+                if (m.find()) {
+                    url = m.group(1);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            Log_OC.d(TAG, e.getMessage());
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    Log_OC.d(TAG, "Error closing buffered reader for URL file", e);
+                }
+            }
+
+            if (fr != null) {
+                try {
+                    fr.close();
+                } catch (IOException e) {
+                    Log_OC.d(TAG, "Error closing file reader for URL file", e);
+                }
+            }
+        }
+        return url;
     }
 
     public static File createImageFile(Activity activity) {
