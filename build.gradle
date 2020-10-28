@@ -61,7 +61,7 @@ ext {
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
     androidLibraryVersion = "master-SNAPSHOT"
-    mockitoVersion = "3.5.15"
+    mockitoVersion = "3.6.0"
     mockkVersion = "1.10.2"
     byteBuddyVersion = "1.10.17"
     espressoVersion = "3.3.0"
