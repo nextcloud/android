@@ -15,14 +15,15 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.RectF;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,74 +32,142 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.labters.documentscanner.base.CropperErrorType;
-import com.labters.documentscanner.base.DocumentScanActivity;
-import com.labters.documentscanner.helpers.ScannerConstants;
-import com.labters.documentscanner.libraries.PolygonView;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
+import com.owncloud.android.ui.adapter.ScanDocumentAdapter;
+import com.owncloud.android.ui.fragment.ScanDocumentFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import org.lukhnos.nnio.file.Files;
 import org.lukhnos.nnio.file.Paths;
 
-import java.io.File;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.io.IOException;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
-/**
- * TODO Add a button to retake picture without loosing previous scan
- */
-public class ScanDocActivity extends DocumentScanActivity {
+import static com.owncloud.android.ui.activity.FileActivity.REQUEST_CODE__LAST_SHARED;
 
-    public static final int RESULT_OK_AND_ADD_ADD_ANOTHER_SCAN_TO_DOC = 11;
+public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFragment.OnProcessImage {
+
+    public static final int REQUEST_CODE__TAKE_PICTURE_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 1;
+    public static final int REQUEST_CODE__RETAKE_PICTURE_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 2;
     public static final String SCAN_DOC_ACTIVITY_RESULT_PDFNAME = "SCAN_DOC_ACTIVITY_RESULT_PDFNAME";
 
-    private FrameLayout holderImageCrop;
-    private ImageView imageView;
-    private PolygonView polygonView;
-    private boolean isInverted;
-    private ProgressBar progressBar;
-    private Bitmap cropImage;
-    private Unbinder unbinder;
+    @BindView(R.id.progressBarScanDocument)
+    ProgressBar mProgressBar;
 
-    private String pdfName = FileOperationsHelper.getScanDocName();
+    @BindView(R.id.ivAddAnOtherScanToDoc)
+    ImageView mBtnAddAnOtherScanToDoc;
+
+    @BindView(R.id.textViewPageCounter)
+    TextView mTextViewPageCounter;
+
+    @BindView(R.id.viewPagerScanDocument)
+    ViewPager2 mViewPagerScanDocument;
 
     @BindView(R.id.btnClose)
-    Button btnClose;
+    Button mBtnClose;
 
     @BindView(R.id.btnValidate)
-    Button btnValidate;
+    Button mBtnValidate;
 
-    @BindView(R.id.btnValidateAndAddAnOtherScanToDoc)
-    Button btnValidateAndAddAnOtherScanToDoc;
+    @BindView(R.id.ivNextScanDoc)
+    ImageView mImageViewNextScanDoc;
 
-    @BindView(R.id.rlContainer)
-    ConstraintLayout rlContainer;
+    @BindView(R.id.contraintLayoutMainContainer)
+    ConstraintLayout mConstraintLayoutMainContainer;
+
+    @BindView(R.id.constraintLayout_crop_button)
+    ConstraintLayout mConstraintLayoutCropButton;
+
+    @BindView(R.id.constraintLayout_scan_doc_buttons)
+    ConstraintLayout mConstraintLayoutScanDocButtons;
+
+    @BindView(R.id.constraintLayout_pager_button)
+    ConstraintLayout mConstraintLayoutPagerButton;
+
+    @BindView(R.id.ivPreviousScanDoc)
+    ImageView mImageViewPreviousScanDoc;
+
+    int mCurrentPosition;
+    private Unbinder mUnbinder;
+    private String mPdfName = FileOperationsHelper.getScanDocName();
+    private ScanDocumentAdapter mScanDocumentAdapter;
+
+    public static void startScanActivityForResult(Activity activity, int requestCode) {
+        Intent action = new Intent(activity, ScanDocActivity.class);
+        activity.startActivityForResult(action, requestCode);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_scan_doc);
+        mUnbinder = ButterKnife.bind(this);
+
+        mCurrentPosition = -1;
+
+        mScanDocumentAdapter = new ScanDocumentAdapter(this, getSupportFragmentManager(), getLifecycle());
+        mViewPagerScanDocument.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                mCurrentPosition = position;
+                updateNextPrevious();
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+            }
+        });
+        mViewPagerScanDocument.setAdapter(mScanDocumentAdapter);
+        mViewPagerScanDocument.setUserInputEnabled(true);
+
+        FileOperationsHelper
+            .takePictureFromCamera(this, REQUEST_CODE__TAKE_PICTURE_FROM_CAMERA);
+
+    }
+
+    @OnClick(R.id.ivDeletePage)
+    void onDeletePageClick() {
+        mScanDocumentAdapter.deleteScanImage(mCurrentPosition);
+        if (mScanDocumentAdapter.getItemCount() == 0) {
+            FileOperationsHelper
+                .takePictureFromCamera(this, REQUEST_CODE__TAKE_PICTURE_FROM_CAMERA);
+        }
+    }
+
+    @OnClick(R.id.ivRetakePicture)
+    void onRetakePictureClick() {
+        FileOperationsHelper
+            .takePictureFromCamera(this, REQUEST_CODE__RETAKE_PICTURE_FROM_CAMERA);
+    }
 
     @OnClick(R.id.ivRename)
-    void buttonRenameClick(){
+    void buttonRenameClick() {
         int accentColor = ThemeUtils.primaryAccentColor(this);
 
         // Inflate the layout for the dialog
@@ -107,7 +176,7 @@ public class ScanDocActivity extends DocumentScanActivity {
         View view = binding.getRoot();
 
         // Setup layout
-        String currentName = pdfName;
+        String currentName = mPdfName;
         EditText inputText = binding.userInput;
         inputText.setHighlightColor(ThemeUtils.primaryColor(this));
         inputText.setText(currentName);
@@ -137,7 +206,7 @@ public class ScanDocActivity extends DocumentScanActivity {
                     return;
                 }
 
-                pdfName = newFileName;
+                mPdfName = newFileName;
             }
         };
 
@@ -157,175 +226,100 @@ public class ScanDocActivity extends DocumentScanActivity {
     }
 
     @OnClick(R.id.btnValidate)
-    void buttonValidateClick(){
-        showProgressBar();
-        disposable.add(
-            Observable.fromCallable(() -> {
-                cropImage = getCroppedImage();
-                if (cropImage == null) {
-                    return Boolean.FALSE;
-                }
-                if (ScannerConstants.saveStorage) {
-                    saveToInternalStorage(cropImage);
-                }
-                return Boolean.FALSE;
-            })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((result) -> {
-                    hideProgressBar();
-                    if (cropImage != null) {
-                        ScannerConstants.selectedImageBitmap = cropImage;
-                        Intent resultIntent = new Intent();
-                        resultIntent.putExtra(SCAN_DOC_ACTIVITY_RESULT_PDFNAME,pdfName);
-                        setResult(RESULT_OK, resultIntent);
-                        finish();
-                    }
-                })
-                      );
-
+    void buttonValidateClick() {
+        // change to a static pdf file and a rename string
+        createPDFDocument();
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(SCAN_DOC_ACTIVITY_RESULT_PDFNAME, mPdfName);
+        setResult(RESULT_OK, resultIntent);
+        finish();
 
     }
 
-    @OnClick(R.id.ivRebase)
-    void buttonClickRebase(){
-        cropImage = ScannerConstants.selectedImageBitmap.copy(ScannerConstants.selectedImageBitmap.getConfig(), true);
-        isInverted = false;
-        startCropping();
+    @OnClick(R.id.ivCrop)
+    void buttonClickShowCropButtons() {
+        setCropView(true);
+        getCurrentScanDocumentFragment().trySetPolygonViewToADocument();
+    }
+
+    @OnClick(R.id.ivCancelCrop)
+    void buttonClickHideCropButtons() {
+        setCropView(false);
+        getCurrentScanDocumentFragment().disablePolygonView();
+    }
+
+    @OnClick(R.id.ivValidateCrop)
+    void buttonClickValidateCrop() {
+        getCurrentScanDocumentFragment().cropImageFromPolygon();
+        getCurrentScanDocumentFragment().disablePolygonView();
+        setCropView(false);
+    }
+
+    @OnClick(R.id.ivReset)
+    void buttonClickReset() {
+        getCurrentScanDocumentFragment().resetImage();
     }
 
     @OnClick(R.id.btnClose)
-    void buttonClickClose(){
+    void buttonClickClose() {
         finish();
     }
 
     @OnClick(R.id.ivInvert)
-    void buttonInvertColor(){
-        showProgressBar();
-        disposable.add(
-            Observable.fromCallable(() -> {
-                invertColor();
-                return Boolean.FALSE;
-            })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((result) -> {
-                    hideProgressBar();
-                    Bitmap scaledBitmap = scaledBitmap(cropImage, holderImageCrop.getWidth(), holderImageCrop.getHeight());
-                    imageView.setImageBitmap(scaledBitmap);
-                })
-                      );
+    void buttonInvertColor() {
+        getCurrentScanDocumentFragment().invertColorImage();
     }
 
     @OnClick(R.id.ivRotate)
-    void buttonRotateClick(){
-        rotateImage();
+    void buttonRotateClick() {
+        getCurrentScanDocumentFragment().rotateBitmap(90);
     }
 
-    private void rotateImage(){
-        showProgressBar();
-        disposable.add(
-            Observable.fromCallable(() -> {
-                if (isInverted) {
-                    invertColor();
-                }
-                cropImage = rotateBitmap(cropImage, 90);
-                return Boolean.FALSE;
-            })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((result) -> {
-                    hideProgressBar();
-                    startCropping();
-                })
-                      );
+    @OnClick(R.id.ivAddAnOtherScanToDoc)
+    void onAddOtherScanDocClick() {
+        FileOperationsHelper.takePictureFromCamera(this, REQUEST_CODE__TAKE_PICTURE_FROM_CAMERA);
     }
 
-    @OnClick(R.id.btnValidateAndAddAnOtherScanToDoc)
-    void onAddOtherScanDocClick(){
-        showProgressBar();
-        disposable.add(
-            Observable.fromCallable(() -> {
-                cropImage = getCroppedImage();
-                if (cropImage == null) {
-                    return Boolean.FALSE;
-                }
-                if (ScannerConstants.saveStorage) {
-                    saveToInternalStorage(cropImage);
-                }
-                return Boolean.FALSE;
-            })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((result) -> {
-                    hideProgressBar();
-                    if (cropImage != null) {
-                        ScannerConstants.selectedImageBitmap = cropImage;
-                        Intent resultIntent = new Intent();
-                        resultIntent.putExtra(SCAN_DOC_ACTIVITY_RESULT_PDFNAME,pdfName);
-                        setResult(RESULT_OK_AND_ADD_ADD_ANOTHER_SCAN_TO_DOC, resultIntent);
-                        finish();
-                    }
-                })
-                      );
-
+    @OnClick(R.id.ivNextScanDoc)
+    void onNextScanDocClick() {
+        mViewPagerScanDocument.setCurrentItem(mCurrentPosition + 1, true);
+        updateNextPrevious();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan_doc);
-        unbinder = ButterKnife.bind(this);
-        cropImage = ScannerConstants.selectedImageBitmap;
-        isInverted = false;
-        if (ScannerConstants.selectedImageBitmap != null) {
-            initView();
-        }
-        else {
-            Toast.makeText(this, ScannerConstants.imageError, Toast.LENGTH_LONG).show();
-            finish();
-        }
+    @OnClick(R.id.ivPreviousScanDoc)
+    void onPreviousScanDocClick() {
+        mViewPagerScanDocument.setCurrentItem(mCurrentPosition - 1, true);
+        updateNextPrevious();
     }
 
-    @Override
-    protected FrameLayout getHolderImageCrop() {
-        return holderImageCrop;
+    private void disableViewAndSetProgressBar(boolean isShow) {
+        setViewInteract(mConstraintLayoutMainContainer, !isShow);
+        mProgressBar.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
-    @Override
-    protected ImageView getImageView() {
-        return imageView;
+    private void setCropView(boolean isEnable) {
+        mViewPagerScanDocument.setUserInputEnabled(!isEnable);
+        //Disable all
+        setViewInteract(mConstraintLayoutMainContainer, !isEnable);
+        //Enable only CropButton
+        setViewInteract(mConstraintLayoutCropButton, isEnable);
+        mConstraintLayoutCropButton.setVisibility(isEnable ? View.VISIBLE : View.INVISIBLE);
+        mConstraintLayoutPagerButton.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
+        mConstraintLayoutScanDocButtons.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
+        mBtnAddAnOtherScanToDoc.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
+        mBtnClose.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
+        mBtnValidate.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
     }
 
-    @Override
-    protected PolygonView getPolygonView() {
-        return polygonView;
+    private void updateNextPrevious() {
+        mImageViewPreviousScanDoc.setEnabled(mCurrentPosition != 0);
+        mImageViewNextScanDoc.setEnabled(mCurrentPosition != mScanDocumentAdapter.getItemCount());
+        mTextViewPageCounter.setText(getString(R.string.upload_scan_doc_page_counter, mCurrentPosition + 1,
+                                               mScanDocumentAdapter.getItemCount()));
     }
 
-    @Override
-    protected void showProgressBar() {
-        setViewInteract(rlContainer, false);
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    protected void hideProgressBar() {
-        setViewInteract(rlContainer, true);
-        progressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    protected void showError(CropperErrorType errorType) {
-        switch (errorType) {
-            case CROP_ERROR:
-                Toast.makeText(this, ScannerConstants.cropError, Toast.LENGTH_LONG).show();
-                break;
-        }
-    }
-
-    @Override
-    protected Bitmap getBitmapImage() {
-        return cropImage;
+    private ScanDocumentFragment getCurrentScanDocumentFragment() {
+        return mScanDocumentAdapter.getCurrentFragment(mCurrentPosition);
     }
 
     private void setViewInteract(View view, boolean canDo) {
@@ -337,69 +331,93 @@ public class ScanDocActivity extends DocumentScanActivity {
         }
     }
 
-    // TODO edit style
-    private void initView() {
-        holderImageCrop = findViewById(R.id.holderImageCrop);
-        imageView = findViewById(R.id.imageView);
-        btnValidate.setText(getString(R.string.common_ok));
-        btnValidateAndAddAnOtherScanToDoc.setText("+");
-        btnClose.setText(getString(R.string.common_cancel));
-        polygonView = findViewById(R.id.polygonView);
-        progressBar = findViewById(R.id.progressBar);
-        if (progressBar.getIndeterminateDrawable() != null && ScannerConstants.progressColor != null) {
-            progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor(ScannerConstants.progressColor), android.graphics.PorterDuff.Mode.MULTIPLY);
-        }
-        else if (progressBar.getProgressDrawable() != null && ScannerConstants.progressColor != null) {
-            progressBar.getProgressDrawable().setColorFilter(Color.parseColor(ScannerConstants.progressColor), android.graphics.PorterDuff.Mode.MULTIPLY);
-        }
-        btnValidate.setBackgroundColor(Color.parseColor(ScannerConstants.cropColor));
-        btnClose.setBackgroundColor(Color.parseColor(ScannerConstants.backColor));
-        startCropping();
-        if(cropImage.getWidth() > cropImage.getHeight()){
-            rotateImage();
-        }
-    }
-
-    private void invertColor() {
-        if (!isInverted) {
-            Bitmap bmpMonochrome = Bitmap.createBitmap(cropImage.getWidth(), cropImage.getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bmpMonochrome);
-            ColorMatrix ma = new ColorMatrix();
-            ma.setSaturation(0);
-            Paint paint = new Paint();
-            paint.setColorFilter(new ColorMatrixColorFilter(ma));
-            canvas.drawBitmap(cropImage, 0, 0, paint);
-            cropImage = bmpMonochrome.copy(bmpMonochrome.getConfig(), true);
-        } else {
-            cropImage = cropImage.copy(cropImage.getConfig(), true);
-        }
-        isInverted = !isInverted;
-    }
-
-    private String saveToInternalStorage(Bitmap bitmapImage) {
-        File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        String imageFileName = "cropped_" + timeStamp + ".png";
-        File mypath = new File(directory, imageFileName);
-        OutputStream fos = null;
-        try {
-            fos = Files.newOutputStream(Paths.get(mypath.getAbsolutePath()));
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
-        } catch (Exception e) {
-            Log_OC.e(this,"saveToInternalStorage",e);
-        } finally {
-            try {
-                fos.close();
-            } catch (Exception e) {
-                Log_OC.e(this,"saveToInternalStorage fos close",e);
-            }
-        }
-        return directory.getAbsolutePath();
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
+        mUnbinder.unbind();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE__TAKE_PICTURE_FROM_CAMERA &&
+            resultCode == RESULT_OK) {
+
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            String path = FileOperationsHelper.createImageFile(this).getAbsolutePath();
+            Bitmap originalBitmap = BitmapFactory.decodeFile(path,
+                                                             bmOptions);
+            originalBitmap = BitmapUtils.rotateImage(originalBitmap, path);
+            mScanDocumentAdapter.addScanImage(originalBitmap, mScanDocumentAdapter.getItemCount());
+            updateNextPrevious();
+            mViewPagerScanDocument.setCurrentItem(mScanDocumentAdapter.getItemCount() - 1, false);
+        }
+        if (requestCode == REQUEST_CODE__RETAKE_PICTURE_FROM_CAMERA && resultCode == RESULT_OK) {
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            String path = FileOperationsHelper.createImageFile(this).getAbsolutePath();
+            Bitmap picture = BitmapFactory.decodeFile(path,
+                                                      bmOptions);
+            picture = BitmapUtils.rotateImage(picture, path);
+            mScanDocumentAdapter.changeScanImage(picture, mViewPagerScanDocument.getCurrentItem());
+            updateNextPrevious();
+            mViewPagerScanDocument.setCurrentItem(mViewPagerScanDocument.getCurrentItem(), false);
+        }
+    }
+
+    // region pdfedition
+    public void createPDFDocument() {
+        int pageWidth = 960;
+        int pageHeight = 1280;
+        PdfDocument pdfDocument = new PdfDocument();
+
+        for (Bitmap bitmap : mScanDocumentAdapter.getEditedImageList()) {
+            PdfDocument.PageInfo myPageInfo =
+                new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pdfDocument.getPages().size() + 1).create();
+            PdfDocument.Page page = pdfDocument.startPage(myPageInfo);
+            Canvas canvas = page.getCanvas();
+
+            //set white background
+            Paint paint = new Paint();
+            paint.setColor(Color.parseColor("#ffffff"));
+            canvas.drawPaint(paint);
+            // resize if necessary
+            Matrix m = new Matrix();
+            m.setRectToRect(new RectF(0, 0, bitmap.getWidth(), bitmap.getHeight()), new RectF(0, 0, pageWidth, pageHeight), Matrix.ScaleToFit.CENTER);
+            Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
+
+            // center image
+            float centerWidth = ((float) pageWidth - bitmap.getWidth()) / 2;
+            float centerHeight = ((float) pageHeight - bitmap.getHeight()) / 2;
+            canvas.drawBitmap(bitmap, centerWidth, centerHeight, null);
+            pdfDocument.finishPage(page);
+
+            bitmap.recycle();
+            scaledBitmap.recycle();
+        }
+        FileOperationsHelper.deleteOldFiles(this);
+        String pdfFilePath = FileOperationsHelper.createPdfFile(this).getAbsolutePath();
+        try {
+            pdfDocument.writeTo(Files.newOutputStream(Paths.get(pdfFilePath)));
+        } catch (IOException e) {
+            Log_OC.e(this, "pdf write to file", e);
+        }
+        pdfDocument.close();
+    }
+
+    @Override
+    public void onProcessImageStart() {
+        disableViewAndSetProgressBar(true);
+    }
+
+    @Override
+    public void onProcessImageEnd() {
+        disableViewAndSetProgressBar(false);
+    }
+    //endregion
 }

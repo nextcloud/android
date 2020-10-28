@@ -76,6 +76,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
+import com.owncloud.android.ui.activity.ScanDocActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
@@ -208,7 +209,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.DO_NOTHING;
 
-    private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
+    private final List<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -466,7 +467,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
 
         if (fileDisplayActivity != null) {
-            fileDisplayActivity.getFileOperationsHelper()
+            FileOperationsHelper
                 .takePictureFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA);
         } else {
             DisplayUtils.showSnackMessage(getView(), getString(R.string.error_starting_direct_camera_upload));
@@ -475,14 +476,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void scanDocUpload() {
-        FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
-
-        if (fileDisplayActivity != null) {
-            fileDisplayActivity.getFileOperationsHelper()
-                .takePictureFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA);
-        } else {
-            DisplayUtils.showSnackMessage(getView(), getString(R.string.error_starting_direct_camera_upload));
-        }
+        ScanDocActivity.startScanActivityForResult(getActivity(),
+                                                   FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA);
     }
 
     @Override
@@ -587,178 +582,28 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                                       DIALOG_CREATE_DOCUMENT);
     }
 
-    /**
-     * Handler for multiple selection mode.
-     * <p>
-     * Manages input from the user when one or more files or folders are selected in the list.
-     * <p>
-     * Also listens to changes in navigation drawer to hide and recover multiple selection when it's opened
-     * and closed.
-     */
-    private class MultiChoiceModeListener implements AbsListView.MultiChoiceModeListener, DrawerLayout.DrawerListener {
-
-        private static final String KEY_ACTION_MODE_CLOSED_BY_DRAWER = "KILLED_ACTION_MODE";
-
-        /**
-         * True when action mode is finished because the drawer was opened
-         */
-        private boolean mActionModeClosedByDrawer;
-
-        /**
-         * Selected items in list when action mode is closed by drawer
-         */
-        private Set<OCFile> mSelectionWhenActionModeClosedByDrawer = new HashSet<>();
-
-        @Override
-        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-            // nothing to do
+    private void updateLayout() {
+        // decide grid vs list view
+        if (isGridViewPreferred(mFile)) {
+            switchToGridView();
+        } else {
+            switchToListView();
         }
 
-        @Override
-        public void onDrawerOpened(@NonNull View drawerView) {
-            // nothing to do
+        if (mSortButton != null) {
+            mSortButton.setText(DisplayUtils.getSortOrderStringId(preferences.getSortOrderByFolder(mFile)));
+        }
+        if (mSwitchGridViewButton != null) {
+            setGridSwitchButton();
         }
 
-        /**
-         * When the navigation drawer is closed, action mode is recovered in the same state as was
-         * when the drawer was (started to be) opened.
-         *
-         * @param drawerView Navigation drawer just closed.
-         */
-        @Override
-        public void onDrawerClosed(@NonNull View drawerView) {
-            if (mActionModeClosedByDrawer && mSelectionWhenActionModeClosedByDrawer.size() > 0) {
-                FragmentActivity actionBarActivity = getActivity();
-                actionBarActivity.startActionMode(mMultiChoiceModeListener);
+        // registerFabListener();
+        setFabVisible(!mHideFab);
 
-                getAdapter().setCheckedItem(mSelectionWhenActionModeClosedByDrawer);
+        // FAB
+        setFabEnabled(mFile != null && mFile.canWrite());
 
-                mActiveActionMode.invalidate();
-
-                mSelectionWhenActionModeClosedByDrawer.clear();
-            }
-        }
-
-        /**
-         * If the action mode is active when the navigation drawer starts to move, the action
-         * mode is closed and the selection stored to be recovered when the drawer is closed.
-         *
-         * @param newState One of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
-         */
-        @Override
-        public void onDrawerStateChanged(int newState) {
-            if (DrawerLayout.STATE_DRAGGING == newState && mActiveActionMode != null) {
-                mSelectionWhenActionModeClosedByDrawer.addAll(((OCFileListAdapter) getRecyclerView().getAdapter())
-                        .getCheckedItems());
-                mActiveActionMode.finish();
-                mActionModeClosedByDrawer = true;
-            }
-        }
-
-        /**
-         * Update action mode bar when an item is selected / unselected in the list
-         */
-        @Override
-        public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-            // nothing to do here
-        }
-
-        /**
-         * Load menu and customize UI when action mode is started.
-         */
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            mActiveActionMode = mode;
-            // Determine if actionMode is "new" or not (already affected by item-selection)
-            mIsActionModeNew = true;
-
-            MenuInflater inflater = getActivity().getMenuInflater();
-            inflater.inflate(R.menu.item_file, menu);
-            mode.invalidate();
-
-            //set actionMode color
-            ThemeUtils.colorStatusBar(getActivity(), ThemeUtils.actionModeColor(requireContext()));
-
-            // hide FAB in multi selection mode
-            setFabVisible(false);
-
-            mAdapter.setMultiSelect(true);
-            return true;
-        }
-
-        /**
-         * Updates available action in menu depending on current selection.
-         */
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            final int checkedCount = mAdapter.getCheckedItems().size();
-            Set<OCFile> checkedFiles = mAdapter.getCheckedItems();
-            String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
-            mode.setTitle(title);
-            User currentUser = accountManager.getUser();
-            FileMenuFilter mf = new FileMenuFilter(
-                mAdapter.getFiles().size(),
-                checkedFiles,
-                mContainerActivity,
-                getActivity(),
-                false,
-                deviceInfo,
-                accountManager.getUser()
-            );
-
-            final boolean isMediaStreamingSupported = currentUser.getServer().getVersion().isMediaStreamingSupported();
-            mf.filter(menu,
-                      false,
-                      isMediaStreamingSupported);
-
-            // Determine if we need to finish the action mode because there are no items selected
-            if (checkedCount == 0 && !mIsActionModeNew) {
-                exitSelectionMode();
-            }
-
-            return true;
-        }
-
-        /**
-         * Starts the corresponding action when a menu item is tapped by the user.
-         */
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            Set<OCFile> checkedFiles = mAdapter.getCheckedItems();
-            return onFileActionChosen(item, checkedFiles);
-        }
-
-        /**
-         * Restores UI.
-         */
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            mActiveActionMode = null;
-
-            // reset to previous color
-            FragmentActivity fragmentActivity;
-            if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity) {
-                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) fragmentActivity;
-                fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir());
-            }
-
-            // show FAB on multi selection mode exit
-            if (!mHideFab && !searchFragment) {
-                setFabVisible(true);
-            }
-
-            mAdapter.setMultiSelect(false);
-            mAdapter.clearCheckedItems();
-        }
-
-        public void storeStateIn(Bundle outState) {
-            outState.putBoolean(KEY_ACTION_MODE_CLOSED_BY_DRAWER, mActionModeClosedByDrawer);
-        }
-
-        public void loadStateFrom(Bundle savedInstanceState) {
-            mActionModeClosedByDrawer = savedInstanceState.getBoolean(KEY_ACTION_MODE_CLOSED_BY_DRAWER,
-                    mActionModeClosedByDrawer);
-        }
+        invalidateActionMode();
     }
 
     /**
@@ -1313,32 +1158,177 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void updateLayout() {
-        // decide grid vs list view
-        if (isGridViewPreferred(mFile)) {
-            switchToGridView();
-        } else {
-            switchToListView();
+    /**
+     * Handler for multiple selection mode.
+     * <p>
+     * Manages input from the user when one or more files or folders are selected in the list.
+     * <p>
+     * Also listens to changes in navigation drawer to hide and recover multiple selection when it's opened and closed.
+     */
+    private class MultiChoiceModeListener implements AbsListView.MultiChoiceModeListener, DrawerLayout.DrawerListener {
+
+        private static final String KEY_ACTION_MODE_CLOSED_BY_DRAWER = "KILLED_ACTION_MODE";
+
+        /**
+         * True when action mode is finished because the drawer was opened
+         */
+        private boolean mActionModeClosedByDrawer;
+
+        /**
+         * Selected items in list when action mode is closed by drawer
+         */
+        private final Set<OCFile> mSelectionWhenActionModeClosedByDrawer = new HashSet<>();
+
+        @Override
+        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+            // nothing to do
         }
 
-        if (mSortButton != null) {
-            mSortButton.setText(DisplayUtils.getSortOrderStringId(preferences.getSortOrderByFolder(mFile)));
-        }
-        if (mSwitchGridViewButton != null) {
-            setGridSwitchButton();
+        @Override
+        public void onDrawerOpened(@NonNull View drawerView) {
+            // nothing to do
         }
 
-        if (mHideFab) {
+        /**
+         * When the navigation drawer is closed, action mode is recovered in the same state as was when the drawer was
+         * (started to be) opened.
+         *
+         * @param drawerView Navigation drawer just closed.
+         */
+        @Override
+        public void onDrawerClosed(@NonNull View drawerView) {
+            if (mActionModeClosedByDrawer && mSelectionWhenActionModeClosedByDrawer.size() > 0) {
+                FragmentActivity actionBarActivity = getActivity();
+                actionBarActivity.startActionMode(mMultiChoiceModeListener);
+
+                getAdapter().setCheckedItem(mSelectionWhenActionModeClosedByDrawer);
+
+                mActiveActionMode.invalidate();
+
+                mSelectionWhenActionModeClosedByDrawer.clear();
+            }
+        }
+
+        /**
+         * If the action mode is active when the navigation drawer starts to move, the action mode is closed and the
+         * selection stored to be recovered when the drawer is closed.
+         *
+         * @param newState One of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
+         */
+        @Override
+        public void onDrawerStateChanged(int newState) {
+            if (DrawerLayout.STATE_DRAGGING == newState && mActiveActionMode != null) {
+                mSelectionWhenActionModeClosedByDrawer.addAll(((OCFileListAdapter) getRecyclerView().getAdapter())
+                                                                  .getCheckedItems());
+                mActiveActionMode.finish();
+                mActionModeClosedByDrawer = true;
+            }
+        }
+
+        /**
+         * Update action mode bar when an item is selected / unselected in the list
+         */
+        @Override
+        public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+            // nothing to do here
+        }
+
+        /**
+         * Load menu and customize UI when action mode is started.
+         */
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mActiveActionMode = mode;
+            // Determine if actionMode is "new" or not (already affected by item-selection)
+            mIsActionModeNew = true;
+
+            MenuInflater inflater = getActivity().getMenuInflater();
+            inflater.inflate(R.menu.item_file, menu);
+            mode.invalidate();
+
+            //set actionMode color
+            ThemeUtils.colorStatusBar(getActivity(), ThemeUtils.actionModeColor(requireContext()));
+
+            // hide FAB in multi selection mode
             setFabVisible(false);
-        } else {
-            setFabVisible(true);
-            // registerFabListener();
+
+            mAdapter.setMultiSelect(true);
+            return true;
         }
 
-        // FAB
-        setFabEnabled(mFile != null && mFile.canWrite());
+        /**
+         * Updates available action in menu depending on current selection.
+         */
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            final int checkedCount = mAdapter.getCheckedItems().size();
+            Set<OCFile> checkedFiles = mAdapter.getCheckedItems();
+            String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
+            mode.setTitle(title);
+            User currentUser = accountManager.getUser();
+            FileMenuFilter mf = new FileMenuFilter(
+                mAdapter.getFiles().size(),
+                checkedFiles,
+                mContainerActivity,
+                getActivity(),
+                false,
+                deviceInfo,
+                accountManager.getUser()
+            );
 
-        invalidateActionMode();
+            final boolean isMediaStreamingSupported = currentUser.getServer().getVersion().isMediaStreamingSupported();
+            mf.filter(menu,
+                      false,
+                      isMediaStreamingSupported);
+
+            // Determine if we need to finish the action mode because there are no items selected
+            if (checkedCount == 0 && !mIsActionModeNew) {
+                exitSelectionMode();
+            }
+
+            return true;
+        }
+
+        /**
+         * Starts the corresponding action when a menu item is tapped by the user.
+         */
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            Set<OCFile> checkedFiles = mAdapter.getCheckedItems();
+            return onFileActionChosen(item, checkedFiles);
+        }
+
+        /**
+         * Restores UI.
+         */
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mActiveActionMode = null;
+
+            // reset to previous color
+            FragmentActivity fragmentActivity;
+            if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity) {
+                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) fragmentActivity;
+                fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir());
+            }
+
+            // show FAB on multi selection mode exit
+            if (!mHideFab && !searchFragment) {
+                setFabVisible(true);
+            }
+
+            mAdapter.setMultiSelect(false);
+            mAdapter.clearCheckedItems();
+        }
+
+        public void storeStateIn(Bundle outState) {
+            outState.putBoolean(KEY_ACTION_MODE_CLOSED_BY_DRAWER, mActionModeClosedByDrawer);
+        }
+
+        public void loadStateFrom(Bundle savedInstanceState) {
+            mActionModeClosedByDrawer = savedInstanceState.getBoolean(KEY_ACTION_MODE_CLOSED_BY_DRAWER,
+                                                                      mActionModeClosedByDrawer);
+        }
     }
 
     private void invalidateActionMode() {

@@ -23,7 +23,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
@@ -117,6 +121,18 @@ public final class BitmapUtils {
         return inSampleSize;
     }
 
+
+    public static Bitmap grayscaleBitmap(Bitmap bitmap) {
+        Bitmap bmpMonochrome = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bmpMonochrome);
+        ColorMatrix ma = new ColorMatrix();
+        ma.setSaturation(0);
+        Paint paint = new Paint();
+        paint.setColorFilter(new ColorMatrixColorFilter(ma));
+        canvas.drawBitmap(bitmap, 0, 0, paint);
+        return bmpMonochrome.copy(bmpMonochrome.getConfig(), true);
+    }
+
     /**
      * scales a given bitmap depending on the given size parameters.
      *
@@ -132,6 +148,33 @@ public final class BitmapUtils {
         int w = Math.round(scale * width);
         int h = Math.round(scale * height);
         return Bitmap.createScaledBitmap(bitmap, w, h, true);
+    }
+
+    /**
+     * scales to fit center a given bitmap depending on the given size parameters.
+     *
+     * @param bitmap the bitmap to be scaled
+     * @param width  the width
+     * @param height the height
+     * @return the scaled bitmap
+     */
+    public static Bitmap scaleToFitCenterBitmap(Bitmap bitmap, int width, int height) {
+        Matrix m = new Matrix();
+        m.setRectToRect(new RectF(0, 0, bitmap.getWidth(), bitmap.getHeight()), new RectF(0, 0, width, height), Matrix.ScaleToFit.CENTER);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
+    }
+
+    /**
+     * Rotate bitmap to an angle
+     *
+     * @param source Bitmap to be rotated
+     * @param angle  the angle to rotate
+     * @return the rotated bitmap
+     */
+    public static Bitmap rotateBitmap(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
     /**

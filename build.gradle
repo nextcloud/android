@@ -119,7 +119,7 @@ android {
     }
 
     dexOptions {
-        javaMaxHeapSize "6g"
+        javaMaxHeapSize "8g"
     }
 
     compileSdkVersion 29
