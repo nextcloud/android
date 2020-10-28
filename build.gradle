@@ -183,6 +183,13 @@ android {
                 versionName "20200129"
             }
 
+            versionRelease {
+                applicationId "com.qijicloud.clint"
+                dimension "default"
+                versionCode 1
+                versionName "20201029"
+            }
+
             qa {
                 applicationId "com.nextcloud.android.qa"
                 dimension "default"
