@@ -73,10 +73,14 @@ import androidx.annotation.Nullable;
 import dagger.android.AndroidInjection;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import static com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation.PROPERTY_CLEAR_AT;
+import static com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation.PROPERTY_ICON;
+import static com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation.PROPERTY_MESSAGE;
+import static com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation.PROPERTY_STATUS;
+
 
 /**
- * Content provider for search suggestions, to search for users and groups existing in an ownCloud
- * server.
+ * Content provider for search suggestions, to search for users and groups existing in an ownCloud server.
  */
 public class UsersAndGroupsSearchProvider extends ContentProvider {
 
@@ -112,7 +116,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     @Inject
     protected UserAccountManager accountManager;
 
-    private static Map<String, ShareType> sShareTypes = new HashMap<>();
+    private static final Map<String, ShareType> sShareTypes = new HashMap<>();
 
     public static ShareType getShareType(String authority) {
 
@@ -181,13 +185,10 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         Log_OC.d(TAG, "query received in thread " + Thread.currentThread().getName());
 
         int match = mUriMatcher.match(uri);
-        switch (match) {
-            case SEARCH:
-                return searchForUsersOrGroups(uri);
-
-            default:
-                return null;
+        if (match == SEARCH) {
+            return searchForUsersOrGroups(uri);
         }
+        return null;
     }
 
     private Cursor searchForUsersOrGroups(Uri uri) {
@@ -258,13 +259,14 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                     String shareWith = value.getString(GetShareesRemoteOperation.PROPERTY_SHARE_WITH);
 
                     Status status;
-                    JSONObject statusObject = item.optJSONObject("status");
+                    JSONObject statusObject = item.optJSONObject(PROPERTY_STATUS);
 
                     if (statusObject != null) {
-                        status = new Status(StatusType.valueOf(statusObject.getString("status")),
-                                            statusObject.isNull("message") ? "" : statusObject.getString("message"),
-                                            statusObject.isNull("icon") ? "" : statusObject.getString("icon"),
-                                            statusObject.isNull("clearAt") ? -1 : statusObject.getLong("clearAt"));
+                        status = new Status(
+                            StatusType.valueOf(statusObject.getString(PROPERTY_STATUS)),
+                            statusObject.isNull(PROPERTY_MESSAGE) ? "" : statusObject.getString(PROPERTY_MESSAGE),
+                            statusObject.isNull(PROPERTY_ICON) ? "" : statusObject.getString(PROPERTY_ICON),
+                            statusObject.isNull(PROPERTY_CLEAR_AT) ? -1 : statusObject.getLong(PROPERTY_CLEAR_AT));
                     } else {
                         status = new Status(StatusType.OFFLINE, "", "", -1);
                     }
@@ -295,7 +297,8 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
                         case USER:
                             displayName = userName;
-                            subline = status.getMessage().isEmpty() ? null : status.getMessage();
+                            subline = (status.getMessage() == null || status.getMessage().isEmpty()) ? null :
+                                status.getMessage();
                             Uri.Builder builder =
                                 Uri.parse("content://com.nextcloud.android.providers.UsersAndGroupsSearchProvider/icon")
                                     .buildUpon();
