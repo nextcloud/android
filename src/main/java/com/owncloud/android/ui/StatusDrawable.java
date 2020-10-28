@@ -36,16 +36,18 @@ import com.owncloud.android.lib.resources.users.Status;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * A Drawable object that draws a status
  */
+@SuppressFBWarnings("PME_POOR_MANS_ENUM")
 public class StatusDrawable extends Drawable {
     private String text;
     private @DrawableRes int icon = -1;
     private Paint textPaint;
     private Paint backgroundPaint;
-    private float radius;
+    private final float radius;
     private Context context;
     private final static int whiteBackground = Color.argb(200, 255, 255, 255);
     private final static int onlineStatus = Color.argb(255, 73, 179, 130);
@@ -112,11 +114,14 @@ public class StatusDrawable extends Drawable {
 
         if (icon != -1) {
             Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), icon, null);
-            drawable.setBounds(0,
-                               0,
-                               (int) (2 * radius),
-                               (int) (2 * radius));
-            drawable.draw(canvas);
+
+            if (drawable != null) {
+                drawable.setBounds(0,
+                                   0,
+                                   (int) (2 * radius),
+                                   (int) (2 * radius));
+                drawable.draw(canvas);
+            }
         }
     }
 
