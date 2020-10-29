@@ -1,0 +1,21 @@
+replace NotNull with NonNull annotation
+codacy: Avoid really long methods
+codacy: Assigning an Object to null is a code smell.
+codacy: Avoid unused method parameters
+codacy: Avoid using Literals in Conditional Statements
+codacy: Perhaps 'user' could be replaced by a local variable.
+codacy: Document empty method body
+codacy: Avoid reassigning parameters
+codacy: Useless parentheses
+codacy: Fields should be declared at the top of the class, before any method declarations, constructors, initializers or inner classes.
+codacy: Unnecessary use of fully qualified name due to existing static import
+codacy: Avoid declaring a variable if it is unreferenced before a possible exit point.
+codacy: Unused imports
+codacy: Document empty constructor
+codacy: Fields should be declared at the top of the class, before any method declarations, constructors, initializers or inner classes.
+Fix: open rich workspace click on "all files" on drawer
+l10n: Add a space before the ellipsis
+l10n: Cloud name with a capital letter
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
