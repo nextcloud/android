@@ -122,6 +122,15 @@ class SetStatusDialogFragment : DialogFragment(),
             .create()
     }
 
+    private val POS_DONT_CLEAR = 0
+    private val POS_HALF_AN_HOUR = 1
+    private val POS_AN_HOUR = 2
+    private val POS_FOUR_HOURS = 3
+    private val POS_TODAY = 4
+    private val POS_END_OF_WEEK = 5
+
+    private val ONE_SECOND_IN_MILLIS = 1000
+
     @SuppressLint("DefaultLocale")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -138,7 +147,7 @@ class SetStatusDialogFragment : DialogFragment(),
                 remainingClearTime.apply {
                     clearStatusMessageTextView.text = getString(R.string.clear_status_message)
                     visibility = View.VISIBLE
-                    text = DisplayUtils.getRelativeTimestamp(context, it.clearAt * 1000, true)
+                    text = DisplayUtils.getRelativeTimestamp(context, it.clearAt * ONE_SECOND_IN_MILLIS, true)
                         .toString()
                         .decapitalize(Locale.getDefault())
                     setOnClickListener {
@@ -202,39 +211,41 @@ class SetStatusDialogFragment : DialogFragment(),
         }
     }
 
+    private val ONE_MINUTE_IN_SECONDS = 60
+
     private fun setClearStatusAfterValue(item: Int) {
         when (item) {
-            0 -> {
+            POS_DONT_CLEAR -> {
                 // don't clear
                 clearAt = null
             }
 
-            1 -> {
+            POS_HALF_AN_HOUR -> {
                 // 30 minutes
-                clearAt = System.currentTimeMillis() / 1000 + 30 * 60
+                clearAt = System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + 30 * ONE_MINUTE_IN_SECONDS
             }
 
-            2 -> {
+            POS_AN_HOUR -> {
                 // one hour
-                clearAt = System.currentTimeMillis() / 1000 + 60 * 60
+                clearAt = System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
             }
 
-            3 -> {
+            POS_FOUR_HOURS -> {
                 // four hours
-                clearAt = System.currentTimeMillis() / 1000 + 4 * 60 * 60
+                clearAt = System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + 4 * ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
             }
 
-            4 -> {
+            POS_TODAY -> {
                 // today
                 val date = Calendar.getInstance().apply {
                     set(Calendar.HOUR_OF_DAY, 23)
                     set(Calendar.MINUTE, 59)
                     set(Calendar.SECOND, 59)
                 }
-                clearAt = date.timeInMillis / 1000
+                clearAt = date.timeInMillis / ONE_SECOND_IN_MILLIS
             }
 
-            5 -> {
+            POS_END_OF_WEEK -> {
                 // end of week
                 val date = Calendar.getInstance().apply {
                     set(Calendar.HOUR_OF_DAY, 23)
@@ -246,7 +257,7 @@ class SetStatusDialogFragment : DialogFragment(),
                     date.add(Calendar.DAY_OF_YEAR, 1)
                 }
 
-                clearAt = date.timeInMillis / 1000
+                clearAt = date.timeInMillis / ONE_SECOND_IN_MILLIS
             }
         }
     }
@@ -254,7 +265,7 @@ class SetStatusDialogFragment : DialogFragment(),
     private fun clearAtToUnixTime(clearAt: ClearAt?): Long {
         if (clearAt != null) {
             if (clearAt.type.equals("period")) {
-                return System.currentTimeMillis() / 1000 + clearAt.time.toLong()
+                return System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + clearAt.time.toLong()
             } else if (clearAt.type.equals("end-of")) {
                 if (clearAt.time.equals("day")) {
                     val date = Calendar.getInstance().apply {
@@ -262,7 +273,7 @@ class SetStatusDialogFragment : DialogFragment(),
                         set(Calendar.MINUTE, 59)
                         set(Calendar.SECOND, 59)
                     }
-                    return date.timeInMillis / 1000
+                    return date.timeInMillis / ONE_SECOND_IN_MILLIS
                 }
             }
         }
