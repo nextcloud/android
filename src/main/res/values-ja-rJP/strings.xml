@@ -605,7 +605,6 @@
     <string name="share_privilege_unshare">共有解除</string>
     <string name="share_remote_clarification">%1$s (リモート)</string>
     <string name="share_room_clarification">%1$s(会話)</string>
-    <string name="share_search">ユーザー名、クラウド統合ID、またはメールアドレス</string>
     <string name="share_send_note">受取人への注意</string>
     <string name="share_via_link_hide_download">ダウンロードを隠す</string>
     <string name="share_via_link_hide_file_listing_permission_label">ファイルリストを隠す</string>

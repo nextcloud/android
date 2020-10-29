@@ -602,7 +602,6 @@
     <string name="share_privilege_unshare">Prestani dijeliti</string>
     <string name="share_remote_clarification">%1$s (udaljeno)</string>
     <string name="share_room_clarification">%1$s (razgovor)</string>
-    <string name="share_search">Naziv, ID udruženog oblaka ili adresa e-pošte...</string>
     <string name="share_send_note">Obavijest primatelju</string>
     <string name="share_via_link_hide_download">Sakrij preuzimanje</string>
     <string name="share_via_link_hide_file_listing_permission_label">Sakrij popis datoteka</string>

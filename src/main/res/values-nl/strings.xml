@@ -603,7 +603,6 @@
     <string name="share_privilege_unshare">Stop met delen</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (gesprek)</string>
-    <string name="share_search">Naam, gefedereerde Cloud ID of een e-mailadres…</string>
     <string name="share_send_note">Notitie voor ontvanger</string>
     <string name="share_via_link_hide_download">Verberg download</string>
     <string name="share_via_link_hide_file_listing_permission_label">Verberg bestandsoverzicht</string>

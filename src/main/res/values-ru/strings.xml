@@ -602,7 +602,6 @@
     <string name="share_privilege_unshare">Закрыть доступ</string>
     <string name="share_remote_clarification">%1$s (на сервере)</string>
     <string name="share_room_clarification">%1$s (беседа)</string>
-    <string name="share_search">Имя, ID межсерверного обмена или адрес эл.почты…</string>
     <string name="share_send_note">Примечание для получателя</string>
     <string name="share_via_link_hide_download">Скрыть загрузку</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрыть список файлов</string>

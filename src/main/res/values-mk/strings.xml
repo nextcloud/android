@@ -581,7 +581,6 @@
     <string name="share_privilege_unshare">Несподелувај</string>
     <string name="share_remote_clarification">%1$s (далечински)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
-    <string name="share_search">Име, ИД на федериран cloud или адреса на е-пошта…</string>
     <string name="share_send_note">Белешка до примачот</string>
     <string name="share_via_link_hide_download">Сокриј превземање</string>
     <string name="share_via_link_hide_file_listing_permission_label">Сокриј ја листата на датотеки</string>

@@ -502,7 +502,6 @@
     <string name="share_privilege_unshare">Malkunhavigi</string>
     <string name="share_remote_clarification">%1$s (fora)</string>
     <string name="share_room_clarification">%1$s (konversacio)</string>
-    <string name="share_search">Nomo, federnuba identigilo aŭ retpoŝtadreso...</string>
     <string name="share_send_note">Noto por la ricevonto</string>
     <string name="share_via_link_hide_download">Kaŝi elŝuton</string>
     <string name="share_via_link_hide_file_listing_permission_label">Kaŝi dosierliston</string>
