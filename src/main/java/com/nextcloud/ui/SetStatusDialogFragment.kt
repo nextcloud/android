@@ -68,7 +68,17 @@ import javax.inject.Inject
 private const val ARG_CURRENT_USER_PARAM = "currentUser"
 private const val ARG_CURRENT_STATUS_PARAM = "currentStatus"
 
-class SetStatusDialogFragment : DialogFragment(),
+private const val POS_DONT_CLEAR = 0
+private const val POS_HALF_AN_HOUR = 1
+private const val POS_AN_HOUR = 2
+private const val POS_FOUR_HOURS = 3
+private const val POS_TODAY = 4
+private const val POS_END_OF_WEEK = 5
+
+private const val ONE_SECOND_IN_MILLIS = 1000
+
+class SetStatusDialogFragment :
+    DialogFragment(),
     PredefinedStatusClickListener,
     Injectable {
 
@@ -121,15 +131,6 @@ class SetStatusDialogFragment : DialogFragment(),
             .setView(binding.root)
             .create()
     }
-
-    private val POS_DONT_CLEAR = 0
-    private val POS_HALF_AN_HOUR = 1
-    private val POS_AN_HOUR = 2
-    private val POS_FOUR_HOURS = 3
-    private val POS_TODAY = 4
-    private val POS_END_OF_WEEK = 5
-
-    private val ONE_SECOND_IN_MILLIS = 1000
 
     @SuppressLint("DefaultLocale")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -227,12 +228,15 @@ class SetStatusDialogFragment : DialogFragment(),
 
             POS_AN_HOUR -> {
                 // one hour
-                clearAt = System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
+                clearAt =
+                    System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
             }
 
             POS_FOUR_HOURS -> {
                 // four hours
-                clearAt = System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + 4 * ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
+                clearAt =
+                    System.currentTimeMillis() / ONE_SECOND_IN_MILLIS
+                +4 * ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
             }
 
             POS_TODAY -> {
@@ -286,8 +290,10 @@ class SetStatusDialogFragment : DialogFragment(),
     }
 
     private fun clearStatus() {
-        asyncRunner.postQuickTask(ClearStatusTask(accountManager.currentOwnCloudAccount?.savedAccount, context),
-            { dismiss(it) })
+        asyncRunner.postQuickTask(
+            ClearStatusTask(accountManager.currentOwnCloudAccount?.savedAccount, context),
+            { dismiss(it) }
+        )
     }
 
     private fun setStatus(statusType: StatusType) {
@@ -297,7 +303,8 @@ class SetStatusDialogFragment : DialogFragment(),
             SetStatusTask(
                 statusType,
                 accountManager.currentOwnCloudAccount?.savedAccount,
-                context),
+                context
+            ),
             {
                 if (!it) {
                     clearTopStatus()
@@ -345,7 +352,8 @@ class SetStatusDialogFragment : DialogFragment(),
                     selectedPredefinedMessageId!!,
                     clearAt,
                     accountManager.currentOwnCloudAccount?.savedAccount,
-                    context),
+                    context
+                ),
                 { dismiss(it) }
             )
         } else {
@@ -355,7 +363,8 @@ class SetStatusDialogFragment : DialogFragment(),
                     emoji.text.toString(),
                     clearAt,
                     accountManager.currentOwnCloudAccount?.savedAccount,
-                    context),
+                    context
+                ),
                 { dismiss(it) }
             )
         }
