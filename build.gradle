@@ -60,8 +60,8 @@ ext {
     markwonVersion =  "4.6.0"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
-    androidLibraryVersion ="952187fd194887999720290e6901fd9b1eac19cc"
-    mockitoVersion = "3.5.15"
+    androidLibraryVersion = "master-SNAPSHOT"
+    mockitoVersion = "3.6.0"
     mockkVersion = "1.10.2"
     byteBuddyVersion = "1.10.17"
     espressoVersion = "3.3.0"
@@ -287,7 +287,7 @@ dependencies {
     compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2' // remove after entire switch to lib v2
     implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
     implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.1' // remove after entire switch to lib v2
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.jakewharton:disklrucache:2.0.2'

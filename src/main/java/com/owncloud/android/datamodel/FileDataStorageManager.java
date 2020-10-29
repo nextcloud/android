@@ -1178,13 +1178,11 @@ public class FileDataStorageManager {
      */
     public List<OCShare> getSharesByPathAndType(String path, ShareType type, String shareWith) {
         Cursor cursor;
-        if (shareWith == null) {
-            shareWith = "";
-        }
 
         String selection = ProviderTableMeta.OCSHARES_PATH + AND
             + ProviderTableMeta.OCSHARES_SHARE_TYPE + AND
             + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + " = ?";
+
         if (!ShareType.PUBLIC_LINK.equals(type)) {
             selection += " AND " + ProviderTableMeta.OCSHARES_SHARE_WITH + " = ?";
         }
@@ -1197,12 +1195,21 @@ public class FileDataStorageManager {
                 account.name
             };
         } else {
-            selectionArgs = new String[]{
-                path,
-                Integer.toString(type.getValue()),
-                account.name,
-                shareWith
-            };
+            if (shareWith == null) {
+                selectionArgs = new String[]{
+                    path,
+                    Integer.toString(type.getValue()),
+                    account.name,
+                    ""
+                };
+            } else {
+                selectionArgs = new String[]{
+                    path,
+                    Integer.toString(type.getValue()),
+                    account.name,
+                    shareWith
+                };
+            }
         }
 
         if (getContentResolver() != null) {
@@ -1775,11 +1782,13 @@ public class FileDataStorageManager {
     }
 
     public void saveConflict(OCFile ocFile, String etagInConflict) {
-        if (!ocFile.isDown()) {
-            etagInConflict = null;
-        }
         ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, etagInConflict);
+        if (!ocFile.isDown()) {
+            cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, (String) null);
+        } else {
+            cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, etagInConflict);
+        }
+
         int updated = 0;
         if (getContentResolver() != null) {
             updated = getContentResolver().update(
@@ -1804,7 +1813,7 @@ public class FileDataStorageManager {
         Log_OC.d(TAG, "Number of files updated with CONFLICT: " + updated);
 
         if (updated > 0) {
-            if (etagInConflict != null) {
+            if (etagInConflict != null && ocFile.isDown()) {
                 /// set conflict in all ancestor folders
 
                 long parentId = ocFile.getParentId();
@@ -1922,7 +1931,6 @@ public class FileDataStorageManager {
                 }
             }
         }
-
     }
 
     public void saveCapabilities(OCCapability capability) {
