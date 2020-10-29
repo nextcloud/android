@@ -54,7 +54,8 @@ import javax.inject.Inject
 
 private const val ARG_CURRENT_USER_PARAM = "currentUser"
 
-class ChooseAccountDialogFragment : DialogFragment(),
+class ChooseAccountDialogFragment :
+    DialogFragment(),
     AvatarGenerationListener,
     UserListAdapter.ClickListener,
     Injectable {
