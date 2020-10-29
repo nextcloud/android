@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ownCloud Android client application
 
   Copyright (C) 2015  ownCloud Inc.
@@ -19,6 +18,7 @@
 -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/top"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -33,7 +33,78 @@
         android:contentDescription="@string/preview_image_description"
         android:src="@drawable/image_fail" />
 
-    <include
-        android:id="@+id/emptyList"
-        layout="@layout/empty_list" />
+    <LinearLayout
+        android:id="@+id/empty_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/standard_margin"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/standard_double_margin">
+
+        <ImageView
+            android:id="@+id/empty_list_icon"
+            android:layout_width="@dimen/empty_list_icon_layout_width"
+            android:layout_height="@dimen/empty_list_icon_layout_height"
+            android:contentDescription="@string/file_list_folder"
+            android:src="@drawable/ic_list_empty_folder"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:id="@+id/empty_list_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <com.elyeproj.loaderviewlibrary.LoaderImageView
+                android:layout_width="@dimen/empty_list_icon_layout_width"
+                android:layout_height="@dimen/empty_list_icon_layout_width"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@null"
+                app:corners="24" />
+
+            <ImageView
+                android:layout_width="@dimen/empty_list_icon_layout_width"
+                android:layout_height="@dimen/empty_list_icon_layout_height"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_image_outline"
+                app:tint="@color/fg_inverse" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/empty_list_view_headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:paddingTop="@dimen/standard_padding"
+            android:paddingBottom="@dimen/standard_half_padding"
+            android:text="@string/file_list_loading"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/empty_list_view_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:paddingTop="@dimen/standard_half_padding"
+            android:paddingBottom="@dimen/standard_half_padding"
+            android:text="@string/file_list_empty"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/empty_list_view_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:theme="@style/Button.Primary"
+            android:visibility="gone"
+            app:cornerRadius="@dimen/button_corner_radius" />
+    </LinearLayout>
 </RelativeLayout>
