@@ -196,10 +196,12 @@ class ChooseAccountDialogFragment : DialogFragment(),
         // Un-needed for this context
     }
 
+    private val STATUS_SIZE_IN_DP = 9f
+
     fun setStatus(newStatus: Status) {
         currentStatus = newStatus
 
-        val size = DisplayUtils.convertDpToPixel(9f, context)
+        val size = DisplayUtils.convertDpToPixel(STATUS_SIZE_IN_DP, context)
         ticker.background = null
         ticker.setImageDrawable(StatusDrawable(newStatus, size.toFloat(), context))
         ticker.visibility = View.VISIBLE
