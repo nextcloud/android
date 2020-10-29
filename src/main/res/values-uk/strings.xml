@@ -606,7 +606,6 @@
     <string name="share_privilege_unshare">Закрити доступ</string>
     <string name="share_remote_clarification">%1$s (віддалено)</string>
     <string name="share_room_clarification">%1$s (розмова)</string>
-    <string name="share_search">Ім\'я, ID об\'єднаної хмари або електронна адреса...</string>
     <string name="share_send_note">Примітка для одержувача</string>
     <string name="share_via_link_hide_download">Сховати завантаження</string>
     <string name="share_via_link_hide_file_listing_permission_label">Приховати перелік файлів</string>

@@ -603,7 +603,6 @@
     <string name="share_privilege_unshare">Sluta dela</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (konversation)</string>
-    <string name="share_search">Namn, federerat moln-ID eller e-postadress…</string>
     <string name="share_send_note">Notering till mottagare</string>
     <string name="share_via_link_hide_download">Dölj hämtning</string>
     <string name="share_via_link_hide_file_listing_permission_label">Göm fillistning</string>

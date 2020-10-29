@@ -606,7 +606,6 @@
     <string name="share_privilege_unshare">Rimuovi condivisione</string>
     <string name="share_remote_clarification">%1$s (remota)</string>
     <string name="share_room_clarification">%1$s (conversazione)</string>
-    <string name="share_search">Nome, ID di cloud federata o indirizzo email…</string>
     <string name="share_send_note">Nota per destinatario</string>
     <string name="share_via_link_hide_download">Nascondi scaricamento</string>
     <string name="share_via_link_hide_file_listing_permission_label">Nascondi elenco dei file</string>

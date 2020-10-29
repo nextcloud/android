@@ -506,7 +506,6 @@
     <string name="share_privilege_unshare">Прекрати споделянето</string>
     <string name="share_remote_clarification">%1$s (отдалечен)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
-    <string name="share_search">Име, Federated Cloud ID или имейл адрес...</string>
     <string name="share_send_note">Бележка за получателя</string>
     <string name="share_via_link_hide_download">Скрий свалянето</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрий показването на файлове</string>

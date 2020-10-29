@@ -606,7 +606,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share_privilege_unshare">Lopeta jakaminen</string>
     <string name="share_remote_clarification">%1$s (etä)</string>
     <string name="share_room_clarification">%1$s (keskustelu)</string>
-    <string name="share_search">Nimi, federoidun pilven tunniste tai sähköpostiosoite…</string>
     <string name="share_send_note">Huomio vastaanottajalle</string>
     <string name="share_via_link_hide_download">Piilota lataus</string>
     <string name="share_via_link_hide_file_listing_permission_label">Piilota tiedostolistaus</string>

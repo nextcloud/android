@@ -602,7 +602,6 @@
     <string name="share_privilege_unshare">Zneprístupniť</string>
     <string name="share_remote_clarification">%1$s (vzdialený)</string>
     <string name="share_room_clarification">%1$s (rozhovor)</string>
-    <string name="share_search">Meno, federatívny cloud ID alebo e-mailová adresa…</string>
     <string name="share_send_note">Poznámka pre príjemcu</string>
     <string name="share_via_link_hide_download">Skryť sťahovanie</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skryť zobrazenie súborov</string>
