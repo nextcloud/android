@@ -1,9 +1,11 @@
-<vector android:autoMirrored="true"
+<vector xmlns:tools="http://schemas.android.com/tools"
+    android:autoMirrored="true"
     android:height="64dp"
     android:viewportHeight="57"
     android:viewportWidth="57"
     android:width="64dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="VectorRaster">
     <path
         android:fillAlpha="1"
         android:fillColor="#00000000"

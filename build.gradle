@@ -321,6 +321,8 @@ dependencies {
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation group: 'androidx.emoji', name: 'emoji-bundled', version: '1.0.0'
+    implementation 'com.github.vanniktech:Emoji:0.7.0'
 
     implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido:4.1.0'
     implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido2:4.1.0'

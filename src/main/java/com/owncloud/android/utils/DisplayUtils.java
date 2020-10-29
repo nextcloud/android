@@ -313,6 +313,15 @@ public final class DisplayUtils {
                                          DateUtils.WEEK_IN_MILLIS, 0);
     }
 
+    public static CharSequence getRelativeTimestamp(Context context, long modificationTimestamp, boolean showFuture) {
+        return getRelativeDateTimeString(context,
+                                         modificationTimestamp,
+                                         DateUtils.SECOND_IN_MILLIS,
+                                         DateUtils.WEEK_IN_MILLIS,
+                                         0,
+                                         showFuture);
+    }
+
 
     /**
      * determines the info level color based on {@link #RELATIVE_THRESHOLD_WARNING}.
@@ -331,15 +340,25 @@ public final class DisplayUtils {
 
     public static CharSequence getRelativeDateTimeString(Context c, long time, long minResolution,
                                                          long transitionResolution, int flags) {
+        return getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags, false);
+    }
+
+    public static CharSequence getRelativeDateTimeString(Context c,
+                                                         long time,
+                                                         long minResolution,
+                                                         long transitionResolution,
+                                                         int flags,
+                                                         boolean showFuture) {
 
         CharSequence dateString = "";
 
         // in Future
-        if (time > System.currentTimeMillis()) {
+        if (!showFuture && time > System.currentTimeMillis()) {
             return DisplayUtils.unixTimeToHumanReadable(time);
         }
         // < 60 seconds -> seconds ago
-        else if ((System.currentTimeMillis() - time) < 60 * 1000 && minResolution == DateUtils.SECOND_IN_MILLIS) {
+        long diff = System.currentTimeMillis() - time;
+        if (diff > 0 && diff < 60 * 1000 && minResolution == DateUtils.SECOND_IN_MILLIS) {
             return c.getString(R.string.file_list_seconds_ago);
         } else {
             dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);

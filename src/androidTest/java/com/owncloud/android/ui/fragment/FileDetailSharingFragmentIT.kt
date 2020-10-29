@@ -21,11 +21,9 @@
  */
 package com.owncloud.android.ui.fragment
 
-import android.Manifest
 import android.widget.ImageView
 import androidx.appcompat.widget.PopupMenu
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.rule.GrantPermissionRule
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
@@ -50,9 +48,6 @@ import org.junit.Test
 class FileDetailSharingFragmentIT : AbstractIT() {
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
-
-    @get:Rule
-    val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
     lateinit var file: OCFile
     lateinit var folder: OCFile

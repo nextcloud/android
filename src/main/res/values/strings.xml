@@ -477,9 +477,8 @@
 
     <string name="share_group_clarification">%1$s (group)</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
-    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
-    <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
+    <string name="share_known_remote_on_clarification">on %1$s</string>
 
     <string name="share_privilege_unshare">Unshare</string>
 
@@ -936,4 +935,24 @@
     <string name="link_share_file_drop">File drop (upload only)</string>
     <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="failed_update_ui">Failed to update UI</string>
+    <string name="remote">(remote)</string>
+    <string name="set_status">Set status</string>
+    <string name="online_status">Online status</string>
+    <string name="status_message">Status message</string>
+    <string name="whats_your_status">What\'s your status?</string>
+    <string name="clear_status_message_after">Clear status message after</string>
+    <string name="clear_status_message">Clear status message</string>
+    <string name="set_status_message">Set status message</string>
+    <string name="online">Online</string>
+    <string name="dnd">Do not disturb</string>
+    <string name="away">Away</string>
+    <string name="invisible">Invisible</string>
+    <string translatable="false" name="divider">—</string>
+    <string translatable="false" name="default_emoji">😃</string>
+    <string name="dontClear">Don\'t clear</string>
+    <string name="today">Today</string>
+    <string name="thirtyMinutes">30 minutes</string>
+    <string name="oneHour">1 hour</string>
+    <string name="fourHours">4 hour</string>
+    <string name="thisWeek">This week</string>
 </resources>

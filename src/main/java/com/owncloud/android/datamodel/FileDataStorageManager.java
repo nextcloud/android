@@ -38,6 +38,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.nextcloud.client.account.User;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -2061,6 +2062,9 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.CAPABILITIES_DIRECT_EDITING_ETAG,
                           capability.getDirectEditingEtag());
         contentValues.put(ProviderTableMeta.CAPABILITIES_ETAG, capability.getEtag());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_USER_STATUS, capability.getUserStatus().getValue());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI,
+                          capability.getUserStatusSupportsEmoji().getValue());
 
         return contentValues;
     }
@@ -2098,6 +2102,11 @@ public class FileDataStorageManager {
         }
 
         return cursor;
+    }
+
+    @NonNull
+    public OCCapability getCapability(User user) {
+        return getCapability(user.getAccountName());
     }
 
     @NonNull
@@ -2192,6 +2201,9 @@ public class FileDataStorageManager {
                                                              ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_PRODUCT_NAME));
             capability.setDirectEditingEtag(getString(cursor, ProviderTableMeta.CAPABILITIES_DIRECT_EDITING_ETAG));
             capability.setEtag(getString(cursor, ProviderTableMeta.CAPABILITIES_ETAG));
+            capability.setUserStatus(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_USER_STATUS));
+            capability.setUserStatusSupportsEmoji(
+                getBoolean(cursor, ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI));
         }
         return capability;
     }
