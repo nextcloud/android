@@ -39,6 +39,7 @@ import androidx.annotation.Nullable;
 public class ArbitraryDataProvider {
     public static final String DIRECT_EDITING = "DIRECT_EDITING";
     public static final String DIRECT_EDITING_ETAG = "DIRECT_EDITING_ETAG";
+    public static final String PREDEFINED_STATUS = "PREDEFINED_STATUS";
 
     private static final String TAG = ArbitraryDataProvider.class.getSimpleName();
     private static final String TRUE = "true";

@@ -33,24 +33,38 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.lib.resources.users.Status
+import com.owncloud.android.ui.StatusDrawable
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.adapter.UserListAdapter
 import com.owncloud.android.ui.adapter.UserListItem
+import com.owncloud.android.ui.asynctasks.RetrieveStatusAsyncTask
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.ThemeUtils
 import kotlinx.android.synthetic.main.account_item.*
 import kotlinx.android.synthetic.main.dialog_choose_account.*
 import java.util.ArrayList
+import javax.inject.Inject
 
 private const val ARG_CURRENT_USER_PARAM = "currentUser"
 
-class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, UserListAdapter.ClickListener {
+class ChooseAccountDialogFragment : DialogFragment(),
+    AvatarGenerationListener,
+    UserListAdapter.ClickListener,
+    Injectable {
     private lateinit var dialogView: View
     private var currentUser: User? = null
     private lateinit var accountManager: UserAccountManager
+    private var currentStatus: Status? = null
+
+    @Inject
+    lateinit var clientFactory: ClientFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,6 +130,22 @@ class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, 
             manage_accounts.setOnClickListener {
                 (activity as DrawerActivity).openManageAccounts()
             }
+
+            set_status.setOnClickListener {
+                val setStatusDialog = SetStatusDialogFragment.newInstance(accountManager.user, currentStatus)
+                setStatusDialog.show((activity as DrawerActivity).supportFragmentManager, "fragment_set_status")
+
+                dismiss()
+            }
+
+            val capability = FileDataStorageManager(user.toPlatformAccount(), context?.contentResolver)
+                .getCapability(user)
+
+            if (capability.userStatus.isTrue) {
+                statusView.visibility = View.VISIBLE
+            }
+
+            RetrieveStatusAsyncTask(user, this, clientFactory).execute()
         }
     }
 
@@ -164,5 +194,24 @@ class ChooseAccountDialogFragment : DialogFragment(), AvatarGenerationListener, 
 
     override fun onOptionItemClicked(user: User?, view: View?) {
         // Un-needed for this context
+    }
+
+    fun setStatus(newStatus: Status) {
+        currentStatus = newStatus
+
+        val size = DisplayUtils.convertDpToPixel(9f, context)
+        ticker.background = null
+        ticker.setImageDrawable(StatusDrawable(newStatus, size.toFloat(), context))
+        ticker.visibility = View.VISIBLE
+
+        if (newStatus.message.isNullOrBlank()) {
+            status.text = ""
+            status.visibility = View.GONE
+        } else {
+            status.text = newStatus.message
+            status.visibility = View.VISIBLE
+        }
+
+        view?.invalidate()
     }
 }
