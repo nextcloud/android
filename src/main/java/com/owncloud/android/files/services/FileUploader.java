@@ -808,6 +808,7 @@ public class FileUploader extends Service
                 if (uploadResult.getCode().equals(ResultCode.SYNC_CONFLICT)) {
                     intent = ConflictsResolveActivity.createIntent(upload.getFile(),
                                                                    upload.getAccount(),
+                                                                   upload.getOCUploadId(),
                                                                    Intent.FLAG_ACTIVITY_CLEAR_TOP,
                                                                    this);
                 } else {
