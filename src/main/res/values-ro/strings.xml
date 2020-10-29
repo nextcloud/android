@@ -459,7 +459,6 @@
     <string name="share_privilege_unshare">Oprește partajarea</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversație)</string>
-    <string name="share_search">Nume, ID de cloud federalizat sau adresă de email…</string>
     <string name="share_send_note">Notă către destinatar</string>
     <string name="share_via_link_hide_download">Ascunde descărcarea</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ascunde listarea fișierelor</string>

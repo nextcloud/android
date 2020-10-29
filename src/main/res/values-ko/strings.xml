@@ -604,7 +604,6 @@
     <string name="share_privilege_unshare">공유 해제</string>
     <string name="share_remote_clarification">%1$s(원격)</string>
     <string name="share_room_clarification">%1$s (대화)</string>
-    <string name="share_search">이름, 연합 클라우드 ID 및 이메일 주소…</string>
     <string name="share_send_note">받는 사람 메모</string>
     <string name="share_via_link_hide_download">다운로드 숨기기</string>
     <string name="share_via_link_hide_file_listing_permission_label">파일 목록 숨김</string>
