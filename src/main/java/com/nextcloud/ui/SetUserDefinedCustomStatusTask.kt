@@ -27,11 +27,13 @@ import android.content.Context
 import com.owncloud.android.lib.common.OwnCloudClientFactory
 import com.owncloud.android.lib.resources.users.SetUserDefinedCustomStatusMessageRemoteOperation
 
-public class SetUserDefinedCustomStatusTask(val message: String,
-                                            val icon: String,
-                                            val clearAt: Long?,
-                                            val account: Account?,
-                                            val context: Context?) : Function0<Boolean> {
+public class SetUserDefinedCustomStatusTask(
+    val message: String,
+    val icon: String,
+    val clearAt: Long?,
+    val account: Account?,
+    val context: Context?
+) : Function0<Boolean> {
     override fun invoke(): Boolean {
         val client = OwnCloudClientFactory.createNextcloudClient(account, context)
 
