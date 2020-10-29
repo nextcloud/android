@@ -6,7 +6,7 @@ if [ -z $3 ] ; then
 fi
 
 export BRANCH=$(scripts/analysis/getBranchBase.sh $1 $2 $3 | sed s'/"//'g)
-if [ $(git diff --name-only origin/$BRANCH | grep -cE "^src|build.gradle") -eq 0 ] ; then
+if [ $(git diff --name-only origin/$BRANCH | grep -cE "^src|^screenshots|build.gradle") -eq 0 ] ; then
     echo "No source files changed"
     exit 1
 else
