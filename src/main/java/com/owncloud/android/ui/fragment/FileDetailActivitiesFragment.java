@@ -204,9 +204,9 @@ public class FileDetailActivitiesFragment extends Fragment implements
         };
 
         commentInput.getBackground().setColorFilter(
-                ThemeUtils.primaryAccentColor(getContext()),
-                PorterDuff.Mode.SRC_ATOP
-        );
+            ThemeUtils.primaryAccentColor(getContext()),
+            PorterDuff.Mode.SRC_ATOP
+                                                   );
 
         ThemeUtils.themeEditText(getContext(), commentInput, false);
 
@@ -365,10 +365,11 @@ public class FileDetailActivitiesFragment extends Fragment implements
                     if (restoreFileVersionSupported && versions != null) {
                         activitiesAndVersions.addAll(versions);
                     }
-
-                    activity.runOnUiThread(() -> {
-                        populateList(activitiesAndVersions, lastGiven == -1);
-                    });
+                    if (!activity.isFinishing()) {
+                        activity.runOnUiThread(() -> {
+                            populateList(activitiesAndVersions, lastGiven == -1);
+                        });
+                    }
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());
                     // show error
@@ -377,10 +378,12 @@ public class FileDetailActivitiesFragment extends Fragment implements
                         logMessage = noResultsMessage;
                     }
                     final String finalLogMessage = logMessage;
-                    activity.runOnUiThread(() -> {
-                        setErrorContent(finalLogMessage);
-                        isLoadingActivities = false;
-                    });
+                    if (!activity.isFinishing()) {
+                        activity.runOnUiThread(() -> {
+                            setErrorContent(finalLogMessage);
+                            isLoadingActivities = false;
+                        });
+                    }
                 }
 
                 hideRefreshLayoutLoader(activity);
@@ -408,6 +411,9 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     @VisibleForTesting
     public void populateList(List<Object> activities, boolean clear) {
+        if (swipeEmptyListRefreshLayout == null) {
+            return;
+        }
         adapter.setActivityAndVersionItems(activities, nextcloudClient, clear);
 
         if (adapter.getItemCount() == 0) {
