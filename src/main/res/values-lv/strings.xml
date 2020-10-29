@@ -426,7 +426,6 @@
     <string name="share_privilege_can_share">var koplietot</string>
     <string name="share_privilege_unshare">Pārtraukt dalīšanos</string>
     <string name="share_remote_clarification">%1$s (attālināti)</string>
-    <string name="share_search">Vārds, federated cloud ID vai e-pasta adrese…</string>
     <string name="share_via_link_hide_file_listing_permission_label">Paslēpt datņu sarakstu</string>
     <string name="share_via_link_menu_password_label">Aizsargāt ar paroli (%1$s)</string>
     <string name="share_via_link_section_title">Koplietot saiti</string>

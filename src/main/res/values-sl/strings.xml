@@ -606,7 +606,6 @@
     <string name="share_privilege_unshare">Prekini souporabo</string>
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
     <string name="share_room_clarification">%1$s (pogovor)</string>
-    <string name="share_search">Ime, ID zveznega oblaka ali elektronski naslov ...</string>
     <string name="share_send_note">Sporočilo za prejemnika</string>
     <string name="share_via_link_hide_download">Skrij prejem</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrij spisek datotek</string>

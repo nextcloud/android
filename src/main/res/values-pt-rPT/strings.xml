@@ -535,7 +535,6 @@
     <string name="share_privilege_unshare">Cancelar partilha</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversação)</string>
-    <string name="share_search">Nome, Id. da nuvem federada ou endereço de e-mail…</string>
     <string name="share_send_note">Nota para o destinatário</string>
     <string name="share_via_link_hide_download">Ocultar transferência</string>
     <string name="share_via_link_hide_file_listing_permission_label">Esconder listagem de ficheiros</string>
