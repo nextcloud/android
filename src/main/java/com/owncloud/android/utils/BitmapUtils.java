@@ -210,7 +210,7 @@ public final class BitmapUtils {
             try {
                 hash = md5(hash);
             } catch (NoSuchAlgorithmException e) {
-                int color = getResources().getColor(R.color.primary_dark);
+                int color = getResources().getColor(R.color.primary);
                 return new Color(android.graphics.Color.red(color),
                                  android.graphics.Color.green(color),
                                  android.graphics.Color.blue(color));
