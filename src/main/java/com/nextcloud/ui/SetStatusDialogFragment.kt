@@ -76,6 +76,10 @@ private const val POS_TODAY = 4
 private const val POS_END_OF_WEEK = 5
 
 private const val ONE_SECOND_IN_MILLIS = 1000
+private const val ONE_MINUTE_IN_SECONDS = 60
+private const val LAST_HOUR_OF_DAY = 23
+private const val LAST_MINUTE_OF_HOUR = 59
+private const val LAST_SECOND_OF_MINUTE = 59
 
 class SetStatusDialogFragment :
     DialogFragment(),
@@ -212,8 +216,6 @@ class SetStatusDialogFragment :
         }
     }
 
-    private val ONE_MINUTE_IN_SECONDS = 60
-
     private fun setClearStatusAfterValue(item: Int) {
         when (item) {
             POS_DONT_CLEAR -> {
@@ -242,9 +244,9 @@ class SetStatusDialogFragment :
             POS_TODAY -> {
                 // today
                 val date = Calendar.getInstance().apply {
-                    set(Calendar.HOUR_OF_DAY, 23)
-                    set(Calendar.MINUTE, 59)
-                    set(Calendar.SECOND, 59)
+                    set(Calendar.HOUR_OF_DAY, LAST_HOUR_OF_DAY)
+                    set(Calendar.MINUTE, LAST_MINUTE_OF_HOUR)
+                    set(Calendar.SECOND, LAST_SECOND_OF_MINUTE)
                 }
                 clearAt = date.timeInMillis / ONE_SECOND_IN_MILLIS
             }
@@ -252,9 +254,9 @@ class SetStatusDialogFragment :
             POS_END_OF_WEEK -> {
                 // end of week
                 val date = Calendar.getInstance().apply {
-                    set(Calendar.HOUR_OF_DAY, 23)
-                    set(Calendar.MINUTE, 59)
-                    set(Calendar.SECOND, 59)
+                    set(Calendar.HOUR_OF_DAY, LAST_HOUR_OF_DAY)
+                    set(Calendar.MINUTE, LAST_MINUTE_OF_HOUR)
+                    set(Calendar.SECOND, LAST_SECOND_OF_MINUTE)
                 }
 
                 while (date.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
@@ -273,9 +275,9 @@ class SetStatusDialogFragment :
             } else if (clearAt.type.equals("end-of")) {
                 if (clearAt.time.equals("day")) {
                     val date = Calendar.getInstance().apply {
-                        set(Calendar.HOUR_OF_DAY, 23)
-                        set(Calendar.MINUTE, 59)
-                        set(Calendar.SECOND, 59)
+                        set(Calendar.HOUR_OF_DAY, LAST_HOUR_OF_DAY)
+                        set(Calendar.MINUTE, LAST_MINUTE_OF_HOUR)
+                        set(Calendar.SECOND, LAST_SECOND_OF_MINUTE)
                     }
                     return date.timeInMillis / ONE_SECOND_IN_MILLIS
                 }

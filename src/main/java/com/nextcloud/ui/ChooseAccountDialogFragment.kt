@@ -54,6 +54,8 @@ import javax.inject.Inject
 
 private const val ARG_CURRENT_USER_PARAM = "currentUser"
 
+private const val STATUS_SIZE_IN_DP = 9f
+
 class ChooseAccountDialogFragment :
     DialogFragment(),
     AvatarGenerationListener,
@@ -196,8 +198,6 @@ class ChooseAccountDialogFragment :
     override fun onOptionItemClicked(user: User?, view: View?) {
         // Un-needed for this context
     }
-
-    private val STATUS_SIZE_IN_DP = 9f
 
     fun setStatus(newStatus: Status) {
         currentStatus = newStatus
