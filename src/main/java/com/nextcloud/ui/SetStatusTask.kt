@@ -28,9 +28,11 @@ import com.owncloud.android.lib.common.OwnCloudClientFactory
 import com.owncloud.android.lib.resources.users.SetStatusRemoteOperation
 import com.owncloud.android.lib.resources.users.StatusType
 
-class SetStatusTask(val statusType: StatusType,
-                    val account: Account?,
-                    val context: Context?) : Function0<Boolean> {
+class SetStatusTask(
+    val statusType: StatusType,
+    val account: Account?,
+    val context: Context?
+) : Function0<Boolean> {
     override fun invoke(): Boolean {
         val client = OwnCloudClientFactory.createNextcloudClient(account, context)
 
