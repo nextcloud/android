@@ -21,6 +21,7 @@
  */
 package com.owncloud.android.ui.preview
 
+import androidx.lifecycle.Lifecycle
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
@@ -43,7 +44,9 @@ class PreviewImageFragmentIT : AbstractIT() {
 
         activity.addFragment(sut)
 
-        shortSleep()
+        while (!sut.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            shortSleep()
+        }
 
         screenshot(activity)
     }
@@ -60,7 +63,9 @@ class PreviewImageFragmentIT : AbstractIT() {
 
         activity.addFragment(sut)
 
-        shortSleep()
+        while (!sut.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            shortSleep()
+        }
 
         screenshot(activity)
     }
