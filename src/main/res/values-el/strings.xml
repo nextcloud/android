@@ -606,7 +606,6 @@
     <string name="share_privilege_unshare">Αναίρεση διαμοιρασμού</string>
     <string name="share_remote_clarification">%1$s (απομακρυσμένα)</string>
     <string name="share_room_clarification">%1$s (συνομιλιία)</string>
-    <string name="share_search">Όνομα, federated cloud ID ή διεύθυνση ηλεκτροικού ταχυδρομείου…</string>
     <string name="share_send_note">Σημείωση στον παραλήπτη</string>
     <string name="share_via_link_hide_download">Απόκρυψη λήψης</string>
     <string name="share_via_link_hide_file_listing_permission_label">Απόκρυψη λίστας αρχείου</string>

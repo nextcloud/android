@@ -608,7 +608,6 @@ Attention la suppression est irréversible.</string>
     <string name="share_privilege_unshare">Cesser le partage</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
-    <string name="share_search">Nom, ID du cloud fédéré ou adresse mail…</string>
     <string name="share_send_note">Note au destinataire</string>
     <string name="share_via_link_hide_download">Masquer le téléchargement</string>
     <string name="share_via_link_hide_file_listing_permission_label">Masquer la liste des fichiers</string>
