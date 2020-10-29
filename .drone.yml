@@ -5,7 +5,7 @@ name: tests-stable
 
 steps:
   - name: gplay
-    image: nextcloudci/android:android-49
+    image: nextcloudci/android8:android-60
     privileged: true
     environment:
       LOG_USERNAME:
@@ -18,7 +18,7 @@ steps:
         from_secret: GIT_TOKEN
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - emulator-headless -avd android-27 -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
+      - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
       - sed -i s"#server#server#" gradle.properties
       - sed -i s"#1#5#" ./src/androidTest/java/com/nextcloud/client/RetryTestRule.kt
@@ -87,7 +87,7 @@ name: tests-master
 
 steps:
   - name: gplay
-    image: nextcloudci/android:android-49
+    image: nextcloudci/android8:android-60
     privileged: true
     environment:
       LOG_USERNAME:
@@ -100,7 +100,7 @@ steps:
         from_secret: GIT_TOKEN
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - emulator-headless -avd android-27 -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
+      - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
       - sed -i s"#1#5#" ./src/androidTest/java/com/nextcloud/client/RetryTestRule.kt
       - ./gradlew assembleGplay
@@ -171,7 +171,7 @@ name: analysis
 
 steps:
   - name: analysis
-    image: nextcloudci/android:android-49
+    image: nextcloudci/android8:android-60
     environment:
       GIT_USERNAME:
         from_secret: GIT_USERNAME
