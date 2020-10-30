@@ -18,4 +18,6 @@ jobs:
                     GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
                     GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
                 run: |
+                    mkdir -p $HOME/.gradle
+                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
                     scripts/analysis/analysis-wrapper.sh $GIT_USERNAME $GIT_TOKEN "master" $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER $DRONE_PULL_REQUEST
