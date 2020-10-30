@@ -347,6 +347,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Build.MANUFACTURER.substring(1).toLowerCase(Locale.getDefault()) + " " + Build.MODEL + " (Android)";
     }
 
+    @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT")
     @SuppressLint("SetJavaScriptEnabled")
     private void initWebViewLogin(String baseURL, boolean useGenericUserAgent) {
         mLoginWebView.setVisibility(View.GONE);
