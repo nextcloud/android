@@ -354,6 +354,7 @@
     <string name="instant_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">URL e pavlefshme</string>
+    <string name="invisible">I padukshëm</string>
     <string name="link">Link</string>
     <string name="link_share_allow_upload_and_editing">Lejo ngarkim dhe editim</string>
     <string name="link_share_file_drop">Lësho skedar (vetëm ngarkim)</string>
@@ -430,6 +431,7 @@
     <string name="notifications_no_results_headline">Asnjë njofim</string>
     <string name="notifications_no_results_message">Ju lutemi kontrolloni përsëri më vonë.</string>
     <string name="offline_mode">Asnjë lidhje interneti</string>
+    <string name="oneHour">1 orë</string>
     <string name="outdated_server">Serveri ka arritur fundin e jetës, ju lutemi përmirësojeni!</string>
     <string name="overflow_menu">Më shumë menu</string>
     <string name="pass_code_configure_your_pass_code">Jepni kodkalimin tuaj</string>
@@ -662,10 +664,13 @@
     <string name="synced_icon">i sinkronizuar</string>
     <string name="tags">Etiketë</string>
     <string name="test_server_button">Testo lidhjen e serverit</string>
+    <string name="thirtyMinutes">30 minutes</string>
+    <string name="thisWeek">Këtë javë</string>
     <string name="thumbnail">Thumbnail</string>
     <string name="thumbnail_for_existing_file_description">Pamje e vogël për skedarin ekzistues</string>
     <string name="thumbnail_for_new_file_desc">Pamje e vogël për skedarin e ri</string>
     <string name="timeout_richDocuments">Ngarkimi merr shumë të gjatë ...</string>
+    <string name="today">Sot</string>
     <string name="trashbin_activity_title">Skedar të fshirë</string>
     <string name="trashbin_empty_headline">Pa kartela të fshira</string>
     <string name="trashbin_file_not_deleted">Skeda %1$snuk mund të fshihej!</string>

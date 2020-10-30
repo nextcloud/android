@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Uitschakelen stroombesparingscontrole</string>
     <string name="autoupload_hide_folder">Verberg map</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Afwezig</string>
     <string name="battery_optimization_close">Sluiten</string>
     <string name="battery_optimization_disable">Uitschakelen</string>
     <string name="battery_optimization_message">Op je toestel kan batterij optimalisatie ingeschakeld zijn. AutoUpload werkt alleen als je dat voor deze app uitschakelt.</string>
@@ -191,6 +192,7 @@
     <string name="disable_new_media_folder_detection_notifications">Uitschakelen</string>
     <string name="dismiss">Weigeren</string>
     <string name="dismiss_notification_description">Handel melding af</string>
+    <string name="dnd">Niet storen</string>
     <string name="download_latest_dev_version">Downloaden laatste dev versie</string>
     <string name="downloader_download_failed_content">Kon %1$s niet downloaden</string>
     <string name="downloader_download_failed_credentials_error">Downloaden mislukt, je moet opnieuw inloggen</string>
@@ -373,6 +375,7 @@
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Ongeldige URL</string>
+    <string name="invisible">Verborgen</string>
     <string name="label_empty">Label mag niet leeg zijn</string>
     <string name="link">Link</string>
     <string name="link_share_allow_upload_and_editing">Uploaden en bewerken toestaan</string>
@@ -456,6 +459,8 @@
     <string name="notifications_no_results_headline">Geen meldingen</string>
     <string name="notifications_no_results_message">Controleer later opnieuw.</string>
     <string name="offline_mode">Geen internet verbinding</string>
+    <string name="oneHour">1 uur</string>
+    <string name="online">Online</string>
     <string name="outdated_server">Deze server is verouderd, graag upgraden!</string>
     <string name="overflow_menu">Meer menu</string>
     <string name="pass_code_configure_your_pass_code">Toegangscode invoeren</string>
@@ -575,6 +580,7 @@
     <string name="sendbutton_description">Verstuur-knop pictogram</string>
     <string name="set_as">Stel in als</string>
     <string name="set_picture_as">Gebruik afbeelding als</string>
+    <string name="set_status">Instellen status</string>
     <string name="share">Delen</string>
     <string name="share_dialog_title">Delen</string>
     <string name="share_email_clarification">%1$s (email)</string>
@@ -651,6 +657,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Het servercertificaat wordt niet vertrouwd</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Het servercertificaat is nog niet geldig</string>
     <string name="ssl_validator_reason_hostname_not_verified">- De URL komt niet overeen met de hostname in het certificaat</string>
+    <string name="status_message">Statusbericht</string>
     <string name="storage_camera">Camera</string>
     <string name="storage_choose_location">Kies een opslaglocatie</string>
     <string name="storage_description_default">Standaard</string>
@@ -698,10 +705,13 @@
     <string name="synced_icon">gesynchroniseerd</string>
     <string name="tags">Labels</string>
     <string name="test_server_button">Test server verbinding</string>
+    <string name="thirtyMinutes">30 minuten</string>
+    <string name="thisWeek">Deze week</string>
     <string name="thumbnail">Miniatuurweergave</string>
     <string name="thumbnail_for_existing_file_description">Miniatuurafbeelding van bestaande bestand</string>
     <string name="thumbnail_for_new_file_desc">Miniatuurafbeelding voor nieuw bestand</string>
     <string name="timeout_richDocuments">Het laden duurt erg lang...</string>
+    <string name="today">Vandaag</string>
     <string name="trashbin_activity_title">Verwijderde bestanden</string>
     <string name="trashbin_empty_headline">Geen verwijderde bestanden</string>
     <string name="trashbin_empty_message">Van hieruit kun je verwijderde bestanden terugzetten.</string>
@@ -812,6 +822,7 @@
     <string name="what_s_new_image">Wat is nieuw afbeelding</string>
     <string name="whats_new_skip">Overslaan</string>
     <string name="whats_new_title">Nieuw in %1$s</string>
+    <string name="whats_your_status">Wat is je status?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kon bestand %1$dniet synchroniseren (conflicten: %2$d)</item>
         <item quantity="other">Kon bestand %1$d niet synchroniseren (conflicten: %2$d)</item>

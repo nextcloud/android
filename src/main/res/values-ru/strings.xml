@@ -373,6 +373,7 @@
     <string name="instant_upload_on_charging">Необходимо подключение внешнего питания</string>
     <string name="instant_upload_path">/Автозагрузка</string>
     <string name="invalid_url">Неверный адрес</string>
+    <string name="invisible">Невидимая</string>
     <string name="label_empty">Метка не может быть пустой</string>
     <string name="link">Ссылка</string>
     <string name="link_share_allow_upload_and_editing">Разрешить приём и редактирование</string>
@@ -456,6 +457,7 @@
     <string name="notifications_no_results_headline">Уведомлений нет</string>
     <string name="notifications_no_results_message">Проверьте позже.</string>
     <string name="offline_mode">Отсутствует подключение к Интернет</string>
+    <string name="oneHour">1 час</string>
     <string name="outdated_server">Версия сервера Nextcloud  более не поддерживается, требуется её обновление.</string>
     <string name="overflow_menu">Дополнительное меню</string>
     <string name="pass_code_configure_your_pass_code">Введите код</string>
@@ -650,6 +652,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Срок действия сертификата сервера ещё не начался</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL не совпадает с именем сервера в сертификате</string>
+    <string name="status_message">Сообщение о состоянии</string>
     <string name="storage_camera">Камера</string>
     <string name="storage_choose_location">Выбрать расположение хранилища</string>
     <string name="storage_description_default">По умолчанию</string>
@@ -697,10 +700,13 @@
     <string name="synced_icon">Синхронизировано</string>
     <string name="tags">Метки</string>
     <string name="test_server_button">Проверить соединение с сервером</string>
+    <string name="thirtyMinutes">30 минут</string>
+    <string name="thisWeek">Эта неделя</string>
     <string name="thumbnail">Миниатюра</string>
     <string name="thumbnail_for_existing_file_description">Миниатюра существующего файла</string>
     <string name="thumbnail_for_new_file_desc">Миниатюра нового файла</string>
     <string name="timeout_richDocuments">Загрузка выполняется очень долго…</string>
+    <string name="today">Сегодня</string>
     <string name="trashbin_activity_title">Удалённые файлы</string>
     <string name="trashbin_empty_headline">Нет удалённых файлов</string>
     <string name="trashbin_empty_message">Отсюда могут быть восстановлены удалённые файлы.</string>

@@ -287,6 +287,7 @@
     <string name="hint_password">Parole</string>
     <string name="instant_upload_on_charging">Augšupielādēt tikai uzlādes laikā</string>
     <string name="instant_upload_path">/TūlītējaAugšupielāde</string>
+    <string name="invisible">Neredzama</string>
     <string name="link">Saite</string>
     <string name="link_share_allow_upload_and_editing">Atļaut augšupielādi un rediģēšanu</string>
     <string name="link_share_file_drop">Datņu mešana (tikai augšupielādei)</string>
@@ -334,6 +335,7 @@
     <string name="notifications_loading_activity">Ielādē paziņojumus…</string>
     <string name="notifications_no_results_headline">Nav paziņojumu</string>
     <string name="offline_mode">Nav interneta savienojuma</string>
+    <string name="oneHour">1 stunda</string>
     <string name="pass_code_configure_your_pass_code">Ievadiet piekļuves kodu</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kods tiks pieprasīts katru reizi kad atvērsiet lietotni</string>
     <string name="pass_code_enter_pass_code">Lūdzu, ievadiet piekļuves kodu</string>
@@ -467,6 +469,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Nav uzticības servera sertifikātam</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Servera sertifikāta datumi ir nākotnē</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL sertifikātā neatbilst datora nosaukumam</string>
+    <string name="status_message">Statusa ziņojums</string>
     <string name="storage_description_default">Noklusējuma</string>
     <string name="storage_downloads">Lejupielādes</string>
     <string name="subject_shared_with_you">\"%1$s\" ir bijis kopīgots ar jums</string>
@@ -486,6 +489,9 @@
     <string name="synced_folders_preferences_folder_path">Priekš %1$s</string>
     <string name="synced_folders_type">Tips</string>
     <string name="tags">Birkas</string>
+    <string name="thirtyMinutes">30 minūtes</string>
+    <string name="thisWeek">Šonedēļ</string>
+    <string name="today">Šodien</string>
     <string name="trashbin_activity_title">Dzēstās datnes</string>
     <string name="trashbin_empty_headline">Nav dzēstu datņu</string>
     <string name="trashbin_loading_failed">Kļūda ielādējot miskasti!</string>
