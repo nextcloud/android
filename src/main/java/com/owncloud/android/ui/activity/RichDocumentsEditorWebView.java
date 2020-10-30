@@ -65,6 +65,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Opens document for editing via Richdocuments app in a web view
@@ -90,6 +91,7 @@ public class RichDocumentsEditorWebView extends EditorWebView {
     @Inject
     protected ClientFactory clientFactory;
 
+    @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT_INTERFACE")
     @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used >= Lollipop
     @Override
     protected void onCreate(Bundle savedInstanceState) {
