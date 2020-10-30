@@ -77,6 +77,8 @@ private const val POS_END_OF_WEEK = 5
 
 private const val ONE_SECOND_IN_MILLIS = 1000
 private const val ONE_MINUTE_IN_SECONDS = 60
+private const val THIRTY_MINUTES = 30
+private const val FOUR_HOURS = 4
 private const val LAST_HOUR_OF_DAY = 23
 private const val LAST_MINUTE_OF_HOUR = 59
 private const val LAST_SECOND_OF_MINUTE = 59
@@ -225,7 +227,7 @@ class SetStatusDialogFragment :
 
             POS_HALF_AN_HOUR -> {
                 // 30 minutes
-                clearAt = System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + 30 * ONE_MINUTE_IN_SECONDS
+                clearAt = System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + THIRTY_MINUTES * ONE_MINUTE_IN_SECONDS
             }
 
             POS_AN_HOUR -> {
@@ -238,7 +240,7 @@ class SetStatusDialogFragment :
                 // four hours
                 clearAt =
                     System.currentTimeMillis() / ONE_SECOND_IN_MILLIS
-                +4 * ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
+                +FOUR_HOURS * ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
             }
 
             POS_TODAY -> {
@@ -268,6 +270,7 @@ class SetStatusDialogFragment :
         }
     }
 
+    @Suppress("ReturnCount")
     private fun clearAtToUnixTime(clearAt: ClearAt?): Long {
         if (clearAt != null) {
             if (clearAt.type.equals("period")) {
@@ -415,16 +418,16 @@ class SetStatusDialogFragment :
             val clearAt = predefinedStatus.clearAt!!
             if (clearAt.type.equals("period")) {
                 when (clearAt.time) {
-                    "1800" -> clearStatusAfterSpinner.setSelection(1)
-                    "3600" -> clearStatusAfterSpinner.setSelection(2)
-                    "14400" -> clearStatusAfterSpinner.setSelection(3)
-                    else -> clearStatusAfterSpinner.setSelection(0)
+                    "1800" -> clearStatusAfterSpinner.setSelection(POS_HALF_AN_HOUR)
+                    "3600" -> clearStatusAfterSpinner.setSelection(POS_AN_HOUR)
+                    "14400" -> clearStatusAfterSpinner.setSelection(POS_FOUR_HOURS)
+                    else -> clearStatusAfterSpinner.setSelection(POS_DONT_CLEAR)
                 }
             } else if (clearAt.type.equals("end-of")) {
                 when (clearAt.time) {
-                    "day" -> clearStatusAfterSpinner.setSelection(4)
-                    "week" -> clearStatusAfterSpinner.setSelection(5)
-                    else -> clearStatusAfterSpinner.setSelection(0)
+                    "day" -> clearStatusAfterSpinner.setSelection(POS_TODAY)
+                    "week" -> clearStatusAfterSpinner.setSelection(POS_END_OF_WEEK)
+                    else -> clearStatusAfterSpinner.setSelection(POS_DONT_CLEAR)
                 }
             }
         }
