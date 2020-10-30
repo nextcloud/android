@@ -7,7 +7,7 @@ on:
         branches: [ master ]
 
 jobs:
-    ktlint:
+    analysis:
         runs-on: ubuntu-latest
 
         steps:
@@ -17,7 +17,10 @@ jobs:
                 with:
                     java-version: 1.8
             -   name: Run analysis
+                shell: bash
+                env:
+                    GIT_USERNAME: ${{ secrets.GITUSERNAME }}
                 run: |
-                    scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
+                    scripts/checkIfRunDrone.sh "$GIT_USERNAME" $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
                     export BRANCH=$(scripts/analysis/getBranchName.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST)
                     scripts/analysis/analysis-wrapper.sh $GIT_USERNAME $GIT_TOKEN $BRANCH $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER $DRONE_PULL_REQUEST
