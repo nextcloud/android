@@ -19,8 +19,7 @@ jobs:
             -   name: Run analysis
                 shell: bash
                 env:
-                    GIT_USERNAME: ${{ secrets.GITUSERNAME }}
+                    GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+                    GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
                 run: |
-                    scripts/checkIfRunDrone.sh "$GIT_USERNAME" $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-                    export BRANCH=$(scripts/analysis/getBranchName.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST)
-                    scripts/analysis/analysis-wrapper.sh $GIT_USERNAME $GIT_TOKEN $BRANCH $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER $DRONE_PULL_REQUEST
+                    scripts/analysis/analysis-wrapper.sh $GIT_USERNAME $GIT_TOKEN "master" $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER $DRONE_PULL_REQUEST
