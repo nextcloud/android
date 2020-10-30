@@ -37,6 +37,7 @@ import java.io.InputStream
 /**
  * Fetcher with OwnCloudClient
  */
+@Suppress("TooGenericExceptionCaught")
 class HttpStreamFetcher internal constructor(
     private val currentAccount: CurrentAccountProvider,
     private val clientFactory: ClientFactory,
