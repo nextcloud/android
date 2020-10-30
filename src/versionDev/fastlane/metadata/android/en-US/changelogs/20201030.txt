@@ -1,0 +1,26 @@
+Spotbugs
+fix lint
+wip
+optimize status dialog layout, add status active visual
+set texts and move to view binding
+emoji
+improved layouting
+wip
+wip
+wip
+wip
+wip
+wip
+wip
+proper comment formatting
+improve detekt score
+remove var prefixes
+proper kotlin enum naming pattern
+user proper license header format
+Remove unneeded empty lines
+Add status to sharee
+Add dark screenshots
+Upload are deleted after decision was made in conflict activity
+HttpStreamFetcher: - copy stream - close connection
+use custom SSO value for authTokenType -> to detect if account is added by SSO
+Update translations
