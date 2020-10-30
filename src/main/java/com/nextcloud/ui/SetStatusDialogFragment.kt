@@ -217,7 +217,7 @@ class SetStatusDialogFragment :
             }
         }
 
-        clearStatus.setTextColor(ThemeUtils.primaryColor(context, true));
+        clearStatus.setTextColor(ThemeUtils.primaryColor(context, true))
         ThemeUtils.colorPrimaryButton(setStatus, context)
     }
 
