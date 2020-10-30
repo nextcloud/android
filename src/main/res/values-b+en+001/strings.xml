@@ -371,6 +371,7 @@
     <string name="instant_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Invalid URL</string>
+    <string name="invisible">Invisible</string>
     <string name="label_empty">Label cannot be empty</string>
     <string name="link">Link</string>
     <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
@@ -454,6 +455,7 @@
     <string name="notifications_no_results_headline">No notifications</string>
     <string name="notifications_no_results_message">Please check back later.</string>
     <string name="offline_mode">No internet connection</string>
+    <string name="oneHour">1 hour</string>
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="overflow_menu">More menu</string>
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
@@ -648,6 +650,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- The server certificate valid dates are in the future</string>
     <string name="ssl_validator_reason_hostname_not_verified">- The URL does not match the hostname in the certificate</string>
+    <string name="status_message">Status message</string>
     <string name="storage_camera">Camera</string>
     <string name="storage_choose_location">Choose storage location</string>
     <string name="storage_description_default">Default</string>
@@ -695,10 +698,13 @@
     <string name="synced_icon">Synced</string>
     <string name="tags">Tags</string>
     <string name="test_server_button">Test server connection</string>
+    <string name="thirtyMinutes">30 minutes</string>
+    <string name="thisWeek">This week</string>
     <string name="thumbnail">Thumbnail</string>
     <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
     <string name="thumbnail_for_new_file_desc">Thumbnail for new file</string>
     <string name="timeout_richDocuments">Loading takes very long…</string>
+    <string name="today">Today</string>
     <string name="trashbin_activity_title">Deleted files</string>
     <string name="trashbin_empty_headline">No deleted files</string>
     <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>
