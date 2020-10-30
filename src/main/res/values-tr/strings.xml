@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Güç koruma denetimini devre dışı bırak</string>
     <string name="autoupload_hide_folder">Klasörü gizle</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Uzakta</string>
     <string name="battery_optimization_close">Kapat</string>
     <string name="battery_optimization_disable">Devre dışı bırak</string>
     <string name="battery_optimization_message">Aygıtınızda pil kullanımı iyileştirmesi kullanılıyor olabilir. Otomatik yükleme yalnız bu uygulamayı pil kullanımı iyileştirmesinin dışında tuttuğunuzda düzgün çalışır.</string>
@@ -90,6 +91,8 @@
     <string name="choose_local_folder">Yerel klasörü seçin …</string>
     <string name="choose_remote_folder">Uzak klasörü seçin …</string>
     <string name="clear_notifications_failed">Bildirimler temizlenemedi.</string>
+    <string name="clear_status_message">Durum iletisini temizle</string>
+    <string name="clear_status_message_after">Durum iletisi şu süre sonunda kaldırılsın</string>
     <string name="clipboard_label">Metin %1$s kaynağından kopyalandı</string>
     <string name="clipboard_no_text_to_copy">Panoya kopyalanacak bir metin alınamadı</string>
     <string name="clipboard_text_copied">Bağlantı kopyalandı</string>
@@ -192,6 +195,8 @@
     <string name="disable_new_media_folder_detection_notifications">Devre Dışı Bırak</string>
     <string name="dismiss">Yok say</string>
     <string name="dismiss_notification_description">Bildirimi yok say</string>
+    <string name="dnd">Rahatsız etmeyin</string>
+    <string name="dontClear">Kaldırılmasın</string>
     <string name="download_latest_dev_version">Son geliştirici sürümünü indirin</string>
     <string name="downloader_download_failed_content">%1$s indirmesi tamamlanamadı</string>
     <string name="downloader_download_failed_credentials_error">İndirilemedi, yeniden oturum açmalısınız</string>
@@ -375,6 +380,7 @@
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
     <string name="invalid_url">Adres Geçersiz</string>
+    <string name="invisible">Görünmez</string>
     <string name="label_empty">Etiket boş olamaz</string>
     <string name="link">Bağlantı</string>
     <string name="link_share_allow_upload_and_editing">Yüklenebilsin ve düzenlenebilsin</string>
@@ -458,6 +464,9 @@
     <string name="notifications_no_results_headline">Herhangi bir bildirim yok</string>
     <string name="notifications_no_results_message">Daha sonra yeniden bakın.</string>
     <string name="offline_mode">İnternet bağlantısı yok</string>
+    <string name="oneHour">1 saat</string>
+    <string name="online">Çevrimiçi</string>
+    <string name="online_status">Çevrimiçi durumu</string>
     <string name="outdated_server">Sunucu ömrünün sonuna geldi, lütfen sürümünü yükseltin!</string>
     <string name="overflow_menu">Diğerleri menüsü</string>
     <string name="pass_code_configure_your_pass_code">Parolanızı yazın</string>
@@ -578,6 +587,8 @@
     <string name="sendbutton_description">Gönderme düğmesi simgesi</string>
     <string name="set_as">Farklı Ayarla</string>
     <string name="set_picture_as">Görseli farklı kullan</string>
+    <string name="set_status">Durumu ayarla</string>
+    <string name="set_status_message">Durum iletisini ayarla</string>
     <string name="share">Paylaş</string>
     <string name="share_dialog_title">Paylaşım</string>
     <string name="share_email_clarification">%1$s (E-posta)</string>
@@ -654,6 +665,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikasına güvenilmiyor</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Sunucu sertifikasının geçerlilik tarihi gelecekte</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Adres, sertifikadaki sunucu adı ile eşleşmiyor</string>
+    <string name="status_message">Durum iletisi</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Depolama konumunu seçin</string>
     <string name="storage_description_default">Varsayılan</string>
@@ -701,10 +713,13 @@
     <string name="synced_icon">Eşitle</string>
     <string name="tags">Etiketler</string>
     <string name="test_server_button">Sunucu bağlantısını sına</string>
+    <string name="thirtyMinutes">30 dakika</string>
+    <string name="thisWeek">Bu hafta</string>
     <string name="thumbnail">Küçük görsel</string>
     <string name="thumbnail_for_existing_file_description">Var olan dosyanın küçük görseli</string>
     <string name="thumbnail_for_new_file_desc">Yeni dosyanın küçük görseli</string>
     <string name="timeout_richDocuments">Yükleme işlemi çok zaman alıyor …</string>
+    <string name="today">Bugün</string>
     <string name="trashbin_activity_title">Silinmiş dosyalar</string>
     <string name="trashbin_empty_headline">Silinmiş bir dosya yok</string>
     <string name="trashbin_empty_message">Silinmiş dosyalarınızı buradan geri yükleyebilirsiniz.</string>
@@ -815,6 +830,7 @@
     <string name="what_s_new_image">Yenilikler görseli</string>
     <string name="whats_new_skip">Atla</string>
     <string name="whats_new_title">%1$s yenilikleri</string>
+    <string name="whats_your_status">Durumunuz nedir?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">%1$d dosya eşitlenemedi (çakışma: %2$d)</item>
         <item quantity="other">%1$d dosya eşitlenemedi (çakışma: %2$d)</item>
