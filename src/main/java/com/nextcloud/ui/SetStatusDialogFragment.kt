@@ -216,6 +216,9 @@ class SetStatusDialogFragment :
                 }
             }
         }
+
+        clearStatus.setTextColor(ThemeUtils.primaryColor(context, true))
+        ThemeUtils.colorPrimaryButton(setStatus, context)
     }
 
     private fun setClearStatusAfterValue(item: Int) {
