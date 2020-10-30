@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Désactiver l\'économie de batterie</string>
     <string name="autoupload_hide_folder">Masquer le dossier</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Absent</string>
     <string name="battery_optimization_close">Fermer</string>
     <string name="battery_optimization_disable">Désactiver</string>
     <string name="battery_optimization_message">L\'optimisation de la batterie est peut-être active sur votre appareil.  Le téléversement automatique ne fonctionne correctement que si vous excluez cette application de l\'optimisation.</string>
@@ -90,6 +91,8 @@
     <string name="choose_local_folder">Sélectionner le dossier local…</string>
     <string name="choose_remote_folder">Sélectionner le dossier distant…</string>
     <string name="clear_notifications_failed">Erreur lors de l\'effacement des notifications.</string>
+    <string name="clear_status_message">Effacer le message d\'état</string>
+    <string name="clear_status_message_after">Effacer le message d\'états après</string>
     <string name="clipboard_label">Texte copié depuis %1$s</string>
     <string name="clipboard_no_text_to_copy">Aucun texte n\'a été reçu pour copier dans le presse-papier</string>
     <string name="clipboard_text_copied">Lien copié</string>
@@ -194,6 +197,8 @@ Attention la suppression est irréversible.</string>
     <string name="disable_new_media_folder_detection_notifications">Désactiver</string>
     <string name="dismiss">Ignorer</string>
     <string name="dismiss_notification_description">Ignorer la notification</string>
+    <string name="dnd">Ne pas déranger</string>
+    <string name="dontClear">Ne pas effacer</string>
     <string name="download_latest_dev_version">Télécharger la dernière version de développement</string>
     <string name="downloader_download_failed_content">Impossible de télécharger %1$s</string>
     <string name="downloader_download_failed_credentials_error">Téléchargement échoué, reconnectez-vous</string>
@@ -377,6 +382,7 @@ Attention la suppression est irréversible.</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">URL invalide</string>
+    <string name="invisible">Invisible</string>
     <string name="label_empty">Le libellé ne peut pas être vide</string>
     <string name="link">Lien</string>
     <string name="link_share_allow_upload_and_editing">Autoriser l’envoi et la modification</string>
@@ -460,6 +466,9 @@ Attention la suppression est irréversible.</string>
     <string name="notifications_no_results_headline">Aucune notification</string>
     <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
     <string name="offline_mode">Aucune connexion Internet</string>
+    <string name="oneHour">1 heure</string>
+    <string name="online">En ligne</string>
+    <string name="online_status">Statut en ligne</string>
     <string name="outdated_server">Le serveur est obsolète, veuillez mettre à jour!</string>
     <string name="overflow_menu">Plus de menu</string>
     <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>
@@ -580,6 +589,8 @@ Attention la suppression est irréversible.</string>
     <string name="sendbutton_description">Icône du bouton d\'envoi</string>
     <string name="set_as">Utiliser comme</string>
     <string name="set_picture_as">Utiliser l\'image comme</string>
+    <string name="set_status">Définir le statut</string>
+    <string name="set_status_message">Message d\'état</string>
     <string name="share">Partager</string>
     <string name="share_dialog_title">Partage</string>
     <string name="share_email_clarification">%1$s (courriel)</string>
@@ -656,6 +667,7 @@ Attention la suppression est irréversible.</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Le certificat du serveur n\'est pas sûr</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Le certificat du serveur n\'est pas encore valide</string>
     <string name="ssl_validator_reason_hostname_not_verified">- L\'URL ne correspond pas au nom d\'hôte du certificat</string>
+    <string name="status_message">Message d\'état</string>
     <string name="storage_camera">Appareil photo</string>
     <string name="storage_choose_location">Sélectionnez l\'emplacement de stockage</string>
     <string name="storage_description_default">Défaut</string>
@@ -703,10 +715,13 @@ Attention la suppression est irréversible.</string>
     <string name="synced_icon">Synchronisé</string>
     <string name="tags">Étiquettes</string>
     <string name="test_server_button">Tester la connexion du serveur</string>
+    <string name="thirtyMinutes">30 minutes</string>
+    <string name="thisWeek">Cette semaine</string>
     <string name="thumbnail">Miniature</string>
     <string name="thumbnail_for_existing_file_description">Vignette pour fichier existant</string>
     <string name="thumbnail_for_new_file_desc">Vignette pour nouveau fichier</string>
     <string name="timeout_richDocuments">Le chargement est très long ...</string>
+    <string name="today">Aujourd\'hui</string>
     <string name="trashbin_activity_title">Fichiers supprimés</string>
     <string name="trashbin_empty_headline">Aucun fichier supprimé</string>
     <string name="trashbin_empty_message">Les fichiers supprimés s\'afficheront ici et vous pourrez les restaurer.</string>
@@ -817,6 +832,7 @@ Attention la suppression est irréversible.</string>
     <string name="what_s_new_image">Image quoi de neuf</string>
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
+    <string name="whats_your_status">Quel est votre statut ?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossible de synchroniser %1$d fichier (conflits : %2$d)</item>
         <item quantity="other">Impossible de synchroniser %1$d fichiers (conflits : %2$d)</item>

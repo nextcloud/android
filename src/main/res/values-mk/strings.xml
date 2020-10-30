@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Оневозможи проверка за заштеда на енергија</string>
     <string name="autoupload_hide_folder">Сокриј папка</string>
     <string name="avatar">Аватар</string>
+    <string name="away">Далеку</string>
     <string name="battery_optimization_close">Затвори</string>
     <string name="battery_optimization_disable">Оневозможи</string>
     <string name="battery_optimization_message">Вашиот уред може да има овозможено оптимизација на батеријата. Автоматското прикачување работи само ако соодветно ја исклучите оваа апликација од оптимизацијата на батеријата.</string>
@@ -90,6 +91,8 @@
     <string name="choose_local_folder">Избери локална папка…</string>
     <string name="choose_remote_folder">Избери папка на серверот…</string>
     <string name="clear_notifications_failed">Неуспешно чистење на нотификациите.</string>
+    <string name="clear_status_message">Тргни ја статус пораката</string>
+    <string name="clear_status_message_after">Тргни го статусот после</string>
     <string name="clipboard_label">Текст копиран од %1$s</string>
     <string name="clipboard_no_text_to_copy">Нема текст за да се копира во клипборд</string>
     <string name="clipboard_text_copied">Линкот е копиран</string>
@@ -190,6 +193,8 @@
     <string name="disable_new_media_folder_detection_notifications">Оневозможи</string>
     <string name="dismiss">Отфрли</string>
     <string name="dismiss_notification_description">Отфрли известување</string>
+    <string name="dnd">Не вознемирувај</string>
+    <string name="dontClear">Не го тргај</string>
     <string name="download_latest_dev_version">Download latest dev version</string>
     <string name="downloader_download_failed_content">%1$s неможе да се превземе</string>
     <string name="downloader_download_failed_credentials_error">Преземањето не беше успешно, најавете се повторно</string>
@@ -363,6 +368,7 @@
     <string name="instant_upload_on_charging">Прикачувај само додека се полни</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Неправилна URL</string>
+    <string name="invisible">Невидлив</string>
     <string name="link">Линк</string>
     <string name="link_share_allow_upload_and_editing">Дозволи прикачување и уредување</string>
     <string name="link_share_file_drop">Испуши датотека (само за прикачување)</string>
@@ -442,6 +448,9 @@
     <string name="notifications_no_results_headline">Нема известувања</string>
     <string name="notifications_no_results_message">Ве молиме проверете подоцна.</string>
     <string name="offline_mode">Нема интернет врска</string>
+    <string name="oneHour">1 час</string>
+    <string name="online">Приклучен</string>
+    <string name="online_status">Присутен</string>
     <string name="outdated_server">Серверот го достигна крајот на животот, ве молиме надградете го!</string>
     <string name="overflow_menu">Мени повеќе</string>
     <string name="pass_code_configure_your_pass_code">Венсете го вашиот код</string>
@@ -558,6 +567,8 @@
     <string name="sendbutton_description">Икона на копчето за испраќање</string>
     <string name="set_as">Постави како</string>
     <string name="set_picture_as">Користи ја сликата како</string>
+    <string name="set_status">Постави статус</string>
+    <string name="set_status_message">Постави статус порака</string>
     <string name="share">Сподели</string>
     <string name="share_dialog_title">Споделување</string>
     <string name="share_email_clarification">%1$s (е-пошта)</string>
@@ -629,6 +640,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификатот на серверот не е доверлив</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Датумите на сертификатот се од иднината</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL не се совпаѓа со hostname во сертификатот</string>
+    <string name="status_message">Статус порака</string>
     <string name="storage_camera">Камера</string>
     <string name="storage_choose_location">Избери локација на складиште</string>
     <string name="storage_description_default">Стандардно</string>
@@ -674,8 +686,11 @@
     <string name="synced_icon">Синхронизирано</string>
     <string name="tags">Ознаки</string>
     <string name="test_server_button">Тестирајте ја врската со серверот</string>
+    <string name="thirtyMinutes">30 минути</string>
+    <string name="thisWeek">Оваа недела</string>
     <string name="thumbnail">Мали слики</string>
     <string name="timeout_richDocuments">Вчитувањето трае премногу долго…</string>
+    <string name="today">Денес</string>
     <string name="trashbin_activity_title">Избришани датотеки</string>
     <string name="trashbin_empty_headline">Нема избришани датотеки</string>
     <string name="trashbin_file_not_deleted">Датотеката %1$s неможе да се избрише!</string>
@@ -779,6 +794,7 @@
     <string name="what_s_new_image">Слика од тоа што е ново</string>
     <string name="whats_new_skip">Прескокни</string>
     <string name="whats_new_title">Ново во %1$s</string>
+    <string name="whats_your_status">Кој е вашиот статус?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Неможе да се синхронизира %1$d датотека (конфликт: %2$d)</item>
         <item quantity="other">Неможе да се синхронизираат %1$d датотеки (конфликти: %2$d)</item>

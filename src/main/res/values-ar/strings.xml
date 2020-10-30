@@ -459,6 +459,7 @@
     <string name="notifications_no_results_headline">لا توجد هناك إخطارات</string>
     <string name="notifications_no_results_message">يرجى التحقق مرة أخرى في وقت لاحق.</string>
     <string name="offline_mode">ليس هناك اتصال بالأنترنت</string>
+    <string name="oneHour">ساعة</string>
     <string name="outdated_server">وصل الخادم إلى نهاية العمر الافتراضي ، يرجى الترقية!</string>
     <string name="overflow_menu">المزيد من القائمة</string>
     <string name="pass_code_configure_your_pass_code">إدخل رمزك السري</string>
@@ -703,10 +704,13 @@
     <string name="synced_icon">تمت المزامَنة</string>
     <string name="tags">الوسوم</string>
     <string name="test_server_button">أفحص أتصال الخادم</string>
+    <string name="thirtyMinutes">30 دقيقة</string>
+    <string name="thisWeek">هذا الأسبوع</string>
     <string name="thumbnail">صورة مصغّرة</string>
     <string name="thumbnail_for_existing_file_description">صورة مصغرة للملف الموجود</string>
     <string name="thumbnail_for_new_file_desc">صورة مصغرة للملف الجديد</string>
     <string name="timeout_richDocuments">التحميل يستغرق وقتًا طويلاً…</string>
+    <string name="today">اليوم</string>
     <string name="trashbin_activity_title">الملفات المحذوفة</string>
     <string name="trashbin_empty_headline">لا يوجد ملفات محذوفة</string>
     <string name="trashbin_empty_message">ستتمكن من استعادة الملفات المحذوفة من هنا.</string>

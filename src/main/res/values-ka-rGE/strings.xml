@@ -250,6 +250,7 @@
     <string name="hint_password">პაროლი</string>
     <string name="instant_upload_on_charging">ატვირთვა მხოლოდ დატენვისას</string>
     <string name="instant_upload_path">/მყისიერი_ატვირთვა</string>
+    <string name="invisible">უჩინარი</string>
     <string name="link">ბმული</string>
     <string name="link_share_allow_upload_and_editing">ატვირთვისა და ცვლილების უფლებების მინიჭება</string>
     <string name="link_share_file_drop">ფაილის ჩაგდება (მხოლოდ ატვირთვა)</string>
@@ -303,6 +304,7 @@
     <string name="notification_channel_upload_name">შეტყობინებების არხის ატვირთვა</string>
     <string name="notifications_no_results_headline">შეტყობინებები არაა</string>
     <string name="notifications_no_results_message">გთხოვთ დაბრუნდეთ მოგვინაებით.</string>
+    <string name="oneHour">1 საათი</string>
     <string name="pass_code_configure_your_pass_code">შეიყვანეთ თქვენი პასკოდი</string>
     <string name="pass_code_configure_your_pass_code_explanation">პასკოდი მოთხოვნილ იქნება აპლიკაციის ყოველი გაშვებისას</string>
     <string name="pass_code_enter_pass_code">გთხოვთ შეიყვანოთ თქვენი პასკოდი</string>
@@ -451,7 +453,10 @@
     <string name="synced_folders_type">სახეობა</string>
     <string name="tags">ტეგები</string>
     <string name="test_server_button">სერვერთან კავშირის შემოწმება</string>
+    <string name="thirtyMinutes">30 წუთი</string>
+    <string name="thisWeek">ამ კვირაში</string>
     <string name="thumbnail">მინიატურა</string>
+    <string name="today">დღეს</string>
     <string name="trashbin_activity_title">გაუქმებული ფაილები</string>
     <string name="trashbin_empty_headline">წაშლილი ფაილები ვერ მოიძებნა</string>
     <string name="unset_encrypted">შიფრაციის გაუქმება</string>

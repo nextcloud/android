@@ -427,6 +427,7 @@
     <string name="notifications_no_results_headline">بدون اعلان</string>
     <string name="notifications_no_results_message">لطفا بعداً دوباره بررسی کنید</string>
     <string name="offline_mode">بدون اتصال به اینترنت</string>
+    <string name="oneHour">1 ساعت</string>
     <string name="outdated_server">سرور به پایان عمر رسیده است ، لطفاً ارتقا دهید!</string>
     <string name="overflow_menu">منوی بیشتر</string>
     <string name="pass_code_configure_your_pass_code">رمز خود را وارد کنید</string>
@@ -610,6 +611,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- گواهی سرور نامعتبر است</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- زمان اعتبار گواهی نامه سرویس دهنده فرانرسیده است</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL با آدرس هاست موجود در گواهی نامه مطابقت ندارد.</string>
+    <string name="status_message">پیغام وضعیت</string>
     <string name="storage_camera">دوربین</string>
     <string name="storage_choose_location">محل ذخیره را انتخاب کنید</string>
     <string name="storage_description_default">پیش‌گزیده</string>
@@ -652,8 +654,11 @@
     <string name="synced_icon">همگام سازی</string>
     <string name="tags">برچسب‌ها</string>
     <string name="test_server_button">اتصال به سرور را آزمایش کنید</string>
+    <string name="thirtyMinutes">۳۰ دقیقه</string>
+    <string name="thisWeek">این هفته</string>
     <string name="thumbnail">بند انگشتی</string>
     <string name="timeout_richDocuments">بارگیری بسیار طول می کشد ...</string>
+    <string name="today">Today</string>
     <string name="trashbin_activity_title">فایل های حذف شده</string>
     <string name="trashbin_empty_headline">هیچ فایل حذف شده وجود ندارد</string>
     <string name="trashbin_file_not_deleted">فایل%1$s نمی تواند حذف شود!</string>
