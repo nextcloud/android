@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Energiesparmodus deaktivieren</string>
     <string name="autoupload_hide_folder">Ordner verstecken</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Abwesend</string>
     <string name="battery_optimization_close">Schliessen</string>
     <string name="battery_optimization_disable">Deaktivieren</string>
     <string name="battery_optimization_message">Ihr Gerät hat möglicherweise Batterieoptimierung aktiv. AutoUpload funktioniert nur dann richtig, wenn Sie diese App davon ausschließen.</string>
@@ -90,6 +91,8 @@
     <string name="choose_local_folder">Wähle einen lokalen Ordner…</string>
     <string name="choose_remote_folder">Wähle einen entfernten Ordner …</string>
     <string name="clear_notifications_failed">Löschen der Benachrichtigungen fehlgeschlagen.</string>
+    <string name="clear_status_message">Statusnachricht löschen</string>
+    <string name="clear_status_message_after">Statusnachricht löschen nach</string>
     <string name="clipboard_label">Text von %1$s kopiert</string>
     <string name="clipboard_no_text_to_copy">Kein Text zum Kopieren in die Zwischenablage empfangen</string>
     <string name="clipboard_text_copied">Link kopiert</string>
@@ -192,6 +195,8 @@
     <string name="disable_new_media_folder_detection_notifications">Ausschalten</string>
     <string name="dismiss">Ausblenden</string>
     <string name="dismiss_notification_description">Benachrichtigung verwerfen</string>
+    <string name="dnd">Bitte nicht stören</string>
+    <string name="dontClear">Nicht löschen</string>
     <string name="download_latest_dev_version">Die neueste Entwicklerversion herunterladen</string>
     <string name="downloader_download_failed_content">Konnte %1$s nicht herunterladen</string>
     <string name="downloader_download_failed_credentials_error">Herunterladen fehlgeschlagen, erneute Anmeldung erforderlich</string>
@@ -375,6 +380,7 @@
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
     <string name="invalid_url">Ungültige URL</string>
+    <string name="invisible">Unsichtbar</string>
     <string name="label_empty">Bezeichnung darf nicht leer sein</string>
     <string name="link">Link</string>
     <string name="link_share_allow_upload_and_editing">Hochladen und Bearbeiten erlauben</string>
@@ -458,6 +464,9 @@
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
     <string name="offline_mode">Keine Internetverbindung</string>
+    <string name="oneHour">1 Stunde</string>
+    <string name="online">Online</string>
+    <string name="online_status">Online-Status</string>
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
     <string name="overflow_menu">Weiteres Menü</string>
     <string name="pass_code_configure_your_pass_code">PIN eingeben</string>
@@ -578,6 +587,8 @@
     <string name="sendbutton_description">Icon für den Senden-Button</string>
     <string name="set_as">Setze als</string>
     <string name="set_picture_as">Nutze Bild als</string>
+    <string name="set_status">Status setzen</string>
+    <string name="set_status_message">Statusnachricht setzen</string>
     <string name="share">Teilen</string>
     <string name="share_dialog_title">Teilen</string>
     <string name="share_email_clarification">%1$s (E-Mail)</string>
@@ -655,6 +666,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Das Zertifikat des Servers ist nicht vertrauenswürdig</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Das Gültigkeitsdatum des Serverzertifikats liegt in der Zukunft</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Die Adresse stimmt nicht mit dem im Zertifikat angegebenen Hostnamen  überein</string>
+    <string name="status_message">Statusnachricht</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Speicherort auswählen</string>
     <string name="storage_description_default">Standard</string>
@@ -703,10 +715,13 @@
     <string name="synced_icon">Synchronisiert</string>
     <string name="tags">Schlagworte</string>
     <string name="test_server_button">Prüfe Server-Verbindung</string>
+    <string name="thirtyMinutes">30 Minuten</string>
+    <string name="thisWeek">Diese Woche</string>
     <string name="thumbnail">Vorschaubild</string>
     <string name="thumbnail_for_existing_file_description">Miniaturbild für vorhandene Datei</string>
     <string name="thumbnail_for_new_file_desc">Miniaturbild für neue Datei</string>
     <string name="timeout_richDocuments">Das Laden dauert sehr lange…</string>
+    <string name="today">Heute</string>
     <string name="trashbin_activity_title">Gelöschte Dateien</string>
     <string name="trashbin_empty_headline">Keine gelöschten Dateien</string>
     <string name="trashbin_empty_message">Hier können Sie gelöschte Dateien wiederherstellen.</string>
@@ -817,6 +832,7 @@
     <string name="what_s_new_image">Was-gibt\'s-Neues-Bild</string>
     <string name="whats_new_skip">Überspringen</string>
     <string name="whats_new_title">Neu in %1$s</string>
+    <string name="whats_your_status">Wie ist Ihr Status?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Inhalte von %1$d Datei konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
         <item quantity="other">Inhalte von %1$d Dateien konnten nicht synchronisiert werden (Konflikte: %2$d)</item>

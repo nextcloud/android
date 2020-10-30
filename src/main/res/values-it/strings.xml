@@ -371,6 +371,7 @@
     <string name="foreign_files_remote_text">Remoto %1$s</string>
     <string name="foreign_files_success">Tutti i file sono stati spostati</string>
     <string name="forward">Inoltra</string>
+    <string name="fourHours">4 ore</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Nota</string>
     <string name="hint_password">Password</string>
@@ -552,6 +553,7 @@
     <string name="recommend_subject">Prova %1$s sul tuo dispositivo!</string>
     <string name="recommend_text">Vorrei invitarti a utilizzare %1$s sul tuo dispositivo.\nScaricalo qui:%2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="remote">(remota)</string>
     <string name="remote_file_fetch_failed">File non trovato!</string>
     <string name="remove_fail_msg">Eliminazione non riuscita</string>
     <string name="remove_notification_failed">Rimozione notifica non riuscita.</string>
@@ -599,6 +601,7 @@
     <string name="share_internal_link_to_file_text">Il collegamento di condivisione funziona solo per gli utenti con accesso a questo file</string>
     <string name="share_internal_link_to_folder_text">Il collegamento di condivisione funziona solo per gli utenti con accesso a questa cartella</string>
     <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>
+    <string name="share_known_remote_on_clarification">su %1$s</string>
     <string name="share_link">Condividi collegamento</string>
     <string name="share_link_empty_password">Devi digitare una password</string>
     <string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella.</string>

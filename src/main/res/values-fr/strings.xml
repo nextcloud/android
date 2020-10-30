@@ -373,6 +373,7 @@ Attention la suppression est irréversible.</string>
     <string name="foreign_files_remote_text">Distant : %1$s</string>
     <string name="foreign_files_success">Tous les fichiers ont été déplacés</string>
     <string name="forward">Suivant</string>
+    <string name="fourHours">4 heures</string>
     <string name="hint_name">Nom</string>
     <string name="hint_note">Note</string>
     <string name="hint_password">Mot de passe</string>
@@ -554,6 +555,7 @@ Attention la suppression est irréversible.</string>
     <string name="recommend_subject">Essayez %1$s sur votre appareil !</string>
     <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre appareil.\nTéléchargez-la ici : %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="remote">(distant)</string>
     <string name="remote_file_fetch_failed">Impossible de trouver le fichier</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
     <string name="remove_notification_failed">Erreur lors de la suppression des notifications.</string>
@@ -601,6 +603,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_internal_link_to_file_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce fichier</string>
     <string name="share_internal_link_to_folder_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce dossier</string>
     <string name="share_known_remote_clarification">%1$s (sur %2$s)</string>
+    <string name="share_known_remote_on_clarification">le %1$s</string>
     <string name="share_link">Lien de partage</string>
     <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
     <string name="share_link_file_error">Une erreur s\'est produite lors de la tentative de partage de ce fichier ou dossier.</string>
