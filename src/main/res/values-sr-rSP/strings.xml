@@ -402,6 +402,7 @@
     <string name="notifications_no_results_headline">Nema obaveštenja</string>
     <string name="notifications_no_results_message">Molimo proverite kasnije.</string>
     <string name="offline_mode">Nema internet konekcije</string>
+    <string name="oneHour">1 sat</string>
     <string name="outdated_server">Server je izašao iz garancije, molimo ažurirajte ga!</string>
     <string name="overflow_menu">još menija</string>
     <string name="pass_code_configure_your_pass_code">Unesite kod za zaključavanje</string>
@@ -627,8 +628,11 @@
     <string name="synced_icon">Sinhronizovano</string>
     <string name="tags">Oznake</string>
     <string name="test_server_button">Isprobaj vezu sa serverom</string>
+    <string name="thirtyMinutes">30 minuta</string>
+    <string name="thisWeek">Ove sedmice</string>
     <string name="thumbnail">Sličica</string>
     <string name="timeout_richDocuments">Učitavanje traje predugo…</string>
+    <string name="today">Danas</string>
     <string name="trashbin_activity_title">Obrisani fajlovi</string>
     <string name="trashbin_empty_headline">Nema obrisanih fajlova</string>
     <string name="trashbin_file_not_deleted">Fajl %1$s ne može da se obriše!</string>

@@ -346,6 +346,7 @@
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_path">/SubidasInstantáneas</string>
     <string name="invalid_url">URL invalida</string>
+    <string name="invisible">Invisible</string>
     <string name="link">Link</string>
     <string name="link_share_allow_upload_and_editing">Permitir cargar y editar</string>
     <string name="link_share_file_drop">Soltar archivo (solo para carga)</string>
@@ -420,6 +421,7 @@
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Favor de verificar más tarde. </string>
     <string name="offline_mode">Sin conexión a Internet</string>
+    <string name="oneHour">1 hora</string>
     <string name="outdated_server">El servidor ha llegado al final de su vida útil, por favor actualice!</string>
     <string name="overflow_menu">Más menú</string>
     <string name="pass_code_configure_your_pass_code">Ingrese su código de seguridad</string>
@@ -600,6 +602,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Las fechas del certificado del servidor están en el futuro</string>
     <string name="ssl_validator_reason_hostname_not_verified">- La URL no corresponde con el nombre del servidor en el certificado</string>
+    <string name="status_message">Mensaje de estado</string>
     <string name="storage_camera">Cámara</string>
     <string name="storage_choose_location">Elija la ubicación de almacenamiento</string>
     <string name="storage_description_default">Predeterminado</string>
@@ -638,8 +641,11 @@
     <string name="synced_icon">Sincronizado</string>
     <string name="tags">Etiquetas</string>
     <string name="test_server_button">Testear conexión con el servidor</string>
+    <string name="thirtyMinutes">30 minutos</string>
+    <string name="thisWeek">Esta semana</string>
     <string name="thumbnail">Miniatura</string>
     <string name="timeout_richDocuments">La carga lleva mucho tiempo...</string>
+    <string name="today">Hoy</string>
     <string name="trashbin_activity_title">Archivos borrados</string>
     <string name="trashbin_empty_headline">No hay archivos borrados</string>
     <string name="trashbin_file_not_deleted">¡El archivo %1$s no se pudo eliminar!</string>

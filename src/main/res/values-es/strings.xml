@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Desactivar comprobación de ahorro de energía</string>
     <string name="autoupload_hide_folder">Ocultar carpeta</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Ausente</string>
     <string name="battery_optimization_close">Cerrar</string>
     <string name="battery_optimization_disable">Desactivar</string>
     <string name="battery_optimization_message">Tu dispositivo puede tener activada la optimización de batería. La subida automática solo funciona bien si excluyes  de ahí esta app</string>
@@ -90,6 +91,8 @@
     <string name="choose_local_folder">Seleccione carpeta local…</string>
     <string name="choose_remote_folder">Selecciona carpeta remota…</string>
     <string name="clear_notifications_failed">Fallo al limpiar notificaciones.</string>
+    <string name="clear_status_message">Borrar mensaje de estado</string>
+    <string name="clear_status_message_after">Borrar mensaje de estado después de</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido ningún mensaje para copiar al portapapeles</string>
     <string name="clipboard_text_copied">Enlace copiado</string>
@@ -192,6 +195,8 @@
     <string name="disable_new_media_folder_detection_notifications">Desactivar</string>
     <string name="dismiss">Descartar</string>
     <string name="dismiss_notification_description">Descartar notificación</string>
+    <string name="dnd">No molestar</string>
+    <string name="dontClear">No eliminar</string>
     <string name="download_latest_dev_version">Descargar la última versión de desarrollo</string>
     <string name="downloader_download_failed_content">No se ha podido descargar %1$s</string>
     <string name="downloader_download_failed_credentials_error">Descarga fallida, vuelve a iniciar sesión</string>
@@ -375,6 +380,7 @@
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
     <string name="invalid_url">URL no válida</string>
+    <string name="invisible">Invisible</string>
     <string name="label_empty">La etiqueta no puede quedar vacía</string>
     <string name="link">Enlace</string>
     <string name="link_share_allow_upload_and_editing">Permitir la subida y la edición</string>
@@ -458,6 +464,9 @@
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor, comprúebalo más tarde.</string>
     <string name="offline_mode">No hay conexión a internet</string>
+    <string name="oneHour">1 hora</string>
+    <string name="online">En línea</string>
+    <string name="online_status">Estado en línea</string>
     <string name="outdated_server">El servidor ha alcanzado su final de vida. ¡Por favor, actualiza!</string>
     <string name="overflow_menu">Menú</string>
     <string name="pass_code_configure_your_pass_code">Introduce tu código de acceso</string>
@@ -578,6 +587,8 @@
     <string name="sendbutton_description">Icono del botón de enviar</string>
     <string name="set_as">Establecer como</string>
     <string name="set_picture_as">Usar imagen como</string>
+    <string name="set_status">Configurar estado</string>
+    <string name="set_status_message">Ajustar el mensaje de estado</string>
     <string name="share">Compartir</string>
     <string name="share_dialog_title">Compartir</string>
     <string name="share_email_clarification">%1$s (correo electrónico)</string>
@@ -654,6 +665,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- El certificado del servidor es de una fecha que aún no ha llegado</string>
     <string name="ssl_validator_reason_hostname_not_verified">- La URL no coincide con el nombre de dominio del certificado</string>
+    <string name="status_message">Mensaje de estado</string>
     <string name="storage_camera">Cámara</string>
     <string name="storage_choose_location">Escoge la ubicación del almacenamiento</string>
     <string name="storage_description_default">Por defecto</string>
@@ -701,10 +713,13 @@
     <string name="synced_icon">Sincronizado</string>
     <string name="tags">Etiquetas</string>
     <string name="test_server_button">Probar conexión con servidor</string>
+    <string name="thirtyMinutes">30 minutos</string>
+    <string name="thisWeek">Esta semana</string>
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura para el archivo existente</string>
     <string name="thumbnail_for_new_file_desc">Miniatura para el archivo nuevo</string>
     <string name="timeout_richDocuments">La carga está tardando mucho tiempo…</string>
+    <string name="today">Hoy</string>
     <string name="trashbin_activity_title">Archivos eliminados</string>
     <string name="trashbin_empty_headline">No hay archivos eliminados</string>
     <string name="trashbin_empty_message">Podrás recuperar los archivos eliminados desde aquí.</string>
@@ -815,6 +830,7 @@
     <string name="what_s_new_image">Imagen de Qué hay de nuevo</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
+    <string name="whats_your_status">¿Cuál es tu estado?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">No se ha podido sincronizar %1$d archivo (conflicto con %2$d)</item>
         <item quantity="other">No se ha podido sincronizar %1$d archivos (conflicto con %2$d)</item>

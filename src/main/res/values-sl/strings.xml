@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Onemogoči preverjanje porabe energije</string>
     <string name="autoupload_hide_folder">Skrij mapo</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Trenutno ne spremljam</string>
     <string name="battery_optimization_close">Zapri</string>
     <string name="battery_optimization_disable">Onemogoči</string>
     <string name="battery_optimization_message">Naprava ima najverjetneje omogočeno možnost optimizacije porabe baterije. Program AutoUpload pravilno deluje le, če je izvzet iz nje.</string>
@@ -90,6 +91,8 @@
     <string name="choose_local_folder">Izberi krajevno mapo ...</string>
     <string name="choose_remote_folder">Izberi oddaljeno mapo ...</string>
     <string name="clear_notifications_failed">Počiščenje obvestil je spodletelo.</string>
+    <string name="clear_status_message">Počisti sporočilo stanja</string>
+    <string name="clear_status_message_after">Počisti sporočilo stanja po</string>
     <string name="clipboard_label">Besedilo je kopirano iz %1$s</string>
     <string name="clipboard_no_text_to_copy">Ni prejetega besedila za kopiranje v odložišče</string>
     <string name="clipboard_text_copied">Povezava je kopirana</string>
@@ -192,6 +195,8 @@
     <string name="disable_new_media_folder_detection_notifications">Onemogoči</string>
     <string name="dismiss">Opusti</string>
     <string name="dismiss_notification_description">Opusti obvestilo</string>
+    <string name="dnd">Ne pustim se motiti</string>
+    <string name="dontClear">ne počisti</string>
     <string name="download_latest_dev_version">Prejmi najnovejšo razvojno različico</string>
     <string name="downloader_download_failed_content">Ni mogoče prejeti %1$s</string>
     <string name="downloader_download_failed_credentials_error">Prejemanje je spodletelo; zahtevana je ponovna prijava.</string>
@@ -375,6 +380,7 @@
     <string name="instant_upload_on_charging">Usklajuj le med polnjenjem naprave</string>
     <string name="instant_upload_path">/Hipno nalaganje</string>
     <string name="invalid_url">Neveljaven naslov URL</string>
+    <string name="invisible">Drugim neviden</string>
     <string name="label_empty">Oznaka ne sme biti prazno polje</string>
     <string name="link">Povezava</string>
     <string name="link_share_allow_upload_and_editing">Dovoli pošiljanje in urejanje</string>
@@ -458,6 +464,9 @@
     <string name="notifications_no_results_headline">Ni obvestil</string>
     <string name="notifications_no_results_message">Prosim, preveri kasneje</string>
     <string name="offline_mode">Ni vzpostavljene internetne povezave</string>
+    <string name="oneHour">po 1 uri</string>
+    <string name="online">Na spletu</string>
+    <string name="online_status">Povezano stanje</string>
     <string name="outdated_server">Strežnik je dosegel konec podpore. Posodobite ga!</string>
     <string name="overflow_menu">Meni več</string>
     <string name="pass_code_configure_your_pass_code">Vnesite kodo PIN programa</string>
@@ -578,6 +587,8 @@
     <string name="sendbutton_description">Ikona gumba za pošiljanje</string>
     <string name="set_as">Nastavi kot</string>
     <string name="set_picture_as">Uporabi sliko kot</string>
+    <string name="set_status">Nastavi stanje</string>
+    <string name="set_status_message">Nastavi sporočilo stanja</string>
     <string name="share">Souporaba</string>
     <string name="share_dialog_title">Souporaba</string>
     <string name="share_email_clarification">%1$s (e-pošta)</string>
@@ -654,6 +665,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- potrdilo strežnika ni vredno zaupanja</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- potrdilo strežnika je v uporabi</string>
     <string name="ssl_validator_reason_hostname_not_verified">- naslov URL ni skladen z imenom gostitelja potrdila</string>
+    <string name="status_message">Sporočilo stanja</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Izbor mesta shrambe</string>
     <string name="storage_description_default">Privzeto</string>
@@ -701,10 +713,13 @@
     <string name="synced_icon">Usklajeno</string>
     <string name="tags">Oznake</string>
     <string name="test_server_button">Preizkusi povezavo s strežnikom</string>
+    <string name="thirtyMinutes">po 30 minutah</string>
+    <string name="thisWeek">še ta teden</string>
     <string name="thumbnail">Sličica</string>
     <string name="thumbnail_for_existing_file_description">Sličica obstoječe datoteke</string>
     <string name="thumbnail_for_new_file_desc">Sličica za novo datoteko</string>
     <string name="timeout_richDocuments">Nalaganje poteka nepričakovano dolgo ...</string>
+    <string name="today">enkrat danes</string>
     <string name="trashbin_activity_title">Izbrisane datoteke</string>
     <string name="trashbin_empty_headline">Ni izbrisanih datotek</string>
     <string name="trashbin_empty_message">Izbrisane datoteke je mogoče povrniti na tem mestu.</string>
@@ -815,6 +830,7 @@
     <string name="what_s_new_image">Kaj je nova slika</string>
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo v %1$s</string>
+    <string name="whats_your_status">Kako želite nastaviti stanje?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ni mogoče uskladiti %1$d datoteke (spori: %2$d)</item>
         <item quantity="two">Ni mogoče uskladiti %1$d datotek (spori: %2$d)</item>

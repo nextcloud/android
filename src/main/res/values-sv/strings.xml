@@ -373,6 +373,7 @@
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
     <string name="invalid_url">Ogiltig URL</string>
+    <string name="invisible">Osynlig</string>
     <string name="label_empty">Etiketten kan inte vara tom</string>
     <string name="link">Länk</string>
     <string name="link_share_allow_upload_and_editing">Tillåt uppladdning och redigering</string>
@@ -456,6 +457,7 @@
     <string name="notifications_no_results_headline">Inga aviseringar</string>
     <string name="notifications_no_results_message">Vänligen kontrollera igen senare.</string>
     <string name="offline_mode">Ingen internetanslutning</string>
+    <string name="oneHour">1 timme</string>
     <string name="outdated_server">Servern har nått slutet av livet, vänligen uppgradera!</string>
     <string name="overflow_menu">Mer Meny</string>
     <string name="pass_code_configure_your_pass_code">Skriv in ditt lösenord</string>
@@ -651,6 +653,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Servercertifikatet är inte tillförlitligt</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Servercertifikatet är för nytt</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Webbadressen matchar inte värdnamnet i certifikatet</string>
+    <string name="status_message">Statusmeddelande</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Välj lagringsplats</string>
     <string name="storage_description_default">Standard</string>
@@ -698,10 +701,13 @@
     <string name="synced_icon">Synkroniserad</string>
     <string name="tags">Taggar</string>
     <string name="test_server_button">Testa serveranslutning</string>
+    <string name="thirtyMinutes">30 minuter</string>
+    <string name="thisWeek">Denna vecka</string>
     <string name="thumbnail">Ikon</string>
     <string name="thumbnail_for_existing_file_description">Miniatyrbild för befintlig fil</string>
     <string name="thumbnail_for_new_file_desc">Miniatyrbild för ny fil</string>
     <string name="timeout_richDocuments">Laddning tar väldigt länge...</string>
+    <string name="today">Idag</string>
     <string name="trashbin_activity_title">Borttagna filer</string>
     <string name="trashbin_empty_headline">Inga borttagna filer</string>
     <string name="trashbin_empty_message">Du kan återställa borttagna filer här.</string>

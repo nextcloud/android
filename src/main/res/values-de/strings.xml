@@ -606,6 +606,7 @@
     <string name="share_privilege_unshare">Freigabe aufheben</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (Unterhaltung)</string>
+    <string name="share_search">Name, Federated-Cloud-ID oder E-Mail-Adresse …</string>
     <string name="share_send_note">Notiz an Empfänger</string>
     <string name="share_via_link_hide_download">Download verbergen</string>
     <string name="share_via_link_hide_file_listing_permission_label">Dateiliste verbergen</string>

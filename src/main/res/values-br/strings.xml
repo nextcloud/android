@@ -77,6 +77,7 @@
     <string name="autoupload_disable_power_save_check">Disaotreañ ar gwiriañ gwarez ar pod-tredan</string>
     <string name="autoupload_hide_folder">Kouachañ an teuliad</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Pell</string>
     <string name="battery_optimization_close">Serriñ</string>
     <string name="battery_optimization_disable">Disaotreañ</string>
     <string name="battery_optimization_message">Posuple eo e vefe aotreet ar gwelaer ped-tredan war o ardivink. AutoUpload a labour mat nemet ma vez lammet ar meziant man euz an ardivink.</string>
@@ -189,6 +190,7 @@
     <string name="disable_new_media_folder_detection_notifications">Disaotreañ</string>
     <string name="dismiss">Arrest</string>
     <string name="dismiss_notification_description">Arrest ar gemenadennoù</string>
+    <string name="dnd">Na rannit ket</string>
     <string name="download_latest_dev_version">Pellgargañ ar stumm arnodañ diwezhañ</string>
     <string name="downloader_download_failed_content">Ne oa ket posuple pellgargañ %1$s</string>
     <string name="downloader_download_failed_credentials_error">Pellgargañ c\'hwitet, kit-tre adarre</string>
@@ -371,6 +373,7 @@
     <string name="instant_upload_on_charging">Pellkas va vez karget nemetken</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">URL fall</string>
+    <string name="invisible">Diwelus</string>
     <string name="label_empty">Ne c\'hell ket an dikettenn bezha goulo</string>
     <string name="link">Liamm</string>
     <string name="link_share_allow_upload_and_editing">Aotreañ ar pellkargañ hag an embann</string>
@@ -695,10 +698,12 @@
     <string name="synced_icon">Kemprennet</string>
     <string name="tags">Klavioù</string>
     <string name="test_server_button">Amprouiñ kenstagadur ar servijour</string>
+    <string name="thisWeek">Er sizhun-mañ</string>
     <string name="thumbnail">Ivin</string>
     <string name="thumbnail_for_existing_file_description">Ivin ar restroù a vez kavet</string>
     <string name="thumbnail_for_new_file_desc">Ivin ar restroù nevez</string>
     <string name="timeout_richDocuments">Kemer a ra ar c\'hargañ kalz a amzer...</string>
+    <string name="today">Hiziv</string>
     <string name="trashbin_activity_title">Restroù diverket</string>
     <string name="trashbin_empty_headline">Restr lemet ebet</string>
     <string name="trashbin_empty_message">Posupl eo deoc\'h adtapout ar restroù lamet adalek al lec\'h mañ</string>
