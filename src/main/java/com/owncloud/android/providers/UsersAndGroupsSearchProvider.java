@@ -263,7 +263,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
                     if (statusObject != null) {
                         status = new Status(
-                            StatusType.valueOf(statusObject.getString(PROPERTY_STATUS)),
+                            StatusType.valueOf(statusObject.getString(PROPERTY_STATUS).toUpperCase(Locale.US)),
                             statusObject.isNull(PROPERTY_MESSAGE) ? "" : statusObject.getString(PROPERTY_MESSAGE),
                             statusObject.isNull(PROPERTY_ICON) ? "" : statusObject.getString(PROPERTY_ICON),
                             statusObject.isNull(PROPERTY_CLEAR_AT) ? -1 : statusObject.getLong(PROPERTY_CLEAR_AT));
@@ -389,6 +389,10 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
         StatusType status = StatusType.valueOf(uri.getQueryParameter("status"));
         String icon = uri.getQueryParameter("icon");
+
+        if (icon == null) {
+            icon = "";
+        }
 
         Bitmap avatarBitmap = ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey);
 
