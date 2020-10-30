@@ -27,6 +27,8 @@ import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.media.PlayerService;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.WhatsNewActivity;
+import com.nextcloud.ui.ChooseAccountDialogFragment;
+import com.nextcloud.ui.SetStatusDialogFragment;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.DeepLinkLoginActivity;
 import com.owncloud.android.files.BootupBroadcastReceiver;
@@ -138,26 +140,60 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract LocalFileListFragment localFileListFragment();
     @ContributesAndroidInjector abstract OCFileListFragment ocFileListFragment();
     @ContributesAndroidInjector abstract FileDetailActivitiesFragment fileDetailActivitiesFragment();
-    @ContributesAndroidInjector abstract FileDetailSharingFragment fileDetailSharingFragment();
-    @ContributesAndroidInjector abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
-    @ContributesAndroidInjector abstract AccountRemovalConfirmationDialog accountRemovalConfirmationDialog();
 
-    @ContributesAndroidInjector abstract ChooseRichDocumentsTemplateDialogFragment chooseRichDocumentsTemplateDialogFragment();
-    @ContributesAndroidInjector abstract ContactsBackupFragment contactsBackupFragment();
-    @ContributesAndroidInjector abstract PreviewImageFragment previewImageFragment();
-    @ContributesAndroidInjector abstract ContactListFragment chooseContactListFragment();
-    @ContributesAndroidInjector abstract PreviewMediaFragment previewMediaFragment();
-    @ContributesAndroidInjector abstract PreviewTextFragment previewTextFragment();
+    @ContributesAndroidInjector
+    abstract FileDetailSharingFragment fileDetailSharingFragment();
 
-    @ContributesAndroidInjector abstract PreviewTextFileFragment previewTextFileFragment();
-    @ContributesAndroidInjector abstract PreviewTextStringFragment previewTextStringFragment();
-    @ContributesAndroidInjector abstract PhotoFragment photoFragment();
+    @ContributesAndroidInjector
+    abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
 
-    @ContributesAndroidInjector abstract MultipleAccountsDialog multipleAccountsDialog();
-    @ContributesAndroidInjector abstract ReceiveExternalFilesActivity.DialogInputUploadFilename dialogInputUploadFilename();
+    @ContributesAndroidInjector
+    abstract AccountRemovalConfirmationDialog accountRemovalConfirmationDialog();
 
-    @ContributesAndroidInjector abstract FileUploader fileUploader();
-    @ContributesAndroidInjector abstract FileDownloader fileDownloader();
+    @ContributesAndroidInjector
+    abstract ChooseRichDocumentsTemplateDialogFragment chooseRichDocumentsTemplateDialogFragment();
+
+    @ContributesAndroidInjector
+    abstract ContactsBackupFragment contactsBackupFragment();
+
+    @ContributesAndroidInjector
+    abstract PreviewImageFragment previewImageFragment();
+
+    @ContributesAndroidInjector
+    abstract ContactListFragment chooseContactListFragment();
+
+    @ContributesAndroidInjector
+    abstract PreviewMediaFragment previewMediaFragment();
+
+    @ContributesAndroidInjector
+    abstract PreviewTextFragment previewTextFragment();
+
+    @ContributesAndroidInjector
+    abstract ChooseAccountDialogFragment chooseAccountDialogFragment();
+
+    @ContributesAndroidInjector
+    abstract SetStatusDialogFragment setStatusDialogFragment();
+
+    @ContributesAndroidInjector
+    abstract PreviewTextFileFragment previewTextFileFragment();
+
+    @ContributesAndroidInjector
+    abstract PreviewTextStringFragment previewTextStringFragment();
+
+    @ContributesAndroidInjector
+    abstract PhotoFragment photoFragment();
+
+    @ContributesAndroidInjector
+    abstract MultipleAccountsDialog multipleAccountsDialog();
+
+    @ContributesAndroidInjector
+    abstract ReceiveExternalFilesActivity.DialogInputUploadFilename dialogInputUploadFilename();
+
+    @ContributesAndroidInjector
+    abstract FileUploader fileUploader();
+
+    @ContributesAndroidInjector
+    abstract FileDownloader fileDownloader();
 
     @ContributesAndroidInjector abstract BootupBroadcastReceiver bootupBroadcastReceiver();
     @ContributesAndroidInjector abstract NotificationWork.NotificationReceiver notificationWorkBroadcastReceiver();

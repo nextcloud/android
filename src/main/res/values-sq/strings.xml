@@ -567,7 +567,6 @@
     <string name="share_privilege_unshare">Hiqe ndarjen</string>
     <string name="share_remote_clarification">%1$s (i largët)</string>
     <string name="share_room_clarification">%1$s (bisedë)</string>
-    <string name="share_search">Emri, ID e resë të federuar ose adresën e email-it…</string>
     <string name="share_send_note">Shënim për marrësin</string>
     <string name="share_via_link_hide_download">Fshih shkarkimin</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fshihni listën e skedarëve</string>

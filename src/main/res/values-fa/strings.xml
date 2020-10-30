@@ -562,7 +562,6 @@
     <string name="share_privilege_unshare">لغو اشتراک</string>
     <string name="share_remote_clarification">%1$s (از راه دور)</string>
     <string name="share_room_clarification">%1$s (گفتگو)</string>
-    <string name="share_search">نام ، شناسه ابر یا آدرس ایمیل…</string>
     <string name="share_send_note">توجه داشته باشید به گیرنده</string>
     <string name="share_via_link_hide_download">پنهان کردن بارگیری</string>
     <string name="share_via_link_hide_file_listing_permission_label">لیست پرونده ها را مخفی کنید</string>

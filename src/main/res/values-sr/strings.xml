@@ -606,7 +606,6 @@
     <string name="share_privilege_unshare">Укини дељење</string>
     <string name="share_remote_clarification">%1$s(удаљено)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
-    <string name="share_search">Име, ИД здруженог облака или адреса е-поште…</string>
     <string name="share_send_note">Напомена примаоцу</string>
     <string name="share_via_link_hide_download">Сакриј преузимање</string>
     <string name="share_via_link_hide_file_listing_permission_label">Сакриј списак фајлова</string>

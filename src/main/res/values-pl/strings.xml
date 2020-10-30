@@ -606,7 +606,6 @@
     <string name="share_privilege_unshare">Zatrzymaj udostępnianie</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_room_clarification">%1$s (rozmowa)</string>
-    <string name="share_search">Nazwa, ID Chmury Federacyjnej lub adres e-mail…</string>
     <string name="share_send_note">Notatka dla odbiorcy</string>
     <string name="share_via_link_hide_download">Ukryj pobieranie</string>
     <string name="share_via_link_hide_file_listing_permission_label">Schowaj listę plików</string>

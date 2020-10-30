@@ -601,7 +601,6 @@
     <string name="share_privilege_unshare">Deixa de compartir</string>
     <string name="share_remote_clarification">%1$s (remot)</string>
     <string name="share_room_clarification">%1$s(conversa)</string>
-    <string name="share_search">Nom, ID de núvol federat o adreça de correu electrònic…</string>
     <string name="share_send_note">Nota al destinatari</string>
     <string name="share_via_link_hide_download">Amaga la descàrrega</string>
     <string name="share_via_link_hide_file_listing_permission_label">Amaga la llista de fitxers</string>

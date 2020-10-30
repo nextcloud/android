@@ -592,7 +592,6 @@
     <string name="share_privilege_unshare">撤回分享</string>
     <string name="share_remote_clarification">%1$s （遠端）</string>
     <string name="share_room_clarification">%1$s(交談)</string>
-    <string name="share_search">姓名，聯盟雲ID或Email信箱…</string>
     <string name="share_send_note">給接收者的訊息</string>
     <string name="share_via_link_hide_download">隱藏下載</string>
     <string name="share_via_link_hide_file_listing_permission_label">隱藏檔案列表</string>

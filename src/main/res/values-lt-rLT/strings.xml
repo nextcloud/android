@@ -603,7 +603,6 @@
     <string name="share_privilege_unshare">Nustoti bendrinti</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
     <string name="share_room_clarification">%1$s (pokalbis)</string>
-    <string name="share_search">Vardas, federacinės debesijos ID arba el. pašto adresas…</string>
     <string name="share_send_note">Pastaba gavėjui</string>
     <string name="share_via_link_hide_download">Slėpti atsisiuntimą</string>
     <string name="share_via_link_hide_file_listing_permission_label">Paslėpti failų sąrašą</string>
