@@ -16,8 +16,9 @@ jobs:
                 uses: actions/setup-java@v1
                 with:
                     java-version: 1.8
-                    github-token: "${{ secrets.DEPENDABOT_AUTOMERGE_TOKEN }}"
             -   name: Runt ktlint
+                with:
+                    github-token: "${{ secrets.DEPENDABOT_AUTOMERGE_TOKEN }}"
                 run: |
                     scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
                     export BRANCH=$(scripts/analysis/getBranchName.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST)
