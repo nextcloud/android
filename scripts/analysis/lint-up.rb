@@ -37,7 +37,7 @@ require 'open3'
 
 # since we need the xml-simple gem, and we want this script self-contained, let's grab it just when we need it
 begin
-    gem --user-install "xml-simple"
+    gem install --user-install "xml-simple"
     rescue LoadError
     system("gem install xml-simple")
     Gem.clear_paths
