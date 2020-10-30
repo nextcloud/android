@@ -29,7 +29,10 @@ import com.owncloud.android.databinding.PredefinedStatusBinding
 import com.owncloud.android.lib.resources.users.PredefinedStatus
 import com.owncloud.android.utils.DisplayUtils
 
+private const val ONE_SECOND_IN_MILLIS = 1000
+
 class PredefinedStatusViewHolder(private val binding: PredefinedStatusBinding) : RecyclerView.ViewHolder(binding.root) {
+
     fun bind(status: PredefinedStatus, clickListener: PredefinedStatusClickListener, context: Context) {
         binding.root.setOnClickListener { clickListener.onClick(status) }
         binding.icon.text = status.icon
@@ -42,8 +45,9 @@ class PredefinedStatusViewHolder(private val binding: PredefinedStatusBinding) :
             if (clearAt.type.equals("period")) {
                 binding.clearAt.text = DisplayUtils.getRelativeTimestamp(
                     context,
-                    System.currentTimeMillis() + clearAt.time.toInt() * 1000,
-                    true)
+                    System.currentTimeMillis() + clearAt.time.toInt() * ONE_SECOND_IN_MILLIS,
+                    true
+                )
             } else {
                 // end-of
                 if (clearAt.time.equals("day")) {

@@ -54,7 +54,10 @@ import javax.inject.Inject
 
 private const val ARG_CURRENT_USER_PARAM = "currentUser"
 
-class ChooseAccountDialogFragment : DialogFragment(),
+private const val STATUS_SIZE_IN_DP = 9f
+
+class ChooseAccountDialogFragment :
+    DialogFragment(),
     AvatarGenerationListener,
     UserListAdapter.ClickListener,
     Injectable {
@@ -199,7 +202,7 @@ class ChooseAccountDialogFragment : DialogFragment(),
     fun setStatus(newStatus: Status) {
         currentStatus = newStatus
 
-        val size = DisplayUtils.convertDpToPixel(9f, context)
+        val size = DisplayUtils.convertDpToPixel(STATUS_SIZE_IN_DP, context)
         ticker.background = null
         ticker.setImageDrawable(StatusDrawable(newStatus, size.toFloat(), context))
         ticker.visibility = View.VISIBLE
