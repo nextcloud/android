@@ -366,6 +366,7 @@
     <string name="instant_upload_on_charging">只在充電時上傳</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">無效的網址</string>
+    <string name="invisible">隱藏</string>
     <string name="link">連結</string>
     <string name="link_share_allow_upload_and_editing">允許上傳及編輯</string>
     <string name="link_share_file_drop">拖曳檔案(僅供上傳)</string>
@@ -445,6 +446,7 @@
     <string name="notifications_no_results_headline">沒有通知</string>
     <string name="notifications_no_results_message">請稍候再檢查</string>
     <string name="offline_mode">沒有網路連線</string>
+    <string name="oneHour">1 小時</string>
     <string name="outdated_server">伺服器已過期，請升級！</string>
     <string name="overflow_menu">更多</string>
     <string name="pass_code_configure_your_pass_code">輸入通行碼</string>
@@ -640,6 +642,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- 伺服器使用未被信任的憑證</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- 伺服器憑證的生效日在未來</string>
     <string name="ssl_validator_reason_hostname_not_verified">- 這個伺服器的憑證與使用的 URL 不相符</string>
+    <string name="status_message">狀態訊息</string>
     <string name="storage_camera">相機</string>
     <string name="storage_choose_location">選擇儲存位置</string>
     <string name="storage_description_default">預設</string>
@@ -685,8 +688,11 @@
     <string name="synced_icon">已同步</string>
     <string name="tags">標籤</string>
     <string name="test_server_button">測試伺服器連線</string>
+    <string name="thirtyMinutes">30分鐘</string>
+    <string name="thisWeek">本週</string>
     <string name="thumbnail">縮圖</string>
     <string name="timeout_richDocuments">載入需要花一段時間…</string>
+    <string name="today">今天</string>
     <string name="trashbin_activity_title">回收桶</string>
     <string name="trashbin_empty_headline">無已刪除檔案</string>
     <string name="trashbin_empty_message">您可以從這裡還原已刪除的檔案</string>

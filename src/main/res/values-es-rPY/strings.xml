@@ -213,6 +213,7 @@
     <string name="hint_password">Contraseña</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_path">/Cargas Automáticas</string>
+    <string name="invisible">Invisible</string>
     <string name="link">Liga</string>
     <string name="link_share_allow_upload_and_editing">Permitir carga y edición</string>
     <string name="link_share_file_drop">Permitir carga</string>
@@ -254,6 +255,7 @@
     <string name="note_confirm">Enviar</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor verifica más tarde. </string>
+    <string name="oneHour">1 hora</string>
     <string name="pass_code_configure_your_pass_code">Ingresa tu código de seguridad</string>
     <string name="pass_code_configure_your_pass_code_explanation">El código de seguridad será solicitado cada vez que inicie la aplicación</string>
     <string name="pass_code_enter_pass_code">Por favor ingresa tu código de seguridad</string>
@@ -396,7 +398,10 @@
     <string name="synced_folders_type">Tipo</string>
     <string name="tags">Etiquetas</string>
     <string name="test_server_button">Probar la conexión del servidor</string>
+    <string name="thirtyMinutes">30 minutos</string>
+    <string name="thisWeek">Esta semana</string>
     <string name="thumbnail">Miniatura</string>
+    <string name="today">Hoy</string>
     <string name="trashbin_activity_title">Archivos borrados</string>
     <string name="trashbin_empty_headline">No hay archivos borrados</string>
     <string name="unshare">Dejar de compartir</string>

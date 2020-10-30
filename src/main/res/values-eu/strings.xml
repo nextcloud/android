@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Desgaitu energia aurrezteko kontrola</string>
     <string name="autoupload_hide_folder">Ezkutatu karpeta</string>
     <string name="avatar">Abatarra</string>
+    <string name="away">Kanpoan</string>
     <string name="battery_optimization_close">Itxi</string>
     <string name="battery_optimization_disable">Desaktibatu</string>
     <string name="battery_optimization_message">Zure gailuak bateriaren optimizazioa aktibatuta eduki dezake. Auto-karga funtzioak ongi funtzionatzeko aplikazio hau bertatik kanpora utzi behar duzu.</string>
@@ -192,6 +193,7 @@
     <string name="disable_new_media_folder_detection_notifications">Desaktibatu</string>
     <string name="dismiss">Baztertu</string>
     <string name="dismiss_notification_description">Baztertu jakinarazpena</string>
+    <string name="dnd">Ez molestatu</string>
     <string name="download_latest_dev_version">Deskargatu azken garapen bertsioa</string>
     <string name="downloader_download_failed_content">Ezin izan da %1$s deskargatu</string>
     <string name="downloader_download_failed_credentials_error">Deskargak huts egin du, hasi saioa berriz</string>
@@ -375,6 +377,7 @@
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">URL baliogabea</string>
+    <string name="invisible">Ikusezina</string>
     <string name="label_empty">Etiketa ezin da hutsik egon</string>
     <string name="link">Esteka</string>
     <string name="link_share_allow_upload_and_editing">Onartu kargatzea eta edizioa</string>
@@ -458,6 +461,8 @@
     <string name="notifications_no_results_headline">Jakinarazpenik ez</string>
     <string name="notifications_no_results_message">Begiratu beranduago, mesedez.</string>
     <string name="offline_mode">Internet konexiorik ez</string>
+    <string name="oneHour">Ordu 1</string>
+    <string name="online">Linean</string>
     <string name="outdated_server">Zerbitzaria bizitzaren amaierara iritsi da, bertsio-berritu!</string>
     <string name="overflow_menu">Gehiago menua</string>
     <string name="pass_code_configure_your_pass_code">Sartu zure pasahitza</string>
@@ -654,6 +659,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Zerbitzariaren ziurtagiria ez da fidagarria</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Zerbitzariaren ziurtagiriaren balio-epearen datak etorkizunekoak dira</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URLa ez dator bat ziurtagiriko ostalari-izenarekin</string>
+    <string name="status_message">Egoera mezua</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Aukeratu biltegiratze kokapena</string>
     <string name="storage_description_default">Lehenetsia</string>
@@ -701,10 +707,13 @@
     <string name="synced_icon">Sinkronizatua</string>
     <string name="tags">Etiketak</string>
     <string name="test_server_button">Probatu zerbitzariaren konexioa</string>
+    <string name="thirtyMinutes">30 minutu</string>
+    <string name="thisWeek">Aste honetan</string>
     <string name="thumbnail">Koadro txikia</string>
     <string name="thumbnail_for_existing_file_description">Existitzen den fitxategiaren koadro txikia</string>
     <string name="thumbnail_for_new_file_desc">Fitxategi berriaren koadro txikia</string>
     <string name="timeout_richDocuments">Karga luze jotzen ari da</string>
+    <string name="today">Gaur</string>
     <string name="trashbin_activity_title">Ezabatutako fitxategiak</string>
     <string name="trashbin_empty_headline">Ezabatutako fitxategirik ez</string>
     <string name="trashbin_empty_message">Ezabatutako fitxategiak hemendik berreskuratu ahal izango dituzu</string>
