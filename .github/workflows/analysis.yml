@@ -1,4 +1,4 @@
-name: KtLint
+name: Analysis
 
 on:
     push:
