@@ -365,6 +365,7 @@
     <string name="foreign_files_remote_text">远程: %1$s</string>
     <string name="foreign_files_success">所有文件已被移动</string>
     <string name="forward">向前</string>
+    <string name="fourHours">4 小时</string>
     <string name="hint_name">名称</string>
     <string name="hint_note">备注</string>
     <string name="hint_password">密码</string>
@@ -607,6 +608,7 @@
     <string name="share_privilege_unshare">取消共享</string>
     <string name="share_remote_clarification">%1$s (远程)</string>
     <string name="share_room_clarification">%1$s (对话)</string>
+    <string name="share_search">名称、联合云 ID 或电子邮件地址 ...</string>
     <string name="share_send_note">收件人备注</string>
     <string name="share_via_link_hide_download">隐藏下载</string>
     <string name="share_via_link_hide_file_listing_permission_label">隐藏文件列表</string>

@@ -366,6 +366,7 @@
     <string name="foreign_files_remote_text">Extern: %1$s</string>
     <string name="foreign_files_success">Alle bestanden zijn verplaatst</string>
     <string name="forward">Doorsturen</string>
+    <string name="fourHours">4 uur</string>
     <string name="hint_name">Naam</string>
     <string name="hint_note">Notitie</string>
     <string name="hint_password">Wachtwoord</string>
