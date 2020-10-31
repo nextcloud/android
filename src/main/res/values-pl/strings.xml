@@ -371,6 +371,7 @@
     <string name="foreign_files_remote_text">Zdalnie: %1$s</string>
     <string name="foreign_files_success">Wszystkie pliki zostały przeniesione</string>
     <string name="forward">Prześlij dalej</string>
+    <string name="fourHours">4 godziny</string>
     <string name="hint_name">Nazwa</string>
     <string name="hint_note">Notatka</string>
     <string name="hint_password">Hasło</string>
@@ -552,6 +553,7 @@
     <string name="recommend_subject">Wypróbuj %1$s na swoim urządzeniu!</string>
     <string name="recommend_text">Chciałbym zaprosić Ciebie do użytkowania z %1$s na swoim urządzeniu.\nPobierz stąd: %2$s</string>
     <string name="recommend_urls">%1$s lub %2$s</string>
+    <string name="remote">(zdalne)</string>
     <string name="remote_file_fetch_failed">Nie znaleziono pliku!</string>
     <string name="remove_fail_msg">Usuwanie nie powiodło się</string>
     <string name="remove_notification_failed">Usunięcie powiadomienia nie powiodło się.</string>
@@ -599,6 +601,7 @@
     <string name="share_internal_link_to_file_text">Wewnętrzny link udostępniania działa tylko dla użytkowników z dostępem do tego pliku</string>
     <string name="share_internal_link_to_folder_text">Wewnętrzny link udostępniania działa tylko dla użytkowników z dostępem do tego katalogu</string>
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
+    <string name="share_known_remote_on_clarification">na %1$s</string>
     <string name="share_link">Udostępnij link</string>
     <string name="share_link_empty_password">Musisz wprowadzić hasło</string>
     <string name="share_link_file_error">Wystąpił błąd podczas próby udostępnienia tego pliku lub katalogu.</string>
@@ -617,6 +620,7 @@
     <string name="share_privilege_unshare">Zatrzymaj udostępnianie</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_room_clarification">%1$s (rozmowa)</string>
+    <string name="share_search">Nazwa, ID Chmury Federacyjnej lub adres e-mail…</string>
     <string name="share_send_note">Notatka dla odbiorcy</string>
     <string name="share_via_link_hide_download">Ukryj pobieranie</string>
     <string name="share_via_link_hide_file_listing_permission_label">Schowaj listę plików</string>

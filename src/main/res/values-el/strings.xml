@@ -371,6 +371,7 @@
     <string name="foreign_files_remote_text">Απομακρυσμένα: %1$s</string>
     <string name="foreign_files_success">Όλα τα αρχεία μετακινήθηκαν</string>
     <string name="forward">Προώθηση</string>
+    <string name="fourHours">4 ώρες</string>
     <string name="hint_name">Όνομα</string>
     <string name="hint_note">Σημείωση</string>
     <string name="hint_password">Συνθηματικό</string>
