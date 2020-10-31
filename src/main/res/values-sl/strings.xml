@@ -371,6 +371,7 @@
     <string name="foreign_files_remote_text">Oddaljeno: %1$s</string>
     <string name="foreign_files_success">Vse datoteke so premaknjene</string>
     <string name="forward">Naprej</string>
+    <string name="fourHours">po 4 urah</string>
     <string name="hint_name">Ime</string>
     <string name="hint_note">Opomba</string>
     <string name="hint_password">Geslo</string>
