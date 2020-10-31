@@ -8,7 +8,7 @@
     <string name="account_icon">Kontoikon</string>
     <string name="account_not_found">Konto blev ikke fundet.</string>
     <string name="action_clear_failed_uploads">Fjern fejlede uploads</string>
-    <string name="action_edit">Redigér</string>
+    <string name="action_edit">Rediger</string>
     <string name="action_empty_notifications">Ryd alle notifikationer</string>
     <string name="action_empty_trashbin">Tøm skraldespand</string>
     <string name="action_send_share">Send/Del</string>
