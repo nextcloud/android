@@ -371,6 +371,7 @@
     <string name="foreign_files_remote_text">Vzdálené: %1$s</string>
     <string name="foreign_files_success">Všechny soubory byly přesunuty</string>
     <string name="forward">Vpřed</string>
+    <string name="fourHours">4 hodiny</string>
     <string name="hint_name">Jméno</string>
     <string name="hint_note">Poznámka</string>
     <string name="hint_password">Heslo</string>
@@ -552,6 +553,7 @@
     <string name="recommend_subject">Vyzkoušejte %1$s ve svém zařízení!</string>
     <string name="recommend_text">Rád(a) bych Vás/Tě pozval(a) k používání %1$s na vašem/tvém zařízení.\nKe stažení zde: %2$s</string>
     <string name="recommend_urls">%1$s nebo %2$s</string>
+    <string name="remote">(vzdálené)</string>
     <string name="remote_file_fetch_failed">Nepodařilo se najít soubor!</string>
     <string name="remove_fail_msg">Odstranění se nezdařilo</string>
     <string name="remove_notification_failed">Upozornění se nepodařilo odebrat.</string>

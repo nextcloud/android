@@ -365,6 +365,7 @@
     <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
     <string name="foreign_files_success">Všetky súbory boli presunuté</string>
     <string name="forward">Preposlať</string>
+    <string name="fourHours">4 hodiny</string>
     <string name="hint_name">Meno</string>
     <string name="hint_note">Poznámka</string>
     <string name="hint_password">Heslo</string>
