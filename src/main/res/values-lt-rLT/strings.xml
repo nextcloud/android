@@ -78,6 +78,7 @@
     <string name="autoupload_disable_power_save_check">Išjungti energijos taupymo patikrinimą</string>
     <string name="autoupload_hide_folder">Slėpti aplanką</string>
     <string name="avatar">Avataras</string>
+    <string name="away">Atsitraukęs</string>
     <string name="battery_optimization_close">Užverti</string>
     <string name="battery_optimization_disable">Išjungti</string>
     <string name="battery_optimization_message">Gali būti, kad Jūsų įrenginyje įjungta akumuliatriaus energijos naudojimo optimizacija. Automatinis įkėlimas tinkamai veikia tik tuo atveju, jei iš jo pašalinsite šią programą.
@@ -91,6 +92,8 @@
     <string name="choose_local_folder">Pasirinkite aplanką ...</string>
     <string name="choose_remote_folder">Pasirinkti nuotolinį aplanką…</string>
     <string name="clear_notifications_failed">Nepavyko išvalyti pranešimų.</string>
+    <string name="clear_status_message">Išvalyti būsenos žinutę</string>
+    <string name="clear_status_message_after">Išvalyti būsenos žinutę po</string>
     <string name="clipboard_label">Tekstas nukopijuotas iš %1$s</string>
     <string name="clipboard_no_text_to_copy">Tekstas nukopijuotas į iškarpinę</string>
     <string name="clipboard_text_copied">Nuoroda nukopijuota</string>
@@ -193,6 +196,7 @@
     <string name="dismiss">Atmesti</string>
     <string name="dismiss_notification_description">Atmesti pranešimą</string>
     <string name="dnd">Netrukdyti</string>
+    <string name="dontClear">Neišvalyti</string>
     <string name="download_latest_dev_version">Parsisiųsti naujausią dev versiją</string>
     <string name="downloader_download_failed_content">Nepavyko atsisiųsti %1$s</string>
     <string name="downloader_download_failed_credentials_error">Atsiuntimas nepavyko, prisijunkite dar kartą</string>
@@ -366,6 +370,7 @@
     <string name="foreign_files_remote_text">Nuotolinis: %1$s</string>
     <string name="foreign_files_success">Visi failai buvo perkelti</string>
     <string name="forward">Persiųsti</string>
+    <string name="fourHours">4 valandos</string>
     <string name="hint_name">Vardas</string>
     <string name="hint_note">Apie</string>
     <string name="hint_password">Slaptažodis</string>
@@ -461,6 +466,8 @@
     <string name="notifications_no_results_message">Prašome patikrinti vėliau.</string>
     <string name="offline_mode">Nėra interneto ryšio</string>
     <string name="oneHour">1 valanda</string>
+    <string name="online">Prisijungęs</string>
+    <string name="online_status">Prisijungimo būsena</string>
     <string name="outdated_server">Serverio naudojimo laikas baigėsi, prašome atnaujinkite!</string>
     <string name="overflow_menu">Daugiau meniu</string>
     <string name="pass_code_configure_your_pass_code">Įveskite užraktą</string>
@@ -580,6 +587,8 @@
     <string name="sendbutton_description">Siuntimo mygtuko priktograma</string>
     <string name="set_as">Nustatyti kaip</string>
     <string name="set_picture_as">Naudoti paveikslėlį kaip</string>
+    <string name="set_status">Nustatyti būseną</string>
+    <string name="set_status_message">Nustatyti būsenos žinutę</string>
     <string name="share">Bendrinti</string>
     <string name="share_dialog_title">Bendrinimas</string>
     <string name="share_email_clarification">%1$s (el. paštas)</string>
@@ -819,6 +828,7 @@
     <string name="what_s_new_image">Koks naujas vaizdas</string>
     <string name="whats_new_skip">Praleisti</string>
     <string name="whats_new_title">Naujas %1$s</string>
+    <string name="whats_your_status">Kokia jūsų būsena?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nepavyko sinchronizuoti %1$d failo (konfliktai: %2$d)</item>
         <item quantity="few">Nepavyko sinchronizuoti %1$d failų (konfliktai: %2$d)</item>
