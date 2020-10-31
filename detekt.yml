@@ -56,6 +56,7 @@ complexity:
     threshold: 10
     ignoreSingleWhenExpression: false
     ignoreSimpleWhenEntries: false
+    excludes: ['**/androidTest/**']
   LabeledExpression:
     active: false
     ignoredLabels: ""
@@ -65,6 +66,7 @@ complexity:
   LongMethod:
     active: true
     threshold: 60
+    excludes: ['**/androidTest/**']
   LongParameterList:
     active: true
     threshold: 6

@@ -358,6 +358,7 @@
     <string name="notifications_no_results_headline">Nu sunt notificări</string>
     <string name="notifications_no_results_message">Te rugăm să încerci mai târziu.</string>
     <string name="offline_mode">Nu există conexiune la internet</string>
+    <string name="oneHour">1 oră</string>
     <string name="pass_code_configure_your_pass_code">Introdu parola</string>
     <string name="pass_code_configure_your_pass_code_explanation">Parola va fi solicitată de fiecare dată când deschideți aplicația</string>
     <string name="pass_code_enter_pass_code">Vă rugăm introduceți parola</string>
@@ -527,7 +528,10 @@
     <string name="synced_folders_preferences_folder_path">Pentru %1$s</string>
     <string name="synced_folders_type">Tip</string>
     <string name="tags">Etichete</string>
+    <string name="thirtyMinutes">30 minute</string>
+    <string name="thisWeek">Săptămâna asta</string>
     <string name="thumbnail">Miniatură</string>
+    <string name="today">Azi</string>
     <string name="trashbin_activity_title">Fișiere șterse</string>
     <string name="trashbin_empty_headline">Nu sunt fișiere șterse</string>
     <string name="unset_encrypted">Dezactivați criptarea</string>

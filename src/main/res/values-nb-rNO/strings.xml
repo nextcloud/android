@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Deaktivere strømsparing sjekk</string>
     <string name="autoupload_hide_folder">Skjul mappe</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Borte</string>
     <string name="battery_optimization_close">Lukk</string>
     <string name="battery_optimization_disable">Deaktiver</string>
     <string name="battery_optimization_message">Din enhet har muligens batterioptimalisering aktivert. Auto-opplasting fungerer kun hvis du ekskluderer appen fra optimalisering.</string>
@@ -90,6 +91,8 @@
     <string name="choose_local_folder">Velg lokal mappe…</string>
     <string name="choose_remote_folder">Velg mappe annensteds hen…</string>
     <string name="clear_notifications_failed">Kunne ikke fjerne meldinger.</string>
+    <string name="clear_status_message">Fjern statusmelding</string>
+    <string name="clear_status_message_after">Fjern statusmelding etter</string>
     <string name="clipboard_label">Teksten ble kopiert fra %1$s</string>
     <string name="clipboard_no_text_to_copy">Ingen tekst ble mottatt for kopi til utklippstavlen</string>
     <string name="clipboard_text_copied">Lenke kopiert</string>
@@ -192,6 +195,8 @@
     <string name="disable_new_media_folder_detection_notifications">Deaktiver</string>
     <string name="dismiss">Forkast</string>
     <string name="dismiss_notification_description">Ingen varsel</string>
+    <string name="dnd">Ikke forstyrr</string>
+    <string name="dontClear">Ikke fjern</string>
     <string name="download_latest_dev_version">Last ned det nyeste dev versjon</string>
     <string name="downloader_download_failed_content">Kunne ikke laste ned %1$s</string>
     <string name="downloader_download_failed_credentials_error">Nedlasting mislyktes, prøv igjen</string>
@@ -366,6 +371,7 @@
     <string name="foreign_files_remote_text">Ekstern: %1$s</string>
     <string name="foreign_files_success">Alle filene ble flyttet</string>
     <string name="forward">Fremover</string>
+    <string name="fourHours">4 timer</string>
     <string name="hint_name">Navn</string>
     <string name="hint_note">Melding</string>
     <string name="hint_password">Passord</string>
@@ -375,6 +381,7 @@
     <string name="instant_upload_on_charging">Bare last opp under lading</string>
     <string name="instant_upload_path">/Direkteopplasting</string>
     <string name="invalid_url">Ugyldig URL</string>
+    <string name="invisible">Usynlig</string>
     <string name="label_empty">Merkelapp kan ikke være tom</string>
     <string name="link">Lenke</string>
     <string name="link_share_allow_upload_and_editing">Tillatt opplasting og redigering</string>
@@ -458,6 +465,9 @@
     <string name="notifications_no_results_headline">Ingen varsler</string>
     <string name="notifications_no_results_message">Kom innom senere og ta en titt.</string>
     <string name="offline_mode">Ingen internettforbindelse</string>
+    <string name="oneHour">1 time</string>
+    <string name="online">Pålogget</string>
+    <string name="online_status">Online status</string>
     <string name="outdated_server">Server er ikke lengre supportert, ver vennlig å oppgradere!</string>
     <string name="overflow_menu">Mer meny</string>
     <string name="pass_code_configure_your_pass_code">Skriv inn passordet ditt</string>
@@ -484,6 +494,7 @@
     <string name="pref_behaviour_entries_move">flyttet til app-mappe</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Hva skal gjøres om filen finnes?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Spør hver gang</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Hopp over opplasting</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Skriv over versjon på tjener</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Endre navn på ny versjon</string>
     <string name="pref_instant_name_collision_policy_title">Hva skal gjøres om filen finnes?</string>
@@ -542,6 +553,7 @@
     <string name="recommend_subject">Prøv %1$s på denne enheten.</string>
     <string name="recommend_text">Jeg inviterer deg til å bruke %1$s på enheten din.\nLast ned her: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="remote">(ekstern)</string>
     <string name="remote_file_fetch_failed">Kunne ikke finne filen!</string>
     <string name="remove_fail_msg">Sletting mislyktes</string>
     <string name="remove_notification_failed">Kunne ikke fjerne meldingen.</string>
@@ -577,6 +589,8 @@
     <string name="sendbutton_description">Ikon for forsendelsesknapp</string>
     <string name="set_as">Bruk som</string>
     <string name="set_picture_as">Bruk bilde som</string>
+    <string name="set_status">Velg status</string>
+    <string name="set_status_message">Velg statusmelding</string>
     <string name="share">Del</string>
     <string name="share_dialog_title">Deling</string>
     <string name="share_email_clarification">%1$s (e-post)</string>
@@ -587,6 +601,7 @@
     <string name="share_internal_link_to_file_text">Intern dele-link virker bare for brukere med tilgang til til denne filen</string>
     <string name="share_internal_link_to_folder_text">Intern dele-link virker bare for brukere med tilgang til til denne mappen</string>
     <string name="share_known_remote_clarification">%1$s ( hos %2$s )</string>
+    <string name="share_known_remote_on_clarification">på %1$s</string>
     <string name="share_link">Share link</string>
     <string name="share_link_empty_password">Du må skrive inn ett passord</string>
     <string name="share_link_file_error">Det skjedde en feil under deling av denne filen eller mappen.</string>
@@ -605,6 +620,7 @@
     <string name="share_privilege_unshare">Opphev deling</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s(samtale)</string>
+    <string name="share_search">Navn, Sammenknyttet sky-ID eller e-postadresse</string>
     <string name="share_send_note">Melding til mottaker</string>
     <string name="share_via_link_hide_download">Gjem nedlasting</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skjul filliste</string>
@@ -653,6 +669,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Serverens sertifikat er ikke til å stole på</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Serversertifikatets gyldige datoer er i fremtiden</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Nettadressen samsvarer ikke med vertsnavnet i sertifikatet</string>
+    <string name="status_message">Statusmelding</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Velg lagringssted</string>
     <string name="storage_description_default">Standard</string>
@@ -700,10 +717,13 @@
     <string name="synced_icon">Synkronisert</string>
     <string name="tags">Knagger</string>
     <string name="test_server_button">Test servertilkobling</string>
+    <string name="thirtyMinutes">halvtime</string>
+    <string name="thisWeek">Denne uken</string>
     <string name="thumbnail">Miniatyrbilde</string>
     <string name="thumbnail_for_existing_file_description">Miniatyrbilde for eksisterende fil</string>
     <string name="thumbnail_for_new_file_desc">Miniatyrbilde for ny fil</string>
     <string name="timeout_richDocuments">Lasting tar lang tid...</string>
+    <string name="today">I dag</string>
     <string name="trashbin_activity_title">Slettede filer</string>
     <string name="trashbin_empty_headline">Ingen slettede filer</string>
     <string name="trashbin_empty_message">Du vil kunne gjenopprette slettede filer herfra.</string>
@@ -814,6 +834,7 @@
     <string name="what_s_new_image">Hva er nytt-bilde</string>
     <string name="whats_new_skip">Hopp over</string>
     <string name="whats_new_title">Nytt i %1$s</string>
+    <string name="whats_your_status">Hva er din status?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kunne ikke synkronisere %1$d fil (konflikter: %2$d)</item>
         <item quantity="other">Kunne ikke synkronisere %1$d filer (konflikter: %2$d)</item>

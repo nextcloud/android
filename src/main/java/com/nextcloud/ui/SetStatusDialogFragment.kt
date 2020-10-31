@@ -68,7 +68,23 @@ import javax.inject.Inject
 private const val ARG_CURRENT_USER_PARAM = "currentUser"
 private const val ARG_CURRENT_STATUS_PARAM = "currentStatus"
 
-class SetStatusDialogFragment : DialogFragment(),
+private const val POS_DONT_CLEAR = 0
+private const val POS_HALF_AN_HOUR = 1
+private const val POS_AN_HOUR = 2
+private const val POS_FOUR_HOURS = 3
+private const val POS_TODAY = 4
+private const val POS_END_OF_WEEK = 5
+
+private const val ONE_SECOND_IN_MILLIS = 1000
+private const val ONE_MINUTE_IN_SECONDS = 60
+private const val THIRTY_MINUTES = 30
+private const val FOUR_HOURS = 4
+private const val LAST_HOUR_OF_DAY = 23
+private const val LAST_MINUTE_OF_HOUR = 59
+private const val LAST_SECOND_OF_MINUTE = 59
+
+class SetStatusDialogFragment :
+    DialogFragment(),
     PredefinedStatusClickListener,
     Injectable {
 
@@ -138,7 +154,7 @@ class SetStatusDialogFragment : DialogFragment(),
                 remainingClearTime.apply {
                     clearStatusMessageTextView.text = getString(R.string.clear_status_message)
                     visibility = View.VISIBLE
-                    text = DisplayUtils.getRelativeTimestamp(context, it.clearAt * 1000, true)
+                    text = DisplayUtils.getRelativeTimestamp(context, it.clearAt * ONE_SECOND_IN_MILLIS, true)
                         .toString()
                         .decapitalize(Locale.getDefault())
                     setOnClickListener {
@@ -200,69 +216,76 @@ class SetStatusDialogFragment : DialogFragment(),
                 }
             }
         }
+
+        clearStatus.setTextColor(ThemeUtils.primaryColor(context, true))
+        ThemeUtils.colorPrimaryButton(setStatus, context)
     }
 
     private fun setClearStatusAfterValue(item: Int) {
         when (item) {
-            0 -> {
+            POS_DONT_CLEAR -> {
                 // don't clear
                 clearAt = null
             }
 
-            1 -> {
+            POS_HALF_AN_HOUR -> {
                 // 30 minutes
-                clearAt = System.currentTimeMillis() / 1000 + 30 * 60
+                clearAt = System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + THIRTY_MINUTES * ONE_MINUTE_IN_SECONDS
             }
 
-            2 -> {
+            POS_AN_HOUR -> {
                 // one hour
-                clearAt = System.currentTimeMillis() / 1000 + 60 * 60
+                clearAt =
+                    System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
             }
 
-            3 -> {
+            POS_FOUR_HOURS -> {
                 // four hours
-                clearAt = System.currentTimeMillis() / 1000 + 4 * 60 * 60
+                clearAt =
+                    System.currentTimeMillis() / ONE_SECOND_IN_MILLIS
+                +FOUR_HOURS * ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
             }
 
-            4 -> {
+            POS_TODAY -> {
                 // today
                 val date = Calendar.getInstance().apply {
-                    set(Calendar.HOUR_OF_DAY, 23)
-                    set(Calendar.MINUTE, 59)
-                    set(Calendar.SECOND, 59)
+                    set(Calendar.HOUR_OF_DAY, LAST_HOUR_OF_DAY)
+                    set(Calendar.MINUTE, LAST_MINUTE_OF_HOUR)
+                    set(Calendar.SECOND, LAST_SECOND_OF_MINUTE)
                 }
-                clearAt = date.timeInMillis / 1000
+                clearAt = date.timeInMillis / ONE_SECOND_IN_MILLIS
             }
 
-            5 -> {
+            POS_END_OF_WEEK -> {
                 // end of week
                 val date = Calendar.getInstance().apply {
-                    set(Calendar.HOUR_OF_DAY, 23)
-                    set(Calendar.MINUTE, 59)
-                    set(Calendar.SECOND, 59)
+                    set(Calendar.HOUR_OF_DAY, LAST_HOUR_OF_DAY)
+                    set(Calendar.MINUTE, LAST_MINUTE_OF_HOUR)
+                    set(Calendar.SECOND, LAST_SECOND_OF_MINUTE)
                 }
 
                 while (date.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
                     date.add(Calendar.DAY_OF_YEAR, 1)
                 }
 
-                clearAt = date.timeInMillis / 1000
+                clearAt = date.timeInMillis / ONE_SECOND_IN_MILLIS
             }
         }
     }
 
+    @Suppress("ReturnCount")
     private fun clearAtToUnixTime(clearAt: ClearAt?): Long {
         if (clearAt != null) {
             if (clearAt.type.equals("period")) {
-                return System.currentTimeMillis() / 1000 + clearAt.time.toLong()
+                return System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + clearAt.time.toLong()
             } else if (clearAt.type.equals("end-of")) {
                 if (clearAt.time.equals("day")) {
                     val date = Calendar.getInstance().apply {
-                        set(Calendar.HOUR_OF_DAY, 23)
-                        set(Calendar.MINUTE, 59)
-                        set(Calendar.SECOND, 59)
+                        set(Calendar.HOUR_OF_DAY, LAST_HOUR_OF_DAY)
+                        set(Calendar.MINUTE, LAST_MINUTE_OF_HOUR)
+                        set(Calendar.SECOND, LAST_SECOND_OF_MINUTE)
                     }
-                    return date.timeInMillis / 1000
+                    return date.timeInMillis / ONE_SECOND_IN_MILLIS
                 }
             }
         }
@@ -275,8 +298,10 @@ class SetStatusDialogFragment : DialogFragment(),
     }
 
     private fun clearStatus() {
-        asyncRunner.postQuickTask(ClearStatusTask(accountManager.currentOwnCloudAccount?.savedAccount, context),
-            { dismiss(it) })
+        asyncRunner.postQuickTask(
+            ClearStatusTask(accountManager.currentOwnCloudAccount?.savedAccount, context),
+            { dismiss(it) }
+        )
     }
 
     private fun setStatus(statusType: StatusType) {
@@ -286,7 +311,8 @@ class SetStatusDialogFragment : DialogFragment(),
             SetStatusTask(
                 statusType,
                 accountManager.currentOwnCloudAccount?.savedAccount,
-                context),
+                context
+            ),
             {
                 if (!it) {
                     clearTopStatus()
@@ -334,7 +360,8 @@ class SetStatusDialogFragment : DialogFragment(),
                     selectedPredefinedMessageId!!,
                     clearAt,
                     accountManager.currentOwnCloudAccount?.savedAccount,
-                    context),
+                    context
+                ),
                 { dismiss(it) }
             )
         } else {
@@ -344,7 +371,8 @@ class SetStatusDialogFragment : DialogFragment(),
                     emoji.text.toString(),
                     clearAt,
                     accountManager.currentOwnCloudAccount?.savedAccount,
-                    context),
+                    context
+                ),
                 { dismiss(it) }
             )
         }
@@ -393,16 +421,16 @@ class SetStatusDialogFragment : DialogFragment(),
             val clearAt = predefinedStatus.clearAt!!
             if (clearAt.type.equals("period")) {
                 when (clearAt.time) {
-                    "1800" -> clearStatusAfterSpinner.setSelection(1)
-                    "3600" -> clearStatusAfterSpinner.setSelection(2)
-                    "14400" -> clearStatusAfterSpinner.setSelection(3)
-                    else -> clearStatusAfterSpinner.setSelection(0)
+                    "1800" -> clearStatusAfterSpinner.setSelection(POS_HALF_AN_HOUR)
+                    "3600" -> clearStatusAfterSpinner.setSelection(POS_AN_HOUR)
+                    "14400" -> clearStatusAfterSpinner.setSelection(POS_FOUR_HOURS)
+                    else -> clearStatusAfterSpinner.setSelection(POS_DONT_CLEAR)
                 }
             } else if (clearAt.type.equals("end-of")) {
                 when (clearAt.time) {
-                    "day" -> clearStatusAfterSpinner.setSelection(4)
-                    "week" -> clearStatusAfterSpinner.setSelection(5)
-                    else -> clearStatusAfterSpinner.setSelection(0)
+                    "day" -> clearStatusAfterSpinner.setSelection(POS_TODAY)
+                    "week" -> clearStatusAfterSpinner.setSelection(POS_END_OF_WEEK)
+                    else -> clearStatusAfterSpinner.setSelection(POS_DONT_CLEAR)
                 }
             }
         }
