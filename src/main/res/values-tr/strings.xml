@@ -371,6 +371,7 @@
     <string name="foreign_files_remote_text">Uzak: %1$s</string>
     <string name="foreign_files_success">Tüm dosyalar taşındı</string>
     <string name="forward">İlet</string>
+    <string name="fourHours">4 saat</string>
     <string name="hint_name">Ad</string>
     <string name="hint_note">Not</string>
     <string name="hint_password">Parola</string>

@@ -371,6 +371,7 @@
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
     <string name="foreign_files_success">Todos os arquivos foram movidos</string>
     <string name="forward">Adiante</string>
+    <string name="fourHours">4 horas</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Anotação</string>
     <string name="hint_password">Senha</string>
