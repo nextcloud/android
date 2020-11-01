@@ -92,7 +92,7 @@
     <string name="choose_remote_folder">Escolher pasta remota…</string>
     <string name="clear_notifications_failed">Erro ao limpar as notificações.</string>
     <string name="clear_status_message">Limpar mensagem de status</string>
-    <string name="clear_status_message_after">Limpar status do usuário após</string>
+    <string name="clear_status_message_after">Limpar mensagem de status após</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
     <string name="clipboard_no_text_to_copy">Nenhum texto foi recebido para copiar para a área de transferência</string>
     <string name="clipboard_text_copied">Link copiado</string>
@@ -553,6 +553,7 @@
     <string name="recommend_subject">Experimente %1$s em seu dispositivo!</string>
     <string name="recommend_text">Quero convidar você a usar %1$s em seu dispositivo.\nBaixe daqui: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">Erro ao encontrar arquivo!</string>
     <string name="remove_fail_msg">Falha na exclusão</string>
     <string name="remove_notification_failed">Erro ao remover a notificação.</string>
@@ -600,6 +601,7 @@
     <string name="share_internal_link_to_file_text">O link de compartilhamento interno só funciona para usuários com acesso a este arquivo</string>
     <string name="share_internal_link_to_folder_text">O link de compartilhamento interno só funciona para usuários com acesso a esta pasta</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
+    <string name="share_known_remote_on_clarification">em %1$s</string>
     <string name="share_link">Link de compartilhamento</string>
     <string name="share_link_empty_password">Digite uma senha</string>
     <string name="share_link_file_error">Ocorreu um erro durante ao tentar compartilhar esse arquivo ou pasta.</string>
