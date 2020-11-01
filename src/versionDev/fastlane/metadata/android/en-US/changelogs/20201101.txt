@@ -1,0 +1,17 @@
+Bump to 3.15 alpha
+l10n: Change the hour to plural
+ktlint
+theming fur status message buttons
+Javascript enabled for WebViews is fine
+Fix wrong background on error display of PreviewImageFragment
+changes after rebase
+changes after rebase
+use primarey
+Use status from lib
+Fix detekt
+remove magic numbers
+reformat for ktlint
+replace magic number with constants
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
