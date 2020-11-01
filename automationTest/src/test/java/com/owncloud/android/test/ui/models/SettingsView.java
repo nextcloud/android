@@ -47,7 +47,7 @@ public class SettingsView {
 	@AndroidFindBy(name = "Change password")
 	private AndroidElement changePasswordElement;
 
-	@AndroidFindBy(name = "Add account")
+	@AndroidFindBy(name = "Add new account")
 	private AndroidElement addAccountElement;
 
 	@AndroidFindBy(uiAutomator = "new UiSelector()"
