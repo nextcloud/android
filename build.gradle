@@ -184,7 +184,7 @@ android {
             }
 
             versionRelease {
-                applicationId "com.qijicloud.clint"
+                applicationId "com.qijicloud.client"
                 dimension "default"
                 versionCode 1
                 versionName "20201029"
