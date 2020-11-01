@@ -1,0 +1,4 @@
+f2afee900 Merge pull request #4416 from nextcloud/noStorageManager
+70ea95998 storage manager can be null
+56e0fd081 [tx-robot] updated from transifex
+bd62476e1 daily dev 20190824

@@ -1,0 +1,9 @@
+863261b3a Merge pull request #4475 from nextcloud/photoSearchTask
+e8e66ba1b Bump mockito-kotlin from 2.1.0 to 2.2.0 (#4479)
+5a53ca3c7 check for nullable context stop task on pause
+ba56be189 Bump mockito-kotlin from 2.1.0 to 2.2.0
+572d63e42 Bump lifecycle-viewmodel-ktx from 2.0.0 to 2.1.0 (#4472)
+0e95a073d Update findbugs-results.txt
+7e40312de [tx-robot] updated from transifex
+df7cb0c18 [tx-robot] updated from transifex
+a212f1c09 daily dev 20190906

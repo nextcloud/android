@@ -1,0 +1,5 @@
+013c00d44 Merge pull request #4286 from cotechde/fido
+81ba9b333 add FIDO U2F support using WebViewFidoBridge
+c68cb1fbb add hwsecurity-fido:2.4.1 dependency
+2732e10e6 [tx-robot] updated from transifex
+faddd355f daily dev 20190808

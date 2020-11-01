@@ -1,0 +1,11 @@
+6773e1a51 Merge pull request #4056 from nextcloud/exceptionHandler
+89b26e87a use correct constructor call
+51fca2c80 use correct f-droid link to dev build
+cb812f6ef ktlint: no consecutive blank lines
+c80c6eb5b use BuildConfig.VERSION_CODE
+1d79f899a Remove theming, use better title
+ea44c595a Merge pull request #4180 from nextcloud/design/screenshots
+a2cf6bc40 Improve app store screenshot designs Separate app store screenshot text into bold heading and regular subline
+75005668d [tx-robot] updated from transifex
+92e9fabf4 [tx-robot] updated from transifex
+0e4dab8b5 daily dev 20190731

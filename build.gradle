@@ -287,6 +287,7 @@ dependencies {
     genericImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     gplayImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     versionDevImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
+    versionReleaseImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     qaImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
 
     kapt 'javax.xml.bind:jaxb-api:2.3.1'

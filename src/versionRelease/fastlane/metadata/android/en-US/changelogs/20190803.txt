@@ -1,0 +1,4 @@
+0469db38c Fix local state if fragment is initialized before services (#4262)
+bfb3bfd9e Fix upload and delete to actually delete (#4287)
+0711815a7 [tx-robot] updated from transifex
+017e85109 daily dev 20190802

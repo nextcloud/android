@@ -1,0 +1,5 @@
+adc74c1e4 Bump fb-contrib from 7.4.6 to 7.4.7 (#4711)
+123e708b7 Merge pull request #4710 from nextcloud/ezaquarii/eliminate-account-status-flags-from-base-activity
+148cef835 [tx-robot] updated from transifex
+b7cdaf310 Eliminate account status flags from BaseActivity
+17a6ba2d2 daily dev 20191019
