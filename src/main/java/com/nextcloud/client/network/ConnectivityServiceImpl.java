@@ -26,44 +26,36 @@ import android.net.NetworkInfo;
 
 import com.nextcloud.client.account.Server;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.logger.Logger;
+import com.nextcloud.common.PlainClient;
+import com.nextcloud.operations.GetMethod;
 
-import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.GetMethod;
-
-import java.io.IOException;
 
 import androidx.core.net.ConnectivityManagerCompat;
 import kotlin.jvm.functions.Function1;
 
 class ConnectivityServiceImpl implements ConnectivityService {
 
-    private final static String TAG = ConnectivityServiceImpl.class.getName();
-
     private final ConnectivityManager platformConnectivityManager;
     private final UserAccountManager accountManager;
     private final ClientFactory clientFactory;
     private final GetRequestBuilder requestBuilder;
-    private final Logger logger;
 
     static class GetRequestBuilder implements Function1<String, GetMethod> {
         @Override
         public GetMethod invoke(String url) {
-            return new GetMethod(url);
+            return new GetMethod(url, false);
         }
     }
 
     ConnectivityServiceImpl(ConnectivityManager platformConnectivityManager,
                             UserAccountManager accountManager,
                             ClientFactory clientFactory,
-                            GetRequestBuilder requestBuilder,
-                            Logger logger) {
+                            GetRequestBuilder requestBuilder) {
         this.platformConnectivityManager = platformConnectivityManager;
         this.accountManager = accountManager;
         this.clientFactory = clientFactory;
         this.requestBuilder = requestBuilder;
-        this.logger = logger;
     }
 
     @Override
@@ -71,33 +63,26 @@ class ConnectivityServiceImpl implements ConnectivityService {
         Connectivity c = getConnectivity();
         if (c.isConnected() && c.isWifi()) {
 
-            GetMethod get = null;
-            try {
-                Server server = accountManager.getUser().getServer();
-                String baseServerAddress = server.getUri().toString();
-                if (baseServerAddress.isEmpty()) {
-                    return true;
-                }
-
-                get = requestBuilder.invoke(baseServerAddress + "/index.php/204");
-                HttpClient client = clientFactory.createPlainClient();
-
-                int status = client.executeMethod(get);
-
-                return !(status == HttpStatus.SC_NO_CONTENT &&
-                    (get.getResponseContentLength() == -1 || get.getResponseContentLength() == 0));
-            } catch (IOException e) {
-                logger.e(TAG, "Error checking internet connection", e);
-            } finally {
-                if (get != null) {
-                    get.releaseConnection();
-                }
+            GetMethod get;
+            Server server = accountManager.getUser().getServer();
+            String baseServerAddress = server.getUri().toString();
+            if (baseServerAddress.isEmpty()) {
+                return true;
             }
+
+            get = requestBuilder.invoke(baseServerAddress + "/index.php/204");
+            PlainClient client = clientFactory.createPlainClient();
+
+            int status = get.execute(client);
+
+            if (get != null) {
+                get.releaseConnection();
+            }
+
+            return !(status == HttpStatus.SC_NO_CONTENT && (get.getResponseBodyAsString().length() == 0));
         } else {
             return !getConnectivity().isConnected();
         }
-
-        return true;
     }
 
     @Override

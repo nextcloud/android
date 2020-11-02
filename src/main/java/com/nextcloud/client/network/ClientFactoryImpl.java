@@ -29,6 +29,7 @@ import android.net.Uri;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.common.PlainClient;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -89,7 +90,7 @@ class ClientFactoryImpl implements ClientFactory {
     }
 
     @Override
-    public PlainHttpClient createPlainClient() {
-        return new PlainHttpClient();
+    public PlainClient createPlainClient() {
+        return new PlainClient(context);
     }
 }

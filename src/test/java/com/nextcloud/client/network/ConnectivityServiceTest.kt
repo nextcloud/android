@@ -108,8 +108,7 @@ class ConnectivityServiceTest {
                 platformConnectivityManager,
                 accountManager,
                 clientFactory,
-                requestBuilder,
-                logger
+                requestBuilder
             )
 
             whenever(platformConnectivityManager.activeNetworkInfo).thenReturn(networkInfo)

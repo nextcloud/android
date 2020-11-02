@@ -24,7 +24,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.logger.Logger;
 
 import javax.inject.Singleton;
 
@@ -37,13 +36,12 @@ public class NetworkModule {
     @Provides
     ConnectivityService connectivityService(ConnectivityManager connectivityManager,
                                             UserAccountManager accountManager,
-                                            ClientFactory clientFactory,
-                                            Logger logger) {
+                                            ClientFactory clientFactory) {
         return new ConnectivityServiceImpl(connectivityManager,
                                            accountManager,
                                            clientFactory,
-                                           new ConnectivityServiceImpl.GetRequestBuilder(),
-                                           logger);
+                                           new ConnectivityServiceImpl.GetRequestBuilder()
+        );
     }
 
     @Provides
