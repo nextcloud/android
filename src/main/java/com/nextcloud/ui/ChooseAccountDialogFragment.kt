@@ -22,6 +22,7 @@ package com.nextcloud.ui
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -199,7 +200,7 @@ class ChooseAccountDialogFragment :
         // Un-needed for this context
     }
 
-    fun setStatus(newStatus: Status) {
+    fun setStatus(newStatus: Status, context: Context) {
         currentStatus = newStatus
 
         val size = DisplayUtils.convertDpToPixel(STATUS_SIZE_IN_DP, context)
