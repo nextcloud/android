@@ -63,7 +63,7 @@ ext {
     androidLibraryVersion = "master-SNAPSHOT"
     mockitoVersion = "3.6.0"
     mockkVersion = "1.10.2"
-    byteBuddyVersion = "1.10.17"
+    byteBuddyVersion = "1.10.18"
     espressoVersion = "3.3.0"
 
     travisBuild = System.getenv("TRAVIS") == "true"
