@@ -61,32 +61,29 @@ import io.reactivex.schedulers.Schedulers;
 public class ScanDocumentFragment extends Fragment {
     private static final String TAG = ScanDocumentFragment.class.getName();
 
-    private final NativeClass mNativeClassOpenCV;
-
-    private boolean mInverted;
-
+    protected final CompositeDisposable disposable;
+    private final NativeClass nativeClassOpenCV;
+    private final OnProcessImage onProcessImageCallback;
     @BindView(R.id.holderImageCrop)
-    FrameLayout mHolderImageCrop;
-    private Bitmap mOriginalImage;
+    FrameLayout holderImageCrop;
+    @BindView(R.id.imageViewScanDocument)
+    ImageView imageView;
+    @BindView(R.id.polygonViewScanDocument)
+    PolygonView polygonView;
+    private boolean inverted;
+    private Bitmap originalImage;
 
     private Unbinder unbinder;
-    private final OnProcessImage mOnProcessImageCallback;
-
-    private Bitmap mEditedImage;
-    protected final CompositeDisposable mDisposable;
-    @BindView(R.id.imageViewScanDocument)
-    ImageView mImageView;
-    @BindView(R.id.polygonViewScanDocument)
-    PolygonView mPolygonView;
-    private Bitmap mNonInvertedImage;
+    private Bitmap editedImage;
+    private Bitmap nonInvertedImage;
 
     public ScanDocumentFragment(OnProcessImage onProcessImage, Bitmap originalImage, Bitmap editedImage) {
-        mEditedImage = editedImage.copy(editedImage.getConfig(), true);
-        mOriginalImage = originalImage.copy(originalImage.getConfig(), true);
-        mNonInvertedImage = editedImage.copy(editedImage.getConfig(), true);
-        mOnProcessImageCallback = onProcessImage;
-        mNativeClassOpenCV = new NativeClass();
-        mDisposable = new CompositeDisposable();
+        this.editedImage = editedImage.copy(editedImage.getConfig(), true);
+        this.originalImage = originalImage.copy(originalImage.getConfig(), true);
+        nonInvertedImage = editedImage.copy(editedImage.getConfig(), true);
+        onProcessImageCallback = onProcessImage;
+        nativeClassOpenCV = new NativeClass();
+        disposable = new CompositeDisposable();
     }
 
     // bitmap are too large to be passed by bundle
@@ -96,33 +93,33 @@ public class ScanDocumentFragment extends Fragment {
     }
 
     public Bitmap getEditedImage() {
-        return mEditedImage;
+        return editedImage;
     }
 
     public void forceUpdateImages(Bitmap bitmap) {
-        mEditedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, mHolderImageCrop.getWidth(), mHolderImageCrop.getHeight());
-        mOriginalImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, mHolderImageCrop.getWidth(), mHolderImageCrop.getHeight());
-        mNonInvertedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, mHolderImageCrop.getWidth(), mHolderImageCrop.getHeight());
-        mImageView.setImageBitmap(mEditedImage);
+        editedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, holderImageCrop.getWidth(), holderImageCrop.getHeight());
+        originalImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, holderImageCrop.getWidth(), holderImageCrop.getHeight());
+        nonInvertedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, holderImageCrop.getWidth(), holderImageCrop.getHeight());
+        imageView.setImageBitmap(editedImage);
     }
 
     private void updateEditedImage(Bitmap bitmap) {
-        mEditedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, mHolderImageCrop.getWidth(), mHolderImageCrop.getHeight());
-        mImageView.setImageBitmap(mEditedImage);
+        editedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, holderImageCrop.getWidth(), holderImageCrop.getHeight());
+        imageView.setImageBitmap(editedImage);
     }
 
     public boolean isNotInverted() {
-        return !mInverted;
+        return !inverted;
     }
 
     public void setInverted(boolean inverted) {
-        mInverted = inverted;
+        this.inverted = inverted;
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("invertedParams", mInverted);
+        outState.putBoolean("invertedParams", inverted);
     }
 
     @Override
@@ -147,86 +144,86 @@ public class ScanDocumentFragment extends Fragment {
         // wait view to be ready
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             public void onGlobalLayout() {
-                updateEditedImage(mEditedImage);
+                updateEditedImage(editedImage);
                 view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
     }
 
     public void setImageRotation() {
-        Bitmap tempBitmap = mEditedImage.copy(mEditedImage.getConfig(), true);
+        Bitmap tempBitmap = editedImage.copy(editedImage.getConfig(), true);
         for (int i = 1; i <= 4; i++) {
-            MatOfPoint2f point2f = mNativeClassOpenCV.getPoint(tempBitmap);
+            MatOfPoint2f point2f = nativeClassOpenCV.getPoint(tempBitmap);
             if (point2f == null) {
                 tempBitmap = BitmapUtils.rotateBitmap(tempBitmap, 90 * i);
             } else {
-                mEditedImage = tempBitmap.copy(mEditedImage.getConfig(), true);
+                editedImage = tempBitmap.copy(editedImage.getConfig(), true);
                 break;
             }
         }
     }
 
     public void rotateBitmap(float angle) {
-        mOnProcessImageCallback.onProcessImageStart();
-        mDisposable.add(
-            Observable.fromCallable(() -> BitmapUtils.rotateBitmap(mEditedImage, angle))
+        onProcessImageCallback.onProcessImageStart();
+        disposable.add(
+            Observable.fromCallable(() -> BitmapUtils.rotateBitmap(editedImage, angle))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((result) -> {
                     updateEditedImage(result);
-                    mOnProcessImageCallback.onProcessImageEnd();
+                    onProcessImageCallback.onProcessImageEnd();
                 }));
     }
 
     public void trySetPolygonViewToADocument() {
-        mOnProcessImageCallback.onProcessImageStart();
-        mDisposable.add(Observable.fromCallable(() -> {
-                            setImageRotation();
-                            return Boolean.TRUE;
-                        })
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe((result) -> {
-                                updateEditedImage(mOriginalImage.copy(mOriginalImage.getConfig(), true));
-                                if (mInverted) {
-                                    invertColorProcess();
-                                }
-                                Map<Integer, PointF> pointFs;
-                                try {
-                                    pointFs = getEdgePoints(mEditedImage);
-                                    mPolygonView.setPoints(pointFs);
-                                    mPolygonView.setVisibility(View.VISIBLE);
+        onProcessImageCallback.onProcessImageStart();
+        disposable.add(Observable.fromCallable(() -> {
+                           setImageRotation();
+                           return Boolean.TRUE;
+                       })
+                           .subscribeOn(Schedulers.io())
+                           .observeOn(AndroidSchedulers.mainThread())
+                           .subscribe((result) -> {
+                               updateEditedImage(originalImage.copy(originalImage.getConfig(), true));
+                               if (inverted) {
+                                   invertColorProcess();
+                               }
+                               Map<Integer, PointF> pointFs;
+                               try {
+                                   pointFs = getEdgePoints(editedImage);
+                                   polygonView.setPoints(pointFs);
+                                   polygonView.setVisibility(View.VISIBLE);
 
-                                    int padding = (int) getResources().getDimension(R.dimen.scanPadding);
+                                   int padding = (int) getResources().getDimension(R.dimen.scanPadding);
 
-                                    FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(mEditedImage.getWidth() + 2 * padding, mEditedImage.getHeight() + 2 * padding);
-                                    layoutParams.gravity = Gravity.CENTER;
+                                   FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(editedImage.getWidth() + 2 * padding, editedImage.getHeight() + 2 * padding);
+                                   layoutParams.gravity = Gravity.CENTER;
 
-                                    mPolygonView.setLayoutParams(layoutParams);
-                                    mPolygonView.setPointColor(getResources().getColor(R.color.blue));
+                                   polygonView.setLayoutParams(layoutParams);
+                                   polygonView.setPointColor(getResources().getColor(R.color.blue));
 
-                                } catch (Exception e) {
-                                    Log_OC.e(TAG, "trySetPolygonViewToADocument exception", e);
-                                    showCropError();
-                                }
-                                mOnProcessImageCallback.onProcessImageEnd();
-                            })
-                       );
+                               } catch (Exception e) {
+                                   Log_OC.e(TAG, "trySetPolygonViewToADocument exception", e);
+                                   showCropError();
+                               }
+                               onProcessImageCallback.onProcessImageEnd();
+                           })
+                      );
     }
 
     public void disablePolygonView() {
-        mPolygonView.setVisibility(View.INVISIBLE);
+        polygonView.setVisibility(View.INVISIBLE);
     }
 
     public void resetImage() {
         setInverted(false);
-        updateEditedImage(mOriginalImage.copy(mOriginalImage.getConfig(), true));
+        updateEditedImage(originalImage.copy(originalImage.getConfig(), true));
     }
 
     public void cropImageFromPolygon() {
-        mOnProcessImageCallback.onProcessImageStart();
-        mDisposable.add(
-            Observable.fromCallable(() -> cropImageProcess(mPolygonView.getPoints()))
+        onProcessImageCallback.onProcessImageStart();
+        disposable.add(
+            Observable.fromCallable(() -> cropImageProcess(polygonView.getPoints()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((result) -> {
@@ -235,15 +232,15 @@ public class ScanDocumentFragment extends Fragment {
                     } else {
                         showCropError();
                     }
-                    mOnProcessImageCallback.onProcessImageEnd();
+                    onProcessImageCallback.onProcessImageEnd();
                 }));
 
     }
 
     private Bitmap cropImageProcess(Map<Integer, PointF> points) {
         try {
-            float xRatio = (float) mEditedImage.getWidth() / mImageView.getWidth();
-            float yRatio = (float) mEditedImage.getHeight() / mImageView.getHeight();
+            float xRatio = (float) editedImage.getWidth() / imageView.getWidth();
+            float yRatio = (float) editedImage.getHeight() / imageView.getHeight();
 
             float x1 = (Objects.requireNonNull(points.get(0)).x) * xRatio;
             float x2 = (Objects.requireNonNull(points.get(1)).x) * xRatio;
@@ -253,37 +250,37 @@ public class ScanDocumentFragment extends Fragment {
             float y2 = (Objects.requireNonNull(points.get(1)).y) * yRatio;
             float y3 = (Objects.requireNonNull(points.get(2)).y) * yRatio;
             float y4 = (Objects.requireNonNull(points.get(3)).y) * yRatio;
-            return mNativeClassOpenCV.getScannedBitmap(mEditedImage, x1, y1, x2, y2, x3, y3, x4, y4);
+            return nativeClassOpenCV.getScannedBitmap(editedImage, x1, y1, x2, y2, x3, y3, x4, y4);
         } catch (Exception e) {
             return null;
         }
     }
 
     public void invertColorImage() {
-        mOnProcessImageCallback.onProcessImageStart();
-        mDisposable.add(
+        onProcessImageCallback.onProcessImageStart();
+        disposable.add(
             Observable.fromCallable(this::invertColorProcess)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((result) -> {
                     updateEditedImage(result);
                     setInverted(isNotInverted());
-                    mOnProcessImageCallback.onProcessImageEnd();
+                    onProcessImageCallback.onProcessImageEnd();
                 }));
     }
 
     private Bitmap invertColorProcess() {
         if (isNotInverted()) {
             // backup image
-            mNonInvertedImage = mEditedImage.copy(mEditedImage.getConfig(), true);
-            return BitmapUtils.grayscaleBitmap(mEditedImage);
+            nonInvertedImage = editedImage.copy(editedImage.getConfig(), true);
+            return BitmapUtils.grayscaleBitmap(editedImage);
         } else {
-            return mNonInvertedImage.copy(mNonInvertedImage.getConfig(), true);
+            return nonInvertedImage.copy(nonInvertedImage.getConfig(), true);
         }
     }
 
     private Map<Integer, PointF> getEdgePoints(Bitmap tempBitmap) {
-        MatOfPoint2f point2f = mNativeClassOpenCV.getPoint(tempBitmap);
+        MatOfPoint2f point2f = nativeClassOpenCV.getPoint(tempBitmap);
         if (point2f == null) {
             point2f = new MatOfPoint2f();
         }
@@ -293,8 +290,8 @@ public class ScanDocumentFragment extends Fragment {
             result.add(new PointF((float) point.x, (float) point.y));
         }
 
-        Map<Integer, PointF> orderedPoints = mPolygonView.getOrderedPoints(result);
-        if (!mPolygonView.isValidShape(orderedPoints)) {
+        Map<Integer, PointF> orderedPoints = polygonView.getOrderedPoints(result);
+        if (!polygonView.isValidShape(orderedPoints)) {
             Map<Integer, PointF> outlinePoints = new HashMap<>();
             outlinePoints.put(0, new PointF(0, 0));
             outlinePoints.put(1, new PointF(tempBitmap.getWidth(), 0));

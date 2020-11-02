@@ -38,18 +38,18 @@ public class ScanDocumentAdapter extends FragmentStateAdapter {
 
     private final List<ScanDocumentFragment> scanDocumentFragmentList;
 
-    private final ScanDocumentFragment.OnProcessImage mOnProcessImage;
+    private final ScanDocumentFragment.OnProcessImage onProcessImage;
 
     public ScanDocumentAdapter(ScanDocumentFragment.OnProcessImage onProcessImage,
                                @NonNull FragmentManager fragmentManager,
                                @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
         scanDocumentFragmentList = new ArrayList<>();
-        mOnProcessImage = onProcessImage;
+        this.onProcessImage = onProcessImage;
     }
 
     public void addScanImage(Bitmap originalImage, int position) {
-        scanDocumentFragmentList.add(position, ScanDocumentFragment.newInstance(mOnProcessImage, originalImage, originalImage));
+        scanDocumentFragmentList.add(position, ScanDocumentFragment.newInstance(onProcessImage, originalImage, originalImage));
         notifyDataSetChanged();
     }
 
