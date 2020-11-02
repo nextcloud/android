@@ -584,6 +584,8 @@
     <string name="sendbutton_description">Bidali botoiaren ikonoa</string>
     <string name="set_as">Ezarri honela</string>
     <string name="set_picture_as">Erabili irudia honela</string>
+    <string name="set_status">Ezarri egoera</string>
+    <string name="set_status_message">Ezarri egoera mezua</string>
     <string name="share">Partekatu</string>
     <string name="share_dialog_title">Partekatzea</string>
     <string name="share_email_clarification">%1$s (eposta)</string>
@@ -825,6 +827,7 @@
     <string name="what_s_new_image">Zer da irudi berria</string>
     <string name="whats_new_skip">Salto egin</string>
     <string name="whats_new_title">Berria %1$s-n</string>
+    <string name="whats_your_status">Zein da zure egoera?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ezin izan da %1$d fitxategia sinkronizatu (gatazkak: %2$d)</item>
         <item quantity="other">Ezin izan dira %1$d fitxategi sinkronizatu (gatazkak: %2$d)</item>
