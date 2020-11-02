@@ -34,6 +34,8 @@ import com.owncloud.android.lib.resources.users.StatusType;
 
 import java.lang.ref.WeakReference;
 
+import androidx.lifecycle.Lifecycle;
+
 public class RetrieveStatusAsyncTask extends AsyncTask<Void, Void, Status> {
     private final User user;
     private final WeakReference<ChooseAccountDialogFragment> chooseAccountDialogFragment;
@@ -67,8 +69,8 @@ public class RetrieveStatusAsyncTask extends AsyncTask<Void, Void, Status> {
     protected void onPostExecute(com.owncloud.android.lib.resources.users.Status status) {
         ChooseAccountDialogFragment fragment = chooseAccountDialogFragment.get();
 
-        if (fragment != null) {
-            fragment.setStatus(status);
+        if (fragment != null && fragment.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+            fragment.setStatus(status, fragment.requireContext());
         }
 
     }
