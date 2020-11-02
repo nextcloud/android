@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ /**
-  ~  * Created by Ali YÜCE on 3/2/20 11:18 PM
-  ~  * https://github.com/mayuce/
-  ~  * Copyright (c) 2020 . All rights reserved.
-  ~  * Last modified 3/2/20 11:10 PM
-  ~  */
-  -->
+ Nextcloud Android client application
 
+ @author thelittlefireman
+ Copyright (C) 2020 thelittlefireman
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -219,32 +229,32 @@
         android:id="@+id/relative_layout_choice_buttons"
         app:layout_constraintTop_toBottomOf="@+id/viewPagerScanDocument"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center">
-        <Button
+
+        <com.google.android.material.button.MaterialButton
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivAddAnOtherScanToDoc"
             android:id="@+id/btnValidate"
-            android:text="@string/common_ok"
+            android:text="@string/folder_picker_choose_button_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:backgroundTint="@color/primary_button_background_color"
-            android:shadowRadius="10"
-            android:textColor="#ffffff" />
+            android:theme="@style/Button.Primary"
+            app:cornerRadius="@dimen/button_corner_radius" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/btnClose"
-            android:text="@string/common_cancel"
+            style="@style/OutlinedButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/ivAddAnOtherScanToDoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:backgroundTint="@color/primary_button_background_color"
-            android:shadowRadius="10"
-            android:textColor="#ffffff" />
+            android:text="@string/common_cancel"
+            app:cornerRadius="@dimen/button_corner_radius" />
 
         <ImageView
             android:id="@+id/ivAddAnOtherScanToDoc"
