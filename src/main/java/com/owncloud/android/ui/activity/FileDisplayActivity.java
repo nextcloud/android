@@ -215,6 +215,7 @@ public class FileDisplayActivity extends FileActivity
     private PlayerServiceConnection mPlayerConnection;
     private Account mLastDisplayedAccount;
     private int menuItemId = -1;
+    private String menuTitle;
 
     @Inject
     AppPreferences preferences;
@@ -322,12 +323,17 @@ public class FileDisplayActivity extends FileActivity
                     } else {
                         setFile(getStorageManager().getFileByPath(OCFile.ROOT_PATH));
                     }
+                    menuTitle = menuItem.getTitle().toString();
                     updateActionBarTitleAndHomeButton(getCurrentDir());
-                    ThemeUtils.setColoredTitle(getSupportActionBar(), menuItem.getTitle().toString(), FileDisplayActivity.this);
                 }
                 return true;
             });
         }
+    }
+
+    @Override
+    protected String getDefaultDisplayName() {
+        return menuTitle;
     }
 
     @Override

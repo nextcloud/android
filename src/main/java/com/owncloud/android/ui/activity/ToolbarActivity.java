@@ -135,12 +135,16 @@ public abstract class ToolbarActivity extends BaseActivity {
         String title;
         boolean isRoot = isRoot(chosenFile);
 
-        title = isRoot ? ThemeUtils.getDefaultDisplayNameForRootFolder(this) : chosenFile.getFileName();
-//        updateActionBarTitleAndHomeButtonByString(title);
+        title = isRoot ? getDefaultDisplayName() : chosenFile.getFileName();
+        updateActionBarTitleAndHomeButtonByString(title);
 
         if (mAppBar != null) {
             showHomeSearchToolbar(title, isRoot);
         }
+    }
+
+    protected String getDefaultDisplayName() {
+        return ThemeUtils.getDefaultDisplayNameForRootFolder(this);
     }
 
     public void showSearchView() {
