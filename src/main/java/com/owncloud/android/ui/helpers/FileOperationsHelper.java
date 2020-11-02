@@ -122,12 +122,16 @@ public class FileOperationsHelper {
     private static final String FILE_EXTENSION_WEBLOC = "webloc";
     public static final int SINGLE_LINK_SIZE = 1;
 
+    private static final String SCAN_FOLDER = "/nextcloud_scan_folder";
+
     private final FileActivity fileActivity;
     private final CurrentAccountProvider currentAccount;
     private final ConnectivityService connectivityService;
 
     /// Identifier of operation in progress which result shouldn't be lost
     private long mWaitingForOpId = Long.MAX_VALUE;
+
+    private static final Date today = new Date();
 
     public FileOperationsHelper(FileActivity fileActivity,
                                 CurrentAccountProvider currentAccount,
@@ -140,7 +144,7 @@ public class FileOperationsHelper {
     public static void takePictureFromCamera(Activity activity, int requestCode) {
         Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        deleteOldFiles(activity);
+        deleteOldPicturesFiles(activity);
 
         File photoFile = createImageFile(activity);
 
@@ -950,9 +954,20 @@ public class FileOperationsHelper {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_checking_credentials));
     }
 
-    public static void deleteOldFiles(Activity activity) {
+    public static void deleteOldPicturesFiles(Activity activity) {
         File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        deleteAllFiles(storageDir);
+    }
 
+    public static void deleteOldPDFFiles(Activity activity) {
+        File storageDir = new File(activity.getExternalCacheDir().getAbsolutePath() + SCAN_FOLDER);
+        deleteAllFiles(storageDir);
+    }
+
+    private static void deleteAllFiles(File storageDir) {
+        if (!storageDir.exists()) {
+            return;
+        }
         if (storageDir != null) {
             for (File file : storageDir.listFiles()) {
                 if (!file.delete()) {
@@ -963,8 +978,10 @@ public class FileOperationsHelper {
     }
 
     public static File createPdfFile(Activity activity) {
-        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-
+        File storageDir = new File(activity.getExternalCacheDir().getAbsolutePath() + SCAN_FOLDER);
+        if (!storageDir.exists()) {
+            storageDir.mkdir();
+        }
         return new File(storageDir + "/scanDocUpload.pdf");
     }
 
@@ -1005,11 +1022,11 @@ public class FileOperationsHelper {
     }
 
     public static String getCapturedImageName() {
-        return new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(new Date()) + ".jpg";
+        return new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(today) + ".jpg";
     }
 
     public static String getScanDocName() {
-        return "scan_"+new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(new Date()) + ".pdf";
+        return "scan_" + new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(today) + ".pdf";
     }
 
     /**

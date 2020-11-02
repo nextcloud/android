@@ -447,8 +447,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 setResult(RESULT_OK_AND_MOVE, data);
 
                 preferences.setUploaderBehaviour(FileUploader.LOCAL_BEHAVIOUR_MOVE);
-            }
-            else {
+            } else {
                 data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
 
                 // set result code

@@ -4,8 +4,7 @@ package com.owncloud.android.ui.activity;
  * Nextcloud Android client application
  *
  * @author thelittlefireman
- * Copyright (C) 2019 thelittlefireman
- * Copyright (C) 2019 Nextcloud GmbH
+ * Copyright (C) 2020 thelittlefireman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -40,12 +39,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -80,6 +79,9 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
     public static final int REQUEST_CODE__RETAKE_PICTURE_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 2;
     public static final String SCAN_DOC_ACTIVITY_RESULT_PDFNAME = "SCAN_DOC_ACTIVITY_RESULT_PDFNAME";
 
+    private static final int PAGE_WIDTH = 960;
+    private static final int PAGE_HEIGHT = 1280;
+
     @BindView(R.id.progressBarScanDocument)
     ProgressBar mProgressBar;
 
@@ -93,10 +95,10 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
     ViewPager2 mViewPagerScanDocument;
 
     @BindView(R.id.btnClose)
-    Button mBtnClose;
+    MaterialButton mBtnClose;
 
     @BindView(R.id.btnValidate)
-    Button mBtnValidate;
+    MaterialButton mBtnValidate;
 
     @BindView(R.id.ivNextScanDoc)
     ImageView mImageViewNextScanDoc;
@@ -363,8 +365,7 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
             mScanDocumentAdapter.addScanImage(originalBitmap, mScanDocumentAdapter.getItemCount());
             updateNextPrevious();
             mViewPagerScanDocument.setCurrentItem(mScanDocumentAdapter.getItemCount() - 1, false);
-        }
-        if (requestCode == REQUEST_CODE__RETAKE_PICTURE_FROM_CAMERA && resultCode == RESULT_OK) {
+        } else if (requestCode == REQUEST_CODE__RETAKE_PICTURE_FROM_CAMERA && resultCode == RESULT_OK) {
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
             String path = FileOperationsHelper.createImageFile(this).getAbsolutePath();
             Bitmap picture = BitmapFactory.decodeFile(path,
@@ -378,16 +379,14 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
 
     // region pdfedition
     public void createPDFDocument() {
-        int pageWidth = 960;
-        int pageHeight = 1280;
         PdfDocument pdfDocument = new PdfDocument();
-
         Paint paint = new Paint();
         Matrix m = new Matrix();
-        RectF rectFirst = new RectF(), rectSecond = new RectF();
+        RectF rectFirst = new RectF();
+        RectF rectSecond = new RectF();
         for (Bitmap bitmap : mScanDocumentAdapter.getEditedImageList()) {
             PdfDocument.PageInfo myPageInfo =
-                new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pdfDocument.getPages().size() + 1).create();
+                new PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pdfDocument.getPages().size() + 1).create();
             PdfDocument.Page page = pdfDocument.startPage(myPageInfo);
             Canvas canvas = page.getCanvas();
 
@@ -398,20 +397,20 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
             // resize if necessary
             m.reset();
             rectFirst.set(0, 0, bitmap.getWidth(), bitmap.getHeight());
-            rectSecond.set(0, 0, pageWidth, pageHeight);
+            rectSecond.set(0, 0, PAGE_WIDTH, PAGE_HEIGHT);
             m.setRectToRect(rectFirst, rectSecond, Matrix.ScaleToFit.CENTER);
             Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
 
             // center image
-            float centerWidth = ((float) pageWidth - bitmap.getWidth()) / 2;
-            float centerHeight = ((float) pageHeight - bitmap.getHeight()) / 2;
+            float centerWidth = ((float) PAGE_WIDTH - bitmap.getWidth()) / 2;
+            float centerHeight = ((float) PAGE_HEIGHT - bitmap.getHeight()) / 2;
             canvas.drawBitmap(bitmap, centerWidth, centerHeight, null);
             pdfDocument.finishPage(page);
 
             bitmap.recycle();
             scaledBitmap.recycle();
         }
-        FileOperationsHelper.deleteOldFiles(this);
+        FileOperationsHelper.deleteOldPDFFiles(this);
         String pdfFilePath = FileOperationsHelper.createPdfFile(this).getAbsolutePath();
         try {
             pdfDocument.writeTo(Files.newOutputStream(Paths.get(pdfFilePath)));

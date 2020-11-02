@@ -4,8 +4,7 @@ package com.owncloud.android.ui.adapter;
  * Nextcloud Android client application
  *
  * @author thelittlefireman
- * Copyright (C) 2019 thelittlefireman
- * Copyright (C) 2019 Nextcloud GmbH
+ * Copyright (C) 2020 thelittlefireman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -37,7 +36,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class ScanDocumentAdapter extends FragmentStateAdapter {
 
-    private final List<ScanDocumentFragment> mScanDocumentFragmentList;
+    private final List<ScanDocumentFragment> scanDocumentFragmentList;
 
     private final ScanDocumentFragment.OnProcessImage mOnProcessImage;
 
@@ -45,28 +44,28 @@ public class ScanDocumentAdapter extends FragmentStateAdapter {
                                @NonNull FragmentManager fragmentManager,
                                @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
-        mScanDocumentFragmentList = new ArrayList<>();
+        scanDocumentFragmentList = new ArrayList<>();
         mOnProcessImage = onProcessImage;
     }
 
     public void addScanImage(Bitmap originalImage, int position) {
-        mScanDocumentFragmentList.add(position, ScanDocumentFragment.newInstance(mOnProcessImage, originalImage, originalImage));
+        scanDocumentFragmentList.add(position, ScanDocumentFragment.newInstance(mOnProcessImage, originalImage, originalImage));
         notifyDataSetChanged();
     }
 
     public void deleteScanImage(int position) {
-        mScanDocumentFragmentList.remove(position);
+        scanDocumentFragmentList.remove(position);
         notifyDataSetChanged();
     }
 
     public void changeScanImage(Bitmap originalImage, int position) {
-        mScanDocumentFragmentList.get(position).forceUpdateImages(originalImage);
+        scanDocumentFragmentList.get(position).forceUpdateImages(originalImage);
         notifyDataSetChanged();
     }
 
     public List<Bitmap> getEditedImageList() {
         List<Bitmap> bitmapList = new ArrayList<>();
-        for (ScanDocumentFragment scanDocumentFragment : mScanDocumentFragmentList) {
+        for (ScanDocumentFragment scanDocumentFragment : scanDocumentFragmentList) {
             bitmapList.add(scanDocumentFragment.getEditedImage());
         }
         return bitmapList;
@@ -80,15 +79,15 @@ public class ScanDocumentAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return mScanDocumentFragmentList.get(position);
+        return scanDocumentFragmentList.get(position);
     }
 
     public ScanDocumentFragment getCurrentFragment(int position) {
-        return mScanDocumentFragmentList.get(position);
+        return scanDocumentFragmentList.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return mScanDocumentFragmentList.size();
+        return scanDocumentFragmentList.size();
     }
 }
