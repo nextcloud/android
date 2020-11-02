@@ -589,7 +589,7 @@
     <string name="sendbutton_description">Ikona tlačítka pro odesílání</string>
     <string name="set_as">Nastavit jako</string>
     <string name="set_picture_as">Použít obrázek jako</string>
-    <string name="set_status">Natavit stav</string>
+    <string name="set_status">Nastavit stav</string>
     <string name="set_status_message">Nastavit stavovou zprávu</string>
     <string name="share">Sdílet</string>
     <string name="share_dialog_title">Sdílení</string>
@@ -619,6 +619,7 @@
     <string name="share_privilege_unshare">Zrušit sdílení</string>
     <string name="share_remote_clarification">%1$s (vzdálený)</string>
     <string name="share_room_clarification">%1$s (konverzace)</string>
+    <string name="share_search">Jméno, identifikátor v rámci sdruženého cloudu, nebo e-mailová adresa…</string>
     <string name="share_send_note">Poznámka pro příjemce</string>
     <string name="share_via_link_hide_download">Skrýt stahování</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrýt seznam souborů</string>
