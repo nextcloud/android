@@ -338,11 +338,6 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 

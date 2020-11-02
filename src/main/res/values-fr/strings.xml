@@ -750,6 +750,7 @@ Attention la suppression est irréversible.</string>
     <string name="upload_content_from_other_apps">Téléverser du contenu à partir d\'autres applications</string>
     <string name="upload_direct_camera_upload">Téléverser depuis l\'appareil photo</string>
     <string name="upload_scan_doc_upload">Numériser un document depuis l\'appareil photo</string>
+    <string name="upload_scan_doc_crop_error">Erreur lors du recadrage de l\'image</string>
     <string name="upload_file_dialog_filename">Nom de fichier</string>
     <string name="upload_file_dialog_filetype">Type de fichier</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Raccourci(%s) Google Maps</string>
