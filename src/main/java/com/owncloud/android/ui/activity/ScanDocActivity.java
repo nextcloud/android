@@ -83,45 +83,45 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
     private static final int PAGE_HEIGHT = 1280;
 
     @BindView(R.id.progressBarScanDocument)
-    ProgressBar mProgressBar;
+    ProgressBar progressBar;
 
     @BindView(R.id.ivAddAnOtherScanToDoc)
-    ImageView mBtnAddAnOtherScanToDoc;
+    ImageView ivAddAnOtherScanToDoc;
 
     @BindView(R.id.textViewPageCounter)
-    TextView mTextViewPageCounter;
+    TextView textViewPageCounter;
 
     @BindView(R.id.viewPagerScanDocument)
-    ViewPager2 mViewPagerScanDocument;
+    ViewPager2 viewPagerScanDocument;
 
     @BindView(R.id.btnClose)
-    MaterialButton mBtnClose;
+    MaterialButton btnClose;
 
     @BindView(R.id.btnValidate)
-    MaterialButton mBtnValidate;
+    MaterialButton btnValidate;
 
     @BindView(R.id.ivNextScanDoc)
-    ImageView mImageViewNextScanDoc;
+    ImageView ivNextScanDoc;
 
     @BindView(R.id.contraintLayoutMainContainer)
-    ConstraintLayout mConstraintLayoutMainContainer;
+    ConstraintLayout constraintLayoutMainContainer;
 
     @BindView(R.id.constraintLayout_crop_button)
-    ConstraintLayout mConstraintLayoutCropButton;
+    ConstraintLayout constraintLayoutCropButton;
 
     @BindView(R.id.constraintLayout_scan_doc_buttons)
-    ConstraintLayout mConstraintLayoutScanDocButtons;
+    ConstraintLayout constraintLayoutScanDocButtons;
 
     @BindView(R.id.constraintLayout_pager_button)
-    ConstraintLayout mConstraintLayoutPagerButton;
+    ConstraintLayout constraintLayoutPagerButton;
 
     @BindView(R.id.ivPreviousScanDoc)
-    ImageView mImageViewPreviousScanDoc;
+    ImageView ivPreviousScanDoc;
 
     int mCurrentPosition;
-    private Unbinder mUnbinder;
-    private String mPdfName = FileOperationsHelper.getScanDocName();
-    private ScanDocumentAdapter mScanDocumentAdapter;
+    private Unbinder unbinder;
+    private String pdfName = FileOperationsHelper.getScanDocName();
+    private ScanDocumentAdapter scanDocumentAdapter;
 
     public static void startScanActivityForResult(Activity activity, int requestCode) {
         Intent action = new Intent(activity, ScanDocActivity.class);
@@ -132,12 +132,12 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_doc);
-        mUnbinder = ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
         mCurrentPosition = -1;
 
-        mScanDocumentAdapter = new ScanDocumentAdapter(this, getSupportFragmentManager(), getLifecycle());
-        mViewPagerScanDocument.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        scanDocumentAdapter = new ScanDocumentAdapter(this, getSupportFragmentManager(), getLifecycle());
+        viewPagerScanDocument.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -155,8 +155,8 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
                 super.onPageScrollStateChanged(state);
             }
         });
-        mViewPagerScanDocument.setAdapter(mScanDocumentAdapter);
-        mViewPagerScanDocument.setUserInputEnabled(true);
+        viewPagerScanDocument.setAdapter(scanDocumentAdapter);
+        viewPagerScanDocument.setUserInputEnabled(true);
 
         FileOperationsHelper
             .takePictureFromCamera(this, REQUEST_CODE__TAKE_PICTURE_FROM_CAMERA);
@@ -165,8 +165,8 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
 
     @OnClick(R.id.ivDeletePage)
     void onDeletePageClick() {
-        mScanDocumentAdapter.deleteScanImage(mCurrentPosition);
-        if (mScanDocumentAdapter.getItemCount() == 0) {
+        scanDocumentAdapter.deleteScanImage(mCurrentPosition);
+        if (scanDocumentAdapter.getItemCount() == 0) {
             FileOperationsHelper
                 .takePictureFromCamera(this, REQUEST_CODE__TAKE_PICTURE_FROM_CAMERA);
         }
@@ -188,7 +188,7 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
         View view = binding.getRoot();
 
         // Setup layout
-        String currentName = mPdfName;
+        String currentName = pdfName;
         EditText inputText = binding.userInput;
         inputText.setHighlightColor(ThemeUtils.primaryColor(this));
         inputText.setText(currentName);
@@ -218,7 +218,7 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
                     return;
                 }
 
-                mPdfName = newFileName;
+                pdfName = newFileName;
             }
         };
 
@@ -243,7 +243,7 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
         // change to a static pdf file and a rename string
         createPDFDocument();
         Intent resultIntent = new Intent();
-        resultIntent.putExtra(SCAN_DOC_ACTIVITY_RESULT_PDFNAME, mPdfName);
+        resultIntent.putExtra(SCAN_DOC_ACTIVITY_RESULT_PDFNAME, pdfName);
         setResult(RESULT_OK, resultIntent);
         finish();
 
@@ -295,44 +295,44 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
 
     @OnClick(R.id.ivNextScanDoc)
     void onNextScanDocClick() {
-        mViewPagerScanDocument.setCurrentItem(mCurrentPosition + 1, true);
+        viewPagerScanDocument.setCurrentItem(mCurrentPosition + 1, true);
         updateNextPrevious();
     }
 
     @OnClick(R.id.ivPreviousScanDoc)
     void onPreviousScanDocClick() {
-        mViewPagerScanDocument.setCurrentItem(mCurrentPosition - 1, true);
+        viewPagerScanDocument.setCurrentItem(mCurrentPosition - 1, true);
         updateNextPrevious();
     }
 
     private void disableViewAndSetProgressBar(boolean isShow) {
-        setViewInteract(mConstraintLayoutMainContainer, !isShow);
-        mProgressBar.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        setViewInteract(constraintLayoutMainContainer, !isShow);
+        progressBar.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
     private void setCropView(boolean isEnable) {
-        mViewPagerScanDocument.setUserInputEnabled(!isEnable);
+        viewPagerScanDocument.setUserInputEnabled(!isEnable);
         //Disable all
-        setViewInteract(mConstraintLayoutMainContainer, !isEnable);
+        setViewInteract(constraintLayoutMainContainer, !isEnable);
         //Enable only CropButton
-        setViewInteract(mConstraintLayoutCropButton, isEnable);
-        mConstraintLayoutCropButton.setVisibility(isEnable ? View.VISIBLE : View.INVISIBLE);
-        mConstraintLayoutPagerButton.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
-        mConstraintLayoutScanDocButtons.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
-        mBtnAddAnOtherScanToDoc.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
-        mBtnClose.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
-        mBtnValidate.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
+        setViewInteract(constraintLayoutCropButton, isEnable);
+        constraintLayoutCropButton.setVisibility(isEnable ? View.VISIBLE : View.INVISIBLE);
+        constraintLayoutPagerButton.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
+        constraintLayoutScanDocButtons.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
+        ivAddAnOtherScanToDoc.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
+        btnClose.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
+        btnValidate.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
     }
 
     private void updateNextPrevious() {
-        mImageViewPreviousScanDoc.setEnabled(mCurrentPosition != 0);
-        mImageViewNextScanDoc.setEnabled(mCurrentPosition != mScanDocumentAdapter.getItemCount());
-        mTextViewPageCounter.setText(getString(R.string.upload_scan_doc_page_counter, mCurrentPosition + 1,
-                                               mScanDocumentAdapter.getItemCount()));
+        ivPreviousScanDoc.setEnabled(mCurrentPosition != 0);
+        ivNextScanDoc.setEnabled(mCurrentPosition != scanDocumentAdapter.getItemCount());
+        textViewPageCounter.setText(getString(R.string.upload_scan_doc_page_counter, mCurrentPosition + 1,
+                                              scanDocumentAdapter.getItemCount()));
     }
 
     private ScanDocumentFragment getCurrentScanDocumentFragment() {
-        return mScanDocumentAdapter.getCurrentFragment(mCurrentPosition);
+        return scanDocumentAdapter.getCurrentFragment(mCurrentPosition);
     }
 
     private void setViewInteract(View view, boolean canDo) {
@@ -347,7 +347,7 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mUnbinder.unbind();
+        unbinder.unbind();
     }
 
     @Override
@@ -362,18 +362,18 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
             Bitmap originalBitmap = BitmapFactory.decodeFile(path,
                                                              bmOptions);
             originalBitmap = BitmapUtils.rotateImage(originalBitmap, path);
-            mScanDocumentAdapter.addScanImage(originalBitmap, mScanDocumentAdapter.getItemCount());
+            scanDocumentAdapter.addScanImage(originalBitmap, scanDocumentAdapter.getItemCount());
             updateNextPrevious();
-            mViewPagerScanDocument.setCurrentItem(mScanDocumentAdapter.getItemCount() - 1, false);
+            viewPagerScanDocument.setCurrentItem(scanDocumentAdapter.getItemCount() - 1, false);
         } else if (requestCode == REQUEST_CODE__RETAKE_PICTURE_FROM_CAMERA && resultCode == RESULT_OK) {
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
             String path = FileOperationsHelper.createImageFile(this).getAbsolutePath();
             Bitmap picture = BitmapFactory.decodeFile(path,
                                                       bmOptions);
             picture = BitmapUtils.rotateImage(picture, path);
-            mScanDocumentAdapter.changeScanImage(picture, mViewPagerScanDocument.getCurrentItem());
+            scanDocumentAdapter.changeScanImage(picture, viewPagerScanDocument.getCurrentItem());
             updateNextPrevious();
-            mViewPagerScanDocument.setCurrentItem(mViewPagerScanDocument.getCurrentItem(), false);
+            viewPagerScanDocument.setCurrentItem(viewPagerScanDocument.getCurrentItem(), false);
         }
     }
 
@@ -384,7 +384,7 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
         Matrix m = new Matrix();
         RectF rectFirst = new RectF();
         RectF rectSecond = new RectF();
-        for (Bitmap bitmap : mScanDocumentAdapter.getEditedImageList()) {
+        for (Bitmap bitmap : scanDocumentAdapter.getEditedImageList()) {
             PdfDocument.PageInfo myPageInfo =
                 new PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pdfDocument.getPages().size() + 1).create();
             PdfDocument.Page page = pdfDocument.startPage(myPageInfo);
