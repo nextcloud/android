@@ -51,8 +51,23 @@ class MoreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val activity = activity as FileDisplayActivity
+        val user = activity.user.get()
+        val userItem = navView.menu.getItem(0)
+        var account = user.accountName
+        if (account.contains("@")) {
+            account = account.substring(0, account.lastIndexOf("@"))
+        }
+        userItem.title = account
+        DisplayUtils.setAvatar(
+            user, activity, resources.getDimension(R.dimen.nav_drawer_menu_avatar_radius), resources,
+            userItem, activity
+        )
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.nav_user -> {
+                    activity.showManageAccountsDialog()
+                }
                 R.id.nav_shared -> {
                     MainApp.showOnlyFilesOnDevice(false)
                     showFiles(SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER))
@@ -63,7 +78,7 @@ class MoreFragment : Fragment() {
                     showFiles(SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER))
                 }
                 else -> {
-                    (activity as FileDisplayActivity).onNavigationItemClicked(menuItem)
+                    activity.onNavigationItemClicked(menuItem)
                 }
             }
             true

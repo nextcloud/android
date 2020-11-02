@@ -24,6 +24,11 @@
     <group
         android:id="@+id/drawer_menu_standard"
         android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_user"
+            android:orderInCategory="0"
+            android:title="@string/etm_accounts" />
         <item
             android:id="@+id/nav_activity"
             android:icon="@drawable/ic_activity"
@@ -91,21 +96,21 @@
     <group
         android:id="@+id/drawer_menu_bottom"
         android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_contacts"
-            android:icon="@drawable/nav_contacts"
-            android:orderInCategory="3"
-            android:title="@string/actionbar_contacts" />
+        <!--        <item-->
+        <!--            android:id="@+id/nav_contacts"-->
+        <!--            android:icon="@drawable/nav_contacts"-->
+        <!--            android:orderInCategory="3"-->
+        <!--            android:title="@string/actionbar_contacts" />-->
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/nav_settings"
             android:orderInCategory="4"
             android:title="@string/actionbar_settings" />
-        <item
-            android:id="@+id/nav_community"
-            android:icon="@drawable/nav_community"
-            android:orderInCategory="4"
-            android:title="@string/drawer_community" />
+        <!--        <item-->
+        <!--            android:id="@+id/nav_community"-->
+        <!--            android:icon="@drawable/nav_community"-->
+        <!--            android:orderInCategory="4"-->
+        <!--            android:title="@string/drawer_community" />-->
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/nav_logout"

@@ -119,9 +119,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:visibility="gone"
-                    tools:visibility="visible"
                     app:backgroundTint="@color/fontAppbar"
-                    app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+                    app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar"
+                    tools:visibility="visible" />
             </androidx.appcompat.widget.Toolbar>
 
         </RelativeLayout>
@@ -183,6 +183,7 @@
                     android:layout_width="42dp"
                     android:layout_height="42dp"
                     android:layout_marginEnd="6dp"
+                    android:visibility="gone"
                     app:cornerRadius="@dimen/button_corner_radius"
                     app:iconSize="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
