@@ -84,12 +84,12 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.lukhnos.nnio.file.Files;
+import org.lukhnos.nnio.file.Paths;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -972,11 +972,9 @@ public class FileOperationsHelper {
     private String getUrlFromFile(String storagePath, Pattern pattern) {
         String url = null;
 
-        InputStreamReader fr = null;
         BufferedReader br = null;
         try {
-            fr = new InputStreamReader(new FileInputStream(storagePath), StandardCharsets.UTF_8);
-            br = new BufferedReader(fr);
+            br = Files.newBufferedReader(Paths.get(storagePath), StandardCharsets.UTF_8);
 
             String line;
             while ((line = br.readLine()) != null) {
@@ -994,14 +992,6 @@ public class FileOperationsHelper {
                     br.close();
                 } catch (IOException e) {
                     Log_OC.d(TAG, "Error closing buffered reader for URL file", e);
-                }
-            }
-
-            if (fr != null) {
-                try {
-                    fr.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, "Error closing file reader for URL file", e);
                 }
             }
         }

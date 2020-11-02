@@ -872,7 +872,7 @@ public class FileDisplayActivity extends FileActivity
                         File renamedFile = new File(file.getParent() + PATH_SEPARATOR + pdfName);
 
                         if (!file.renameTo(renamedFile)) {
-                            DisplayUtils.showSnackMessage(getActivity(), "Fail to upload scan document!");
+                            DisplayUtils.showSnackMessage(getActivity(), R.string.upload_scan_doc_fail_to_upload);
                             return;
                         }
 

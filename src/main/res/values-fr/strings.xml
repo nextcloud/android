@@ -751,6 +751,7 @@ Attention la suppression est irréversible.</string>
     <string name="upload_direct_camera_upload">Téléverser depuis l\'appareil photo</string>
     <string name="upload_scan_doc_upload">Numériser un document depuis l\'appareil photo</string>
     <string name="upload_scan_doc_crop_error">Erreur lors du recadrage de l\'image</string>
+    <string name="upload_scan_doc_fail_to_upload">Échec du téléchargement du document numérisé!</string>
     <string name="upload_file_dialog_filename">Nom de fichier</string>
     <string name="upload_file_dialog_filetype">Type de fichier</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Raccourci(%s) Google Maps</string>
