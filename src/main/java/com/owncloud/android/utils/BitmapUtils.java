@@ -31,7 +31,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -130,6 +129,12 @@ public final class BitmapUtils {
     }
 
 
+    /**
+     * Convert a bitmap to black and white
+     *
+     * @param bitmap the bitmap to edit
+     * @return the white and black bitmap
+     */
     public static Bitmap grayscaleBitmap(Bitmap bitmap) {
         Bitmap bmpMonochrome = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bmpMonochrome);
