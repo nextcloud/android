@@ -12,8 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.labters.documentscanner.base.CropperErrorType;
-import com.labters.documentscanner.helpers.ScannerConstants;
 import com.labters.documentscanner.libraries.NativeClass;
 import com.labters.documentscanner.libraries.PolygonView;
 import com.owncloud.android.R;
@@ -53,7 +51,7 @@ public class ScanDocumentFragment extends Fragment {
     private final OnProcessImage mOnProcessImageCallback;
 
     private Bitmap mEditedImage;
-    protected CompositeDisposable mDisposable;
+    protected final CompositeDisposable mDisposable;
     @BindView(R.id.imageViewScanDocument)
     ImageView mImageView;
     @BindView(R.id.polygonViewScanDocument)
@@ -92,7 +90,7 @@ public class ScanDocumentFragment extends Fragment {
     }
 
     public boolean isInverted() {
-        return isInverted;
+        return !isInverted;
     }
 
     public void setInverted(boolean inverted) {
@@ -187,6 +185,7 @@ public class ScanDocumentFragment extends Fragment {
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
+                                    showCropError();
                                 }
                                 mOnProcessImageCallback.onProcessImageEnd();
                             })
@@ -209,7 +208,11 @@ public class ScanDocumentFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((result) -> {
-                    updateEditedImage(result);
+                    if (result != null) {
+                        updateEditedImage(result);
+                    } else {
+                        showCropError();
+                    }
                     mOnProcessImageCallback.onProcessImageEnd();
                 }));
 
@@ -217,7 +220,6 @@ public class ScanDocumentFragment extends Fragment {
 
     private Bitmap cropImageProcess(Map<Integer, PointF> points) {
         try {
-
             float xRatio = (float) mEditedImage.getWidth() / mImageView.getWidth();
             float yRatio = (float) mEditedImage.getHeight() / mImageView.getHeight();
 
@@ -231,7 +233,6 @@ public class ScanDocumentFragment extends Fragment {
             float y4 = (Objects.requireNonNull(points.get(3)).y) * yRatio;
             return mNativeClassOpenCV.getScannedBitmap(mEditedImage, x1, y1, x2, y2, x3, y3, x4, y4);
         } catch (Exception e) {
-            showError(CropperErrorType.CROP_ERROR);
             return null;
         }
     }
@@ -244,13 +245,13 @@ public class ScanDocumentFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((result) -> {
                     updateEditedImage(result);
-                    setInverted(!isInverted());
+                    setInverted(isInverted());
                     mOnProcessImageCallback.onProcessImageEnd();
                 }));
     }
 
     private Bitmap invertColorProcess() {
-        if (!isInverted()) {
+        if (isInverted()) {
             // backup image
             mNonInvertedImage = mEditedImage.copy(mEditedImage.getConfig(), true);
             return BitmapUtils.grayscaleBitmap(mEditedImage);
@@ -288,15 +289,8 @@ public class ScanDocumentFragment extends Fragment {
         unbinder.unbind();
     }
 
-    protected void showError(CropperErrorType errorType) {
-        getActivity().runOnUiThread(() -> {
-            switch (errorType) {
-                case CROP_ERROR:
-                    Toast.makeText(getActivity(), ScannerConstants.cropError, Toast.LENGTH_LONG).show();
-                    break;
-            }
-        });
-
+    protected void showCropError() {
+        Toast.makeText(getActivity(), R.string.upload_scan_doc_crop_error, Toast.LENGTH_LONG).show();
     }
 
     public interface OnProcessImage {
