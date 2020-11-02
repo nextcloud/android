@@ -31,19 +31,15 @@ import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.FileDetailsActivitiesFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -78,14 +74,10 @@ import androidx.annotation.VisibleForTesting;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 public class FileDetailActivitiesFragment extends Fragment implements
     ActivityListInterface,
@@ -99,7 +91,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
     private static final int END_REACHED = 0;
 
     private ActivityAndVersionListAdapter adapter;
-    private Unbinder unbinder;
     private OwnCloudClient ownCloudClient;
     private NextcloudClient nextcloudClient;
 
@@ -109,39 +100,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
     private int lastGiven;
     private boolean isLoadingActivities;
 
-    @BindView(R.id.empty_list_view)
-    public LinearLayout emptyContentContainer;
-
-    @BindView(R.id.swipe_containing_list)
-    public SwipeRefreshLayout swipeListRefreshLayout;
-
-    @BindView(R.id.swipe_containing_empty)
-    public SwipeRefreshLayout swipeEmptyListRefreshLayout;
-
-    @BindView(R.id.empty_list_view_text)
-    public TextView emptyContentMessage;
-
-    @BindView(R.id.empty_list_view_headline)
-    public TextView emptyContentHeadline;
-
-    @BindView(R.id.empty_list_icon)
-    public ImageView emptyContentIcon;
-
-    @BindView(R.id.empty_list_progress)
-    public ProgressBar emptyContentProgressBar;
-
-    @BindView(android.R.id.list)
-    public RecyclerView recyclerView;
-
-    @BindView(R.id.commentInputField)
-    public TextInputEditText commentInput;
-
-    @BindString(R.string.activities_no_results_headline)
-    public String noResultsHeadline;
-
-    @BindString(R.string.activities_no_results_message)
-    public String noResultsMessage;
-
     private boolean restoreFileVersionSupported;
     private FileOperationsHelper operationsHelper;
     private VersionListInterface.CommentCallback callback;
@@ -149,6 +107,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject ContentResolver contentResolver;
+    private FileDetailsActivitiesFragmentBinding binding;
 
     public static FileDetailActivitiesFragment newInstance(OCFile file, User user) {
         FileDetailActivitiesFragment fragment = new FileDetailActivitiesFragment();
@@ -176,46 +135,53 @@ public class FileDetailActivitiesFragment extends Fragment implements
             user = savedInstanceState.getParcelable(ARG_USER);
         }
 
-        View view = inflater.inflate(R.layout.file_details_activities_fragment, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        binding = FileDetailsActivitiesFragmentBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
         setupView();
 
-        ThemeUtils.colorSwipeRefreshLayout(getContext(), swipeEmptyListRefreshLayout);
-        ThemeUtils.colorSwipeRefreshLayout(getContext(), swipeListRefreshLayout);
+        ThemeUtils.colorSwipeRefreshLayout(getContext(), binding.swipeContainingEmpty);
+        ThemeUtils.colorSwipeRefreshLayout(getContext(), binding.swipeContainingList);
 
         fetchAndSetData(-1);
 
-        swipeListRefreshLayout.setOnRefreshListener(() -> onRefreshListLayout(swipeListRefreshLayout));
-        swipeEmptyListRefreshLayout.setOnRefreshListener(() -> onRefreshListLayout(swipeEmptyListRefreshLayout));
+        binding.swipeContainingList.setOnRefreshListener(() -> onRefreshListLayout(binding.swipeContainingList));
+        binding.swipeContainingEmpty.setOnRefreshListener(() -> onRefreshListLayout(binding.swipeContainingEmpty));
 
         callback = new VersionListInterface.CommentCallback() {
 
             @Override
             public void onSuccess() {
-                commentInput.getText().clear();
+                binding.commentInputField.getText().clear();
                 fetchAndSetData(-1);
             }
 
             @Override
             public void onError(int error) {
-                Snackbar.make(recyclerView, error, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(binding.list, error, Snackbar.LENGTH_LONG).show();
             }
         };
 
-        commentInput.getBackground().setColorFilter(
-                ThemeUtils.primaryAccentColor(getContext()),
-                PorterDuff.Mode.SRC_ATOP
-        );
+        binding.commentInputField.getBackground().setColorFilter(
+            ThemeUtils.primaryAccentColor(getContext()),
+            PorterDuff.Mode.SRC_ATOP
+                                                                );
 
-        ThemeUtils.themeEditText(getContext(), commentInput, false);
+        binding.submitComment.setOnClickListener(l -> submitComment());
+
+        ThemeUtils.themeEditText(getContext(), binding.commentInputField, false);
 
         return view;
     }
 
-    @OnClick(R.id.submitComment)
-    public void submitComment() {
-        Editable commentField = commentInput.getText();
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    private void submitComment() {
+        Editable commentField = binding.commentInputField.getText();
 
         if (commentField == null) {
             return;
@@ -237,16 +203,10 @@ public class FileDetailActivitiesFragment extends Fragment implements
     }
 
     private void setLoadingMessage() {
-        emptyContentHeadline.setText(R.string.file_list_loading);
-        emptyContentMessage.setText("");
-        emptyContentIcon.setVisibility(View.GONE);
-        emptyContentProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
+        binding.emptyList.emptyListViewHeadline.setText(R.string.file_list_loading);
+        binding.emptyList.emptyListViewText.setText("");
+        binding.emptyList.emptyListIcon.setVisibility(View.GONE);
+        binding.emptyList.emptyListProgress.setVisibility(View.VISIBLE);
     }
 
     private void setupView() {
@@ -259,9 +219,12 @@ public class FileDetailActivitiesFragment extends Fragment implements
         restoreFileVersionSupported = capability.getFilesVersioning().isTrue() &&
             serverVersion.compareTo(OwnCloudVersion.nextcloud_14) >= 0;
 
-        emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
-                                                                          PorterDuff.Mode.SRC_IN);
-        emptyContentIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_activity, null));
+        binding.emptyList.emptyListProgress
+            .getIndeterminateDrawable()
+            .setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
+                            PorterDuff.Mode.SRC_IN);
+        binding.emptyList.emptyListIcon
+            .setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_activity, null));
 
         adapter = new ActivityAndVersionListAdapter(getContext(),
                                                     accountManager,
@@ -271,12 +234,12 @@ public class FileDetailActivitiesFragment extends Fragment implements
                                                     capability,
                                                     clientFactory
         );
-        recyclerView.setAdapter(adapter);
+        binding.list.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        binding.list.setLayoutManager(layoutManager);
+        binding.list.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -311,8 +274,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
             return;
         }
 
-        final SwipeRefreshLayout empty = swipeEmptyListRefreshLayout;
-        final SwipeRefreshLayout list = swipeListRefreshLayout;
+        final SwipeRefreshLayout empty = binding.swipeContainingEmpty;
+        final SwipeRefreshLayout list = binding.swipeContainingList;
         final User user = accountManager.getUser();
 
         if (user.isAnonymous()) {
@@ -367,14 +330,16 @@ public class FileDetailActivitiesFragment extends Fragment implements
                     }
 
                     activity.runOnUiThread(() -> {
-                        populateList(activitiesAndVersions, lastGiven == -1);
+                        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                            populateList(activitiesAndVersions, lastGiven == -1);
+                        }
                     });
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());
                     // show error
                     String logMessage = result.getLogMessage();
                     if (result.getHttpCode() == HttpStatus.SC_NOT_MODIFIED) {
-                        logMessage = noResultsMessage;
+                        logMessage = getString(R.string.activities_no_results_message);
                     }
                     final String finalLogMessage = logMessage;
                     activity.runOnUiThread(() -> {
@@ -411,56 +376,50 @@ public class FileDetailActivitiesFragment extends Fragment implements
         adapter.setActivityAndVersionItems(activities, nextcloudClient, clear);
 
         if (adapter.getItemCount() == 0) {
-            setEmptyContent(noResultsHeadline, noResultsMessage);
-            swipeListRefreshLayout.setVisibility(View.GONE);
-            swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
+            setEmptyContent(getString(R.string.activities_no_results_headline),
+                            getString(R.string.activities_no_results_message));
+            binding.swipeContainingList.setVisibility(View.GONE);
+            binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
         } else {
-            swipeListRefreshLayout.setVisibility(View.VISIBLE);
-            swipeEmptyListRefreshLayout.setVisibility(View.GONE);
+            binding.swipeContainingList.setVisibility(View.VISIBLE);
+            binding.swipeContainingEmpty.setVisibility(View.GONE);
         }
         isLoadingActivities = false;
     }
 
     private void setEmptyContent(String headline, String message) {
-        if (emptyContentContainer != null && emptyContentMessage != null) {
-            emptyContentIcon.setImageDrawable(ResourcesCompat.getDrawable(requireContext().getResources(),
-                                                                          R.drawable.ic_activity,
-                                                                          null));
-            emptyContentHeadline.setText(headline);
-            emptyContentMessage.setText(message);
+        binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(requireContext().getResources(),
+                                                                                     R.drawable.ic_activity,
+                                                                                     null));
+        binding.emptyList.emptyListViewHeadline.setText(headline);
+        binding.emptyList.emptyListViewText.setText(message);
 
-            emptyContentMessage.setVisibility(View.VISIBLE);
-            emptyContentProgressBar.setVisibility(View.GONE);
-            emptyContentIcon.setVisibility(View.VISIBLE);
-        }
+        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListProgress.setVisibility(View.GONE);
+        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
     }
 
     @VisibleForTesting
     public void setErrorContent(String message) {
-        if (emptyContentContainer != null && emptyContentMessage != null) {
-            emptyContentHeadline.setText(R.string.common_error);
-            emptyContentIcon.setImageDrawable(ResourcesCompat.getDrawable(requireContext().getResources(),
-                                                                          R.drawable.ic_list_empty_error,
-                                                                          null));
-            emptyContentMessage.setText(message);
-
-            emptyContentMessage.setVisibility(View.VISIBLE);
-            emptyContentProgressBar.setVisibility(View.GONE);
-            emptyContentIcon.setVisibility(View.VISIBLE);
-            swipeListRefreshLayout.setVisibility(View.GONE);
-            swipeEmptyListRefreshLayout.setVisibility(View.VISIBLE);
-        }
+        binding.emptyList.emptyListViewHeadline.setText(R.string.common_error);
+        binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(requireContext().getResources(),
+                                                                                     R.drawable.ic_list_empty_error,
+                                                                                     null));
+        binding.emptyList.emptyListViewText.setText(message);
+        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListProgress.setVisibility(View.GONE);
+        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
+        binding.swipeContainingList.setVisibility(View.GONE);
+        binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
     }
 
     private void hideRefreshLayoutLoader(FragmentActivity activity) {
         activity.runOnUiThread(() -> {
-            if (swipeListRefreshLayout != null) {
-                swipeListRefreshLayout.setRefreshing(false);
+            if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                binding.swipeContainingList.setRefreshing(false);
+                binding.swipeContainingEmpty.setRefreshing(false);
+                isLoadingActivities = false;
             }
-            if (swipeEmptyListRefreshLayout != null) {
-                swipeEmptyListRefreshLayout.setRefreshing(false);
-            }
-            isLoadingActivities = false;
         });
     }
 
@@ -484,10 +443,10 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     private static class SubmitCommentTask extends AsyncTask<Void, Void, Boolean> {
 
-        private String message;
-        private String fileId;
-        private VersionListInterface.CommentCallback callback;
-        private OwnCloudClient client;
+        private final String message;
+        private final String fileId;
+        private final VersionListInterface.CommentCallback callback;
+        private final OwnCloudClient client;
 
         private SubmitCommentTask(String message, String fileId, VersionListInterface.CommentCallback callback,
                                   OwnCloudClient client) {
@@ -514,7 +473,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 callback.onSuccess();
             } else {
                 callback.onError(R.string.error_comment_file);
-
             }
         }
     }
