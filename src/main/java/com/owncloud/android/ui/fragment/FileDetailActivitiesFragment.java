@@ -78,6 +78,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -367,7 +368,9 @@ public class FileDetailActivitiesFragment extends Fragment implements
                     }
 
                     activity.runOnUiThread(() -> {
-                        populateList(activitiesAndVersions, lastGiven == -1);
+                        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                            populateList(activitiesAndVersions, lastGiven == -1);
+                        }
                     });
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());
@@ -378,8 +381,10 @@ public class FileDetailActivitiesFragment extends Fragment implements
                     }
                     final String finalLogMessage = logMessage;
                     activity.runOnUiThread(() -> {
-                        setErrorContent(finalLogMessage);
-                        isLoadingActivities = false;
+                        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                            setErrorContent(finalLogMessage);
+                            isLoadingActivities = false;
+                        }
                     });
                 }
 
@@ -454,13 +459,15 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     private void hideRefreshLayoutLoader(FragmentActivity activity) {
         activity.runOnUiThread(() -> {
-            if (swipeListRefreshLayout != null) {
-                swipeListRefreshLayout.setRefreshing(false);
+            if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                if (swipeListRefreshLayout != null) {
+                    swipeListRefreshLayout.setRefreshing(false);
+                }
+                if (swipeEmptyListRefreshLayout != null) {
+                    swipeEmptyListRefreshLayout.setRefreshing(false);
+                }
+                isLoadingActivities = false;
             }
-            if (swipeEmptyListRefreshLayout != null) {
-                swipeEmptyListRefreshLayout.setRefreshing(false);
-            }
-            isLoadingActivities = false;
         });
     }
 
