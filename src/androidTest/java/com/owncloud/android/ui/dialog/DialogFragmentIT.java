@@ -164,29 +164,32 @@ public class DialogFragmentIT extends AbstractIT {
         activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.DND,
                                                               "Busy fixing 🐛…",
                                                               "",
-                                                              -1)));
+                                                              -1),
+                                                   targetContext));
         shortSleep();
         screenshot(sut, "dnd");
 
         activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.ONLINE,
                                                               "",
                                                               "",
-                                                              -1)));
+                                                              -1),
+                                                   targetContext));
         shortSleep();
         screenshot(sut, "online");
 
         activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.ONLINE,
                                                               "Let's have some fun",
                                                               "🎉",
-                                                              -1)));
+                                                              -1),
+                                                   targetContext));
         shortSleep();
         screenshot(sut, "fun");
 
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.OFFLINE, "", "", -1)));
+        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.OFFLINE, "", "", -1), targetContext));
         shortSleep();
         screenshot(sut, "offline");
 
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.AWAY, "Vacation", "🌴", -1)));
+        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.AWAY, "Vacation", "🌴", -1), targetContext));
         shortSleep();
         screenshot(sut, "away");
     }
