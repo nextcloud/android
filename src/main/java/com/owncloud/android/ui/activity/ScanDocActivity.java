@@ -1,17 +1,27 @@
 package com.owncloud.android.ui.activity;
 
 /*
- * *
- *  * Created by Ali YÜCE on 3/2/20 11:18 PM
- *  * Edited by thelittlefireman
- *  * https://github.com/mayuce/
- *  * Copyright (c) 2020 . All rights reserved.
- *  * Last modified 3/2/20 11:10 PM
+ * Nextcloud Android client application
  *
+ * @author thelittlefireman
+ * Copyright (C) 2019 thelittlefireman
+ * Copyright (C) 2019 Nextcloud GmbH
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -216,13 +226,14 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
             .setPositiveButton(R.string.file_rename, clickListener)
             .setNegativeButton(R.string.common_cancel, clickListener)
             .setTitle(R.string.rename_dialog_title);
-        Dialog d = builder.create();
+        AlertDialog d = builder.create();
 
         Window window = d.getWindow();
         if (window != null) {
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
         d.show();
+        d.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(accentColor);
     }
 
     @OnClick(R.id.btnValidate)
@@ -371,6 +382,9 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
         int pageHeight = 1280;
         PdfDocument pdfDocument = new PdfDocument();
 
+        Paint paint = new Paint();
+        Matrix m = new Matrix();
+        RectF rectFirst = new RectF(), rectSecond = new RectF();
         for (Bitmap bitmap : mScanDocumentAdapter.getEditedImageList()) {
             PdfDocument.PageInfo myPageInfo =
                 new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pdfDocument.getPages().size() + 1).create();
@@ -378,12 +392,14 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
             Canvas canvas = page.getCanvas();
 
             //set white background
-            Paint paint = new Paint();
+            paint.reset();
             paint.setColor(Color.parseColor("#ffffff"));
             canvas.drawPaint(paint);
             // resize if necessary
-            Matrix m = new Matrix();
-            m.setRectToRect(new RectF(0, 0, bitmap.getWidth(), bitmap.getHeight()), new RectF(0, 0, pageWidth, pageHeight), Matrix.ScaleToFit.CENTER);
+            m.reset();
+            rectFirst.set(0, 0, bitmap.getWidth(), bitmap.getHeight());
+            rectSecond.set(0, 0, pageWidth, pageHeight);
+            m.setRectToRect(rectFirst, rectSecond, Matrix.ScaleToFit.CENTER);
             Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
 
             // center image

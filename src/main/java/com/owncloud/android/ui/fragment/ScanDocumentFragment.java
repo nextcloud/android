@@ -1,5 +1,26 @@
 package com.owncloud.android.ui.fragment;
 
+/*
+ * Nextcloud Android client application
+ *
+ * @author thelittlefireman
+ * Copyright (C) 2019 thelittlefireman
+ * Copyright (C) 2019 Nextcloud GmbH
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.os.Bundle;
@@ -15,13 +36,13 @@ import android.widget.Toast;
 import com.labters.documentscanner.libraries.NativeClass;
 import com.labters.documentscanner.libraries.PolygonView;
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.BitmapUtils;
 
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,9 +60,11 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class ScanDocumentFragment extends Fragment {
+    private static final String TAG = ScanDocumentFragment.class.getName();
+
     private final NativeClass mNativeClassOpenCV;
 
-    private boolean isInverted;
+    private boolean mInverted;
 
     @BindView(R.id.holderImageCrop)
     FrameLayout mHolderImageCrop;
@@ -89,18 +112,18 @@ public class ScanDocumentFragment extends Fragment {
         mImageView.setImageBitmap(mEditedImage);
     }
 
-    public boolean isInverted() {
-        return !isInverted;
+    public boolean isNotInverted() {
+        return !mInverted;
     }
 
     public void setInverted(boolean inverted) {
-        isInverted = inverted;
+        mInverted = inverted;
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("invertedParams", isInverted);
+        outState.putBoolean("invertedParams", mInverted);
     }
 
     @Override
@@ -166,7 +189,7 @@ public class ScanDocumentFragment extends Fragment {
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe((result) -> {
                                 updateEditedImage(mOriginalImage.copy(mOriginalImage.getConfig(), true));
-                                if (isInverted) {
+                                if (mInverted) {
                                     invertColorProcess();
                                 }
                                 Map<Integer, PointF> pointFs;
@@ -184,7 +207,7 @@ public class ScanDocumentFragment extends Fragment {
                                     mPolygonView.setPointColor(getResources().getColor(R.color.blue));
 
                                 } catch (Exception e) {
-                                    e.printStackTrace();
+                                    Log_OC.e(TAG, "trySetPolygonViewToADocument exception", e);
                                     showCropError();
                                 }
                                 mOnProcessImageCallback.onProcessImageEnd();
@@ -245,13 +268,13 @@ public class ScanDocumentFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((result) -> {
                     updateEditedImage(result);
-                    setInverted(isInverted());
+                    setInverted(isNotInverted());
                     mOnProcessImageCallback.onProcessImageEnd();
                 }));
     }
 
     private Bitmap invertColorProcess() {
-        if (isInverted()) {
+        if (isNotInverted()) {
             // backup image
             mNonInvertedImage = mEditedImage.copy(mEditedImage.getConfig(), true);
             return BitmapUtils.grayscaleBitmap(mEditedImage);
@@ -265,10 +288,10 @@ public class ScanDocumentFragment extends Fragment {
         if (point2f == null) {
             point2f = new MatOfPoint2f();
         }
-        List<Point> points = Arrays.asList(point2f.toArray());
+        Point[] points = point2f.toArray();
         List<PointF> result = new ArrayList<>();
-        for (int i = 0; i < points.size(); i++) {
-            result.add(new PointF(((float) points.get(i).x), ((float) points.get(i).y)));
+        for (Point point : points) {
+            result.add(new PointF((float) point.x, (float) point.y));
         }
 
         Map<Integer, PointF> orderedPoints = mPolygonView.getOrderedPoints(result);
