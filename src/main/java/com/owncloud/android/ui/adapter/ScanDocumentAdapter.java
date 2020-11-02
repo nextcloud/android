@@ -30,17 +30,17 @@ public class ScanDocumentAdapter extends FragmentStateAdapter {
 
     public void addScanImage(Bitmap originalImage, int position) {
         mScanDocumentFragmentList.add(position, ScanDocumentFragment.newInstance(mOnProcessImage, originalImage, originalImage));
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     public void deleteScanImage(int position) {
         mScanDocumentFragmentList.remove(position);
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     public void changeScanImage(Bitmap originalImage, int position) {
-        deleteScanImage(position);
-        addScanImage(originalImage, position);
+        mScanDocumentFragmentList.get(position).forceUpdateImages(originalImage);
+        notifyDataSetChanged();
     }
 
     public List<Bitmap> getEditedImageList() {

@@ -47,7 +47,7 @@ public class ScanDocumentFragment extends Fragment {
 
     @BindView(R.id.holderImageCrop)
     FrameLayout mHolderImageCrop;
-    private final Bitmap mOriginalImage;
+    private Bitmap mOriginalImage;
 
     private Unbinder unbinder;
     private final OnProcessImage mOnProcessImageCallback;
@@ -77,6 +77,13 @@ public class ScanDocumentFragment extends Fragment {
 
     public Bitmap getEditedImage() {
         return mEditedImage;
+    }
+
+    public void forceUpdateImages(Bitmap bitmap) {
+        mEditedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, mHolderImageCrop.getWidth(), mHolderImageCrop.getHeight());
+        mOriginalImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, mHolderImageCrop.getWidth(), mHolderImageCrop.getHeight());
+        mNonInvertedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, mHolderImageCrop.getWidth(), mHolderImageCrop.getHeight());
+        mImageView.setImageBitmap(mEditedImage);
     }
 
     private void updateEditedImage(Bitmap bitmap) {
