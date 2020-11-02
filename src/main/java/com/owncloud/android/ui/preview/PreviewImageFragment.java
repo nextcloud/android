@@ -385,7 +385,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
             mf.filter(menu,
                       true,
-                      currentUser.getServer().getVersion().isMediaStreamingSupported());
+                      true);
         }
 
         // additional restriction for this fragment

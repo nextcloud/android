@@ -303,7 +303,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         OCCapability capability = storageManager.getCapability(user.getAccountName());
 
         DrawerMenuUtil.filterSearchMenuItems(menu, user, getResources());
-        DrawerMenuUtil.filterTrashbinMenuItem(menu, user, capability);
+        DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
 
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());

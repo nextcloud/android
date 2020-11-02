@@ -270,9 +270,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                 deviceInfo,
                 user
             );
-            mf.filter(menu,
-                      true,
-                      user.getServer().getVersion().isMediaStreamingSupported());
+            mf.filter(menu, true, true);
         }
 
         // additional restriction for this fragment

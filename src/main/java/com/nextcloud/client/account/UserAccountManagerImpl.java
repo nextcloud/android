@@ -328,11 +328,6 @@ public class UserAccountManagerImpl implements UserAccountManager {
     }
 
     @Override
-    public boolean isMediaStreamingSupported(Account account) {
-        return account != null && getServerVersion(account).isMediaStreamingSupported();
-    }
-
-    @Override
     public void resetOwnCloudAccount() {
         SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
         appPrefs.putString(PREF_SELECT_OC_ACCOUNT, null);

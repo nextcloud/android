@@ -351,7 +351,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                       share.getExpirationDate(),
                                                       getResources());
 
-        sendNoteItem.setVisible(capabilities.getVersion().isNoteOnShareSupported());
+        sendNoteItem.setVisible(true);
     }
 
     public void showLinkOverflowMenu(OCShare publicShare, ImageView overflowMenuShareLink) {
@@ -399,8 +399,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         Resources res = requireContext().getResources();
         SharingMenuHelper.setupHideFileDownload(menu.findItem(R.id.action_hide_file_download),
                                                 publicShare.isHideFileDownload(),
-                                                isFileDrop(publicShare),
-                                                capabilities);
+                                                isFileDrop(publicShare));
 
         SharingMenuHelper.setupPasswordMenuItem(menu.findItem(R.id.action_password),
                                                 publicShare.isPasswordProtected());
@@ -409,7 +408,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                       publicShare.getExpirationDate(),
                                                       res);
 
-        menu.findItem(R.id.action_share_send_note).setVisible(capabilities.getVersion().isNoteOnShareSupported());
+        menu.findItem(R.id.action_share_send_note).setVisible(true);
     }
 
     @VisibleForTesting
