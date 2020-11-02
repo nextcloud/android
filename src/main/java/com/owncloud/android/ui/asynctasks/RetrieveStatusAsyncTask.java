@@ -53,8 +53,11 @@ public class RetrieveStatusAsyncTask extends AsyncTask<Void, Void, Status> {
             NextcloudClient client = clientFactory.createNextcloudClient(user);
             RemoteOperationResult result = new GetStatusRemoteOperation().execute(client);
 
-            return (com.owncloud.android.lib.resources.users.Status) result.getSingleData();
-
+            if (result.isSuccess()) {
+                return (com.owncloud.android.lib.resources.users.Status) result.getSingleData();
+            } else {
+                return new com.owncloud.android.lib.resources.users.Status(StatusType.OFFLINE, "", "", -1);
+            }
         } catch (ClientFactory.CreationException e) {
             return new com.owncloud.android.lib.resources.users.Status(StatusType.OFFLINE, "", "", -1);
         }
