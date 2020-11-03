@@ -33,8 +33,6 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
-import androidx.emoji.bundled.BundledEmojiCompatConfig
-import androidx.emoji.text.EmojiCompat
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
@@ -58,7 +56,7 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ThemeUtils
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.EmojiPopup
-import com.vanniktech.emoji.googlecompat.GoogleCompatEmojiProvider
+import com.vanniktech.emoji.google.GoogleEmojiProvider
 import kotlinx.android.synthetic.main.dialog_set_status.*
 import java.util.ArrayList
 import java.util.Calendar
@@ -122,11 +120,7 @@ class SetStatusDialogFragment :
             }
         }
 
-        val config = BundledEmojiCompatConfig(requireContext())
-        config.setReplaceAll(true)
-        val emojiCompat = EmojiCompat.init(config)
-
-        EmojiManager.install(GoogleCompatEmojiProvider(emojiCompat))
+        EmojiManager.install(GoogleEmojiProvider())
     }
 
     @SuppressLint("InflateParams")
