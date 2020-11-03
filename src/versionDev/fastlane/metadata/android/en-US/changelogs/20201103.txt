@@ -1,0 +1,5 @@
+Unify powermock version
+Use context of fragment
+Only access data if operation succeeded
+Update translations
+Update 3rd-party dependencies
