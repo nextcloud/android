@@ -59,15 +59,12 @@ import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.lib.resources.activities.model.RichElement;
 import com.owncloud.android.lib.resources.activities.model.RichObject;
 import com.owncloud.android.lib.resources.activities.models.PreviewObject;
-import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -230,23 +227,14 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     }
                 });
 
-                if (capability.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_15)) {
-                    for (PreviewObject previewObject : activity.getPreviews()) {
-                        if (!isDetailView || MimeTypeUtil.isImageOrVideo(previewObject.getMimeType()) ||
-                            MimeTypeUtil.isVideo(previewObject.getMimeType())) {
-                            ImageView imageView = createThumbnailNew(previewObject,
-                                                                     activity
-                                                                         .getRichSubjectElement()
-                                                                         .getRichObjectList());
-                            activityViewHolder.list.addView(imageView);
-                        }
-                    }
-                } else {
-                    for (RichObject richObject : activity.getRichSubjectElement().getRichObjectList()) {
-                        if (richObject.getPath() != null) {
-                            ImageView imageView = createThumbnailOld(richObject, isDetailView);
-                            activityViewHolder.list.addView(imageView);
-                        }
+                for (PreviewObject previewObject : activity.getPreviews()) {
+                    if (!isDetailView || MimeTypeUtil.isImageOrVideo(previewObject.getMimeType()) ||
+                        MimeTypeUtil.isVideo(previewObject.getMimeType())) {
+                        ImageView imageView = createThumbnailNew(previewObject,
+                                                                 activity
+                                                                     .getRichSubjectElement()
+                                                                     .getRichObjectList());
+                        activityViewHolder.list.addView(imageView);
                     }
                 }
             } else {
@@ -299,68 +287,6 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         return imageView;
-    }
-
-    private ImageView createThumbnailOld(final RichObject richObject, boolean isDetailView) {
-        String path = FileUtils.PATH_SEPARATOR + richObject.getPath();
-        OCFile file = storageManager.getFileByPath(path);
-
-        if (file == null) {
-            file = storageManager.getFileByPath(path + FileUtils.PATH_SEPARATOR);
-        }
-        if (file == null) {
-            file = new OCFile(path);
-            file.setRemoteId(richObject.getId());
-        }
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(px, px);
-        params.setMargins(10, 10, 10, 10);
-        ImageView imageView = new ImageView(context);
-        imageView.setLayoutParams(params);
-        imageView.setOnClickListener(v -> activityListInterface.onActivityClicked(richObject));
-        setBitmap(file, imageView, isDetailView);
-
-        return imageView;
-    }
-
-    private void setBitmap(OCFile file, ImageView fileIcon, boolean isDetailView) {
-        // No Folder
-        if (!file.isFolder()) {
-            if (MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) {
-                int placeholder;
-
-                if (MimeTypeUtil.isImage(file)) {
-                    placeholder = R.drawable.file_image;
-                } else {
-                    placeholder = R.drawable.file_movie;
-                }
-
-                String uri = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + px + "/" + px +
-                    Uri.encode(file.getRemotePath(), "/");
-
-                Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider, clientFactory))
-                    .load(uri).placeholder(placeholder)
-                    .error(placeholder)
-                    .into(fileIcon); // using custom fetcher
-
-            } else {
-                if (isDetailView) {
-                    fileIcon.setVisibility(View.GONE);
-                } else {
-                    fileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(),
-                                                                           context));
-                }
-            }
-        } else {
-            // Folder
-            if (isDetailView) {
-                fileIcon.setVisibility(View.GONE);
-            } else {
-                fileIcon.setImageDrawable(
-                    MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
-                                                   file.isSharedViaLink(), file.isEncrypted(), file.getMountType(), context));
-            }
-        }
     }
 
     private void downloadIcon(Activity activity, ImageView itemViewType) {

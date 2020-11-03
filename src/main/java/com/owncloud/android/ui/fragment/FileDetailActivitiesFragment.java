@@ -55,7 +55,6 @@ import com.owncloud.android.lib.resources.comments.MarkCommentsAsReadRemoteOpera
 import com.owncloud.android.lib.resources.files.ReadFileVersionsRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.CommentFileOperation;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.adapter.ActivityAndVersionListAdapter;
@@ -255,9 +254,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
         operationsHelper = ((ComponentsGetter) requireActivity()).getFileOperationsHelper();
 
         OCCapability capability = storageManager.getCapability(user.getAccountName());
-        OwnCloudVersion serverVersion = user.getServer().getVersion();
-        restoreFileVersionSupported = capability.getFilesVersioning().isTrue() &&
-            serverVersion.compareTo(OwnCloudVersion.nextcloud_14) >= 0;
+        restoreFileVersionSupported = capability.getFilesVersioning().isTrue();
 
         emptyContentProgressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
                                                                           PorterDuff.Mode.SRC_IN);

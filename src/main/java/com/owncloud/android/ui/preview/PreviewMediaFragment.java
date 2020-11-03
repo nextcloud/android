@@ -356,9 +356,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 currentUser
             );
 
-            mf.filter(menu,
-                      true,
-                      currentUser.getServer().getVersion().isMediaStreamingSupported());
+            mf.filter(menu, true);
         }
 
         // additional restriction for this fragment
