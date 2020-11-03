@@ -270,7 +270,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                 deviceInfo,
                 user
             );
-            mf.filter(menu, true, true);
+            mf.filter(menu, true);
         }
 
         // additional restriction for this fragment
