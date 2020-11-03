@@ -620,6 +620,7 @@
     <string name="share_privilege_unshare">Descompartilhar</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
+    <string name="share_search">Nome, ID de nuvem federada ou endereço de email.</string>
     <string name="share_send_note">Anotação para o destinatário</string>
     <string name="share_via_link_hide_download">Ocultar download</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ocultar listagem de arquivos</string>

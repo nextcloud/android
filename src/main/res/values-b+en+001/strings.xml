@@ -34,6 +34,8 @@
     <string name="add_another_public_share_link">Add another link</string>
     <string name="add_new_public_share">Add new public share link</string>
     <string name="add_to_cloud">Add to %1$s</string>
+    <string name="allow_creating">Allow creating</string>
+    <string name="allow_deleting">Allow deleting</string>
     <string name="allow_editing">Allow editing</string>
     <string name="allow_resharing">Allow resharing</string>
     <string name="appbar_search_in">Search in %s</string>
@@ -77,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Disable power save check</string>
     <string name="autoupload_hide_folder">Hide folder</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Away</string>
     <string name="battery_optimization_close">Close</string>
     <string name="battery_optimization_disable">Disable</string>
     <string name="battery_optimization_message">Your device may have battery optimization enabled. AutoUpload works only properly if you exclude this app from it.</string>
@@ -88,6 +91,8 @@
     <string name="choose_local_folder">Choose local folder…</string>
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
+    <string name="clear_status_message">Clear status message</string>
+    <string name="clear_status_message_after">Clear status message after</string>
     <string name="clipboard_label">Text copied from %1$s</string>
     <string name="clipboard_no_text_to_copy">Received no text to copy to clipboard</string>
     <string name="clipboard_text_copied">Link copied</string>
@@ -166,6 +171,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
     <string name="copy_to">Copy to…</string>
     <string name="could_not_download_image">Could not download full image</string>
+    <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
     <string name="create_new">Create new</string>
@@ -362,6 +368,7 @@
     <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="foreign_files_success">All files were moved</string>
     <string name="forward">Forward</string>
+    <string name="fourHours">4 hours</string>
     <string name="hint_name">Name</string>
     <string name="hint_note">Note</string>
     <string name="hint_password">Password</string>
@@ -456,6 +463,7 @@
     <string name="notifications_no_results_message">Please check back later.</string>
     <string name="offline_mode">No internet connection</string>
     <string name="oneHour">1 hour</string>
+    <string name="online">Online</string>
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="overflow_menu">More menu</string>
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
