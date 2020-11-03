@@ -626,7 +626,7 @@
     <string name="share_with_title">Dalintis su…</string>
     <string name="shared_avatar_desc">Bendrinamo naudotojo avataras</string>
     <string name="shared_icon_share">bendrinti</string>
-    <string name="shared_icon_shared">Dalinamasi</string>
+    <string name="shared_icon_shared">bendrinama</string>
     <string name="shared_icon_shared_via_link">bendrinta per nuorodą</string>
     <string name="shared_with_you_by">%1$s bendrina su Jumis.</string>
     <string name="sharee_add_failed">Bendrinimo pridėjimas nepavyko</string>
