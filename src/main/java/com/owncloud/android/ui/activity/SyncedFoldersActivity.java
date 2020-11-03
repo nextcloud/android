@@ -577,7 +577,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         if (syncedFolderDisplayItem.isEnabled()) {
             backgroundJobManager.startImmediateFilesSyncJob(false, false);
-            showBatteryOptimizationInfo();
+            //del 2020-11-03 no show battery dialog
+//            showBatteryOptimizationInfo();
         }
     }
 
@@ -703,7 +704,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         syncedFolderPreferencesDialogFragment = null;
 
         if (syncedFolder.isEnabled()) {
-            showBatteryOptimizationInfo();
+            //del 2020-11-03 no show battery dialog
+//            showBatteryOptimizationInfo();
         }
     }
 

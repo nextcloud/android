@@ -28,7 +28,7 @@ buildscript {
         classpath('com.hiya:jacoco-android:0.2')
         classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.5.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.2"
+//        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.2"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:4.4.0'
     }
@@ -39,11 +39,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'checkstyle'
-apply plugin: 'pmd'
 apply plugin: 'com.hiya.jacoco-android'
 apply plugin: 'com.github.spotbugs'
-apply plugin: 'io.gitlab.arturbosch.detekt'
+//apply plugin: 'io.gitlab.arturbosch.detekt'
 apply plugin: 'shot'
 
 configurations {
@@ -112,7 +110,7 @@ android {
     lintOptions {
         checkGeneratedSources = true
         abortOnError false
-        htmlReport true
+        htmlReport false
         htmlOutput file("$project.buildDir/reports/lint/lint.html")
         disable 'MissingTranslation',
             'GradleDependency',
@@ -158,9 +156,24 @@ android {
 
         flavorDimensions "default"
 
+        signingConfigs {
+            release {
+                storeFile file { "sign.jks" }
+                //签名密码
+                storePassword "will888888"
+                //别名
+                keyAlias "qijicloud"
+                //别名密码
+                keyPassword "will888888"
+            }
+        }
+
         buildTypes {
             debug {
                 testCoverageEnabled (project.hasProperty('coverage'))
+            }
+            release{
+                signingConfig signingConfigs.release
             }
         }
 
@@ -217,35 +230,35 @@ android {
         exclude 'META-INF/LICENSE'
     }
 
-    tasks.register("checkstyle", Checkstyle) {
-        configFile = file("${rootProject.projectDir}/checkstyle.xml")
-        configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
-        source 'src'
-        include '**/*.java'
-        exclude '**/gen/**'
-        classpath = files()
-    }
-
-    tasks.register("pmd", Pmd) {
-        ruleSetFiles = files("${project.rootDir}/ruleset.xml")
-        ignoreFailures = true // should continue checking
-        ruleSets = []
-
-        source 'src'
-        include '**/*.java'
-        exclude '**/gen/**'
-
-        reports {
-            xml.enabled = false
-            html.enabled = true
-            xml {
-                destination = file("$project.buildDir/reports/pmd/pmd.xml")
-            }
-            html {
-                destination = file("$project.buildDir/reports/pmd/pmd.html")
-            }
-        }
-    }
+//    tasks.register("checkstyle", Checkstyle) {
+//        configFile = file("${rootProject.projectDir}/checkstyle.xml")
+//        configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
+//        source 'src'
+//        include '**/*.java'
+//        exclude '**/gen/**'
+//        classpath = files()
+//    }
+//
+//    tasks.register("pmd", Pmd) {
+//        ruleSetFiles = files("${project.rootDir}/ruleset.xml")
+//        ignoreFailures = true // should continue checking
+//        ruleSets = []
+//
+//        source 'src'
+//        include '**/*.java'
+//        exclude '**/gen/**'
+//
+//        reports {
+//            xml.enabled = false
+//            html.enabled = true
+//            xml {
+//                destination = file("$project.buildDir/reports/pmd/pmd.xml")
+//            }
+//            html {
+//                destination = file("$project.buildDir/reports/pmd/pmd.html")
+//            }
+//        }
+//    }
 
     android.applicationVariants.all { variant ->
         String variantName = variant.name
@@ -477,12 +490,12 @@ task ktlintFormat(type: JavaExec, group: "formatting") {
     args "-F", "src/**/*.kt"
 }
 
-detekt {
-    reports {
-        xml {
-            enabled = false
-        }
-    }
-    config = files("detekt.yml")
-    input = files("src/")
-}
+//detekt {
+//    reports {
+//        xml {
+//            enabled = false
+//        }
+//    }
+//    config = files("detekt.yml")
+//    input = files("src/")
+//}
