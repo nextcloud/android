@@ -383,9 +383,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 currentUser
             );
 
-            mf.filter(menu,
-                      true,
-                      true);
+            mf.filter(menu, true);
         }
 
         // additional restriction for this fragment

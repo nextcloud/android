@@ -412,9 +412,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 currentUser
             );
 
-            mf.filter(menu,
-                      true,
-                      true);
+            mf.filter(menu, true);
         }
 
         if (getFile().isFolder()) {
