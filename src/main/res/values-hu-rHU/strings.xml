@@ -371,6 +371,7 @@
     <string name="instant_upload_on_charging">Feltöltés csak töltés közben</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Érvénytelen URL</string>
+    <string name="invisible">Láthatatlan</string>
     <string name="label_empty">A címke nem lehet üres</string>
     <string name="link">Hivatkozás</string>
     <string name="link_share_allow_upload_and_editing">Feltöltés és szerkesztés engedélyezése</string>
@@ -454,6 +455,7 @@
     <string name="notifications_no_results_headline">Nincsenek értesítések</string>
     <string name="notifications_no_results_message">Jöjjön vissza később.</string>
     <string name="offline_mode">Nincs internetkapcsolat</string>
+    <string name="oneHour">1 óra</string>
     <string name="outdated_server">A kiszolgáló elérte az életciklusa végét, kérjük frissítsen!</string>
     <string name="overflow_menu">További menü</string>
     <string name="pass_code_configure_your_pass_code">Írja be a számkódodat</string>
@@ -600,7 +602,6 @@
     <string name="share_privilege_unshare">Megosztás visszavonása</string>
     <string name="share_remote_clarification">%1$s (távoli)</string>
     <string name="share_room_clarification">%1$s(beszélgetés)</string>
-    <string name="share_search">Név, egyesített felhőazonosító vagy e-mail cím…</string>
     <string name="share_send_note">Jegyzet a címzettnek</string>
     <string name="share_via_link_hide_download">Letöltés elrejtése</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fájl lista elrejtése</string>
@@ -649,6 +650,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">– A kiszolgáló tanúsítványa nem megbízható</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">– A kiszolgáló tanúsítványa még nem érvényes</string>
     <string name="ssl_validator_reason_hostname_not_verified">– Az URL nem egyezik a tanúsítványban szereplő kiszolgálónévvel</string>
+    <string name="status_message">Állapotüzenet</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Háttértároló helyének kiválasztása</string>
     <string name="storage_description_default">Alapértelmezett</string>
@@ -714,10 +716,13 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="synced_icon">Szinkronizálva</string>
     <string name="tags">Címkék</string>
     <string name="test_server_button">Kiszolgálókapcsolat tesztelése</string>
+    <string name="thirtyMinutes">30 perc</string>
+    <string name="thisWeek">Ez a hét</string>
     <string name="thumbnail">Bélyegkép</string>
     <string name="thumbnail_for_existing_file_description">Létező fájl bélyegképe</string>
     <string name="thumbnail_for_new_file_desc">Új fájl bélyegképe</string>
     <string name="timeout_richDocuments">A betöltés sokáig tart…</string>
+    <string name="today">Ma</string>
     <string name="trashbin_activity_title">Törölt fájlok</string>
     <string name="trashbin_empty_headline">Nincs törölt fájl</string>
     <string name="trashbin_empty_message">Innen vissza tudja állítani a törölt fájljait.</string>

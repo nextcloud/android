@@ -145,7 +145,6 @@ public class ContactListFragment extends FileFragment implements Injectable {
 
 
     private ContactListAdapter contactListAdapter;
-    private User user;
     private List<VCard> vCards = new ArrayList<>();
     private OCFile ocFile;
     @Inject UserAccountManager accountManager;
@@ -212,7 +211,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
 
         ocFile = getArguments().getParcelable(FILE_NAME);
         setFile(ocFile);
-        user = getArguments().getParcelable(USER);
+        User user = getArguments().getParcelable(USER);
         fileDownloader = new TransferManagerConnection(getActivity(), user);
         fileDownloader.registerTransferListener(this::onDownloadUpdate);
         fileDownloader.bind();

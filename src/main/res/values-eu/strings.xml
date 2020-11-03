@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Desgaitu energia aurrezteko kontrola</string>
     <string name="autoupload_hide_folder">Ezkutatu karpeta</string>
     <string name="avatar">Abatarra</string>
+    <string name="away">Kanpoan</string>
     <string name="battery_optimization_close">Itxi</string>
     <string name="battery_optimization_disable">Desaktibatu</string>
     <string name="battery_optimization_message">Zure gailuak bateriaren optimizazioa aktibatuta eduki dezake. Auto-karga funtzioak ongi funtzionatzeko aplikazio hau bertatik kanpora utzi behar duzu.</string>
@@ -168,6 +169,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Une honetan ez da onartzen enkriptatutako karpetara kopiatzea/mugitzea.</string>
     <string name="copy_to">Kopiatu hona…</string>
     <string name="could_not_download_image">Ezin izan da irudi osoa deskargatu</string>
+    <string name="could_not_retrieve_shares">Ezin izan dira partekatzeak berreskuratu</string>
     <string name="could_not_retrieve_url">Ezin izan da URLa berreskuratu</string>
     <string name="create_dir_fail_msg">Ezin izan da karpeta sortu</string>
     <string name="create_new">Sortu berria</string>
@@ -191,6 +193,7 @@
     <string name="disable_new_media_folder_detection_notifications">Desaktibatu</string>
     <string name="dismiss">Baztertu</string>
     <string name="dismiss_notification_description">Baztertu jakinarazpena</string>
+    <string name="dnd">Ez molestatu</string>
     <string name="download_latest_dev_version">Deskargatu azken garapen bertsioa</string>
     <string name="downloader_download_failed_content">Ezin izan da %1$s deskargatu</string>
     <string name="downloader_download_failed_credentials_error">Deskargak huts egin du, hasi saioa berriz</string>
@@ -275,6 +278,7 @@
     <string name="failed_to_download">Huts egin du fitxategia deskarga-kudeatzailera pasatzean</string>
     <string name="failed_to_print">Huts egin du fitxategia inprimatzean</string>
     <string name="failed_to_start_editor">Ezin izan da editorea abiatu</string>
+    <string name="failed_update_ui">UIa eguneratzeak huts egin du</string>
     <string name="favorite">Gehitu gogokoetara</string>
     <string name="favorite_icon">Gogokoa</string>
     <string name="file_delete">Ezabatu</string>
@@ -364,6 +368,7 @@
     <string name="foreign_files_remote_text">Urrunekoa: %1$s</string>
     <string name="foreign_files_success">Fitxategi guztiak mugitu dira</string>
     <string name="forward">Birbidali</string>
+    <string name="fourHours">4 ordu</string>
     <string name="hint_name">Izena</string>
     <string name="hint_note">Oharra</string>
     <string name="hint_password">Pasahitza</string>
@@ -373,6 +378,7 @@
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">URL baliogabea</string>
+    <string name="invisible">Ikusezina</string>
     <string name="label_empty">Etiketa ezin da hutsik egon</string>
     <string name="link">Esteka</string>
     <string name="link_share_allow_upload_and_editing">Onartu kargatzea eta edizioa</string>
@@ -456,6 +462,8 @@
     <string name="notifications_no_results_headline">Jakinarazpenik ez</string>
     <string name="notifications_no_results_message">Begiratu beranduago, mesedez.</string>
     <string name="offline_mode">Internet konexiorik ez</string>
+    <string name="oneHour">Ordu 1</string>
+    <string name="online">Linean</string>
     <string name="outdated_server">Zerbitzaria bizitzaren amaierara iritsi da, bertsio-berritu!</string>
     <string name="overflow_menu">Gehiago menua</string>
     <string name="pass_code_configure_your_pass_code">Sartu zure pasahitza</string>
@@ -482,6 +490,7 @@
     <string name="pref_behaviour_entries_move">aplikazioaren karpetara mugitu da</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Zer egin fitxategia existitzen bada dagoeneko?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Galdetu beti</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Saltatu karga</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Urruneko bertsioa gainidatzi</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Izena aldatu bertsio berriari</string>
     <string name="pref_instant_name_collision_policy_title">Zer egin fitxategia existitzen bada dagoeneko?</string>
@@ -575,6 +584,8 @@
     <string name="sendbutton_description">Bidali botoiaren ikonoa</string>
     <string name="set_as">Ezarri honela</string>
     <string name="set_picture_as">Erabili irudia honela</string>
+    <string name="set_status">Ezarri egoera</string>
+    <string name="set_status_message">Ezarri egoera mezua</string>
     <string name="share">Partekatu</string>
     <string name="share_dialog_title">Partekatzea</string>
     <string name="share_email_clarification">%1$s (eposta)</string>
@@ -592,6 +603,7 @@
     <string name="share_link_forbidden_permissions">fitxategi hau partekatzeko</string>
     <string name="share_link_optional_password_title">Sartu hautazko pasahitz bat</string>
     <string name="share_link_password_title">Sartu pasahitza</string>
+    <string name="share_link_with_label">Partekatze-esteka (%1$s)</string>
     <string name="share_no_expiration_date_label">Ezarri iraungitze-data</string>
     <string name="share_no_password_title">Ezarri pasahitza</string>
     <string name="share_password_title">Pasahitzez babestua</string>
@@ -602,7 +614,6 @@
     <string name="share_privilege_unshare">Ez partekatu</string>
     <string name="share_remote_clarification">%1$s (urrunekoa)</string>
     <string name="share_room_clarification">%1$s (elkarrizketa)</string>
-    <string name="share_search">Izena, federatutako hodeiaren IDa edo helbide elektronikoa...</string>
     <string name="share_send_note">Oharra hartzailearentzat</string>
     <string name="share_via_link_hide_download">Ezkutatu deskarga</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ezkutatu fitxategi-zerrenda</string>
@@ -651,6 +662,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Zerbitzariaren ziurtagiria ez da fidagarria</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Zerbitzariaren ziurtagiriaren balio-epearen datak etorkizunekoak dira</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URLa ez dator bat ziurtagiriko ostalari-izenarekin</string>
+    <string name="status_message">Egoera mezua</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Aukeratu biltegiratze kokapena</string>
     <string name="storage_description_default">Lehenetsia</string>
@@ -698,10 +710,13 @@
     <string name="synced_icon">Sinkronizatua</string>
     <string name="tags">Etiketak</string>
     <string name="test_server_button">Probatu zerbitzariaren konexioa</string>
+    <string name="thirtyMinutes">30 minutu</string>
+    <string name="thisWeek">Aste honetan</string>
     <string name="thumbnail">Koadro txikia</string>
     <string name="thumbnail_for_existing_file_description">Existitzen den fitxategiaren koadro txikia</string>
     <string name="thumbnail_for_new_file_desc">Fitxategi berriaren koadro txikia</string>
     <string name="timeout_richDocuments">Karga luze jotzen ari da</string>
+    <string name="today">Gaur</string>
     <string name="trashbin_activity_title">Ezabatutako fitxategiak</string>
     <string name="trashbin_empty_headline">Ezabatutako fitxategirik ez</string>
     <string name="trashbin_empty_message">Ezabatutako fitxategiak hemendik berreskuratu ahal izango dituzu</string>
@@ -812,6 +827,7 @@
     <string name="what_s_new_image">Zer da irudi berria</string>
     <string name="whats_new_skip">Salto egin</string>
     <string name="whats_new_title">Berria %1$s-n</string>
+    <string name="whats_your_status">Zein da zure egoera?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ezin izan da %1$d fitxategia sinkronizatu (gatazkak: %2$d)</item>
         <item quantity="other">Ezin izan dira %1$d fitxategi sinkronizatu (gatazkak: %2$d)</item>

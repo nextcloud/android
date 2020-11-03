@@ -365,6 +365,7 @@
     <string name="instant_upload_on_charging">להעלות רק בעת טעינה</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">כתובת שגויה</string>
+    <string name="invisible">נסתרת</string>
     <string name="link">קישור</string>
     <string name="link_share_allow_upload_and_editing">לאפשר העלאה ועריכה</string>
     <string name="link_share_file_drop">השלכת קבצים (העלאה בלבד)</string>
@@ -442,6 +443,7 @@
     <string name="notifications_no_results_headline">אין התרעות</string>
     <string name="notifications_no_results_message">נא לבדוק שוב מאוחר יותר.</string>
     <string name="offline_mode">אין חיבור לאינטרנט</string>
+    <string name="oneHour">שעה</string>
     <string name="outdated_server">השרת הגיע לתום חייו, נא לשדרג!</string>
     <string name="overflow_menu">תפריט עוד</string>
     <string name="pass_code_configure_your_pass_code">יש להכניס את הקוד שלך</string>
@@ -584,7 +586,6 @@
     <string name="share_privilege_unshare">ביטול שיתוף</string>
     <string name="share_remote_clarification">%1$s (נשלט מרחוק)</string>
     <string name="share_room_clarification">%1$s (דיון)</string>
-    <string name="share_search">שם, מזהה ענן מאוגד או כתובת דוא״ל…</string>
     <string name="share_send_note">מסר לנמען</string>
     <string name="share_via_link_hide_download">הסתרת הורדה</string>
     <string name="share_via_link_hide_file_listing_permission_label">הסתרת רשימת קבצים</string>
@@ -633,6 +634,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- תעודת השרת אינה מהימנה</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- תוקף תעודת השרת מתייחס לתאריכים בעתיד</string>
     <string name="ssl_validator_reason_hostname_not_verified">- הכתובת אינה תואמת לשם המארח בתעודה</string>
+    <string name="status_message">הודעת מצב</string>
     <string name="storage_camera">מצלמה</string>
     <string name="storage_choose_location">בחירת מיקום אחסון</string>
     <string name="storage_description_default">ברירת מחדל</string>
@@ -699,10 +701,13 @@
     <string name="synced_icon">מסונכרן</string>
     <string name="tags">תגיות</string>
     <string name="test_server_button">בדיקת החיבור לשרת</string>
+    <string name="thirtyMinutes">30 דקות</string>
+    <string name="thisWeek">השבוע</string>
     <string name="thumbnail">תמונה ממוזערת</string>
     <string name="thumbnail_for_existing_file_description">תמונה ממוזערת לקובץ קיים</string>
     <string name="thumbnail_for_new_file_desc">תמונה ממוזערת לקובץ חדש</string>
     <string name="timeout_richDocuments">הטעינה אורכת זמן רב…</string>
+    <string name="today">היום</string>
     <string name="trashbin_activity_title">קבצים שנמחקו</string>
     <string name="trashbin_empty_headline">אין קבצים שנמחקו</string>
     <string name="trashbin_file_not_deleted">לא ניתן למחוק את הקובץ %1$s!</string>

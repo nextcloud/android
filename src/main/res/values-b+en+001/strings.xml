@@ -34,6 +34,8 @@
     <string name="add_another_public_share_link">Add another link</string>
     <string name="add_new_public_share">Add new public share link</string>
     <string name="add_to_cloud">Add to %1$s</string>
+    <string name="allow_creating">Allow creating</string>
+    <string name="allow_deleting">Allow deleting</string>
     <string name="allow_editing">Allow editing</string>
     <string name="allow_resharing">Allow resharing</string>
     <string name="appbar_search_in">Search in %s</string>
@@ -77,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Disable power save check</string>
     <string name="autoupload_hide_folder">Hide folder</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Away</string>
     <string name="battery_optimization_close">Close</string>
     <string name="battery_optimization_disable">Disable</string>
     <string name="battery_optimization_message">Your device may have battery optimization enabled. AutoUpload works only properly if you exclude this app from it.</string>
@@ -88,6 +91,8 @@
     <string name="choose_local_folder">Choose local folder…</string>
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
+    <string name="clear_status_message">Clear status message</string>
+    <string name="clear_status_message_after">Clear status message after</string>
     <string name="clipboard_label">Text copied from %1$s</string>
     <string name="clipboard_no_text_to_copy">Received no text to copy to clipboard</string>
     <string name="clipboard_text_copied">Link copied</string>
@@ -166,6 +171,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
     <string name="copy_to">Copy to…</string>
     <string name="could_not_download_image">Could not download full image</string>
+    <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
     <string name="create_new">Create new</string>
@@ -362,6 +368,7 @@
     <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="foreign_files_success">All files were moved</string>
     <string name="forward">Forward</string>
+    <string name="fourHours">4 hours</string>
     <string name="hint_name">Name</string>
     <string name="hint_note">Note</string>
     <string name="hint_password">Password</string>
@@ -371,6 +378,7 @@
     <string name="instant_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Invalid URL</string>
+    <string name="invisible">Invisible</string>
     <string name="label_empty">Label cannot be empty</string>
     <string name="link">Link</string>
     <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
@@ -454,6 +462,8 @@
     <string name="notifications_no_results_headline">No notifications</string>
     <string name="notifications_no_results_message">Please check back later.</string>
     <string name="offline_mode">No internet connection</string>
+    <string name="oneHour">1 hour</string>
+    <string name="online">Online</string>
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="overflow_menu">More menu</string>
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
@@ -600,7 +610,6 @@
     <string name="share_privilege_unshare">Unshare</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
-    <string name="share_search">Name, federated cloud ID or email address…</string>
     <string name="share_send_note">Note to recipient</string>
     <string name="share_via_link_hide_download">Hide download</string>
     <string name="share_via_link_hide_file_listing_permission_label">Hide file listing</string>
@@ -649,6 +658,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- The server certificate valid dates are in the future</string>
     <string name="ssl_validator_reason_hostname_not_verified">- The URL does not match the hostname in the certificate</string>
+    <string name="status_message">Status message</string>
     <string name="storage_camera">Camera</string>
     <string name="storage_choose_location">Choose storage location</string>
     <string name="storage_description_default">Default</string>
@@ -696,10 +706,13 @@
     <string name="synced_icon">Synced</string>
     <string name="tags">Tags</string>
     <string name="test_server_button">Test server connection</string>
+    <string name="thirtyMinutes">30 minutes</string>
+    <string name="thisWeek">This week</string>
     <string name="thumbnail">Thumbnail</string>
     <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
     <string name="thumbnail_for_new_file_desc">Thumbnail for new file</string>
     <string name="timeout_richDocuments">Loading takes very long…</string>
+    <string name="today">Today</string>
     <string name="trashbin_activity_title">Deleted files</string>
     <string name="trashbin_empty_headline">No deleted files</string>
     <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>

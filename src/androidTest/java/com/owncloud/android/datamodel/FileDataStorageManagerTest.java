@@ -31,6 +31,8 @@ import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -240,11 +242,23 @@ abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testSaveNewFile_NonexistingParent() {
+    public void testSaveNewFile_NonExistingParent() {
         assertTrue(new CreateFolderRemoteOperation("/1/1/", true).execute(client).isSuccess());
 
         OCFile newFile = new OCFile("/1/1/1.txt");
 
         sut.saveNewFile(newFile);
+    }
+
+    @Test
+    public void testOCCapability() {
+        OCCapability capability = new OCCapability();
+        capability.setUserStatus(CapabilityBooleanType.TRUE);
+
+        sut.saveCapabilities(capability);
+
+        OCCapability newCapability = sut.getCapability(user);
+
+        assertEquals(capability.getUserStatus(), newCapability.getUserStatus());
     }
 }

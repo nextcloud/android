@@ -316,6 +316,7 @@
     <string name="host_your_own_server">Gastigi vian propran servilon</string>
     <string name="instant_upload_on_charging">Nur alŝuti dum ŝargado</string>
     <string name="instant_upload_path">/TujAlŝutado</string>
+    <string name="invisible">Nevidebla</string>
     <string name="link">Ligilo</string>
     <string name="link_share_allow_upload_and_editing">Permesi alŝuton kaj redakton</string>
     <string name="link_share_file_drop">Demeti dosieron (nur alŝuto)</string>
@@ -386,6 +387,7 @@
     <string name="notifications_no_results_headline">Neniu sciigo</string>
     <string name="notifications_no_results_message">Bonvolu rekontroli poste.</string>
     <string name="offline_mode">Neniu reta konekto</string>
+    <string name="oneHour">1 horo</string>
     <string name="outdated_server">La servilo nun malaktualas, bonvolu ĝisdatigi ĝin!</string>
     <string name="overflow_menu">Pliaj menuoj</string>
     <string name="pass_code_configure_your_pass_code">Entajpu vian pasvorton</string>
@@ -502,7 +504,6 @@
     <string name="share_privilege_unshare">Malkunhavigi</string>
     <string name="share_remote_clarification">%1$s (fora)</string>
     <string name="share_room_clarification">%1$s (konversacio)</string>
-    <string name="share_search">Nomo, federnuba identigilo aŭ retpoŝtadreso...</string>
     <string name="share_send_note">Noto por la ricevonto</string>
     <string name="share_via_link_hide_download">Kaŝi elŝuton</string>
     <string name="share_via_link_hide_file_listing_permission_label">Kaŝi dosierliston</string>
@@ -551,6 +552,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">— La servila atestilo ne fidindas</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">— La datoj de la servila atestilo troviĝas en la estonteco</string>
     <string name="ssl_validator_reason_hostname_not_verified">— La adreson ne kongruas kun la gastignomo en la atestilo</string>
+    <string name="status_message">Stato-mesaĝo</string>
     <string name="storage_camera">Fotilo</string>
     <string name="storage_choose_location">Elekti konservejan lokon</string>
     <string name="storage_description_default">Defaŭlta</string>
@@ -590,6 +592,7 @@
     <string name="test_server_button">Testi konekton al servilo</string>
     <string name="thumbnail">Miniaturo</string>
     <string name="timeout_richDocuments">Ŝargo daŭras longe...</string>
+    <string name="today">Hodiaŭ</string>
     <string name="trashbin_activity_title">Forigitaj dosieroj</string>
     <string name="trashbin_empty_headline">Neniu forigita dosiero</string>
     <string name="trashbin_file_not_deleted">Dosiero %1$s ne povis esti forigita!</string>

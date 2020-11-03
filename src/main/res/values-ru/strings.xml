@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Отключить проверку энергосбережения</string>
     <string name="autoupload_hide_folder">Скрыть папку</string>
     <string name="avatar">Аватар</string>
+    <string name="away">Отсутствует</string>
     <string name="battery_optimization_close">Закрыть</string>
     <string name="battery_optimization_disable">Отключить</string>
     <string name="battery_optimization_message">Вероятно, используется оптимизация использования батареи. Функция автоматической передачи файлов на сервер при использовании оптимизации может работать неправильно. </string>
@@ -90,6 +91,8 @@
     <string name="choose_local_folder">Выберите каталог на устройстве…</string>
     <string name="choose_remote_folder">Выберите каталог на сервере…</string>
     <string name="clear_notifications_failed">Не удалось удалить уведомления.</string>
+    <string name="clear_status_message">Очистить сообщение о состоянии</string>
+    <string name="clear_status_message_after">Очистить сообщение о состоянии через</string>
     <string name="clipboard_label">Текст скопирован из %1$s</string>
     <string name="clipboard_no_text_to_copy">Нет принятого текста для копирования в буфер обмена</string>
     <string name="clipboard_text_copied">Ссылка скопирована</string>
@@ -168,6 +171,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Копирование и перемещение в зашифрованные папки пока не поддерживается.</string>
     <string name="copy_to">Копировать…</string>
     <string name="could_not_download_image">Не удалось скачать полноразмерное изображение</string>
+    <string name="could_not_retrieve_shares">Не удалось получить перечень общих ресурсов</string>
     <string name="could_not_retrieve_url">Не удалось получить URL</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
     <string name="create_new">Создать</string>
@@ -191,6 +195,8 @@
     <string name="disable_new_media_folder_detection_notifications">Отключить</string>
     <string name="dismiss">Отклонить</string>
     <string name="dismiss_notification_description">Скрыть уведомление</string>
+    <string name="dnd">Не беспокоить</string>
+    <string name="dontClear">Не очищать</string>
     <string name="download_latest_dev_version">Скачать последнюю версию для разработчиков</string>
     <string name="downloader_download_failed_content">Скачивание %1$s не может быть завершено</string>
     <string name="downloader_download_failed_credentials_error">Ошибка скачивания, необходимо авторизоваться</string>
@@ -275,6 +281,7 @@
     <string name="failed_to_download">Не удалось передать файл в диспетчер загрузок</string>
     <string name="failed_to_print">Ошибка печати файла</string>
     <string name="failed_to_start_editor">Не удалось запустить редактор</string>
+    <string name="failed_update_ui">Не удалось обновить пользовательский интерфейс</string>
     <string name="favorite">Добавить в избранное</string>
     <string name="favorite_icon">Избранное</string>
     <string name="file_delete">Удалить</string>
@@ -373,6 +380,7 @@
     <string name="instant_upload_on_charging">Необходимо подключение внешнего питания</string>
     <string name="instant_upload_path">/Автозагрузка</string>
     <string name="invalid_url">Неверный адрес</string>
+    <string name="invisible">Невидимая</string>
     <string name="label_empty">Метка не может быть пустой</string>
     <string name="link">Ссылка</string>
     <string name="link_share_allow_upload_and_editing">Разрешить приём и редактирование</string>
@@ -456,6 +464,9 @@
     <string name="notifications_no_results_headline">Уведомлений нет</string>
     <string name="notifications_no_results_message">Проверьте позже.</string>
     <string name="offline_mode">Отсутствует подключение к Интернет</string>
+    <string name="oneHour">1 час</string>
+    <string name="online">На связи</string>
+    <string name="online_status">Состояние на связи</string>
     <string name="outdated_server">Версия сервера Nextcloud  более не поддерживается, требуется её обновление.</string>
     <string name="overflow_menu">Дополнительное меню</string>
     <string name="pass_code_configure_your_pass_code">Введите код</string>
@@ -482,6 +493,7 @@
     <string name="pref_behaviour_entries_move">перемещен в каталог приложения</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Действие в случае, если файл уже существует</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Всегда спрашивать</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Пропустить загрузку</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Перезаписать удалённую версию</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Переименовать новую версию</string>
     <string name="pref_instant_name_collision_policy_title">Действие в случае, если файл уже существует</string>
@@ -540,6 +552,7 @@
     <string name="recommend_subject">Испытайте %1$s на своём устройстве!</string>
     <string name="recommend_text">Хочу посоветовать использовать %1$s на твоём устройстве!\nСкачай здесь: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="remote">(удалённо)</string>
     <string name="remote_file_fetch_failed">Не удалось найти файл.</string>
     <string name="remove_fail_msg">Ошибка при удалении</string>
     <string name="remove_notification_failed">Не удалось скрыть уведомление.</string>
@@ -575,6 +588,8 @@
     <string name="sendbutton_description">Значок кнопки «отправить»</string>
     <string name="set_as">Установить как</string>
     <string name="set_picture_as">Использовать изображение</string>
+    <string name="set_status">Установить состояние</string>
+    <string name="set_status_message">Установить сообщение о состоянии</string>
     <string name="share">Общий ресурс</string>
     <string name="share_dialog_title">Общий доступ</string>
     <string name="share_email_clarification">%1$s (email)</string>
@@ -585,6 +600,7 @@
     <string name="share_internal_link_to_file_text">Внутренние ссылки могут быть использованы только пользователями, у которых есть доступ к этому файлу</string>
     <string name="share_internal_link_to_folder_text">Внутренние ссылки могут быть использованы только пользователями, у которых есть доступ к этой папке</string>
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
+    <string name="share_known_remote_on_clarification">на %1$s</string>
     <string name="share_link">Предоставление общего доступа по ссылке</string>
     <string name="share_link_empty_password">Необходимо ввести пароль</string>
     <string name="share_link_file_error">При публикации этого файла или папки произошла ошибка.</string>
@@ -592,6 +608,7 @@
     <string name="share_link_forbidden_permissions">для публикации этого файла</string>
     <string name="share_link_optional_password_title">Введите дополнительный пароль</string>
     <string name="share_link_password_title">Введите пароль</string>
+    <string name="share_link_with_label">Поделиться ссылкой (%1$s)</string>
     <string name="share_no_expiration_date_label">Установить срок действия</string>
     <string name="share_no_password_title">Задать пароль</string>
     <string name="share_password_title">Защищено паролем</string>
@@ -602,7 +619,7 @@
     <string name="share_privilege_unshare">Закрыть доступ</string>
     <string name="share_remote_clarification">%1$s (на сервере)</string>
     <string name="share_room_clarification">%1$s (беседа)</string>
-    <string name="share_search">Имя, ID межсерверного обмена или адрес эл.почты…</string>
+    <string name="share_search">Имя, Federated Cloud ID (идентификатор в объединении облачных хранилищ)  или адрес электронной почты …</string>
     <string name="share_send_note">Примечание для получателя</string>
     <string name="share_via_link_hide_download">Скрыть загрузку</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрыть список файлов</string>
@@ -651,6 +668,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Срок действия сертификата сервера ещё не начался</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL не совпадает с именем сервера в сертификате</string>
+    <string name="status_message">Сообщение о состоянии</string>
     <string name="storage_camera">Камера</string>
     <string name="storage_choose_location">Выбрать расположение хранилища</string>
     <string name="storage_description_default">По умолчанию</string>
@@ -698,10 +716,13 @@
     <string name="synced_icon">Синхронизировано</string>
     <string name="tags">Метки</string>
     <string name="test_server_button">Проверить соединение с сервером</string>
+    <string name="thirtyMinutes">30 минут</string>
+    <string name="thisWeek">Эта неделя</string>
     <string name="thumbnail">Миниатюра</string>
     <string name="thumbnail_for_existing_file_description">Миниатюра существующего файла</string>
     <string name="thumbnail_for_new_file_desc">Миниатюра нового файла</string>
     <string name="timeout_richDocuments">Загрузка выполняется очень долго…</string>
+    <string name="today">Сегодня</string>
     <string name="trashbin_activity_title">Удалённые файлы</string>
     <string name="trashbin_empty_headline">Нет удалённых файлов</string>
     <string name="trashbin_empty_message">Отсюда могут быть восстановлены удалённые файлы.</string>
@@ -812,6 +833,7 @@
     <string name="what_s_new_image">Изображение «что нового»</string>
     <string name="whats_new_skip">Пропустить</string>
     <string name="whats_new_title">Новое в %1$s</string>
+    <string name="whats_your_status">Укажите ваше состояние</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не удалось синхронизировать %1$d файл (конфликтов: %2$d)</item>
         <item quantity="few">Не удалось синхронизировать %1$d файлов (конфликтов: %2$d)</item>

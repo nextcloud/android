@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Desativar a verificação de economia de energia</string>
     <string name="autoupload_hide_folder">Ocultar pasta</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Fora</string>
     <string name="battery_optimization_close">Fechar</string>
     <string name="battery_optimization_disable">Desativar</string>
     <string name="battery_optimization_message">Seu dispositivo pode ter a otimização da bateria ativada. AutoUpload funciona corretamente apenas se você excluir este aplicativo a partir dele.</string>
@@ -90,6 +91,8 @@
     <string name="choose_local_folder">Escolher pasta local…</string>
     <string name="choose_remote_folder">Escolher pasta remota…</string>
     <string name="clear_notifications_failed">Erro ao limpar as notificações.</string>
+    <string name="clear_status_message">Limpar mensagem de status</string>
+    <string name="clear_status_message_after">Limpar mensagem de status após</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
     <string name="clipboard_no_text_to_copy">Nenhum texto foi recebido para copiar para a área de transferência</string>
     <string name="clipboard_text_copied">Link copiado</string>
@@ -192,6 +195,8 @@
     <string name="disable_new_media_folder_detection_notifications">Desativar</string>
     <string name="dismiss">Dispensar</string>
     <string name="dismiss_notification_description">Dispensar notificação</string>
+    <string name="dnd">Não perturbe</string>
+    <string name="dontClear">Não limpar</string>
     <string name="download_latest_dev_version">Baixar a última versão dev</string>
     <string name="downloader_download_failed_content">Não foi possível baixar %1$s</string>
     <string name="downloader_download_failed_credentials_error">Download falhou, logue-se novamente</string>
@@ -366,6 +371,7 @@
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
     <string name="foreign_files_success">Todos os arquivos foram movidos</string>
     <string name="forward">Adiante</string>
+    <string name="fourHours">4 horas</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Anotação</string>
     <string name="hint_password">Senha</string>
@@ -375,6 +381,7 @@
     <string name="instant_upload_on_charging">Só enviar quando carregando</string>
     <string name="instant_upload_path">/EnvioAutomático</string>
     <string name="invalid_url">URL inválida</string>
+    <string name="invisible">Invisível</string>
     <string name="label_empty">A etiqueta não pode ficar vazia</string>
     <string name="link">Link</string>
     <string name="link_share_allow_upload_and_editing">Permitir envio e edição</string>
@@ -458,6 +465,9 @@
     <string name="notifications_no_results_headline">Não há notificações</string>
     <string name="notifications_no_results_message">Por favor, verifique mais tarde.</string>
     <string name="offline_mode">Sem conexão à internet</string>
+    <string name="oneHour">1 hora</string>
+    <string name="online">Online</string>
+    <string name="online_status">Status online</string>
     <string name="outdated_server">O servidor chegou ao fim da vida. Por favor, atualize!</string>
     <string name="overflow_menu">Mais menus</string>
     <string name="pass_code_configure_your_pass_code">Digite o código de acesso</string>
@@ -543,6 +553,7 @@
     <string name="recommend_subject">Experimente %1$s em seu dispositivo!</string>
     <string name="recommend_text">Quero convidar você a usar %1$s em seu dispositivo.\nBaixe daqui: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">Erro ao encontrar arquivo!</string>
     <string name="remove_fail_msg">Falha na exclusão</string>
     <string name="remove_notification_failed">Erro ao remover a notificação.</string>
@@ -578,6 +589,8 @@
     <string name="sendbutton_description">Ícone do botão Enviar</string>
     <string name="set_as">Definir como</string>
     <string name="set_picture_as">Usar imagem como</string>
+    <string name="set_status">Definir status</string>
+    <string name="set_status_message">Definir mensagem de status</string>
     <string name="share">Compartilhar</string>
     <string name="share_dialog_title">Compartilhamento</string>
     <string name="share_email_clarification">%1$s (e-mail)</string>
@@ -588,6 +601,7 @@
     <string name="share_internal_link_to_file_text">O link de compartilhamento interno só funciona para usuários com acesso a este arquivo</string>
     <string name="share_internal_link_to_folder_text">O link de compartilhamento interno só funciona para usuários com acesso a esta pasta</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
+    <string name="share_known_remote_on_clarification">em %1$s</string>
     <string name="share_link">Link de compartilhamento</string>
     <string name="share_link_empty_password">Digite uma senha</string>
     <string name="share_link_file_error">Ocorreu um erro durante ao tentar compartilhar esse arquivo ou pasta.</string>
@@ -606,7 +620,7 @@
     <string name="share_privilege_unshare">Descompartilhar</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
-    <string name="share_search">Nome, ID da nuvem federada ou e-mail…</string>
+    <string name="share_search">Nome, ID de nuvem federada ou endereço de email.</string>
     <string name="share_send_note">Anotação para o destinatário</string>
     <string name="share_via_link_hide_download">Ocultar download</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ocultar listagem de arquivos</string>
@@ -655,6 +669,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é confiável</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- A data de expiração do certificado do servidor está no futuro</string>
     <string name="ssl_validator_reason_hostname_not_verified">- A URL do host não confere com o host do certificado</string>
+    <string name="status_message">Mensagem de status</string>
     <string name="storage_camera">Câmera</string>
     <string name="storage_choose_location">Escolher o local de armazenamento</string>
     <string name="storage_description_default">Padrão</string>
@@ -702,10 +717,13 @@
     <string name="synced_icon">Sincronizado</string>
     <string name="tags">Rótulos</string>
     <string name="test_server_button">Teste de conexão ao servidor</string>
+    <string name="thirtyMinutes">30 minutos</string>
+    <string name="thisWeek">Esta semana</string>
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura para arquivo existente</string>
     <string name="thumbnail_for_new_file_desc">Miniatura para arquivo novo</string>
     <string name="timeout_richDocuments">O carregamento demora muito…</string>
+    <string name="today">Hoje</string>
     <string name="trashbin_activity_title">Arquivos excluídos</string>
     <string name="trashbin_empty_headline">Nenhum arquivo excluído</string>
     <string name="trashbin_empty_message">Você poderá recuperar arquivos excluídos daqui.</string>
@@ -816,6 +834,7 @@
     <string name="what_s_new_image">Imagem nova</string>
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_new_title">Novo em %1$s</string>
+    <string name="whats_your_status">Qual é o seu status?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Erro ao sincronizar %1$d arquivo (conflitos: %2$d)</item>
         <item quantity="other">Erro ao sincronizar %1$d arquivos (conflitos: %2$d)</item>

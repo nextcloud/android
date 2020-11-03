@@ -49,8 +49,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -369,15 +371,31 @@ public abstract class AbstractIT {
     }
 
     protected void screenshot(View view) {
-        Screenshot.snap(view).setName(createName()).record();
+        screenshot(view, "");
+    }
+
+    protected void screenshot(View view, String prefix) {
+        Screenshot.snap(view).setName(createName(prefix)).record();
     }
 
     protected void screenshot(Activity sut) {
         Screenshot.snapActivity(sut).setName(createName()).record();
     }
 
+    protected void screenshot(DialogFragment dialogFragment, String prefix) {
+        screenshot(Objects.requireNonNull(dialogFragment.requireDialog().getWindow()).getDecorView(), prefix);
+    }
+
     private String createName() {
+        return createName("");
+    }
+
+    private String createName(String prefix) {
         String name = TestNameDetector.getTestClass() + "_" + TestNameDetector.getTestName();
+
+        if (!TextUtils.isEmpty(prefix)) {
+            name = name + "_" + prefix;
+        }
 
         if (!DARK_MODE.isEmpty()) {
             name = name + "_" + DARK_MODE;

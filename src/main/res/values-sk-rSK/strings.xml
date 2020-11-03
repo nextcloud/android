@@ -191,6 +191,7 @@
     <string name="disable_new_media_folder_detection_notifications">Zakázať</string>
     <string name="dismiss">Odmietnuť</string>
     <string name="dismiss_notification_description">Odmietnuť upozornenie</string>
+    <string name="dnd">Nerušiť</string>
     <string name="download_latest_dev_version">Stiahnuť poslednú vývojársku verziu</string>
     <string name="downloader_download_failed_content">Nepodarilo sa stiahnuť %1$s</string>
     <string name="downloader_download_failed_credentials_error">Sťahovanie neúspešné, je potrebné sa znovu prihlásiť</string>
@@ -364,6 +365,7 @@
     <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
     <string name="foreign_files_success">Všetky súbory boli presunuté</string>
     <string name="forward">Preposlať</string>
+    <string name="fourHours">4 hodiny</string>
     <string name="hint_name">Meno</string>
     <string name="hint_note">Poznámka</string>
     <string name="hint_password">Heslo</string>
@@ -373,6 +375,7 @@
     <string name="instant_upload_on_charging">Nahrať iba počas nabíjania</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Neplatná URL</string>
+    <string name="invisible">Neviditeľné</string>
     <string name="label_empty">Štítok nemôže byť prázdny</string>
     <string name="link">Odkaz</string>
     <string name="link_share_allow_upload_and_editing">Povoliť nahrávanie a úpravy</string>
@@ -456,6 +459,7 @@
     <string name="notifications_no_results_headline">Žiadne upozornenia</string>
     <string name="notifications_no_results_message">Prosím skontrolujte znova neskôr.</string>
     <string name="offline_mode">Bez internetového pripojenia</string>
+    <string name="oneHour">1 hodina</string>
     <string name="outdated_server">Verzia servra už nie je podporovaná, prosím aktualizujte!</string>
     <string name="overflow_menu">Ďalšie menu</string>
     <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
@@ -575,6 +579,7 @@
     <string name="sendbutton_description">Ikona tlačidla na odoslanie</string>
     <string name="set_as">Nastaviť ako</string>
     <string name="set_picture_as">Použiť obrázok ako</string>
+    <string name="set_status">Nastaviť stav</string>
     <string name="share">Zdieľať</string>
     <string name="share_dialog_title">Sprístupnenie</string>
     <string name="share_email_clarification">%1$s (email)</string>
@@ -602,7 +607,6 @@
     <string name="share_privilege_unshare">Zneprístupniť</string>
     <string name="share_remote_clarification">%1$s (vzdialený)</string>
     <string name="share_room_clarification">%1$s (rozhovor)</string>
-    <string name="share_search">Meno, federatívny cloud ID alebo e-mailová adresa…</string>
     <string name="share_send_note">Poznámka pre príjemcu</string>
     <string name="share_via_link_hide_download">Skryť sťahovanie</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skryť zobrazenie súborov</string>
@@ -651,6 +655,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát servera nie je overený</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Certifikát servera je príliš mladý</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL nezodpovedá hodnote hostname certifikátu</string>
+    <string name="status_message">Správa o stave</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Vyberte umiestnenie úložiska</string>
     <string name="storage_description_default">Predvolené</string>
@@ -698,10 +703,13 @@
     <string name="synced_icon">Zosynchronizované</string>
     <string name="tags">Štítky</string>
     <string name="test_server_button">Test serverového pripojenia</string>
+    <string name="thirtyMinutes">30 minút</string>
+    <string name="thisWeek">Tento týždeň</string>
     <string name="thumbnail">Náhľad</string>
     <string name="thumbnail_for_existing_file_description">Náhľad existujúceho súboru</string>
     <string name="thumbnail_for_new_file_desc">Náhľad nového súboru</string>
     <string name="timeout_richDocuments">Načítanie trvá veľmi dlho…</string>
+    <string name="today">Dnes</string>
     <string name="trashbin_activity_title">Zmazané súbory</string>
     <string name="trashbin_empty_headline">Žiadne zmazané súbory</string>
     <string name="trashbin_empty_message">Tu budete mať možnosť obnoviť zmazané súbory.</string>

@@ -27,25 +27,38 @@ import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.ParcelFileDescriptor;
 import android.provider.BaseColumns;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.users.Status;
+import com.owncloud.android.lib.resources.users.StatusType;
+import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -60,10 +73,14 @@ import androidx.annotation.Nullable;
 import dagger.android.AndroidInjection;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import static com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation.PROPERTY_CLEAR_AT;
+import static com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation.PROPERTY_ICON;
+import static com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation.PROPERTY_MESSAGE;
+import static com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation.PROPERTY_STATUS;
+
 
 /**
- * Content provider for search suggestions, to search for users and groups existing in an ownCloud
- * server.
+ * Content provider for search suggestions, to search for users and groups existing in an ownCloud server.
  */
 public class UsersAndGroupsSearchProvider extends ContentProvider {
 
@@ -72,6 +89,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private static final String[] COLUMNS = {
         BaseColumns._ID,
         SearchManager.SUGGEST_COLUMN_TEXT_1,
+        SearchManager.SUGGEST_COLUMN_TEXT_2,
         SearchManager.SUGGEST_COLUMN_ICON_1,
         SearchManager.SUGGEST_COLUMN_INTENT_DATA
     };
@@ -98,7 +116,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     @Inject
     protected UserAccountManager accountManager;
 
-    private static Map<String, ShareType> sShareTypes = new HashMap<>();
+    private static final Map<String, ShareType> sShareTypes = new HashMap<>();
 
     public static ShareType getShareType(String authority) {
 
@@ -167,13 +185,10 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         Log_OC.d(TAG, "query received in thread " + Thread.currentThread().getName());
 
         int match = mUriMatcher.match(uri);
-        switch (match) {
-            case SEARCH:
-                return searchForUsersOrGroups(uri);
-
-            default:
-                return null;
+        if (match == SEARCH) {
+            return searchForUsersOrGroups(uri);
         }
+        return null;
     }
 
     private Cursor searchForUsersOrGroups(Uri uri) {
@@ -229,7 +244,8 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                 Iterator<JSONObject> namesIt = names.iterator();
                 JSONObject item;
                 String displayName;
-                int icon = 0;
+                String subline = null;
+                Object icon = 0;
                 Uri dataUri;
                 int count = 0;
                 while (namesIt.hasNext()) {
@@ -237,13 +253,27 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                     dataUri = null;
                     displayName = null;
                     String userName = item.getString(GetShareesRemoteOperation.PROPERTY_LABEL);
+                    String name = item.isNull("name") ? "" : item.getString("name");
                     JSONObject value = item.getJSONObject(GetShareesRemoteOperation.NODE_VALUE);
                     ShareType type = ShareType.fromValue(value.getInt(GetShareesRemoteOperation.PROPERTY_SHARE_TYPE));
                     String shareWith = value.getString(GetShareesRemoteOperation.PROPERTY_SHARE_WITH);
 
+                    Status status;
+                    JSONObject statusObject = item.optJSONObject(PROPERTY_STATUS);
+
+                    if (statusObject != null) {
+                        status = new Status(
+                            StatusType.valueOf(statusObject.getString(PROPERTY_STATUS).toUpperCase(Locale.US)),
+                            statusObject.isNull(PROPERTY_MESSAGE) ? "" : statusObject.getString(PROPERTY_MESSAGE),
+                            statusObject.isNull(PROPERTY_ICON) ? "" : statusObject.getString(PROPERTY_ICON),
+                            statusObject.isNull(PROPERTY_CLEAR_AT) ? -1 : statusObject.getLong(PROPERTY_CLEAR_AT));
+                    } else {
+                        status = new Status(StatusType.OFFLINE, "", "", -1);
+                    }
+
                     switch (type) {
                         case GROUP:
-                            displayName = getContext().getString(R.string.share_group_clarification, userName);
+                            displayName = userName;
                             icon = R.drawable.ic_group;
                             dataUri = Uri.withAppendedPath(groupBaseUri, shareWith);
                             break;
@@ -254,30 +284,48 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                                 dataUri = Uri.withAppendedPath(remoteBaseUri, shareWith);
 
                                 if (userName.equals(shareWith)) {
-                                    displayName = getContext().getString(R.string.share_remote_clarification, userName);
+                                    displayName = name;
+                                    subline = getContext().getString(R.string.remote);
                                 } else {
                                     String[] uriSplitted = shareWith.split("@");
-                                    displayName = getContext().getString(R.string.share_known_remote_clarification,
-                                                                         userName, uriSplitted[uriSplitted.length - 1]);
+                                    displayName = name;
+                                    subline = getContext().getString(R.string.share_known_remote_on_clarification,
+                                                                     uriSplitted[uriSplitted.length - 1]);
                                 }
                             }
                             break;
 
                         case USER:
                             displayName = userName;
-                            icon = R.drawable.ic_user;
+                            subline = (status.getMessage() == null || status.getMessage().isEmpty()) ? null :
+                                status.getMessage();
+                            Uri.Builder builder =
+                                Uri.parse("content://com.nextcloud.android.providers.UsersAndGroupsSearchProvider/icon")
+                                    .buildUpon();
+
+                            builder.appendQueryParameter("shareWith", shareWith);
+                            builder.appendQueryParameter("displayName", displayName);
+                            builder.appendQueryParameter("status", status.getStatus().toString());
+
+                            if (!TextUtils.isEmpty(status.getIcon()) && !"null".equals(status.getIcon())) {
+                                builder.appendQueryParameter("icon", status.getIcon());
+                            }
+
+                            icon = builder.build();
+
                             dataUri = Uri.withAppendedPath(userBaseUri, shareWith);
                             break;
 
                         case EMAIL:
                             icon = R.drawable.ic_email;
-                            displayName = getContext().getString(R.string.share_email_clarification, userName);
+                            displayName = name;
+                            subline = shareWith;
                             dataUri = Uri.withAppendedPath(emailBaseUri, shareWith);
                             break;
 
                         case ROOM:
-                            icon = R.drawable.ic_chat_bubble;
-                            displayName = getContext().getString(R.string.share_room_clarification, userName);
+                            icon = R.drawable.ic_talk;
+                            displayName = userName;
                             dataUri = Uri.withAppendedPath(roomBaseUri, shareWith);
                             break;
 
@@ -295,6 +343,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                         response.newRow()
                             .add(count++)             // BaseColumns._ID
                             .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_1
+                            .add(subline)             // SearchManager.SUGGEST_COLUMN_TEXT_2
                             .add(icon)                // SearchManager.SUGGEST_COLUMN_ICON_1
                             .add(dataUri);
                     }
@@ -322,6 +371,63 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         return 0;
+    }
+
+    @Nullable
+    @Override
+    @SuppressFBWarnings("IOI_USE_OF_FILE_STREAM_CONSTRUCTORS") // TODO remove with API26
+    public ParcelFileDescriptor openFile(@NonNull Uri uri, @NonNull String mode) throws FileNotFoundException {
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
+
+        String userId = uri.getQueryParameter("shareWith");
+        String displayName = uri.getQueryParameter("displayName");
+        String accountName = accountManager.getUser().getAccountName();
+        String serverName = accountName.substring(accountName.lastIndexOf('@') + 1);
+
+        String eTag = arbitraryDataProvider.getValue(userId + "@" + serverName, ThumbnailsCacheManager.AVATAR);
+        String avatarKey = "a_" + userId + "_" + serverName + "_" + eTag;
+
+        StatusType status = StatusType.valueOf(uri.getQueryParameter("status"));
+        String icon = uri.getQueryParameter("icon");
+
+        if (icon == null) {
+            icon = "";
+        }
+
+        Bitmap avatarBitmap = ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey);
+
+        if (avatarBitmap == null) {
+            float avatarRadius = getContext().getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
+            avatarBitmap = BitmapUtils.drawableToBitmap(TextDrawable.createNamedAvatar(displayName, avatarRadius));
+        }
+
+        Bitmap avatar = BitmapUtils.createAvatarWithStatus(avatarBitmap, status, icon, getContext());
+
+        // create a file to write bitmap data
+        File f = new File(getContext().getCacheDir(), "test");
+        try {
+            if (!f.createNewFile()) {
+                throw new IllegalStateException("File could not be created!");
+            }
+
+            //Convert bitmap to byte array
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+            avatar.compress(Bitmap.CompressFormat.PNG, 90, bos);
+            byte[] bitmapData = bos.toByteArray();
+
+            //write the bytes in file
+            try (FileOutputStream fos = new FileOutputStream(f)) {
+                fos.write(bitmapData);
+            } catch (FileNotFoundException e) {
+                Log_OC.e(TAG, "File not found: " + e.getMessage());
+            }
+
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error opening file: " + e.getMessage());
+        }
+
+        return ParcelFileDescriptor.open(f, ParcelFileDescriptor.MODE_READ_ONLY);
     }
 
     /**

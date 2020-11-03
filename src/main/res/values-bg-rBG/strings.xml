@@ -339,6 +339,7 @@
     <string name="instant_upload_on_charging">Качване само при зареждане</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Грешно URL</string>
+    <string name="invisible">Невидим</string>
     <string name="link">Връзка</string>
     <string name="link_share_allow_upload_and_editing">За качване и редактиране</string>
     <string name="link_share_file_drop">Само за качване</string>
@@ -394,6 +395,7 @@
     <string name="notifications_no_results_headline">Няма известия</string>
     <string name="notifications_no_results_message">Моля, опитайте отново по-късно.</string>
     <string name="offline_mode">Няма връзка с Интернет</string>
+    <string name="oneHour">1 час</string>
     <string name="overflow_menu">Повече</string>
     <string name="pass_code_configure_your_pass_code">Въведете кода за достъп</string>
     <string name="pass_code_configure_your_pass_code_explanation">Кода ще бъде изискван при всяко стартиране на приложението</string>
@@ -506,7 +508,6 @@
     <string name="share_privilege_unshare">Прекрати споделянето</string>
     <string name="share_remote_clarification">%1$s (отдалечен)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
-    <string name="share_search">Име, Federated Cloud ID или имейл адрес...</string>
     <string name="share_send_note">Бележка за получателя</string>
     <string name="share_via_link_hide_download">Скрий свалянето</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрий показването на файлове</string>
@@ -592,7 +593,10 @@
     <string name="synced_icon">Синхронизиран</string>
     <string name="tags">Етикети</string>
     <string name="test_server_button">Тестване на връзката със сървъра</string>
+    <string name="thirtyMinutes">30 минути</string>
+    <string name="thisWeek">Тази седмица</string>
     <string name="thumbnail">Миниатюра</string>
+    <string name="today">Днес</string>
     <string name="trashbin_activity_title">Изтрити файлове</string>
     <string name="trashbin_empty_headline">Няма изтрити файлове</string>
     <string name="trashbin_file_not_deleted">Файлът %1$s не може да бъде изтрит!</string>

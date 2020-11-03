@@ -44,6 +44,7 @@ import java.io.InputStream;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * This activity shows an URL as a web view
@@ -149,6 +150,7 @@ public class ExternalSiteWebView extends FileActivity {
         webview.loadUrl(url);
     }
 
+    @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT")
     @SuppressLint("SetJavaScriptEnabled")
     private void setupWebSettings(WebSettings webSettings) {
         // enable zoom

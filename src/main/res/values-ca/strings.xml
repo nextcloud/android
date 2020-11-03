@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Desactiva la comprovació d\'estalvi energètic</string>
     <string name="autoupload_hide_folder">Amaga la carpeta</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Absent</string>
     <string name="battery_optimization_close">Tanca</string>
     <string name="battery_optimization_disable">Desactiva</string>
     <string name="battery_optimization_message">El vostre dispositiu pot tenir l\'optimització de bateria activada. AutoUpload només funciona correctament si hi excluïu aquesta aplicació.</string>
@@ -90,6 +91,8 @@
     <string name="choose_local_folder">Escolliu una carpeta local…</string>
     <string name="choose_remote_folder">Escolliu una carpeta remota…</string>
     <string name="clear_notifications_failed">No s\'han pogut carregar les notificacions.</string>
+    <string name="clear_status_message">Esborrar el missatge d\'estat</string>
+    <string name="clear_status_message_after">Esborra el missatge d\'estat després</string>
     <string name="clipboard_label">Text copiat des de %1$s</string>
     <string name="clipboard_no_text_to_copy">No s\'ha rebut cap text per copiar al porta-retalls</string>
     <string name="clipboard_text_copied">Enllaç copiat</string>
@@ -191,6 +194,8 @@
     <string name="disable_new_media_folder_detection_notifications">Desactiva</string>
     <string name="dismiss">Descarta</string>
     <string name="dismiss_notification_description">Descarta la notificació</string>
+    <string name="dnd">No molesteu</string>
+    <string name="dontClear">No esborrar</string>
     <string name="download_latest_dev_version">Baixa la darrera versió de desenvolupament</string>
     <string name="downloader_download_failed_content">No s\'ha pogut descarregar%1$s</string>
     <string name="downloader_download_failed_credentials_error">La descàrrega ha fallat, torneu a iniciar la sessió</string>
@@ -363,6 +368,7 @@
     <string name="foreign_files_remote_text">Remot: %1$s</string>
     <string name="foreign_files_success">S\'han mogut tots els fitxers</string>
     <string name="forward">Endavant</string>
+    <string name="fourHours">4 hores</string>
     <string name="hint_name">Nom</string>
     <string name="hint_note">Nota</string>
     <string name="hint_password">Contrasenya</string>
@@ -372,6 +378,7 @@
     <string name="instant_upload_on_charging">Carrega només durant la càrrega de bateria</string>
     <string name="instant_upload_path">/CàrregaInstantània</string>
     <string name="invalid_url">URL no vàlida</string>
+    <string name="invisible">Invisible</string>
     <string name="label_empty">L\'etiqueta no pot estar buida</string>
     <string name="link">Enllaç</string>
     <string name="link_share_allow_upload_and_editing">Permet la pujada i l\'edició</string>
@@ -455,6 +462,9 @@
     <string name="notifications_no_results_headline">No hi ha notificacions</string>
     <string name="notifications_no_results_message">Si us plau, comproveu-ho més tard</string>
     <string name="offline_mode">No hi ha connexió a internet</string>
+    <string name="oneHour">1 hora</string>
+    <string name="online">En línia</string>
+    <string name="online_status">Estat en línia</string>
     <string name="outdated_server">El servidor ha arribat al final de la seva vida, si us plau actualitzeu!</string>
     <string name="overflow_menu">Menú més</string>
     <string name="pass_code_configure_your_pass_code">Escriviu el vostre codi d\'accés</string>
@@ -574,6 +584,8 @@
     <string name="sendbutton_description">Icona de botó d\'enviar</string>
     <string name="set_as">Configura com</string>
     <string name="set_picture_as">Fes servir la foto com</string>
+    <string name="set_status">Estableix l\'estat</string>
+    <string name="set_status_message">Estableix un missatge d\'estat</string>
     <string name="share">Comparteix</string>
     <string name="share_dialog_title">S\'està compartint</string>
     <string name="share_email_clarification">%1$s (correu electrònic)</string>
@@ -601,7 +613,6 @@
     <string name="share_privilege_unshare">Deixa de compartir</string>
     <string name="share_remote_clarification">%1$s (remot)</string>
     <string name="share_room_clarification">%1$s(conversa)</string>
-    <string name="share_search">Nom, ID de núvol federat o adreça de correu electrònic…</string>
     <string name="share_send_note">Nota al destinatari</string>
     <string name="share_via_link_hide_download">Amaga la descàrrega</string>
     <string name="share_via_link_hide_file_listing_permission_label">Amaga la llista de fitxers</string>
@@ -650,6 +661,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- El certificat del servidor no està autenticat</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Les dades vàlides del certificat del servidor són al futur</string>
     <string name="ssl_validator_reason_hostname_not_verified">- L\'URL no coincideix amb el nom del servidor en el certificat</string>
+    <string name="status_message">Missatge d\'estat</string>
     <string name="storage_camera">Càmera</string>
     <string name="storage_choose_location">Escolliu la ubicació d\'emmagatzematge</string>
     <string name="storage_description_default">Per defecte</string>
@@ -697,10 +709,13 @@
     <string name="synced_icon">Sincronitzat</string>
     <string name="tags">Etiquetes</string>
     <string name="test_server_button">Proveu la connexió amb el servidor</string>
+    <string name="thirtyMinutes">30 minuts</string>
+    <string name="thisWeek">Aquesta setmana</string>
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura pel fitxer existent</string>
     <string name="thumbnail_for_new_file_desc">Miniatura pel nou fitxer</string>
     <string name="timeout_richDocuments">La càrrega triga molt…</string>
+    <string name="today">Avui</string>
     <string name="trashbin_activity_title">Fitxers suprimits</string>
     <string name="trashbin_empty_headline">No hi ha cap fitxer suprimit</string>
     <string name="trashbin_empty_message">Des d\'aquí es podran recuperar fitxers suprimits.</string>
@@ -810,6 +825,7 @@
     <string name="what_s_new_image">Imatge de novetats</string>
     <string name="whats_new_skip">Omet</string>
     <string name="whats_new_title">Nou a %1$s</string>
+    <string name="whats_your_status">Quin és el teu estat?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">No s\'ha pogut sincronitzar %1$d fitxer (conflictes: %2$d)</item>
         <item quantity="other">No s\'han pogut sincronitzar %1$d fitxers (conflictes: %2$d)</item>

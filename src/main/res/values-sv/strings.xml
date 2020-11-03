@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Inaktivera strömsparingskontrollen</string>
     <string name="autoupload_hide_folder">Göm mapp</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Iväg</string>
     <string name="battery_optimization_close">Stäng</string>
     <string name="battery_optimization_disable">Inaktivera</string>
     <string name="battery_optimization_message">Din enhet kan ha batterioptimering aktiverad. För att auto-uppladdning ska fungera måste du utesluta denna app från batterioptimering.</string>
@@ -90,6 +91,8 @@
     <string name="choose_local_folder">Välj lokal mapp…</string>
     <string name="choose_remote_folder">Välj extern mapp…</string>
     <string name="clear_notifications_failed">Kunde inte rensa aviseringar.</string>
+    <string name="clear_status_message">Rensa statusmeddelande</string>
+    <string name="clear_status_message_after">Rensa statusmeddelande efter</string>
     <string name="clipboard_label">Text kopierad från %1$s</string>
     <string name="clipboard_no_text_to_copy">Mottog ingen text att kopiera</string>
     <string name="clipboard_text_copied">Länk kopierad</string>
@@ -168,6 +171,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiera/flytta till krypterad mapp stöds för närvarande inte.</string>
     <string name="copy_to">Kopiera till…</string>
     <string name="could_not_download_image">Kunde inte hämta hela bilden</string>
+    <string name="could_not_retrieve_shares">Kunde inte hämta delade mappar</string>
     <string name="could_not_retrieve_url">Kunde inte hämta URL</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
     <string name="create_new">Skapa ny</string>
@@ -191,6 +195,8 @@
     <string name="disable_new_media_folder_detection_notifications">Inaktivera</string>
     <string name="dismiss">Avfärda</string>
     <string name="dismiss_notification_description">Avfärda notifiering</string>
+    <string name="dnd">Stör ej</string>
+    <string name="dontClear">Rensa inte</string>
     <string name="download_latest_dev_version">Hämta senaste utvecklingsversionen</string>
     <string name="downloader_download_failed_content">Kunde inte hämta %1$s</string>
     <string name="downloader_download_failed_credentials_error">Hämtningen misslyckades, logga in igen</string>
@@ -275,6 +281,7 @@
     <string name="failed_to_download">Misslyckades skicka filen till hämtningshanteraren</string>
     <string name="failed_to_print">Kunde inte skriva ut filen</string>
     <string name="failed_to_start_editor">Kunde inte starta editor</string>
+    <string name="failed_update_ui">Misslyckades med att uppdatera UI</string>
     <string name="favorite">Lägg till favoriter</string>
     <string name="favorite_icon">Favoritisera</string>
     <string name="file_delete">Radera</string>
@@ -373,6 +380,7 @@
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
     <string name="invalid_url">Ogiltig URL</string>
+    <string name="invisible">Osynlig</string>
     <string name="label_empty">Etiketten kan inte vara tom</string>
     <string name="link">Länk</string>
     <string name="link_share_allow_upload_and_editing">Tillåt uppladdning och redigering</string>
@@ -456,6 +464,9 @@
     <string name="notifications_no_results_headline">Inga aviseringar</string>
     <string name="notifications_no_results_message">Vänligen kontrollera igen senare.</string>
     <string name="offline_mode">Ingen internetanslutning</string>
+    <string name="oneHour">1 timme</string>
+    <string name="online">Online</string>
+    <string name="online_status">Online-status</string>
     <string name="outdated_server">Servern har nått slutet av livet, vänligen uppgradera!</string>
     <string name="overflow_menu">Mer Meny</string>
     <string name="pass_code_configure_your_pass_code">Skriv in ditt lösenord</string>
@@ -482,6 +493,7 @@
     <string name="pref_behaviour_entries_move">flyttas till Nextcloud-mapp</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Vad ska göras om filen redan finns?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Fråga mig varje gång</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Hoppa över uppladdning</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Skriv över versionen på servern</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Byt namn på ny version</string>
     <string name="pref_instant_name_collision_policy_title">Vad ska göras om filen redan finns?</string>
@@ -541,6 +553,7 @@
     <string name="recommend_subject">Försök%1$s på din enhet!</string>
     <string name="recommend_text">Jag vill bjuda in dig att använda %1$s på din enhet.\nHämta här: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="remote">(avlägsen)</string>
     <string name="remote_file_fetch_failed">Kunde inte hitta filen!</string>
     <string name="remove_fail_msg">Radering misslyckades</string>
     <string name="remove_notification_failed">Kunde inte radera notifiering.</string>
@@ -576,6 +589,8 @@
     <string name="sendbutton_description">Ikonen för Skicka-knapp</string>
     <string name="set_as">Sätt som</string>
     <string name="set_picture_as">Använd bild som</string>
+    <string name="set_status">Sätt status</string>
+    <string name="set_status_message">Sätt statusmeddelande</string>
     <string name="share">Dela</string>
     <string name="share_dialog_title">Dela</string>
     <string name="share_email_clarification">%1$s (e-post)</string>
@@ -586,6 +601,7 @@
     <string name="share_internal_link_to_file_text">Intern länkdelning fungerar bara för användare med åtkomst till den här filen</string>
     <string name="share_internal_link_to_folder_text">Intern länkdelning fungerar bara för användare med åtkomst till den här mappen</string>
     <string name="share_known_remote_clarification">%1$s ( på %2$s )</string>
+    <string name="share_known_remote_on_clarification">på %1$s</string>
     <string name="share_link">Dela länk</string>
     <string name="share_link_empty_password">Du måste ange ett lösenord</string>
     <string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp.</string>
@@ -593,6 +609,7 @@
     <string name="share_link_forbidden_permissions">att dela denna fil</string>
     <string name="share_link_optional_password_title">Ange ett valfritt lösenord</string>
     <string name="share_link_password_title">Ange ett lösenord</string>
+    <string name="share_link_with_label">Dela länk (%1$s)</string>
     <string name="share_no_expiration_date_label">Välj utgångsdatum</string>
     <string name="share_no_password_title">Sätt lösenord</string>
     <string name="share_password_title">Lösenordsskyddad</string>
@@ -603,7 +620,7 @@
     <string name="share_privilege_unshare">Sluta dela</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (konversation)</string>
-    <string name="share_search">Namn, federerat moln-ID eller e-postadress…</string>
+    <string name="share_search">Namn, federerat Cloud ID eller epost-adress</string>
     <string name="share_send_note">Notering till mottagare</string>
     <string name="share_via_link_hide_download">Dölj hämtning</string>
     <string name="share_via_link_hide_file_listing_permission_label">Göm fillistning</string>
@@ -652,6 +669,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Servercertifikatet är inte tillförlitligt</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Servercertifikatet är för nytt</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Webbadressen matchar inte värdnamnet i certifikatet</string>
+    <string name="status_message">Statusmeddelande</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Välj lagringsplats</string>
     <string name="storage_description_default">Standard</string>
@@ -699,10 +717,13 @@
     <string name="synced_icon">Synkroniserad</string>
     <string name="tags">Taggar</string>
     <string name="test_server_button">Testa serveranslutning</string>
+    <string name="thirtyMinutes">30 minuter</string>
+    <string name="thisWeek">Denna vecka</string>
     <string name="thumbnail">Ikon</string>
     <string name="thumbnail_for_existing_file_description">Miniatyrbild för befintlig fil</string>
     <string name="thumbnail_for_new_file_desc">Miniatyrbild för ny fil</string>
     <string name="timeout_richDocuments">Laddning tar väldigt länge...</string>
+    <string name="today">Idag</string>
     <string name="trashbin_activity_title">Borttagna filer</string>
     <string name="trashbin_empty_headline">Inga borttagna filer</string>
     <string name="trashbin_empty_message">Du kan återställa borttagna filer här.</string>
@@ -813,6 +834,7 @@
     <string name="what_s_new_image">Vad är nytt-bild</string>
     <string name="whats_new_skip">Hoppa över</string>
     <string name="whats_new_title">Ny i %1$s</string>
+    <string name="whats_your_status">Vad är din status?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kunde inte synkronisera %1$d fil (konflikter: %2$d)</item>
         <item quantity="other">Kunde inte synkronisera %1$d filer (konflikter: %2$d)</item>

@@ -14,6 +14,7 @@ import com.owncloud.android.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class FeatureWebFragment extends Fragment {
     private String mWebUrl;
@@ -32,6 +33,7 @@ public class FeatureWebFragment extends Fragment {
         mWebUrl = getArguments() != null ? getArguments().getString("url") : null;
     }
 
+    @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT")
     @SuppressLint("SetJavaScriptEnabled")
     @Nullable
     @Override

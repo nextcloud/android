@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2020 Nextcloud GmbH
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+    <path
+        android:fillColor="#757575"
+        android:pathData="M63.992,0.689C29.031,0.689 0.691,29.031 0.692,63.992c0,34.96 28.34,63.301 63.3,63.302 6.982,-0.014 13.881,-1.183 20.426,-3.43 4.317,-1.482 8.48,-3.433 12.411,-5.831 3.383,1.344 8.59,3.838 13.736,5.902 6.688,2.683 13.274,4.639 15.618,2.399 2.317,-2.212 0.703,-8.809 -1.647,-15.575 -2.046,-5.892 -4.649,-11.913 -5.701,-15.282 2.544,-4.415 4.535,-9.101 5.945,-13.954 1.648,-5.674 2.5,-11.574 2.512,-17.532C127.291,29.032 98.952,0.692 63.992,0.691ZM63.999,24.756l0.001,0c21.677,0 39.25,17.573 39.25,39.251 -0.001,21.677 -17.574,39.249 -39.251,39.249 -21.676,0 -39.249,-17.572 -39.25,-39.249 0,-21.678 17.573,-39.251 39.25,-39.251z"
+        android:strokeWidth="4.78543139" />
+</vector>

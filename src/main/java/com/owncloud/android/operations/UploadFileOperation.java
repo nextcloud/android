@@ -25,7 +25,6 @@ import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -87,7 +86,6 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.CheckResult;
-import androidx.annotation.RequiresApi;
 
 
 /**
@@ -150,12 +148,6 @@ public class UploadFileOperation extends SyncOperation {
     private boolean encryptedAncestor;
 
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
-
-        // MIME type
-        if (TextUtils.isEmpty(mimeType)) {
-            mimeType = MimeTypeUtil.getBestMimeTypeByFilename(localPath);
-        }
-
         OCFile newFile = new OCFile(remotePath);
         newFile.setStoragePath(localPath);
         newFile.setLastSyncDateForProperties(0);
@@ -169,8 +161,12 @@ public class UploadFileOperation extends SyncOperation {
         } // don't worry about not assigning size, the problems with localPath
         // are checked when the UploadFileOperation instance is created
 
-
-        newFile.setMimeType(mimeType);
+        // MIME type
+        if (TextUtils.isEmpty(mimeType)) {
+            newFile.setMimeType(MimeTypeUtil.getBestMimeTypeByFilename(localPath));
+        } else {
+            newFile.setMimeType(mimeType);
+        }
 
         return newFile;
     }

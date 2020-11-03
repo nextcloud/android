@@ -78,6 +78,7 @@
     <string name="autoupload_disable_power_save_check">Išjungti energijos taupymo patikrinimą</string>
     <string name="autoupload_hide_folder">Slėpti aplanką</string>
     <string name="avatar">Avataras</string>
+    <string name="away">Atsitraukęs</string>
     <string name="battery_optimization_close">Užverti</string>
     <string name="battery_optimization_disable">Išjungti</string>
     <string name="battery_optimization_message">Gali būti, kad Jūsų įrenginyje įjungta akumuliatriaus energijos naudojimo optimizacija. Automatinis įkėlimas tinkamai veikia tik tuo atveju, jei iš jo pašalinsite šią programą.
@@ -91,6 +92,8 @@
     <string name="choose_local_folder">Pasirinkite aplanką ...</string>
     <string name="choose_remote_folder">Pasirinkti nuotolinį aplanką…</string>
     <string name="clear_notifications_failed">Nepavyko išvalyti pranešimų.</string>
+    <string name="clear_status_message">Išvalyti būsenos žinutę</string>
+    <string name="clear_status_message_after">Išvalyti būsenos žinutę po</string>
     <string name="clipboard_label">Tekstas nukopijuotas iš %1$s</string>
     <string name="clipboard_no_text_to_copy">Tekstas nukopijuotas į iškarpinę</string>
     <string name="clipboard_text_copied">Nuoroda nukopijuota</string>
@@ -192,6 +195,8 @@
     <string name="disable_new_media_folder_detection_notifications">Išjungti</string>
     <string name="dismiss">Atmesti</string>
     <string name="dismiss_notification_description">Atmesti pranešimą</string>
+    <string name="dnd">Netrukdyti</string>
+    <string name="dontClear">Neišvalyti</string>
     <string name="download_latest_dev_version">Parsisiųsti naujausią dev versiją</string>
     <string name="downloader_download_failed_content">Nepavyko atsisiųsti %1$s</string>
     <string name="downloader_download_failed_credentials_error">Atsiuntimas nepavyko, prisijunkite dar kartą</string>
@@ -273,6 +278,7 @@
     <string name="failed_to_download">Nepavyko perduoti failo į atsiuntimų tvarkytuvę</string>
     <string name="failed_to_print">Nepavyko spausdinti failo</string>
     <string name="failed_to_start_editor">Nepavyko paleisti redaktoriaus</string>
+    <string name="failed_update_ui">Nepavyko atnaujinti naudotojo sąsajos</string>
     <string name="favorite">Pridėti į mėgstamus</string>
     <string name="favorite_icon">Mėgstami</string>
     <string name="file_delete">Ištrinti</string>
@@ -364,6 +370,7 @@
     <string name="foreign_files_remote_text">Nuotolinis: %1$s</string>
     <string name="foreign_files_success">Visi failai buvo perkelti</string>
     <string name="forward">Persiųsti</string>
+    <string name="fourHours">4 valandos</string>
     <string name="hint_name">Vardas</string>
     <string name="hint_note">Apie</string>
     <string name="hint_password">Slaptažodis</string>
@@ -373,6 +380,7 @@
     <string name="instant_upload_on_charging">Įkelti failus tik kai kraunasi</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Neteisingas URL</string>
+    <string name="invisible">Nematoma</string>
     <string name="label_empty">Kortelė negali būti tuščia</string>
     <string name="link">Nuoroda</string>
     <string name="link_share_allow_upload_and_editing">Leisti įkelti ir redaguoti</string>
@@ -457,6 +465,9 @@
     <string name="notifications_no_results_headline">Pranešimų nėra</string>
     <string name="notifications_no_results_message">Prašome patikrinti vėliau.</string>
     <string name="offline_mode">Nėra interneto ryšio</string>
+    <string name="oneHour">1 valanda</string>
+    <string name="online">Prisijungęs</string>
+    <string name="online_status">Prisijungimo būsena</string>
     <string name="outdated_server">Serverio naudojimo laikas baigėsi, prašome atnaujinkite!</string>
     <string name="overflow_menu">Daugiau meniu</string>
     <string name="pass_code_configure_your_pass_code">Įveskite užraktą</string>
@@ -576,6 +587,8 @@
     <string name="sendbutton_description">Siuntimo mygtuko priktograma</string>
     <string name="set_as">Nustatyti kaip</string>
     <string name="set_picture_as">Naudoti paveikslėlį kaip</string>
+    <string name="set_status">Nustatyti būseną</string>
+    <string name="set_status_message">Nustatyti būsenos žinutę</string>
     <string name="share">Bendrinti</string>
     <string name="share_dialog_title">Bendrinimas</string>
     <string name="share_email_clarification">%1$s (el. paštas)</string>
@@ -603,7 +616,6 @@
     <string name="share_privilege_unshare">Nustoti bendrinti</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
     <string name="share_room_clarification">%1$s (pokalbis)</string>
-    <string name="share_search">Vardas, federacinės debesijos ID arba el. pašto adresas…</string>
     <string name="share_send_note">Pastaba gavėjui</string>
     <string name="share_via_link_hide_download">Slėpti atsisiuntimą</string>
     <string name="share_via_link_hide_file_listing_permission_label">Paslėpti failų sąrašą</string>
@@ -614,7 +626,7 @@
     <string name="share_with_title">Dalintis su…</string>
     <string name="shared_avatar_desc">Bendrinamo naudotojo avataras</string>
     <string name="shared_icon_share">bendrinti</string>
-    <string name="shared_icon_shared">Dalinamasi</string>
+    <string name="shared_icon_shared">bendrinama</string>
     <string name="shared_icon_shared_via_link">bendrinta per nuorodą</string>
     <string name="shared_with_you_by">%1$s bendrina su Jumis.</string>
     <string name="sharee_add_failed">Bendrinimo pridėjimas nepavyko</string>
@@ -652,6 +664,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Nepatikimas serverio liudijimas</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Serverio liudijimas yra pernelyg naujas</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL neatitinka adreso, kuris yra nurodytas liudijime</string>
+    <string name="status_message">Būsenos pranešimas</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Pasirinkti saugyklos vietą</string>
     <string name="storage_description_default">Numatytasis</string>
@@ -699,10 +712,13 @@
     <string name="synced_icon">Sinchronizuota</string>
     <string name="tags">Žymės</string>
     <string name="test_server_button">Prisijunkite prie serverio</string>
+    <string name="thirtyMinutes">30 minučių</string>
+    <string name="thisWeek">Šią savaitę</string>
     <string name="thumbnail">Miniatiūra</string>
     <string name="thumbnail_for_existing_file_description">Miniatiūra egsiztuojantiems failams</string>
     <string name="thumbnail_for_new_file_desc">Miniatiūra naujiems failams</string>
     <string name="timeout_richDocuments">Įkėlimas užima labai ilgai…</string>
+    <string name="today">Šiandien</string>
     <string name="trashbin_activity_title">Ištrinti failai</string>
     <string name="trashbin_empty_headline">Ištrintų failų nėra</string>
     <string name="trashbin_empty_message">Čia galėsite atkurti ištrintus failus.</string>
@@ -812,6 +828,7 @@
     <string name="what_s_new_image">Koks naujas vaizdas</string>
     <string name="whats_new_skip">Praleisti</string>
     <string name="whats_new_title">Naujas %1$s</string>
+    <string name="whats_your_status">Kokia jūsų būsena?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nepavyko sinchronizuoti %1$d failo (konfliktai: %2$d)</item>
         <item quantity="few">Nepavyko sinchronizuoti %1$d failų (konfliktai: %2$d)</item>

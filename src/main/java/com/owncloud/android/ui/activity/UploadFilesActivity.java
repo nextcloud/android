@@ -230,6 +230,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                // no action
             }
         });
 
