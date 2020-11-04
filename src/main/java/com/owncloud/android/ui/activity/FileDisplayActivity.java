@@ -620,7 +620,7 @@ public class FileDisplayActivity extends FileActivity
     OCFileListFragment getListOfFilesFragment() {
         Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(
             FileDisplayActivity.TAG_LIST_OF_FILES);
-        if (listOfFiles != null) {
+        if (listOfFiles instanceof OCFileListFragment) {
             return (OCFileListFragment) listOfFiles;
         }
         Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
@@ -1077,6 +1077,8 @@ public class FileDisplayActivity extends FileActivity
                 showSortListGroup(true);
                 cleanSecondFragment();
             }
+        } else if (leftFragment instanceof PreviewTextStringFragment) {
+            createMinFragments(null);
         } else {
             // pop back
             hideSearchView(getCurrentDir());
