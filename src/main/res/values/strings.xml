@@ -4,6 +4,7 @@
     <string name="about_version">version %1$s</string>
     <string name="about_version_with_build">version %1$s, build #%2$s</string>
     <string name="appbar_search_in">Search in %s</string>
+    <string name="appbar_search_in_title">Search</string>
     <string name="actionbar_open_with">Open with</string>
     <string name="actionbar_mkdir">New folder</string>
     <string name="actionbar_settings">Settings</string>
