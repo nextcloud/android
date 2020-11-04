@@ -63,11 +63,11 @@
         android:title="@string/unset_encrypted"
         app:showAsAction="never"
         android:showAsAction="never" />
-    <item
-        android:id="@+id/action_set_as_wallpaper"
-        android:title="@string/set_picture_as"
-        app:showAsAction="never"
-        android:showAsAction="never" />
+<!--    <item-->
+<!--        android:id="@+id/action_set_as_wallpaper"-->
+<!--        android:title="@string/set_picture_as"-->
+<!--        app:showAsAction="never"-->
+<!--        android:showAsAction="never" />-->
     <item
         android:id="@+id/action_remove_file"
         android:title="@string/common_remove"
