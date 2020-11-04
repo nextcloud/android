@@ -1,0 +1,6 @@
+Reduce apk size by ~20 MB
+Changes due to CR
+Drop NC13-NC15 in 204 endpoint there is no maintenance:false
+Only do UI manipulation if visible
+Update translations
+Update Nextcloud Android library
