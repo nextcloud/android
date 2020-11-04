@@ -393,7 +393,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) fragmentActivity;
             fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir());
         }
-        listDirectory(false, false);
+        listDirectory(MainApp.isOnlyOnDevice(), false);
     }
 
     protected void prepareCurrentSearch(SearchEvent event) {

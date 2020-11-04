@@ -75,7 +75,7 @@ class MoreFragment : Fragment() {
                 R.id.nav_on_device -> {
                     MainApp.showOnlyFilesOnDevice(true)
                     isDevice = true
-                    showFiles(SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER))
+                    showFiles(null)
                 }
                 else -> {
                     activity.onNavigationItemClicked(menuItem)
@@ -113,6 +113,8 @@ class MoreFragment : Fragment() {
                 getString(R.string.more), context
             )
             updateQuotaLink()
+        } else {
+            MainApp.showOnlyFilesOnDevice(false)
         }
     }
 
@@ -130,9 +132,11 @@ class MoreFragment : Fragment() {
         navView.visibility = View.VISIBLE
     }
 
-    private fun showFiles(searchEvent: SearchEvent) {
+    private fun showFiles(searchEvent: SearchEvent?) {
         val bundle = Bundle()
-        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent))
+        searchEvent?.apply {
+            bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent))
+        }
         val fragment = OCFileListFragment()
         fragment.arguments = bundle
         childFragmentManager.beginTransaction()
