@@ -175,8 +175,14 @@ public final class FileStorageUtils {
             subfolderByDatePath = getSubPathFromDate(dateTaken, current);
         }
 
-        String relativeSubfolderPath = new File(file.getAbsolutePath().replace(syncedFolderLocalPath, ""))
-            .getParentFile().getAbsolutePath();
+        File parentFile = new File(file.getAbsolutePath().replace(syncedFolderLocalPath, "")).getParentFile();
+
+        String relativeSubfolderPath = "";
+        if (parentFile == null) {
+            Log_OC.e("AutoUpload", "Parent folder does not exists!");
+        } else {
+            relativeSubfolderPath = parentFile.getAbsolutePath();
+        }
 
         // Path must be normalized; otherwise the next RefreshFolderOperation has a mismatch and deletes the local file.
         return (remotePath +
