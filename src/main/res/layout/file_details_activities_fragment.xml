@@ -68,6 +68,7 @@
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
             android:scrollbars="vertical"
+            android:paddingBottom="60dp"
             android:visibility="visible"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

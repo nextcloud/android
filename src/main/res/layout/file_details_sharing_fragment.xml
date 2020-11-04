@@ -16,76 +16,76 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout android:id="@+id/shareContainer"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shareContainer"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/standard_eight_padding"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:paddingTop="@dimen/standard_eight_padding">
 
     <androidx.appcompat.widget.SearchView
-        style="@style/ownCloud.SearchView"
-        android:hint="@string/share_search"
         android:id="@+id/searchView"
+        style="@style/ownCloud.SearchView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginStart="@dimen/standard_quarter_margin"
-        android:layout_width="match_parent" />
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:hint="@string/share_search" />
 
     <LinearLayout
         android:id="@+id/shared_with_you_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/standard_half_margin"
-        android:layout_width="match_parent"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_padding"
-        android:paddingTop="@dimen/standard_padding">
+        android:paddingTop="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding">
 
         <ImageView
-            android:contentDescription="@string/avatar"
             android:id="@+id/shared_with_you_avatar"
-            android:layout_height="@dimen/user_icon_size"
             android:layout_width="@dimen/user_icon_size"
+            android:layout_height="@dimen/user_icon_size"
+            android:contentDescription="@string/avatar"
             android:src="@drawable/ic_user" />
 
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
-            android:paddingTop="@dimen/standard_half_padding">
+            android:paddingTop="@dimen/standard_half_padding"
+            android:paddingRight="@dimen/standard_padding">
 
             <TextView
                 android:id="@+id/shared_with_you_username"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/shared_with_you_by"
                 android:textSize="16sp" />
 
             <LinearLayout
                 android:id="@+id/shared_with_you_note_container"
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:paddingTop="@dimen/standard_half_padding"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
-                    android:contentDescription="@string/note_icon_hint"
-                    android:layout_height="16dp"
                     android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="@string/note_icon_hint"
                     android:src="@drawable/file_text" />
 
                 <TextView
                     android:id="@+id/shared_with_you_note"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:paddingEnd="@dimen/standard_half_padding"
                     android:paddingStart="@dimen/standard_half_padding"
+                    android:paddingEnd="@dimen/standard_half_padding"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -93,10 +93,11 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sharesList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:divider="@drawable/divider"
         android:dividerHeight="1dp"
-        android:id="@+id/sharesList"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        android:paddingBottom="60dp" />
 
 </LinearLayout>
