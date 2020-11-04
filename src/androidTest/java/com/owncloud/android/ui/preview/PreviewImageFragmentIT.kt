@@ -27,6 +27,7 @@ import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.ScreenshotTest
+import com.owncloud.android.utils.ScreenshotTest2
 import org.junit.Rule
 import org.junit.Test
 
@@ -35,7 +36,7 @@ class PreviewImageFragmentIT : AbstractIT() {
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
 
     @Test
-    @ScreenshotTest
+    @ScreenshotTest2
     fun corruptImage() {
         val activity = testActivityRule.launchActivity(null)
 
@@ -45,7 +46,7 @@ class PreviewImageFragmentIT : AbstractIT() {
         activity.addFragment(sut)
 
         while (!sut.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-            longSleep()
+            shortSleep()
         }
 
         screenshot(activity)
@@ -64,7 +65,7 @@ class PreviewImageFragmentIT : AbstractIT() {
         activity.addFragment(sut)
 
         while (!sut.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-            longSleep()
+            shortSleep()
         }
 
         screenshot(activity)
