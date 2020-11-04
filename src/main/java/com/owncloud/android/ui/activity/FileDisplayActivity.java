@@ -689,9 +689,7 @@ public class FileDisplayActivity extends FileActivity
                         mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
 
                         if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
-                            boolean streaming = AccountUtils.getServerVersionForAccount(getAccount(), this)
-                                    .isMediaStreamingSupported();
-                            startMediaPreview(mWaitingToPreview, 0, true, true, streaming);
+                            startMediaPreview(mWaitingToPreview, 0, true, true, true);
                             detailsFragmentChanged = true;
                         } else if (MimeTypeUtil.isVCard(mWaitingToPreview.getMimeType())) {
                             startContactListFragment(mWaitingToPreview);
@@ -1876,9 +1874,7 @@ public class FileDisplayActivity extends FileActivity
                     ((PreviewMediaFragment) details).updateFile(renamedFile);
                     if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
                         int position = ((PreviewMediaFragment) details).getPosition();
-                        boolean streaming = AccountUtils.getServerVersionForAccount(getAccount(), this)
-                                .isMediaStreamingSupported();
-                        startMediaPreview(renamedFile, position, true, true, streaming);
+                        startMediaPreview(renamedFile, position, true, true, true);
                     } else {
                         getFileOperationsHelper().openFile(renamedFile);
                     }
@@ -2342,11 +2338,9 @@ public class FileDisplayActivity extends FileActivity
         if (event.getIntent().getBooleanExtra(TEXT_PREVIEW, false)) {
             startTextPreview((OCFile) bundle.get(EXTRA_FILE), true);
         } else if (bundle.containsKey(PreviewVideoActivity.EXTRA_START_POSITION)) {
-            boolean streaming = AccountUtils.getServerVersionForAccount(getAccount(), this)
-                    .isMediaStreamingSupported();
-            startMediaPreview((OCFile)bundle.get(EXTRA_FILE),
-                    (int)bundle.get(PreviewVideoActivity.EXTRA_START_POSITION),
-                    (boolean) bundle.get(PreviewVideoActivity.EXTRA_AUTOPLAY), true, streaming);
+            startMediaPreview((OCFile) bundle.get(EXTRA_FILE),
+                              (int) bundle.get(PreviewVideoActivity.EXTRA_START_POSITION),
+                              (boolean) bundle.get(PreviewVideoActivity.EXTRA_AUTOPLAY), true, true);
         } else if (bundle.containsKey(PreviewImageActivity.EXTRA_VIRTUAL_TYPE)) {
             startImagePreview((OCFile)bundle.get(EXTRA_FILE),
                     (VirtualFolderType)bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE),

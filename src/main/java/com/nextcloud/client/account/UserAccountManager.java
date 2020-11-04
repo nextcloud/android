@@ -121,19 +121,6 @@ public interface UserAccountManager extends CurrentAccountProvider {
     @NonNull
     OwnCloudVersion getServerVersion(Account account);
 
-    /**
-     * Check if user's account supports media streaming. This is a property of server where user has his account.
-     *
-     * @deprecated Please use {@link OwnCloudVersion#isMediaStreamingSupported()} directly,
-     * obtainable from {@link User#getServer()} and {@link Server#getVersion()}
-     *
-     * @param account Account used to perform {@link android.accounts.AccountManager} lookup.
-     *
-     * @return true is server supports media streaming, false otherwise
-     */
-    @Deprecated
-    boolean isMediaStreamingSupported(@Nullable Account account);
-
     void resetOwnCloudAccount();
 
     /**

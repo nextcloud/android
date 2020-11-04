@@ -522,17 +522,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onOverflowIconClicked(OCFile file, View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
         popup.inflate(R.menu.item_file);
-        User currentUser = ((FileActivity) getActivity()).getUser().orElseThrow(IllegalStateException::new);
         FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
                                                Collections.singleton(file),
                                                mContainerActivity, getActivity(),
                                                true,
                                                deviceInfo,
                                                accountManager.getUser());
-        final boolean isMediaStreamingSupported = currentUser.getServer().getVersion().isMediaStreamingSupported();
-        mf.filter(popup.getMenu(),
-                  true,
-                  isMediaStreamingSupported);
+        mf.filter(popup.getMenu(), true);
         popup.setOnMenuItemClickListener(item -> {
             Set<OCFile> checkedFiles = new HashSet<>();
             checkedFiles.add(file);
@@ -683,7 +679,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             Set<OCFile> checkedFiles = mAdapter.getCheckedItems();
             String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
             mode.setTitle(title);
-            User currentUser = accountManager.getUser();
             FileMenuFilter mf = new FileMenuFilter(
                 mAdapter.getFiles().size(),
                 checkedFiles,
@@ -694,10 +689,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 accountManager.getUser()
             );
 
-            final boolean isMediaStreamingSupported = currentUser.getServer().getVersion().isMediaStreamingSupported();
-            mf.filter(menu,
-                      false,
-                      isMediaStreamingSupported);
+            mf.filter(menu, false);
 
             // Determine if we need to finish the action mode because there are no items selected
             if (checkedCount == 0 && !mIsActionModeNew) {
@@ -1021,8 +1013,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         OCCapability capability = mContainerActivity.getStorageManager()
                             .getCapability(account.getAccountName());
 
-                        if (PreviewMediaFragment.canBePreviewed(file) && account.getServer().getVersion()
-                            .isMediaStreamingSupported() && !file.isEncrypted()) {
+                        if (PreviewMediaFragment.canBePreviewed(file) && !file.isEncrypted()) {
                             // stream media preview on >= NC14
                             setFabVisible(false);
                             resetHeaderScrollingState();

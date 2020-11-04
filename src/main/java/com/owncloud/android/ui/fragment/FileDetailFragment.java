@@ -412,9 +412,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 currentUser
             );
 
-            mf.filter(menu,
-                      true,
-                      currentUser.getServer().getVersion().isMediaStreamingSupported());
+            mf.filter(menu, true);
         }
 
         if (getFile().isFolder()) {
