@@ -168,6 +168,8 @@ android {
 
         buildTypes {
             debug {
+                signingConfig signingConfigs.release
+                debuggable true
                 testCoverageEnabled (project.hasProperty('coverage'))
             }
             release{
