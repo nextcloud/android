@@ -111,16 +111,17 @@ class ConnectivityServiceImpl implements ConnectivityService {
         if (networkInfo != null) {
             boolean isConnected = networkInfo.isConnectedOrConnecting();
             boolean isMetered = ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
-            boolean isWifi = networkInfo.getType() == ConnectivityManager.TYPE_WIFI || isAnyOtherNetworkWifi();
+            boolean isWifi = networkInfo.getType() == ConnectivityManager.TYPE_WIFI || hasNonCellularConnectivity();
             return new Connectivity(isConnected, isMetered, isWifi, null);
         } else {
             return Connectivity.DISCONNECTED;
         }
     }
 
-    private boolean isAnyOtherNetworkWifi() {
+    private boolean hasNonCellularConnectivity() {
         for (NetworkInfo networkInfo : platformConnectivityManager.getAllNetworkInfo()) {
-            if (networkInfo.isConnectedOrConnecting() && networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+            if (networkInfo.isConnectedOrConnecting() && (networkInfo.getType() == ConnectivityManager.TYPE_WIFI ||
+                networkInfo.getType() == ConnectivityManager.TYPE_ETHERNET)) {
                 return true;
             }
         }
