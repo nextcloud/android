@@ -143,7 +143,7 @@
     <string name="confirmation_remove_folder_alert">Confirma que quere eliminar %1$s e todo o seu contido?</string>
     <string name="confirmation_remove_folders_alert">Confirma que quere eliminar os elementos seleccionados e o seu contido?</string>
     <string name="confirmation_remove_local">Só local</string>
-    <string name="conflict_already_existing_file">O  ficheiro xa existe</string>
+    <string name="conflict_already_existing_file">Ficheiro existente</string>
     <string name="conflict_dialog_error">Produciuse un erro ao crear o diálogo de conflitos!</string>
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
     <string name="conflict_message_headline">Que ficheiros quere conservar?</string>

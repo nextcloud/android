@@ -553,6 +553,7 @@
     <string name="recommend_subject">¡Prueba %1$s en tu móvil!</string>
     <string name="recommend_text">Quiero invitarte a usar %1$s en tu móvil.\nDescárgalo aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">¡No se pudo encontrar el archivo!</string>
     <string name="remove_fail_msg">Ha fallado el borrado</string>
     <string name="remove_notification_failed">Fallo al quitar notificación.</string>
@@ -600,6 +601,7 @@
     <string name="share_internal_link_to_file_text">Los links compartidos internos solo funcionan para los usuarios con acceso a este archivo</string>
     <string name="share_internal_link_to_folder_text">Los links compartidos internos solo funcionan para los usuarios con acceso a esta carpeta</string>
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
+    <string name="share_known_remote_on_clarification">en %1$s</string>
     <string name="share_link">Compartir enlace</string>
     <string name="share_link_empty_password">Debes introducir una contraseña</string>
     <string name="share_link_file_error">Se produjo un error al intentar compartir este archivo o carpeta.</string>
@@ -618,6 +620,7 @@
     <string name="share_privilege_unshare">Dejar de compartir</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>
+    <string name="share_search">Nombre, ID de nube federada o dirección de correo electrónico ...</string>
     <string name="share_send_note">Nota para el destinatario</string>
     <string name="share_via_link_hide_download">Ocultar descarga</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ocultar la lista de archivos.</string>
