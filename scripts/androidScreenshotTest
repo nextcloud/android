@@ -71,6 +71,7 @@ if [[ $4 = "all" ]]; then
     scripts/runAllScreenshotCombinations "noCI" "$1" "-Pandroid.testInstrumentationRunnerArguments.class=$class$method"
 else
     ./gradlew --offline gplayDebugExecuteScreenshotTests $record \
+    -Pscreenshot=true \
     -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
     -Pandroid.testInstrumentationRunnerArguments.class=$class$method \
     $darkMode \
