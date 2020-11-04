@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Disabilita controllo di risparmio energetico</string>
     <string name="autoupload_hide_folder">Nascondi cartella</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Assente</string>
     <string name="battery_optimization_close">Chiudi</string>
     <string name="battery_optimization_disable">Disabilita</string>
     <string name="battery_optimization_message">Il tuo dispositivo potrebbe avere l\'ottimizzazione della batteria abilitata. Il caricamento automatico funziona correttamente solo se escludi questa applicazione dall\'ottimizzazione.</string>
@@ -90,6 +91,8 @@
     <string name="choose_local_folder">Scegli la cartella locale…</string>
     <string name="choose_remote_folder">Scegli la cartella remota…</string>
     <string name="clear_notifications_failed">Cancellazione notifiche non riuscita.</string>
+    <string name="clear_status_message">Cancella il messaggio di stato</string>
+    <string name="clear_status_message_after">Cancella il messaggio di stato dopo</string>
     <string name="clipboard_label">Testo copiato da %1$s</string>
     <string name="clipboard_no_text_to_copy">Nessun testo ricevuto da copiare negli appunti</string>
     <string name="clipboard_text_copied">Collegamento copiato</string>
@@ -192,6 +195,8 @@
     <string name="disable_new_media_folder_detection_notifications">Disabilita</string>
     <string name="dismiss">Annulla</string>
     <string name="dismiss_notification_description">Cancella notifica</string>
+    <string name="dnd">Non disturbare</string>
+    <string name="dontClear">Non togliere</string>
     <string name="download_latest_dev_version">Scarica l\'ultima versione di sviluppo</string>
     <string name="downloader_download_failed_content">Impossibile scaricare %1$s</string>
     <string name="downloader_download_failed_credentials_error">Scaricamento non riuscito, effettua nuovamente l\'accesso</string>
@@ -366,6 +371,7 @@
     <string name="foreign_files_remote_text">Remoto %1$s</string>
     <string name="foreign_files_success">Tutti i file sono stati spostati</string>
     <string name="forward">Inoltra</string>
+    <string name="fourHours">4 ore</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Nota</string>
     <string name="hint_password">Password</string>
@@ -375,6 +381,7 @@
     <string name="instant_upload_on_charging">Carica solo durante la ricarica</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">URL non valido</string>
+    <string name="invisible">Invisibile</string>
     <string name="label_empty">L\'etichetta non può essere vuota</string>
     <string name="link">Collegamento</string>
     <string name="link_share_allow_upload_and_editing">Consenti caricamento e modifica</string>
@@ -458,6 +465,9 @@
     <string name="notifications_no_results_headline">Nessuna notifica</string>
     <string name="notifications_no_results_message">Controlla nuovamente più tardi.</string>
     <string name="offline_mode">Nessuna connessione a Internet</string>
+    <string name="oneHour">1 ora</string>
+    <string name="online">In linea</string>
+    <string name="online_status">Stato in linea</string>
     <string name="outdated_server">Il server ha raggiunto la fine della sua vita, aggiornalo!</string>
     <string name="overflow_menu">Menu Altro</string>
     <string name="pass_code_configure_your_pass_code">Digita il tuo codice segreto</string>
@@ -543,6 +553,7 @@
     <string name="recommend_subject">Prova %1$s sul tuo dispositivo!</string>
     <string name="recommend_text">Vorrei invitarti a utilizzare %1$s sul tuo dispositivo.\nScaricalo qui:%2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="remote">(remota)</string>
     <string name="remote_file_fetch_failed">File non trovato!</string>
     <string name="remove_fail_msg">Eliminazione non riuscita</string>
     <string name="remove_notification_failed">Rimozione notifica non riuscita.</string>
@@ -578,6 +589,8 @@
     <string name="sendbutton_description">Icona pulsante di invio</string>
     <string name="set_as">Imposta come</string>
     <string name="set_picture_as">Usa immagine come</string>
+    <string name="set_status">Imposta stato</string>
+    <string name="set_status_message">Imposta messaggio di stato</string>
     <string name="share">Condividi</string>
     <string name="share_dialog_title">Condivisione</string>
     <string name="share_email_clarification">%1$s (email)</string>
@@ -588,6 +601,7 @@
     <string name="share_internal_link_to_file_text">Il collegamento di condivisione funziona solo per gli utenti con accesso a questo file</string>
     <string name="share_internal_link_to_folder_text">Il collegamento di condivisione funziona solo per gli utenti con accesso a questa cartella</string>
     <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>
+    <string name="share_known_remote_on_clarification">su %1$s</string>
     <string name="share_link">Condividi collegamento</string>
     <string name="share_link_empty_password">Devi digitare una password</string>
     <string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella.</string>
@@ -655,6 +669,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Il certificato del server non è affidabile</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Il certificato del server è troppo recente</string>
     <string name="ssl_validator_reason_hostname_not_verified">- L\'URL non corrisponde al nome host nel certificato</string>
+    <string name="status_message">Messaggio di stato</string>
     <string name="storage_camera">Fotocamera</string>
     <string name="storage_choose_location">Scegli la posizione di archiviazione</string>
     <string name="storage_description_default">Predefinito</string>
@@ -702,10 +717,13 @@
     <string name="synced_icon">Sincronizzato</string>
     <string name="tags">Etichette</string>
     <string name="test_server_button">Prova di connessione al server</string>
+    <string name="thirtyMinutes">30 minuti</string>
+    <string name="thisWeek">Questa settimana</string>
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura per il file esistente</string>
     <string name="thumbnail_for_new_file_desc">Miniatura per il nuovo file</string>
     <string name="timeout_richDocuments">Il caricamento richiede molto tempo…</string>
+    <string name="today">Oggi</string>
     <string name="trashbin_activity_title">File eliminati</string>
     <string name="trashbin_empty_headline">Nessun file eliminato</string>
     <string name="trashbin_empty_message">Potrai ripristinare i file eliminati da qui.</string>
@@ -816,6 +834,7 @@
     <string name="what_s_new_image">Immagine Cosa c\'è di nuovo</string>
     <string name="whats_new_skip">Salta</string>
     <string name="whats_new_title">Prima volta su %1$s</string>
+    <string name="whats_your_status">Qual è il tuo stato?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossibile sincronizzare %1$d file (conflitto con: %2$d)</item>
         <item quantity="other">Impossibile sincronizzare %1$d file (conflitto con: %2$d)</item>

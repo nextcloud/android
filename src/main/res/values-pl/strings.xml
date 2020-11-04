@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Wyłącz kontrolę oszczędzania energii</string>
     <string name="autoupload_hide_folder">Ukryj katalog</string>
     <string name="avatar">Awatar</string>
+    <string name="away">Bezczynny</string>
     <string name="battery_optimization_close">Zamknij</string>
     <string name="battery_optimization_disable">Wyłącz</string>
     <string name="battery_optimization_message">Twoje urządzenie może mieć włączoną optymalizację baterii. AutoUpload działa poprawnie tylko wtedy, gdy wykluczysz z niego tę aplikację.</string>
@@ -90,6 +91,8 @@
     <string name="choose_local_folder">Wybierz katalog lokalny…</string>
     <string name="choose_remote_folder">Wybierz katalog zdalny…</string>
     <string name="clear_notifications_failed">Wyczyszczenie powiadomień nie powiodło się.</string>
+    <string name="clear_status_message">Wyczyść komunikat statusu</string>
+    <string name="clear_status_message_after">Wyczyść komunikat statusu po</string>
     <string name="clipboard_label">Skopiowano tekst z %1$s</string>
     <string name="clipboard_no_text_to_copy">Nie otrzymano tekstu do skopiowania do schowka</string>
     <string name="clipboard_text_copied">Link skopiowany</string>
@@ -142,7 +145,7 @@
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="conflict_already_existing_file">Już istniejący plik</string>
     <string name="conflict_dialog_error">Błąd podczas tworzenia dialogu konfliktu!</string>
-    <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do lokalnego pliku będzie dodany numer.</string>
+    <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
     <string name="conflict_message_headline">Które pliki chcesz zachować?</string>
     <string name="conflict_new_file">Nowy plik</string>
     <string name="contaclist_restore_selected">Przywróć wybrane kontakty</string>
@@ -192,6 +195,8 @@
     <string name="disable_new_media_folder_detection_notifications">Wyłącz</string>
     <string name="dismiss">Anuluj</string>
     <string name="dismiss_notification_description">Odrzuć powiadomienie</string>
+    <string name="dnd">Nie przeszkadzać</string>
+    <string name="dontClear">Nie czyść</string>
     <string name="download_latest_dev_version">Pobierz najnowszą wersję dev</string>
     <string name="downloader_download_failed_content">Nie udało się pobrać %1$s</string>
     <string name="downloader_download_failed_credentials_error">Pobieranie nieudane, zaloguj się ponownie</string>
@@ -366,6 +371,7 @@
     <string name="foreign_files_remote_text">Zdalnie: %1$s</string>
     <string name="foreign_files_success">Wszystkie pliki zostały przeniesione</string>
     <string name="forward">Prześlij dalej</string>
+    <string name="fourHours">4 godziny</string>
     <string name="hint_name">Nazwa</string>
     <string name="hint_note">Notatka</string>
     <string name="hint_password">Hasło</string>
@@ -375,6 +381,7 @@
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Błędny adres URL</string>
+    <string name="invisible">Niewidoczny</string>
     <string name="label_empty">Etykieta nie może być pusta</string>
     <string name="link">Odnośnik</string>
     <string name="link_share_allow_upload_and_editing">Zezwalaj na przesyłanie i edycję</string>
@@ -458,6 +465,9 @@
     <string name="notifications_no_results_headline">Brak powiadomień</string>
     <string name="notifications_no_results_message">Sprawdź później.</string>
     <string name="offline_mode">Brak połączenia z Internetem…</string>
+    <string name="oneHour">1 godzina</string>
+    <string name="online">Online</string>
+    <string name="online_status">Status online</string>
     <string name="outdated_server">Serwer korzysta ze starej wersji. Dokonaj aktualizacji!</string>
     <string name="overflow_menu">Więcej</string>
     <string name="pass_code_configure_your_pass_code">Wprowadź kod PIN</string>
@@ -543,6 +553,7 @@
     <string name="recommend_subject">Wypróbuj %1$s na swoim urządzeniu!</string>
     <string name="recommend_text">Chciałbym zaprosić Ciebie do użytkowania z %1$s na swoim urządzeniu.\nPobierz stąd: %2$s</string>
     <string name="recommend_urls">%1$s lub %2$s</string>
+    <string name="remote">(zdalne)</string>
     <string name="remote_file_fetch_failed">Nie znaleziono pliku!</string>
     <string name="remove_fail_msg">Usuwanie nie powiodło się</string>
     <string name="remove_notification_failed">Usunięcie powiadomienia nie powiodło się.</string>
@@ -563,7 +574,7 @@
     <string name="screenshot_01_gridView_subline">oprogramowanie biurowe uruchamiane na własnym hostingu</string>
     <string name="screenshot_02_listView_heading">Przeglądaj i udostępniaj</string>
     <string name="screenshot_02_listView_subline">wszystkie działania na wyciągnięcie ręki</string>
-    <string name="screenshot_03_drawer_heading">Aktywność, udostępnienia...</string>
+    <string name="screenshot_03_drawer_heading">Aktywność, udostępnienia…</string>
     <string name="screenshot_03_drawer_subline">wszystko szybko dostępne</string>
     <string name="screenshot_04_accounts_heading">Wszystkie Twoje konta</string>
     <string name="screenshot_04_accounts_subline">w jednym miejscu</string>
@@ -578,6 +589,8 @@
     <string name="sendbutton_description">Ikona przycisku wysyłania</string>
     <string name="set_as">Ustaw jako</string>
     <string name="set_picture_as">Użyj obrazu jako</string>
+    <string name="set_status">Ustaw status</string>
+    <string name="set_status_message">Ustaw komunikat statusu</string>
     <string name="share">Udostępnij</string>
     <string name="share_dialog_title">Udostępnianie</string>
     <string name="share_email_clarification">%1$s (email)</string>
@@ -588,6 +601,7 @@
     <string name="share_internal_link_to_file_text">Wewnętrzny link udostępniania działa tylko dla użytkowników z dostępem do tego pliku</string>
     <string name="share_internal_link_to_folder_text">Wewnętrzny link udostępniania działa tylko dla użytkowników z dostępem do tego katalogu</string>
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
+    <string name="share_known_remote_on_clarification">na %1$s</string>
     <string name="share_link">Udostępnij link</string>
     <string name="share_link_empty_password">Musisz wprowadzić hasło</string>
     <string name="share_link_file_error">Wystąpił błąd podczas próby udostępnienia tego pliku lub katalogu.</string>
@@ -606,7 +620,7 @@
     <string name="share_privilege_unshare">Zatrzymaj udostępnianie</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_room_clarification">%1$s (rozmowa)</string>
-    <string name="share_search">Nazwa, ID chmury federacyjnej lub adres e-mail…</string>
+    <string name="share_search">Nazwa, ID Chmury Federacyjnej lub adres e-mail…</string>
     <string name="share_send_note">Notatka dla odbiorcy</string>
     <string name="share_via_link_hide_download">Ukryj pobieranie</string>
     <string name="share_via_link_hide_file_listing_permission_label">Schowaj listę plików</string>
@@ -655,6 +669,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Certyfikat serwera jest wystawiony w przyszłości</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL nie pasuje do nazwy hosta w certyfikacie</string>
+    <string name="status_message">Komunikat statusu</string>
     <string name="storage_camera">Aparat</string>
     <string name="storage_choose_location">Wybierz lokalizację katalogu</string>
     <string name="storage_description_default">Domyślny</string>
@@ -668,7 +683,7 @@
     <string name="store_full_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.\nJest to oficjalna wersja deweloperska, zawierająca codzienną próbkę każdej nowej niesprawdzonej funkcji, która może powodować niestabilność i utratę danych. Aplikacja jest przeznaczona dla użytkowników chcących przetestować i zgłosić błędy w przypadku ich wystąpienia. Nie używaj jej do ciągłej pracy!\n\nZarówno oficjalna wersja dev jak i zwykła są dostępne na F-droid i mogą być instalowane równocześnie.</string>
     <string name="store_short_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę</string>
     <string name="store_short_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę (wersja deweloperska)</string>
-    <string name="stream">Przesyłaj strumieniowo...</string>
+    <string name="stream">Przesyłaj strumieniowo…</string>
     <string name="stream_not_possible_headline">Wewnętrzne przesyłanie strumieniowe nie jest możliwe</string>
     <string name="stream_not_possible_message">Pobierz plik lub użyj zewnętrznej aplikacji.</string>
     <string name="subject_shared_with_you">Udostępniono Tobie \"%1$s\"</string>
@@ -702,10 +717,13 @@
     <string name="synced_icon">Zsynchronizowano</string>
     <string name="tags">Etykiety</string>
     <string name="test_server_button">Sprawdź połączenie z serwerem</string>
+    <string name="thirtyMinutes">30 minut</string>
+    <string name="thisWeek">W tym tygodniu</string>
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniaturka dla istniejącego pliku</string>
     <string name="thumbnail_for_new_file_desc">Miniaturka dla nowego pliku</string>
-    <string name="timeout_richDocuments">Ładowanie potrwa długo...</string>
+    <string name="timeout_richDocuments">Ładowanie potrwa długo…</string>
+    <string name="today">Dzisiaj</string>
     <string name="trashbin_activity_title">Usunięte pliki</string>
     <string name="trashbin_empty_headline">Brak usuniętych plików</string>
     <string name="trashbin_empty_message">Tutaj będziesz mógł odzyskać usunięte pliki.</string>
@@ -816,6 +834,7 @@
     <string name="what_s_new_image">Jaki jest nowy obraz</string>
     <string name="whats_new_skip">Pomiń</string>
     <string name="whats_new_title">Co nowego w %1$s</string>
+    <string name="whats_your_status">Jaki jest Twój status?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nie udała się synchronizacja %1$d pliku (konflikty: %2$d)</item>
         <item quantity="few">Nie udała się synchronizacja %1$d plików (konflikty: %2$d)</item>

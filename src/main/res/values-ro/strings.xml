@@ -358,6 +358,7 @@
     <string name="notifications_no_results_headline">Nu sunt notificări</string>
     <string name="notifications_no_results_message">Te rugăm să încerci mai târziu.</string>
     <string name="offline_mode">Nu există conexiune la internet</string>
+    <string name="oneHour">1 oră</string>
     <string name="pass_code_configure_your_pass_code">Introdu parola</string>
     <string name="pass_code_configure_your_pass_code_explanation">Parola va fi solicitată de fiecare dată când deschideți aplicația</string>
     <string name="pass_code_enter_pass_code">Vă rugăm introduceți parola</string>
@@ -459,7 +460,6 @@
     <string name="share_privilege_unshare">Oprește partajarea</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversație)</string>
-    <string name="share_search">Nume, ID de cloud federalizat sau adresă de email…</string>
     <string name="share_send_note">Notă către destinatar</string>
     <string name="share_via_link_hide_download">Ascunde descărcarea</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ascunde listarea fișierelor</string>
@@ -528,7 +528,10 @@
     <string name="synced_folders_preferences_folder_path">Pentru %1$s</string>
     <string name="synced_folders_type">Tip</string>
     <string name="tags">Etichete</string>
+    <string name="thirtyMinutes">30 minute</string>
+    <string name="thisWeek">Săptămâna asta</string>
     <string name="thumbnail">Miniatură</string>
+    <string name="today">Azi</string>
     <string name="trashbin_activity_title">Fișiere șterse</string>
     <string name="trashbin_empty_headline">Nu sunt fișiere șterse</string>
     <string name="unset_encrypted">Dezactivați criptarea</string>

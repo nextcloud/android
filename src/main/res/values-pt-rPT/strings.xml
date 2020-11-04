@@ -412,6 +412,7 @@
     <string name="notifications_no_results_headline">Sem notificações</string>
     <string name="notifications_no_results_message">Por favor, confirme novamente mais tarde.</string>
     <string name="offline_mode">Sem conexão à Internet</string>
+    <string name="oneHour">1 hora</string>
     <string name="outdated_server">O servidor chegou ao fim de vida, por favor, actualize-o!</string>
     <string name="overflow_menu">Menu mais</string>
     <string name="pass_code_configure_your_pass_code">Insira o seu código</string>
@@ -535,7 +536,6 @@
     <string name="share_privilege_unshare">Cancelar partilha</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversação)</string>
-    <string name="share_search">Nome, Id. da nuvem federada ou endereço de e-mail…</string>
     <string name="share_send_note">Nota para o destinatário</string>
     <string name="share_via_link_hide_download">Ocultar transferência</string>
     <string name="share_via_link_hide_file_listing_permission_label">Esconder listagem de ficheiros</string>
@@ -584,6 +584,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é de confiança</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- O certificado do servidor é muito recente</string>
     <string name="ssl_validator_reason_hostname_not_verified">- O URL não corresponde com o nome de anfitrião no certificado.</string>
+    <string name="status_message">Mensagem de estado</string>
     <string name="storage_camera">Câmera</string>
     <string name="storage_choose_location">Escolher a localização do armazenamento</string>
     <string name="storage_description_default">Por defeito</string>
@@ -629,8 +630,11 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="synced_icon">Sincronizado</string>
     <string name="tags">Etiquetas</string>
     <string name="test_server_button">Testar conexão ao servidor</string>
+    <string name="thirtyMinutes">30 minutos</string>
+    <string name="thisWeek">Esta semana</string>
     <string name="thumbnail">Miniatura</string>
     <string name="timeout_richDocuments">O carregamento é demorado...</string>
+    <string name="today">Hoje</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="trashbin_empty_headline">Sem ficheiros eliminados.</string>
     <string name="trashbin_file_not_deleted">Ficheiro %1$s não pôde ser apagado!</string>

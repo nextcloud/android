@@ -36,10 +36,10 @@
     <string name="add_to_cloud">%1$s(으)로 추가</string>
     <string name="allow_creating">생성 수락</string>
     <string name="allow_deleting">삭제 수락</string>
-    <string name="allow_editing">Allow editing</string>
+    <string name="allow_editing">편집 허용</string>
     <string name="allow_resharing">재공유 허용</string>
     <string name="appbar_search_in">%s 검색</string>
-    <string name="associated_account_not_found">관련 계정을 찾을 수 없음!</string>
+    <string name="associated_account_not_found">관련 계정을 찾을 수 없습니다!</string>
     <string name="auth_access_failed">접근 실패: %1$s</string>
     <string name="auth_account_does_not_exist">이 장치에 아직 계정이 추가되지 않았음</string>
     <string name="auth_account_not_new">이 장치에 같은 사용자 이름과 서버를 사용하는 계정이 이미 존재합니다</string>
@@ -168,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">암호화된 폴더로 복사/이동은 아직 지원하지 않습니다.</string>
     <string name="copy_to">다음으로 복사</string>
     <string name="could_not_download_image">전체 이미지를 다운로드 할 수 없습니다.</string>
+    <string name="could_not_retrieve_shares">공유를 가져올 수 없습니다</string>
     <string name="could_not_retrieve_url">주소를 불러올 수 없었습니다</string>
     <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
     <string name="create_new">새로 만들기</string>
@@ -248,11 +249,11 @@
     <string name="error_comment_file">파일 주석 처리 중 오류 발생</string>
     <string name="error_crash_title">%1$s충돌</string>
     <string name="error_report_issue_action">보고</string>
-    <string name="error_report_issue_text">트래커에게 문제를보고 하시겠습니까? (Github 계정 필요)</string>
+    <string name="error_report_issue_text">트래커에 문제를 보고하시겠습니까? (Github 계정 필요)</string>
     <string name="error_retrieving_file">파일 가져오는 중 오류 발생</string>
     <string name="error_retrieving_templates">템플릿 검색 중 오류 발생</string>
     <string name="error_starting_direct_camera_upload">카메라 시작 중 오류 발생</string>
-    <string name="etm_accounts">Accounts</string>
+    <string name="etm_accounts">계정</string>
     <string name="etm_background_job_name">작업 이름</string>
     <string name="etm_background_job_progress">진행 상황</string>
     <string name="etm_background_job_started">시작됨</string>
@@ -274,6 +275,7 @@
     <string name="failed_to_download">다운로드 관리자에게 파일을 전달할 수 없음</string>
     <string name="failed_to_print">파일을 출력할 수 없음</string>
     <string name="failed_to_start_editor">에디터 실행 실패</string>
+    <string name="failed_update_ui">UI 업데이트 실패</string>
     <string name="favorite">즐겨찾기에 추가</string>
     <string name="favorite_icon">즐겨찾기</string>
     <string name="file_delete">삭제</string>
@@ -372,11 +374,12 @@
     <string name="instant_upload_on_charging">충전 중에만 업로드</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">잘못된 URL</string>
-    <string name="label_empty">라벨은 비어있을 수 없습니다</string>
+    <string name="invisible">숨겨짐</string>
+    <string name="label_empty">레이블은 비워 둘 수 없습니다</string>
     <string name="link">링크</string>
-    <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
-    <string name="link_share_file_drop">File drop (upload only)</string>
-    <string name="link_share_read_only">Read only</string>
+    <string name="link_share_allow_upload_and_editing">업로드 및 편집 허용</string>
+    <string name="link_share_file_drop">파일 보관소 (업로드만 허용)</string>
+    <string name="link_share_read_only">읽기 전용</string>
     <string name="list_layout">목록 보기</string>
     <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
     <string name="local_file_not_found_message">내부 파일 시스템에서 파일을 찾을 수 없음</string>
@@ -422,7 +425,7 @@
     <string name="network_error_connect_timeout_exception">서버 응답을 기다리던 중에 에러가 발생했습니다. 동작을 완료할 수 없습니다.</string>
     <string name="network_error_socket_exception">서버에 연결하는 중 오류가 발생했습니다.</string>
     <string name="network_error_socket_timeout_exception">서버 응답을 기다리던 중에 에러가 발생했습니다. 동작을 완료할 수 없습니다.</string>
-    <string name="network_host_not_available">동작 미완료. 서버를 불안정</string>
+    <string name="network_host_not_available">작업을 완료하지 못했습니다. 서버를 사용할 수 없음.</string>
     <string name="new_comment">새로운 댓글…</string>
     <string name="new_media_folder_detected">새 %1$s 미디어 폴더를 발견했습니다.</string>
     <string name="new_media_folder_photos">사진</string>
@@ -455,6 +458,7 @@
     <string name="notifications_no_results_headline">알림 없음</string>
     <string name="notifications_no_results_message">나중에 다시 확인하십시오.</string>
     <string name="offline_mode">네트워크에 연결할 수 없음</string>
+    <string name="oneHour">1시간</string>
     <string name="outdated_server">서버의 수명이 다된것 같네요, 업그레이드 해주세요!</string>
     <string name="overflow_menu">메뉴 더 보기</string>
     <string name="pass_code_configure_your_pass_code">암호를 입력하십시오</string>
@@ -481,6 +485,7 @@
     <string name="pref_behaviour_entries_move">앱 폴더로 이동함</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">파일이 이미 존재한다면 어떻게 처리할까요?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">매번 물어보기</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">업로드 건너뛰기</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">원격 버전을 덮어 씌우기</string>
     <string name="pref_instant_name_collision_policy_entries_rename">새 버전의 이름을 바꾸기</string>
     <string name="pref_instant_name_collision_policy_title">파일이 이미 존재한다면 어떻게 처리할까요?</string>
@@ -541,7 +546,7 @@
     <string name="recommend_urls">%1$s 및 %2$s</string>
     <string name="remote_file_fetch_failed">파일을 찾을 수 없음</string>
     <string name="remove_fail_msg">삭제할 수 없음</string>
-    <string name="remove_notification_failed">알림을 제거할 수 없음</string>
+    <string name="remove_notification_failed">알림을 지우는데 실패했습니다</string>
     <string name="remove_push_notification">삭제</string>
     <string name="remove_success_msg">삭제함</string>
     <string name="rename_dialog_title">새 이름 입력</string>
@@ -601,7 +606,6 @@
     <string name="share_privilege_unshare">공유 해제</string>
     <string name="share_remote_clarification">%1$s(원격)</string>
     <string name="share_room_clarification">%1$s (대화)</string>
-    <string name="share_search">이름, 연합 클라우드 ID 및 이메일 주소…</string>
     <string name="share_send_note">받는 사람 메모</string>
     <string name="share_via_link_hide_download">다운로드 숨기기</string>
     <string name="share_via_link_hide_file_listing_permission_label">파일 목록 숨김</string>
@@ -681,7 +685,7 @@ Nextcloud는 자유 소프트웨어이고, 당신이 직접 운영하거나 돈�
 그럼으로써, 당신은 당신의 사진, 캘린더와 주소록, 당신의 문서 등을 관리할 수 있습니다.
 
 Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
-    <string name="store_full_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼. \ n 이는 공식적으로 개발 된 버전으로, 테스트되지 않은 새로운 기능을 매일 샘플로 제공하므로 불안정과 데이터 손실이 발생할 수 있습니다. 이 응용 프로그램은 기꺼이 테스트하고 버그가 발생하면 보고하는 사용자를 대상으로 합니다. 생산적인 작업에는 사용하지 마십시오! \ n \ n 공식 개발자 및 일반 버전은 모두 F-droid에서 사용할 수 있으며 동시에 설치할 수 있습니다.</string>
+    <string name="store_full_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼.\n이는 공식 개발 버전으로, 테스트되지 않은 새로운 기능을 매일 샘플로 제공하므로 불안정과 데이터 손실이 발생할 수 있습니다. 이 애플리케이션은 기꺼이 테스트하고 버그가 발생하면 보고하는 사용자를 대상으로 합니다. 생산적인 작업에는 사용하지 마십시오!\n\n공식 개발 버전 및 일반 버전은 모두 F-droid에서 사용할 수 있으며, 동시에 설치할 수 있습니다.</string>
     <string name="store_short_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼</string>
     <string name="store_short_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼 (디바이스 미리 보기 버전)</string>
     <string name="stream">다음과 스트리밍</string>
@@ -702,7 +706,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="sync_foreign_files_forgotten_ticker">일부 로컬 파일이 사라짐</string>
     <string name="sync_in_progress">이 파일의 최신 버전을 가져옵니다.</string>
     <string name="sync_not_enough_space_dialog_action_choose">동기화 대상 선택</string>
-    <string name="sync_not_enough_space_dialog_action_free_space">남는 공간 늘리기</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">저장공간 확보</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s 파일은 %2$s 이지만,  장치에는 %3$s 밖에 남아있지 않습니다.  </string>
     <string name="sync_not_enough_space_dialog_title">남은 공간 부족</string>
     <string name="sync_status_button">동기화 상태 단추</string>
@@ -718,10 +722,13 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="synced_icon">동기화됨</string>
     <string name="tags">태그</string>
     <string name="test_server_button">서버 연결 테스트</string>
+    <string name="thirtyMinutes">30분</string>
+    <string name="thisWeek">이번 주</string>
     <string name="thumbnail">섬네일</string>
     <string name="thumbnail_for_existing_file_description">이미 존재하는 파일의 썸네일</string>
     <string name="thumbnail_for_new_file_desc">새로운 파일의 썸네일</string>
     <string name="timeout_richDocuments">오래 걸립니다...</string>
+    <string name="today">오늘</string>
     <string name="trashbin_activity_title">삭제된 파일</string>
     <string name="trashbin_empty_headline">삭제된 파일 없음</string>
     <string name="trashbin_empty_message">여기서 삭제했던 파일들을 복구할 수 있습니다.</string>
@@ -763,7 +770,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="upload_lock_failed">폴더 잠금 실패</string>
     <string name="upload_old_android">암호화는 안드로이드 5.0 이상 가능합니다</string>
     <string name="upload_query_move_foreign_files">공간이 부족해서 선택한 파일을 %1$s 폴더로 복사할 수 없습니다. 대신 이동하시겠습니까?</string>
-    <string name="upload_sync_conflict">동기화 충돌, 수동으로 해결하십시오.</string>
+    <string name="upload_sync_conflict">동기화 충돌, 수동으로 해결해주세요</string>
     <string name="upload_unknown_error">알 수 없는 오류</string>
     <string name="uploader_btn_alternative_text">선택</string>
     <string name="uploader_btn_upload_text">업로드</string>

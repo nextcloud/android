@@ -78,6 +78,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -204,9 +205,9 @@ public class FileDetailActivitiesFragment extends Fragment implements
         };
 
         commentInput.getBackground().setColorFilter(
-            ThemeUtils.primaryAccentColor(getContext()),
-            PorterDuff.Mode.SRC_ATOP
-                                                   );
+                ThemeUtils.primaryAccentColor(getContext()),
+                PorterDuff.Mode.SRC_ATOP
+        );
 
         ThemeUtils.themeEditText(getContext(), commentInput, false);
 
@@ -365,11 +366,10 @@ public class FileDetailActivitiesFragment extends Fragment implements
                     if (restoreFileVersionSupported && versions != null) {
                         activitiesAndVersions.addAll(versions);
                     }
-                    if (!activity.isFinishing()) {
-                        activity.runOnUiThread(() -> {
-                            populateList(activitiesAndVersions, lastGiven == -1);
-                        });
-                    }
+
+                    activity.runOnUiThread(() -> {
+                        populateList(activitiesAndVersions, lastGiven == -1);
+                    });
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());
                     // show error
@@ -379,10 +379,10 @@ public class FileDetailActivitiesFragment extends Fragment implements
                     }
                     final String finalLogMessage = logMessage;
                     if (!activity.isFinishing()) {
-                        activity.runOnUiThread(() -> {
+                        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
                             setErrorContent(finalLogMessage);
                             isLoadingActivities = false;
-                        });
+                        }
                     }
                 }
 

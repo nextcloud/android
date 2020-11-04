@@ -59,8 +59,8 @@ ext {
     markwonVersion =  "4.6.0"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
-    androidLibraryVersion = "master-SNAPSHOT"
-    mockitoVersion = "3.5.15"
+    androidLibraryVersion = "rc-2.4.0-01"
+    mockitoVersion = "3.6.0"
     mockkVersion = "1.10.2"
     byteBuddyVersion = "1.10.17"
     espressoVersion = "3.3.0"
@@ -89,7 +89,7 @@ repositories {
 def versionMajor = 3
 def versionMinor = 14
 def versionPatch = 0
-def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionBuild = 51 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
     for (String arg : tr.args) {
@@ -312,7 +312,7 @@ dependencies {
     compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2' // remove after entire switch to lib v2
     implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
     implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.1' // remove after entire switch to lib v2
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.jakewharton:disklrucache:2.0.2'
@@ -329,7 +329,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterknifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
     implementation 'org.greenrobot:eventbus:3.2.0'
-    implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.0'
+    implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.1'
     implementation 'org.lukhnos:nnio:0.2'
     implementation 'org.bouncycastle:bcpkix-jdk15on:1.65'
     implementation 'com.google.code.gson:gson:2.8.6'
@@ -346,11 +346,13 @@ dependencies {
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation group: 'androidx.emoji', name: 'emoji-bundled', version: '1.1.0'
+    implementation 'com.github.vanniktech:Emoji:0.7.0'
 
     implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido:4.1.0'
     implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido2:4.1.0'
 
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'
 
     implementation "com.google.dagger:dagger:$daggerVersion"

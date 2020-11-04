@@ -61,7 +61,8 @@
                 android:layout_gravity="bottom|end"
                 android:background="@drawable/round_bgnd"
                 android:contentDescription="@string/active_user"
-                android:src="@drawable/ic_check_circle" />
+                android:src="@drawable/ic_check_circle"
+                tools:visibility="gone" />
         </FrameLayout>
 
 
@@ -86,7 +87,23 @@
                 android:gravity="bottom"
                 android:maxLines="1"
                 android:text="@string/placeholder_filename"
-                android:textAppearance="?android:attr/textAppearanceListItem" />
+                android:textAppearance="?android:attr/textAppearanceListItem"
+                tools:text="Firstname Lastname" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_half_margin"
+                android:layout_marginEnd="@dimen/standard_double_margin"
+                android:layout_marginBottom="@dimen/standard_quarter_margin"
+                android:ellipsize="end"
+                android:gravity="top"
+                android:maxLines="1"
+                android:text="@string/placeholder_sentence"
+                android:textColor="?android:attr/textColorSecondary"
+                android:visibility="gone"
+                tools:text="☁️ My custom status" />
 
             <TextView
                 android:id="@+id/account"
@@ -99,7 +116,8 @@
                 android:gravity="top"
                 android:maxLines="1"
                 android:text="@string/placeholder_sentence"
-                android:textColor="?android:attr/textColorSecondary" />
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="https://server.com/nextcloud" />
 
         </LinearLayout>
 

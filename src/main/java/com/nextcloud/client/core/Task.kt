@@ -22,7 +22,7 @@ package com.nextcloud.client.core
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * This is a wrapper for a task function runing in background.
+ * This is a wrapper for a task function running in background.
  * It executes task function and handles result or error delivery.
  */
 @Suppress("LongParameterList")

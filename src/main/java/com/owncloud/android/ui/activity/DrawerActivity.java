@@ -83,6 +83,7 @@ import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.PhotoFragment;
+import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawerMenuUtil;
@@ -333,9 +334,10 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         switch (menuItem.getItemId()) {
             case R.id.nav_all_files:
-                showFiles(false);
-                if ((this instanceof FileDisplayActivity) &&
-                    !(((FileDisplayActivity) this).getListOfFilesFragment() instanceof PhotoFragment)) {
+                if (this instanceof FileDisplayActivity &&
+                    !(((FileDisplayActivity) this).getLeftFragment() instanceof PhotoFragment) &&
+                    !(((FileDisplayActivity) this).getLeftFragment() instanceof PreviewTextStringFragment)) {
+                    showFiles(false);
                     ((FileDisplayActivity) this).browseToRoot();
                     EventBus.getDefault().post(new ChangeMenuEvent());
                 } else {

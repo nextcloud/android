@@ -33,9 +33,6 @@ public class MediaFoldersModel {
         this.videoMediaFolders = videoMediaFolders;
     }
 
-    public MediaFoldersModel() {
-    }
-
     public List<String> getImageMediaFolders() {
         return this.imageMediaFolders;
     }

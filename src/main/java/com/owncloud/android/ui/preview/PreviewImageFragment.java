@@ -62,6 +62,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.PreviewImageFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.FileMenuFilter;
@@ -82,7 +83,6 @@ import java.lang.ref.WeakReference;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.content.res.ResourcesCompat;
@@ -112,27 +112,28 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     private static final String MIME_TYPE_GIF = "image/gif";
     private static final String MIME_TYPE_SVG = "image/svg+xml";
 
-    private PhotoView mImageView;
+    private PhotoView imageView;
 
-    private LinearLayout mMultiListContainer;
-    private TextView mMultiListMessage;
-    private TextView mMultiListHeadline;
-    private ImageView mMultiListIcon;
-    private ProgressBar mMultiListProgress;
+    private LinearLayout multiListContainer;
+    private TextView multiListMessage;
+    private TextView multiListHeadline;
+    private ImageView multiListIcon;
+    private ProgressBar multiListProgress;
 
-    private Boolean mShowResizedImage;
+    private Boolean showResizedImage;
 
-    private Bitmap mBitmap;
+    private Bitmap bitmap;
 
     private static final String TAG = PreviewImageFragment.class.getSimpleName();
 
-    private boolean mIgnoreFirstSavedState;
+    private boolean ignoreFirstSavedState;
 
-    private LoadBitmapTask mLoadBitmapTask;
+    private LoadBitmapTask loadBitmapTask;
 
     @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
     @Inject DeviceInfo deviceInfo;
+    private PreviewImageFragmentBinding binding;
 
     /**
      * Public factory method to create a new fragment that previews an image.
@@ -152,7 +153,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                                    boolean ignoreFirstSavedState,
                                                    boolean showResizedImage) {
         PreviewImageFragment frag = new PreviewImageFragment();
-        frag.mShowResizedImage = showResizedImage;
+        frag.showResizedImage = showResizedImage;
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, imageFile);
         args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
@@ -171,7 +172,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
      * construction
      */
     public PreviewImageFragment() {
-        mIgnoreFirstSavedState = false;
+        ignoreFirstSavedState = false;
     }
 
     @Override
@@ -187,34 +188,37 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         // TODO better in super, but needs to check ALL the class extending FileFragment;
         // not right now
 
-        mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
-        mShowResizedImage = args.getBoolean(ARG_SHOW_RESIZED_IMAGE);
+        ignoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
+        showResizedImage = args.getBoolean(ARG_SHOW_RESIZED_IMAGE);
         setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.preview_image_fragment, container, false);
-        mImageView = view.findViewById(R.id.image);
-        mImageView.setVisibility(View.GONE);
+
+        binding = PreviewImageFragmentBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        imageView = view.findViewById(R.id.image);
+        imageView.setVisibility(View.GONE);
 
         view.setOnClickListener(v -> togglePreviewImageFullScreen());
 
-        mImageView.setOnClickListener(v -> togglePreviewImageFullScreen());
+        imageView.setOnClickListener(v -> togglePreviewImageFullScreen());
 
-        setupMultiView(view);
+        setupMultiView();
         setMultiListLoadingMessage();
 
         return view;
     }
 
-    private void setupMultiView(View view) {
-        mMultiListContainer = view.findViewById(R.id.empty_list_view);
-        mMultiListMessage = view.findViewById(R.id.empty_list_view_text);
-        mMultiListHeadline = view.findViewById(R.id.empty_list_view_headline);
-        mMultiListIcon = view.findViewById(R.id.empty_list_icon);
-        mMultiListProgress = view.findViewById(R.id.empty_list_progress);
+    private void setupMultiView() {
+        multiListContainer = binding.emptyList.emptyListView;
+        multiListMessage = binding.emptyList.emptyListViewText;
+        multiListHeadline = binding.emptyList.emptyListViewHeadline;
+        multiListIcon = binding.emptyList.emptyListIcon;
+        multiListProgress = binding.emptyList.emptyListProgress;
     }
 
     /**
@@ -224,12 +228,12 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
-            if (!mIgnoreFirstSavedState) {
+            if (!ignoreFirstSavedState) {
                 OCFile file = savedInstanceState.getParcelable(EXTRA_FILE);
                 setFile(file);
-                mImageView.setScale(Math.min(mImageView.getMaximumScale(), savedInstanceState.getFloat(EXTRA_ZOOM)));
+                imageView.setScale(Math.min(imageView.getMaximumScale(), savedInstanceState.getFloat(EXTRA_ZOOM)));
             } else {
-                mIgnoreFirstSavedState = false;
+                ignoreFirstSavedState = false;
             }
         }
     }
@@ -238,7 +242,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putFloat(EXTRA_ZOOM, mImageView.getScale());
+        outState.putFloat(EXTRA_ZOOM, imageView.getScale());
         outState.putParcelable(EXTRA_FILE, getFile());
     }
 
@@ -246,37 +250,37 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     public void onStart() {
         super.onStart();
         if (getFile() != null) {
-            mImageView.setTag(getFile().getFileId());
+            imageView.setTag(getFile().getFileId());
 
             Point screenSize = DisplayUtils.getScreenSize(getActivity());
             int width = screenSize.x;
             int height = screenSize.y;
 
-            if (mShowResizedImage) {
+            if (showResizedImage) {
                 Bitmap resizedImage = getResizedBitmap(getFile(), width, height);
 
                 if (resizedImage != null && !getFile().isUpdateThumbnailNeeded()) {
-                    mImageView.setImageBitmap(resizedImage);
-                    mImageView.setVisibility(View.VISIBLE);
-                    mBitmap = resizedImage;
+                    imageView.setImageBitmap(resizedImage);
+                    imageView.setVisibility(View.VISIBLE);
+                    bitmap = resizedImage;
                 } else {
                     // show thumbnail while loading resized image
                     Bitmap thumbnail = getResizedBitmap(getFile(), width, height);
 
                     if (thumbnail != null) {
-                        mImageView.setImageBitmap(thumbnail);
-                        mImageView.setVisibility(View.VISIBLE);
-                        mBitmap = thumbnail;
+                        imageView.setImageBitmap(thumbnail);
+                        imageView.setVisibility(View.VISIBLE);
+                        bitmap = thumbnail;
                     } else {
                         thumbnail = ThumbnailsCacheManager.mDefaultImg;
                     }
 
                     // generate new resized image
-                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), mImageView) &&
+                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), imageView) &&
                         containerActivity.getStorageManager() != null) {
                         final ThumbnailsCacheManager.ResizedImageGenerationTask task =
                             new ThumbnailsCacheManager.ResizedImageGenerationTask(this,
-                                                                                  mImageView,
+                                                                                  imageView,
                                                                                   containerActivity.getStorageManager(),
                                                                                   connectivityService,
                                                                                   containerActivity.getStorageManager().getAccount());
@@ -289,17 +293,17 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                 resizedImage,
                                 task
                             );
-                        mImageView.setImageDrawable(asyncDrawable);
+                        imageView.setImageDrawable(asyncDrawable);
                         task.execute(getFile());
                     }
                 }
-                mMultiListContainer.setVisibility(View.GONE);
-                mImageView.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
-                mImageView.setVisibility(View.VISIBLE);
+                multiListContainer.setVisibility(View.GONE);
+                imageView.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
+                imageView.setVisibility(View.VISIBLE);
 
             } else {
-                mLoadBitmapTask = new LoadBitmapTask(mImageView);
-                mLoadBitmapTask.execute(getFile());
+                loadBitmapTask = new LoadBitmapTask(imageView);
+                loadBitmapTask.execute(getFile());
             }
         } else {
             showErrorMessage(R.string.preview_image_error_no_local_file);
@@ -330,9 +334,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     @Override
     public void onStop() {
         Log_OC.d(TAG, "onStop starts");
-        if (mLoadBitmapTask != null) {
-            mLoadBitmapTask.cancel(true);
-            mLoadBitmapTask = null;
+        if (loadBitmapTask != null) {
+            loadBitmapTask.cancel(true);
+            loadBitmapTask = null;
         }
         super.onStop();
     }
@@ -411,10 +415,10 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         switch (item.getItemId()) {
             case R.id.action_send_share_file:
                 if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-                    Snackbar.make(getView(),
-                            R.string.resharing_is_not_allowed,
-                            Snackbar.LENGTH_LONG
-                    )
+                    Snackbar.make(requireView(),
+                                  R.string.resharing_is_not_allowed,
+                                  Snackbar.LENGTH_LONG
+                                 )
                             .show();
                 } else {
                     containerActivity.getFileOperationsHelper().sendShareFile(getFile());
@@ -456,8 +460,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     @SuppressFBWarnings("Dm")
     @Override
     public void onDestroy() {
-        if (mBitmap != null) {
-            mBitmap.recycle();
+        if (bitmap != null) {
+            bitmap.recycle();
             // putting this in onStop() is just the same; the fragment is always destroyed by
             // {@link FragmentStatePagerAdapter} when the fragment in swiped further than the
             // valid offscreen distance, and onStop() is never called before than that
@@ -609,7 +613,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             } else {
                 showErrorMessage(mErrorMessageId);
             }
-            if (result.bitmap != null && mBitmap != result.bitmap) {
+            if (result.bitmap != null && bitmap != result.bitmap) {
                 // unused bitmap, release it! (just in case)
                 result.bitmap.recycle();
             }
@@ -626,31 +630,27 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                             bitmap.getHeight());
 
                     if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType()) ||
-                            MIME_TYPE_GIF.equalsIgnoreCase(result.ocFile.getMimeType())) {
-                        if (getResources() != null) {
-                            imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, bitmap));
-                        } else {
-                            imageView.setImageBitmap(bitmap);
-                        }
+                        MIME_TYPE_GIF.equalsIgnoreCase(result.ocFile.getMimeType())) {
+                        getResources();
+                        imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, bitmap));
                     } else {
                         imageView.setImageBitmap(bitmap);
                     }
 
                     imageView.setVisibility(View.VISIBLE);
-                    mBitmap = bitmap;  // needs to be kept for recycling when not useful
-                } else if (drawable != null
-                        && MIME_TYPE_SVG.equalsIgnoreCase(result.ocFile.getMimeType())
-                        && getResources() != null) {
-                    imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, null));
+                    PreviewImageFragment.this.bitmap = bitmap;  // needs to be kept for recycling when not useful
+                } else {
+                    if (drawable != null
+                        && MIME_TYPE_SVG.equalsIgnoreCase(result.ocFile.getMimeType())) {
+                        getResources();
+                        imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, null));
+                    }
                 }
-            }
 
-            mMultiListContainer.setVisibility(View.GONE);
-            if (getResources() != null) {
-                mImageView.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
+                multiListContainer.setVisibility(View.GONE);
+                imageView.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
+                imageView.setVisibility(View.VISIBLE);
             }
-            mImageView.setVisibility(View.VISIBLE);
-
         }
     }
 
@@ -686,14 +686,12 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType())) {
                     bitmapWidth = convertDpToPixel(bitmap.getWidth(), getActivity());
                     bitmapHeight = convertDpToPixel(bitmap.getHeight(), getActivity());
-                    layerDrawable.setLayerSize(0, bitmapWidth, bitmapHeight);
-                    layerDrawable.setLayerSize(1, bitmapWidth, bitmapHeight);
                 } else {
                     bitmapWidth = convertDpToPixel(bitmapDrawable.getIntrinsicWidth(), getActivity());
                     bitmapHeight = convertDpToPixel(bitmapDrawable.getIntrinsicHeight(), getActivity());
-                    layerDrawable.setLayerSize(0, bitmapWidth, bitmapHeight);
-                    layerDrawable.setLayerSize(1, bitmapWidth, bitmapHeight);
                 }
+                layerDrawable.setLayerSize(0, bitmapWidth, bitmapHeight);
+                layerDrawable.setLayerSize(1, bitmapWidth, bitmapHeight);
             }
         }
 
@@ -701,40 +699,40 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     }
 
     private void showErrorMessage(@StringRes int errorMessageId) {
-        mImageView.setBackgroundColor(Color.TRANSPARENT);
-        setMessageForMultiList(R.string.preview_sorry, errorMessageId, R.drawable.file_image);
+        imageView.setBackgroundColor(Color.TRANSPARENT);
+        setSorryMessageForMultiList(errorMessageId);
     }
 
     private void setMultiListLoadingMessage() {
-        if (mMultiListContainer != null) {
-            mMultiListHeadline.setText(R.string.file_list_loading);
-            mMultiListMessage.setText("");
+        if (multiListContainer != null) {
+            multiListHeadline.setText(R.string.file_list_loading);
+            multiListMessage.setText("");
 
-            mMultiListIcon.setVisibility(View.GONE);
-            mMultiListProgress.setVisibility(View.VISIBLE);
+            multiListIcon.setVisibility(View.GONE);
+            multiListProgress.setVisibility(View.VISIBLE);
         }
     }
 
-    private void setMessageForMultiList(@StringRes int headline, @StringRes int message, @DrawableRes int icon) {
-        if (mMultiListContainer != null && mMultiListMessage != null) {
-            mMultiListHeadline.setText(headline);
-            mMultiListMessage.setText(message);
-            mMultiListIcon.setImageResource(icon);
+    private void setSorryMessageForMultiList(@StringRes int message) {
+        if (multiListContainer != null && multiListMessage != null) {
+            multiListHeadline.setText(R.string.preview_sorry);
+            multiListMessage.setText(message);
+            multiListIcon.setImageResource(R.drawable.file_image);
 
-            mMultiListContainer.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
-            mMultiListHeadline.setTextColor(getResources().getColor(R.color.standard_grey));
-            mMultiListMessage.setTextColor(getResources().getColor(R.color.standard_grey));
+            multiListContainer.setBackgroundColor(getResources().getColor(R.color.bg_default));
+            multiListHeadline.setTextColor(getResources().getColor(R.color.standard_grey));
+            multiListMessage.setTextColor(getResources().getColor(R.color.standard_grey));
 
-            mMultiListMessage.setVisibility(View.VISIBLE);
-            mMultiListIcon.setVisibility(View.VISIBLE);
-            mMultiListProgress.setVisibility(View.GONE);
+            multiListMessage.setVisibility(View.VISIBLE);
+            multiListIcon.setVisibility(View.VISIBLE);
+            multiListProgress.setVisibility(View.GONE);
         }
     }
 
     public void setErrorPreviewMessage() {
         try {
             if (getActivity() != null) {
-                Snackbar.make(mMultiListContainer,
+                Snackbar.make(multiListContainer,
                               R.string.resized_image_not_possible_download,
                               Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.common_yes, v -> {
@@ -742,7 +740,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                    if (activity != null) {
                                        activity.requestForDownload(getFile());
                                    } else {
-                                       Snackbar.make(mMultiListContainer,
+                                       Snackbar.make(multiListContainer,
                                                      getResources().getString(R.string.could_not_download_image),
                                                      Snackbar.LENGTH_INDEFINITE).show();
                                    }
@@ -756,7 +754,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     public void setNoConnectionErrorMessage() {
         try {
-            Snackbar.make(mMultiListContainer, R.string.auth_no_net_conn_title, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(multiListContainer, R.string.auth_no_net_conn_title, Snackbar.LENGTH_LONG).show();
         } catch (IllegalArgumentException e) {
             Log_OC.d(TAG, e.getMessage());
         }
@@ -799,8 +797,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             && getActivity() instanceof PreviewImageActivity) {
             PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
 
-            if (mImageView.getDrawable() instanceof LayerDrawable) {
-                LayerDrawable layerDrawable = (LayerDrawable) mImageView.getDrawable();
+            if (imageView.getDrawable() instanceof LayerDrawable) {
+                LayerDrawable layerDrawable = (LayerDrawable) imageView.getDrawable();
                 Drawable layerOne;
 
                 if (previewImageActivity.isSystemUIVisible()) {
@@ -811,8 +809,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
                 layerDrawable.setDrawableByLayerId(layerDrawable.getId(0), layerOne);
 
-                mImageView.setImageDrawable(layerDrawable);
-                mImageView.invalidate();
+                imageView.setImageDrawable(layerDrawable);
+                imageView.invalidate();
             }
         }
     }
@@ -824,7 +822,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     }
 
     public PhotoView getImageView() {
-        return mImageView;
+        return imageView;
     }
 
     private class LoadImage {

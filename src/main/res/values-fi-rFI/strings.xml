@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Poista virransäästövalinta käytöstä</string>
     <string name="autoupload_hide_folder">Piilota kansio</string>
     <string name="avatar">Profiilikuva</string>
+    <string name="away">Poissa</string>
     <string name="battery_optimization_close">Sulje</string>
     <string name="battery_optimization_disable">Poista käytöstä</string>
     <string name="battery_optimization_message">Laitteellasi on ehkä päällä akun optimisointi tälle sovellukselle. AutoUpload ei välttämättä toimi oikein ellet poista sovellusta optimisointilistalta.</string>
@@ -192,6 +193,8 @@
     <string name="disable_new_media_folder_detection_notifications">Poista käytöstä</string>
     <string name="dismiss">Hylkää</string>
     <string name="dismiss_notification_description">Hylkää ilmoitus</string>
+    <string name="dnd">Älä häiritse</string>
+    <string name="dontClear">Älä tyhjennä</string>
     <string name="download_latest_dev_version">Lataa viimeisin kehitysversio</string>
     <string name="downloader_download_failed_content">Ei voitu ladata %1$s</string>
     <string name="downloader_download_failed_credentials_error">Lataus epäonnistui, kirjaudu sisään uudelleen</string>
@@ -366,6 +369,7 @@
     <string name="foreign_files_remote_text">Etä: %1$s</string>
     <string name="foreign_files_success">Kaikki tiedostot siirrettiin</string>
     <string name="forward">Välitä</string>
+    <string name="fourHours">4 tuntia</string>
     <string name="hint_name">Nimi</string>
     <string name="hint_note">Huomio</string>
     <string name="hint_password">Salasana</string>
@@ -375,6 +379,7 @@
     <string name="instant_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Virheellinen URL</string>
+    <string name="invisible">Näkymätön</string>
     <string name="label_empty">Nimike ei voi olla tyhjä</string>
     <string name="link">Linkki</string>
     <string name="link_share_allow_upload_and_editing">Salli lähetys ja muokkaus</string>
@@ -457,6 +462,7 @@
     <string name="notifications_no_results_headline">Ei ilmoituksia</string>
     <string name="notifications_no_results_message">Katso myöhemmin uudestaan.</string>
     <string name="offline_mode">Ei internetyhteyttä</string>
+    <string name="oneHour">1 tunti</string>
     <string name="outdated_server">Palvelimen elinkaari on päättynyt, päivitä!</string>
     <string name="overflow_menu">Lisää -valikko</string>
     <string name="pass_code_configure_your_pass_code">Anna suojakoodisi</string>
@@ -578,6 +584,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="sendbutton_description">Lähetä-painikkeen kuvake</string>
     <string name="set_as">Aseta</string>
     <string name="set_picture_as">Käytä kuvaa</string>
+    <string name="set_status">Aseta tilatieto</string>
     <string name="share">Jaa</string>
     <string name="share_dialog_title">Jakaminen</string>
     <string name="share_email_clarification">%1$s (sähköposti)</string>
@@ -606,7 +613,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share_privilege_unshare">Lopeta jakaminen</string>
     <string name="share_remote_clarification">%1$s (etä)</string>
     <string name="share_room_clarification">%1$s (keskustelu)</string>
-    <string name="share_search">Nimi, federoidun pilven tunniste tai sähköpostiosoite…</string>
     <string name="share_send_note">Huomio vastaanottajalle</string>
     <string name="share_via_link_hide_download">Piilota lataus</string>
     <string name="share_via_link_hide_file_listing_permission_label">Piilota tiedostolistaus</string>
@@ -655,6 +661,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Palvelimen varmenteeseen ei luoteta</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Palvelimen varmenteen kelvolliset päivät ovat tulevaisuudessa</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Osoite ei vastaa sertifikaatissa mainittua isäntänimeä</string>
+    <string name="status_message">Tilaviesti</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Valitse tallennustilan sijainti</string>
     <string name="storage_description_default">Oletus</string>
@@ -702,10 +709,13 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="synced_icon">Synkronoitu</string>
     <string name="tags">Tunnisteet</string>
     <string name="test_server_button">Testaa palvelinyhteys</string>
+    <string name="thirtyMinutes">30 minuuttia</string>
+    <string name="thisWeek">Tällä viikolla</string>
     <string name="thumbnail">Esikatselukuva</string>
     <string name="thumbnail_for_existing_file_description">Esikatselu olemassa olevalle tiedostolle</string>
     <string name="thumbnail_for_new_file_desc">Esikatselu uudelle tiedostolle</string>
     <string name="timeout_richDocuments">Lataaminen vie paljon aikaa...</string>
+    <string name="today">Tänään</string>
     <string name="trashbin_activity_title">Poistetut tiedostot</string>
     <string name="trashbin_empty_headline">Ei poistettuja tiedostoja</string>
     <string name="trashbin_empty_message">Voit palauttaa poistettuja tiedostoja täältä.</string>
@@ -816,6 +826,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="what_s_new_image">Mitä uutta -kuva</string>
     <string name="whats_new_skip">Ohita</string>
     <string name="whats_new_title">Uutta versiossa %1$s</string>
+    <string name="whats_your_status">Mikä on tilatietosi?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ei voitu synkronoida %1$d tiedosto (ristiriita: %2$d)</item>
         <item quantity="other">Ei voitu synkronoida %1$d tiedostoa (ristiriidat: %2$d)</item>
