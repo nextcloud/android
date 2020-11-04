@@ -45,7 +45,7 @@ class PreviewImageFragmentIT : AbstractIT() {
         activity.addFragment(sut)
 
         while (!sut.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-            shortSleep()
+            longSleep()
         }
 
         screenshot(activity)
@@ -64,7 +64,7 @@ class PreviewImageFragmentIT : AbstractIT() {
         activity.addFragment(sut)
 
         while (!sut.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-            shortSleep()
+            longSleep()
         }
 
         screenshot(activity)
