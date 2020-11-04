@@ -359,8 +359,7 @@
                     android:cursorVisible="false"
                     android:gravity="center"
                     android:text="@string/default_emoji"
-                    android:textSize="25sp"
-                    app:maxEmojiCount="1" />
+                    android:textSize="25sp" />
 
             </com.google.android.material.card.MaterialCardView>
 
