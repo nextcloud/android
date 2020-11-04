@@ -155,7 +155,7 @@
     <string name="contacts_backup_button">现在备份</string>
     <string name="contacts_last_backup">上次备份</string>
     <string name="contacts_preference_backup_never">永远不</string>
-    <string name="contacts_preference_choose_date">选择时间</string>
+    <string name="contacts_preference_choose_date">恢复联系人</string>
     <string name="contacts_preferences_backup_scheduled">备份已经排期，稍后将开始</string>
     <string name="contacts_preferences_import_scheduled">导入已经排期，稍后将开始</string>
     <string name="contacts_preferences_no_file_found">没有文件被发现</string>
@@ -482,7 +482,7 @@
     <string name="placeholder_sentence">这是一个占位符</string>
     <string name="placeholder_timestamp">2012/05/18 下午12:23 </string>
     <string name="power_save_check_dialog_message">禁用节能检查可能会导致在低电池电量状态下仍然上传文件！</string>
-    <string name="pref_behaviour_entries_delete_file">已删除</string>
+    <string name="pref_behaviour_entries_delete_file">删除原始文件</string>
     <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">如果文件已经存在怎么办？</string>
@@ -609,7 +609,7 @@
     <string name="share_remote_clarification">%1$s (远程)</string>
     <string name="share_room_clarification">%1$s (对话)</string>
     <string name="share_search">名称、联合云 ID 或电子邮件地址 ...</string>
-    <string name="share_send_note">收件人备注</string>
+    <string name="share_send_note">接收人备注</string>
     <string name="share_via_link_hide_download">隐藏下载</string>
     <string name="share_via_link_hide_file_listing_permission_label">隐藏文件列表</string>
     <string name="share_via_link_menu_password_label">密码保护 (%1$s)</string>

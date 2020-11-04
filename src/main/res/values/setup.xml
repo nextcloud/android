@@ -65,16 +65,16 @@
     <bool name="device_credentials_enabled">true</bool>
     <bool name="show_hidden_files_enabled">true</bool>
     <bool name="davdroid_integration_enabled">true</bool>
-    <bool name="help_enabled">true</bool>
+    <bool name="help_enabled">false</bool>
     <string name="url_help">https://help.nextcloud.com/c/feature</string>
-    <bool name="privacy_enabled">true</bool>
+    <bool name="privacy_enabled">false</bool>
     <string name="privacy_url">https://nextcloud.com/privacy</string>
     <bool name="imprint_enabled">false</bool>
-    <bool name="recommend_enabled">true</bool>
+    <bool name="recommend_enabled">false</bool>
     <bool name="logger_enabled">false</bool>
-    <bool name="sourcecode_enabled">true</bool>
+    <bool name="sourcecode_enabled">false</bool>
     <string name="sourcecode_url" translatable="false">https://github.com/nextcloud/android</string>
-    <bool name="license_enabled">true</bool>
+    <bool name="license_enabled">false</bool>
     <string name="license_url" translatable="false">https://www.gnu.org/licenses/gpl-2.0.html</string>
     <string name="url_imprint"></string>
     <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.nextcloud.client"</string>

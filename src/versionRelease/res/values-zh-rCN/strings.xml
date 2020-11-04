@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
     <string name="app_name">骐骥云</string>
+    <string name="default_display_name_for_root_folder">云盘</string>
 </resources>
