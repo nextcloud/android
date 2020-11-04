@@ -29,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/standard_padding"
+        android:visibility="gone"
         android:text="@string/add_to_cloud"
         android:textSize="@dimen/bottom_sheet_text_size"
         android:textColor="@color/text_color"/>
