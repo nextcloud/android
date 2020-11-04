@@ -30,7 +30,6 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 //        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.2"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
-        classpath 'com.karumi:shot:4.4.0'
     }
 }
 
@@ -42,7 +41,6 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.hiya.jacoco-android'
 apply plugin: 'com.github.spotbugs'
 //apply plugin: 'io.gitlab.arturbosch.detekt'
-apply plugin: 'shot'
 
 configurations {
     ktlint
@@ -96,7 +94,7 @@ def versionBuild = 51 // 0-50=Alpha / 51-98=RC / 90-99=stable
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
     for (String arg : tr.args) {
         // any gplay, but only exact "build", as e.g. buildGeneric shall not apply gplay.grade
-        if (arg.contains("Gplay") || arg.contains("lint") || arg.contains("ExecuteScreenshot") || arg == "build") {
+        if (arg.contains("Gplay") || arg.contains("lint")  || arg == "build") {
             apply from: 'gplay.gradle'
             System.console().println("Applying gplay.gradle")
             break
