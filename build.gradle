@@ -27,7 +27,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.2"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
-        classpath 'com.karumi:shot:4.4.0'
+        classpath 'com.karumi:shot:5.3.0'
     }
 }
 
@@ -156,6 +156,9 @@ android {
         buildTypes {
             debug {
                 testCoverageEnabled (project.hasProperty('coverage'))
+                if (project.hasProperty('screenshot')) {
+                    minSdkVersion 21 // remove once we use 21 globally, only needed for karumi.shot
+                }
             }
         }
 
