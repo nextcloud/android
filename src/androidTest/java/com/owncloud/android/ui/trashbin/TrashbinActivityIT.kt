@@ -64,6 +64,7 @@ class TrashbinActivityIT : AbstractIT() {
 
         waitForIdleSync()
         shortSleep()
+        shortSleep()
 
         screenshot(sut)
     }

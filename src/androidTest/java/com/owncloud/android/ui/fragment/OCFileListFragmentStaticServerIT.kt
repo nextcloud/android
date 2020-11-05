@@ -199,6 +199,8 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
 
         sut.runOnUiThread { fragment.listDirectory(testFolder, false, false) }
 
+        shortSleep()
+
         screenshot(sut)
     }
 
