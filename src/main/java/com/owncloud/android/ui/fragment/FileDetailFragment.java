@@ -452,10 +452,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 containerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
             }
-            case R.id.action_set_as_wallpaper:  {
-                containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getView());
-                return true;
-            }
+//            case R.id.action_set_as_wallpaper:  {
+//                containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getView());
+//                return true;
+//            }
             case R.id.action_encrypted: {
                 // TODO implement or remove
                 return true;

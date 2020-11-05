@@ -1115,10 +1115,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     mContainerActivity.showSortListGroup(false);
                     return true;
                 }
-                case R.id.action_set_as_wallpaper: {
-                    mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile, getView());
-                    return true;
-                }
+//                case R.id.action_set_as_wallpaper: {
+//                    mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile, getView());
+//                    return true;
+//                }
                 case R.id.action_encrypted: {
                     mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, true);
                     return true;

@@ -443,9 +443,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 containerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
 
-            case R.id.action_set_as_wallpaper:
-                containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getImageView());
-                return true;
+//            case R.id.action_set_as_wallpaper:
+//                containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getImageView());
+//                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

@@ -210,7 +210,7 @@ public class FileMenuFilter {
         filterUnfavorite(toShow, toHide, synchronizing);
         filterEncrypt(toShow, toHide, endToEndEncryptionEnabled);
         filterUnsetEncrypted(toShow, toHide, endToEndEncryptionEnabled);
-        filterSetPictureAs(toShow, toHide);
+//        filterSetPictureAs(toShow, toHide);
         filterStream(toShow, toHide, isMediaSupported);
     }
 
@@ -277,9 +277,9 @@ public class FileMenuFilter {
 
     private void filterSetPictureAs(List<Integer> toShow, List<Integer> toHide) {
         if (isSingleImage() && !MimeTypeUtil.isSVG(files.iterator().next())) {
-            toShow.add(R.id.action_set_as_wallpaper);
+//            toShow.add(R.id.action_set_as_wallpaper);
         } else {
-            toHide.add(R.id.action_set_as_wallpaper);
+//            toHide.add(R.id.action_set_as_wallpaper);
         }
     }
 
