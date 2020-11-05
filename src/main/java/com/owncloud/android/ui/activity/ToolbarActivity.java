@@ -40,6 +40,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -136,7 +137,11 @@ public abstract class ToolbarActivity extends BaseActivity {
         boolean isRoot = isRoot(chosenFile);
 
         title = isRoot ? getDefaultDisplayName() : chosenFile.getFileName();
-        updateActionBarTitleAndHomeButtonByString(title);
+        if (MainApp.isOnlyOnDevice() && "/".equals(title)) {
+            updateActionBarTitleAndHomeButtonByString(MainApp.getAppContext().getString(R.string.drawer_item_on_device));
+        } else {
+            updateActionBarTitleAndHomeButtonByString(title);
+        }
 
         if (mAppBar != null) {
             showHomeSearchToolbar(title, isRoot);
