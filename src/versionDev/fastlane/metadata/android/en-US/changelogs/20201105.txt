@@ -1,0 +1,2 @@
+Test also for connected networks
+Update translations
