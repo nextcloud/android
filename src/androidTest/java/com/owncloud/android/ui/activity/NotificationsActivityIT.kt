@@ -22,7 +22,6 @@
 package com.owncloud.android.ui.activity
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import com.facebook.testing.screenshot.Screenshot
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.resources.notifications.models.Action
 import com.owncloud.android.lib.resources.notifications.models.Notification
@@ -41,7 +40,7 @@ class NotificationsActivityIT : AbstractIT() {
     fun loading() {
         val sut: NotificationsActivity = activityRule.launchActivity(null)
 
-        Screenshot.snapActivity(sut).record()
+        screenshot(sut)
     }
 
     @Test
