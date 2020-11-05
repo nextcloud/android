@@ -22,7 +22,6 @@
 package com.owncloud.android.ui.trashbin
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import com.facebook.testing.screenshot.Screenshot
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
@@ -49,7 +48,7 @@ class TrashbinActivityIT : AbstractIT() {
 
         shortSleep()
 
-        Screenshot.snapActivity(sut).record()
+        screenshot(sut)
     }
 
     @Test
@@ -82,6 +81,6 @@ class TrashbinActivityIT : AbstractIT() {
 
         shortSleep()
 
-        Screenshot.snapActivity(sut).record()
+        screenshot(sut)
     }
 }
