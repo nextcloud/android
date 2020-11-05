@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ownCloud Android client application
 
   Copyright (C) 2015  ownCloud Inc.
@@ -36,7 +37,7 @@
     <LinearLayout
         android:id="@+id/empty_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_margin="@dimen/standard_margin"
         android:gravity="center_vertical|center_horizontal"
