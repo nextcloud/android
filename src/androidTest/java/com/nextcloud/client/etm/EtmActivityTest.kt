@@ -25,7 +25,6 @@ package com.nextcloud.client.etm
 import android.app.Activity
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
-import com.facebook.testing.screenshot.Screenshot
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import com.owncloud.android.utils.ScreenshotTest
@@ -55,7 +54,7 @@ class EtmActivityTest : AbstractIT() {
 
         waitForIdleSync()
 
-        Screenshot.snapActivity(sut).record()
+        screenshot(sut)
     }
 
     @Test
@@ -65,7 +64,7 @@ class EtmActivityTest : AbstractIT() {
 
         UiThreadStatement.runOnUiThread { sut.vm.onPageSelected(0) }
 
-        Screenshot.snapActivity(sut).record()
+        screenshot(sut)
     }
 
     @Test
@@ -75,6 +74,6 @@ class EtmActivityTest : AbstractIT() {
 
         UiThreadStatement.runOnUiThread { sut.vm.onPageSelected(1) }
 
-        Screenshot.snapActivity(sut).record()
+        screenshot(sut)
     }
 }
