@@ -185,13 +185,13 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         folder.setFolder()
         sut.storageManager.saveFile(folder)
 
-        val textFile = OCFile("/test/Readme.md", "00000001")
-        textFile.mimeType = "text/markdown"
-        textFile.fileLength = 1024000
-        textFile.modificationTimestamp = 1188206955000
-        textFile.parentId = sut.storageManager.getFileByEncryptedRemotePath("/test/").fileId
-        textFile.storagePath = getFile("java.md").absolutePath
-        sut.storageManager.saveFile(textFile)
+        val imageFile = OCFile("/test/image.png", "00000001")
+        imageFile.mimeType = "image/png"
+        imageFile.fileLength = 1024000
+        imageFile.modificationTimestamp = 1188206955000
+        imageFile.parentId = sut.storageManager.getFileByEncryptedRemotePath("/test/").fileId
+        imageFile.storagePath = getFile("java.md").absolutePath
+        sut.storageManager.saveFile(imageFile)
 
         sut.addFragment(fragment)
         val testFolder: OCFile = sut.storageManager.getFileByEncryptedRemotePath("/test/")
