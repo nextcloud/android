@@ -489,6 +489,7 @@
     <string name="pref_instant_name_collision_policy_entries_always_ask">每次问我</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">覆盖远程版本</string>
     <string name="pref_instant_name_collision_policy_entries_rename">重命名新版本</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">跳过</string>
     <string name="pref_instant_name_collision_policy_title">如果文件已经存在怎么办？</string>
     <string name="prefs_add_account">添加账号</string>
     <string name="prefs_calendar_contacts">同步日历和联系人</string>
