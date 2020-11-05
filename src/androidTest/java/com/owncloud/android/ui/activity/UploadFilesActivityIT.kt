@@ -22,7 +22,6 @@
 package com.owncloud.android.ui.activity
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import com.facebook.testing.screenshot.Screenshot
 import com.owncloud.android.AbstractIT
 import org.junit.Rule
 import org.junit.Test
@@ -36,6 +35,6 @@ class UploadFilesActivityIT : AbstractIT() {
     fun open() {
         val sut: UploadFilesActivity = activityRule.launchActivity(null)
 
-        Screenshot.snapActivity(sut).record()
+        screenshot(sut)
     }
 }
