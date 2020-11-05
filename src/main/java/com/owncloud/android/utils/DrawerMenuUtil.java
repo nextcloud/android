@@ -43,7 +43,7 @@ public final class DrawerMenuUtil {
                                              User user,
                                              Resources resources) {
         if (user.isAnonymous()) {
-            filterMenuItems(menu, R.id.nav_photos, R.id.nav_favorites, R.id.nav_videos);
+            filterMenuItems(menu, R.id.nav_gallery, R.id.nav_favorites, R.id.nav_videos);
         }
 
         if (!resources.getBoolean(R.bool.recently_added_enabled)) {

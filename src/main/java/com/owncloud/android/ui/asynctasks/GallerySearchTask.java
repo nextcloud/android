@@ -30,24 +30,24 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
-import com.owncloud.android.ui.fragment.PhotoFragment;
+import com.owncloud.android.ui.fragment.GalleryFragment;
 
 import java.lang.ref.WeakReference;
 
-public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult> {
+public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResult> {
 
     private int columnCount;
     private User user;
-    private WeakReference<PhotoFragment> photoFragmentWeakReference;
+    private WeakReference<GalleryFragment> photoFragmentWeakReference;
     private SearchRemoteOperation searchRemoteOperation;
     private FileDataStorageManager storageManager;
     private int limit;
 
-    public PhotoSearchTask(int columnsCount,
-                           PhotoFragment photoFragment,
-                           User user,
-                           SearchRemoteOperation searchRemoteOperation,
-                           FileDataStorageManager storageManager) {
+    public GallerySearchTask(int columnsCount,
+                             GalleryFragment photoFragment,
+                             User user,
+                             SearchRemoteOperation searchRemoteOperation,
+                             FileDataStorageManager storageManager) {
         this.columnCount = columnsCount;
         this.user = user;
         this.photoFragmentWeakReference = new WeakReference<>(photoFragment);
@@ -62,7 +62,7 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
         if (photoFragmentWeakReference.get() == null) {
             return;
         }
-        PhotoFragment photoFragment = photoFragmentWeakReference.get();
+        GalleryFragment photoFragment = photoFragmentWeakReference.get();
         photoFragment.setPhotoSearchQueryRunning(true);
     }
 
@@ -71,7 +71,7 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
         if (photoFragmentWeakReference.get() == null) {
             return new RemoteOperationResult(new Exception("Photo fragment is null"));
         }
-        PhotoFragment photoFragment = photoFragmentWeakReference.get();
+        GalleryFragment photoFragment = photoFragmentWeakReference.get();
         OCFileListAdapter adapter = photoFragment.getAdapter();
 
         if (isCancelled()) {
@@ -98,7 +98,7 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
     @Override
     protected void onPostExecute(RemoteOperationResult result) {
         if (photoFragmentWeakReference.get() != null) {
-            PhotoFragment photoFragment = photoFragmentWeakReference.get();
+            GalleryFragment photoFragment = photoFragmentWeakReference.get();
 
             if (result.isSuccess() && result.getData() != null && !isCancelled()) {
                 if (result.getData() == null || result.getData().size() == 0) {
@@ -112,7 +112,7 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
                     }
 
                     adapter.setData(result.getData(),
-                                    ExtendedListFragment.SearchType.PHOTO_SEARCH,
+                                    ExtendedListFragment.SearchType.GALLERY_SEARCH,
                                     storageManager,
                                     null,
                                     false);
@@ -124,7 +124,7 @@ public class PhotoSearchTask extends AsyncTask<Void, Void, RemoteOperationResult
             photoFragment.setLoading(false);
 
             if (!result.isSuccess() && !isCancelled()) {
-                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.PHOTO_SEARCH);
+                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
             }
 
             photoFragment.setPhotoSearchQueryRunning(false);
