@@ -138,6 +138,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
@@ -1037,6 +1038,7 @@ public class FileDisplayActivity extends FileActivity
      *    3. close FAB if open (only if drawer isn't open)
      *    4. navigate up (only if drawer and FAB aren't open)
      */
+    @SuppressFBWarnings("ITC_INHERITANCE_TYPE_CHECKING")
     @Override
     public void onBackPressed() {
         boolean isDrawerOpen = isDrawerOpen();
