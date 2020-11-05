@@ -49,8 +49,8 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     fun showFiles() {
         val sut = testActivityRule.launchActivity(null)
 
-        val textFile = OCFile("/1.md", "00000001")
-        textFile.mimeType = "text/markdown"
+        val textFile = OCFile("/1.png", "00000001")
+        textFile.mimeType = "image/png"
         textFile.fileLength = 1024000
         textFile.modificationTimestamp = 1188206955000
         textFile.parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
