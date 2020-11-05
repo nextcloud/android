@@ -1494,7 +1494,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             String result = data.getStringExtra("com.blikoon.qrcodescanner.got_qr_scan_relult");
 
-            if (result == null || !result.startsWith(getString(R.string.login_data_own_scheme))) {
+            if (result == null) {
                 mServerStatusIcon = R.drawable.ic_alert;
                 mServerStatusText = "QR Code could not be read!";
                 showServerStatus();
@@ -1505,7 +1505,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 accountManager.getAccounts().length == 1) {
                 Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
             } else {
-                parseAndLoginFromWebView(result);
+//                parseAndLoginFromWebView(result);
+                mHostUrlInput.setText(result);
             }
         }
     }
