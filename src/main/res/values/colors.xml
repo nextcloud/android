@@ -76,7 +76,6 @@
     <color name="switch_thumb_color_unchecked">#FFFFFF</color>
     <color name="switch_track_color_unchecked">#4D000000</color>
     <color name="drawer_active_item_background">#80000000</color>
-    <color name="drawer_logo_color">#FFFFFF</color>
 
     <!-- Excluded from future app dark theme -->
     <color name="themed_fg">#FFFFFF</color>
