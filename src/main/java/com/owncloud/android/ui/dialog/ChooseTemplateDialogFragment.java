@@ -99,6 +99,8 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
         PRESENTATION
     }
 
+    private Template defaultTemplate;
+
     @BindView(R.id.list)
     RecyclerView listView;
 
@@ -169,6 +171,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view)
             .setNegativeButton(R.string.common_cancel, this)
+            .setPositiveButton(R.string.common_save, this)
             .setTitle(R.string.select_template);
         Dialog dialog = builder.create();
 
@@ -186,6 +189,9 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
     }
 
     public void setTemplateList(TemplateList templateList) {
+        if (templateList.getTemplateList()!=null&&templateList.getTemplateList().size()>0){
+            defaultTemplate = templateList.getTemplateList().get(0);
+        }
         adapter.setTemplateList(templateList);
         adapter.notifyDataSetChanged();
     }
@@ -207,6 +213,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
     @Override
     public void onClick(DialogInterface dialog, int which) {
         // cancel is handled by dialog itself, no other button available
+        onClick(defaultTemplate);
     }
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {

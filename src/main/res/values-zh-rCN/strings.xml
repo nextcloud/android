@@ -313,7 +313,7 @@
     <string name="file_migration_cleaning">清除中…</string>
     <string name="file_migration_dialog_title">更新存储路径</string>
     <string name="file_migration_directory_already_exists">数据文件夹已经存在。请选择以下选项：</string>
-    <string name="file_migration_failed_dir_already_exists">Nextcloud 目录已存在</string>
+    <string name="file_migration_failed_dir_already_exists">云盘 目录已存在</string>
     <string name="file_migration_failed_not_enough_space">需要更多空间</string>
     <string name="file_migration_failed_not_readable">无法读取源文件</string>
     <string name="file_migration_failed_not_writable">无法写入目标文件</string>
@@ -625,7 +625,7 @@
     <string name="shared_with_you_by">您已通过 %1$s 共享</string>
     <string name="sharee_add_failed">新建共享失败</string>
     <string name="signup_with_provider">与提供商签约</string>
-    <string name="single_sign_on_request_token" formatted="true">是否允许%1$s访问您的 Nextcloud 账号%2$s？</string>
+    <string name="single_sign_on_request_token" formatted="true">是否允许%1$s访问您的 云盘 账号%2$s？</string>
     <string name="sort_by">排序方式</string>
     <string name="sort_by_modification_date_ascending">新文件在前</string>
     <string name="sort_by_modification_date_descending">旧文件在前</string>
@@ -668,7 +668,8 @@
     <string name="storage_movies">影片</string>
     <string name="storage_music">音乐</string>
     <string name="storage_pictures">图片</string>
-    <string name="store_full_desc">让您掌控全局的自托管生产力平台。\n\n特色：\n* 简单，现代的界面，搭配您服务器的主题\n* 上传文件到您的 Nextcloud 服务器\n* 与他人共享您的文件\n* 为您最喜欢的文件及文件夹保持同步\n* 在您的服务器上的所有文件夹中进行搜索\n* 自动上传通过您的设备所拍摄的照片和视频\n* 获得最新的通知\n* 多账号支持\n* 通过使用指纹或者 PIN 来安全访问到您的数据\n* 集成了 DAVx5（原名DAVdroid） 来快速设置日历和联系人同步\n\n请通过 https://github.com/nextcloud/android/issues 报告任何问题，并在 https://help.nextcloud.com/c/clients/android 讨论此应用程序\n\n刚刚接触 Nextcloud？Nextcloud 是一个私人文件同步和共享和交流服务端软件。它是自由软件，您可以自己组建或者花钱购买某一公司提供的服务。这样，您就可以操作您的照片，日历，联系方式，文档和其他所有内容.\n\n通过 https://nextcloud.com 查看 Nextcloud</string>
+    <string name="store_full_desc">让您掌控全局的自托管生产力平台。\n\n特色：\n* 简单，现代的界面，搭配您服务器的主题\n* 上传文件到您的 云盘 服务器\n* 与他人共享您的文件\n*
+        为您最喜欢的文件及文件夹保持同步\n* 在您的服务器上的所有文件夹中进行搜索\n* 自动上传通过您的设备所拍摄的照片和视频\n* 获得最新的通知\n* 多账号支持\n* 通过使用指纹或者 PIN 来安全访问到您的数据\n* 集成了 DAVx5（原名DAVdroid） 来快速设置日历和联系人同步\n\n请通过 https://github.com/nextcloud/android/issues 报告任何问题，并在 https://help.nextcloud.com/c/clients/android 讨论此应用程序\n\n刚刚接触 Nextcloud？Nextcloud 是一个私人文件同步和共享和交流服务端软件。它是自由软件，您可以自己组建或者花钱购买某一公司提供的服务。这样，您就可以操作您的照片，日历，联系方式，文档和其他所有内容.\n\n通过 https://nextcloud.com 查看 Nextcloud</string>
     <string name="store_full_dev_desc">让您掌控全局的自托管生产力平台。
 这是官方开发版本，每天都会对新的未经测试的功能进行取样，这些功能可能导致不稳定和数据丢失。此应用主要面向愿意测试以及在发现bug时能提交报告的用户。请不要用于生产性工作！
 
