@@ -96,8 +96,8 @@ import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.ui.fragment.PhotoFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.helpers.UriUploader;
@@ -138,6 +138,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
@@ -497,7 +498,7 @@ public class FileDisplayActivity extends FileActivity
                     if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.searchType)) {
                         Log_OC.d(this, "Switch to photo search fragment");
 
-                        PhotoFragment photoFragment = new PhotoFragment(true);
+                        GalleryFragment photoFragment = new GalleryFragment(true);
                         Bundle bundle = new Bundle();
                         bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
                         photoFragment.setArguments(bundle);
@@ -620,7 +621,7 @@ public class FileDisplayActivity extends FileActivity
     OCFileListFragment getListOfFilesFragment() {
         Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(
             FileDisplayActivity.TAG_LIST_OF_FILES);
-        if (listOfFiles != null) {
+        if (listOfFiles instanceof OCFileListFragment) {
             return (OCFileListFragment) listOfFiles;
         }
         Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
@@ -1037,6 +1038,7 @@ public class FileDisplayActivity extends FileActivity
      *    3. close FAB if open (only if drawer isn't open)
      *    4. navigate up (only if drawer and FAB aren't open)
      */
+    @SuppressFBWarnings("ITC_INHERITANCE_TYPE_CHECKING")
     @Override
     public void onBackPressed() {
         boolean isDrawerOpen = isDrawerOpen();
@@ -1077,6 +1079,8 @@ public class FileDisplayActivity extends FileActivity
                 showSortListGroup(true);
                 cleanSecondFragment();
             }
+        } else if (leftFragment instanceof PreviewTextStringFragment) {
+            createMinFragments(null);
         } else {
             // pop back
             hideSearchView(getCurrentDir());
@@ -1178,8 +1182,8 @@ public class FileDisplayActivity extends FileActivity
             setDrawerMenuItemChecked(menuItemId);
         }
 
-        if (ocFileListFragment instanceof PhotoFragment) {
-            updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_photos));
+        if (ocFileListFragment instanceof GalleryFragment) {
+            updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
         }
 
         Log_OC.v(TAG, "onResume() end");
@@ -2325,7 +2329,7 @@ public class FileDisplayActivity extends FileActivity
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
             Log_OC.d(this, "Switch to photo search fragment");
 
-            fragment = new PhotoFragment(true);
+            fragment = new GalleryFragment(true);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
             transaction.commit();
