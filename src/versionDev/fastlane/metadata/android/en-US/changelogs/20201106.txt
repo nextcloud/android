@@ -1,0 +1,9 @@
+removed outdated search enums changed photos -> media
+If relative subfolder cannot be found, do nut use it
+ignore multiple instanceof calls
+Fix crash on opening details within PreviewText
+override minSdk only when using Karumi
+Bump to 5.1.0
+bump minSdkVersion for screenshot tests
+Update translations
+Update 3rd-party dependencies
