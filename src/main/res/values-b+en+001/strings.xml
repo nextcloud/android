@@ -195,6 +195,8 @@
     <string name="disable_new_media_folder_detection_notifications">Disable</string>
     <string name="dismiss">Dismiss</string>
     <string name="dismiss_notification_description">Dismiss notification</string>
+    <string name="dnd">Do not disturb</string>
+    <string name="dontClear">Don\'t clear</string>
     <string name="download_latest_dev_version">Download latest dev version</string>
     <string name="downloader_download_failed_content">Could not download %1$s</string>
     <string name="downloader_download_failed_credentials_error">Download failed, log in again</string>
@@ -279,6 +281,7 @@
     <string name="failed_to_download">Failed to pass file to download manager</string>
     <string name="failed_to_print">Failed to print file</string>
     <string name="failed_to_start_editor">Failed to start editor</string>
+    <string name="failed_update_ui">Failed to update UI</string>
     <string name="favorite">Add to favorites</string>
     <string name="favorite_icon">Favorite</string>
     <string name="file_delete">Delete</string>
@@ -464,6 +467,7 @@
     <string name="offline_mode">No internet connection</string>
     <string name="oneHour">1 hour</string>
     <string name="online">Online</string>
+    <string name="online_status">Online status</string>
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="overflow_menu">More menu</string>
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
@@ -490,6 +494,7 @@
     <string name="pref_behaviour_entries_move">moved to app folder</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">What to do if the file already exists?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Ask me every time</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Skip uploading</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Overwrite remote version</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Rename new version</string>
     <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
@@ -548,6 +553,7 @@
     <string name="recommend_subject">Try %1$s on your device!</string>
     <string name="recommend_text">I want to invite you to use %1$s on your device.\nDownload here: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
+    <string name="remote">(remote)</string>
     <string name="remote_file_fetch_failed">Failed to find file!</string>
     <string name="remove_fail_msg">Deletion failed</string>
     <string name="remove_notification_failed">Failed to remove notification.</string>
@@ -583,6 +589,8 @@
     <string name="sendbutton_description">Send button icon</string>
     <string name="set_as">Set As</string>
     <string name="set_picture_as">Use picture as</string>
+    <string name="set_status">Set status</string>
+    <string name="set_status_message">Set status message</string>
     <string name="share">Share</string>
     <string name="share_dialog_title">Sharing</string>
     <string name="share_email_clarification">%1$s (email)</string>
@@ -593,6 +601,7 @@
     <string name="share_internal_link_to_file_text">Internal share link only works for users with access to this file</string>
     <string name="share_internal_link_to_folder_text">Internal share link only works for users with access to this folder</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
+    <string name="share_known_remote_on_clarification">on %1$s</string>
     <string name="share_link">Share link</string>
     <string name="share_link_empty_password">You must enter a password</string>
     <string name="share_link_file_error">An error occurred while trying to share this file or folder.</string>
@@ -600,6 +609,7 @@
     <string name="share_link_forbidden_permissions">to share this file</string>
     <string name="share_link_optional_password_title">Enter an optional password</string>
     <string name="share_link_password_title">Enter a password</string>
+    <string name="share_link_with_label">Share link (%1$s)</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_no_password_title">Set password</string>
     <string name="share_password_title">Password-protected</string>
@@ -610,6 +620,7 @@
     <string name="share_privilege_unshare">Unshare</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
+    <string name="share_search">Name, Federated Cloud ID or email address …</string>
     <string name="share_send_note">Note to recipient</string>
     <string name="share_via_link_hide_download">Hide download</string>
     <string name="share_via_link_hide_file_listing_permission_label">Hide file listing</string>
@@ -805,6 +816,7 @@
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Waiting to exit power save mode</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Waiting for non-metered Wi-Fi</string>
     <string name="user_icon">User</string>
     <string name="user_info_address">Address</string>
     <string name="user_info_email">E-mail</string>
@@ -822,6 +834,7 @@
     <string name="what_s_new_image">What\'s new image</string>
     <string name="whats_new_skip">Skip</string>
     <string name="whats_new_title">New in %1$s</string>
+    <string name="whats_your_status">What\'s your status?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>
         <item quantity="other">Could not sync %1$d files (conflicts: %2$d)</item>
