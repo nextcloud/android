@@ -620,8 +620,7 @@
     <string name="share_privilege_unshare">Prekini souporabo</string>
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
     <string name="share_room_clarification">%1$s (pogovor)</string>
-    <string name="share_search">Ime, ID Povezanega oblaka
-ali e-poštni naslov...</string>
+    <string name="share_search">Ime, ID zveznega oblaka ali elektronski naslov ...</string>
     <string name="share_send_note">Sporočilo za prejemnika</string>
     <string name="share_via_link_hide_download">Skrij prejem</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrij spisek datotek</string>
@@ -799,7 +798,7 @@ ali e-poštni naslov...</string>
     <string name="uploads_view_group_current_uploads">Trenutno</string>
     <string name="uploads_view_group_failed_uploads">Ponovni zagon je spodletel ali pa je na čakanju.</string>
     <string name="uploads_view_group_finished_uploads">Poslano</string>
-    <string name="uploads_view_later_waiting_to_upload">Čakanje na pošiljanje</string>
+    <string name="uploads_view_later_waiting_to_upload">Poteka čakanje na pošiljanje ...</string>
     <string name="uploads_view_title">Poslano</string>
     <string name="uploads_view_upload_status_cancelled">Preklicano</string>
     <string name="uploads_view_upload_status_conflict">Spor</string>
