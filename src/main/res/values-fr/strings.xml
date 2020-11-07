@@ -215,6 +215,7 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_item_activities">Activité</string>
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_favorites">Favoris</string>
+    <string name="drawer_item_gallery">Média</string>
     <string name="drawer_item_home">Accueil</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
