@@ -77,6 +77,7 @@
     <string name="autoupload_disable_power_save_check">تعطيل التحقق من حفظ الطاقة</string>
     <string name="autoupload_hide_folder">إخفاء المجلد</string>
     <string name="avatar">الصورة الرمزية</string>
+    <string name="away">بالخارج</string>
     <string name="battery_optimization_close">إغلاق</string>
     <string name="battery_optimization_disable">تعطيل</string>
     <string name="battery_optimization_message">قد يكون حفظ البطارية مفعلاً في جهازك. لذلك قد لا يعمل الرفع التلقائي إلا إذا سمحت لهذا التطبيق من أن يستبعد من هذه الميزة.</string>
@@ -88,6 +89,8 @@
     <string name="choose_local_folder">إختر المجلد المحلي…</string>
     <string name="choose_remote_folder">إختر مجلد عن بُعد…</string>
     <string name="clear_notifications_failed">فشلت في إزالة التنبيهات.</string>
+    <string name="clear_status_message">مسح رسالة الحالة</string>
+    <string name="clear_status_message_after">مسح رسالة الحالة بعد</string>
     <string name="clipboard_label">نُسِخ النص من %1$s</string>
     <string name="clipboard_no_text_to_copy">لم يستلم نص لنسخه في الحافظة</string>
     <string name="clipboard_text_copied">نُسِخ الرابط</string>
@@ -189,6 +192,8 @@
     <string name="disable_new_media_folder_detection_notifications">تعطيل</string>
     <string name="dismiss">تراجع</string>
     <string name="dismiss_notification_description">تجاهل الاشعار</string>
+    <string name="dnd">عدم الازعاج</string>
+    <string name="dontClear">غير واضح</string>
     <string name="download_latest_dev_version">حمّل آخر إصدار المطورين</string>
     <string name="downloader_download_failed_content">تعذر تنزيل %1$s</string>
     <string name="downloader_download_failed_credentials_error">فشل التنزيل، قم بتسجيل الدخول ثانية</string>
@@ -205,6 +210,7 @@
     <string name="drawer_item_activities">النشاطات</string>
     <string name="drawer_item_all_files">كل الملفات</string>
     <string name="drawer_item_favorites">المفضلة </string>
+    <string name="drawer_item_gallery">وسائط</string>
     <string name="drawer_item_home">الرئيسية</string>
     <string name="drawer_item_notifications">الإخطارات</string>
     <string name="drawer_item_on_device">على الجهاز</string>
@@ -363,6 +369,7 @@
     <string name="foreign_files_remote_text">عن بعد : %1$s</string>
     <string name="foreign_files_success">تم نقل كافة الملفات</string>
     <string name="forward">إعادة توجيه </string>
+    <string name="fourHours">4 ساعات</string>
     <string name="hint_name">الاسم</string>
     <string name="hint_note">ملاحظة</string>
     <string name="hint_password">الكلمة السرية</string>
@@ -372,6 +379,7 @@
     <string name="instant_upload_on_charging">إرفع وقت الشحن فقط</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">رابط غير صالح</string>
+    <string name="invisible">عدم الظهور</string>
     <string name="label_empty">لا يمكن أن تكون التسمية فارغه</string>
     <string name="link">الرابط</string>
     <string name="link_share_allow_upload_and_editing">السماح بالرفع و التعديل</string>
@@ -459,7 +467,9 @@
     <string name="notifications_no_results_headline">لا توجد هناك إخطارات</string>
     <string name="notifications_no_results_message">يرجى التحقق مرة أخرى في وقت لاحق.</string>
     <string name="offline_mode">ليس هناك اتصال بالأنترنت</string>
-    <string name="oneHour">ساعة</string>
+    <string name="oneHour">1 ساعة</string>
+    <string name="online">متصل</string>
+    <string name="online_status">حالات الاتصال</string>
     <string name="outdated_server">وصل الخادم إلى نهاية العمر الافتراضي ، يرجى الترقية!</string>
     <string name="overflow_menu">المزيد من القائمة</string>
     <string name="pass_code_configure_your_pass_code">إدخل رمزك السري</string>
@@ -545,6 +555,7 @@
     <string name="recommend_text">أريد أن أدعوك لاستخدام %1$s على جهازك
 التنزيل هنا %2$s</string>
     <string name="recommend_urls">%1$s أو %2$s</string>
+    <string name="remote">(عن بعد)</string>
     <string name="remote_file_fetch_failed">فشل في العثور على الملف!</string>
     <string name="remove_fail_msg">فشلت عملية الحذف</string>
     <string name="remove_notification_failed">فشل في إزالة الإخطار.</string>
@@ -580,6 +591,8 @@
     <string name="sendbutton_description">أيقونة زر الإرسال</string>
     <string name="set_as">احفظ كـ</string>
     <string name="set_picture_as">إستخدم الصورة كـ</string>
+    <string name="set_status">تعيين الحالة</string>
+    <string name="set_status_message">تعيين رسالة الحالة</string>
     <string name="share">مشاركة </string>
     <string name="share_dialog_title">مشاركة</string>
     <string name="share_email_clarification">%1$s(بريد)</string>
@@ -590,6 +603,7 @@
     <string name="share_internal_link_to_file_text">يعمل رابط المشاركة الداخلية فقط للمستخدمين الذين لديهم حق الوصول إلى هذا الملف</string>
     <string name="share_internal_link_to_folder_text">يعمل رابط المشاركة الداخلية فقط للمستخدمين الذين لديهم حق الوصول إلى هذا المجلد</string>
     <string name="share_known_remote_clarification">%1$s ( على %2$s )</string>
+    <string name="share_known_remote_on_clarification">على %1$s</string>
     <string name="share_link">مشاركة الرابط</string>
     <string name="share_link_empty_password">يجب عليك إدخال كلمة مرور</string>
     <string name="share_link_file_error">حدث خطأ أثناء محاولة مشاركة هذا الملف أو المجلد.</string>
@@ -655,6 +669,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">شهادة الخادم غير موثوقة</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">وقت صلاحية شهادة الخادم لم يحن بعد</string>
     <string name="ssl_validator_reason_hostname_not_verified">الرابط لا يوافق اسم المضيف فى  شهاده الحماية </string>
+    <string name="status_message">رسالة الحالات</string>
     <string name="storage_camera">الكاميرا</string>
     <string name="storage_choose_location">اختر مكان التخزين</string>
     <string name="storage_description_default">افتراضي</string>
@@ -822,6 +837,7 @@
     <string name="what_s_new_image">ما هي الصورة الجديدة</string>
     <string name="whats_new_skip">تخطى</string>
     <string name="whats_new_title">جديد على %1$s</string>
+    <string name="whats_your_status">ماهي حالتك؟</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="zero">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>
         <item quantity="one">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>
