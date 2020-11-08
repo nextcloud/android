@@ -213,6 +213,7 @@
     <string name="drawer_item_activities">Aktywności</string>
     <string name="drawer_item_all_files">Wszystkie pliki</string>
     <string name="drawer_item_favorites">Ulubione</string>
+    <string name="drawer_item_gallery">Media</string>
     <string name="drawer_item_home">Start</string>
     <string name="drawer_item_notifications">Powiadomienia</string>
     <string name="drawer_item_on_device">Na urządzeniu</string>
