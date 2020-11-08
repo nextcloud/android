@@ -1,0 +1,2 @@
+do not tint nc logo
+Update translations
