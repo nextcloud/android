@@ -38,6 +38,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.nextcloud.android.lib.resources.directediting.DirectEditingCreateFileRemoteOperation;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainListOfTemplatesRemoteOperation;
@@ -69,8 +70,10 @@ import java.lang.ref.WeakReference;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -107,6 +110,12 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
     @BindView(R.id.filename)
     EditText fileName;
 
+    @BindView(R.id.choose_template_save)
+    TextView saveText;
+
+    @BindView(R.id.choose_template_cancel)
+    TextView cancelText;
+
     public static ChooseTemplateDialogFragment newInstance(OCFile parentFolder, Creator creator) {
         ChooseTemplateDialogFragment frag = new ChooseTemplateDialogFragment();
         Bundle args = new Bundle();
@@ -114,7 +123,6 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
         args.putParcelable(ARG_CREATOR, creator);
         frag.setArguments(args);
         return frag;
-
     }
 
     @Override
@@ -127,9 +135,6 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(view -> {
-            onClick(defaultTemplate);
-        });
     }
 
     @NonNull
@@ -169,12 +174,15 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
         listView.setLayoutManager(new GridLayoutManager(activity, 2));
         adapter = new TemplateAdapter(creator.getMimetype(), this, getContext(), currentAccount, clientFactory);
         listView.setAdapter(adapter);
+        int color = ThemeUtils.primaryAccentColor(getContext());
+        saveText.setTextColor(color);
+        cancelText.setTextColor(color);
+        saveText.setOnClickListener(view1 -> ChooseTemplateDialogFragment.this.onClick(defaultTemplate));
 
+        cancelText.setOnClickListener(view12 -> dismiss());
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view)
-            .setNegativeButton(R.string.common_cancel, this)
-            .setPositiveButton(R.string.common_save, null)
             .setTitle(R.string.select_template);
         Dialog dialog = builder.create();
 
@@ -216,7 +224,6 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
     @Override
     public void onClick(DialogInterface dialog, int which) {
         // cancel is handled by dialog itself, no other button available
-        onClick(defaultTemplate);
     }
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {

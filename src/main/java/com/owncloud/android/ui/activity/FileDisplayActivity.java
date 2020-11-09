@@ -2607,7 +2607,6 @@ public class FileDisplayActivity extends FileActivity
                         BaseUrlRemoteOperation getStatus = new BaseUrlRemoteOperation(FileDisplayActivity.this, new BaseUrlRemoteOperation.OnBaseUrlChange() {
                             @Override
                             public void onBaseUrlChange(String baseUrl) {
-                                Log_OC.i(TAG, "onBaseUrlChange = " + baseUrl + ": ");
                                 AccountManager.get(FileDisplayActivity.this)
                                     .setUserData(accountManager.getCurrentAccount(), AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl);
                             }

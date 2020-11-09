@@ -201,7 +201,7 @@ android {
                 applicationId "com.qijicloud.client"
                 dimension "default"
                 versionCode 1
-                versionName "20201029"
+                versionName "1.0.1109"
             }
 
             qa {

@@ -39,4 +39,23 @@
         android:hint="@string/filename_hint"
         android:inputType="text"
         android:importantForAutofill="no" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/choose_template_cancel"
+            android:layout_marginEnd="30dp"
+            android:text="@string/common_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/choose_template_save"
+            android:text="@string/common_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 </LinearLayout>
