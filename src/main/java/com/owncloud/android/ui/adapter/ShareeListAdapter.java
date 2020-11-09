@@ -31,6 +31,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareInternalShareLinkBinding;
 import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
@@ -58,15 +59,18 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<OCShare> shares;
     private float avatarRadiusDimension;
     private String userId;
+    private User user;
 
     public ShareeListAdapter(Context context,
                              List<OCShare> shares,
                              ShareeListAdapterListener listener,
-                             String userId) {
+                             String userId,
+                             User user) {
         this.context = context;
         this.shares = shares;
         this.listener = listener;
         this.userId = userId;
+        this.user = user;
 
         avatarRadiusDimension = context.getResources().getDimension(R.dimen.user_icon_radius);
 
@@ -103,6 +107,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 return new ShareViewHolder(FileDetailsShareShareItemBinding.inflate(LayoutInflater.from(context),
                                                                                     parent,
                                                                                     false),
+                                           user,
                                            context);
         }
     }
@@ -126,7 +131,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             newLinkShareViewHolder.bind(listener);
         } else {
             ShareViewHolder userViewHolder = (ShareViewHolder) holder;
-            userViewHolder.bind(share, listener, userId, avatarRadiusDimension);
+            userViewHolder.bind(share, listener, this, userId, avatarRadiusDimension);
         }
     }
 
@@ -158,7 +163,8 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
         if (callContext instanceof ImageView) {
             ImageView iv = (ImageView) callContext;
-            return String.valueOf(iv.getTag()).equals(tag);
+            // needs to be changed once federated users have avatars
+            return String.valueOf(iv.getTag()).equals(tag.split("@")[0]);
         }
         return false;
     }
