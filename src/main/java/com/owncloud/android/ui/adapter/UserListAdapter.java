@@ -242,7 +242,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
          */
         private void setUser(User user) {
             binding.account.setText(DisplayUtils.convertIdn(user.getAccountName(), false));
-            binding.account.setTag(user.getAccountName());
+            binding.account.setTag(user.getServer().getUri().toString());
         }
 
         /**
