@@ -57,7 +57,7 @@ public class BaseUrlRemoteOperation extends RemoteOperation {
     /**
      * Maximum time to wait for a response from the server when the connection is being tested, in MILLISECONDs.
      */
-    private static final int TRY_CONNECTION_TIMEOUT = 50000;
+    private static final int TRY_CONNECTION_TIMEOUT = 5000;
 
     private static final String TAG = BaseUrlRemoteOperation.class.getSimpleName();
 

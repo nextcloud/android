@@ -206,8 +206,8 @@ public class FileMenuFilter {
         filterShareFile(toShow, toHide, capability);
         filterSendFiles(toShow, toHide);
         filterDetails(toShow, toHide);
-        filterFavorite(toShow, toHide, synchronizing);
-        filterUnfavorite(toShow, toHide, synchronizing);
+//        filterFavorite(toShow, toHide, synchronizing);
+//        filterUnfavorite(toShow, toHide, synchronizing);
         filterEncrypt(toShow, toHide, endToEndEncryptionEnabled);
         filterUnsetEncrypted(toShow, toHide, endToEndEncryptionEnabled);
 //        filterSetPictureAs(toShow, toHide);
@@ -242,19 +242,19 @@ public class FileMenuFilter {
     }
 
     private void filterFavorite(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (files.isEmpty() || synchronizing || allFavorites()) {
-            toHide.add(R.id.action_favorite);
-        } else {
-            toShow.add(R.id.action_favorite);
-        }
+//        if (files.isEmpty() || synchronizing || allFavorites()) {
+//            toHide.add(R.id.action_favorite);
+//        } else {
+//            toShow.add(R.id.action_favorite);
+//        }
     }
 
     private void filterUnfavorite(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (files.isEmpty() || synchronizing || allNotFavorites()) {
-            toHide.add(R.id.action_unset_favorite);
-        } else {
-            toShow.add(R.id.action_unset_favorite);
-        }
+//        if (files.isEmpty() || synchronizing || allNotFavorites()) {
+//            toHide.add(R.id.action_unset_favorite);
+//        } else {
+//            toShow.add(R.id.action_unset_favorite);
+//        }
     }
 
     private void filterEncrypt(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {

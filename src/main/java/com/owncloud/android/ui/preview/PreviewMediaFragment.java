@@ -390,19 +390,19 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             item.setEnabled(false);
         }
 
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_favorite);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
+//        // additional restriction for this fragment
+//        item = menu.findItem(R.id.action_favorite);
+//        if (item != null) {
+//            item.setVisible(false);
+//            item.setEnabled(false);
+//        }
 
         // additional restriction for this fragment
-        item = menu.findItem(R.id.action_unset_favorite);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
+//        item = menu.findItem(R.id.action_unset_favorite);
+//        if (item != null) {
+//            item.setVisible(false);
+//            item.setEnabled(false);
+//        }
 
         if(getFile().isSharedWithMe() && !getFile().canReshare()){
             // additional restriction for this fragment

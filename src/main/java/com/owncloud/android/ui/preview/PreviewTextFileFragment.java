@@ -281,9 +281,9 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             menu.findItem(R.id.action_select_all),
             menu.findItem(R.id.action_move),
             menu.findItem(R.id.action_download_file),
-            menu.findItem(R.id.action_sync_file),
-            menu.findItem(R.id.action_favorite),
-            menu.findItem(R.id.action_unset_favorite)
+            menu.findItem(R.id.action_sync_file)
+//            menu.findItem(R.id.action_favorite),
+//            menu.findItem(R.id.action_unset_favorite)
         );
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {

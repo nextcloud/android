@@ -210,7 +210,7 @@
     <string name="drawer_header_background">抽屉标题的背景图片</string>
     <string name="drawer_item_activities">动态</string>
     <string name="drawer_item_all_files">全部文件</string>
-    <string name="drawer_item_favorites">收藏</string>
+    <string name="drawer_item_favorites">共享空间</string>
     <string name="drawer_item_home">首页</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">在设备上的</string>
@@ -281,7 +281,7 @@
     <string name="file_delete">删除</string>
     <string name="file_detail_activity_error">获取文件动态时出错</string>
     <string name="file_details_no_content">加载详情失败</string>
-    <string name="file_icon">文件</string>
+    <string name="file_icon">所有文件</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上传一些内容或与您的设备同步。</string>
     <string name="file_list_empty_favorite_headline">暂无收藏</string>
@@ -845,5 +845,5 @@
     <plurals name="items_selected_count">
         <item quantity="other">已选择 %d 个</item>
     </plurals>
-    <string name="more">更多</string>
+    <string name="more">更多设置</string>
 </resources>
