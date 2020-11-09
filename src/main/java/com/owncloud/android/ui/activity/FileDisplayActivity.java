@@ -27,6 +27,7 @@ package com.owncloud.android.ui.activity;
 
 import android.Manifest;
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -38,10 +39,13 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,9 +60,11 @@ import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.DeepLinkHandler;
 import com.nextcloud.client.media.PlayerServiceConnection;
+import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
+import com.owncloud.android.BaseUrlRemoteOperation;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FilesBinding;
@@ -69,6 +75,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -76,6 +83,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
+import com.owncloud.android.lib.resources.status.GetStatusRemoteOperation;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
@@ -244,6 +252,7 @@ public class FileDisplayActivity extends FileActivity
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
 
         super.onCreate(savedInstanceState);
+        updateBaseUrl(getAPNType(this) == 0);
         /// Load of saved instance state
         if (savedInstanceState != null) {
             mWaitingToPreview = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
@@ -2565,4 +2574,86 @@ public class FileDisplayActivity extends FileActivity
                 .show();
         });
     }
+
+    private boolean isWifi = false;
+
+    public void updateBaseUrl(boolean isWifi) {
+//        BaseUrlRemoteOperation getStatus = new BaseUrlRemoteOperation(this);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    BaseUrlRemoteOperation getStatus = new BaseUrlRemoteOperation(FileDisplayActivity.this, new BaseUrlRemoteOperation.OnBaseUrlChange() {
+                        @Override
+                        public void onBaseUrlChange(String baseUrl) {
+                            AccountManager.get(FileDisplayActivity.this)
+                                .setUserData(accountManager.getCurrentAccount(), AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl);
+                        }
+                    });
+                    OwnCloudClient ownCloudClient = clientFactory.create(accountManager.getUser());
+                    getStatus.execute(ownCloudClient);
+                } catch (ClientFactory.CreationException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        if (this.isWifi != isWifi) {
+
+        }
+    }
+
+    public static int getAPNType(Context context) {
+        int netType = 0;
+        ConnectivityManager connMgr = (ConnectivityManager) context
+            .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo == null) {
+            return netType;
+        }
+        int nType = networkInfo.getType();
+        if (nType == ConnectivityManager.TYPE_WIFI) {
+            netType = 1;// wifi
+        } else if (nType == ConnectivityManager.TYPE_MOBILE) {
+            int nSubType = networkInfo.getSubtype();
+            TelephonyManager mTelephony = (TelephonyManager) context
+                .getSystemService(Context.TELEPHONY_SERVICE);
+            if (nSubType == TelephonyManager.NETWORK_TYPE_UMTS
+                && !mTelephony.isNetworkRoaming()) {
+                netType = 2;// 3G
+            } else {
+                netType = 3;// 2G
+            }
+        }
+        return netType;
+    }
+
+    BroadcastReceiver netReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(
+                    Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                if (networkInfo != null && networkInfo.isAvailable()) {
+                    int type2 = networkInfo.getType();
+                    switch (type2) {
+                        case 0://移动 网络    2G 3G 4G 都是一样的 实测 mix2s 联通卡
+                            updateBaseUrl(false);
+                            break;
+                        case 1: //wifi网络
+                            updateBaseUrl(true);
+                            break;
+
+                        case 9:  //网线连接
+                            break;
+                    }
+                } else {// 无网络
+
+                }
+            }
+        }
+
+    };
 }
