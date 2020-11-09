@@ -35,7 +35,7 @@ public interface AppPreferences {
     /**
      * Preferences listener. Callbacks should be invoked on main thread.
      *
-     * Miantainers should extend this interface with callbacks for specific
+     * Maintainers should extend this interface with callbacks for specific
      * events.
      */
     interface Listener {
