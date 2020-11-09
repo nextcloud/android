@@ -171,7 +171,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         binding.sharesList.setAdapter(new ShareeListAdapter(fileActivity,
                                                             new ArrayList<>(),
                                                             this,
-                                                            userId));
+                                                            userId,
+                                                            user));
         binding.sharesList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         setupView();
