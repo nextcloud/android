@@ -213,6 +213,7 @@
     <string name="drawer_item_activities">İşlemler</string>
     <string name="drawer_item_all_files">Tüm dosyalar</string>
     <string name="drawer_item_favorites">Sık Kullanılanlar</string>
+    <string name="drawer_item_gallery">Ortam</string>
     <string name="drawer_item_home">Giriş</string>
     <string name="drawer_item_notifications">Bildirimler</string>
     <string name="drawer_item_on_device">Aygıt üzerinde</string>
