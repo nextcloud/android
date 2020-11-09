@@ -47,6 +47,7 @@ import android.os.IBinder;
 import android.os.Parcelable;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -252,7 +253,6 @@ public class FileDisplayActivity extends FileActivity
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
 
         super.onCreate(savedInstanceState);
-        updateBaseUrl(getAPNType(this) == 0);
         /// Load of saved instance state
         if (savedInstanceState != null) {
             mWaitingToPreview = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
@@ -294,6 +294,10 @@ public class FileDisplayActivity extends FileActivity
         if (Intent.ACTION_VIEW.equals(getIntent().getAction())) {
             handleOpenFileViaIntent(getIntent());
         }
+        //add net broadcast
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(netReceiver,filter);
 
         mPlayerConnection = new PlayerServiceConnection(this);
 
@@ -338,6 +342,12 @@ public class FileDisplayActivity extends FileActivity
                 return true;
             });
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(netReceiver);
     }
 
     @Override
@@ -1168,6 +1178,7 @@ public class FileDisplayActivity extends FileActivity
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
+        updateBaseUrl(getAPNType(this) == 1);
         // Instead of onPostCreate, starting the loading in onResume for children fragments
         Fragment leftFragment = getLeftFragment();
 
@@ -2580,12 +2591,13 @@ public class FileDisplayActivity extends FileActivity
     public void updateBaseUrl(boolean isWifi) {
         //todo 如果是处于非wifi情况，使用  AccountUtils.Constants.KEY_OC_BASE_URL
         if (!isWifi) {
-            String baseUrl =
-                AccountManager.get(FileDisplayActivity.this).getUserData(accountManager.getCurrentAccount(),
-                                                                         AccountUtils.Constants.KEY_OC_BASE_URL_OUT);
-
-            AccountManager.get(FileDisplayActivity.this)
-                .setUserData(accountManager.getCurrentAccount(), AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl);
+            if (accountManager.getCurrentAccount()!=null) {
+                String baseUrl =
+                    AccountManager.get(FileDisplayActivity.this).getUserData(accountManager.getCurrentAccount(),
+                                                                             AccountUtils.Constants.KEY_OC_BASE_URL_OUT);
+                AccountManager.get(FileDisplayActivity.this)
+                    .setUserData(accountManager.getCurrentAccount(), AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl);
+            }
         } else {
 //        BaseUrlRemoteOperation getStatus = new BaseUrlRemoteOperation(this);
             new Thread(new Runnable() {
@@ -2595,6 +2607,7 @@ public class FileDisplayActivity extends FileActivity
                         BaseUrlRemoteOperation getStatus = new BaseUrlRemoteOperation(FileDisplayActivity.this, new BaseUrlRemoteOperation.OnBaseUrlChange() {
                             @Override
                             public void onBaseUrlChange(String baseUrl) {
+                                Log_OC.i(TAG, "onBaseUrlChange = " + baseUrl + ": ");
                                 AccountManager.get(FileDisplayActivity.this)
                                     .setUserData(accountManager.getCurrentAccount(), AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl);
                             }
@@ -2660,7 +2673,6 @@ public class FileDisplayActivity extends FileActivity
                             break;
                     }
                 } else {// 无网络
-
                 }
             }
         }
