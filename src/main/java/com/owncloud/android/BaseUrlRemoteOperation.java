@@ -123,8 +123,8 @@ public class BaseUrlRemoteOperation extends RemoteOperation {
 
             if (status == HttpStatus.SC_OK) {
                 JSONObject json = new JSONObject(response);
-                String newBaseUrl = "http://" + json.getString("result");
-                get = new GetMethod(newBaseUrl + "/apps/registration/get_status");
+                baseUrlSt = "http://" + json.getString("result");
+                get = new GetMethod(baseUrlSt + "/apps/registration/get_status");
                 params = HttpMethodParams.getDefaultParams();
                 params.setParameter(HttpMethodParams.USER_AGENT, OwnCloudClientManagerFactory.getUserAgent());
                 get.getParams().setDefaults(params);
@@ -152,8 +152,8 @@ public class BaseUrlRemoteOperation extends RemoteOperation {
                     if (TextUtils.isEmpty(initBaseUrl)) {
                         initBaseUrl = baseUrlSt;
                     }
-                    client.setBaseUri(Uri.parse(newBaseUrl));
-                    listener.onBaseUrlChange(newBaseUrl);
+                    client.setBaseUri(Uri.parse(baseUrlSt));
+                    listener.onBaseUrlChange(baseUrlSt);
                 }
             } else if (status == HttpStatus.SC_BAD_REQUEST) {
                 try {

@@ -104,7 +104,7 @@ class ChooseAccountDialogFragment :
             // Defining user texts, accounts, etc.
             user_name.text = user.toOwnCloudAccount().displayName
             ticker.visibility = View.GONE
-            account.text = user.accountName
+            account.text = user.server.uri.toString()
 
             // Defining user right indicator
             val icon = ThemeUtils.tintDrawable(

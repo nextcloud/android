@@ -2595,6 +2595,7 @@ public class FileDisplayActivity extends FileActivity
                 String baseUrl =
                     AccountManager.get(FileDisplayActivity.this).getUserData(accountManager.getCurrentAccount(),
                                                                              AccountUtils.Constants.KEY_OC_BASE_URL_OUT);
+                Log_OC.i(TAG, "updateBaseUrl baseUrl= "+baseUrl);
                 AccountManager.get(FileDisplayActivity.this)
                     .setUserData(accountManager.getCurrentAccount(), AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl);
             }
@@ -2607,6 +2608,7 @@ public class FileDisplayActivity extends FileActivity
                         BaseUrlRemoteOperation getStatus = new BaseUrlRemoteOperation(FileDisplayActivity.this, new BaseUrlRemoteOperation.OnBaseUrlChange() {
                             @Override
                             public void onBaseUrlChange(String baseUrl) {
+                                Log_OC.i(TAG, "onBaseUrlChange url= " +baseUrl );
                                 AccountManager.get(FileDisplayActivity.this)
                                     .setUserData(accountManager.getCurrentAccount(), AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl);
                             }
@@ -2634,13 +2636,16 @@ public class FileDisplayActivity extends FileActivity
         }
         int nType = networkInfo.getType();
         if (nType == ConnectivityManager.TYPE_WIFI) {
+            Log_OC.i(TAG, "getAPNType TYPE_WIFI ");
             netType = 1;// wifi
         } else if (nType == ConnectivityManager.TYPE_MOBILE) {
             int nSubType = networkInfo.getSubtype();
+            Log_OC.i(TAG, "getAPNType TYPE_MOBILE ");
             TelephonyManager mTelephony = (TelephonyManager) context
                 .getSystemService(Context.TELEPHONY_SERVICE);
             if (nSubType == TelephonyManager.NETWORK_TYPE_UMTS
                 && !mTelephony.isNetworkRoaming()) {
+
                 netType = 2;// 3G
             } else {
                 netType = 3;// 2G
@@ -2648,6 +2653,8 @@ public class FileDisplayActivity extends FileActivity
         }
         return netType;
     }
+
+    private NetworkInfo lastConnectedNetwork;
 
     BroadcastReceiver netReceiver = new BroadcastReceiver() {
 
@@ -2658,23 +2665,44 @@ public class FileDisplayActivity extends FileActivity
                 ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(
                     Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-                if (networkInfo != null && networkInfo.isAvailable()) {
-                    int type2 = networkInfo.getType();
-                    switch (type2) {
-                        case 0://移动 网络    2G 3G 4G 都是一样的 实测 mix2s 联通卡
-                            updateBaseUrl(false);
-                            break;
-                        case 1: //wifi网络
-                            updateBaseUrl(true);
-                            break;
-
-                        case 9:  //网线连接
-                            break;
+                if (networkInfo!=null) {
+                    Log_OC.i(TAG, "networkInfo getSubtypeName " + networkInfo.getSubtypeName());
+                    Log_OC.i(TAG, "networkInfo getTypeName " + networkInfo.getTypeName());
+                    Log_OC.i(TAG, "networkInfo getType " + networkInfo.getType());
+                }
+                if (networkInfo != null && networkInfo.getState() == NetworkInfo.State.CONNECTED) {
+                    if (lastConnectedNetwork == null
+                        || lastConnectedNetwork.getType() != networkInfo.getType()
+                        || !equalsObj(lastConnectedNetwork.getExtraInfo(), networkInfo.getExtraInfo())
+                    ) {
+                        int type2 = networkInfo.getType();
+                        switch (type2) {
+                            case 0://移动 网络    2G 3G 4G 都是一样的 实测 mix2s 联通卡
+                                Log_OC.i(TAG, "receive mobile ");
+                                updateBaseUrl(false);
+                                break;
+                            case 1: //wifi网络
+                                Log_OC.i(TAG, "receive wifi ");
+                                updateBaseUrl(true);
+                                break;
+                            case 9:  //网线连接
+                                Log_OC.i(TAG, "receive none ");
+                                break;
+                        }
+                        lastConnectedNetwork = networkInfo;
                     }
-                } else {// 无网络
+                } else if (networkInfo == null) {
+                    // Not connected, stop open, set last connected network to no network
+                    lastConnectedNetwork = null;
+                    updateBaseUrl(false);
+                    Log.d(TAG,"Disconnected from the network");
                 }
             }
         }
 
     };
+
+    public static boolean equalsObj(Object a, Object b) {
+        return (a == null) ? (b == null) : a.equals(b);
+    }
 }
