@@ -212,7 +212,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             setupDrawerHeader(drawerHeader);
 
             setupDrawerMenu(mNavigationView);
-            getAndDisplayUserQuota();
+//            getAndDisplayUserQuota();
             setupQuotaElement();
         }
 
