@@ -127,6 +127,9 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(view -> {
+            onClick(defaultTemplate);
+        });
     }
 
     @NonNull
@@ -171,7 +174,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view)
             .setNegativeButton(R.string.common_cancel, this)
-            .setPositiveButton(R.string.common_save, this)
+            .setPositiveButton(R.string.common_save, null)
             .setTitle(R.string.select_template);
         Dialog dialog = builder.create();
 

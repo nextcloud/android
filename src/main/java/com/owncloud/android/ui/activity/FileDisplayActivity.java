@@ -2578,25 +2578,35 @@ public class FileDisplayActivity extends FileActivity
     private boolean isWifi = false;
 
     public void updateBaseUrl(boolean isWifi) {
+        //todo 如果是处于非wifi情况，使用  AccountUtils.Constants.KEY_OC_BASE_URL
+        if (!isWifi) {
+            String baseUrl =
+                AccountManager.get(FileDisplayActivity.this).getUserData(accountManager.getCurrentAccount(),
+                                                                         AccountUtils.Constants.KEY_OC_BASE_URL_OUT);
+
+            AccountManager.get(FileDisplayActivity.this)
+                .setUserData(accountManager.getCurrentAccount(), AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl);
+        } else {
 //        BaseUrlRemoteOperation getStatus = new BaseUrlRemoteOperation(this);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    BaseUrlRemoteOperation getStatus = new BaseUrlRemoteOperation(FileDisplayActivity.this, new BaseUrlRemoteOperation.OnBaseUrlChange() {
-                        @Override
-                        public void onBaseUrlChange(String baseUrl) {
-                            AccountManager.get(FileDisplayActivity.this)
-                                .setUserData(accountManager.getCurrentAccount(), AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl);
-                        }
-                    });
-                    OwnCloudClient ownCloudClient = clientFactory.create(accountManager.getUser());
-                    getStatus.execute(ownCloudClient);
-                } catch (ClientFactory.CreationException e) {
-                    e.printStackTrace();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        BaseUrlRemoteOperation getStatus = new BaseUrlRemoteOperation(FileDisplayActivity.this, new BaseUrlRemoteOperation.OnBaseUrlChange() {
+                            @Override
+                            public void onBaseUrlChange(String baseUrl) {
+                                AccountManager.get(FileDisplayActivity.this)
+                                    .setUserData(accountManager.getCurrentAccount(), AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl);
+                            }
+                        });
+                        OwnCloudClient ownCloudClient = clientFactory.create(accountManager.getUser());
+                        getStatus.execute(ownCloudClient);
+                    } catch (ClientFactory.CreationException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }).start();
+            }).start();
+        }
         if (this.isWifi != isWifi) {
 
         }
