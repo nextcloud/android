@@ -188,6 +188,7 @@ android {
         testOptions {
             unitTests.returnDefaultValues = true
             animationsDisabled true
+            minSdkVersion 21
         }
     }
 
