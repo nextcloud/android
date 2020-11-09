@@ -47,7 +47,7 @@
     <string name="auth_connection_established">连接已建立</string>
     <string name="auth_fail_get_user_name">您的服务器没有返回正确的用户ID，请与管理员联系。</string>
     <string name="auth_host_address">服务器地址</string>
-    <string name="auth_host_url">服务器地址 https://…</string>
+    <string name="auth_host_url">服务器地址 http://…</string>
     <string name="auth_incorrect_address_title">服务器地址格式错误</string>
     <string name="auth_incorrect_path_title">找不到服务器</string>
     <string name="auth_no_net_conn_title">没有网络连接</string>

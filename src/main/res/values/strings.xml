@@ -66,7 +66,7 @@
     <string name="recommend_text">I want to invite you to use %1$s on your device.\nDownload here: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
 
-    <string name="auth_host_url">Server address https://…</string>
+    <string name="auth_host_url">Server address http://…</string>
     <string name="sync_string_files">Files</string>
     <string name="uploader_btn_upload_text">Upload</string>
     <string name="uploader_btn_alternative_text">Choose</string>
