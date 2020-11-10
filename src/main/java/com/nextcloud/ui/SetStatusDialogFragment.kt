@@ -23,6 +23,8 @@ package com.nextcloud.ui
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -213,6 +215,9 @@ class SetStatusDialogFragment :
 
         clearStatus.setTextColor(ThemeUtils.primaryColor(context, true))
         ThemeUtils.colorPrimaryButton(setStatus, context)
+        customStatusInput.background.colorFilter =
+            PorterDuffColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP)
+        customStatusInput.highlightColor = ThemeUtils.primaryColor(activity)
     }
 
     private fun setClearStatusAfterValue(item: Int) {
