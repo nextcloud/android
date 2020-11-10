@@ -22,7 +22,7 @@ package com.nextcloud.client.network;
 
 /**
  * This service provides information about current network connectivity
- * and server reachableity.
+ * and server reachability.
  */
 public interface ConnectivityService {
 
