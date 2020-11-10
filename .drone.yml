@@ -185,7 +185,6 @@ steps:
       GIT_TOKEN:
         from_secret: GIT_TOKEN
       ORG_GRADLE_PROJECT_coverage: ''
-      ORG_GRADLE_PROJECT_screenshot: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
       - emulator-headless -avd android-27 -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
@@ -240,7 +239,6 @@ steps:
       GIT_TOKEN:
         from_secret: GIT_TOKEN
       ORG_GRADLE_PROJECT_coverage: ''
-      ORG_GRADLE_PROJECT_screenshot: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
       - emulator-headless -avd android-27 -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &

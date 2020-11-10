@@ -79,7 +79,9 @@
         android:footerDividersEnabled="false"
         android:visibility="visible">
 
-        <include layout="@layout/empty_list"/>
+        <include
+            android:id="@+id/empty_list"
+            layout="@layout/empty_list" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

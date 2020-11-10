@@ -109,7 +109,7 @@
     <string name="common_no">Nej</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Väntar</string>
-    <string name="common_remove">Radera</string>
+    <string name="common_remove">Ta bort</string>
     <string name="common_rename">Byt namn</string>
     <string name="common_save">Spara</string>
     <string name="common_send">Skicka</string>
@@ -184,9 +184,9 @@
     <string name="credentials_disabled">Inloggningsuppgifter inaktiverade</string>
     <string name="date_unknown">Okänd</string>
     <string name="default_credentials_wrong">Felaktiga inloggningsuppgifter</string>
-    <string name="delete_account">Radera konto</string>
+    <string name="delete_account">Ta bort konto</string>
     <string name="delete_account_warning">Ta bort konto %s med alla lokala filer?\n\nBorttagning kan inte ångras.</string>
-    <string name="delete_entries">Radera poster</string>
+    <string name="delete_entries">Ta bort poster</string>
     <string name="deselect_all">Avmarkera alla</string>
     <string name="dev_version_new_version_available">Ny version tillgänglig</string>
     <string name="dev_version_no_information_available">Ingen tillgänglig information.</string>
@@ -213,6 +213,7 @@
     <string name="drawer_item_activities">Aktiviteter</string>
     <string name="drawer_item_all_files">Alla filer</string>
     <string name="drawer_item_favorites">Favoriter</string>
+    <string name="drawer_item_gallery">Media</string>
     <string name="drawer_item_home">Hem</string>
     <string name="drawer_item_notifications">Aviseringar</string>
     <string name="drawer_item_on_device">Filer på enheten</string>
@@ -284,7 +285,7 @@
     <string name="failed_update_ui">Misslyckades med att uppdatera UI</string>
     <string name="favorite">Lägg till favoriter</string>
     <string name="favorite_icon">Favoritisera</string>
-    <string name="file_delete">Radera</string>
+    <string name="file_delete">Ta bort</string>
     <string name="file_detail_activity_error">Fel vid hämtning av aktiviteter för fil</string>
     <string name="file_details_no_content">Kunde inte läsa in detaljer</string>
     <string name="file_icon">Fil</string>
@@ -371,6 +372,7 @@
     <string name="foreign_files_remote_text">Extern: %1$s</string>
     <string name="foreign_files_success">Alla filer flyttades</string>
     <string name="forward">Vidarebefordra</string>
+    <string name="fourHours">4 timmar</string>
     <string name="hint_name">Namn</string>
     <string name="hint_note">Anteckning</string>
     <string name="hint_password">Lösenord</string>
@@ -394,7 +396,7 @@
     <string name="log_send_mail_subject">%1$s Android-apploggar</string>
     <string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Vänligen installera en e-postklient.</string>
     <string name="login">Logga in</string>
-    <string name="logs_menu_delete">Radera loggar</string>
+    <string name="logs_menu_delete">Ta bort loggar</string>
     <string name="logs_menu_refresh">Uppdatera</string>
     <string name="logs_menu_search">Sök i loggar</string>
     <string name="logs_menu_send">Skicka loggar via e-post</string>
@@ -474,7 +476,7 @@
     <string name="pass_code_enter_pass_code">Vänligen ange ditt lösenord</string>
     <string name="pass_code_mismatch">Koderna matchar inte</string>
     <string name="pass_code_reenter_your_pass_code">Vänligen ange ditt lösenord igen</string>
-    <string name="pass_code_remove_your_pass_code">Radera ditt lösenord</string>
+    <string name="pass_code_remove_your_pass_code">Ta bort ditt lösenord</string>
     <string name="pass_code_removed">Lösenord raderat</string>
     <string name="pass_code_stored">Kod sparad</string>
     <string name="pass_code_wrong">Ogiltigt lösenord</string>
@@ -756,7 +758,7 @@
     <string name="upload_file_dialog_title">Mata in filnamn och filtyp att ladda upp</string>
     <string name="upload_files">Ladda upp filer</string>
     <string name="upload_item_action_button">Ladda upp objekthändelse-knapp</string>
-    <string name="upload_list_delete">Radera</string>
+    <string name="upload_list_delete">Ta bort</string>
     <string name="upload_list_empty_headline">Inga nerladdningar tillgängliga</string>
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>
     <string name="upload_list_resolve_conflict">Lös konflikt</string>
@@ -786,7 +788,7 @@
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytta filen till %1$s mappen</string>
     <string name="uploader_upload_files_behaviour_not_writable">källmappen är skrivskyddad; filen kommer bara att laddas upp</string>
     <string name="uploader_upload_files_behaviour_only_upload">Behåll fil i källmappen</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Radera fil från källmappen</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Ta bort fil från källmappen</string>
     <string name="uploader_upload_forbidden_permissions">att ladda upp denna mapp</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Laddar upp %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Laddar upp…</string>
