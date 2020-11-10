@@ -1,0 +1,6 @@
+Fix AppPreferencee Comment Typing Error
+simplify test min sdk
+Reset eTag so that capability get parsed again, so status is set
+replace butterknife with native view binding
+Update translations
+Update 3rd-party dependencies
