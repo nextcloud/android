@@ -89,13 +89,16 @@ def versionMinor = 14
 def versionPatch = 0
 def versionBuild = 52 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
+def testMinSdk = 21
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
     for (String arg : tr.args) {
         // any gplay, but only exact "build", as e.g. buildGeneric shall not apply gplay.grade
         if (arg.contains("Gplay") || arg.contains("lint") || arg.contains("ExecuteScreenshot") || arg == "build") {
             apply from: 'gplay.gradle'
             System.console().println("Applying gplay.gradle")
-            break
+        }
+        if (arg.contains("lint")) {
+            testMinSdk = 19
         }
     }
 }
@@ -188,6 +191,7 @@ android {
         testOptions {
             unitTests.returnDefaultValues = true
             animationsDisabled true
+            minSdkVersion testMinSdk
         }
     }
 
