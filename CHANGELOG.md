@@ -1,9 +1,9 @@
-## 3.14.0 RC2 (November, 09, 2020)
+## 3.14.0 RC2 (November, 10, 2020)
 
 Prevent Firebase crashes: Exodus will warn about tracker, but code wise it is disabled
 Status support
 Document storage enhancement @tgrote
-Auto upload media decetion improvements @AndyScherzinger
+Auto upload media detection improvements @AndyScherzinger
 Sharing UI rewrite
 Drop Android 4.3, new min version Android 4.4
 
