@@ -23,6 +23,7 @@ package com.owncloud.android.ui.adapter
 
 import android.content.Context
 import android.content.res.Resources
+import com.nextcloud.client.account.AnonymousUser
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import org.junit.Assert
@@ -81,7 +82,8 @@ class ShareeListAdapterTest {
 
         val randomOrder: MutableList<OCShare?> = ArrayList(expectedSortOrder)
         randomOrder.shuffle()
-        val sut = ShareeListAdapter(context, randomOrder, null, null)
+        val user = AnonymousUser("nextcloud")
+        val sut = ShareeListAdapter(context, randomOrder, null, null, user)
         sut.sortShares()
 
         // compare
