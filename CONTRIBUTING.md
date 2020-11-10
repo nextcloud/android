@@ -323,7 +323,7 @@ When submitting PRs with changed translations, please only submit changes to val
 
 ## Engineering practices
 
-This section contains some general guideliens for new contributors, based on common issues flagged during code review.
+This section contains some general guidelines for new contributors, based on common issues flagged during code review.
 
 ### Approach to technical debt
 
