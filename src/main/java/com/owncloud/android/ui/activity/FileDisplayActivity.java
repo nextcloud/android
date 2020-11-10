@@ -1178,7 +1178,7 @@ public class FileDisplayActivity extends FileActivity
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
-        updateBaseUrl(getAPNType(this) == 1);
+        getAPNType();
         // Instead of onPostCreate, starting the loading in onResume for children fragments
         Fragment leftFragment = getLeftFragment();
 
@@ -2626,32 +2626,23 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    public static int getAPNType(Context context) {
-        int netType = 0;
-        ConnectivityManager connMgr = (ConnectivityManager) context
-            .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo == null) {
-            return netType;
+    /**
+     * 校验网络状态
+     */
+    private void getAPNType() {
+        if (isWifiConnect()){
+            updateBaseUrl(true);
+        }else {
+            updateBaseUrl(false);
         }
-        int nType = networkInfo.getType();
-        if (nType == ConnectivityManager.TYPE_WIFI) {
-            Log_OC.i(TAG, "getAPNType TYPE_WIFI ");
-            netType = 1;// wifi
-        } else if (nType == ConnectivityManager.TYPE_MOBILE) {
-            int nSubType = networkInfo.getSubtype();
-            Log_OC.i(TAG, "getAPNType TYPE_MOBILE ");
-            TelephonyManager mTelephony = (TelephonyManager) context
-                .getSystemService(Context.TELEPHONY_SERVICE);
-            if (nSubType == TelephonyManager.NETWORK_TYPE_UMTS
-                && !mTelephony.isNetworkRoaming()) {
+    }
 
-                netType = 2;// 3G
-            } else {
-                netType = 3;// 2G
-            }
-        }
-        return netType;
+    private boolean isWifiConnect(){
+        ConnectivityManager cm =
+            (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm == null) return false;
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        return ni != null && ni.getType() == ConnectivityManager.TYPE_WIFI;
     }
 
     private NetworkInfo lastConnectedNetwork;
@@ -2665,30 +2656,12 @@ public class FileDisplayActivity extends FileActivity
                 ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(
                     Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-                if (networkInfo!=null) {
-                    Log_OC.i(TAG, "networkInfo getSubtypeName " + networkInfo.getSubtypeName());
-                    Log_OC.i(TAG, "networkInfo getTypeName " + networkInfo.getTypeName());
-                    Log_OC.i(TAG, "networkInfo getType " + networkInfo.getType());
-                }
                 if (networkInfo != null && networkInfo.getState() == NetworkInfo.State.CONNECTED) {
                     if (lastConnectedNetwork == null
                         || lastConnectedNetwork.getType() != networkInfo.getType()
                         || !equalsObj(lastConnectedNetwork.getExtraInfo(), networkInfo.getExtraInfo())
                     ) {
-                        int type2 = networkInfo.getType();
-                        switch (type2) {
-                            case 0://移动 网络    2G 3G 4G 都是一样的 实测 mix2s 联通卡
-                                Log_OC.i(TAG, "receive mobile ");
-                                updateBaseUrl(false);
-                                break;
-                            case 1: //wifi网络
-                                Log_OC.i(TAG, "receive wifi ");
-                                updateBaseUrl(true);
-                                break;
-                            case 9:  //网线连接
-                                Log_OC.i(TAG, "receive none ");
-                                break;
-                        }
+                        isWifiConnect();
                         lastConnectedNetwork = networkInfo;
                     }
                 } else if (networkInfo == null) {
