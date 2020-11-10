@@ -2661,7 +2661,7 @@ public class FileDisplayActivity extends FileActivity
                         || lastConnectedNetwork.getType() != networkInfo.getType()
                         || !equalsObj(lastConnectedNetwork.getExtraInfo(), networkInfo.getExtraInfo())
                     ) {
-                        isWifiConnect();
+                        getAPNType();
                         lastConnectedNetwork = networkInfo;
                     }
                 } else if (networkInfo == null) {
