@@ -1147,14 +1147,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 ((FileDisplayActivity) mContainerActivity).cancelTransference(checkedFiles);
                 return true;
             }
-//            case R.id.action_favorite: {
-//                mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, true);
-//                return true;
-//            }
-//            case R.id.action_unset_favorite: {
-//                mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, false);
-//                return true;
-//            }
+            case R.id.action_favorite: {
+                mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, true);
+                return true;
+            }
+            case R.id.action_unset_favorite: {
+                mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, false);
+                return true;
+            }
             case R.id.action_move: {
                 Intent action = new Intent(getActivity(), FolderPickerActivity.class);
                 action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, new ArrayList<>(checkedFiles));

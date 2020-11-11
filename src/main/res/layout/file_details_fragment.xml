@@ -63,7 +63,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/zero"
-                    android:visibility="gone"
                     android:layout_marginEnd="@dimen/standard_eighth_margin"
                     android:contentDescription="@null"
                     android:src="@drawable/ic_star_outline" />

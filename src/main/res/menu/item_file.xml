@@ -28,17 +28,17 @@
         app:showAsAction="never"
         android:showAsAction="never" />
 
-<!--    <item-->
-<!--        android:id="@+id/action_favorite"-->
-<!--        android:title="@string/favorite"-->
-<!--        app:showAsAction="never"-->
-<!--        android:showAsAction="never" />-->
+    <item
+        android:id="@+id/action_favorite"
+        android:title="@string/favorite"
+        app:showAsAction="never"
+        android:showAsAction="never" />
 
-<!--    <item-->
-<!--        android:id="@+id/action_unset_favorite"-->
-<!--        android:title="@string/unset_favorite"-->
-<!--        app:showAsAction="never"-->
-<!--        android:showAsAction="never" />-->
+    <item
+        android:id="@+id/action_unset_favorite"
+        android:title="@string/unset_favorite"
+        app:showAsAction="never"
+        android:showAsAction="never" />
 
     <item
         android:id="@+id/action_see_details"

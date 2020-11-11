@@ -1506,8 +1506,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 accountManager.getAccounts().length == 1) {
                 Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
             } else {
-                parseAndLoginFromWebView(result);
-//                mHostUrlInput.setText(result);
+//                parseAndLoginFromWebView(result);
+                mHostUrlInput.setText(result);
             }
         }
     }

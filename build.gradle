@@ -261,27 +261,27 @@ android {
 //        }
 //    }
 
-    android.applicationVariants.all { variant ->
-        String variantName = variant.name
-        String capVariantName = variantName.substring(0, 1).toUpperCase() + variantName.substring(1)
-        tasks.register("spotbugs${capVariantName}Report", SpotBugsTask) {
-            ignoreFailures = true // should continue checking
-            effort = "max"
-            reportLevel = "medium"
-            classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
-            excludeFilter = file("${project.rootDir}/spotbugs-filter.xml")
-
-            reports {
-                xml.enabled = false
-                html {
-                    enabled = true
-                    destination = file("$project.buildDir/reports/spotbugs/spotbugs.html")
-                }
-            }
-        }
-    }
-
-    check.dependsOn 'checkstyle', 'spotbugsGplayDebugReport', 'pmd', 'lint', 'ktlint', 'detekt'
+//    android.applicationVariants.all { variant ->
+//        String variantName = variant.name
+//        String capVariantName = variantName.substring(0, 1).toUpperCase() + variantName.substring(1)
+//        tasks.register("spotbugs${capVariantName}Report", SpotBugsTask) {
+//            ignoreFailures = true // should continue checking
+//            effort = "max"
+//            reportLevel = "medium"
+//            classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
+//            excludeFilter = file("${project.rootDir}/spotbugs-filter.xml")
+//
+//            reports {
+//                xml.enabled = false
+//                html {
+//                    enabled = true
+//                    destination = file("$project.buildDir/reports/spotbugs/spotbugs.html")
+//                }
+//            }
+//        }
+//    }
+//
+//    check.dependsOn 'checkstyle', 'spotbugsGplayDebugReport', 'pmd', 'lint', 'ktlint', 'detekt'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

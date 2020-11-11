@@ -206,8 +206,8 @@ public class FileMenuFilter {
         filterShareFile(toShow, toHide, capability);
         filterSendFiles(toShow, toHide);
         filterDetails(toShow, toHide);
-//        filterFavorite(toShow, toHide, synchronizing);
-//        filterUnfavorite(toShow, toHide, synchronizing);
+        filterFavorite(toShow, toHide, synchronizing);
+        filterUnfavorite(toShow, toHide, synchronizing);
         filterEncrypt(toShow, toHide, endToEndEncryptionEnabled);
         filterUnsetEncrypted(toShow, toHide, endToEndEncryptionEnabled);
 //        filterSetPictureAs(toShow, toHide);

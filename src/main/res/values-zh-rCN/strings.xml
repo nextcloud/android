@@ -210,7 +210,7 @@
     <string name="drawer_header_background">抽屉标题的背景图片</string>
     <string name="drawer_item_activities">动态</string>
     <string name="drawer_item_all_files">全部文件</string>
-    <string name="drawer_item_favorites">公共空间</string>
+    <string name="drawer_item_favorites">收藏</string>
     <string name="drawer_item_home">首页</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">在设备上的</string>

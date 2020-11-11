@@ -396,7 +396,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 menu.findItem(R.id.action_sync_file),
                 menu.findItem(R.id.action_select_all),
                 menu.findItem(R.id.action_move),
-                menu.findItem(R.id.action_copy)
+                menu.findItem(R.id.action_copy),
+                menu.findItem(R.id.action_favorite),
+                menu.findItem(R.id.action_unset_favorite)
         );
 
         if (getFile().isSharedWithMe() && !getFile().canReshare()) {
