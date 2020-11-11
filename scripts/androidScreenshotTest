@@ -72,7 +72,7 @@ if [[ $4 = "all" ]]; then
 else
     ./gradlew --offline gplayDebugExecuteScreenshotTests $record \
     -Pscreenshot=true \
-    -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest2 \
+    -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
     -Pandroid.testInstrumentationRunnerArguments.class=$class$method \
     $darkMode \
     $color

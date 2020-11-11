@@ -27,7 +27,7 @@ import android.Manifest;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.utils.ScreenshotTest2;
+import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,7 +49,7 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
-    @ScreenshotTest2
+    @ScreenshotTest
     public void open() {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
@@ -62,7 +62,7 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
     }
 
     @Test
-    @ScreenshotTest2
+    @ScreenshotTest
     public void drawer() {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 

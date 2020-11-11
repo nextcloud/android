@@ -23,7 +23,7 @@ package com.owncloud.android.ui.trashbin
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.owncloud.android.AbstractIT
-import com.owncloud.android.utils.ScreenshotTest2
+import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
 
@@ -36,7 +36,7 @@ class TrashbinActivityIT : AbstractIT() {
     var activityRule = IntentsTestRule(TrashbinActivity::class.java, true, false)
 
     @Test
-    @ScreenshotTest2
+    @ScreenshotTest
     fun error() {
         val sut: TrashbinActivity = activityRule.launchActivity(null)
 
@@ -52,7 +52,7 @@ class TrashbinActivityIT : AbstractIT() {
     }
 
     @Test
-    @ScreenshotTest2
+    @ScreenshotTest
     fun files() {
         val sut: TrashbinActivity = activityRule.launchActivity(null)
 
@@ -70,7 +70,7 @@ class TrashbinActivityIT : AbstractIT() {
     }
 
     @Test
-    @ScreenshotTest2
+    @ScreenshotTest
     fun empty() {
         val sut: TrashbinActivity = activityRule.launchActivity(null)
 

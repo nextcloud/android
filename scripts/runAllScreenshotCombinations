@@ -35,7 +35,7 @@ do
     else
         ./gradlew --console plain gplayDebugExecuteScreenshotTests \
         $record \
-        -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest2 \
+        -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
         -Pandroid.testInstrumentationRunnerArguments.COLOR="$color" \
         -Pandroid.testInstrumentationRunnerArguments.DARKMODE="$darkMode" </dev/null > /dev/null \
         && scripts/deleteOutdatedComments.sh "$1-$darkMode-$color" "Screenshot" "$4" \

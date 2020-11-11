@@ -28,7 +28,7 @@ import android.view.View;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
-import com.owncloud.android.utils.ScreenshotTest2;
+import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -51,7 +51,7 @@ public class ActivitiesActivityIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
-    @ScreenshotTest2
+    @ScreenshotTest
     public void openDrawer() {
         ActivitiesActivity sut = activityRule.launchActivity(null);
 

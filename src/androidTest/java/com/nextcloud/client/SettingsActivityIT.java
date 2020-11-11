@@ -32,7 +32,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.ui.activity.RequestCredentialsActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.EncryptionUtils;
-import com.owncloud.android.utils.ScreenshotTest2;
+import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -53,7 +53,7 @@ public class SettingsActivityIT extends AbstractIT {
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
-    @ScreenshotTest2
+    @ScreenshotTest
     public void open() {
         Activity sut = activityRule.launchActivity(null);
 
@@ -61,7 +61,7 @@ public class SettingsActivityIT extends AbstractIT {
     }
 
     @Test
-    @ScreenshotTest2
+    @ScreenshotTest
     public void showMnemonic_Error() {
         SettingsActivity sut = activityRule.launchActivity(null);
         sut.handleMnemonicRequest(null);
