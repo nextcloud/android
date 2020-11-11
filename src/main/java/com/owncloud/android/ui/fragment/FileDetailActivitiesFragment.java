@@ -307,7 +307,9 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
                     RemoteOperationResult result1 = readFileVersionsOperation.execute(ownCloudClient);
 
-                    versions = result1.getData();
+                    if (result1.isSuccess()) {
+                        versions = result1.getData();
+                    }
                 }
 
                 if (result.isSuccess() && result.getData() != null) {

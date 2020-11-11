@@ -26,10 +26,12 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.utils.DisplayUtils;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -38,24 +40,28 @@ import androidx.recyclerview.widget.RecyclerView;
 class ShareViewHolder extends RecyclerView.ViewHolder {
     private FileDetailsShareShareItemBinding binding;
     private float avatarRadiusDimension;
+    private User user;
     private Context context;
 
     public ShareViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
-    public ShareViewHolder(FileDetailsShareShareItemBinding binding, Context context) {
+    public ShareViewHolder(FileDetailsShareShareItemBinding binding, User user, Context context) {
         this(binding.getRoot());
         this.binding = binding;
+        this.user = user;
         this.context = context;
     }
 
     public void bind(OCShare share,
                      ShareeListAdapterListener listener,
+                     DisplayUtils.AvatarGenerationListener avatarListener,
                      String userId,
                      float avatarRadiusDimension) {
         this.avatarRadiusDimension = avatarRadiusDimension;
         String name = share.getSharedWithDisplayName();
+        binding.icon.setTag(null);
 
         switch (share.getShareType()) {
             case GROUP:
@@ -73,6 +79,17 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
                 name = context.getString(R.string.share_remote_clarification, name);
                 setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_user);
                 break;
+            case USER:
+                binding.icon.setTag(share.getShareWith());
+                float avatarRadius = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
+                DisplayUtils.setAvatar(user,
+                                       share.getShareWith(),
+                                       share.getSharedWithDisplayName(),
+                                       avatarListener,
+                                       avatarRadius,
+                                       context.getResources(),
+                                       binding.icon,
+                                       context);
             default:
                 setImage(binding.icon, name, R.drawable.ic_user);
                 break;
