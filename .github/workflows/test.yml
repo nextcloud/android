@@ -23,7 +23,7 @@ jobs:
             -   name: run tests
                 uses: reactivecircus/android-emulator-runner@v2
                 with:
-                    api-level: 29
+                    api-level: 27
                     emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
                     script: ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest2
             -   name: upload failing results
