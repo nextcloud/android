@@ -145,8 +145,16 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         fetchAndSetData(-1);
 
-        binding.swipeContainingList.setOnRefreshListener(() -> onRefreshListLayout(binding.swipeContainingList));
-        binding.swipeContainingEmpty.setOnRefreshListener(() -> onRefreshListLayout(binding.swipeContainingEmpty));
+        binding.swipeContainingList.setOnRefreshListener(() -> {
+            setLoadingMessage();
+            binding.swipeContainingList.setRefreshing(true);
+            fetchAndSetData(-1);
+        });
+
+        binding.swipeContainingEmpty.setOnRefreshListener(() -> {
+            setLoadingMessageEmpty();
+            fetchAndSetData(-1);
+        });
 
         callback = new VersionListInterface.CommentCallback() {
 
@@ -188,18 +196,15 @@ public class FileDetailActivitiesFragment extends Fragment implements
         }
     }
 
-    private void onRefreshListLayout(SwipeRefreshLayout refreshLayout) {
-        setLoadingMessage();
-        if (refreshLayout != null && refreshLayout.isRefreshing()) {
-            refreshLayout.setRefreshing(false);
-        }
-        fetchAndSetData(-1);
+    private void setLoadingMessage() {
+        binding.swipeContainingEmpty.setVisibility(View.GONE);
     }
 
-    private void setLoadingMessage() {
-        binding.emptyList.emptyListViewHeadline.setText(R.string.file_list_loading);
-        binding.emptyList.emptyListViewText.setText("");
-        binding.emptyList.emptyListIcon.setVisibility(View.GONE);
+    @VisibleForTesting
+    public void setLoadingMessageEmpty() {
+        binding.swipeContainingList.setVisibility(View.GONE);
+        binding.emptyList.emptyListView.setVisibility(View.GONE);
+        binding.loadingContent.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -266,15 +271,11 @@ public class FileDetailActivitiesFragment extends Fragment implements
             return;
         }
 
-        final SwipeRefreshLayout empty = binding.swipeContainingEmpty;
-        final SwipeRefreshLayout list = binding.swipeContainingList;
         final User user = accountManager.getUser();
 
         if (user.isAnonymous()) {
             activity.runOnUiThread(() -> {
                 setEmptyContent(getString(R.string.common_error), getString(R.string.file_detail_activity_error));
-                list.setVisibility(View.GONE);
-                empty.setVisibility(View.VISIBLE);
             });
             return;
         }
@@ -378,9 +379,11 @@ public class FileDetailActivitiesFragment extends Fragment implements
                            );
             binding.swipeContainingList.setVisibility(View.GONE);
             binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
+            binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
         } else {
             binding.swipeContainingList.setVisibility(View.VISIBLE);
             binding.swipeContainingEmpty.setVisibility(View.GONE);
+            binding.emptyList.emptyListView.setVisibility(View.GONE);
         }
         isLoadingActivities = false;
     }
@@ -394,6 +397,11 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
+
+        binding.swipeContainingList.setVisibility(View.GONE);
+        binding.loadingContent.setVisibility(View.GONE);
+        binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
     }
 
     @VisibleForTesting
@@ -408,6 +416,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
         binding.swipeContainingList.setVisibility(View.GONE);
         binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
     }
 
     private void hideRefreshLayoutLoader(FragmentActivity activity) {
@@ -415,6 +424,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
                 binding.swipeContainingList.setRefreshing(false);
                 binding.swipeContainingEmpty.setRefreshing(false);
+                binding.emptyList.emptyListView.setVisibility(View.GONE);
                 isLoadingActivities = false;
             }
         });
