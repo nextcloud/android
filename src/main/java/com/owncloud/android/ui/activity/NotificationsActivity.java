@@ -118,11 +118,12 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
 
         binding.swipeContainingList.setOnRefreshListener(() -> {
             setLoadingMessage();
+            binding.swipeContainingList.setRefreshing(true);
             fetchAndSetData();
         });
 
         binding.swipeContainingEmpty.setOnRefreshListener(() -> {
-            setLoadingMessage();
+            setLoadingMessageEmpty();
             fetchAndSetData();
         });
 
@@ -190,7 +191,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
      */
     private void setupContent() {
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_notification);
-        setLoadingMessage();
+        setLoadingMessageEmpty();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
@@ -290,12 +291,23 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
     }
 
     @VisibleForTesting
+    public void setLoadingMessageEmpty() {
+        binding.swipeContainingList.setVisibility(View.GONE);
+        binding.emptyList.emptyListView.setVisibility(View.GONE);
+        binding.loadingContent.setVisibility(View.VISIBLE);
+    }
+
+    @VisibleForTesting
     public void setEmptyContent(String headline, String message) {
+        binding.swipeContainingList.setVisibility(View.GONE);
+        binding.loadingContent.setVisibility(View.GONE);
+        binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
+
         binding.emptyList.emptyListViewHeadline.setText(headline);
         binding.emptyList.emptyListViewText.setText(message);
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_notification);
 
-        binding.loadingContent.setVisibility(View.GONE);
         binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
     }
