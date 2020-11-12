@@ -24,8 +24,10 @@ package com.owncloud.android.ui.asynctasks;
 import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.DocumentsContract;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
