@@ -1,0 +1,9 @@
+Show generated avatars is file detail sharing list
+fixed typo in comment
+fixed typo in comment
+proper edit text coloring
+use higher sdk only for lint
+Fix CONTRIBUTING.md Typing Error
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
