@@ -42,12 +42,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -64,6 +60,7 @@ import com.nextcloud.client.files.downloader.TransferState;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.ContactlistFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
@@ -97,8 +94,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import ezvcard.Ezvcard;
 import ezvcard.VCard;
 import ezvcard.property.Photo;
@@ -118,30 +113,10 @@ public class ContactListFragment extends FileFragment implements Injectable {
 
     private static final int SINGLE_ACCOUNT = 1;
 
-    @BindView(R.id.contactlist_recyclerview)
-    public RecyclerView recyclerView;
-
-    @BindView(R.id.contactlist_restore_selected_container)
-    public LinearLayout restoreContactsContainer;
-
-    @BindView(R.id.contactlist_restore_selected)
-    public Button restoreContacts;
-
-    @BindView(R.id.empty_list_view_text)
-    public TextView emptyContentMessage;
-
-    @BindView(R.id.empty_list_view_headline)
-    public TextView emptyContentHeadline;
-
-    @BindView(R.id.empty_list_icon)
-    public ImageView emptyContentIcon;
-
-    @BindView(R.id.empty_list_container)
-    public RelativeLayout emptyListContainer;
-
+    private ContactlistFragmentBinding binding;
 
     private ContactListAdapter contactListAdapter;
-    private List<VCard> vCards = new ArrayList<>();
+    private final List<VCard> vCards = new ArrayList<>();
     private OCFile ocFile;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
@@ -169,8 +144,8 @@ public class ContactListFragment extends FileFragment implements Injectable {
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.contactlist_fragment, container, false);
-        ButterKnife.bind(this, view);
+        binding = ContactlistFragmentBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
         setHasOptionsMenu(true);
 
@@ -184,8 +159,6 @@ public class ContactListFragment extends FileFragment implements Injectable {
             }
             contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
         }
-
-        recyclerView = view.findViewById(R.id.contactlist_recyclerview);
 
         if (savedInstanceState == null) {
             contactListAdapter = new ContactListAdapter(accountManager, clientFactory, getContext(), vCards);
@@ -202,8 +175,8 @@ public class ContactListFragment extends FileFragment implements Injectable {
             }
             contactListAdapter = new ContactListAdapter(accountManager, getContext(), vCards, checkedItems);
         }
-        recyclerView.setAdapter(contactListAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.contactlistRecyclerview.setAdapter(contactListAdapter);
+        binding.contactlistRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
 
         ocFile = getArguments().getParcelable(FILE_NAME);
         setFile(ocFile);
@@ -218,17 +191,16 @@ public class ContactListFragment extends FileFragment implements Injectable {
             loadContactsTask.execute();
         }
 
-        restoreContacts.setOnClickListener(new View.OnClickListener() {
+        binding.contactlistRestoreSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (checkAndAskForContactsWritePermission()) {
                     getAccountForImport();
                 }
             }
         });
 
-        restoreContacts.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+        binding.contactlistRestoreSelected.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
 
         return view;
     }
@@ -250,9 +222,9 @@ public class ContactListFragment extends FileFragment implements Injectable {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(VCardToggleEvent event) {
         if (event.showRestoreButton) {
-            restoreContactsContainer.setVisibility(View.VISIBLE);
+            binding.contactlistRestoreSelectedContainer.setVisibility(View.VISIBLE);
         } else {
-            restoreContactsContainer.setVisibility(View.GONE);
+            binding.contactlistRestoreSelectedContainer.setVisibility(View.GONE);
         }
     }
 
@@ -261,6 +233,12 @@ public class ContactListFragment extends FileFragment implements Injectable {
         super.onDestroy();
         ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
         contactsPreferenceActivity.setDrawerIndicatorEnabled(true);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
     public void onResume() {
@@ -308,10 +286,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
     }
 
     private void setLoadingMessage() {
-        emptyContentHeadline.setText(R.string.file_list_loading);
-        emptyContentMessage.setText("");
-
-        emptyContentIcon.setVisibility(View.GONE);
+        binding.loadingListContainer.setVisibility(View.VISIBLE);
     }
 
     private void setSelectAllMenuItem(MenuItem selectAll, boolean checked) {
@@ -364,7 +339,13 @@ public class ContactListFragment extends FileFragment implements Injectable {
                                                           getFile().getStoragePath(),
                                                           contactListAdapter.getCheckedIntArray());
 
-        Snackbar.make(recyclerView, R.string.contacts_preferences_import_scheduled, Snackbar.LENGTH_LONG).show();
+        Snackbar
+            .make(
+                binding.contactlistRecyclerview,
+                R.string.contacts_preferences_import_scheduled,
+                Snackbar.LENGTH_LONG
+                 )
+            .show();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -388,10 +369,10 @@ public class ContactListFragment extends FileFragment implements Injectable {
         Cursor cursor = null;
         try {
             cursor = getContext().getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI,
-                    new String[]{ContactsContract.RawContacts.ACCOUNT_NAME, ContactsContract.RawContacts.ACCOUNT_TYPE},
-                    null,
-                    null,
-                    null);
+                                                             new String[]{ContactsContract.RawContacts.ACCOUNT_NAME, ContactsContract.RawContacts.ACCOUNT_TYPE},
+                                                             null,
+                                                             null,
+                                                             null);
 
             if (cursor != null && cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
@@ -421,12 +402,12 @@ public class ContactListFragment extends FileFragment implements Injectable {
             ArrayAdapter adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, contactsAccounts);
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle(R.string.contactlist_account_chooser_title)
-                    .setAdapter(adapter, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            importContacts(contactsAccounts.get(which));
-                        }
-                    }).show();
+                .setAdapter(adapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        importContacts(contactsAccounts.get(which));
+                    }
+                }).show();
         }
     }
 
@@ -434,7 +415,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
         // check permissions
         if (!PermissionUtil.checkSelfPermission(getContext(), Manifest.permission.WRITE_CONTACTS)) {
             requestPermissions(new String[]{Manifest.permission.WRITE_CONTACTS},
-                    PermissionUtil.PERMISSIONS_WRITE_CONTACTS);
+                               PermissionUtil.PERMISSIONS_WRITE_CONTACTS);
             return false;
         } else {
             return true;
@@ -453,7 +434,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
                     } else {
                         if (getView() != null) {
                             Snackbar.make(getView(), R.string.contactlist_no_permission, Snackbar.LENGTH_LONG)
-                                    .show();
+                                .show();
                         } else {
                             Toast.makeText(getContext(), R.string.contactlist_no_permission, Toast.LENGTH_LONG).show();
                         }
@@ -493,7 +474,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
 
         @Override
         public int hashCode() {
-            return Arrays.hashCode(new Object[] {displayName, name, type});
+            return Arrays.hashCode(new Object[]{displayName, name, type});
         }
     }
 
@@ -544,7 +525,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
         @Override
         protected void onPostExecute(Boolean bool) {
             if (!isCancelled()) {
-                emptyListContainer.setVisibility(View.GONE);
+                binding.loadingListContainer.setVisibility(View.GONE);
                 contactListAdapter.replaceVCards(vCards);
             }
         }
@@ -646,11 +627,11 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
             } else {
                 try {
                     holder.getBadge().setImageDrawable(
-                            TextDrawable.createNamedAvatar(
-                                    holder.getName().getText().toString(),
-                                    context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius)
-                            )
-                    );
+                        TextDrawable.createNamedAvatar(
+                            holder.getName().getText().toString(),
+                            context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius)
+                                                      )
+                                                      );
                 } catch (Exception e) {
                     holder.getBadge().setImageResource(R.drawable.ic_user);
                 }
@@ -667,7 +648,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         if (data != null && data.length > 0) {
             Bitmap thumbnail = BitmapFactory.decodeByteArray(data, 0, data.length);
             RoundedBitmapDrawable drawable = BitmapUtils.bitmapToCircularBitmapDrawable(context.getResources(),
-                    thumbnail);
+                                                                                        thumbnail);
 
             imageView.setImageDrawable(drawable);
         } else if (url != null) {
