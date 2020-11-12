@@ -143,6 +143,19 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                 currentUri = uris[i];
                 currentRemotePath = remotePaths[i];
 
+                long lastModified = 0;
+                try (Cursor cursor = leakedContentResolver.query(currentUri,
+                                                                 null,
+                                                                 null,
+                                                                 null,
+                                                                 null)) {
+                    if (cursor.moveToFirst()) {
+                        lastModified = cursor.getLong(
+                            cursor.getColumnIndexOrThrow(
+                                DocumentsContract.Document.COLUMN_LAST_MODIFIED));
+                    }
+                }
+                
                 fullTempPath = FileStorageUtils.getTemporalPath(account.name) + currentRemotePath;
                 inputStream = leakedContentResolver.openInputStream(currentUri);
                 File cacheFile = new File(fullTempPath);
@@ -158,7 +171,20 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                 while ((count = inputStream.read(buffer)) > 0) {
                     outputStream.write(buffer, 0, count);
                 }
-
+                
+                try {
+                    if(lastModified != 0 ){
+                        
+                        if(!cacheFile.setLastModified(lastModified)){
+                            Log_OC.w(TAG, "Could not change mtime of cacheFile");
+                        }
+                    }
+                }catch (SecurityException e) {
+                    Log_OC.e(TAG, "Not enough permissions to change mtime of cacheFile", e);
+                }catch (IllegalArgumentException e) {
+                    Log_OC.e(TAG, "Could not change mtime of cacheFile, mtime is negativ: "+lastModified, e);
+                }
+                
                 requestUpload(
                     account,
                     fullTempPath,
