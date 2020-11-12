@@ -31,9 +31,13 @@
     <string name="activity_chooser_title">Trimite link la…</string>
     <string name="activity_icon">Activitate</string>
     <string name="add_another_public_share_link">Adaugă un alt link</string>
+    <string name="add_new_public_share">Adaugă un link public partajat nou</string>
     <string name="add_to_cloud">Adaugă la 1 %1$s</string>
+    <string name="allow_creating">Permite crearea</string>
+    <string name="allow_deleting">Permite ștergerea</string>
     <string name="allow_editing">Permite editarea</string>
     <string name="allow_resharing">Permite repartajarea</string>
+    <string name="appbar_search_in">Caută in %s</string>
     <string name="associated_account_not_found">Contul asociat nu a fost găsit!</string>
     <string name="auth_access_failed">Accesul a eșuat: %1$s</string>
     <string name="auth_account_does_not_exist">Contul nu există încă pe dispozitiv</string>
@@ -41,6 +45,7 @@
     <string name="auth_account_not_the_same">Utilizatorul introdus nu se potrivește cu utilizatorul acestui cont</string>
     <string name="auth_bad_oc_version_title">Versiune necunoscuta a serverului </string>
     <string name="auth_connection_established">Conexiune stabilită</string>
+    <string name="auth_fail_get_user_name">Serverul tau nu returnează un ID de utilizator corect, te rog contactează un administrator. </string>
     <string name="auth_host_address">Adresa server-ului</string>
     <string name="auth_host_url">Adresa serverului https://…</string>
     <string name="auth_incorrect_address_title">Format greșit de adresă pentru server</string>
@@ -105,6 +110,7 @@
     <string name="common_save">Salvează</string>
     <string name="common_send">Trimitere</string>
     <string name="common_share">Distribuie</string>
+    <string name="common_switch_account">Schimba contul</string>
     <string name="common_unknown">necunoscut</string>
     <string name="common_yes">Da</string>
     <string name="community_beta_headline">Testează versiunea în curs de dezvoltare</string>
@@ -153,6 +159,7 @@
     <string name="create_new_folder">Creează director nou</string>
     <string name="create_new_presentation">Crează prezentare nouă</string>
     <string name="create_new_spreadsheet">Crează foaie de calcul nouă</string>
+    <string name="create_rich_workspace">Adaugă informații director</string>
     <string name="credentials_disabled">Autentificare dezactivată</string>
     <string name="date_unknown">Necunoscut</string>
     <string name="default_credentials_wrong">Date de autentificare incorecte</string>
@@ -167,6 +174,7 @@
     <string name="disable_new_media_folder_detection_notifications">Dezactivează</string>
     <string name="dismiss">Elimină</string>
     <string name="dismiss_notification_description">Elimină notificarea</string>
+    <string name="dnd">Nu deranja</string>
     <string name="download_latest_dev_version">Descarcă ultima versiune dezvoltator</string>
     <string name="downloader_download_failed_content">Nu s-a putut descărca %1$s</string>
     <string name="downloader_download_failed_credentials_error">Descărcarea a eșuat, autentificați-vă din nou</string>
@@ -197,6 +205,7 @@
     <string name="drawer_quota">%1$s din %2$s folosiți</string>
     <string name="drawer_quota_unlimited">%1$s utilizat</string>
     <string name="drawer_synced_folders">Încărcare automată</string>
+    <string name="edit_label">Schimbă numele</string>
     <string name="edit_permission_label">editare</string>
     <string name="encrypted">Setați drept criptat</string>
     <string name="end_to_end_encryption_confirm_button">Setează criptarea</string>
@@ -218,6 +227,7 @@
     <string name="error_report_issue_action">Raport</string>
     <string name="etm_accounts">Conturi</string>
     <string name="etm_background_job_progress">Progres</string>
+    <string name="etm_background_job_user">Utilizator</string>
     <string name="favorite">Adăugați la favorite</string>
     <string name="favorite_icon">Favorite</string>
     <string name="file_delete">Ștergeți</string>
