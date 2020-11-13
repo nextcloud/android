@@ -46,7 +46,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
@@ -277,11 +279,15 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                     }
                 }
                 binding.emptyListView.setVisibility(View.GONE);
+                binding.emptyListProgress.setVisibility(View.GONE);
                 binding.image.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
                 binding.image.setVisibility(View.VISIBLE);
 
             } else {
-                loadBitmapTask = new LoadBitmapTask(binding.image);
+                loadBitmapTask = new LoadBitmapTask(binding.image, binding.emptyListView, binding.emptyListProgress);
+                binding.image.setVisibility(View.GONE);
+                binding.emptyListView.setVisibility(View.GONE);
+                binding.emptyListProgress.setVisibility(View.VISIBLE);
                 loadBitmapTask.execute(getFile());
             }
         } else {
@@ -465,7 +471,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
          * Using a weak reference will avoid memory leaks if the target ImageView is retired from
          * memory before the load finishes.
          */
-        private final WeakReference<PhotoView> mImageViewRef;
+        private final WeakReference<PhotoView> imageViewRef;
+        private final WeakReference<LinearLayout> infoViewRef;
+        private final WeakReference<FrameLayout> progressViewRef;
 
         /**
          * Error message to show when a load fails.
@@ -478,8 +486,10 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
          *
          * @param imageView Target {@link ImageView} where the bitmap will be loaded into.
          */
-        LoadBitmapTask(PhotoView imageView) {
-            mImageViewRef = new WeakReference<>(imageView);
+        LoadBitmapTask(PhotoView imageView, LinearLayout infoView, FrameLayout progressView) {
+            imageViewRef = new WeakReference<>(imageView);
+            infoViewRef = new WeakReference<>(infoView);
+            progressViewRef = new WeakReference<>(progressView);
         }
 
         @Override
@@ -597,7 +607,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         }
 
         private void showLoadedImage(LoadImage result) {
-            final PhotoView imageView = mImageViewRef.get();
+            final PhotoView imageView = imageViewRef.get();
             Bitmap bitmap = result.bitmap;
             Drawable drawable = result.drawable;
 
@@ -614,7 +624,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                         imageView.setImageBitmap(bitmap);
                     }
 
-                    imageView.setVisibility(View.VISIBLE);
                     PreviewImageFragment.this.bitmap = bitmap;  // needs to be kept for recycling when not useful
                 } else {
                     if (drawable != null
@@ -623,8 +632,15 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                         imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, null));
                     }
                 }
+                final LinearLayout infoView = infoViewRef.get();
+                if (infoView != null) {
+                    infoView.setVisibility(View.GONE);
+                }
 
-                binding.emptyListView.setVisibility(View.GONE);
+                final FrameLayout progressView = progressViewRef.get();
+                if (progressView != null) {
+                    progressView.setVisibility(View.GONE);
+                }
                 imageView.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
                 imageView.setVisibility(View.VISIBLE);
             }
@@ -676,16 +692,13 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     }
 
     private void showErrorMessage(@StringRes int errorMessageId) {
-        binding.image.setBackgroundColor(Color.TRANSPARENT);
         setSorryMessageForMultiList(errorMessageId);
     }
 
     private void setMultiListLoadingMessage() {
-            binding.emptyListViewHeadline.setText("");
-            binding.emptyListViewText.setText("");
-
-            binding.emptyListIcon.setVisibility(View.GONE);
-            binding.emptyListProgress.setVisibility(View.VISIBLE);
+        binding.image.setVisibility(View.GONE);
+        binding.emptyListView.setVisibility(View.GONE);
+        binding.emptyListProgress.setVisibility(View.VISIBLE);
     }
 
     private void setSorryMessageForMultiList(@StringRes int message) {
@@ -697,8 +710,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         binding.emptyListViewHeadline.setTextColor(getResources().getColor(R.color.standard_grey));
         binding.emptyListViewText.setTextColor(getResources().getColor(R.color.standard_grey));
 
-        binding.emptyListViewText.setVisibility(View.VISIBLE);
-        binding.emptyListIcon.setVisibility(View.VISIBLE);
+        binding.image.setVisibility(View.GONE);
+        binding.emptyListView.setVisibility(View.VISIBLE);
         binding.emptyListProgress.setVisibility(View.GONE);
     }
 
