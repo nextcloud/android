@@ -121,11 +121,11 @@ android {
         javaMaxHeapSize "4g"
     }
 
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
 
         // arguments to be passed to functional tests
         testInstrumentationRunner "com.nextcloud.client.ScreenshotTestRunner"
