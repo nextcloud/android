@@ -49,4 +49,3 @@ fastlane/Fastfile
 **/fastlane/test_output
 /fastlane/vendor/
 /.bundle/
-.idea/codeStyles/Project.xml
