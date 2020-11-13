@@ -151,7 +151,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                                                                  null,
                                                                  null,
                                                                  null)) {
-                    if (cursor.moveToFirst()) {
+                    if (cursor != null && cursor.moveToFirst()) {
                         lastModified = cursor.getLong(
                             cursor.getColumnIndexOrThrow(
                                 DocumentsContract.Document.COLUMN_LAST_MODIFIED));
