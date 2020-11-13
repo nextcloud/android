@@ -221,6 +221,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
         restoreFileVersionSupported = capability.getFilesVersioning().isTrue();
 
         binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_activity, null));
+        binding.emptyList.emptyListView.setVisibility(View.GONE);
 
         adapter = new ActivityAndVersionListAdapter(getContext(),
                                                     accountManager,

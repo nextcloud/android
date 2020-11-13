@@ -54,11 +54,11 @@
                     android:layout_marginLeft="-3dp"
                     android:layout_marginRight="-3dp"
                     android:layout_marginBottom="-3dp"
+                    android:background="@color/bg_default"
                     android:clipToPadding="false"
                     android:scrollbarStyle="outsideOverlay"
                     android:scrollbars="vertical"
                     android:visibility="visible"
-                    android:background="@color/bg_default"
                     tools:listitem="@layout/notification_list_item" />
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -70,23 +70,32 @@
                 android:footerDividersEnabled="false"
                 android:visibility="visible">
 
-                <LinearLayout
-                    android:id="@+id/loading_content"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="visible">
+                    android:layout_height="match_parent">
 
-                    <include layout="@layout/activity_list_item_shimmer" />
-                    <include layout="@layout/activity_list_item_shimmer" />
-                    <include layout="@layout/activity_list_item_shimmer" />
-                    <include layout="@layout/activity_list_item_shimmer" />
+                    <LinearLayout
+                        android:id="@+id/loading_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible">
 
-                </LinearLayout>
+                        <include layout="@layout/activity_list_item_shimmer" />
 
-                <include
-                    android:id="@+id/empty_list"
-                    layout="@layout/empty_list"/>
+                        <include layout="@layout/activity_list_item_shimmer" />
+
+                        <include layout="@layout/activity_list_item_shimmer" />
+
+                        <include layout="@layout/activity_list_item_shimmer" />
+
+                    </LinearLayout>
+
+                    <include
+                        android:id="@+id/empty_list"
+                        layout="@layout/empty_list" />
+
+                </FrameLayout>
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         </FrameLayout>
@@ -96,6 +105,6 @@
         layout="@layout/drawer"
         android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
-        android:layout_gravity="start"/>
+        android:layout_gravity="start" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

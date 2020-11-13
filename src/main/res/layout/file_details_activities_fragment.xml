@@ -17,7 +17,6 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -87,24 +86,34 @@
             android:footerDividersEnabled="false"
             android:visibility="visible">
 
-            <LinearLayout
-                android:id="@+id/loading_content"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="visible">
+                android:layout_height="match_parent">
 
-                <include layout="@layout/activity_list_item_header_shimmer" />
-                <include layout="@layout/activity_list_item_shimmer" />
-                <include layout="@layout/activity_list_item_header_shimmer" />
-                <include layout="@layout/activity_list_item_shimmer" />
-                <include layout="@layout/activity_list_item_shimmer" />
+                <LinearLayout
+                    android:id="@+id/loading_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
-            </LinearLayout>
+                    <include layout="@layout/activity_list_item_header_shimmer" />
 
-            <include
-                android:id="@+id/empty_list"
-                layout="@layout/empty_list" />
+                    <include layout="@layout/activity_list_item_shimmer" />
+
+                    <include layout="@layout/activity_list_item_header_shimmer" />
+
+                    <include layout="@layout/activity_list_item_shimmer" />
+
+                    <include layout="@layout/activity_list_item_shimmer" />
+
+                </LinearLayout>
+
+                <include
+                    android:id="@+id/empty_list"
+                    layout="@layout/empty_list" />
+
+            </FrameLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </FrameLayout>
