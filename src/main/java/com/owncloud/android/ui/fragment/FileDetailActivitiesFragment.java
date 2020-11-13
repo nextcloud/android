@@ -376,9 +376,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 getString(R.string.activities_no_results_headline),
                 getString(R.string.activities_no_results_message)
                            );
-            binding.swipeContainingList.setVisibility(View.GONE);
-            binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
-            binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
         } else {
             binding.swipeContainingList.setVisibility(View.VISIBLE);
             binding.swipeContainingEmpty.setVisibility(View.GONE);
@@ -394,6 +391,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
         binding.emptyList.emptyListViewHeadline.setText(headline);
         binding.emptyList.emptyListViewText.setText(message);
 
+        binding.emptyList.emptyListViewHeadline.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
 
