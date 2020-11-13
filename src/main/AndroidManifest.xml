@@ -408,7 +408,12 @@
 
         <activity
             android:name="com.nextcloud.client.etm.EtmActivity"
-            android:theme="@style/Theme.ownCloud.Toolbar"/>
+            android:theme="@style/Theme.ownCloud.Toolbar" />
     </application>
 
+    <queries>
+        <package android:name="it.niedermann.nextcloud.deck" />
+        <package android:name="it.niedermann.nextcloud.deck.play" />
+        <package android:name="it.niedermann.nextcloud.deck.dev" />
+    </queries>
 </manifest>
