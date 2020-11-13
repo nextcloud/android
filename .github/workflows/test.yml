@@ -2,9 +2,9 @@ name: "Test screenshot"
 
 on:
     push:
-        branches: [ master ]
+        branches: [ testScreenshots ]
     pull_request:
-        branches: [ master ]
+        branches: [ testScreenshots ]
 
 jobs:
     test:
