@@ -68,6 +68,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.res.ResourcesCompat;
@@ -386,35 +387,29 @@ public class FileDetailActivitiesFragment extends Fragment implements
     }
 
     private void setEmptyContent(String headline, String message) {
-        binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(requireContext().getResources(),
-                                                                                     R.drawable.ic_activity,
-                                                                                     null));
-        binding.emptyList.emptyListViewHeadline.setText(headline);
-        binding.emptyList.emptyListViewText.setText(message);
-
-        binding.emptyList.emptyListViewHeadline.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
-
-        binding.swipeContainingList.setVisibility(View.GONE);
-        binding.loadingContent.setVisibility(View.GONE);
-        binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
+        setInfoContent(R.drawable.ic_activity, headline, message);
     }
 
     @VisibleForTesting
     public void setErrorContent(String message) {
-        binding.emptyList.emptyListViewHeadline.setText(R.string.common_error);
+        setInfoContent(R.drawable.ic_list_empty_error, getString(R.string.common_error), message);
+    }
+
+    private void setInfoContent(@DrawableRes int icon, String headline, String message) {
         binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(requireContext().getResources(),
-                                                                                     R.drawable.ic_list_empty_error,
+                                                                                     icon,
                                                                                      null));
+        binding.emptyList.emptyListViewHeadline.setText(headline);
         binding.emptyList.emptyListViewText.setText(message);
 
+        binding.swipeContainingList.setVisibility(View.GONE);
+        binding.loadingContent.setVisibility(View.GONE);
+
+        binding.emptyList.emptyListViewHeadline.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
-        binding.swipeContainingList.setVisibility(View.GONE);
-        binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
+        binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
     }
 
     private void hideRefreshLayoutLoader(FragmentActivity activity) {
