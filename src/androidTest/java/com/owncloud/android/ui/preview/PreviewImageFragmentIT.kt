@@ -26,7 +26,7 @@ import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.utils.ScreenshotTest
+import com.owncloud.android.utils.ScreenshotTest2
 import org.junit.Rule
 import org.junit.Test
 
@@ -35,7 +35,7 @@ class PreviewImageFragmentIT : AbstractIT() {
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
 
     @Test
-    @ScreenshotTest
+    @ScreenshotTest2
     fun corruptImage() {
         val activity = testActivityRule.launchActivity(null)
 
@@ -52,7 +52,7 @@ class PreviewImageFragmentIT : AbstractIT() {
     }
 
     @Test
-    @ScreenshotTest
+    @ScreenshotTest2
     fun validImage() {
         val activity = testActivityRule.launchActivity(null)
 
