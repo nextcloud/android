@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ownCloud Android client application
 
   Copyright (C) 2015  ownCloud Inc.
@@ -17,8 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 -->
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/top"
     android:layout_width="match_parent"
@@ -29,7 +27,6 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
         android:layout_margin="@dimen/zero"
         android:contentDescription="@string/preview_image_description"
         android:src="@drawable/image_fail" />
@@ -49,30 +46,7 @@
             android:layout_width="@dimen/empty_list_icon_layout_width"
             android:layout_height="@dimen/empty_list_icon_layout_height"
             android:contentDescription="@string/file_list_folder"
-            android:src="@drawable/ic_list_empty_folder"
-            android:visibility="gone" />
-
-        <FrameLayout
-            android:id="@+id/empty_list_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <com.elyeproj.loaderviewlibrary.LoaderImageView
-                android:layout_width="@dimen/empty_list_icon_layout_width"
-                android:layout_height="@dimen/empty_list_icon_layout_width"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@null"
-                app:corners="24" />
-
-            <ImageView
-                android:layout_width="@dimen/empty_list_icon_layout_width"
-                android:layout_height="@dimen/empty_list_icon_layout_height"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_image_outline"
-                app:tint="@color/fg_inverse" />
-
-        </FrameLayout>
+            android:src="@drawable/file_image" />
 
         <TextView
             android:id="@+id/empty_list_view_headline"
@@ -108,4 +82,26 @@
             android:visibility="gone"
             app:cornerRadius="@dimen/button_corner_radius" />
     </LinearLayout>
-</RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/empty_list_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.elyeproj.loaderviewlibrary.LoaderImageView
+            android:layout_width="@dimen/empty_list_icon_layout_width"
+            android:layout_height="@dimen/empty_list_icon_layout_width"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            app:corners="24" />
+
+        <ImageView
+            android:layout_width="@dimen/empty_list_icon_layout_width"
+            android:layout_height="@dimen/empty_list_icon_layout_height"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_image_outline"
+            app:tint="@color/bg_default" />
+
+    </FrameLayout>
+</FrameLayout>
