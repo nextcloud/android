@@ -385,7 +385,7 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
     androidTestImplementation("org.mockito:mockito-android:$mockitoVersion") {
         exclude group: "net.bytebuddy", module: "byte-buddy-android"
-    }
+    } 
     androidTestImplementation "net.bytebuddy:byte-buddy:$byteBuddyVersion"
     androidTestImplementation "net.bytebuddy:byte-buddy-android:$byteBuddyVersion"
     androidTestImplementation "io.mockk:mockk-android:1.10.0"
