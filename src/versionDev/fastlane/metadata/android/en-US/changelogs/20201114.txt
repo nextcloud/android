@@ -1,0 +1,2 @@
+fixed typo in Migrations.kt
+Update translations
