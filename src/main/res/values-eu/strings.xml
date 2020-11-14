@@ -8,7 +8,7 @@
     <string name="account_icon">Kontuaren ikonoa</string>
     <string name="account_not_found">Ez da kontua aurkitu!</string>
     <string name="action_clear_failed_uploads">Garbitu huts egin duten igoerak</string>
-    <string name="action_edit">Editatu</string>
+    <string name="action_edit">Aldatu</string>
     <string name="action_empty_notifications">Garbitu jakinarazpen guztiak</string>
     <string name="action_empty_trashbin">Hustu zakarrontzia</string>
     <string name="action_send_share">Bidali/Partekatu</string>
@@ -91,6 +91,8 @@
     <string name="choose_local_folder">Hautatu tokiko karpeta...</string>
     <string name="choose_remote_folder">Hautatu urruneko karpeta...</string>
     <string name="clear_notifications_failed">Huts egin du jakinarazpenak garbitzean.</string>
+    <string name="clear_status_message">Garbitu egoera mezua</string>
+    <string name="clear_status_message_after">Garbitu egoera mezua gero</string>
     <string name="clipboard_label">Testua hemendik kopiatua: %1$s</string>
     <string name="clipboard_no_text_to_copy">Ez da jaso testurik arbelera kopiatzeko</string>
     <string name="clipboard_text_copied">Esteka kopiatu da</string>
@@ -194,6 +196,7 @@
     <string name="dismiss">Baztertu</string>
     <string name="dismiss_notification_description">Baztertu jakinarazpena</string>
     <string name="dnd">Ez molestatu</string>
+    <string name="dontClear">Ez garbitu</string>
     <string name="download_latest_dev_version">Deskargatu azken garapen bertsioa</string>
     <string name="downloader_download_failed_content">Ezin izan da %1$s deskargatu</string>
     <string name="downloader_download_failed_credentials_error">Deskargak huts egin du, hasi saioa berriz</string>
@@ -210,6 +213,7 @@
     <string name="drawer_item_activities">Jarduerak</string>
     <string name="drawer_item_all_files">Fitxategi guztiak</string>
     <string name="drawer_item_favorites">Gogokoak</string>
+    <string name="drawer_item_gallery">Media</string>
     <string name="drawer_item_home">Etxea</string>
     <string name="drawer_item_notifications">Jakinarazpenak</string>
     <string name="drawer_item_on_device">Gailuan</string>
@@ -464,6 +468,7 @@
     <string name="offline_mode">Internet konexiorik ez</string>
     <string name="oneHour">Ordu 1</string>
     <string name="online">Linean</string>
+    <string name="online_status">Online egoera</string>
     <string name="outdated_server">Zerbitzaria bizitzaren amaierara iritsi da, bertsio-berritu!</string>
     <string name="overflow_menu">Gehiago menua</string>
     <string name="pass_code_configure_your_pass_code">Sartu zure pasahitza</string>
@@ -549,6 +554,7 @@
     <string name="recommend_subject">Probatu %1$s zure gailuan!</string>
     <string name="recommend_text">%1$s zure gailuan erabiltzera gonbidatu nahi zaitut.\n Hemendik deskargatu: %2$s</string>
     <string name="recommend_urls">%1$s edo %2$s</string>
+    <string name="remote">(urrunekoa)</string>
     <string name="remote_file_fetch_failed">Fitxategia bilatzeak huts egin du!</string>
     <string name="remove_fail_msg">Ezabatzeak huts egin du</string>
     <string name="remove_notification_failed">Huts egin du jakinarazpena kentzean</string>
@@ -614,6 +620,7 @@
     <string name="share_privilege_unshare">Ez partekatu</string>
     <string name="share_remote_clarification">%1$s (urrunekoa)</string>
     <string name="share_room_clarification">%1$s (elkarrizketa)</string>
+    <string name="share_search">Izena, federatutako lainoaren IDa edo helbide elektronikoa...</string>
     <string name="share_send_note">Oharra hartzailearentzat</string>
     <string name="share_via_link_hide_download">Ezkutatu deskarga</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ezkutatu fitxategi-zerrenda</string>
