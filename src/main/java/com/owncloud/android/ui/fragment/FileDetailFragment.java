@@ -581,6 +581,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                     final ThumbnailsCacheManager.ResizedImageGenerationTask task =
                             new ThumbnailsCacheManager.ResizedImageGenerationTask(this,
                                                                                   toolbarActivity.getPreviewImageView(),
+                                                                                  toolbarActivity.getPreviewImageContainer(),
                                                                                   containerActivity.getStorageManager(),
                                                                                   connectivityService,
                                                                                   containerActivity.getStorageManager().getAccount());

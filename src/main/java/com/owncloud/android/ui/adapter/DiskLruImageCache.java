@@ -128,7 +128,11 @@ public class DiskLruImageCache {
                 options.inMutable = false;
                 options.inJustDecodeBounds = true;
 
-                bitmap = BitmapFactory.decodeStream(buffIn, null, options);
+                BitmapFactory.decodeStream(buffIn, null, options);
+
+                snapshot = mDiskCache.get(validKey);
+                inputStream = snapshot.getInputStream(0);
+                buffIn = new BufferedInputStream(inputStream, IO_BUFFER_SIZE);
 
                 // Calculate inSampleSize
                 options.inSampleSize = BitmapUtils.calculateSampleFactor(options, width, height);
