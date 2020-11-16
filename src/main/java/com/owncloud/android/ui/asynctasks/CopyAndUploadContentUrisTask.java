@@ -24,8 +24,10 @@ package com.owncloud.android.ui.asynctasks;
 import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.DocumentsContract;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
@@ -143,6 +145,19 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                 currentUri = uris[i];
                 currentRemotePath = remotePaths[i];
 
+                long lastModified = 0;
+                try (Cursor cursor = leakedContentResolver.query(currentUri,
+                                                                 null,
+                                                                 null,
+                                                                 null,
+                                                                 null)) {
+                    if (cursor != null && cursor.moveToFirst()) {
+                        lastModified = cursor.getLong(
+                            cursor.getColumnIndexOrThrow(
+                                DocumentsContract.Document.COLUMN_LAST_MODIFIED));
+                    }
+                }
+
                 fullTempPath = FileStorageUtils.getTemporalPath(account.name) + currentRemotePath;
                 inputStream = leakedContentResolver.openInputStream(currentUri);
                 File cacheFile = new File(fullTempPath);
@@ -157,6 +172,18 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                 int count;
                 while ((count = inputStream.read(buffer)) > 0) {
                     outputStream.write(buffer, 0, count);
+                }
+ 
+                if (lastModified != 0) {
+                    try {
+                        if (!cacheFile.setLastModified(lastModified)) {
+                            Log_OC.w(TAG, "Could not change mtime of cacheFile");
+                        }
+                    } catch (SecurityException e) {
+                        Log_OC.e(TAG, "Not enough permissions to change mtime of cacheFile", e);
+                    } catch (IllegalArgumentException e) {
+                        Log_OC.e(TAG, "Could not change mtime of cacheFile, mtime is negativ: "+lastModified, e);
+                    }
                 }
 
                 requestUpload(
