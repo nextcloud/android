@@ -89,19 +89,20 @@
         android:layout_height="match_parent">
 
         <com.elyeproj.loaderviewlibrary.LoaderImageView
-            android:layout_width="@dimen/empty_list_icon_layout_width"
-            android:layout_height="@dimen/empty_list_icon_layout_width"
+            android:id="@+id/shimmer"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
             android:layout_gravity="center"
             android:contentDescription="@null"
             app:corners="24" />
 
         <ImageView
+            android:id="@+id/shimmerThumbnail"
             android:layout_width="@dimen/empty_list_icon_layout_width"
             android:layout_height="@dimen/empty_list_icon_layout_height"
             android:layout_gravity="center"
             android:contentDescription="@null"
-            android:src="@drawable/ic_image_outline"
-            app:tint="@color/bg_default" />
+            android:src="@drawable/ic_image_outline" />
 
     </FrameLayout>
 </FrameLayout>
