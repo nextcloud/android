@@ -142,8 +142,7 @@ public class TrashbinActivity extends DrawerActivity implements
         if (trashbinListAdapter.getItemCount() > EMPTY_LIST_COUNT) {
             binding.swipeContainingList.setRefreshing(true);
         } else {
-            binding.loadingContent.setVisibility(View.VISIBLE);
-            binding.list.setVisibility(View.GONE);
+            showInitialLoading();
         }
         trashbinPresenter.loadFolder();
     }
@@ -262,6 +261,12 @@ public class TrashbinActivity extends DrawerActivity implements
                           String.format(getString(message), file.getFileName()), Snackbar.LENGTH_LONG)
                 .show();
         }
+    }
+
+    @VisibleForTesting
+    public void showInitialLoading() {
+        binding.loadingContent.setVisibility(View.VISIBLE);
+        binding.list.setVisibility(View.GONE);
     }
 
     @Override
