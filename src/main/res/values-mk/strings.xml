@@ -369,7 +369,7 @@
     <string name="instant_upload_on_charging">Прикачувај само додека се полни</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Неправилна URL</string>
-    <string name="invisible">Невидлив</string>
+    <string name="invisible">Невидливо</string>
     <string name="link">Линк</string>
     <string name="link_share_allow_upload_and_editing">Дозволи прикачување и уредување</string>
     <string name="link_share_file_drop">Испуши датотека (само за прикачување)</string>
