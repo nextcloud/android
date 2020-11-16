@@ -67,6 +67,7 @@ public class TrashbinActivity extends DrawerActivity implements
     TrashbinContract.View,
     Injectable {
 
+    public static final int EMPTY_LIST_COUNT = 1;
     @Inject AppPreferences preferences;
     @Inject CurrentAccountProvider accountProvider;
     @Inject ClientFactory clientFactory;
@@ -138,31 +139,31 @@ public class TrashbinActivity extends DrawerActivity implements
     }
 
     protected void loadFolder() {
-        binding.swipeContainingList.setRefreshing(true);
+        if (trashbinListAdapter.getItemCount() > EMPTY_LIST_COUNT) {
+            binding.swipeContainingList.setRefreshing(true);
+        } else {
+            binding.loadingContent.setVisibility(View.VISIBLE);
+            binding.list.setVisibility(View.GONE);
+        }
         trashbinPresenter.loadFolder();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (isDrawerOpen()) {
-                    closeDrawer();
-                } else if (trashbinPresenter.isRoot()) {
-                    onBackPressed();
-                } else {
-                    openDrawer();
-                }
-                break;
-
-            case R.id.action_empty_trashbin:
-                trashbinPresenter.emptyTrashbin();
-                break;
-
-            default:
-                retval = super.onOptionsItemSelected(item);
-                break;
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            if (isDrawerOpen()) {
+                closeDrawer();
+            } else if (trashbinPresenter.isRoot()) {
+                onBackPressed();
+            } else {
+                openDrawer();
+            }
+        } else if (itemId == R.id.action_empty_trashbin) {
+            trashbinPresenter.emptyTrashbin();
+        } else {
+            retval = super.onOptionsItemSelected(item);
         }
 
         return retval;
@@ -236,6 +237,8 @@ public class TrashbinActivity extends DrawerActivity implements
         if (active) {
             trashbinListAdapter.setTrashbinFiles(trashbinFiles, true);
             binding.swipeContainingList.setRefreshing(false);
+            binding.loadingContent.setVisibility(View.GONE);
+            binding.list.setVisibility(View.VISIBLE);
         }
     }
 
@@ -264,6 +267,8 @@ public class TrashbinActivity extends DrawerActivity implements
     @Override
     public void showError(int message) {
         if (active) {
+            binding.loadingContent.setVisibility(View.GONE);
+            binding.list.setVisibility(View.VISIBLE);
             binding.swipeContainingList.setRefreshing(false);
 
             binding.emptyList.emptyListViewHeadline.setText(R.string.common_error);
