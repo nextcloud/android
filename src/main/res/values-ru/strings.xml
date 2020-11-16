@@ -213,6 +213,7 @@
     <string name="drawer_item_activities">События</string>
     <string name="drawer_item_all_files">Все файлы</string>
     <string name="drawer_item_favorites">Избранное</string>
+    <string name="drawer_item_gallery">Медиа</string>
     <string name="drawer_item_home">Главная</string>
     <string name="drawer_item_notifications">Уведомления</string>
     <string name="drawer_item_on_device">На устройстве</string>
