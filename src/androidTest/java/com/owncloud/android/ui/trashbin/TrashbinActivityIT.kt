@@ -84,4 +84,20 @@ class TrashbinActivityIT : AbstractIT() {
 
         screenshot(sut)
     }
+
+    @Test
+    @ScreenshotTest
+    fun loading() {
+        val sut: TrashbinActivity = activityRule.launchActivity(null)
+
+        val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+
+        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+
+        sut.runOnUiThread { sut.showInitialLoading() }
+
+        shortSleep()
+
+        screenshot(sut)
+    }
 }
