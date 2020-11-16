@@ -114,6 +114,12 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
         loadAndShowTextPreview();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
     abstract void loadAndShowTextPreview();
 
     @Override
