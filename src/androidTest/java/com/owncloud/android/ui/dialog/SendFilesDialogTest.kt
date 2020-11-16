@@ -27,7 +27,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.utils.ScreenshotTest
+import com.owncloud.android.utils.ScreenshotTest2
 import org.junit.Rule
 import org.junit.Test
 
@@ -36,7 +36,7 @@ class SendFilesDialogTest : AbstractIT() {
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
 
     @Test
-    @ScreenshotTest
+    @ScreenshotTest2
     fun showDialog() {
         val activity = testActivityRule.launchActivity(null)
 
