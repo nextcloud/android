@@ -123,7 +123,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
         // setup drawer
         setupDrawer(R.id.nav_activity);
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_activities));
-//        setDrawerIndicatorEnabled(false);
+        setDrawerIndicatorEnabled(false);
         swipeListRefreshLayout.setOnRefreshListener(() -> {
             // We set lastGiven variable to undefined here since when manually refreshing
             // activities data we want to clear the list and reset the pagination.
