@@ -88,6 +88,9 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         getInstrumentation().waitForIdleSync();
 
         shortSleep();
+        shortSleep();
+        shortSleep();
+        shortSleep();
 
         screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
     }

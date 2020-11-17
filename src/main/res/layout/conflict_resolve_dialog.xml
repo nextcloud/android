@@ -25,7 +25,22 @@
     android:layout_height="match_parent"
     android:gravity="clip_horizontal"
     android:orientation="vertical"
-    android:padding="@dimen/standard_padding">
+    android:paddingStart="26dp"
+    android:paddingEnd="@dimen/standard_padding"
+    android:paddingBottom="@dimen/standard_padding">
+
+    <TextView
+        android:id="@+id/in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/in_folder"
+        android:paddingBottom="@dimen/standard_padding" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_which_file"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
