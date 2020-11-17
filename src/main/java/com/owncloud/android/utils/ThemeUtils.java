@@ -874,6 +874,9 @@ public final class ThemeUtils {
         return Configuration.UI_MODE_NIGHT_YES == nightModeFlag;
     }
 
+    @SuppressFBWarnings(
+        value = "SF_SWITCH_NO_DEFAULT",
+        justification = "We only create avatars for a subset of share types")
     public static void createAvatar(ShareType type, ImageView avatar, Context context) {
         switch (type) {
             case GROUP:
