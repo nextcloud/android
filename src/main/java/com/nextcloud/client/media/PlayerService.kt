@@ -35,7 +35,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.ThemeUtils
 import dagger.android.AndroidInjection
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 class PlayerService : Service() {
