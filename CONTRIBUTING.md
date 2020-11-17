@@ -276,7 +276,7 @@ We use [shot](https://github.com/Karumi/Shot) for taking screenshots and compare
 - update/generate new screenshots: ```scripts/updateScreenshots.sh ``` 
     - in this script are samples how to only execute a given class/test
     - this will fire up docker & emulator to ensure that screenshots look the same
-- creating own UI comparision tests: 
+- creating own UI comparison tests: 
     - add IntentsTestRule for launching activity directly:
 
     ```java
