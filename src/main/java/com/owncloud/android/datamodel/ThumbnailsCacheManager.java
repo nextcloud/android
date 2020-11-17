@@ -258,6 +258,7 @@ public final class ThumbnailsCacheManager {
         private WeakReference<FrameLayout> frameLayoutReference;
         private OCFile file;
         private ConnectivityService connectivityService;
+        private int backgroundColor;
 
 
         public ResizedImageGenerationTask(FileFragment fileFragment,
@@ -265,7 +266,8 @@ public final class ThumbnailsCacheManager {
                                           FrameLayout emptyListProgress,
                                           FileDataStorageManager storageManager,
                                           ConnectivityService connectivityService,
-                                          Account account)
+                                          Account account,
+                                          int backgroundColor)
                 throws IllegalArgumentException {
             this.fileFragment = fileFragment;
             imageViewReference = new WeakReference<>(imageView);
@@ -273,6 +275,7 @@ public final class ThumbnailsCacheManager {
             this.storageManager = storageManager;
             this.connectivityService = connectivityService;
             this.account = account;
+            this.backgroundColor = backgroundColor;
         }
 
         @Override
@@ -397,6 +400,7 @@ public final class ThumbnailsCacheManager {
                         if (String.valueOf(imageView.getTag()).equals(tagId)) {
                             imageView.setVisibility(View.VISIBLE);
                             imageView.setImageBitmap(bitmap);
+                            imageView.setBackgroundColor(backgroundColor);
 
                             if (frameLayout != null) {
                                 frameLayout.setVisibility(View.GONE);
