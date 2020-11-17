@@ -324,7 +324,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 mMultiListContainer.setVisibility(View.GONE);
                 mPreviewContainer.setVisibility(View.VISIBLE);
             } else if (MimeTypeUtil.isVideo(file)) {
-                stopAudio();
+                if (mMediaPlayerServiceConnection.isConnected() && mMediaPlayerServiceConnection.isPlaying()) {
+                    stopAudio();
+                }
                 playVideo();
             }
         }
