@@ -239,6 +239,20 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             int width = screenSize.x;
             int height = screenSize.y;
 
+            // show thumbnail while loading image
+            binding.image.setVisibility(View.GONE);
+            binding.emptyListProgress.setVisibility(View.VISIBLE);
+
+            Bitmap thumbnail = getThumbnailBitmap(getFile());
+            if (thumbnail != null) {
+                binding.shimmer.setVisibility(View.VISIBLE);
+                binding.shimmerThumbnail.setImageBitmap(thumbnail);
+                binding.image.setVisibility(View.GONE);
+                bitmap = thumbnail;
+            } else {
+                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+            }
+
             if (showResizedImage) {
                 Bitmap resizedImage = getResizedBitmap(getFile(), width, height);
 
@@ -251,21 +265,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
                     bitmap = resizedImage;
                 } else {
-                    binding.emptyListProgress.setVisibility(View.VISIBLE);
-                    binding.image.setVisibility(View.GONE);
-
-                    // show thumbnail while loading resized image
-                    Bitmap thumbnail = getThumbnailBitmap(getFile());
-
-                    if (thumbnail != null) {
-                        binding.shimmer.setVisibility(View.VISIBLE);
-                        binding.shimmerThumbnail.setImageBitmap(thumbnail);
-                        binding.image.setVisibility(View.GONE);
-                        bitmap = thumbnail;
-                    } else {
-                        thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                    }
-
                     // generate new resized image
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), binding.image) &&
                         containerActivity.getStorageManager() != null) {
@@ -275,7 +274,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                                                                   binding.emptyListProgress,
                                                                                   containerActivity.getStorageManager(),
                                                                                   connectivityService,
-                                                                                  containerActivity.getStorageManager().getAccount());
+                                                                                  containerActivity.getStorageManager().getAccount(),
+                                                                                  getResources().getColor(R.color.background_color_inverse)
+                            );
                         if (resizedImage == null) {
                             resizedImage = thumbnail;
                         }

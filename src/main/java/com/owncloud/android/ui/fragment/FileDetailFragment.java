@@ -579,12 +579,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), toolbarActivity.getPreviewImageView()) &&
                         containerActivity.getStorageManager() != null) {
                     final ThumbnailsCacheManager.ResizedImageGenerationTask task =
-                            new ThumbnailsCacheManager.ResizedImageGenerationTask(this,
-                                                                                  toolbarActivity.getPreviewImageView(),
-                                                                                  toolbarActivity.getPreviewImageContainer(),
-                                                                                  containerActivity.getStorageManager(),
-                                                                                  connectivityService,
-                                                                                  containerActivity.getStorageManager().getAccount());
+                        new ThumbnailsCacheManager.ResizedImageGenerationTask(this,
+                                                                              toolbarActivity.getPreviewImageView(),
+                                                                              toolbarActivity.getPreviewImageContainer(),
+                                                                              containerActivity.getStorageManager(),
+                                                                              connectivityService,
+                                                                              containerActivity.getStorageManager().getAccount(),
+                                                                              getResources().getColor(R.color.background_color_inverse)
+                        );
 
                     if (resizedImage == null) {
                         resizedImage = thumbnail;
