@@ -24,7 +24,7 @@ package com.owncloud.android.datamodel;
 
 import com.owncloud.android.db.ProviderMeta;
 
-public class FileDataStorageManagerContentProviderClientTest extends FileDataStorageManagerTest {
+public class FileDataStorageManagerContentProviderClientIT extends FileDataStorageManagerIT {
 
     @Override
     public void before() {
