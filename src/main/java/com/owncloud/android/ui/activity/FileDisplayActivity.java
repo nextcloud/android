@@ -133,6 +133,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -646,6 +647,9 @@ public class FileDisplayActivity extends FileActivity
         }
         updateFragmentsVisibility(false);
         updateActionBarTitleAndHomeButton(null);
+
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) findViewById(R.id.root_layout).getLayoutParams();
+        params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
     }
 
     public void updateListOfFilesFragment(boolean fromSearch) {
@@ -2178,6 +2182,9 @@ public class FileDisplayActivity extends FileActivity
         }
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
             showSortListGroup(false);
+            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) findViewById(R.id.root_layout).getLayoutParams();
+            params.setBehavior(null);
+
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay);
             setSecondFragment(mediaFragment);
             updateFragmentsVisibility(true);
