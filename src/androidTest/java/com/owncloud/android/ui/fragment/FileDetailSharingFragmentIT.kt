@@ -85,6 +85,9 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @Test
     @ScreenshotTest
     @Suppress("MagicNumber")
+    /**
+     * Use same values as {@link OCFileListFragmentStaticServerIT showSharedFiles }
+     */
     fun listSharesFileAllShareTypes() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 1
@@ -115,14 +118,14 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 4
             shareType = ShareType.PUBLIC_LINK
-            sharedWithDisplayName = "Customer"
+            label = "Customer"
             activity.storageManager.saveShare(this)
         }
 
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 5
             shareType = ShareType.PUBLIC_LINK
-            sharedWithDisplayName = "Colleagues"
+            label = "Colleagues"
             activity.storageManager.saveShare(this)
         }
 
@@ -138,7 +141,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 7
             shareType = ShareType.CIRCLE
-            sharedWithDisplayName = "Private circle"
+            sharedWithDisplayName = "Personal circle"
             permissions = SHARE_PERMISSION_FLAG
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
@@ -146,6 +149,42 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 8
+            shareType = ShareType.CIRCLE
+            sharedWithDisplayName = "Public circle"
+            permissions = SHARE_PERMISSION_FLAG
+            userId = getUserId(user)
+            activity.storageManager.saveShare(this)
+        }
+
+        OCShare(file.decryptedRemotePath).apply {
+            remoteId = 9
+            shareType = ShareType.CIRCLE
+            sharedWithDisplayName = "Closed circle"
+            permissions = SHARE_PERMISSION_FLAG
+            userId = getUserId(user)
+            activity.storageManager.saveShare(this)
+        }
+
+        OCShare(file.decryptedRemotePath).apply {
+            remoteId = 10
+            shareType = ShareType.CIRCLE
+            sharedWithDisplayName = "Secret circle"
+            permissions = SHARE_PERMISSION_FLAG
+            userId = getUserId(user)
+            activity.storageManager.saveShare(this)
+        }
+
+        OCShare(file.decryptedRemotePath).apply {
+            remoteId = 11
+            shareType = ShareType.ROOM
+            sharedWithDisplayName = "Admin"
+            permissions = SHARE_PERMISSION_FLAG
+            userId = getUserId(user)
+            activity.storageManager.saveShare(this)
+        }
+
+        OCShare(file.decryptedRemotePath).apply {
+            remoteId = 12
             shareType = ShareType.ROOM
             sharedWithDisplayName = "Meeting"
             permissions = SHARE_PERMISSION_FLAG
