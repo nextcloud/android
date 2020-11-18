@@ -328,4 +328,9 @@
         <item name="hwSecurityButtonColor">@color/color_accent</item>
         <item name="hwSecuritySurfaceColor">@color/primary</item>
     </style>
+
+    <style name="Nextcloud.Material.TextButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="android:typeface">sans</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
