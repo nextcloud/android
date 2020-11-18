@@ -60,7 +60,7 @@ ext {
     markwonVersion =  "4.6.0"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
-    androidLibraryVersion = "rc-2.4.0-01"
+    androidLibraryVersion = "2.4.0"
     mockitoVersion = "3.6.0"
     mockkVersion = "1.10.2"
     byteBuddyVersion = "1.10.17"
@@ -87,7 +87,7 @@ repositories {
 def versionMajor = 3
 def versionMinor = 14
 def versionPatch = 0
-def versionBuild = 52 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionBuild = 90 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 def testMinSdk = 21
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
