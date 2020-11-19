@@ -53,7 +53,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
+abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
     protected FileDataStorageManager sut;
 
@@ -214,6 +214,12 @@ abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
      */
     @Test
     public void testGallerySearch() throws IOException {
+        sut = new FileDataStorageManager(account,
+                                         targetContext
+                                             .getContentResolver()
+                                             .acquireContentProviderClient(ProviderMeta.ProviderTableMeta.CONTENT_URI)
+        );
+
         String remotePath = "/imageFile.png";
         VirtualFolderType virtualType = VirtualFolderType.GALLERY;
 
@@ -222,21 +228,23 @@ abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
 
         File imageFile = getFile("imageFile.png");
         assertTrue(new UploadFileRemoteOperation(imageFile.getAbsolutePath(),
-                                                 remotePath,
+                                                 "/imageFile.png",
                                                  "image/png",
                                                  String.valueOf(System.currentTimeMillis() / 1000))
                        .execute(client).isSuccess());
 
-        assertNull(sut.getFileByPath(remotePath));
+        // Check that file does not yet exist in local database
+        assertNull(sut.getFileByPath("/imageFile.png"));
 
         File videoFile = getFile("videoFile.mp4");
         assertTrue(new UploadFileRemoteOperation(videoFile.getAbsolutePath(),
-                                                 remotePath,
+                                                 "/videoFile.mp4",
                                                  "video/mpeg",
                                                  String.valueOf(System.currentTimeMillis() / 1000))
                        .execute(client).isSuccess());
 
-        assertNull(sut.getFileByPath(remotePath));
+        // Check that file does not yet exist in local database
+        assertNull(sut.getFileByPath("/videoFile.mp4"));
 
         // search
         SearchRemoteOperation searchRemoteOperation = new SearchRemoteOperation("",
@@ -245,7 +253,7 @@ abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
 
         RemoteOperationResult searchResult = searchRemoteOperation.execute(client);
         TestCase.assertTrue(searchResult.isSuccess());
-        TestCase.assertEquals(1, searchResult.getData().size());
+        TestCase.assertEquals(2, searchResult.getData().size());
 
         OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) searchResult.getData().get(0));
         sut.saveFile(ocFile);
@@ -257,6 +265,15 @@ abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
 
         contentValues.add(cv);
 
+        OCFile ocFile2 = FileStorageUtils.fillOCFile((RemoteFile) searchResult.getData().get(0));
+        sut.saveFile(ocFile2);
+
+        ContentValues cv2 = new ContentValues();
+        cv2.put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, virtualType.toString());
+        cv2.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile2.getFileId());
+
+        contentValues.add(cv2);
+
         sut.saveVirtuals(contentValues);
 
         assertEquals(remotePath, ocFile.getRemotePath());
@@ -264,7 +281,7 @@ abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
         assertEquals(0, sut.getFolderContent(sut.getFileByPath("/"), false).size());
 
         assertEquals(2, sut.getVirtualFolderContent(virtualType, false).size());
-        assertEquals(3, sut.getAllFiles().size());
+        assertEquals(2, sut.getAllFiles().size());
 
         // update root
         assertTrue(new RefreshFolderOperation(sut.getFileByPath("/"),
@@ -276,7 +293,7 @@ abstract public class FileDataStorageManagerTest extends AbstractOnServerIT {
                                               targetContext).execute(client).isSuccess());
 
 
-        assertEquals(1, sut.getFolderContent(sut.getFileByPath("/"), false).size());
+        assertEquals(2, sut.getFolderContent(sut.getFileByPath("/"), false).size());
         assertEquals(2, sut.getVirtualFolderContent(virtualType, false).size());
         assertEquals(3, sut.getAllFiles().size());
 
