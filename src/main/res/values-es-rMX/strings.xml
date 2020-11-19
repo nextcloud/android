@@ -210,8 +210,6 @@
     <string name="drawer_quota">%1$s de %2$s usados</string>
     <string name="drawer_quota_unlimited">%1$s usado</string>
     <string name="drawer_synced_folders">Carga automática</string>
-    <string name="edit_permission_label">editar</string>
-    <string name="edit_rich_workspace">editar información de la carpeta</string>
     <string name="encrypted">Establecer como encriptado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar la encripción</string>
     <string name="end_to_end_encryption_decrypting">Decriptando…</string>
@@ -221,7 +219,6 @@
     <string name="end_to_end_encryption_generating_keys">Generando nuevas llaves…</string>
     <string name="end_to_end_encryption_keywords_description">Las 12 palabras juntas hacer una contraseña muy fuerte, permitiendote solo a ti ver y hacer uso de tus archivos encriptados. Por favor escríbelo y mantenlo en un lugar seguro.</string>
     <string name="end_to_end_encryption_not_enabled">La encripción de punta-a-punta está dehabilitada en el servidor. </string>
-    <string name="end_to_end_encryption_not_supported">La encripción solo funciona en KitKat (4.4) o superior.</string>
     <string name="end_to_end_encryption_passphrase_title">Anota tu contraseña de encripción de 12 palabras</string>
     <string name="end_to_end_encryption_password">Contraseña…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recuperando llaves…</string>
@@ -462,11 +459,9 @@
     <string name="set_picture_as">Usar imagen como</string>
     <string name="share">Compartir</string>
     <string name="share_dialog_title">Compartiendo</string>
-    <string name="share_email_clarification">%1$s (correo electrónico)</string>
     <string name="share_expiration_date_label">Expira el %1$s</string>
     <string name="share_file">Compartir %1$s</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
-    <string name="share_known_remote_clarification">%1$s ( a las %2$s )</string>
     <string name="share_link">Compartir liga</string>
     <string name="share_link_empty_password">Debes ingresar una contraseña</string>
     <string name="share_link_forbidden_permissions">para compartir este archivo</string>
@@ -474,14 +469,9 @@
     <string name="share_no_expiration_date_label">Establece la fecha de expiración</string>
     <string name="share_no_password_title">Establecer contraseña</string>
     <string name="share_password_title">Protegido con contraseña</string>
-    <string name="share_privilege_can_edit_change">puede cambiar</string>
-    <string name="share_privilege_can_edit_create">puede crear</string>
-    <string name="share_privilege_can_edit_delete">pude borrar</string>
-    <string name="share_privilege_can_share">puede compartir</string>
     <string name="share_privilege_unshare">Dejar de compartir</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_via_link_hide_download">Ocultar descarga</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Ocultar listado de archivos</string>
     <string name="share_via_link_menu_password_label">Proteger con contraseña (%1$s)</string>
     <string name="share_via_link_section_title">Compartir liga</string>
     <string name="share_via_link_unset_password">Desestablecer</string>

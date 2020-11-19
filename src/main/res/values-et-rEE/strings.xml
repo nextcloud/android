@@ -326,7 +326,6 @@
     <string name="set_picture_as">Kasuta pilti kui</string>
     <string name="share">Jaga</string>
     <string name="share_dialog_title">Jagamine</string>
-    <string name="share_email_clarification">%1$s (e-kiri)</string>
     <string name="share_file">Jaga %1$s</string>
     <string name="share_group_clarification">%1$s (grupp)</string>
     <string name="share_link">Jaga link</string>
@@ -334,13 +333,8 @@
     <string name="share_link_forbidden_permissions">faili jagamiseks</string>
     <string name="share_link_password_title">Sisesta parool</string>
     <string name="share_no_expiration_date_label">Määra aegumise kuupäev</string>
-    <string name="share_privilege_can_edit_change">saab muuta</string>
-    <string name="share_privilege_can_edit_create">saab luua</string>
-    <string name="share_privilege_can_edit_delete">saab kustutada</string>
-    <string name="share_privilege_can_share">saab jagada</string>
     <string name="share_privilege_unshare">Lõpeta jagamine</string>
     <string name="share_send_note">Märge saajale</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Peida failide nimekiri</string>
     <string name="share_via_link_section_title">Jaga linki</string>
     <string name="share_via_link_send_link_label">Saada link</string>
     <string name="shared_icon_shared">jagatud</string>

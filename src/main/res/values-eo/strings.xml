@@ -197,7 +197,6 @@
     <string name="drawer_quota_unlimited">%1$s uzataj</string>
     <string name="drawer_synced_folders">Aŭtomata alŝuto</string>
     <string name="edit_label">Ŝanĝi nomon</string>
-    <string name="edit_permission_label">modifi</string>
     <string name="encrypted">Difini kiel ĉifrita</string>
     <string name="end_to_end_encryption_confirm_button">Agordi ĉifradon</string>
     <string name="end_to_end_encryption_decrypting">Malĉifrado...</string>
@@ -207,7 +206,6 @@
     <string name="end_to_end_encryption_generating_keys">Genero de novaj ŝlosiloj...</string>
     <string name="end_to_end_encryption_keywords_description">Tiu 12-vorta frazo estas tre fortika pasvorto, kiu permesas nur al vi vidi kaj uzi viajn ĉifritajn dosierojn. Bonvolu noti tiun frazon kaj konservi ĝin en fidinda loko.</string>
     <string name="end_to_end_encryption_not_enabled">Tutvoja ĉifrado malebligita en la servilo.</string>
-    <string name="end_to_end_encryption_not_supported">Ĉifrado funkcias nur ekde KitKat (Android versio 4.4).</string>
     <string name="end_to_end_encryption_passphrase_title">Notu vian 12-vortan ĉifran pasfrazon</string>
     <string name="end_to_end_encryption_password">Pasvorto...</string>
     <string name="end_to_end_encryption_retrieving_keys">Ricevo de ŝlosiloj...</string>
@@ -485,11 +483,9 @@
     <string name="set_picture_as">Uzi la bildon kiel</string>
     <string name="share">Kunhavigi</string>
     <string name="share_dialog_title">Kunhavigo</string>
-    <string name="share_email_clarification">%1$s (retpoŝtadreso)</string>
     <string name="share_expiration_date_label">Senvalidiĝas je %1$s</string>
     <string name="share_file">Kunhavigi %1$s</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
-    <string name="share_known_remote_clarification">%1$s (el %2$s)</string>
     <string name="share_link">Kunhavigi ligilon</string>
     <string name="share_link_empty_password">Vi devas enigi pasvorton</string>
     <string name="share_link_forbidden_permissions">kunhavigi ĉi tiun dosieron</string>
@@ -497,16 +493,11 @@
     <string name="share_no_expiration_date_label">Uzi limdaton</string>
     <string name="share_no_password_title">Uzi pasvorton</string>
     <string name="share_password_title">Pasvorte protektita</string>
-    <string name="share_privilege_can_edit_change">povas ŝanĝi</string>
-    <string name="share_privilege_can_edit_create">povas krei</string>
-    <string name="share_privilege_can_edit_delete">povas forigi</string>
-    <string name="share_privilege_can_share">povas kunhavigi</string>
     <string name="share_privilege_unshare">Malkunhavigi</string>
     <string name="share_remote_clarification">%1$s (fora)</string>
     <string name="share_room_clarification">%1$s (konversacio)</string>
     <string name="share_send_note">Noto por la ricevonto</string>
     <string name="share_via_link_hide_download">Kaŝi elŝuton</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Kaŝi dosierliston</string>
     <string name="share_via_link_menu_password_label">Protekti per pasvorto (%1$s)</string>
     <string name="share_via_link_section_title">Kunhavigi ligilon</string>
     <string name="share_via_link_send_link_label">Sendi ligilon</string>
