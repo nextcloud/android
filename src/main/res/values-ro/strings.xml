@@ -206,7 +206,6 @@
     <string name="drawer_quota_unlimited">%1$s utilizat</string>
     <string name="drawer_synced_folders">Încărcare automată</string>
     <string name="edit_label">Schimbă numele</string>
-    <string name="edit_permission_label">editare</string>
     <string name="encrypted">Setați drept criptat</string>
     <string name="end_to_end_encryption_confirm_button">Setează criptarea</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>
@@ -215,7 +214,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Directorul nu este gol.</string>
     <string name="end_to_end_encryption_generating_keys">Se generează chei noi…</string>
     <string name="end_to_end_encryption_not_enabled">Criptarea end-to-end este dezactivată pe server.</string>
-    <string name="end_to_end_encryption_not_supported">Criptarea funcționează începând cu versiunea KitKat(4.4) sau mai mare.</string>
     <string name="end_to_end_encryption_passphrase_title">Te rog salvează parola de criptare formată din cele 12 cuvinte</string>
     <string name="end_to_end_encryption_password">Parolă…</string>
     <string name="end_to_end_encryption_title">Setează criptarea</string>
@@ -450,11 +448,9 @@
     <string name="set_picture_as">Folosește imaginea ca</string>
     <string name="share">Partajează</string>
     <string name="share_dialog_title">Partajare</string>
-    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_expiration_date_label">Expiră %1$s</string>
     <string name="share_file">Partajare %1$s</string>
     <string name="share_group_clarification">%1$s (grup)</string>
-    <string name="share_known_remote_clarification">%1$s ( la %2$s )</string>
     <string name="share_link">Partajează link-ul</string>
     <string name="share_link_empty_password">Trebuie să introduci o parolă</string>
     <string name="share_link_forbidden_permissions">de a share acest fișier</string>
@@ -463,16 +459,11 @@
     <string name="share_no_expiration_date_label">Specifică data expirării</string>
     <string name="share_no_password_title">Setare parolă</string>
     <string name="share_password_title">Protejat cu parolă</string>
-    <string name="share_privilege_can_edit_change">poate schimba</string>
-    <string name="share_privilege_can_edit_create">poate crea</string>
-    <string name="share_privilege_can_edit_delete">poate șterge</string>
-    <string name="share_privilege_can_share">se poate partaja</string>
     <string name="share_privilege_unshare">Oprește partajarea</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversație)</string>
     <string name="share_send_note">Notă către destinatar</string>
     <string name="share_via_link_hide_download">Ascunde descărcarea</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Ascunde listarea fișierelor</string>
     <string name="share_via_link_menu_password_label">Protejare cu parolă (%1$s)</string>
     <string name="share_via_link_section_title">Partajază legătură</string>
     <string name="share_via_link_send_link_label">Trimite legătură</string>
