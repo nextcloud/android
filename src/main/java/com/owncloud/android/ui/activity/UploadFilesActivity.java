@@ -345,7 +345,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
             File parentFolder = mCurrentDir.getParentFile();
             if (!parentFolder.canRead()) {
-                showLocalStoragePathPickerDialog();
+                finish();
                 return;
             }
 
