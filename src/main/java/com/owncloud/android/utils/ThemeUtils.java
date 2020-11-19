@@ -96,13 +96,8 @@ public final class ThemeUtils {
 
         try {
             float adjust;
-            if (darkTheme(context)) {
-                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-                    adjust = +0.5f;
-//                    return adjustLightness(adjust, Color.parseColor(capability.getServerColor()), -1);
-                } else {
-                    adjust = +0.1f;
-                }
+            if (isDarkModeActive(context)) {
+                adjust = +0.5f;
             } else {
                 adjust = -0.1f;
             }
