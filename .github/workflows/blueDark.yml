@@ -2,9 +2,9 @@ name: "Blue color on dark mode"
 
 on:
     push:
-        branches: [ master ]
+        branches: [ stable-3.14 ]
     pull_request:
-        branches: [ master ]
+        branches: [ stable-3.14 ]
 
 jobs:
     blueDark:
