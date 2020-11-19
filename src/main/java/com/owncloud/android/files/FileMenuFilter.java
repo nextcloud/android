@@ -116,21 +116,20 @@ public class FileMenuFilter {
     }
 
     /**
-     * Filters out the file actions available in the passed {@link Menu} taken into account
-     * the state of the {@link OCFile} held by the filter.
+     * Filters out the file actions available in the passed {@link Menu} taken into account the state of the {@link
+     * OCFile} held by the filter.
      *
-     * @param menu                  Options or context menu to filter.
-     * @param inSingleFileFragment  True if this is not listing, but single file fragment, like preview or details.
-     * @param isMediaSupported      True is media playback is supported for this user
+     * @param menu                 Options or context menu to filter.
+     * @param inSingleFileFragment True if this is not listing, but single file fragment, like preview or details.
      */
-    public void filter(Menu menu, boolean inSingleFileFragment, boolean isMediaSupported) {
+    public void filter(Menu menu, boolean inSingleFileFragment) {
         if (files == null || files.isEmpty()) {
             hideAll(menu);
         } else {
             List<Integer> toShow = new ArrayList<>();
             List<Integer> toHide = new ArrayList<>();
 
-            filter(toShow, toHide, inSingleFileFragment, isMediaSupported);
+            filter(toShow, toHide, inSingleFileFragment);
 
             for (int i : toShow) {
                 showMenuItem(menu.findItem(i));
@@ -179,16 +178,13 @@ public class FileMenuFilter {
 
     /**
      * Decides what actions must be shown and hidden implementing the different rule sets.
-     *
-     * @param toShow                List to save the options that must be shown in the menu.
+     *  @param toShow                List to save the options that must be shown in the menu.
      * @param toHide                List to save the options that must be shown in the menu.
      * @param inSingleFileFragment  True if this is not listing, but single file fragment, like preview or details.
-     * @param isMediaSupported      True is media playback is supported for this user
      */
     private void filter(List<Integer> toShow,
                         List<Integer> toHide,
-                        boolean inSingleFileFragment,
-                        boolean isMediaSupported) {
+                        boolean inSingleFileFragment) {
         boolean synchronizing = anyFileSynchronizing();
         OCCapability capability = componentsGetter.getStorageManager().getCapability(user.getAccountName());
         boolean endToEndEncryptionEnabled = capability.getEndToEndEncryption().isTrue();
@@ -210,8 +206,9 @@ public class FileMenuFilter {
         filterUnfavorite(toShow, toHide, synchronizing);
         filterEncrypt(toShow, toHide, endToEndEncryptionEnabled);
         filterUnsetEncrypted(toShow, toHide, endToEndEncryptionEnabled);
+        filterSetPictureAs(toShow, toHide);
 //        filterSetPictureAs(toShow, toHide);
-        filterStream(toShow, toHide, isMediaSupported);
+        filterStream(toShow, toHide);
     }
 
     private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
@@ -429,8 +426,8 @@ public class FileMenuFilter {
         }
     }
 
-    private void filterStream(List<Integer> toShow, List<Integer> toHide, boolean isMediaSupported) {
-        if (files.isEmpty() || !isSingleFile() || !isSingleMedia() || !isMediaSupported) {
+    private void filterStream(List<Integer> toShow, List<Integer> toHide) {
+        if (files.isEmpty() || !isSingleFile() || !isSingleMedia()) {
             toHide.add(R.id.action_stream_media);
         } else {
             toShow.add(R.id.action_stream_media);

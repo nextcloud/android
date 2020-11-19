@@ -20,7 +20,7 @@
     <item
         android:id="@id/nav_photos"
         android:icon="@drawable/nav_photos"
-        android:title="@string/drawer_item_photos" />
+        android:title="@string/drawer_item_gallery" />
 
     <item
         android:id="@id/nav_more"

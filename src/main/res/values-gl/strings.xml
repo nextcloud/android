@@ -143,7 +143,7 @@
     <string name="confirmation_remove_folder_alert">Confirma que quere eliminar %1$s e todo o seu contido?</string>
     <string name="confirmation_remove_folders_alert">Confirma que quere eliminar os elementos seleccionados e o seu contido?</string>
     <string name="confirmation_remove_local">Só local</string>
-    <string name="conflict_already_existing_file">O  ficheiro xa existe</string>
+    <string name="conflict_already_existing_file">Ficheiro existente</string>
     <string name="conflict_dialog_error">Produciuse un erro ao crear o diálogo de conflitos!</string>
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
     <string name="conflict_message_headline">Que ficheiros quere conservar?</string>
@@ -213,6 +213,7 @@
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_all_files">Todos os ficheiros</string>
     <string name="drawer_item_favorites">Favoritos</string>
+    <string name="drawer_item_gallery">Multimedia</string>
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificacións</string>
     <string name="drawer_item_on_device">No dispositivo</string>
@@ -769,7 +770,7 @@
     <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>
     <string name="upload_unknown_error">Produciuse un erro descoñecido</string>
     <string name="uploader_btn_alternative_text">Escoller</string>
-    <string name="uploader_btn_upload_text">Subir</string>
+    <string name="uploader_btn_upload_text">Enviar</string>
     <string name="uploader_error_message_no_file_to_upload">Os datos recibidos non inclúen un ficheiro correcto.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s non ten permisos para ler o ficheiro recibido</string>
     <string name="uploader_error_message_source_file_not_copied">Non foi posíbel copiar o ficheiro nun cartafol temporal. Tente volver envialo.</string>

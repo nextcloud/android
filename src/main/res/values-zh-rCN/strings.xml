@@ -214,7 +214,7 @@
     <string name="drawer_item_home">首页</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">在设备上的</string>
-    <string name="drawer_item_photos">照片</string>
+    <string name="drawer_item_gallery">照片</string>
     <string name="drawer_item_recently_added">最近添加</string>
     <string name="drawer_item_recently_modified">最近修改</string>
     <string name="drawer_item_shared">已共享</string>

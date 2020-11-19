@@ -52,14 +52,14 @@ class InternalShareViewHolder extends RecyclerView.ViewHolder {
         binding.copyInternalLinkIcon
             .getBackground()
             .setColorFilter(ResourcesCompat.getColor(context.getResources(),
-                                                     R.color.grey_db,
+                                                     R.color.nc_grey,
                                                      null),
                             PorterDuff.Mode.SRC_IN);
         binding.copyInternalLinkIcon
             .getDrawable()
             .mutate()
             .setColorFilter(ResourcesCompat.getColor(context.getResources(),
-                                                     R.color.black,
+                                                     R.color.icon_on_nc_grey,
                                                      null),
                             PorterDuff.Mode.SRC_IN);
 

@@ -19,7 +19,6 @@
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_header_view"
     android:layout_width="match_parent"
     android:layout_height="@dimen/drawer_header_height"
@@ -32,7 +31,6 @@
         android:layout_margin="@dimen/standard_margin"
         android:contentDescription="@string/empty"
         android:scaleType="fitCenter"
-        android:src="@drawable/nextcloud_logo"
-        app:tint="@color/drawer_logo_color" />
+        android:src="@drawable/nextcloud_logo" />
 
 </FrameLayout>

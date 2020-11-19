@@ -7,9 +7,9 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.MoreFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.ui.fragment.PhotoFragment;
 
 import org.parceler.Parcels;
 
@@ -20,7 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 public class FileDisplayPage {
 
     public OCFileListFragment homeFragment = new OCFileListFragment();
-    public PhotoFragment photoFragment = new PhotoFragment(true);
+    public GalleryFragment photoFragment = new GalleryFragment(true);
     public OCFileListFragment favFragment = new OCFileListFragment();
     public MoreFragment moreFragment = new MoreFragment();
     public Fragment currentFragment;

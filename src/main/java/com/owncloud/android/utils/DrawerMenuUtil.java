@@ -29,9 +29,7 @@ import android.view.Menu;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
@@ -45,7 +43,7 @@ public final class DrawerMenuUtil {
                                              User user,
                                              Resources resources) {
         if (user.isAnonymous()) {
-            filterMenuItems(menu, R.id.nav_photos, R.id.nav_favorites, R.id.nav_videos);
+            filterMenuItems(menu, R.id.nav_gallery, R.id.nav_favorites, R.id.nav_videos);
         }
 
         if (!resources.getBoolean(R.bool.recently_added_enabled)) {
@@ -61,9 +59,8 @@ public final class DrawerMenuUtil {
         }
     }
 
-    public static void filterTrashbinMenuItem(Menu menu, @NonNull User user, @Nullable OCCapability capability) {
-        if (user.getServer().getVersion().compareTo(OwnCloudVersion.nextcloud_14) < 0 ||
-            capability != null && capability.getFilesUndelete().isFalse() ||
+    public static void filterTrashbinMenuItem(Menu menu, @Nullable OCCapability capability) {
+        if (capability != null && capability.getFilesUndelete().isFalse() ||
             capability != null && capability.getFilesUndelete().isUnknown()) {
             filterMenuItems(menu, R.id.nav_trashbin);
         }

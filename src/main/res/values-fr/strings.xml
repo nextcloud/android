@@ -215,6 +215,7 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_item_activities">Activité</string>
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_favorites">Favoris</string>
+    <string name="drawer_item_gallery">Média</string>
     <string name="drawer_item_home">Accueil</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
@@ -622,6 +623,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_privilege_unshare">Cesser le partage</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
+    <string name="share_search">Nom, ID du cloud fédéré ou adresse mail…</string>
     <string name="share_send_note">Note au destinataire</string>
     <string name="share_via_link_hide_download">Masquer le téléchargement</string>
     <string name="share_via_link_hide_file_listing_permission_label">Masquer la liste des fichiers</string>
