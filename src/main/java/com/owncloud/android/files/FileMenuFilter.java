@@ -255,12 +255,12 @@ public class FileMenuFilter {
     }
 
     private void filterEncrypt(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {
-//        if (files.isEmpty() || !isSingleSelection() || isSingleFile() || isEncryptedFolder()
-//                || !endToEndEncryptionEnabled) {
-//            toHide.add(R.id.action_encrypted);
-//        } else {
-//            toShow.add(R.id.action_encrypted);
-//        }
+        if (files.isEmpty() || !isSingleSelection() || isSingleFile() || isEncryptedFolder()
+                || !endToEndEncryptionEnabled) {
+            toHide.add(R.id.action_encrypted);
+        } else {
+            toShow.add(R.id.action_encrypted);
+        }
     }
 
     private void filterUnsetEncrypted(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {
