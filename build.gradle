@@ -60,7 +60,7 @@ ext {
     markwonVersion =  "4.6.0"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
-    androidLibraryVersion ="9ea25bb8de041b9a3a109709d4bf5b21cb59b326"
+    androidLibraryVersion ="4c4dc84ec4653112db108ec819539a180cdbea8e"
     mockitoVersion = "3.6.0"
     mockkVersion = "1.10.2"
     powermockVersion = "2.0.9"
@@ -177,8 +177,8 @@ android {
             versionDev {
                 applicationId "com.nextcloud.android.beta"
                 dimension "default"
-                versionCode 20201114
-                versionName "20201114"
+                versionCode 20201119
+                versionName "20201119"
             }
 
             qa {

@@ -1,0 +1,16 @@
+Black background on video playback in fullscreen mode
+no default for share type avatar generation
+remove unused resource
+Updated avatar handling
+Fix a typing error in CONTRIBUTING.md
+Fix black text on dark mode for synced folder preferences
+Fix overlapping seek bar and softkeys
+show snackbar when entering wrong passcode
+NPE on download
+Reformat if / try to make Codecy happy
+Check if cursor is null added
+added imports for Cursor and DocumentsContract
+Get last modified time from SAF files put it on the uploaded file
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
