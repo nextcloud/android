@@ -43,12 +43,14 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.NavigationViewActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static junit.framework.TestCase.assertEquals;
@@ -154,5 +156,23 @@ public class FileDisplayActivityIT extends AbstractOnServerIT {
         // then should be in root again
         shortSleep();
         assertEquals(getStorageManager().getFileByPath("/"), sut.getCurrentDir());
+    }
+
+    @Test
+    public void switchToGridView() {
+        activityRule.launchActivity(null);
+
+        assertTrue(new CreateFolderOperation("/test/", user, targetContext)
+                       .execute(client, getStorageManager())
+                       .isSuccess());
+
+        Espresso.onView(withId(R.id.switch_grid_view_button)).perform(click());
+    }
+
+    @Test
+    public void openAccountSwitcher() {
+        activityRule.launchActivity(null);
+
+        Espresso.onView(withId(R.id.switch_account_button)).perform(click());
     }
 }
