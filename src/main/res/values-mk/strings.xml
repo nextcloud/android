@@ -227,8 +227,6 @@
     <string name="drawer_quota_unlimited">искористено %1$s</string>
     <string name="drawer_synced_folders">Автоматско прикачување</string>
     <string name="edit_label">Промени име</string>
-    <string name="edit_permission_label">уреди</string>
-    <string name="edit_rich_workspace">уреди информации за папката</string>
     <string name="encrypted">Постави како енкриптирано</string>
     <string name="end_to_end_encryption_confirm_button">Постави енкрипција</string>
     <string name="end_to_end_encryption_decrypting">Дешифрирање…</string>
@@ -238,7 +236,6 @@
     <string name="end_to_end_encryption_generating_keys">Генерирање на нови клучеви…</string>
     <string name="end_to_end_encryption_keywords_description">Сите 12 зборови заедно прават многу јака лозинка, дозволувајќи ви да ги гледате и да ги користите вашите криптирани датотеки. Ве молиме, запишете го и чувајте го некаде безбедно.</string>
     <string name="end_to_end_encryption_not_enabled">Енкрипцијата од крај-до-крај е оневозможена на серверот.</string>
-    <string name="end_to_end_encryption_not_supported">Енкрипцијата единствено работи на KitKat(4.4) и понови верзии.</string>
     <string name="end_to_end_encryption_passphrase_title">Забележете ја вашата лозинка за ентриптирање составена од 12 зборови</string>
     <string name="end_to_end_encryption_password">Лозинка…</string>
     <string name="end_to_end_encryption_retrieving_keys">Превземање на клучеви…</string>
@@ -572,12 +569,10 @@
     <string name="set_status_message">Постави статус порака</string>
     <string name="share">Сподели</string>
     <string name="share_dialog_title">Споделување</string>
-    <string name="share_email_clarification">%1$s (е-пошта)</string>
     <string name="share_expiration_date_label">Истекува на %1$s</string>
     <string name="share_file">Сподели %1$s</string>
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_internal_link">Сподели внатрешен линк</string>
-    <string name="share_known_remote_clarification">%1$s ( на %2$s )</string>
     <string name="share_link">Сподели линк</string>
     <string name="share_link_empty_password">Морате да внесете лозинка</string>
     <string name="share_link_forbidden_permissions">да ја споделите оваа датотека</string>
@@ -586,16 +581,11 @@
     <string name="share_no_expiration_date_label">Постави рок на траење</string>
     <string name="share_no_password_title">Поставете лозинка</string>
     <string name="share_password_title">Заштитено со лозинка</string>
-    <string name="share_privilege_can_edit_change">може да промени</string>
-    <string name="share_privilege_can_edit_create">може да креира</string>
-    <string name="share_privilege_can_edit_delete">може да брише</string>
-    <string name="share_privilege_can_share">може да споделува</string>
     <string name="share_privilege_unshare">Несподелувај</string>
     <string name="share_remote_clarification">%1$s (далечински)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
     <string name="share_send_note">Белешка до примачот</string>
     <string name="share_via_link_hide_download">Сокриј превземање</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Сокриј ја листата на датотеки</string>
     <string name="share_via_link_menu_password_label">Заштитено со лозинка (%1$s)</string>
     <string name="share_via_link_section_title">Сподели ја врската</string>
     <string name="share_via_link_send_link_label">Испрати линк</string>

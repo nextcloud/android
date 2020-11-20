@@ -417,7 +417,6 @@
     <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
     <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
 
-    <string name="auth_host_address">Server address</string>
     <string name="common_error_out_memory">Not enough memory</string>
 
     <string name="username">Username</string>

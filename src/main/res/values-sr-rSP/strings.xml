@@ -202,7 +202,6 @@
     <string name="drawer_quota">%1$s od %2$s zauzeto</string>
     <string name="drawer_quota_unlimited">%1$s iskorišćeno</string>
     <string name="drawer_synced_folders">Automatska otpremanja</string>
-    <string name="edit_permission_label">izmeni</string>
     <string name="encrypted">Postavi kao šifrovano</string>
     <string name="end_to_end_encryption_confirm_button">Podesite šifrovanje</string>
     <string name="end_to_end_encryption_decrypting">Dešifrujem…</string>
@@ -212,7 +211,6 @@
     <string name="end_to_end_encryption_generating_keys">Generišem nove ključeve…</string>
     <string name="end_to_end_encryption_keywords_description">Ovih 12 reči čini veoma jaku lozinku koja omogućava da samo Vi imate pun pristup gledanju i korišćenju šifrovanih fajlova. Zapišite je i držite je negde na sigurnom.</string>
     <string name="end_to_end_encryption_not_enabled">Šifrovanje s kraja na kraj je isključeno na serveru.</string>
-    <string name="end_to_end_encryption_not_supported">Šifrovanje radi samo na verzijama Androida KitKat (4.4) i novijim.</string>
     <string name="end_to_end_encryption_passphrase_title">Zapišite Vašu 12-odelnu lozinku</string>
     <string name="end_to_end_encryption_password">Lozinka…</string>
     <string name="end_to_end_encryption_retrieving_keys">Dohvatam ključeve…</string>
@@ -517,12 +515,10 @@
     <string name="set_picture_as">Postavi sliku kao</string>
     <string name="share">Podeli</string>
     <string name="share_dialog_title">Deljenje</string>
-    <string name="share_email_clarification">%1$s (e-pošta)</string>
     <string name="share_expiration_date_label">Ističe na %1$s</string>
     <string name="share_file">Podeli %1$s</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_internal_link">Podeli internu vezu</string>
-    <string name="share_known_remote_clarification">%1$s (na %2$s)</string>
     <string name="share_link">Podeli vezu</string>
     <string name="share_link_empty_password">Morate uneti lozinku</string>
     <string name="share_link_forbidden_permissions">da delite ovaj fajl</string>
@@ -531,16 +527,11 @@
     <string name="share_no_expiration_date_label">Postavi datum isteka</string>
     <string name="share_no_password_title">Postavi lozinku</string>
     <string name="share_password_title">Zaštićeno lozinkom</string>
-    <string name="share_privilege_can_edit_change">može da menja</string>
-    <string name="share_privilege_can_edit_create">može da napravi</string>
-    <string name="share_privilege_can_edit_delete">može da briše</string>
-    <string name="share_privilege_can_share">može da deli</string>
     <string name="share_privilege_unshare">Ukini deljenje</string>
     <string name="share_remote_clarification">%1$s(udaljeno)</string>
     <string name="share_room_clarification">%1$s (razgovor)</string>
     <string name="share_send_note">Beleška primaocu</string>
     <string name="share_via_link_hide_download">Sakrij preuzimanje</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Sakrij spisak fajlova</string>
     <string name="share_via_link_menu_password_label">Zaštićeno lozinkom (%1$s)</string>
     <string name="share_via_link_section_title">Veza deljenja</string>
     <string name="share_via_link_send_link_label">Pošalji vezu</string>

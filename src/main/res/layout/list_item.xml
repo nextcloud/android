@@ -160,14 +160,14 @@
 
         <ImageView
             android:id="@+id/sharedIcon"
-            android:layout_width="wrap_content"
+            android:layout_width="48dp"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/unreadComments"
             android:clickable="true"
             android:contentDescription="@string/shared_icon_share"
             android:focusable="true"
-            android:paddingStart="@dimen/standard_half_padding"
+            android:paddingStart="@dimen/list_item_share_right_margin"
             android:paddingEnd="@dimen/list_item_share_right_margin"
             android:src="@drawable/ic_unshared" />
 
@@ -196,15 +196,15 @@
 
         <ImageView
             android:id="@+id/overflow_menu"
-            android:layout_width="wrap_content"
+            android:layout_width="48dp"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/custom_checkbox"
             android:clickable="true"
             android:contentDescription="@string/overflow_menu"
             android:focusable="true"
-            android:paddingStart="@dimen/standard_half_padding"
-            android:paddingEnd="@dimen/alternate_padding"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
             android:src="@drawable/ic_dots_vertical" />
 
     </RelativeLayout>

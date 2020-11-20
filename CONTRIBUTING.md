@@ -329,7 +329,7 @@ This section contains some general guidelines for new contributors, based on com
 
 TL;DR Non-Stop Litter Picking Party!
 
-We recognize the importance of technical debt that can slow down development, make bufixing difficult and
+We recognize the importance of technical debt that can slow down development, make bug fixing difficult and
 discourage future contributors.
 
 We are mindful of the [Broken Windows Theory](https://en.wikipedia.org/wiki/Broken_windows_theory) and we'd like
