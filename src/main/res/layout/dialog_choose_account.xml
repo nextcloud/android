@@ -52,7 +52,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/set_status"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            style="@style/Nextcloud.Material.TextButton"
             android:layout_width="match_parent"
             android:layout_height="@dimen/account_action_button_height"
             android:layout_marginStart="@dimen/account_action_button_margin"
@@ -93,7 +93,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/add_account"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        style="@style/Nextcloud.Material.TextButton"
         android:layout_width="0dp"
         android:layout_height="@dimen/account_action_button_height"
         android:layout_marginStart="@dimen/account_action_button_margin"
@@ -114,7 +114,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/manage_accounts"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        style="@style/Nextcloud.Material.TextButton"
         android:layout_width="0dp"
         android:layout_height="@dimen/account_action_button_height"
         android:layout_marginStart="@dimen/account_action_button_margin"
