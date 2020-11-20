@@ -945,4 +945,6 @@
     <string name="fourHours">4 hours</string>
     <string name="thisWeek">This week</string>
     <string name="drawer_item_gallery">Media</string>
+    <string name="player_stop">stop</string>
+    <string name="player_toggle">toggle</string>
 </resources>
