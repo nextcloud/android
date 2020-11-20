@@ -97,11 +97,7 @@
                     android:orientation="vertical"
                     android:visibility="visible">
 
-                    <include layout="@layout/activity_list_item_header_shimmer" />
-
                     <include layout="@layout/activity_list_item_shimmer" />
-
-                    <include layout="@layout/activity_list_item_header_shimmer" />
 
                     <include layout="@layout/activity_list_item_shimmer" />
 
