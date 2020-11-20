@@ -79,11 +79,11 @@ public class ActivitiesPresenterTest {
     }
 
     @Test
-    public void loadActivitiesFromRepositoryIntoView() {
+    public void loadInitialActivitiesFromRepositoryIntoView() {
         // When loading activities from repository is requested from presenter...
         activitiesPresenter.loadActivities(-1);
-        // Progress indicator is shown in view
-        verify(view).setProgressIndicatorState(eq(true));
+        // Progress indicator is hidden in view
+        verify(view).setProgressIndicatorState(eq(false));
         // Repository starts retrieving activities from server
         verify(activitiesRepository).getActivities(eq(-1), loadActivitiesCallbackArgumentCaptor.capture());
         // Repository returns data
@@ -95,17 +95,31 @@ public class ActivitiesPresenterTest {
     }
 
     @Test
+    public void loadFollowUpActivitiesFromRepositoryIntoView() {
+        // When loading activities from repository is requested from presenter...
+        activitiesPresenter.loadActivities(1);
+        // Progress indicator is shown in view
+        verify(view).setProgressIndicatorState(eq(true));
+        // Repository starts retrieving activities from server
+        verify(activitiesRepository).getActivities(eq(1), loadActivitiesCallbackArgumentCaptor.capture());
+        // Repository returns data
+        loadActivitiesCallbackArgumentCaptor.getValue().onActivitiesLoaded(activitiesList, nextcloudClient, 1);
+        // Progress indicator is hidden
+        verify(view).setProgressIndicatorState(eq(false));
+        // List of activities is shown in view.
+        verify(view).showActivities(eq(activitiesList), eq(nextcloudClient), eq(1));
+    }
+
+    @Test
     public void loadActivitiesFromRepositoryShowError() {
         // When loading activities from repository is requested from presenter...
         activitiesPresenter.loadActivities(-1);
-        // Progress indicator is shown in view
-        verify(view).setProgressIndicatorState(eq(true));
+        // Progress indicator is hidden in view
+        verify(view).setProgressIndicatorState(eq(false));
         // Repository starts retrieving activities from server
         verify(activitiesRepository).getActivities(eq(-1), loadActivitiesCallbackArgumentCaptor.capture());
         // Repository returns data
         loadActivitiesCallbackArgumentCaptor.getValue().onActivitiesLoadedError("error");
-        // Progress indicator is hidden
-        verify(view).setProgressIndicatorState(eq(false));
         // Correct error is shown in view
         verify(view).showActivitiesLoadError(eq("error"));
     }

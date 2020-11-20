@@ -248,7 +248,9 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     @Override
     public void setProgressIndicatorState(boolean isActive) {
         isLoadingActivities = isActive;
-        binding.swipeContainingList.post(() -> binding.swipeContainingList.setRefreshing(isActive));
+        if (!adapter.isEmpty()) {
+            binding.swipeContainingList.post(() -> binding.swipeContainingList.setRefreshing(isActive));
+        }
     }
 
     @Override
