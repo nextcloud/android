@@ -1,9 +1,1 @@
-I think I found a typo.
-accessibility: 48dp hitbox for send-button plus update from image-button to material button
-optimize menu button
-add proper hitboxes for file details buttons
-optimize toolbar layout after accessibility improvements
-Fix account_setup.xml
-Enable accessibility scanner: https://developer.android.com/guide/topics/ui/accessibility/testing#espresso-enable-checks
-Update translations
-Update Nextcloud Android library
+
