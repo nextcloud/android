@@ -971,8 +971,6 @@ public class FileOperationsHelper {
     public void uploadFromCamera(Activity activity, int requestCode) {
         Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        deleteOldFiles(activity);
-
         File photoFile = createImageFile(activity);
 
         Uri photoUri = FileProvider.getUriForFile(activity.getApplicationContext(),
@@ -987,18 +985,6 @@ public class FileOperationsHelper {
             }
         } else {
             DisplayUtils.showSnackMessage(activity, "No Camera found");
-        }
-    }
-
-    private void deleteOldFiles(Activity activity) {
-        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-
-        if (storageDir != null) {
-            for (File file : storageDir.listFiles()) {
-                if (!file.delete()) {
-                    Log_OC.d(this, "Failed to delete: " + file.getAbsolutePath());
-                }
-            }
         }
     }
 
