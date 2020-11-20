@@ -367,7 +367,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount()== 0){
             if(ACTION_CHECK.equals(getIntent().getAction())){
                 moveTaskToBack(true);
-                finishAndRemoveTask();
+                finish();
             }else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction()) ||
                 ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
                 finish();
