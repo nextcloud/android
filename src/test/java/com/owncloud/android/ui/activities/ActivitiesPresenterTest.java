@@ -82,8 +82,8 @@ public class ActivitiesPresenterTest {
     public void loadInitialActivitiesFromRepositoryIntoView() {
         // When loading activities from repository is requested from presenter...
         activitiesPresenter.loadActivities(-1);
-        // Progress indicator is hidden in view
-        verify(view).setProgressIndicatorState(eq(false));
+        // empty list view is hidden in view
+        verify(view).showLoadingMessage();
         // Repository starts retrieving activities from server
         verify(activitiesRepository).getActivities(eq(-1), loadActivitiesCallbackArgumentCaptor.capture());
         // Repository returns data
@@ -114,8 +114,6 @@ public class ActivitiesPresenterTest {
     public void loadActivitiesFromRepositoryShowError() {
         // When loading activities from repository is requested from presenter...
         activitiesPresenter.loadActivities(-1);
-        // Progress indicator is hidden in view
-        verify(view).setProgressIndicatorState(eq(false));
         // Repository starts retrieving activities from server
         verify(activitiesRepository).getActivities(eq(-1), loadActivitiesCallbackArgumentCaptor.capture());
         // Repository returns data
