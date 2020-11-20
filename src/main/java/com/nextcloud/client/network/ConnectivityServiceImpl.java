@@ -63,14 +63,13 @@ class ConnectivityServiceImpl implements ConnectivityService {
         Connectivity c = getConnectivity();
         if (c.isConnected() && c.isWifi()) {
 
-            GetMethod get;
             Server server = accountManager.getUser().getServer();
             String baseServerAddress = server.getUri().toString();
             if (baseServerAddress.isEmpty()) {
                 return true;
             }
 
-            get = requestBuilder.invoke(baseServerAddress + "/index.php/204");
+            GetMethod get = requestBuilder.invoke(baseServerAddress + "/index.php/204");
             PlainClient client = clientFactory.createPlainClient();
 
             int status = get.execute(client);
