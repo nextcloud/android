@@ -289,7 +289,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
             if (MimeTypeUtil.isAudio(file)) {
                 binding.mediaController.setMediaPlayer(mediaPlayerServiceConnection);
-                mediaPlayerServiceConnection.start(user, file, mAutoplay, mSavedPlaybackPosition);
+                mediaPlayerServiceConnection.start(user, file, autoplay, savedPlaybackPosition);
                 binding.emptyView.emptyListView.setVisibility(View.GONE);
                 binding.progress.setVisibility(View.GONE);
                 binding.filePreviewContainer.setVisibility(View.VISIBLE);
