@@ -33,7 +33,9 @@
         android:baselineAligned="false"
         android:orientation="horizontal"
         android:paddingTop="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_padding">
+        android:paddingBottom="@dimen/standard_padding"
+        android:paddingEnd="@dimen/standard_padding"
+        android:paddingStart="@dimen/zero">
 
         <com.elyeproj.loaderviewlibrary.LoaderImageView
             android:id="@+id/thumbnail"
@@ -65,8 +67,8 @@
 
                 <com.elyeproj.loaderviewlibrary.LoaderTextView
                     android:id="@+id/fileSize"
-                    android:layout_height="12sp"
-                    android:layout_width="80dp" />
+                    android:layout_width="80dp"
+                    android:layout_height="12sp" />
 
                 <com.elyeproj.loaderviewlibrary.LoaderTextView
                     android:id="@+id/deletionTimestamp"
@@ -84,41 +86,6 @@
                 android:layout_marginTop="4dp" />
 
         </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingEnd="@dimen/zero"
-            android:paddingStart="@dimen/standard_half_padding">
-
-            <com.elyeproj.loaderviewlibrary.LoaderImageView
-                android:id="@+id/restore"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="@dimen/standard_half_padding"
-                android:layout_marginEnd="@dimen/list_item_share_right_margin"
-                android:contentDescription="@null"
-                app:corners="100" />
-
-            <com.elyeproj.loaderviewlibrary.LoaderTextView
-                android:id="@+id/customCheckbox"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_toEndOf="@id/restore"
-                android:contentDescription="@null"
-                android:layout_marginEnd="@dimen/alternate_padding"
-                android:layout_marginStart="@dimen/standard_half_padding" />
-
-            <com.elyeproj.loaderviewlibrary.LoaderTextView
-                android:id="@+id/overflowMenu"
-                android:layout_width="8dp"
-                android:layout_height="24dp"
-                android:layout_toEndOf="@id/customCheckbox"
-                android:contentDescription="@null"
-                android:layout_marginEnd="@dimen/standard_margin"
-                android:layout_marginStart="@dimen/standard_margin" />
-
-        </RelativeLayout>
 
     </LinearLayout>
 
