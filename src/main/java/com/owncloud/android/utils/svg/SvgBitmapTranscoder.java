@@ -47,8 +47,6 @@ public class SvgBitmapTranscoder implements ResourceTranscoder<SVG, Bitmap> {
     public Resource<Bitmap> transcode(Resource<SVG> toTranscode) {
         SVG svg = toTranscode.get();
 
-        svg.setDocumentViewBox(0, 0, svg.getDocumentWidth(), svg.getDocumentHeight());
-
         try {
             svg.setDocumentHeight("100%");
             svg.setDocumentWidth("100%");

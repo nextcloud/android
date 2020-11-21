@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
             android:text="@string/pass_code_enter_pass_code"
             android:textColor="@color/text_color"
             android:textSize="@dimen/two_line_primary_text_size" />
@@ -42,6 +43,7 @@
             android:id="@+id/explanation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:text="@string/pass_code_configure_your_pass_code_explanation"
             android:textAppearance="@android:style/TextAppearance.Small"
@@ -94,6 +96,7 @@
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="@string/common_cancel"
             android:theme="@style/Button.Primary"
             app:cornerRadius="@dimen/button_corner_radius" />

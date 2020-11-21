@@ -503,9 +503,7 @@ public class FileDisplayActivity extends FileActivity
                         Bundle bundle = new Bundle();
                         bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
                         photoFragment.setArguments(bundle);
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.left_fragment_container, photoFragment, TAG_LIST_OF_FILES);
-                        transaction.commit();
+                        setLeftFragment(photoFragment);
                     } else {
                         Log_OC.d(this, "Switch to oc file search fragment");
 
@@ -513,21 +511,17 @@ public class FileDisplayActivity extends FileActivity
                         Bundle bundle = new Bundle();
                         bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
                         photoFragment.setArguments(bundle);
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.left_fragment_container, photoFragment, TAG_LIST_OF_FILES);
-                        transaction.commit();
+                        setLeftFragment(photoFragment);
                     }
                 }
             } else if (ALL_FILES.equals(intent.getAction())) {
                 Log_OC.d(this, "Switch to oc file fragment");
 
-                OCFileListFragment fragment = new OCFileListFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
-                transaction.commit();
+                setLeftFragment(new OCFileListFragment());
             }
     }
 
+    @Deprecated
     private Fragment chooseInitialSecondFragment(OCFile file, User user) {
         Fragment secondFragment = null;
         if (file != null && !file.isFolder()) {
@@ -585,6 +579,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
 
+    @Deprecated
     private void updateFragmentsVisibility(boolean existsSecondFragment) {
         if (mDualPane) {
             if (binding.leftFragmentContainer.getVisibility() != View.VISIBLE) {
@@ -630,6 +625,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     public @Nullable
+    @Deprecated
     FileFragment getSecondFragment() {
         Fragment second = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT);
         if (second != null) {
@@ -638,6 +634,7 @@ public class FileDisplayActivity extends FileActivity
         return null;
     }
 
+    @Deprecated
     protected void cleanSecondFragment() {
         Fragment second = getSecondFragment();
         if (second != null) {
@@ -667,6 +664,7 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
+    @Deprecated
     protected void refreshSecondFragment(String downloadEvent, String downloadedRemotePath,
                                          boolean success) {
         FileFragment secondFragment = getSecondFragment();
@@ -2182,8 +2180,8 @@ public class FileDisplayActivity extends FileActivity
             params.setBehavior(null);
 
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay);
-            setSecondFragment(mediaFragment);
-            updateFragmentsVisibility(true);
+            setLeftFragment(mediaFragment);
+            //updateFragmentsVisibility(true);
             updateActionBarTitleAndHomeButton(file);
             setFile(file);
         } else {
@@ -2331,15 +2329,10 @@ public class FileDisplayActivity extends FileActivity
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(final SearchEvent event) {
-        Fragment fragment;
-
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
             Log_OC.d(this, "Switch to photo search fragment");
 
-            fragment = new GalleryFragment(true);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
-            transaction.commit();
+            setLeftFragment(new GalleryFragment(true));
         }
     }
 
@@ -2418,7 +2411,6 @@ public class FileDisplayActivity extends FileActivity
                     startSyncFolderOperation(file, false);
                 }
             } else {
-                updateFragmentsVisibility(!file.isFolder());
                 updateActionBarTitleAndHomeButton(file.isFolder() ? null : file);
             }
         }
