@@ -91,6 +91,7 @@ import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.CommentsEvent;
 import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
+import com.owncloud.android.ui.events.RefreshListEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
@@ -1874,4 +1875,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
         }
     }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(RefreshListEvent refreshListEvent) {
+        onRefresh();
+    }
+
 }
