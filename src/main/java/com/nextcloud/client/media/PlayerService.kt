@@ -132,6 +132,8 @@ class PlayerService : Service() {
     private fun onActionStopFile(args: Bundle?) {
         val file: OCFile = args?.getParcelable(EXTRA_FILE) ?: throw IllegalArgumentException("Missing file argument")
         player.stop(file)
+        startForeground(file)
+        stopForeground(true)
     }
 
     private fun startForeground(currentFile: OCFile) {
