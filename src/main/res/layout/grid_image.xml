@@ -43,7 +43,7 @@
         android:contentDescription="@null"
         android:padding="@dimen/grid_image_icon_padding"
         android:scaleType="centerCrop"
-        android:src="@drawable/folder" />
+        android:src="@drawable/file_image" />
 
     <ImageView
         android:id="@+id/favorite_action"
