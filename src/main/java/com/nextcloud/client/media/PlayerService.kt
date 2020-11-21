@@ -35,7 +35,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.ThemeUtils
 import dagger.android.AndroidInjection
-import java.lang.IllegalArgumentException
+import java.util.Locale
 import javax.inject.Inject
 
 class PlayerService : Service() {
@@ -47,6 +47,7 @@ class PlayerService : Service() {
         const val EXTRA_START_POSITION_MS = "START_POSITION_MS"
         const val ACTION_PLAY = "PLAY"
         const val ACTION_STOP = "STOP"
+        const val ACTION_TOGGLE = "TOGGLE"
         const val ACTION_STOP_FILE = "STOP_FILE"
     }
 
@@ -74,7 +75,7 @@ class PlayerService : Service() {
         }
 
         override fun onStop() {
-            stopForeground(true)
+            stopServiceAndRemoveNotification(null)
         }
 
         override fun onError(error: PlayerError) {
@@ -97,10 +98,20 @@ class PlayerService : Service() {
         player = Player(applicationContext, clientFactory, playerListener, audioManager)
         notificationBuilder = NotificationCompat.Builder(this)
         notificationBuilder.color = ThemeUtils.primaryColor(this)
+
         val stop = Intent(this, PlayerService::class.java)
         stop.action = ACTION_STOP
         val pendingStop = PendingIntent.getService(this, 0, stop, 0)
-        notificationBuilder.addAction(0, "STOP", pendingStop)
+        notificationBuilder.addAction(0, getString(R.string.player_stop).toUpperCase(Locale.getDefault()), pendingStop)
+
+        val toggle = Intent(this, PlayerService::class.java)
+        toggle.action = ACTION_TOGGLE
+        val pendingToggle = PendingIntent.getService(this, 0, toggle, 0)
+        notificationBuilder.addAction(
+            0,
+            getString(R.string.player_toggle).toUpperCase(Locale.getDefault()),
+            pendingToggle
+        )
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -112,8 +123,17 @@ class PlayerService : Service() {
             ACTION_PLAY -> onActionPlay(intent)
             ACTION_STOP -> onActionStop()
             ACTION_STOP_FILE -> onActionStopFile(intent.extras)
+            ACTION_TOGGLE -> onActionToggle()
         }
         return START_NOT_STICKY
+    }
+
+    private fun onActionToggle() {
+        if (player.isPlaying) {
+            player.pause()
+        } else {
+            player.start()
+        }
     }
 
     private fun onActionPlay(intent: Intent) {
@@ -126,14 +146,13 @@ class PlayerService : Service() {
     }
 
     private fun onActionStop() {
-        player.stop()
+        stopServiceAndRemoveNotification(null)
     }
 
     private fun onActionStopFile(args: Bundle?) {
         val file: OCFile = args?.getParcelable(EXTRA_FILE) ?: throw IllegalArgumentException("Missing file argument")
-        player.stop(file)
         startForeground(file)
-        stopForeground(true)
+        stopServiceAndRemoveNotification(file)
     }
 
     private fun startForeground(currentFile: OCFile) {
@@ -150,5 +169,16 @@ class PlayerService : Service() {
         }
 
         startForeground(R.string.media_notif_ticker, notificationBuilder.build())
+    }
+
+    private fun stopServiceAndRemoveNotification(file: OCFile?) {
+        if (file == null) {
+            player.stop()
+        } else {
+            player.stop(file)
+        }
+
+        stopSelf()
+        stopForeground(true)
     }
 }

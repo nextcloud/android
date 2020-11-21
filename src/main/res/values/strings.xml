@@ -948,4 +948,6 @@
     <string name="thisWeek">This week</string>
     <string name="drawer_item_gallery">Media</string>
     <string name="more">More</string>
+    <string name="player_stop">stop</string>
+    <string name="player_toggle">toggle</string>
 </resources>

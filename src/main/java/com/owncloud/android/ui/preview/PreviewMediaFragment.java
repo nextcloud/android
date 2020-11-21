@@ -317,14 +317,18 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         Log_OC.v(TAG, "onStart");
         OCFile file = getFile();
         if (file != null) {
+            // bind to any existing player
+            mMediaPlayerServiceConnection.bind();
             if (MimeTypeUtil.isAudio(file)) {
                 mMediaController.setMediaPlayer(mMediaPlayerServiceConnection);
-                mMediaPlayerServiceConnection.bind();
                 mMediaPlayerServiceConnection.start(user, file, mAutoplay, mSavedPlaybackPosition);
                 mMultiListContainer.setVisibility(View.GONE);
                 mPreviewContainer.setVisibility(View.VISIBLE);
             } else if (MimeTypeUtil.isVideo(file)) {
-                stopAudio();
+                if (mMediaPlayerServiceConnection.isConnected()) {
+                    // always stop player
+                    stopAudio();
+                }
                 playVideo();
             }
         }

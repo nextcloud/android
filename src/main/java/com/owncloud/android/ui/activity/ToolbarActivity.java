@@ -135,8 +135,12 @@ public abstract class ToolbarActivity extends BaseActivity {
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
         String title;
         boolean isRoot = isRoot(chosenFile);
+        String chosenFileName=getDefaultDisplayName();
+        if (chosenFile != null) {
+            chosenFileName = chosenFile.getFileName();
+        }
 
-        title = isRoot ? getDefaultDisplayName() : chosenFile.getFileName();
+        title = isRoot ? getDefaultDisplayName() : chosenFileName;
         if (MainApp.isOnlyOnDevice() && "/".equals(title)) {
             updateActionBarTitleAndHomeButtonByString(MainApp.getAppContext().getString(R.string.drawer_item_on_device));
         } else {
