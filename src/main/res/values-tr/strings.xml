@@ -486,6 +486,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Bu bir yer belirleyicidir</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 ÖS</string>
+    <string name="player_stop">durdur</string>
+    <string name="player_toggle">değiştir</string>
     <string name="power_save_check_dialog_message">Güç koruma denetiminin devre dışı bırakılması pil düzeyi düşükken dosyaların yüklenmesine neden olabilir!</string>
     <string name="pref_behaviour_entries_delete_file">silindi</string>
     <string name="pref_behaviour_entries_keep_file">özgün klasöründe korundu</string>

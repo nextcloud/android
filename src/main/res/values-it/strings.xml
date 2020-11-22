@@ -486,6 +486,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Questo è un segnaposto</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">ferma</string>
+    <string name="player_toggle">attiva</string>
     <string name="power_save_check_dialog_message">La disabilitazione del controllo di risparmio energetico potrebbe risultare in caricamenti di file in uno stato di bassa carica della batteria.</string>
     <string name="pref_behaviour_entries_delete_file">eliminato</string>
     <string name="pref_behaviour_entries_keep_file">lasciato nella cartella originale</string>
