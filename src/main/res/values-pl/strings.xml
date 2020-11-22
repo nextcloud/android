@@ -486,6 +486,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Tekst zastępczy</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">zatrzymaj</string>
+    <string name="player_toggle">przełącz</string>
     <string name="power_save_check_dialog_message">Wyłączenie kontroli oszczędzania energii może spowodować przesłanie plików w stanie niskiego poziomu naładowania baterii!</string>
     <string name="pref_behaviour_entries_delete_file">usunięty</string>
     <string name="pref_behaviour_entries_keep_file">zachowany w oryginalnym katalogu</string>
