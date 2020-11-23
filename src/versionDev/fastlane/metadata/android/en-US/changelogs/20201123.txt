@@ -1,0 +1,10 @@
+Modify PIN setting layout alignment
+Disable debugging obsolete apis
+Add toggle function
+Fix falsely starting player service when previewing video
+Open PreviewMediaFragment only in left fragment
+Update fonts
+Use sans font on MaterialButtons to have same font overall in app
+SVG: do not override view box
+Update translations
+Update 3rd-party dependencies
