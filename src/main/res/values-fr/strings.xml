@@ -488,6 +488,8 @@ Attention la suppression est irréversible.</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ceci est un espace réservé</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
+    <string name="player_stop">arrêter</string>
+    <string name="player_toggle">inverser</string>
     <string name="power_save_check_dialog_message">Désactiver l\'économie de batterie peut entraîner l\'envoi de fichiers même avec un niveau de batterie faible !</string>
     <string name="pref_behaviour_entries_delete_file">supprimé</string>
     <string name="pref_behaviour_entries_keep_file">conservé dans le dossier original</string>
