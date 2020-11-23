@@ -90,6 +90,7 @@
     <string name="choose_local_folder">ローカルフォルダーを選択…</string>
     <string name="choose_remote_folder">リモートフォルダを選択…</string>
     <string name="clear_notifications_failed">通知の削除に失敗</string>
+    <string name="clear_status_message">ステータスをリセットする</string>
     <string name="clipboard_label">%1$s からテキストをコピー</string>
     <string name="clipboard_no_text_to_copy">クリップボードにコピーするテキストを受け取らなかった</string>
     <string name="clipboard_text_copied">リンクをコピーしました</string>
