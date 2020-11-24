@@ -1791,9 +1791,24 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
+    @VisibleForTesting
+    public void start(OCFile file) {
+        // placeholder for stop-on-delete future code
+        if (mPlayerConnection != null) {
+            mPlayerConnection.start(getUser().get(), file, true, 0);
+        }
+    }
+
+    @VisibleForTesting
+    public void stop() {
+        // placeholder for stop-on-delete future code
+        if (mPlayerConnection != null) {
+            mPlayerConnection.stop();
+        }
+    }
+
     /**
-     * Updates the view associated to the activity after the finish of an operation trying to move a
-     * file.
+     * Updates the view associated to the activity after the finish of an operation trying to move a file.
      *
      * @param operation Move operation performed.
      * @param result    Result of the move operation.
