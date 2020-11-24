@@ -1,0 +1,3 @@
+FileDetailFragment also uses left fragment
+use upload_and_delete for direct camera upload to allow for multiple image uploads ...without having to wait for a successful upload before taking the next photo.
+Update 3rd-party dependencies
