@@ -43,6 +43,9 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
+
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.NavigationViewActions;
@@ -174,5 +177,48 @@ public class FileDisplayActivityIT extends AbstractOnServerIT {
         activityRule.launchActivity(null);
 
         Espresso.onView(withId(R.id.switch_account_button)).perform(click());
+    }
+
+    @Test
+    public void audioPlayerRemoveFile() {
+        FileDisplayActivity sut = activityRule.launchActivity(null);
+
+        sut.tryStopPlaying(new OCFile("/test.mp3"));
+
+        longSleep();
+
+        Assert.assertTrue(true); // if we reach this, everything is ok
+    }
+
+    @Test
+    public void start() throws IOException {
+        FileDisplayActivity sut = activityRule.launchActivity(null);
+
+        File videoFile = getFile("videoFile.mp4");
+//        Assert.assertTrue(new UploadFileRemoteOperation(videoFile.getAbsolutePath(),
+//                                                        "/videoFile.mp4",
+//                                                        "video/mpeg",
+//                                                        String.valueOf(System.currentTimeMillis() / 1000))
+//                              .execute(client).isSuccess());
+
+        //sut.updateListOfFilesFragment();getFileByPath("/videoFile.mp4")
+        OCFile ocFile = new OCFile("/videoFile.mp4", "123");
+        ocFile.setStoragePath(videoFile.getAbsolutePath());
+        sut.start(ocFile);
+
+        longSleep();
+
+        Assert.assertTrue(true); // if we reach this, everything is ok
+    }
+
+    @Test
+    public void stop() {
+        FileDisplayActivity sut = activityRule.launchActivity(null);
+
+        sut.stop();
+
+        longSleep();
+
+        Assert.assertTrue(true); // if we reach this, everything is ok
     }
 }
