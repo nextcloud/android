@@ -812,6 +812,8 @@ public class FileDisplayActivity extends FileActivity
                         second != null && second.getFile() != null ||
                         isSearchOpen()) {
                     onBackPressed();
+                } else if (getLeftFragment() instanceof FileDetailFragment) {
+                    onBackPressed();
                 } else {
                     openDrawer();
                 }
@@ -853,7 +855,7 @@ public class FileDisplayActivity extends FileActivity
             requestUploadOfFilesFromFileSystem(data, resultCode);
 
         } else if (requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA &&
-                (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+                (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
 
             new CheckAvailableSpaceTask(new CheckAvailableSpaceTask.CheckAvailableSpaceListener() {
                 @Override
@@ -875,7 +877,7 @@ public class FileDisplayActivity extends FileActivity
                         }
 
                         requestUploadOfFilesFromFileSystem(new String[]{renamedFile.getAbsolutePath()},
-                                                           FileUploader.LOCAL_BEHAVIOUR_MOVE);
+                                                           FileUploader.LOCAL_BEHAVIOUR_DELETE);
                     }
                 }
             }, new String[]{FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath()}).execute();
@@ -1571,18 +1573,10 @@ public class FileDisplayActivity extends FileActivity
     public void showDetails(OCFile file, int activeTab) {
         User currentUser = getUser().orElseThrow(RuntimeException::new);
         Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser, activeTab);
-        setSecondFragment(detailFragment);
+        setLeftFragment(detailFragment);
 
-        OCFileListFragment listOfFiles = getListOfFilesFragment();
-        if (listOfFiles != null) {
-            resetHeaderScrollingState();
-            showSortListGroup(false);
-            listOfFiles.setFabVisible(false);
-        }
-
-        updateFragmentsVisibility(true);
         updateActionBarTitleAndHomeButton(file);
-        setFile(file);
+        mDrawerToggle.setDrawerIndicatorEnabled(false);
     }
 
     private void resetHeaderScrollingState() {
@@ -1815,21 +1809,6 @@ public class FileDisplayActivity extends FileActivity
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);
             }
-        }
-    }
-
-    /**
-     * Shortcut to get access to the {@link FileDetailFragment} instance, if any
-     *
-     * @return A {@link FileDetailFragment} instance, or null
-     */
-    private FileDetailFragment getShareFileFragment() {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(TAG_SECOND_FRAGMENT);
-
-        if (fragment instanceof FileDetailFragment) {
-            return (FileDetailFragment) fragment;
-        } else {
-            return null;
         }
     }
 

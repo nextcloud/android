@@ -844,6 +844,7 @@ public abstract class FileActivity extends DrawerActivity
      * @return A {@link FileDetailSharingFragment} instance, or null
      */
     private @Nullable
+    @Deprecated
     FileDetailSharingFragment getShareFileFragment() {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(ShareActivity.TAG_SHARE_FRAGMENT);
 
