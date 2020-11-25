@@ -40,6 +40,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -48,6 +49,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
@@ -272,7 +274,7 @@ public class FileDisplayActivity extends FileActivity
         if (taskRetainerFragment == null) {
             taskRetainerFragment = new TaskRetainerFragment();
             fm.beginTransaction()
-                    .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
+                .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
         }   // else, Fragment already created and retained across configuration change
 
         if (Intent.ACTION_VIEW.equals(getIntent().getAction())) {
@@ -280,6 +282,30 @@ public class FileDisplayActivity extends FileActivity
         }
 
         mPlayerConnection = new PlayerServiceConnection(this);
+
+        checkStoragePath();
+    }
+
+    private void checkStoragePath() {
+        String newStorage = Environment.getExternalStorageDirectory().getAbsolutePath();
+        String storagePath = preferences.getStoragePath(newStorage);
+        if (!preferences.isStoragePathValid() && !new File(storagePath).exists()) {
+            // falling back to default
+            preferences.setStoragePath(newStorage);
+            preferences.setStoragePathValid();
+            MainApp.setStoragePath(newStorage);
+
+            try {
+                new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
+                    .setTitle(R.string.wrong_storage_path)
+                    .setMessage(R.string.wrong_storage_path_desc)
+                    .setNegativeButton(R.string.dialog_close, (dialog, which) -> dialog.dismiss())
+                    .setIcon(R.drawable.ic_settings)
+                    .show();
+            } catch (WindowManager.BadTokenException e) {
+                Log_OC.e(TAG, "Error showing wrong storage info, so skipping it: " + e.getMessage());
+            }
+        }
     }
 
     @Override
@@ -290,7 +316,7 @@ public class FileDisplayActivity extends FileActivity
         if (!PermissionUtil.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             // Check if we should show an explanation
             if (PermissionUtil.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 // Show explanation to the user and then request permission
                 Snackbar snackbar = Snackbar.make(binding.rootLayout,
                                                   R.string.permission_storage_access,
