@@ -87,7 +87,7 @@ repositories {
 def versionMajor = 3
 def versionMinor = 14
 def versionPatch = 1
-def versionBuild = 51 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionBuild = 52 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 def testMinSdk = 21
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
