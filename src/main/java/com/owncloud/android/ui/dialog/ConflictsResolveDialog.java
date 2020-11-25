@@ -176,7 +176,14 @@ public class ConflictsResolveDialog extends DialogFragment {
                     listener.conflictDecisionMade(Decision.CANCEL);
                 }
             })
-            .setTitle(R.string.conflict_message_headline);
+            .setTitle(String.format(getString(R.string.conflict_file_headline), existingFile.getFileName()));
+
+        File parentFile = new File(existingFile.getRemotePath()).getParentFile();
+        if (parentFile != null) {
+            binding.in.setText(String.format(getString(R.string.in_folder), parentFile.getAbsolutePath()));
+        } else {
+            binding.in.setVisibility(View.GONE);
+        }
 
         // set info for new file
         binding.newSize.setText(DisplayUtils.bytesToHumanReadable(newFile.length()));
