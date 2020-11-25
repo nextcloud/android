@@ -25,15 +25,15 @@ import com.nextcloud.client.account.Server
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.logger.Logger
+import com.nextcloud.common.PlainClient
+import com.nextcloud.operations.GetMethod
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
-import org.apache.commons.httpclient.HttpClient
 import org.apache.commons.httpclient.HttpStatus
-import org.apache.commons.httpclient.methods.GetMethod
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
@@ -81,7 +81,7 @@ class ConnectivityServiceTest {
         lateinit var clientFactory: ClientFactory
 
         @Mock
-        lateinit var client: HttpClient
+        lateinit var client: PlainClient
 
         @Mock
         lateinit var getRequest: GetMethod
@@ -199,11 +199,11 @@ class ConnectivityServiceTest {
         }
 
         fun mockResponse(maintenance: Boolean = true, httpStatus: Int = HttpStatus.SC_OK) {
-            whenever(client.executeMethod(getRequest)).thenReturn(httpStatus)
+            whenever(client.execute(getRequest)).thenReturn(httpStatus)
             val body =
                 """{"maintenance":$maintenance}"""
-            whenever(getRequest.responseContentLength).thenReturn(body.length.toLong())
-            whenever(getRequest.responseBodyAsString).thenReturn(body)
+            whenever(getRequest.getResponseContentLength()).thenReturn(body.length.toLong())
+            whenever(getRequest.getResponseBodyAsString()).thenReturn(body)
         }
 
         @Test
@@ -260,15 +260,14 @@ class ConnectivityServiceTest {
             //      request is not sent
             assertTrue("Server should not be accessible", result)
             verify(requestBuilder, never()).invoke(any())
-            verify(client, never()).executeMethod(any())
-            verify(client, never()).executeMethod(any(), any())
-            verify(client, never()).executeMethod(any(), any(), any())
+            verify(client, never()).execute(any())
         }
 
         fun mockResponse(contentLength: Long = 0, status: Int = HttpStatus.SC_OK) {
-            whenever(client.executeMethod(any())).thenReturn(status)
-            whenever(getRequest.statusCode).thenReturn(status)
-            whenever(getRequest.responseContentLength).thenReturn(contentLength)
+            whenever(client.execute(any())).thenReturn(status)
+            whenever(getRequest.getStatusCode()).thenReturn(status)
+            whenever(getRequest.getResponseContentLength()).thenReturn(contentLength)
+            whenever(getRequest.execute(client)).thenReturn(status)
         }
 
         @Test
