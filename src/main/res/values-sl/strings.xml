@@ -486,6 +486,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">To je vsebnik predmetov</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">končaj</string>
+    <string name="player_toggle">preklop</string>
     <string name="power_save_check_dialog_message">Onemogočanje varčevanja lahko povzroči pošiljanje datotek, ko je napetost baterije že nizka!</string>
     <string name="pref_behaviour_entries_delete_file">izbrisano</string>
     <string name="pref_behaviour_entries_keep_file">ohranjeno v izvorni mapi</string>

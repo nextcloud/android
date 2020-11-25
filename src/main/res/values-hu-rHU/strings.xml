@@ -473,6 +473,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ez egy helykitöltő</string>
     <string name="placeholder_timestamp">2012.05.18. 12:23</string>
+    <string name="player_stop">leállítás</string>
+    <string name="player_toggle">átváltás</string>
     <string name="power_save_check_dialog_message">Az energiagazdálkodási ellenőrzés letiltása fájlfeltöltést eredményezhet akkor is, ha az akkumulátor töltöttsége alacsony.</string>
     <string name="pref_behaviour_entries_delete_file">törölt</string>
     <string name="pref_behaviour_entries_keep_file">megtartva az eredeti mappában</string>
@@ -572,6 +574,8 @@
     <string name="sendbutton_description">Küldés gomb ikon</string>
     <string name="set_as">Beállítás mint</string>
     <string name="set_picture_as">Kép használata mint</string>
+    <string name="set_status">Állapot beállítása</string>
+    <string name="set_status_message">Állapotüzenet beállítása</string>
     <string name="share">Megosztás</string>
     <string name="share_dialog_title">Megosztás</string>
     <string name="share_expiration_date_label">Lejárat: %1$s</string>
