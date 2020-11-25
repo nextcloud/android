@@ -1,0 +1,4 @@
+SDK30: Add queries to get info about deck app
+Stop file only if removed file is an audio file
+Update Nextcloud Android library
+Update 3rd-party dependencies
