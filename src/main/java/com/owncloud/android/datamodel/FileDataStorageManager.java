@@ -112,11 +112,13 @@ public class FileDataStorageManager {
         return getFileByPath(ProviderTableMeta.FILE_PATH, path);
     }
 
-    public OCFile getFileByDecryptedRemotePath(String path) {
+    public @Nullable
+    OCFile getFileByDecryptedRemotePath(String path) {
         return getFileByPath(ProviderTableMeta.FILE_PATH_DECRYPTED, path);
     }
 
-    private OCFile getFileByPath(String type, String path) {
+    private @Nullable
+    OCFile getFileByPath(String type, String path) {
         Cursor cursor = getFileCursorForValue(type, path);
         OCFile ocFile = null;
         if (cursor.moveToFirst()) {
