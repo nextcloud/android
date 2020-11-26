@@ -98,9 +98,6 @@ for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()
             apply from: 'gplay.gradle'
             System.console().println("Applying gplay.gradle")
         }
-        if (arg.contains("lint")) {
-            testMinSdk = 19
-        }
     }
 }
 
@@ -129,7 +126,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
 
         // arguments to be passed to functional tests

@@ -62,7 +62,6 @@ import java.lang.ref.WeakReference;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -70,7 +69,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Opens document for editing via Richdocuments app in a web view
  */
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class RichDocumentsEditorWebView extends EditorWebView {
     public static final int REQUEST_LOCAL_FILE = 101;
     private static final int REQUEST_REMOTE_FILE = 100;
@@ -92,7 +90,6 @@ public class RichDocumentsEditorWebView extends EditorWebView {
     protected ClientFactory clientFactory;
 
     @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT_INTERFACE")
-    @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used >= Lollipop
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
