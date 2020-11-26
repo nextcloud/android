@@ -213,6 +213,7 @@
     <string name="drawer_item_activities">Activities</string>
     <string name="drawer_item_all_files">All files</string>
     <string name="drawer_item_favorites">Favourites</string>
+    <string name="drawer_item_gallery">Media</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">On device</string>
@@ -485,6 +486,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">This is a placeholder</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">stop</string>
+    <string name="player_toggle">toggle</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>

@@ -486,6 +486,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Detta är en platshållare</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">stopp</string>
+    <string name="player_toggle">växla</string>
     <string name="power_save_check_dialog_message">Inaktivera strömsparningskontroll kan resultera i att filer laddas upp i lågt batteriläge!</string>
     <string name="pref_behaviour_entries_delete_file">raderas</string>
     <string name="pref_behaviour_entries_keep_file">behållas i orginalmapp</string>

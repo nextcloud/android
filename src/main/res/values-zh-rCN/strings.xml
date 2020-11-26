@@ -27,6 +27,7 @@
     <string name="actionbar_sort">排序</string>
     <string name="active_user">活跃用户</string>
     <string name="activities_no_results_headline">暂无动态</string>
+    <string name="activities_no_results_message">还没有类似添加、更改和共享这样的事件。</string>
     <string name="activity_chooser_send_file_title">发送</string>
     <string name="activity_chooser_title">发送链接到…</string>
     <string name="activity_icon">激活</string>
@@ -170,6 +171,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">目前不支持 复制 / 移动到加密的文件夹。</string>
     <string name="copy_to">复制到…</string>
     <string name="could_not_download_image">无法下载完整图片</string>
+    <string name="could_not_retrieve_shares">无法检索共享</string>
     <string name="could_not_retrieve_url">无法获取地址</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
     <string name="create_new">新建</string>
@@ -211,6 +213,7 @@
     <string name="drawer_item_activities">动态</string>
     <string name="drawer_item_all_files">全部文件</string>
     <string name="drawer_item_favorites">收藏</string>
+    <string name="drawer_item_gallery">媒体文件</string>
     <string name="drawer_item_home">首页</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">在设备上的</string>
@@ -266,6 +269,9 @@
     <string name="etm_background_jobs_schedule_test_job">日程测试工作</string>
     <string name="etm_background_jobs_start_test_job">开始测试工作</string>
     <string name="etm_background_jobs_stop_test_job">停止测试工作</string>
+    <string name="etm_download_enqueue_test_download">将测试下载加入队列</string>
+    <string name="etm_download_path">远程路径</string>
+    <string name="etm_downloader">下载器</string>
     <string name="etm_migrations">迁移（应用升级）</string>
     <string name="etm_preferences">设置偏好</string>
     <string name="etm_title">工程测试模式</string>
@@ -273,6 +279,7 @@
     <string name="failed_to_download">无法将文件传递给下载管理器</string>
     <string name="failed_to_print">打印文件已失败</string>
     <string name="failed_to_start_editor">无法启动编辑器</string>
+    <string name="failed_update_ui">更新用户界面失败</string>
     <string name="favorite">添加到收藏夹</string>
     <string name="favorite_icon">收藏</string>
     <string name="file_delete">删除</string>
@@ -435,6 +442,7 @@
     <string name="no_pdf_app_available">没有可用来打开 PDF 的应用</string>
     <string name="note_confirm">发送</string>
     <string name="note_could_not_sent">无法发送笔记</string>
+    <string name="note_icon_hint">笔记图标</string>
     <string name="notification_action_failed">执行动作失败。</string>
     <string name="notification_channel_download_description">显示下载进度</string>
     <string name="notification_channel_download_name">下载提醒频道</string>
@@ -478,12 +486,15 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">这是一个占位符</string>
     <string name="placeholder_timestamp">2012/05/18 下午12:23 </string>
+    <string name="player_stop">停止</string>
+    <string name="player_toggle">切换</string>
     <string name="power_save_check_dialog_message">禁用节能检查可能会导致在低电池电量状态下仍然上传文件！</string>
     <string name="pref_behaviour_entries_delete_file">已删除</string>
     <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">如果文件已经存在怎么办？</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">每次问我</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">跳过上传</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">覆盖远程版本</string>
     <string name="pref_instant_name_collision_policy_entries_rename">重命名新版本</string>
     <string name="pref_instant_name_collision_policy_title">如果文件已经存在怎么办？</string>
@@ -534,6 +545,7 @@
     <string name="preview_image_error_unknown_format">无法显示图像</string>
     <string name="preview_sorry">抱歉</string>
     <string name="privacy">隐私</string>
+    <string name="public_share_name">新名称</string>
     <string name="push_notifications_not_implemented">由于依赖于专有的Google Play服务，推送通知被禁用。</string>
     <string name="push_notifications_old_login">由于登录会话已过期，因此没有推送通知。 请考虑重新添加您的账号。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
@@ -541,6 +553,7 @@
     <string name="recommend_subject">在你的设备上尝试%1$s！</string>
     <string name="recommend_text">我想邀请你在你的设备上使用 %1$s。\n在这里下载：%2$s</string>
     <string name="recommend_urls">%1$s 或 %2$s</string>
+    <string name="remote">(远程)</string>
     <string name="remote_file_fetch_failed">查找文件失败！</string>
     <string name="remove_fail_msg">删除失败</string>
     <string name="remove_notification_failed">移除通知失败</string>
@@ -586,6 +599,7 @@
     <string name="share_internal_link">共享内部链接</string>
     <string name="share_internal_link_to_file_text">内部共享链接仅对有权访问此文件的用户有效</string>
     <string name="share_internal_link_to_folder_text">内部共享链接仅对有权访问此文件夹的用户有效</string>
+    <string name="share_known_remote_on_clarification">在 %1$s</string>
     <string name="share_link">共享链接</string>
     <string name="share_link_empty_password">您必须输入密码</string>
     <string name="share_link_file_error">尝试共享此文件或文件夹时发生错误。</string>
@@ -593,6 +607,7 @@
     <string name="share_link_forbidden_permissions">共享该文件</string>
     <string name="share_link_optional_password_title">输入一个可选密码</string>
     <string name="share_link_password_title">输入密码</string>
+    <string name="share_link_with_label">共享链接 (%1$s)</string>
     <string name="share_no_expiration_date_label">设置过期日期</string>
     <string name="share_no_password_title">设置密码</string>
     <string name="share_password_title">密码已受保护</string>
@@ -797,6 +812,7 @@
     <string name="uploads_view_upload_status_virus_detected">检测到病毒。无法完成上传！</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">等待退出节能模式</string>
     <string name="uploads_view_upload_status_waiting_for_charging">等待充电</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">等候非流量计费的 Wi-Fi 连接</string>
     <string name="user_icon">用户</string>
     <string name="user_info_address">地址</string>
     <string name="user_info_email">电子邮箱</string>
