@@ -283,7 +283,7 @@ dependencies {
 
     kapt 'javax.xml.bind:jaxb-api:2.3.1'
     kapt 'org.glassfish.jaxb:jaxb-core:2.3.0.1'
-    kapt 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+    kapt 'org.glassfish.jaxb:jaxb-runtime:3.0.0'
 
     annotationProcessor 'javax.xml.bind:jaxb-api:2.3.1'
     annotationProcessor 'org.glassfish.jaxb:jaxb-core:2.3.0.1'
