@@ -112,7 +112,6 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         finish();
     }
 
-    @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used >= Lollipop
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         webViewLayout = R.layout.richdocuments_webview; // TODO rename

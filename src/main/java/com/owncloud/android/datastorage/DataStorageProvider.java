@@ -21,7 +21,6 @@
 
 package com.owncloud.android.datastorage;
 
-import android.os.Build;
 import android.os.Environment;
 
 import com.owncloud.android.MainApp;
@@ -67,33 +66,21 @@ public class DataStorageProvider {
 
         List<String> paths = new ArrayList<>();
         StoragePoint storagePoint;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            for (File f : MainApp.getAppContext().getExternalMediaDirs()) {
-                if (f != null && !paths.contains(f.getAbsolutePath())) {
-                    storagePoint = new StoragePoint();
-                    storagePoint.setPath(f.getAbsolutePath());
-                    storagePoint.setDescription(f.getAbsolutePath());
-                    storagePoint.setPrivacyType(StoragePoint.PrivacyType.PUBLIC);
-                    if (f.getAbsolutePath().startsWith("/storage/emulated/0")) {
-                        storagePoint.setStorageType(StoragePoint.StorageType.INTERNAL);
+        for (File f : MainApp.getAppContext().getExternalMediaDirs()) {
+            if (f != null && !paths.contains(f.getAbsolutePath())) {
+                storagePoint = new StoragePoint();
+                storagePoint.setPath(f.getAbsolutePath());
+                storagePoint.setDescription(f.getAbsolutePath());
+                storagePoint.setPrivacyType(StoragePoint.PrivacyType.PUBLIC);
+                if (f.getAbsolutePath().startsWith("/storage/emulated/0")) {
+                    storagePoint.setStorageType(StoragePoint.StorageType.INTERNAL);
+                    mCachedStoragePoints.add(storagePoint);
+                } else {
+                    storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
+                    if (isExternalStorageWritable()) {
                         mCachedStoragePoints.add(storagePoint);
-                    } else {
-                        storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
-                        if (isExternalStorageWritable()) {
-                            mCachedStoragePoints.add(storagePoint);
-                        }
                     }
                 }
-            }
-        } else {
-            for (IStoragePointProvider p : mStorageProviders) {
-                if (p.canProvideStoragePoints()) {
-                    mCachedStoragePoints.addAll(p.getAvailableStoragePoint());
-                }
-            }
-
-            for (int i = 0; i < mCachedStoragePoints.size(); i++) {
-                paths.add(mCachedStoragePoints.get(i).getPath());
             }
         }
 
