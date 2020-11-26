@@ -28,7 +28,6 @@ import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -49,7 +48,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
@@ -123,7 +121,6 @@ public class ExtendedListFragment extends Fragment implements
     protected TextView mEmptyListMessage;
     protected TextView mEmptyListHeadline;
     protected ImageView mEmptyListIcon;
-    protected ProgressBar mEmptyListProgress;
 
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
@@ -419,9 +416,6 @@ public class ExtendedListFragment extends Fragment implements
         mEmptyListMessage = view.findViewById(R.id.empty_list_view_text);
         mEmptyListHeadline = view.findViewById(R.id.empty_list_view_headline);
         mEmptyListIcon = view.findViewById(R.id.empty_list_icon);
-        mEmptyListProgress = view.findViewById(R.id.empty_list_progress);
-        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(getContext(), true),
-                                                                     PorterDuff.Mode.SRC_IN);
     }
 
     /**
@@ -621,7 +615,6 @@ public class ExtendedListFragment extends Fragment implements
                     }
 
                     mEmptyListIcon.setVisibility(View.VISIBLE);
-                    mEmptyListProgress.setVisibility(View.GONE);
                     mEmptyListMessage.setVisibility(View.VISIBLE);
                 }
             }
@@ -667,24 +660,16 @@ public class ExtendedListFragment extends Fragment implements
         });
     }
 
-    public void setEmptyListLoadingMessage() {
-        setEmptyListLoadingMessage(true);
-    }
-
     /**
      * Set message for empty list view.
      */
-    public void setEmptyListLoadingMessage(boolean showSpinner) {
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                if (mEmptyListContainer != null && mEmptyListMessage != null) {
-                    mEmptyListHeadline.setText(R.string.file_list_loading);
-                    mEmptyListMessage.setText("");
+    public void setEmptyListLoadingMessage() {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            if (mEmptyListContainer != null && mEmptyListMessage != null) {
+                mEmptyListHeadline.setText(R.string.file_list_loading);
+                mEmptyListMessage.setText("");
 
-                    mEmptyListIcon.setVisibility(View.GONE);
-                    mEmptyListProgress.setVisibility(showSpinner ? View.VISIBLE : View.INVISIBLE);
-                }
+                mEmptyListIcon.setVisibility(View.GONE);
             }
         });
     }

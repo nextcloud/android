@@ -129,7 +129,7 @@ public class GalleryFragment extends OCFileListFragment {
     private void handleSearchEvent() {
         prepareCurrentSearch(searchEvent);
         searchFragment = true;
-        setEmptyListLoadingMessage(false);
+        setEmptyListLoadingMessage();
 
         if (refresh || preferences.getPhotoSearchTimestamp() == 0 ||
             System.currentTimeMillis() - preferences.getPhotoSearchTimestamp() >= 30 * 1000) {
