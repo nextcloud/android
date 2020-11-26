@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">Vypnúť kontrolu úspory energie</string>
     <string name="autoupload_hide_folder">Skryť priečinok</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Preč</string>
     <string name="battery_optimization_close">Zatvoriť</string>
     <string name="battery_optimization_disable">Zakázať</string>
     <string name="battery_optimization_message">Vaše zariadenie môže mať zapnutú optimalizáciu batérie. AutoUpload správne funguje iba pokiaľ z túto aplikáciu z optimalizácie vynecháte.</string>
