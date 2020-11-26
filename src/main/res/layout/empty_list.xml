@@ -36,12 +36,6 @@
         android:src="@drawable/ic_list_empty_folder"
         android:visibility="gone" />
 
-    <ProgressBar
-        android:id="@+id/empty_list_progress"
-        android:layout_width="@dimen/empty_list_progress_layout_width"
-        android:layout_height="@dimen/empty_list_progress_layout_height"
-        android:layout_gravity="center_horizontal" />
-
     <TextView
         android:id="@+id/empty_list_view_headline"
         android:layout_width="match_parent"

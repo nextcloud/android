@@ -23,7 +23,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:focusable="true">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -59,7 +60,30 @@
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <include layout="@layout/empty_list" />
+            <include
+                android:id="@+id/empty_list"
+                layout="@layout/empty_list" />
+
+            <LinearLayout
+                android:id="@+id/loading_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.elyeproj.loaderviewlibrary.LoaderTextView
+                    android:id="@+id/shimmer_header"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_list_item_size"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_marginBottom="40dp" />
+
+                <include layout="@layout/activity_list_item_shimmer" />
+                <include layout="@layout/activity_list_item_shimmer" />
+                <include layout="@layout/activity_list_item_shimmer" />
+                <include layout="@layout/activity_list_item_shimmer" />
+
+            </LinearLayout>
         </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

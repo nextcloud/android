@@ -45,8 +45,8 @@ import androidx.fragment.app.FragmentTransaction;
  */
 public class ContactsPreferenceActivity extends FileActivity implements FileFragment.ContainerActivity {
     public static final String TAG = ContactsPreferenceActivity.class.getSimpleName();
-    protected static final String EXTRA_FILE = "FILE";
-    protected static final String EXTRA_USER = "USER";
+    public static final String EXTRA_FILE = "FILE";
+    public static final String EXTRA_USER = "USER";
     /**
      * Warning: default for this extra is different between this activity and {@link ContactsBackupFragment}
      */

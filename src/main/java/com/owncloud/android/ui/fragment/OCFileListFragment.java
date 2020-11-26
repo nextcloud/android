@@ -959,7 +959,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     } else {
                         // update state and view of this fragment
                         searchFragment = false;
-                        setEmptyListLoadingMessage(false);
+                        setEmptyListLoadingMessage();
                         listDirectory(file, MainApp.isOnlyOnDevice(), false);
                         // then, notify parent activity to let it update its state and view
                         mContainerActivity.onBrowsedDownTo(file);
