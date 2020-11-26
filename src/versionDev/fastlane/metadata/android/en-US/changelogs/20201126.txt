@@ -1,0 +1,7 @@
+When conflicting upload and user decides to keep existing file, do not fail on downloading it
+Show folder name in resolve conflict dialog
+replaced "21" with "Build.VERSION_CODES.LOLLIPOP"
+Modified code to close the app after checking API >= 21
+Modified code in consideration of API
+Closed the screen when press back button from App passcode screen
+Update translations
