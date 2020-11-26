@@ -74,11 +74,9 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
             int status = get.execute(client);
 
-            boolean result = !(status == HttpStatus.SC_NO_CONTENT && (get.getResponseContentLength() == 0));
+            boolean result = !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() == 0);
 
-            if (get != null) {
-                get.releaseConnection();
-            }
+            get.releaseConnection();
 
             return result;
         } else {
