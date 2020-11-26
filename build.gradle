@@ -282,7 +282,7 @@ dependencies {
     qaImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
 
     kapt 'javax.xml.bind:jaxb-api:2.3.1'
-    kapt 'org.glassfish.jaxb:jaxb-core:2.3.0.1'
+    kapt 'org.glassfish.jaxb:jaxb-core:3.0.0'
     kapt 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
 
     annotationProcessor 'javax.xml.bind:jaxb-api:2.3.1'
