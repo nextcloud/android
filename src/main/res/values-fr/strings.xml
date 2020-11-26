@@ -263,7 +263,7 @@ Attention la suppression est irréversible.</string>
     <string name="etm_background_job_progress">Progression</string>
     <string name="etm_background_job_started">Démarré</string>
     <string name="etm_background_job_state">État</string>
-    <string name="etm_background_job_user">Utilisateurs</string>
+    <string name="etm_background_job_user">Utilisateur</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Tâches de fond</string>
     <string name="etm_background_jobs_cancel_all">Annuler toutes les tâches </string>
