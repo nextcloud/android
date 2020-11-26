@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   @author Bartosz Przybylski
@@ -40,18 +40,8 @@ import java.util.List;
  */
 public class DataStorageProvider {
 
-    private static final List<IStoragePointProvider> mStorageProviders = new ArrayList<>();
     private static final UniqueStorageList mCachedStoragePoints = new UniqueStorageList();
-    private static final DataStorageProvider sInstance = new DataStorageProvider() {{
-        // There is no system wide way to get usb storage so we need to provide multiple
-        // handcrafted ways to add those.
-        addStoragePointProvider(new SystemDefaultStoragePointProvider());
-        addStoragePointProvider(new EnvironmentStoragePointProvider());
-        addStoragePointProvider(new VDCStoragePointProvider());
-        addStoragePointProvider(new MountCommandStoragePointProvider());
-        addStoragePointProvider(new HardcodedStoragePointProvider());
-    }};
-
+    private static final DataStorageProvider sInstance = new DataStorageProvider();
 
     public static DataStorageProvider getInstance() {
         return sInstance;
@@ -126,18 +116,9 @@ public class DataStorageProvider {
         return path;
     }
 
-    public void addStoragePointProvider(IStoragePointProvider provider) {
-        mStorageProviders.add(provider);
-    }
-
-    public void removeStoragePointProvider(IStoragePointProvider provider) {
-        mStorageProviders.remove(provider);
-    }
-
     /* Checks if external storage is available for read and write */
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state);
     }
-
 }
