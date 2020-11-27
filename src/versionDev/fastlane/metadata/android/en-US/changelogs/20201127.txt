@@ -1,0 +1,34 @@
+add test for shimmering contact list
+changes after rebase
+Update tests to shimmer logic
+update activities tests
+cleanup shimmers
+use correct license headers
+add shimmer to media preview
+reset binding at view destruction
+add shimmer test for trashbin
+add shimmer effect to trashbin screen
+WIP image loader animation
+proper empty list display
+proper empty list display
+Cleanup code
+remove unused imports
+add shimmer to text preview loading
+add shimmer effect to file detail activities
+add shimmer to contacts list
+proper loading animation for notification list
+optimize loading layout for image preview
+Update after rebase
+add loading shimmer for preview image
+add loading shimmer effect for auto upload
+correct test call
+correct writing of shimmer
+replace butterknife with native view bindings for activities view
+introduce schimmer effect for loading screen for activities and view bindings
+shimmer effect loading screen for user info details
+Draft for shimmer effect loading screen for activities
+Remove big spinner
+More detailed check if >= Android M for metered connections
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
