@@ -90,7 +90,6 @@ def versionMinor = 15
 def versionPatch = 0
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
-def testMinSdk = 21
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
     for (String arg : tr.args) {
         // any gplay, but only exact "build", as e.g. buildGeneric shall not apply gplay.grade
@@ -189,7 +188,6 @@ android {
         testOptions {
             unitTests.returnDefaultValues = true
             animationsDisabled true
-            minSdkVersion testMinSdk
         }
     }
 
