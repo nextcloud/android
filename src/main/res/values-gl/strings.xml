@@ -90,6 +90,7 @@
     <string name="checkbox">Caixa de selección</string>
     <string name="choose_local_folder">Escoller cartafol local…</string>
     <string name="choose_remote_folder">Escoller cartafol remoto…</string>
+    <string name="choose_which_file">Escolla o ficheiro que quere conservar.</string>
     <string name="clear_notifications_failed">Produciuse un fallo ao limpar as notificacións.</string>
     <string name="clear_status_message">Limpar a mensaxe de estado</string>
     <string name="clear_status_message_after">Limpar a mensaxe de estado após</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Só local</string>
     <string name="conflict_already_existing_file">Ficheiro existente</string>
     <string name="conflict_dialog_error">Produciuse un erro ao crear o diálogo de conflitos!</string>
+    <string name="conflict_file_headline">Ficheiro en conflito %1$s</string>
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
     <string name="conflict_message_headline">Que ficheiros quere conservar?</string>
     <string name="conflict_new_file">Novo ficheiro</string>
@@ -375,6 +377,7 @@
     <string name="hint_password">Contrasinal</string>
     <string name="host_not_available">Servidor non dispoñíbel</string>
     <string name="host_your_own_server">Hospede o seu propio servidor</string>
+    <string name="in_folder">no cartafol %1$s</string>
     <string name="instant_upload_existing">Envíar tamén os ficheiros existentes</string>
     <string name="instant_upload_on_charging">Enviar só cando estea cargando</string>
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
