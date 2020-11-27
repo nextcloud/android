@@ -60,6 +60,10 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">
+        <Preference
+            android:title="@string/drawer_synced_folders"
+            android:key="syncedFolders"
+            android:summary="@string/prefs_sycned_folders_summary"/>
 		<Preference android:title="@string/prefs_calendar_contacts"
 					android:key="calendar_contacts"
 					android:summary="@string/prefs_calendar_contacts_summary" />

@@ -314,8 +314,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_contacts, !getResources().getBoolean(R.bool.contacts_backup)
             || !getResources().getBoolean(R.bool.show_drawer_contacts_backup));
 
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_synced_folders,
-                                      getResources().getBoolean(R.bool.syncedFolder_light));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_logout, !getResources().getBoolean(R.bool.show_drawer_logout));
     }
 
@@ -366,9 +364,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 break;
             case R.id.nav_notifications:
                 startActivity(NotificationsActivity.class);
-                break;
-            case R.id.nav_synced_folders:
-                startActivity(SyncedFoldersActivity.class);
                 break;
             case R.id.nav_contacts:
                 ContactsPreferenceActivity.startActivity(this);
