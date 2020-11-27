@@ -90,6 +90,7 @@
     <string name="checkbox">Case à cocher</string>
     <string name="choose_local_folder">Sélectionner le dossier local…</string>
     <string name="choose_remote_folder">Sélectionner le dossier distant…</string>
+    <string name="choose_which_file">Sélectionnez le fichier à conserver</string>
     <string name="clear_notifications_failed">Erreur lors de l\'effacement des notifications.</string>
     <string name="clear_status_message">Effacer le message d\'état</string>
     <string name="clear_status_message_after">Effacer le message d\'états après</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Local seulement</string>
     <string name="conflict_already_existing_file">Fichier déjà existant</string>
     <string name="conflict_dialog_error">Une erreur qui crée un dialogue conflictuel !</string>
+    <string name="conflict_file_headline">Fichier %1$s en conflit</string>
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
     <string name="conflict_message_headline">Quels fichiers souhaitez-vous conserver ?</string>
     <string name="conflict_new_file">Nouveau fichier</string>
@@ -377,6 +379,7 @@ Attention la suppression est irréversible.</string>
     <string name="hint_password">Mot de passe</string>
     <string name="host_not_available">Serveur indisponible</string>
     <string name="host_your_own_server">Hébergez votre propre serveur</string>
+    <string name="in_folder">dans le dossier %1$s</string>
     <string name="instant_upload_existing">Téléverser aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>

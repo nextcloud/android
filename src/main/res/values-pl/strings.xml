@@ -90,6 +90,7 @@
     <string name="checkbox">Pole checkbox</string>
     <string name="choose_local_folder">Wybierz katalog lokalny…</string>
     <string name="choose_remote_folder">Wybierz katalog zdalny…</string>
+    <string name="choose_which_file">Wybierz, który plik chcesz zachować!</string>
     <string name="clear_notifications_failed">Wyczyszczenie powiadomień nie powiodło się.</string>
     <string name="clear_status_message">Wyczyść komunikat statusu</string>
     <string name="clear_status_message_after">Wyczyść komunikat statusu po</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="conflict_already_existing_file">Już istniejący plik</string>
     <string name="conflict_dialog_error">Błąd podczas tworzenia dialogu konfliktu!</string>
+    <string name="conflict_file_headline">Plik powodujący konflikt %1$s</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
     <string name="conflict_message_headline">Które pliki chcesz zachować?</string>
     <string name="conflict_new_file">Nowy plik</string>
@@ -375,6 +377,7 @@
     <string name="hint_password">Hasło</string>
     <string name="host_not_available">Serwer jest niedostępny</string>
     <string name="host_your_own_server">Hostuj własny serwer</string>
+    <string name="in_folder">w katalogu %1$s</string>
     <string name="instant_upload_existing">Prześlij również istniejące pliki</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
