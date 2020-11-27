@@ -682,7 +682,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
         binding.emptyList.emptyListViewHeadline.setText(R.string.file_details_no_content);
 
-        binding.emptyList.emptyListProgress.setVisibility(View.GONE);
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_list_empty_error);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
     }

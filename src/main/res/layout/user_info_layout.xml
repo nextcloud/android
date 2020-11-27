@@ -104,10 +104,102 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="3"
         tools:listitem="@layout/user_info_details_table_item"
-        tools:visibility="visible" />
+        tools:visibility="gone" />
 
     <include
         android:id="@+id/emptyList"
         layout="@layout/empty_list" />
+
+    <LinearLayout
+        android:id="@+id/loading_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/iconized_single_line_item_layout_height"
+            android:orientation="horizontal">
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                app:corners="100" />
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                android:layout_marginEnd="@dimen/standard_margin" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/iconized_single_line_item_layout_height"
+            android:orientation="horizontal">
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                app:corners="100" />
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                android:layout_marginEnd="@dimen/standard_margin" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/iconized_single_line_item_layout_height"
+            android:orientation="horizontal">
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                app:corners="100" />
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                android:layout_marginEnd="@dimen/standard_margin" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/iconized_single_line_item_layout_height"
+            android:orientation="horizontal">
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                app:corners="100" />
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                android:layout_marginEnd="@dimen/standard_margin" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

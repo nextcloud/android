@@ -38,6 +38,8 @@ public interface ActivitiesContract {
     }
 
     interface ActionListener {
+        int UNDEFINED = -1;
+
         void loadActivities(int lastGiven);
 
         void openActivity(String fileUrl, BaseActivity baseActivity);

@@ -68,6 +68,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.res.ResourcesCompat;
@@ -76,7 +77,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class FileDetailActivitiesFragment extends Fragment implements
     ActivityListInterface,
@@ -145,8 +145,16 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         fetchAndSetData(-1);
 
-        binding.swipeContainingList.setOnRefreshListener(() -> onRefreshListLayout(binding.swipeContainingList));
-        binding.swipeContainingEmpty.setOnRefreshListener(() -> onRefreshListLayout(binding.swipeContainingEmpty));
+        binding.swipeContainingList.setOnRefreshListener(() -> {
+            setLoadingMessage();
+            binding.swipeContainingList.setRefreshing(true);
+            fetchAndSetData(-1);
+        });
+
+        binding.swipeContainingEmpty.setOnRefreshListener(() -> {
+            setLoadingMessageEmpty();
+            fetchAndSetData(-1);
+        });
 
         callback = new VersionListInterface.CommentCallback() {
 
@@ -188,19 +196,15 @@ public class FileDetailActivitiesFragment extends Fragment implements
         }
     }
 
-    private void onRefreshListLayout(SwipeRefreshLayout refreshLayout) {
-        setLoadingMessage();
-        if (refreshLayout != null && refreshLayout.isRefreshing()) {
-            refreshLayout.setRefreshing(false);
-        }
-        fetchAndSetData(-1);
+    private void setLoadingMessage() {
+        binding.swipeContainingEmpty.setVisibility(View.GONE);
     }
 
-    private void setLoadingMessage() {
-        binding.emptyList.emptyListViewHeadline.setText(R.string.file_list_loading);
-        binding.emptyList.emptyListViewText.setText("");
-        binding.emptyList.emptyListIcon.setVisibility(View.GONE);
-        binding.emptyList.emptyListProgress.setVisibility(View.VISIBLE);
+    @VisibleForTesting
+    public void setLoadingMessageEmpty() {
+        binding.swipeContainingList.setVisibility(View.GONE);
+        binding.emptyList.emptyListView.setVisibility(View.GONE);
+        binding.loadingContent.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -217,9 +221,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
         OCCapability capability = storageManager.getCapability(user.getAccountName());
         restoreFileVersionSupported = capability.getFilesVersioning().isTrue();
 
-        binding.emptyList.emptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
-                                                                          PorterDuff.Mode.SRC_IN);
         binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_activity, null));
+        binding.emptyList.emptyListView.setVisibility(View.GONE);
 
         adapter = new ActivityAndVersionListAdapter(getContext(),
                                                     accountManager,
@@ -269,15 +272,11 @@ public class FileDetailActivitiesFragment extends Fragment implements
             return;
         }
 
-        final SwipeRefreshLayout empty = binding.swipeContainingEmpty;
-        final SwipeRefreshLayout list = binding.swipeContainingList;
         final User user = accountManager.getUser();
 
         if (user.isAnonymous()) {
             activity.runOnUiThread(() -> {
                 setEmptyContent(getString(R.string.common_error), getString(R.string.file_detail_activity_error));
-                list.setVisibility(View.GONE);
-                empty.setVisibility(View.VISIBLE);
             });
             return;
         }
@@ -379,39 +378,37 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 getString(R.string.activities_no_results_headline),
                 getString(R.string.activities_no_results_message)
                            );
-            binding.swipeContainingList.setVisibility(View.GONE);
-            binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
         } else {
             binding.swipeContainingList.setVisibility(View.VISIBLE);
             binding.swipeContainingEmpty.setVisibility(View.GONE);
+            binding.emptyList.emptyListView.setVisibility(View.GONE);
         }
         isLoadingActivities = false;
     }
 
     private void setEmptyContent(String headline, String message) {
-        binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(requireContext().getResources(),
-                                                                                     R.drawable.ic_activity,
-                                                                                     null));
-        binding.emptyList.emptyListViewHeadline.setText(headline);
-        binding.emptyList.emptyListViewText.setText(message);
-
-        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListProgress.setVisibility(View.GONE);
-        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
+        setInfoContent(R.drawable.ic_activity, headline, message);
     }
 
     @VisibleForTesting
     public void setErrorContent(String message) {
-        binding.emptyList.emptyListViewHeadline.setText(R.string.common_error);
+        setInfoContent(R.drawable.ic_list_empty_error, getString(R.string.common_error), message);
+    }
+
+    private void setInfoContent(@DrawableRes int icon, String headline, String message) {
         binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(requireContext().getResources(),
-                                                                                     R.drawable.ic_list_empty_error,
+                                                                                     icon,
                                                                                      null));
+        binding.emptyList.emptyListViewHeadline.setText(headline);
         binding.emptyList.emptyListViewText.setText(message);
 
-        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListProgress.setVisibility(View.GONE);
-        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
         binding.swipeContainingList.setVisibility(View.GONE);
+        binding.loadingContent.setVisibility(View.GONE);
+
+        binding.emptyList.emptyListViewHeadline.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
         binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
     }
 
@@ -420,6 +417,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
                 binding.swipeContainingList.setRefreshing(false);
                 binding.swipeContainingEmpty.setRefreshing(false);
+                binding.emptyList.emptyListView.setVisibility(View.GONE);
                 isLoadingActivities = false;
             }
         });

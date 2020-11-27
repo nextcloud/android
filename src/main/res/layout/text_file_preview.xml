@@ -41,5 +41,27 @@
 
     </ScrollView>
 
-    <include layout="@layout/empty_list" />
+    <FrameLayout
+        android:id="@+id/empty_list_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.elyeproj.loaderviewlibrary.LoaderImageView
+            android:layout_width="@dimen/empty_list_icon_layout_width"
+            android:layout_height="@dimen/empty_list_icon_layout_width"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            app:corners="24" />
+
+        <ImageView
+            android:layout_width="@dimen/empty_list_icon_layout_width"
+            android:layout_height="@dimen/empty_list_icon_layout_height"
+            android:padding="@dimen/standard_half_padding"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:src="@drawable/file_text"
+            app:tint="@color/bg_default" />
+
+    </FrameLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
