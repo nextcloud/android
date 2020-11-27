@@ -90,6 +90,7 @@
     <string name="checkbox">Casella di selezione</string>
     <string name="choose_local_folder">Scegli la cartella locale…</string>
     <string name="choose_remote_folder">Scegli la cartella remota…</string>
+    <string name="choose_which_file">Scegli quale file mantenere!</string>
     <string name="clear_notifications_failed">Cancellazione notifiche non riuscita.</string>
     <string name="clear_status_message">Cancella il messaggio di stato</string>
     <string name="clear_status_message_after">Cancella il messaggio di stato dopo</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Solo localmente</string>
     <string name="conflict_already_existing_file">File già esistente</string>
     <string name="conflict_dialog_error">Errore di creazione della finestra di conflitto!</string>
+    <string name="conflict_file_headline">File %1$s in conflitto</string>
     <string name="conflict_message_description">Se selezioni entrambe le versioni, il file locale ha un numero aggiunto al suo nome.</string>
     <string name="conflict_message_headline">Quali file vuoi mantenere?</string>
     <string name="conflict_new_file">Nuovo file</string>
@@ -375,6 +377,7 @@
     <string name="hint_password">Password</string>
     <string name="host_not_available">Server non disponibile</string>
     <string name="host_your_own_server">Ospita il tuo server</string>
+    <string name="in_folder">nella cartella %1$s</string>
     <string name="instant_upload_existing">Carica anche i file esistenti</string>
     <string name="instant_upload_on_charging">Carica solo durante la ricarica</string>
     <string name="instant_upload_path">/InstantUpload</string>
