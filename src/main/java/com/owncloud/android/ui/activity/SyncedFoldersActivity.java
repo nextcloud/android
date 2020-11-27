@@ -115,6 +115,12 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     @Inject Clock clock;
     @Inject BackgroundJobManager backgroundJobManager;
 
+    public static void startActivityWithoutSidebar(Context context) {
+        Intent intent = new Intent(context, SyncedFoldersActivity.class);
+        intent.putExtra(EXTRA_SHOW_SIDEBAR, false);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,12 +157,16 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         setupToolbar();
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_synced_folders));
 
-        // setup drawer
-        setupDrawer(R.id.nav_synced_folders);
-
         if (!showSidebar) {
             setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-            mDrawerToggle.setDrawerIndicatorEnabled(false);
+
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
+
+            if (mDrawerToggle != null) {
+                mDrawerToggle.setDrawerIndicatorEnabled(false);
+            }
         }
 
         // TODO: The content loading should be done asynchronously
@@ -800,7 +810,6 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     @Override
     protected void onResume() {
         super.onResume();
-        setDrawerMenuItemChecked(R.id.nav_synced_folders);
     }
 
     private void showBatteryOptimizationInfo() {
