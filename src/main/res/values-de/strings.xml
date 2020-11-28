@@ -90,7 +90,7 @@
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Wähle einen lokalen Ordner…</string>
     <string name="choose_remote_folder">Wähle einen entfernten Ordner …</string>
-    <string name="choose_which_file">Wählen Sie welche Datei behalten werden soll!</string>
+    <string name="choose_which_file">Wählen Sie, welche Datei behalten werden soll!</string>
     <string name="clear_notifications_failed">Löschen der Benachrichtigungen fehlgeschlagen.</string>
     <string name="clear_status_message">Statusnachricht löschen</string>
     <string name="clear_status_message_after">Statusnachricht löschen nach</string>
@@ -377,7 +377,7 @@
     <string name="hint_password">Passwort</string>
     <string name="host_not_available">Server nicht verfügbar</string>
     <string name="host_your_own_server">Eigenen Server betreiben</string>
-    <string name="in_folder">im Ordner %1$s</string>
+    <string name="in_folder">in Ordner %1$s</string>
     <string name="instant_upload_existing">Vorhandene Dateien ebenfalls hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>

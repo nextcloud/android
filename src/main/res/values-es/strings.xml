@@ -90,6 +90,7 @@
     <string name="checkbox">Casilla de verificación</string>
     <string name="choose_local_folder">Seleccione carpeta local…</string>
     <string name="choose_remote_folder">Selecciona carpeta remota…</string>
+    <string name="choose_which_file">¡Elije que archivos mantener!</string>
     <string name="clear_notifications_failed">Fallo al limpiar notificaciones.</string>
     <string name="clear_status_message">Borrar mensaje de estado</string>
     <string name="clear_status_message_after">Borrar mensaje de estado después de</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Solo local</string>
     <string name="conflict_already_existing_file">Archivo ya existente</string>
     <string name="conflict_dialog_error">¡Error al crear el diálogo de conflicto!</string>
+    <string name="conflict_file_headline">Conflicto en archivo %1$s</string>
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
     <string name="conflict_message_headline">¿Qué archivos desea mantener?</string>
     <string name="conflict_new_file">Nuevo archivo</string>
@@ -375,6 +377,7 @@
     <string name="hint_password">Contraseña</string>
     <string name="host_not_available">Servidor no disponible</string>
     <string name="host_your_own_server">Aloja tu propio servidor</string>
+    <string name="in_folder">en carpeta %1$s</string>
     <string name="instant_upload_existing">Subir también archivos existentes</string>
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
