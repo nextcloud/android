@@ -196,7 +196,7 @@
     <string name="dismiss">Zavřít</string>
     <string name="dismiss_notification_description">Zahodit upozornění</string>
     <string name="dnd">Nerušit</string>
-    <string name="dontClear">Nečistit</string>
+    <string name="dontClear">Nikdy</string>
     <string name="download_latest_dev_version">Stáhnout si nejnovější vývojářskou verzi</string>
     <string name="downloader_download_failed_content">Nepodařilo se stáhnout %1$s</string>
     <string name="downloader_download_failed_credentials_error">Stahování se nezdařilo, přihlaste se znovu</string>

@@ -90,6 +90,7 @@
     <string name="checkbox">İşaret kutusu</string>
     <string name="choose_local_folder">Yerel klasörü seçin …</string>
     <string name="choose_remote_folder">Uzak klasörü seçin …</string>
+    <string name="choose_which_file">Korunacak dosyayı seçin!</string>
     <string name="clear_notifications_failed">Bildirimler temizlenemedi.</string>
     <string name="clear_status_message">Durum iletisini kaldır</string>
     <string name="clear_status_message_after">Durum iletisi şu süre sonunda kaldırılsın</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Yalnız yerel</string>
     <string name="conflict_already_existing_file">Dosya zaten var</string>
     <string name="conflict_dialog_error">Çakışma penceresi oluşturulurken sorun çıktı!</string>
+    <string name="conflict_file_headline">%1$s dosyası çakışıyor</string>
     <string name="conflict_message_description">İki sürümü de saklamayı seçerseniz, yerel dosyanın adına bir numara eklenecek.</string>
     <string name="conflict_message_headline">Hangi dosyaları saklamak istiyorsunuz?</string>
     <string name="conflict_new_file">Yeni dosya</string>
@@ -375,6 +377,7 @@
     <string name="hint_password">Parola</string>
     <string name="host_not_available">Sunucu kullanılamıyor</string>
     <string name="host_your_own_server">Kendi sunucunuzu işletin</string>
+    <string name="in_folder">%1$s klasöründe</string>
     <string name="instant_upload_existing">Var olan dosyalar da yüklensin</string>
     <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
