@@ -90,6 +90,7 @@
     <string name="checkbox">Kryssruta</string>
     <string name="choose_local_folder">Välj lokal mapp…</string>
     <string name="choose_remote_folder">Välj extern mapp…</string>
+    <string name="choose_which_file">Välj vilken fil du vill behålla!</string>
     <string name="clear_notifications_failed">Kunde inte rensa aviseringar.</string>
     <string name="clear_status_message">Rensa statusmeddelande</string>
     <string name="clear_status_message_after">Rensa statusmeddelande efter</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Endast lokalt</string>
     <string name="conflict_already_existing_file">Filen finns redan</string>
     <string name="conflict_dialog_error">Fel vid skapande av konfliktdialog!</string>
+    <string name="conflict_file_headline">Konfliktande fil %1$s</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
     <string name="conflict_message_headline">Vilka filer vill du behålla?</string>
     <string name="conflict_new_file">Ny fil</string>
@@ -375,6 +377,7 @@
     <string name="hint_password">Lösenord</string>
     <string name="host_not_available">Server inte tillgänglig</string>
     <string name="host_your_own_server">Använd egen server</string>
+    <string name="in_folder">i mapp %1$s</string>
     <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
