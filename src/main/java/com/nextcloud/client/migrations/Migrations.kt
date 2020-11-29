@@ -49,7 +49,7 @@ class Migrations @Inject constructor(
      * metadata required to register and log overall migration progress.
      *
      * @param id Step id; id must be unique; this is verified upon registration
-     * @param description Human readable migration step descriptionsss
+     * @param description Human readable migration step descriptions
      * @param mandatory If true, failing migration will cause an exception; if false, it will be skipped and repeated
      *                  again on next startup
      * @throws Exception migration logic is permitted to throw any kind of exceptions; all exceptions will be wrapped
@@ -58,7 +58,7 @@ class Migrations @Inject constructor(
     abstract class Step(val id: Int, val description: String, val mandatory: Boolean = true) : Runnable
 
     /**
-     * Migrate legacy accounts by addming user IDs. This migration can be re-tried until all accounts are
+     * Migrate legacy accounts by adding user IDs. This migration can be re-tried until all accounts are
      * successfully migrated.
      */
     private val migrateUserId = object : Step(0, "Migrate user id", false) {

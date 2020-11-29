@@ -455,10 +455,7 @@ public class FileDownloader extends Service
 
                     // always get client from client manager, to get fresh credentials in case
                     // of update
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(
-                            mCurrentAccount,
-                            this
-                    );
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
                     mDownloadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, this);
 
@@ -476,6 +473,10 @@ public class FileDownloader extends Service
                 } finally {
                     Pair<DownloadFileOperation, String> removeResult = mPendingDownloads.removePayload(
                         mCurrentAccount.name, mCurrentDownload.getRemotePath());
+
+                    if (downloadResult == null) {
+                        downloadResult = new RemoteOperationResult(new RuntimeException("Error downloading…"));
+                    }
 
                     /// notify result
                     notifyDownloadResult(mCurrentDownload, downloadResult);
@@ -502,6 +503,17 @@ public class FileDownloader extends Service
      */
     private void saveDownloadedFile() {
         OCFile file = mStorageManager.getFileById(mCurrentDownload.getFile().getFileId());
+
+        if (file == null) {
+            // try to get file via path, needed for overwriting existing files on conflict dialog
+            file = mStorageManager.getFileByDecryptedRemotePath(mCurrentDownload.getFile().getRemotePath());
+        }
+
+        if (file == null) {
+            Log_OC.e(this, "Could not save " + mCurrentDownload.getFile().getRemotePath());
+            return;
+        }
+
         long syncDate = System.currentTimeMillis();
         file.setLastSyncDateForProperties(syncDate);
         file.setLastSyncDateForData(syncDate);

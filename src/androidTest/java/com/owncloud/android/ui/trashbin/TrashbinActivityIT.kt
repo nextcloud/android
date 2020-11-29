@@ -22,7 +22,6 @@
 package com.owncloud.android.ui.trashbin
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import com.facebook.testing.screenshot.Screenshot
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
@@ -49,7 +48,7 @@ class TrashbinActivityIT : AbstractIT() {
 
         shortSleep()
 
-        Screenshot.snapActivity(sut).record()
+        screenshot(sut)
     }
 
     @Test
@@ -64,6 +63,7 @@ class TrashbinActivityIT : AbstractIT() {
         sut.runOnUiThread { sut.loadFolder() }
 
         waitForIdleSync()
+        shortSleep()
         shortSleep()
 
         screenshot(sut)
@@ -82,6 +82,22 @@ class TrashbinActivityIT : AbstractIT() {
 
         shortSleep()
 
-        Screenshot.snapActivity(sut).record()
+        screenshot(sut)
+    }
+
+    @Test
+    @ScreenshotTest
+    fun loading() {
+        val sut: TrashbinActivity = activityRule.launchActivity(null)
+
+        val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+
+        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+
+        sut.runOnUiThread { sut.showInitialLoading() }
+
+        shortSleep()
+
+        screenshot(sut)
     }
 }

@@ -90,6 +90,7 @@
     <string name="checkbox">Caixa de selección</string>
     <string name="choose_local_folder">Escoller cartafol local…</string>
     <string name="choose_remote_folder">Escoller cartafol remoto…</string>
+    <string name="choose_which_file">Escolla o ficheiro que quere conservar.</string>
     <string name="clear_notifications_failed">Produciuse un fallo ao limpar as notificacións.</string>
     <string name="clear_status_message">Limpar a mensaxe de estado</string>
     <string name="clear_status_message_after">Limpar a mensaxe de estado após</string>
@@ -143,8 +144,9 @@
     <string name="confirmation_remove_folder_alert">Confirma que quere eliminar %1$s e todo o seu contido?</string>
     <string name="confirmation_remove_folders_alert">Confirma que quere eliminar os elementos seleccionados e o seu contido?</string>
     <string name="confirmation_remove_local">Só local</string>
-    <string name="conflict_already_existing_file">O  ficheiro xa existe</string>
+    <string name="conflict_already_existing_file">Ficheiro existente</string>
     <string name="conflict_dialog_error">Produciuse un erro ao crear o diálogo de conflitos!</string>
+    <string name="conflict_file_headline">Ficheiro en conflito %1$s</string>
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
     <string name="conflict_message_headline">Que ficheiros quere conservar?</string>
     <string name="conflict_new_file">Novo ficheiro</string>
@@ -213,6 +215,7 @@
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_all_files">Todos os ficheiros</string>
     <string name="drawer_item_favorites">Favoritos</string>
+    <string name="drawer_item_gallery">Multimedia</string>
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificacións</string>
     <string name="drawer_item_on_device">No dispositivo</string>
@@ -229,8 +232,6 @@
     <string name="drawer_quota_unlimited">Usado %1$s</string>
     <string name="drawer_synced_folders">Envío automático</string>
     <string name="edit_label">Cambiar o nome</string>
-    <string name="edit_permission_label">editar</string>
-    <string name="edit_rich_workspace"> editar a información do cartafol </string>
     <string name="encrypted">Estabelecer como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Estabelecer o cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
@@ -240,7 +241,6 @@
     <string name="end_to_end_encryption_generating_keys">Xerando chaves novas…</string>
     <string name="end_to_end_encryption_keywords_description">As 12 palabras xuntas forman un contrasinal moi forte, permitíndolle só a vostede ver e facer uso dos seus  ficheiros cifrados. Escríbaas e mantéñaas nun lugar seguro.</string>
     <string name="end_to_end_encryption_not_enabled">Cifrado de extremo a extremo desactivado no servidor.</string>
-    <string name="end_to_end_encryption_not_supported">O cifrado só funciona en KitKat (4.4) e posteriores.</string>
     <string name="end_to_end_encryption_passphrase_title">Tome nota do seu contrasinal de 12 palabras</string>
     <string name="end_to_end_encryption_password">Contrasinal…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recuperando chaves…</string>
@@ -377,6 +377,7 @@
     <string name="hint_password">Contrasinal</string>
     <string name="host_not_available">Servidor non dispoñíbel</string>
     <string name="host_your_own_server">Hospede o seu propio servidor</string>
+    <string name="in_folder">no cartafol %1$s</string>
     <string name="instant_upload_existing">Envíar tamén os ficheiros existentes</string>
     <string name="instant_upload_on_charging">Enviar só cando estea cargando</string>
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
@@ -488,6 +489,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Isto é un marcador de posición</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
+    <string name="player_stop">parar</string>
+    <string name="player_toggle">alternar</string>
     <string name="power_save_check_dialog_message">A desactivación da verificación de aforro de enerxía pode provocar a carga de ficheiros cando estea coa batería baixa.</string>
     <string name="pref_behaviour_entries_delete_file">eliminado</string>
     <string name="pref_behaviour_entries_keep_file">mantense no cartafol orixinal</string>
@@ -594,14 +597,12 @@
     <string name="set_status_message">Establecer a mensaxe de estado</string>
     <string name="share">Compartir</string>
     <string name="share_dialog_title">Compartindo</string>
-    <string name="share_email_clarification">%1$s (correo-e)</string>
     <string name="share_expiration_date_label">Caduca o %1$s</string>
     <string name="share_file">Compartir %1$s</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_internal_link">Compartir a ligazón interna</string>
     <string name="share_internal_link_to_file_text">A ligazón de compartición interna só funciona para usuarios con acceso a este ficheiro</string>
     <string name="share_internal_link_to_folder_text">A ligazón de compartición interna só funciona para usuarios con acceso a este cartafol</string>
-    <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
     <string name="share_known_remote_on_clarification">en %1$s</string>
     <string name="share_link">Compartir ligazón</string>
     <string name="share_link_empty_password">Ten que introducir un contrasinal</string>
@@ -614,17 +615,12 @@
     <string name="share_no_expiration_date_label">Estabelecer a data de caducidade</string>
     <string name="share_no_password_title">Estabelecer o contrasinal</string>
     <string name="share_password_title">Protexido con contrasinal</string>
-    <string name="share_privilege_can_edit_change">pode cambiar</string>
-    <string name="share_privilege_can_edit_create">pode crear</string>
-    <string name="share_privilege_can_edit_delete">pode eliminar</string>
-    <string name="share_privilege_can_share">pode compartir</string>
     <string name="share_privilege_unshare">Deixar de compartir</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
     <string name="share_search">Nome, ID da nube federada ou enderezo de correo…</string>
     <string name="share_send_note">Nota para o destinatario</string>
     <string name="share_via_link_hide_download">Agochar a descarga</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Agochar a lista de ficheiros</string>
     <string name="share_via_link_menu_password_label">Protexido con contrasinal (%1$s)</string>
     <string name="share_via_link_section_title">Compartir ligazón</string>
     <string name="share_via_link_send_link_label">Enviar ligazón</string>
@@ -769,7 +765,7 @@
     <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>
     <string name="upload_unknown_error">Produciuse un erro descoñecido</string>
     <string name="uploader_btn_alternative_text">Escoller</string>
-    <string name="uploader_btn_upload_text">Subir</string>
+    <string name="uploader_btn_upload_text">Enviar</string>
     <string name="uploader_error_message_no_file_to_upload">Os datos recibidos non inclúen un ficheiro correcto.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s non ten permisos para ler o ficheiro recibido</string>
     <string name="uploader_error_message_source_file_not_copied">Non foi posíbel copiar o ficheiro nun cartafol temporal. Tente volver envialo.</string>

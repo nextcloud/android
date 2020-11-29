@@ -56,6 +56,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 
 import java.lang.reflect.Field;
@@ -96,13 +97,8 @@ public final class ThemeUtils {
 
         try {
             float adjust;
-            if (darkTheme(context)) {
-                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-                    adjust = +0.5f;
-//                    return adjustLightness(adjust, Color.parseColor(capability.getServerColor()), -1);
-                } else {
-                    adjust = +0.1f;
-                }
+            if (isDarkModeActive(context)) {
+                adjust = +0.5f;
             } else {
                 adjust = -0.1f;
             }
@@ -720,7 +716,7 @@ public final class ThemeUtils {
      *
      * @param primaryColor the primary color
      */
-    private static int getColorForPrimary(int primaryColor, Context context) {
+    public static int getColorForPrimary(int primaryColor, Context context) {
         if (Color.BLACK == primaryColor) {
             return Color.WHITE;
         } else if (Color.WHITE == primaryColor) {
@@ -871,5 +867,58 @@ public final class ThemeUtils {
         int nightModeFlag = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
         return Configuration.UI_MODE_NIGHT_YES == nightModeFlag;
+    }
+
+    @SuppressFBWarnings(
+        value = "SF_SWITCH_NO_DEFAULT",
+        justification = "We only create avatars for a subset of share types")
+    public static void createAvatar(ShareType type, ImageView avatar, Context context) {
+        switch (type) {
+            case GROUP:
+                avatar.setImageResource(R.drawable.ic_group);
+                avatar.setBackground(ResourcesCompat.getDrawable(context.getResources(),
+                                                                 R.drawable.round_bgnd,
+                                                                 null));
+                avatar.setCropToPadding(true);
+                avatar.setPadding(4, 4, 4, 4);
+                ThemeUtils.colorIconImageViewWithBackground(avatar, context);
+                break;
+
+            case ROOM:
+                avatar.setImageResource(R.drawable.first_run_talk);
+                avatar.setBackground(ResourcesCompat.getDrawable(context.getResources(),
+                                                                 R.drawable.round_bgnd,
+                                                                 null));
+                avatar.setCropToPadding(true);
+                avatar.setPadding(8, 8, 8, 8);
+                ThemeUtils.colorIconImageViewWithBackground(avatar, context);
+                break;
+
+            case CIRCLE:
+                avatar.setImageResource(R.drawable.ic_circles);
+                avatar.setBackground(ResourcesCompat.getDrawable(context.getResources(),
+                                                                 R.drawable.round_bgnd,
+                                                                 null));
+                avatar.getBackground().setColorFilter(context.getResources().getColor(R.color.nc_grey),
+                                                      PorterDuff.Mode.SRC_IN);
+                avatar.getDrawable().mutate().setColorFilter(context.getResources().getColor(R.color.icon_on_nc_grey),
+                                                             PorterDuff.Mode.SRC_IN);
+                avatar.setCropToPadding(true);
+                avatar.setPadding(4, 4, 4, 4);
+                break;
+
+            case EMAIL:
+                avatar.setImageResource(R.drawable.ic_email);
+                avatar.setBackground(ResourcesCompat.getDrawable(context.getResources(),
+                                                                 R.drawable.round_bgnd,
+                                                                 null));
+                avatar.setCropToPadding(true);
+                avatar.setPadding(8, 8, 8, 8);
+                avatar.getBackground().setColorFilter(context.getResources().getColor(R.color.nc_grey),
+                                                      PorterDuff.Mode.SRC_IN);
+                avatar.getDrawable().mutate().setColorFilter(context.getResources().getColor(R.color.icon_on_nc_grey),
+                                                             PorterDuff.Mode.SRC_IN);
+                break;
+        }
     }
 }

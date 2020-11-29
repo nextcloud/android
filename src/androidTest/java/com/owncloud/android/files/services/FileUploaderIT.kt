@@ -71,60 +71,61 @@ class FileUploaderIT : AbstractOnServerIT() {
     /**
      * uploads a file, overwrites it with an empty one, check if overwritten
      */
-    @Test
-    fun testKeepLocalAndOverwriteRemote() {
-        val file = getDummyFile("/chunkedFile.txt")
-        val ocUpload = OCUpload(file.absolutePath, "/testFile.txt", account.name)
-
-        assertTrue(
-            UploadFileOperation(
-                uploadsStorageManager,
-                connectivityServiceMock,
-                powerManagementServiceMock,
-                user,
-                null,
-                ocUpload,
-                FileUploader.NameCollisionPolicy.DEFAULT,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
-                targetContext,
-                false,
-                false
-            )
-                .setRemoteFolderToBeCreated()
-                .execute(client, storageManager)
-                .isSuccess
-        )
-
-        val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
-        assertTrue(result.isSuccess)
-
-        assertEquals(file.length(), (result.data[0] as RemoteFile).length)
-
-        val ocUpload2 = OCUpload(getDummyFile("/empty.txt").absolutePath, "/testFile.txt", account.name)
-
-        assertTrue(
-            UploadFileOperation(
-                uploadsStorageManager,
-                connectivityServiceMock,
-                powerManagementServiceMock,
-                user,
-                null,
-                ocUpload2,
-                FileUploader.NameCollisionPolicy.OVERWRITE,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
-                targetContext,
-                false,
-                false
-            )
-                .execute(client, storageManager)
-                .isSuccess
-        )
-
-        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
-        assertTrue(result2.isSuccess)
-
-        assertEquals(0, (result2.data[0] as RemoteFile).length)
-    }
+    // disabled, flaky test
+    // @Test
+    // fun testKeepLocalAndOverwriteRemote() {
+    //     val file = getDummyFile("/chunkedFile.txt")
+    //     val ocUpload = OCUpload(file.absolutePath, "/testFile.txt", account.name)
+    //
+    //     assertTrue(
+    //         UploadFileOperation(
+    //             uploadsStorageManager,
+    //             connectivityServiceMock,
+    //             powerManagementServiceMock,
+    //             user,
+    //             null,
+    //             ocUpload,
+    //             FileUploader.NameCollisionPolicy.DEFAULT,
+    //             FileUploader.LOCAL_BEHAVIOUR_COPY,
+    //             targetContext,
+    //             false,
+    //             false
+    //         )
+    //             .setRemoteFolderToBeCreated()
+    //             .execute(client, storageManager)
+    //             .isSuccess
+    //     )
+    //
+    //     val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
+    //     assertTrue(result.isSuccess)
+    //
+    //     assertEquals(file.length(), (result.data[0] as RemoteFile).length)
+    //
+    //     val ocUpload2 = OCUpload(getDummyFile("/empty.txt").absolutePath, "/testFile.txt", account.name)
+    //
+    //     assertTrue(
+    //         UploadFileOperation(
+    //             uploadsStorageManager,
+    //             connectivityServiceMock,
+    //             powerManagementServiceMock,
+    //             user,
+    //             null,
+    //             ocUpload2,
+    //             FileUploader.NameCollisionPolicy.OVERWRITE,
+    //             FileUploader.LOCAL_BEHAVIOUR_COPY,
+    //             targetContext,
+    //             false,
+    //             false
+    //         )
+    //             .execute(client, storageManager)
+    //             .isSuccess
+    //     )
+    //
+    //     val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
+    //     assertTrue(result2.isSuccess)
+    //
+    //     assertEquals(0, (result2.data[0] as RemoteFile).length)
+    // }
 
     /**
      * uploads a file, overwrites it with an empty one, check if overwritten

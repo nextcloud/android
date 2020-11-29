@@ -81,8 +81,8 @@ import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.ui.fragment.PhotoFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.DisplayUtils;
@@ -303,7 +303,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         OCCapability capability = storageManager.getCapability(user.getAccountName());
 
         DrawerMenuUtil.filterSearchMenuItems(menu, user, getResources());
-        DrawerMenuUtil.filterTrashbinMenuItem(menu, user, capability);
+        DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
 
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
@@ -331,7 +331,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         switch (menuItem.getItemId()) {
             case R.id.nav_all_files:
                 if (this instanceof FileDisplayActivity &&
-                    !(((FileDisplayActivity) this).getLeftFragment() instanceof PhotoFragment) &&
+                    !(((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) &&
                     !(((FileDisplayActivity) this).getLeftFragment() instanceof PreviewTextStringFragment)) {
                     showFiles(false);
                     ((FileDisplayActivity) this).browseToRoot();
@@ -348,7 +348,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH),
                                    menuItem.getItemId());
                 break;
-            case R.id.nav_photos:
+            case R.id.nav_gallery:
                 startPhotoSearch(menuItem);
                 break;
             case R.id.nav_on_device:
@@ -454,7 +454,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
         if (this instanceof FileDisplayActivity) {
-            if (((FileDisplayActivity) this).getListOfFilesFragment() instanceof PhotoFragment) {
+            if (((FileDisplayActivity) this).getListOfFilesFragment() instanceof GalleryFragment) {
                 Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.setAction(Intent.ACTION_SEARCH);

@@ -954,26 +954,23 @@ public class FileOperationsHelper {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_checking_credentials));
     }
 
-    public static void deleteOldPicturesFiles(Activity activity) {
-        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        deleteAllFiles(storageDir);
-    }
+    public void uploadFromCamera(Activity activity, int requestCode) {
+        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-    public static void deleteOldPDFFiles(Activity activity) {
-        File storageDir = new File(activity.getExternalCacheDir().getAbsolutePath() + SCAN_FOLDER);
-        deleteAllFiles(storageDir);
-    }
+        File photoFile = createImageFile(activity);
 
-    private static void deleteAllFiles(File storageDir) {
-        if (!storageDir.exists()) {
-            return;
-        }
-        if (storageDir != null) {
-            for (File file : storageDir.listFiles()) {
-                if (!file.delete()) {
-                    Log_OC.d(TAG, "Failed to delete: " + file.getAbsolutePath());
-                }
+        Uri photoUri = FileProvider.getUriForFile(activity.getApplicationContext(),
+                                                  activity.getResources().getString(R.string.file_provider_authority), photoFile);
+        pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+
+        if (pictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+            if (PermissionUtil.checkSelfPermission(activity, Manifest.permission.CAMERA)) {
+                activity.startActivityForResult(pictureIntent, requestCode);
+            } else {
+                PermissionUtil.requestCameraPermission(activity);
             }
+        } else {
+            DisplayUtils.showSnackMessage(activity, "No Camera found");
         }
     }
 
@@ -983,36 +980,6 @@ public class FileOperationsHelper {
             storageDir.mkdir();
         }
         return new File(storageDir + "/scanDocUpload.pdf");
-    }
-
-    @Nullable
-    private String getUrlFromFile(String storagePath, Pattern pattern) {
-        String url = null;
-
-        BufferedReader br = null;
-        try {
-            br = Files.newBufferedReader(Paths.get(storagePath), StandardCharsets.UTF_8);
-
-            String line;
-            while ((line = br.readLine()) != null) {
-                Matcher m = pattern.matcher(line);
-                if (m.find()) {
-                    url = m.group(1);
-                    break;
-                }
-            }
-        } catch (IOException e) {
-            Log_OC.d(TAG, e.getMessage());
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, "Error closing buffered reader for URL file", e);
-                }
-            }
-        }
-        return url;
     }
 
     public static File createImageFile(Activity activity) {

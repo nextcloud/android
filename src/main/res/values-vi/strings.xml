@@ -11,6 +11,8 @@
     <string name="action_send_share">Gửi/Chia sẽ</string>
     <string name="action_switch_grid_view">Xem dạng Lưới</string>
     <string name="action_switch_list_view">Xem dạng Danh sách</string>
+    <string name="actionbar_contacts">Sao lưu danh bạ</string>
+    <string name="actionbar_contacts_restore">Phục hồi danh bạ</string>
     <string name="actionbar_copy">Sao chép</string>
     <string name="actionbar_mkdir">Tạo thư mục</string>
     <string name="actionbar_move">Dịch chuyển</string>
@@ -137,8 +139,6 @@
     <string name="drawer_quota">%1$s trên %2$s đã sử dụng</string>
     <string name="drawer_quota_unlimited">%1$s đã dùng</string>
     <string name="drawer_synced_folders">Tự động tải lên</string>
-    <string name="edit_permission_label">chỉnh sửa</string>
-    <string name="edit_rich_workspace">Thay đổi thông tin thư mục</string>
     <string name="encrypted">Đặt mã hóa</string>
     <string name="end_to_end_encryption_confirm_button">Thiết lập mã hóa</string>
     <string name="end_to_end_encryption_decrypting">Đang giải mã…</string>
@@ -148,7 +148,6 @@
     <string name="end_to_end_encryption_generating_keys">Đang tạo lập chũi khóa mới...</string>
     <string name="end_to_end_encryption_keywords_description">Tất cả 12 từ này tạo nên một mật khẩu rất manh, để đảm bảo rằng chỉ mình bạn xem và sử dụng những tệp đã mã hóa. Vui lòng ghi xuống và giữ thông tin này ở nơi nào an toàn.</string>
     <string name="end_to_end_encryption_not_enabled">Mã hóa đầu-cuối đã tắt trên hệ thống.</string>
-    <string name="end_to_end_encryption_not_supported">Mã hóa chỉ hoạt đọng trên KitKat(4.4) và các phiên bản mới hơn.</string>
     <string name="end_to_end_encryption_passphrase_title">Hãy lưu lại mật khẩu gồm 12 từ mã hóa của bạn</string>
     <string name="end_to_end_encryption_password">Mật khẩu…</string>
     <string name="end_to_end_encryption_retrieving_keys">Đang tiếp nhận lại chũi khóa...</string>
@@ -346,10 +345,6 @@
     <string name="share_link_password_title">Nhập mật khẩu</string>
     <string name="share_no_expiration_date_label">Đặt ngày hết hạn</string>
     <string name="share_no_password_title">Đặt mật khẩu</string>
-    <string name="share_privilege_can_edit_change">có thể chỉnh sửa</string>
-    <string name="share_privilege_can_edit_create">có thể tạo</string>
-    <string name="share_privilege_can_edit_delete">có thể xóa</string>
-    <string name="share_privilege_can_share">có thể chia sẽ</string>
     <string name="share_privilege_unshare">Bỏ chia sẽ</string>
     <string name="share_via_link_menu_password_label">Mật khẩu bảo vệ (%1$s)</string>
     <string name="share_via_link_section_title">Chia sẻ liên kết</string>

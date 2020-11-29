@@ -28,16 +28,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/standard_padding"
-        android:paddingTop="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_padding">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="@dimen/standard_padding"
             android:orientation="vertical">
 
             <TextView
@@ -112,56 +109,59 @@
 
         </LinearLayout>
 
-        <ImageView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/overflow_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_default"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
             android:contentDescription="@string/overflow_menu"
-            android:src="@drawable/ic_dots_vertical" />
+            app:cornerRadius="24dp"
+            app:icon="@drawable/ic_dots_vertical"
+            app:iconTint="@color/grey_600" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/progressBlock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_padding"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/standard_padding"
+        android:paddingEnd="@dimen/zero"
         android:paddingBottom="@dimen/standard_half_padding">
 
-        <TextView
-            android:id="@+id/progressText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/downloader_download_in_progress_ticker" />
-
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/standard_quarter_margin"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/progressText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/downloader_download_in_progress_ticker" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:indeterminate="false"
                 android:indeterminateOnly="false" />
 
-            <ImageButton
-                android:id="@+id/cancelBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_half_margin"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/common_cancel"
-                android:src="@drawable/ic_cancel" />
-
         </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancelBtn"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:contentDescription="@string/common_cancel"
+            app:cornerRadius="24dp"
+            app:icon="@drawable/ic_cancel"
+            app:iconTint="@color/grey_600"
+            android:layout_marginTop="@dimen/standard_eighth_margin"/>
 
     </LinearLayout>
 
@@ -185,5 +185,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <include layout="@layout/empty_list" />
+    <include
+        android:id="@+id/empty_list"
+        layout="@layout/empty_list" />
 </LinearLayout>

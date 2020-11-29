@@ -216,8 +216,6 @@
     <string name="drawer_quota_unlimited">%1$s استفاده شده</string>
     <string name="drawer_synced_folders">آپلود خودکار</string>
     <string name="edit_label">تغییر نام</string>
-    <string name="edit_permission_label">ویرایش کردن</string>
-    <string name="edit_rich_workspace">ویرایش اطلاعات پوشه</string>
     <string name="encrypted">به صورت رمزگذاری شده تنظیم شود</string>
     <string name="end_to_end_encryption_confirm_button">رمزگذاری را تنظیم کنید</string>
     <string name="end_to_end_encryption_decrypting">رمزگشایی ...</string>
@@ -227,7 +225,6 @@
     <string name="end_to_end_encryption_generating_keys">ایجاد کلیدهای جدید ...</string>
     <string name="end_to_end_encryption_keywords_description">همه 12 کلمه در کنار هم یک رمزعبور بسیار قوی ایجاد می کنند و به شما امکان می دهد پرونده های رمزگذاری شده خود را مشاهده کرده و از آنها استفاده کنید. لطفاً آن را بنویسید و در جایی امن نگه دارید.</string>
     <string name="end_to_end_encryption_not_enabled">رمزگذاری پایان به پایان در سرور غیرفعال شده</string>
-    <string name="end_to_end_encryption_not_supported">رمزگذاری فقط روی KitKat (4.4) و فراتر از آن کار می کند.</string>
     <string name="end_to_end_encryption_passphrase_title">به رمز عبور رمزگذاری 12 کلمه خود توجه داشته باشید</string>
     <string name="end_to_end_encryption_password">کلمه عبور…</string>
     <string name="end_to_end_encryption_retrieving_keys">بازیابی کلیدها ...</string>
@@ -542,12 +539,10 @@
     <string name="set_picture_as">از تصویر به عنوان استفاده کنید</string>
     <string name="share">هم‌رسانی</string>
     <string name="share_dialog_title">اشتراک گذاری</string>
-    <string name="share_email_clarification">%1$s (پست الکترونیک)</string>
     <string name="share_expiration_date_label">منقضی می شود %1$s</string>
     <string name="share_file">اشتراک گذاری%1$s</string>
     <string name="share_group_clarification">%1$s (گروه)</string>
     <string name="share_internal_link">پیوند داخلی را به اشتراک بگذارید</string>
-    <string name="share_known_remote_clarification">%1$s ( در%2$s )</string>
     <string name="share_link">لینک را به اشتراک بگذارید</string>
     <string name="share_link_empty_password">شما باید یک رمزعبور را وارد کنید</string>
     <string name="share_link_forbidden_permissions">اشتراک‌گذاری این فایل</string>
@@ -556,16 +551,11 @@
     <string name="share_no_expiration_date_label">تنظیم تاریخ انقضا</string>
     <string name="share_no_password_title">قراردادن رمز عبور</string>
     <string name="share_password_title">رمز عبور  محافظت شده</string>
-    <string name="share_privilege_can_edit_change">می توان تغییر داد</string>
-    <string name="share_privilege_can_edit_create">میتوان ایجاد کرد</string>
-    <string name="share_privilege_can_edit_delete">می توان حذف کرد</string>
-    <string name="share_privilege_can_share">قابل به اشتراک گذاری</string>
     <string name="share_privilege_unshare">لغو اشتراک</string>
     <string name="share_remote_clarification">%1$s (از راه دور)</string>
     <string name="share_room_clarification">%1$s (گفتگو)</string>
     <string name="share_send_note">توجه داشته باشید به گیرنده</string>
     <string name="share_via_link_hide_download">پنهان کردن بارگیری</string>
-    <string name="share_via_link_hide_file_listing_permission_label">لیست پرونده ها را مخفی کنید</string>
     <string name="share_via_link_menu_password_label">محافظت از رمز عبور (%1$s)</string>
     <string name="share_via_link_section_title">اشتراک گذاشتن لینک</string>
     <string name="share_via_link_send_link_label">ارسال پیوند</string>

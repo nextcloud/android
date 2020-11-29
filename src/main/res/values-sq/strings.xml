@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Renditni</string>
     <string name="active_user">Përdorues aktiv</string>
     <string name="activities_no_results_headline">Akoma asnjë aktivitet</string>
+    <string name="activities_no_results_message">Nuk ka ende ngjarje si shtesat, ndryshimet dhe ndarjet</string>
     <string name="activity_chooser_send_file_title">Dërgoje</string>
     <string name="activity_chooser_title">Dërgoni lidhje te…</string>
     <string name="activity_icon">Veprimtari</string>
@@ -104,6 +105,7 @@
     <string name="common_save">Ruaj</string>
     <string name="common_send">Dërgojeni</string>
     <string name="common_share">Shpërndaje</string>
+    <string name="common_switch_account">Ndrysho Llogarinë</string>
     <string name="common_unknown">panjohur</string>
     <string name="common_yes">Po</string>
     <string name="community_beta_headline">Testoni versionin Beta</string>
@@ -211,8 +213,6 @@
     <string name="drawer_quota">%1$s e %2$s përdorur</string>
     <string name="drawer_quota_unlimited">%1$s të përdorura</string>
     <string name="drawer_synced_folders">Ngarkim automatik</string>
-    <string name="edit_permission_label">redakto</string>
-    <string name="edit_rich_workspace">modifikoni informacionin e dosjes</string>
     <string name="encrypted">Vendose si të enkriptuar</string>
     <string name="end_to_end_encryption_confirm_button">Ndërto enkriptimin</string>
     <string name="end_to_end_encryption_decrypting">Duke dekriptuar…</string>
@@ -222,7 +222,6 @@
     <string name="end_to_end_encryption_generating_keys">Duke gjeneruar çelsa të rinj…</string>
     <string name="end_to_end_encryption_keywords_description">Të gjitha 12 fjalët së bashku bëjnë një fjalëkalim shumë të fortë, duke lënë vetëm ju të shikoni dhe të përdorni skedarët tuaj të koduar. Ju lutemi shkruani dhe mbajeni diku të sigurt.</string>
     <string name="end_to_end_encryption_not_enabled">Enkriptimi end-to-end është i pavendosur në server.</string>
-    <string name="end_to_end_encryption_not_supported">Enkriptimi funksionon vetëm në KitKat(4.4) dhe më pas.</string>
     <string name="end_to_end_encryption_passphrase_title">Mbaj shënim për fjalëkalimin tuaj të enkriptimit me 12 fjalë</string>
     <string name="end_to_end_encryption_password">Fjalëkalimi…</string>
     <string name="end_to_end_encryption_retrieving_keys">Rikthimi i çelsave…</string>
@@ -345,6 +344,7 @@
     <string name="foreign_files_remote_text">E largët: %1$s</string>
     <string name="foreign_files_success">U zhvendosën të gjithë skedarët</string>
     <string name="forward">Përpara</string>
+    <string name="fourHours">4 orë</string>
     <string name="hint_name">Emër</string>
     <string name="hint_note">Shënim</string>
     <string name="hint_password">Fjalëkalimi</string>
@@ -546,15 +546,13 @@
     <string name="set_picture_as">Vendos fotografinë</string>
     <string name="share">Ndaje</string>
     <string name="share_dialog_title">Ndarje me të tjerët</string>
-    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_expiration_date_label">Skadon%1$s</string>
     <string name="share_file">Ndajeni %1$s</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_internal_link">Shpërnda linkun e brendshëm</string>
     <string name="share_internal_link_to_file_text">Lidhja e brendshme të ndarjes funksionon vetëm për përdoruesit që kanë qasje në këtë skedar</string>
     <string name="share_internal_link_to_folder_text">Lidhja e ndarjes së brendshme funksionon vetëm për përdoruesit me qasje në këtë dosje</string>
-    <string name="share_known_remote_clarification">%1$s ( te %2$s )</string>
-    <string name="share_link">Share link</string>
+    <string name="share_link">Lidhje ndarjeje</string>
     <string name="share_link_empty_password">Duhet të jepni një fjalëkalim</string>
     <string name="share_link_forbidden_permissions">për ndarje me të tjerët të kësaj kartele</string>
     <string name="share_link_optional_password_title">Shkruani një fjalëkalim jo të detyrueshëm</string>
@@ -562,16 +560,11 @@
     <string name="share_no_expiration_date_label">Caktoni datë skadimi</string>
     <string name="share_no_password_title">Vendos fjalëkalimin</string>
     <string name="share_password_title">Mbrojtur me fjalëkalim</string>
-    <string name="share_privilege_can_edit_change">mund të ndryshohet</string>
-    <string name="share_privilege_can_edit_create">mund të krijohet</string>
-    <string name="share_privilege_can_edit_delete">mund të fshihet</string>
-    <string name="share_privilege_can_share">mund të ndajë</string>
     <string name="share_privilege_unshare">Hiqe ndarjen</string>
     <string name="share_remote_clarification">%1$s (i largët)</string>
     <string name="share_room_clarification">%1$s (bisedë)</string>
     <string name="share_send_note">Shënim për marrësin</string>
     <string name="share_via_link_hide_download">Fshih shkarkimin</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Fshihni listën e skedarëve</string>
     <string name="share_via_link_menu_password_label">Mbroje me fjalëkalim (%1$s)</string>
     <string name="share_via_link_section_title">Lidhje ndarjeje</string>
     <string name="share_via_link_send_link_label">Dërgo lidhjen</string>

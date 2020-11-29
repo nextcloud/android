@@ -22,7 +22,7 @@ fi
 mkdir -p ~/apks
 
 source ~/.gradle/devVersionSecrets
-/home/nextcloud/bin/apksigner sign --ks-pass env:VERSION_DEV_STORE_PASSWORD \
+apksigner sign --ks-pass env:VERSION_DEV_STORE_PASSWORD \
                --key-pass env:VERSION_DEV_KEY_PASSWORD \
                --ks $VERSION_DEV_STORE_FILE \
                --out ~/apks/nextcloud-dev-$date.apk \

@@ -20,6 +20,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:animateLayoutChanges="true"
     android:orientation="vertical">
 
@@ -33,7 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:choiceMode="multipleChoice" />
+            android:choiceMode="multipleChoice"
+            tools:listitem="@layout/contactlist_list_item" />
 
         <LinearLayout
             android:id="@+id/contactlist_restore_selected_container"
@@ -59,12 +61,21 @@
         </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/empty_list_container"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/loading_list_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:orientation="vertical">
 
-        <include layout="@layout/empty_list" />
-    </RelativeLayout>
+        <include layout="@layout/contactlist_list_item_shimmer" />
+        <include layout="@layout/contactlist_list_item_shimmer" />
+        <include layout="@layout/contactlist_list_item_shimmer" />
+        <include layout="@layout/contactlist_list_item_shimmer" />
+        <include layout="@layout/contactlist_list_item_shimmer" />
+        <include layout="@layout/contactlist_list_item_shimmer" />
+        <include layout="@layout/contactlist_list_item_shimmer" />
+        <include layout="@layout/contactlist_list_item_shimmer" />
+        <include layout="@layout/contactlist_list_item_shimmer" />
+        <include layout="@layout/contactlist_list_item_shimmer" />
+    </LinearLayout>
 </RelativeLayout>

@@ -90,6 +90,7 @@
     <string name="choose_local_folder">ローカルフォルダーを選択…</string>
     <string name="choose_remote_folder">リモートフォルダを選択…</string>
     <string name="clear_notifications_failed">通知の削除に失敗</string>
+    <string name="clear_status_message">ステータスをリセットする</string>
     <string name="clipboard_label">%1$s からテキストをコピー</string>
     <string name="clipboard_no_text_to_copy">クリップボードにコピーするテキストを受け取らなかった</string>
     <string name="clipboard_text_copied">リンクをコピーしました</string>
@@ -223,8 +224,6 @@
     <string name="drawer_quota_unlimited">%1$s使用中</string>
     <string name="drawer_synced_folders">自動アップロード</string>
     <string name="edit_label">名称変更</string>
-    <string name="edit_permission_label">編集</string>
-    <string name="edit_rich_workspace">フォルダ情報を編集</string>
     <string name="encrypted">暗号化設定</string>
     <string name="end_to_end_encryption_confirm_button">暗号化を設定する</string>
     <string name="end_to_end_encryption_decrypting">復号化中…</string>
@@ -234,7 +233,6 @@
     <string name="end_to_end_encryption_generating_keys">新しいキーを生成中…</string>
     <string name="end_to_end_encryption_keywords_description">すべての12単語が非常に強力なパスワードを作成し、暗号化されたファイルを表示して使用するだけです。 それを書き留めて、安全な場所に保管してください。</string>
     <string name="end_to_end_encryption_not_enabled">サーバー上でエンドツーエンドの暗号化が無効になっています。</string>
-    <string name="end_to_end_encryption_not_supported">暗号化はKitKat（4.4）以降でのみ有効です。</string>
     <string name="end_to_end_encryption_passphrase_title">あなたの12単語の暗証番号を書き留めてください</string>
     <string name="end_to_end_encryption_password">パスワード…</string>
     <string name="end_to_end_encryption_retrieving_keys">キーを取得中…</string>
@@ -581,14 +579,12 @@
     <string name="set_picture_as">画像を使用する</string>
     <string name="share">共有</string>
     <string name="share_dialog_title">共有</string>
-    <string name="share_email_clarification">%1$s (メール)</string>
     <string name="share_expiration_date_label">有効期限%1$s</string>
     <string name="share_file">%1$s を共有</string>
     <string name="share_group_clarification">%1$s (グループ)</string>
     <string name="share_internal_link">内部リンクを共有</string>
     <string name="share_internal_link_to_file_text">内部共有リンクは、このファイルにアクセスできるユーザーにのみ機能します。</string>
     <string name="share_internal_link_to_folder_text">内部共有リンクは、このフォルダにアクセスできるユーザーにのみ機能します。</string>
-    <string name="share_known_remote_clarification">%1$s ( %2$s で)</string>
     <string name="share_link">URLで共有</string>
     <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
     <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
@@ -600,16 +596,11 @@
     <string name="share_no_expiration_date_label">有効期限を設定</string>
     <string name="share_no_password_title">パスワードを設定</string>
     <string name="share_password_title">パスワード保護</string>
-    <string name="share_privilege_can_edit_change">変更可能</string>
-    <string name="share_privilege_can_edit_create">作成可能</string>
-    <string name="share_privilege_can_edit_delete">削除可能</string>
-    <string name="share_privilege_can_share">共有可</string>
     <string name="share_privilege_unshare">共有解除</string>
     <string name="share_remote_clarification">%1$s (リモート)</string>
     <string name="share_room_clarification">%1$s(会話)</string>
     <string name="share_send_note">受取人への注意</string>
     <string name="share_via_link_hide_download">ダウンロードを隠す</string>
-    <string name="share_via_link_hide_file_listing_permission_label">ファイルリストを隠す</string>
     <string name="share_via_link_menu_password_label">パスワード保護(%1$s)</string>
     <string name="share_via_link_section_title">URLで共有</string>
     <string name="share_via_link_send_link_label">リンクを送信</string>

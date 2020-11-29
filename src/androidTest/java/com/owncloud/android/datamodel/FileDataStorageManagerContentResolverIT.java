@@ -22,7 +22,7 @@
 
 package com.owncloud.android.datamodel;
 
-public class FileDataStorageManagerContentResolverTest extends FileDataStorageManagerTest {
+public class FileDataStorageManagerContentResolverIT extends FileDataStorageManagerIT {
     @Override
     public void before() {
         sut = new FileDataStorageManager(account, targetContext.getContentResolver());

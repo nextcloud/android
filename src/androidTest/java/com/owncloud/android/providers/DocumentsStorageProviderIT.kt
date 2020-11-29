@@ -6,7 +6,6 @@ import androidx.documentfile.provider.DocumentFile
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile.ROOT_PATH
-import com.owncloud.android.lib.common.network.WebdavUtils
 import com.owncloud.android.providers.DocumentsProviderUtils.assertExistsOnServer
 import com.owncloud.android.providers.DocumentsProviderUtils.assertListFilesEquals
 import com.owncloud.android.providers.DocumentsProviderUtils.assertReadEquals
@@ -19,9 +18,6 @@ import com.owncloud.android.providers.DocumentsProviderUtils.listFilesBlocking
 import com.owncloud.android.providers.DocumentsStorageProvider.DOCUMENTID_SEPARATOR
 import kotlinx.coroutines.runBlocking
 import net.bytebuddy.utility.RandomString
-import org.apache.commons.httpclient.HttpStatus
-import org.apache.commons.httpclient.methods.ByteArrayRequestEntity
-import org.apache.commons.httpclient.methods.PutMethod
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -177,31 +173,32 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         assertExistsOnServer(client, ocFile1.remotePath, false)
     }
 
-    @Test
-    fun testServerChangedFileContent() {
-        // create random file
-        val file1 = rootDir.createFile("text/plain", RandomString.make())!!
-        file1.assertRegularFile(size = 0L)
-
-        val content1 = "initial content".toByteArray()
-
-        // write content bytes to file
-        contentResolver.openOutputStream(file1.uri, "wt").use {
-            it!!.write(content1)
-        }
-
-        val remotePath = file1.getOCFile(storageManager)!!.remotePath
-
-        val content2 = "new content".toByteArray()
-
-        // modify content on server side
-        val putMethod = PutMethod(client.webdavUri.toString() + WebdavUtils.encodePath(remotePath))
-        putMethod.setRequestEntity(ByteArrayRequestEntity(content2))
-        assertEquals(HttpStatus.SC_NO_CONTENT, client.executeMethod(putMethod))
-        client.exhaustResponse(putMethod.responseBodyAsStream)
-        putMethod.releaseConnection() // let the connection available for other methods
-
-        // read back content bytes
-        assertReadEquals(content2, contentResolver.openInputStream(file1.uri))
-    }
+    // disabled as flaky test
+    // @Test
+    // fun testServerChangedFileContent() {
+    //     // create random file
+    //     val file1 = rootDir.createFile("text/plain", RandomString.make())!!
+    //     file1.assertRegularFile(size = 0L)
+    //
+    //     val content1 = "initial content".toByteArray()
+    //
+    //     // write content bytes to file
+    //     contentResolver.openOutputStream(file1.uri, "wt").use {
+    //         it!!.write(content1)
+    //     }
+    //
+    //     val remotePath = file1.getOCFile(storageManager)!!.remotePath
+    //
+    //     val content2 = "new content".toByteArray()
+    //
+    //     // modify content on server side
+    //     val putMethod = PutMethod(client.webdavUri.toString() + WebdavUtils.encodePath(remotePath))
+    //     putMethod.setRequestEntity(ByteArrayRequestEntity(content2))
+    //     assertEquals(HttpStatus.SC_NO_CONTENT, client.executeMethod(putMethod))
+    //     client.exhaustResponse(putMethod.responseBodyAsStream)
+    //     putMethod.releaseConnection() // let the connection available for other methods
+    //
+    //     // read back content bytes
+    //     assertReadEquals(content2, contentResolver.openInputStream(file1.uri))
+    // }
 }

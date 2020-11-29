@@ -45,7 +45,7 @@ import static com.owncloud.android.ui.fragment.OCFileListFragment.FOLDER_LAYOUT_
 /**
  * Implementation of application-wide preferences using {@link SharedPreferences}.
  *
- * Users should not use this class directly. Please use {@link AppPreferences} interafce
+ * Users should not use this class directly. Please use {@link AppPreferences} interface
  * instead.
  */
 public final class AppPreferencesImpl implements AppPreferences {

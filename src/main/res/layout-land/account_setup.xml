@@ -70,14 +70,15 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:text="@string/auth_host_url"
+                        android:labelFor="@+id/host_url_input"
                         android:textColor="@color/login_text_color" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/host_url_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="@dimen/minimum_size_for_touchable_area"
                         android:layout_gravity="bottom"
-                        android:contentDescription="@string/auth_host_address"
                         android:drawablePadding="@dimen/alternate_half_padding"
                         android:inputType="textUri"
                         android:paddingStart="@dimen/zero"
