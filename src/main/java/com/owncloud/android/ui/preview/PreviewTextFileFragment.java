@@ -31,6 +31,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
@@ -107,9 +108,9 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         }
 
         if (args.containsKey(FileDisplayActivity.EXTRA_SEARCH_QUERY)) {
-            mSearchQuery = args.getString(FileDisplayActivity.EXTRA_SEARCH_QUERY);
+            searchQuery = args.getString(FileDisplayActivity.EXTRA_SEARCH_QUERY);
         }
-        mSearchOpen = args.getBoolean(FileDisplayActivity.EXTRA_SEARCH, false);
+        searchOpen = args.getBoolean(FileDisplayActivity.EXTRA_SEARCH, false);
 
         if (savedInstanceState == null) {
             if (file == null) {
@@ -123,7 +124,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             account = savedInstanceState.getParcelable(EXTRA_ACCOUNT);
         }
 
-        mHandler = new Handler();
+        handler = new Handler();
         setFile(file);
     }
 
@@ -140,7 +141,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
 
     @Override
     void loadAndShowTextPreview() {
-        textLoadAsyncTask = new TextLoadAsyncTask(new WeakReference<>(mTextPreview));
+        textLoadAsyncTask = new TextLoadAsyncTask(new WeakReference<>(binding.textPreview),
+                                                  new WeakReference<>(binding.emptyListProgress));
         textLoadAsyncTask.execute(getFile().getStoragePath());
     }
 
@@ -149,10 +151,12 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
      */
     private class TextLoadAsyncTask extends AsyncTask<Object, Void, StringWriter> {
         private static final int PARAMS_LENGTH = 1;
-        private final WeakReference<TextView> mTextViewReference;
+        private final WeakReference<TextView> textViewReference;
+        private final WeakReference<FrameLayout> progressViewReference;
 
-        private TextLoadAsyncTask(WeakReference<TextView> textView) {
-            mTextViewReference = textView;
+        private TextLoadAsyncTask(WeakReference<TextView> textView, WeakReference<FrameLayout> progressView) {
+            textViewReference = textView;
+            progressViewReference = progressView;
         }
 
         @Override
@@ -210,25 +214,26 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
 
         @Override
         protected void onPostExecute(final StringWriter stringWriter) {
-            final TextView textView = mTextViewReference.get();
+            final TextView textView = textViewReference.get();
 
             if (textView != null) {
-                mOriginalText = stringWriter.toString();
-                setText(textView, mOriginalText, getFile(), requireActivity());
+                originalText = stringWriter.toString();
+                setText(textView, originalText, getFile(), requireActivity());
 
-                if (mSearchView != null) {
-                    mSearchView.setOnQueryTextListener(PreviewTextFileFragment.this);
+                if (searchView != null) {
+                    searchView.setOnQueryTextListener(PreviewTextFileFragment.this);
 
-                    if (mSearchOpen) {
-                        mSearchView.setQuery(mSearchQuery, true);
+                    if (searchOpen) {
+                        searchView.setQuery(searchQuery, true);
                     }
                 }
 
                 textView.setVisibility(View.VISIBLE);
             }
 
-            if (mMultiListContainer != null) {
-                mMultiListContainer.setVisibility(View.GONE);
+            final FrameLayout progress = progressViewReference.get();
+            if (progress != null) {
+                progress.setVisibility(View.GONE);
             }
         }
     }
@@ -243,13 +248,13 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
 
         MenuItem menuItem = menu.findItem(R.id.action_search);
         menuItem.setVisible(true);
-        mSearchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        mSearchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setMaxWidth(Integer.MAX_VALUE);
 
-        if (mSearchOpen) {
-            mSearchView.setIconified(false);
-            mSearchView.setQuery(mSearchQuery, false);
-            mSearchView.clearFocus();
+        if (searchOpen) {
+            searchView.setIconified(false);
+            searchView.setQuery(searchQuery, false);
+            searchView.clearFocus();
         }
     }
 
@@ -270,9 +275,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                 deviceInfo,
                 user
             );
-            mf.filter(menu,
-                      true,
-                      user.getServer().getVersion().isMediaStreamingSupported());
+            mf.filter(menu, true);
         }
 
         // additional restriction for this fragment

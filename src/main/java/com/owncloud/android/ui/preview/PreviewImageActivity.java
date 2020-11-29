@@ -71,7 +71,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
- *  Holds a swiping galley where image files contained in an ownCloud directory are shown
+ *  Holds a swiping galley where image files contained in an Nextcloud directory are shown
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class PreviewImageActivity extends FileActivity implements

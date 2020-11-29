@@ -444,9 +444,9 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
             if (requestCode == FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA || requestCode == FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA) {
                 data.putExtra(EXTRA_CHOSEN_FILES, new String[]{filesToUpload[0]});
-                setResult(RESULT_OK_AND_MOVE, data);
+                setResult(RESULT_OK_AND_DELETE, data);
 
-                preferences.setUploaderBehaviour(FileUploader.LOCAL_BEHAVIOUR_MOVE);
+                preferences.setUploaderBehaviour(FileUploader.LOCAL_BEHAVIOUR_DELETE);
             } else {
                 data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
 

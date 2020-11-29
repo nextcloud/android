@@ -57,6 +57,19 @@
                     android:layout_height="match_parent" />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+            <LinearLayout
+                android:id="@+id/loading_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include layout="@layout/trashbin_item_shimmer" />
+                <include layout="@layout/trashbin_item_shimmer" />
+                <include layout="@layout/trashbin_item_shimmer" />
+
+            </LinearLayout>
+
             <include
                 android:id="@+id/empty_list"
                 layout="@layout/empty_list" />

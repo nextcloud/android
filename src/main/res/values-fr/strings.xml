@@ -90,6 +90,7 @@
     <string name="checkbox">Case à cocher</string>
     <string name="choose_local_folder">Sélectionner le dossier local…</string>
     <string name="choose_remote_folder">Sélectionner le dossier distant…</string>
+    <string name="choose_which_file">Sélectionnez le fichier à conserver</string>
     <string name="clear_notifications_failed">Erreur lors de l\'effacement des notifications.</string>
     <string name="clear_status_message">Effacer le message d\'état</string>
     <string name="clear_status_message_after">Effacer le message d\'états après</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Local seulement</string>
     <string name="conflict_already_existing_file">Fichier déjà existant</string>
     <string name="conflict_dialog_error">Une erreur qui crée un dialogue conflictuel !</string>
+    <string name="conflict_file_headline">Fichier %1$s en conflit</string>
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
     <string name="conflict_message_headline">Quels fichiers souhaitez-vous conserver ?</string>
     <string name="conflict_new_file">Nouveau fichier</string>
@@ -215,6 +217,7 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_item_activities">Activité</string>
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_favorites">Favoris</string>
+    <string name="drawer_item_gallery">Média</string>
     <string name="drawer_item_home">Accueil</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
@@ -231,8 +234,6 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_quota_unlimited">%1$s utilisé</string>
     <string name="drawer_synced_folders">Envoi automatique</string>
     <string name="edit_label">Modifier le nom</string>
-    <string name="edit_permission_label">modifier</string>
-    <string name="edit_rich_workspace">modifier les commentaires du dossier</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_decrypting">Décryptage…</string>
@@ -242,7 +243,6 @@ Attention la suppression est irréversible.</string>
     <string name="end_to_end_encryption_generating_keys">Générer des nouvelles clés…</string>
     <string name="end_to_end_encryption_keywords_description">Cette phrase de 12 mots est un mot de passe très fort permettant un accès à la lecture et à l\'utilisation de vos fichiers chiffrés. Veuillez l\'écrire et gardez la quelque-part en sécurité.</string>
     <string name="end_to_end_encryption_not_enabled">Chiffrement de bout en bout désactivé sur le serveur.</string>
-    <string name="end_to_end_encryption_not_supported">Le chiffrement ne marche uniquement sur les versions KitKat (4.4) et plus</string>
     <string name="end_to_end_encryption_passphrase_title">Veuillez noter votre phrase secrète de chiffrement de 12 mots</string>
     <string name="end_to_end_encryption_password">Mot de passe…</string>
     <string name="end_to_end_encryption_retrieving_keys">Récupération des clés…</string>
@@ -265,7 +265,7 @@ Attention la suppression est irréversible.</string>
     <string name="etm_background_job_progress">Progression</string>
     <string name="etm_background_job_started">Démarré</string>
     <string name="etm_background_job_state">État</string>
-    <string name="etm_background_job_user">Utilisateurs</string>
+    <string name="etm_background_job_user">Utilisateur</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Tâches de fond</string>
     <string name="etm_background_jobs_cancel_all">Annuler toutes les tâches </string>
@@ -379,6 +379,7 @@ Attention la suppression est irréversible.</string>
     <string name="hint_password">Mot de passe</string>
     <string name="host_not_available">Serveur indisponible</string>
     <string name="host_your_own_server">Hébergez votre propre serveur</string>
+    <string name="in_folder">dans le dossier %1$s</string>
     <string name="instant_upload_existing">Téléverser aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -490,6 +491,8 @@ Attention la suppression est irréversible.</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ceci est un espace réservé</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
+    <string name="player_stop">arrêter</string>
+    <string name="player_toggle">inverser</string>
     <string name="power_save_check_dialog_message">Désactiver l\'économie de batterie peut entraîner l\'envoi de fichiers même avec un niveau de batterie faible !</string>
     <string name="pref_behaviour_entries_delete_file">supprimé</string>
     <string name="pref_behaviour_entries_keep_file">conservé dans le dossier original</string>
@@ -595,14 +598,12 @@ Attention la suppression est irréversible.</string>
     <string name="set_status_message">Message d\'état</string>
     <string name="share">Partager</string>
     <string name="share_dialog_title">Partage</string>
-    <string name="share_email_clarification">%1$s (courriel)</string>
     <string name="share_expiration_date_label">Expire le %1$s</string>
     <string name="share_file">Partager %1$s</string>
     <string name="share_group_clarification">%1$s (groupe)</string>
     <string name="share_internal_link">Partager le lien interne</string>
     <string name="share_internal_link_to_file_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce fichier</string>
     <string name="share_internal_link_to_folder_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce dossier</string>
-    <string name="share_known_remote_clarification">%1$s (sur %2$s)</string>
     <string name="share_known_remote_on_clarification">le %1$s</string>
     <string name="share_link">Lien de partage</string>
     <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
@@ -615,16 +616,12 @@ Attention la suppression est irréversible.</string>
     <string name="share_no_expiration_date_label">Définir une date d\'expiration</string>
     <string name="share_no_password_title">Définir le mot de passe</string>
     <string name="share_password_title">Protégé par mot de passe</string>
-    <string name="share_privilege_can_edit_change">Peut modifier</string>
-    <string name="share_privilege_can_edit_create">Peut créer</string>
-    <string name="share_privilege_can_edit_delete">Peut supprimer</string>
-    <string name="share_privilege_can_share">peut partager</string>
     <string name="share_privilege_unshare">Cesser le partage</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
+    <string name="share_search">Nom, ID du cloud fédéré ou adresse mail…</string>
     <string name="share_send_note">Note au destinataire</string>
     <string name="share_via_link_hide_download">Masquer le téléchargement</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Masquer la liste des fichiers</string>
     <string name="share_via_link_menu_password_label">Protéger par un mot de passe (%1$s)</string>
     <string name="share_via_link_section_title">Lien de partage</string>
     <string name="share_via_link_send_link_label">Envoyer le lien</string>

@@ -276,7 +276,7 @@ We use [shot](https://github.com/Karumi/Shot) for taking screenshots and compare
 - update/generate new screenshots: ```scripts/updateScreenshots.sh ``` 
     - in this script are samples how to only execute a given class/test
     - this will fire up docker & emulator to ensure that screenshots look the same
-- creating own UI comparision tests: 
+- creating own UI comparison tests: 
     - add IntentsTestRule for launching activity directly:
 
     ```java
@@ -323,13 +323,13 @@ When submitting PRs with changed translations, please only submit changes to val
 
 ## Engineering practices
 
-This section contains some general guideliens for new contributors, based on common issues flagged during code review.
+This section contains some general guidelines for new contributors, based on common issues flagged during code review.
 
 ### Approach to technical debt
 
 TL;DR Non-Stop Litter Picking Party!
 
-We recognize the importance of technical debt that can slow down development, make bufixing difficult and
+We recognize the importance of technical debt that can slow down development, make bug fixing difficult and
 discourage future contributors.
 
 We are mindful of the [Broken Windows Theory](https://en.wikipedia.org/wiki/Broken_windows_theory) and we'd like

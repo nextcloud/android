@@ -8,7 +8,7 @@ import com.github.spotbugs.snom.SpotBugsTask
 // its root folder, another one for the app module in subfolder of root.
 
 buildscript {
-    ext.kotlin_version = '1.4.10'
+    ext.kotlin_version = '1.4.20'
     repositories {
         google()
         jcenter()
@@ -21,13 +21,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath 'com.android.tools.build:gradle:4.1.1'
         classpath('com.hiya:jacoco-android:0.2')
-        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.5.1'
+        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.6.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.2"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
-        classpath 'com.karumi:shot:4.4.0'
+        classpath 'com.karumi:shot:5.3.0'
     }
 }
 
@@ -56,13 +56,14 @@ configurations {
 
 ext {
     jacocoVersion = "0.8.2"
-    daggerVersion = "2.29.1"
+    daggerVersion = "2.30.1"
     markwonVersion =  "4.6.0"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
     androidLibraryVersion = "master-SNAPSHOT"
-    mockitoVersion = "3.6.0"
+    mockitoVersion = "3.6.28"
     mockkVersion = "1.10.2"
+    powermockVersion = "2.0.9"
     byteBuddyVersion = "1.10.18"
     espressoVersion = "3.3.0"
 
@@ -89,13 +90,16 @@ def versionMinor = 15
 def versionPatch = 0
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
+def testMinSdk = 21
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
     for (String arg : tr.args) {
         // any gplay, but only exact "build", as e.g. buildGeneric shall not apply gplay.grade
         if (arg.contains("Gplay") || arg.contains("lint") || arg.contains("ExecuteScreenshot") || arg == "build") {
             apply from: 'gplay.gradle'
             System.console().println("Applying gplay.gradle")
-            break
+        }
+        if (arg.contains("lint")) {
+            testMinSdk = 19
         }
     }
 }
@@ -188,6 +192,7 @@ android {
         testOptions {
             unitTests.returnDefaultValues = true
             animationsDisabled true
+            minSdkVersion testMinSdk
         }
     }
 
@@ -305,9 +310,9 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterknifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
     implementation 'org.greenrobot:eventbus:3.2.0'
-    implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.1'
+    implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.2'
     implementation 'org.lukhnos:nnio:0.2'
-    implementation 'org.bouncycastle:bcpkix-jdk15on:1.65'
+    implementation 'org.bouncycastle:bcpkix-jdk15to18:1.67'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.afollestad:sectioned-recyclerview:0.5.0'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
@@ -322,8 +327,7 @@ dependencies {
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation group: 'androidx.emoji', name: 'emoji-bundled', version: '1.1.0'
-    implementation 'com.github.vanniktech:Emoji:0.7.0'
+    implementation 'com.vanniktech:emoji-google:0.7.0'
 
     implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido:4.1.0'
     implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido2:4.1.0'
@@ -365,10 +369,10 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation 'androidx.test:core:1.3.0'
-    testImplementation 'org.powermock:powermock-core:2.0.7'
-    testImplementation 'org.powermock:powermock-module-junit4:2.0.7'
-    testImplementation 'org.powermock:powermock-api-mockito2:2.0.7'
-    testImplementation 'org.json:json:20200518'
+    testImplementation "org.powermock:powermock-core:$powermockVersion"
+    testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
+    testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
+    testImplementation 'org.json:json:20201115'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation "io.mockk:mockk:$mockkVersion"
@@ -386,6 +390,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-web:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-accessibility:$espressoVersion"
 
     // Mocking support
     androidTestImplementation 'com.github.tmurakami:dexopener:2.0.5' // required to allow mocking on API 27 and older

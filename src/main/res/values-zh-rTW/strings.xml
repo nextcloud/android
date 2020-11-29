@@ -34,6 +34,8 @@
     <string name="add_another_public_share_link">加入另一個連結</string>
     <string name="add_new_public_share">增加一個新的公開連結</string>
     <string name="add_to_cloud">新增到 %1$s </string>
+    <string name="allow_creating">允許建立</string>
+    <string name="allow_deleting">允許刪除</string>
     <string name="allow_editing">允許編輯</string>
     <string name="allow_resharing">允許轉貼分享</string>
     <string name="appbar_search_in">%s內搜尋</string>
@@ -88,6 +90,7 @@
     <string name="choose_local_folder">選擇本地資料夾…</string>
     <string name="choose_remote_folder">選擇遠端資料夾…</string>
     <string name="clear_notifications_failed">清空通知訊息失敗</string>
+    <string name="clear_status_message">清空狀態列訊息</string>
     <string name="clipboard_label">文字已由 %1$s 複製</string>
     <string name="clipboard_no_text_to_copy">無任何文字複製到剪貼簿。</string>
     <string name="clipboard_text_copied">連結已複製</string>
@@ -165,6 +168,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">不支援複製移動加密的資料夾</string>
     <string name="copy_to">複製到…</string>
     <string name="could_not_download_image">無法下載完整圖片</string>
+    <string name="could_not_retrieve_shares">無法從雲端取得共用</string>
     <string name="could_not_retrieve_url">不能取得網址</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
     <string name="create_new">建立新的</string>
@@ -188,6 +192,7 @@
     <string name="disable_new_media_folder_detection_notifications">停用</string>
     <string name="dismiss">取消</string>
     <string name="dismiss_notification_description">清除通知訊息。</string>
+    <string name="dnd">勿擾模式</string>
     <string name="download_latest_dev_version">下載最新開發的版本</string>
     <string name="downloader_download_failed_content">下載 %1$s 無法完成 </string>
     <string name="downloader_download_failed_credentials_error">下載失敗，再重新登入</string>
@@ -204,6 +209,7 @@
     <string name="drawer_item_activities">活動</string>
     <string name="drawer_item_all_files">所有檔案</string>
     <string name="drawer_item_favorites">最愛</string>
+    <string name="drawer_item_gallery">多媒體</string>
     <string name="drawer_item_home">家目錄</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">在裝置上</string>
@@ -220,8 +226,6 @@
     <string name="drawer_quota_unlimited">%1$s已使用</string>
     <string name="drawer_synced_folders">自動上傳</string>
     <string name="edit_label">更改名稱</string>
-    <string name="edit_permission_label">編輯</string>
-    <string name="edit_rich_workspace">編輯資料夾資訊</string>
     <string name="encrypted">設為已加密的</string>
     <string name="end_to_end_encryption_confirm_button">設定加密</string>
     <string name="end_to_end_encryption_decrypting">解密中…</string>
@@ -231,7 +235,6 @@
     <string name="end_to_end_encryption_generating_keys">正在產生金鑰…</string>
     <string name="end_to_end_encryption_keywords_description">透過組合12個字來產生安全的密碼，使你可以安全的瀏覽與加密檔案。請確保這組密碼只有你知道，並寫記在紙上妥善保管。</string>
     <string name="end_to_end_encryption_not_enabled">伺服器上的端對端加密被停用</string>
-    <string name="end_to_end_encryption_not_supported">加密功能只能在 KitKat(4.4 以上) 才能啟用</string>
     <string name="end_to_end_encryption_passphrase_title">為您12個字的加密密碼加上註解</string>
     <string name="end_to_end_encryption_password">密碼…</string>
     <string name="end_to_end_encryption_retrieving_keys">取得金鑰…</string>
@@ -258,10 +261,12 @@
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">背景工作</string>
     <string name="etm_background_jobs_cancel_all">取消所有作業</string>
+    <string name="etm_background_jobs_prune">清理無效工作排程</string>
     <string name="etm_background_jobs_schedule_test_job">排程測試作業</string>
     <string name="etm_background_jobs_start_test_job">開始測試作業</string>
     <string name="etm_background_jobs_stop_test_job">停止測試作業</string>
     <string name="etm_download_path">遠端路徑</string>
+    <string name="etm_downloader">下載器</string>
     <string name="etm_preferences">設定</string>
     <string name="etm_title">工程測試模式</string>
     <string name="fab_label">新增或上傳</string>
@@ -569,14 +574,12 @@
     <string name="set_picture_as">使用圖片作為</string>
     <string name="share">分享</string>
     <string name="share_dialog_title">分享</string>
-    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_expiration_date_label">過期 %1$s</string>
     <string name="share_file">分享 %1$s</string>
     <string name="share_group_clarification">%1$s （群組）</string>
     <string name="share_internal_link">分享內部鏈結</string>
     <string name="share_internal_link_to_file_text">內部分享連結僅對有權存取這個檔案的使用者有效</string>
     <string name="share_internal_link_to_folder_text">內部分享連結僅對有權存取這個資料夾的使用者有效</string>
-    <string name="share_known_remote_clarification">%1$s （在 %2$s ）</string>
     <string name="share_link">分享連結</string>
     <string name="share_link_empty_password">您必須輸入密碼</string>
     <string name="share_link_file_error">嘗試分享檔案或資料夾時發生錯誤</string>
@@ -587,16 +590,11 @@
     <string name="share_no_expiration_date_label">設定到期日</string>
     <string name="share_no_password_title">設定密碼</string>
     <string name="share_password_title">受密碼保護</string>
-    <string name="share_privilege_can_edit_change">允許更動</string>
-    <string name="share_privilege_can_edit_create">允許新增</string>
-    <string name="share_privilege_can_edit_delete">允許刪除</string>
-    <string name="share_privilege_can_share">可分享</string>
     <string name="share_privilege_unshare">撤回分享</string>
     <string name="share_remote_clarification">%1$s （遠端）</string>
     <string name="share_room_clarification">%1$s(交談)</string>
     <string name="share_send_note">給接收者的訊息</string>
     <string name="share_via_link_hide_download">隱藏下載</string>
-    <string name="share_via_link_hide_file_listing_permission_label">隱藏檔案列表</string>
     <string name="share_via_link_menu_password_label">密碼保護 (%1$s)</string>
     <string name="share_via_link_section_title">分享連結</string>
     <string name="share_via_link_send_link_label">傳送連結</string>

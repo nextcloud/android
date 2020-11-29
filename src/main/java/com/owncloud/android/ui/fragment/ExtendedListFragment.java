@@ -28,7 +28,6 @@ import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -49,7 +48,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
@@ -123,7 +121,6 @@ public class ExtendedListFragment extends Fragment implements
     protected TextView mEmptyListMessage;
     protected TextView mEmptyListHeadline;
     protected ImageView mEmptyListIcon;
-    protected ProgressBar mEmptyListProgress;
 
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
@@ -147,15 +144,9 @@ public class ExtendedListFragment extends Fragment implements
         REGULAR_FILTER,
         FILE_SEARCH,
         FAVORITE_SEARCH,
-        FAVORITE_SEARCH_FILTER,
-        VIDEO_SEARCH,
-        VIDEO_SEARCH_FILTER,
-        PHOTO_SEARCH,
-        PHOTOS_SEARCH_FILTER,
+        GALLERY_SEARCH,
         RECENTLY_MODIFIED_SEARCH,
-        RECENTLY_MODIFIED_SEARCH_FILTER,
         RECENTLY_ADDED_SEARCH,
-        RECENTLY_ADDED_SEARCH_FILTER,
         // not a real filter, but nevertheless
         SHARED_FILTER
     }
@@ -425,9 +416,6 @@ public class ExtendedListFragment extends Fragment implements
         mEmptyListMessage = view.findViewById(R.id.empty_list_view_text);
         mEmptyListHeadline = view.findViewById(R.id.empty_list_view_headline);
         mEmptyListIcon = view.findViewById(R.id.empty_list_icon);
-        mEmptyListProgress = view.findViewById(R.id.empty_list_progress);
-        mEmptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(getContext(), true),
-                                                                     PorterDuff.Mode.SRC_IN);
     }
 
     /**
@@ -627,7 +615,6 @@ public class ExtendedListFragment extends Fragment implements
                     }
 
                     mEmptyListIcon.setVisibility(View.VISIBLE);
-                    mEmptyListProgress.setVisibility(View.GONE);
                     mEmptyListMessage.setVisibility(View.VISIBLE);
                 }
             }
@@ -652,14 +639,6 @@ public class ExtendedListFragment extends Fragment implements
                     setMessageForEmptyList(R.string.file_list_empty_favorite_headline,
                                            R.string.file_list_empty_favorites_filter_list,
                                            R.drawable.ic_star_light_yellow);
-                } else if (searchType == SearchType.VIDEO_SEARCH) {
-                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
-                                           R.string.file_list_empty_text_videos,
-                                           R.drawable.ic_list_empty_video);
-                } else if (searchType == SearchType.PHOTO_SEARCH) {
-                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search_photos,
-                                           R.string.file_list_empty_text_photos,
-                                           R.drawable.ic_list_empty_image);
                 } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
                                            R.string.file_list_empty_recently_modified,
@@ -672,26 +651,6 @@ public class ExtendedListFragment extends Fragment implements
                     setMessageForEmptyList(R.string.file_list_empty_headline_search,
                                            R.string.file_list_empty_search,
                                            R.drawable.ic_search_light_grey);
-                } else if (searchType == SearchType.FAVORITE_SEARCH_FILTER) {
-                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty_favorites_filter,
-                                           R.drawable.ic_star_light_yellow);
-                } else if (searchType == SearchType.VIDEO_SEARCH_FILTER) {
-                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
-                                           R.string.file_list_empty_text_videos_filter,
-                                           R.drawable.ic_list_empty_video);
-                } else if (searchType == SearchType.PHOTOS_SEARCH_FILTER) {
-                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search_photos,
-                                           R.string.file_list_empty_text_photos_filter,
-                                           R.drawable.ic_list_empty_image);
-                } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH_FILTER) {
-                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty_recently_modified_filter,
-                                           R.drawable.ic_list_empty_recent);
-                } else if (searchType == SearchType.RECENTLY_ADDED_SEARCH_FILTER) {
-                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty_recently_added_filter,
-                                           R.drawable.ic_list_empty_recent);
                 } else if (searchType == SearchType.SHARED_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_shared_headline,
                                            R.string.file_list_empty_shared,
@@ -701,24 +660,16 @@ public class ExtendedListFragment extends Fragment implements
         });
     }
 
-    public void setEmptyListLoadingMessage() {
-        setEmptyListLoadingMessage(true);
-    }
-
     /**
      * Set message for empty list view.
      */
-    public void setEmptyListLoadingMessage(boolean showSpinner) {
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                if (mEmptyListContainer != null && mEmptyListMessage != null) {
-                    mEmptyListHeadline.setText(R.string.file_list_loading);
-                    mEmptyListMessage.setText("");
+    public void setEmptyListLoadingMessage() {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            if (mEmptyListContainer != null && mEmptyListMessage != null) {
+                mEmptyListHeadline.setText(R.string.file_list_loading);
+                mEmptyListMessage.setText("");
 
-                    mEmptyListIcon.setVisibility(View.GONE);
-                    mEmptyListProgress.setVisibility(showSpinner ? View.VISIBLE : View.INVISIBLE);
-                }
+                mEmptyListIcon.setVisibility(View.GONE);
             }
         });
     }

@@ -171,7 +171,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         binding.sharesList.setAdapter(new ShareeListAdapter(fileActivity,
                                                             new ArrayList<>(),
                                                             this,
-                                                            userId));
+                                                            userId,
+                                                            user));
         binding.sharesList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         setupView();
@@ -180,8 +181,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         binding = null;
     }
 
@@ -326,7 +327,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         MenuItem allowDeletingItem = menu.findItem(R.id.allow_deleting);
         MenuItem expirationDateItem = menu.findItem(R.id.action_expiration_date);
         MenuItem reshareItem = menu.findItem(R.id.allow_resharing);
-        MenuItem sendNoteItem = menu.findItem(R.id.action_share_send_note);
 
         allowEditingItem.setChecked(canEdit(share));
 
@@ -350,8 +350,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         SharingMenuHelper.setupExpirationDateMenuItem(menu.findItem(R.id.action_expiration_date),
                                                       share.getExpirationDate(),
                                                       getResources());
-
-        sendNoteItem.setVisible(capabilities.getVersion().isNoteOnShareSupported());
     }
 
     public void showLinkOverflowMenu(OCShare publicShare, ImageView overflowMenuShareLink) {
@@ -399,8 +397,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         Resources res = requireContext().getResources();
         SharingMenuHelper.setupHideFileDownload(menu.findItem(R.id.action_hide_file_download),
                                                 publicShare.isHideFileDownload(),
-                                                isFileDrop(publicShare),
-                                                capabilities);
+                                                isFileDrop(publicShare));
 
         SharingMenuHelper.setupPasswordMenuItem(menu.findItem(R.id.action_password),
                                                 publicShare.isPasswordProtected());
@@ -408,8 +405,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         SharingMenuHelper.setupExpirationDateMenuItem(menu.findItem(R.id.action_share_expiration_date),
                                                       publicShare.getExpirationDate(),
                                                       res);
-
-        menu.findItem(R.id.action_share_send_note).setVisible(capabilities.getVersion().isNoteOnShareSupported());
     }
 
     @VisibleForTesting

@@ -529,17 +529,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onOverflowIconClicked(OCFile file, View view) {
         PopupMenu popup = new PopupMenu(getActivity(), view);
         popup.inflate(R.menu.item_file);
-        User currentUser = ((FileActivity) getActivity()).getUser().orElseThrow(IllegalStateException::new);
         FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
                                                Collections.singleton(file),
                                                mContainerActivity, getActivity(),
                                                true,
                                                deviceInfo,
                                                accountManager.getUser());
-        final boolean isMediaStreamingSupported = currentUser.getServer().getVersion().isMediaStreamingSupported();
-        mf.filter(popup.getMenu(),
-                  true,
-                  isMediaStreamingSupported);
+        mf.filter(popup.getMenu(), true);
         popup.setOnMenuItemClickListener(item -> {
             Set<OCFile> checkedFiles = new HashSet<>();
             checkedFiles.add(file);
@@ -824,7 +820,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     } else {
                         // update state and view of this fragment
                         searchFragment = false;
-                        setEmptyListLoadingMessage(false);
+                        setEmptyListLoadingMessage();
                         listDirectory(file, MainApp.isOnlyOnDevice(), false);
                         // then, notify parent activity to let it update its state and view
                         mContainerActivity.onBrowsedDownTo(file);
@@ -846,8 +842,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                 case FAVORITE_SEARCH:
                                     type = VirtualFolderType.FAVORITE;
                                     break;
-                                case PHOTO_SEARCH:
-                                    type = VirtualFolderType.PHOTOS;
+                                case GALLERY_SEARCH:
+                                    type = VirtualFolderType.GALLERY;
                                     break;
                                 default:
                                     type = VirtualFolderType.NONE;
@@ -878,8 +874,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         OCCapability capability = mContainerActivity.getStorageManager()
                             .getCapability(account.getAccountName());
 
-                        if (PreviewMediaFragment.canBePreviewed(file) && account.getServer().getVersion()
-                            .isMediaStreamingSupported() && !file.isEncrypted()) {
+                        if (PreviewMediaFragment.canBePreviewed(file) && !file.isEncrypted()) {
                             // stream media preview on >= NC14
                             setFabVisible(false);
                             resetHeaderScrollingState();
@@ -1421,8 +1416,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 case FAVORITE_SEARCH:
                     setTitle(R.string.drawer_item_favorites);
                     break;
-                case VIDEO_SEARCH:
-                    setTitle(R.string.drawer_item_videos);
+                case GALLERY_SEARCH:
+                    setTitle(R.string.drawer_item_gallery);
                     break;
                 case RECENTLY_ADDED_SEARCH:
                     setTitle(R.string.drawer_item_recently_added);

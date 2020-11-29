@@ -90,6 +90,7 @@
     <string name="checkbox">Kryssruta</string>
     <string name="choose_local_folder">Välj lokal mapp…</string>
     <string name="choose_remote_folder">Välj extern mapp…</string>
+    <string name="choose_which_file">Välj vilken fil du vill behålla!</string>
     <string name="clear_notifications_failed">Kunde inte rensa aviseringar.</string>
     <string name="clear_status_message">Rensa statusmeddelande</string>
     <string name="clear_status_message_after">Rensa statusmeddelande efter</string>
@@ -109,7 +110,7 @@
     <string name="common_no">Nej</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Väntar</string>
-    <string name="common_remove">Radera</string>
+    <string name="common_remove">Ta bort</string>
     <string name="common_rename">Byt namn</string>
     <string name="common_save">Spara</string>
     <string name="common_send">Skicka</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Endast lokalt</string>
     <string name="conflict_already_existing_file">Filen finns redan</string>
     <string name="conflict_dialog_error">Fel vid skapande av konfliktdialog!</string>
+    <string name="conflict_file_headline">Konfliktande fil %1$s</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
     <string name="conflict_message_headline">Vilka filer vill du behålla?</string>
     <string name="conflict_new_file">Ny fil</string>
@@ -184,9 +186,9 @@
     <string name="credentials_disabled">Inloggningsuppgifter inaktiverade</string>
     <string name="date_unknown">Okänd</string>
     <string name="default_credentials_wrong">Felaktiga inloggningsuppgifter</string>
-    <string name="delete_account">Radera konto</string>
+    <string name="delete_account">Ta bort konto</string>
     <string name="delete_account_warning">Ta bort konto %s med alla lokala filer?\n\nBorttagning kan inte ångras.</string>
-    <string name="delete_entries">Radera poster</string>
+    <string name="delete_entries">Ta bort poster</string>
     <string name="deselect_all">Avmarkera alla</string>
     <string name="dev_version_new_version_available">Ny version tillgänglig</string>
     <string name="dev_version_no_information_available">Ingen tillgänglig information.</string>
@@ -213,6 +215,7 @@
     <string name="drawer_item_activities">Aktiviteter</string>
     <string name="drawer_item_all_files">Alla filer</string>
     <string name="drawer_item_favorites">Favoriter</string>
+    <string name="drawer_item_gallery">Media</string>
     <string name="drawer_item_home">Hem</string>
     <string name="drawer_item_notifications">Aviseringar</string>
     <string name="drawer_item_on_device">Filer på enheten</string>
@@ -229,8 +232,6 @@
     <string name="drawer_quota_unlimited">%1$s använt</string>
     <string name="drawer_synced_folders">Automatisk uppladdning</string>
     <string name="edit_label">Byt namn</string>
-    <string name="edit_permission_label">redigera</string>
-    <string name="edit_rich_workspace">redigera mappinfo</string>
     <string name="encrypted">Sätt som krypterad</string>
     <string name="end_to_end_encryption_confirm_button">Aktivera kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterar…</string>
@@ -240,7 +241,6 @@
     <string name="end_to_end_encryption_generating_keys">Generera nya nycklar…</string>
     <string name="end_to_end_encryption_keywords_description">Alla 12 ord tillsammans utgör ett mycket starkt lösenord, så att bara du kan visa och använda dina krypterade filer. Vänligen spara det och förvara det på ett säkert sätt. </string>
     <string name="end_to_end_encryption_not_enabled">End-to-end-kryptering är inte aktiverat på servern.</string>
-    <string name="end_to_end_encryption_not_supported">Kryptering fungerar bara på KitKat (4.4) och senare.</string>
     <string name="end_to_end_encryption_passphrase_title">Notera ditt 12 ord långa krypteringslösenord</string>
     <string name="end_to_end_encryption_password">Lösenord…</string>
     <string name="end_to_end_encryption_retrieving_keys">Hämta nycklar…</string>
@@ -284,7 +284,7 @@
     <string name="failed_update_ui">Misslyckades med att uppdatera UI</string>
     <string name="favorite">Lägg till favoriter</string>
     <string name="favorite_icon">Favoritisera</string>
-    <string name="file_delete">Radera</string>
+    <string name="file_delete">Ta bort</string>
     <string name="file_detail_activity_error">Fel vid hämtning av aktiviteter för fil</string>
     <string name="file_details_no_content">Kunde inte läsa in detaljer</string>
     <string name="file_icon">Fil</string>
@@ -371,11 +371,13 @@
     <string name="foreign_files_remote_text">Extern: %1$s</string>
     <string name="foreign_files_success">Alla filer flyttades</string>
     <string name="forward">Vidarebefordra</string>
+    <string name="fourHours">4 timmar</string>
     <string name="hint_name">Namn</string>
     <string name="hint_note">Anteckning</string>
     <string name="hint_password">Lösenord</string>
     <string name="host_not_available">Server inte tillgänglig</string>
     <string name="host_your_own_server">Använd egen server</string>
+    <string name="in_folder">i mapp %1$s</string>
     <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
@@ -394,7 +396,7 @@
     <string name="log_send_mail_subject">%1$s Android-apploggar</string>
     <string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Vänligen installera en e-postklient.</string>
     <string name="login">Logga in</string>
-    <string name="logs_menu_delete">Radera loggar</string>
+    <string name="logs_menu_delete">Ta bort loggar</string>
     <string name="logs_menu_refresh">Uppdatera</string>
     <string name="logs_menu_search">Sök i loggar</string>
     <string name="logs_menu_send">Skicka loggar via e-post</string>
@@ -474,7 +476,7 @@
     <string name="pass_code_enter_pass_code">Vänligen ange ditt lösenord</string>
     <string name="pass_code_mismatch">Koderna matchar inte</string>
     <string name="pass_code_reenter_your_pass_code">Vänligen ange ditt lösenord igen</string>
-    <string name="pass_code_remove_your_pass_code">Radera ditt lösenord</string>
+    <string name="pass_code_remove_your_pass_code">Ta bort ditt lösenord</string>
     <string name="pass_code_removed">Lösenord raderat</string>
     <string name="pass_code_stored">Kod sparad</string>
     <string name="pass_code_wrong">Ogiltigt lösenord</string>
@@ -487,6 +489,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Detta är en platshållare</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">stopp</string>
+    <string name="player_toggle">växla</string>
     <string name="power_save_check_dialog_message">Inaktivera strömsparningskontroll kan resultera i att filer laddas upp i lågt batteriläge!</string>
     <string name="pref_behaviour_entries_delete_file">raderas</string>
     <string name="pref_behaviour_entries_keep_file">behållas i orginalmapp</string>
@@ -593,14 +597,12 @@
     <string name="set_status_message">Sätt statusmeddelande</string>
     <string name="share">Dela</string>
     <string name="share_dialog_title">Dela</string>
-    <string name="share_email_clarification">%1$s (e-post)</string>
     <string name="share_expiration_date_label">Gick ut %1$s</string>
     <string name="share_file">Dela %1$s</string>
     <string name="share_group_clarification">%1$s (grupp)</string>
     <string name="share_internal_link">Dela intern länk</string>
     <string name="share_internal_link_to_file_text">Intern länkdelning fungerar bara för användare med åtkomst till den här filen</string>
     <string name="share_internal_link_to_folder_text">Intern länkdelning fungerar bara för användare med åtkomst till den här mappen</string>
-    <string name="share_known_remote_clarification">%1$s ( på %2$s )</string>
     <string name="share_known_remote_on_clarification">på %1$s</string>
     <string name="share_link">Dela länk</string>
     <string name="share_link_empty_password">Du måste ange ett lösenord</string>
@@ -613,17 +615,12 @@
     <string name="share_no_expiration_date_label">Välj utgångsdatum</string>
     <string name="share_no_password_title">Sätt lösenord</string>
     <string name="share_password_title">Lösenordsskyddad</string>
-    <string name="share_privilege_can_edit_change">kan ändra</string>
-    <string name="share_privilege_can_edit_create">kan skapa</string>
-    <string name="share_privilege_can_edit_delete">kan radera</string>
-    <string name="share_privilege_can_share">får dela</string>
     <string name="share_privilege_unshare">Sluta dela</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (konversation)</string>
     <string name="share_search">Namn, federerat Cloud ID eller epost-adress</string>
     <string name="share_send_note">Notering till mottagare</string>
     <string name="share_via_link_hide_download">Dölj hämtning</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Göm fillistning</string>
     <string name="share_via_link_menu_password_label">Lösenordsskydda (%1$s)</string>
     <string name="share_via_link_section_title">Dela länk</string>
     <string name="share_via_link_send_link_label">Skicka länk</string>
@@ -756,7 +753,7 @@
     <string name="upload_file_dialog_title">Mata in filnamn och filtyp att ladda upp</string>
     <string name="upload_files">Ladda upp filer</string>
     <string name="upload_item_action_button">Ladda upp objekthändelse-knapp</string>
-    <string name="upload_list_delete">Radera</string>
+    <string name="upload_list_delete">Ta bort</string>
     <string name="upload_list_empty_headline">Inga nerladdningar tillgängliga</string>
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>
     <string name="upload_list_resolve_conflict">Lös konflikt</string>
@@ -786,7 +783,7 @@
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytta filen till %1$s mappen</string>
     <string name="uploader_upload_files_behaviour_not_writable">källmappen är skrivskyddad; filen kommer bara att laddas upp</string>
     <string name="uploader_upload_files_behaviour_only_upload">Behåll fil i källmappen</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Radera fil från källmappen</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Ta bort fil från källmappen</string>
     <string name="uploader_upload_forbidden_permissions">att ladda upp denna mapp</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Laddar upp %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Laddar upp…</string>

@@ -21,7 +21,6 @@
     <string name="drawer_item_all_files">All files</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_favorites">Favorites</string>
-    <string name="drawer_item_photos">Photos</string>
     <string name="drawer_item_on_device">On device</string>
     <string name="drawer_item_recently_added">Recently added</string>
     <string name="drawer_item_recently_modified">Recently modified</string>
@@ -90,7 +89,6 @@
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
     <string name="file_list_empty_on_device">Downloaded files and folders will show up here.</string>
     <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorites will show up here.</string>
-    <string name="file_list_empty_favorites_filter">Your search returned no favorited files.</string>
     <string name="file_list_loading">Loading…</string>
     <string name="file_list_no_app_for_file_type">No app set up to handle this file type.</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
@@ -100,17 +98,9 @@
     <string name="file_list_empty_favorite_headline">Nothing favorited yet</string>
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
-    <string name="file_list_empty_headline_server_search_videos">No videos</string>
-    <string name="file_list_empty_headline_server_search_photos">No photos</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
     <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
-    <string name="file_list_empty_recently_modified_filter">No files modified the last 7 days.</string>
     <string name="file_list_empty_recently_added">Found no recently added files</string>
-    <string name="file_list_empty_recently_added_filter">No recently added files.</string>
-    <string name="file_list_empty_text_photos">Upload some photos or activate auto upload.</string>
-    <string name="file_list_empty_text_photos_filter">No photos.</string>
-    <string name="file_list_empty_text_videos">Upload some videos or activate auto upload.</string>
-    <string name="file_list_empty_text_videos_filter">No videos.</string>
     <string name="trashbin_empty_headline">No deleted files</string>
     <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>
     <string name="upload_list_empty_headline">No uploads available</string>
@@ -427,7 +417,6 @@
     <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
     <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
 
-    <string name="auth_host_address">Server address</string>
     <string name="common_error_out_memory">Not enough memory</string>
 
     <string name="username">Username</string>
@@ -913,7 +902,7 @@
     <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s available on device.</string>
     <string name="sync_not_enough_space_dialog_title">Not enough space</string>
-    <string name="conflict_message_headline">Which files do you want to keep?</string>
+    <string name="conflict_file_headline">Conflicting file %1$s</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
     <string name="conflict_new_file">New file</string>
     <string name="conflict_already_existing_file">Already existing file</string>
@@ -959,4 +948,9 @@
     <string name="oneHour">1 hour</string>
     <string name="fourHours">4 hours</string>
     <string name="thisWeek">This week</string>
+    <string name="drawer_item_gallery">Media</string>
+    <string name="player_stop">stop</string>
+    <string name="player_toggle">toggle</string>
+    <string name="in_folder">in folder %1$s</string>
+    <string name="choose_which_file">Choose which file to keep!</string>
 </resources>

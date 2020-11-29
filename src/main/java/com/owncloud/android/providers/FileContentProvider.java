@@ -2288,6 +2288,23 @@ public class FileContentProvider extends ContentProvider {
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
+
+            if (oldVersion < 61 && newVersion >= 61) {
+                Log_OC.i(SQL, "Entering in the #61 reset eTag to force capability refresh");
+                db.beginTransaction();
+                try {
+                    db.execSQL("UPDATE capabilities SET etag = '' WHERE 1=1");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
         }
     }
 }

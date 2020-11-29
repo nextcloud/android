@@ -197,7 +197,6 @@
     <string name="drawer_quota">%1$s no %2$s lietoti</string>
     <string name="drawer_quota_unlimited">%1$s izmantoti</string>
     <string name="drawer_synced_folders">Automātiska augšupielāde</string>
-    <string name="edit_permission_label">rediģēt</string>
     <string name="encrypted">Uzstādīt kā šifrētu</string>
     <string name="end_to_end_encryption_confirm_button">Uzstādīt šifrēšanu</string>
     <string name="end_to_end_encryption_decrypting">Atšifrē…</string>
@@ -410,11 +409,9 @@
     <string name="set_picture_as">Izmantot attēlu kā</string>
     <string name="share">Dalīties</string>
     <string name="share_dialog_title">Koplietošana</string>
-    <string name="share_email_clarification">%1$s (e-pasts)</string>
     <string name="share_expiration_date_label">Beidzas %1$s</string>
     <string name="share_file">Koplietots %1$s</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
-    <string name="share_known_remote_clarification">%1$s ( uz %2$s )</string>
     <string name="share_link">Koplietot saiti</string>
     <string name="share_link_empty_password">Jums ir jāievada paroli</string>
     <string name="share_link_forbidden_permissions">lai koplietotu šo datni</string>
@@ -422,13 +419,8 @@
     <string name="share_no_expiration_date_label">Uzstādīt beigu termiņu</string>
     <string name="share_no_password_title">Uzstādīt paroli</string>
     <string name="share_password_title">Aizsargāts ar paroli</string>
-    <string name="share_privilege_can_edit_change">var mainīt</string>
-    <string name="share_privilege_can_edit_create">var izveidot</string>
-    <string name="share_privilege_can_edit_delete">var dzēst</string>
-    <string name="share_privilege_can_share">var koplietot</string>
     <string name="share_privilege_unshare">Pārtraukt dalīšanos</string>
     <string name="share_remote_clarification">%1$s (attālināti)</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Paslēpt datņu sarakstu</string>
     <string name="share_via_link_menu_password_label">Aizsargāt ar paroli (%1$s)</string>
     <string name="share_via_link_section_title">Koplietot saiti</string>
     <string name="share_via_link_send_link_label">Sūtīt saiti</string>

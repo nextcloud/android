@@ -70,8 +70,7 @@
       </option>
       <option name="NAME_COUNT_TO_USE_STAR_IMPORT" value="2147483647" />
       <option name="NAME_COUNT_TO_USE_STAR_IMPORT_FOR_MEMBERS" value="2147483647" />
-      <option name="CONTINUATION_INDENT_IN_PARAMETER_LISTS" value="false" />
-	  <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
+      <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
     </JetCodeStyleSettings>
     <MarkdownNavigatorCodeStyleSettings>
       <option name="RIGHT_MARGIN" value="120" />
@@ -204,18 +203,17 @@
         </rules>
       </arrangement>
     </codeStyleSettings>
-	<codeStyleSettings language="kotlin">
+    <codeStyleSettings language="kotlin">
       <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
+      <option name="LINE_COMMENT_AT_FIRST_COLUMN" value="false" />
+      <option name="LINE_COMMENT_ADD_SPACE" value="true" />
       <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="1" />
       <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
       <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="0" />
       <option name="ALIGN_MULTILINE_PARAMETERS" value="false" />
-      <option name="LINE_COMMENT_AT_FIRST_COLUMN" value="false" />
-      <option name="LINE_COMMENT_ADD_SPACE" value="true" />
       <indentOptions>
-        <option name="INDENT_SIZE" value="4" />
         <option name="CONTINUATION_INDENT_SIZE" value="4" />
       </indentOptions>
-	</codeStyleSettings>
+    </codeStyleSettings>
   </code_scheme>
 </component>

@@ -101,8 +101,6 @@
     <dimen name="contactlist_item_icon_layout_height">40dp</dimen>
     <dimen name="empty_list_icon_layout_width">72dp</dimen>
     <dimen name="empty_list_icon_layout_height">72dp</dimen>
-    <dimen name="empty_list_progress_layout_width">72dp</dimen>
-    <dimen name="empty_list_progress_layout_height">72dp</dimen>
     <dimen name="file_details_username_text_size">16sp</dimen>
     <dimen name="grid_image_shared_icon_layout_top_margin">24dp</dimen>
     <dimen name="grid_image_local_file_indicator_layout_width">16dp</dimen>
@@ -139,4 +137,5 @@
     <dimen name="account_action_button_height">50dp</dimen>
     <dimen name="account_action_button_vertical_margin">10dp</dimen>
     <dimen name="online_status_item_height">52dp</dimen>
+    <dimen name="minimum_size_for_touchable_area">48dp</dimen>
 </resources>

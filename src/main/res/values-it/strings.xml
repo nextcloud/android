@@ -90,6 +90,7 @@
     <string name="checkbox">Casella di selezione</string>
     <string name="choose_local_folder">Scegli la cartella locale…</string>
     <string name="choose_remote_folder">Scegli la cartella remota…</string>
+    <string name="choose_which_file">Scegli quale file mantenere!</string>
     <string name="clear_notifications_failed">Cancellazione notifiche non riuscita.</string>
     <string name="clear_status_message">Cancella il messaggio di stato</string>
     <string name="clear_status_message_after">Cancella il messaggio di stato dopo</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Solo localmente</string>
     <string name="conflict_already_existing_file">File già esistente</string>
     <string name="conflict_dialog_error">Errore di creazione della finestra di conflitto!</string>
+    <string name="conflict_file_headline">File %1$s in conflitto</string>
     <string name="conflict_message_description">Se selezioni entrambe le versioni, il file locale ha un numero aggiunto al suo nome.</string>
     <string name="conflict_message_headline">Quali file vuoi mantenere?</string>
     <string name="conflict_new_file">Nuovo file</string>
@@ -213,6 +215,7 @@
     <string name="drawer_item_activities">Attività</string>
     <string name="drawer_item_all_files">Tutti i file</string>
     <string name="drawer_item_favorites">Preferiti</string>
+    <string name="drawer_item_gallery">Media</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Notifiche</string>
     <string name="drawer_item_on_device">Su dispositivo</string>
@@ -229,8 +232,6 @@
     <string name="drawer_quota_unlimited">%1$s utilizzato</string>
     <string name="drawer_synced_folders">Caricamento automatico</string>
     <string name="edit_label">Cambia il nome</string>
-    <string name="edit_permission_label">modifica</string>
-    <string name="edit_rich_workspace">modifica informazioni cartella</string>
     <string name="encrypted">Imposta come cifrato</string>
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
     <string name="end_to_end_encryption_decrypting">Decifratura in corso…</string>
@@ -240,7 +241,6 @@
     <string name="end_to_end_encryption_generating_keys">Generazione nuove chiavi in corso…</string>
     <string name="end_to_end_encryption_keywords_description">Le 12 parole insieme compongono una password molto robusta, consentendo solo a te di visualizzare e utilizzare i tuoi file cifrati. Annotala e conservala in un posto sicuro.</string>
     <string name="end_to_end_encryption_not_enabled">Cifratura end-to-end disabilitata sul server.</string>
-    <string name="end_to_end_encryption_not_supported">La cifratura funziona solo con KitKat (4.4) e successivi.</string>
     <string name="end_to_end_encryption_passphrase_title">Annota la tua password di cifratura di 12 parole</string>
     <string name="end_to_end_encryption_password">Password…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recupero delle chiavi in corso…</string>
@@ -377,6 +377,7 @@
     <string name="hint_password">Password</string>
     <string name="host_not_available">Server non disponibile</string>
     <string name="host_your_own_server">Ospita il tuo server</string>
+    <string name="in_folder">nella cartella %1$s</string>
     <string name="instant_upload_existing">Carica anche i file esistenti</string>
     <string name="instant_upload_on_charging">Carica solo durante la ricarica</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -488,6 +489,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Questo è un segnaposto</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">ferma</string>
+    <string name="player_toggle">attiva</string>
     <string name="power_save_check_dialog_message">La disabilitazione del controllo di risparmio energetico potrebbe risultare in caricamenti di file in uno stato di bassa carica della batteria.</string>
     <string name="pref_behaviour_entries_delete_file">eliminato</string>
     <string name="pref_behaviour_entries_keep_file">lasciato nella cartella originale</string>
@@ -593,14 +596,12 @@
     <string name="set_status_message">Imposta messaggio di stato</string>
     <string name="share">Condividi</string>
     <string name="share_dialog_title">Condivisione</string>
-    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_expiration_date_label">Scade il %1$s</string>
     <string name="share_file">Condividi %1$s</string>
     <string name="share_group_clarification">%1$s (gruppo)</string>
     <string name="share_internal_link">Condividi collegamento interno</string>
     <string name="share_internal_link_to_file_text">Il collegamento di condivisione funziona solo per gli utenti con accesso a questo file</string>
     <string name="share_internal_link_to_folder_text">Il collegamento di condivisione funziona solo per gli utenti con accesso a questa cartella</string>
-    <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>
     <string name="share_known_remote_on_clarification">su %1$s</string>
     <string name="share_link">Condividi collegamento</string>
     <string name="share_link_empty_password">Devi digitare una password</string>
@@ -613,17 +614,12 @@
     <string name="share_no_expiration_date_label">Imposta data di scadenza</string>
     <string name="share_no_password_title">Imposta password</string>
     <string name="share_password_title">Protetta da password</string>
-    <string name="share_privilege_can_edit_change">può cambiare</string>
-    <string name="share_privilege_can_edit_create">può creare</string>
-    <string name="share_privilege_can_edit_delete">può eliminare</string>
-    <string name="share_privilege_can_share">può condividere</string>
     <string name="share_privilege_unshare">Rimuovi condivisione</string>
     <string name="share_remote_clarification">%1$s (remota)</string>
     <string name="share_room_clarification">%1$s (conversazione)</string>
     <string name="share_search">Nome, ID di cloud federata o indirizzo email…</string>
     <string name="share_send_note">Nota per destinatario</string>
     <string name="share_via_link_hide_download">Nascondi scaricamento</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Nascondi elenco dei file</string>
     <string name="share_via_link_menu_password_label">Proteggi con password (%1$s)</string>
     <string name="share_via_link_section_title">Condividi collegamento</string>
     <string name="share_via_link_send_link_label">Invia collegamento</string>

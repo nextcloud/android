@@ -93,8 +93,8 @@ class ConnectivityServiceTest {
         lateinit var logger: Logger
 
         val baseServerUri = URI.create(SERVER_BASE_URL)
-        val newServer = Server(baseServerUri, OwnCloudVersion.nextcloud_14)
-        val legacyServer = Server(baseServerUri, OwnCloudVersion.nextcloud_13)
+        val newServer = Server(baseServerUri, OwnCloudVersion.nextcloud_20)
+        val legacyServer = Server(baseServerUri, OwnCloudVersion.nextcloud_16)
 
         @Mock
         lateinit var user: User
@@ -208,12 +208,6 @@ class ConnectivityServiceTest {
         }
 
         @Test
-        fun `false maintenance status flag is used`() {
-            mockResponse(maintenance = false, httpStatus = HttpStatus.SC_OK)
-            assertFalse(connectivityService.isInternetWalled)
-        }
-
-        @Test
         fun `true maintenance status flag is used`() {
             mockResponse(maintenance = true, httpStatus = HttpStatus.SC_OK)
             assertTrue(connectivityService.isInternetWalled)
@@ -231,7 +225,7 @@ class ConnectivityServiceTest {
             connectivityService.isInternetWalled
             val urlCaptor = ArgumentCaptor.forClass(String::class.java)
             verify(requestBuilder).invoke(urlCaptor.capture())
-            assertTrue("Invalid URL used to check status", urlCaptor.value.endsWith("/status.php"))
+            assertTrue("Invalid URL used to check status", urlCaptor.value.endsWith("/204"))
         }
     }
 
@@ -241,7 +235,7 @@ class ConnectivityServiceTest {
         fun setUp() {
             whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
             whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
-            whenever(accountManager.getServerVersion(any())).thenReturn(OwnCloudVersion.nextcloud_14)
+            whenever(accountManager.getServerVersion(any())).thenReturn(OwnCloudVersion.nextcloud_20)
             assertTrue(
                 "Precondition failed",
                 connectivityService.connectivity.let {
@@ -255,7 +249,7 @@ class ConnectivityServiceTest {
             // GIVEN
             //      network connectivity is present
             //      user has no server URI (empty)
-            val serverWithoutUri = Server(URI(""), OwnCloudVersion.nextcloud_14)
+            val serverWithoutUri = Server(URI(""), OwnCloudVersion.nextcloud_20)
             whenever(user.server).thenReturn(serverWithoutUri)
 
             // WHEN

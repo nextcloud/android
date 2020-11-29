@@ -21,17 +21,16 @@
 package com.nextcloud.client.network;
 
 import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 
 import com.nextcloud.client.account.Server;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.logger.Logger;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -79,35 +78,14 @@ class ConnectivityServiceImpl implements ConnectivityService {
                 if (baseServerAddress.isEmpty()) {
                     return true;
                 }
-                String url;
-                if (server.getVersion().compareTo(OwnCloudVersion.nextcloud_13) > 0) {
-                    url = baseServerAddress + "/index.php/204";
-                } else {
-                    url = baseServerAddress + "/status.php";
-                }
 
-                get = requestBuilder.invoke(url);
+                get = requestBuilder.invoke(baseServerAddress + "/index.php/204");
                 HttpClient client = clientFactory.createPlainClient();
 
                 int status = client.executeMethod(get);
 
-                if (server.getVersion().compareTo(OwnCloudVersion.nextcloud_13) > 0) {
-                    return !(status == HttpStatus.SC_NO_CONTENT &&
-                        (get.getResponseContentLength() == -1 || get.getResponseContentLength() == 0));
-                } else {
-                    if (status == HttpStatus.SC_OK) {
-                        try {
-                            // try parsing json to verify response
-                            // check if json contains maintenance and it should be false
-                            String json = get.getResponseBodyAsString();
-                            return new JSONObject(json).getBoolean("maintenance");
-                        } catch (Exception e) {
-                            return true;
-                        }
-                    } else {
-                        return true;
-                    }
-                }
+                return !(status == HttpStatus.SC_NO_CONTENT &&
+                    (get.getResponseContentLength() == -1 || get.getResponseContentLength() == 0));
             } catch (IOException e) {
                 logger.e(TAG, "Error checking internet connection", e);
             } finally {
@@ -133,17 +111,28 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
         if (networkInfo != null) {
             boolean isConnected = networkInfo.isConnectedOrConnecting();
-            boolean isMetered = ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
-            boolean isWifi = networkInfo.getType() == ConnectivityManager.TYPE_WIFI || isAnyOtherNetworkWifi();
+
+            // more detailed check
+            boolean isMetered;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(
+                    platformConnectivityManager.getActiveNetwork());
+
+                isMetered = !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
+            } else {
+                isMetered = ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
+            }
+            boolean isWifi = networkInfo.getType() == ConnectivityManager.TYPE_WIFI || hasNonCellularConnectivity();
             return new Connectivity(isConnected, isMetered, isWifi, null);
         } else {
             return Connectivity.DISCONNECTED;
         }
     }
 
-    private boolean isAnyOtherNetworkWifi() {
+    private boolean hasNonCellularConnectivity() {
         for (NetworkInfo networkInfo : platformConnectivityManager.getAllNetworkInfo()) {
-            if (networkInfo.isConnectedOrConnecting() && networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+            if (networkInfo.isConnectedOrConnecting() && (networkInfo.getType() == ConnectivityManager.TYPE_WIFI ||
+                networkInfo.getType() == ConnectivityManager.TYPE_ETHERNET)) {
                 return true;
             }
         }
