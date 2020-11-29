@@ -84,12 +84,12 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.lukhnos.nnio.file.Files;
-import org.lukhnos.nnio.file.Paths;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -141,10 +141,48 @@ public class FileOperationsHelper {
         this.connectivityService = connectivityService;
     }
 
+    @Nullable
+    private String getUrlFromFile(String storagePath, Pattern pattern) {
+        String url = null;
+
+        InputStreamReader fr = null;
+        BufferedReader br = null;
+        try {
+            fr = new InputStreamReader(new FileInputStream(storagePath), StandardCharsets.UTF_8);
+            br = new BufferedReader(fr);
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                Matcher m = pattern.matcher(line);
+                if (m.find()) {
+                    url = m.group(1);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            Log_OC.d(TAG, e.getMessage());
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    Log_OC.d(TAG, "Error closing buffered reader for URL file", e);
+                }
+            }
+
+            if (fr != null) {
+                try {
+                    fr.close();
+                } catch (IOException e) {
+                    Log_OC.d(TAG, "Error closing file reader for URL file", e);
+                }
+            }
+        }
+        return url;
+    }
+
     public static void takePictureFromCamera(Activity activity, int requestCode) {
         Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        deleteOldPicturesFiles(activity);
 
         File photoFile = createImageFile(activity);
 
@@ -952,26 +990,6 @@ public class FileOperationsHelper {
         mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_checking_credentials));
-    }
-
-    public void uploadFromCamera(Activity activity, int requestCode) {
-        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        File photoFile = createImageFile(activity);
-
-        Uri photoUri = FileProvider.getUriForFile(activity.getApplicationContext(),
-                                                  activity.getResources().getString(R.string.file_provider_authority), photoFile);
-        pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-
-        if (pictureIntent.resolveActivity(activity.getPackageManager()) != null) {
-            if (PermissionUtil.checkSelfPermission(activity, Manifest.permission.CAMERA)) {
-                activity.startActivityForResult(pictureIntent, requestCode);
-            } else {
-                PermissionUtil.requestCameraPermission(activity);
-            }
-        } else {
-            DisplayUtils.showSnackMessage(activity, "No Camera found");
-        }
     }
 
     public static File createPdfFile(Activity activity) {
