@@ -410,7 +410,7 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
             bitmap.recycle();
             scaledBitmap.recycle();
         }
-        FileOperationsHelper.deleteOldPDFFiles(this);
+
         String pdfFilePath = FileOperationsHelper.createPdfFile(this).getAbsolutePath();
         try {
             pdfDocument.writeTo(Files.newOutputStream(Paths.get(pdfFilePath)));
