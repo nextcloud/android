@@ -1260,7 +1260,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             Set<OCFile> checkedFiles = mAdapter.getCheckedItems();
             String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
             mode.setTitle(title);
-            User currentUser = accountManager.getUser();
             FileMenuFilter mf = new FileMenuFilter(
                 mAdapter.getFiles().size(),
                 checkedFiles,
@@ -1271,10 +1270,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 accountManager.getUser()
             );
 
-            final boolean isMediaStreamingSupported = currentUser.getServer().getVersion().isMediaStreamingSupported();
-            mf.filter(menu,
-                      false,
-                      isMediaStreamingSupported);
+            mf.filter(menu, false);
 
             // Determine if we need to finish the action mode because there are no items selected
             if (checkedCount == 0 && !mIsActionModeNew) {
