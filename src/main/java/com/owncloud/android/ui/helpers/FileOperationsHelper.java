@@ -131,8 +131,6 @@ public class FileOperationsHelper {
     /// Identifier of operation in progress which result shouldn't be lost
     private long mWaitingForOpId = Long.MAX_VALUE;
 
-    private static final Date today = new Date();
-
     public FileOperationsHelper(FileActivity fileActivity,
                                 CurrentAccountProvider currentAccount,
                                 ConnectivityService connectivityService) {
@@ -1007,11 +1005,11 @@ public class FileOperationsHelper {
     }
 
     public static String getCapturedImageName() {
-        return new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(today) + ".jpg";
+        return new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(new Date()) + ".jpg";
     }
 
     public static String getScanDocName() {
-        return "scan_" + new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(today) + ".pdf";
+        return "scan_" + new SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.US).format(new Date()) + ".pdf";
     }
 
     /**
