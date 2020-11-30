@@ -512,12 +512,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 return null;
             }
 
-            try {
-                Thread.sleep(8000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
             Bitmap bitmapResult = null;
             Drawable drawableResult = null;
             OCFile ocFile = params[0];

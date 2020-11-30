@@ -285,12 +285,6 @@ public final class ThumbnailsCacheManager {
             file = (OCFile) params[0];
 
             try {
-                Thread.sleep(8000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            try {
                 if (account != null) {
                     OwnCloudAccount ocAccount = new OwnCloudAccount(account, MainApp.getAppContext());
                     mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount,
