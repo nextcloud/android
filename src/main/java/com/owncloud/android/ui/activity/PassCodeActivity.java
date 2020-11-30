@@ -33,10 +33,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -70,7 +70,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     public final static String PREFERENCE_PASSCODE_D4 = "PrefPinCode4";
 
     @Inject AppPreferences preferences;
-    private Button mBCancel;
+    private MaterialButton mBCancel;
     private TextView mPassCodeHdr;
     private TextView mPassCodeHdrExplanation;
     private EditText[] mPassCodeEditTexts = new EditText[4];
@@ -81,7 +81,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     private static final String KEY_CONFIRMING_PASSCODE = "CONFIRMING_PASSCODE";
 
     private boolean mBChange = true; // to control that only one blocks jump
-
 
     /**
      * Initializes the activity.
@@ -98,7 +97,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         int elementColor = ThemeUtils.primaryColor(this);
 
         mBCancel = findViewById(R.id.cancel);
-        ThemeUtils.colorPrimaryButton(mBCancel, this);
+        ThemeUtils.themeDialogActionButton(mBCancel);
 
         mPassCodeHdr = findViewById(R.id.header);
         mPassCodeHdrExplanation = findViewById(R.id.explanation);
