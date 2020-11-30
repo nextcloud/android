@@ -37,7 +37,8 @@
             android:orientation="vertical"
             android:paddingStart="@dimen/standard_padding"
             android:paddingTop="@dimen/standard_padding"
-            android:paddingEnd="@dimen/standard_padding">
+            android:paddingEnd="@dimen/standard_padding"
+            android:paddingBottom="@dimen/standard_half_padding">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,9 +57,8 @@
 
                 <TextView
                     android:id="@+id/explanation"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:text="@string/pass_code_configure_your_pass_code_explanation"
                     android:textAppearance="@android:style/TextAppearance.Small"
                     android:textSize="@dimen/two_line_secondary_text_size" />
