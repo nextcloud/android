@@ -23,7 +23,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.etm.EtmViewModel
 import com.nextcloud.client.logger.ui.LogsViewModel
-import com.owncloud.android.ui.activities.ActivitiesViewModel
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import dagger.Binds
 import dagger.Module

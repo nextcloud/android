@@ -37,9 +37,9 @@ import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.SearchResult
 import com.owncloud.android.lib.common.SearchResultEntry
-import com.owncloud.android.ui.activities.GetRemoteFileTask
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.UnifiedSearchListAdapter
+import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import javax.inject.Inject

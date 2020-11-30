@@ -31,7 +31,7 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.SearchResult
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.activities.GetRemoteFileTask
+import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import javax.inject.Inject
 
 @Suppress("LongParameterList")
