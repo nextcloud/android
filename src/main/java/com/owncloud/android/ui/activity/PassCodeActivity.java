@@ -34,14 +34,13 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.PasscodelockBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -70,9 +69,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     public final static String PREFERENCE_PASSCODE_D4 = "PrefPinCode4";
 
     @Inject AppPreferences preferences;
-    private MaterialButton mBCancel;
-    private TextView mPassCodeHdr;
-    private TextView mPassCodeHdrExplanation;
+    private PasscodelockBinding binding;
     private final EditText[] mPassCodeEditTexts = new EditText[4];
 
     private String [] mPassCodeDigits = {"","","",""};
@@ -92,30 +89,27 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.passcodelock);
+        binding = PasscodelockBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         int elementColor = ThemeUtils.primaryColor(this);
 
-        mBCancel = findViewById(R.id.cancel);
-        ThemeUtils.themeDialogActionButton(mBCancel);
+        ThemeUtils.themeDialogActionButton(binding.cancel);
 
-        mPassCodeHdr = findViewById(R.id.header);
-        mPassCodeHdrExplanation = findViewById(R.id.explanation);
-
-        mPassCodeEditTexts[0] = findViewById(R.id.txt0);
+        mPassCodeEditTexts[0] = binding.txt0;
         ThemeUtils.colorEditText(mPassCodeEditTexts[0], elementColor);
         ThemeUtils.themeEditText(this, mPassCodeEditTexts[0], false);
         mPassCodeEditTexts[0].requestFocus();
 
-        mPassCodeEditTexts[1] = findViewById(R.id.txt1);
+        mPassCodeEditTexts[1] = binding.txt1;
         ThemeUtils.colorEditText(mPassCodeEditTexts[1], elementColor);
         ThemeUtils.themeEditText(this, mPassCodeEditTexts[1], false);
 
-        mPassCodeEditTexts[2] = findViewById(R.id.txt2);
+        mPassCodeEditTexts[2] = binding.txt2;
         ThemeUtils.colorEditText(mPassCodeEditTexts[2], elementColor);
         ThemeUtils.themeEditText(this, mPassCodeEditTexts[2], false);
 
-        mPassCodeEditTexts[3] = findViewById(R.id.txt3);
+        mPassCodeEditTexts[3] = binding.txt3;
         ThemeUtils.colorEditText(mPassCodeEditTexts[3], elementColor);
         ThemeUtils.themeEditText(this, mPassCodeEditTexts[3], false);
 
@@ -126,8 +120,8 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
 
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             /// this is a pass code request; the user has to input the right value
-            mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
-            mPassCodeHdrExplanation.setVisibility(View.INVISIBLE);
+            binding.header.setText(R.string.pass_code_enter_pass_code);
+            binding.explanation.setVisibility(View.INVISIBLE);
             setCancelButtonEnabled(false);      // no option to cancel
 
         } else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction())) {
@@ -141,17 +135,17 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
             }else{
                 // pass code preference has just been activated in SettingsActivity;
                 // will receive and confirm pass code value
-                mPassCodeHdr.setText(R.string.pass_code_configure_your_pass_code);
+                binding.header.setText(R.string.pass_code_configure_your_pass_code);
 
-                mPassCodeHdrExplanation.setVisibility(View.VISIBLE);
+                binding.explanation.setVisibility(View.VISIBLE);
                 setCancelButtonEnabled(true);
             }
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
             // pass code preference has just been disabled in SettingsActivity;
             // will confirm user knows pass code, then remove it
-            mPassCodeHdr.setText(R.string.pass_code_remove_your_pass_code);
-            mPassCodeHdrExplanation.setVisibility(View.INVISIBLE);
+            binding.header.setText(R.string.pass_code_remove_your_pass_code);
+            binding.explanation.setVisibility(View.INVISIBLE);
             setCancelButtonEnabled(true);
 
         } else {
@@ -169,17 +163,16 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
      */
     protected void setCancelButtonEnabled(boolean enabled){
         if(enabled){
-            mBCancel.setVisibility(View.VISIBLE);
-            mBCancel.setOnClickListener(new OnClickListener() {
+            binding.cancel.setVisibility(View.VISIBLE);
+            binding.cancel.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     finish();
                 }
             });
         } else {
-            mBCancel.setVisibility(View.GONE);
-            mBCancel.setVisibility(View.INVISIBLE);
-            mBCancel.setOnClickListener(null);
+            binding.cancel.setVisibility(View.INVISIBLE);
+            binding.cancel.setOnClickListener(null);
         }
     }
 
@@ -293,8 +286,8 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                                      int explanationVisibility) {
         Arrays.fill(mPassCodeDigits, null);
         Snackbar.make(findViewById(android.R.id.content), getString(errorMessage), Snackbar.LENGTH_LONG).show();
-        mPassCodeHdr.setText(headerMessage);                          // TODO check if really needed
-        mPassCodeHdrExplanation.setVisibility(explanationVisibility); // TODO check if really needed
+        binding.header.setText(headerMessage);                          // TODO check if really needed
+        binding.explanation.setVisibility(explanationVisibility); // TODO check if really needed
         clearBoxes();
     }
 
@@ -305,8 +298,8 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
      */
     protected void requestPassCodeConfirmation(){
         clearBoxes();
-        mPassCodeHdr.setText(R.string.pass_code_reenter_your_pass_code);
-        mPassCodeHdrExplanation.setVisibility(View.INVISIBLE);
+        binding.header.setText(R.string.pass_code_reenter_your_pass_code);
+        binding.explanation.setVisibility(View.INVISIBLE);
         mConfirmingPassCode = true;
     }
 
