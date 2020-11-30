@@ -35,6 +35,9 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorSecondary">@color/secondary_text_color</item>
         <item name="searchViewStyle">@style/ownCloud.SearchView</item>
+        <item name="android:actionModeBackground">@color/action_mode_background</item>
+        <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
+        <item name="android:navigationBarColor">@color/bg_default</item>
     </style>
 
     <style name="Theme.ownCloud" parent="BaseTheme.ownCloud" />
@@ -48,6 +51,9 @@
         <item name="android:windowBackground">@color/bg_default</item>
         <item name="colorSecondary">@color/secondary_text_color</item>
         <item name="dialogTheme">@style/FallbackTheming.Dialog</item>
+        <item name="android:actionModeBackground">@color/action_mode_background</item>
+        <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
+        <item name="android:navigationBarColor">@color/bg_default</item>
     </style>
 
     <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase" />
@@ -64,13 +70,14 @@
 
     <style name="DatePickerStyle" parent="">
         <item name="android:headerBackground">@color/bg_fallback_highlight</item>
+        <item name="android:datePickerMode">calendar</item>
     </style>
 
     <style name="FallbackTheming.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog">
-		<item name="colorPrimary">#424242</item>
-		<item name="colorPrimaryDark">#212121</item>
-		<item name="colorAccent">#757575</item>
-		<item name="windowNoTitle">false</item>
+        <item name="colorPrimary">#424242</item>
+        <item name="colorPrimaryDark">#212121</item>
+        <item name="colorAccent">#757575</item>
+        <item name="windowNoTitle">false</item>
         <item name="android:windowBackground">@color/bg_default</item>
         <item name="android:textAllCaps">false</item>
 	</style>
@@ -91,10 +98,21 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.ownCloud.Toolbar" parent="BaseTheme.ownCloud.Toolbar" />
+    <style name="Theme.ownCloud.ToolbarBase" parent="BaseTheme.ownCloud.Toolbar">
+        <item name="android:actionModeBackground">@color/action_mode_background</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:navigationBarColor">@color/bg_default</item>
+    </style>
 
-	<!-- separate style for Drawer activities needed for v21+ theming -->
-	<style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar"/>
+    <style name="Theme.ownCloud.Toolbar" parent="Theme.ownCloud.ToolbarBase" />
+
+    <style name="Theme.ownCloud.Toolbar.DrawerBase" parent="Theme.ownCloud.Toolbar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar.DrawerBase">
+        <item name="android:navigationBarColor">@color/bg_default</item>
+    </style>
 
     <style name="Theme.ownCloud.noActionBar.LoginBase" parent="Theme.ownCloud.Toolbar">
 		<item name="android:windowBackground">@color/primary</item>
@@ -103,6 +121,7 @@
         <item name="colorControlHighlight">@color/login_text_color</item>
 		<item name="colorAccent">@color/login_text_hint_color</item>
 		<item name="android:textColorHint">@color/login_text_hint_color</item>
+        <item name="android:navigationBarColor">@color/primary</item>
 	</style>
 
     <style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar.LoginBase" />
@@ -204,7 +223,9 @@
 		<item name="windowActionBarOverlay">true</item>
 	</style>
 
-    <style name="Theme.ownCloud.Overlay" parent="Theme.ownCloud.OverlayBase" />
+    <style name="Theme.ownCloud.Overlay" parent="Theme.ownCloud.OverlayBase">
+        <item name="android:navigationBarColor">@color/black</item>
+    </style>
 
 	<!-- ACTION BAR STYLES -->
 	<style name="Theme.ownCloud.Overlay.ActionBar" parent="@style/Widget.MaterialComponents.Toolbar">
@@ -217,7 +238,9 @@
 
 	<!-- Launch screen -->
 	<style name="Theme.ownCloud.Launcher">
-		<item name="android:windowBackground">@drawable/launch_screen</item>
+        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:navigationBarColor">@color/primary</item>
+        <item name="android:windowBackground">@drawable/launch_screen</item>
         <item name="android:textColorHint">@color/secondary_text_color</item>
 	</style>
 
