@@ -25,8 +25,6 @@ package com.nextcloud.client.jobs
 import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Resources
-import android.os.Build
-import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import android.text.TextUtils
 import androidx.exifinterface.media.ExifInterface
@@ -37,7 +35,6 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
-import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.FilesystemDataProvider
@@ -82,16 +79,7 @@ class FilesSyncWork(
     }
 
     override fun doWork(): Result {
-        var wakeLock: WakeLock? = null
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
-            wakeLock = powerManager.newWakeLock(
-                PowerManager.PARTIAL_WAKE_LOCK,
-                MainApp.getAuthority() +
-                    WAKELOCK_TAG_SEPARATION + TAG
-            )
-            wakeLock.acquire(WAKELOCK_ACQUIRE_TIMEOUT_MS)
-        }
+        val wakeLock: WakeLock? = null
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         // If we are in power save mode, better to postpone upload
         if (powerManagementService.isPowerSavingEnabled && !overridePowerSaving) {
