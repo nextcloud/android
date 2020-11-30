@@ -23,8 +23,6 @@ package com.nextcloud.client.jobs
 
 import android.content.ContentResolver
 import android.content.Context
-import android.os.Build
-import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -32,7 +30,6 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
-import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
@@ -59,14 +56,8 @@ class OfflineSyncWork constructor(
     }
 
     override fun doWork(): Result {
-        var wakeLock: WakeLock? = null
+        val wakeLock: WakeLock? = null
         if (!powerManagementService.isPowerSavingEnabled && !connectivityService.isInternetWalled) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
-                val wakeLockTag = MainApp.getAuthority() + WAKELOCK_TAG_SEPARATION + TAG
-                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, wakeLockTag)
-                wakeLock.acquire(WAKELOCK_ACQUISITION_TIMEOUT_MS)
-            }
             val users = userAccountManager.allUsers
             for (user in users) {
                 val storageManager = FileDataStorageManager(user.toPlatformAccount(), contentResolver)

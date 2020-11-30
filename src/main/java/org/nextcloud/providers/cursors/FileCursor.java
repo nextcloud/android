@@ -88,9 +88,7 @@ public class FileCursor extends MatrixCursor {
             flags = flags | Document.FLAG_DIR_SUPPORTS_CREATE;
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            flags = Document.FLAG_SUPPORTS_RENAME | flags;
-        }
+        flags = Document.FLAG_SUPPORTS_RENAME | flags;
 
         newRow().add(Document.COLUMN_DOCUMENT_ID, document.getDocumentId())
                 .add(Document.COLUMN_DISPLAY_NAME, file.getFileName())

@@ -22,25 +22,21 @@
 
     <style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar.DrawerBase">
         <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:navigationBarColor">@color/bg_default</item>
     </style>
 
     <style name="Theme.ownCloud.Toolbar" parent="Theme.ownCloud.ToolbarBase">
         <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:navigationBarColor">@color/bg_default</item>
     </style>
 
-    <style name="Theme.ownCloud" parent="Theme.ownCloudBase">
+    <style name="Theme.ownCloud" parent="BaseTheme.ownCloud">
         <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:navigationBarColor">@color/bg_default</item>
     </style>
 
-    <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase21">
+    <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase">
         <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:navigationBarColor">@color/bg_default</item>
     </style>
 
-    <style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar.LoginBase21">
+    <style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar.LoginBase">
         <item name="android:windowLightNavigationBar">false</item>
     </style>
 
