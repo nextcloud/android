@@ -73,7 +73,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     private MaterialButton mBCancel;
     private TextView mPassCodeHdr;
     private TextView mPassCodeHdrExplanation;
-    private EditText[] mPassCodeEditTexts = new EditText[4];
+    private final EditText[] mPassCodeEditTexts = new EditText[4];
 
     private String [] mPassCodeDigits = {"","","",""};
     private static final String KEY_PASSCODE_DIGITS = "PASSCODE_DIGITS";
@@ -318,7 +318,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     protected boolean checkPassCode() {
 
 
-        String savedPassCodeDigits[] = preferences.getPassCode();
+        String[] savedPassCodeDigits = preferences.getPassCode();
 
         boolean result = true;
         for (int i = 0; i < mPassCodeDigits.length && result; i++) {
@@ -460,7 +460,5 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             // nothing to do
         }
-
     }
-
 }
