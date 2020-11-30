@@ -463,7 +463,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
             preferenceCategoryMore.removePreference(autoUpload);
         } else {
             autoUpload.setOnPreferenceClickListener(preference -> {
-                SyncedFoldersActivity.startActivityWithoutSidebar(this);
+                Intent intent = new Intent(this, SyncedFoldersActivity.class);
+                startActivity(intent);
                 return true;
             });
         }
@@ -632,7 +633,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 if (getResources().getBoolean(R.bool.syncedFolder_light)
                         && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     pSyncedFolder.setOnPreferenceClickListener(preference -> {
-                        SyncedFoldersActivity.startActivityWithoutSidebar(this);
+                        Intent intent = new Intent(this, SyncedFoldersActivity.class);
+                        startActivity(intent);
                         return true;
                     });
                 } else {
