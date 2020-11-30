@@ -118,7 +118,11 @@ class ConnectivityServiceImpl implements ConnectivityService {
                 NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(
                     platformConnectivityManager.getActiveNetwork());
 
-                isMetered = !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
+                if (networkCapabilities != null) {
+                    isMetered = !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
+                } else {
+                    isMetered = ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
+                }
             } else {
                 isMetered = ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
             }
