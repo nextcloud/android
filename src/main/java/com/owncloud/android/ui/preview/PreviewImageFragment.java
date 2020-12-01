@@ -89,6 +89,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import pl.droidsonroids.gif.GifDrawable;
 
+import static com.owncloud.android.datamodel.ThumbnailsCacheManager.PREFIX_THUMBNAIL;
+
 
 /**
  * This fragment shows a preview of a downloaded image.
@@ -237,34 +239,44 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             int width = screenSize.x;
             int height = screenSize.y;
 
+            // show thumbnail while loading image
+            binding.image.setVisibility(View.GONE);
+            binding.emptyListProgress.setVisibility(View.VISIBLE);
+
+            Bitmap thumbnail = getThumbnailBitmap(getFile());
+            if (thumbnail != null) {
+                binding.shimmer.setVisibility(View.VISIBLE);
+                binding.shimmerThumbnail.setImageBitmap(thumbnail);
+                binding.image.setVisibility(View.GONE);
+                bitmap = thumbnail;
+            } else {
+                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+            }
+
             if (showResizedImage) {
                 Bitmap resizedImage = getResizedBitmap(getFile(), width, height);
 
                 if (resizedImage != null && !getFile().isUpdateThumbnailNeeded()) {
                     binding.image.setImageBitmap(resizedImage);
                     binding.image.setVisibility(View.VISIBLE);
+                    binding.emptyListView.setVisibility(View.GONE);
+                    binding.emptyListProgress.setVisibility(View.GONE);
+                    binding.image.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
+
                     bitmap = resizedImage;
                 } else {
-                    // show thumbnail while loading resized image
-                    Bitmap thumbnail = getResizedBitmap(getFile(), width, height);
-
-                    if (thumbnail != null) {
-                        binding.image.setImageBitmap(thumbnail);
-                        binding.image.setVisibility(View.VISIBLE);
-                        bitmap = thumbnail;
-                    } else {
-                        thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                    }
-
                     // generate new resized image
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), binding.image) &&
                         containerActivity.getStorageManager() != null) {
                         final ThumbnailsCacheManager.ResizedImageGenerationTask task =
                             new ThumbnailsCacheManager.ResizedImageGenerationTask(this,
                                                                                   binding.image,
+                                                                                  binding.emptyListProgress,
                                                                                   containerActivity.getStorageManager(),
                                                                                   connectivityService,
-                                                                                  containerActivity.getStorageManager().getAccount());
+                                                                                  containerActivity.getStorageManager().getAccount(),
+                                                                                  getResources().getColor(R.color.background_color_inverse)
+                            );
                         if (resizedImage == null) {
                             resizedImage = thumbnail;
                         }
@@ -278,11 +290,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                         task.execute(getFile());
                     }
                 }
-                binding.emptyListView.setVisibility(View.GONE);
-                binding.emptyListProgress.setVisibility(View.GONE);
-                binding.image.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
-                binding.image.setVisibility(View.VISIBLE);
-
             } else {
                 loadBitmapTask = new LoadBitmapTask(binding.image, binding.emptyListView, binding.emptyListProgress);
                 binding.image.setVisibility(View.GONE);
@@ -314,6 +321,11 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         }
 
         return cachedImage;
+    }
+
+    private @Nullable
+    Bitmap getThumbnailBitmap(OCFile file) {
+        return ThumbnailsCacheManager.getBitmapFromDiskCache(PREFIX_THUMBNAIL + file.getRemoteId());
     }
 
     @Override

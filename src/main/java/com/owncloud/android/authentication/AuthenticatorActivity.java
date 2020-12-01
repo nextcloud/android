@@ -330,13 +330,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private void deleteCookies() {
         try {
             CookieSyncManager.createInstance(this);
-            CookieManager cookieManager = CookieManager.getInstance();
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                cookieManager.removeAllCookies(null);
-            } else {
-                cookieManager.removeAllCookie();
-            }
+            CookieManager.getInstance().removeAllCookies(null);
         } catch (AndroidRuntimeException e) {
             Log_OC.e(TAG, e.getMessage());
         }
@@ -439,9 +433,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mLoginWebView.setVisibility(View.VISIBLE);
 
                 ThemeUtils.colorStatusBar(AuthenticatorActivity.this, primaryColor);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    getWindow().setNavigationBarColor(primaryColor);
-                }
+                getWindow().setNavigationBarColor(primaryColor);
             }
 
             @Override

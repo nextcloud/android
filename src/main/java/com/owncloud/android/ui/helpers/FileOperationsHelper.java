@@ -104,7 +104,6 @@ import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -310,14 +309,12 @@ public class FileOperationsHelper {
 
                 if (optionalUser.isPresent() && FileMenuFilter.isEditorAvailable(fileActivity.getContentResolver(),
                                                                                  optionalUser.get(),
-                                                                                 file.getMimeType()) &&
-                    android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                                                                 file.getMimeType())) {
                     openFileWithTextEditor(file, fileActivity);
                 } else {
                     Account account = fileActivity.getAccount();
                     OCCapability capability = fileActivity.getStorageManager().getCapability(account.name);
                     if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
-                        android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                         capability.getRichDocumentsDirectEditing().isTrue()) {
                         openFileAsRichDocument(file, fileActivity);
                         return;
@@ -382,7 +379,6 @@ public class FileOperationsHelper {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void openFileAsRichDocument(OCFile file, Context context) {
         Intent collaboraWebViewIntent = new Intent(context, RichDocumentsEditorWebView.class);
         collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Collabora");
@@ -391,7 +387,6 @@ public class FileOperationsHelper {
         context.startActivity(collaboraWebViewIntent);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void openFileWithTextEditor(OCFile file, Context context) {
         Intent textEditorIntent = new Intent(context, TextEditorWebView.class);
         textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text");

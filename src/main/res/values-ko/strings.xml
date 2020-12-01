@@ -584,6 +584,7 @@
     <string name="sendbutton_description">보내기 버튼 아이콘</string>
     <string name="set_as">다음으로 설정</string>
     <string name="set_picture_as">다음으로 사진 사용</string>
+    <string name="set_status_message">상태 메시지 설정</string>
     <string name="share">공유</string>
     <string name="share_dialog_title">공유</string>
     <string name="share_expiration_date_label">%1$s 에 만료됨</string>

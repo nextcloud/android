@@ -43,10 +43,11 @@ public class RootCursor extends MatrixCursor {
     public void addRoot(DocumentsStorageProvider.Document document, Context context) {
         Account account = document.getAccount();
 
-        int rootFlags = Root.FLAG_SUPPORTS_CREATE | Root.FLAG_SUPPORTS_RECENTS | Root.FLAG_SUPPORTS_SEARCH;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            rootFlags = rootFlags | Root.FLAG_SUPPORTS_IS_CHILD;
-        }
+        int rootFlags =
+            Root.FLAG_SUPPORTS_CREATE |
+                Root.FLAG_SUPPORTS_RECENTS |
+                Root.FLAG_SUPPORTS_SEARCH |
+                Root.FLAG_SUPPORTS_IS_CHILD;
 
         newRow().add(Root.COLUMN_ROOT_ID, account.name)
             .add(Root.COLUMN_DOCUMENT_ID, document.getDocumentId())

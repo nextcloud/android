@@ -22,7 +22,6 @@
 package com.owncloud.android.ui.asynctasks;
 
 import android.os.AsyncTask;
-import android.os.Build;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
@@ -44,11 +43,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
-import androidx.annotation.RequiresApi;
-
 import static android.content.Context.PRINT_SERVICE;
 
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class PrintAsyncTask extends AsyncTask<Void, Void, Boolean> {
     private static final String TAG = PrintAsyncTask.class.getSimpleName();
     private static final String JOB_NAME = "Document";
