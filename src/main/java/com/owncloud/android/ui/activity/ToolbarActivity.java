@@ -270,4 +270,8 @@ public abstract class ToolbarActivity extends BaseActivity {
     public ImageView getPreviewImageView() {
         return mPreviewImage;
     }
+
+    public FrameLayout getPreviewImageContainer() {
+        return mPreviewImageContainer;
+    }
 }
