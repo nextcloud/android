@@ -104,15 +104,10 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
         }
 
         FloatingActionButton fabMain = requireActivity().findViewById(R.id.fab_main);
-
-        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            fabMain.setVisibility(View.GONE);
-        } else {
-            fabMain.setVisibility(View.VISIBLE);
-            fabMain.setEnabled(true);
-            fabMain.setOnClickListener(v -> edit());
-            ThemeUtils.colorFloatingActionButton(fabMain, R.drawable.ic_edit, requireContext());
-        }
+        fabMain.setVisibility(View.VISIBLE);
+        fabMain.setEnabled(true);
+        fabMain.setOnClickListener(v -> edit());
+        ThemeUtils.colorFloatingActionButton(fabMain, R.drawable.ic_edit, requireContext());
 
         return view;
     }

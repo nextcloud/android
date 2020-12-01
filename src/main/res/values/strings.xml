@@ -519,7 +519,6 @@
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="choose_local_folder">Choose local folder…</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
-    <string name="synced_folders_loading_folders">Loading folders…</string>
     <string name="synced_folders_no_results">No media folders found</string>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Show %1$d hidden folder</item>
@@ -541,7 +540,6 @@
         <item quantity="other">%d selected</item>
     </plurals>
 
-    <string name="notifications_loading_activity">Loading notifications…</string>
     <string name="notifications_no_results_headline">No notifications</string>
     <string name="notifications_no_results_message">Please check back later.</string>
 

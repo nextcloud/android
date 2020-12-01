@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   @author Bartosz Przybylski
@@ -21,7 +21,6 @@
 
 package com.owncloud.android.datastorage;
 
-import android.os.Build;
 import android.os.Environment;
 
 import com.owncloud.android.MainApp;
@@ -41,18 +40,8 @@ import java.util.List;
  */
 public class DataStorageProvider {
 
-    private static final List<IStoragePointProvider> mStorageProviders = new ArrayList<>();
     private static final UniqueStorageList mCachedStoragePoints = new UniqueStorageList();
-    private static final DataStorageProvider sInstance = new DataStorageProvider() {{
-        // There is no system wide way to get usb storage so we need to provide multiple
-        // handcrafted ways to add those.
-        addStoragePointProvider(new SystemDefaultStoragePointProvider());
-        addStoragePointProvider(new EnvironmentStoragePointProvider());
-        addStoragePointProvider(new VDCStoragePointProvider());
-        addStoragePointProvider(new MountCommandStoragePointProvider());
-        addStoragePointProvider(new HardcodedStoragePointProvider());
-    }};
-
+    private static final DataStorageProvider sInstance = new DataStorageProvider();
 
     public static DataStorageProvider getInstance() {
         return sInstance;
@@ -67,33 +56,21 @@ public class DataStorageProvider {
 
         List<String> paths = new ArrayList<>();
         StoragePoint storagePoint;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            for (File f : MainApp.getAppContext().getExternalMediaDirs()) {
-                if (f != null && !paths.contains(f.getAbsolutePath())) {
-                    storagePoint = new StoragePoint();
-                    storagePoint.setPath(f.getAbsolutePath());
-                    storagePoint.setDescription(f.getAbsolutePath());
-                    storagePoint.setPrivacyType(StoragePoint.PrivacyType.PUBLIC);
-                    if (f.getAbsolutePath().startsWith("/storage/emulated/0")) {
-                        storagePoint.setStorageType(StoragePoint.StorageType.INTERNAL);
+        for (File f : MainApp.getAppContext().getExternalMediaDirs()) {
+            if (f != null && !paths.contains(f.getAbsolutePath())) {
+                storagePoint = new StoragePoint();
+                storagePoint.setPath(f.getAbsolutePath());
+                storagePoint.setDescription(f.getAbsolutePath());
+                storagePoint.setPrivacyType(StoragePoint.PrivacyType.PUBLIC);
+                if (f.getAbsolutePath().startsWith("/storage/emulated/0")) {
+                    storagePoint.setStorageType(StoragePoint.StorageType.INTERNAL);
+                    mCachedStoragePoints.add(storagePoint);
+                } else {
+                    storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
+                    if (isExternalStorageWritable()) {
                         mCachedStoragePoints.add(storagePoint);
-                    } else {
-                        storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
-                        if (isExternalStorageWritable()) {
-                            mCachedStoragePoints.add(storagePoint);
-                        }
                     }
                 }
-            }
-        } else {
-            for (IStoragePointProvider p : mStorageProviders) {
-                if (p.canProvideStoragePoints()) {
-                    mCachedStoragePoints.addAll(p.getAvailableStoragePoint());
-                }
-            }
-
-            for (int i = 0; i < mCachedStoragePoints.size(); i++) {
-                paths.add(mCachedStoragePoints.get(i).getPath());
             }
         }
 
@@ -139,18 +116,9 @@ public class DataStorageProvider {
         return path;
     }
 
-    public void addStoragePointProvider(IStoragePointProvider provider) {
-        mStorageProviders.add(provider);
-    }
-
-    public void removeStoragePointProvider(IStoragePointProvider provider) {
-        mStorageProviders.remove(provider);
-    }
-
     /* Checks if external storage is available for read and write */
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state);
     }
-
 }

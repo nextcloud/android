@@ -23,7 +23,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.Editable;
@@ -364,12 +363,12 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
      * @return              'True' when the key event was processed by this method.
      */
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event){
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount()== 0){
-            if(ACTION_CHECK.equals(getIntent().getAction()) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if (ACTION_CHECK.equals(getIntent().getAction())) {
                 moveTaskToBack(true);
                 finishAndRemoveTask();
-            }else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction()) ||
+            } else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction()) ||
                 ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
                 finish();
             }// else, do nothing, but report that the key was consumed to stay alive

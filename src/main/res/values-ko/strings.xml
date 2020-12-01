@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">에너지 절약 사용 안함</string>
     <string name="autoupload_hide_folder">폴더 숨기기</string>
     <string name="avatar">아바타</string>
+    <string name="away">자리 비움</string>
     <string name="battery_optimization_close">닫기</string>
     <string name="battery_optimization_disable">비활성화</string>
     <string name="battery_optimization_message">기기의 배터리 최적화가 활성화되어있습니다. 자동 업로드는 이 앱을 배터리 최적화에서 제외해야만 정상적으로 동작합니다.</string>
@@ -90,6 +91,8 @@
     <string name="choose_local_folder">로컬 폴더 선택</string>
     <string name="choose_remote_folder">대상 폴더 선택</string>
     <string name="clear_notifications_failed">알림을 지우는데 실패했습니다.</string>
+    <string name="clear_status_message">상태 메시지 지움</string>
+    <string name="clear_status_message_after">상태 메시지 지우기 예약</string>
     <string name="clipboard_label">%1$s에서 텍스트를 복사함</string>
     <string name="clipboard_no_text_to_copy">클립보드에 복사할 텍스트가 없음</string>
     <string name="clipboard_text_copied">링크 복사됨</string>
@@ -192,6 +195,8 @@
     <string name="disable_new_media_folder_detection_notifications">비활성화</string>
     <string name="dismiss">무시</string>
     <string name="dismiss_notification_description">알림 해제</string>
+    <string name="dnd">방해 금지</string>
+    <string name="dontClear">지우지 않음</string>
     <string name="download_latest_dev_version">최신 개발 버전 다운로드</string>
     <string name="downloader_download_failed_content">%1$s을(를) 다운로드할 수 없습니다</string>
     <string name="downloader_download_failed_credentials_error">다운로드 실패, 다시 로그인하십시오</string>
@@ -362,6 +367,7 @@
     <string name="foreign_files_remote_text">원격: %1$s</string>
     <string name="foreign_files_success">모든 파일이 이동됨</string>
     <string name="forward">앞으로</string>
+    <string name="fourHours">4 시간</string>
     <string name="hint_name">이름</string>
     <string name="hint_note">참고</string>
     <string name="hint_password">암호</string>
@@ -456,6 +462,8 @@
     <string name="notifications_no_results_message">나중에 다시 확인하십시오.</string>
     <string name="offline_mode">네트워크에 연결할 수 없음</string>
     <string name="oneHour">1시간</string>
+    <string name="online">접속 중</string>
+    <string name="online_status">접속 상태</string>
     <string name="outdated_server">서버의 수명이 다된것 같네요, 업그레이드 해주세요!</string>
     <string name="overflow_menu">메뉴 더 보기</string>
     <string name="pass_code_configure_your_pass_code">암호를 입력하십시오</string>
@@ -576,6 +584,7 @@
     <string name="sendbutton_description">보내기 버튼 아이콘</string>
     <string name="set_as">다음으로 설정</string>
     <string name="set_picture_as">다음으로 사진 사용</string>
+    <string name="set_status_message">상태 메시지 설정</string>
     <string name="share">공유</string>
     <string name="share_dialog_title">공유</string>
     <string name="share_expiration_date_label">%1$s 에 만료됨</string>
@@ -597,6 +606,7 @@
     <string name="share_privilege_unshare">공유 해제</string>
     <string name="share_remote_clarification">%1$s(원격)</string>
     <string name="share_room_clarification">%1$s (대화)</string>
+    <string name="share_search">이름, 연합 클라우드 ID 및 이메일 주소…</string>
     <string name="share_send_note">받는 사람 메모</string>
     <string name="share_via_link_hide_download">다운로드 숨기기</string>
     <string name="share_via_link_menu_password_label">암호 보호(%1$s)</string>
@@ -644,6 +654,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- 서버 인증서를 신뢰할 수 없습니다</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- 서버 인증서의 유효 기간이 시작되지 않았습니다</string>
     <string name="ssl_validator_reason_hostname_not_verified">- 인증서의 URL과 입력한 URL이 일치하지 않습니다</string>
+    <string name="status_message">상태 메시지</string>
     <string name="storage_camera">카메라</string>
     <string name="storage_choose_location">저장소 위치 선택</string>
     <string name="storage_description_default">기본값</string>
@@ -828,6 +839,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="what_s_new_image">새로운 기능 사진</string>
     <string name="whats_new_skip">건너뛰기</string>
     <string name="whats_new_title">%1$s의 새로운 것</string>
+    <string name="whats_your_status">지금 무엇을 하나요?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">파일 %1$d개의 내용을 동기화할 수 없음(충돌 %2$d개)</item>
     </plurals>
