@@ -27,7 +27,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -50,7 +49,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
 
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean, boolean)}.
@@ -161,22 +159,14 @@ public abstract class ToolbarActivity extends BaseActivity {
     @SuppressLint("PrivateResource")
     private void showHomeSearchToolbar(boolean isShow) {
         if (isShow) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
-                                                                                    R.animator.appbar_elevation_off));
-            } else {
-                ViewCompat.setElevation(mAppBar, 0);
-            }
+            mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
+                                                                                R.animator.appbar_elevation_off));
             mDefaultToolbar.setVisibility(View.GONE);
             mHomeSearchToolbar.setVisibility(View.VISIBLE);
             ThemeUtils.colorStatusBar(this, ContextCompat.getColor(this, R.color.bg_default));
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
-                                                                                    R.animator.appbar_elevation_on));
-            } else {
-                ViewCompat.setElevation(mAppBar, getResources().getDimension(R.dimen.design_appbar_elevation));
-            }
+            mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
+                                                                                R.animator.appbar_elevation_on));
             mDefaultToolbar.setVisibility(View.VISIBLE);
             mHomeSearchToolbar.setVisibility(View.GONE);
             ThemeUtils.colorStatusBar(this);
@@ -279,5 +269,9 @@ public abstract class ToolbarActivity extends BaseActivity {
      */
     public ImageView getPreviewImageView() {
         return mPreviewImage;
+    }
+
+    public FrameLayout getPreviewImageContainer() {
+        return mPreviewImageContainer;
     }
 }

@@ -24,7 +24,6 @@ package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -289,10 +288,6 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             menu.findItem(R.id.action_unset_favorite)
         );
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_edit));
-        }
-
         if (getFile().isSharedWithMe() && !getFile().canReshare()) {
             FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
         }
@@ -331,11 +326,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             }
 
             case R.id.action_edit:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    containerActivity.getFileOperationsHelper().openFileWithTextEditor(getFile(), getContext());
-                    return true;
-                }
-                return false;
+                containerActivity.getFileOperationsHelper().openFileWithTextEditor(getFile(), getContext());
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

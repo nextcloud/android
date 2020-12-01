@@ -138,4 +138,5 @@
     <dimen name="account_action_button_vertical_margin">10dp</dimen>
     <dimen name="online_status_item_height">52dp</dimen>
     <dimen name="minimum_size_for_touchable_area">48dp</dimen>
+    <dimen name="dialog_elevation">24dp</dimen>
 </resources>

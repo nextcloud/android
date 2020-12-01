@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   Copyright (C) 2016 ownCloud Inc.
@@ -102,9 +102,6 @@ public class UriUploader {
                 Uri sourceUri = (Uri) sourceStream;
                 if (sourceUri != null) {
                     String displayName = UriUtils.getDisplayNameForUri(sourceUri, mActivity);
-                    if (displayName == null) {
-                        displayName = generateDiplayName();
-                    }
                     String remotePath = mUploadPath + displayName;
 
                     if (ContentResolver.SCHEME_CONTENT.equals(sourceUri.getScheme())) {
