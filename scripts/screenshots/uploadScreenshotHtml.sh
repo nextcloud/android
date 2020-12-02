@@ -13,7 +13,7 @@ USER=$1
 PASS=$2
 REMOTE_FOLDER=$(date +%F)
 
-cd builds/screenshotOverview
+cd build/screenshotOverview
 find . -type d -exec curl -u $USER:$PASS -X MKCOL $URL/$REMOTE_FOLDER/$(echo {} | sed s#\./##) \;
 find . -type f -exec curl -u $USER:$PASS -X PUT $URL/$REMOTE_FOLDER/$(echo {} | sed s#\./##) --upload-file {} \;
 
