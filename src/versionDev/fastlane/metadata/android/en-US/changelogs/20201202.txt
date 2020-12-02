@@ -1,0 +1,21 @@
+remove testing delay
+wip
+wip
+optimized layout for rtl languages
+optimize layout
+remove variable prefixes and sort member variables
+replace manual view access with view binding
+use final on variables, remove c-style array definition
+further optimize layout to mimic dialog
+Add padding to layout
+Make PIN activity mimic a dialog
+remove unused string resouces
+remove Android 4.4. code block from kotlin files
+spotbugs: remove unreachable code block
+remove all test min sdk references and declarations
+spotbugs remove unused list
+merge theme for minSDK=21
+Drop Android 4.4 Support
+getActiveNetwork might be null
+Update translations
+Update Nextcloud Android library
