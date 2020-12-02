@@ -15,8 +15,6 @@ steps:
       - scripts/screenshots/uploadScreenshotHtml.sh $LOG_USERNAME $_LOG_PASSWORD
 
 trigger:
-  branch:
-    - master
   event:
     - push
     - pull_request
