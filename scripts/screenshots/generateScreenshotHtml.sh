@@ -2,7 +2,7 @@
 
 folder=build/screenshotOverview
 rm -r $folder
-mkdir $folder
+mkdir -p $folder
 file=$folder/overview.html
 
 echo "<html><table>" >> $file
