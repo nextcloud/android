@@ -15,7 +15,7 @@ echo "<tr>
 <td>White on dark</td>
 </tr>" >> $file
 
-for screenshot in $(find screenshots/gplay -type f | grep -v "_dark_" | grep -v "_light_" | sort| head -n1); do
+for screenshot in $(find screenshots/gplay -type f | grep -v "_dark_" | grep -v "_light_" | sort); do
     testName=$(basename $(echo $screenshot | sed s'/\.png//'))
     baseName=$(echo $screenshot | sed s'/\.png//')
 
