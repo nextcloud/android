@@ -12,7 +12,7 @@ steps:
         from_secret: LOG_PASSWORD
     commands:
       - scripts/screenshots/generateScreenshotHtml.sh
-      - scripts/screenshots/uploadScreenshotHtml.sh $LOG_USERNAME $_LOG_PASSWORD
+      - scripts/screenshots/uploadScreenshotHtml.sh $LOG_USERNAME $LOG_PASSWORD
 
 trigger:
   event:
