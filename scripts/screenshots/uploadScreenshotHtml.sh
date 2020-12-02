@@ -11,7 +11,7 @@
 URL=https://nextcloud.kaminsky.me/remote.php/webdav/android-integrationTests
 USER=$1
 PASS=$2
-REMOTE_FOLDER=$(date +%F)
+REMOTE_FOLDER=screenshotOverview/$(date +%F)
 
 cd build/screenshotOverview
 find . -type d -exec curl -u $USER:$PASS -X MKCOL $URL/$REMOTE_FOLDER/$(echo {} | sed s#\./##) \;
