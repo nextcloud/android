@@ -193,7 +193,6 @@ class MediaFoldersDetectionWork constructor(
         intent.putExtra(NotificationWork.KEY_NOTIFICATION_ACCOUNT, user.accountName)
         intent.putExtra(KEY_MEDIA_FOLDER_PATH, path)
         intent.putExtra(KEY_MEDIA_FOLDER_TYPE, type)
-        intent.putExtra(SyncedFoldersActivity.EXTRA_SHOW_SIDEBAR, true)
         val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)
         val notificationBuilder = NotificationCompat.Builder(
             context,
