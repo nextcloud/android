@@ -47,11 +47,11 @@ import com.owncloud.android.utils.ThemeUtils;
  */
 public class OCFileListBottomSheetDialog extends BottomSheetDialog {
     private FileListActionsBottomSheetFragmentBinding binding;
-    private OCFileListBottomSheetActions actions;
-    private FileActivity fileActivity;
-    private DeviceInfo deviceInfo;
-    private User user;
-    private OCFile file;
+    private final OCFileListBottomSheetActions actions;
+    private final FileActivity fileActivity;
+    private final DeviceInfo deviceInfo;
+    private final User user;
+    private final OCFile file;
 
     public OCFileListBottomSheetDialog(FileActivity fileActivity,
                                        OCFileListBottomSheetActions actions,
