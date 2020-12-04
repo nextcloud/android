@@ -69,7 +69,6 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final View view = getLayoutInflater().inflate(R.layout.file_list_actions_bottom_sheet_fragment, null);
         binding = FileListActionsBottomSheetFragmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -155,8 +154,9 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         setupClickListener();
 
         setOnShowListener(d ->
-                BottomSheetBehavior.from((View) view.getParent()).setPeekHeight(view.getMeasuredHeight())
-        );
+                              BottomSheetBehavior.from((View) binding.getRoot().getParent())
+                                  .setPeekHeight(binding.getRoot().getMeasuredHeight())
+                         );
     }
 
     private void setupClickListener() {
@@ -165,7 +165,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             dismiss();
         });
 
-        binding.menuIconMkdir.setOnClickListener(v -> {
+        binding.menuMkdir.setOnClickListener(v -> {
             actions.createFolder();
             dismiss();
         });
