@@ -1,0 +1,3 @@
+proper back arrow handling after moving auto upload screen to settings
+Move auto upload to settings
+Update translations
