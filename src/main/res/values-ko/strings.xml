@@ -537,6 +537,7 @@
     <string name="prefs_show_hidden_files">숨겨진 파일 보기</string>
     <string name="prefs_sourcecode">소스 코드 보기</string>
     <string name="prefs_storage_path">저장소 경로</string>
+    <string name="prefs_sycned_folders_summary">자동 업로드를 위한 폴더 관리</string>
     <string name="prefs_synced_folders_local_path_title">로컬 폴더</string>
     <string name="prefs_synced_folders_remote_path_title">원격 폴더</string>
     <string name="prefs_theme_title">테마</string>
