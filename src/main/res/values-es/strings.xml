@@ -537,6 +537,7 @@
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_sourcecode">Obtener el código fuente</string>
     <string name="prefs_storage_path">Ruta de almacenamiento</string>
+    <string name="prefs_sycned_folders_summary">Administrar carpetas para auto-subida</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
     <string name="prefs_theme_title">Tema</string>

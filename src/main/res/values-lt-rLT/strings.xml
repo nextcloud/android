@@ -172,6 +172,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopijavimas/perkėlimas į šifruotą aplanką šiuo metu nėra palaikomas.</string>
     <string name="copy_to">Kopijuoti į…</string>
     <string name="could_not_download_image">Nepavyko atsisiųsti viso paveikslo</string>
+    <string name="could_not_retrieve_shares">Nepavyko gauti viešinių</string>
     <string name="could_not_retrieve_url">Nepavyko nuskaityti URL</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
     <string name="create_new">Sukurti naują</string>
@@ -213,6 +214,7 @@
     <string name="drawer_item_activities">Veiklos</string>
     <string name="drawer_item_all_files">Visi failai</string>
     <string name="drawer_item_favorites">Mėgstami</string>
+    <string name="drawer_item_gallery">Medija</string>
     <string name="drawer_item_home">Namai</string>
     <string name="drawer_item_notifications">Pranešimai</string>
     <string name="drawer_item_on_device">Įrenginyje</string>
@@ -268,6 +270,7 @@
     <string name="etm_background_jobs_schedule_test_job">Suplanuokite testinę užduotį</string>
     <string name="etm_background_jobs_start_test_job">Pradėti testinę užduotį</string>
     <string name="etm_background_jobs_stop_test_job">Sustabdyti testinę užduotį</string>
+    <string name="etm_download_path">Nuotolinis kelias</string>
     <string name="etm_migrations">Perkėlimas (programos atnaujinimas)</string>
     <string name="etm_preferences">Nuostatos</string>
     <string name="etm_title">Inžinerinis bandymo režimas</string>
@@ -549,6 +552,7 @@
     <string name="recommend_subject">Išbandykite %1$s savo įrenginyje!</string>
     <string name="recommend_text">Noriu jus paraginti naudoti %1$s savo įrenginyje.\nAtsisiųskite čia: %2$s</string>
     <string name="recommend_urls">%1$s arba %2$s</string>
+    <string name="remote">(nuotolinis)</string>
     <string name="remote_file_fetch_failed">Nepavyko rasti failo!</string>
     <string name="remove_fail_msg">Ištrynimas nepavyko</string>
     <string name="remove_notification_failed">Nepavyko pašalinti pranešimo.</string>

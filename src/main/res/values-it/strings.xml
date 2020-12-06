@@ -537,6 +537,7 @@
     <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
     <string name="prefs_sourcecode">Ottieni codice sorgente</string>
     <string name="prefs_storage_path">Percorso di archiviazione</string>
+    <string name="prefs_sycned_folders_summary">Gestisci le cartelle per il caricamento automatico</string>
     <string name="prefs_synced_folders_local_path_title">Cartella locale</string>
     <string name="prefs_synced_folders_remote_path_title">Cartella remota</string>
     <string name="prefs_theme_title">Tema</string>
