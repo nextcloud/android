@@ -56,6 +56,7 @@ public final class AppPreferencesImpl implements AppPreferences {
      */
     public static final String AUTO_PREF__LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
     public static final String STORAGE_PATH = "storage_path";
+    public static final String STORAGE_PATH_VALID = "storage_path_valid";
     public static final String PREF__DARK_THEME = "dark_theme_mode";
     public static final float DEFAULT_GRID_COLUMN = 3f;
 
@@ -524,6 +525,17 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setStoragePath(String path) {
         preferences.edit().putString(STORAGE_PATH, path).commit();  // commit synchronously
+    }
+
+    @SuppressLint("ApplySharedPref")
+    @Override
+    public void setStoragePathValid() {
+        preferences.edit().putBoolean(STORAGE_PATH_VALID, true).commit();
+    }
+
+    @Override
+    public boolean isStoragePathValid() {
+        return preferences.getBoolean(STORAGE_PATH_VALID, false);
     }
 
     /**
