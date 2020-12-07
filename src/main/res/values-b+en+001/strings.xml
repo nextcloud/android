@@ -90,6 +90,7 @@
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Choose local folder…</string>
     <string name="choose_remote_folder">Choose remote folder…</string>
+    <string name="choose_which_file">Choose which file to keep!</string>
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
     <string name="clear_status_message">Clear status message</string>
     <string name="clear_status_message_after">Clear status message after</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Local only</string>
     <string name="conflict_already_existing_file">Already existing file</string>
     <string name="conflict_dialog_error">Error creating conflict dialogue!</string>
+    <string name="conflict_file_headline">Conflicting file %1$s</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
     <string name="conflict_message_headline">Which files do you wish to keep?</string>
     <string name="conflict_new_file">New file</string>
@@ -375,6 +377,7 @@
     <string name="hint_password">Password</string>
     <string name="host_not_available">Server not available</string>
     <string name="host_your_own_server">Host your own server</string>
+    <string name="in_folder">in folder %1$s</string>
     <string name="instant_upload_existing">Also upload existing files</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -534,6 +537,7 @@
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_storage_path">Storage path</string>
+    <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
     <string name="prefs_synced_folders_local_path_title">Local folder</string>
     <string name="prefs_synced_folders_remote_path_title">Remote folder</string>
     <string name="prefs_theme_title">Theme</string>
