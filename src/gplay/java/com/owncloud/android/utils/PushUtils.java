@@ -242,7 +242,8 @@ public final class PushUtils {
                                     context.getResources().getString(R.string.push_server_url),
                                     token, pushResponse.getDeviceIdentifier(),
                                     pushResponse.getSignature(),
-                                    pushResponse.getPublicKey())
+                                    pushResponse.getPublicKey(),
+                                    MainApp.getUserAgent())
                                     .run();
 
                                 if (resultProxy.isSuccess()) {
