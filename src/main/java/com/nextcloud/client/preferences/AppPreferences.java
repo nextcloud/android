@@ -329,9 +329,14 @@ public interface AppPreferences {
 
     void setStoragePath(String path);
 
+    void setStoragePathValid();
+
+    boolean isStoragePathValid();
+
     void removeKeysMigrationPreference();
 
     String getCurrentAccountName();
+
     void setCurrentAccountName(String accountName);
 
     /**
