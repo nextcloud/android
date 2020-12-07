@@ -90,7 +90,10 @@
     <string name="checkbox">Aanvinkvakje</string>
     <string name="choose_local_folder">Kies lokale map…</string>
     <string name="choose_remote_folder">Kies externe map…</string>
+    <string name="choose_which_file">Kies welk bestand bewaard moet blijven!</string>
     <string name="clear_notifications_failed">Niet gelukt om alle meldingen af te handelen</string>
+    <string name="clear_status_message">Opruimen statusberichten</string>
+    <string name="clear_status_message_after">Opruimen statusbericht na</string>
     <string name="clipboard_label">Tekst gekopieerd uit %1$s</string>
     <string name="clipboard_no_text_to_copy">Geen tekst ontvangen om te kopiëren naar het klembord</string>
     <string name="clipboard_text_copied">Link gekopieerd</string>
@@ -143,6 +146,7 @@
     <string name="confirmation_remove_local">Alleen lokaal</string>
     <string name="conflict_already_existing_file">Al bestaand bestand</string>
     <string name="conflict_dialog_error">Fout bij het maken van conflictdialoog!</string>
+    <string name="conflict_file_headline">Conflicterend bestand%1$s</string>
     <string name="conflict_message_description">Als je beide versies selecteert, zal het lokale bestand een nummer aan de naam toegevoegd krijgen.</string>
     <string name="conflict_message_headline">Welke bestanden wil je bewaren?</string>
     <string name="conflict_new_file">Nieuw bestand</string>
@@ -169,6 +173,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
     <string name="copy_to">Kopieer naar…</string>
     <string name="could_not_download_image">Kan de volledige afbeelding niet downloaden</string>
+    <string name="could_not_retrieve_shares">Kon shares niet ophalen</string>
     <string name="could_not_retrieve_url">Kon URL niet ophalen</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
     <string name="create_new">Maak nieuw</string>
@@ -193,6 +198,7 @@
     <string name="dismiss">Weigeren</string>
     <string name="dismiss_notification_description">Handel melding af</string>
     <string name="dnd">Niet storen</string>
+    <string name="dontClear">Niet opruimen</string>
     <string name="download_latest_dev_version">Downloaden laatste dev versie</string>
     <string name="downloader_download_failed_content">Kon %1$s niet downloaden</string>
     <string name="downloader_download_failed_credentials_error">Downloaden mislukt, je moet opnieuw inloggen</string>
@@ -209,6 +215,7 @@
     <string name="drawer_item_activities">Activiteiten</string>
     <string name="drawer_item_all_files">Alle bestanden</string>
     <string name="drawer_item_favorites">Favorieten</string>
+    <string name="drawer_item_gallery">Media</string>
     <string name="drawer_item_home">Thuis</string>
     <string name="drawer_item_notifications">Meldingen</string>
     <string name="drawer_item_on_device">Op het apparaat</string>
@@ -274,6 +281,7 @@
     <string name="failed_to_download">Kon het bestand niet doorgeven aan de download beheerder</string>
     <string name="failed_to_print">Kon bestand niet afdrukken</string>
     <string name="failed_to_start_editor">Kon editor niet starten</string>
+    <string name="failed_update_ui">Kon UI niet bijwerken</string>
     <string name="favorite">Toevoegen aan favorieten</string>
     <string name="favorite_icon">Favoriet</string>
     <string name="file_delete">Verwijderen</string>
@@ -369,6 +377,7 @@
     <string name="hint_password">Wachtwoord</string>
     <string name="host_not_available">Server niet beschikbaar</string>
     <string name="host_your_own_server">Host je eigen server</string>
+    <string name="in_folder">in map %1$s</string>
     <string name="instant_upload_existing">Upload ook bestaande bestanden</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -459,6 +468,7 @@
     <string name="offline_mode">Geen internet verbinding</string>
     <string name="oneHour">1 uur</string>
     <string name="online">Online</string>
+    <string name="online_status">Online status</string>
     <string name="outdated_server">Deze server is verouderd, graag upgraden!</string>
     <string name="overflow_menu">Meer menu</string>
     <string name="pass_code_configure_your_pass_code">Toegangscode invoeren</string>
@@ -479,12 +489,15 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Dit is een plaatshouder</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
+    <string name="player_stop">stop</string>
+    <string name="player_toggle">omschakelen</string>
     <string name="power_save_check_dialog_message">Uitschakelen stroombesparingscontrole kan resulteren in uploaden van bestanden met lage accustand!</string>
     <string name="pref_behaviour_entries_delete_file">verwijderd worden</string>
     <string name="pref_behaviour_entries_keep_file">bewaard worden in originele map</string>
     <string name="pref_behaviour_entries_move">verplaatst worden naar app-map</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Wat als het bestand al bestaat?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Vraag me elke keer</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Uploaden overslaan</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Overschrijven </string>
     <string name="pref_instant_name_collision_policy_entries_rename">Hernoem nieuwe versie</string>
     <string name="pref_instant_name_collision_policy_title">Wat als het bestand al bestaat?</string>
@@ -524,6 +537,7 @@
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_sourcecode">Krijg broncode</string>
     <string name="prefs_storage_path">Opslagpad</string>
+    <string name="prefs_sycned_folders_summary">Beheren mappen voor auto-upload</string>
     <string name="prefs_synced_folders_local_path_title">Lokale map</string>
     <string name="prefs_synced_folders_remote_path_title">Externe map</string>
     <string name="prefs_theme_title">Thema</string>
@@ -543,6 +557,7 @@
     <string name="recommend_subject">Probeer %1$s op je toestel!</string>
     <string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
+    <string name="remote">(remote)</string>
     <string name="remote_file_fetch_failed">Het bestand is niet gevonden!</string>
     <string name="remove_fail_msg">Verwijderen mislukt</string>
     <string name="remove_notification_failed">Niet gelukt om melding af te handelen</string>
@@ -579,6 +594,7 @@
     <string name="set_as">Stel in als</string>
     <string name="set_picture_as">Gebruik afbeelding als</string>
     <string name="set_status">Instellen status</string>
+    <string name="set_status_message">Instellen statusbericht</string>
     <string name="share">Delen</string>
     <string name="share_dialog_title">Delen</string>
     <string name="share_expiration_date_label">Vervalt op %1$s</string>
@@ -587,6 +603,7 @@
     <string name="share_internal_link">Deel interne link</string>
     <string name="share_internal_link_to_file_text">Interne link voor delen werkt alleen voor gebruikers met toegang tot dit bestand</string>
     <string name="share_internal_link_to_folder_text">Interne link voor delen werkt alleen voor gebruikers met toegang tot deze map</string>
+    <string name="share_known_remote_on_clarification">op %1$s</string>
     <string name="share_link">Link delen</string>
     <string name="share_link_empty_password">Je moet een wachtwoord opgeven</string>
     <string name="share_link_file_error">Er trad een fout op bij je poging dit bestand of deze map te delen.</string>

@@ -539,6 +539,7 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_sourcecode">Obtenir le code source</string>
     <string name="prefs_storage_path">Chemin de stockage</string>
+    <string name="prefs_sycned_folders_summary">Gérer les dossiers pour l\'envoi automatique</string>
     <string name="prefs_synced_folders_local_path_title">Dossier local</string>
     <string name="prefs_synced_folders_remote_path_title">Dossier distant</string>
     <string name="prefs_theme_title">Thème</string>

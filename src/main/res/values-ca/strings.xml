@@ -90,6 +90,7 @@
     <string name="checkbox">Casella de selecció</string>
     <string name="choose_local_folder">Escolliu una carpeta local…</string>
     <string name="choose_remote_folder">Escolliu una carpeta remota…</string>
+    <string name="choose_which_file">Trieu quin fixer conservar!</string>
     <string name="clear_notifications_failed">No s\'han pogut carregar les notificacions.</string>
     <string name="clear_status_message">Esborrar el missatge d\'estat</string>
     <string name="clear_status_message_after">Esborra el missatge d\'estat després</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Només local</string>
     <string name="conflict_already_existing_file">Aquest fitxer ja existeix</string>
     <string name="conflict_dialog_error">Error creant diàleg de conflicte!</string>
+    <string name="conflict_file_headline">Fitxer en conflicte %1$s</string>
     <string name="conflict_message_description">Si seleccioneu ambdues versions, s\'afegirà un numero al nom de la versió local.</string>
     <string name="conflict_message_headline">Quins fitxers voleu conservar?</string>
     <string name="conflict_new_file">Nou fitxer</string>
@@ -375,6 +377,7 @@
     <string name="hint_password">Contrasenya</string>
     <string name="host_not_available">Els servidor no està disponible</string>
     <string name="host_your_own_server">Allotgeu el vostre propi servidor</string>
+    <string name="in_folder">en la carpeta %1$s</string>
     <string name="instant_upload_existing">També pujar fitxers existents</string>
     <string name="instant_upload_on_charging">Carrega només durant la càrrega de bateria</string>
     <string name="instant_upload_path">/CàrregaInstantània</string>
@@ -486,6 +489,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Això és un marcador de posició</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">atura</string>
+    <string name="player_toggle">commuta</string>
     <string name="power_save_check_dialog_message">Si es desactiva la comprovació d\'estalvi energètic, podria ser que es carreguessin fitxers fins i tot amb nivells baixos de bateria!</string>
     <string name="pref_behaviour_entries_delete_file">suprimit</string>
     <string name="pref_behaviour_entries_keep_file">mantingut a la carpeta original</string>
@@ -532,6 +537,7 @@
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
     <string name="prefs_sourcecode">Aconseguiu el codi font</string>
     <string name="prefs_storage_path">Ruta d\'emmagatzematge</string>
+    <string name="prefs_sycned_folders_summary">Gestiona les carpetes per a la càrrega automàtica</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
     <string name="prefs_theme_title">Tema</string>

@@ -195,7 +195,7 @@
     <string name="dev_version_no_new_version_available">Brak nowej wersji.</string>
     <string name="digest_algorithm_not_available">Algorytm funkcji skrótu nie jest dostępny na Twoim urządzeniu.</string>
     <string name="disable_new_media_folder_detection_notifications">Wyłącz</string>
-    <string name="dismiss">Anuluj</string>
+    <string name="dismiss">Odrzuć</string>
     <string name="dismiss_notification_description">Odrzuć powiadomienie</string>
     <string name="dnd">Nie przeszkadzać</string>
     <string name="dontClear">Nie czyść</string>
@@ -537,6 +537,7 @@
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_sourcecode">Pobierz kod źródłowy</string>
     <string name="prefs_storage_path">Lokalizacja przechowywania danych</string>
+    <string name="prefs_sycned_folders_summary">Zarządzaj katalogami do automatycznego wysyłania</string>
     <string name="prefs_synced_folders_local_path_title">Katalog lokalny</string>
     <string name="prefs_synced_folders_remote_path_title">Katalog zdalny</string>
     <string name="prefs_theme_title">Motyw</string>
@@ -624,7 +625,7 @@
     <string name="share_via_link_section_title">Udostępnij link</string>
     <string name="share_via_link_send_link_label">Wyślij link</string>
     <string name="share_via_link_unset_password">Nieustalone</string>
-    <string name="share_with_title">Udostępnij dla…</string>
+    <string name="share_with_title">Udostępnij z…</string>
     <string name="shared_avatar_desc">Avatar użytkownika udostępniającego</string>
     <string name="shared_icon_share">udostępnij</string>
     <string name="shared_icon_shared">udostępniono</string>
