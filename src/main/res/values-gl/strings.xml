@@ -538,6 +538,7 @@
     <string name="prefs_show_hidden_files">Amosar ficheiros agochados</string>
     <string name="prefs_sourcecode">Obter o código fonte</string>
     <string name="prefs_storage_path">Ruta de almacenamento</string>
+    <string name="prefs_sycned_folders_summary">Xestionar os cartafoles para a envío automático</string>
     <string name="prefs_synced_folders_local_path_title">Cartafol local</string>
     <string name="prefs_synced_folders_remote_path_title">Cartafol remoto</string>
     <string name="prefs_theme_title">Tema</string>

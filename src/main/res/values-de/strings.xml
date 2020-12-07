@@ -537,6 +537,7 @@
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_sourcecode">Zum Programmcode</string>
     <string name="prefs_storage_path">Speicherort</string>
+    <string name="prefs_sycned_folders_summary">Ordner für \"Automatisches Hochladen\" verwalten</string>
     <string name="prefs_synced_folders_local_path_title">Lokaler Ordner</string>
     <string name="prefs_synced_folders_remote_path_title">Remote-Ordner</string>
     <string name="prefs_theme_title">Design</string>

@@ -537,6 +537,7 @@
     <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
     <string name="prefs_sourcecode">Kaynak kodunu alın</string>
     <string name="prefs_storage_path">Depolama yolu</string>
+    <string name="prefs_sycned_folders_summary">Otomatik yükleme klasörleri yönetimi</string>
     <string name="prefs_synced_folders_local_path_title">Yerel klasöre</string>
     <string name="prefs_synced_folders_remote_path_title">Uzak klasör</string>
     <string name="prefs_theme_title">Tema</string>
