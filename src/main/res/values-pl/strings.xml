@@ -537,6 +537,7 @@
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_sourcecode">Pobierz kod źródłowy</string>
     <string name="prefs_storage_path">Lokalizacja przechowywania danych</string>
+    <string name="prefs_sycned_folders_summary">Zarządzaj katalogami do automatycznego wysyłania</string>
     <string name="prefs_synced_folders_local_path_title">Katalog lokalny</string>
     <string name="prefs_synced_folders_remote_path_title">Katalog zdalny</string>
     <string name="prefs_theme_title">Motyw</string>

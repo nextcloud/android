@@ -537,6 +537,7 @@
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
     <string name="prefs_sourcecode">获取源代码</string>
     <string name="prefs_storage_path">存储路径</string>
+    <string name="prefs_sycned_folders_summary">管理自动上传文件夹</string>
     <string name="prefs_synced_folders_local_path_title">本地文件夹</string>
     <string name="prefs_synced_folders_remote_path_title">远端文件夹</string>
     <string name="prefs_theme_title">主题</string>

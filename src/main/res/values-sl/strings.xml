@@ -79,7 +79,7 @@
     <string name="autoupload_disable_power_save_check">Onemogoči preverjanje porabe energije</string>
     <string name="autoupload_hide_folder">Skrij mapo</string>
     <string name="avatar">Avatar</string>
-    <string name="away">Odsoten</string>
+    <string name="away">Ne spremljam</string>
     <string name="battery_optimization_close">Zapri</string>
     <string name="battery_optimization_disable">Onemogoči</string>
     <string name="battery_optimization_message">Naprava ima najverjetneje omogočeno možnost optimizacije porabe baterije. Program AutoUpload pravilno deluje le, če je izvzet iz nje.</string>
@@ -90,6 +90,7 @@
     <string name="checkbox">Izbirno polje</string>
     <string name="choose_local_folder">Izberi krajevno mapo…</string>
     <string name="choose_remote_folder">Izberi oddaljeno mapo…</string>
+    <string name="choose_which_file">Izberite, katero datoteko želite obdržati!</string>
     <string name="clear_notifications_failed">Počiščenje obvestil je spodletelo.</string>
     <string name="clear_status_message">Počisti sporočilo stanja</string>
     <string name="clear_status_message_after">Počisti sporočilo stanja po</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Le krajevno</string>
     <string name="conflict_already_existing_file">Obstoječa datoteka</string>
     <string name="conflict_dialog_error">Prišlo je do napake med ustvarjanjem pogovornega okna spora!</string>
+    <string name="conflict_file_headline">Različice %1$s v sporu.</string>
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
     <string name="conflict_message_headline">Katere datoteke želite ohraniti?</string>
     <string name="conflict_new_file">Nova datoteka</string>
@@ -375,11 +377,12 @@
     <string name="hint_password">Geslo</string>
     <string name="host_not_available">Strežnik ni na voljo</string>
     <string name="host_your_own_server">Gostite osebni strežnik</string>
+    <string name="in_folder">v mapi %1$s</string>
     <string name="instant_upload_existing">Pošlji tudi obstoječe datoteke</string>
     <string name="instant_upload_on_charging">Usklajuj le med polnjenjem naprave</string>
     <string name="instant_upload_path">/Hipno nalaganje</string>
     <string name="invalid_url">Neveljaven naslov URL</string>
-    <string name="invisible">Drugim neviden</string>
+    <string name="invisible">Drugim nevidno</string>
     <string name="label_empty">Oznaka ne sme biti prazno polje</string>
     <string name="link">Povezava</string>
     <string name="link_share_allow_upload_and_editing">Dovoli pošiljanje in urejanje</string>
