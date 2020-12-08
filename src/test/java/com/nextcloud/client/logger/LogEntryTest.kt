@@ -93,7 +93,7 @@ class LogEntryTest {
                 timestamp = Date(0),
                 level = Level.DEBUG,
                 tag =
-                    """靖康緗素雜記""",
+                """靖康緗素雜記""",
                 message = "夏炉冬扇"
             )
             assertEquals("1970-01-01T00:00:00.000Z;D;靖康緗素雜記;夏炉冬扇", entry.toString())
