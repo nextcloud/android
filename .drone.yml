@@ -5,7 +5,7 @@ name: tests-stable
 
 steps:
   - name: gplay
-    image: nextcloudci/android:android-49
+    image: nextcloudci/android8:android-60
     privileged: true
     environment:
       LOG_USERNAME:
@@ -16,10 +16,9 @@ steps:
         from_secret: GIT_USERNAME
       GIT_TOKEN:
         from_secret: GIT_TOKEN
-      ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - emulator-headless -avd android-27 -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
+      - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
       - sed -i s"#server#server#" gradle.properties
       - sed -i s"#1#5#" ./src/androidTest/java/com/nextcloud/client/RetryTestRule.kt
@@ -29,7 +28,7 @@ steps:
       - ./gradlew jacocoTestGplayDebugUnitTestReport && scripts/deleteOutdatedComments.sh "stable" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew installGplayDebugAndroidTest
       - scripts/wait_for_server.sh "server"
-      - ./gradlew createGplayDebugCoverageReport -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest && scripts/deleteOutdatedComments.sh "stable" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest && scripts/deleteOutdatedComments.sh "stable" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew combinedTestReport
   - name: notify
     image: drillster/drone-email
@@ -88,7 +87,7 @@ name: tests-master
 
 steps:
   - name: gplay
-    image: nextcloudci/android:android-49
+    image: nextcloudci/android8:android-60
     privileged: true
     environment:
       LOG_USERNAME:
@@ -99,10 +98,9 @@ steps:
         from_secret: GIT_USERNAME
       GIT_TOKEN:
         from_secret: GIT_TOKEN
-      ORG_GRADLE_PROJECT_coverage: ''
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
-      - emulator-headless -avd android-27 -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
+      - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
       - sed -i s"#1#5#" ./src/androidTest/java/com/nextcloud/client/RetryTestRule.kt
       - ./gradlew assembleGplay
@@ -111,7 +109,7 @@ steps:
       - ./gradlew jacocoTestGplayDebugUnitTestReport && scripts/deleteOutdatedComments.sh "master" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew installGplayDebugAndroidTest
       - scripts/wait_for_server.sh "server"
-      - ./gradlew createGplayDebugCoverageReport -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest && scripts/deleteOutdatedComments.sh "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+      - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest && scripts/deleteOutdatedComments.sh "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew combinedTestReport
       - curl -o codecov.sh https://codecov.io/bash
       - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
@@ -173,7 +171,7 @@ name: analysis
 
 steps:
   - name: analysis
-    image: nextcloudci/android:android-49
+    image: nextcloudci/android8:android-60
     environment:
       GIT_USERNAME:
         from_secret: GIT_USERNAME
