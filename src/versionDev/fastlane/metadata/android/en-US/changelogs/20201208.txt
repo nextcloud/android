@@ -1,0 +1,5 @@
+add button tinting
+Fix edge case when app is restored during backup and storage path does not exist Fix #4151
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
