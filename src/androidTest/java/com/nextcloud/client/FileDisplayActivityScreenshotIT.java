@@ -70,7 +70,7 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
         sut.getListOfFilesFragment().setFabEnabled(false);
-        sut.getListOfFilesFragment().setEmptyListLoadingMessage(false);
+        sut.getListOfFilesFragment().setEmptyListLoadingMessage();
         sut.getListOfFilesFragment().setLoading(false);
 
         // open drawer
@@ -90,7 +90,7 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
         // then compare screenshot
         shortSleep();
         sut.getListOfFilesFragment().setFabEnabled(false);
-        sut.getListOfFilesFragment().setEmptyListLoadingMessage(false);
+        sut.getListOfFilesFragment().setEmptyListLoadingMessage();
         sut.getListOfFilesFragment().setLoading(false);
         shortSleep();
         screenshot(sut);
