@@ -34,11 +34,9 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -48,6 +46,7 @@ import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
 import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.NotificationListItemBinding;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.notifications.models.Action;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
@@ -68,8 +67,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * This Adapter populates a RecyclerView with all notifications for an account within the app.
@@ -101,32 +98,34 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     @NonNull
     @Override
     public NotificationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(notificationsActivity).inflate(R.layout.notification_list_item, parent, false);
-        return new NotificationViewHolder(v);
+        return new NotificationViewHolder(
+            NotificationListItemBinding.inflate(LayoutInflater.from(notificationsActivity))
+        );
     }
 
     @Override
     public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {
         Notification notification = notificationsList.get(position);
-        holder.dateTime.setText(DisplayUtils.getRelativeTimestamp(notificationsActivity,
+        holder.binding.datetime.setText(DisplayUtils.getRelativeTimestamp(notificationsActivity,
                 notification.getDatetime().getTime()));
 
         RichObject file = notification.subjectRichParameters.get(FILE);
         String subject = notification.getSubject();
         if (file == null && !TextUtils.isEmpty(notification.getLink())) {
             subject = subject + " ↗";
-            holder.subject.setTypeface(holder.subject.getTypeface(), Typeface.BOLD);
-            holder.subject.setOnClickListener(v -> openLink(notification.getLink()));
-            holder.subject.setText(subject);
+            holder.binding.subject.setTypeface(holder.binding.subject.getTypeface(),
+                                                           Typeface.BOLD);
+            holder.binding.subject.setOnClickListener(v -> openLink(notification.getLink()));
+            holder.binding.subject.setText(subject);
         } else {
             if (!TextUtils.isEmpty(notification.subjectRich)) {
-                holder.subject.setText(makeSpecialPartsBold(notification));
+                holder.binding.subject.setText(makeSpecialPartsBold(notification));
             } else {
-                holder.subject.setText(subject);
+                holder.binding.subject.setText(subject);
             }
 
             if (file != null && !TextUtils.isEmpty(file.id)) {
-                holder.subject.setOnClickListener(v -> {
+                holder.binding.subject.setOnClickListener(v -> {
                     Intent intent = new Intent(notificationsActivity, FileDisplayActivity.class);
                     intent.setAction(Intent.ACTION_VIEW);
                     intent.putExtra(FileDisplayActivity.KEY_FILE_ID, file.id);
@@ -136,28 +135,29 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             }
         }
 
-        holder.message.setText(notification.getMessage());
+        holder.binding.message.setText(notification.getMessage());
 
         if (!TextUtils.isEmpty(notification.getIcon())) {
-            downloadIcon(notification.getIcon(), holder.icon);
+            downloadIcon(notification.getIcon(), holder.binding.icon);
         }
 
         int nightModeFlag = notificationsActivity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
             if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
-                holder.icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+                holder.binding.icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
             } else {
-                holder.icon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+                holder.binding.icon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
             }
 
         setButtons(holder, notification);
 
-        holder.dismiss.setOnClickListener(v -> new DeleteNotificationTask(client, notification, holder,
+        holder.binding.dismiss.setOnClickListener(v -> new DeleteNotificationTask(client, notification,
+                                                                                              holder,
                                                                           notificationsActivity).execute());
     }
 
     public void setButtons(NotificationViewHolder holder, Notification notification) {
         // add action buttons
-        holder.buttons.removeAllViews();
+        holder.binding.buttons.removeAllViews();
         MaterialButton button;
 
         Resources resources = notificationsActivity.getResources();
@@ -207,7 +207,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 }
             });
 
-            holder.buttons.addView(button);
+            holder.binding.buttons.addView(button);
         }
     }
 
@@ -256,8 +256,8 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
 
     public void setButtonEnabled(NotificationViewHolder holder, boolean enabled) {
-        for (int i = 0; i < holder.buttons.getChildCount(); i++) {
-            holder.buttons.getChildAt(i).setEnabled(enabled);
+        for (int i = 0; i < holder.binding.buttons.getChildCount(); i++) {
+            holder.binding.buttons.getChildAt(i).setEnabled(enabled);
         }
     }
 
@@ -295,22 +295,11 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     }
 
     public static class NotificationViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.notification_icon)
-        public ImageView icon;
-        @BindView(R.id.notification_subject)
-        public TextView subject;
-        @BindView(R.id.notification_message)
-        public TextView message;
-        @BindView(R.id.notification_datetime)
-        public TextView dateTime;
-        @BindView(R.id.notification_buttons)
-        public LinearLayout buttons;
-        @BindView(R.id.notification_dismiss)
-        public ImageView dismiss;
+        NotificationListItemBinding binding;
 
-        private NotificationViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        private NotificationViewHolder(NotificationListItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }
