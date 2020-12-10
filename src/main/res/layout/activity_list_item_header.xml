@@ -24,7 +24,7 @@
     android:background="@color/bg_default">
 
     <TextView
-        android:id="@+id/title_header"
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="@dimen/standard_list_item_size"

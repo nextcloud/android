@@ -228,8 +228,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
                                                     accountManager,
                                                     this,
                                                     this,
-                                                    storageManager,
-                                                    capability,
                                                     clientFactory
         );
         binding.list.setAdapter(adapter);
