@@ -152,9 +152,11 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                                                                  null,
                                                                  null)) {
                     if (cursor != null && cursor.moveToFirst()) {
-                        lastModified = cursor.getLong(
-                            cursor.getColumnIndexOrThrow(
-                                DocumentsContract.Document.COLUMN_LAST_MODIFIED));
+                        // this check prevents a crash when last modification time is not available on certain phones
+                        int columnIndex = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_LAST_MODIFIED);
+                        if (columnIndex >= 0) {
+                            lastModified = cursor.getLong(columnIndex);
+                        }
                     }
                 }
 
@@ -173,7 +175,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                 while ((count = inputStream.read(buffer)) > 0) {
                     outputStream.write(buffer, 0, count);
                 }
- 
+
                 if (lastModified != 0) {
                     try {
                         if (!cacheFile.setLastModified(lastModified)) {
