@@ -359,7 +359,7 @@
     <string name="uploader_upload_forbidden_permissions">to upload to this folder</string>
     <string name="downloader_download_file_not_found">The file is no longer available on the server</string>
 
-    <string name="file_migration_dialog_title">Updating storage path</string>
+    <string name="file_migration_dialog_title">Updating storage folder</string>
     <string name="file_migration_preparing">Preparing migration…</string>
     <string name="file_migration_checking_destination">Checking destination…</string>
     <string name="file_migration_saving_accounts_configuration">Saving account config…</string>
@@ -381,7 +381,7 @@
     <string name="file_migration_use_data_folder">Use</string>
 
     <string name="file_migration_source_not_readable_title">Source folder not readable!</string>
-    <string name="file_migration_source_not_readable">Do you still want to change the storage path to %1$s?\n\nNote: All data will have to be downloaded again.</string>
+    <string name="file_migration_source_not_readable">Do you still want to change the storage folder to %1$s?\n\nNote: All data will have to be downloaded again.</string>
 
     <string name="prefs_add_account">Add account</string>
     <string name="auth_redirect_non_secure_connection_title">Secure connection redirected through an unsecured route.</string>
@@ -441,7 +441,7 @@
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
     <string name="pref_behaviour_entries_move">moved to app folder</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
-    <string name="prefs_storage_path">Storage path</string>
+    <string name="prefs_storage_path">Data storage folder</string>
 
     <string name="pref_instant_name_collision_policy_dialogTitle">What to do if the file already exists?</string>
     <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
@@ -948,7 +948,7 @@
     <string name="player_toggle">toggle</string>
     <string name="in_folder">in folder %1$s</string>
     <string name="choose_which_file">Choose which file to keep!</string>
-    <string name="wrong_storage_path">Storage path does not exist!</string>
-    <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust storage path.</string>
+    <string name="wrong_storage_path">Storage folder does not exist!</string>
+    <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust storage folder.</string>
     <string name="dialog_close">Close</string>
 </resources>
