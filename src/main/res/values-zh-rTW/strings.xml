@@ -89,8 +89,10 @@
     <string name="checkbox">核取方塊</string>
     <string name="choose_local_folder">選擇本地資料夾…</string>
     <string name="choose_remote_folder">選擇遠端資料夾…</string>
+    <string name="choose_which_file">選擇要保留哪個檔案！</string>
     <string name="clear_notifications_failed">清空通知訊息失敗</string>
     <string name="clear_status_message">清空狀態列訊息</string>
+    <string name="clear_status_message_after">在...之後清空狀態訊息</string>
     <string name="clipboard_label">文字已由 %1$s 複製</string>
     <string name="clipboard_no_text_to_copy">無任何文字複製到剪貼簿。</string>
     <string name="clipboard_text_copied">連結已複製</string>
@@ -142,6 +144,7 @@
     <string name="confirmation_remove_local">只有本地</string>
     <string name="conflict_already_existing_file">檔案已存在</string>
     <string name="conflict_dialog_error">建立衝突訊息時發生錯誤！</string>
+    <string name="conflict_file_headline">檔案 %1$s 衝突</string>
     <string name="conflict_message_description">若您同時選擇兩個版本，本地的檔案會在檔名後附加編號。</string>
     <string name="conflict_message_headline">您要保留哪一個檔案？</string>
     <string name="conflict_new_file">新增檔案</string>
@@ -193,6 +196,7 @@
     <string name="dismiss">取消</string>
     <string name="dismiss_notification_description">清除通知訊息。</string>
     <string name="dnd">勿擾模式</string>
+    <string name="dontClear">不要清空</string>
     <string name="download_latest_dev_version">下載最新開發的版本</string>
     <string name="downloader_download_failed_content">下載 %1$s 無法完成 </string>
     <string name="downloader_download_failed_credentials_error">下載失敗，再重新登入</string>
@@ -273,6 +277,7 @@
     <string name="failed_to_download">無法下載</string>
     <string name="failed_to_print">列印失敗</string>
     <string name="failed_to_start_editor">起始編輯器失敗</string>
+    <string name="failed_update_ui">更新 UI 失敗</string>
     <string name="favorite">加到我的最愛</string>
     <string name="favorite_icon">我的最愛</string>
     <string name="file_delete">刪除</string>
@@ -362,16 +367,19 @@
     <string name="foreign_files_remote_text">遠端： %1$s</string>
     <string name="foreign_files_success">已經移動所有檔案</string>
     <string name="forward">向前</string>
+    <string name="fourHours">4 小時</string>
     <string name="hint_name">名稱</string>
     <string name="hint_note">筆記</string>
     <string name="hint_password">密碼</string>
     <string name="host_not_available">伺服器無法使用</string>
     <string name="host_your_own_server">擁有您自己的伺服器</string>
+    <string name="in_folder">在資料夾 %1$s</string>
     <string name="instant_upload_existing">一併上傳存在的檔案</string>
     <string name="instant_upload_on_charging">只在充電時上傳</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">無效的網址</string>
     <string name="invisible">隱藏</string>
+    <string name="label_empty">標籤不可以空著</string>
     <string name="link">連結</string>
     <string name="link_share_allow_upload_and_editing">允許上傳及編輯</string>
     <string name="link_share_file_drop">拖曳檔案(僅供上傳)</string>
@@ -431,6 +439,7 @@
     <string name="no_pdf_app_available">沒有應用程式可以開啟 PDF</string>
     <string name="note_confirm">傳送</string>
     <string name="note_could_not_sent">傳送留言失敗</string>
+    <string name="note_icon_hint">記事本圖示</string>
     <string name="notification_action_failed">執行的動作失敗</string>
     <string name="notification_channel_download_description">顯示下載進度</string>
     <string name="notification_channel_download_name">下載通知頻道</string>
@@ -452,6 +461,8 @@
     <string name="notifications_no_results_message">請稍候再檢查</string>
     <string name="offline_mode">沒有網路連線</string>
     <string name="oneHour">1 小時</string>
+    <string name="online">上線</string>
+    <string name="online_status">上線狀態</string>
     <string name="outdated_server">伺服器已過期，請升級！</string>
     <string name="overflow_menu">更多</string>
     <string name="pass_code_configure_your_pass_code">輸入通行碼</string>
@@ -472,12 +483,15 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">這是佔位內容</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">停止</string>
+    <string name="player_toggle">切換</string>
     <string name="power_save_check_dialog_message">停用省電功能時，就算電池電量偏低，檔案仍會持續上傳</string>
     <string name="pref_behaviour_entries_delete_file">已刪除</string>
     <string name="pref_behaviour_entries_keep_file">保留在原本的資料夾</string>
     <string name="pref_behaviour_entries_move">移動到應用程式資料夾</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">當檔案已經存在時我該怎麼做?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">每次問我</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">略過上傳</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">覆寫遠端的版本</string>
     <string name="pref_instant_name_collision_policy_entries_rename">重新命名新的版本</string>
     <string name="pref_instant_name_collision_policy_title">當檔案已經存在時我該怎麼做?</string>
@@ -517,6 +531,7 @@
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_sourcecode">取得原始碼</string>
     <string name="prefs_storage_path">儲存路徑</string>
+    <string name="prefs_sycned_folders_summary">管理資料夾以便自動上傳</string>
     <string name="prefs_synced_folders_local_path_title">本地資料夾</string>
     <string name="prefs_synced_folders_remote_path_title">遠端資料夾</string>
     <string name="prefs_theme_title">佈景主題</string>
@@ -572,6 +587,8 @@
     <string name="sendbutton_description">傳送按鈕圖示</string>
     <string name="set_as">設定為</string>
     <string name="set_picture_as">使用圖片作為</string>
+    <string name="set_status">設定狀態</string>
+    <string name="set_status_message">設定狀態訊息</string>
     <string name="share">分享</string>
     <string name="share_dialog_title">分享</string>
     <string name="share_expiration_date_label">過期 %1$s</string>
@@ -580,6 +597,7 @@
     <string name="share_internal_link">分享內部鏈結</string>
     <string name="share_internal_link_to_file_text">內部分享連結僅對有權存取這個檔案的使用者有效</string>
     <string name="share_internal_link_to_folder_text">內部分享連結僅對有權存取這個資料夾的使用者有效</string>
+    <string name="share_known_remote_on_clarification">在 %1$s</string>
     <string name="share_link">分享連結</string>
     <string name="share_link_empty_password">您必須輸入密碼</string>
     <string name="share_link_file_error">嘗試分享檔案或資料夾時發生錯誤</string>
@@ -587,6 +605,7 @@
     <string name="share_link_forbidden_permissions">分享這個檔案</string>
     <string name="share_link_optional_password_title">輸入密碼(選項)</string>
     <string name="share_link_password_title">輸入密碼</string>
+    <string name="share_link_with_label">共享連結 (%1$s)</string>
     <string name="share_no_expiration_date_label">設定到期日</string>
     <string name="share_no_password_title">設定密碼</string>
     <string name="share_password_title">受密碼保護</string>
@@ -800,6 +819,7 @@
     <string name="what_s_new_image">有什麼新圖片？</string>
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>
+    <string name="whats_your_status">你目前的狀態？</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">無法同步 %1$d 檔案 (衝突: %2$d)</item>
     </plurals>

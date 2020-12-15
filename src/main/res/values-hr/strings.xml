@@ -169,6 +169,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Trenutno nije podržano kopiranje/premještanje u šifriranu mapu.</string>
     <string name="copy_to">Kopiraj u…</string>
     <string name="could_not_download_image">Nije moguće preuzeti cijelu sliku</string>
+    <string name="could_not_retrieve_shares">Dohvaćanje dijeljenja nije uspjelo</string>
     <string name="could_not_retrieve_url">Nije moguće dohvatiti URL</string>
     <string name="create_dir_fail_msg">Nije moguće stvoriti mapu</string>
     <string name="create_new">Stvori novi</string>
@@ -274,6 +275,7 @@
     <string name="failed_to_download">Neuspješno prosljeđivanje datoteke upravitelju preuzimanja</string>
     <string name="failed_to_print">Ispisivanje datoteke nije uspjelo</string>
     <string name="failed_to_start_editor">Nije uspjelo pokretanje uređivača</string>
+    <string name="failed_update_ui">Ažuriranje korisničkog sučelja nije uspjelo</string>
     <string name="favorite">Dodaj u favorite</string>
     <string name="favorite_icon">Favorit</string>
     <string name="file_delete">Izbriši</string>
@@ -483,6 +485,7 @@
     <string name="pref_behaviour_entries_move">premješteno u mapu aplikacije</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Što učiniti ako datoteka već postoji?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Pitaj me svaki put</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Preskoči otpremanje</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Prepiši udaljenu inačicu</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Preimenuj novu inačicu</string>
     <string name="pref_instant_name_collision_policy_title">Što učiniti ako datoteka već postoji?</string>
@@ -591,6 +594,7 @@
     <string name="share_link_forbidden_permissions">kako biste dijelili ovu datoteku</string>
     <string name="share_link_optional_password_title">Unesite neobveznu zaporku</string>
     <string name="share_link_password_title">Unesite zaporku</string>
+    <string name="share_link_with_label">Dijeli poveznicu (%1$s)</string>
     <string name="share_no_expiration_date_label">Postavi datum isteka</string>
     <string name="share_no_password_title">Postavi zaporku</string>
     <string name="share_password_title">Zaštićeno zaporkom</string>
@@ -791,6 +795,7 @@
     <string name="uploads_view_upload_status_virus_detected">Otkriven je virus. Nije moguće dovršiti otpremanje!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Čekanje izlaza iz načina uštede energije</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Čekanje punjenja</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Čeka se nemjerena bežična (Wi-Fi) veza</string>
     <string name="user_icon">Korisnik</string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">E-pošta</string>
