@@ -375,6 +375,7 @@
     <string name="hint_password">Heslo</string>
     <string name="host_not_available">Server není k dispozici</string>
     <string name="host_your_own_server">Hostovat svůj vlastní server</string>
+    <string name="in_folder">v adresáři %1$s</string>
     <string name="instant_upload_existing">Také nahrát existující soubory</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>

@@ -537,6 +537,7 @@
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
     <string name="prefs_storage_path">Mesto shrambe</string>
+    <string name="prefs_sycned_folders_summary">Upravljanje map za samodejno pošiljanje</string>
     <string name="prefs_synced_folders_local_path_title">Krajevna mapa</string>
     <string name="prefs_synced_folders_remote_path_title">Mapa na strežniku</string>
     <string name="prefs_theme_title">Tema</string>
@@ -792,7 +793,7 @@
     <string name="uploader_wrn_no_account_text">Za %1$s ni določenega računa. Pred nadaljevanjem ga je treba ustvariti.</string>
     <string name="uploader_wrn_no_account_title">Ni najdenega nobenega računa</string>
     <string name="uploads_view_group_current_uploads">Trenutno</string>
-    <string name="uploads_view_group_failed_uploads">Ponovni zagon je spodletel ali pa je na čakanju.</string>
+    <string name="uploads_view_group_failed_uploads">Ponovno pošiljanje je spodletelo oziroma je na čakanju.</string>
     <string name="uploads_view_group_finished_uploads">Poslano</string>
     <string name="uploads_view_later_waiting_to_upload">Poteka čakanje na pošiljanje…</string>
     <string name="uploads_view_title">Poslano</string>

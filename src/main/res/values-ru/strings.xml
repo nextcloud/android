@@ -90,6 +90,7 @@
     <string name="checkbox">Флажок</string>
     <string name="choose_local_folder">Выберите каталог на устройстве…</string>
     <string name="choose_remote_folder">Выберите каталог на сервере…</string>
+    <string name="choose_which_file">Выберите какой файл оставить!</string>
     <string name="clear_notifications_failed">Не удалось удалить уведомления.</string>
     <string name="clear_status_message">Очистить сообщение о состоянии</string>
     <string name="clear_status_message_after">Очистить сообщение о состоянии через</string>
@@ -375,6 +376,7 @@
     <string name="hint_password">Пароль</string>
     <string name="host_not_available">Сервер недоступен</string>
     <string name="host_your_own_server">Развернуть собственный сервер</string>
+    <string name="in_folder">в папку %1$s</string>
     <string name="instant_upload_existing">Также передать существующие файлы</string>
     <string name="instant_upload_on_charging">Необходимо подключение внешнего питания</string>
     <string name="instant_upload_path">/Автозагрузка</string>
@@ -534,6 +536,7 @@
     <string name="prefs_show_hidden_files">Показывать скрытые файлы</string>
     <string name="prefs_sourcecode">Получить исходный код</string>
     <string name="prefs_storage_path">Путь к хранилищу</string>
+    <string name="prefs_sycned_folders_summary">Управление папками для автозагрузки</string>
     <string name="prefs_synced_folders_local_path_title">Папка на устройстве</string>
     <string name="prefs_synced_folders_remote_path_title">Папка на сервере</string>
     <string name="prefs_theme_title">Стиль оформления</string>
