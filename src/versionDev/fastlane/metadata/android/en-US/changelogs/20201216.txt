@@ -1,0 +1,2 @@
+Do not line wrap
+Update translations
