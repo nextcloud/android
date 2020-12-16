@@ -195,6 +195,7 @@ Attention la suppression est irréversible.</string>
     <string name="dev_version_new_version_available">Nouvelle version disponible</string>
     <string name="dev_version_no_information_available">Aucune information disponible.</string>
     <string name="dev_version_no_new_version_available">Aucune nouvelle version disponible.</string>
+    <string name="dialog_close">Fermer</string>
     <string name="digest_algorithm_not_available">Cet algorithme de hachage n\'est pas disponible sur votre appareil.</string>
     <string name="disable_new_media_folder_detection_notifications">Désactiver</string>
     <string name="dismiss">Ignorer</string>
@@ -834,6 +835,7 @@ Attention la suppression est irréversible.</string>
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
     <string name="whats_your_status">Quel est votre statut ?</string>
+    <string name="wrong_storage_path">Le dossier de stockage n\'existe pas</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossible de synchroniser %1$d fichier (conflits : %2$d)</item>
         <item quantity="other">Impossible de synchroniser %1$d fichiers (conflits : %2$d)</item>
