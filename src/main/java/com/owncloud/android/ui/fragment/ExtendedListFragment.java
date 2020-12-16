@@ -176,7 +176,11 @@ public class ExtendedListFragment extends Fragment implements
     }
 
     public boolean isGridEnabled() {
-        return getRecyclerView().getLayoutManager() instanceof GridLayoutManager;
+        if (getRecyclerView() != null) {
+            return getRecyclerView().getLayoutManager() instanceof GridLayoutManager;
+        } else {
+            return false;
+        }
     }
 
     @Override
