@@ -30,7 +30,8 @@ class PreviewImageFragmentIT : AbstractIT() {
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
 
-    // Disabled for now due to strange failing when using entire test suite
+    // TODO Disabled for now due to strange failing when using entire test suite
+
     // Findings so far:
     // PreviewImageFragmentIT runs fine when only running this
     // running it in whole test suite fails
