@@ -25,7 +25,7 @@
     android:layout_height="match_parent"
     tools:context="com.labters.documentscanner.ImageCropActivity"
     android:background="@color/bg_default"
-    android:id="@+id/contraintLayoutMainContainer">
+    android:id="@+id/constraintLayoutMainContainer">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout_scan_doc_buttons"
@@ -43,7 +43,7 @@
             android:layout_height="40dp"
             android:background="@drawable/round_bgnd"
             android:padding="5dp"
-            android:src="@drawable/ic_camera"
+            android:src="@drawable/ic_photo_cam"
             app:layout_constraintEnd_toStartOf="@+id/ivDeletePage"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"

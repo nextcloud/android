@@ -112,7 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@null"
-            android:src="@drawable/ic_camera"
+            android:src="@drawable/ic_photo_cam"
             app:tint="@color/primary" />
 
         <TextView
@@ -142,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@null"
-            android:src="@drawable/ic_camera"
+            android:src="@drawable/ic_photo_cam"
             app:tint="@color/primary" />
 
         <TextView
