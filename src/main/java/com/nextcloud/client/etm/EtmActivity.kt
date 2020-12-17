@@ -21,8 +21,10 @@ package com.nextcloud.client.etm
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.di.Injectable
@@ -90,5 +92,10 @@ class EtmActivity : ToolbarActivity(), Injectable {
                 .commitNow()
             updateActionBarTitleAndHomeButtonByString(getString(R.string.etm_title))
         }
+    }
+
+    @VisibleForTesting
+    fun getSharedPreferences() : SharedPreferences{
+        return vm.defaultPreferences
     }
 }
