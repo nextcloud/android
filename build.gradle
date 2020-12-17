@@ -8,7 +8,7 @@ import com.github.spotbugs.snom.SpotBugsTask
 // its root folder, another one for the app module in subfolder of root.
 
 buildscript {
-    ext.kotlin_version = '1.4.20'
+    ext.kotlin_version = '1.4.21'
     repositories {
         google()
         jcenter()
@@ -336,7 +336,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
-    ktlint "com.pinterest:ktlint:0.39.0"
+    ktlint "com.pinterest:ktlint:0.40.0"
     implementation 'org.conscrypt:conscrypt-android:2.5.1'
 
     // Shimmer animation

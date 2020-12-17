@@ -82,7 +82,7 @@
     <string name="away">Bezczynny</string>
     <string name="battery_optimization_close">Zamknij</string>
     <string name="battery_optimization_disable">Wyłącz</string>
-    <string name="battery_optimization_message">Twoje urządzenie może mieć włączoną optymalizację baterii. AutoUpload działa poprawnie tylko wtedy, gdy wykluczysz z niego tę aplikację.</string>
+    <string name="battery_optimization_message">Twoje urządzenie może mieć włączoną optymalizację baterii. Automatyczne wysyłanie działa poprawnie tylko wtedy, gdy wykluczysz z niej tę aplikację.</string>
     <string name="battery_optimization_no_setting">Nie można bezpośrednio uruchomić ustawień baterii. Dostosuj ręcznie w ustawieniach.</string>
     <string name="battery_optimization_title">Optymalizacja baterii</string>
     <string name="certificate_load_problem">Problem podczas ładowania certyfikatu.</string>
@@ -193,6 +193,7 @@
     <string name="dev_version_new_version_available">Dostępna nowa wersja</string>
     <string name="dev_version_no_information_available">Brak dostępnych informacji.</string>
     <string name="dev_version_no_new_version_available">Brak nowej wersji.</string>
+    <string name="dialog_close">Zakończ</string>
     <string name="digest_algorithm_not_available">Algorytm funkcji skrótu nie jest dostępny na Twoim urządzeniu.</string>
     <string name="disable_new_media_folder_detection_notifications">Wyłącz</string>
     <string name="dismiss">Odrzuć</string>
@@ -317,7 +318,7 @@
     <string name="file_list_seconds_ago">przed chwilą</string>
     <string name="file_migration_checking_destination">Sprawdzanie miejsca…</string>
     <string name="file_migration_cleaning">Czyszczenie…</string>
-    <string name="file_migration_dialog_title">Aktualizacja lokalizacji zapisywania</string>
+    <string name="file_migration_dialog_title">Aktualizacja katalogu przechowywania danych</string>
     <string name="file_migration_directory_already_exists">Katalog danych już istnieje. Wybierz jedno z następujących:</string>
     <string name="file_migration_failed_dir_already_exists">Katalog Nextcloud już istnieje</string>
     <string name="file_migration_failed_not_enough_space">Potrzeba więcej miejsca</string>
@@ -331,7 +332,7 @@
     <string name="file_migration_preparing">Przygotowywanie migracji…</string>
     <string name="file_migration_restoring_accounts_configuration">Przywracanie konfiguracji konta…</string>
     <string name="file_migration_saving_accounts_configuration">Zapisywanie konfiguracji konta…</string>
-    <string name="file_migration_source_not_readable">Czy nadal chcesz zmienić ścieżkę lokalizacji zapisywania na %1$s?\n\nUwaga: Wszystkie dane będą musiały zostać pobrane ponownie.</string>
+    <string name="file_migration_source_not_readable">Czy nadal chcesz zmienić katalog przechowywania danych na %1$s?\n\nUwaga: Wszystkie dane będą musiały zostać pobrane ponownie.</string>
     <string name="file_migration_source_not_readable_title">Nie można odczytać katalogu źródłowego!</string>
     <string name="file_migration_updating_index">Aktualizacja indeksu…</string>
     <string name="file_migration_use_data_folder">Użyj</string>
@@ -536,7 +537,7 @@
     <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_sourcecode">Pobierz kod źródłowy</string>
-    <string name="prefs_storage_path">Lokalizacja przechowywania danych</string>
+    <string name="prefs_storage_path">Katalog przechowywania danych</string>
     <string name="prefs_sycned_folders_summary">Zarządzaj katalogami do automatycznego wysyłania</string>
     <string name="prefs_synced_folders_local_path_title">Katalog lokalny</string>
     <string name="prefs_synced_folders_remote_path_title">Katalog zdalny</string>
@@ -832,6 +833,8 @@
     <string name="whats_new_skip">Pomiń</string>
     <string name="whats_new_title">Co nowego w %1$s</string>
     <string name="whats_your_status">Jaki jest Twój status?</string>
+    <string name="wrong_storage_path">Ścieżka do przechowywania nie istnieje!</string>
+    <string name="wrong_storage_path_desc">Może to być spowodowane z przywróceniem kopii zapasowej na innym urządzeniu. Powrócono do wartości domyślnych. Sprawdź ustawienia, aby zmodyfikować ścieżkę przechowywania.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nie udała się synchronizacja %1$d pliku (konflikty: %2$d)</item>
         <item quantity="few">Nie udała się synchronizacja %1$d plików (konflikty: %2$d)</item>
