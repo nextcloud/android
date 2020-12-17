@@ -21,8 +21,12 @@
  */
 package com.owncloud.android.ui.activity
 
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.R
 import com.owncloud.android.lib.resources.notifications.models.Action
 import com.owncloud.android.lib.resources.notifications.models.Notification
 import com.owncloud.android.lib.resources.notifications.models.RichObject
@@ -161,6 +165,15 @@ class NotificationsActivityIT : AbstractIT() {
 
         sut.runOnUiThread { sut.setEmptyContent("Error", "Error! Please try again later!") }
 
+        screenshot(sut)
+    }
+
+    @Test
+    @ScreenshotTest
+    fun openDrawer() {
+        val sut: NotificationsActivity = activityRule.launchActivity(null)
+        Espresso.onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
+        waitForIdleSync()
         screenshot(sut)
     }
 }
