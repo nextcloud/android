@@ -17,6 +17,6 @@ cd build/screenshotOverview
 find . -type d -exec curl -u $USER:$PASS -X MKCOL $URL/$REMOTE_FOLDER/$(echo {} | sed s#\./##) \;
 find . -type f -exec curl -u $USER:$PASS -X PUT $URL/$REMOTE_FOLDER/$(echo {} | sed s#\./##) --upload-file {} \;
 
-echo "Uploaded screenshot overview to https://www.kaminsky.me/nc-dev/android-integrationTests/$REMOTE_FOLDER"
+echo "Uploaded screenshot overview to https://www.kaminsky.me/nc-dev/android-integrationTests/$REMOTE_FOLDER/overview.html"
 
 exit 0
