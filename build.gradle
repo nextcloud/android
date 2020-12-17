@@ -62,7 +62,7 @@ ext {
     butterknifeVersion = "10.2.3"
     androidLibraryVersion = "master-SNAPSHOT"
     mockitoVersion = "3.6.28"
-    mockkVersion = "1.10.2"
+    mockkVersion = "1.10.3-jdk8"
     powermockVersion = "2.0.9"
     byteBuddyVersion = "1.10.18"
     espressoVersion = "3.3.0"
@@ -388,7 +388,7 @@ dependencies {
     }
     androidTestImplementation "net.bytebuddy:byte-buddy:$byteBuddyVersion"
     androidTestImplementation "net.bytebuddy:byte-buddy-android:$byteBuddyVersion"
-    androidTestImplementation "io.mockk:mockk-android:1.10.0"
+    androidTestImplementation "io.mockk:mockk-android:1.10.3-jdk8"
     androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
 
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
