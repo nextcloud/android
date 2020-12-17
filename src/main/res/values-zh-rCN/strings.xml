@@ -193,6 +193,7 @@
     <string name="dev_version_new_version_available">新版本可用</string>
     <string name="dev_version_no_information_available">没有可用信息</string>
     <string name="dev_version_no_new_version_available">没有可用的新版本</string>
+    <string name="dialog_close">关闭</string>
     <string name="digest_algorithm_not_available">算法不可用。</string>
     <string name="disable_new_media_folder_detection_notifications">禁用</string>
     <string name="dismiss">忽略</string>
@@ -835,6 +836,8 @@
     <string name="whats_new_skip">跳过</string>
     <string name="whats_new_title">新建%1$s</string>
     <string name="whats_your_status">你现在是什么状态？</string>
+    <string name="wrong_storage_path">存储路径不存在！</string>
+    <string name="wrong_storage_path_desc">这可能是由于在另一个设备上进行了备份恢复。正退回到默认状态。请检查“设置”以调整存储路径。</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">%1$d 个文件无法被同步 (与%2$d冲突)</item>
     </plurals>

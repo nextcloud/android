@@ -698,7 +698,7 @@
     <string name="sync_foreign_files_forgotten_ticker">Nekatere krajevne datoteke so spregledane</string>
     <string name="sync_in_progress">Poteka pridobivanje zadnje različice datoteke.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Izbor predmetov za usklajevanje</string>
-    <string name="sync_not_enough_space_dialog_action_free_space">Izpraznite prostor</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Sprostite prostor</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s je %2$s, vendar je na napravi na voljo le %3$s.</string>
     <string name="sync_not_enough_space_dialog_title">Ni dovolj prostora</string>
     <string name="sync_status_button">Gumb stanja usklajevanja</string>
