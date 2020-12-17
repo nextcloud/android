@@ -23,6 +23,7 @@ package com.owncloud.android.ui.activity
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
 
