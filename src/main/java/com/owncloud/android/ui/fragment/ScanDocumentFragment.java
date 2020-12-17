@@ -29,12 +29,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.labters.documentscanner.libraries.NativeClass;
 import com.labters.documentscanner.libraries.PolygonView;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.FragmentScanDocumentBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.BitmapUtils;
 
@@ -50,9 +50,6 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -64,18 +61,12 @@ public class ScanDocumentFragment extends Fragment {
     protected final CompositeDisposable disposable;
     private final NativeClass nativeClassOpenCV;
     private final OnProcessImage onProcessImageCallback;
-    @BindView(R.id.holderImageCrop)
-    FrameLayout holderImageCrop;
-    @BindView(R.id.imageViewScanDocument)
-    ImageView imageView;
-    @BindView(R.id.polygonViewScanDocument)
     PolygonView polygonView;
     private boolean inverted;
     private Bitmap originalImage;
-
-    private Unbinder unbinder;
     private Bitmap editedImage;
     private Bitmap nonInvertedImage;
+    private FragmentScanDocumentBinding binding;
 
     public ScanDocumentFragment(OnProcessImage onProcessImage, Bitmap originalImage, Bitmap editedImage) {
         this.editedImage = editedImage.copy(editedImage.getConfig(), true);
@@ -97,15 +88,23 @@ public class ScanDocumentFragment extends Fragment {
     }
 
     public void forceUpdateImages(Bitmap bitmap) {
-        editedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, holderImageCrop.getWidth(), holderImageCrop.getHeight());
-        originalImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, holderImageCrop.getWidth(), holderImageCrop.getHeight());
-        nonInvertedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, holderImageCrop.getWidth(), holderImageCrop.getHeight());
-        imageView.setImageBitmap(editedImage);
+        editedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap,
+                                                         binding.holderImageCrop.getWidth(),
+                                                         binding.holderImageCrop.getHeight());
+        originalImage = BitmapUtils.scaleToFitCenterBitmap(bitmap,
+                                                           binding.holderImageCrop.getWidth(),
+                                                           binding.holderImageCrop.getHeight());
+        nonInvertedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap,
+                                                              binding.holderImageCrop.getWidth(),
+                                                              binding.holderImageCrop.getHeight());
+        binding.imageViewScanDocument.setImageBitmap(editedImage);
     }
 
     private void updateEditedImage(Bitmap bitmap) {
-        editedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap, holderImageCrop.getWidth(), holderImageCrop.getHeight());
-        imageView.setImageBitmap(editedImage);
+        editedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap,
+                                                         binding.holderImageCrop.getWidth(),
+                                                         binding.holderImageCrop.getHeight());
+        binding.imageViewScanDocument.setImageBitmap(editedImage);
     }
 
     public boolean isNotInverted() {
@@ -134,13 +133,15 @@ public class ScanDocumentFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_scan_document, container, false);
+
+        binding = FragmentScanDocumentBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        unbinder = ButterKnife.bind(this, view);
+
         // wait view to be ready
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             public void onGlobalLayout() {
@@ -239,8 +240,8 @@ public class ScanDocumentFragment extends Fragment {
 
     private Bitmap cropImageProcess(Map<Integer, PointF> points) {
         try {
-            float xRatio = (float) editedImage.getWidth() / imageView.getWidth();
-            float yRatio = (float) editedImage.getHeight() / imageView.getHeight();
+            float xRatio = (float) editedImage.getWidth() / binding.imageViewScanDocument.getWidth();
+            float yRatio = (float) editedImage.getHeight() / binding.imageViewScanDocument.getHeight();
 
             float x1 = (Objects.requireNonNull(points.get(0)).x) * xRatio;
             float x2 = (Objects.requireNonNull(points.get(1)).x) * xRatio;
@@ -305,7 +306,7 @@ public class ScanDocumentFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        binding = null;
     }
 
     protected void showCropError() {

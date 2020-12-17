@@ -40,12 +40,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.ActivityScanDocBinding;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
@@ -64,12 +61,7 @@ import java.io.IOException;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager2.widget.ViewPager2;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 import static com.owncloud.android.ui.activity.FileActivity.REQUEST_CODE__LAST_SHARED;
 
@@ -82,44 +74,8 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
     private static final int PAGE_WIDTH = 960;
     private static final int PAGE_HEIGHT = 1280;
 
-    @BindView(R.id.progressBarScanDocument)
-    ProgressBar progressBar;
-
-    @BindView(R.id.ivAddAnOtherScanToDoc)
-    ImageView ivAddAnOtherScanToDoc;
-
-    @BindView(R.id.textViewPageCounter)
-    TextView textViewPageCounter;
-
-    @BindView(R.id.viewPagerScanDocument)
-    ViewPager2 viewPagerScanDocument;
-
-    @BindView(R.id.btnClose)
-    MaterialButton btnClose;
-
-    @BindView(R.id.btnValidate)
-    MaterialButton btnValidate;
-
-    @BindView(R.id.ivNextScanDoc)
-    ImageView ivNextScanDoc;
-
-    @BindView(R.id.contraintLayoutMainContainer)
-    ConstraintLayout constraintLayoutMainContainer;
-
-    @BindView(R.id.constraintLayout_crop_button)
-    ConstraintLayout constraintLayoutCropButton;
-
-    @BindView(R.id.constraintLayout_scan_doc_buttons)
-    ConstraintLayout constraintLayoutScanDocButtons;
-
-    @BindView(R.id.constraintLayout_pager_button)
-    ConstraintLayout constraintLayoutPagerButton;
-
-    @BindView(R.id.ivPreviousScanDoc)
-    ImageView ivPreviousScanDoc;
-
     int mCurrentPosition;
-    private Unbinder unbinder;
+    private ActivityScanDocBinding binding;
     private String pdfName = FileOperationsHelper.getScanDocName();
     private ScanDocumentAdapter scanDocumentAdapter;
 
@@ -131,13 +87,14 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan_doc);
-        unbinder = ButterKnife.bind(this);
+
+        binding = ActivityScanDocBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         mCurrentPosition = -1;
 
         scanDocumentAdapter = new ScanDocumentAdapter(this, getSupportFragmentManager(), getLifecycle());
-        viewPagerScanDocument.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        binding.viewPagerScanDocument.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -155,15 +112,35 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
                 super.onPageScrollStateChanged(state);
             }
         });
-        viewPagerScanDocument.setAdapter(scanDocumentAdapter);
-        viewPagerScanDocument.setUserInputEnabled(true);
+        binding.viewPagerScanDocument.setAdapter(scanDocumentAdapter);
+        binding.viewPagerScanDocument.setUserInputEnabled(true);
+
+        ThemeUtils.colorPrimaryButton(binding.btnValidate, this);
+        binding.btnClose.setTextColor(ThemeUtils.primaryColor(this, true));
+
+        setupClickListener();
 
         FileOperationsHelper
             .takePictureFromCamera(this, REQUEST_CODE__TAKE_PICTURE_FROM_CAMERA);
-
     }
 
-    @OnClick(R.id.ivDeletePage)
+    private void setupClickListener() {
+        binding.ivDeletePage.setOnClickListener(v -> onDeletePageClick());
+        binding.ivRetakePicture.setOnClickListener(v -> onRetakePictureClick());
+        binding.ivRename.setOnClickListener(v -> buttonRenameClick());
+        binding.btnValidate.setOnClickListener(v -> buttonValidateClick());
+        binding.ivCrop.setOnClickListener(v -> buttonClickShowCropButtons());
+        binding.ivCancelCrop.setOnClickListener(v -> buttonClickHideCropButtons());
+        binding.ivValidateCrop.setOnClickListener(v -> buttonClickValidateCrop());
+        binding.ivReset.setOnClickListener(v -> buttonClickReset());
+        binding.btnClose.setOnClickListener(v -> buttonClickClose());
+        binding.ivInvert.setOnClickListener(v -> buttonInvertColor());
+        binding.ivRotate.setOnClickListener(v -> buttonRotateClick());
+        binding.ivAddAnOtherScanToDoc.setOnClickListener(v -> onAddOtherScanDocClick());
+        binding.ivNextScanDoc.setOnClickListener(v -> onNextScanDocClick());
+        binding.ivPreviousScanDoc.setOnClickListener(v -> onPreviousScanDocClick());
+    }
+
     void onDeletePageClick() {
         scanDocumentAdapter.deleteScanImage(mCurrentPosition);
         if (scanDocumentAdapter.getItemCount() == 0) {
@@ -172,13 +149,11 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
         }
     }
 
-    @OnClick(R.id.ivRetakePicture)
     void onRetakePictureClick() {
         FileOperationsHelper
             .takePictureFromCamera(this, REQUEST_CODE__RETAKE_PICTURE_FROM_CAMERA);
     }
 
-    @OnClick(R.id.ivRename)
     void buttonRenameClick() {
         int accentColor = ThemeUtils.primaryAccentColor(this);
 
@@ -236,9 +211,9 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
         }
         d.show();
         d.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(accentColor);
+        d.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(accentColor);
     }
 
-    @OnClick(R.id.btnValidate)
     void buttonValidateClick() {
         // change to a static pdf file and a rename string
         createPDFDocument();
@@ -249,85 +224,75 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
 
     }
 
-    @OnClick(R.id.ivCrop)
     void buttonClickShowCropButtons() {
         setCropView(true);
         getCurrentScanDocumentFragment().trySetPolygonViewToADocument();
     }
 
-    @OnClick(R.id.ivCancelCrop)
     void buttonClickHideCropButtons() {
         setCropView(false);
         getCurrentScanDocumentFragment().disablePolygonView();
     }
 
-    @OnClick(R.id.ivValidateCrop)
     void buttonClickValidateCrop() {
         getCurrentScanDocumentFragment().cropImageFromPolygon();
         getCurrentScanDocumentFragment().disablePolygonView();
         setCropView(false);
     }
 
-    @OnClick(R.id.ivReset)
     void buttonClickReset() {
         getCurrentScanDocumentFragment().resetImage();
     }
 
-    @OnClick(R.id.btnClose)
     void buttonClickClose() {
         finish();
     }
 
-    @OnClick(R.id.ivInvert)
     void buttonInvertColor() {
         getCurrentScanDocumentFragment().invertColorImage();
     }
 
-    @OnClick(R.id.ivRotate)
     void buttonRotateClick() {
         getCurrentScanDocumentFragment().rotateBitmap(90);
     }
 
-    @OnClick(R.id.ivAddAnOtherScanToDoc)
     void onAddOtherScanDocClick() {
         FileOperationsHelper.takePictureFromCamera(this, REQUEST_CODE__TAKE_PICTURE_FROM_CAMERA);
     }
 
-    @OnClick(R.id.ivNextScanDoc)
     void onNextScanDocClick() {
-        viewPagerScanDocument.setCurrentItem(mCurrentPosition + 1, true);
+        binding.viewPagerScanDocument.setCurrentItem(mCurrentPosition + 1, true);
         updateNextPrevious();
     }
 
-    @OnClick(R.id.ivPreviousScanDoc)
     void onPreviousScanDocClick() {
-        viewPagerScanDocument.setCurrentItem(mCurrentPosition - 1, true);
+        binding.viewPagerScanDocument.setCurrentItem(mCurrentPosition - 1, true);
         updateNextPrevious();
     }
 
     private void disableViewAndSetProgressBar(boolean isShow) {
-        setViewInteract(constraintLayoutMainContainer, !isShow);
-        progressBar.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        setViewInteract(binding.constraintLayoutMainContainer, !isShow);
+        binding.progressBarScanDocument.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
     private void setCropView(boolean isEnable) {
-        viewPagerScanDocument.setUserInputEnabled(!isEnable);
+        binding.viewPagerScanDocument.setUserInputEnabled(!isEnable);
         //Disable all
-        setViewInteract(constraintLayoutMainContainer, !isEnable);
+        setViewInteract(binding.constraintLayoutMainContainer, !isEnable);
         //Enable only CropButton
-        setViewInteract(constraintLayoutCropButton, isEnable);
-        constraintLayoutCropButton.setVisibility(isEnable ? View.VISIBLE : View.INVISIBLE);
-        constraintLayoutPagerButton.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
-        constraintLayoutScanDocButtons.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
-        ivAddAnOtherScanToDoc.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
-        btnClose.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
-        btnValidate.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
+        setViewInteract(binding.constraintLayoutCropButton, isEnable);
+        binding.constraintLayoutCropButton.setVisibility(isEnable ? View.VISIBLE : View.INVISIBLE);
+        binding.constraintLayoutPagerButton.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
+        binding.constraintLayoutScanDocButtons.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
+        binding.ivAddAnOtherScanToDoc.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
+        binding.btnClose.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
+        binding.btnValidate.setVisibility(isEnable ? View.INVISIBLE : View.VISIBLE);
     }
 
     private void updateNextPrevious() {
-        ivPreviousScanDoc.setEnabled(mCurrentPosition != 0);
-        ivNextScanDoc.setEnabled(mCurrentPosition != scanDocumentAdapter.getItemCount());
-        textViewPageCounter.setText(getString(R.string.upload_scan_doc_page_counter, mCurrentPosition + 1,
+        binding.ivPreviousScanDoc.setEnabled(mCurrentPosition != 0);
+        binding.ivNextScanDoc.setEnabled(mCurrentPosition != scanDocumentAdapter.getItemCount());
+        binding.textViewPageCounter.setText(getString(R.string.upload_scan_doc_page_counter, mCurrentPosition + 1,
                                               scanDocumentAdapter.getItemCount()));
     }
 
@@ -345,12 +310,6 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -364,16 +323,16 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
             originalBitmap = BitmapUtils.rotateImage(originalBitmap, path);
             scanDocumentAdapter.addScanImage(originalBitmap, scanDocumentAdapter.getItemCount());
             updateNextPrevious();
-            viewPagerScanDocument.setCurrentItem(scanDocumentAdapter.getItemCount() - 1, false);
+            binding.viewPagerScanDocument.setCurrentItem(scanDocumentAdapter.getItemCount() - 1, false);
         } else if (requestCode == REQUEST_CODE__RETAKE_PICTURE_FROM_CAMERA && resultCode == RESULT_OK) {
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
             String path = FileOperationsHelper.createImageFile(this).getAbsolutePath();
             Bitmap picture = BitmapFactory.decodeFile(path,
                                                       bmOptions);
             picture = BitmapUtils.rotateImage(picture, path);
-            scanDocumentAdapter.changeScanImage(picture, viewPagerScanDocument.getCurrentItem());
+            scanDocumentAdapter.changeScanImage(picture, binding.viewPagerScanDocument.getCurrentItem());
             updateNextPrevious();
-            viewPagerScanDocument.setCurrentItem(viewPagerScanDocument.getCurrentItem(), false);
+            binding.viewPagerScanDocument.setCurrentItem(binding.viewPagerScanDocument.getCurrentItem(), false);
         }
     }
 
