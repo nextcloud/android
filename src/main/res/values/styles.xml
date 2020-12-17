@@ -86,7 +86,7 @@
 
     <style name="FallbackTheming.Dialog.ButtonStyle"
         parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textColor">@color/text_color</item>
     </style>
 
 	<!-- separate action bar style for activities without an action bar -->
