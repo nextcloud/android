@@ -675,8 +675,8 @@
     <string name="stream">Srautas su ...</string>
     <string name="stream_not_possible_headline">Vidinis perdavimimas negalimas</string>
     <string name="stream_not_possible_message">Prašome, parsisiųskite media arba naudokite išorinę programą.</string>
-    <string name="subject_shared_with_you">\"%1$s\" dalinamasi su jumis</string>
-    <string name="subject_user_shared_with_you">%1$s dalinamasi \"%2$s\" su jumis</string>
+    <string name="subject_shared_with_you">„%1$s“ yra bendrinama su jumis</string>
+    <string name="subject_user_shared_with_you">%1$s pradėjo bendrinti su jumis „%2$s“</string>
     <string name="sync_conflicts_in_favourites_ticker">Rastas konfliktas</string>
     <string name="sync_current_folder_was_removed">Aplanko %1$s nebėra</string>
     <string name="sync_fail_content">Nepavyko sinchronizuoti %1$s</string>
