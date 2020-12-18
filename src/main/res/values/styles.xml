@@ -80,7 +80,14 @@
         <item name="windowNoTitle">false</item>
         <item name="android:windowBackground">@color/bg_default</item>
         <item name="android:textAllCaps">false</item>
+
+        <item name="android:buttonBarButtonStyle">@style/FallbackTheming.Dialog.ButtonStyle</item>
 	</style>
+
+    <style name="FallbackTheming.Dialog.ButtonStyle"
+        parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/text_color</item>
+    </style>
 
 	<!-- separate action bar style for activities without an action bar -->
     <style name="BaseTheme.ownCloud.Toolbar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
