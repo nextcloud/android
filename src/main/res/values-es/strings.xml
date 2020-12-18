@@ -193,6 +193,7 @@
     <string name="dev_version_new_version_available">Nueva versión disponible</string>
     <string name="dev_version_no_information_available">No hay información disponible</string>
     <string name="dev_version_no_new_version_available">No hay disponible ninguna versión nueva</string>
+    <string name="dialog_close">Cerrar</string>
     <string name="digest_algorithm_not_available">Este algoritmo no está disponible en tu teléfono.</string>
     <string name="disable_new_media_folder_detection_notifications">Desactivar</string>
     <string name="dismiss">Descartar</string>
@@ -832,6 +833,8 @@
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
     <string name="whats_your_status">¿Cuál es tu estado?</string>
+    <string name="wrong_storage_path">¡La ruta de almacenamiento no existe!</string>
+    <string name="wrong_storage_path_desc">Puede ocurrir al restaurar una copia de seguridad de otro dispositivo. Se ha configurado la ruta predeterminada. Abre los ajustes para cambiarla.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">No se ha podido sincronizar %1$d archivo (conflicto con %2$d)</item>
         <item quantity="other">No se ha podido sincronizar %1$d archivos (conflicto con %2$d)</item>

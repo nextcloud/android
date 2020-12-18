@@ -193,6 +193,7 @@
     <string name="dev_version_new_version_available">Neue Version verfügbar</string>
     <string name="dev_version_no_information_available">Keine Information verfügbar.</string>
     <string name="dev_version_no_new_version_available">Keine neue Version verfügbar.</string>
+    <string name="dialog_close">Schließen</string>
     <string name="digest_algorithm_not_available">Dieser Algorithmus-Auszug ist auf Ihrem Handy nicht verfügbar.</string>
     <string name="disable_new_media_folder_detection_notifications">Ausschalten</string>
     <string name="dismiss">Ausblenden</string>
