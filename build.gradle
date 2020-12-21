@@ -64,7 +64,7 @@ ext {
     mockitoVersion = "3.6.28"
     mockkVersion = "1.10.2"
     powermockVersion = "2.0.9"
-    byteBuddyVersion = "1.10.18"
+    byteBuddyVersion = "1.10.19"
     espressoVersion = "3.3.0"
 
     travisBuild = System.getenv("TRAVIS") == "true"
