@@ -64,7 +64,7 @@ public class ScanDocumentAdapter extends FragmentStateAdapter {
     }
 
     public List<Bitmap> getEditedImageList() {
-        List<Bitmap> bitmapList = new ArrayList<>();
+        List<Bitmap> bitmapList = new ArrayList<>(scanDocumentFragmentList.size());
         for (ScanDocumentFragment scanDocumentFragment : scanDocumentFragmentList) {
             bitmapList.add(scanDocumentFragment.getEditedImage());
         }

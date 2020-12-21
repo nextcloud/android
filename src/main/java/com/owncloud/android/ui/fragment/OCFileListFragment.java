@@ -643,7 +643,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        if (mOriginalMenuItems.size() == 0) {
+        if (mOriginalMenuItems.isEmpty()) {
             mOriginalMenuItems.add(menu.findItem(R.id.action_search));
         }
 

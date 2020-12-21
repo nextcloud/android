@@ -955,4 +955,5 @@
     <string name="wrong_storage_path">Storage path does not exist!</string>
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust storage path.</string>
     <string name="dialog_close">Close</string>
+    <string name="scanned_document">Scanned document</string>
 </resources>

@@ -286,7 +286,7 @@ public class ScanDocumentFragment extends Fragment {
             point2f = new MatOfPoint2f();
         }
         Point[] points = point2f.toArray();
-        List<PointF> result = new ArrayList<>();
+        List<PointF> result = new ArrayList<>(points.length);
         for (Point point : points) {
             result.add(new PointF((float) point.x, (float) point.y));
         }
