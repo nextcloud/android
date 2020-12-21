@@ -116,6 +116,9 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
         binding.viewPagerScanDocument.setUserInputEnabled(true);
 
         ThemeUtils.colorPrimaryButton(binding.btnValidate, this);
+        binding.progressBarScanDocument.getIndeterminateDrawable().setColorFilter(
+            ThemeUtils.primaryAccentColor(this),
+            PorterDuff.Mode.SRC_IN);
         binding.btnClose.setTextColor(ThemeUtils.primaryColor(this, true));
 
         setupClickListener();
