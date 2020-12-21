@@ -146,6 +146,7 @@
     <string name="confirmation_remove_local">Только локально</string>
     <string name="conflict_already_existing_file">Файл уже существует</string>
     <string name="conflict_dialog_error">Не удалось создать диалоговое окно разрешения конфликта синхронизации.</string>
+    <string name="conflict_file_headline">Конфликт версий файла «%1$s»</string>
     <string name="conflict_message_description">Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
     <string name="conflict_message_headline">Какие файлы вы хотите сохранить?</string>
     <string name="conflict_new_file">Новый файл</string>
@@ -192,6 +193,7 @@
     <string name="dev_version_new_version_available">Доступна новая версия</string>
     <string name="dev_version_no_information_available">Информация не доступна.</string>
     <string name="dev_version_no_new_version_available">Новая версия отсутствует.</string>
+    <string name="dialog_close">Закрыть</string>
     <string name="digest_algorithm_not_available">Этот хэш алгоритм не доступен на этом телефоне.</string>
     <string name="disable_new_media_folder_detection_notifications">Отключить</string>
     <string name="dismiss">Отклонить</string>
@@ -539,9 +541,9 @@
     <string name="prefs_sycned_folders_summary">Управление папками для автозагрузки</string>
     <string name="prefs_synced_folders_local_path_title">Папка на устройстве</string>
     <string name="prefs_synced_folders_remote_path_title">Папка на сервере</string>
-    <string name="prefs_theme_title">Стиль оформления</string>
-    <string name="prefs_value_theme_dark">Тёмный</string>
-    <string name="prefs_value_theme_light">Светлый</string>
+    <string name="prefs_theme_title">Оформление</string>
+    <string name="prefs_value_theme_dark">Тёмное</string>
+    <string name="prefs_value_theme_light">Светлое</string>
     <string name="prefs_value_theme_system">Как в системе</string>
     <string name="preview_image_description">Предпросмотр</string>
     <string name="preview_image_error_no_local_file">Отсутствует локальный файл для создания миниатюры</string>
@@ -831,6 +833,8 @@
     <string name="whats_new_skip">Пропустить</string>
     <string name="whats_new_title">Новое в %1$s</string>
     <string name="whats_your_status">Укажите ваше состояние</string>
+    <string name="wrong_storage_path">Путь к хранилищу не существует.</string>
+    <string name="wrong_storage_path_desc">Это могло случиться после восстановления из резервной копии, созданной на другом устройстве. Проверьте параметры размещения хранилища.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не удалось синхронизировать %1$d файл (конфликтов: %2$d)</item>
         <item quantity="few">Не удалось синхронизировать %1$d файлов (конфликтов: %2$d)</item>

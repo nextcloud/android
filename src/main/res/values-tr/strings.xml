@@ -193,6 +193,7 @@
     <string name="dev_version_new_version_available">Yeni bir sürüm yayınlanmış</string>
     <string name="dev_version_no_information_available">Herhangi bir bilgi yok.</string>
     <string name="dev_version_no_new_version_available">Yeni bir sürüm yok.</string>
+    <string name="dialog_close">Kapat</string>
     <string name="digest_algorithm_not_available">Telefonunuz için gerekli algoritma bulunamadı.</string>
     <string name="disable_new_media_folder_detection_notifications">Devre Dışı Bırak</string>
     <string name="dismiss">Yok say</string>
@@ -832,6 +833,8 @@
     <string name="whats_new_skip">Atla</string>
     <string name="whats_new_title">%1$s yenilikleri</string>
     <string name="whats_your_status">Durumunuz nedir?</string>
+    <string name="wrong_storage_path">Depolama yolu bulunamadı!</string>
+    <string name="wrong_storage_path_desc">Bunun nedeni başka bir aygıta bir yedeğin geri yüklenmesi olabilir. Varsayılana geri dönülüyor. Lütfen depolama yolunu ayarlamak için ayarları denetleyin.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">%1$d dosya eşitlenemedi (çakışma: %2$d)</item>
         <item quantity="other">%1$d dosya eşitlenemedi (çakışma: %2$d)</item>
