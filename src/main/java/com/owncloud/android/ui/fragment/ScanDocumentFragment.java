@@ -61,7 +61,6 @@ public class ScanDocumentFragment extends Fragment {
     protected final CompositeDisposable disposable;
     private final NativeClass nativeClassOpenCV;
     private final OnProcessImage onProcessImageCallback;
-    PolygonView polygonView;
     private boolean inverted;
     private Bitmap originalImage;
     private Bitmap editedImage;
@@ -192,16 +191,19 @@ public class ScanDocumentFragment extends Fragment {
                                Map<Integer, PointF> pointFs;
                                try {
                                    pointFs = getEdgePoints(editedImage);
-                                   polygonView.setPoints(pointFs);
-                                   polygonView.setVisibility(View.VISIBLE);
+                                   binding.polygonViewScanDocument.setPoints(pointFs);
+                                   binding.polygonViewScanDocument.setVisibility(View.VISIBLE);
 
                                    int padding = (int) getResources().getDimension(R.dimen.scanPadding);
 
-                                   FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(editedImage.getWidth() + 2 * padding, editedImage.getHeight() + 2 * padding);
+                                   FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                                       editedImage.getWidth() + 2 * padding,
+                                       editedImage.getHeight() + 2 * padding
+                                   );
                                    layoutParams.gravity = Gravity.CENTER;
 
-                                   polygonView.setLayoutParams(layoutParams);
-                                   polygonView.setPointColor(getResources().getColor(R.color.blue));
+                                   binding.polygonViewScanDocument.setLayoutParams(layoutParams);
+                                   binding.polygonViewScanDocument.setPointColor(getResources().getColor(R.color.blue));
 
                                } catch (Exception e) {
                                    Log_OC.e(TAG, "trySetPolygonViewToADocument exception", e);
@@ -213,7 +215,7 @@ public class ScanDocumentFragment extends Fragment {
     }
 
     public void disablePolygonView() {
-        polygonView.setVisibility(View.INVISIBLE);
+        binding.polygonViewScanDocument.setVisibility(View.INVISIBLE);
     }
 
     public void resetImage() {
@@ -224,7 +226,7 @@ public class ScanDocumentFragment extends Fragment {
     public void cropImageFromPolygon() {
         onProcessImageCallback.onProcessImageStart();
         disposable.add(
-            Observable.fromCallable(() -> cropImageProcess(polygonView.getPoints()))
+            Observable.fromCallable(() -> cropImageProcess(binding.polygonViewScanDocument.getPoints()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((result) -> {
@@ -291,8 +293,8 @@ public class ScanDocumentFragment extends Fragment {
             result.add(new PointF((float) point.x, (float) point.y));
         }
 
-        Map<Integer, PointF> orderedPoints = polygonView.getOrderedPoints(result);
-        if (!polygonView.isValidShape(orderedPoints)) {
+        Map<Integer, PointF> orderedPoints = binding.polygonViewScanDocument.getOrderedPoints(result);
+        if (!binding.polygonViewScanDocument.isValidShape(orderedPoints)) {
             Map<Integer, PointF> outlinePoints = new HashMap<>();
             outlinePoints.put(0, new PointF(0, 0));
             outlinePoints.put(1, new PointF(tempBitmap.getWidth(), 0));
