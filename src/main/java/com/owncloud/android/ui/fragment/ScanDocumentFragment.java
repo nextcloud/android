@@ -32,7 +32,6 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.labters.documentscanner.libraries.NativeClass;
-import com.labters.documentscanner.libraries.PolygonView;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FragmentScanDocumentBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
