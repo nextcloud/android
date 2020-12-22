@@ -13,9 +13,6 @@ buildscript {
         google()
         jcenter()
         maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots/'
-        }
-        maven {
             url 'https://plugins.gradle.org/m2/'
         }
         mavenCentral()
@@ -60,7 +57,7 @@ ext {
     markwonVersion =  "4.6.0"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
-    androidLibraryVersion = "2.4.1"
+    androidLibraryVersion = "rc-2.4.2-01"
     mockitoVersion = "3.6.0"
     mockkVersion = "1.10.2"
     byteBuddyVersion = "1.10.17"
@@ -76,7 +73,6 @@ repositories {
     google()
     jcenter()
     maven { url "https://jitpack.io" }
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 
     flatDir {
         dirs 'libs'
