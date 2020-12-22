@@ -1718,10 +1718,10 @@ public class FileDataStorageManager {
     }
 
     public static void triggerMediaScan(String path, OCFile file) {
-        if (path != null) {
+        if (path != null && !TextUtils.isEmpty(path)) {
             ContentValues values = new ContentValues();
             ContentResolver contentResolver = MainApp.getAppContext().getContentResolver();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !TextUtils.isEmpty(path)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ) {
                 if (file != null) {
                     values.put(MediaStore.Images.Media.MIME_TYPE, file.getMimeType());
                     values.put(MediaStore.Images.Media.TITLE, file.getFileName());
