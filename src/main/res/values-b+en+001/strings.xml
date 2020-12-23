@@ -193,6 +193,7 @@
     <string name="dev_version_new_version_available">New version available</string>
     <string name="dev_version_no_information_available">No info available.</string>
     <string name="dev_version_no_new_version_available">No new version available.</string>
+    <string name="dialog_close">Close</string>
     <string name="digest_algorithm_not_available">This digest algorithm is not available on your phone.</string>
     <string name="disable_new_media_folder_detection_notifications">Disable</string>
     <string name="dismiss">Dismiss</string>
@@ -832,6 +833,8 @@
     <string name="whats_new_skip">Skip</string>
     <string name="whats_new_title">New in %1$s</string>
     <string name="whats_your_status">What\'s your status?</string>
+    <string name="wrong_storage_path">Storage path does not exist!</string>
+    <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust storage path.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>
         <item quantity="other">Could not sync %1$d files (conflicts: %2$d)</item>
