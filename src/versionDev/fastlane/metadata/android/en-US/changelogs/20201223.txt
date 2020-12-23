@@ -1,0 +1,13 @@
+fix not updating sharee list after creating a new link
+Downgrade firebase-messaging use NC specific user agent for Push
+Remove snapshot repo
+If path is not set or empty do not run any media scanner
+Change alert dialog button text color
+Change button text color from black to system text color
+Fix issue #7633 by adding button style
+fix crash when changing theme after showing media pane
+Update help link
+Fix upload by sharing link with defensive check during mtime read
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
