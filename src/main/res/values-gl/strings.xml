@@ -193,6 +193,7 @@
     <string name="dev_version_new_version_available">Non hai versión nova dispoñíbel</string>
     <string name="dev_version_no_information_available">Sen información dispoñíbel</string>
     <string name="dev_version_no_new_version_available">Non hai versión nova dispoñíbel.</string>
+    <string name="dialog_close">Pechar</string>
     <string name="digest_algorithm_not_available">Este algoritmo de resumo non está dispoñíbel no seu teléfono.</string>
     <string name="disable_new_media_folder_detection_notifications">Desactivar</string>
     <string name="dismiss">Rexeitar</string>
@@ -833,6 +834,8 @@
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Novo en %1$s</string>
     <string name="whats_your_status">Cal é o seu estado?</string>
+    <string name="wrong_storage_path">A ruta de almacenamento non existe.</string>
+    <string name="wrong_storage_path_desc">Isto pode deberse a unha restauración de copia de seguridade noutro dispositivo. Volvendo ao predeterminado. Comprobe a configuración para axustar a ruta de almacenamento.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Non foi posíbel sincronizar  %1$d ficheiro (conflitos: %2$d)</item>
         <item quantity="other">Non foi posíbel sincronizar  %1$d ficheiros (conflitos: %2$d)</item>
