@@ -70,6 +70,7 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
     public static final int REQUEST_CODE__TAKE_PICTURE_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 1;
     public static final int REQUEST_CODE__RETAKE_PICTURE_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 2;
     public static final String SCAN_DOC_ACTIVITY_RESULT_PDFNAME = "SCAN_DOC_ACTIVITY_RESULT_PDFNAME";
+    public static final String SAVED_STATE_BITMAP_SIZE = "SAVED_STATE_BITMAP_SIZE";
 
     private static final int PAGE_WIDTH = 960;
     private static final int PAGE_HEIGHT = 1280;
@@ -93,7 +94,7 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
 
         mCurrentPosition = -1;
 
-        scanDocumentAdapter = new ScanDocumentAdapter(this, getSupportFragmentManager(), getLifecycle());
+        scanDocumentAdapter = new ScanDocumentAdapter(this, this, getSupportFragmentManager(), getLifecycle());
         binding.viewPagerScanDocument.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -122,9 +123,24 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
         binding.btnClose.setTextColor(ThemeUtils.primaryColor(this, true));
 
         setupClickListener();
+        int oldBitmapSize = savedInstanceState != null ? savedInstanceState.getInt(SAVED_STATE_BITMAP_SIZE) : 0;
+        if (oldBitmapSize != 0) {
+            // recreation of the activity (rotation, etc ...)
+            scanDocumentAdapter.reloadBitmapsFromCacheDirectory(oldBitmapSize);
+        } else {
+            // new activity => no bitmap
+            FileOperationsHelper
+                .takePictureFromCamera(this, REQUEST_CODE__TAKE_PICTURE_FROM_CAMERA);
+        }
+    }
 
-        FileOperationsHelper
-            .takePictureFromCamera(this, REQUEST_CODE__TAKE_PICTURE_FROM_CAMERA);
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted or on configuration changed (rotation)
+        savedInstanceState.putInt(SAVED_STATE_BITMAP_SIZE, scanDocumentAdapter.getItemCount());
     }
 
     private void setupClickListener() {
