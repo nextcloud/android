@@ -20,6 +20,7 @@ package com.owncloud.android.ui.fragment;
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import com.labters.documentscanner.libraries.NativeClass;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FragmentScanDocumentBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.BitmapUtils;
 
 import org.opencv.core.MatOfPoint2f;
@@ -56,29 +58,52 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ScanDocumentFragment extends Fragment {
     private static final String TAG = ScanDocumentFragment.class.getName();
+    private static final String BUNDLE_POSITION = "POSITION";
 
     protected final CompositeDisposable disposable;
     private final NativeClass nativeClassOpenCV;
-    private final OnProcessImage onProcessImageCallback;
+    private OnProcessImage onProcessImageCallback;
     private boolean inverted;
     private Bitmap originalImage;
     private Bitmap editedImage;
     private Bitmap nonInvertedImage;
     private FragmentScanDocumentBinding binding;
 
-    public ScanDocumentFragment(OnProcessImage onProcessImage, Bitmap originalImage, Bitmap editedImage) {
-        this.editedImage = editedImage.copy(editedImage.getConfig(), true);
-        this.originalImage = originalImage.copy(originalImage.getConfig(), true);
-        nonInvertedImage = editedImage.copy(editedImage.getConfig(), true);
-        onProcessImageCallback = onProcessImage;
+    public ScanDocumentFragment() {
         nativeClassOpenCV = new NativeClass();
         disposable = new CompositeDisposable();
     }
 
     // bitmap are too large to be passed by bundle
-    public static ScanDocumentFragment newInstance(OnProcessImage onProcessImage,
-                                                   Bitmap originalImage, Bitmap editedImage) {
-        return new ScanDocumentFragment(onProcessImage, originalImage, editedImage);
+    public static ScanDocumentFragment newInstance(int position) {
+        Bundle args = new Bundle();
+        args.putInt(BUNDLE_POSITION, position);
+        ScanDocumentFragment scanDocumentFragment = new ScanDocumentFragment();
+        scanDocumentFragment.setArguments(args);
+        return scanDocumentFragment;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Bitmap tmpBitmap = null;
+        if (getArguments() != null) {
+            int position = getArguments().getInt(BUNDLE_POSITION, 0);
+            tmpBitmap = FileOperationsHelper.getTmpBitmapFromFile(requireActivity(), position);
+        }
+        if (tmpBitmap == null) {
+            Log_OC.e(TAG, "Error null bitmap : not found");
+        } else {
+            this.editedImage = tmpBitmap.copy(tmpBitmap.getConfig(), true);
+            this.originalImage = tmpBitmap.copy(tmpBitmap.getConfig(), true);
+            nonInvertedImage = tmpBitmap.copy(tmpBitmap.getConfig(), true);
+            if (getActivity() instanceof OnProcessImage) {
+                onProcessImageCallback = (OnProcessImage) getActivity();
+            } else {
+                throw new RuntimeException("ScanDocumentFragment should be initiate from an activity which implements " +
+                                               "ScanDocFragment.OnProcessImage");
+            }
+        }
     }
 
     public Bitmap getEditedImage() {

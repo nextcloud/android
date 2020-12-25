@@ -22,7 +22,9 @@ package com.owncloud.android.ui.adapter;
 
 import android.graphics.Bitmap;
 
+import com.owncloud.android.ui.activity.ScanDocActivity;
 import com.owncloud.android.ui.fragment.ScanDocumentFragment;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,17 +42,28 @@ public class ScanDocumentAdapter extends FragmentStateAdapter {
 
     private final ScanDocumentFragment.OnProcessImage onProcessImage;
 
-    public ScanDocumentAdapter(ScanDocumentFragment.OnProcessImage onProcessImage,
+    private final ScanDocActivity scanDocActivity;
+
+    public ScanDocumentAdapter(ScanDocActivity activity, ScanDocumentFragment.OnProcessImage onProcessImage,
                                @NonNull FragmentManager fragmentManager,
                                @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
         scanDocumentFragmentList = new ArrayList<>();
         this.onProcessImage = onProcessImage;
+        this.scanDocActivity = activity;
     }
 
     public void addScanImage(Bitmap originalImage, int position) {
-        scanDocumentFragmentList.add(position, ScanDocumentFragment.newInstance(onProcessImage, originalImage, originalImage));
+        FileOperationsHelper.saveTmpBitmapToFile(scanDocActivity, originalImage, position);
+        scanDocumentFragmentList.add(position, ScanDocumentFragment.newInstance(position));
         notifyDataSetChanged();
+    }
+
+    public void reloadBitmapsFromCacheDirectory(int size) {
+        for (int i = 0; i < size; i++) {
+            scanDocumentFragmentList.add(i, ScanDocumentFragment.newInstance(i));
+            notifyDataSetChanged();
+        }
     }
 
     public void deleteScanImage(int position) {

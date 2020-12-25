@@ -35,6 +35,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -84,12 +86,14 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.lukhnos.nnio.file.Paths;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -122,6 +126,7 @@ public class FileOperationsHelper {
     public static final int SINGLE_LINK_SIZE = 1;
 
     private static final String SCAN_FOLDER = "/nextcloud_scan_folder";
+    private static final String SCAN_TMP_FOLDER = "/nextcloud_scan_tmp_bitmap";
 
     private final FileActivity fileActivity;
     private final CurrentAccountProvider currentAccount;
@@ -991,6 +996,36 @@ public class FileOperationsHelper {
             storageDir.mkdir();
         }
         return new File(storageDir + "/scanDocUpload.pdf");
+    }
+
+    public static Bitmap getTmpBitmapFromFile(Activity activity, int index) {
+        File storageDir = new File(activity.getExternalCacheDir().getAbsolutePath() + SCAN_TMP_FOLDER);
+        if (!storageDir.exists()) {
+            storageDir.mkdir();
+        }
+        File tmpImg = new File(storageDir + "/tmp_bitmap_" + index + ".jpg");
+        return BitmapFactory.decodeFile(tmpImg.getPath());
+    }
+
+    public static void saveTmpBitmapToFile(Activity activity, Bitmap bitmap, int index) {
+        File storageDir = new File(activity.getExternalCacheDir().getAbsolutePath() + SCAN_TMP_FOLDER);
+        if (!storageDir.exists()) {
+            storageDir.mkdir();
+        }
+        File newImg = new File(storageDir + "/tmp_bitmap_" + index + ".jpg");
+        if (newImg.exists()) {
+            newImg.delete();
+        }
+
+        OutputStream os;
+        try {
+            os = org.lukhnos.nnio.file.Files.newOutputStream(Paths.get(storageDir + "/tmp_bitmap_" + index + ".jpg"));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os); //loseless compress
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error writing tmp bitmap", e);
+        }
     }
 
     public static File createImageFile(Activity activity) {
