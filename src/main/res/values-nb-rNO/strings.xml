@@ -90,6 +90,7 @@
     <string name="checkbox">Avkryssningsboks</string>
     <string name="choose_local_folder">Velg lokal mappe…</string>
     <string name="choose_remote_folder">Velg mappe annensteds hen…</string>
+    <string name="choose_which_file">Velg filen du ønsker å beholde!</string>
     <string name="clear_notifications_failed">Kunne ikke fjerne meldinger.</string>
     <string name="clear_status_message">Fjern statusmelding</string>
     <string name="clear_status_message_after">Fjern statusmelding etter</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Kun lokalt</string>
     <string name="conflict_already_existing_file">Allerede eksisterende fil</string>
     <string name="conflict_dialog_error">Feil ved oppretting av konfliktdialog!</string>
+    <string name="conflict_file_headline">Konflikt med%1$s</string>
     <string name="conflict_message_description">Hvis du velger begge versjonene vil den lokale filen få et tall lagt til på slutten av navnet.</string>
     <string name="conflict_message_headline">Hvilke filer vil du beholde?</string>
     <string name="conflict_new_file">Ny fil</string>
@@ -191,6 +193,7 @@
     <string name="dev_version_new_version_available">Ny versjon tilgjengelig</string>
     <string name="dev_version_no_information_available">Ingen info tilgjengelig.</string>
     <string name="dev_version_no_new_version_available">Ingen ny versjon tilgjengelig.</string>
+    <string name="dialog_close">Lukk</string>
     <string name="digest_algorithm_not_available">Kontrollsum-algoritmen er ikke tilgjengelig på denne enheten.</string>
     <string name="disable_new_media_folder_detection_notifications">Deaktiver</string>
     <string name="dismiss">Forkast</string>
@@ -375,6 +378,7 @@
     <string name="hint_password">Passord</string>
     <string name="host_not_available">Server er ikke tilgjengelig</string>
     <string name="host_your_own_server">Bruk din egen server</string>
+    <string name="in_folder">i mappen %1$s</string>
     <string name="instant_upload_existing">Last også opp eksisterende filer</string>
     <string name="instant_upload_on_charging">Bare last opp under lading</string>
     <string name="instant_upload_path">/Direkteopplasting</string>
@@ -486,6 +490,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Dette er en plassholder</string>
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
+    <string name="player_stop">stopp</string>
+    <string name="player_toggle">veksle</string>
     <string name="power_save_check_dialog_message">Deaktivering av strømsparingsmodus vil resultere til at filene blir lastet selv om det er lavt batteri!</string>
     <string name="pref_behaviour_entries_delete_file">slettet</string>
     <string name="pref_behaviour_entries_keep_file">beholdt i opprinnelig mappe</string>
@@ -532,6 +538,7 @@
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_sourcecode">Hent kildekode</string>
     <string name="prefs_storage_path">Lagrings-sti</string>
+    <string name="prefs_sycned_folders_summary">Styr mapper for automatisk opplastning</string>
     <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
     <string name="prefs_synced_folders_remote_path_title">Mappe på server</string>
     <string name="prefs_theme_title">Tema</string>
@@ -826,6 +833,9 @@
     <string name="whats_new_skip">Hopp over</string>
     <string name="whats_new_title">Nytt i %1$s</string>
     <string name="whats_your_status">Hva er din status?</string>
+    <string name="wrong_storage_path">Lagringsstien eksisterer ikke!</string>
+    <string name="wrong_storage_path_desc">Dette kan skyldes gjenoppretting av en sikkerhetskopi på en annen enhet.
+Gjenoppretter standardinnstillingene. Lagringsstien kan endres på innstillingene.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kunne ikke synkronisere %1$d fil (konflikter: %2$d)</item>
         <item quantity="other">Kunne ikke synkronisere %1$d filer (konflikter: %2$d)</item>
