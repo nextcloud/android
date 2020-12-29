@@ -193,6 +193,7 @@
     <string name="dev_version_new_version_available">Nieuwe versie beschikbaar</string>
     <string name="dev_version_no_information_available">Geen informatie beschikbaar.</string>
     <string name="dev_version_no_new_version_available">Geen nieuwe versie beschikbaar.</string>
+    <string name="dialog_close">Sluiten</string>
     <string name="digest_algorithm_not_available">Dit digest-algoritme is niet beschikbaar op je telefoon.</string>
     <string name="disable_new_media_folder_detection_notifications">Uitschakelen</string>
     <string name="dismiss">Weigeren</string>
