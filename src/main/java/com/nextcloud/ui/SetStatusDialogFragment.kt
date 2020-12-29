@@ -344,12 +344,13 @@ class SetStatusDialogFragment :
     }
 
     private fun clearTopStatus() {
-        val grey = resources.getColor(R.color.grey_200)
-
-        onlineStatus.setBackgroundColor(grey)
-        awayStatus.setBackgroundColor(grey)
-        dndStatus.setBackgroundColor(grey)
-        invisibleStatus.setBackgroundColor(grey)
+        context?.let {
+            val grey = it.resources.getColor(R.color.grey_200)
+            onlineStatus.setBackgroundColor(grey)
+            awayStatus.setBackgroundColor(grey)
+            dndStatus.setBackgroundColor(grey)
+            invisibleStatus.setBackgroundColor(grey)
+        }
     }
 
     private fun setStatusMessage() {
