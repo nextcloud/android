@@ -89,7 +89,7 @@
     <string name="changelog_dev_version">Seznam změn ve vývojářské verzi</string>
     <string name="checkbox">Zatržítko</string>
     <string name="choose_local_folder">Zvolte místní složku…</string>
-    <string name="choose_remote_folder">Zvolte složku na protějšku…</string>
+    <string name="choose_remote_folder">Zvolte federovanou složku…</string>
     <string name="choose_which_file">Zvolte který soubor ponechat!</string>
     <string name="clear_notifications_failed">Upozornění se nepodařilo vyčistit.</string>
     <string name="clear_status_message">Vyčistit stavovou zprávu</string>
@@ -273,7 +273,7 @@
     <string name="etm_background_jobs_start_test_job">Spustit zkušební úlohu</string>
     <string name="etm_background_jobs_stop_test_job">Zastavit zkušební úlohu</string>
     <string name="etm_download_enqueue_test_download">Zařadit do fronty testovací stahování</string>
-    <string name="etm_download_path">Popis umístění na protějšku</string>
+    <string name="etm_download_path">Cesta federovaného úložiště</string>
     <string name="etm_downloader">Nástroj pro stahování</string>
     <string name="etm_migrations">Migrace (přechod na novější verzi aplikace)</string>
     <string name="etm_preferences">Předvolby</string>
@@ -540,7 +540,7 @@
     <string name="prefs_storage_path">Popis umístění úložiště</string>
     <string name="prefs_sycned_folders_summary">Spravovat složky pro automatické nahrávání</string>
     <string name="prefs_synced_folders_local_path_title">Místní složka</string>
-    <string name="prefs_synced_folders_remote_path_title">Složka na protějšku</string>
+    <string name="prefs_synced_folders_remote_path_title">Federovaná složka</string>
     <string name="prefs_theme_title">Motiv vzhledu</string>
     <string name="prefs_value_theme_dark">Tmavý</string>
     <string name="prefs_value_theme_light">Světlý</string>
