@@ -570,7 +570,7 @@ Attention la suppression est irréversible.</string>
     <string name="rename_local_fail_msg">Impossible de renommer la version locale; veuillez réessayer avec un nom différent</string>
     <string name="rename_server_fail_msg">Impossible de renommer, le nom est déjà utilisé</string>
     <string name="reshare_not_allowed">Le repartage n\'est pas autorisé</string>
-    <string name="resharing_is_not_allowed">Le repartage n\'est pas autorisé</string>
+    <string name="resharing_is_not_allowed">Le repartage est interdit</string>
     <string name="resized_image_not_possible_download">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
     <string name="restore">Restaurer le fichier</string>
     <string name="restore_button_description">Restaurer le fichier supprimé</string>
