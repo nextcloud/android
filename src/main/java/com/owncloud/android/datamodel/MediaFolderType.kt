@@ -30,21 +30,8 @@ enum class MediaFolderType(val id: Int) {
     VIDEO(2);
 
     companion object {
-        @Deprecated("I am not sure why this is being used??")
-        private val reverseMap = SparseArray<MediaFolderType>(3)
 
         @JvmStatic
-        fun getById(id: Int): MediaFolderType {
-            return reverseMap[id]
-        }
-
-        // TODO Replace function above with this?
-        fun getByID(id: Int): MediaFolderType = values().find { it.id == id }!!
-
-        init {
-            reverseMap.put(CUSTOM.id, CUSTOM)
-            reverseMap.put(IMAGE.id, IMAGE)
-            reverseMap.put(VIDEO.id, VIDEO)
-        }
+        fun getById(id: Int): MediaFolderType = values().find { it.id == id }!!
     }
 }
