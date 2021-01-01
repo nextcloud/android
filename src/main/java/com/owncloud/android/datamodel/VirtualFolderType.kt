@@ -18,12 +18,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package com.owncloud.android.datamodel;
+package com.owncloud.android.datamodel
 
 /**
  * Type for virtual folders
  */
-public enum VirtualFolderType {
+enum class VirtualFolderType {
     FAVORITE, GALLERY, NONE
 }

@@ -17,9 +17,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.appinfo;
+package com.nextcloud.client.appinfo
 
-import android.content.Context;
+import android.content.Context
 
 /**
  * This class provides general, static information about application
@@ -27,18 +27,14 @@ import android.content.Context;
  *
  * All methods should be thread-safe.
  */
-public interface AppInfo {
-
+interface AppInfo {
     /**
      * Get application version code as formatted string.
      *
      * @return Formatted version code as defined in AndroidManifest.xml
      */
-    String getFormattedVersionCode();
-
-    int getVersionCode();
-
-    boolean isDebugBuild();
-
-    String getAppVersion(Context context);
+    val formattedVersionCode: String?
+    val versionCode: Int
+    val isDebugBuild: Boolean
+    fun getAppVersion(context: Context?): String?
 }

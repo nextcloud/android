@@ -3,8 +3,8 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
- * Copyright (C) 2019 Tobias Kaminsky
- * Copyright (C) 2019 Nextcloud GmbH
+ * Copyright (C) 2020 Tobias Kaminsky
+ * Copyright (C) 2020 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,9 +19,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.utils
 
-package com.nextcloud.client.preferences;
-
-public enum DarkMode {
-    DARK, LIGHT, SYSTEM
-}
+/**
+ * Annotate any screenshot test with this so it is run only when updating/testing screenshots
+ */
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
+annotation class ScreenshotTest

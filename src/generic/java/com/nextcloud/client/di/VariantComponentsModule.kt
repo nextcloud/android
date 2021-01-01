@@ -17,10 +17,9 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.di;
+package com.nextcloud.client.di
 
-import dagger.Module;
+import dagger.Module
 
 @Module
-abstract class VariantComponentsModule {
-}
+internal abstract class VariantComponentsModule

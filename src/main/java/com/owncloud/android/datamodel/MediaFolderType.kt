@@ -17,37 +17,34 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.datamodel;
+package com.owncloud.android.datamodel
 
-import android.util.SparseArray;
+import android.util.SparseArray
 
 /**
  * Types of media folder.
  */
-public enum MediaFolderType {
+enum class MediaFolderType(val id: Int) {
     CUSTOM(0),
     IMAGE(1),
     VIDEO(2);
 
-    private Integer id;
+    companion object {
+        @Deprecated("I am not sure why this is being used??")
+        private val reverseMap = SparseArray<MediaFolderType>(3)
 
-    private static SparseArray<MediaFolderType> reverseMap = new SparseArray<>(3);
+        @JvmStatic
+        fun getById(id: Int): MediaFolderType {
+            return reverseMap[id]
+        }
 
-    static {
-        reverseMap.put(CUSTOM.getId(), CUSTOM);
-        reverseMap.put(IMAGE.getId(), IMAGE);
-        reverseMap.put(VIDEO.getId(), VIDEO);
-    }
+        // TODO Replace function above with this?
+        fun getByID(id: Int): MediaFolderType = values().find { it.id == id }!!
 
-    MediaFolderType(Integer id) {
-        this.id = id;
-    }
-
-    public static MediaFolderType getById(Integer id) {
-        return reverseMap.get(id);
-    }
-
-    public Integer getId() {
-        return this.id;
+        init {
+            reverseMap.put(CUSTOM.id, CUSTOM)
+            reverseMap.put(IMAGE.id, IMAGE)
+            reverseMap.put(VIDEO.id, VIDEO)
+        }
     }
 }

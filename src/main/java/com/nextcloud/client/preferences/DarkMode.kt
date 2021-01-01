@@ -3,8 +3,8 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
- * Copyright (C) 2020 Tobias Kaminsky
- * Copyright (C) 2020 Nextcloud GmbH
+ * Copyright (C) 2019 Tobias Kaminsky
+ * Copyright (C) 2019 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,19 +19,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client.preferences
 
-package com.nextcloud.client.di;
-
-import com.nextcloud.client.TestActivity;
-
-import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
-
-/**
- * Register classes that require dependency injection. This class is used by Dagger compiler only.
- */
-@Module
-abstract class BuildTypeComponentsModule {
-    @ContributesAndroidInjector
-    abstract TestActivity testActivity();
+enum class DarkMode {
+    DARK, LIGHT, SYSTEM
 }

@@ -16,11 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.android.sso.aidl
 
-package com.nextcloud.android.sso.aidl;
-
-public interface IThreadListener {
-
-    void onThreadFinished(final Thread thread);
-
+@Deprecated(
+    "I personally feel that this interface is redundant, as kotlin provides lamba functions that can " +
+        "replicate this easily",
+    replaceWith = ReplaceWith("(thread->action)")
+)
+interface IThreadListener {
+    fun onThreadFinished(thread: Thread?)
 }

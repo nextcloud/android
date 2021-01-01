@@ -50,13 +50,9 @@ class TestActivity :
     private lateinit var fileOperation: FileOperationsHelper
 
     private val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
-        override fun isInternetWalled(): Boolean {
-            return false
-        }
+        override val isInternetWalled: Boolean = false
 
-        override fun getConnectivity(): Connectivity {
-            return Connectivity.CONNECTED_WIFI
-        }
+        override val connectivity: Connectivity = Connectivity.CONNECTED_WIFI
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

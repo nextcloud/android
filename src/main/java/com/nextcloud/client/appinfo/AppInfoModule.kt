@@ -1,10 +1,8 @@
 /*
- *
  * Nextcloud Android client application
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2020 Tobias Kaminsky
- * Copyright (C) 2020 Nextcloud GmbH
+ * @author Chris Narkiewicz
+ * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,21 +15,15 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client.appinfo
 
-package com.owncloud.android.utils;
+import dagger.Module
+import dagger.Provides
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-/**
- * Annotate any screenshot test with this so it is run only when updating/testing screenshots
- */
-
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface ScreenshotTest {
+@Module
+class AppInfoModule {
+    @Provides
+    fun appInfo(): AppInfo = AppInfoImpl()
 }

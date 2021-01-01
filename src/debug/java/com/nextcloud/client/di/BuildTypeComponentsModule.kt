@@ -1,8 +1,10 @@
 /*
+ *
  * Nextcloud Android client application
  *
- * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * @author Tobias Kaminsky
+ * Copyright (C) 2020 Tobias Kaminsky
+ * Copyright (C) 2020 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -15,17 +17,19 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.appinfo;
+package com.nextcloud.client.di
 
-import dagger.Module;
-import dagger.Provides;
+import com.nextcloud.client.TestActivity
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
+/**
+ * Register classes that require dependency injection. This class is used by Dagger compiler only.
+ */
 @Module
-public class AppInfoModule {
-    @Provides
-    AppInfo appInfo() {
-        return new AppInfoImpl();
-    }
+internal abstract class BuildTypeComponentsModule {
+    @ContributesAndroidInjector
+    abstract fun testActivity(): TestActivity?
 }

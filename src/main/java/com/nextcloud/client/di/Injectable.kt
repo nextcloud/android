@@ -17,18 +17,20 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-package com.nextcloud.client.di;
+package com.nextcloud.client.di
 
 /**
- * Marks object as injectable by {@link ActivityInjector} and {@link FragmentInjector}.
- * <p>
- * Any {@link android.app.Activity} or {@link androidx.fragment.app.Fragment} implementing
+ * Marks object as injectable by [ActivityInjector] and [FragmentInjector].
+ *
+ *
+ * Any [android.app.Activity] or [androidx.fragment.app.Fragment] implementing
  * this interface will be automatically supplied with dependencies.
- * <p>
- * Activities are considered fully-initialized after call to {@link android.app.Activity#onCreate(Bundle)}
- * (this means after {@code super.onCreate(savedStateInstance)} returns).
- * <p>
- * Injectable Fragments are supplied with dependencies before {@link androidx.fragment.app.Fragment#onAttach(Context)}.
+ *
+ *
+ * Activities are considered fully-initialized after call to [android.app.Activity.onCreate]
+ * (this means after `super.onCreate(savedStateInstance)` returns).
+ *
+ *
+ * Injectable Fragments are supplied with dependencies before [androidx.fragment.app.Fragment.onAttach].
  */
-public interface Injectable {}
+interface Injectable

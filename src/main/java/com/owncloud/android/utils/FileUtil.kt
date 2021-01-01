@@ -17,39 +17,29 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.utils
 
-package com.owncloud.android.utils;
+import android.text.TextUtils
+import java.io.File
 
-import android.text.TextUtils;
-
-import java.io.File;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-public final class FileUtil {
-
-    private FileUtil() {
-        // utility class -> private constructor
-    }
-
+object FileUtil {
     /**
      * returns the file name of a given path.
      *
      * @param filePath (absolute) file path
-     * @return the filename including its file extension, <code>empty String</code> for invalid input values
+     * @return the filename including its file extension, `empty String` for invalid input values
      */
-    public static @NonNull
-    String getFilenameFromPathString(@Nullable String filePath) {
-        if (!TextUtils.isEmpty(filePath)) {
-            File file = new File(filePath);
-            if (file.isFile()) {
-                return file.getName();
+    @JvmStatic
+    fun getFilenameFromPathString(filePath: String?): String {
+        return if (!TextUtils.isEmpty(filePath)) {
+            val file = File(filePath)
+            if (file.isFile) {
+                file.name
             } else {
-                return "";
+                ""
             }
         } else {
-            return "";
+            ""
         }
     }
 }

@@ -17,15 +17,13 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-package com.nextcloud.client.network;
+package com.nextcloud.client.network
 
 /**
  * This service provides information about current network connectivity
  * and server reachability.
  */
-public interface ConnectivityService {
-
+interface ConnectivityService {
     /**
      * Check if server is accessible by issuing HTTP status check request.
      * Since this call involves network traffic, it should not be called
@@ -33,12 +31,12 @@ public interface ConnectivityService {
      *
      * @return True if server is unreachable, false otherwise
      */
-    boolean isInternetWalled();
+    val isInternetWalled: Boolean
 
     /**
      * Get current network connectivity status.
      *
      * @return Network connectivity status in platform-agnostic format
      */
-    Connectivity getConnectivity();
+    val connectivity: Connectivity
 }

@@ -239,7 +239,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     public int getSectionByLocalPathAndType(String localPath, int type) {
         for (int i = 0; i < filteredSyncFolderItems.size(); i++) {
             if (filteredSyncFolderItems.get(i).getLocalPath().equalsIgnoreCase(localPath) &&
-                filteredSyncFolderItems.get(i).getType().getId().equals(type)) {
+                filteredSyncFolderItems.get(i).getType().getId() == type) {
                 return i;
             }
         }
@@ -269,7 +269,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
                 filteredSyncFolderItems.get(section).setEnabled(
                     !filteredSyncFolderItems.get(section).isEnabled(),
                     clock.getCurrentTime()
-                );
+                                                               );
                 setSyncButtonActiveIcon(holder.syncStatusButton, filteredSyncFolderItems.get(section).isEnabled());
                 clickListener.onSyncStatusToggleClick(section, filteredSyncFolderItems.get(section));
             });
@@ -318,8 +318,8 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
                     R.plurals.synced_folders_show_hidden_folders,
                     getHiddenFolderCount(),
                     getHiddenFolderCount()
-                )
-            );
+                                                        )
+                                      );
         }
     }
 
@@ -332,13 +332,13 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
             File file = new File(filteredSyncFolderItems.get(section).getFilePaths().get(relativePosition));
 
             ThumbnailsCacheManager.MediaThumbnailGenerationTask task =
-                    new ThumbnailsCacheManager.MediaThumbnailGenerationTask(holder.image, context);
+                new ThumbnailsCacheManager.MediaThumbnailGenerationTask(holder.image, context);
 
             ThumbnailsCacheManager.AsyncMediaThumbnailDrawable asyncDrawable =
-                    new ThumbnailsCacheManager.AsyncMediaThumbnailDrawable(
-                        context.getResources(),
-                        ThumbnailsCacheManager.mDefaultImg
-                    );
+                new ThumbnailsCacheManager.AsyncMediaThumbnailDrawable(
+                    context.getResources(),
+                    ThumbnailsCacheManager.mDefaultImg
+                );
             holder.image.setImageDrawable(asyncDrawable);
 
             task.execute(file);
@@ -392,7 +392,9 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
 
     public interface ClickListener {
         void onSyncStatusToggleClick(int section, SyncedFolderDisplayItem syncedFolderDisplayItem);
+
         void onSyncFolderSettingsClick(int section, SyncedFolderDisplayItem syncedFolderDisplayItem);
+
         void onVisibilityToggleClick(int section, SyncedFolderDisplayItem item);
     }
 

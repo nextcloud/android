@@ -16,29 +16,33 @@
  * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
  *
  * You should have received a copy of the GNU Affero General Public
- * License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * License along with this program. If not, see <http:></http:>//www.gnu.org/licenses/>.
  */
-package com.owncloud.android.datamodel;
+package com.owncloud.android.datamodel
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayList
 
 /**
  * Business object representing a media folder with all information that are gathered via media queries.
  */
-public class MediaFolder {
-    /** name of the folder. */
-    public String folderName;
+data class MediaFolder(
+    /** name of the folder.  */
+    @JvmField
+    var folderName: String? = null,
 
-    /** absolute path of the folder. */
-    public String absolutePath;
-    
-    /** list of file paths of the folder's content */
-    public List<String> filePaths = new ArrayList<>();
+    /** absolute path of the folder.  */
+    @JvmField
+    var absolutePath: String = "",
 
-    /** total number of files in the media folder. */
-    public long numberOfFiles;
+    /** list of file paths of the folder's content  */
+    @JvmField
+    var filePaths: List<String> = ArrayList(),
 
-    /** type of media folder. */
-    public MediaFolderType type;
-}
+    /** total number of files in the media folder.  */
+    @JvmField
+    var numberOfFiles: Long = 0,
+
+    /** type of media folder.  */
+    @JvmField
+    var type: MediaFolderType? = null
+)

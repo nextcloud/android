@@ -15,20 +15,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.utils;
+package com.owncloud.android.utils
 
 /**
  * Class containing the mime types.
  */
-public final class MimeType {
-    public static final String DIRECTORY = "DIR";
-    public static final String WEBDAV_FOLDER = "httpd/unix-directory";
-    public static final String JPEG = "image/jpeg";
-    public static final String TIFF = "image/tiff";
-    public static final String TEXT_PLAIN = "text/plain";
-    public static final String FILE = "application/octet-stream";
-
-    private MimeType() {
-        // No instance
-    }
+object MimeType {
+    const val DIRECTORY = "DIR"
+    const val WEBDAV_FOLDER = "httpd/unix-directory"
+    const val JPEG = "image/jpeg"
+    const val TIFF = "image/tiff"
+    const val TEXT_PLAIN = "text/plain"
+    const val FILE = "application/octet-stream"
 }
