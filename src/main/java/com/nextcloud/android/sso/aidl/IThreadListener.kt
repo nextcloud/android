@@ -18,11 +18,6 @@
  */
 package com.nextcloud.android.sso.aidl
 
-@Deprecated(
-    "I personally feel that this interface is redundant, as kotlin provides lamba functions that can " +
-        "replicate this easily",
-    replaceWith = ReplaceWith("(thread->action)")
-)
 interface IThreadListener {
     fun onThreadFinished(thread: Thread?)
 }
