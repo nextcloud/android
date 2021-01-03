@@ -289,7 +289,7 @@
     <string name="file_detail_activity_error">Produciuse un erro ao recuperar actividades para o ficheiro</string>
     <string name="file_details_no_content">Produciuse un fallo ao cargar os detalles</string>
     <string name="file_icon">Ficheiro</string>
-    <string name="file_keep">Manter</string>
+    <string name="file_keep">Conservar</string>
     <string name="file_list_empty">Envíe algún contido ou sincronice cos seus dispositivos.</string>
     <string name="file_list_empty_favorite_headline">Aínda non hai nada marcado como favorito</string>
     <string name="file_list_empty_favorites_filter">A súa b usca non atopou ningún ficheiro favorito.</string>
@@ -407,7 +407,7 @@
     <string name="logs_title">Rexistros</string>
     <string name="maintenance_mode">Servidor en modo de mantemento</string>
     <string name="manage_space_clear_data">Limpar os datos</string>
-    <string name="manage_space_description">Van ser eliminados de xeito permanente os axustes , base de datos e certificados do servidor de %1$s.\n\nOs ficheiros descargados manteranse sen cambios.\n\nEste proceso pode levar bastante tempo.</string>
+    <string name="manage_space_description">Van ser eliminados de xeito permanente os axustes , base de datos e certificados do servidor de %1$s.\n\nOs ficheiros descargados conservaranse sen cambios.\n\nEste proceso pode levar bastante tempo.</string>
     <string name="manage_space_title">Xestionar o espazo</string>
     <string name="media_err_invalid_progressive_playback">O ficheiro multimedia non pode ser transformado nun fluxo</string>
     <string name="media_err_io">Non foi posíbel ler o ficheiro multimedia</string>
@@ -678,7 +678,7 @@
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Música</string>
     <string name="storage_pictures">Imaxes</string>
-    <string name="store_full_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada.\n|nCaracterísticas:\n* Interface doada e moderna, totalmente tematizada ao aliñarse co tema do seu servidor\n* Enviar os seus ficheiros ao seu Nextcloud\n* Compartir os seus ficheiros con outras persoas\n* Manter os seus ficheiros e cartafoles favoritos sincronizados\n* Buscar en todos os cartafoles do servidor\n* Enviar automaticamente fotos e vídeos feitos no seu dispositivo\n* Manterse ao día coas notificacións\n* Admite múltiples contas\n* Acceso seguro aos seus datos con pegada dactilar ou PIN\n* Integración con DAVx5 (anteriormente coñecido como DAVdroid) para facilitar a configuración da sincronización de calendarios e contactos\n\nAgradecémoslle que nos informe de calquera incidente en https://github.com/nextcloud/android/issues, pode conversar sobre esta apli en https://help.nextcloud.com/c/clients/android\n\nE novo no Nextcloud? Nextcloud é un servidor privado para sincronizar e compartir ficheiros. É completamente libre e pode instalalo vostede ou contratar a unha empresa ou cooperativa para que o faga por vostede. É o camiño para que sexa vostede quen teña o control sobre as súas fotos, calendario, axenda de contactos, documentos e todo o demais.\n\nCoñeza o Nextcloud en https://nextcloud.com</string>
+    <string name="store_full_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada.\n|nCaracterísticas:\n* Interface doada e moderna, totalmente tematizada ao aliñarse co tema do seu servidor\n* Enviar os seus ficheiros ao seu Nextcloud\n* Compartir os seus ficheiros con outras persoas\n* Conservar os seus ficheiros e cartafoles favoritos sincronizados\n* Buscar en todos os cartafoles do servidor\n* Enviar automaticamente fotos e vídeos feitos no seu dispositivo\n* Estar ao día coas notificacións\n* Admite múltiples contas\n* Acceso seguro aos seus datos con pegada dactilar ou PIN\n* Integración con DAVx5 (anteriormente coñecido como DAVdroid) para facilitar a configuración da sincronización de calendarios e contactos\n\nAgradecémoslle que nos informe de calquera incidente en https://github.com/nextcloud/android/issues, pode conversar sobre esta apli en https://help.nextcloud.com/c/clients/android\n\nE novo no Nextcloud? Nextcloud é un servidor privado para sincronizar e compartir ficheiros. É completamente libre e pode instalalo vostede ou contratar a unha empresa ou cooperativa para que o faga por vostede. É o camiño para que sexa vostede quen teña o control sobre as súas fotos, calendario, axenda de contactos, documentos e todo o demais.\n\nCoñeza o Nextcloud en https://nextcloud.com</string>
     <string name="store_full_dev_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada.\nEsta é a versión oficial de desenvolvemento, que presenta unha mostra diaria de calquera nova funcionalidade aínda non probada, o que pode provocar inestabilidade e perda de datos. Esta aplicación está destinada a usuarios que queren probar e informar de fallos (en caso de producirse). Non a use para o día a día!\n\nTanto a versión oficial de desenvolvemento como a normal están dispoñíbeis no F-Droid e poden instalarse xuntas.</string>
     <string name="store_short_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada</string>
     <string name="store_short_dev_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada (versión de vista previa de desenvolvemento)</string>
@@ -696,7 +696,7 @@
     <string name="sync_fail_ticker_unauthorized">Produciuse un fallo na sincronización, acceda de novo.</string>
     <string name="sync_file_nothing_to_do_msg">Os contidos do ficheiro xa están sincronizados</string>
     <string name="sync_folder_failed_content">Non foi posíbel completar a sincronización do cartafol %1$s</string>
-    <string name="sync_foreign_files_forgotten_explanation">A partires da versión 1.3.16, os ficheiros enviados dende este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un único ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados con versións anteriores desta aplicación foron copiados no cartafol %2$s. Porén, un erro impediu que se completara esta operación durante a sincronización da conta. Pode deixar o(s) ficheiro(s) tal e como está(n) e eliminar a ligazón cara a %3$s ou mover o(s) ficheiro(s) para o cartafol %1$s e manter a ligazón cara a %4$s.\n\nEmbaixo amósanse os ficheiros locais e os ficheiros remotos en %5$s aos que foron enlazados.</string>
+    <string name="sync_foreign_files_forgotten_explanation">A partires da versión 1.3.16, os ficheiros enviados dende este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un único ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados con versións anteriores desta aplicación foron copiados no cartafol %2$s. Porén, un erro impediu que se completara esta operación durante a sincronización da conta. Pode deixar o(s) ficheiro(s) tal e como está(n) e eliminar a ligazón cara a %3$s ou mover o(s) ficheiro(s) para o cartafol %1$s e conservar a ligazón cara a %4$s.\n\nEmbaixo amósanse os ficheiros locais e os ficheiros remotos en %5$s aos que foron enlazados.</string>
     <string name="sync_foreign_files_forgotten_ticker">Esquecéronse algúns ficheiros locais</string>
     <string name="sync_in_progress">Obtendo a versión mais recente do ficheiro.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Escolla que sincronizar</string>
@@ -784,7 +784,7 @@
     <string name="uploader_upload_files_behaviour">Opción de envío:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover o ficheiro para o cartafol %1$s</string>
     <string name="uploader_upload_files_behaviour_not_writable">o cartafol de orixe é de só lectura; O ficheiro só se enviará</string>
-    <string name="uploader_upload_files_behaviour_only_upload">Manter o ficheiro no cartafol de orixe</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Conservar o ficheiro no cartafol de orixe</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eliminar o ficheiro do cartafol de orixe</string>
     <string name="uploader_upload_forbidden_permissions">para enviar este cartafol</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Enviando %2$s</string>
