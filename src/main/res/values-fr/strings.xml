@@ -570,7 +570,7 @@ Attention la suppression est irréversible.</string>
     <string name="rename_local_fail_msg">Impossible de renommer la version locale; veuillez réessayer avec un nom différent</string>
     <string name="rename_server_fail_msg">Impossible de renommer, le nom est déjà utilisé</string>
     <string name="reshare_not_allowed">Le repartage n\'est pas autorisé</string>
-    <string name="resharing_is_not_allowed">Le repartage n\'est pas autorisé</string>
+    <string name="resharing_is_not_allowed">Le repartage est interdit</string>
     <string name="resized_image_not_possible_download">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
     <string name="restore">Restaurer le fichier</string>
     <string name="restore_button_description">Restaurer le fichier supprimé</string>
@@ -836,6 +836,7 @@ Attention la suppression est irréversible.</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
     <string name="whats_your_status">Quel est votre statut ?</string>
     <string name="wrong_storage_path">Le dossier de stockage n\'existe pas</string>
+    <string name="wrong_storage_path_desc">Cela peut être dû à une restauration de sauvegarde sur un autre appareil. Retour aux valeurs par défaut. Veuillez vérifier les paramètres pour ajuster le chemin de stockage.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossible de synchroniser %1$d fichier (conflits : %2$d)</item>
         <item quantity="other">Impossible de synchroniser %1$d fichiers (conflits : %2$d)</item>
