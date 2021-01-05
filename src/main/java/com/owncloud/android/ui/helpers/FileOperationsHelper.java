@@ -1007,7 +1007,9 @@ public class FileOperationsHelper {
 
         File newImg = new File(getTempFileUri(index, storageDir));
         if (newImg.exists()) {
-            newImg.delete();
+            if (!newImg.delete()) {
+                Log_OC.e(TAG, "Error deleting temporary scan image for index: " + index);
+            }
         }
 
         OutputStream os;
@@ -1033,7 +1035,9 @@ public class FileOperationsHelper {
     private static File getStorageDirectory(Activity activity, String subfolder) {
         File storageDir = new File(activity.getExternalCacheDir().getAbsolutePath() + File.separator + subfolder);
         if (!storageDir.exists()) {
-            storageDir.mkdir();
+            if (!storageDir.mkdir()) {
+                Log_OC.e(TAG, "Error creating storage directory: " + subfolder);
+            }
         }
         return storageDir;
     }
