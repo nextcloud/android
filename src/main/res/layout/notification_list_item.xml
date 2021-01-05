@@ -31,7 +31,7 @@
     tools:ignore="UseCompoundDrawables">
 
     <ImageView
-        android:id="@+id/notification_icon"
+        android:id="@+id/icon"
         android:layout_width="@dimen/notification_icon_width"
         android:layout_height="@dimen/notification_icon_height"
         android:layout_alignParentTop="true"
@@ -45,8 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_alignTop="@id/notification_icon"
-        android:layout_toEndOf="@id/notification_icon">
+        android:layout_alignTop="@id/icon"
+        android:layout_toEndOf="@id/icon">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +54,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/notification_subject"
+                android:id="@+id/subject"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -63,7 +63,7 @@
                 tools:text="@string/placeholder_filename" />
 
             <ImageView
-                android:id="@+id/notification_dismiss"
+                android:id="@+id/dismiss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_close"
@@ -71,7 +71,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/notification_message"
+            android:id="@+id/message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -80,7 +80,7 @@
             android:textAppearance="?android:attr/textAppearanceListItem"/>
 
         <LinearLayout
-            android:id="@+id/notification_buttons"
+            android:id="@+id/buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/alternate_half_margin"
@@ -89,7 +89,7 @@
             android:orientation="horizontal"/>
 
         <TextView
-            android:id="@+id/notification_datetime"
+            android:id="@+id/datetime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

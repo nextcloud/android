@@ -115,6 +115,4 @@ public class StickyHeaderItemDecoration extends RecyclerView.ItemDecoration {
         view.measure(childWidthSpec, childHeightSpec);
         view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
     }
-
-
 }
