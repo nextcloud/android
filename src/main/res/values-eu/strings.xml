@@ -90,6 +90,7 @@
     <string name="checkbox">Kontrol laukia</string>
     <string name="choose_local_folder">Hautatu tokiko karpeta...</string>
     <string name="choose_remote_folder">Hautatu urruneko karpeta...</string>
+    <string name="choose_which_file">Aukeratu zein fitxategi gorde!</string>
     <string name="clear_notifications_failed">Huts egin du jakinarazpenak garbitzean.</string>
     <string name="clear_status_message">Garbitu egoera mezua</string>
     <string name="clear_status_message_after">Garbitu egoera mezua gero</string>
@@ -145,6 +146,7 @@
     <string name="confirmation_remove_local">Lokala bakarrik</string>
     <string name="conflict_already_existing_file">Dagoeneko existitzen den fitxategia</string>
     <string name="conflict_dialog_error">Errorea gatazkaren elkarrizketa-koadroa sortzean!</string>
+    <string name="conflict_file_headline">%1$sfitxategi gatazkatsua</string>
     <string name="conflict_message_description">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
     <string name="conflict_message_headline">Ze fitxategi mantendu nahi dituzu?</string>
     <string name="conflict_new_file">Fitxategi berria</string>
@@ -191,6 +193,7 @@
     <string name="dev_version_new_version_available">Bertsio berria eskuragarri</string>
     <string name="dev_version_no_information_available">Ez dago informaziorik eskuragarri.</string>
     <string name="dev_version_no_new_version_available">Ez dago bertsio berriagorik eskuragarri.</string>
+    <string name="dialog_close">Itxi</string>
     <string name="digest_algorithm_not_available">Digest algoritmoa ez dago erabilgarri zure telefonoan.</string>
     <string name="disable_new_media_folder_detection_notifications">Desaktibatu</string>
     <string name="dismiss">Baztertu</string>
@@ -375,6 +378,7 @@
     <string name="hint_password">Pasahitza</string>
     <string name="host_not_available">Zerbitzaria ez dago eskuragarri</string>
     <string name="host_your_own_server">Ostatatu zure zerbitzaria</string>
+    <string name="in_folder">%1$skarpetan</string>
     <string name="instant_upload_existing">Existitzen diren fitxategiak ere kargatu</string>
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -486,6 +490,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Hau leku-marka bat da</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">gelditu</string>
+    <string name="player_toggle">txandakatu</string>
     <string name="power_save_check_dialog_message">Energia aurrezteko kontrola desgaitzeak, fitxategiak bateria baxu dagoenean kargatzea eragin dezake!</string>
     <string name="pref_behaviour_entries_delete_file">ezabatua</string>
     <string name="pref_behaviour_entries_keep_file">jatorrizko karpetan mantendu da</string>
@@ -532,6 +538,7 @@
     <string name="prefs_show_hidden_files">Erakutsi ezkutuko fitxategiak</string>
     <string name="prefs_sourcecode">Eskuratu iturburu-kodea</string>
     <string name="prefs_storage_path">Biltegiratze helbidea</string>
+    <string name="prefs_sycned_folders_summary">Kudeatu kargatze automatiko karpeta</string>
     <string name="prefs_synced_folders_local_path_title">Karpeta lokala</string>
     <string name="prefs_synced_folders_remote_path_title">Urruneko karpeta</string>
     <string name="prefs_theme_title">Gaia</string>
@@ -597,6 +604,7 @@
     <string name="share_internal_link">Partekatu barne-esteka</string>
     <string name="share_internal_link_to_file_text">Barneko partekatze-estekak fitxategi honetarako sarbidea duten erabiltzaileentzat bakarrik balio du</string>
     <string name="share_internal_link_to_folder_text">Barneko partekatze-estekak karpeta honetarako sarbidea duten erabiltzaileentzat bakarrik balio du</string>
+    <string name="share_known_remote_on_clarification">hemen: %1$s</string>
     <string name="share_link">Partekatu esteka</string>
     <string name="share_link_empty_password">Pasahitz bat sartu behar duzu</string>
     <string name="share_link_file_error">Errore bat gertatu da fitxategi edo karpeta hau partekatzen saiatzerakoan.</string>
@@ -825,6 +833,8 @@
     <string name="whats_new_skip">Salto egin</string>
     <string name="whats_new_title">Berria %1$s-n</string>
     <string name="whats_your_status">Zein da zure egoera?</string>
+    <string name="wrong_storage_path">Biltegiratze-bidea ez dago</string>
+    <string name="wrong_storage_path_desc">Hau babeskopia eta leheneratzea beste gailu batean egiteagatik izan daiteke. Itzuli balio lehenetsietara. Egiaztatu ezarpenak biltegiratze-bidea doitzeko.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ezin izan da %1$d fitxategia sinkronizatu (gatazkak: %2$d)</item>
         <item quantity="other">Ezin izan dira %1$d fitxategi sinkronizatu (gatazkak: %2$d)</item>
