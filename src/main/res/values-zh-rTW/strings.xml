@@ -191,6 +191,7 @@
     <string name="dev_version_new_version_available">有新版本</string>
     <string name="dev_version_no_information_available">沒用資訊</string>
     <string name="dev_version_no_new_version_available">沒有新版本</string>
+    <string name="dialog_close">關閉</string>
     <string name="digest_algorithm_not_available">這種加密演算法在您的手機中無法使用</string>
     <string name="disable_new_media_folder_detection_notifications">停用</string>
     <string name="dismiss">取消</string>
@@ -269,8 +270,10 @@
     <string name="etm_background_jobs_schedule_test_job">排程測試作業</string>
     <string name="etm_background_jobs_start_test_job">開始測試作業</string>
     <string name="etm_background_jobs_stop_test_job">停止測試作業</string>
+    <string name="etm_download_enqueue_test_download">入隊測試下載</string>
     <string name="etm_download_path">遠端路徑</string>
     <string name="etm_downloader">下載器</string>
+    <string name="etm_migrations">遷移 (APP 升級)</string>
     <string name="etm_preferences">設定</string>
     <string name="etm_title">工程測試模式</string>
     <string name="fab_label">新增或上傳</string>
@@ -708,6 +711,8 @@
     <string name="thirtyMinutes">30分鐘</string>
     <string name="thisWeek">本週</string>
     <string name="thumbnail">縮圖</string>
+    <string name="thumbnail_for_existing_file_description">現有檔案的縮圖</string>
+    <string name="thumbnail_for_new_file_desc">新增檔案的縮圖</string>
     <string name="timeout_richDocuments">載入需要花一段時間…</string>
     <string name="today">今天</string>
     <string name="trashbin_activity_title">回收桶</string>
@@ -802,6 +807,7 @@
     <string name="uploads_view_upload_status_virus_detected">病毒已偵測，上傳失敗！</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">等待省電模式解除</string>
     <string name="uploads_view_upload_status_waiting_for_charging">等待充電</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">正在等候非計量 Wi-Fi</string>
     <string name="user_icon">使用者</string>
     <string name="user_info_address">地址</string>
     <string name="user_info_email">E-mail</string>
@@ -820,6 +826,7 @@
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>
     <string name="whats_your_status">你目前的狀態？</string>
+    <string name="wrong_storage_path">儲存路徑不存在！</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">無法同步 %1$d 檔案 (衝突: %2$d)</item>
     </plurals>

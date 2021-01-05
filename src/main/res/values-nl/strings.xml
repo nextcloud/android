@@ -193,6 +193,7 @@
     <string name="dev_version_new_version_available">Nieuwe versie beschikbaar</string>
     <string name="dev_version_no_information_available">Geen informatie beschikbaar.</string>
     <string name="dev_version_no_new_version_available">Geen nieuwe versie beschikbaar.</string>
+    <string name="dialog_close">Sluiten</string>
     <string name="digest_algorithm_not_available">Dit digest-algoritme is niet beschikbaar op je telefoon.</string>
     <string name="disable_new_media_folder_detection_notifications">Uitschakelen</string>
     <string name="dismiss">Weigeren</string>
@@ -832,6 +833,8 @@
     <string name="whats_new_skip">Overslaan</string>
     <string name="whats_new_title">Nieuw in %1$s</string>
     <string name="whats_your_status">Wat is je status?</string>
+    <string name="wrong_storage_path">Pad naar opslag bestaat niet!</string>
+    <string name="wrong_storage_path_desc">Dit kan komen door een back-upherstel op een ander apparaat. Terugvallen op standaard. Controleer de instellingen om het opslagpad aan te passen.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kon bestand %1$dniet synchroniseren (conflicten: %2$d)</item>
         <item quantity="other">Kon bestand %1$d niet synchroniseren (conflicten: %2$d)</item>

@@ -1,4 +1,4 @@
-Okolje, ki gostuje, kjer vi želite, in vam omogoča nadzor.
+Okolje, ki gostuje, kjer vi želite, in vam omogoča popoln nadzor.
 
  Možnosti:
 * Enostaven za uporabo in sodoben vmesnik, ki je skladen z vašim strežnikom

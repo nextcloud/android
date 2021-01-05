@@ -104,7 +104,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import static com.owncloud.android.ui.activity.FileDisplayActivity.TAG_PUBLIC_LINK;
-import static com.owncloud.android.ui.activity.FileDisplayActivity.TAG_SECOND_FRAGMENT;
 
 
 /**
@@ -805,7 +804,7 @@ public abstract class FileActivity extends DrawerActivity
             copyAndShareFileLink(this, file, link);
 
             if (sharingFragment != null) {
-                sharingFragment.onUpdateShareInformation(result, getFile());
+                sharingFragment.onUpdateShareInformation(result, file);
             }
         } else {
             // Detect Failure (403) --> maybe needs password
@@ -849,7 +848,7 @@ public abstract class FileActivity extends DrawerActivity
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(ShareActivity.TAG_SHARE_FRAGMENT);
 
         if (fragment == null) {
-            fragment = getSupportFragmentManager().findFragmentByTag(TAG_SECOND_FRAGMENT);
+            fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
         }
 
         if (fragment instanceof FileDetailSharingFragment) {
