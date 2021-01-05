@@ -910,6 +910,8 @@ public class FileDisplayActivity extends FileActivity
 
                         requestUploadOfFilesFromFileSystem(new String[]{renamedFile.getAbsolutePath()},
                                                            FileUploader.LOCAL_BEHAVIOUR_DELETE);
+
+                        FileOperationsHelper.cleanupDocScanDirectory(getActivity());
                     }
                 }
             }, new String[]{FileOperationsHelper.createPdfFile(this).getAbsolutePath()}).execute();
