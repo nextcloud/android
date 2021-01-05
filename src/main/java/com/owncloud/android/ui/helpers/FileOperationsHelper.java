@@ -85,6 +85,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
 
+import org.apache.commons.io.FileUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.lukhnos.nnio.file.Paths;
 
@@ -125,8 +126,8 @@ public class FileOperationsHelper {
     private static final String FILE_EXTENSION_WEBLOC = "webloc";
     public static final int SINGLE_LINK_SIZE = 1;
 
-    private static final String SCAN_FOLDER = "/nextcloud_scan_folder";
-    private static final String SCAN_TMP_FOLDER = "/nextcloud_scan_tmp_bitmap";
+    private static final String SCAN_FOLDER = "doc_scan_folder";
+    private static final String SCAN_TMP_FOLDER = "doc_scan_image_tmp";
 
     private final FileActivity fileActivity;
     private final CurrentAccountProvider currentAccount;
@@ -991,35 +992,27 @@ public class FileOperationsHelper {
     }
 
     public static File createPdfFile(Activity activity) {
-        File storageDir = new File(activity.getExternalCacheDir().getAbsolutePath() + SCAN_FOLDER);
-        if (!storageDir.exists()) {
-            storageDir.mkdir();
-        }
-        return new File(storageDir + "/scanDocUpload.pdf");
+        File storageDir = getStorageDirectory(activity, SCAN_FOLDER);
+        return new File(storageDir + File.separator + "scanDocUpload.pdf");
     }
 
     public static Bitmap getTmpBitmapFromFile(Activity activity, int index) {
-        File storageDir = new File(activity.getExternalCacheDir().getAbsolutePath() + SCAN_TMP_FOLDER);
-        if (!storageDir.exists()) {
-            storageDir.mkdir();
-        }
-        File tmpImg = new File(storageDir + "/tmp_bitmap_" + index + ".jpg");
+        File storageDir = getStorageDirectory(activity, SCAN_TMP_FOLDER);
+        File tmpImg = new File(getTempFileUri(index, storageDir));
         return BitmapFactory.decodeFile(tmpImg.getPath());
     }
 
     public static void saveTmpBitmapToFile(Activity activity, Bitmap bitmap, int index) {
-        File storageDir = new File(activity.getExternalCacheDir().getAbsolutePath() + SCAN_TMP_FOLDER);
-        if (!storageDir.exists()) {
-            storageDir.mkdir();
-        }
-        File newImg = new File(storageDir + "/tmp_bitmap_" + index + ".jpg");
+        File storageDir = getStorageDirectory(activity, SCAN_TMP_FOLDER);
+
+        File newImg = new File(getTempFileUri(index, storageDir));
         if (newImg.exists()) {
             newImg.delete();
         }
 
         OutputStream os;
         try {
-            os = org.lukhnos.nnio.file.Files.newOutputStream(Paths.get(storageDir + "/tmp_bitmap_" + index + ".jpg"));
+            os = org.lukhnos.nnio.file.Files.newOutputStream(Paths.get(getTempFileUri(index, storageDir)));
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os); //loseless compress
             os.flush();
             os.close();
@@ -1028,10 +1021,32 @@ public class FileOperationsHelper {
         }
     }
 
+    public static void cleanupDocScanDirectory(Activity activity) {
+        try {
+            FileUtils.cleanDirectory(getStorageDirectory(activity, SCAN_TMP_FOLDER));
+        } catch (IOException e) {
+            Log_OC.e(TAG, "Error cleaning doc scan tmp directory", e);
+        }
+    }
+
+    @NonNull
+    private static File getStorageDirectory(Activity activity, String subfolder) {
+        File storageDir = new File(activity.getExternalCacheDir().getAbsolutePath() + File.separator + subfolder);
+        if (!storageDir.exists()) {
+            storageDir.mkdir();
+        }
+        return storageDir;
+    }
+
+    @NonNull
+    private static String getTempFileUri(int index, File storageDir) {
+        return storageDir + File.separator + "tmp_image_" + index + ".jpg";
+    }
+
     public static File createImageFile(Activity activity) {
         File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
-        return new File(storageDir + "/directCameraUpload.jpg");
+        return new File(storageDir + File.separator + "directCameraUpload.jpg");
     }
 
     public static String getCapturedImageName() {
