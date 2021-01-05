@@ -796,7 +796,7 @@
     <string name="uploads_view_group_current_uploads">Trenutno</string>
     <string name="uploads_view_group_failed_uploads">Ponovno pošiljanje je spodletelo oziroma je na čakanju.</string>
     <string name="uploads_view_group_finished_uploads">Poslano</string>
-    <string name="uploads_view_later_waiting_to_upload">Poteka čakanje na pošiljanje…</string>
+    <string name="uploads_view_later_waiting_to_upload">Poteka čakanje na začetek pošiljanja …</string>
     <string name="uploads_view_title">Poslano</string>
     <string name="uploads_view_upload_status_cancelled">Preklicano</string>
     <string name="uploads_view_upload_status_conflict">Spor</string>
@@ -812,7 +812,7 @@
     <string name="uploads_view_upload_status_succeeded">Končano</string>
     <string name="uploads_view_upload_status_unknown_fail">Neznana napaka</string>
     <string name="uploads_view_upload_status_virus_detected">Zaznan je virus! Pošiljanja ni mogoče dokončati!</string>
-    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Poteka čakanje na konec načina varčevanja</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Poteka čakanje na preklic načina varčevanja ...</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Čakam polnjenje</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Poteka čakanje na vzpostavitev ne-merjene povezave Wi-Fi …</string>
     <string name="user_icon">Uporabnik</string>
