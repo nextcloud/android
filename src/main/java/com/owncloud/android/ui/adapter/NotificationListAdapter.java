@@ -107,14 +107,14 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {
         Notification notification = notificationsList.get(position);
         holder.binding.datetime.setText(DisplayUtils.getRelativeTimestamp(notificationsActivity,
-                notification.getDatetime().getTime()));
+                                                                          notification.getDatetime().getTime()));
 
         RichObject file = notification.subjectRichParameters.get(FILE);
         String subject = notification.getSubject();
         if (file == null && !TextUtils.isEmpty(notification.getLink())) {
             subject = subject + " ↗";
             holder.binding.subject.setTypeface(holder.binding.subject.getTypeface(),
-                                                           Typeface.BOLD);
+                                               Typeface.BOLD);
             holder.binding.subject.setOnClickListener(v -> openLink(notification.getLink()));
             holder.binding.subject.setText(subject);
         } else {
@@ -142,17 +142,17 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         }
 
         int nightModeFlag = notificationsActivity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-            if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
-                holder.binding.icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
-            } else {
-                holder.binding.icon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
-            }
+        if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
+            holder.binding.icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+        } else {
+            holder.binding.icon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+        }
 
         setButtons(holder, notification);
 
         holder.binding.dismiss.setOnClickListener(v -> new DeleteNotificationTask(client, notification,
-                                                                                              holder,
-                                                                          notificationsActivity).execute());
+                                                                                  holder,
+                                                                                  notificationsActivity).execute());
     }
 
     public void setButtons(NotificationViewHolder holder, Notification notification) {
@@ -168,7 +168,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             0,
             resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
             0
-        );
+                         );
 
         for (Action action : notification.getActions()) {
             button = new MaterialButton(notificationsActivity);
@@ -231,7 +231,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
                 ssb.setSpan(styleSpanBold, openingBrace, closingBrace, 0);
                 ssb.setSpan(foregroundColorSpanBlack, openingBrace, closingBrace,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             openingBrace = text.indexOf('{', closingBrace);
         }
@@ -263,24 +263,24 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
     private void downloadIcon(String icon, ImageView itemViewType) {
         GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(notificationsActivity)
-                .using(Glide.buildStreamModelLoader(Uri.class, notificationsActivity), InputStream.class)
-                .from(Uri.class)
-                .as(SVG.class)
-                .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
-                .sourceEncoder(new StreamEncoder())
-                .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
-                .decoder(new SvgDecoder())
-                .placeholder(R.drawable.ic_notification)
-                .error(R.drawable.ic_notification)
-                .animate(android.R.anim.fade_in)
-                .listener(new SvgSoftwareLayerSetter<>());
+            .using(Glide.buildStreamModelLoader(Uri.class, notificationsActivity), InputStream.class)
+            .from(Uri.class)
+            .as(SVG.class)
+            .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
+            .sourceEncoder(new StreamEncoder())
+            .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
+            .decoder(new SvgDecoder())
+            .placeholder(R.drawable.ic_notification)
+            .error(R.drawable.ic_notification)
+            .animate(android.R.anim.fade_in)
+            .listener(new SvgSoftwareLayerSetter<>());
 
 
         Uri uri = Uri.parse(icon);
         requestBuilder
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .load(uri)
-                .into(itemViewType);
+            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+            .load(uri)
+            .into(itemViewType);
     }
 
     private void openLink(String link) {
