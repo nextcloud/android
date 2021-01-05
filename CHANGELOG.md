@@ -1,3 +1,12 @@
+## 3.14.2 RC1 (January, 05, 2021)
+
+Fix push notifications on some devices
+Fix updating of sharee list
+Fix crash during setting status
+Fix Crash Sharing files to Nextcloud via Android Apps
+
+For a full list, please see https://github.com/nextcloud/android/milestone/54
+
 ## 3.14.1 RC2 (November, 25, 2020)
 
 Fix crash due to service not started in time
