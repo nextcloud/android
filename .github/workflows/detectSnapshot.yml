@@ -2,12 +2,12 @@ name: "Detect snapshot"
 
 on:
     push:
-        branches: [ master ]
+        branches: [ master, stable-* ]
     pull_request:
-        branches: [ master ]
+        branches: [ master, stable-* ]
 
 jobs:
-    detekt:
+    detectSnapshot:
         runs-on: ubuntu-latest
 
         steps:
