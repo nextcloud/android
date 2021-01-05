@@ -54,11 +54,19 @@ public class PreviewTextFileFragmentTest extends AbstractIT {
 
         shortSleep();
 
-        File file = getDummyFile("nonEmpty.txt");
-        OCFile test = new OCFile("/text.md");
-        test.setMimeType(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN);
-        test.setStoragePath(file.getAbsolutePath());
-        sut.startTextPreview(test, false);
+        sut.runOnUiThread(() -> {
+            File file = null;
+            try {
+                file = getDummyFile("nonEmpty.txt");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            OCFile test = new OCFile("/text.md");
+            test.setMimeType(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN);
+            test.setStoragePath(file.getAbsolutePath());
+            sut.startTextPreview(test, true);
+        });
 
         shortSleep();
 
