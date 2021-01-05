@@ -141,7 +141,9 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             downloadIcon(notification.getIcon(), holder.binding.icon);
         }
 
-        int nightModeFlag = notificationsActivity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        int nightModeFlag =
+            notificationsActivity.getResources().getConfiguration().uiMode
+            & Configuration.UI_MODE_NIGHT_MASK;
         if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
             holder.binding.icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
         } else {
@@ -150,7 +152,8 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
         setButtons(holder, notification);
 
-        holder.binding.dismiss.setOnClickListener(v -> new DeleteNotificationTask(client, notification,
+        holder.binding.dismiss.setOnClickListener(v -> new DeleteNotificationTask(client,
+                                                                                  notification,
                                                                                   holder,
                                                                                   notificationsActivity).execute());
     }
