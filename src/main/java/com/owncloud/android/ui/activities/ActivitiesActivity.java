@@ -27,7 +27,6 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ActivityListLayoutBinding;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.model.RichObject;
@@ -109,12 +108,9 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     private void setupContent() {
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_activity);
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
         adapter = new ActivityListAdapter(this,
                                           getUserAccountManager(),
                                           this,
-                                          storageManager,
-                                          getCapabilities(),
                                           clientFactory,
                                           false);
         binding.list.setAdapter(adapter);

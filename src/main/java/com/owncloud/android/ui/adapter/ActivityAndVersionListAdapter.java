@@ -3,9 +3,11 @@
  *
  * @author Chris Narkiewicz
  * @author Tobias Kaminsky
+ * @author Andy Scherzinger
  *
  * Copyright (C) 2019 Tobias Kaminsky
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Andy Scherzinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -26,19 +28,15 @@ package com.owncloud.android.ui.adapter;
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.databinding.VersionListItemBinding;
 import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
-import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.interfaces.VersionListInterface;
 import com.owncloud.android.utils.DisplayUtils;
@@ -49,24 +47,20 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ActivityAndVersionListAdapter extends ActivityListAdapter {
-
     private static final int VERSION_TYPE = 102;
-    private VersionListInterface.View versionListInterface;
+
+    private final VersionListInterface.View versionListInterface;
 
     public ActivityAndVersionListAdapter(
         Context context,
         CurrentAccountProvider currentAccountProvider,
         ActivityListInterface activityListInterface,
         VersionListInterface.View versionListInterface,
-        FileDataStorageManager storageManager,
-        OCCapability capability,
         ClientFactory clientFactory
     ) {
-        super(context, currentAccountProvider, activityListInterface, storageManager, capability, clientFactory, true);
+        super(context, currentAccountProvider, activityListInterface, clientFactory, true);
 
         this.versionListInterface = versionListInterface;
     }
@@ -129,14 +123,11 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        switch (viewType) {
-            case VERSION_TYPE:
-                View versionView = LayoutInflater.from(parent.getContext()).inflate(R.layout.version_list_item,
-                        parent, false);
-                return new VersionViewHolder(versionView);
-            default:
-                return super.onCreateViewHolder(parent, viewType);
+        if (viewType == VERSION_TYPE) {
+            return new VersionViewHolder(VersionListItemBinding.inflate(LayoutInflater.from(parent.getContext())));
         }
+
+        return super.onCreateViewHolder(parent, viewType);
     }
 
     @Override
@@ -145,11 +136,14 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
             final VersionViewHolder versionViewHolder = (VersionViewHolder) holder;
             FileVersion fileVersion = (FileVersion) values.get(position);
 
-            versionViewHolder.size.setText(DisplayUtils.bytesToHumanReadable(fileVersion.getFileLength()));
-            versionViewHolder.time.setText(DateFormat.format("HH:mm", new Date(fileVersion.getModifiedTimestamp())
-                    .getTime()));
+            versionViewHolder.binding.size.setText(DisplayUtils.bytesToHumanReadable(fileVersion.getFileLength()));
+            versionViewHolder.binding.time.setText(
+                DateFormat.format("HH:mm", new Date(fileVersion.getModifiedTimestamp()).getTime())
+            );
 
-            versionViewHolder.restore.setOnClickListener(v -> versionListInterface.onRestoreClicked(fileVersion));
+            versionViewHolder.binding.restore.setOnClickListener(
+                v -> versionListInterface.onRestoreClicked(fileVersion)
+            );
         } else {
             super.onBindViewHolder(holder, position);
         }
@@ -169,16 +163,12 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
     }
 
     protected class VersionViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.size)
-        public TextView size;
-        @BindView(R.id.time)
-        public TextView time;
-        @BindView(R.id.restore)
-        public ImageView restore;
 
-        VersionViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        VersionListItemBinding binding;
+
+        VersionViewHolder(VersionListItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }
