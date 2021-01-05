@@ -3,9 +3,11 @@
  *
  * @author Alejandro Bautista
  * @author Chris Narkiewicz
+ * @author Andy Scherzinger
  *
  * Copyright (C) 2017 Alejandro Bautista
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2020 Andy Scherzinger
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -42,7 +44,6 @@ import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,13 +59,13 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.databinding.ActivityListItemBinding;
+import com.owncloud.android.databinding.ActivityListItemHeaderBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.lib.resources.activities.model.RichElement;
 import com.owncloud.android.lib.resources.activities.model.RichObject;
 import com.owncloud.android.lib.resources.activities.models.PreviewObject;
-import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -81,7 +82,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * Adapter for the activity view
+ * Adapter for the activity view.
  */
 public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements StickyHeaderAdapter {
 
@@ -95,8 +96,6 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     protected Context context;
     private CurrentAccountProvider currentAccountProvider;
     private ClientFactory clientFactory;
-    private FileDataStorageManager storageManager;
-    private OCCapability capability;
     protected List<Object> values;
     private boolean isDetailView;
 
@@ -104,17 +103,12 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         Context context,
         CurrentAccountProvider currentAccountProvider,
         ActivityListInterface activityListInterface,
-        FileDataStorageManager storageManager,
-        OCCapability capability,
         ClientFactory clientFactory,
-        boolean isDetailView
-    ) {
+        boolean isDetailView) {
         this.values = new ArrayList<>();
         this.context = context;
         this.currentAccountProvider = currentAccountProvider;
         this.activityListInterface = activityListInterface;
-        this.storageManager = storageManager;
-        this.capability = capability;
         this.clientFactory = clientFactory;
         px = getThumbnailDimension();
         this.isDetailView = isDetailView;
@@ -154,11 +148,13 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == ACTIVITY_TYPE) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item, parent, false);
-            return new ActivityViewHolder(v);
+            return new ActivityViewHolder(
+                ActivityListItemBinding.inflate(LayoutInflater.from(parent.getContext()))
+            );
         } else {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item_header, parent, false);
-            return new ActivityViewHeaderHolder(v);
+            return new ActivityViewHeaderHolder(
+                ActivityListItemHeaderBinding.inflate(LayoutInflater.from(parent.getContext()))
+            );
         }
     }
 
@@ -168,34 +164,34 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             final ActivityViewHolder activityViewHolder = (ActivityViewHolder) holder;
             Activity activity = (Activity) values.get(position);
             if (activity.getDatetime() != null) {
-                activityViewHolder.dateTime.setVisibility(View.VISIBLE);
-                activityViewHolder.dateTime.setText(DateFormat.format("HH:mm", activity.getDatetime().getTime()));
+                activityViewHolder.binding.datetime.setVisibility(View.VISIBLE);
+                activityViewHolder.binding.datetime.setText(DateFormat.format("HH:mm", activity.getDatetime().getTime()));
             } else {
-                activityViewHolder.dateTime.setVisibility(View.GONE);
+                activityViewHolder.binding.datetime.setVisibility(View.GONE);
             }
 
             if (activity.getRichSubjectElement() != null &&
                 !TextUtils.isEmpty(activity.getRichSubjectElement().getRichSubject())) {
-                activityViewHolder.subject.setVisibility(View.VISIBLE);
-                activityViewHolder.subject.setMovementMethod(LinkMovementMethod.getInstance());
-                activityViewHolder.subject.setText(addClickablePart(activity.getRichSubjectElement()), TextView.BufferType.SPANNABLE);
-                activityViewHolder.subject.setVisibility(View.VISIBLE);
+                activityViewHolder.binding.subject.setVisibility(View.VISIBLE);
+                activityViewHolder.binding.subject.setMovementMethod(LinkMovementMethod.getInstance());
+                activityViewHolder.binding.subject.setText(addClickablePart(activity.getRichSubjectElement()), TextView.BufferType.SPANNABLE);
+                activityViewHolder.binding.subject.setVisibility(View.VISIBLE);
             } else if (!TextUtils.isEmpty(activity.getSubject())) {
-                activityViewHolder.subject.setVisibility(View.VISIBLE);
-                activityViewHolder.subject.setText(activity.getSubject());
+                activityViewHolder.binding.subject.setVisibility(View.VISIBLE);
+                activityViewHolder.binding.subject.setText(activity.getSubject());
             } else {
-                activityViewHolder.subject.setVisibility(View.GONE);
+                activityViewHolder.binding.subject.setVisibility(View.GONE);
             }
 
             if (!TextUtils.isEmpty(activity.getMessage())) {
-                activityViewHolder.message.setText(activity.getMessage());
-                activityViewHolder.message.setVisibility(View.VISIBLE);
+                activityViewHolder.binding.message.setText(activity.getMessage());
+                activityViewHolder.binding.message.setVisibility(View.VISIBLE);
             } else {
-                activityViewHolder.message.setVisibility(View.GONE);
+                activityViewHolder.binding.message.setVisibility(View.GONE);
             }
 
             if (!TextUtils.isEmpty(activity.getIcon())) {
-                downloadIcon(activity, activityViewHolder.activityIcon);
+                downloadIcon(activity, activityViewHolder.binding.icon);
             }
 
             int nightModeFlag = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -203,25 +199,25 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             if (!"file_created".equalsIgnoreCase(activity.getType()) &&
                 !"file_deleted".equalsIgnoreCase(activity.getType())) {
                 if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
-                    activityViewHolder.activityIcon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+                    activityViewHolder.binding.icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
                 } else {
-                    activityViewHolder.activityIcon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+                    activityViewHolder.binding.icon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
                 }
             }
 
 
             if (activity.getRichSubjectElement() != null &&
                 activity.getRichSubjectElement().getRichObjectList().size() > 0) {
-                activityViewHolder.list.setVisibility(View.VISIBLE);
-                activityViewHolder.list.removeAllViews();
+                activityViewHolder.binding.list.setVisibility(View.VISIBLE);
+                activityViewHolder.binding.list.removeAllViews();
 
-                activityViewHolder.list.post(() -> {
-                    int w = activityViewHolder.list.getMeasuredWidth();
+                activityViewHolder.binding.list.post(() -> {
+                    int w = activityViewHolder.binding.list.getMeasuredWidth();
                     int elPxSize = px + 20;
                     int totalColumnCount = w / elPxSize;
 
                     try {
-                        activityViewHolder.list.setColumnCount(totalColumnCount);
+                        activityViewHolder.binding.list.setColumnCount(totalColumnCount);
                     } catch (IllegalArgumentException e) {
                         Log_OC.e(TAG, "error setting column count to " + totalColumnCount);
                     }
@@ -234,16 +230,16 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                                                  activity
                                                                      .getRichSubjectElement()
                                                                      .getRichObjectList());
-                        activityViewHolder.list.addView(imageView);
+                        activityViewHolder.binding.list.addView(imageView);
                     }
                 }
             } else {
-                activityViewHolder.list.removeAllViews();
-                activityViewHolder.list.setVisibility(View.GONE);
+                activityViewHolder.binding.list.removeAllViews();
+                activityViewHolder.binding.list.setVisibility(View.GONE);
             }
         } else {
             ActivityViewHeaderHolder activityViewHeaderHolder = (ActivityViewHeaderHolder) holder;
-            activityViewHeaderHolder.title.setText((String) values.get(position));
+            activityViewHeaderHolder.binding.header.setText((String) values.get(position));
         }
     }
 
@@ -420,7 +416,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void bindHeaderData(View header, int headerPosition) {
-        TextView textView = header.findViewById(R.id.title_header);
+        TextView textView = header.findViewById(R.id.header);
         String headline = (String) values.get(headerPosition);
         textView.setText(headline);
     }
@@ -432,30 +428,21 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     protected class ActivityViewHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView activityIcon;
-        private final TextView subject;
-        private final TextView message;
-        private final TextView dateTime;
-        private final GridLayout list;
+        ActivityListItemBinding binding;
 
-        ActivityViewHolder(View itemView) {
-            super(itemView);
-            activityIcon = itemView.findViewById(R.id.activity_icon);
-            subject = itemView.findViewById(R.id.activity_subject);
-            message = itemView.findViewById(R.id.activity_message);
-            dateTime = itemView.findViewById(R.id.activity_datetime);
-            list = itemView.findViewById(R.id.list);
+        ActivityViewHolder(ActivityListItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
     protected class ActivityViewHeaderHolder extends RecyclerView.ViewHolder {
 
-        private final TextView title;
+        ActivityListItemHeaderBinding binding;
 
-        ActivityViewHeaderHolder(View itemView) {
-            super(itemView);
-            title = itemView.findViewById(R.id.title_header);
-
+        ActivityViewHeaderHolder(ActivityListItemHeaderBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }
