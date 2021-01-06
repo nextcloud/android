@@ -295,7 +295,7 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:2.4.0"
     implementation "androidx.fragment:fragment:1.2.5"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
-    compileOnly 'com.google.code.findbugs:annotations:2.0.1'
+    compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
     implementation 'commons-io:commons-io:2.8.0'
     implementation "com.jakewharton:butterknife:$butterknifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
