@@ -1,0 +1,15 @@
+reformat code
+Format code
+use Android's view binding for adapter's view holder
+adapt dialog icon to dark/light theme
+Android view binding for activities view holder
+l10n: Adding "date"
+l10n: Changing string text "patch" to "folder"
+use correct click UI element for create folder
+make variables final
+use Android view bindings
+Add null check since capabilities can be null
+Fix crash in SetStatusDialogFragment.clearTopStatus
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
