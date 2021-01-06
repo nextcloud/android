@@ -1,4 +1,4 @@
-name: "Validate Gradle Wrapper"
+name: "Detect snapshot"
 
 on:
     push:
@@ -7,9 +7,10 @@ on:
         branches: [ master, stable-* ]
 
 jobs:
-    validation:
-        name: "Validation"
+    detectSnapshot:
         runs-on: ubuntu-latest
+
         steps:
             -   uses: actions/checkout@v2
-            -   uses: gradle/wrapper-validation-action@v1
+            -   name: Detect SNAPSHOT
+                run: scripts/analysis/detectSNAPSHOT.sh
