@@ -8,7 +8,7 @@ import com.github.spotbugs.snom.SpotBugsTask
 // its root folder, another one for the app module in subfolder of root.
 
 buildscript {
-    ext.kotlin_version = '1.4.21'
+    ext.kotlin_version = '1.4.21-2'
     repositories {
         google()
         jcenter()
@@ -57,9 +57,9 @@ ext {
     markwonVersion =  "4.6.1"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
-    androidLibraryVersion ="664b84a0c41b03a172c5321cc4b99f15158cb04d"
-    mockitoVersion = "3.6.28"
-    mockkVersion = "1.10.2"
+    androidLibraryVersion = "master-SNAPSHOT"
+    mockitoVersion = "3.7.0"
+    mockkVersion = "1.10.4"
     powermockVersion = "2.0.9"
     byteBuddyVersion = "1.10.19"
     espressoVersion = "3.3.0"
@@ -295,7 +295,7 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:2.4.0"
     implementation "androidx.fragment:fragment:1.2.5"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
-    compileOnly 'com.google.code.findbugs:annotations:2.0.1'
+    compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
     implementation 'commons-io:commons-io:2.8.0'
     implementation "com.jakewharton:butterknife:$butterknifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
@@ -384,7 +384,7 @@ dependencies {
     }
     androidTestImplementation "net.bytebuddy:byte-buddy:$byteBuddyVersion"
     androidTestImplementation "net.bytebuddy:byte-buddy-android:$byteBuddyVersion"
-    androidTestImplementation "io.mockk:mockk-android:1.10.0"
+    androidTestImplementation "io.mockk:mockk-android:1.10.4"
     androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
 
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
