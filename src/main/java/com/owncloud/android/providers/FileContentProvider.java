@@ -783,6 +783,7 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR + TEXT
                        + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR + TEXT
                        + ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN + TEXT
+                       + ProviderTableMeta.CAPABILITIES_SERVER_LOGO + TEXT
                        + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + TEXT
                        + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + INTEGER
                        + ProviderTableMeta.CAPABILITIES_ACTIVITY + INTEGER
@@ -2293,6 +2294,27 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i(SQL, "Entering in the #61 reset eTag to force capability refresh");
                 db.beginTransaction();
                 try {
+                    db.execSQL("UPDATE capabilities SET etag = '' WHERE 1=1");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 62 && newVersion >= 62) {
+                Log_OC.i(SQL, "Entering in the #62 add logo to capability");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_LOGO + " TEXT ");
+
+                    // force refresh
                     db.execSQL("UPDATE capabilities SET etag = '' WHERE 1=1");
 
                     upgraded = true;
