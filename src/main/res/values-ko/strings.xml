@@ -317,7 +317,6 @@
     <string name="file_list_seconds_ago">초 전</string>
     <string name="file_migration_checking_destination">대상 점검 중…</string>
     <string name="file_migration_cleaning">정리 중…</string>
-    <string name="file_migration_dialog_title">저장소 경로 업데이트 중</string>
     <string name="file_migration_directory_already_exists">데이터 폴더가 이미 존재합니다. 다음 중 하나를 선택하십시오:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud 폴더가 이미 존재함</string>
     <string name="file_migration_failed_not_enough_space">공간 부족</string>
@@ -331,7 +330,6 @@
     <string name="file_migration_preparing">이전 준비 중…</string>
     <string name="file_migration_restoring_accounts_configuration">계정 설정 복원 중…</string>
     <string name="file_migration_saving_accounts_configuration">계정 설정 저장중…</string>
-    <string name="file_migration_source_not_readable">저장소 경로를 그래도 %1$s(으)로 변경하시겠습니까?\n\n메모: 모든 데이터를 다시 다운로드해야 합니다.</string>
     <string name="file_migration_source_not_readable_title">원본 폴더에서 읽을 수 없음!</string>
     <string name="file_migration_updating_index">색인 업데이트 중…</string>
     <string name="file_migration_use_data_folder">사용</string>
@@ -536,7 +534,6 @@
     <string name="prefs_recommend">친구에게 추천하기</string>
     <string name="prefs_show_hidden_files">숨겨진 파일 보기</string>
     <string name="prefs_sourcecode">소스 코드 보기</string>
-    <string name="prefs_storage_path">저장소 경로</string>
     <string name="prefs_sycned_folders_summary">자동 업로드를 위한 폴더 관리</string>
     <string name="prefs_synced_folders_local_path_title">로컬 폴더</string>
     <string name="prefs_synced_folders_remote_path_title">원격 폴더</string>

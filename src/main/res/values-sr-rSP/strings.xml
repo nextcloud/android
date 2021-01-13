@@ -266,7 +266,6 @@
     <string name="file_list_seconds_ago">pre par sekundi</string>
     <string name="file_migration_checking_destination">Proveravam odredište…</string>
     <string name="file_migration_cleaning">Čistim…</string>
-    <string name="file_migration_dialog_title">Ažuriram putanju do skladišta</string>
     <string name="file_migration_directory_already_exists">Fascikla sa podacima već postoji. Odaberite jedno od sledećeg:</string>
     <string name="file_migration_failed_dir_already_exists">Nekstklaud fascikla već postoji</string>
     <string name="file_migration_failed_not_enough_space">Potrebno je više praznog mesta</string>
@@ -280,7 +279,6 @@
     <string name="file_migration_preparing">Pripremam prebacivanje…</string>
     <string name="file_migration_restoring_accounts_configuration">Vraćam podešavanja naloga…</string>
     <string name="file_migration_saving_accounts_configuration">Čuvam podešavanja naloga…</string>
-    <string name="file_migration_source_not_readable">Da li i dalje želite da promenite putanju do skladišta na %1$s?\n\nPažnja: svi podaci će morati da budu skinuti iznova.</string>
     <string name="file_migration_source_not_readable_title">Izvorna fascikla ne može da se čita!</string>
     <string name="file_migration_updating_index">Ažuriram indeks…</string>
     <string name="file_migration_use_data_folder">Iskoristi ovu</string>
@@ -460,7 +458,6 @@
     <string name="prefs_recommend">Preporučite prijatelju</string>
     <string name="prefs_show_hidden_files">Prikaži skrivene fajlove</string>
     <string name="prefs_sourcecode">Uzmi izvorni kôd</string>
-    <string name="prefs_storage_path">Putanja do skladišta</string>
     <string name="prefs_synced_folders_local_path_title">Lokalna fascikla</string>
     <string name="prefs_synced_folders_remote_path_title">Udaljena fascikla</string>
     <string name="prefs_theme_title">Tema</string>

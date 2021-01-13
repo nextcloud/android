@@ -318,7 +318,6 @@
     <string name="file_list_seconds_ago">几秒前</string>
     <string name="file_migration_checking_destination">正在检查目的地…</string>
     <string name="file_migration_cleaning">清除中…</string>
-    <string name="file_migration_dialog_title">更新存储路径</string>
     <string name="file_migration_directory_already_exists">数据文件夹已经存在。请选择以下选项：</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud 目录已存在</string>
     <string name="file_migration_failed_not_enough_space">需要更多空间</string>
@@ -332,7 +331,6 @@
     <string name="file_migration_preparing">正在准备迁移…</string>
     <string name="file_migration_restoring_accounts_configuration">正在还原账号配置…</string>
     <string name="file_migration_saving_accounts_configuration">正在保存账号配置…</string>
-    <string name="file_migration_source_not_readable">您确认更改存储目录到%1$s吗？注意：此操作后一切数据均需重新下载</string>
     <string name="file_migration_source_not_readable_title">源目录不可读！</string>
     <string name="file_migration_updating_index">正在更新目录…</string>
     <string name="file_migration_use_data_folder">使用</string>
@@ -537,7 +535,6 @@
     <string name="prefs_recommend">推荐给朋友</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
     <string name="prefs_sourcecode">获取源代码</string>
-    <string name="prefs_storage_path">存储路径</string>
     <string name="prefs_sycned_folders_summary">管理自动上传文件夹</string>
     <string name="prefs_synced_folders_local_path_title">本地文件夹</string>
     <string name="prefs_synced_folders_remote_path_title">远端文件夹</string>
@@ -836,8 +833,6 @@
     <string name="whats_new_skip">跳过</string>
     <string name="whats_new_title">新建%1$s</string>
     <string name="whats_your_status">你现在是什么状态？</string>
-    <string name="wrong_storage_path">存储路径不存在！</string>
-    <string name="wrong_storage_path_desc">这可能是由于在另一个设备上进行了备份恢复。正退回到默认状态。请检查“设置”以调整存储路径。</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">%1$d 个文件无法被同步 (与%2$d冲突)</item>
     </plurals>

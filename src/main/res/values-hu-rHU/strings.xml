@@ -311,7 +311,6 @@
     <string name="file_list_seconds_ago">másodperce</string>
     <string name="file_migration_checking_destination">Cél ellenőrzése…</string>
     <string name="file_migration_cleaning">Tisztítás…</string>
-    <string name="file_migration_dialog_title">Tároló útvonal frissítése</string>
     <string name="file_migration_directory_already_exists">Már létezik az adatmappa. Válasszon egyet a következőkből:</string>
     <string name="file_migration_failed_dir_already_exists">A Nextcloud mappa már létezik</string>
     <string name="file_migration_failed_not_enough_space">Több helyre van szükség</string>
@@ -325,7 +324,6 @@
     <string name="file_migration_preparing">Migráció előkészítése…</string>
     <string name="file_migration_restoring_accounts_configuration">Fiókkonfiguráció visszaállítása…</string>
     <string name="file_migration_saving_accounts_configuration">Fiókkonfiguráció mentése…</string>
-    <string name="file_migration_source_not_readable">Biztos, hogy erre módosítja a tárolási útvonalat: %1$s?\n\nMegjegyzés: az összes adatot újra le kell tölteni.</string>
     <string name="file_migration_source_not_readable_title">A forrásmappa nem olvasható!</string>
     <string name="file_migration_updating_index">Index frissítése…</string>
     <string name="file_migration_use_data_folder">Használat</string>
@@ -525,7 +523,6 @@
     <string name="prefs_recommend">Ajánlás egy barátnak</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
     <string name="prefs_sourcecode">Forráskód beszerzése</string>
-    <string name="prefs_storage_path">Tároló útvonal</string>
     <string name="prefs_synced_folders_local_path_title">Helyi mappa</string>
     <string name="prefs_synced_folders_remote_path_title">Távoli mappa</string>
     <string name="prefs_theme_title">Téma</string>

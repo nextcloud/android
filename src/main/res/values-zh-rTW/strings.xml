@@ -79,6 +79,7 @@
     <string name="autoupload_disable_power_save_check">停用省電功能</string>
     <string name="autoupload_hide_folder">隱藏資料夾</string>
     <string name="avatar">頭像</string>
+    <string name="away">外出</string>
     <string name="battery_optimization_close">關閉</string>
     <string name="battery_optimization_disable">停用</string>
     <string name="battery_optimization_message">您的裝置可能啟用了電池優化。自動上傳功能只能在此應用程式排除的情況下才能運作。</string>
@@ -316,7 +317,6 @@
     <string name="file_list_seconds_ago">幾秒前</string>
     <string name="file_migration_checking_destination">檢查目的地…</string>
     <string name="file_migration_cleaning">清理中…</string>
-    <string name="file_migration_dialog_title">更新儲存路徑</string>
     <string name="file_migration_directory_already_exists">資料目錄已經存在，請選擇下方其中之一：</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud 資料夾已經存在</string>
     <string name="file_migration_failed_not_enough_space">需要更多空間</string>
@@ -330,7 +330,6 @@
     <string name="file_migration_preparing">準備遷移…</string>
     <string name="file_migration_restoring_accounts_configuration">回復帳戶設置中…</string>
     <string name="file_migration_saving_accounts_configuration">正在儲存帳戶設置…</string>
-    <string name="file_migration_source_not_readable">你仍然要更改 %1$s 的儲存路徑？\n\n注意：所有檔案將需要被重新下載一次</string>
     <string name="file_migration_source_not_readable_title">來源資料夾無法讀取</string>
     <string name="file_migration_updating_index">更新索引中…</string>
     <string name="file_migration_use_data_folder">使用</string>
@@ -429,7 +428,9 @@
     <string name="move_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
     <string name="move_file_not_found">無法移動檔案。請確認它是否存在。</string>
     <string name="move_to">移動至…</string>
+    <string name="network_error_connect_timeout_exception">等候連接伺服器錯誤。無法完成作業。</string>
     <string name="network_error_socket_exception">連接至伺服器時發生錯誤</string>
+    <string name="network_error_socket_timeout_exception">等候連接伺服器錯誤。無法完成作業。</string>
     <string name="network_host_not_available">無法完成現在的動作,伺服器無法使用</string>
     <string name="new_comment">新留言…</string>
     <string name="new_media_folder_detected">偵測新媒體資料夾 %1$s</string>
@@ -533,7 +534,6 @@
     <string name="prefs_recommend">向朋友推薦</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_sourcecode">取得原始碼</string>
-    <string name="prefs_storage_path">儲存路徑</string>
     <string name="prefs_sycned_folders_summary">管理資料夾以便自動上傳</string>
     <string name="prefs_synced_folders_local_path_title">本地資料夾</string>
     <string name="prefs_synced_folders_remote_path_title">遠端資料夾</string>
@@ -555,6 +555,7 @@
     <string name="recommend_text">我想邀請您在您的裝置也使用%1$s
 請從這裡下載:%2$s</string>
     <string name="recommend_urls">%1$s或%2$s</string>
+    <string name="remote">(remote)</string>
     <string name="remote_file_fetch_failed">找不到檔案！</string>
     <string name="remove_fail_msg">刪除失敗</string>
     <string name="remove_notification_failed">移除通知失敗</string>
@@ -826,7 +827,6 @@
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>
     <string name="whats_your_status">你目前的狀態？</string>
-    <string name="wrong_storage_path">儲存路徑不存在！</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">無法同步 %1$d 檔案 (衝突: %2$d)</item>
     </plurals>

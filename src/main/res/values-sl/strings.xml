@@ -318,7 +318,6 @@
     <string name="file_list_seconds_ago">pred nekaj sekundami</string>
     <string name="file_migration_checking_destination">Poteka preverjanje cilja …</string>
     <string name="file_migration_cleaning">Poteka čiščenje …</string>
-    <string name="file_migration_dialog_title">Posodabljam mesto shrambe</string>
     <string name="file_migration_directory_already_exists">Podatkovna mapa že obstaja. Izberite eno izmed možnosti:</string>
     <string name="file_migration_failed_dir_already_exists">Mapa Nextcloud že obstaja</string>
     <string name="file_migration_failed_not_enough_space">Zahtevanega je več prostora</string>
@@ -332,7 +331,6 @@
     <string name="file_migration_preparing">Poteka pripravljanje preselitve…</string>
     <string name="file_migration_restoring_accounts_configuration">Poteka obnavljanje nastavitev računa …</string>
     <string name="file_migration_saving_accounts_configuration">Poteka shranjevanje nastavitev računa …</string>
-    <string name="file_migration_source_not_readable">Ali še vedno želiš spremeniti mesto shrambe na %1$s?\n\nVedi: Vse podatke moram prebrati ponovno.</string>
     <string name="file_migration_source_not_readable_title">Nastavitve dovoljenj na izvorni mapi ne omogočajo branja branja!</string>
     <string name="file_migration_updating_index">Poteka posodabljanje kazala …</string>
     <string name="file_migration_use_data_folder">Uporabi</string>
@@ -537,7 +535,6 @@
     <string name="prefs_recommend">Priporoči prijatelju</string>
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
-    <string name="prefs_storage_path">Mesto shrambe</string>
     <string name="prefs_sycned_folders_summary">Upravljanje map za samodejno pošiljanje</string>
     <string name="prefs_synced_folders_local_path_title">Krajevna mapa</string>
     <string name="prefs_synced_folders_remote_path_title">Mapa na strežniku</string>
@@ -833,8 +830,6 @@
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo v %1$s</string>
     <string name="whats_your_status">Kako želite nastaviti stanje?</string>
-    <string name="wrong_storage_path">Pot shrambe ne obstaja!</string>
-    <string name="wrong_storage_path_desc">Napaka se lahko pojavi zaradi obnovitve varnostne kopije na drugi napravi. Nastavitev je povrnjena na privzeto vrednost. Za ustrezno delovanje je treba prilagoditi nastavitve.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ni mogoče uskladiti %1$d datoteke (spori: %2$d)</item>
         <item quantity="two">Ni mogoče uskladiti %1$d datotek (spori: %2$d)</item>

@@ -318,7 +318,6 @@
     <string name="file_list_seconds_ago">duela segundo batzuk</string>
     <string name="file_migration_checking_destination">Helburua egiaztatzen...</string>
     <string name="file_migration_cleaning">Garbitzen…</string>
-    <string name="file_migration_dialog_title">Biltegiratze bidea eguneratzen</string>
     <string name="file_migration_directory_already_exists">Datuen karpeta dagoeneko badago. Aukeratu hauetako bat:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud karpeta badago dagoeneko</string>
     <string name="file_migration_failed_not_enough_space">Leku gehiago behar da</string>
@@ -332,7 +331,6 @@
     <string name="file_migration_preparing">Migrazioa prestatzen...</string>
     <string name="file_migration_restoring_accounts_configuration">Kontuaren konfigurazioa berreskuratzen...</string>
     <string name="file_migration_saving_accounts_configuration">Kontuaren konfigurazioa gordetzen...</string>
-    <string name="file_migration_source_not_readable">Biltegiratze bidea %1$s-(e)ra aldatu nahi duzu oraindik?\n\nOharra: datu guztiak deskargatu beharko dituzu berriro.</string>
     <string name="file_migration_source_not_readable_title">Iturburuko karpeta ez dago irakurgarri!</string>
     <string name="file_migration_updating_index">Indizea eguneratzen…</string>
     <string name="file_migration_use_data_folder">Erabili</string>
@@ -537,7 +535,6 @@
     <string name="prefs_recommend">Gomendatu lagun bati</string>
     <string name="prefs_show_hidden_files">Erakutsi ezkutuko fitxategiak</string>
     <string name="prefs_sourcecode">Eskuratu iturburu-kodea</string>
-    <string name="prefs_storage_path">Biltegiratze helbidea</string>
     <string name="prefs_sycned_folders_summary">Kudeatu kargatze automatiko karpeta</string>
     <string name="prefs_synced_folders_local_path_title">Karpeta lokala</string>
     <string name="prefs_synced_folders_remote_path_title">Urruneko karpeta</string>
@@ -833,8 +830,6 @@
     <string name="whats_new_skip">Salto egin</string>
     <string name="whats_new_title">Berria %1$s-n</string>
     <string name="whats_your_status">Zein da zure egoera?</string>
-    <string name="wrong_storage_path">Biltegiratze-bidea ez dago</string>
-    <string name="wrong_storage_path_desc">Hau babeskopia eta leheneratzea beste gailu batean egiteagatik izan daiteke. Itzuli balio lehenetsietara. Egiaztatu ezarpenak biltegiratze-bidea doitzeko.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ezin izan da %1$d fitxategia sinkronizatu (gatazkak: %2$d)</item>
         <item quantity="other">Ezin izan dira %1$d fitxategi sinkronizatu (gatazkak: %2$d)</item>

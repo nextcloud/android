@@ -309,7 +309,6 @@
     <string name="file_list_seconds_ago">пре пар секунди</string>
     <string name="file_migration_checking_destination">Проверавам одредиште…</string>
     <string name="file_migration_cleaning">Чистим…</string>
-    <string name="file_migration_dialog_title">Ажурирам путању до складишта</string>
     <string name="file_migration_directory_already_exists">Фасцикла већ постоји. Одаберите нешто од следећег:</string>
     <string name="file_migration_failed_dir_already_exists">Некстклауд фасцикла већ постоји</string>
     <string name="file_migration_failed_not_enough_space">Потребно је још простора</string>
@@ -323,7 +322,6 @@
     <string name="file_migration_preparing">Припремам пресељење…</string>
     <string name="file_migration_restoring_accounts_configuration">Враћам подешавања налога…</string>
     <string name="file_migration_saving_accounts_configuration">Чувам подешавања налога…</string>
-    <string name="file_migration_source_not_readable">Да ли и даље желите да измените путању до складишта на %1$s?\n\nПажња: сви подаци ће морати да буду преузети поново.</string>
     <string name="file_migration_source_not_readable_title">Изворна фасцикла није читљива!</string>
     <string name="file_migration_updating_index">Ажурирам индекс…</string>
     <string name="file_migration_use_data_folder">Искористи</string>
@@ -522,7 +520,6 @@
     <string name="prefs_recommend">Препоручите пријатељу</string>
     <string name="prefs_show_hidden_files">Прикажи скривене фајлове</string>
     <string name="prefs_sourcecode">Узми изворни кôд</string>
-    <string name="prefs_storage_path">Путања до складишта</string>
     <string name="prefs_synced_folders_local_path_title">Локална фасцикла</string>
     <string name="prefs_synced_folders_remote_path_title">Удаљена фасцикла</string>
     <string name="prefs_theme_title">Тема</string>
