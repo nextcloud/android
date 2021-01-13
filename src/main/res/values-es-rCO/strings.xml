@@ -224,7 +224,6 @@
     <string name="file_list_seconds_ago">hace algunos segundos</string>
     <string name="file_migration_checking_destination">Verificando el destino…</string>
     <string name="file_migration_cleaning">Limpiando…</string>
-    <string name="file_migration_dialog_title">Actualizando la ruta de almacenamiento</string>
     <string name="file_migration_directory_already_exists">La carpeta de datos ya existe. Selecciona una de las siguientes:</string>
     <string name="file_migration_failed_dir_already_exists">La carpeta Nextcloud ya existe</string>
     <string name="file_migration_failed_not_enough_space">Se necesita más espacio</string>
@@ -238,7 +237,6 @@
     <string name="file_migration_preparing">Preparando la migración…</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando la configuración de la cuenta…</string>
     <string name="file_migration_saving_accounts_configuration">Guardando la configuración de la cuenta…</string>
-    <string name="file_migration_source_not_readable">¿Aún deseas cambiar la ruta de almacenamiento a %1$s?\n\nNota: todos los datos tendrán que ser descargados de nuevo. </string>
     <string name="file_migration_source_not_readable_title">¡No se puede leer la carpeta fuente!</string>
     <string name="file_migration_updating_index">Actualizando índice…</string>
     <string name="file_migration_use_data_folder">Usar</string>
@@ -376,7 +374,6 @@
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_sourcecode">Obtener el código fuente</string>
-    <string name="prefs_storage_path">Ruta de almacenamiento</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
     <string name="prefs_theme_title">Tema</string>

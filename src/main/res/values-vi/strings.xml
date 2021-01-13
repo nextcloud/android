@@ -190,7 +190,6 @@
     <string name="file_list_seconds_ago">vài giây trước</string>
     <string name="file_migration_checking_destination">Đang kiểm tra diểm cuối</string>
     <string name="file_migration_cleaning">Đang xóa…</string>
-    <string name="file_migration_dialog_title">Đang cập nhập đường dẫn lưu trữ</string>
     <string name="file_migration_directory_already_exists">Thư mục dữ liệu đã tồn tại. Chọn một trong mục theo dây:</string>
     <string name="file_migration_failed_dir_already_exists">Thư mục Nextcloud đã tồn tại</string>
     <string name="file_migration_failed_not_enough_space">Cần thêm dung lượng trống</string>
@@ -312,7 +311,6 @@
     <string name="prefs_recommend">Giới thiệu cho bạn bè</string>
     <string name="prefs_show_hidden_files">Hiển thị các tệp ẩn</string>
     <string name="prefs_sourcecode">Lấy mã nguồn</string>
-    <string name="prefs_storage_path">Đường dẫn lưu trữ</string>
     <string name="prefs_synced_folders_local_path_title">Thư mục cục bộ</string>
     <string name="prefs_synced_folders_remote_path_title">Thư mục từ xa</string>
     <string name="prefs_value_theme_dark">Tối</string>

@@ -285,7 +285,6 @@
     <string name="file_list_seconds_ago">ثانیه‌هایی پیش</string>
     <string name="file_migration_checking_destination">در حال بررسی مقصد ...</string>
     <string name="file_migration_cleaning">تمیز کردن…</string>
-    <string name="file_migration_dialog_title">به روزرسانی مسیر ذخیره سازی</string>
     <string name="file_migration_directory_already_exists">پوشه داده از قبل وجود دارد. ‫ یکی از موارد زیر را انتخاب کنید:</string>
     <string name="file_migration_failed_dir_already_exists">پوشه Nextcloud از قبل موجود است</string>
     <string name="file_migration_failed_not_enough_space">فضای بیشتری لازم است</string>
@@ -299,7 +298,6 @@
     <string name="file_migration_preparing">آماده سازی مهاجرت…</string>
     <string name="file_migration_restoring_accounts_configuration">بازیابی پیکربندی حساب ...</string>
     <string name="file_migration_saving_accounts_configuration">در حال ذخیره پیکربندی حساب ...</string>
-    <string name="file_migration_source_not_readable">آیا هنوز می خواهید مسیر ذخیره سازی را به  %1$s تغییر دهید؟\n\nتوجه: همه داده ها مجددا بارگیری می شوند.</string>
     <string name="file_migration_source_not_readable_title">پوشه منبع قابل خواندن نیست!</string>
     <string name="file_migration_updating_index">در حال بروزرسانی فهرست ...</string>
     <string name="file_migration_use_data_folder">استفاده کنید</string>
@@ -484,7 +482,6 @@
     <string name="prefs_recommend">پیشنهاد به دوستان </string>
     <string name="prefs_show_hidden_files">فایل های مخفی را نشان بده </string>
     <string name="prefs_sourcecode">دریافت کد منبع</string>
-    <string name="prefs_storage_path">مسیر ذخیره سازی</string>
     <string name="prefs_synced_folders_local_path_title">پوشه محلی</string>
     <string name="prefs_synced_folders_remote_path_title">پوشه از راه دور</string>
     <string name="prefs_theme_title">زمینه</string>
