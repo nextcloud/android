@@ -309,7 +309,6 @@
     <string name="file_list_seconds_ago">секунди тому</string>
     <string name="file_migration_checking_destination">Перевірка місця призначення...</string>
     <string name="file_migration_cleaning">Очищення...</string>
-    <string name="file_migration_dialog_title">Оновлення місця збереження</string>
     <string name="file_migration_directory_already_exists">Тека з даними вже існує. Виберіть одну з таких:</string>
     <string name="file_migration_failed_dir_already_exists">Тека Nextcloud вже існує</string>
     <string name="file_migration_failed_not_enough_space">Потрібно більше місця</string>
@@ -323,7 +322,6 @@
     <string name="file_migration_preparing">Підготовка до міграції</string>
     <string name="file_migration_restoring_accounts_configuration">Відновлення налаштувань облікового запису...</string>
     <string name="file_migration_saving_accounts_configuration">Збереження налаштувань облікового запису...</string>
-    <string name="file_migration_source_not_readable">Ви все ще бажаєте змінити шлях місця збереження на %1$s?\n\nПримітка: Усі дані потрібно буде повторно звантажити.</string>
     <string name="file_migration_source_not_readable_title">Неможливо прочитати початкову теку!</string>
     <string name="file_migration_updating_index">Оновлення індексу...</string>
     <string name="file_migration_use_data_folder">Використовувати</string>
@@ -522,7 +520,6 @@
     <string name="prefs_recommend">Порадити друзям</string>
     <string name="prefs_show_hidden_files">Відобразити сховані файли</string>
     <string name="prefs_sourcecode">Отримати вихідний код</string>
-    <string name="prefs_storage_path">Шлях до місця збереження</string>
     <string name="prefs_synced_folders_local_path_title">Локальний каталог</string>
     <string name="prefs_synced_folders_remote_path_title">Віддалений каталог</string>
     <string name="prefs_theme_title">Тема</string>

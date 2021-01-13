@@ -276,7 +276,6 @@
     <string name="file_list_seconds_ago">преди секунди</string>
     <string name="file_migration_checking_destination">Проверка на дестинацията…</string>
     <string name="file_migration_cleaning">Почистване…</string>
-    <string name="file_migration_dialog_title">Обновяване на пътя до хранилището</string>
     <string name="file_migration_directory_already_exists">Данните вече съществуват. Изберете действие.</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud папката вече съществува</string>
     <string name="file_migration_failed_not_enough_space">Нужно е повече пространство</string>
@@ -290,7 +289,6 @@
     <string name="file_migration_preparing">Подготвяне за миграция…</string>
     <string name="file_migration_restoring_accounts_configuration">Възстановяване настройките на профила…</string>
     <string name="file_migration_saving_accounts_configuration">Запазване на настройките на профилите…</string>
-    <string name="file_migration_source_not_readable">Все още ли искате да промените пътя за съхранение на %1$s?\n\nNote: Всичките данни ще трябва да бъдат изтеглени отново.</string>
     <string name="file_migration_source_not_readable_title">Папката източник не е четима!</string>
     <string name="file_migration_updating_index">Обновяване на индекс...</string>
     <string name="file_migration_use_data_folder">Използване</string>
@@ -442,7 +440,6 @@
     <string name="prefs_recommend">Препоръчай на приятел</string>
     <string name="prefs_show_hidden_files">Показване и на скрити файлове</string>
     <string name="prefs_sourcecode">Получаване на изходния код</string>
-    <string name="prefs_storage_path">Път до хранилището</string>
     <string name="prefs_synced_folders_local_path_title">Локална папка</string>
     <string name="prefs_synced_folders_remote_path_title">Отдалечена папка</string>
     <string name="prefs_theme_title">Тема</string>

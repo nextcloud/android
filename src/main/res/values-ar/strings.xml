@@ -311,7 +311,6 @@
     <string name="file_list_seconds_ago">منذ ثواني</string>
     <string name="file_migration_checking_destination">جار التحقق من الوجهة…</string>
     <string name="file_migration_cleaning">تنظيف…</string>
-    <string name="file_migration_dialog_title">تحديث مسار التخزين</string>
     <string name="file_migration_directory_already_exists">مجلد البيانات موجود مسبقاً. إختر واحدّ من التالي:</string>
     <string name="file_migration_failed_dir_already_exists">مجلد Nextcloud موجود مسبقاً</string>
     <string name="file_migration_failed_not_enough_space">بحاجة إلى مساحة إضافية</string>
@@ -325,8 +324,6 @@
     <string name="file_migration_preparing">جار تهيئة عملية الترحيل…</string>
     <string name="file_migration_restoring_accounts_configuration">إرجاع إعدادات الحساب…</string>
     <string name="file_migration_saving_accounts_configuration">حفظ إعدادات الحساب…</string>
-    <string name="file_migration_source_not_readable">هل لازلت تريد تغيير مسار التخزين إلى %1$s؟
-ملاحظة: ستحمل جميع البيانات من جديد.</string>
     <string name="file_migration_source_not_readable_title">ملف المصدر غير قابل للقرائة!</string>
     <string name="file_migration_updating_index">تحديث الفهرس…</string>
     <string name="file_migration_use_data_folder">استعمل</string>
@@ -531,7 +528,6 @@
     <string name="prefs_recommend">يوصي لصديق</string>
     <string name="prefs_show_hidden_files">عرض الملفات المخفية</string>
     <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
-    <string name="prefs_storage_path">مسار التخزين</string>
     <string name="prefs_synced_folders_local_path_title">مجلد محلي</string>
     <string name="prefs_synced_folders_remote_path_title">مجلد عن بعد</string>
     <string name="prefs_theme_title">المظهر</string>

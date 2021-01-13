@@ -309,7 +309,6 @@
     <string name="file_list_seconds_ago">数秒前</string>
     <string name="file_migration_checking_destination">移動先の確認中…</string>
     <string name="file_migration_cleaning">クリーニング中…</string>
-    <string name="file_migration_dialog_title">ストレージの場所を更新中</string>
     <string name="file_migration_directory_already_exists">データフォルダは既に存在します。 次のいずれかを選択します。</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloudフォルダは既に存在します</string>
     <string name="file_migration_failed_not_enough_space">空き容量が必要です</string>
@@ -323,7 +322,6 @@
     <string name="file_migration_preparing">移行の準備中…</string>
     <string name="file_migration_restoring_accounts_configuration">アカウント設定を復元中…</string>
     <string name="file_migration_saving_accounts_configuration">アカウントの設定を保存中</string>
-    <string name="file_migration_source_not_readable">ストレージの場所を %1$s?\n\nNoteに変更しますか？:すべてのデータを再度ダウンロードする必要がああります。</string>
     <string name="file_migration_source_not_readable_title">ソースフォルダが読み込めません！</string>
     <string name="file_migration_updating_index">インデックスの更新中…</string>
     <string name="file_migration_use_data_folder">利用</string>
@@ -522,7 +520,6 @@
     <string name="prefs_recommend">友達に推奨</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_sourcecode">ソースコードを入手</string>
-    <string name="prefs_storage_path">ストレージの場所</string>
     <string name="prefs_synced_folders_local_path_title">ローカルフォルダー</string>
     <string name="prefs_synced_folders_remote_path_title">リモートフォルダー</string>
     <string name="prefs_theme_title">テーマ</string>

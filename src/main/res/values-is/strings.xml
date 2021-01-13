@@ -305,7 +305,6 @@
     <string name="file_list_seconds_ago">sekúndum síðan</string>
     <string name="file_migration_checking_destination">Athuga áfangastað…</string>
     <string name="file_migration_cleaning">Hreinsun</string>
-    <string name="file_migration_dialog_title">Uppfæri slóð á gagnageymslu</string>
     <string name="file_migration_directory_already_exists">Gagnamappa er þegar til. Veldu eitt af eftirfarandi:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud-mappa er þegar til staðar</string>
     <string name="file_migration_failed_not_enough_space">Þarf meira geymslupláss</string>
@@ -319,7 +318,6 @@
     <string name="file_migration_preparing">Undirbý yfirfærslu...</string>
     <string name="file_migration_restoring_accounts_configuration">Endurheimti aðgangsuppsetningar…</string>
     <string name="file_migration_saving_accounts_configuration">Vista aðgangsuppsetningar…</string>
-    <string name="file_migration_source_not_readable">Viltu breyta slóð á geymslurými yfir í %1$s?\n\nAthugaðu: Sækja þarf öll gögn aftur.</string>
     <string name="file_migration_source_not_readable_title">Upprunamappa er ekki lesanleg!</string>
     <string name="file_migration_updating_index">Uppfæri atriðaskrá…</string>
     <string name="file_migration_use_data_folder">Nota</string>
@@ -517,7 +515,6 @@
     <string name="prefs_recommend">Mæla með við vin</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
     <string name="prefs_sourcecode">Náðu í grunnkóðann</string>
-    <string name="prefs_storage_path">Slóð á gagnageymslu</string>
     <string name="prefs_synced_folders_local_path_title">Staðvær mappa</string>
     <string name="prefs_synced_folders_remote_path_title">Fjartengd mappa</string>
     <string name="prefs_theme_title">Þema</string>
