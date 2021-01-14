@@ -1,8 +1,6 @@
 name: "Generic Flavor"
 
 on:
-    push:
-        branches: [ master, stable-* ]
     pull_request:
         branches: [ master, stable-* ]
 
