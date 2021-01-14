@@ -318,6 +318,7 @@
     <string name="file_list_seconds_ago">hai uns segundos</string>
     <string name="file_migration_checking_destination">Comprobando o destino…</string>
     <string name="file_migration_cleaning">Limpando…</string>
+    <string name="file_migration_dialog_title">Actualizando o cartafol de almacenamento de datos</string>
     <string name="file_migration_directory_already_exists">Xa existe o cartafol de datos. Escolla un dos seguintes:</string>
     <string name="file_migration_failed_dir_already_exists">Xa existe o cartafol de Nextcloud</string>
     <string name="file_migration_failed_not_enough_space">Necesitase máis espazo</string>
@@ -331,6 +332,7 @@
     <string name="file_migration_preparing">Preparando a migración…</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando a configuración da conta…</string>
     <string name="file_migration_saving_accounts_configuration">Gardando a configuración da conta…</string>
+    <string name="file_migration_source_not_readable">Aínda quere cambiar o cartafol de almacenamento de datos a %1$s?\n\nNota: haberá que volver descargar todos os datos.</string>
     <string name="file_migration_source_not_readable_title">O cartafol de orixe non é lexíbel!</string>
     <string name="file_migration_updating_index">Actualizando o índice…</string>
     <string name="file_migration_use_data_folder">Usar</string>
@@ -536,6 +538,7 @@
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_show_hidden_files">Amosar ficheiros agochados</string>
     <string name="prefs_sourcecode">Obter o código fonte</string>
+    <string name="prefs_storage_path">Cartafol de almacenamento de datos</string>
     <string name="prefs_sycned_folders_summary">Xestionar os cartafoles para a envío automático</string>
     <string name="prefs_synced_folders_local_path_title">Cartafol local</string>
     <string name="prefs_synced_folders_remote_path_title">Cartafol remoto</string>
@@ -831,6 +834,8 @@
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Novo en %1$s</string>
     <string name="whats_your_status">Cal é o seu estado?</string>
+    <string name="wrong_storage_path">O cartafol de almacenamento de datos non existe.</string>
+    <string name="wrong_storage_path_desc">Isto pode deberse a unha restauración de copia de seguridade noutro dispositivo. Volvendo ao predeterminado. Comprobe a configuración para axustar o cartafol de almacenamento.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Non foi posíbel sincronizar  %1$d ficheiro (conflitos: %2$d)</item>
         <item quantity="other">Non foi posíbel sincronizar  %1$d ficheiros (conflitos: %2$d)</item>
