@@ -318,6 +318,7 @@
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_migration_checking_destination">Prüfe Zielort…</string>
     <string name="file_migration_cleaning">Aufräumen…</string>
+    <string name="file_migration_dialog_title">Aktualisiere Speicherordner</string>
     <string name="file_migration_directory_already_exists">Daten-Verzeichnis existiert bereits. Bitte auswählen:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud-Verzeichnis existiert bereits</string>
     <string name="file_migration_failed_not_enough_space">Mehr Speicherplatz benötigt</string>
@@ -331,6 +332,7 @@
     <string name="file_migration_preparing">Bereite Migration vor…</string>
     <string name="file_migration_restoring_accounts_configuration">Konfiguration der Konten wiederherstellen…</string>
     <string name="file_migration_saving_accounts_configuration">Sichere Konfiguration der Konten…</string>
+    <string name="file_migration_source_not_readable">Möchten Sie wirklich den Speicherordner in %1$s ändern?\n\nHinweis: Alle Daten müssen dann erneut heruntergeladen werden. </string>
     <string name="file_migration_source_not_readable_title">Quellverzeichnis kann nicht gelesen werden!</string>
     <string name="file_migration_updating_index">Aktualisiere Index…</string>
     <string name="file_migration_use_data_folder">Verwende bestehenden</string>
@@ -535,6 +537,7 @@
     <string name="prefs_recommend">Einem Freund empfehlen</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_sourcecode">Zum Programmcode</string>
+    <string name="prefs_storage_path">Speicherordner</string>
     <string name="prefs_sycned_folders_summary">Ordner für \"Automatisches Hochladen\" verwalten</string>
     <string name="prefs_synced_folders_local_path_title">Lokaler Ordner</string>
     <string name="prefs_synced_folders_remote_path_title">Remote-Ordner</string>
@@ -831,6 +834,8 @@
     <string name="whats_new_skip">Überspringen</string>
     <string name="whats_new_title">Neu in %1$s</string>
     <string name="whats_your_status">Wie ist Ihr Status?</string>
+    <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
+    <string name="wrong_storage_path_desc">Dies könnte auf eine Sicherungswiederherstellung auf einem anderen Gerät zurückzuführen sein. Standard wird verwendet. Bitte überprüfen Sie die Einstellungen, um den Speicherordner anzupassen.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Inhalte von %1$d Datei konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
         <item quantity="other">Inhalte von %1$d Dateien konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
