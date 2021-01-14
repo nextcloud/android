@@ -318,6 +318,7 @@
     <string name="file_list_seconds_ago">secondi fa</string>
     <string name="file_migration_checking_destination">Controllo della destinazione…</string>
     <string name="file_migration_cleaning">Pulizia in corso…</string>
+    <string name="file_migration_dialog_title">Aggiornamento della cartella di archiviazione dei dati</string>
     <string name="file_migration_directory_already_exists">La cartella data esiste già. Scegli una delle seguenti:</string>
     <string name="file_migration_failed_dir_already_exists">La cartella di Nextcloud esiste già</string>
     <string name="file_migration_failed_not_enough_space">Altro spazio necessario</string>
@@ -331,6 +332,7 @@
     <string name="file_migration_preparing">Preparazione della migrazione…</string>
     <string name="file_migration_restoring_accounts_configuration">Ripristino della configurazione dell\'account…</string>
     <string name="file_migration_saving_accounts_configuration">Salvataggio della configurazione dell\'account…</string>
+    <string name="file_migration_source_not_readable">Vuoi ancora cambiare la cartella di archiviazione dei dati in %1$s?\n\nNota: tutti i dati dovranno essere scaricati nuovamente.</string>
     <string name="file_migration_source_not_readable_title">Cartella sorgente non disponibile!</string>
     <string name="file_migration_updating_index">Aggiornamento dell\'indice…</string>
     <string name="file_migration_use_data_folder">Usa</string>
@@ -535,6 +537,7 @@
     <string name="prefs_recommend">Consiglia a un amico</string>
     <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
     <string name="prefs_sourcecode">Ottieni codice sorgente</string>
+    <string name="prefs_storage_path">Cartella di archiviazione dei dati</string>
     <string name="prefs_sycned_folders_summary">Gestisci le cartelle per il caricamento automatico</string>
     <string name="prefs_synced_folders_local_path_title">Cartella locale</string>
     <string name="prefs_synced_folders_remote_path_title">Cartella remota</string>
@@ -830,6 +833,8 @@
     <string name="whats_new_skip">Salta</string>
     <string name="whats_new_title">Prima volta su %1$s</string>
     <string name="whats_your_status">Qual è il tuo stato?</string>
+    <string name="wrong_storage_path">La cartella di archiviazione dei dati non esiste!</string>
+    <string name="wrong_storage_path_desc">Ciò potrebbe essere dovuto a un ripristino di backup su un altro dispositivo. Tornando al valore predefinito. Controlla le impostazioni per modificare la cartella di archiviazione.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossibile sincronizzare %1$d file (conflitto con: %2$d)</item>
         <item quantity="other">Impossibile sincronizzare %1$d file (conflitto con: %2$d)</item>
