@@ -108,11 +108,12 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             if (!directEditing.getCreators().isEmpty()) {
                 binding.creatorsContainer.setVisibility(View.VISIBLE);
 
-                FileListActionsBottomSheetCreatorBinding creatorViewBinding =
-                    FileListActionsBottomSheetCreatorBinding.inflate(getLayoutInflater());
-
                 for (Creator creator : directEditing.getCreators().values()) {
+                    FileListActionsBottomSheetCreatorBinding creatorViewBinding =
+                        FileListActionsBottomSheetCreatorBinding.inflate(getLayoutInflater());
+
                     View creatorView = creatorViewBinding.getRoot();
+
                     creatorViewBinding.creatorName.setText(
                         String.format(fileActivity.getString(R.string.editor_placeholder),
                                       fileActivity.getString(R.string.create_new),
