@@ -1,0 +1,3 @@
+Bump master to 3.16 apha
+Fix crash when multiple editors are shown
+Update translations
