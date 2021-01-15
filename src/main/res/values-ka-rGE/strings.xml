@@ -205,7 +205,6 @@
     <string name="file_list_loading">იტვირთება…</string>
     <string name="file_list_no_app_for_file_type">ამ ფაილთან სამუშაოდ არც ერთი აპლიკაცია არაა დაყანებული.</string>
     <string name="file_list_seconds_ago">წამის წინ</string>
-    <string name="file_migration_dialog_title">საცავის მისამართის განახლება</string>
     <string name="file_migration_directory_already_exists">მონაცემების დირექტორია უკვე არსებობს. აირჩიეთ ერთ-ერთი შემდეგიდან:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud დირექტორია უკვე არსებობს</string>
     <string name="file_migration_failed_not_enough_space">საჭიროა მეტი სივრცე</string>
@@ -215,7 +214,6 @@
     <string name="file_migration_failed_while_updating_index">ინდექსის განახლება ვერ მოხერხდა</string>
     <string name="file_migration_ok_finished">დასრულებულია</string>
     <string name="file_migration_override_data_folder">ჩანაცვლება</string>
-    <string name="file_migration_source_not_readable">მაინც გსურთ დირექტორიის მისამართის შეცვლა %1$s-ზე?\n\nშენიშვნა: ყველა მონაცემი ჩამოიტვირთება ახლიდან.</string>
     <string name="file_migration_source_not_readable_title">წყარო-დირექტორია ვერ იკითხება!</string>
     <string name="file_migration_use_data_folder">მოხმარება</string>
     <string name="file_not_found">ფაილი ვერ იქნა ნაპოვნი</string>
@@ -344,7 +342,6 @@
     <string name="prefs_recommend">ურჩიეთ მეგობარს</string>
     <string name="prefs_show_hidden_files">დამალული ფაილების ჩვენება</string>
     <string name="prefs_sourcecode">მიიღეთ კოდი</string>
-    <string name="prefs_storage_path">საცავის მისამართი</string>
     <string name="prefs_synced_folders_local_path_title">ლოკალური დირექტორია</string>
     <string name="prefs_synced_folders_remote_path_title">დისტანციური დირექტორია</string>
     <string name="prefs_theme_title">ვიზუალური თემა</string>

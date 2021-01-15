@@ -307,7 +307,6 @@
     <string name="file_list_seconds_ago">eilenn zo</string>
     <string name="file_migration_checking_destination">O gwiriañ an termen...</string>
     <string name="file_migration_cleaning">O gwalc\'hañ...</string>
-    <string name="file_migration_dialog_title">O adnevesaat an hent enroallañ</string>
     <string name="file_migration_directory_already_exists">An teuliad roadenn a zo outañ dija. Choazit unan eus ar re mañ :</string>
     <string name="file_migration_failed_dir_already_exists">Bez ez eus dija eus an teuliad Nextcloud mañ</string>
     <string name="file_migration_failed_not_enough_space">Eus muioc\'h a blas ez eus ezhomp</string>
@@ -321,7 +320,6 @@
     <string name="file_migration_preparing">O prientiñ an divroañ..;</string>
     <string name="file_migration_restoring_accounts_configuration">Adober stumm ar c\'hont...</string>
     <string name="file_migration_saving_accounts_configuration">Enrollañ stumm ar c\'hont...</string>
-    <string name="file_migration_source_not_readable">Sur oc\'h o peus c\'hoant cheñch hent an enrollañ da %1$s ?\n\nNotenn: Ar roadennoù a vo pellgarget adarre.</string>
     <string name="file_migration_source_not_readable_title">Ne vez ket lennet an teuliad orin !</string>
     <string name="file_migration_updating_index">O adnevesaat an index...</string>
     <string name="file_migration_use_data_folder">Implij</string>
@@ -518,7 +516,6 @@
     <string name="prefs_recommend">Kinnig d\'o mignonned</string>
     <string name="prefs_show_hidden_files">Diskouez ar restroù koachet</string>
     <string name="prefs_sourcecode">Kavout ar c\'hod orin</string>
-    <string name="prefs_storage_path">Hent enrollañ</string>
     <string name="prefs_synced_folders_local_path_title">Teuliadoù diabarzh</string>
     <string name="prefs_synced_folders_remote_path_title">Teuliad pell</string>
     <string name="prefs_theme_title">Tem</string>

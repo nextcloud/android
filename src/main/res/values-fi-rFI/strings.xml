@@ -315,7 +315,6 @@
     <string name="file_list_seconds_ago">sekuntia sitten</string>
     <string name="file_migration_checking_destination">Tarkistetaan kohdetta…</string>
     <string name="file_migration_cleaning">Siivotaan…</string>
-    <string name="file_migration_dialog_title">Päivitetään tallennus polkua</string>
     <string name="file_migration_directory_already_exists">Data-kansio on jo olemassa, Valitse yksi seuraavista:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud-kansio on jo olemassa</string>
     <string name="file_migration_failed_not_enough_space">Tarvitaan enemmän tilaa</string>
@@ -329,7 +328,6 @@
     <string name="file_migration_preparing">Valmistellaan migraatiota…</string>
     <string name="file_migration_restoring_accounts_configuration">Palautetaan tilin asetuksia…</string>
     <string name="file_migration_saving_accounts_configuration">Tallennetaan tilin asetuksia…</string>
-    <string name="file_migration_source_not_readable">Haluatko yhä vaihtaa tallennuspolun %1$s?\n\nHuomio: Kaikki data täytyy ladata uudestaan.</string>
     <string name="file_migration_source_not_readable_title">Lähdekansio ei ole luettavissa</string>
     <string name="file_migration_updating_index">Päivitetään indeksiä…</string>
     <string name="file_migration_use_data_folder">Käytä</string>
@@ -531,7 +529,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="prefs_recommend">Suosittele kaverille</string>
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_sourcecode">Hanki lähdekoodi</string>
-    <string name="prefs_storage_path">Tallennustilan polku</string>
     <string name="prefs_synced_folders_local_path_title">Paikallinen kansio</string>
     <string name="prefs_synced_folders_remote_path_title">Etäkansio</string>
     <string name="prefs_theme_title">Teema</string>

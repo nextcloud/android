@@ -311,7 +311,6 @@
     <string name="file_list_seconds_ago">prije nekoliko sekundi</string>
     <string name="file_migration_checking_destination">Provjera odredišta...</string>
     <string name="file_migration_cleaning">Čišćenje…</string>
-    <string name="file_migration_dialog_title">Ažuriranje puta pohrane</string>
     <string name="file_migration_directory_already_exists">Mapa za podatke već postoji. Odaberite jedno od sljedećeg:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud mapa već postoji</string>
     <string name="file_migration_failed_not_enough_space">Potrebno je više prostora</string>
@@ -325,7 +324,6 @@
     <string name="file_migration_preparing">Priprema migracije...</string>
     <string name="file_migration_restoring_accounts_configuration">Vraćanje konfiguracije računa...</string>
     <string name="file_migration_saving_accounts_configuration">Spremanje konfiguracije računa...</string>
-    <string name="file_migration_source_not_readable">Želite li promijeniti put pohrane na %1$s?\n\nNapomena: morat ćete ponovno preuzeti sve podatke.</string>
     <string name="file_migration_source_not_readable_title">Izvorna mapa nije čitljiva!</string>
     <string name="file_migration_updating_index">Ažuriranje indeksa...</string>
     <string name="file_migration_use_data_folder">Koristi</string>
@@ -524,7 +522,6 @@
     <string name="prefs_recommend">Preporuči prijatelju</string>
     <string name="prefs_show_hidden_files">Prikaz skrivenih datoteka</string>
     <string name="prefs_sourcecode">Preuzmi izvorni kod</string>
-    <string name="prefs_storage_path">Put pohrane</string>
     <string name="prefs_synced_folders_local_path_title">Lokalna mapa</string>
     <string name="prefs_synced_folders_remote_path_title">Udaljena mapa</string>
     <string name="prefs_theme_title">Tema</string>

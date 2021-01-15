@@ -256,7 +256,6 @@
     <string name="file_list_seconds_ago">secunde în urmă</string>
     <string name="file_migration_checking_destination">Se verifică destinația…</string>
     <string name="file_migration_cleaning">Curățare…</string>
-    <string name="file_migration_dialog_title">Se actualizează calea către mediul de stocare</string>
     <string name="file_migration_directory_already_exists">Dosarul există deja. Alege una dintre următoarele:</string>
     <string name="file_migration_failed_dir_already_exists">Dosarul Nextcloud există deja</string>
     <string name="file_migration_failed_not_enough_space">Este necesar mai mult spațiu</string>
@@ -270,7 +269,6 @@
     <string name="file_migration_preparing">Se pregătește migrarea…</string>
     <string name="file_migration_restoring_accounts_configuration">Se restabilește configurația contului…</string>
     <string name="file_migration_saving_accounts_configuration">Se salvează configurația contului…</string>
-    <string name="file_migration_source_not_readable">Vrei să schimbi calea de stocare în %1$s?\n\nAtenție: Toate datele vor trebui să fie descărcate din nou.</string>
     <string name="file_migration_source_not_readable_title">Dosarul sursă nu poate fi citit</string>
     <string name="file_migration_updating_index">Indexul se actualizează…</string>
     <string name="file_migration_use_data_folder">Utilizează</string>
@@ -416,7 +414,6 @@
     <string name="prefs_manage_accounts">Administrare conturi</string>
     <string name="prefs_recommend">Recomandați unui prieten</string>
     <string name="prefs_show_hidden_files">Arată fișierele ascunse</string>
-    <string name="prefs_storage_path">Calea către spațiul de depozitare</string>
     <string name="prefs_synced_folders_local_path_title">Dosar local</string>
     <string name="prefs_synced_folders_remote_path_title">Dosar la distanță</string>
     <string name="prefs_value_theme_dark">Închis</string>

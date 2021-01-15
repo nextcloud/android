@@ -318,7 +318,6 @@
     <string name="file_list_seconds_ago">před několika sekundami</string>
     <string name="file_migration_checking_destination">Prověřování cílového umístění…</string>
     <string name="file_migration_cleaning">Čištění…</string>
-    <string name="file_migration_dialog_title">Aktualizace popisu umístění úložiště</string>
     <string name="file_migration_directory_already_exists">Datová složka už existuje. Vyberte z následujících možností:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud složka už existuje</string>
     <string name="file_migration_failed_not_enough_space">Je zapotřebí více místa</string>
@@ -332,7 +331,6 @@
     <string name="file_migration_preparing">Příprava migrace…</string>
     <string name="file_migration_restoring_accounts_configuration">Obnovování nastavení účtu…</string>
     <string name="file_migration_saving_accounts_configuration">Ukládání nastavení účtu…</string>
-    <string name="file_migration_source_not_readable">Pořád ještě chcete chcete změnit popis umístění úložiště na %1$s?\n\nPoznámka: Všechna data bude třeba znovu stáhnout.</string>
     <string name="file_migration_source_not_readable_title">Zdrojová složka není čitelná!</string>
     <string name="file_migration_updating_index">Aktualizace rejstříku…</string>
     <string name="file_migration_use_data_folder">Použít</string>
@@ -537,7 +535,6 @@
     <string name="prefs_recommend">Doporučit přátelům</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
     <string name="prefs_sourcecode">Získat zdrojové kódy</string>
-    <string name="prefs_storage_path">Popis umístění úložiště</string>
     <string name="prefs_sycned_folders_summary">Spravovat složky pro automatické nahrávání</string>
     <string name="prefs_synced_folders_local_path_title">Místní složka</string>
     <string name="prefs_synced_folders_remote_path_title">Federovaná složka</string>

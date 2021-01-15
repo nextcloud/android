@@ -253,7 +253,6 @@
     <string name="file_list_seconds_ago">sekundoj antaŭe</string>
     <string name="file_migration_checking_destination">Kontrolado de la celo...</string>
     <string name="file_migration_cleaning">Purigado...</string>
-    <string name="file_migration_dialog_title">Ĝisdatigo de la vojo al konservejo</string>
     <string name="file_migration_directory_already_exists">Datumdosierujo jam ekzistas. Elektu unu opcion:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud-dosierujo jam ekzistas</string>
     <string name="file_migration_failed_not_enough_space">Pli da diskospaco bezonata</string>
@@ -267,7 +266,6 @@
     <string name="file_migration_preparing">Preparado de la datummigrado...</string>
     <string name="file_migration_restoring_accounts_configuration">Restaŭrado de la kontagordo...</string>
     <string name="file_migration_saving_accounts_configuration">Konservado de la kontagordo...</string>
-    <string name="file_migration_source_not_readable">Ĉu vi plu volas ŝanĝi la konservejan lokon al %1$s?\n\nNotu: ĉiuj datumoj estos denove elŝutitaj.</string>
     <string name="file_migration_source_not_readable_title">Fontodosierujo ne legeblas!</string>
     <string name="file_migration_updating_index">Ĝisdatigo de la indekso...</string>
     <string name="file_migration_use_data_folder">Uzi</string>
@@ -444,7 +442,6 @@
     <string name="prefs_recommend">Rekomendi al amiko</string>
     <string name="prefs_show_hidden_files">Montri kaŝitajn dosierojn</string>
     <string name="prefs_sourcecode">Havi fontkodon</string>
-    <string name="prefs_storage_path">Vojo al konservejo</string>
     <string name="prefs_synced_folders_local_path_title">Loka dosierujo</string>
     <string name="prefs_synced_folders_remote_path_title">Fora dosierujo</string>
     <string name="prefs_value_theme_dark">Malklara</string>

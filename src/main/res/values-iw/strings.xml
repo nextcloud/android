@@ -299,7 +299,6 @@
     <string name="file_list_seconds_ago">שניות</string>
     <string name="file_migration_checking_destination">בודק יעד…</string>
     <string name="file_migration_cleaning">מתבצע ניקיון…</string>
-    <string name="file_migration_dialog_title">נתיב האחסון מתעדכן</string>
     <string name="file_migration_directory_already_exists">תיקיית הנתונים כבר קיימת. נא לבחור את אחד מהבאים:</string>
     <string name="file_migration_failed_dir_already_exists">תיקיית ה־Nextcloud כבר קיימת</string>
     <string name="file_migration_failed_not_enough_space">נדרש יותר מקום</string>
@@ -313,7 +312,6 @@
     <string name="file_migration_preparing">מתכונן להעברה…</string>
     <string name="file_migration_restoring_accounts_configuration">תצורת החשבון משוחזרת…</string>
     <string name="file_migration_saving_accounts_configuration">שומר עדכוני חשבון…</string>
-    <string name="file_migration_source_not_readable">לשנות את נתיב האחסון אל %1$s?\n\nלתשומת לבך: כל הנתונים יתקבלו מחדש.</string>
     <string name="file_migration_source_not_readable_title">תיקיית המקור אינה ניתנת לקריאה!</string>
     <string name="file_migration_updating_index">מעדכן אינדקס…</string>
     <string name="file_migration_use_data_folder">שימוש</string>
@@ -505,7 +503,6 @@
     <string name="prefs_recommend">המליצו לחברים</string>
     <string name="prefs_show_hidden_files">הצגת קבצים נסתרים</string>
     <string name="prefs_sourcecode">קבלת קוד המקור</string>
-    <string name="prefs_storage_path">נתיב אחסון</string>
     <string name="prefs_synced_folders_local_path_title">תיקייה מקומית</string>
     <string name="prefs_synced_folders_remote_path_title">תיקייה מרוחקת</string>
     <string name="prefs_theme_title">ערכת עיצוב</string>
