@@ -835,7 +835,6 @@
     <string name="whats_new_title">Neu in %1$s</string>
     <string name="whats_your_status">Wie ist Ihr Status?</string>
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
-    <string name="wrong_storage_path_desc">Dies könnte auf eine Sicherungswiederherstellung auf einem anderen Gerät zurückzuführen sein. Standard wird verwendet. Bitte überprüfen Sie die Einstellungen, um den Speicherordner anzupassen.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Inhalte von %1$d Datei konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
         <item quantity="other">Inhalte von %1$d Dateien konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
