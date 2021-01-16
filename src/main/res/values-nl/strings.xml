@@ -318,6 +318,7 @@
     <string name="file_list_seconds_ago">seconden geleden</string>
     <string name="file_migration_checking_destination">Doelmap controleren…</string>
     <string name="file_migration_cleaning">Opruimen…</string>
+    <string name="file_migration_dialog_title">Bijwerken gegevensopslagmap</string>
     <string name="file_migration_directory_already_exists">Datamap bestaat al. Kies een van de volgende:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud map bestaat al</string>
     <string name="file_migration_failed_not_enough_space">Meer ruimte nodig</string>
@@ -331,6 +332,7 @@
     <string name="file_migration_preparing">Migratie voorbereiden…</string>
     <string name="file_migration_restoring_accounts_configuration">Accountconfiguratie herstellen…</string>
     <string name="file_migration_saving_accounts_configuration">Accountconfiguratie opslaan…</string>
+    <string name="file_migration_source_not_readable">Wil je echt de gegevensopslagmap wijzigen naar  %1$s?\n\nLet op: alle gegevens moeten opnieuw worden gedownloaded.</string>
     <string name="file_migration_source_not_readable_title">Bronmap niet leesbaar!</string>
     <string name="file_migration_updating_index">Index bijwerken…</string>
     <string name="file_migration_use_data_folder">Gebruiken</string>
@@ -535,6 +537,7 @@
     <string name="prefs_recommend">Aanbevelen bij vriend</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_sourcecode">Krijg broncode</string>
+    <string name="prefs_storage_path">Gegevensopslagmap</string>
     <string name="prefs_sycned_folders_summary">Beheren mappen voor auto-upload</string>
     <string name="prefs_synced_folders_local_path_title">Lokale map</string>
     <string name="prefs_synced_folders_remote_path_title">Externe map</string>
@@ -830,6 +833,8 @@
     <string name="whats_new_skip">Overslaan</string>
     <string name="whats_new_title">Nieuw in %1$s</string>
     <string name="whats_your_status">Wat is je status?</string>
+    <string name="wrong_storage_path">Gegevensopslagmap bestaat niet!</string>
+    <string name="wrong_storage_path_desc">Dit kan komen door een back-upherstel op een ander apparaat. Terugvallen op standaard. Controleer de instellingen om de opslagmap aan te passen.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kon bestand %1$dniet synchroniseren (conflicten: %2$d)</item>
         <item quantity="other">Kon bestand %1$d niet synchroniseren (conflicten: %2$d)</item>
