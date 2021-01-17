@@ -318,6 +318,7 @@
     <string name="file_list_seconds_ago">segundos atrás</string>
     <string name="file_migration_checking_destination">Verificando destino…</string>
     <string name="file_migration_cleaning">Limpando…</string>
+    <string name="file_migration_dialog_title">Atualizando a pasta de armazenamento se dados</string>
     <string name="file_migration_directory_already_exists">Pasta de dados já existe. Escolha uma das seguintes:</string>
     <string name="file_migration_failed_dir_already_exists">Pasta Nextcloud já existe</string>
     <string name="file_migration_failed_not_enough_space">Mais espaço é necessário</string>
@@ -331,6 +332,7 @@
     <string name="file_migration_preparing">Preparando migração…</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando configuração da conta…</string>
     <string name="file_migration_saving_accounts_configuration">Salvando configuração da conta…</string>
+    <string name="file_migration_source_not_readable">Você ainda deseja trocar a pasta de armazenamente de dados para  %1$s?\n\nNota: Todos os dados terão que ser baixados novamente.</string>
     <string name="file_migration_source_not_readable_title">Pasta fonte não legível!</string>
     <string name="file_migration_updating_index">Atualizando índice…</string>
     <string name="file_migration_use_data_folder">Usar</string>
@@ -535,6 +537,7 @@
     <string name="prefs_recommend">Recomendar a um amigo</string>
     <string name="prefs_show_hidden_files">Exibir arquivos ocultos</string>
     <string name="prefs_sourcecode">Obter código-fonte</string>
+    <string name="prefs_storage_path">Pasta de armazenamente de dados</string>
     <string name="prefs_sycned_folders_summary">Gerenciar pastas para envio automático</string>
     <string name="prefs_synced_folders_local_path_title">Pasta local</string>
     <string name="prefs_synced_folders_remote_path_title">Pasta remota</string>
