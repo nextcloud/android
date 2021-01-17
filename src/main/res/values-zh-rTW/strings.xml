@@ -123,6 +123,7 @@
     <string name="community_beta_text">這包含所有最新功能，預期執行上仍可能會有錯誤，若發現錯誤請回報給我們。</string>
     <string name="community_contribute_forum_forum">論壇</string>
     <string name="community_contribute_forum_text">幫助其他人</string>
+    <string name="community_contribute_github_text">檢查、修改和撰寫程式碼，請參見 %1$s。</string>
     <string name="community_contribute_headline">積極貢獻</string>
     <string name="community_contribute_irc_text">加入 IRC：</string>
     <string name="community_contribute_translate_text">應用程式</string>
@@ -317,6 +318,7 @@
     <string name="file_list_seconds_ago">幾秒前</string>
     <string name="file_migration_checking_destination">檢查目的地…</string>
     <string name="file_migration_cleaning">清理中…</string>
+    <string name="file_migration_dialog_title">正在更新資料儲存資料夾</string>
     <string name="file_migration_directory_already_exists">資料目錄已經存在，請選擇下方其中之一：</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud 資料夾已經存在</string>
     <string name="file_migration_failed_not_enough_space">需要更多空間</string>
@@ -330,6 +332,7 @@
     <string name="file_migration_preparing">準備遷移…</string>
     <string name="file_migration_restoring_accounts_configuration">回復帳戶設置中…</string>
     <string name="file_migration_saving_accounts_configuration">正在儲存帳戶設置…</string>
+    <string name="file_migration_source_not_readable">您仍然想要變更資料儲存資料夾為 %1$s 嗎？\n\n注意：所有資料都必須再次下載。</string>
     <string name="file_migration_source_not_readable_title">來源資料夾無法讀取</string>
     <string name="file_migration_updating_index">更新索引中…</string>
     <string name="file_migration_use_data_folder">使用</string>
@@ -534,6 +537,7 @@
     <string name="prefs_recommend">向朋友推薦</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_sourcecode">取得原始碼</string>
+    <string name="prefs_storage_path">資料儲存資料夾</string>
     <string name="prefs_sycned_folders_summary">管理資料夾以便自動上傳</string>
     <string name="prefs_synced_folders_local_path_title">本地資料夾</string>
     <string name="prefs_synced_folders_remote_path_title">遠端資料夾</string>
@@ -616,6 +620,7 @@
     <string name="share_privilege_unshare">撤回分享</string>
     <string name="share_remote_clarification">%1$s （遠端）</string>
     <string name="share_room_clarification">%1$s(交談)</string>
+    <string name="share_search">名稱、聯盟雲端 ID 或電子郵件……</string>
     <string name="share_send_note">給接收者的訊息</string>
     <string name="share_via_link_hide_download">隱藏下載</string>
     <string name="share_via_link_menu_password_label">密碼保護 (%1$s)</string>
