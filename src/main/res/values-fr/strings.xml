@@ -320,6 +320,7 @@ Attention la suppression est irréversible.</string>
     <string name="file_list_seconds_ago">à l\'instant</string>
     <string name="file_migration_checking_destination">Vérification de la destination…</string>
     <string name="file_migration_cleaning">Nettoyage…</string>
+    <string name="file_migration_dialog_title">Mise à jour du répertoire de données</string>
     <string name="file_migration_directory_already_exists">Le dossier de données existe déjà. Choisissez une des options suivantes :</string>
     <string name="file_migration_failed_dir_already_exists">Le dossier Nextcloud existe déjà</string>
     <string name="file_migration_failed_not_enough_space">De l\'espace suplémentaire est nécessaire</string>
@@ -333,6 +334,7 @@ Attention la suppression est irréversible.</string>
     <string name="file_migration_preparing">Préparation pour la migration…</string>
     <string name="file_migration_restoring_accounts_configuration">Restauration de la configuration des comptes…</string>
     <string name="file_migration_saving_accounts_configuration">Enregistrement de la configuration des comptes…</string>
+    <string name="file_migration_source_not_readable">Souhaitez-vous modifier le répertoire de données pour %1$s ?\n\nNote : toutes les données devront être à nouveau téléchargées.</string>
     <string name="file_migration_source_not_readable_title">Le dossier source n\'est pas lisible !</string>
     <string name="file_migration_updating_index">Mise à jour de l\'index…</string>
     <string name="file_migration_use_data_folder">Conserver le dossier actuel</string>
@@ -537,6 +539,7 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_recommend">Recommander à un ami</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_sourcecode">Obtenir le code source</string>
+    <string name="prefs_storage_path">Répertoire de données</string>
     <string name="prefs_sycned_folders_summary">Gérer les dossiers pour l\'envoi automatique</string>
     <string name="prefs_synced_folders_local_path_title">Dossier local</string>
     <string name="prefs_synced_folders_remote_path_title">Dossier distant</string>
@@ -832,6 +835,8 @@ Attention la suppression est irréversible.</string>
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
     <string name="whats_your_status">Quel est votre statut ?</string>
+    <string name="wrong_storage_path">Le répertoire de données n’existe pas !</string>
+    <string name="wrong_storage_path_desc">Cela peut être dû à une restauration de sauvegarde sur un autre appareil. Retour aux valeurs par défaut. Veuillez vérifier les paramètres pour ajuster le chemin de stockage.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossible de synchroniser %1$d fichier (conflits : %2$d)</item>
         <item quantity="other">Impossible de synchroniser %1$d fichiers (conflits : %2$d)</item>

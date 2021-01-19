@@ -299,6 +299,7 @@
     <string name="file_list_seconds_ago">שניות</string>
     <string name="file_migration_checking_destination">בודק יעד…</string>
     <string name="file_migration_cleaning">מתבצע ניקיון…</string>
+    <string name="file_migration_dialog_title">תיקיית אחסון הנתונים מתעדכנת</string>
     <string name="file_migration_directory_already_exists">תיקיית הנתונים כבר קיימת. נא לבחור את אחד מהבאים:</string>
     <string name="file_migration_failed_dir_already_exists">תיקיית ה־Nextcloud כבר קיימת</string>
     <string name="file_migration_failed_not_enough_space">נדרש יותר מקום</string>
