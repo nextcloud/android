@@ -53,12 +53,12 @@ configurations {
 
 ext {
     jacocoVersion = "0.8.2"
-    daggerVersion = "2.30.1"
+    daggerVersion = "2.31"
     markwonVersion =  "4.6.1"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
-    androidLibraryVersion ="646e2dec34d57ecab66589bade4246658c3833b7"
-    mockitoVersion = "3.7.0"
+    androidLibraryVersion = "master-SNAPSHOT"
+    mockitoVersion = "3.7.7"
     mockkVersion = "1.10.4"
     powermockVersion = "2.0.9"
     byteBuddyVersion = "1.10.19"

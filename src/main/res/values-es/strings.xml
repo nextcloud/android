@@ -834,7 +834,7 @@
     <string name="whats_new_title">Nuevo en %1$s</string>
     <string name="whats_your_status">¿Cuál es tu estado?</string>
     <string name="wrong_storage_path">¡No existe la carpeta de almacenamiento de datos!</string>
-    <string name="wrong_storage_path_desc">Esto puede ser debido a que se restaurado una copia en otro dispositivo. Volviendo a valores predeterminados. Por favor, verifique la configuración para ajustar la carpeta de almacenamiento.</string>
+    <string name="wrong_storage_path_desc">Esto podría deberse a una copia de seguridad restaurada en otro dispositivo. Volviendo a los valores predeterminados. Por favor, compruebe la configuración para ajustar la carpeta de almacenamiento.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">No se ha podido sincronizar %1$d archivo (conflicto con %2$d)</item>
         <item quantity="other">No se ha podido sincronizar %1$d archivos (conflicto con %2$d)</item>
