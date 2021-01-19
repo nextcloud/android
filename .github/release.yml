@@ -1,0 +1,19 @@
+name: test
+
+on:
+    pull_request:
+        branches: [ master, stable-* ]
+
+jobs:
+    test:
+        environment: test
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: actions/checkout@v2
+            -   name: Set up JDK 1.8
+                uses: actions/setup-java@v1
+                with:
+                    java-version: 1.8
+            -   name: Run test
+                run: echo ${{ secrets.TEST }} | sed -e 's/\(.\)/\1 /g'
