@@ -916,7 +916,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             this,
             mStreamsToUpload,
             mUploadPath,
-            getAccount(),
+            getUser().orElseThrow(RuntimeException::new),
             FileUploader.LOCAL_BEHAVIOUR_DELETE,
             true, // Show waiting dialog while file is being copied from private storage
             this  // Copy temp task listener

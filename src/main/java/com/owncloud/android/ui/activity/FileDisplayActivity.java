@@ -1025,7 +1025,7 @@ public class FileDisplayActivity extends FileActivity
                 this,
                 streamsToUpload,
                 remotePath,
-                getAccount(),
+                getUser().orElseThrow(RuntimeException::new),
                 behaviour,
                 false, // Not show waiting dialog while file is being copied from private storage
                 null  // Not needed copy temp task listener
