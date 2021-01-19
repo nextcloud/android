@@ -522,7 +522,7 @@ public final class DisplayUtils {
         final ThumbnailsCacheManager.AvatarGenerationTask task =
             new ThumbnailsCacheManager.AvatarGenerationTask(listener,
                                                             callContext,
-                                                            user.toPlatformAccount(),
+                                                            user,
                                                             resources,
                                                             avatarRadius,
                                                             userId,
