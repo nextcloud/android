@@ -318,6 +318,7 @@
     <string name="file_list_seconds_ago">před několika sekundami</string>
     <string name="file_migration_checking_destination">Prověřování cílového umístění…</string>
     <string name="file_migration_cleaning">Čištění…</string>
+    <string name="file_migration_dialog_title">Aktualizuje se složka úložiště</string>
     <string name="file_migration_directory_already_exists">Datová složka už existuje. Vyberte z následujících možností:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud složka už existuje</string>
     <string name="file_migration_failed_not_enough_space">Je zapotřebí více místa</string>
@@ -535,6 +536,7 @@
     <string name="prefs_recommend">Doporučit přátelům</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
     <string name="prefs_sourcecode">Získat zdrojové kódy</string>
+    <string name="prefs_storage_path">Složka úložiště</string>
     <string name="prefs_sycned_folders_summary">Spravovat složky pro automatické nahrávání</string>
     <string name="prefs_synced_folders_local_path_title">Místní složka</string>
     <string name="prefs_synced_folders_remote_path_title">Federovaná složka</string>
@@ -851,6 +853,7 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="whats_new_skip">Přeskočit</string>
     <string name="whats_new_title">Co je v %1$s nového</string>
     <string name="whats_your_status">Jaký je váš stav?</string>
+    <string name="wrong_storage_path">Složka úložiště neexistuje!</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nedaří se synchronizovat %1$d soubor (konflikty: %2$d)</item>
         <item quantity="few">Nedaří se synchronizovat %1$d soubory (konflikty: %2$d)</item>
