@@ -31,4 +31,5 @@ import java.io.File;
 public interface LocalFileListFragmentInterface {
     int getColumnsCount();
     void onItemClicked(File file);
+    void onItemCheckboxClicked(File file);
 }

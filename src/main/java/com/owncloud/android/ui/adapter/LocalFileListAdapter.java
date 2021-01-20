@@ -43,6 +43,7 @@ import com.owncloud.android.utils.ThemeUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -100,14 +101,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public void addAllFilesToCheckedFiles() {
-        for (File file : mFiles) {
-
-            // only select files
-            if (file.isFile()) {
-                checkedFiles.add(file);
-            }
-
-        }
+        checkedFiles.addAll(mFiles);
     }
 
     public void removeAllFilesFromCheckedFiles() {
@@ -119,15 +113,25 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public String[] getCheckedFilesPath() {
-        List<String> result = new ArrayList<>();
-
-        for (File file : checkedFiles) {
-            result.add(file.getAbsolutePath());
-        }
+        List<String> result = listFilesRecursive(checkedFiles);
 
         Log_OC.d(TAG, "Returning " + result.size() + " selected files");
 
         return result.toArray(new String[0]);
+    }
+
+    public List<String> listFilesRecursive(Collection<File> files) {
+        List<String> result = new ArrayList<>();
+
+        for (File file : files) {
+            if (file.isDirectory()) {
+                result.addAll(listFilesRecursive(getFiles(file)));
+            } else {
+                result.add(file.getAbsolutePath());
+            }
+        }
+
+        return result;
     }
 
     @Override
@@ -162,15 +166,13 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 gridViewHolder.thumbnail.setTag(file.hashCode());
                 setThumbnail(file, gridViewHolder.thumbnail, mContext);
 
-                if (file.isDirectory()) {
-                    gridViewHolder.checkbox.setVisibility(View.GONE);
-                } else {
-                    gridViewHolder.checkbox.setVisibility(View.VISIBLE);
-                }
+                gridViewHolder.checkbox.setVisibility(View.VISIBLE);
 
                 File finalFile = file;
                 gridViewHolder.itemLayout.setOnClickListener(v -> localFileListFragmentInterface
                         .onItemClicked(finalFile));
+                gridViewHolder.checkbox.setOnClickListener(v -> localFileListFragmentInterface
+                        .onItemCheckboxClicked(finalFile));
 
 
                 if (holder instanceof LocalFileListItemViewHolder) {
