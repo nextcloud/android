@@ -829,7 +829,7 @@
     <string name="version_dev_download">Herunterladen</string>
     <string name="wait_a_moment">Bitte warten…</string>
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
-    <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>
+    <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei von privatem Speicher</string>
     <string name="what_s_new_image">Was-gibt\'s-Neues-Bild</string>
     <string name="whats_new_skip">Überspringen</string>
     <string name="whats_new_title">Neu in %1$s</string>

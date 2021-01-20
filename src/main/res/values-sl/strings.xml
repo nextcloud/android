@@ -331,6 +331,7 @@
     <string name="file_migration_preparing">Poteka pripravljanje preselitve…</string>
     <string name="file_migration_restoring_accounts_configuration">Poteka obnavljanje nastavitev računa …</string>
     <string name="file_migration_saving_accounts_configuration">Poteka shranjevanje nastavitev računa …</string>
+    <string name="file_migration_source_not_readable">Ali še vedno želite spremeniti mesto shrambe na %1$s?\n\nOpomba: vsi podatki bodo še enkrat prejeti.</string>
     <string name="file_migration_source_not_readable_title">Nastavitve dovoljenj na izvorni mapi ne omogočajo branja branja!</string>
     <string name="file_migration_updating_index">Poteka posodabljanje kazala …</string>
     <string name="file_migration_use_data_folder">Uporabi</string>
@@ -535,6 +536,7 @@
     <string name="prefs_recommend">Priporoči prijatelju</string>
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
+    <string name="prefs_storage_path">Mapa podatkovne shrambe</string>
     <string name="prefs_sycned_folders_summary">Upravljanje map za samodejno pošiljanje</string>
     <string name="prefs_synced_folders_local_path_title">Krajevna mapa</string>
     <string name="prefs_synced_folders_remote_path_title">Mapa na strežniku</string>
