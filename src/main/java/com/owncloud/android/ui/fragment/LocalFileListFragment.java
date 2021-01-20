@@ -190,6 +190,9 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    /**
+     * Toggle selection of checked/unchecked file and notify adapter.
+     */
     @Override
     public void onItemCheckboxClicked(File file) {
         if (file != null) {
