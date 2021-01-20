@@ -164,7 +164,8 @@ public class LocalFileListFragment extends ExtendedListFragment implements
     }
 
     /**
-     * Checks the file clicked over. Browses inside if it is a directory.
+     * Checks the file clicked over. Browses inside if it is a directory. Otherwise behaves like the checkbox was
+     * clicked.
      * Notifies the container activity in any case.
      */
     @Override
@@ -180,21 +181,30 @@ public class LocalFileListFragment extends ExtendedListFragment implements
                 // save index and top position
                 saveIndexAndTopPosition(mAdapter.getItemPosition(file));
 
-            } else {    /// Click on a file
-                if (mAdapter.isCheckedFile(file)) {
-                    // uncheck
-                    mAdapter.removeCheckedFile(file);
-                } else {
-                    // check
-                    mAdapter.addCheckedFile(file);
-                }
-
-                mAdapter.notifyItemChanged(mAdapter.getItemPosition(file));
-
-                // notify the change to the container Activity
-                mContainerActivity.onFileClick(file);
+            } else {    /// Click on a file, behave like checkbox was clicked
+                onItemCheckboxClicked(file);
             }
 
+        } else {
+            Log_OC.w(TAG, "Null object in ListAdapter!!");
+        }
+    }
+
+    @Override
+    public void onItemCheckboxClicked(File file) {
+        if (file != null) {
+            if (mAdapter.isCheckedFile(file)) {
+                // uncheck
+                mAdapter.removeCheckedFile(file);
+            } else {
+                // check
+                mAdapter.addCheckedFile(file);
+            }
+
+            mAdapter.notifyItemChanged(mAdapter.getItemPosition(file));
+
+            // notify the change to the container Activity
+            mContainerActivity.onFileClick(file);
         } else {
             Log_OC.w(TAG, "Null object in ListAdapter!!");
         }
