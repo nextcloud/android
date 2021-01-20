@@ -30,6 +30,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
@@ -223,17 +224,17 @@ public class UploadIT extends AbstractOnServerIT {
         ocUpload.setWhileChargingOnly(true);
 
         UploadFileOperation newUpload = new UploadFileOperation(
-            uploadsStorageManager,
-            connectivityServiceMock,
-            powerManagementServiceMock,
-            user,
-            null,
-            ocUpload,
-            FileUploader.NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
-            targetContext,
-            false,
-            true
+                uploadsStorageManager,
+                connectivityServiceMock,
+                powerManagementServiceMock,
+                user,
+                null,
+                ocUpload,
+                NameCollisionPolicy.DEFAULT,
+                FileUploader.LOCAL_BEHAVIOUR_COPY,
+                targetContext,
+                false,
+                true
         );
         newUpload.setRemoteFolderToBeCreated();
         newUpload.addRenameUploadListener(() -> {
@@ -270,17 +271,17 @@ public class UploadIT extends AbstractOnServerIT {
         ocUpload.setWhileChargingOnly(true);
 
         UploadFileOperation newUpload = new UploadFileOperation(
-            uploadsStorageManager,
-            connectivityServiceMock,
-            powerManagementServiceMock,
-            user,
-            null,
-            ocUpload,
-            FileUploader.NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
-            targetContext,
-            false,
-            true
+                uploadsStorageManager,
+                connectivityServiceMock,
+                powerManagementServiceMock,
+                user,
+                null,
+                ocUpload,
+                NameCollisionPolicy.DEFAULT,
+                FileUploader.LOCAL_BEHAVIOUR_COPY,
+                targetContext,
+                false,
+                true
         );
         newUpload.setRemoteFolderToBeCreated();
         newUpload.addRenameUploadListener(() -> {
@@ -309,17 +310,17 @@ public class UploadIT extends AbstractOnServerIT {
         ocUpload.setUseWifiOnly(true);
 
         UploadFileOperation newUpload = new UploadFileOperation(
-            uploadsStorageManager,
-            connectivityServiceMock,
-            powerManagementServiceMock,
-            user,
-            null,
-            ocUpload,
-            FileUploader.NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
-            targetContext,
-            true,
-            false
+                uploadsStorageManager,
+                connectivityServiceMock,
+                powerManagementServiceMock,
+                user,
+                null,
+                ocUpload,
+                NameCollisionPolicy.DEFAULT,
+                FileUploader.LOCAL_BEHAVIOUR_COPY,
+                targetContext,
+                true,
+                false
         );
         newUpload.setRemoteFolderToBeCreated();
         newUpload.addRenameUploadListener(() -> {
@@ -338,17 +339,17 @@ public class UploadIT extends AbstractOnServerIT {
         ocUpload.setWhileChargingOnly(true);
 
         UploadFileOperation newUpload = new UploadFileOperation(
-            uploadsStorageManager,
-            connectivityServiceMock,
-            powerManagementServiceMock,
-            user,
-            null,
-            ocUpload,
-            FileUploader.NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
-            targetContext,
-            true,
-            false
+                uploadsStorageManager,
+                connectivityServiceMock,
+                powerManagementServiceMock,
+                user,
+                null,
+                ocUpload,
+                NameCollisionPolicy.DEFAULT,
+                FileUploader.LOCAL_BEHAVIOUR_COPY,
+                targetContext,
+                true,
+                false
         );
         newUpload.setRemoteFolderToBeCreated();
         newUpload.addRenameUploadListener(() -> {
@@ -386,17 +387,17 @@ public class UploadIT extends AbstractOnServerIT {
         ocUpload.setUseWifiOnly(true);
 
         UploadFileOperation newUpload = new UploadFileOperation(
-            uploadsStorageManager,
-            connectivityServiceMock,
-            powerManagementServiceMock,
-            user,
-            null,
-            ocUpload,
-            FileUploader.NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
-            targetContext,
-            true,
-            false
+                uploadsStorageManager,
+                connectivityServiceMock,
+                powerManagementServiceMock,
+                user,
+                null,
+                ocUpload,
+                NameCollisionPolicy.DEFAULT,
+                FileUploader.LOCAL_BEHAVIOUR_COPY,
+                targetContext,
+                true,
+                false
         );
         newUpload.setRemoteFolderToBeCreated();
         newUpload.addRenameUploadListener(() -> {

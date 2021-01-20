@@ -32,7 +32,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.etm.pages.EtmAccountsFragment
 import com.nextcloud.client.etm.pages.EtmBackgroundJobsFragment
-import com.nextcloud.client.etm.pages.EtmDownloaderFragment
+import com.nextcloud.client.etm.pages.EtmFileTransferFragment
 import com.nextcloud.client.etm.pages.EtmMigrations
 import com.nextcloud.client.etm.pages.EtmPreferencesFragment
 import com.nextcloud.client.files.downloader.TransferManagerConnection
@@ -104,12 +104,12 @@ class EtmViewModel @Inject constructor(
             pageClass = EtmMigrations::class
         ),
         EtmMenuEntry(
-            iconRes = R.drawable.ic_download_grey600,
-            titleRes = R.string.etm_downloader,
-            pageClass = EtmDownloaderFragment::class
+            iconRes = R.drawable.ic_cloud_download,
+            titleRes = R.string.etm_transfer,
+            pageClass = EtmFileTransferFragment::class
         )
     )
-    val downloaderConnection = TransferManagerConnection(context, accountManager.user)
+    val transferManagerConnection = TransferManagerConnection(context, accountManager.user)
 
     val preferences: Map<String, String> get() {
         return defaultPreferences.all

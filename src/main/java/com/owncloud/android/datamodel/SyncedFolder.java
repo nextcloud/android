@@ -21,7 +21,7 @@
 
 package com.owncloud.android.datamodel;
 
-import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 
 import java.io.Serializable;
 
@@ -184,8 +184,8 @@ public class SyncedFolder implements Serializable, Cloneable {
         return this.nameCollisionPolicy;
     }
 
-    public FileUploader.NameCollisionPolicy getNameCollisionPolicy() {
-        return FileUploader.NameCollisionPolicy.deserialize(nameCollisionPolicy);
+    public NameCollisionPolicy getNameCollisionPolicy() {
+        return NameCollisionPolicy.deserialize(nameCollisionPolicy);
     }
 
     public boolean isEnabled() {

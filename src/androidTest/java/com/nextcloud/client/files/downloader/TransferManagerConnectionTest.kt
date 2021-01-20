@@ -54,10 +54,10 @@ class TransferManagerConnectionTest {
     lateinit var secondStatusListener: (TransferManager.Status) -> Unit
 
     @MockK
-    lateinit var binder: DownloaderService.Binder
+    lateinit var binder: FileTransferService.Binder
 
     val file get() = OCFile("/path")
-    val componentName = ComponentName("", DownloaderService::class.java.simpleName)
+    val componentName = ComponentName("", FileTransferService::class.java.simpleName)
     val user = MockUser()
 
     @Before
@@ -128,11 +128,11 @@ class TransferManagerConnectionTest {
         connection.registerTransferListener(firstDownloadListener)
         connection.registerTransferListener(secondDownloadListener)
 
-        val request1 = Request(user, file)
+        val request1 = DownloadRequest(user, file)
         connection.enqueue(request1)
         val download1 = Transfer(request1.uuid, TransferState.RUNNING, 50, request1.file, request1)
 
-        val request2 = Request(user, file)
+        val request2 = DownloadRequest(user, file)
         connection.enqueue(request2)
         val download2 = Transfer(request2.uuid, TransferState.RUNNING, 50, request2.file, request1)
 
@@ -223,7 +223,7 @@ class TransferManagerConnectionTest {
         // GIVEN
         //      not bound
         //      some downloads requested without listener
-        val request = Request(user, file)
+        val request = DownloadRequest(user, file)
         connection.enqueue(request)
         val download = Transfer(request.uuid, TransferState.RUNNING, 50, request.file, request)
         connection.registerTransferListener(firstDownloadListener)

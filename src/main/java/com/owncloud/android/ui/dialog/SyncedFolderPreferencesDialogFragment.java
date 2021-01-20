@@ -39,7 +39,7 @@ import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
-import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
@@ -589,7 +589,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
      * Get index for name collision selection dialog.
      * @return 0 if ASK_USER, 1 if OVERWRITE, 2 if RENAME, 3 if SKIP, Otherwise: 0
      */
-    static private Integer getSelectionIndexForNameCollisionPolicy(FileUploader.NameCollisionPolicy nameCollisionPolicy) {
+    static private Integer getSelectionIndexForNameCollisionPolicy(NameCollisionPolicy nameCollisionPolicy) {
         switch (nameCollisionPolicy) {
             case OVERWRITE:
                 return 1;
@@ -608,17 +608,17 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
      *
      * @return ASK_USER if 0, OVERWRITE if 1, RENAME if 2, SKIP if 3. Otherwise: ASK_USER
      */
-    static private FileUploader.NameCollisionPolicy getNameCollisionPolicyForSelectionIndex(int index) {
+    static private NameCollisionPolicy getNameCollisionPolicyForSelectionIndex(int index) {
         switch (index) {
             case 1:
-                return FileUploader.NameCollisionPolicy.OVERWRITE;
+                return NameCollisionPolicy.OVERWRITE;
             case 2:
-                return FileUploader.NameCollisionPolicy.RENAME;
+                return NameCollisionPolicy.RENAME;
             case 3:
-                return FileUploader.NameCollisionPolicy.CANCEL;
+                return NameCollisionPolicy.CANCEL;
             case 0:
             default:
-                return FileUploader.NameCollisionPolicy.ASK_USER;
+                return NameCollisionPolicy.ASK_USER;
         }
     }
 }
