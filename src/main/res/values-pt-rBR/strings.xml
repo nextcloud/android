@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-    <string name="about_android">Aplicativo Android %1$s</string>
+    <string name="about_android">Aplicativo %1$s Android</string>
     <string name="about_title">Sobre</string>
     <string name="about_version">versão %1$s</string>
     <string name="about_version_with_build">versão %1$s, build #%2$s</string>
     <string name="account_creation_failed">Falha ao criar conta</string>
     <string name="account_icon">Ícone da conta</string>
     <string name="account_not_found">Conta não encontrada!</string>
-    <string name="action_clear_failed_uploads">Limpar envios com falha</string>
+    <string name="action_clear_failed_uploads">Apagar envios com falha</string>
     <string name="action_edit">Editar</string>
-    <string name="action_empty_notifications">Limpar todas as notificações</string>
+    <string name="action_empty_notifications">Apagar todas as notificações</string>
     <string name="action_empty_trashbin">Esvaziar lixeira</string>
     <string name="action_send_share">Enviar/Compartilhar</string>
     <string name="action_switch_grid_view">Vista em grade</string>
@@ -33,7 +33,7 @@
     <string name="activity_icon">Atividade</string>
     <string name="add_another_public_share_link">Adicionar outro link</string>
     <string name="add_new_public_share">Adicionar novo link de compartilhamento público</string>
-    <string name="add_to_cloud">Adicionar à %1$s</string>
+    <string name="add_to_cloud">Adicionar em %1$s</string>
     <string name="allow_creating">Permitir criação</string>
     <string name="allow_deleting">Permitir exclusão</string>
     <string name="allow_editing">Permitir edição</string>
@@ -231,7 +231,7 @@
     <string name="drawer_open">Abrir barra lateral</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
     <string name="drawer_quota_unlimited">%1$s usados</string>
-    <string name="drawer_synced_folders">Auto envio</string>
+    <string name="drawer_synced_folders">Autoenvio</string>
     <string name="edit_label">Alterar nome</string>
     <string name="encrypted">Definir como criptografado</string>
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>
@@ -332,7 +332,7 @@
     <string name="file_migration_preparing">Preparando migração…</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando configuração da conta…</string>
     <string name="file_migration_saving_accounts_configuration">Salvando configuração da conta…</string>
-    <string name="file_migration_source_not_readable">Você ainda deseja trocar a pasta de armazenamente de dados para  %1$s?\n\nNota: Todos os dados terão que ser baixados novamente.</string>
+    <string name="file_migration_source_not_readable">Ainda deseja trocar a pasta de armazenamento de dados para %1$s?\n\nNota: Todos os dados precisarão ser baixados novamente.</string>
     <string name="file_migration_source_not_readable_title">Pasta fonte não legível!</string>
     <string name="file_migration_updating_index">Atualizando índice…</string>
     <string name="file_migration_use_data_folder">Usar</string>
@@ -379,7 +379,7 @@
     <string name="host_not_available">Servidor indisponível</string>
     <string name="host_your_own_server">Hospede seu próprio servidor</string>
     <string name="in_folder">na pasta %1$s</string>
-    <string name="instant_upload_existing">Carregar arquivos existentes também</string>
+    <string name="instant_upload_existing">Enviar arquivos existentes também</string>
     <string name="instant_upload_on_charging">Só enviar quando carregando</string>
     <string name="instant_upload_path">/EnvioAutomático</string>
     <string name="invalid_url">URL inválida</string>
@@ -518,7 +518,7 @@
     <string name="prefs_e2e_no_device_credentials">Para exibir o mnemônico, ative as credenciais do dispositivo.</string>
     <string name="prefs_enable_media_scan_notifications">Exibir notificações de varredura de mídia</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notificar sobre pastas de mídia recém-encontradas</string>
-    <string name="prefs_gpl_v2">GNU Licença Pública Geral, version 2</string>
+    <string name="prefs_gpl_v2">GNU Licença Pública Geral, versão 2</string>
     <string name="prefs_help">Ajuda</string>
     <string name="prefs_imprint">Imprimir</string>
     <string name="prefs_instant_behaviour_dialogTitle">Arquivo original será…</string>
@@ -707,9 +707,9 @@
     <string name="synced_folder_settings_button">Botão de configurações</string>
     <string name="synced_folders_configure_folders">Configurar pastas</string>
     <string name="synced_folders_loading_folders">Carregando pastas…</string>
-    <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure seu auto envio no menu principal.\n\nDesfrute do novo envio automático e estendido.</string>
+    <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure seu autoenvio no menu principal.\n\nDesfrute do novo envio automático e estendido.</string>
     <string name="synced_folders_no_results">Pastas com mídias não encontradas</string>
-    <string name="synced_folders_preferences">Preferências do auto envio</string>
+    <string name="synced_folders_preferences">Preferências do autoenvio</string>
     <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <string name="synced_folders_type">Tipo</string>
     <string name="synced_icon">Sincronizado</string>
@@ -731,7 +731,7 @@
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Definir como não criptografado</string>
-    <string name="unset_favorite">Excluir dos favoritos</string>
+    <string name="unset_favorite">Remover dos favoritos</string>
     <string name="unshare">Descompartilhar</string>
     <string name="unshare_link_file_error">Ocorreu um erro ao tentar descompartilhar este arquivo ou pasta.</string>
     <string name="unshare_link_file_no_exist">Não foi possível descompartilhar. Verifique se o arquivo existe.</string>
@@ -833,6 +833,8 @@
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_new_title">Novo em %1$s</string>
     <string name="whats_your_status">Qual é o seu status?</string>
+    <string name="wrong_storage_path">A pasta de armazenamento de dados não existe!</string>
+    <string name="wrong_storage_path_desc">Isto pode ser decorrente de uma restauração de backup em outro dispositivo. Retornando ao padrão. Verifique as configurações para ajustar a pasta de armazenamento.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Erro ao sincronizar %1$d arquivo (conflitos: %2$d)</item>
         <item quantity="other">Erro ao sincronizar %1$d arquivos (conflitos: %2$d)</item>
