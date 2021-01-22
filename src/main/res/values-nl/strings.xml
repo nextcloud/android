@@ -27,15 +27,15 @@
     <string name="actionbar_sort">Sorteren</string>
     <string name="active_user">Actieve gebruiker</string>
     <string name="activities_no_results_headline">Nog geen activiteit</string>
-    <string name="activities_no_results_message">Er zijn nog geen evenementen zoals toevoegingen, wijzigingen en shares.</string>
+    <string name="activities_no_results_message">Er zijn nog geen gebeurtenissen zoals toevoegingen, wijzigingen en shares.</string>
     <string name="activity_chooser_send_file_title">Versturen</string>
     <string name="activity_chooser_title">Verstuur link naar…</string>
     <string name="activity_icon">Activiteit</string>
     <string name="add_another_public_share_link">Nog een link toevoegen </string>
     <string name="add_new_public_share">Voeg een nieuwe openbare deellink toe</string>
     <string name="add_to_cloud">Voeg toe aan %1$s</string>
-    <string name="allow_creating">Toestaan creëren</string>
-    <string name="allow_deleting">Toestaan verwijderen</string>
+    <string name="allow_creating">Creëren toestaan</string>
+    <string name="allow_deleting">Verwijderen toestaan</string>
     <string name="allow_editing">Bewerken toestaan</string>
     <string name="allow_resharing">Opnieuw delen toestaan</string>
     <string name="appbar_search_in">Zoeken in %s</string>
@@ -92,8 +92,8 @@
     <string name="choose_remote_folder">Kies externe map…</string>
     <string name="choose_which_file">Kies welk bestand bewaard moet blijven!</string>
     <string name="clear_notifications_failed">Niet gelukt om alle meldingen af te handelen</string>
-    <string name="clear_status_message">Opruimen statusberichten</string>
-    <string name="clear_status_message_after">Opruimen statusbericht na</string>
+    <string name="clear_status_message">Statusberichten wissen</string>
+    <string name="clear_status_message_after">Statusbericht wissen na</string>
     <string name="clipboard_label">Tekst gekopieerd uit %1$s</string>
     <string name="clipboard_no_text_to_copy">Geen tekst ontvangen om te kopiëren naar het klembord</string>
     <string name="clipboard_text_copied">Link gekopieerd</string>
@@ -116,7 +116,7 @@
     <string name="common_send">Versturen</string>
     <string name="common_share">Delen</string>
     <string name="common_switch_account">Account wisselen</string>
-    <string name="common_switch_to_account">Omschakelen naar account</string>
+    <string name="common_switch_to_account">Wisselen naar account</string>
     <string name="common_unknown">onbekend</string>
     <string name="common_yes">Ja</string>
     <string name="community_beta_headline">Test de dev versie</string>
@@ -168,7 +168,7 @@
     <string name="copy_file_error">Er trad een fout op bij het kopiëren van dit bestand of deze map</string>
     <string name="copy_file_invalid_into_descendent">Een map kan niet naar een onderliggende map worden gekopieerd</string>
     <string name="copy_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
-    <string name="copy_file_not_found">Kan niet kopiëren. Ga na of het bestand wel bestaat.</string>
+    <string name="copy_file_not_found">Kan niet bijwerken. Controleer of het bestand bestaat.</string>
     <string name="copy_link">Link kopiëren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
     <string name="copy_to">Kopieer naar…</string>
@@ -332,7 +332,7 @@
     <string name="file_migration_preparing">Migratie voorbereiden…</string>
     <string name="file_migration_restoring_accounts_configuration">Accountconfiguratie herstellen…</string>
     <string name="file_migration_saving_accounts_configuration">Accountconfiguratie opslaan…</string>
-    <string name="file_migration_source_not_readable">Wil je echt de gegevensopslagmap wijzigen naar  %1$s?\n\nLet op: alle gegevens moeten opnieuw worden gedownloaded.</string>
+    <string name="file_migration_source_not_readable">Wil je echt de gegevensopslagmap wijzigen naar  %1$s?\n\nLet op: alle gegevens moeten opnieuw worden gedownload.</string>
     <string name="file_migration_source_not_readable_title">Bronmap niet leesbaar!</string>
     <string name="file_migration_updating_index">Index bijwerken…</string>
     <string name="file_migration_use_data_folder">Gebruiken</string>
@@ -429,7 +429,7 @@
     <string name="move_file_error">Er trad een fout op bij het verplaatsen van dit bestand of deze map</string>
     <string name="move_file_invalid_into_descendent">De map kan niet naar een onderliggende map worden verplaatst</string>
     <string name="move_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
-    <string name="move_file_not_found">Kan bestand niet verplaatsen. Ga alstublieft na of het wel bestaat.</string>
+    <string name="move_file_not_found">Kan bestand niet verplaatsen. Controleer of het wel bestaat.</string>
     <string name="move_to">Verplaats naar…</string>
     <string name="network_error_connect_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden.</string>
     <string name="network_error_socket_exception">Er trad een fout op bij het verbinden met de server.</string>
@@ -612,7 +612,7 @@
     <string name="share_link_forbidden_permissions">om dit bestand te delen</string>
     <string name="share_link_optional_password_title">Geef een niet verplicht wachtwoord in</string>
     <string name="share_link_password_title">Vul het wachtwoord in</string>
-    <string name="share_link_with_label">Delen link (%1$s)</string>
+    <string name="share_link_with_label">Link delen (%1$s)</string>
     <string name="share_no_expiration_date_label">Stel vervaldatum in</string>
     <string name="share_no_password_title">Instellen wachtwoord</string>
     <string name="share_password_title">Wachtwoord beveiligd</string>
@@ -694,7 +694,7 @@
     <string name="sync_fail_ticker">Synchronisatie mislukt</string>
     <string name="sync_fail_ticker_unauthorized">Synchronisatie mislukt, log opnieuw in</string>
     <string name="sync_file_nothing_to_do_msg">Bestandsinhoud is al gesynchroniseerd</string>
-    <string name="sync_folder_failed_content">Synchroniseren van %1$s folder kon niet worden afgerond</string>
+    <string name="sync_folder_failed_content">Synchroniseren van map %1$s kon niet worden voltooid</string>
     <string name="sync_foreign_files_forgotten_explanation">Sinds versie 1.3.16: bestanden geüpload vanaf dit apparaat zijn gekopieerd in de lokale %1$s directory om zoekraken van bestanden te voorkomen indien een enkel bestand wordt gesynchroniseerd met meerdere accounts. \n\n Door deze verandering zijn alle bestanden geüpload met een eerdere versie van deze app gekopieerd  naar de %2$s directory.  Let wel: door een fout is deze actie niet uitgevoerd tijdens account synchronisatie. Je kunt deze bestanden laten waar ze zijn en verwijder de verwijzingen naar %3$s, of verplaats de bestanden naar de %1$s directory en behoud de verwijzing naar %4$s. \n\n Hieronder zijn de lokale bestanden weergegeven en de remote bestanden in %5$s waar ze naar verwijzen.</string>
     <string name="sync_foreign_files_forgotten_ticker">Een paar lokale bestanden werden vergeten</string>
     <string name="sync_in_progress">Meest recente versie van het bestand wordt opgehaald.</string>
@@ -734,12 +734,12 @@
     <string name="unset_favorite">Verwijderen uit favorieten</string>
     <string name="unshare">Delen stoppen</string>
     <string name="unshare_link_file_error">Het beëindigen van het delen van dit bestand of deze map is mislukt.</string>
-    <string name="unshare_link_file_no_exist">Kan delen niet beëindigen. Ga na of het bestand bestaat.</string>
+    <string name="unshare_link_file_no_exist">Kan delen niet beëindigen. Controleer of het bestand bestaat.</string>
     <string name="unshare_link_forbidden_permissions">om dit bestand niet meer te delen</string>
     <string name="unsharing_failed">Stoppen met delen mislukt</string>
     <string name="untrusted_domain">Toegang van een niet vertrouwd domein. Bekijk de documentatie voor meer informatie.</string>
     <string name="update_link_file_error">Er trad een fout op bij je poging de share bij te werken</string>
-    <string name="update_link_file_no_exist">Kan niet bijwerken. Ga na of het bestand bestaat.</string>
+    <string name="update_link_file_no_exist">Kan niet bijwerken. Controleer of het bestand bestaat.</string>
     <string name="update_link_forbidden_permissions">om deze share bij te werken</string>
     <string name="updating_share_failed">Bijwerken delen mislukt</string>
     <string name="upload_cannot_create_file">Kan geen lokaal bestand aanmaken</string>
@@ -807,7 +807,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Lokaal bestand niet gevonden</string>
     <string name="uploads_view_upload_status_failed_permission_error">Permissiefout</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Niet vertrouwd servercertificaat</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Server versie ophalen...</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Server-versie ophalen...</string>
     <string name="uploads_view_upload_status_service_interrupted">App afgesloten</string>
     <string name="uploads_view_upload_status_succeeded">Voltooid</string>
     <string name="uploads_view_upload_status_unknown_fail">Onbekende fout</string>
@@ -834,7 +834,7 @@
     <string name="whats_new_title">Nieuw in %1$s</string>
     <string name="whats_your_status">Wat is je status?</string>
     <string name="wrong_storage_path">Gegevensopslagmap bestaat niet!</string>
-    <string name="wrong_storage_path_desc">Dit kan komen door een back-upherstel op een ander apparaat. Terugvallen op standaard. Controleer de instellingen om de gegevensopslagmap aan te passen.</string>
+    <string name="wrong_storage_path_desc">Dit kan komen door een back-upherstel op een ander apparaat. Standaardinstelling wordt gebruikt. Controleer de instellingen om de gegevensopslagmap aan te passen.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kon bestand %1$dniet synchroniseren (conflicten: %2$d)</item>
         <item quantity="other">Kon bestand %1$d niet synchroniseren (conflicten: %2$d)</item>
