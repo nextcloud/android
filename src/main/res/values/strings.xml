@@ -450,6 +450,7 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Rename new version</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Overwrite remote version</string>
     <string name="pref_instant_name_collision_policy_entries_cancel">Skip uploading</string>
+    <string name="pref_instant_name_collision_policy_entries_ask_if_different">Ask me if files are different</string>
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_file">Share %1$s</string>

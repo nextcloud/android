@@ -1120,7 +1120,8 @@ public class FileUploader extends Service
         RENAME, // Ordinal corresponds to old forceOverwrite = false (0 in database)
         OVERWRITE, // Ordinal corresponds to old forceOverwrite = true (1 in database)
         CANCEL,
-        ASK_USER;
+        ASK_USER,
+        ASK_USER_IF_DIFF;
 
         public static final NameCollisionPolicy DEFAULT = RENAME;
 
