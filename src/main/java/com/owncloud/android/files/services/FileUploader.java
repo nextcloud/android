@@ -1062,6 +1062,12 @@ public class FileUploader extends Service
         @Nullable final UploadResult uploadResult
     ) {
         OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
+        if(failedUploads.length == 0)
+        {
+            //nothing to do
+            return;
+        }
+
         Account currentAccount = null;
         boolean resultMatch;
         boolean accountMatch;
