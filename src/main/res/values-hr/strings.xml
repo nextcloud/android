@@ -90,7 +90,10 @@
     <string name="checkbox">Potvrdni okvir</string>
     <string name="choose_local_folder">Odaberite lokalnu mapu...</string>
     <string name="choose_remote_folder">Odaberite udaljenu mapu...</string>
+    <string name="choose_which_file">Odaberite datoteku koju želite zadržati!</string>
     <string name="clear_notifications_failed">Brisanje obavijesti nije uspjelo.</string>
+    <string name="clear_status_message">Izbriši poruku statusa</string>
+    <string name="clear_status_message_after">Izbriši poruku statusa nakon</string>
     <string name="clipboard_label">Tekst kopiran iz %1$s</string>
     <string name="clipboard_no_text_to_copy">Nije primljen tekst za kopiranje u međuspremnik</string>
     <string name="clipboard_text_copied">Poveznica je kopirana</string>
@@ -143,6 +146,7 @@
     <string name="confirmation_remove_local">Samo lokalno</string>
     <string name="conflict_already_existing_file">Datoteka postoji</string>
     <string name="conflict_dialog_error">Pogreška pri stvaranju dijaloškog okvira o nepodudaranju!</string>
+    <string name="conflict_file_headline">Nepodudarna datoteka %1$s</string>
     <string name="conflict_message_description">Ako odaberete obje inačice, lokalna će datoteka uz naziv imati i broj.</string>
     <string name="conflict_message_headline">Koje datoteke želite zadržati?</string>
     <string name="conflict_new_file">Nova datoteka</string>
@@ -189,11 +193,13 @@
     <string name="dev_version_new_version_available">Dostupna je nova inačica</string>
     <string name="dev_version_no_information_available">Nema dostupnih informacija.</string>
     <string name="dev_version_no_new_version_available">Nema nove inačice.</string>
+    <string name="dialog_close">Zatvori</string>
     <string name="digest_algorithm_not_available">Algoritam sažetka nije dostupan na vašem uređaju.</string>
     <string name="disable_new_media_folder_detection_notifications">Onemogući</string>
     <string name="dismiss">Zanemari</string>
     <string name="dismiss_notification_description">Zanemari obavijest</string>
     <string name="dnd">Ne ometaj</string>
+    <string name="dontClear">Ne briši</string>
     <string name="download_latest_dev_version">Preuzmi najnoviju razvojnu inačicu</string>
     <string name="downloader_download_failed_content">Nije moguće preuzeti %1$s</string>
     <string name="downloader_download_failed_credentials_error">Preuzimanje nije uspjelo, ponovno se prijavite</string>
@@ -210,6 +216,7 @@
     <string name="drawer_item_activities">Aktivnosti</string>
     <string name="drawer_item_all_files">Sve datoteke</string>
     <string name="drawer_item_favorites">Favoriti</string>
+    <string name="drawer_item_gallery">Medij</string>
     <string name="drawer_item_home">Početna</string>
     <string name="drawer_item_notifications">Obavijesti</string>
     <string name="drawer_item_on_device">Na uređaju</string>
@@ -363,11 +370,13 @@
     <string name="foreign_files_remote_text">Udaljeno: %1$s</string>
     <string name="foreign_files_success">Sve datoteke su premještene</string>
     <string name="forward">Naprijed</string>
+    <string name="fourHours">4 sata</string>
     <string name="hint_name">Naziv</string>
     <string name="hint_note">Bilješka</string>
     <string name="hint_password">Zaporka</string>
     <string name="host_not_available">Poslužitelj nije dostupan</string>
     <string name="host_your_own_server">Postavi vlastiti poslužitelj</string>
+    <string name="in_folder">u mapi %1$s</string>
     <string name="instant_upload_existing">Također otpremi postojeće datoteke</string>
     <string name="instant_upload_on_charging">Otpremanje samo tijekom punjenja</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -457,6 +466,8 @@
     <string name="notifications_no_results_message">Provjerite kasnije.</string>
     <string name="offline_mode">Nema internetske veze</string>
     <string name="oneHour">1 sat</string>
+    <string name="online">Na mreži</string>
+    <string name="online_status">Status na mreži</string>
     <string name="outdated_server">Poslužitelj je na kraju radnog vijeka, nadogradite ga!</string>
     <string name="overflow_menu">Više izbornika</string>
     <string name="pass_code_configure_your_pass_code">Unesite zaporku</string>
@@ -477,6 +488,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ovo je prazan prostor</string>
     <string name="placeholder_timestamp">18. 5. 2012. 12:23</string>
+    <string name="player_stop">zaustavi</string>
+    <string name="player_toggle">uključi/isključi</string>
     <string name="power_save_check_dialog_message">Onemogućivanje provjere uštede energije može rezultirati otpremanjem datoteka pri niskoj razini napunjenosti baterije!</string>
     <string name="pref_behaviour_entries_delete_file">izbrisano</string>
     <string name="pref_behaviour_entries_keep_file">spremljeno u izvornoj mapi</string>
@@ -522,6 +535,7 @@
     <string name="prefs_recommend">Preporuči prijatelju</string>
     <string name="prefs_show_hidden_files">Prikaz skrivenih datoteka</string>
     <string name="prefs_sourcecode">Preuzmi izvorni kod</string>
+    <string name="prefs_sycned_folders_summary">Upravljanje mapama za automatsko otpremanje</string>
     <string name="prefs_synced_folders_local_path_title">Lokalna mapa</string>
     <string name="prefs_synced_folders_remote_path_title">Udaljena mapa</string>
     <string name="prefs_theme_title">Tema</string>
@@ -541,6 +555,7 @@
     <string name="recommend_subject">Isprobajte %1$s na uređaju!</string>
     <string name="recommend_text">Želim vas pozvati da koristite %1$s na svom uređaju.\nPreuzmite ovdje: %2$s</string>
     <string name="recommend_urls">%1$s ili %2$s</string>
+    <string name="remote">(na daljinu)</string>
     <string name="remote_file_fetch_failed">Datoteka nije pronađena!</string>
     <string name="remove_fail_msg">Brisanje nije uspjelo</string>
     <string name="remove_notification_failed">Nije uspjelo uklanjanje obavijesti.</string>
@@ -576,6 +591,8 @@
     <string name="sendbutton_description">Ikona gumba za slanje</string>
     <string name="set_as">Postavi kao</string>
     <string name="set_picture_as">Koristi sliku kao</string>
+    <string name="set_status">Postavi status</string>
+    <string name="set_status_message">Postavi poruku statusa</string>
     <string name="share">Dijeli</string>
     <string name="share_dialog_title">Dijeljenje</string>
     <string name="share_expiration_date_label">Istječe %1$s</string>
@@ -584,6 +601,7 @@
     <string name="share_internal_link">Dijeli internu poveznicu</string>
     <string name="share_internal_link_to_file_text">Poveznicu za interno dijeljenje mogu rabiti samo korisnici koji smiju pristupiti ovoj datoteci</string>
     <string name="share_internal_link_to_folder_text">Poveznicu za interno dijeljenje mogu rabiti samo korisnici koji smiju pristupiti ovoj mapi</string>
+    <string name="share_known_remote_on_clarification">na %1$s</string>
     <string name="share_link">Dijeli poveznicu</string>
     <string name="share_link_empty_password">Morate unijeti zaporku</string>
     <string name="share_link_file_error">Došlo je do pogreške prilikom dijeljenja ove datoteke ili mape.</string>
@@ -598,6 +616,7 @@
     <string name="share_privilege_unshare">Prestani dijeliti</string>
     <string name="share_remote_clarification">%1$s (udaljeno)</string>
     <string name="share_room_clarification">%1$s (razgovor)</string>
+    <string name="share_search">Naziv, ID udruženog oblaka ili adresa e-pošte…</string>
     <string name="share_send_note">Obavijest primatelju</string>
     <string name="share_via_link_hide_download">Sakrij preuzimanje</string>
     <string name="share_via_link_menu_password_label">Zaštita zaporkom (%1$s)</string>
@@ -810,6 +829,9 @@
     <string name="what_s_new_image">Što je nova slika</string>
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo u %1$s</string>
+    <string name="whats_your_status">Koji je vaš status?</string>
+    <string name="wrong_storage_path">Put pohrane ne postoji!</string>
+    <string name="wrong_storage_path_desc">To može biti zbog vraćanja sigurnosne kopije na drugom uređaju. Provjerite postavke i prilagodite put pohrane.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nije moguće sinkronizirati datoteku %1$d (nepodudaranja: %2$d)</item>
         <item quantity="few">Nije moguće sinkronizirati datoteke %1$d (nepodudaranja: %2$d)</item>
