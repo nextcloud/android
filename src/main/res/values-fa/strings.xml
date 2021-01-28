@@ -265,6 +265,7 @@
     <string name="etm_background_job_started">آغاز شده</string>
     <string name="etm_background_job_state">وضعیت</string>
     <string name="etm_background_job_user">کاربر</string>
+    <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">کارهای پس زمینه</string>
     <string name="etm_background_jobs_cancel_all">لغو همه کار‌ها</string>
     <string name="etm_background_jobs_prune">جداسازی کارهای غیرفعال</string>
@@ -391,6 +392,7 @@
     <string name="list_layout">Listed layout</string>
     <string name="local_file_list_empty">هیچ فایلی در این پوشه نیست.</string>
     <string name="local_file_not_found_message">فایل در فایل‌های سیستمی محلی یافت نشد</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">هیچ پوشه ای وجود ندارد</string>
     <string name="log_send_mail_subject">%1$s لاگ‌های برنامه های اندروید</string>
     <string name="log_send_no_mail_app">هیچ برنامه ای برای ارسال تاریخچه یافت نشد. لطفاً یک سرویس گیرنده ایمیل نصب کنید.</string>
@@ -760,7 +762,7 @@
     <string name="upload_local_storage_not_copied">پرونده را نمی‌توان درحافظه محلی کپی کرد</string>
     <string name="upload_lock_failed">قفل پوشه انجام نشد</string>
     <string name="upload_old_android">رمزگذاری فقط با  &gt;= Android 5.0 امکان پذیر است</string>
-    <string name="upload_query_move_foreign_files">کمبود فضای کافی مانع کپی کردن پرونده‌های انتخاب شده در داخل پوشه می‌شود.  آیا می‌خواهید به جای کپی کردن آنها را انتقال دهید؟</string>
+    <string name="upload_query_move_foreign_files">کمبود فضای کافی مانع کپی کردن پرونده‌های انتخاب شده در داخل پوشه می‌شود%1$s.  آیا می‌خواهید به جای کپی کردن آنها را انتقال دهید؟</string>
     <string name="upload_sync_conflict">برخورد در همگام‌سازی، لطفاً به صورت دستی برطرف کنید</string>
     <string name="upload_unknown_error">خطای نامشخص</string>
     <string name="uploader_btn_alternative_text">انتخاب کنید</string>
