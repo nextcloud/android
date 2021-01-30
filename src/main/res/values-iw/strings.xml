@@ -296,7 +296,7 @@
     <string name="file_list_folder">תקיה</string>
     <string name="file_list_loading">בטעינה…</string>
     <string name="file_list_no_app_for_file_type">לא הוגדר יישומון לטיפול בסוג קובץ שכזה.</string>
-    <string name="file_list_seconds_ago">שניות</string>
+    <string name="file_list_seconds_ago">לפני מספר שניות</string>
     <string name="file_migration_checking_destination">בודק יעד…</string>
     <string name="file_migration_cleaning">מתבצע ניקיון…</string>
     <string name="file_migration_dialog_title">תיקיית אחסון הנתונים מתעדכנת</string>

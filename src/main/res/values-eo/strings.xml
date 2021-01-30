@@ -33,6 +33,7 @@
     <string name="add_to_cloud">Aldoni al %1$s</string>
     <string name="allow_editing">Permesi modifon</string>
     <string name="allow_resharing">Permesi rekunhavigon</string>
+    <string name="appbar_search_in">Serĉi en 1%s</string>
     <string name="auth_access_failed">Aliro malsukcesis: %1$s</string>
     <string name="auth_account_does_not_exist">La konto ankoraŭ ne aldoniĝis al tiu ĉi aparato</string>
     <string name="auth_account_not_new">Konto pri samaj uzanto kaj servilo jam ekzistas tiuaparate</string>
@@ -444,8 +445,9 @@
     <string name="prefs_sourcecode">Havi fontkodon</string>
     <string name="prefs_synced_folders_local_path_title">Loka dosierujo</string>
     <string name="prefs_synced_folders_remote_path_title">Fora dosierujo</string>
-    <string name="prefs_value_theme_dark">Malklara</string>
-    <string name="prefs_value_theme_light">Klara</string>
+    <string name="prefs_theme_title">Etoso</string>
+    <string name="prefs_value_theme_dark">Malluma</string>
+    <string name="prefs_value_theme_light">Luma</string>
     <string name="preview_image_description">Antaŭrigardo de bildo</string>
     <string name="preview_image_error_no_local_file">Ne estas loka dosiero antaŭrigardota</string>
     <string name="preview_image_error_unknown_format">Ne eblas montri bildon</string>
