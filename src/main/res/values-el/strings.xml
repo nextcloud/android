@@ -318,6 +318,7 @@
     <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
     <string name="file_migration_checking_destination">Γίνεται έλεγχος προορισμού…</string>
     <string name="file_migration_cleaning">Γίνεται εκκαθάριση…</string>
+    <string name="file_migration_dialog_title">Γίνεται ενημέρωση φακέλου Αποθήκευση Δεδομένων</string>
     <string name="file_migration_directory_already_exists">Ο φάκελος δεδομένων υπάρχει ήδη. Επιλέξτε ένα από τα παρακάτω:</string>
     <string name="file_migration_failed_dir_already_exists">Υπάρχει ήδη ο φάκελος Nextcloud</string>
     <string name="file_migration_failed_not_enough_space">Απαιτείται περισσότερος χώρος</string>

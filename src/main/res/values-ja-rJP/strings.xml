@@ -90,7 +90,8 @@
     <string name="choose_local_folder">ローカルフォルダーを選択…</string>
     <string name="choose_remote_folder">リモートフォルダを選択…</string>
     <string name="clear_notifications_failed">通知の削除に失敗</string>
-    <string name="clear_status_message">ステータスをリセットする</string>
+    <string name="clear_status_message">ステータスメッセージを消去</string>
+    <string name="clear_status_message_after">ステータスメッセージの有効期限</string>
     <string name="clipboard_label">%1$s からテキストをコピー</string>
     <string name="clipboard_no_text_to_copy">クリップボードにコピーするテキストを受け取らなかった</string>
     <string name="clipboard_text_copied">リンクをコピーしました</string>
@@ -455,6 +456,7 @@
     <string name="notifications_no_results_message">後で確認してください。</string>
     <string name="offline_mode">インターネットに接続されていません</string>
     <string name="oneHour">1時間</string>
+    <string name="online_status">オンラインステータス</string>
     <string name="outdated_server">サーバーのEOLが終わったので、アップグレードしてください！</string>
     <string name="overflow_menu">その他のメニュー</string>
     <string name="pass_code_configure_your_pass_code">パスコードを入力</string>
@@ -574,6 +576,8 @@
     <string name="sendbutton_description">送信ボタンアイコン</string>
     <string name="set_as">として設定され</string>
     <string name="set_picture_as">画像を使用する</string>
+    <string name="set_status">ステータスを設定</string>
+    <string name="set_status_message">ステータスメッセージを設定</string>
     <string name="share">共有</string>
     <string name="share_dialog_title">共有</string>
     <string name="share_expiration_date_label">有効期限%1$s</string>
