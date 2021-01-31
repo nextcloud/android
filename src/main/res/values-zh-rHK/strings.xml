@@ -79,7 +79,7 @@
     <string name="autoupload_disable_power_save_check">停用省電功能</string>
     <string name="autoupload_hide_folder">隱藏資料夾</string>
     <string name="avatar">頭像</string>
-    <string name="away">外出</string>
+    <string name="away">不在</string>
     <string name="battery_optimization_close">關閉</string>
     <string name="battery_optimization_disable">停用</string>
     <string name="battery_optimization_message">您的裝置可能啟用了電池優化。自動上傳功能只能在此應用程式排除的情況下才能運作。</string>
@@ -198,7 +198,7 @@
     <string name="disable_new_media_folder_detection_notifications">停用</string>
     <string name="dismiss">取消</string>
     <string name="dismiss_notification_description">清除通知訊息。</string>
-    <string name="dnd">勿擾模式</string>
+    <string name="dnd">請勿打擾</string>
     <string name="dontClear">不要清空</string>
     <string name="download_latest_dev_version">下載最新開發的版本</string>
     <string name="downloader_download_failed_content">下載 %1$s 無法完成 </string>
