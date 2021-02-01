@@ -175,7 +175,7 @@ class SetStatusDialogFragment :
 
         binding.clearStatus.setOnClickListener { clearStatus() }
         binding.setStatus.setOnClickListener { setStatusMessage() }
-        binding. emoji.setOnClickListener { openEmojiPopup() }
+        binding.emoji.setOnClickListener { openEmojiPopup() }
 
         popup = EmojiPopup.Builder
             .fromRootView(view)
