@@ -1,3 +1,12 @@
+## 3.15.0 RC1 (January, 14, 2021)
+
+Media instead of Photos: also show videos
+UI improvement (shimmer)
+Bug fixes all over the place
+Drop Android 4.4, new min version Android 5.0
+
+For a full list, please see https://github.com/nextcloud/android/milestone/52
+
 ## 3.14.2 (January, 13, 2021)
 
 - Fix push notifications on some devices
