@@ -33,6 +33,7 @@
     <string name="add_to_cloud">Aldoni al %1$s</string>
     <string name="allow_editing">Permesi modifon</string>
     <string name="allow_resharing">Permesi rekunhavigon</string>
+    <string name="appbar_search_in">Serĉi en 1%s</string>
     <string name="auth_access_failed">Aliro malsukcesis: %1$s</string>
     <string name="auth_account_does_not_exist">La konto ankoraŭ ne aldoniĝis al tiu ĉi aparato</string>
     <string name="auth_account_not_new">Konto pri samaj uzanto kaj servilo jam ekzistas tiuaparate</string>
@@ -253,7 +254,6 @@
     <string name="file_list_seconds_ago">sekundoj antaŭe</string>
     <string name="file_migration_checking_destination">Kontrolado de la celo...</string>
     <string name="file_migration_cleaning">Purigado...</string>
-    <string name="file_migration_dialog_title">Ĝisdatigo de la vojo al konservejo</string>
     <string name="file_migration_directory_already_exists">Datumdosierujo jam ekzistas. Elektu unu opcion:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud-dosierujo jam ekzistas</string>
     <string name="file_migration_failed_not_enough_space">Pli da diskospaco bezonata</string>
@@ -267,7 +267,6 @@
     <string name="file_migration_preparing">Preparado de la datummigrado...</string>
     <string name="file_migration_restoring_accounts_configuration">Restaŭrado de la kontagordo...</string>
     <string name="file_migration_saving_accounts_configuration">Konservado de la kontagordo...</string>
-    <string name="file_migration_source_not_readable">Ĉu vi plu volas ŝanĝi la konservejan lokon al %1$s?\n\nNotu: ĉiuj datumoj estos denove elŝutitaj.</string>
     <string name="file_migration_source_not_readable_title">Fontodosierujo ne legeblas!</string>
     <string name="file_migration_updating_index">Ĝisdatigo de la indekso...</string>
     <string name="file_migration_use_data_folder">Uzi</string>
@@ -444,11 +443,11 @@
     <string name="prefs_recommend">Rekomendi al amiko</string>
     <string name="prefs_show_hidden_files">Montri kaŝitajn dosierojn</string>
     <string name="prefs_sourcecode">Havi fontkodon</string>
-    <string name="prefs_storage_path">Vojo al konservejo</string>
     <string name="prefs_synced_folders_local_path_title">Loka dosierujo</string>
     <string name="prefs_synced_folders_remote_path_title">Fora dosierujo</string>
-    <string name="prefs_value_theme_dark">Malklara</string>
-    <string name="prefs_value_theme_light">Klara</string>
+    <string name="prefs_theme_title">Etoso</string>
+    <string name="prefs_value_theme_dark">Malluma</string>
+    <string name="prefs_value_theme_light">Luma</string>
     <string name="preview_image_description">Antaŭrigardo de bildo</string>
     <string name="preview_image_error_no_local_file">Ne estas loka dosiero antaŭrigardota</string>
     <string name="preview_image_error_unknown_format">Ne eblas montri bildon</string>

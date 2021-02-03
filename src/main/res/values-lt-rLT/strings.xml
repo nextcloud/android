@@ -27,6 +27,7 @@
     <string name="actionbar_sort">Rikiuoti</string>
     <string name="active_user">Aktyvus naudotojas</string>
     <string name="activities_no_results_headline">Kol kas jokių veiksmų</string>
+    <string name="activities_no_results_message">Nėra įvykių susijusių su papildymais, pakeitimais ar bendrinimais.</string>
     <string name="activity_chooser_send_file_title">Siųsti</string>
     <string name="activity_chooser_title">Siųsti nuorodą…</string>
     <string name="activity_icon">Veikla</string>
@@ -91,6 +92,7 @@
     <string name="checkbox">Žymimasis langelis</string>
     <string name="choose_local_folder">Pasirinkite aplanką ...</string>
     <string name="choose_remote_folder">Pasirinkti nuotolinį aplanką…</string>
+    <string name="choose_which_file">Pasirinkite, kurį failą laikyti!</string>
     <string name="clear_notifications_failed">Nepavyko išvalyti pranešimų.</string>
     <string name="clear_status_message">Išvalyti būsenos žinutę</string>
     <string name="clear_status_message_after">Išvalyti būsenos žinutę po</string>
@@ -146,6 +148,7 @@
     <string name="confirmation_remove_local">Tik vietiniai</string>
     <string name="conflict_already_existing_file">Jau esamas failas</string>
     <string name="conflict_dialog_error">Klaida kuriant konflikto dialogą!</string>
+    <string name="conflict_file_headline">Nesuderinamas failas%1$s</string>
     <string name="conflict_message_description">Jei pasirinksite abi versijas, vietinis failas prie pavadinimo turės numerį.</string>
     <string name="conflict_message_headline">Kuriuos failus norite pasilikti?</string>
     <string name="conflict_new_file">Naujas failas</string>
@@ -192,6 +195,7 @@
     <string name="dev_version_new_version_available">Yra prieinama nauja versija</string>
     <string name="dev_version_no_information_available">Informacija neprieinama</string>
     <string name="dev_version_no_new_version_available">Nauja versija neprieinama.</string>
+    <string name="dialog_close">Uždaryti</string>
     <string name="digest_algorithm_not_available">Tavo telefonas nepalaiko digest algoritmo.</string>
     <string name="disable_new_media_folder_detection_notifications">Išjungti</string>
     <string name="dismiss">Atmesti</string>
@@ -270,6 +274,7 @@
     <string name="etm_background_jobs_schedule_test_job">Suplanuokite testinę užduotį</string>
     <string name="etm_background_jobs_start_test_job">Pradėti testinę užduotį</string>
     <string name="etm_background_jobs_stop_test_job">Sustabdyti testinę užduotį</string>
+    <string name="etm_download_enqueue_test_download">Užbaikite bandomąjį atsisiuntimą</string>
     <string name="etm_download_path">Nuotolinis kelias</string>
     <string name="etm_migrations">Perkėlimas (programos atnaujinimas)</string>
     <string name="etm_preferences">Nuostatos</string>
@@ -315,7 +320,7 @@
     <string name="file_list_seconds_ago">prieš keletą sekundžių</string>
     <string name="file_migration_checking_destination">Tikrinama paskirties vieta…</string>
     <string name="file_migration_cleaning">Išvaloma…</string>
-    <string name="file_migration_dialog_title">Atnaujinamas saugyklos kelias</string>
+    <string name="file_migration_dialog_title">Atnaujinamas duomenų saugyklos aplankas</string>
     <string name="file_migration_directory_already_exists">Duomenų aplankas jau yra. Pasirinkite vieną iš šių:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud aplankas jau yra</string>
     <string name="file_migration_failed_not_enough_space">Reikia daugiau vietos</string>
@@ -329,7 +334,7 @@
     <string name="file_migration_preparing">Ruošiamasi perkėlimui…</string>
     <string name="file_migration_restoring_accounts_configuration">Atkuriama paskyros konfigūracija…</string>
     <string name="file_migration_saving_accounts_configuration">Įrašoma paskyros konfigūracija…</string>
-    <string name="file_migration_source_not_readable">Ar vis dar norite pakeisti saugojimo kelią į %1$s?\n\nPastaba: Visi duomenys turi būti atsisiųsti iš naujo</string>
+    <string name="file_migration_source_not_readable">Ar vis tiek norite pakeisti duomenų saugyklos aplanką į %1$s?\n\n Pastaba: visus duomenis reikės atsisiųsti dar kartą.</string>
     <string name="file_migration_source_not_readable_title">Šaltinio aplankas neskaitomas!</string>
     <string name="file_migration_updating_index">Atnaujinamas indeksas…</string>
     <string name="file_migration_use_data_folder">Naudok</string>
@@ -376,6 +381,7 @@
     <string name="hint_password">Slaptažodis</string>
     <string name="host_not_available">Serveris neprieinamas</string>
     <string name="host_your_own_server">Administruoti savo serverį</string>
+    <string name="in_folder">aplankale %1$s</string>
     <string name="instant_upload_existing">Taip pat įkelkite esamus failus</string>
     <string name="instant_upload_on_charging">Įkelti failus tik kai kraunasi</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -488,12 +494,15 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Rezervas</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">Sustoti</string>
+    <string name="player_toggle">perjungti</string>
     <string name="power_save_check_dialog_message">Išjungtas energijos taupymo tikrinimas gali įtakoti failų įkėlimą, kai akumuliatoriaus energija yra maža!</string>
     <string name="pref_behaviour_entries_delete_file">Ištrintas</string>
     <string name="pref_behaviour_entries_keep_file">paliktas pradiniame aplanke</string>
     <string name="pref_behaviour_entries_move">perkelti į app aplanką</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Ką daryti, jei failas jau yra?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Klausti kiekvieną kartą</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Praleisti įkėlimą</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Perrašyti nuotolinę versiją</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Pervadinti naują versiją</string>
     <string name="pref_instant_name_collision_policy_title">Ką daryti, jei failas jau yra?</string>
@@ -532,7 +541,8 @@
     <string name="prefs_recommend">Rekomenduok draugui</string>
     <string name="prefs_show_hidden_files">Rodyti paslėptus failus</string>
     <string name="prefs_sourcecode">Gauti išeities kodą</string>
-    <string name="prefs_storage_path">Saugojimo kelias</string>
+    <string name="prefs_storage_path">Duomenų aplankas</string>
+    <string name="prefs_sycned_folders_summary">Tvarkykite automatinio įkėlimo aplankus</string>
     <string name="prefs_synced_folders_local_path_title">Aplankas vietinis</string>
     <string name="prefs_synced_folders_remote_path_title">Nuotolinis aplankas</string>
     <string name="prefs_theme_title">Apipavidalinimas</string>
@@ -598,6 +608,7 @@
     <string name="share_internal_link">Vidinio bendrinimo nuoroda</string>
     <string name="share_internal_link_to_file_text">Vidinio bendrinimo nuoroda veikia tik naudotojams, kurie turi pireigą prie šio failo</string>
     <string name="share_internal_link_to_folder_text">Vidinio bendrinimo nuoroda veikia tik naudotojams, kurie turi pireigą prie šio failo</string>
+    <string name="share_known_remote_on_clarification">ant %1$s</string>
     <string name="share_link">Bendrinimo nuoroda</string>
     <string name="share_link_empty_password">Privalote įvesti slaptažodį</string>
     <string name="share_link_file_error">Bandant bendrinti šį failą ar aplanką įvyko klaida.</string>
@@ -605,12 +616,14 @@
     <string name="share_link_forbidden_permissions">dalintis failu</string>
     <string name="share_link_optional_password_title">Įveskite pasirinktinį slaptažodį</string>
     <string name="share_link_password_title">Įveskite slaptažodį</string>
+    <string name="share_link_with_label">Dalytis nuoroda (%1$s)</string>
     <string name="share_no_expiration_date_label">Nustatyti galiojimo pabaigos datą</string>
     <string name="share_no_password_title">Nustatyti slaptažodį</string>
     <string name="share_password_title">Apsaugota slaptažodžiu</string>
     <string name="share_privilege_unshare">Nustoti bendrinti</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
     <string name="share_room_clarification">%1$s (pokalbis)</string>
+    <string name="share_search">Vardas, „Federated Cloud ID“ arba el. Pašto adresas…</string>
     <string name="share_send_note">Pastaba gavėjui</string>
     <string name="share_via_link_hide_download">Slėpti atsisiuntimą</string>
     <string name="share_via_link_menu_password_label">Apsaugota slaptažodžiu (%1$s)</string>

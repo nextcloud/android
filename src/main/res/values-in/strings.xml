@@ -221,7 +221,6 @@
     <string name="file_list_seconds_ago">beberapa detik yang lalu</string>
     <string name="file_migration_checking_destination">Memeriksa tujuan…</string>
     <string name="file_migration_cleaning">Membersihkan…</string>
-    <string name="file_migration_dialog_title">Memperbarui jalur penyimpanan</string>
     <string name="file_migration_failed_dir_already_exists">Direktori NextCloud sudah ada</string>
     <string name="file_migration_failed_not_enough_space">Ruang lebih dibutuhkan</string>
     <string name="file_migration_failed_not_readable">Tidak dapat membaca berkas sumber</string>
@@ -234,7 +233,6 @@
     <string name="file_migration_preparing">Persiapan untuk migrasi…</string>
     <string name="file_migration_restoring_accounts_configuration">Memulihkan konfigurasi akun…</string>
     <string name="file_migration_saving_accounts_configuration">Menyimpan konfigurasi akun…</string>
-    <string name="file_migration_source_not_readable">Apakah anda masih ingin merubah lokasi penyimpanan ke %1$s?\n\nCatatan: Semua data akan diunduh ulang.</string>
     <string name="file_migration_source_not_readable_title">Sumber direktori tidak dapat dibaca!</string>
     <string name="file_migration_updating_index">Memperbarui indeks…</string>
     <string name="file_migration_use_data_folder">Gunakan</string>
@@ -369,7 +367,6 @@
     <string name="prefs_recommend">Rekomendasikan ke teman</string>
     <string name="prefs_show_hidden_files">Lihat berkas tersembunyi</string>
     <string name="prefs_sourcecode">Dapatkan kode sumber</string>
-    <string name="prefs_storage_path">Jalur penyimpanan</string>
     <string name="prefs_synced_folders_local_path_title">Berkas lokal</string>
     <string name="prefs_synced_folders_remote_path_title">Folder remot</string>
     <string name="prefs_value_theme_dark">Gelap</string>

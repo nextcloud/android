@@ -8,7 +8,7 @@ import com.github.spotbugs.snom.SpotBugsTask
 // its root folder, another one for the app module in subfolder of root.
 
 buildscript {
-    ext.kotlin_version = '1.4.21'
+    ext.kotlin_version = '1.4.21-2'
     repositories {
         google()
         jcenter()
@@ -53,13 +53,13 @@ configurations {
 
 ext {
     jacocoVersion = "0.8.2"
-    daggerVersion = "2.30.1"
+    daggerVersion = "2.31"
     markwonVersion =  "4.6.1"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
     androidLibraryVersion = "master-SNAPSHOT"
-    mockitoVersion = "3.6.28"
-    mockkVersion = "1.10.2"
+    mockitoVersion = "3.7.7"
+    mockkVersion = "1.10.4"
     powermockVersion = "2.0.9"
     byteBuddyVersion = "1.10.19"
     espressoVersion = "3.3.0"
@@ -82,7 +82,7 @@ repositories {
 
 // semantic versioning for version code
 def versionMajor = 3
-def versionMinor = 15
+def versionMinor = 16
 def versionPatch = 0
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
@@ -288,7 +288,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.jakewharton:disklrucache:2.0.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0-rc01'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.exifinterface:exifinterface:1.3.2'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
@@ -296,7 +296,7 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:2.4.0"
     implementation "androidx.fragment:fragment:1.2.5"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
-    compileOnly 'com.google.code.findbugs:annotations:2.0.1'
+    compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
     implementation 'commons-io:commons-io:2.8.0'
     implementation "com.jakewharton:butterknife:$butterknifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
@@ -392,7 +392,7 @@ dependencies {
     }
     androidTestImplementation "net.bytebuddy:byte-buddy:$byteBuddyVersion"
     androidTestImplementation "net.bytebuddy:byte-buddy-android:$byteBuddyVersion"
-    androidTestImplementation "io.mockk:mockk-android:1.10.0"
+    androidTestImplementation "io.mockk:mockk-android:1.10.4"
     androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
 
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests

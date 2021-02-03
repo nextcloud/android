@@ -1,8 +1,6 @@
 name: "White color on dark mode"
 
 on:
-    push:
-        branches: [ master, stable-* ]
     pull_request:
         branches: [ master, stable-* ]
 

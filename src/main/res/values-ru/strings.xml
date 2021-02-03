@@ -318,7 +318,6 @@
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_migration_checking_destination">Проверка назначения…</string>
     <string name="file_migration_cleaning">Очистка…</string>
-    <string name="file_migration_dialog_title">Обновление пути к хранилищу</string>
     <string name="file_migration_directory_already_exists">Каталог с данными уже существует. Выберите одно из действий:</string>
     <string name="file_migration_failed_dir_already_exists">Папка «Nextcloud» уже существует</string>
     <string name="file_migration_failed_not_enough_space">Недостаточно свободного места</string>
@@ -332,7 +331,6 @@
     <string name="file_migration_preparing">Подготовка переноса…</string>
     <string name="file_migration_restoring_accounts_configuration">Восстановление параметров учётной записи…</string>
     <string name="file_migration_saving_accounts_configuration">Сохранение параметров учётной записи…</string>
-    <string name="file_migration_source_not_readable">Действительно изменить расположение хранилища на «%1$s»?\n\nВнимание: придётся заново скачать все данные.</string>
     <string name="file_migration_source_not_readable_title">Исходный каталог недоступен для чтения.</string>
     <string name="file_migration_updating_index">Обновление индекса…</string>
     <string name="file_migration_use_data_folder">Использовать существующий</string>
@@ -537,7 +535,6 @@
     <string name="prefs_recommend">Рекомендовать другу</string>
     <string name="prefs_show_hidden_files">Показывать скрытые файлы</string>
     <string name="prefs_sourcecode">Получить исходный код</string>
-    <string name="prefs_storage_path">Путь к хранилищу</string>
     <string name="prefs_sycned_folders_summary">Управление папками для автозагрузки</string>
     <string name="prefs_synced_folders_local_path_title">Папка на устройстве</string>
     <string name="prefs_synced_folders_remote_path_title">Папка на сервере</string>
@@ -833,8 +830,6 @@
     <string name="whats_new_skip">Пропустить</string>
     <string name="whats_new_title">Новое в %1$s</string>
     <string name="whats_your_status">Укажите ваше состояние</string>
-    <string name="wrong_storage_path">Путь к хранилищу не существует.</string>
-    <string name="wrong_storage_path_desc">Это могло случиться после восстановления из резервной копии, созданной на другом устройстве. Проверьте параметры размещения хранилища.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не удалось синхронизировать %1$d файл (конфликтов: %2$d)</item>
         <item quantity="few">Не удалось синхронизировать %1$d файлов (конфликтов: %2$d)</item>

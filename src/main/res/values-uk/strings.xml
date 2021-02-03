@@ -80,6 +80,7 @@
     <string name="autoupload_disable_power_save_check">Вимкнути перевірку режиму енергозаощадження</string>
     <string name="autoupload_hide_folder">Заховати теку</string>
     <string name="avatar">Світлина</string>
+    <string name="away">Піти</string>
     <string name="battery_optimization_close">Закрити</string>
     <string name="battery_optimization_disable">Вимкнути</string>
     <string name="battery_optimization_message">Можливо, що на вашому пристрої увімкнено оптимізацію живлення від батареї. Автоматичне завантаження буде правильно працювати лише, якщо ви виключите цей застосунок зі списку оптимізації.</string>
@@ -90,7 +91,10 @@
     <string name="checkbox">Прапорець</string>
     <string name="choose_local_folder">Виберіть локальну теку...</string>
     <string name="choose_remote_folder">Виберіть віддалену теку...</string>
+    <string name="choose_which_file">Виберіть, який файл зберігати!</string>
     <string name="clear_notifications_failed">Неможливо очистити сповіщення.</string>
+    <string name="clear_status_message">Очистити повідомлення про стан</string>
+    <string name="clear_status_message_after">Очистити повідомлення про стан після</string>
     <string name="clipboard_label">Текст скопійовано з %1$s</string>
     <string name="clipboard_no_text_to_copy">Відсутній текст для копіювання до буферу обміну</string>
     <string name="clipboard_text_copied">Посилання скопійовано</string>
@@ -143,6 +147,7 @@
     <string name="confirmation_remove_local">Лише локально</string>
     <string name="conflict_already_existing_file">Уже наявний файл</string>
     <string name="conflict_dialog_error">Помилка у створенні діалогу щодо конфлікту!</string>
+    <string name="conflict_file_headline">Конфліктний файл %1$s</string>
     <string name="conflict_message_description">Якщо ви виберете обидві версії, то до назви локального файлу буде додано порядковий номер.</string>
     <string name="conflict_message_headline">Які файли ви хочете залишити?</string>
     <string name="conflict_new_file">Новий файл</string>
@@ -169,6 +174,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Копіювання/переміщення в зашифрований каталог - в даний час не підтримується.</string>
     <string name="copy_to">Копіювати до…</string>
     <string name="could_not_download_image">Неможливо звантажити повне зображення</string>
+    <string name="could_not_retrieve_shares">Не вдалося отримати спільні дані</string>
     <string name="could_not_retrieve_url">Неможливо отримати посилання</string>
     <string name="create_dir_fail_msg">Неможливо створити каталог</string>
     <string name="create_new">Створити новий</string>
@@ -188,10 +194,13 @@
     <string name="dev_version_new_version_available">Доступна нова версія</string>
     <string name="dev_version_no_information_available">Відсутня інформація</string>
     <string name="dev_version_no_new_version_available">Відсутня нова версія</string>
+    <string name="dialog_close">закрити</string>
     <string name="digest_algorithm_not_available">Цей цифровий алгоритм недоступний на вашому телефоні.</string>
     <string name="disable_new_media_folder_detection_notifications">Вимкнути</string>
     <string name="dismiss">Припинити</string>
     <string name="dismiss_notification_description">Скасувати сповіщення</string>
+    <string name="dnd">Не турбувати</string>
+    <string name="dontClear">Не очистувати</string>
     <string name="download_latest_dev_version">Звантажити останню версію для розробників</string>
     <string name="downloader_download_failed_content">Не можливо вивантажити %1$s</string>
     <string name="downloader_download_failed_credentials_error">Вивантаження невдале, увійдіть знову</string>
@@ -208,6 +217,7 @@
     <string name="drawer_item_activities">Події</string>
     <string name="drawer_item_all_files">Усі файли</string>
     <string name="drawer_item_favorites">Улюблені</string>
+    <string name="drawer_item_gallery">Медіа</string>
     <string name="drawer_item_home">Старт</string>
     <string name="drawer_item_notifications">Повідомлення</string>
     <string name="drawer_item_on_device">На пристрої</string>
@@ -309,7 +319,7 @@
     <string name="file_list_seconds_ago">секунди тому</string>
     <string name="file_migration_checking_destination">Перевірка місця призначення...</string>
     <string name="file_migration_cleaning">Очищення...</string>
-    <string name="file_migration_dialog_title">Оновлення місця збереження</string>
+    <string name="file_migration_dialog_title">Оновлення папки для зберігання даних</string>
     <string name="file_migration_directory_already_exists">Тека з даними вже існує. Виберіть одну з таких:</string>
     <string name="file_migration_failed_dir_already_exists">Тека Nextcloud вже існує</string>
     <string name="file_migration_failed_not_enough_space">Потрібно більше місця</string>
@@ -323,7 +333,7 @@
     <string name="file_migration_preparing">Підготовка до міграції</string>
     <string name="file_migration_restoring_accounts_configuration">Відновлення налаштувань облікового запису...</string>
     <string name="file_migration_saving_accounts_configuration">Збереження налаштувань облікового запису...</string>
-    <string name="file_migration_source_not_readable">Ви все ще бажаєте змінити шлях місця збереження на %1$s?\n\nПримітка: Усі дані потрібно буде повторно звантажити.</string>
+    <string name="file_migration_source_not_readable">Ви все ще хочете змінити папку для зберігання даних на %1$s?\n\nNote: Всі дані доведеться завантажувати знову.</string>
     <string name="file_migration_source_not_readable_title">Неможливо прочитати початкову теку!</string>
     <string name="file_migration_updating_index">Оновлення індексу...</string>
     <string name="file_migration_use_data_folder">Використовувати</string>
@@ -363,11 +373,13 @@
     <string name="foreign_files_remote_text">Віддалено: %1$s</string>
     <string name="foreign_files_success">Усі файли переміщено</string>
     <string name="forward">Вперед</string>
+    <string name="fourHours">4 години</string>
     <string name="hint_name">Ім\'я</string>
     <string name="hint_note">Нотатка</string>
     <string name="hint_password">Пароль</string>
     <string name="host_not_available">Сервер недоступний</string>
     <string name="host_your_own_server">Розмістити на власному сервері</string>
+    <string name="in_folder">в папці %1$s</string>
     <string name="instant_upload_existing">Також завантажити існуючі файли</string>
     <string name="instant_upload_on_charging">Завантаження тільки під час заряджання</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -457,6 +469,8 @@
     <string name="notifications_no_results_message">Будь ласка, перегляньте ще раз пізніше.</string>
     <string name="offline_mode">Відсутнє з\'єднання з мережею</string>
     <string name="oneHour">1 година</string>
+    <string name="online">Онлайн</string>
+    <string name="online_status">Статус онлайну</string>
     <string name="outdated_server">Завершилася підтримка серверної версії, будь ласка, встановіть нову! </string>
     <string name="overflow_menu">Більше параметрів</string>
     <string name="pass_code_configure_your_pass_code">Введіть Ваш код доступу</string>
@@ -477,6 +491,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Це заповнювач</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">стоп</string>
+    <string name="player_toggle">переключитися</string>
     <string name="power_save_check_dialog_message">Вимкнення заощадження батареї може вплинути на завантаження файлів при низькому заряді!</string>
     <string name="pref_behaviour_entries_delete_file">вилучено</string>
     <string name="pref_behaviour_entries_keep_file">збережено у початковій теці</string>
@@ -522,7 +538,8 @@
     <string name="prefs_recommend">Порадити друзям</string>
     <string name="prefs_show_hidden_files">Відобразити сховані файли</string>
     <string name="prefs_sourcecode">Отримати вихідний код</string>
-    <string name="prefs_storage_path">Шлях до місця збереження</string>
+    <string name="prefs_storage_path">Папка для зберігання даних</string>
+    <string name="prefs_sycned_folders_summary">Керуйте папками для автоматичного завантаження</string>
     <string name="prefs_synced_folders_local_path_title">Локальний каталог</string>
     <string name="prefs_synced_folders_remote_path_title">Віддалений каталог</string>
     <string name="prefs_theme_title">Тема</string>
@@ -542,6 +559,7 @@
     <string name="recommend_subject">Спробуйте %1$s на Вашому пристрої!</string>
     <string name="recommend_text">Запрошую вас почати використовувати %1$s на вашому пристрої.\nЗвантажити можна тут: %2$s</string>
     <string name="recommend_urls">%1$s або %2$s</string>
+    <string name="remote">(віддалено)</string>
     <string name="remote_file_fetch_failed">Не знайдено файл!</string>
     <string name="remove_fail_msg">Помилка під час вилучення</string>
     <string name="remove_notification_failed">Неможливо зняти сповіщення.</string>
@@ -577,6 +595,8 @@
     <string name="sendbutton_description">Зображення кнопки надсилання</string>
     <string name="set_as">Встановити як</string>
     <string name="set_picture_as">Використати зображення для</string>
+    <string name="set_status">Встановити статус</string>
+    <string name="set_status_message">Встановити повідомлення про стан</string>
     <string name="share">Поділитися</string>
     <string name="share_dialog_title">Спільний доступ</string>
     <string name="share_expiration_date_label">Дійсне до %1$s</string>
@@ -585,6 +605,7 @@
     <string name="share_internal_link">Поділитися внутрішнім посиланням</string>
     <string name="share_internal_link_to_file_text">Внутрішнє спільне посилання дійсне лише для користувачів, які мають доступ до цього файлу</string>
     <string name="share_internal_link_to_folder_text">Внутрішнє спільне посилання дійсне лише для користувачів, які мають доступ до цієї теки</string>
+    <string name="share_known_remote_on_clarification">на %1$s</string>
     <string name="share_link">Поділитися посиланням</string>
     <string name="share_link_empty_password">Ви повинні ввести пароль</string>
     <string name="share_link_file_error">Посилка під час надання спільного доступу до файлу чи теки.</string>
@@ -599,6 +620,7 @@
     <string name="share_privilege_unshare">Закрити доступ</string>
     <string name="share_remote_clarification">%1$s (віддалено)</string>
     <string name="share_room_clarification">%1$s (розмова)</string>
+    <string name="share_search">Ім\'я, Федеральний хмарний ідентифікатор або електронна адреса ...</string>
     <string name="share_send_note">Примітка для одержувача</string>
     <string name="share_via_link_hide_download">Сховати завантаження</string>
     <string name="share_via_link_menu_password_label">Захищено паролем (%1$s)</string>
@@ -656,6 +678,8 @@
     <string name="storage_movies">Відео</string>
     <string name="storage_music">Музика</string>
     <string name="storage_pictures">Зображення</string>
+    <string name="store_full_desc">Самостійна платформа продуктивності, яка тримає вас під контролем. \n\nОсобливості: \n* Простий, сучасний інтерфейс, що відповідає темі вашого сервера\n* Завантажте файли на сервер Nextcloud\n* Поділіться ними з іншими\n* Синхронізуйте свої улюблені файли та папки\n* Шукайте по всіх папках на вашому сервері\n * Автозавантажуйте фотографії та відео, зроблені вашим пристроєм\n* Будьте в курсі сповіщень\n* Підтримка кількох облікових записів\n* Безпечний доступ до ваших даних за допомогою відбитка пальця або PIN-коду\n* Інтеграція з DAVx5 (раніше відомий як DAVdroid) для зручного налаштування синхронізації календаря та контактів&amp; \n\nПрохання повідомляти про всі проблеми на https://github.com/nextcloud/android/issues та обговорити цю програму на https://help.nextcloud.com/c/clients/android\n\nНовий у Nextcloud? Nextcloud - це приватний сервер для синхронізації &amp;та спільного використання файлів та зв\'язку. Це безкоштовне програмне забезпечення, і ви можете розмістити його самостійно або заплатити компанії, яка зробить це за вас. Таким чином, ви контролюєте свої фотографії, календар і контактні дані, документи та все інше.\n\nПеревірте Nextcloud на https://nextcloud.com</string>
+    <string name="store_full_dev_desc">Самостійна платформа продуктивності, яка тримає вас під контролем.\nЦе офіційна версія для розробки, що містить щоденний зразок будь-якої нової неперевіреної функціональності, яка може спричинити нестабільність та втрату даних. Додаток призначений для користувачів, які бажають протестувати, і повідомляти про помилки у разі їх виникнення. Не використовуйте його для своєї продуктивної роботи!\n\ nОфіційна розробка та звичайна версія доступні на F-droid і можуть бути встановлені одночасно.</string>
     <string name="store_short_desc">Платформа з власним хостингом, яка надає можливість контролювати ваші ресурси</string>
     <string name="store_short_dev_desc">Платформа з власним хостингом, яка надає можливість контролювати ваші ресурси (версія для попереднього ознайомлення)</string>
     <string name="stream">Транслювати з...</string>
@@ -692,6 +716,7 @@
     <string name="synced_icon">Синхронізований</string>
     <string name="tags">Позначки</string>
     <string name="test_server_button">Перевірка з\'єднання з сервером</string>
+    <string name="thirtyMinutes">30 хвилин</string>
     <string name="thisWeek">Цього тижня</string>
     <string name="thumbnail">Ескіз</string>
     <string name="thumbnail_for_existing_file_description">Ескіз існуючого файлу</string>
@@ -790,6 +815,7 @@
     <string name="uploads_view_upload_status_virus_detected">Виявлено вірус. Завантаження не буде виконано!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Очікую виходу із режиму заощадження заряду батареї</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Очікую на заряджання</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Чекати на безлімітний Wi-Fi</string>
     <string name="user_icon">Користувач</string>
     <string name="user_info_address">Адреса</string>
     <string name="user_info_email">Електронна пошта</string>
@@ -807,6 +833,9 @@
     <string name="what_s_new_image">Зображення про нові функції</string>
     <string name="whats_new_skip">Пропустити</string>
     <string name="whats_new_title">Нове у %1$s</string>
+    <string name="whats_your_status">Який ваш статус?</string>
+    <string name="wrong_storage_path">Папка для зберігання даних не існує!</string>
+    <string name="wrong_storage_path_desc">Можливо, це пов’язано з відновленням резервної копії на іншому пристрої. Повернення до стандартного. Будь ласка, перевірте налаштування, щоб налаштувати папку для зберігання даних.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не вдалося синхронізувати %1$d файл (конфлікти: %2$d)</item>
         <item quantity="few">Не вдалося синхронізувати %1$d файлів (конфлікти: %2$d)</item>
