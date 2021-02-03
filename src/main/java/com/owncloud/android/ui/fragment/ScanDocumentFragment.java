@@ -208,7 +208,7 @@ public class ScanDocumentFragment extends Fragment {
                            .subscribeOn(Schedulers.io())
                            .observeOn(AndroidSchedulers.mainThread())
                            .subscribe((result) -> {
-                               updateEditedImage(originalImage.copy(originalImage.getConfig(), true));
+                               updateEditedImage(editedImage.copy(editedImage.getConfig(), true));
                                if (inverted) {
                                    invertColorProcess();
                                }
