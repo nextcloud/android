@@ -236,7 +236,6 @@
     <string name="file_list_seconds_ago">sekundes atpakaļ</string>
     <string name="file_migration_checking_destination">Pārbauda galamērķi…</string>
     <string name="file_migration_cleaning">Tīra…</string>
-    <string name="file_migration_dialog_title">Atjauninot saglabāšanas vietu</string>
     <string name="file_migration_directory_already_exists">Datu mape jau pastāv. Izvēlies vienu no sekojošām opcijām:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud mape jau pastāv</string>
     <string name="file_migration_failed_not_enough_space">Nepieciešams vairāk vietas</string>
@@ -250,7 +249,6 @@
     <string name="file_migration_preparing">Sagatavo migrāciju…</string>
     <string name="file_migration_restoring_accounts_configuration">Atjauno kontu konfigurāciju…</string>
     <string name="file_migration_saving_accounts_configuration">Saglabā konta konfigurāciju…</string>
-    <string name="file_migration_source_not_readable">Vai tu tiešām gribi pārmainīt saglabāšanas ceļu uz %1$s?\n\nPiezīme: Visi dati būs jānolādē pa jaunu.</string>
     <string name="file_migration_source_not_readable_title">Avota mape nav lasāma</string>
     <string name="file_migration_updating_index">Atjaunina indkesu…</string>
     <string name="file_migration_use_data_folder">Izmantot</string>
@@ -380,7 +378,6 @@
     <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
     <string name="prefs_recommend">Ieteikt draugam</string>
     <string name="prefs_show_hidden_files">Rādīt slēptās datnes</string>
-    <string name="prefs_storage_path">Krātuves vieta</string>
     <string name="prefs_synced_folders_local_path_title">Vietējā mape</string>
     <string name="prefs_synced_folders_remote_path_title">Attālinātā mape</string>
     <string name="prefs_value_theme_dark">Tumšs</string>

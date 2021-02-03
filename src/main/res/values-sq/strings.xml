@@ -290,7 +290,6 @@
     <string name="file_list_seconds_ago">sekonda më parë</string>
     <string name="file_migration_checking_destination">Duke kontrolluar destinacionin…</string>
     <string name="file_migration_cleaning">Duke pastruar…</string>
-    <string name="file_migration_dialog_title">Duke përditësuar rrugen e hapsirës ruajtëse</string>
     <string name="file_migration_directory_already_exists">Dosja e të dhënave tashmë ekziston. Zgjidhni një nga të mëposhtmet:</string>
     <string name="file_migration_failed_dir_already_exists">Dosja Nextcloud ekziston tashmë</string>
     <string name="file_migration_failed_not_enough_space">Ka nevojë për më shumë hapësirë</string>
@@ -304,7 +303,6 @@
     <string name="file_migration_preparing">Duke përgaditur migrimin…</string>
     <string name="file_migration_restoring_accounts_configuration">Rivendosja e konfigurimit të llogarisë…</string>
     <string name="file_migration_saving_accounts_configuration">Duke ruajtur konfigurimin e llogarive…</string>
-    <string name="file_migration_source_not_readable">Dëshironi akoma të ndryshoni adresën e ruajtjes së %1$s?/n/nNote: Të gjitha të dhënat do të shkarkohen sërish. </string>
     <string name="file_migration_source_not_readable_title">Dosja e burimit nuk mund të lexohet!</string>
     <string name="file_migration_updating_index">Përditësimi i indeksit…</string>
     <string name="file_migration_use_data_folder">Përdor</string>
@@ -491,7 +489,6 @@
     <string name="prefs_recommend">Rekomandojani një miku </string>
     <string name="prefs_show_hidden_files">Trego skedarët e fshehur</string>
     <string name="prefs_sourcecode">Merr kodin burimor</string>
-    <string name="prefs_storage_path">Rruga e hapsirës ruajtëse</string>
     <string name="prefs_synced_folders_local_path_title">Dosje lokale</string>
     <string name="prefs_synced_folders_remote_path_title">Dosje remote</string>
     <string name="prefs_theme_title">Shabllon</string>

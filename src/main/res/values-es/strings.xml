@@ -318,7 +318,7 @@
     <string name="file_list_seconds_ago">hace segundos</string>
     <string name="file_migration_checking_destination">Comprobando destino…</string>
     <string name="file_migration_cleaning">Limpiando…</string>
-    <string name="file_migration_dialog_title">Actualizando ruta de almacenamiento</string>
+    <string name="file_migration_dialog_title">Actualizando carpeta de almacenamiento de datos</string>
     <string name="file_migration_directory_already_exists">La carpeta de datos ya existe. Escoge una de las siguientes opciones:</string>
     <string name="file_migration_failed_dir_already_exists">La carpeta de Nextcloud ya existe</string>
     <string name="file_migration_failed_not_enough_space">Se necesita más espacio</string>
@@ -332,7 +332,7 @@
     <string name="file_migration_preparing">Preparando la migración…</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando configuración de cuenta…</string>
     <string name="file_migration_saving_accounts_configuration">Guardando configuración de cuenta…</string>
-    <string name="file_migration_source_not_readable">¿Aún quieres cambiar la ruta de almacenamiento a |%1$s?\n\nNota: habrá que descargar de nuevo todos los datos.</string>
+    <string name="file_migration_source_not_readable">¿Todavía quieres cambiar la carpeta de almacenamiento de datos a %1$s?\n\nNota: habrá que descargar de nuevo todos los datos.</string>
     <string name="file_migration_source_not_readable_title">¡No se puede leer el archivo de origen!</string>
     <string name="file_migration_updating_index">Actualizando índice…</string>
     <string name="file_migration_use_data_folder">Usar</string>
@@ -537,7 +537,7 @@
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_sourcecode">Obtener el código fuente</string>
-    <string name="prefs_storage_path">Ruta de almacenamiento</string>
+    <string name="prefs_storage_path">Carpeta de almacenamiento de datos</string>
     <string name="prefs_sycned_folders_summary">Administrar carpetas para auto-subida</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
@@ -833,8 +833,8 @@
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
     <string name="whats_your_status">¿Cuál es tu estado?</string>
-    <string name="wrong_storage_path">¡La ruta de almacenamiento no existe!</string>
-    <string name="wrong_storage_path_desc">Puede ocurrir al restaurar una copia de seguridad de otro dispositivo. Se ha configurado la ruta predeterminada. Abre los ajustes para cambiarla.</string>
+    <string name="wrong_storage_path">¡No existe la carpeta de almacenamiento de datos!</string>
+    <string name="wrong_storage_path_desc">Esto podría deberse a una copia de seguridad restaurada en otro dispositivo. Volviendo a los valores predeterminados. Por favor, compruebe la configuración para ajustar la carpeta de almacenamiento.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">No se ha podido sincronizar %1$d archivo (conflicto con %2$d)</item>
         <item quantity="other">No se ha podido sincronizar %1$d archivos (conflicto con %2$d)</item>

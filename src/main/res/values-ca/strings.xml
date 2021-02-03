@@ -317,7 +317,6 @@
     <string name="file_list_seconds_ago">fa uns segons</string>
     <string name="file_migration_checking_destination">S\'està comprovant la destinació…</string>
     <string name="file_migration_cleaning">S\'està netejant…</string>
-    <string name="file_migration_dialog_title">S\'està actualitzant la ruta d\'emmagatzematge</string>
     <string name="file_migration_directory_already_exists">La carpeta de dades ja existeix. Escolliu-ne una de les següents:</string>
     <string name="file_migration_failed_dir_already_exists">La carpeta de Nextcloud ja existeix</string>
     <string name="file_migration_failed_not_enough_space">Es necessita més espai</string>
@@ -331,7 +330,6 @@
     <string name="file_migration_preparing">S\'està preparant la migració…</string>
     <string name="file_migration_restoring_accounts_configuration">S\'està restaurant la configuració del compte…</string>
     <string name="file_migration_saving_accounts_configuration">S\'està desant la configuració del compte…</string>
-    <string name="file_migration_source_not_readable">Esteu segur que voleu canviar la destinació d\'emmagatzematge a %1$s?\n\nNota: Totes les dades s\'hauran de tornar a descarregar.</string>
     <string name="file_migration_source_not_readable_title">El fitxer d\'origen no es pot llegir</string>
     <string name="file_migration_updating_index">S\'està actualitzant l\'índex…</string>
     <string name="file_migration_use_data_folder">Fes servir</string>
@@ -536,7 +534,6 @@
     <string name="prefs_recommend">Recomana a un amic</string>
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
     <string name="prefs_sourcecode">Aconseguiu el codi font</string>
-    <string name="prefs_storage_path">Ruta d\'emmagatzematge</string>
     <string name="prefs_sycned_folders_summary">Gestiona les carpetes per a la càrrega automàtica</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>

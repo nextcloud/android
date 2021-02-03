@@ -279,7 +279,6 @@
     <string name="file_list_seconds_ago">há segundos</string>
     <string name="file_migration_checking_destination">Verificando destino…</string>
     <string name="file_migration_cleaning">Limpando…</string>
-    <string name="file_migration_dialog_title">Atualizando os destinos de storage</string>
     <string name="file_migration_directory_already_exists">Pasta já existe. Escolha uma das seguintes opções:</string>
     <string name="file_migration_failed_dir_already_exists">A pasta já existe na Nextcloud </string>
     <string name="file_migration_failed_not_enough_space">É necessário mais espaço</string>
@@ -293,7 +292,6 @@
     <string name="file_migration_preparing">Preparando migração…</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando configurações da conta…</string>
     <string name="file_migration_saving_accounts_configuration">Guardando configurações da conta…</string>
-    <string name="file_migration_source_not_readable">Ainda pretende alterar o caminho de armazenamento para %1$s?\n\nNota: todos os dados serão novamente transferidos.</string>
     <string name="file_migration_source_not_readable_title">Impossível ler a pasta de origem</string>
     <string name="file_migration_updating_index">Actualizando indíce…</string>
     <string name="file_migration_use_data_folder">Use</string>
@@ -471,7 +469,6 @@
     <string name="prefs_recommend">Recomendar a um amigo</string>
     <string name="prefs_show_hidden_files">Mostrar ficheiros ocultados</string>
     <string name="prefs_sourcecode">Obter código fonte</string>
-    <string name="prefs_storage_path">Path de armazenamento</string>
     <string name="prefs_synced_folders_local_path_title">Pasta Local</string>
     <string name="prefs_synced_folders_remote_path_title">Pasta Remota</string>
     <string name="prefs_theme_title">Tema</string>

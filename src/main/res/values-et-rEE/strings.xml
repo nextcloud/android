@@ -305,7 +305,6 @@
     <string name="prefs_recommend">Soovita sõbrale</string>
     <string name="prefs_show_hidden_files">Näita peidetud faile</string>
     <string name="prefs_sourcecode">Vaata lähtekoodi</string>
-    <string name="prefs_storage_path">Salvestuskoht</string>
     <string name="prefs_value_theme_dark">Hele</string>
     <string name="prefs_value_theme_light">Tume</string>
     <string name="preview_image_description">Pildi eelvaade</string>

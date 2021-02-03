@@ -318,7 +318,7 @@
     <string name="file_list_seconds_ago">saniyeler önce</string>
     <string name="file_migration_checking_destination">Hedef denetleniyor …</string>
     <string name="file_migration_cleaning">Temizleniyor …</string>
-    <string name="file_migration_dialog_title">Depolama yolu güncelleniyor</string>
+    <string name="file_migration_dialog_title">Veri depolama klasörü güncelleniyor</string>
     <string name="file_migration_directory_already_exists">Veri klasörü zaten var. Şunlardan birini seçin:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud klasörü zaten var</string>
     <string name="file_migration_failed_not_enough_space">Disk alanı yetersiz</string>
@@ -332,7 +332,7 @@
     <string name="file_migration_preparing">Aktarıma hazırlanılıyor …</string>
     <string name="file_migration_restoring_accounts_configuration">Hesap yapılandırması geri yükleniyor …</string>
     <string name="file_migration_saving_accounts_configuration">Hesap yapılandırması kaydediliyor …</string>
-    <string name="file_migration_source_not_readable">Depolama yolunu gene de %1$s olarak değiştirmek istediğinizden emin misiniz?\n\nNot: Tüm verilerin yeniden indirilmesi gerekecek.</string>
+    <string name="file_migration_source_not_readable">Veri depolama klasörünü gene de %1$s olarak değiştirmek istediğinizden emin misiniz?\n\nNot: Tüm verilerin yeniden indirilmesi gerekecek.</string>
     <string name="file_migration_source_not_readable_title">Kaynak klasör okunabilir değil!</string>
     <string name="file_migration_updating_index">Dizin güncelleniyor …</string>
     <string name="file_migration_use_data_folder">Kullanılsın</string>
@@ -537,7 +537,7 @@
     <string name="prefs_recommend">Arkadaşına öner</string>
     <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
     <string name="prefs_sourcecode">Kaynak kodunu alın</string>
-    <string name="prefs_storage_path">Depolama yolu</string>
+    <string name="prefs_storage_path">Veri depolama klasörü</string>
     <string name="prefs_sycned_folders_summary">Otomatik yükleme klasörleri yönetimi</string>
     <string name="prefs_synced_folders_local_path_title">Yerel klasöre</string>
     <string name="prefs_synced_folders_remote_path_title">Uzak klasör</string>
@@ -833,8 +833,8 @@
     <string name="whats_new_skip">Atla</string>
     <string name="whats_new_title">%1$s yenilikleri</string>
     <string name="whats_your_status">Durumunuz nedir?</string>
-    <string name="wrong_storage_path">Depolama yolu bulunamadı!</string>
-    <string name="wrong_storage_path_desc">Bunun nedeni başka bir aygıta bir yedeğin geri yüklenmesi olabilir. Varsayılana geri dönülüyor. Lütfen depolama yolunu ayarlamak için ayarları denetleyin.</string>
+    <string name="wrong_storage_path">Veri depolama klasörü bulunamadı!</string>
+    <string name="wrong_storage_path_desc">Bunun nedeni bir yedeğin başka bir aygıta geri yüklenmesi olabilir. Varsayılan değerlere geri dönülüyor. Lütfen veri depolama klasörünü ayarlamak için ayarları denetleyin.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">%1$d dosya eşitlenemedi (çakışma: %2$d)</item>
         <item quantity="other">%1$d dosya eşitlenemedi (çakışma: %2$d)</item>
