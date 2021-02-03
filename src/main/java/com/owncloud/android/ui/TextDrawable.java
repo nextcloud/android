@@ -100,7 +100,6 @@ public class TextDrawable extends Drawable {
      * @return the avatar as a TextDrawable
      */
     @NonNull
-    @NextcloudServer(max = 12)
     public static TextDrawable createAvatar(Account account, float radiusInDp) {
         String username = UserAccountManager.getDisplayName(account);
         return createNamedAvatar(username, radiusInDp);
@@ -115,7 +114,6 @@ public class TextDrawable extends Drawable {
      * @return the avatar as a TextDrawable
      */
     @NonNull
-    @NextcloudServer(max = 12)
     public static TextDrawable createAvatarByUserId(String userId, float radiusInDp) {
         return createNamedAvatar(userId, radiusInDp);
     }
