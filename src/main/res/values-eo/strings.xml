@@ -40,7 +40,6 @@
     <string name="auth_account_not_the_same">La entajpita uzanto ne kongruas kun la tiukonta uzanto</string>
     <string name="auth_bad_oc_version_title">Nerekonita versio de servilo</string>
     <string name="auth_connection_established">Konekto stariĝis</string>
-    <string name="auth_host_address">Servila adreso</string>
     <string name="auth_host_url">Servila adreso https://…</string>
     <string name="auth_incorrect_address_title">Malĝusta formo de serviladreso</string>
     <string name="auth_incorrect_path_title">Servilo netrovebla</string>
@@ -127,7 +126,6 @@
     <string name="confirmation_remove_folder_alert">Ĉu vi ja volas forigi %1$s kaj ĝian enhavon?</string>
     <string name="confirmation_remove_folders_alert">Ĉu vi ja volas forigi la elektitajn elementojn kaj ilian enhavon?</string>
     <string name="confirmation_remove_local">Nur loka</string>
-    <string name="conflict_message_headline">Kiujn dosierojn vi volas konservi?</string>
     <string name="contaclist_restore_selected">Restaŭri elektitajn kontaktojn</string>
     <string name="contactlist_account_chooser_title">Elekti konton importota</string>
     <string name="contactlist_item_icon">Uzanto-piktogramo por la kontaktlisto</string>
@@ -185,7 +183,6 @@
     <string name="drawer_item_home">Hejmo</string>
     <string name="drawer_item_notifications">Sciigoj</string>
     <string name="drawer_item_on_device">Sur aparato</string>
-    <string name="drawer_item_photos">Fotoj</string>
     <string name="drawer_item_recently_added">Aldonitaj antaŭ nelonge</string>
     <string name="drawer_item_recently_modified">Modifitaj antaŭ nelonge</string>
     <string name="drawer_item_shared">Kunhavataj</string>
@@ -231,23 +228,14 @@
     <string name="file_keep">Konservi</string>
     <string name="file_list_empty">Alŝutu ion aŭ sinkronigu kun viaj aparatoj.</string>
     <string name="file_list_empty_favorite_headline">Ankoraŭ neniu pliŝataĵo</string>
-    <string name="file_list_empty_favorites_filter">Neniu serĉorezulto en viaj pliŝatataj dosieroj.</string>
     <string name="file_list_empty_headline">Neniu dosiero ĉi tie</string>
     <string name="file_list_empty_headline_search">Neniu rezulto en tiu dosierujo</string>
     <string name="file_list_empty_headline_server_search">Neniu rezulto</string>
-    <string name="file_list_empty_headline_server_search_photos">Neniu foto</string>
-    <string name="file_list_empty_headline_server_search_videos">Neniu videaĵo</string>
     <string name="file_list_empty_moving">Nenio ĉi tie. Vi povas aldoni dosierujon.</string>
     <string name="file_list_empty_recently_added">Troviĝis neniu dosiero aldonita antaŭ nelonge</string>
-    <string name="file_list_empty_recently_added_filter">Neniu dosiero aldonita antaŭ nelonge</string>
     <string name="file_list_empty_recently_modified">Troviĝis neniu dosiero modifita dum la lastaj 7 tagoj</string>
-    <string name="file_list_empty_recently_modified_filter">Neniu dosiero modifita dum la lastaj 7 tagoj</string>
     <string name="file_list_empty_search">Ĉu eble ĝi estas en alia dosierujo?</string>
     <string name="file_list_empty_shared_headline">Ankoraŭ neniu kunhavo</string>
-    <string name="file_list_empty_text_photos">Alŝutu kelkajn fotojn aŭ aktivigu aŭtomatan alŝuton.</string>
-    <string name="file_list_empty_text_photos_filter">Neniu foto.</string>
-    <string name="file_list_empty_text_videos">Alŝutu kelkajn videaĵojn aŭ aktivigu aŭtomatan alŝuton.</string>
-    <string name="file_list_empty_text_videos_filter">Neniu videaĵo.</string>
     <string name="file_list_folder">dosierujo</string>
     <string name="file_list_loading">Ŝargado...</string>
     <string name="file_list_no_app_for_file_type">Neniu aplikaĵo agordita por malfermi tiun dosiertipon.</string>
@@ -380,7 +368,6 @@
     <string name="notification_channel_upload_description">Montras alŝutoprogreson</string>
     <string name="notification_channel_upload_name">Kanalo por sciigi alŝuton</string>
     <string name="notification_icon">Piktogramo pri sciigoj</string>
-    <string name="notifications_loading_activity">Ŝargo de la sciigoj...</string>
     <string name="notifications_no_results_headline">Neniu sciigo</string>
     <string name="notifications_no_results_message">Bonvolu rekontroli poste.</string>
     <string name="offline_mode">Neniu reta konekto</string>
@@ -572,7 +559,6 @@
     <string name="sync_string_files">Dosieroj</string>
     <string name="synced_folder_settings_button">Butono pri agordoj</string>
     <string name="synced_folders_configure_folders">Agordi dosierujojn</string>
-    <string name="synced_folders_loading_folders">Ŝargado de dosierujoj...</string>
     <string name="synced_folders_new_info">Ni tute elrenovigis tuj-alŝutadon. Reagordu vian aŭtomatan alŝuton pere de la ĉefa menuo.\n\nUzu la novan, kaj pli kapablan, aŭtomatan alŝuton.</string>
     <string name="synced_folders_preferences">Agordoj pri aŭtomata alŝuto</string>
     <string name="synced_folders_preferences_folder_path">Pri %1$s</string>

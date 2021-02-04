@@ -43,7 +43,6 @@
     <string name="auth_bad_oc_version_title">Versión del servidor no reconocida</string>
     <string name="auth_connection_established">Conexión establecida</string>
     <string name="auth_fail_get_user_name">Su servidor no está devolviendo una ID de usuario correcta. Por favor comuníquese con un administrador</string>
-    <string name="auth_host_address">Dirección del servidor</string>
     <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_incorrect_address_title">El formato de dirección para el servidor es erróneo</string>
     <string name="auth_incorrect_path_title">El servidor no se encontró </string>
@@ -134,7 +133,6 @@
     <string name="confirmation_remove_folders_alert">¿Realmente desea eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Sólo local</string>
     <string name="conflict_already_existing_file">Archivo ya existente</string>
-    <string name="conflict_message_headline">¿Cuales archivos desea mantener?</string>
     <string name="conflict_new_file">Nuevo archivo</string>
     <string name="contaclist_restore_selected">Restaurar los contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Seleccione la cuenta a importar</string>
@@ -199,7 +197,6 @@
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_item_on_device">Disponibles sin conexión</string>
-    <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Agregado recientemente</string>
     <string name="drawer_item_recently_modified">Modificado recientemente</string>
     <string name="drawer_item_shared">Compartido</string>
@@ -259,23 +256,14 @@
     <string name="file_keep">Mantener</string>
     <string name="file_list_empty">Cargue algún contenido o sincronice con sus dispositivos.</string>
     <string name="file_list_empty_favorite_headline">Aún no hay nada marcado como favorito</string>
-    <string name="file_list_empty_favorites_filter">Su búsqueda no regresó archivos marcados como favoritos. </string>
     <string name="file_list_empty_headline">No hay archivos aquí</string>
     <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
-    <string name="file_list_empty_headline_server_search_photos">No hay fotos</string>
-    <string name="file_list_empty_headline_server_search_videos">No hay videos</string>
     <string name="file_list_empty_moving">No hay nada aquí. Puede agregar una carpeta.</string>
     <string name="file_list_empty_recently_added">No se encontraron archivos agregados recientemente</string>
-    <string name="file_list_empty_recently_added_filter">No hay archivos agregados recientemente.</string>
     <string name="file_list_empty_recently_modified">No se encontraron archivos modificados en los últimos 7 días.</string>
-    <string name="file_list_empty_recently_modified_filter">No hay archivos modificados los últimos 7 días.</string>
     <string name="file_list_empty_search">¿Tal vez está dentro de una carpeta diferente?</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
-    <string name="file_list_empty_text_photos">Cargue algunas fotos o active la carga automática.</string>
-    <string name="file_list_empty_text_photos_filter">Sin fotos.</string>
-    <string name="file_list_empty_text_videos">Cargue algunos videos o active la carga automática.</string>
-    <string name="file_list_empty_text_videos_filter">Sin videos.</string>
     <string name="file_list_folder">carpeta</string>
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">No se cuenta con una aplicación que maneje este tipo de achivo. </string>
@@ -413,7 +401,6 @@
     <string name="notification_channel_upload_description">Mostrar el progreso de carga</string>
     <string name="notification_channel_upload_name">Subir canal de notificaciones</string>
     <string name="notification_icon">Icono de notificación</string>
-    <string name="notifications_loading_activity">Cargando notificaciones…</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Favor de verificar más tarde. </string>
     <string name="offline_mode">Sin conexión a Internet</string>
@@ -620,7 +607,6 @@
     <string name="sync_string_files">Archivos</string>
     <string name="synced_folder_settings_button">Botón de configuración</string>
     <string name="synced_folders_configure_folders">Configurar carpetas</string>
-    <string name="synced_folders_loading_folders">Cargando carpetas…</string>
     <string name="synced_folders_new_info">La carga instantánea ha sido completamente modernizada. Reconfigure su carga automática desde el menu principal. \n\nDisfrute de las nuevas y extendidas capacidades de la carga automática. </string>
     <string name="synced_folders_no_results">No se encontraron carpetas de medios</string>
     <string name="synced_folders_preferences">Preferencias de carga automática</string>

@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Unbekannte Serverversion</string>
     <string name="auth_connection_established">Verbindung hergestellt</string>
     <string name="auth_fail_get_user_name">Ihr Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktieren Sie einen Administrator.</string>
-    <string name="auth_host_address">Serveradresse</string>
     <string name="auth_host_url">Serveradresse https://…</string>
     <string name="auth_incorrect_address_title">Falsches Adressformat für den Server</string>
     <string name="auth_incorrect_path_title">Server nicht gefunden</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Fehler beim Erstellen des Konfliktdialoges</string>
     <string name="conflict_file_headline">Konflikt-Datei %1$s</string>
     <string name="conflict_message_description">Falls beide Versionen gewählt werden, wird bei der lokalen Datei eine Zahl am Ende des Dateinamens hinzugefügt.</string>
-    <string name="conflict_message_headline">Welche Dateien möchten Sie behalten?</string>
     <string name="conflict_new_file">Neue Datei</string>
     <string name="contaclist_restore_selected">Ausgewählte Adressen wiederherstellen</string>
     <string name="contactlist_account_chooser_title">Konto für den Import auswählen</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Benachrichtigungen</string>
     <string name="drawer_item_on_device">Auf dem Gerät</string>
-    <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Kürzlich hinzugefügt</string>
     <string name="drawer_item_recently_modified">Kürzlich geändert</string>
     <string name="drawer_item_shared">Geteilt</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Behalten</string>
     <string name="file_list_empty">Laden Sie Inhalt hoch oder synchronisieren Sie mit Ihren Geräten.</string>
     <string name="file_list_empty_favorite_headline">Noch keine Favoriten vorhanden</string>
-    <string name="file_list_empty_favorites_filter">Keine favorisierten Dateien in Ihrem Verlauf gefunden.</string>
     <string name="file_list_empty_favorites_filter_list">Dateien und Ordner, die als Favoriten markiert werden, erscheinen hier.</string>
     <string name="file_list_empty_headline"> Keine Dateien vorhanden </string>
     <string name="file_list_empty_headline_search">Keine Ergebnisse in diesem Ordner</string>
     <string name="file_list_empty_headline_server_search">Keine Ergebnisse</string>
-    <string name="file_list_empty_headline_server_search_photos">Keine Fotos</string>
-    <string name="file_list_empty_headline_server_search_videos">Keine Videos</string>
     <string name="file_list_empty_moving">Noch nichts vorhanden. Sie können einen Ordner hinzufügen.</string>
     <string name="file_list_empty_on_device">Heruntergeladene Dateien und Ordner werden hier angezeigt werden.</string>
     <string name="file_list_empty_recently_added">Keine kürzlich hinzugefügten Dateien gefunden</string>
-    <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzugefügten Dateien.</string>
     <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>
-    <string name="file_list_empty_recently_modified_filter">Keine Dateien in den letzten 7 Tagen geändert.</string>
     <string name="file_list_empty_search">Vielleicht befindet es sich in einem anderen Ordner?</string>
     <string name="file_list_empty_shared">Von Ihnen geteilte Dateien und Ordner werden hier angezeigt.</string>
     <string name="file_list_empty_shared_headline">Noch nichts geteilt</string>
-    <string name="file_list_empty_text_photos">Laden Sie Fotos hoch oder aktivieren Sie den Sofortupload.</string>
-    <string name="file_list_empty_text_photos_filter">Keine Fotos.</string>
-    <string name="file_list_empty_text_videos">Laden Sie Videos hoch oder aktivieren Sie den Sofortupload.</string>
-    <string name="file_list_empty_text_videos_filter">Keine Videos.</string>
     <string name="file_list_folder">Ordner</string>
     <string name="file_list_loading">Lade…</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
@@ -463,7 +451,6 @@
     <string name="notification_channel_upload_description">Zeigt den Hochlade-Fortschritt an</string>
     <string name="notification_channel_upload_name">Hochlade-Benachrichtigungskanal</string>
     <string name="notification_icon">Benachrichtigungssymbol</string>
-    <string name="notifications_loading_activity">Lade Benachrichtigungen…</string>
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
     <string name="offline_mode">Keine Internetverbindung</string>
@@ -707,7 +694,6 @@
     <string name="sync_string_files">Dateien</string>
     <string name="synced_folder_settings_button">Einstellungs-Button</string>
     <string name="synced_folders_configure_folders">Ordner konfigurieren</string>
-    <string name="synced_folders_loading_folders">Lade Ordner…</string>
     <string name="synced_folders_new_info">Die Sofort-Uploads wurden vollständig überarbeitet. Konfiguriere Sie Ihren automatischen Uploader im Hauptmenü.\n\nGenießen Sie den verbesserten Auto-Upload.</string>
     <string name="synced_folders_no_results">Keine Medien-Ordner gefunden</string>
     <string name="synced_folders_preferences">Einstellungen für automatisches Hochladen</string>

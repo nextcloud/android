@@ -44,7 +44,6 @@
     <string name="auth_bad_oc_version_title">Versão do servidor não reconhecida</string>
     <string name="auth_connection_established">Ligação estabelecida</string>
     <string name="auth_fail_get_user_name">Seu servidor não está retornando um ID de utilizador correto, por favor contate o administrador.</string>
-    <string name="auth_host_address">Endereço do servidor</string>
     <string name="auth_host_url">Endereço do servidor https://…</string>
     <string name="auth_incorrect_address_title">Formato de endereço para o servidor errado</string>
     <string name="auth_incorrect_path_title">Servidor não encontrado</string>
@@ -136,7 +135,6 @@
     <string name="confirmation_remove_folders_alert">Quer realmente apagar os itens seleccionados e os seus conteúdos?</string>
     <string name="confirmation_remove_local">Apenas localmente</string>
     <string name="conflict_already_existing_file">Ficheiro já existente</string>
-    <string name="conflict_message_headline">Quais os ficheiros que pretende manter?</string>
     <string name="conflict_new_file">Ficheiro novo</string>
     <string name="contaclist_restore_selected">Restaurar contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Escolher conta a importar</string>
@@ -199,7 +197,6 @@
     <string name="drawer_item_home">Início</string>
     <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_item_on_device">No dispositivo</string>
-    <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Adicionados recentemente</string>
     <string name="drawer_item_recently_modified">Modificados recentemente</string>
     <string name="drawer_item_shared">Partilhados</string>
@@ -256,23 +253,14 @@
     <string name="file_keep">Manter</string>
     <string name="file_list_empty">Envie algum conteúdo ou sincronize com os seus dispositivos</string>
     <string name="file_list_empty_favorite_headline">Ainda sem favoritos</string>
-    <string name="file_list_empty_favorites_filter">A sua pesquisa não devolveu ficheiros favoritos.</string>
     <string name="file_list_empty_headline">Sem ficheiros aqui</string>
     <string name="file_list_empty_headline_search">Sem resultados nesta pasta</string>
     <string name="file_list_empty_headline_server_search">Sem resultados</string>
-    <string name="file_list_empty_headline_server_search_photos">Sem fotografias</string>
-    <string name="file_list_empty_headline_server_search_videos">Sem vídeos</string>
     <string name="file_list_empty_moving">Não está aqui nada. Pode adicionar uma pasta.</string>
     <string name="file_list_empty_recently_added">Nenhum ficheiro recente foi adicionado</string>
-    <string name="file_list_empty_recently_added_filter">Nenhum ficheiro adicionado recentemente.</string>
     <string name="file_list_empty_recently_modified">Não foi encontrado nenhum arquivo modificado nos últimos 7 dias</string>
-    <string name="file_list_empty_recently_modified_filter">Sem arquivos modificados nos últimos 7 dias.</string>
     <string name="file_list_empty_search">Poderá estar numa pasta diferente?</string>
     <string name="file_list_empty_shared_headline">Ainda sem partilhas</string>
-    <string name="file_list_empty_text_photos">Envie algumas fotografias ou ative o envio automático.</string>
-    <string name="file_list_empty_text_photos_filter">Sem fotografias.</string>
-    <string name="file_list_empty_text_videos">Envie algumas fotografias ou ative o envio automático.</string>
-    <string name="file_list_empty_text_videos_filter">Sem vídeos.</string>
     <string name="file_list_folder">pasta</string>
     <string name="file_list_loading">A carregar…</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação para usar este tipo de ficheiro.</string>
@@ -404,7 +392,6 @@
     <string name="notification_channel_upload_description">Mostra o progresso de envio</string>
     <string name="notification_channel_upload_name">Canal de notificação de envio</string>
     <string name="notification_icon">Ícone de notificação</string>
-    <string name="notifications_loading_activity">A carregar notificações…</string>
     <string name="notifications_no_results_headline">Sem notificações</string>
     <string name="notifications_no_results_message">Por favor, confirme novamente mais tarde.</string>
     <string name="offline_mode">Sem conexão à Internet</string>
@@ -609,7 +596,6 @@
     <string name="sync_string_files">Ficheiros</string>
     <string name="synced_folder_settings_button">Botão de Configurações</string>
     <string name="synced_folders_configure_folders">Configurar pastas</string>
-    <string name="synced_folders_loading_folders">A carregar pastas…</string>
     <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure o seu envio automático a partir do menu principal.
 Aproveite o novo e melhorado envio automático.</string>
     <string name="synced_folders_preferences">Preferências de envio automático</string>

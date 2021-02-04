@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Μη αναγνωρίσιμη έκδοση διακομιστή</string>
     <string name="auth_connection_established">Εδραίωση σύνδεσης</string>
     <string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό αναγνωριστικό χρήστη, παρακαλούμε επικοινωνήστε με τον διαχειριστή.</string>
-    <string name="auth_host_address">Διεύθυνση διακομιστή</string>
     <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
     <string name="auth_incorrect_address_title">Εσφαλμένη μορφή διεύθυνσης διακομιστή</string>
     <string name="auth_incorrect_path_title">Δεν βρέθηκε διακομιστής</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Σφάλμα δημιουργίας αναφοράς διένεξης!</string>
     <string name="conflict_file_headline">Αρχείο σε αντίφαση %1$s</string>
     <string name="conflict_message_description">Εάν επιλέξετε και τις δύο εκδόσεις, στο όνομα του τοπικού αρχείου θα προστεθεί ένας αριθμός.</string>
-    <string name="conflict_message_headline">Ποια αρχεία θέλετε να κρατήσετε;</string>
     <string name="conflict_new_file">Νέο αρχείο</string>
     <string name="contaclist_restore_selected">Επαναφορά επιλεγμένων επαφών</string>
     <string name="contactlist_account_chooser_title">Επιλογή λογαριασμού για εισαγωγή</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Αρχική</string>
     <string name="drawer_item_notifications">Ειδοποιήσεις</string>
     <string name="drawer_item_on_device">Στην συσκευή</string>
-    <string name="drawer_item_photos">Φωτογραφίες</string>
     <string name="drawer_item_recently_added">Προστέθηκαν πρόσφατα</string>
     <string name="drawer_item_recently_modified">Τροποποιήθηκαν πρόσφατα</string>
     <string name="drawer_item_shared">Κοινόχρηστα</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Διατήρηση</string>
     <string name="file_list_empty">Μεταφόρτωση περιεχομένου ή συγχρονισμός με τις συσκευές σας.</string>
     <string name="file_list_empty_favorite_headline">Κανένα αγαπημένο</string>
-    <string name="file_list_empty_favorites_filter">Δεν βρέθηκαν αρχεία σημειωμένα ως αγαπημένα για το ερώτημά σας.</string>
     <string name="file_list_empty_favorites_filter_list">Τα αρχεία και οι φάκελοι που σημειώσατε ως αγαπημένα θα εμφανίζονται εδώ.</string>
     <string name="file_list_empty_headline">Δεν υπάρχουν αρχεία</string>
     <string name="file_list_empty_headline_search">Κανενα αποτέλεσμα σε αυτον τον φάκελο</string>
     <string name="file_list_empty_headline_server_search">Κανένα αποτέλεσμα</string>
-    <string name="file_list_empty_headline_server_search_photos">Καμιά φωτογραφία</string>
-    <string name="file_list_empty_headline_server_search_videos">Κανένα βίντεο</string>
     <string name="file_list_empty_moving">Δεν υπάρχει τίποτα εδώ. Μπορείτε να προσθέσετε ένα φάκελο!</string>
     <string name="file_list_empty_on_device">Τα ληφθέντα αρχεία και φάκελοι θα εμφανίζονται εδώ.</string>
     <string name="file_list_empty_recently_added">Δεν βρέθηκαν πρόσφατα προστεθημένα αρχεία</string>
-    <string name="file_list_empty_recently_added_filter">Δεν προστέθηκαν πρόσφατα αρχεία.</string>
     <string name="file_list_empty_recently_modified">Δεν βρέθηκαν τροποποιημένα αρχεία εντός των τελευταίων 7 ημερών</string>
-    <string name="file_list_empty_recently_modified_filter">Κανένα αρχείο δεν τροποποιήθηκε τις τελευταίες 7 ημέρες.</string>
     <string name="file_list_empty_search">Θα δοκιμάστε αναζήτηση και σε άλλο φάκελο;</string>
     <string name="file_list_empty_shared">Τα αρχεία και οι φάκελοι που διαμοιράζεστε θα εμφανίζονται εδώ.</string>
     <string name="file_list_empty_shared_headline">Δεν έχει διαμοιραστεί τίποτα μέχρι στιγμής</string>
-    <string name="file_list_empty_text_photos">Μεταφόρτωση μερικών φωτογραφιών ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
-    <string name="file_list_empty_text_photos_filter">Δεν υπάρχουν φωτογραφίες.</string>
-    <string name="file_list_empty_text_videos">Μεταφορτώστε μερικά βίντεο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>
-    <string name="file_list_empty_text_videos_filter">Δεν υπάρχουν βίντεο.</string>
     <string name="file_list_folder">φάκελος</string>
     <string name="file_list_loading">Φόρτωση…</string>
     <string name="file_list_no_app_for_file_type">Δεν βρέθηκε εφαρμογή για τον τύπο αρχείου.</string>
@@ -462,7 +450,6 @@
     <string name="notification_channel_upload_description">Εμφάνισης προόδου μεταφόρτωσης</string>
     <string name="notification_channel_upload_name">Ανέβασμα καναλιού ειδοποιήσεων</string>
     <string name="notification_icon">Εικονίδιο ειδοποιήσεων</string>
-    <string name="notifications_loading_activity">Φόρτωση ενημερώσεων…</string>
     <string name="notifications_no_results_headline">Καμία ειδοποίηση</string>
     <string name="notifications_no_results_message">Παρακαλούμε ελέγξτε ξανά αργότερα. </string>
     <string name="offline_mode">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
@@ -704,7 +691,6 @@
     <string name="sync_string_files">Αρχεία</string>
     <string name="synced_folder_settings_button">Κουμπί ρυθμίσεων</string>
     <string name="synced_folders_configure_folders">Ρυθμίστε τους φακέλους</string>
-    <string name="synced_folders_loading_folders">Φόρτωση φακέλων…</string>
     <string name="synced_folders_new_info">Η άμεση μεταφόρτωση έχει ανανεωθεί πλήρως. Ξανά ρυθμίστε την αυτόματη μεταφόρτωσή σας από το κύριο μενού. \ N \ nΑπολαύστε τη νέα και εκτεταμένη αυτόματη μεταφόρτωση.</string>
     <string name="synced_folders_no_results">Δεν βρέθηκαν φάκελοι πολυμέσων</string>
     <string name="synced_folders_preferences">Προτιμήσεις για αυτόματη μεταφόρτωση</string>

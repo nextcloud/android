@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Ismeretlen kiszolgálóverzió</string>
     <string name="auth_connection_established">A kapcsolat létrejött</string>
     <string name="auth_fail_get_user_name">A kiszolgálója nem megfelelő felhasználói azonosítót ad vissza, lépjen kapcsolatba egy rendszergazdával.</string>
-    <string name="auth_host_address">Kiszolgálócím</string>
     <string name="auth_host_url">Kiszolgáló cím https://…</string>
     <string name="auth_incorrect_address_title">Hibás címformátum a kiszolgálóhoz</string>
     <string name="auth_incorrect_path_title">A kiszolgáló nem található</string>
@@ -145,7 +144,6 @@
     <string name="conflict_already_existing_file">Már létező fájl</string>
     <string name="conflict_dialog_error">Hiba az ütközési párbeszédablak létrehozásakor!</string>
     <string name="conflict_message_description">Amennyiben mindkét verziót kiválasztja, a helyi fájl nevéhez egy szám lesz hozzáfűzve.</string>
-    <string name="conflict_message_headline">Mely fájlokat akarja megtartani?</string>
     <string name="conflict_new_file">Új fájl</string>
     <string name="contaclist_restore_selected">Kiválasztott névjegyek visszaállítása</string>
     <string name="contactlist_account_chooser_title">Válasszon importálandó fiókot</string>
@@ -214,7 +212,6 @@
     <string name="drawer_item_home">Saját mappa</string>
     <string name="drawer_item_notifications">Értesítések</string>
     <string name="drawer_item_on_device">Az eszközön</string>
-    <string name="drawer_item_photos">Fényképek</string>
     <string name="drawer_item_recently_added">Utoljára hozzáadva</string>
     <string name="drawer_item_recently_modified">Utoljára módosítva</string>
     <string name="drawer_item_shared">Megosztott</string>
@@ -285,26 +282,17 @@
     <string name="file_keep">Megtartás</string>
     <string name="file_list_empty">Töltsön fel új tartalmat vagy szinkronizáljon az eszközeivel</string>
     <string name="file_list_empty_favorite_headline">Még nincsenek kedvencek</string>
-    <string name="file_list_empty_favorites_filter">A keresés nem talált kedvenc fájlokat.</string>
     <string name="file_list_empty_favorites_filter_list">Azon fájlok és mappák, amiket kedvencnek jelöl, itt fognak megjelenni.</string>
     <string name="file_list_empty_headline">Itt nincsenek fájlok</string>
     <string name="file_list_empty_headline_search">Nincs találat ebben a mappában</string>
     <string name="file_list_empty_headline_server_search">Nincs találat</string>
-    <string name="file_list_empty_headline_server_search_photos">Nincsenek képek</string>
-    <string name="file_list_empty_headline_server_search_videos">Nincsenek videók</string>
     <string name="file_list_empty_moving">Nincs itt semmi. Hozzáadhat egy mappát.</string>
     <string name="file_list_empty_on_device">A letöltött fájlok és mappák itt fognak megjelenni.</string>
     <string name="file_list_empty_recently_added">Nem található mostanában hozzáadott fájl</string>
-    <string name="file_list_empty_recently_added_filter">Nincsenek mostanában hozzáadott fájlok.</string>
     <string name="file_list_empty_recently_modified">Nem található az utóbbi 7 napban módosított fájl</string>
-    <string name="file_list_empty_recently_modified_filter">Nincsenek 7 napon belül módosított fájlok.</string>
     <string name="file_list_empty_search">Lehet, hogy másik mappában található?</string>
     <string name="file_list_empty_shared">Az Ön által megosztott fájlok és mappák itt jelennek meg.</string>
     <string name="file_list_empty_shared_headline">Még semmi sincs megosztva</string>
-    <string name="file_list_empty_text_photos">Töltsön fel néhány fényképet, vagy aktiválja az automatikus feltöltést.</string>
-    <string name="file_list_empty_text_photos_filter">Nincsenek fotók.</string>
-    <string name="file_list_empty_text_videos">Töltsön fel néhány videót, vagy aktiválja az automatikus feltöltést.</string>
-    <string name="file_list_empty_text_videos_filter">Nincsenek videók.</string>
     <string name="file_list_folder">mappa</string>
     <string name="file_list_loading">Betöltés…</string>
     <string name="file_list_no_app_for_file_type">Nincs alkalmazás beállítva ehhez a fájltípushoz.</string>
@@ -452,7 +440,6 @@
     <string name="notification_channel_upload_description">Megjeleníti a feltöltési folyamatokat</string>
     <string name="notification_channel_upload_name">Feltöltési értesítési csatorna</string>
     <string name="notification_icon">Értesítési ikon</string>
-    <string name="notifications_loading_activity">Értesítések betöltése…</string>
     <string name="notifications_no_results_headline">Nincsenek értesítések</string>
     <string name="notifications_no_results_message">Jöjjön vissza később.</string>
     <string name="offline_mode">Nincs internetkapcsolat</string>
@@ -704,7 +691,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="sync_string_files">Fájlok</string>
     <string name="synced_folder_settings_button">Beállítások gomb</string>
     <string name="synced_folders_configure_folders">Mappák beállítása</string>
-    <string name="synced_folders_loading_folders">Mappák betöltése…</string>
     <string name="synced_folders_new_info">Az azonnali feltöltés teljesen át lett dolgozva. Állítsa be újra az automatikus feltöltést a főmenüben.\n\nÉlvezze az új és kibővített automatikus feltöltést.</string>
     <string name="synced_folders_no_results">Nem találhatók médiamappák.</string>
     <string name="synced_folders_preferences">Automatikus feltöltés beállításai</string>

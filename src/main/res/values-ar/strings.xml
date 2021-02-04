@@ -45,7 +45,6 @@
     <string name="auth_bad_oc_version_title">إصدار الخادم غير معروف</string>
     <string name="auth_connection_established">تم الاتصال</string>
     <string name="auth_fail_get_user_name">الخادم الخاص بك لا يعيد معرف المستخدم الصحيح، يرجى الاتصال بالمسؤول.</string>
-    <string name="auth_host_address">عنوان الخادم</string>
     <string name="auth_host_url">عنوان الخادوم https://…</string>
     <string name="auth_incorrect_address_title">صيغة عنوانٌ خطأ للخادم</string>
     <string name="auth_incorrect_path_title">لم يتم العثور على الخادم</string>
@@ -144,7 +143,6 @@
     <string name="conflict_already_existing_file">الملف موجود بالفعل</string>
     <string name="conflict_dialog_error">خطأ في إنشاء حوار التعارض!</string>
     <string name="conflict_message_description">إذا قمت باختيار كلا الاصدارين, الملف المحلي سيحتوي على رقم ملحق باسم الملف.</string>
-    <string name="conflict_message_headline">ماهي الملفات التي ترغب في إبقاءها ؟</string>
     <string name="conflict_new_file">الملف الجديد</string>
     <string name="contaclist_restore_selected">إسترجع جهات الإتصال المختارة</string>
     <string name="contactlist_account_chooser_title">إختر الحساب الذي تود استرجاعه</string>
@@ -214,7 +212,6 @@
     <string name="drawer_item_home">الرئيسية</string>
     <string name="drawer_item_notifications">الإخطارات</string>
     <string name="drawer_item_on_device">على الجهاز</string>
-    <string name="drawer_item_photos">الصور</string>
     <string name="drawer_item_recently_added">اضيفت مؤخرا</string>
     <string name="drawer_item_recently_modified">تغيرت مؤخرا</string>
     <string name="drawer_item_shared">المشاركات</string>
@@ -285,26 +282,17 @@
     <string name="file_keep">إحتفاظ</string>
     <string name="file_list_empty">قم برفع بعض المحتوى أو زامن مع أجهزتك</string>
     <string name="file_list_empty_favorite_headline">ليست عندك مفضلات بعد</string>
-    <string name="file_list_empty_favorites_filter">بحثك لم ينتج عن ملفات مفضلة.</string>
     <string name="file_list_empty_favorites_filter_list">الملفات والمجلدات التي تضع عليها علامة كمفضلة سوف تظهر هنا.</string>
     <string name="file_list_empty_headline">لا يوجد ملفات هنا </string>
     <string name="file_list_empty_headline_search">لم يتم العثور على أية بيانات في هذا المجلد</string>
     <string name="file_list_empty_headline_server_search">دون أية نتيجة</string>
-    <string name="file_list_empty_headline_server_search_photos">لم يتم العثور على أية صورة</string>
-    <string name="file_list_empty_headline_server_search_videos">لا يوجد فيديوهات</string>
     <string name="file_list_empty_moving">لا يوجد شيء هنا. يمكنك إضافة مجلد.</string>
     <string name="file_list_empty_on_device">الملفات والمجلدات التي تم تنزيلها سوف تظهر هنا.</string>
     <string name="file_list_empty_recently_added">لم توجد ملفات مضافة مؤخراً</string>
-    <string name="file_list_empty_recently_added_filter">لا يوجد ملفات مضافة مؤخراً.</string>
     <string name="file_list_empty_recently_modified">لم توجد ملفات معدلة خلال 7 أيام ماضية</string>
-    <string name="file_list_empty_recently_modified_filter">لا ملفات معدلة لآخر 7 أيام ماضية.</string>
     <string name="file_list_empty_search">ربما كنت تنوي البحث داخل مجلد آخر ؟</string>
     <string name="file_list_empty_shared">الملفات والمجلدات التي تم مشاركتها سوف تظهر هنا.</string>
     <string name="file_list_empty_shared_headline">لم تقم بمشاركة أية بيانات بعد</string>
-    <string name="file_list_empty_text_photos">قم بتحميل بعض الصور أو قم بتفعيل التحميل التلقائي.</string>
-    <string name="file_list_empty_text_photos_filter">لا توجد صور.</string>
-    <string name="file_list_empty_text_videos">قم بتحميل بعض الفيديوهات أو قم بتفعيل التحميل التلقائي.</string>
-    <string name="file_list_empty_text_videos_filter">لا توجد فيديوهات.</string>
     <string name="file_list_folder">مجلد</string>
     <string name="file_list_loading">Lعملية التحميل جارية…</string>
     <string name="file_list_no_app_for_file_type">لم يُعّد تطبيق يدعم نوع الملف هذا.</string>
@@ -457,7 +445,6 @@
     <string name="notification_channel_upload_description">يظهر تقدم الرفع</string>
     <string name="notification_channel_upload_name">قناة التنبيه للرفع</string>
     <string name="notification_icon">أيقونة الإشعار</string>
-    <string name="notifications_loading_activity">تحميل التنبيهات…</string>
     <string name="notifications_no_results_headline">لا توجد هناك إخطارات</string>
     <string name="notifications_no_results_message">يرجى التحقق مرة أخرى في وقت لاحق.</string>
     <string name="offline_mode">ليس هناك اتصال بالأنترنت</string>
@@ -694,7 +681,6 @@
     <string name="sync_string_files">الملفات</string>
     <string name="synced_folder_settings_button">زر الإعدادات</string>
     <string name="synced_folders_configure_folders">إعداد المجلدات</string>
-    <string name="synced_folders_loading_folders">جارٍ تحميل المجلدات…</string>
     <string name="synced_folders_new_info">تم تجديد التحميل الفوري بالكامل. أعد تكوين التحميل التلقائي من القائمة الرئيسية.
 
 استمتع بالتحميل التلقائي الجديد والممتد.</string>

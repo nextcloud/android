@@ -45,7 +45,6 @@
     <string name="auth_bad_oc_version_title">Óþekkjanleg útgáfa af þjóni</string>
     <string name="auth_connection_established">Tengingu hefur verið komið á</string>
     <string name="auth_fail_get_user_name">Vefþjónninn þinn er ekki að svara með réttu notandaauðkenni, hafðu samband við kerfisstjóra..</string>
-    <string name="auth_host_address">Vistfang miðlara</string>
     <string name="auth_host_url">Vistfang þjóns https://…</string>
     <string name="auth_incorrect_address_title">Rangt snið á vistfangi þjóns</string>
     <string name="auth_incorrect_path_title">Þjónn finnst ekki!!!</string>
@@ -141,7 +140,6 @@
     <string name="conflict_already_existing_file">Fyrirliggjandi skrá</string>
     <string name="conflict_dialog_error">Villa við að búa til árekstraglugga!</string>
     <string name="conflict_message_description">Ef þú velur báðar útgáfur, þá mun verða bætt tölustaf aftan við heiti afrituðu skrárinnar.</string>
-    <string name="conflict_message_headline">Hvaða skrám vilt þú vilt halda eftir?</string>
     <string name="conflict_new_file">Ný skrá</string>
     <string name="contaclist_restore_selected">Endurheimta valda tengiliði</string>
     <string name="contactlist_account_chooser_title">Veldu aðgang til að flytja inn</string>
@@ -208,7 +206,6 @@
     <string name="drawer_item_home">Heim</string>
     <string name="drawer_item_notifications">Tilkynningar</string>
     <string name="drawer_item_on_device">Á tækinu</string>
-    <string name="drawer_item_photos">Ljósmyndir</string>
     <string name="drawer_item_recently_added">Nýlega bætt við</string>
     <string name="drawer_item_recently_modified">Nýleg tillaga</string>
     <string name="drawer_item_shared">Sameiginlegt</string>
@@ -279,26 +276,17 @@
     <string name="file_keep">Halda</string>
     <string name="file_list_empty">Sendu inn eitthvað efni eða samstilltu við tækin þín!</string>
     <string name="file_list_empty_favorite_headline">Ekkert er eftirlæti ennþá</string>
-    <string name="file_list_empty_favorites_filter">Leitin skilaði engum eftirlætisskrám</string>
     <string name="file_list_empty_favorites_filter_list">Skrár og möppur sem þú merkir sem eftirlæti birtast hér.</string>
     <string name="file_list_empty_headline">Engar skrár hér</string>
     <string name="file_list_empty_headline_search">Engar niðurstöður í þessari möppu</string>
     <string name="file_list_empty_headline_server_search">Engar niðurstöður</string>
-    <string name="file_list_empty_headline_server_search_photos">Engar ljósmyndir</string>
-    <string name="file_list_empty_headline_server_search_videos">Engin myndskeið</string>
     <string name="file_list_empty_moving">Ekkert hér. Þú getur bætt við möppu.</string>
     <string name="file_list_empty_on_device">Skrár og möppur sem þú sækir birtast hér.</string>
     <string name="file_list_empty_recently_added">Fann engar nýlega viðbættar skrár</string>
-    <string name="file_list_empty_recently_added_filter">Engar nýlega viðbættar skrár fundust.</string>
     <string name="file_list_empty_recently_modified">Fann engar skrár sem breytt hefur verið síðustu 7 daga</string>
-    <string name="file_list_empty_recently_modified_filter">Engar skrár fundust sem breytt hefur verið síðustu 7 daga.</string>
     <string name="file_list_empty_search">Er þetta kannski í einhverri annarri möppu?</string>
     <string name="file_list_empty_shared">Skrár og möppur sem þú deilir birtast hér.</string>
     <string name="file_list_empty_shared_headline">Engu deilt ennþá</string>
-    <string name="file_list_empty_text_photos">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
-    <string name="file_list_empty_text_photos_filter">Engar ljósmyndir.</string>
-    <string name="file_list_empty_text_videos">Sendu inn einhver myndskeið eða virkjaðu sjálfvirka innsendingu.</string>
-    <string name="file_list_empty_text_videos_filter">Engin myndskeið.</string>
     <string name="file_list_folder">mappa</string>
     <string name="file_list_loading">Hleð inn…</string>
     <string name="file_list_no_app_for_file_type">Ekkert forrit er uppsett til að meðhöndla þessa tegund skráa.</string>
@@ -446,7 +434,6 @@
     <string name="notification_channel_upload_description">Sýnir framvindu innsendingar</string>
     <string name="notification_channel_upload_name">Senda inn tilkynningarás</string>
     <string name="notification_icon">Tilkynningatákn</string>
-    <string name="notifications_loading_activity">Hleð inn tilkynningum…</string>
     <string name="notifications_no_results_headline">Engar tilkynningar</string>
     <string name="notifications_no_results_message">Athugaðu aftur síðar.</string>
     <string name="offline_mode">Engin internettenging</string>
@@ -676,7 +663,6 @@
     <string name="sync_string_files">Skrár</string>
     <string name="synced_folder_settings_button">Stillingahnappur</string>
     <string name="synced_folders_configure_folders">Stilla möppur</string>
-    <string name="synced_folders_loading_folders">Hleð inn möppum…</string>
     <string name="synced_folders_new_info">Beinar innsendingar hafa verið algerlega endurhannaðar. Endurstilltu sjálfvirkar innsendingar beint í aðalvalmyndinni\n\nNjóttu góðs af nýju og ítarlegu viðmóti sjálfvirkra innsendinga.</string>
     <string name="synced_folders_no_results">Engar margmiðlunarmöppur fundust</string>
     <string name="synced_folders_preferences">Kjörstillingar fyrir sjálfvirkar innsendingar</string>

@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">No se reconoce  la versión del servidor </string>
     <string name="auth_connection_established">Conexión establecida</string>
     <string name="auth_fail_get_user_name">Tu servidor no está devolviendo una ID de usuario correcta, por favor, contacte con un administrador.</string>
-    <string name="auth_host_address">Dirección del servidor</string>
     <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_incorrect_address_title">Formato de dirección del servidor incorrecto</string>
     <string name="auth_incorrect_path_title">Servidor no encontrado</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">¡Error al crear el diálogo de conflicto!</string>
     <string name="conflict_file_headline">Conflicto en archivo %1$s</string>
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
-    <string name="conflict_message_headline">¿Qué archivos desea mantener?</string>
     <string name="conflict_new_file">Nuevo archivo</string>
     <string name="contaclist_restore_selected">Restaurar los contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Escoge la cuenta para importar</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
-    <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Añadido recientemente</string>
     <string name="drawer_item_recently_modified">Modificado recientemente</string>
     <string name="drawer_item_shared">Compartido</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Mantener</string>
     <string name="file_list_empty">Sube algún contenido o sincroniza con tus dispositivos.</string>
     <string name="file_list_empty_favorite_headline">Aún no hay nada marcado como favorito</string>
-    <string name="file_list_empty_favorites_filter">Tu búsqueda no encontró ningún archivo favorito.</string>
     <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas que marques como favoritos aparecerán aquí.</string>
     <string name="file_list_empty_headline">No hay archivos aquí</string>
     <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
-    <string name="file_list_empty_headline_server_search_photos">No hay fotos</string>
-    <string name="file_list_empty_headline_server_search_videos">No hay videos</string>
     <string name="file_list_empty_moving">Nada por aquí. Puedes agregar una carpeta.</string>
     <string name="file_list_empty_on_device">Los archivos y carpetas que descargues aparecerán aquí.</string>
     <string name="file_list_empty_recently_added">No se encontraron archivos recientemente añadidos</string>
-    <string name="file_list_empty_recently_added_filter">No hay archivos añadidos recientemente.</string>
     <string name="file_list_empty_recently_modified">No se han encontrado archivos modificados en los últimos 7 días</string>
-    <string name="file_list_empty_recently_modified_filter">No hay archivos modificados en los últimos 7 días.</string>
     <string name="file_list_empty_search">¿Quizás está en una carpeta diferente?</string>
     <string name="file_list_empty_shared">Los archivos y carpetas que compartas aparecerán aquí.</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
-    <string name="file_list_empty_text_photos">Sube algunas imágenes o activa la subida automática.</string>
-    <string name="file_list_empty_text_photos_filter">No hay fotos.</string>
-    <string name="file_list_empty_text_videos">Sube algunos vídeos o activa la subida automática.</string>
-    <string name="file_list_empty_text_videos_filter">No hay vídeos.</string>
     <string name="file_list_folder">carpeta</string>
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">No hay una app configurada para manejar este tipo de archivos.</string>
@@ -463,7 +451,6 @@
     <string name="notification_channel_upload_description">Muestra el progreso de la subida</string>
     <string name="notification_channel_upload_name">Canal de notificaciones de subidas</string>
     <string name="notification_icon">Icono de notificaciones</string>
-    <string name="notifications_loading_activity">Cargando notificaciones…</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor, comprúebalo más tarde.</string>
     <string name="offline_mode">No hay conexión a internet</string>
@@ -706,7 +693,6 @@
     <string name="sync_string_files">Archivos</string>
     <string name="synced_folder_settings_button">Botón de configuración</string>
     <string name="synced_folders_configure_folders">Configurar carpetas</string>
-    <string name="synced_folders_loading_folders">Cargando carpetas…</string>
     <string name="synced_folders_new_info">Carga instantánea ha sido modificado por completo. Re-configura tu carga automática desde el menú principal. \n\nDisfruta la nueva y extendida carga automática.</string>
     <string name="synced_folders_no_results">No se han encontrado carpetas de medios</string>
     <string name="synced_folders_preferences">Preferencias de subida automática</string>
