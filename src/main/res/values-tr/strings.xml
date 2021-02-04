@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Sunucu sürümü anlaşılamadı</string>
     <string name="auth_connection_established">Bağlantı kuruldu</string>
     <string name="auth_fail_get_user_name">Sunucunuz doğru bir kullanıcı kodu döndürmüyor, lütfen bir yönetici ile görüşün.</string>
-    <string name="auth_host_address">Sunucu adresi</string>
     <string name="auth_host_url">Sunucu adresi https://…</string>
     <string name="auth_incorrect_address_title">Sunucu adresi biçimi yanlış</string>
     <string name="auth_incorrect_path_title">Sunucu bulunamadı</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Çakışma penceresi oluşturulurken sorun çıktı!</string>
     <string name="conflict_file_headline">%1$s dosyası çakışıyor</string>
     <string name="conflict_message_description">İki sürümü de saklamayı seçerseniz, yerel dosyanın adına bir numara eklenecek.</string>
-    <string name="conflict_message_headline">Hangi dosyaları saklamak istiyorsunuz?</string>
     <string name="conflict_new_file">Yeni dosya</string>
     <string name="contaclist_restore_selected">Seçilmiş kişileri geri yükle</string>
     <string name="contactlist_account_chooser_title">İçe aktarılacak hesabı seçin</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Giriş</string>
     <string name="drawer_item_notifications">Bildirimler</string>
     <string name="drawer_item_on_device">Aygıt üzerinde</string>
-    <string name="drawer_item_photos">Fotoğraflar</string>
     <string name="drawer_item_recently_added">Son Eklenenler</string>
     <string name="drawer_item_recently_modified">Son Değiştirilenler</string>
     <string name="drawer_item_shared">Paylaşılan</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Tut</string>
     <string name="file_list_empty">Bazı içerikler yükleyin ya da aygıtlarınızla eşitleyin.</string>
     <string name="file_list_empty_favorite_headline">Henüz sık kullanılan bir öge yok</string>
-    <string name="file_list_empty_favorites_filter">Arama sonucunda sık kullanılan bir dosya bulunamadı.</string>
     <string name="file_list_empty_favorites_filter_list">Sık kullanılanlara eklediğiniz dosya ve klasörler burada görüntülenir.</string>
     <string name="file_list_empty_headline">Burada herhangi bir dosya yok</string>
     <string name="file_list_empty_headline_search">Bu klasörde herhangi bir sonuç yok</string>
     <string name="file_list_empty_headline_server_search">Herhangi bir sonuç bulunamadı</string>
-    <string name="file_list_empty_headline_server_search_photos">Herhangi bir fotoğraf bulunamadı</string>
-    <string name="file_list_empty_headline_server_search_videos">Herhangi bir görüntü bulunamadı</string>
     <string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
     <string name="file_list_empty_on_device">İndirilmiş dosya ve klasörler burada görüntülenir.</string>
     <string name="file_list_empty_recently_added">Geçenlerde eklenmiş herhangi bir dosya bulunamadı</string>
-    <string name="file_list_empty_recently_added_filter">Yakınlarda eklenmiş bir dosya yok</string>
     <string name="file_list_empty_recently_modified">Son 7 gün içinde düzenlenmiş bir dosya bulunamadı</string>
-    <string name="file_list_empty_recently_modified_filter">Son 7 içinde düzenlenmiş bir dosya yok</string>
     <string name="file_list_empty_search">Başka bir klasöre bakılmasını ister misiniz?</string>
     <string name="file_list_empty_shared">Paylaştığınız dosya ve klasörler burada görüntülenir.</string>
     <string name="file_list_empty_shared_headline">Henüz hiçbir şey paylaşılmamış</string>
-    <string name="file_list_empty_text_photos">Bazı fotoğraflar yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
-    <string name="file_list_empty_text_photos_filter">Herhangi bir fotoğraf bulunamadı.</string>
-    <string name="file_list_empty_text_videos">Bazı görüntüler yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
-    <string name="file_list_empty_text_videos_filter">Herhangi bir görüntü bulunamadı.</string>
     <string name="file_list_folder">klasör</string>
     <string name="file_list_loading">Yükleniyor …</string>
     <string name="file_list_no_app_for_file_type">Bu dosya türü için uygulama bulunamadı.</string>
@@ -463,7 +451,6 @@
     <string name="notification_channel_upload_description">Yükleme ilerlemesini görüntüler</string>
     <string name="notification_channel_upload_name">Yükleme bildirimi kanalı</string>
     <string name="notification_icon">Bildirim simgesi</string>
-    <string name="notifications_loading_activity">Bildirimler yükleniyor …</string>
     <string name="notifications_no_results_headline">Herhangi bir bildirim yok</string>
     <string name="notifications_no_results_message">Daha sonra yeniden bakın.</string>
     <string name="offline_mode">İnternet bağlantısı yok</string>
@@ -706,7 +693,6 @@
     <string name="sync_string_files">Dosyalar</string>
     <string name="synced_folder_settings_button">Ayarlar düğmesi</string>
     <string name="synced_folders_configure_folders">Klasör ayarları</string>
-    <string name="synced_folders_loading_folders">Klasörler yükleniyor …</string>
     <string name="synced_folders_new_info">Anında yükleme tamamen elden geçirildi. Lütfen ama menüye giderek otomatik yükleme ayarlarınızı yeniden yapın.\n\nYeni ve geliştirilmiş otomatik yükleme özelliklerinin tadını çıkarın.</string>
     <string name="synced_folders_no_results">Herhangi bir ortam klasörü bulunamadı</string>
     <string name="synced_folders_preferences">Otomatik yükleme ayarları</string>

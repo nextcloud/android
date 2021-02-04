@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">无法识别的服务器版本</string>
     <string name="auth_connection_established">连接已建立</string>
     <string name="auth_fail_get_user_name">您的服务器没有返回正确的用户ID，请与管理员联系。</string>
-    <string name="auth_host_address">服务器地址</string>
     <string name="auth_host_url">服务器地址 https://…</string>
     <string name="auth_incorrect_address_title">服务器地址格式错误</string>
     <string name="auth_incorrect_path_title">找不到服务器</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">创建冲突会话时出错！</string>
     <string name="conflict_file_headline">冲突文件 %1$s</string>
     <string name="conflict_message_description">如果您选择两个版本，则本地文件的名称后面将附加一个数字。</string>
-    <string name="conflict_message_headline">请选择需要保留的文件？</string>
     <string name="conflict_new_file">新文件</string>
     <string name="contaclist_restore_selected">恢复选中的联系人</string>
     <string name="contactlist_account_chooser_title">选择要导入的账号</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">首页</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">在设备上的</string>
-    <string name="drawer_item_photos">照片</string>
     <string name="drawer_item_recently_added">最近添加</string>
     <string name="drawer_item_recently_modified">最近修改</string>
     <string name="drawer_item_shared">已共享</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上传一些内容或与您的设备同步。</string>
     <string name="file_list_empty_favorite_headline">暂无收藏</string>
-    <string name="file_list_empty_favorites_filter">搜索结果中没有你收藏的文件。</string>
     <string name="file_list_empty_favorites_filter_list">您收藏的文件和文件夹将在这里显示。</string>
     <string name="file_list_empty_headline">这里没有文件</string>
     <string name="file_list_empty_headline_search">这个文件夹没有结果</string>
     <string name="file_list_empty_headline_server_search">没有结果</string>
-    <string name="file_list_empty_headline_server_search_photos">没有照片</string>
-    <string name="file_list_empty_headline_server_search_videos">没有视频</string>
     <string name="file_list_empty_moving">这里是空的。您可以添加一个文件夹。</string>
     <string name="file_list_empty_on_device">已下载的文件和文件夹会在这里显示。</string>
     <string name="file_list_empty_recently_added">没找到最近添加的文件</string>
-    <string name="file_list_empty_recently_added_filter">没有最近添加的文件。</string>
     <string name="file_list_empty_recently_modified">在过去的7天内没有被修改过的文件</string>
-    <string name="file_list_empty_recently_modified_filter">过去7天内没有修改过文件.</string>
     <string name="file_list_empty_search">也许它在其他文件夹中？</string>
     <string name="file_list_empty_shared">您共享的文件和文件夹将在这里显示。</string>
     <string name="file_list_empty_shared_headline">暂无共享</string>
-    <string name="file_list_empty_text_photos">上传一些照片或启用自动上传。</string>
-    <string name="file_list_empty_text_photos_filter">没有照片。</string>
-    <string name="file_list_empty_text_videos">上传一些视频或启动自动上传</string>
-    <string name="file_list_empty_text_videos_filter">没有视频。</string>
     <string name="file_list_folder">文件夹</string>
     <string name="file_list_loading">正在加载...</string>
     <string name="file_list_no_app_for_file_type">此文件类型未设置默认打开程序</string>
@@ -463,7 +451,6 @@
     <string name="notification_channel_upload_description">显示上传进度 </string>
     <string name="notification_channel_upload_name">上传提醒频道</string>
     <string name="notification_icon">通知图标</string>
-    <string name="notifications_loading_activity">正在加载通知…</string>
     <string name="notifications_no_results_headline">没有提示</string>
     <string name="notifications_no_results_message">请稍后核对</string>
     <string name="offline_mode">无网络连接</string>
@@ -709,7 +696,6 @@
     <string name="sync_string_files">文件</string>
     <string name="synced_folder_settings_button">设置按钮</string>
     <string name="synced_folders_configure_folders">配置文件夹</string>
-    <string name="synced_folders_loading_folders">正在加载文件夹…</string>
     <string name="synced_folders_new_info">即时上传已被彻底修改。 从主菜单中重新配置自动上传。\n\n请享受新的可扩展的自动上传。</string>
     <string name="synced_folders_no_results">未找到媒体文件夹</string>
     <string name="synced_folders_preferences">自动上传的首选项</string>

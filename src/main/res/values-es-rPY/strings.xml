@@ -29,7 +29,6 @@
     <string name="auth_account_not_the_same">El usuario ingresado no corresponde con el usuario de esta cuenta</string>
     <string name="auth_bad_oc_version_title">Versión del servidor no reconocida</string>
     <string name="auth_connection_established">Conexión establecida</string>
-    <string name="auth_host_address">Dirección del servidor</string>
     <string name="auth_host_url">Dirección del servidor https://...</string>
     <string name="auth_incorrect_address_title">El formato de dirección para el servidor es erróneo</string>
     <string name="auth_incorrect_path_title">El servidor no se encontró </string>
@@ -102,7 +101,6 @@
     <string name="confirmation_remove_folder_alert">¿Realmente quieres eliminar %1$s y sus contenidos? </string>
     <string name="confirmation_remove_folders_alert">¿Reamente deseas eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Sólo local</string>
-    <string name="conflict_message_headline">¿Cuales archivos deseas mantener?</string>
     <string name="contaclist_restore_selected">Restaurar los contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Selecciona la cuenta a importar</string>
     <string name="contactlist_no_permission">No se han otorgado privilegios, nada fue importado.</string>
@@ -143,7 +141,6 @@
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_item_on_device">Disponibles sin conexión</string>
-    <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Agregado recientemente</string>
     <string name="drawer_item_recently_modified">Modificado recientemente</string>
     <string name="drawer_item_shared">Compartido</string>
@@ -166,18 +163,13 @@
     <string name="file_icon">Archivo</string>
     <string name="file_list_empty">Carga algún contenido o sincroniza con tus dispositivos.</string>
     <string name="file_list_empty_favorite_headline">Aún no hay nada marcado como favorito</string>
-    <string name="file_list_empty_favorites_filter">Tu búsqueda no regresó archivos marcados como favoritos. </string>
     <string name="file_list_empty_headline">No hay archivos aquí</string>
     <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
-    <string name="file_list_empty_headline_server_search_photos">No hay fotos</string>
-    <string name="file_list_empty_headline_server_search_videos">No hay videos</string>
     <string name="file_list_empty_moving">No hay nada aquí. Puedes agregar una carpeta.</string>
     <string name="file_list_empty_recently_added">No se encontraron archivos agregados recientemente</string>
     <string name="file_list_empty_search">¿Tal vez está dentro de una carpeta diferente?</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
-    <string name="file_list_empty_text_photos">Carga algunas fotos o activa la carga automática.</string>
-    <string name="file_list_empty_text_videos">Carga algunos videos o activa la carga automática.</string>
     <string name="file_list_folder">carpeta</string>
     <string name="file_list_loading">Cargando...</string>
     <string name="file_list_no_app_for_file_type">No se cuenta con una aplicación que maneje este tipo de achivo. </string>

@@ -39,7 +39,6 @@
     <string name="auth_account_not_the_same">Sisestatud kasutaja ei kattu selle konto kasutajaga</string>
     <string name="auth_bad_oc_version_title">Tundmatu serveri versioon</string>
     <string name="auth_connection_established">Saadi ühendus</string>
-    <string name="auth_host_address">Serveri aadress</string>
     <string name="auth_host_url">Serveri aadress https://…</string>
     <string name="auth_incorrect_address_title">Vale serveriaadressi formaat</string>
     <string name="auth_incorrect_path_title">Serverit ei leitud</string>
@@ -108,7 +107,6 @@
     <string name="community_testing_report_text">Teavita probleemist GitHubis</string>
     <string name="community_testing_version_text">Oled huvitatud aitamisest uut versiooni testides?</string>
     <string name="confirmation_remove_local">Ainult kohalik</string>
-    <string name="conflict_message_headline">Milliseid faile sa soovid alles hoida?</string>
     <string name="conflict_new_file">Uus fail</string>
     <string name="contaclist_restore_selected">Taasta valitud kontaktid</string>
     <string name="contactlist_account_chooser_title">Valige kasutaja mida importida</string>
@@ -150,7 +148,6 @@
     <string name="drawer_item_home">Kodu</string>
     <string name="drawer_item_notifications">Märguanded</string>
     <string name="drawer_item_on_device">Seadmel</string>
-    <string name="drawer_item_photos">Fotod</string>
     <string name="drawer_item_recently_added">Viimati lisatud</string>
     <string name="drawer_item_recently_modified">Viimati muudetud</string>
     <string name="drawer_item_shared">Jagatud</string>
@@ -171,23 +168,14 @@
     <string name="file_icon">Fail</string>
     <string name="file_list_empty">Lae midagi üles või sünkroniseeri oma seadmetega.</string>
     <string name="file_list_empty_favorite_headline">Midagi pole veel lemmikutese lisatud</string>
-    <string name="file_list_empty_favorites_filter">Sinu poolt sooritatud otsing ei leidnud ühtegi lemmikuks märgitud faili.</string>
     <string name="file_list_empty_headline">Siin ei ole faile</string>
     <string name="file_list_empty_headline_search">Selles kaustas tulemused puuduvad</string>
     <string name="file_list_empty_headline_server_search">Vasteid ei leitud</string>
-    <string name="file_list_empty_headline_server_search_photos">Fotosid pole</string>
-    <string name="file_list_empty_headline_server_search_videos">Videosid pole</string>
     <string name="file_list_empty_moving">Siin pole midagi. Sa võid lisada kausta.</string>
     <string name="file_list_empty_recently_added">Hiljuti lisatud faile ei leitud</string>
-    <string name="file_list_empty_recently_added_filter">Hiljuti lisatud faile pole.</string>
     <string name="file_list_empty_recently_modified">Viimase 7 päeva jooksul muudetud faile ei leitud</string>
-    <string name="file_list_empty_recently_modified_filter">Viimase 7 päeva jooksul pole faile muudetud.</string>
     <string name="file_list_empty_search">Võibolla on see teises kaustas?</string>
     <string name="file_list_empty_shared_headline">Midagi pole veel jagatud</string>
-    <string name="file_list_empty_text_photos">Lae üles mõned pildid või lülita sisse automaatne üleslaadimine.</string>
-    <string name="file_list_empty_text_photos_filter">Pilte pole.</string>
-    <string name="file_list_empty_text_videos">Lae üles mõned videod või lülita sisse automaatne üleslaadimine.</string>
-    <string name="file_list_empty_text_videos_filter">Videosid pole.</string>
     <string name="file_list_folder">kaust</string>
     <string name="file_list_loading">Laadimine…</string>
     <string name="file_list_no_app_for_file_type">Puudub rakendus seda tüüpi failide avamiseks.</string>
@@ -267,7 +255,6 @@
     <string name="new_media_folder_photos">photo</string>
     <string name="note_confirm">Saada</string>
     <string name="notification_channel_push_name">Süsteemiteavitused</string>
-    <string name="notifications_loading_activity">Teavituste laadimine…</string>
     <string name="notifications_no_results_headline">Märguandeid pole</string>
     <string name="offline_mode">Internetiühendus puudub</string>
     <string name="pass_code_configure_your_pass_code">Sisesta oma parool</string>

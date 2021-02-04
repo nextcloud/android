@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Unrecognised server version</string>
     <string name="auth_connection_established">Connection established</string>
     <string name="auth_fail_get_user_name">Your server is not returning a correct user ID, please contact an admin.</string>
-    <string name="auth_host_address">Server address</string>
     <string name="auth_host_url">Server address https://…</string>
     <string name="auth_incorrect_address_title">Wrong address format for server</string>
     <string name="auth_incorrect_path_title">Server not found</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Error creating conflict dialogue!</string>
     <string name="conflict_file_headline">Conflicting file %1$s</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
-    <string name="conflict_message_headline">Which files do you wish to keep?</string>
     <string name="conflict_new_file">New file</string>
     <string name="contaclist_restore_selected">Restore selected contacts</string>
     <string name="contactlist_account_chooser_title">Choose account to import</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">On device</string>
-    <string name="drawer_item_photos">Photos</string>
     <string name="drawer_item_recently_added">Recently added</string>
     <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Keep</string>
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
     <string name="file_list_empty_favorite_headline">Nothing favorited yet</string>
-    <string name="file_list_empty_favorites_filter">Your search returned no favorited files.</string>
     <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorites will show up here.</string>
     <string name="file_list_empty_headline">No files here</string>
     <string name="file_list_empty_headline_search">No results in this folder</string>
     <string name="file_list_empty_headline_server_search">No results</string>
-    <string name="file_list_empty_headline_server_search_photos">No photos</string>
-    <string name="file_list_empty_headline_server_search_videos">No videos</string>
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
     <string name="file_list_empty_on_device">Downloaded files and folders will show up here.</string>
     <string name="file_list_empty_recently_added">Found no recently added files</string>
-    <string name="file_list_empty_recently_added_filter">No recently added files.</string>
     <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
-    <string name="file_list_empty_recently_modified_filter">No files modified the last 7 days.</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
-    <string name="file_list_empty_text_photos">Upload some photos or activate auto upload.</string>
-    <string name="file_list_empty_text_photos_filter">No photos.</string>
-    <string name="file_list_empty_text_videos">Upload some videos or activate auto upload.</string>
-    <string name="file_list_empty_text_videos_filter">No videos.</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_loading">Loading…</string>
     <string name="file_list_no_app_for_file_type">No app set up to handle this file type.</string>
@@ -461,7 +449,6 @@
     <string name="notification_channel_upload_description">Shows upload progress</string>
     <string name="notification_channel_upload_name">Upload notification channel</string>
     <string name="notification_icon">Notification icon</string>
-    <string name="notifications_loading_activity">Loading notifications…</string>
     <string name="notifications_no_results_headline">No notifications</string>
     <string name="notifications_no_results_message">Please check back later.</string>
     <string name="offline_mode">No internet connection</string>
@@ -703,7 +690,6 @@
     <string name="sync_string_files">Files</string>
     <string name="synced_folder_settings_button">Settings button</string>
     <string name="synced_folders_configure_folders">Configure folders</string>
-    <string name="synced_folders_loading_folders">Loading folders…</string>
     <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
     <string name="synced_folders_no_results">No media folders found</string>
     <string name="synced_folders_preferences">Preferences for auto uploading</string>

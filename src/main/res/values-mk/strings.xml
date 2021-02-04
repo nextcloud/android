@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Верзијата на серверот не е препознаена</string>
     <string name="auth_connection_established">Конекцијата е воспоставена</string>
     <string name="auth_fail_get_user_name">Вашиот сервер не испраќа точен кориснички ID, контактирајте го администраторот</string>
-    <string name="auth_host_address">Адреса на сервер</string>
     <string name="auth_host_url">Адреса на серверот https://…</string>
     <string name="auth_incorrect_address_title">Погрешен формат за адреса на сервер</string>
     <string name="auth_incorrect_path_title">Серверот не е пронајден</string>
@@ -145,7 +144,6 @@
     <string name="conflict_already_existing_file">Постоечка датотека</string>
     <string name="conflict_dialog_error">Грешка при креирање конфликтен извештај!</string>
     <string name="conflict_message_description">Ако ги одберете и двете верзии, локалната датотека ќе има број додаден на нејзиното име.</string>
-    <string name="conflict_message_headline">Кои датотеки сакате да ги задржите?</string>
     <string name="conflict_new_file">Нова датотека</string>
     <string name="contaclist_restore_selected">Врати ги означените контакти</string>
     <string name="contactlist_account_chooser_title">Избери сметка за увоз</string>
@@ -214,7 +212,6 @@
     <string name="drawer_item_home">Дома</string>
     <string name="drawer_item_notifications">Известувања</string>
     <string name="drawer_item_on_device">На уредот</string>
-    <string name="drawer_item_photos">Слики</string>
     <string name="drawer_item_recently_added">Скоро додадени</string>
     <string name="drawer_item_recently_modified">Скоро изменети</string>
     <string name="drawer_item_shared">Споделени</string>
@@ -276,26 +273,17 @@
     <string name="file_keep">Задржи</string>
     <string name="file_list_empty">Прикачете некоја содржина или синхронизирајте со вашите уреди!</string>
     <string name="file_list_empty_favorite_headline">Сеуште нема фаворити</string>
-    <string name="file_list_empty_favorites_filter">Вашето пребарување не даде резултати во фаворитите.</string>
     <string name="file_list_empty_favorites_filter_list">Датотеките и папките кои ќе ги означите како фаворити ќе се појават тука.</string>
     <string name="file_list_empty_headline">Тука нема датотеки</string>
     <string name="file_list_empty_headline_search">Нема резултати во оваа папка</string>
     <string name="file_list_empty_headline_server_search">Нема резултати</string>
-    <string name="file_list_empty_headline_server_search_photos">Нема слики</string>
-    <string name="file_list_empty_headline_server_search_videos">Нема видеа</string>
     <string name="file_list_empty_moving">Тука нема ништо. Можете да додадете папка!</string>
     <string name="file_list_empty_on_device">Преземените датотеки и папки  ќе се појават тука.</string>
     <string name="file_list_empty_recently_added">Нема пронајдено скоро додадени датотеки</string>
-    <string name="file_list_empty_recently_added_filter">Нема скоро додадени датотеки</string>
     <string name="file_list_empty_recently_modified">Нема пронајдено датотеки изменети во последните 7 дена.</string>
-    <string name="file_list_empty_recently_modified_filter">Нема изменети датотеки во последните 7 дена.</string>
     <string name="file_list_empty_search">Можеби е во друга папка?</string>
     <string name="file_list_empty_shared">Датотеките и папките кои ги споделувате ќе се појават тука.</string>
     <string name="file_list_empty_shared_headline">Уште ништо не е споделено</string>
-    <string name="file_list_empty_text_photos">Прикачете некоја слика или активирајте автоматско прикачување.</string>
-    <string name="file_list_empty_text_photos_filter">Нема слики.</string>
-    <string name="file_list_empty_text_videos">Прикачете некое видео или активирајте автоматско прикачување.</string>
-    <string name="file_list_empty_text_videos_filter">Нема видеа.</string>
     <string name="file_list_folder">папка</string>
     <string name="file_list_loading">Се вчитува…</string>
     <string name="file_list_no_app_for_file_type">Нема апликација за прикажување на овој вид на датотека.</string>
@@ -440,7 +428,6 @@
     <string name="notification_channel_upload_description">Прикажи напредок на прикачување</string>
     <string name="notification_channel_upload_name">Прикачи канал за известувања</string>
     <string name="notification_icon">Икона за известувања</string>
-    <string name="notifications_loading_activity">Се вчитуваат известувањата…</string>
     <string name="notifications_no_results_headline">Нема известувања</string>
     <string name="notifications_no_results_message">Ве молиме проверете подоцна.</string>
     <string name="offline_mode">Нема интернет врска</string>
@@ -665,7 +652,6 @@
     <string name="sync_string_files">Датотеки</string>
     <string name="synced_folder_settings_button">Копче за параметри</string>
     <string name="synced_folders_configure_folders">Конфигурирај папки</string>
-    <string name="synced_folders_loading_folders">Се вчитуваат папките…</string>
     <string name="synced_folders_new_info">Инстант прикачувањето е преработено комплетно. Пре-конфигурирајте го автоматското прикачување од менито.\n\nУживајте со новото и надоградено автоматско прикачување.</string>
     <string name="synced_folders_no_results">Не е пронајдена папка со медиа датотеки</string>
     <string name="synced_folders_preferences">Параметри за автоматско прикачување</string>

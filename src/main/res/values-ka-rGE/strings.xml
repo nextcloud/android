@@ -33,7 +33,6 @@
     <string name="auth_account_not_the_same">შეყვანილი მომხმარებელი არ ემთხვევა ამ ანგარიშის მომხმარებელს</string>
     <string name="auth_bad_oc_version_title">სერვერის ამოუცნობი ვერსია</string>
     <string name="auth_connection_established">კავშირი დამყარდა</string>
-    <string name="auth_host_address">სერვერის მისამართი</string>
     <string name="auth_host_url">სერვერის მისამართი https://...</string>
     <string name="auth_incorrect_address_title">სერვერისთვის არასწორი მისამსამართის ფორმატი</string>
     <string name="auth_incorrect_path_title">სერვერი ვერ მოიძებნა</string>
@@ -107,7 +106,6 @@
     <string name="confirmation_remove_folder_alert">ნამდვილად გსურთ %1$s-ის და შემცველობის გაუქმება?</string>
     <string name="confirmation_remove_folders_alert">დარწმუნებული ხართ, რომ გსურთ არჩეული ჩანაწერებისა და მათი შემცველობის გაუქმება?</string>
     <string name="confirmation_remove_local">მხოლოდ ლოკალური</string>
-    <string name="conflict_message_headline">რომელი ფაილების დატოვება გსურთ?</string>
     <string name="contaclist_restore_selected">არჩეული კონტაქტების აღდგენა</string>
     <string name="contactlist_account_chooser_title">იმპორტისთვის აირჩიეთ ანგარიში</string>
     <string name="contactlist_item_icon">მომხმარებლის პიქტოგრამა კონტაქტების სიისთვის</string>
@@ -153,7 +151,6 @@
     <string name="drawer_item_home">სახლი</string>
     <string name="drawer_item_notifications">შეტყობინებები</string>
     <string name="drawer_item_on_device">მოწყობილობაზე</string>
-    <string name="drawer_item_photos">სურათები</string>
     <string name="drawer_item_recently_added">ახლად დამატებული</string>
     <string name="drawer_item_recently_modified">ახლად შეცვლილი</string>
     <string name="drawer_item_shared">გაზიარებული</string>
@@ -184,23 +181,14 @@
     <string name="file_icon">ფაილი</string>
     <string name="file_list_empty">ატვირთეთ რამე ან გაუწიეთ თქვნს მოწყობილობას სინქრონიზაცია.</string>
     <string name="file_list_empty_favorite_headline">რჩეულებში ჯერ არაფერი დამატებულია</string>
-    <string name="file_list_empty_favorites_filter">ვერც ერთი რჩეული ფაილი ვერ იქნა ნაპოვნი.</string>
     <string name="file_list_empty_headline">აქ ფაილები არაა</string>
     <string name="file_list_empty_headline_search">ამ დირექტორიაში შედეგები არაა</string>
     <string name="file_list_empty_headline_server_search">შედეგები არაა</string>
-    <string name="file_list_empty_headline_server_search_photos">სურთები არაა</string>
-    <string name="file_list_empty_headline_server_search_videos">ვიდეოები არაა</string>
     <string name="file_list_empty_moving">აქ არაფერია. შეგიძლიათ დაამატოთ დირექტორია.</string>
     <string name="file_list_empty_recently_added">ახლად დამატებული ფაილები არაა ნაპოვნი</string>
-    <string name="file_list_empty_recently_added_filter">ახლად დამატებული ფაილები არაა.</string>
     <string name="file_list_empty_recently_modified">გასული 7 დღის განმავლობაში შეცვლილი ფაილ(ებ)ი ვერ იქნა ნაპოვნი</string>
-    <string name="file_list_empty_recently_modified_filter">გასული 7 დღის განმავობაში ფაილ(ებ)ი არ შეცვლილა.</string>
     <string name="file_list_empty_search">იქნებ სხვა დირექტორიაშია?</string>
     <string name="file_list_empty_shared_headline">ჯერ არაფერი გაზიარებულა</string>
-    <string name="file_list_empty_text_photos">ატვირთეთ რამდენიმე სურათი, ან გაააქტიურეთ ავტო-ატვირთვა.</string>
-    <string name="file_list_empty_text_photos_filter">ფოტოები არაა.</string>
-    <string name="file_list_empty_text_videos">ატვირთეთ რამდენიმე ვიდეო რგოლი ან გაააქტიურეთ ავტო-ატვირთვა.</string>
-    <string name="file_list_empty_text_videos_filter">ვიდეოები არაა.</string>
     <string name="file_list_folder">დირექტორია</string>
     <string name="file_list_loading">იტვირთება…</string>
     <string name="file_list_no_app_for_file_type">ამ ფაილთან სამუშაოდ არც ერთი აპლიკაცია არაა დაყანებული.</string>

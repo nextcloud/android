@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Nerozpoznaná verze serveru</string>
     <string name="auth_connection_established">Spojení navázáno</string>
     <string name="auth_fail_get_user_name">Vámi používaný server nevrací správný identifikátor uživatele – obraťte se na správce serveru.</string>
-    <string name="auth_host_address">Adresa serveru</string>
     <string name="auth_host_url">Adresa serveru https://…</string>
     <string name="auth_incorrect_address_title">Nesprávný formát adresy serveru</string>
     <string name="auth_incorrect_path_title">Server nenalezen</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Chyba při vytváření dialogu ke konfliktu!</string>
     <string name="conflict_file_headline">Kolidující soubor %1$s</string>
     <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>
-    <string name="conflict_message_headline">Které soubory chcete ponechat?</string>
     <string name="conflict_new_file">Nový soubor</string>
     <string name="contaclist_restore_selected">Obnovit vybrané kontakty</string>
     <string name="contactlist_account_chooser_title">Vyberte účet, který chcete importovat</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Domů</string>
     <string name="drawer_item_notifications">Upozornění</string>
     <string name="drawer_item_on_device">Na přístroji</string>
-    <string name="drawer_item_photos">Fotky</string>
     <string name="drawer_item_recently_added">Nedávno přidané</string>
     <string name="drawer_item_recently_modified">Nedávno změněné</string>
     <string name="drawer_item_shared">Sdíleno</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Ponechat</string>
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními.</string>
     <string name="file_list_empty_favorite_headline">Zatím žádné oblíbené položky</string>
-    <string name="file_list_empty_favorites_filter">Vaše vyhledávání nenalezlo žádné oblíbené soubory.</string>
     <string name="file_list_empty_favorites_filter_list">Zde budou zobrazeny soubory a složky, které označíte jako oblíbené.</string>
     <string name="file_list_empty_headline">Nejsou zde žádné soubory</string>
     <string name="file_list_empty_headline_search">V této složce nebylo nic nalezeno</string>
     <string name="file_list_empty_headline_server_search">Žádné výsledky</string>
-    <string name="file_list_empty_headline_server_search_photos">Žádné fotky</string>
-    <string name="file_list_empty_headline_server_search_videos">Žádná videa</string>
     <string name="file_list_empty_moving">Nic tu není. Můžete přidat složku.</string>
     <string name="file_list_empty_on_device">Stažené soubory a složky se zobrazí zde.</string>
     <string name="file_list_empty_recently_added">Nenalezeny žádné nedávno přidané soubory</string>
-    <string name="file_list_empty_recently_added_filter">Žádné nedávno přidané soubory.</string>
     <string name="file_list_empty_recently_modified">Nenalezeny žádné soubory změněné za uplynulých 7 dnů</string>
-    <string name="file_list_empty_recently_modified_filter">V uplynulých sedmi dnech nebyly změněny žádné soubory.</string>
     <string name="file_list_empty_search">Zkusit hledat v jiné složce?</string>
     <string name="file_list_empty_shared">Zde budou zobrazeny vámi sdílené soubory a složky.</string>
     <string name="file_list_empty_shared_headline">Zatím nebylo nic sdíleno</string>
-    <string name="file_list_empty_text_photos">Nahrajte nějaké fotky nebo zapněte automatické nahrávání.</string>
-    <string name="file_list_empty_text_photos_filter">Žádné fotky.</string>
-    <string name="file_list_empty_text_videos">Nahrajte nějaká videa nebo zapněte automatické nahrávání.</string>
-    <string name="file_list_empty_text_videos_filter">Žádná videa.</string>
     <string name="file_list_folder">složka</string>
     <string name="file_list_loading">Načítání…</string>
     <string name="file_list_no_app_for_file_type">Není nastaveno pomocí jaké aplikace otevírat tento typ souboru.</string>
@@ -462,7 +450,6 @@
     <string name="notification_channel_upload_description">Zobrazuje ukazatel postupu nahrávání</string>
     <string name="notification_channel_upload_name">Kanál pro upozorňování na nahrání</string>
     <string name="notification_icon">Ikona oznámení</string>
-    <string name="notifications_loading_activity">Načítání upozornění…</string>
     <string name="notifications_no_results_headline">Žádná upozornění</string>
     <string name="notifications_no_results_message">Vraťte se sem později.</string>
     <string name="offline_mode">Bez připojení k Internetu</string>
@@ -726,7 +713,6 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="sync_string_files">Soubory</string>
     <string name="synced_folder_settings_button">Tlačítko Nastavení</string>
     <string name="synced_folders_configure_folders">Nastavit složky</string>
-    <string name="synced_folders_loading_folders">Načítání složek…</string>
     <string name="synced_folders_new_info">Okamžité nahrávání bylo zcela předěláno. Proto je třeba ho znovu nastavit z hlavní nabídky.\n\nUžijte si nové a rozšířené automatické nahrávání.</string>
     <string name="synced_folders_no_results">Nebyly nalezeny žádné složky médií</string>
     <string name="synced_folders_preferences">Předvolby automatického nahrávání</string>
