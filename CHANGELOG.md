@@ -1,11 +1,21 @@
 ## 3.15.0 (February, 02, 2021)
 
-Media instead of Photos: also show videos
-UI Improvement (shimmer)
-Bug fixes all over the place
-Drop Android 4.4, new min version Android 5.0
+- Media instead of Photos: also show videos
+- UI Improvement (shimmer)
+- Bug fixes all over the place
+- Drop Android 4.4, new min version Android 5.0
 
 For a full list, please see https://github.com/nextcloud/android/milestone/52
+
+## 3.14.3 (January, 13, 2021)
+
+- Fix crash when clicking "+" button
+- Fix push notifications on some devices
+- Fix updating of sharee list
+- Fix crash during setting status
+- Fix Crash Sharing files to Nextcloud via Android Apps
+
+For a full list, please see https://github.com/nextcloud/android/milestone/56
 
 ## 3.14.2 (January, 13, 2021)
 

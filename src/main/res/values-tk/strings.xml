@@ -466,6 +466,7 @@
     <string name="notifications_no_results_headline">Duýduryş ýok</string>
     <string name="notifications_no_results_message">Soňrak barlaň.</string>
     <string name="offline_mode">Internet birikmesi ýok</string>
+    <string name="oneHour">1 saat</string>
     <string name="online">Onlaýn</string>
     <string name="online_status">Onlaýn ýagdaý</string>
     <string name="outdated_server">Serwer ömrüniň ahyryna ýetdi, täzelemegiňizi haýyş edýäris!</string>
@@ -473,10 +474,16 @@
     <string name="pass_code_configure_your_pass_code">Giriş koduňyzy giriziň</string>
     <string name="pass_code_configure_your_pass_code_explanation">Giriş programmasy her gezek işe başlanda talap ediler.</string>
     <string name="pass_code_enter_pass_code">paroly giriziň haýyş edýäris</string>
-    <string name="pass_code_mismatch">Giriş parollary birmeňzeş däl</string>
+    <string name="pass_code_mismatch">Giriş parollary deň däl</string>
+    <string name="pass_code_reenter_your_pass_code">Giriş koduňyzy täzeden ýazmagyňyzy haýyş edýäris</string>
     <string name="pass_code_remove_your_pass_code">Giriş koduňyzy pozuň</string>
     <string name="pass_code_removed">Giriş kody öçürildi</string>
+    <string name="pass_code_stored">Giri kody saklanýar</string>
+    <string name="pass_code_wrong">Gizlin kod</string>
+    <string name="permission_allow">Rugsat ber</string>
+    <string name="permission_deny">inkär etmek</string>
     <string name="placeholder_filename">placeholder.txt</string>
+    <string name="placeholder_media_time">12:23:45</string>
     <string name="pref_behaviour_entries_delete_file">Pozuldy</string>
     <string name="prefs_category_about">Hakynda</string>
     <string name="prefs_category_general">Esasy</string>
