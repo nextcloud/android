@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Versão do servidor desconhecida</string>
     <string name="auth_connection_established">Conexão estabelecida</string>
     <string name="auth_fail_get_user_name">Seu servidor não está retornando uma ID correta de usuário, contacte o administrador.</string>
-    <string name="auth_host_address">Endereço do servidor</string>
     <string name="auth_host_url">Endereço do servidor https://…</string>
     <string name="auth_incorrect_address_title">O formato de endereço do servidor está errado</string>
     <string name="auth_incorrect_path_title">Servidor não encontrado</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Erro ao criar diálogo de conflito!</string>
     <string name="conflict_file_headline">Arquivo conflitante %1$s</string>
     <string name="conflict_message_description">Se você selecionar as duas versões, o arquivo local terá um número anexado ao seu nome.</string>
-    <string name="conflict_message_headline">Quais arquivos você quer manter?</string>
     <string name="conflict_new_file">Novo arquivo</string>
     <string name="contaclist_restore_selected">Restaurar contatos selecionados</string>
     <string name="contactlist_account_chooser_title">Escolha a conta para importar</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Início</string>
     <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_item_on_device">No aparelho</string>
-    <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Adicionados recentemente</string>
     <string name="drawer_item_recently_modified">Modificados recentemente</string>
     <string name="drawer_item_shared">Compartilhado</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Manter</string>
     <string name="file_list_empty">Envie um arquivo ou sincronize com seus dispositivos.</string>
     <string name="file_list_empty_favorite_headline">Nenhum favorito ainda</string>
-    <string name="file_list_empty_favorites_filter">Sua pesquisa não retornou nenhum arquivo favorito.</string>
     <string name="file_list_empty_favorites_filter_list">Suas pastas e arquivos favoritos serão exibidos aqui.</string>
     <string name="file_list_empty_headline">Nenhum arquivo aqui</string>
     <string name="file_list_empty_headline_search">Nenhum resultado nesta pasta</string>
     <string name="file_list_empty_headline_server_search">Sem resultados</string>
-    <string name="file_list_empty_headline_server_search_photos">Sem fotos</string>
-    <string name="file_list_empty_headline_server_search_videos">Sem vídeos</string>
     <string name="file_list_empty_moving">Não há nada aqui. Você pode adicionar uma pasta.</string>
     <string name="file_list_empty_on_device">Os arquivos e pastas baixados aparecerão aqui.</string>
     <string name="file_list_empty_recently_added">Nenhum arquivo recente foi adicionado</string>
-    <string name="file_list_empty_recently_added_filter">Nenhum arquivo adicionado recentemente.</string>
     <string name="file_list_empty_recently_modified">Não foi encontrado nenhum arquivo modificado nos últimos 7 dias</string>
-    <string name="file_list_empty_recently_modified_filter">Sem arquivos modificados nos últimos 7 dias.</string>
     <string name="file_list_empty_search">Talvez seja uma pasta diferente?</string>
     <string name="file_list_empty_shared">Arquivos e pastas que você compartilhar serão exibidos aqui.</string>
     <string name="file_list_empty_shared_headline">Você ainda não compartilhou nada!</string>
-    <string name="file_list_empty_text_photos">Enviar algumas fotos ou ativar o envio automático.</string>
-    <string name="file_list_empty_text_photos_filter">Nenhuma foto.</string>
-    <string name="file_list_empty_text_videos">Enviar alguns vídeos ou ativar o envio automático.</string>
-    <string name="file_list_empty_text_videos_filter">Nenhum vídeo.</string>
     <string name="file_list_folder">pasta</string>
     <string name="file_list_loading">Carregando…</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação definida para manipular este tipo de arquivo.</string>
@@ -463,7 +451,6 @@
     <string name="notification_channel_upload_description">Mostra o progresso de envio</string>
     <string name="notification_channel_upload_name">Canal de notificação de envio</string>
     <string name="notification_icon">Ícone de notificação</string>
-    <string name="notifications_loading_activity">Carregando notificações…</string>
     <string name="notifications_no_results_headline">Não há notificações</string>
     <string name="notifications_no_results_message">Por favor, verifique mais tarde.</string>
     <string name="offline_mode">Sem conexão à internet</string>
@@ -706,7 +693,6 @@
     <string name="sync_string_files">Arquivos</string>
     <string name="synced_folder_settings_button">Botão de configurações</string>
     <string name="synced_folders_configure_folders">Configurar pastas</string>
-    <string name="synced_folders_loading_folders">Carregando pastas…</string>
     <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure seu autoenvio no menu principal.\n\nDesfrute do novo envio automático e estendido.</string>
     <string name="synced_folders_no_results">Pastas com mídias não encontradas</string>
     <string name="synced_folders_preferences">Preferências do autoenvio</string>

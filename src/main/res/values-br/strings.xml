@@ -45,7 +45,6 @@
     <string name="auth_bad_oc_version_title">Stumm ar servijour n\'eo ket anavezet</string>
     <string name="auth_connection_established">Kenstagadenn graet</string>
     <string name="auth_fail_get_user_name">Ne vez ket roet an ID implijer mat gant o servijour, galvit o merour.</string>
-    <string name="auth_host_address">Chom-lec\'h ar servijour</string>
     <string name="auth_host_url">Chom-lec\'h ar servijour https://…</string>
     <string name="auth_incorrect_address_title">Stumm chom-lec\'h fall evit ar servijour</string>
     <string name="auth_incorrect_path_title">N\'eo ket bet kavet ar servijour</string>
@@ -142,7 +141,6 @@
     <string name="conflict_already_existing_file">Bez ez eus eus ar restr dija</string>
     <string name="conflict_dialog_error">Ur fazi en deus krouet divizoù diemglev !</string>
     <string name="conflict_message_description">Ma choazit an daou stumm, ar restr diabarzh en do un niver ouzhpennet war e anv.</string>
-    <string name="conflict_message_headline">Peseurt restroù o peus c\'houant gouarn</string>
     <string name="conflict_new_file">Restr nevez</string>
     <string name="contaclist_restore_selected">Adkrouiñ an darempredoù choazet</string>
     <string name="contactlist_account_chooser_title">Chaozit ur c\'hont da emporzhiañ</string>
@@ -210,7 +208,6 @@
     <string name="drawer_item_home">Degemer</string>
     <string name="drawer_item_notifications">Kemenadenoù</string>
     <string name="drawer_item_on_device">War ar benveg</string>
-    <string name="drawer_item_photos">Fotoioù</string>
     <string name="drawer_item_recently_added">Ouzpennet n\'eus ket pel zo</string>
     <string name="drawer_item_recently_modified">Cheñchet n\'eus ket pell zo</string>
     <string name="drawer_item_shared">Rannet</string>
@@ -281,26 +278,17 @@
     <string name="file_keep">Gouarn</string>
     <string name="file_list_empty">Pellkasit traoù pe kemprennit gant o ardivinkoù.</string>
     <string name="file_list_empty_favorite_headline">Netra zo bet lakaet evel karetañ evit poent</string>
-    <string name="file_list_empty_favorites_filter">O enklask n\'a ro restr karetañ ebet.</string>
     <string name="file_list_empty_favorites_filter_list">Restroù ha teuliadoù lakaet da garetañ a vo diskwelet amañ</string>
     <string name="file_list_empty_headline">Emañ restr ebet amañ</string>
     <string name="file_list_empty_headline_search">Disoc\'h ebet en teuliad mañ</string>
     <string name="file_list_empty_headline_server_search">Disoc\'h ebet</string>
-    <string name="file_list_empty_headline_server_search_photos">Fotoioù ebet</string>
-    <string name="file_list_empty_headline_server_search_videos">Videoioù ebet</string>
     <string name="file_list_empty_moving">Netra amañ. Posuple eo deoc\'h ouzhpennañ un teuliad.</string>
     <string name="file_list_empty_on_device">Restroù ha tuliadoù pellgarget a vo diskwelet amañ</string>
     <string name="file_list_empty_recently_added">N\'ez eus ket bet kavet restroù nevez ouzhpennet</string>
-    <string name="file_list_empty_recently_added_filter">Restroù nevez ouzhpennet ebet.</string>
     <string name="file_list_empty_recently_modified">Restroù cheñchet e pad ar 7 deiz divezhañ ebet kavet</string>
-    <string name="file_list_empty_recently_modified_filter">Restr chñchet ebet er 7 deiz divezhañ.</string>
     <string name="file_list_empty_search">Mateze eo en un teuliad all ?</string>
     <string name="file_list_empty_shared">Ar restroù ha teuliadoù rannet a vo diskwellet amañ</string>
     <string name="file_list_empty_shared_headline">Netra a zo bet rannet evit ar poent</string>
-    <string name="file_list_empty_text_photos">Pellkas fotoioù pe lakaat ar pellkas otomatek.</string>
-    <string name="file_list_empty_text_photos_filter">Foto ebet.</string>
-    <string name="file_list_empty_text_videos">Pellkas videoioù pe lakaat ar pellkas otomatek.</string>
-    <string name="file_list_empty_text_videos_filter">Video ebet.</string>
     <string name="file_list_folder">teuliad</string>
     <string name="file_list_loading">O Kargañ...</string>
     <string name="file_list_no_app_for_file_type">Meziant ebet lakaat d\'ober war dro ar restroù stumm mañ.</string>
@@ -448,7 +436,6 @@
     <string name="notification_channel_upload_description">Diskouez araokadur ar pallkas</string>
     <string name="notification_channel_upload_name">Pellkas chadenn ar gemenadenn</string>
     <string name="notification_icon">Skeudenn kemenadenn</string>
-    <string name="notifications_loading_activity">O kargañ kemenadenoù...</string>
     <string name="notifications_no_results_headline">Kemenaden ebet</string>
     <string name="notifications_no_results_message">Gwiriit adare goude mar-plij</string>
     <string name="offline_mode">Kenstagadur internet ebet</string>
@@ -676,7 +663,6 @@
     <string name="sync_string_files">Restroù</string>
     <string name="synced_folder_settings_button">Bouton stummoù</string>
     <string name="synced_folders_configure_folders">Stumma an tuliadoù</string>
-    <string name="synced_folders_loading_folders">O kargañ an teuliad...</string>
     <string name="synced_folders_new_info">Ar pellkas otomatek a zo bet cheñchet penn-da-benn. Adstummit o pellkas otomatek dre ar roll pena.\n\nMa vofoc\'h plijet gant ar pelkass otomatek nevez ha brasaet.</string>
     <string name="synced_folders_no_results">Teuliad media kavet ebet</string>
     <string name="synced_folders_preferences">Choazoù evit ar pellkas otomatek</string>

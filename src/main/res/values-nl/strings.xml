@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Niet-herkende serverversie</string>
     <string name="auth_connection_established">Verbinding tot stand gebracht</string>
     <string name="auth_fail_get_user_name">Je server geeft geen geldige user ID terug, neem contact op met je serverbeheerder</string>
-    <string name="auth_host_address">Serveradres</string>
     <string name="auth_host_url">Serveradres https://…</string>
     <string name="auth_incorrect_address_title">Verkeerd adresformaat voor server</string>
     <string name="auth_incorrect_path_title">Server niet gevonden</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Fout bij het maken van conflictdialoog!</string>
     <string name="conflict_file_headline">Conflicterend bestand%1$s</string>
     <string name="conflict_message_description">Als je beide versies selecteert, zal het lokale bestand een nummer aan de naam toegevoegd krijgen.</string>
-    <string name="conflict_message_headline">Welke bestanden wil je bewaren?</string>
     <string name="conflict_new_file">Nieuw bestand</string>
     <string name="contaclist_restore_selected">Herstel de geselecteerde contactpersonen</string>
     <string name="contactlist_account_chooser_title">Kies een account voor import</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Thuis</string>
     <string name="drawer_item_notifications">Meldingen</string>
     <string name="drawer_item_on_device">Op het apparaat</string>
-    <string name="drawer_item_photos">Foto\'s</string>
     <string name="drawer_item_recently_added">Recent toegevoegd</string>
     <string name="drawer_item_recently_modified">Recent gewijzigd</string>
     <string name="drawer_item_shared">Gedeeld</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Behouden</string>
     <string name="file_list_empty">Upload je inhoud of synchroniseer met je apparaten.</string>
     <string name="file_list_empty_favorite_headline">Nog niets als favoriet gemarkeerd</string>
-    <string name="file_list_empty_favorites_filter">Geen favoriete bestanden gevonden voor je zoekopdracht!</string>
     <string name="file_list_empty_favorites_filter_list">Als favoriet gemarkeerde bestanden en mappen worden hier getoond.</string>
     <string name="file_list_empty_headline">Hier geen bestanden</string>
     <string name="file_list_empty_headline_search">Geen resultaten in deze map</string>
     <string name="file_list_empty_headline_server_search">Geen resultaten</string>
-    <string name="file_list_empty_headline_server_search_photos">Geen foto\'s</string>
-    <string name="file_list_empty_headline_server_search_videos">Geen video\'s</string>
     <string name="file_list_empty_moving">Het is hier leeg. Je kan een map toevoegen!</string>
     <string name="file_list_empty_on_device">Gedownloade bestanden en folders zie je hier.</string>
     <string name="file_list_empty_recently_added">Geen recent toegevoegde bestanden gevonden</string>
-    <string name="file_list_empty_recently_added_filter">Geen files die recent zijn toegevoegd,</string>
     <string name="file_list_empty_recently_modified">Geen bestanden gevonden die de afgelopen 7 dagen zijn gewijzigd</string>
-    <string name="file_list_empty_recently_modified_filter">Geen files die de laatste 7 dagen gewijzigd zijn.</string>
     <string name="file_list_empty_search">Misschien staat het in een andere map?</string>
     <string name="file_list_empty_shared">Bestanden en mappen die je deelt, worden hier getoond.</string>
     <string name="file_list_empty_shared_headline">Nog niets gedeeld</string>
-    <string name="file_list_empty_text_photos">Upload enkele foto\'s of activeer auto-upload.</string>
-    <string name="file_list_empty_text_photos_filter">Geen foto\'s.</string>
-    <string name="file_list_empty_text_videos">Upload enkele video\'s of activeer auto-upload.</string>
-    <string name="file_list_empty_text_videos_filter">Geen video\'s.</string>
     <string name="file_list_folder">map</string>
     <string name="file_list_loading">Laden…</string>
     <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandsformaat te behandelen.</string>
@@ -463,7 +451,6 @@
     <string name="notification_channel_upload_description">Geef upload voortgang weer</string>
     <string name="notification_channel_upload_name">Upload notificatie kanaal</string>
     <string name="notification_icon">Meldingenpictogram</string>
-    <string name="notifications_loading_activity">Notificaties laden…</string>
     <string name="notifications_no_results_headline">Geen meldingen</string>
     <string name="notifications_no_results_message">Controleer later opnieuw.</string>
     <string name="offline_mode">Geen internet verbinding</string>
@@ -706,7 +693,6 @@
     <string name="sync_string_files">Bestanden</string>
     <string name="synced_folder_settings_button">Instellingen knop</string>
     <string name="synced_folders_configure_folders">Mappen instellen</string>
-    <string name="synced_folders_loading_folders">Mappen laden…</string>
     <string name="synced_folders_new_info">Automatisch uploaden is helemaal herzien. Herconfigureer je auto-uploadfunctie in het hoofdmenu.\n\nVeel plezier met de nieuwe en meer uitgebreide auto-upload.</string>
     <string name="synced_folders_no_results">Geen mediamappen gevonden</string>
     <string name="synced_folders_preferences">Voorkeuren voor automatisch uploaden</string>

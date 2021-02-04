@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">نسخه ی سرور ناشناخته</string>
     <string name="auth_connection_established">اتصال برقرار شد</string>
     <string name="auth_fail_get_user_name">سرور شما یک شناسه کاربری درست را بر نمی‌گرداند، لطفا با مدیر سرور تماس بگیرید.</string>
-    <string name="auth_host_address">آدرس سرور</string>
     <string name="auth_host_url">آدرس سرور https://…</string>
     <string name="auth_incorrect_address_title">فرمت آدرس برای سرور اشتباه است</string>
     <string name="auth_incorrect_path_title">سرور یافت نشد</string>
@@ -148,8 +147,7 @@
     <string name="conflict_dialog_error">هنگام ساختن دیالوگ مغایرت‌ها خطایی رخ داده است!</string>
     <string name="conflict_file_headline">فایل متناقض %1$s</string>
     <string name="conflict_message_description">اگر هردو نسخه را انتخاب کنید، یک شماره به نام فایل محلی اضافه خواهد شد.</string>
-    <string name="conflict_message_headline">کدام فایل ها را می خواهید نگه دارید ؟</string>
-    <string name="conflict_new_file">فایل جدید</string>
+    <string name="conflict_new_file">پروندهٔ تازه</string>
     <string name="contaclist_restore_selected">بازیابی مخاطبین منتخب</string>
     <string name="contactlist_account_chooser_title">حساب را برای وارد کردن انتخاب کنید</string>
     <string name="contactlist_item_icon">آیکون کاربر برای لیست تماس</string>
@@ -184,7 +182,7 @@
     <string name="create_rich_workspace">اطلاعات پوشه را اضافه کنید</string>
     <string name="creates_rich_workspace">ایجاد اطلاعات پوشه</string>
     <string name="credentials_disabled">اعتبارنامه غیرفعال است</string>
-    <string name="date_unknown">نامشخص</string>
+    <string name="date_unknown">ناشناخته</string>
     <string name="default_credentials_wrong">اعتبارنامه نادرست است</string>
     <string name="delete_account">حذف حساب کاربری</string>
     <string name="delete_account_warning">برداشتن حساب %s و حذف تمام پرونده‌ّای محلّی؟\n\nحذف قابل بازگردانی نیست.</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">خانه </string>
     <string name="drawer_item_notifications">پیغام ها</string>
     <string name="drawer_item_on_device">در دستگاه </string>
-    <string name="drawer_item_photos">عکس ها</string>
     <string name="drawer_item_recently_added">اخیرا اضافه شده </string>
     <string name="drawer_item_recently_modified">اخیرا تغییر داده شده </string>
     <string name="drawer_item_shared">به اشتراک گزاشته شده </string>
@@ -292,26 +289,17 @@
     <string name="file_keep">نگاه داشتن</string>
     <string name="file_list_empty">بعضی از محتویات را آپلود کنید یا با دستگاه های خود همگام سازی کنید.</string>
     <string name="file_list_empty_favorite_headline">هیچ فایل برگزیده ای وجود ندارد</string>
-    <string name="file_list_empty_favorites_filter">جستجوی شما هیچ فایل برگزیده ای نیافت</string>
     <string name="file_list_empty_favorites_filter_list">فایل‌ها و پوشه‌های علامت‌گذاری شده به عنوان موردعلاقه، در این قسمت نمایش داده خواهند شد.</string>
     <string name="file_list_empty_headline">هیچ فایلی اینجا نیست</string>
     <string name="file_list_empty_headline_search">هیچ نتیجه ای در این پوشه نیست</string>
     <string name="file_list_empty_headline_server_search">نتیجه ای یافت نشد</string>
-    <string name="file_list_empty_headline_server_search_photos">هیچ عکسی یافت نشد</string>
-    <string name="file_list_empty_headline_server_search_videos">هیچ ویدئویی یافت نشد</string>
     <string name="file_list_empty_moving">هیچ چیز در اینجا نیست. می توانید یک پوشه اضافه کنید.</string>
     <string name="file_list_empty_on_device">فایل‌ها و پوشه‌های بارگیری شده، در این قسمت نمایش داده خواهند شد.</string>
     <string name="file_list_empty_recently_added">هیچ فایل اخیرا اضافه نشده است</string>
-    <string name="file_list_empty_recently_added_filter">فایلی به تازگی اضافه نشده است.</string>
     <string name="file_list_empty_recently_modified">در ۷ روز گذشته هیچ فایلی تغییر نیافته است.</string>
-    <string name="file_list_empty_recently_modified_filter">هیچ پرونده ای در 7 روز گذشته اصلاح نشده است.</string>
     <string name="file_list_empty_search">شاید در پوشه های مختلف باشد؟</string>
     <string name="file_list_empty_shared">فایل‌ها و پوشه‌های به اشتراک گذاشته شده در این قسمت نمایش داده خواهند شد.</string>
     <string name="file_list_empty_shared_headline">هنوز هیچ فایلی به اشتراک نگذشته شده است</string>
-    <string name="file_list_empty_text_photos">تعدادی عکس آپلود کنید یا آپلود خودکار را فعال کنید</string>
-    <string name="file_list_empty_text_photos_filter">بدون عکس</string>
-    <string name="file_list_empty_text_videos">تعدادی ویدئو آپلود کنید یا آپلود خودکار را فعال کنید</string>
-    <string name="file_list_empty_text_videos_filter">بدون ویدیو</string>
     <string name="file_list_folder">پوشه</string>
     <string name="file_list_loading">درحال بارگیری...</string>
     <string name="file_list_no_app_for_file_type">هیچ برنامه ای برای استفاده این نوع فایل تنظیم نشده است.</string>
@@ -463,7 +451,6 @@
     <string name="notification_channel_upload_description">پیشرفت آپلود را نشان می دهد</string>
     <string name="notification_channel_upload_name">کانال اعلان بارگذاری</string>
     <string name="notification_icon">نماد اعلان</string>
-    <string name="notifications_loading_activity">بارگیری اعلان‌ها...</string>
     <string name="notifications_no_results_headline">بدون اعلان</string>
     <string name="notifications_no_results_message">لطفا بعداً دوباره بررسی کنید</string>
     <string name="offline_mode">بدون اتصال به اینترنت</string>
@@ -706,7 +693,6 @@
     <string name="sync_string_files">فایل ها</string>
     <string name="synced_folder_settings_button">دکمه تنظیمات</string>
     <string name="synced_folders_configure_folders">پوشه‌ها را پیکربندی کنید</string>
-    <string name="synced_folders_loading_folders">در حال بارگیری پوشه‌ها...</string>
     <string name="synced_folders_new_info">بارگذاری فوری به طور کامل تغییر یافته ‌است. بارگذاری خودکار خود را طریق منوی اصلی تنظیم دوباره کنید. از بارگذاری جدید و گسترش یافته لذت ببرید.</string>
     <string name="synced_folders_no_results">هیچ پوشه رسانه ای یافت نشد</string>
     <string name="synced_folders_preferences">اولویت‌ها در بارگذاری خودکار</string>

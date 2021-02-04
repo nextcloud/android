@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Zerbitzari bertsio ezezaguna</string>
     <string name="auth_connection_established">Konexioa ezarri da</string>
     <string name="auth_fail_get_user_name">Zure zerbitzaria ez du erabiltzaile ID zuzena itzultzen, mesedez jarri harremanetan administratzaile batekin.</string>
-    <string name="auth_host_address">Zerbitzariaren helbidea</string>
     <string name="auth_host_url">Zerbitzariaren helbidea https://…</string>
     <string name="auth_incorrect_address_title">Zerbitzariaren helbidearen formatu okerra</string>
     <string name="auth_incorrect_path_title">Ez da zerbitzaria aurkitu</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Errorea gatazkaren elkarrizketa-koadroa sortzean!</string>
     <string name="conflict_file_headline">%1$sfitxategi gatazkatsua</string>
     <string name="conflict_message_description">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
-    <string name="conflict_message_headline">Ze fitxategi mantendu nahi dituzu?</string>
     <string name="conflict_new_file">Fitxategi berria</string>
     <string name="contaclist_restore_selected">Leheneratu hautatutako kontaktuak</string>
     <string name="contactlist_account_chooser_title">Aukeratu kontu bat inportatzeko</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Etxea</string>
     <string name="drawer_item_notifications">Jakinarazpenak</string>
     <string name="drawer_item_on_device">Gailuan</string>
-    <string name="drawer_item_photos">Argazkiak</string>
     <string name="drawer_item_recently_added">Berriki gehituak</string>
     <string name="drawer_item_recently_modified">Berriki aldatuak</string>
     <string name="drawer_item_shared">Partekatuta</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Mantendu</string>
     <string name="file_list_empty">Kargatu edukiren bat edo sinkronizatu zure gailuekin.</string>
     <string name="file_list_empty_favorite_headline">Oraindik ez dago ezer gogoko bezala markatuta</string>
-    <string name="file_list_empty_favorites_filter">Zure bilaketak ez du gogoko fitxategirik itzuli.</string>
     <string name="file_list_empty_favorites_filter_list">Gogoko bezala markatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
     <string name="file_list_empty_headline">Ez dago fitxategirik hemen</string>
     <string name="file_list_empty_headline_search">Ez dago emailtzarik karpeta honetan</string>
     <string name="file_list_empty_headline_server_search">Emaitzik ez</string>
-    <string name="file_list_empty_headline_server_search_photos">Argazkirik ez</string>
-    <string name="file_list_empty_headline_server_search_videos">Bideorik ez</string>
     <string name="file_list_empty_moving">Hemen ez dago ezer. Karpeta bat gehi dezakezu.</string>
     <string name="file_list_empty_on_device">Deskargatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
     <string name="file_list_empty_recently_added">Berriki gehitutako fitxategirik ez da aurkitu</string>
-    <string name="file_list_empty_recently_added_filter">Ez da fitxategirik gehitu azkenaldian.</string>
     <string name="file_list_empty_recently_modified">Ez da aurkitu azken 7 egunetan aldatu den fitxategirik</string>
-    <string name="file_list_empty_recently_modified_filter">Ez da fitxategirik aldatu azken 7 egunetan.</string>
     <string name="file_list_empty_search">Agian beste karpeta batean dago?</string>
     <string name="file_list_empty_shared">Partekatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
     <string name="file_list_empty_shared_headline">Oraindik ez dago ezer partekatuta</string>
-    <string name="file_list_empty_text_photos">Kargatu argazki batzuk edo aktiba ezazu automatikoki kargatzea.</string>
-    <string name="file_list_empty_text_photos_filter">Argazkirik ez.</string>
-    <string name="file_list_empty_text_videos">Kargatu bideo batzuk edo aktiba ezazu automatikoki kargatzea.</string>
-    <string name="file_list_empty_text_videos_filter">Bideorik ez.</string>
     <string name="file_list_folder">karpeta</string>
     <string name="file_list_loading">Kargatzen…</string>
     <string name="file_list_no_app_for_file_type">Ez dago aplikaziorik konfiguratuta fitxategi-mota honetarako.</string>
@@ -463,7 +451,6 @@
     <string name="notification_channel_upload_description">Erakutsi igoeraren egoera</string>
     <string name="notification_channel_upload_name">Eguneratu jakinarazpen kanala</string>
     <string name="notification_icon">Jakinarazpen ikonoa</string>
-    <string name="notifications_loading_activity">Jakinarazpenak kargatzen…</string>
     <string name="notifications_no_results_headline">Jakinarazpenik ez</string>
     <string name="notifications_no_results_message">Begiratu beranduago, mesedez.</string>
     <string name="offline_mode">Internet konexiorik ez</string>
@@ -706,7 +693,6 @@
     <string name="sync_string_files">Fitxategiak</string>
     <string name="synced_folder_settings_button">Ezarpenak botoia</string>
     <string name="synced_folders_configure_folders">Konfiguratu karpetak</string>
-    <string name="synced_folders_loading_folders">Karpetak kargatzen...</string>
     <string name="synced_folders_new_info">Berehalako karga erabat aldatu da. Konfiguratu berriro zure karga automatikoa menu nagusitik.\n\nGozatu karga automatiko berri eta hedatuaz. </string>
     <string name="synced_folders_no_results">Ez da multimedia karpetarik aurkitu</string>
     <string name="synced_folders_preferences">Karga automatikoaren hobespenak</string>
