@@ -1,0 +1,2 @@
+remove invalid nc12 tags since the methods are used as fallback in case of errors and don't link to a server version
+Update translations
