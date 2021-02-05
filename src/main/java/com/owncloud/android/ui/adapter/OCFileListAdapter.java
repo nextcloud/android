@@ -459,7 +459,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             }
                         }
 
-                        avatar.setOnClickListener(view -> ocFileListFragmentInterface.showShareDetailView(file));
+                        avatar.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
 
                         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(w, w);
                         layoutParams.setMargins(0, 0, i * margin, 0);
@@ -879,11 +879,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 sharedIconView.setImageResource(R.drawable.ic_unshared);
                 sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_share));
             }
-            if (accountManager.accountOwnsFile(file, user.toPlatformAccount())) {
-                sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
-            } else {
-                sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.showShareDetailView(file));
-            }
+            sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
         } else {
             sharedIconView.setVisibility(View.GONE);
         }
