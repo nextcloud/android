@@ -89,6 +89,7 @@
     <string name="checkbox">チェックボックス</string>
     <string name="choose_local_folder">ローカルフォルダーを選択…</string>
     <string name="choose_remote_folder">リモートフォルダを選択…</string>
+    <string name="choose_which_file">保存するファイルを選択</string>
     <string name="clear_notifications_failed">通知の削除に失敗</string>
     <string name="clear_status_message">メッセージを消去</string>
     <string name="clear_status_message_after">メッセージ有効期限</string>
@@ -144,6 +145,7 @@
     <string name="confirmation_remove_local">ローカルのみ</string>
     <string name="conflict_already_existing_file">既存のファイル</string>
     <string name="conflict_dialog_error">コンフリクトダイアログの作成に失敗しました</string>
+    <string name="conflict_file_headline">%1$sはすでに存在します</string>
     <string name="conflict_message_description">両方のバージョンを選択した場合、ローカルファイルはファイル名に数字が追加されます。</string>
     <string name="conflict_new_file">新しいファイル</string>
     <string name="contaclist_restore_selected">選択したアドレス帳を復元</string>
@@ -169,6 +171,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">現在サポートされていない暗号化されたフォルダにコピー/移動します。</string>
     <string name="copy_to">コピー…</string>
     <string name="could_not_download_image">イメージ全体をダウンロードできませんでした</string>
+    <string name="could_not_retrieve_shares">共有元を取得できませんでした</string>
     <string name="could_not_retrieve_url">URL を取得できませんでした</string>
     <string name="create_dir_fail_msg">フォルダーを作成できません</string>
     <string name="create_new">新規作成</string>
