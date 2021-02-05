@@ -40,7 +40,6 @@
     <string name="auth_account_not_the_same">Uneseni korisnik se ne poklapa sa korisnikom ovog naloga</string>
     <string name="auth_bad_oc_version_title">Nepoznata verzija servera</string>
     <string name="auth_connection_established">Veza uspostavljena</string>
-    <string name="auth_host_address">Adresa servera</string>
     <string name="auth_host_url">Adresa servera https://…</string>
     <string name="auth_incorrect_address_title">Pogrešan format adrese servera</string>
     <string name="auth_incorrect_path_title">Server nije nađen</string>
@@ -190,7 +189,6 @@
     <string name="drawer_item_home">Početak</string>
     <string name="drawer_item_notifications">Obaveštenja</string>
     <string name="drawer_item_on_device">Na uređaju</string>
-    <string name="drawer_item_photos">Slike</string>
     <string name="drawer_item_recently_added">Nedavno dodato</string>
     <string name="drawer_item_recently_modified">Nedavno izmenjeno</string>
     <string name="drawer_item_shared">Deljeno</string>
@@ -243,23 +241,14 @@
     <string name="file_keep">Zadrži</string>
     <string name="file_list_empty">Otpremite neki sadržaj ili sinhronizujte sa vašim uređajima.</string>
     <string name="file_list_empty_favorite_headline">Još ništa nije omiljeno</string>
-    <string name="file_list_empty_favorites_filter">Vaša pretraga nije našla nijedan omiljeni fajl</string>
     <string name="file_list_empty_headline">Ovde nema fajlova</string>
     <string name="file_list_empty_headline_search">Nema rezultata u ovoj fascikli</string>
     <string name="file_list_empty_headline_server_search">Nema rezultata</string>
-    <string name="file_list_empty_headline_server_search_photos">Nema slika</string>
-    <string name="file_list_empty_headline_server_search_videos">Nema video snimaka</string>
     <string name="file_list_empty_moving">Ovde nema ničeg. Možete dodati fasciklu.</string>
     <string name="file_list_empty_recently_added">Nema skoro dodatih fajlova</string>
-    <string name="file_list_empty_recently_added_filter">Nema skoro dodatih fajlova.</string>
     <string name="file_list_empty_recently_modified">Nije nađen nijedan fajl promenjen u poslednjih 7 dana.</string>
-    <string name="file_list_empty_recently_modified_filter">Nijedan fajl nije promenjen u poslednjih 7 dana</string>
     <string name="file_list_empty_search">Možda su u nekoj drugoj fascikli?</string>
     <string name="file_list_empty_shared_headline">Još se ništa ne deli</string>
-    <string name="file_list_empty_text_photos">Otpremite neke slike ili uključite automatsko otpremanje.</string>
-    <string name="file_list_empty_text_photos_filter">Nema slika.</string>
-    <string name="file_list_empty_text_videos">Otpremite neke video zapise ili uključite automatsko otpremanje.</string>
-    <string name="file_list_empty_text_videos_filter">Nema video snimaka.</string>
     <string name="file_list_folder">fascikla</string>
     <string name="file_list_loading">Učitavam…</string>
     <string name="file_list_no_app_for_file_type">Nijedan program ne zna da prepozna ovaj tip fajla.</string>
@@ -394,7 +383,6 @@
     <string name="notification_channel_upload_description">Prikaži napredak otpremanja</string>
     <string name="notification_channel_upload_name">Kanal obaveštenja o otpremanjima</string>
     <string name="notification_icon">Ikonica obaveštenja</string>
-    <string name="notifications_loading_activity">Učitavam obaveštenja…</string>
     <string name="notifications_no_results_headline">Nema obaveštenja</string>
     <string name="notifications_no_results_message">Molimo proverite kasnije.</string>
     <string name="offline_mode">Nema internet konekcije</string>
@@ -607,7 +595,6 @@
     <string name="sync_string_files">Fajlovi</string>
     <string name="synced_folder_settings_button">Dugme postavki</string>
     <string name="synced_folders_configure_folders">Podesite fascikle</string>
-    <string name="synced_folders_loading_folders">Učitavam fascikle…</string>
     <string name="synced_folders_new_info">Brzo otpremanje je skroz redizajnirano. Ponovo podesite Vaša automatska otpremanja iz glavnog menija.\n\nUživajte u novom automatskom otpremanju.</string>
     <string name="synced_folders_no_results">Nisu pronađene multimedijalne fascikle</string>
     <string name="synced_folders_preferences">Podešavanja automatskog otpremanja</string>

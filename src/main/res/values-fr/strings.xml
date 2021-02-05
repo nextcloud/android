@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">La version du serveur n\'est pas reconnue</string>
     <string name="auth_connection_established">Connexion établie</string>
     <string name="auth_fail_get_user_name">Votre serveur ne renvoie pas un identifiant d\'utilisateur correct, veuillez contacter un administrateur.</string>
-    <string name="auth_host_address">Adresse du serveur</string>
     <string name="auth_host_url">Adresse du serveur https://…</string>
     <string name="auth_incorrect_address_title">Format invalide pour l\'adresse du serveur</string>
     <string name="auth_incorrect_path_title">Aucune instance du serveur n\'a été trouvée</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Une erreur qui crée un dialogue conflictuel !</string>
     <string name="conflict_file_headline">Fichier %1$s en conflit</string>
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
-    <string name="conflict_message_headline">Quels fichiers souhaitez-vous conserver ?</string>
     <string name="conflict_new_file">Nouveau fichier</string>
     <string name="contaclist_restore_selected">Restaurer les contacts sélectionnés</string>
     <string name="contactlist_account_chooser_title">Choisissez un compte pour importer</string>
@@ -222,7 +220,6 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_item_home">Accueil</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
-    <string name="drawer_item_photos">Images</string>
     <string name="drawer_item_recently_added">Ajoutés récemment</string>
     <string name="drawer_item_recently_modified">Modifiés récemment</string>
     <string name="drawer_item_shared">Partagé</string>
@@ -294,26 +291,17 @@ Attention la suppression est irréversible.</string>
     <string name="file_keep">Conserver</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>
     <string name="file_list_empty_favorite_headline">Aucun favori</string>
-    <string name="file_list_empty_favorites_filter">Aucun fichier favori trouvé pour votre recherche.</string>
     <string name="file_list_empty_favorites_filter_list">Les fichiers et dossiers ajoutés à vos favoris seront affichés ici.</string>
     <string name="file_list_empty_headline">Aucun fichier</string>
     <string name="file_list_empty_headline_search">Aucun résultat dans ce dossier</string>
     <string name="file_list_empty_headline_server_search">Aucun résultat</string>
-    <string name="file_list_empty_headline_server_search_photos">Aucune photo</string>
-    <string name="file_list_empty_headline_server_search_videos">Aucune vidéo</string>
     <string name="file_list_empty_moving">Il n\'y a rien ici. Vous pouvez ajouter un dossier.</string>
     <string name="file_list_empty_on_device">Les fichiers/dossiers téléchargés apparaîtront ici.</string>
     <string name="file_list_empty_recently_added">Aucun fichier ajouté récemment</string>
-    <string name="file_list_empty_recently_added_filter">Aucun fichier ajouté récemment.</string>
     <string name="file_list_empty_recently_modified">Aucun fichier modifié n\'a été trouvé dans les 7 derniers jours</string>
-    <string name="file_list_empty_recently_modified_filter">Aucun fichier modifié au cours des 7 derniers jours.</string>
     <string name="file_list_empty_search">Il se trouve peut-être dans un autre dossier ?</string>
     <string name="file_list_empty_shared">Les fichiers et dossiers que vous partagez apparaîtront ici.</string>
     <string name="file_list_empty_shared_headline">Aucun partage</string>
-    <string name="file_list_empty_text_photos">Envoyez des photos ou activez l\'envoi automatique.</string>
-    <string name="file_list_empty_text_photos_filter">Aucune photo.</string>
-    <string name="file_list_empty_text_videos">Envoyez des vidéos ou activez l\'envoi automatique.</string>
-    <string name="file_list_empty_text_videos_filter">Aucune vidéo.</string>
     <string name="file_list_folder">dossier</string>
     <string name="file_list_loading">Chargement…</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier.</string>
@@ -465,7 +453,6 @@ Attention la suppression est irréversible.</string>
     <string name="notification_channel_upload_description">Afficher l\'avancement de l\'envoi</string>
     <string name="notification_channel_upload_name">Canal de notification des envois</string>
     <string name="notification_icon">Icône de notification</string>
-    <string name="notifications_loading_activity">Chargement des notifications…</string>
     <string name="notifications_no_results_headline">Aucune notification</string>
     <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
     <string name="offline_mode">Aucune connexion Internet</string>
@@ -708,7 +695,6 @@ Attention la suppression est irréversible.</string>
     <string name="sync_string_files">Fichiers</string>
     <string name="synced_folder_settings_button">Bouton des paramètres</string>
     <string name="synced_folders_configure_folders">Configurer les dossiers</string>
-    <string name="synced_folders_loading_folders">Chargement des dossiers…</string>
     <string name="synced_folders_new_info">L\'envoi immédiat a été complètement refondu. Merci de reconfigurer vos envois automatiques depuis le Menu principal.\n\nProfitez des capacités nouvelles et étendues des envois automatiques.</string>
     <string name="synced_folders_no_results">Aucun dossier média trouvé</string>
     <string name="synced_folders_preferences">Préférences d\'envois automatiques</string>

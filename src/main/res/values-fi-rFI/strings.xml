@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Tuntematon palvelimen versio</string>
     <string name="auth_connection_established">Yhteys muodostettu</string>
     <string name="auth_fail_get_user_name">Palvelin ei palauta oikeaa käyttäjätunnusta, ota yhteys ylläpitoon.</string>
-    <string name="auth_host_address">Palvelimen osoite</string>
     <string name="auth_host_url">Palvelimen osoite https://…</string>
     <string name="auth_incorrect_address_title">Palvelimen osoitteen muoto on virheellinen</string>
     <string name="auth_incorrect_path_title">Palvelinta ei löytynyt</string>
@@ -146,7 +145,6 @@
     <string name="conflict_already_existing_file">Jo olemassa olevat tiedostot</string>
     <string name="conflict_dialog_error">Virhe luotaessa konflikti tietoja!</string>
     <string name="conflict_message_description">Jos valitset molemmat versiot, paikallisen tiedoston nimeen lisätään numero.</string>
-    <string name="conflict_message_headline">Mitkä tiedostot haluat säilyttää?</string>
     <string name="conflict_new_file">Uusi tiedosto</string>
     <string name="contaclist_restore_selected">Palauta valitut yhteystiedot</string>
     <string name="contactlist_account_chooser_title">Valitse tuotava tili</string>
@@ -217,7 +215,6 @@
     <string name="drawer_item_home">Koti</string>
     <string name="drawer_item_notifications">Ilmoitukset</string>
     <string name="drawer_item_on_device">Laitteessa</string>
-    <string name="drawer_item_photos">Kuvat</string>
     <string name="drawer_item_recently_added">Äskettäin lisätyt</string>
     <string name="drawer_item_recently_modified">Äskettäin muokatut</string>
     <string name="drawer_item_shared">Jaot</string>
@@ -289,26 +286,17 @@
     <string name="file_keep">Pidä</string>
     <string name="file_list_empty">Lähetä sisältöä tai synkronisoi laitteidesi kanssa</string>
     <string name="file_list_empty_favorite_headline">Ei vielä suosikkeja</string>
-    <string name="file_list_empty_favorites_filter">Hakusi ei palauttanut suosikkitiedostoja.</string>
     <string name="file_list_empty_favorites_filter_list">Suosikeiksi merkitsemäsi tiedostot ja kansiot näkyvät tässä.</string>
     <string name="file_list_empty_headline">Ei tiedostoja</string>
     <string name="file_list_empty_headline_search">Ei kohteita tässä kansiossa</string>
     <string name="file_list_empty_headline_server_search">Ei tuloksia</string>
-    <string name="file_list_empty_headline_server_search_photos">Ei kuvia</string>
-    <string name="file_list_empty_headline_server_search_videos">Ei videoita</string>
     <string name="file_list_empty_moving">Täällä ei ole mitään. Voit lisätä kansion.</string>
     <string name="file_list_empty_on_device">Ladatut tiedostot ja kansiot näkyvät täällä.</string>
     <string name="file_list_empty_recently_added">Äskettäin lisättyja tiedostoja ei löytynyt</string>
-    <string name="file_list_empty_recently_added_filter">Ei äskettäin lisättyjä tiedostoja.</string>
     <string name="file_list_empty_recently_modified">Viimeisen 7 päivän aikana muokattuja tiedostoja ei löytynyt</string>
-    <string name="file_list_empty_recently_modified_filter">Ei viimeisen 7 päivän aikana muokattuja tiedostoja.</string>
     <string name="file_list_empty_search">Ehkä se on toisessa kansiossa?</string>
     <string name="file_list_empty_shared">Jakamasi tiedostot ja kansiot näkyvät tässä.</string>
     <string name="file_list_empty_shared_headline">Ei mitään jaettua</string>
-    <string name="file_list_empty_text_photos">Lähetä kuvia tai aktivoi automaattinen lähetys.</string>
-    <string name="file_list_empty_text_photos_filter">Ei kuvia.</string>
-    <string name="file_list_empty_text_videos">Lähetä videoita tai aktivoi automaattinen lähetys.</string>
-    <string name="file_list_empty_text_videos_filter">Ei videoita.</string>
     <string name="file_list_folder">kansio</string>
     <string name="file_list_loading">Ladataan…</string>
     <string name="file_list_no_app_for_file_type">Tälle tiedostotyypille ei löytynyt sovellusta.</string>
@@ -456,7 +444,6 @@
     <string name="notification_channel_upload_description">Näyttää lähetyksen edistymisen</string>
     <string name="notification_channel_upload_name">Lähetysten ilmoituskanava</string>
     <string name="notification_icon">Ilmoituksen kuvake</string>
-    <string name="notifications_loading_activity">Ladataan ilmoituksia…</string>
     <string name="notifications_no_results_headline">Ei ilmoituksia</string>
     <string name="notifications_no_results_message">Katso myöhemmin uudestaan.</string>
     <string name="offline_mode">Ei internetyhteyttä</string>
@@ -695,7 +682,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="sync_string_files">Tiedostot</string>
     <string name="synced_folder_settings_button">Asetukset-painike</string>
     <string name="synced_folders_configure_folders">Määritä kansiot</string>
-    <string name="synced_folders_loading_folders">Ladataan kansioita…</string>
     <string name="synced_folders_new_info">Heti lähetettävien tiedostojen lähetys on uudistettu täysin. Muuta automaattisen lähetyksen asetuksia päävalikossa vastaamaan nykyistä toimintaa.\n\nNauti uudesta ja monipuolisemmasta toiminnosta.</string>
     <string name="synced_folders_no_results">Mediakansioita ei löytynyt</string>
     <string name="synced_folders_preferences">Automaattisen lähetyksen asetukset</string>

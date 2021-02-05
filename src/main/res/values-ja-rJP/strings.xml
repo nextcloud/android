@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">認識できないサーバーのバージョンです</string>
     <string name="auth_connection_established">接続が確立しました</string>
     <string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返していない場合、管理者に連絡してください。</string>
-    <string name="auth_host_address">サーバーアドレス</string>
     <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_incorrect_address_title">サーバーアドレスの書式が違います</string>
     <string name="auth_incorrect_path_title">サーバーが見つかりません</string>
@@ -146,7 +145,6 @@
     <string name="conflict_already_existing_file">既存のファイル</string>
     <string name="conflict_dialog_error">コンフリクトダイアログの作成に失敗しました</string>
     <string name="conflict_message_description">両方のバージョンを選択した場合、ローカルファイルはファイル名に数字が追加されます。</string>
-    <string name="conflict_message_headline">どちらのファイルを保持しますか？</string>
     <string name="conflict_new_file">新しいファイル</string>
     <string name="contaclist_restore_selected">選択したアドレス帳を復元</string>
     <string name="contactlist_account_chooser_title">インポートするアカウントを選択</string>
@@ -216,7 +214,6 @@
     <string name="drawer_item_home">ホーム</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">デバイス上</string>
-    <string name="drawer_item_photos">写真</string>
     <string name="drawer_item_recently_added">最近追加</string>
     <string name="drawer_item_recently_modified">最近更新</string>
     <string name="drawer_item_shared">共有中</string>
@@ -288,26 +285,17 @@
     <string name="file_keep">保持</string>
     <string name="file_list_empty">コンテンツをアップロードするか、デバイスと同期してください。</string>
     <string name="file_list_empty_favorite_headline">まだお気に入りに登録されていません</string>
-    <string name="file_list_empty_favorites_filter">お気に入りのファイルが見つかりませんでした。</string>
     <string name="file_list_empty_favorites_filter_list">お気に入りに登録されたファイルやフォルダーがここに表示されます。</string>
     <string name="file_list_empty_headline">ここにファイルはありません</string>
     <string name="file_list_empty_headline_search">このフォルダーに該当はありません</string>
     <string name="file_list_empty_headline_server_search">該当なし</string>
-    <string name="file_list_empty_headline_server_search_photos">写真なし</string>
-    <string name="file_list_empty_headline_server_search_videos">ビデオなし</string>
     <string name="file_list_empty_moving">何もありません。フォルダーを追加してください。</string>
     <string name="file_list_empty_on_device">ダウンロードされたファイルやフォルダーがここに表示されます。</string>
     <string name="file_list_empty_recently_added">最近追加されたファイルが見つかりません</string>
-    <string name="file_list_empty_recently_added_filter">最近追加されたファイルはありません。</string>
     <string name="file_list_empty_recently_modified">ここ7日間に更新されたファイルが見つかりません</string>
-    <string name="file_list_empty_recently_modified_filter">ここ7日間に更新されたファイルはありません。</string>
     <string name="file_list_empty_search">別のフォルダーにありませんか？</string>
     <string name="file_list_empty_shared">共有したファイルやフォルダーがここに表示されます。</string>
     <string name="file_list_empty_shared_headline">まだ何も共有されていません</string>
-    <string name="file_list_empty_text_photos">写真をアップロードするか、自動アップロードを有効にしてください。</string>
-    <string name="file_list_empty_text_photos_filter">写真はありません。</string>
-    <string name="file_list_empty_text_videos">動画をアップロードするか、自動アップロードを有効にしてください。</string>
-    <string name="file_list_empty_text_videos_filter">ビデオはありません。</string>
     <string name="file_list_folder">フォルダー</string>
     <string name="file_list_loading">読み込み中…</string>
     <string name="file_list_no_app_for_file_type">このファイル形式に設定されたアプリがありません。</string>
@@ -456,7 +444,6 @@
     <string name="notification_channel_upload_description">アップロードの進行状況を表示</string>
     <string name="notification_channel_upload_name">アップロード通知チャンネル</string>
     <string name="notification_icon">通知アイコン</string>
-    <string name="notifications_loading_activity">通知の読み込み中…</string>
     <string name="notifications_no_results_headline">通知なし</string>
     <string name="notifications_no_results_message">後で確認してください。</string>
     <string name="offline_mode">インターネットに接続されていません</string>
@@ -692,7 +679,6 @@
     <string name="sync_string_files">ファイル</string>
     <string name="synced_folder_settings_button">設定ボタン</string>
     <string name="synced_folders_configure_folders">フォルダの設定</string>
-    <string name="synced_folders_loading_folders">フォルダーの読み込み中…</string>
     <string name="synced_folders_new_info">インスタントアップロードは完全に改訂されました。 メインメニューから自動アップロードを再設定してください。\n\n新しく拡張された自動アップロードをお楽しみください。</string>
     <string name="synced_folders_no_results">メディアフォルダーが見つかりません</string>
     <string name="synced_folders_preferences">自動アップロード設定</string>

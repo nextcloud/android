@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Неизвестная версия сервера</string>
     <string name="auth_connection_established">Соединение установлено</string>
     <string name="auth_fail_get_user_name">Сервер не вернул верный пользовательский идентификатор, свяжитесь с администратором сервера.</string>
-    <string name="auth_host_address">Адрес сервера</string>
     <string name="auth_host_url">Адрес сервера https://…</string>
     <string name="auth_incorrect_address_title">Неверный формат адреса сервера</string>
     <string name="auth_incorrect_path_title">Сервер не найден</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Не удалось создать диалоговое окно разрешения конфликта синхронизации.</string>
     <string name="conflict_file_headline">Конфликт версий файла «%1$s»</string>
     <string name="conflict_message_description">Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
-    <string name="conflict_message_headline">Какие файлы вы хотите сохранить?</string>
     <string name="conflict_new_file">Новый файл</string>
     <string name="contaclist_restore_selected">Восстановить выбранные контакты</string>
     <string name="contactlist_account_chooser_title">Выберите аккаунт для импорта</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Главная</string>
     <string name="drawer_item_notifications">Уведомления</string>
     <string name="drawer_item_on_device">На устройстве</string>
-    <string name="drawer_item_photos">Фотографии</string>
     <string name="drawer_item_recently_added">Недавно добавленные</string>
     <string name="drawer_item_recently_modified">Недавно изменённые</string>
     <string name="drawer_item_shared">Опубликованное</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Сохранить</string>
     <string name="file_list_empty">Добавьте что-нибудь или синхронизируйте со своими устройствами!</string>
     <string name="file_list_empty_favorite_headline">В избранное ничего не добавлено </string>
-    <string name="file_list_empty_favorites_filter">По запросу избранных файлов не найдено.</string>
     <string name="file_list_empty_favorites_filter_list">Здесь будут показаны файлы и папки, добавленные в избранное.</string>
     <string name="file_list_empty_headline">Здесь нет файлов</string>
     <string name="file_list_empty_headline_search">В этом каталоге результатов не найдено</string>
     <string name="file_list_empty_headline_server_search">Результаты отсутствуют</string>
-    <string name="file_list_empty_headline_server_search_photos">Фотографии отсутствуют</string>
-    <string name="file_list_empty_headline_server_search_videos">Видео отсутствуют</string>
     <string name="file_list_empty_moving">Здесь ничего нет. Вы можете создать каталог!</string>
     <string name="file_list_empty_on_device">Здесь будут показаны загруженные файлы и папки</string>
     <string name="file_list_empty_recently_added">Не найдено файлов, добавленных недавно</string>
-    <string name="file_list_empty_recently_added_filter">Недавно добавленных файлы отсутствуют.</string>
     <string name="file_list_empty_recently_modified">Изменённых за последние 7 дней файлов не найдено</string>
-    <string name="file_list_empty_recently_modified_filter">Отсутствуют файлы, изменённые за последние 7 дней.</string>
     <string name="file_list_empty_search">Искать в другом каталоге?</string>
     <string name="file_list_empty_shared">Здесь будут показаны опубликованные вами папки и файлы.</string>
     <string name="file_list_empty_shared_headline">Вы ничем не поделились</string>
-    <string name="file_list_empty_text_photos">Добавьте фотографии или включите автоматическую передачу файлов на сервер!</string>
-    <string name="file_list_empty_text_photos_filter">Фотографии отсутствуют.</string>
-    <string name="file_list_empty_text_videos">Добавьте видео или включите автоматическую передачу файлов на сервер!</string>
-    <string name="file_list_empty_text_videos_filter">Файлы видео отсутствуют.</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_loading">Получение данных…</string>
     <string name="file_list_no_app_for_file_type">Не найдено приложение для открытия этого типа файлов.</string>
@@ -461,7 +449,6 @@
     <string name="notification_channel_upload_description">Ход выполнения передачи файлов на сервер</string>
     <string name="notification_channel_upload_name">Информация о передаче файлов</string>
     <string name="notification_icon">Значок уведомления</string>
-    <string name="notifications_loading_activity">Получение уведомлений…</string>
     <string name="notifications_no_results_headline">Уведомлений нет</string>
     <string name="notifications_no_results_message">Проверьте позже.</string>
     <string name="offline_mode">Отсутствует подключение к Интернет</string>
@@ -703,7 +690,6 @@
     <string name="sync_string_files">Файлы</string>
     <string name="synced_folder_settings_button">Кнопка настроек</string>
     <string name="synced_folders_configure_folders">Настроить каталоги</string>
-    <string name="synced_folders_loading_folders">Получение списка папок…</string>
     <string name="synced_folders_new_info">Моментальная загрузка была полностью переделана. Используйте главное меню для перенастройки автоматической загрузки. Извините за неудобства.\n\nВам понравятся новые расширенные возможности!</string>
     <string name="synced_folders_no_results">Каталоги с медиафайлами не найдены</string>
     <string name="synced_folders_preferences">Настройки автозагрузки</string>

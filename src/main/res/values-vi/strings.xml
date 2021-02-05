@@ -34,7 +34,6 @@
     <string name="auth_account_not_the_same">Tên người dùng đã nhập không đúng với tên người dùng của tài khoản này</string>
     <string name="auth_bad_oc_version_title">Không chấp nhận phiên bản máy chủ</string>
     <string name="auth_connection_established">Kết nối đã thiết lập</string>
-    <string name="auth_host_address">Địa chỉ máy chủ</string>
     <string name="auth_host_url">Địa chỉ máy chủ https://…</string>
     <string name="auth_incorrect_address_title">Sai định dạng địa chỉ máy chủ</string>
     <string name="auth_no_net_conn_title">Không có kết nối mạng</string>
@@ -79,7 +78,6 @@
     <string name="confirmation_remove_file_alert">Bạn thực sự muốn xóa %1$s?</string>
     <string name="confirmation_remove_files_alert">Bạn thực sự muốn xóa mục lựa chọn này?</string>
     <string name="confirmation_remove_local">Chỉ cục bộ</string>
-    <string name="conflict_message_headline">Bạn muốn tiếp tục với những tập tin nào?</string>
     <string name="contactlist_item_icon">Sử dụng biểu tượng cho danh mục liên hệ</string>
     <string name="contacts_preference_backup_never">không thay đổi</string>
     <string name="contacts_preference_choose_date">Chọn ngày</string>
@@ -127,7 +125,6 @@
     <string name="drawer_item_home">Trang nhất</string>
     <string name="drawer_item_notifications">Thông báo</string>
     <string name="drawer_item_on_device">Trên thiết bị</string>
-    <string name="drawer_item_photos">Ảnh</string>
     <string name="drawer_item_recently_added">Mới thêm</string>
     <string name="drawer_item_recently_modified">Mới sửa</string>
     <string name="drawer_item_shared">Chia sẻ</string>
@@ -167,23 +164,14 @@
     <string name="file_keep">Giữ</string>
     <string name="file_list_empty">Tải lên một số nội dung hoặc đồng bộ với thiết bị của bạn.</string>
     <string name="file_list_empty_favorite_headline">Không có mục ưa thích nào</string>
-    <string name="file_list_empty_favorites_filter">Kết quả tìm kiếm không trả về các tệp ưa thích.</string>
     <string name="file_list_empty_headline">Không có tệp nào</string>
     <string name="file_list_empty_headline_search">Không có kết quả trong thư mục này</string>
     <string name="file_list_empty_headline_server_search">Không có kết quả</string>
-    <string name="file_list_empty_headline_server_search_photos">Không có hình ảnh nào cả</string>
-    <string name="file_list_empty_headline_server_search_videos">Không có video nào cả</string>
     <string name="file_list_empty_moving">Không có gì ở đây. Bạn có thể thêm một thư mục</string>
     <string name="file_list_empty_recently_added">Không tìm thấy tệp nào được thêm vào gần đây</string>
-    <string name="file_list_empty_recently_added_filter">Không tệp nào được thêm vào gần đây</string>
     <string name="file_list_empty_recently_modified">Không tìm thấy tệp nào được sửa đổi trong 7 ngày qua</string>
-    <string name="file_list_empty_recently_modified_filter">Không tệp nào được sửa đổi trong 7 ngày qua</string>
     <string name="file_list_empty_search">Có lẽ nó trong một thư mục khác?</string>
     <string name="file_list_empty_shared_headline">Chưa có gì được chia sẻ</string>
-    <string name="file_list_empty_text_photos">Tải lên một số ảnh hoặc kích hoạt tự động tải lên.</string>
-    <string name="file_list_empty_text_photos_filter">Không có hình ảnh</string>
-    <string name="file_list_empty_text_videos">Tải lên vài đoạn phim hoặc kích hoạt tự dộng tải lên</string>
-    <string name="file_list_empty_text_videos_filter">Không có đoạn phim nào.</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_loading">Đang tải…</string>
     <string name="file_list_no_app_for_file_type">Không có ứng dụng nào được thiết lập để xử lý loại tệp này.</string>
@@ -269,7 +257,6 @@
     <string name="notification_channel_upload_description">Hiện tiến trình tải lên</string>
     <string name="notification_channel_upload_name">Thông báo các kênh tải lên</string>
     <string name="notification_icon">Biểu tượng thông báo</string>
-    <string name="notifications_loading_activity">Đang tải thông báo</string>
     <string name="notifications_no_results_headline">Không có thông báo</string>
     <string name="notifications_no_results_message">Hãy kiểm tra lại sau.</string>
     <string name="offline_mode">Không có kết nối Internet</string>
@@ -398,7 +385,6 @@
     <string name="sync_string_files">Tập tin</string>
     <string name="synced_folder_settings_button">Nút thiết đặt</string>
     <string name="synced_folders_configure_folders">Cấu hình thư mục</string>
-    <string name="synced_folders_loading_folders">Đang tải thư mục</string>
     <string name="synced_folders_type">Loại</string>
     <string name="synced_icon">Đã đồng bộ</string>
     <string name="tags">Thẻ</string>

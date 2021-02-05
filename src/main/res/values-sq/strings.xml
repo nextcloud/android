@@ -41,7 +41,6 @@
     <string name="auth_account_not_the_same">Përdoruesi i dhënë s\’përputhet me përdoruesin e kësaj llogarie</string>
     <string name="auth_bad_oc_version_title">Version i papranuar serveri</string>
     <string name="auth_connection_established">Lidhja u vendos</string>
-    <string name="auth_host_address">Adresë serveri</string>
     <string name="auth_host_url">Adresa e serverit https://…</string>
     <string name="auth_incorrect_address_title">Format i gabuar i adresës së serverit</string>
     <string name="auth_incorrect_path_title">S’u gjet dot instancë serveri</string>
@@ -135,7 +134,6 @@
     <string name="conflict_already_existing_file">Skedar ekzistues</string>
     <string name="conflict_dialog_error">Gabim në krijimin e dialogut për konflikte!</string>
     <string name="conflict_message_description">Nëse zgjidhni të dy versionet, skedari lokal do të ketë një numër të bashkangjitur në emër</string>
-    <string name="conflict_message_headline">Cilat kartela doni të mbani?</string>
     <string name="conflict_new_file">Skedë e re</string>
     <string name="contaclist_restore_selected">Rikthe kontaktet e zgjedhura</string>
     <string name="contactlist_account_chooser_title">Zgjidh llogarinë që do të importohet</string>
@@ -201,7 +199,6 @@
     <string name="drawer_item_home">Kryefaqja</string>
     <string name="drawer_item_notifications">Njoftime</string>
     <string name="drawer_item_on_device">Në pajisjen</string>
-    <string name="drawer_item_photos">Fotot</string>
     <string name="drawer_item_recently_added">Shtuar së fundmi</string>
     <string name="drawer_item_recently_modified">Modifikuar së fundmi</string>
     <string name="drawer_item_shared">U nda</string>
@@ -267,23 +264,14 @@
     <string name="file_keep">Mbaje</string>
     <string name="file_list_empty">Ngarko disa të dhëna ose sinkronizo me pajisjet e tua!</string>
     <string name="file_list_empty_favorite_headline">Asgjë e preferuar akoma</string>
-    <string name="file_list_empty_favorites_filter">Kërkimi juaj nuk gjeti asnjë skedar të preferuar</string>
     <string name="file_list_empty_headline">Këtu nuk ka asnjë skedar</string>
     <string name="file_list_empty_headline_search">Nuk ka rezultate në këtë dosje</string>
     <string name="file_list_empty_headline_server_search">Asnjë rezultat</string>
-    <string name="file_list_empty_headline_server_search_photos">Asnjë foto</string>
-    <string name="file_list_empty_headline_server_search_videos">Asnjë video</string>
     <string name="file_list_empty_moving">S’ka gjë këtu. Mund të shtoni një dosje.</string>
     <string name="file_list_empty_recently_added">Nuk u gjet asnjë skedar i shtuar së fundmi</string>
-    <string name="file_list_empty_recently_added_filter">Nuk ka skedarët të ngarkuar së fundmi.</string>
     <string name="file_list_empty_recently_modified">Nuk u gjetë asnjë skedar i modifikuar 7 ditët e fundit</string>
-    <string name="file_list_empty_recently_modified_filter">Nuk u gjetë asnje skedar i modifikuar 7 ditët e fundit.</string>
     <string name="file_list_empty_search">Përpiquni të shikoni në një dosje tjetër</string>
     <string name="file_list_empty_shared_headline">Asgjë e shpërndarë akoma</string>
-    <string name="file_list_empty_text_photos">Ngarko disa foto ose aktivizo ngarkimin direkt.</string>
-    <string name="file_list_empty_text_photos_filter">Nuk ka foto.</string>
-    <string name="file_list_empty_text_videos">Ngarkoni disa video ose aktivizoni ngarkimin direkt.</string>
-    <string name="file_list_empty_text_videos_filter">Nuk ka video.</string>
     <string name="file_list_folder">dosje</string>
     <string name="file_list_loading">Duke u ngarkuar…</string>
     <string name="file_list_no_app_for_file_type">Nuk ka asnjë konfigurim për të trajtuar këtë tip skedari</string>
@@ -425,7 +413,6 @@
     <string name="notification_channel_upload_description">Tregon progresin e ngarkimit</string>
     <string name="notification_channel_upload_name">Ngarko kanalin e njoftimeve</string>
     <string name="notification_icon">Ikona e njoftimit</string>
-    <string name="notifications_loading_activity">Duke ngarkuar njoftimet…</string>
     <string name="notifications_no_results_headline">Asnjë njofim</string>
     <string name="notifications_no_results_message">Ju lutemi kontrolloni përsëri më vonë.</string>
     <string name="offline_mode">Asnjë lidhje interneti</string>
@@ -645,7 +632,6 @@
     <string name="sync_string_files">Kartela</string>
     <string name="synced_folder_settings_button">Butoni i konfigurimeve</string>
     <string name="synced_folders_configure_folders">Konfiguroni dosjet</string>
-    <string name="synced_folders_loading_folders">Duke ngarkuar dosjet…</string>
     <string name="synced_folders_new_info">Ngarkimi i menjëhershëm është ngritur plotësisht. Rii-konfiguroni ngarkimet tuaja automatike  brenda menusë kryesore.\n\nShijoni aftësitë e reja dhe të zgjeruara të ngarkimit automatik.</string>
     <string name="synced_folders_no_results">Nuk u gjet asnjëdosje e medias </string>
     <string name="synced_folders_preferences">Parapëlqimet për ngarkimin automatik</string>

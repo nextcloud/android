@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Inačica poslužitelja nije prepoznata</string>
     <string name="auth_connection_established">Veza je uspostavljena</string>
     <string name="auth_fail_get_user_name">Vaš poslužitelj ne vraća ispravan ID korisnika, obratite se administratoru.</string>
-    <string name="auth_host_address">Adresa poslužitelja</string>
     <string name="auth_host_url">Adresa poslužitelja https://…</string>
     <string name="auth_incorrect_address_title">Pogrešan oblik adrese poslužitelja</string>
     <string name="auth_incorrect_path_title">Poslužitelj nije pronađen</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Pogreška pri stvaranju dijaloškog okvira o nepodudaranju!</string>
     <string name="conflict_file_headline">Nepodudarna datoteka %1$s</string>
     <string name="conflict_message_description">Ako odaberete obje inačice, lokalna će datoteka uz naziv imati i broj.</string>
-    <string name="conflict_message_headline">Koje datoteke želite zadržati?</string>
     <string name="conflict_new_file">Nova datoteka</string>
     <string name="contaclist_restore_selected">Vraćanje odabranih kontakata</string>
     <string name="contactlist_account_chooser_title">Odaberite račun za uvoz</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Početna</string>
     <string name="drawer_item_notifications">Obavijesti</string>
     <string name="drawer_item_on_device">Na uređaju</string>
-    <string name="drawer_item_photos">Fotografije</string>
     <string name="drawer_item_recently_added">Nedavno dodano</string>
     <string name="drawer_item_recently_modified">Nedavno izmijenjeno</string>
     <string name="drawer_item_shared">Dijeljeno</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Zadrži</string>
     <string name="file_list_empty">Otpremite neki sadržaj ili sinkronizirajte sa svojim uređajima.</string>
     <string name="file_list_empty_favorite_headline">Nema spremljenih favorita</string>
-    <string name="file_list_empty_favorites_filter">Pretraživanje nije pronašlo datoteke označene kao favoriti.</string>
     <string name="file_list_empty_favorites_filter_list">Ovdje će se prikazati datoteke i mape koje označite kao favorite.</string>
     <string name="file_list_empty_headline">Ovdje nema datoteka</string>
     <string name="file_list_empty_headline_search">Nema rezultata u ovoj mapi</string>
     <string name="file_list_empty_headline_server_search">Nema rezultata</string>
-    <string name="file_list_empty_headline_server_search_photos">Nema fotografija</string>
-    <string name="file_list_empty_headline_server_search_videos">Nema videozapisa</string>
     <string name="file_list_empty_moving">Ovdje nema ničega. Možete dodati mapu.</string>
     <string name="file_list_empty_on_device">Ovdje će se prikazati preuzete datoteke i mape.</string>
     <string name="file_list_empty_recently_added">Nisu pronađene nedavno dodane datoteke</string>
-    <string name="file_list_empty_recently_added_filter">Nema nedavno dodanih datoteka.</string>
     <string name="file_list_empty_recently_modified">Nije pronađena nijedna datoteka izmijenjena u posljednjih 7 dana</string>
-    <string name="file_list_empty_recently_modified_filter">Nijedna datoteka nije izmijenjena u zadnjih 7 dana.</string>
     <string name="file_list_empty_search">Možda je u drugoj mapi?</string>
     <string name="file_list_empty_shared">Ovdje će se prikazati datoteke i mape koje dijelite.</string>
     <string name="file_list_empty_shared_headline">Još ništa nije dijeljeno</string>
-    <string name="file_list_empty_text_photos">Otpremite fotografije ili aktivirajte automatsko otpremanje.</string>
-    <string name="file_list_empty_text_photos_filter">Nema fotografija.</string>
-    <string name="file_list_empty_text_videos">Otpremite videozapise ili aktivirajte automatsko otpremanje.</string>
-    <string name="file_list_empty_text_videos_filter">Nema videozapisa.</string>
     <string name="file_list_folder">mapa</string>
     <string name="file_list_loading">Učitavanje…</string>
     <string name="file_list_no_app_for_file_type">Nije postavljena nijedna aplikacija za obrađivanje ove vrste datoteka.</string>
@@ -461,7 +449,6 @@
     <string name="notification_channel_upload_description">Prikazuje napredak otpreme</string>
     <string name="notification_channel_upload_name">Kanal za obavijesti o otpremanjima</string>
     <string name="notification_icon">Ikona obavijesti</string>
-    <string name="notifications_loading_activity">Učitavanje obavijesti...</string>
     <string name="notifications_no_results_headline">Nema obavijesti</string>
     <string name="notifications_no_results_message">Provjerite kasnije.</string>
     <string name="offline_mode">Nema internetske veze</string>
@@ -703,7 +690,6 @@
     <string name="sync_string_files">Datoteke</string>
     <string name="synced_folder_settings_button">Gumb postavki</string>
     <string name="synced_folders_configure_folders">Konfiguriraj mape</string>
-    <string name="synced_folders_loading_folders">Učitavanje mapa...</string>
     <string name="synced_folders_new_info">Trenutačno otpremanje datoteka potpuno je obnovljeno. Ponovno konfigurirajte automatsko otpremanje iz glavnog izbornika.\n\nUživajte u novoj i proširenoj značajci automatskog otpremanja datoteka.</string>
     <string name="synced_folders_no_results">Nije pronađena nijedna medijska mapa</string>
     <string name="synced_folders_preferences">Preferencije za automatsko otpremanje</string>
