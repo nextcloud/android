@@ -738,7 +738,7 @@
     <string name="upload_file_dialog_filetype_internet_shortcut">Skrót Internetowy plik(%s)</string>
     <string name="upload_file_dialog_filetype_snippet_text">Fragment tekstu plik(.txt)</string>
     <string name="upload_file_dialog_title">Wprowadź nazwę i typ pliku do wysłania</string>
-    <string name="upload_files">Wyślij plik</string>
+    <string name="upload_files">Wyślij pliki</string>
     <string name="upload_item_action_button">Przycisk wysyłania elementu</string>
     <string name="upload_list_delete">Usuń</string>
     <string name="upload_list_empty_headline">Brak wysłanych plików</string>
