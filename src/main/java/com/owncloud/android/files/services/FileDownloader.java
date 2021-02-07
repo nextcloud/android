@@ -73,6 +73,7 @@ import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 import java.util.Vector;
 
 import javax.inject.Inject;
@@ -419,6 +420,7 @@ public class FileDownloader extends Service
                 }
             }
             Log_OC.d(TAG, "Stopping after command with id " + msg.arg1);
+            mService.mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
             mService.stopForeground(true);
             mService.stopSelf(msg.arg1);
         }
@@ -618,11 +620,11 @@ public class FileDownloader extends Service
             mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         }
 
-        if (mNotificationManager != null) {
-            mNotificationManager.cancel(R.string.downloader_download_in_progress_ticker);
-        }
-
         if (!downloadResult.isCancelled()) {
+            if(downloadResult.isSuccess()){
+                // Dont show notification except an error has occured.
+                return;
+            }
             int tickerId = downloadResult.isSuccess() ?
                     R.string.downloader_download_succeeded_ticker : R.string.downloader_download_failed_ticker;
 
@@ -651,7 +653,7 @@ public class FileDownloader extends Service
                     download, getResources()));
 
             if (mNotificationManager != null) {
-                mNotificationManager.notify(tickerId, mNotificationBuilder.build());
+                mNotificationManager.notify((new Random()).nextInt(), mNotificationBuilder.build());
 
                 // Remove success notification
                 if (downloadResult.isSuccess()) {

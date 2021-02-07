@@ -84,6 +84,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -751,8 +752,6 @@ public class FileUploader extends Service
             mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         }
 
-        mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
-
         // Only notify if the upload fails
         if (!uploadResult.isCancelled() &&
             !uploadResult.isSuccess() &&
@@ -826,7 +825,10 @@ public class FileUploader extends Service
             }
 
             mNotificationBuilder.setContentText(content);
-            mNotificationManager.notify(tickerId, mNotificationBuilder.build());
+            if(!uploadResult.isSuccess()){
+                mNotificationManager.notify((new Random()).nextInt(), mNotificationBuilder.build());
+            }
+
         }
     }
 
@@ -1405,6 +1407,7 @@ public class FileUploader extends Service
                 }
             }
             Log_OC.d(TAG, "Stopping command after id " + msg.arg1);
+            mService.mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
             mService.stopForeground(true);
             mService.stopSelf(msg.arg1);
         }
