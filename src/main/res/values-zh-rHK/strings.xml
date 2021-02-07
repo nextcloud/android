@@ -606,7 +606,7 @@
     <string name="share_password_title">受密碼保護</string>
     <string name="share_privilege_unshare">撤回分享</string>
     <string name="share_remote_clarification">%1$s （遠端）</string>
-    <string name="share_room_clarification">%1$s(交談)</string>
+    <string name="share_room_clarification">%1$s(對話)</string>
     <string name="share_search">名稱、聯盟雲端 ID 或電子郵件……</string>
     <string name="share_send_note">給接收者的訊息</string>
     <string name="share_via_link_hide_download">隱藏下載</string>
