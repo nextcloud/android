@@ -320,6 +320,7 @@
     <string name="file_migration_preparing">Příprava migrace…</string>
     <string name="file_migration_restoring_accounts_configuration">Obnovování nastavení účtu…</string>
     <string name="file_migration_saving_accounts_configuration">Ukládání nastavení účtu…</string>
+    <string name="file_migration_source_not_readable">Opravdu chcete změnit adresář úložiště na %1$s?\n\nPoznámka: Všechna data bude třeba znovu stáhnout.</string>
     <string name="file_migration_source_not_readable_title">Zdrojová složka není čitelná!</string>
     <string name="file_migration_updating_index">Aktualizace rejstříku…</string>
     <string name="file_migration_use_data_folder">Použít</string>
@@ -840,6 +841,7 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="whats_new_title">Co je v %1$s nového</string>
     <string name="whats_your_status">Jaký je váš stav?</string>
     <string name="wrong_storage_path">Složka úložiště neexistuje!</string>
+    <string name="wrong_storage_path_desc">Toto může být způsobeno obnovením zálohy na jiném zařízení. Vráceno do původního stavu. Prosím zkontrolujte nastavení a upravte cestu k úložišti.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nedaří se synchronizovat %1$d soubor (konflikty: %2$d)</item>
         <item quantity="few">Nedaří se synchronizovat %1$d soubory (konflikty: %2$d)</item>
