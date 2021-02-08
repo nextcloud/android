@@ -64,9 +64,11 @@ public class ScanDocumentFragment extends Fragment {
     private final NativeClass nativeClassOpenCV;
     private OnProcessImage onProcessImageCallback;
     private boolean inverted;
+    private float currentRotation;
     private Bitmap originalImage;
     private Bitmap editedImage;
     private Bitmap nonInvertedImage;
+    private Bitmap cancelCropBackupImage;
     private FragmentScanDocumentBinding binding;
 
     public ScanDocumentFragment() {
@@ -104,6 +106,7 @@ public class ScanDocumentFragment extends Fragment {
                                                "ScanDocFragment.OnProcessImage");
             }
         }
+        BitmapUtils.freeBitmap(tmpBitmap);
     }
 
     public Bitmap getEditedImage() {
@@ -142,13 +145,15 @@ public class ScanDocumentFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean("invertedParams", inverted);
+        outState.putFloat("currentRotationParams", currentRotation);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            setInverted(savedInstanceState.getBoolean("invertedParams"));
+            setInverted(savedInstanceState.getBoolean("invertedParams", false));
+            rotateBitmap(savedInstanceState.getFloat("currentRotationParams", 0));
         }
     }
 
@@ -156,7 +161,6 @@ public class ScanDocumentFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-
         binding = FragmentScanDocumentBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -164,7 +168,6 @@ public class ScanDocumentFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         // wait view to be ready
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             public void onGlobalLayout() {
@@ -172,19 +175,6 @@ public class ScanDocumentFragment extends Fragment {
                 view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
-    }
-
-    public void setImageRotation() {
-        Bitmap tempBitmap = editedImage.copy(editedImage.getConfig(), true);
-        for (int i = 1; i <= 4; i++) {
-            MatOfPoint2f point2f = nativeClassOpenCV.getPoint(tempBitmap);
-            if (point2f == null) {
-                tempBitmap = BitmapUtils.rotateBitmap(tempBitmap, 90 * i);
-            } else {
-                editedImage = tempBitmap.copy(editedImage.getConfig(), true);
-                break;
-            }
-        }
     }
 
     public void rotateBitmap(float angle) {
@@ -196,46 +186,55 @@ public class ScanDocumentFragment extends Fragment {
                 .subscribe((result) -> {
                     updateEditedImage(result);
                     onProcessImageCallback.onProcessImageEnd();
+                    currentRotation += angle;
                 }));
+    }
+
+    public void cancelCrop() {
+        updateEditedImage(cancelCropBackupImage);
     }
 
     public void trySetPolygonViewToADocument() {
         onProcessImageCallback.onProcessImageStart();
-        disposable.add(Observable.fromCallable(() -> {
-                           setImageRotation();
-                           return Boolean.TRUE;
-                       })
+        disposable.add(Observable.fromCallable(() -> Boolean.TRUE)
                            .subscribeOn(Schedulers.io())
                            .observeOn(AndroidSchedulers.mainThread())
-                           .subscribe((result) -> {
-                               updateEditedImage(editedImage.copy(editedImage.getConfig(), true));
-                               if (inverted) {
-                                   invertColorProcess();
-                               }
-                               Map<Integer, PointF> pointFs;
-                               try {
-                                   pointFs = getEdgePoints(editedImage);
-                                   binding.polygonViewScanDocument.setPoints(pointFs);
-                                   binding.polygonViewScanDocument.setVisibility(View.VISIBLE);
+                           .subscribe((result) ->
+                                      {   // restaure previous modification to the original
+                                          // we use the original image to be able to uncrop/crop
+                                          Bitmap tempCorpImage = originalImage.copy(originalImage.getConfig(), true);
+                                          tempCorpImage = BitmapUtils.rotateBitmap(tempCorpImage, currentRotation);
+                                          if (inverted) {
+                                              tempCorpImage = invertColorProcess(true, tempCorpImage);
+                                          }
+                                          BitmapUtils.freeBitmap(cancelCropBackupImage);
+                                          cancelCropBackupImage = editedImage.copy(editedImage.getConfig(), true);
+                                          updateEditedImage(tempCorpImage);
 
-                                   int padding = (int) getResources().getDimension(R.dimen.scanPadding);
+                                          // Try auto set crop points
+                                          Map<Integer, PointF> pointFs;
+                                          try {
+                                              pointFs = getEdgePoints(editedImage);
+                                              binding.polygonViewScanDocument.setPoints(pointFs);
+                                              binding.polygonViewScanDocument.setVisibility(View.VISIBLE);
 
-                                   FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                                       editedImage.getWidth() + 2 * padding,
-                                       editedImage.getHeight() + 2 * padding
-                                   );
-                                   layoutParams.gravity = Gravity.CENTER;
+                                              int padding = (int) getResources().getDimension(R.dimen.scanPadding);
 
-                                   binding.polygonViewScanDocument.setLayoutParams(layoutParams);
-                                   binding.polygonViewScanDocument.setPointColor(getResources().getColor(R.color.blue));
+                                              FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                                                  editedImage.getWidth() + 2 * padding,
+                                                  editedImage.getHeight() + 2 * padding
+                                              );
+                                              layoutParams.gravity = Gravity.CENTER;
 
-                               } catch (Exception e) {
-                                   Log_OC.e(TAG, "trySetPolygonViewToADocument exception", e);
-                                   showCropError();
-                               }
-                               onProcessImageCallback.onProcessImageEnd();
-                           })
-                      );
+                                              binding.polygonViewScanDocument.setLayoutParams(layoutParams);
+                                              binding.polygonViewScanDocument.setPointColor(getResources().getColor(R.color.blue));
+
+                                          } catch (Exception e) {
+                                              Log_OC.e(TAG, "trySetPolygonViewToADocument exception", e);
+                                              showCropError();
+                                          }
+                                          onProcessImageCallback.onProcessImageEnd();
+                                      }));
     }
 
     public void disablePolygonView() {
@@ -244,13 +243,18 @@ public class ScanDocumentFragment extends Fragment {
 
     public void resetImage() {
         setInverted(false);
+        currentRotation = 0;
         updateEditedImage(originalImage.copy(originalImage.getConfig(), true));
     }
 
     public void cropImageFromPolygon() {
         onProcessImageCallback.onProcessImageStart();
         disposable.add(
-            Observable.fromCallable(() -> cropImageProcess(binding.polygonViewScanDocument.getPoints()))
+            Observable.fromCallable(() -> {
+                // we should crop nonInvertedImage too cause to be able to Un-invertColor after crop
+                nonInvertedImage = cropImageProcess(nonInvertedImage, binding.polygonViewScanDocument.getPoints());
+                return cropImageProcess(editedImage, binding.polygonViewScanDocument.getPoints());
+            })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((result) -> {
@@ -264,10 +268,10 @@ public class ScanDocumentFragment extends Fragment {
 
     }
 
-    private Bitmap cropImageProcess(Map<Integer, PointF> points) {
+    private Bitmap cropImageProcess(Bitmap sourceBitmap, Map<Integer, PointF> points) {
         try {
-            float xRatio = (float) editedImage.getWidth() / binding.imageViewScanDocument.getWidth();
-            float yRatio = (float) editedImage.getHeight() / binding.imageViewScanDocument.getHeight();
+            float xRatio = (float) sourceBitmap.getWidth() / binding.imageViewScanDocument.getWidth();
+            float yRatio = (float) sourceBitmap.getHeight() / binding.imageViewScanDocument.getHeight();
 
             float x1 = (Objects.requireNonNull(points.get(0)).x) * xRatio;
             float x2 = (Objects.requireNonNull(points.get(1)).x) * xRatio;
@@ -277,7 +281,7 @@ public class ScanDocumentFragment extends Fragment {
             float y2 = (Objects.requireNonNull(points.get(1)).y) * yRatio;
             float y3 = (Objects.requireNonNull(points.get(2)).y) * yRatio;
             float y4 = (Objects.requireNonNull(points.get(3)).y) * yRatio;
-            return nativeClassOpenCV.getScannedBitmap(editedImage, x1, y1, x2, y2, x3, y3, x4, y4);
+            return nativeClassOpenCV.getScannedBitmap(sourceBitmap, x1, y1, x2, y2, x3, y3, x4, y4);
         } catch (Exception e) {
             return null;
         }
@@ -286,7 +290,7 @@ public class ScanDocumentFragment extends Fragment {
     public void invertColorImage() {
         onProcessImageCallback.onProcessImageStart();
         disposable.add(
-            Observable.fromCallable(this::invertColorProcess)
+            Observable.fromCallable(() -> this.invertColorProcess(!inverted, editedImage))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((result) -> {
@@ -296,11 +300,14 @@ public class ScanDocumentFragment extends Fragment {
                 }));
     }
 
-    private Bitmap invertColorProcess() {
-        if (isNotInverted()) {
+    private Bitmap invertColorProcess(boolean actionInvert, Bitmap sourceBitmap) {
+        if (actionInvert) {
+            BitmapUtils.freeBitmap(nonInvertedImage);
             // backup image
-            nonInvertedImage = editedImage.copy(editedImage.getConfig(), true);
-            return BitmapUtils.grayscaleBitmap(editedImage);
+            nonInvertedImage = sourceBitmap.copy(sourceBitmap.getConfig(), true);
+            // restaure rotation
+            nonInvertedImage = BitmapUtils.rotateBitmap(nonInvertedImage, currentRotation);
+            return BitmapUtils.grayscaleBitmap(sourceBitmap);
         } else {
             return nonInvertedImage.copy(nonInvertedImage.getConfig(), true);
         }
@@ -333,6 +340,18 @@ public class ScanDocumentFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        if (originalImage != null) {
+            originalImage.recycle();
+        }
+        if (editedImage != null) {
+            editedImage.recycle();
+        }
+        if (nonInvertedImage != null) {
+            nonInvertedImage.recycle();
+        }
+        if (cancelCropBackupImage != null) {
+            cancelCropBackupImage.recycle();
+        }
     }
 
     protected void showCropError() {
