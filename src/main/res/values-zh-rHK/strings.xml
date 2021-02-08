@@ -30,7 +30,7 @@
     <string name="activities_no_results_message">尚未有任何新增、更動或分享事件。</string>
     <string name="activity_chooser_send_file_title">發送</string>
     <string name="activity_chooser_title">傳送連結到…</string>
-    <string name="activity_icon">活動</string>
+    <string name="activity_icon">動態</string>
     <string name="add_another_public_share_link">加入另一個連結</string>
     <string name="add_new_public_share">增加一個新的公開連結</string>
     <string name="add_to_cloud">新增到 %1$s </string>
