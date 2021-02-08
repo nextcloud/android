@@ -251,6 +251,7 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
     void buttonClickHideCropButtons() {
         setCropView(false);
         getCurrentScanDocumentFragment().disablePolygonView();
+        getCurrentScanDocumentFragment().cancelCrop();
     }
 
     void buttonClickValidateCrop() {

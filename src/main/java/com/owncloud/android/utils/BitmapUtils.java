@@ -128,6 +128,11 @@ public final class BitmapUtils {
         return inSampleSize;
     }
 
+    public static void freeBitmap(Bitmap bitmap) {
+        if (bitmap != null) {
+            bitmap.recycle();
+        }
+    }
 
     /**
      * Convert a bitmap to black and white
