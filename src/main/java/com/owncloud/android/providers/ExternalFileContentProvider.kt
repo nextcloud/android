@@ -142,10 +142,17 @@ class ExternalFileContentProvider : ContentProvider() {
             else -> throw IllegalArgumentException("Unknown uri id: $uri")
         }
 
-        // val projectionMap: MutableMap<String, String> = mutableMapOf()
-        // projectionMap[BaseColumns._ID] = BaseColumns._ID
+        // val callingPackage = context?.packageManager?.getNameForUid(Binder.getCallingUid())
+        // val sameApp = callingPackage != null && callingPackage == context?.getPackageName()
         //
-        // sqlQuery.projectionMap = projectionMap
+        // val projectionMap: MutableMap<String, String> = mutableMapOf()
+        //
+        // if (!sameApp) {
+        //     for (projection in ProviderTableMeta.FILE_RESTRICTED_COLUMNS) {
+        //         projectionMap[projection] = projection
+        //     }
+        //     sqlQuery.projectionMap = projectionMap
+        // }
 
         // DB case_sensitive
         db.execSQL("PRAGMA case_sensitive_like = true")

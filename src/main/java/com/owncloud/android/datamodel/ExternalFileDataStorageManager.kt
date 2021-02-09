@@ -33,6 +33,15 @@ import com.owncloud.android.lib.common.utils.Log_OC
 class ExternalFileDataStorageManager(account: Account, contentResolver: ContentResolver) :
     FileDataStorageManager(account, contentResolver) {
 
+    // fun getFileIdByPath(path: String?): Long {
+    //     val cursor = getFileCursorForValue(ProviderTableMeta.FILE_PATH, path!!)
+    //     return if (cursor!!.moveToFirst()) {
+    //         getLong(cursor, ProviderTableMeta._ID)
+    //     } else {
+    //         -1
+    //     }
+    // }
+
     override fun getFileCursorForValue(key: String, value: String): Cursor? {
         val cursor: Cursor?
         cursor = if (contentResolver != null) {

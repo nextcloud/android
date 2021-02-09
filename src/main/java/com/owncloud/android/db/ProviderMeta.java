@@ -152,6 +152,17 @@ public class ProviderMeta {
             FILE_SHAREES,
             FILE_RICH_WORKSPACE));
 
+        public static final List<String> FILE_RESTRICTED_COLUMNS = Collections.unmodifiableList(Arrays.asList(
+            _ID,
+            FILE_NAME,
+            FILE_PATH,
+            FILE_CREATION,
+            FILE_MODIFIED,
+            FILE_CONTENT_LENGTH,
+            FILE_CONTENT_TYPE,
+            FILE_STORAGE_PATH,
+            FILE_LAST_SYNC_DATE));
+
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
 
         // Columns of ocshares table
