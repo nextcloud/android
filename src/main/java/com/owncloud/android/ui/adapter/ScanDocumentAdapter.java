@@ -54,7 +54,8 @@ public class ScanDocumentAdapter extends FragmentStateAdapter {
     }
 
     public void addScanImage(Bitmap originalImage, int position) {
-        FileOperationsHelper.saveTmpBitmapToFile(scanDocActivity, originalImage, position);
+        FileOperationsHelper.saveTmpBitmapToFile(scanDocActivity, originalImage,
+                                                 FileOperationsHelper.TmpBitampType.ORIGINAL_IMAGE, position);
         scanDocumentFragmentList.add(position, ScanDocumentFragment.newInstance(position));
         notifyDataSetChanged();
     }
