@@ -40,7 +40,6 @@
     <string name="auth_account_not_the_same">Ievadītais lietotājvārds neatbilst šī konta lietotājam.</string>
     <string name="auth_bad_oc_version_title">Neatpazīta servera versija</string>
     <string name="auth_connection_established">Savienojums ir izveidots</string>
-    <string name="auth_host_address">Servera adrese</string>
     <string name="auth_host_url">Servera adrese https://…</string>
     <string name="auth_incorrect_address_title">Nepareizs servera adreses formāts</string>
     <string name="auth_incorrect_path_title">Serveris nav atrasts</string>
@@ -124,7 +123,6 @@
     <string name="confirmation_remove_local">Tikai lokālos</string>
     <string name="conflict_already_existing_file">Jau esošs fails</string>
     <string name="conflict_dialog_error">Kļūda veidojot konfliktu dialogu!</string>
-    <string name="conflict_message_headline">Kuras datnes vēlies paturēt?</string>
     <string name="conflict_new_file">Jauns fails</string>
     <string name="contaclist_restore_selected">Atjaunot izvēlētos kontaktus</string>
     <string name="contactlist_account_chooser_title">Izvēlieties kontu importēšanai</string>
@@ -185,7 +183,6 @@
     <string name="drawer_item_home">Mājas</string>
     <string name="drawer_item_notifications">Paziņojumi</string>
     <string name="drawer_item_on_device">Ierīcē</string>
-    <string name="drawer_item_photos">Bildes</string>
     <string name="drawer_item_recently_added">Nesen pievienotie</string>
     <string name="drawer_item_recently_modified">Nesen mainītie</string>
     <string name="drawer_item_shared">Koplietots</string>
@@ -213,23 +210,14 @@
     <string name="file_icon">Datne</string>
     <string name="file_list_empty">Augšupielādē kaut ko vai sinhronizē saturu ar savām ierīcēm!</string>
     <string name="file_list_empty_favorite_headline">Nekas vēl nav pievienots favorītiem</string>
-    <string name="file_list_empty_favorites_filter">Nekas netika atrast starp favorītu datnēm.</string>
     <string name="file_list_empty_headline">Šeit nav datņu</string>
     <string name="file_list_empty_headline_search">Nav rezultātu šajā mapē</string>
     <string name="file_list_empty_headline_server_search">Nav rezultātu</string>
-    <string name="file_list_empty_headline_server_search_photos">Nav attēlu</string>
-    <string name="file_list_empty_headline_server_search_videos">Nav video</string>
     <string name="file_list_empty_moving">Šeit nekā nav. Jūs varat pievienot mapi.</string>
     <string name="file_list_empty_recently_added">Neatrada nesen pievienotas datnes</string>
-    <string name="file_list_empty_recently_added_filter">Nav nesen pievienotu datņu.</string>
     <string name="file_list_empty_recently_modified">Neatrada nevienu datni, kas izmainīta pēdējās 7 dienās</string>
-    <string name="file_list_empty_recently_modified_filter">Neviena datne nav bijusi izmainīta pēdējās 7 dienās.</string>
     <string name="file_list_empty_search">Varbūt tas atrodas citā mapē?</string>
     <string name="file_list_empty_shared_headline">Nekas vēl nav koplietots</string>
-    <string name="file_list_empty_text_photos">Augšupielādē attēlus vai ieslēdz automātisko augšupielādi.</string>
-    <string name="file_list_empty_text_photos_filter">Nav attēlu.</string>
-    <string name="file_list_empty_text_videos">Augšupielādē video vai ieslēdz automātisko augšupielādi.</string>
-    <string name="file_list_empty_text_videos_filter">Nav video.</string>
     <string name="file_list_folder">mape</string>
     <string name="file_list_loading">Ielādē …</string>
     <string name="file_list_no_app_for_file_type">Neviena lietotne nevar atvērt šo datnes tipu.</string>
@@ -329,7 +317,6 @@
     <string name="new_media_folder_photos">bilde</string>
     <string name="new_version_was_created">Jauna versija izveidota</string>
     <string name="note_confirm">Sūtīt</string>
-    <string name="notifications_loading_activity">Ielādē paziņojumus…</string>
     <string name="notifications_no_results_headline">Nav paziņojumu</string>
     <string name="offline_mode">Nav interneta savienojuma</string>
     <string name="oneHour">1 stunda</string>
@@ -473,7 +460,6 @@
     <string name="sync_file_nothing_to_do_msg">Datnes saturs jau ir sinhronizēts</string>
     <string name="sync_foreign_files_forgotten_ticker">Dažas lokālās datnes tika aizmirstas</string>
     <string name="sync_string_files">Datnes</string>
-    <string name="synced_folders_loading_folders">Ielādē mapes…</string>
     <string name="synced_folders_preferences">Iestatījumi automātiskai augšupielādei</string>
     <string name="synced_folders_preferences_folder_path">Priekš %1$s</string>
     <string name="synced_folders_type">Tips</string>

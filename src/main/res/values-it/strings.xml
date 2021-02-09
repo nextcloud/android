@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Versione del server non riconosciuta</string>
     <string name="auth_connection_established">Connessione stabilita</string>
     <string name="auth_fail_get_user_name">Il server non restituisce un ID utente corretto, contatta un amministratore.</string>
-    <string name="auth_host_address">Indirizzo del server</string>
     <string name="auth_host_url">Indirizzo server https://…</string>
     <string name="auth_incorrect_address_title">Formato dell\'indirizzo del server errato</string>
     <string name="auth_incorrect_path_title">Server non trovato</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Errore di creazione della finestra di conflitto!</string>
     <string name="conflict_file_headline">File %1$s in conflitto</string>
     <string name="conflict_message_description">Se selezioni entrambe le versioni, il file locale ha un numero aggiunto al suo nome.</string>
-    <string name="conflict_message_headline">Quali file vuoi mantenere?</string>
     <string name="conflict_new_file">Nuovo file</string>
     <string name="contaclist_restore_selected">Ripristina contatti selezionati</string>
     <string name="contactlist_account_chooser_title">Scegli account da importare</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Notifiche</string>
     <string name="drawer_item_on_device">Su dispositivo</string>
-    <string name="drawer_item_photos">Foto</string>
     <string name="drawer_item_recently_added">Aggiunto di recente</string>
     <string name="drawer_item_recently_modified">Modificato di recente</string>
     <string name="drawer_item_shared">Condiviso</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Mantieni</string>
     <string name="file_list_empty">Carica dei contenuti o sincronizza con i tuoi dispositivi.</string>
     <string name="file_list_empty_favorite_headline">Ancora nessun preferito</string>
-    <string name="file_list_empty_favorites_filter">La tua ricerca non ha restituito alcun file preferito.</string>
     <string name="file_list_empty_favorites_filter_list">I file e le cartelle che marchi come preferiti saranno mostrati qui.</string>
     <string name="file_list_empty_headline">Qui non c\'è alcun file</string>
     <string name="file_list_empty_headline_search">Nessun risultato in questa cartella</string>
     <string name="file_list_empty_headline_server_search">Nessun risultato</string>
-    <string name="file_list_empty_headline_server_search_photos">Nessuna foto</string>
-    <string name="file_list_empty_headline_server_search_videos">Nessun video</string>
     <string name="file_list_empty_moving">Non c\'è niente qui. Puoi aggiungere una cartella.</string>
     <string name="file_list_empty_on_device">I file e le cartelle scaricati saranno mostrati qui.</string>
     <string name="file_list_empty_recently_added">Non sono stati trovati file aggiunti di recente</string>
-    <string name="file_list_empty_recently_added_filter">Nessun file aggiunto di recente.</string>
     <string name="file_list_empty_recently_modified">Non è stato trovato alcun file modificato negli ultimi 7 giorni</string>
-    <string name="file_list_empty_recently_modified_filter">Nessun file modificato durante gli ultimi 7 giorni.</string>
     <string name="file_list_empty_search">Forse è in una cartella diversa?</string>
     <string name="file_list_empty_shared">I file e le cartelle che condividi saranno mostrati qui.</string>
     <string name="file_list_empty_shared_headline">Ancora nessuna condivisione</string>
-    <string name="file_list_empty_text_photos">Carica alcune foto o attiva il caricamento automatico.</string>
-    <string name="file_list_empty_text_photos_filter">Nessuna foto.</string>
-    <string name="file_list_empty_text_videos">Carica dei video o attiva il caricamento automatico.</string>
-    <string name="file_list_empty_text_videos_filter">Nessun video.</string>
     <string name="file_list_folder">cartella</string>
     <string name="file_list_loading">Caricamento in corso…</string>
     <string name="file_list_no_app_for_file_type">Nessuna applicazione configurata per gestire questo tipo di file.</string>
@@ -463,7 +451,6 @@
     <string name="notification_channel_upload_description">Mostra l\'avanzamento dei caricamenti</string>
     <string name="notification_channel_upload_name">Canale delle notifiche di caricamento</string>
     <string name="notification_icon">Icona di notifica</string>
-    <string name="notifications_loading_activity">Caricamento notifiche in corso…</string>
     <string name="notifications_no_results_headline">Nessuna notifica</string>
     <string name="notifications_no_results_message">Controlla nuovamente più tardi.</string>
     <string name="offline_mode">Nessuna connessione a Internet</string>
@@ -706,7 +693,6 @@
     <string name="sync_string_files">File</string>
     <string name="synced_folder_settings_button">Pulsante impostazioni</string>
     <string name="synced_folders_configure_folders">Configura cartelle</string>
-    <string name="synced_folders_loading_folders">Caricamento cartelle…</string>
     <string name="synced_folders_new_info">Il caricamento istantaneo è stato riscritto completamente. Riconfigura il caricamento automatico dal menu principale.\n\nGoditi il nuovo ed esteso caricamento automatico.</string>
     <string name="synced_folders_no_results">Nessuna cartella multimediale trovata</string>
     <string name="synced_folders_preferences">Preferenze per il caricamento automatico</string>

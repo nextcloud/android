@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Непозната верзија сервера</string>
     <string name="auth_connection_established">Веза успостављена</string>
     <string name="auth_fail_get_user_name">Сервер не враћа исправан ИД корисника. Контактирајте администратора.</string>
-    <string name="auth_host_address">Адреса сервера</string>
     <string name="auth_host_url">Адреса сервера https://…</string>
     <string name="auth_incorrect_address_title">Погрешан формат адресе сервера</string>
     <string name="auth_incorrect_path_title">Сервер није нађен</string>
@@ -143,7 +142,6 @@
     <string name="conflict_already_existing_file">Већ постојећи фајл</string>
     <string name="conflict_dialog_error">Грешка при прављењу дијалога сукоба!</string>
     <string name="conflict_message_description">Ако изаберете обе верзије, локални фајл имаће број придодат свом називу.</string>
-    <string name="conflict_message_headline">Које фајлове желите да задржите?</string>
     <string name="conflict_new_file">Нови фајл</string>
     <string name="contaclist_restore_selected">Поврати означене контакте</string>
     <string name="contactlist_account_chooser_title">Одаберите налог за увоз</string>
@@ -211,7 +209,6 @@
     <string name="drawer_item_home">Почетна</string>
     <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_item_on_device">На уређају</string>
-    <string name="drawer_item_photos">Фотографије</string>
     <string name="drawer_item_recently_added">Недавно додато</string>
     <string name="drawer_item_recently_modified">Недавно измењено</string>
     <string name="drawer_item_shared">Дељено</string>
@@ -283,26 +280,17 @@
     <string name="file_keep">Задржи</string>
     <string name="file_list_empty">Отпремите неки садржај или синхронизујте са вашим уређајима.</string>
     <string name="file_list_empty_favorite_headline">Још ништа није омиљено</string>
-    <string name="file_list_empty_favorites_filter">Претрага није нашла омиљене фајлове.</string>
     <string name="file_list_empty_favorites_filter_list">Фајлови и фасцикле обележене као омиљене ће се појавити овде.</string>
     <string name="file_list_empty_headline">Овде нема фајлова</string>
     <string name="file_list_empty_headline_search">Нема резултата у овој фасцикли</string>
     <string name="file_list_empty_headline_server_search">Нема резултата</string>
-    <string name="file_list_empty_headline_server_search_photos">Нема слика</string>
-    <string name="file_list_empty_headline_server_search_videos">Нема видео снимака</string>
     <string name="file_list_empty_moving">Овде нема ничег. Можете додати фасциклу.</string>
     <string name="file_list_empty_on_device">Преузети фајлови и фасцикле ће се појавити овде.</string>
     <string name="file_list_empty_recently_added">Нема недавно додатих фајлова</string>
-    <string name="file_list_empty_recently_added_filter">Нема недавно додатих фајлова.</string>
     <string name="file_list_empty_recently_modified">Нема фајлова измењених у последњих 7 дана</string>
-    <string name="file_list_empty_recently_modified_filter">Нема фајлова измењених у последњих 7 дана.</string>
     <string name="file_list_empty_search">Можда су у некој другој фасцикли?</string>
     <string name="file_list_empty_shared">Фајлови и фасцикле које делите појавиће се овде.</string>
     <string name="file_list_empty_shared_headline">Још се ништа не дели</string>
-    <string name="file_list_empty_text_photos">Отпремите неке фотографије или активирајте аутоматско отпремање.</string>
-    <string name="file_list_empty_text_photos_filter">Нема слика.</string>
-    <string name="file_list_empty_text_videos">Отпремите неке видео записе или укључите аутоматско отпремање.</string>
-    <string name="file_list_empty_text_videos_filter">Нема видео снимака.</string>
     <string name="file_list_folder">фасцикла</string>
     <string name="file_list_loading">Учитавам…</string>
     <string name="file_list_no_app_for_file_type">Немате апликацију за овај тип фајла.</string>
@@ -450,7 +438,6 @@
     <string name="notification_channel_upload_description">Приказ напретка отпремања</string>
     <string name="notification_channel_upload_name">Канал обавештења о отпремањима</string>
     <string name="notification_icon">Иконица обавештења</string>
-    <string name="notifications_loading_activity">Учитавам обавештења…</string>
     <string name="notifications_no_results_headline">Нема обавештења</string>
     <string name="notifications_no_results_message">Проверите касније.</string>
     <string name="offline_mode">Нема везе са интернетом</string>
@@ -682,7 +669,6 @@
     <string name="sync_string_files">Фајлови</string>
     <string name="synced_folder_settings_button">Дугме поставки</string>
     <string name="synced_folders_configure_folders">Подесите фасцикле</string>
-    <string name="synced_folders_loading_folders">Учитавам фасцикле…</string>
     <string name="synced_folders_new_info">Брзо отпремање је потпуно редизајнирано. Поново подесите аутоматска отпремања из главног менија.\n\nУживајте у новом и надограђеном аутоматском отпремању.</string>
     <string name="synced_folders_no_results">Нема медијских фасцикли</string>
     <string name="synced_folders_preferences">Подешавања аутоматског отпремања</string>

@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Ukjent serverversjon</string>
     <string name="auth_connection_established">Tilkobling opprettet</string>
     <string name="auth_fail_get_user_name">Serveren svarer ikke med korrekt bruker-ID. Kontakt administrator.</string>
-    <string name="auth_host_address">Serveradresse</string>
     <string name="auth_host_url">Serveradresse https://…</string>
     <string name="auth_incorrect_address_title">Feil format på serveradresse</string>
     <string name="auth_incorrect_path_title">Finner ikke server</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Feil ved oppretting av konfliktdialog!</string>
     <string name="conflict_file_headline">Konflikt med%1$s</string>
     <string name="conflict_message_description">Hvis du velger begge versjonene vil den lokale filen få et tall lagt til på slutten av navnet.</string>
-    <string name="conflict_message_headline">Hvilke filer vil du beholde?</string>
     <string name="conflict_new_file">Ny fil</string>
     <string name="contaclist_restore_selected">Gjenopprett valgte kontakter</string>
     <string name="contactlist_account_chooser_title">Velg konto å importere</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Hjem</string>
     <string name="drawer_item_notifications">Varsler</string>
     <string name="drawer_item_on_device">På enheten</string>
-    <string name="drawer_item_photos">Bilder</string>
     <string name="drawer_item_recently_added">Nylig lagt til</string>
     <string name="drawer_item_recently_modified">Nylig endret</string>
     <string name="drawer_item_shared">Delt</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Behold</string>
     <string name="file_list_empty">Last opp innhold eller synkroniser med andre enheter.</string>
     <string name="file_list_empty_favorite_headline">Ingen favoritter ennå</string>
-    <string name="file_list_empty_favorites_filter">Søket ga ingen treff på filer markert som favoritter.</string>
     <string name="file_list_empty_favorites_filter_list">Filer og mapper du markerer som favoritter vil vises her.</string>
     <string name="file_list_empty_headline">Ingen filer her</string>
     <string name="file_list_empty_headline_search">Ingen resultater i denne mappen</string>
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
-    <string name="file_list_empty_headline_server_search_photos">Ingen bilder</string>
-    <string name="file_list_empty_headline_server_search_videos">Ingen videoer</string>
     <string name="file_list_empty_moving">Ingenting her. Du kan legge til en mappe!</string>
     <string name="file_list_empty_on_device">Nedlastede filer og mapper vil vises her.</string>
     <string name="file_list_empty_recently_added">Fant ingen nylig tillagte filer</string>
-    <string name="file_list_empty_recently_added_filter">Ingen nylig tillagte filer.</string>
     <string name="file_list_empty_recently_modified">Fant ingen filer endret de siste 7 dagene</string>
-    <string name="file_list_empty_recently_modified_filter">Ungen filer endret de siste 7 dagene.</string>
     <string name="file_list_empty_search">Vil du prøve i en annen mappe?</string>
     <string name="file_list_empty_shared">Filer og mapper du deler vil dukke opp her.</string>
     <string name="file_list_empty_shared_headline">Ingenting delt enda</string>
-    <string name="file_list_empty_text_photos">Last opp noen bilder eller aktiver automatisk opplasting.</string>
-    <string name="file_list_empty_text_photos_filter">Ingen bilder.</string>
-    <string name="file_list_empty_text_videos">Last opp noen videoer eller skru på automatisk opplasting.</string>
-    <string name="file_list_empty_text_videos_filter">Ingen videoer.</string>
     <string name="file_list_folder">mappe</string>
     <string name="file_list_loading">Laster…</string>
     <string name="file_list_no_app_for_file_type">Ingen app er satt opp til å håndtere denne filtypen.</string>
@@ -463,7 +451,6 @@
     <string name="notification_channel_upload_description">Viser opplastingsfremgang</string>
     <string name="notification_channel_upload_name">Kanal for varsel om opplasting</string>
     <string name="notification_icon">Ikon for notifisering</string>
-    <string name="notifications_loading_activity">Laster inn merknader…</string>
     <string name="notifications_no_results_headline">Ingen varsler</string>
     <string name="notifications_no_results_message">Kom innom senere og ta en titt.</string>
     <string name="offline_mode">Ingen internettforbindelse</string>
@@ -706,7 +693,6 @@
     <string name="sync_string_files">Filer</string>
     <string name="synced_folder_settings_button">Innstillingsknapp</string>
     <string name="synced_folders_configure_folders">Sett opp mapper</string>
-    <string name="synced_folders_loading_folders">Laster inn mapper…</string>
     <string name="synced_folders_new_info">Umiddelbar opplasting er fullstendig omarbeidet. Du må sette opp auto-opplasting på nytt fra hovedmenyen.\n\nKos deg med den nye og utvidede auto-opplastingen.</string>
     <string name="synced_folders_no_results">Ingen mediamapper funnet</string>
     <string name="synced_folders_preferences">Alternativer for auto-opplasting</string>
