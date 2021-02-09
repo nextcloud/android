@@ -965,5 +965,4 @@
     <string name="scan_doc_rename_document">Rename document</string>
     <string name="scan_doc_previous_image">Previous image</string>
     <string name="scan_doc_next_image">Next image</string>
-    <string name="scan_doc_auto_rotation">Automatic rotation of the image, please wait…</string>
 </resources>
