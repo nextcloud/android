@@ -153,7 +153,7 @@ public class ScanDocumentFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             setInverted(savedInstanceState.getBoolean("invertedParams", false));
-            rotateBitmap(savedInstanceState.getFloat("currentRotationParams", 0));
+            currentRotation = (savedInstanceState.getFloat("currentRotationParams", 0));
         }
     }
 
@@ -180,7 +180,13 @@ public class ScanDocumentFragment extends Fragment {
     public void rotateBitmap(float angle) {
         onProcessImageCallback.onProcessImageStart();
         disposable.add(
-            Observable.fromCallable(() -> BitmapUtils.rotateBitmap(editedImage, angle))
+            Observable.fromCallable(() -> {
+                // Rotate non inverted image to keep rotation when restaure it
+                if (nonInvertedImage != null) {
+                    nonInvertedImage = BitmapUtils.rotateBitmap(nonInvertedImage, angle);
+                }
+                return BitmapUtils.rotateBitmap(editedImage, angle);
+            })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((result) -> {
@@ -305,8 +311,6 @@ public class ScanDocumentFragment extends Fragment {
             BitmapUtils.freeBitmap(nonInvertedImage);
             // backup image
             nonInvertedImage = sourceBitmap.copy(sourceBitmap.getConfig(), true);
-            // restaure rotation
-            nonInvertedImage = BitmapUtils.rotateBitmap(nonInvertedImage, currentRotation);
             return BitmapUtils.grayscaleBitmap(sourceBitmap);
         } else {
             return nonInvertedImage.copy(nonInvertedImage.getConfig(), true);
