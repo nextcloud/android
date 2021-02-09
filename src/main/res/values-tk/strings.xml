@@ -510,7 +510,13 @@
     <string name="prefs_imprint">Çap etmek</string>
     <string name="prefs_instant_behaviour_dialogTitle">Hakyky faýl bolar ...</string>
     <string name="prefs_instant_behaviour_title">Hakyky faýl bolar ...</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Ýyl we aý esasynda bukjalarda saklaň</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Aşakdaky bukjalary ulanyň</string>
     <string name="prefs_license">ygtyýarnamasy</string>
+    <string name="prefs_lock">Programma kody</string>
+    <string name="prefs_lock_device_credentials_enabled">Enjam şahsyýetnamasy açyk</string>
+    <string name="prefs_lock_device_credentials_not_setup">Hiç hili enjam şahsyýetnamasy gurulmady.</string>
+    <string name="prefs_lock_none">Ýok</string>
     <string name="prefs_synced_folders_local_path_title">ýerli bukjasy</string>
     <string name="prefs_theme_title">Tema</string>
     <string name="preview_sorry">Bagyşlaň</string>
