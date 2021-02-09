@@ -52,7 +52,6 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -224,9 +223,7 @@ public class PreviewImageActivity extends FileActivity implements
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
 
-        if (operation instanceof RemoveFileOperation) {
-            finish();
-        } else if (operation instanceof SynchronizeFileOperation) {
+        if (operation instanceof SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish(result);
         }
     }

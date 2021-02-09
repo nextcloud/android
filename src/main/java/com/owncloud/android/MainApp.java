@@ -572,6 +572,10 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         return getAppContext().getResources().getString(R.string.authority);
     }
 
+    public static String getExternalAuthority() {
+        return getAppContext().getResources().getString(R.string.authorityExternal);
+    }
+
     //  From AccountAuthenticator
     //  public static final String AUTH_TOKEN_TYPE = "org.owncloud";
     public static String getAuthTokenType() {

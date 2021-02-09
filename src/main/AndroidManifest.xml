@@ -205,41 +205,19 @@
             android:name=".providers.FileContentProvider"
             android:authorities="@string/authority"
             android:enabled="true"
+            android:exported="false"
+            android:syncable="true">
+        </provider>
+
+        <provider
+            android:name=".providers.ExternalFileContentProvider"
+            android:authorities="@string/authorityExternal"
+            android:enabled="true"
             android:exported="true"
             android:label="@string/sync_string_files"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS"
             android:syncable="true">
-            <path-permission
-                android:pathPrefix="/shares"
-                android:readPermission="false"
-                android:writePermission="false" />
-            <path-permission
-                android:pathPrefix="/capabilities"
-                android:readPermission="false"
-                android:writePermission="false" />
-            <path-permission
-                android:pathPrefix="/uploads"
-                android:readPermission="false"
-                android:writePermission="false" />
-            <path-permission
-                android:pathPrefix="/synced_folders"
-                android:readPermission="false"
-                android:writePermission="false" />
-            <path-permission
-                android:pathPrefix="/external_links"
-                android:readPermission="false"
-                android:writePermission="false" />
-            <path-permission
-                android:pathPrefix="/arbitrary_data"
-                android:readPermission="false"
-                android:writePermission="false" />
-            <path-permission
-                android:pathPrefix="/virtual"
-                android:readPermission="false"
-                android:writePermission="false" />
-            <path-permission
-                android:pathPrefix="/filesystem"
-                android:readPermission="false"
-                android:writePermission="false" />
         </provider>
 
         <provider

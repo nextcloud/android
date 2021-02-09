@@ -56,12 +56,15 @@ public class ProviderMeta {
 
         private static final String CONTENT_PREFIX = "content://";
 
-        public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/");
-        public static final Uri CONTENT_URI_FILE = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/file");
-        public static final Uri CONTENT_URI_DIR = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/dir");
+        public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX + MainApp.getAuthority() + "/");
+        public static final Uri EXTERNAL_CONTENT_URI = Uri.parse(CONTENT_PREFIX + MainApp.getExternalAuthority() + "/");
+
+        public static final Uri CONTENT_URI_FILE = Uri.parse(CONTENT_PREFIX + MainApp.getAuthority() + "/file");
+        public static final Uri EXTERNAL_CONTENT_URI_FILE = Uri.parse(CONTENT_PREFIX + MainApp.getExternalAuthority() + "/file");
+
+        public static final Uri CONTENT_URI_DIR = Uri.parse(CONTENT_PREFIX + MainApp.getAuthority() + "/dir");
+        public static final Uri EXTERNAL_CONTENT_URI_DIR = Uri.parse(CONTENT_PREFIX + MainApp.getExternalAuthority() + "/dir");
+
         public static final Uri CONTENT_URI_SHARE = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/shares");
         public static final Uri CONTENT_URI_CAPABILITIES = Uri.parse(CONTENT_PREFIX
