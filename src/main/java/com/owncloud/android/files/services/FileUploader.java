@@ -77,6 +77,7 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
@@ -657,17 +658,18 @@ public class FileUploader extends Service
                 sendBroadcastUploadFinished(mCurrentUpload, uploadResult, removeResult.second);
             }
 
-            // generate new Thumbnail
-            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                new ThumbnailsCacheManager.ThumbnailGenerationTask(mStorageManager, mCurrentAccount);
-
             File file = new File(mCurrentUpload.getOriginalStoragePath());
-            String remoteId = mCurrentUpload.getFile().getRemoteId();
+            if(MimeTypeUtil.isImageOrVideo(file)) {
+                // generate new Thumbnail
+                final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                    new ThumbnailsCacheManager.ThumbnailGenerationTask(mStorageManager, mCurrentAccount);
 
-            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId));
+                String remoteId = mCurrentUpload.getFile().getRemoteId();
+
+                task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId));
+            }
         }
     }
-
 
     /**
      * Creates a status notification to show the upload progress
