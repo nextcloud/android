@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Nežinoma serverio versija</string>
     <string name="auth_connection_established">Ryšys užmegztas</string>
     <string name="auth_fail_get_user_name">Paslaugos  serveris grąžina neteisingą vartotojo ID, susisiekite su administratoriumi.</string>
-    <string name="auth_host_address">Serverio adresas</string>
     <string name="auth_host_url">Serverio adresas https://…</string>
     <string name="auth_incorrect_address_title">Neteisingas serverio adreso formatas</string>
     <string name="auth_incorrect_path_title">Serveris nerastas</string>
@@ -150,7 +149,6 @@
     <string name="conflict_dialog_error">Klaida kuriant konflikto dialogą!</string>
     <string name="conflict_file_headline">Nesuderinamas failas%1$s</string>
     <string name="conflict_message_description">Jei pasirinksite abi versijas, vietinis failas prie pavadinimo turės numerį.</string>
-    <string name="conflict_message_headline">Kuriuos failus norite pasilikti?</string>
     <string name="conflict_new_file">Naujas failas</string>
     <string name="contaclist_restore_selected">Atkurti pasirinktus adresatus</string>
     <string name="contactlist_account_chooser_title">Pasirinkite failą </string>
@@ -222,7 +220,6 @@
     <string name="drawer_item_home">Namai</string>
     <string name="drawer_item_notifications">Pranešimai</string>
     <string name="drawer_item_on_device">Įrenginyje</string>
-    <string name="drawer_item_photos">Nuotraukos</string>
     <string name="drawer_item_recently_added">Paskiausiai pridėti</string>
     <string name="drawer_item_recently_modified">Paskiausiai modifikuoti</string>
     <string name="drawer_item_shared">Bendrinami</string>
@@ -293,27 +290,18 @@
     <string name="file_keep">Palikti</string>
     <string name="file_list_empty">Įkelkite tam tikrą turinį (medžiagą) arba sinchronizuokite su savo įrenginiais.</string>
     <string name="file_list_empty_favorite_headline">Kol kas nėra mėgstamų</string>
-    <string name="file_list_empty_favorites_filter">Jūsų paieška negrąžino jokių mėgstamų failų.</string>
     <string name="file_list_empty_favorites_filter_list">Čia bus rodomi failai ir aplankai, kuriuos pažymėjote kaip mėgstamiausius.
  </string>
     <string name="file_list_empty_headline">Čia nėra failų</string>
     <string name="file_list_empty_headline_search">Šiame aplanke nėra jokių rezultatų</string>
     <string name="file_list_empty_headline_server_search">Nieko nerasta</string>
-    <string name="file_list_empty_headline_server_search_photos">Nėra nuotraukų</string>
-    <string name="file_list_empty_headline_server_search_videos">Nera vaizdo įrašų</string>
     <string name="file_list_empty_moving">Čia tuščia. Įkelkite ką nors!</string>
     <string name="file_list_empty_on_device">Čia bus rodomi parsiųsti failai ir aplankai.</string>
     <string name="file_list_empty_recently_added">Neseniai pridėtų failų nerasta</string>
-    <string name="file_list_empty_recently_added_filter">Nėra jokių paskiausiai pridėtų failų.</string>
     <string name="file_list_empty_recently_modified">Nerasta jokių per paskutines 7 dienas modifikuotų failų.</string>
-    <string name="file_list_empty_recently_modified_filter">Per paskutines 7 dienas nebuvo modifikuota jokių failų.</string>
     <string name="file_list_empty_search">Gal tai yra kitame aplanke?</string>
     <string name="file_list_empty_shared">Čia bus rodomi bendrinami failai ir aplankai.</string>
     <string name="file_list_empty_shared_headline">Niekuo nesidalinate</string>
-    <string name="file_list_empty_text_photos">Įkelkite nuotraukas arba įjunkite automatinį įkėlimą.</string>
-    <string name="file_list_empty_text_photos_filter">Nuotraukų nėra.</string>
-    <string name="file_list_empty_text_videos">Įkelkite vaizdo įrašus arba įjunkite automatinį įkėlimą</string>
-    <string name="file_list_empty_text_videos_filter">Vaizdo įrašų nėra.</string>
     <string name="file_list_folder">aplankas</string>
     <string name="file_list_loading">Įkeliama…</string>
     <string name="file_list_no_app_for_file_type">Nėra šios programos failo tipui tvarkyti.</string>
@@ -467,7 +455,6 @@
     <string name="notification_channel_upload_description">Rodo įkėlimo eigą</string>
     <string name="notification_channel_upload_name">Įkelkite pranešimų kanalą</string>
     <string name="notification_icon">Pranešimo piktograma</string>
-    <string name="notifications_loading_activity">Įkeliami pranešimai…</string>
     <string name="notifications_no_results_headline">Pranešimų nėra</string>
     <string name="notifications_no_results_message">Prašome patikrinti vėliau.</string>
     <string name="offline_mode">Nėra interneto ryšio</string>
@@ -710,7 +697,6 @@
     <string name="sync_string_files">Failai</string>
     <string name="synced_folder_settings_button">Nustatymų mygtukas</string>
     <string name="synced_folders_configure_folders">Konfigūruokite aplankus</string>
-    <string name="synced_folders_loading_folders">Įkeliami aplankai…</string>
     <string name="synced_folders_new_info">Momentinis įkėlimas buvo visiškai sutaisytas. Perkonfigūruokite automatinius įkėlimus per pagrindinį meniu.\n\nMėgaukitės naujuoju automatiniu įkėlimu.</string>
     <string name="synced_folders_no_results">Nerasta medija failų</string>
     <string name="synced_folders_preferences">Pageidaujami nustatymai automatiniam įkėlimui</string>

@@ -45,7 +45,6 @@
     <string name="auth_bad_oc_version_title">גרסה השרת אינה מזוהה</string>
     <string name="auth_connection_established">החיבור נוצר</string>
     <string name="auth_fail_get_user_name">השרת אינו מחזיר את מספר המשתמש הנכון , אנא צור קשר עם מנהל המערכת</string>
-    <string name="auth_host_address">כתובת שרת</string>
     <string name="auth_host_url">כתובת שרת https://…</string>
     <string name="auth_incorrect_address_title">תבנית כתובת שגויה לשרת</string>
     <string name="auth_incorrect_path_title">השרת לא נמצא</string>
@@ -141,7 +140,6 @@
     <string name="conflict_already_existing_file">קובץ קיים</string>
     <string name="conflict_dialog_error">שגיאה ביצירת תיבת דו־שיח סתירה!</string>
     <string name="conflict_message_description">בבחירה של שתי הגרסאות, יתווסף מספר בסוף שמו של הקובץ המקומי.</string>
-    <string name="conflict_message_headline">אילו קבצים ברצונך לשמור?</string>
     <string name="conflict_new_file">קובץ חדש</string>
     <string name="contaclist_restore_selected">שחזור אנשי הקשר הנבחרים</string>
     <string name="contactlist_account_chooser_title">נא לבחור חשבון לייבוא</string>
@@ -208,7 +206,6 @@
     <string name="drawer_item_home">בית</string>
     <string name="drawer_item_notifications">התרעות</string>
     <string name="drawer_item_on_device">בהתקן</string>
-    <string name="drawer_item_photos">תמונות</string>
     <string name="drawer_item_recently_added">נוספו לאחרונה</string>
     <string name="drawer_item_recently_modified">השתנו לאחרונה</string>
     <string name="drawer_item_shared">שותף</string>
@@ -276,23 +273,14 @@
     <string name="file_keep">שימור</string>
     <string name="file_list_empty">ניתן להעלות לכאן תוכן או לסנכרן עם ההתקנים שלך.</string>
     <string name="file_list_empty_favorite_headline">שום דבר לא סומן כמועדף עדיין</string>
-    <string name="file_list_empty_favorites_filter">החיפוש שלך לא החזיר קבצים מועדפים.</string>
     <string name="file_list_empty_headline">אין כאן קבצים</string>
     <string name="file_list_empty_headline_search">לא נמצאו תוצאות בתקיה זו</string>
     <string name="file_list_empty_headline_server_search">לא נמצאו תוצאות</string>
-    <string name="file_list_empty_headline_server_search_photos">אין תמונות</string>
-    <string name="file_list_empty_headline_server_search_videos">אין סרטונים</string>
     <string name="file_list_empty_moving">אין כאן כלום. ניתן להוסיף תיקייה.</string>
     <string name="file_list_empty_recently_added">לא נמצאו קבצים שנוספו לאחרונה</string>
-    <string name="file_list_empty_recently_added_filter">לא נוספו קבצים לאחרונה.</string>
     <string name="file_list_empty_recently_modified">לא נמצאו קבצים שנערכו בשבוע החולף</string>
-    <string name="file_list_empty_recently_modified_filter">אף קובץ לא נערך בשבוע החולף.</string>
     <string name="file_list_empty_search">יכול להיות שזה בתיקייה אחרת?</string>
     <string name="file_list_empty_shared_headline">שום דבר לא שותף עדיין</string>
-    <string name="file_list_empty_text_photos">יש להעלות תמונות כלשהן או להפעיל את ההעלאה האוטומטית.</string>
-    <string name="file_list_empty_text_photos_filter">אין תמונות.</string>
-    <string name="file_list_empty_text_videos">ניתן להעלות כמה סרטונים או להפעיל העלאה אוטומטית.</string>
-    <string name="file_list_empty_text_videos_filter">אין סרטונים.</string>
     <string name="file_list_folder">תקיה</string>
     <string name="file_list_loading">בטעינה…</string>
     <string name="file_list_no_app_for_file_type">לא הוגדר יישומון לטיפול בסוג קובץ שכזה.</string>
@@ -435,7 +423,6 @@
     <string name="notification_channel_upload_description">מציג תהליך העלאה</string>
     <string name="notification_channel_upload_name">ערוץ דיווחי הלאה</string>
     <string name="notification_icon">סמל התראה</string>
-    <string name="notifications_loading_activity">ההתרעות נטענות…</string>
     <string name="notifications_no_results_headline">אין התרעות</string>
     <string name="notifications_no_results_message">נא לבדוק שוב מאוחר יותר.</string>
     <string name="offline_mode">אין חיבור לאינטרנט</string>
@@ -680,7 +667,6 @@
     <string name="sync_string_files">קבצים</string>
     <string name="synced_folder_settings_button">כפתור הגדרות</string>
     <string name="synced_folders_configure_folders">הגדרת תיקיות</string>
-    <string name="synced_folders_loading_folders">התיקיות נטענות…</string>
     <string name="synced_folders_new_info">ההעלאה המידית שופצה לחלוטין. עליך להגדיר העלאה אוטומטית מהתפריט הראשי.\n\nמזמינים אותך ליהנות מההעלאה האוטומטית החדשה והמשופרת.</string>
     <string name="synced_folders_no_results">לא נמצאו תיקיות מדיה</string>
     <string name="synced_folders_preferences">העדפות להעלאה אוטומטית</string>

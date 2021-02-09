@@ -48,7 +48,6 @@
     <string name="auth_bad_oc_version_title">Не вдалося визначити версію сервер серверу</string>
     <string name="auth_connection_established">З\'єднання встановлено</string>
     <string name="auth_fail_get_user_name">Ваш сервер не повертає правильний ID користувача, будь ласка, сконтактуйте з адміністратором.</string>
-    <string name="auth_host_address">Ареса серверу</string>
     <string name="auth_host_url">Адреса сервера https://…</string>
     <string name="auth_incorrect_address_title">Неправильний формат адреси сервера</string>
     <string name="auth_incorrect_path_title">Сервер не знайдено</string>
@@ -149,7 +148,6 @@
     <string name="conflict_dialog_error">Помилка у створенні діалогу щодо конфлікту!</string>
     <string name="conflict_file_headline">Конфліктний файл %1$s</string>
     <string name="conflict_message_description">Якщо ви виберете обидві версії, то до назви локального файлу буде додано порядковий номер.</string>
-    <string name="conflict_message_headline">Які файли ви хочете залишити?</string>
     <string name="conflict_new_file">Новий файл</string>
     <string name="contaclist_restore_selected">Відновити вибрані контакти</string>
     <string name="contactlist_account_chooser_title">Виберіть обліковий запис для імпорту</string>
@@ -221,7 +219,6 @@
     <string name="drawer_item_home">Старт</string>
     <string name="drawer_item_notifications">Повідомлення</string>
     <string name="drawer_item_on_device">На пристрої</string>
-    <string name="drawer_item_photos">Фото</string>
     <string name="drawer_item_recently_added">Нещодавно додані</string>
     <string name="drawer_item_recently_modified">Нещодавно змінені</string>
     <string name="drawer_item_shared">Спільні</string>
@@ -293,26 +290,17 @@
     <string name="file_keep">Зберегти</string>
     <string name="file_list_empty">Додати зміст або синхронізувати з вашими пристроями.</string>
     <string name="file_list_empty_favorite_headline">Відсутнє обране</string>
-    <string name="file_list_empty_favorites_filter">В результатах пошуку відсутні файли з улюбленого списку.</string>
     <string name="file_list_empty_favorites_filter_list">Тут можна буде знайти файли та теки, які ви позначили \"улюбленими\".</string>
     <string name="file_list_empty_headline">Тут немає файлів</string>
     <string name="file_list_empty_headline_search">Жодного співпадіння у цій теці</string>
     <string name="file_list_empty_headline_server_search">Жодного співпадіння</string>
-    <string name="file_list_empty_headline_server_search_photos">Жодного фото</string>
-    <string name="file_list_empty_headline_server_search_videos">Жодного відеофайлу</string>
     <string name="file_list_empty_moving">Нічого немає. Ви можете додати теку.</string>
     <string name="file_list_empty_on_device">Тут ти можете знайти теки та файли, які було звантажено.</string>
     <string name="file_list_empty_recently_added">Не знайдено нещодавно доданих файлів</string>
-    <string name="file_list_empty_recently_added_filter">Нещодавно додані файли відсутні</string>
     <string name="file_list_empty_recently_modified">Відсутні зміни серед файлів за останні 7 днів</string>
-    <string name="file_list_empty_recently_modified_filter">Жодного зміненого файлу за останні 7 днів.</string>
     <string name="file_list_empty_search">Можливо, це інший каталог?</string>
     <string name="file_list_empty_shared">Тут можна буде знайти файли та теки, якими ви поділилися.</string>
     <string name="file_list_empty_shared_headline">Жодного спільного файлу</string>
-    <string name="file_list_empty_text_photos">Завантажити фотографії чи активувати автозавантаження</string>
-    <string name="file_list_empty_text_photos_filter">Немає фотографій.</string>
-    <string name="file_list_empty_text_videos">Додайте файли з відео або увімкніть автоматичне завантаження.</string>
-    <string name="file_list_empty_text_videos_filter">Немає відеозаписів.</string>
     <string name="file_list_folder">тека</string>
     <string name="file_list_loading">Завантаження…</string>
     <string name="file_list_no_app_for_file_type">Відсутній застосунок для відкриття файлу такого типу.</string>
@@ -464,7 +452,6 @@
     <string name="notification_channel_upload_description">Показує перебіг завантаження</string>
     <string name="notification_channel_upload_name">Канал сповіщень про завантаження</string>
     <string name="notification_icon">Значок сповіщень</string>
-    <string name="notifications_loading_activity">Завантаженння сповіщень...</string>
     <string name="notifications_no_results_headline">Немає сповіщень</string>
     <string name="notifications_no_results_message">Будь ласка, перегляньте ще раз пізніше.</string>
     <string name="offline_mode">Відсутнє з\'єднання з мережею</string>
@@ -707,7 +694,6 @@
     <string name="sync_string_files">Файли</string>
     <string name="synced_folder_settings_button">Кнопка налаштувань</string>
     <string name="synced_folders_configure_folders">Налаштувати теки</string>
-    <string name="synced_folders_loading_folders">Завантаження теки...</string>
     <string name="synced_folders_new_info">Постійне завантаження було повністю перероблено. Переналаштуйте ваше автоматичне завантаження у головному меню.\n\nНасолоджуйтеся оновленим та розширеним автоматичним завантаженням.</string>
     <string name="synced_folders_no_results">Не знайдено теку для зображень та відео</string>
     <string name="synced_folders_preferences">Налаштування автоматичного завантаження</string>

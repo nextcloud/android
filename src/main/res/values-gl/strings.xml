@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Versión do servidor non recoñecida</string>
     <string name="auth_connection_established">Estabeleceuse a conexión</string>
     <string name="auth_fail_get_user_name">O seu servidor non está devolvendo unha identificación de usuario correcta; contacte cun administrador.</string>
-    <string name="auth_host_address">Enderezo do servidor</string>
     <string name="auth_host_url">Enderezo do servidor https://…</string>
     <string name="auth_incorrect_address_title">O formato do enderezo do servidor é incorrecto</string>
     <string name="auth_incorrect_path_title">Non se atopou o servidor</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Produciuse un erro ao crear o diálogo de conflitos!</string>
     <string name="conflict_file_headline">Ficheiro en conflito %1$s</string>
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
-    <string name="conflict_message_headline">Que ficheiros quere conservar?</string>
     <string name="conflict_new_file">Novo ficheiro</string>
     <string name="contaclist_restore_selected">Restaurar os contactos seleccionados</string>
     <string name="contactlist_account_chooser_title">Escolla unha conta para importala</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificacións</string>
     <string name="drawer_item_on_device">No dispositivo</string>
-    <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Engadido recentemente</string>
     <string name="drawer_item_recently_modified">Modificado recentemente</string>
     <string name="drawer_item_shared">Compartido</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Conservar</string>
     <string name="file_list_empty">Envíe algún contido ou sincronice cos seus dispositivos.</string>
     <string name="file_list_empty_favorite_headline">Aínda non hai nada marcado como favorito</string>
-    <string name="file_list_empty_favorites_filter">A súa b usca non atopou ningún ficheiro favorito.</string>
     <string name="file_list_empty_favorites_filter_list">Aquí amosaranse os ficheiros e cartafoles que marque como favoritos.</string>
     <string name="file_list_empty_headline">Aquí non hai ficheiros</string>
     <string name="file_list_empty_headline_search">Non hai resultados neste cartafol</string>
     <string name="file_list_empty_headline_server_search">Sen resultados</string>
-    <string name="file_list_empty_headline_server_search_photos">Non hai fotos</string>
-    <string name="file_list_empty_headline_server_search_videos">Non hai vídeos</string>
     <string name="file_list_empty_moving">Aquí non hai nada. Pode engadir un cartafol.</string>
     <string name="file_list_empty_on_device">Aquí amosaranse os ficheiros e cartafoles descargados</string>
     <string name="file_list_empty_recently_added">Non se atoparon ficheiros engadidos recentemente</string>
-    <string name="file_list_empty_recently_added_filter">Non hai ficheiros engadidos recentemente</string>
     <string name="file_list_empty_recently_modified">Non se atoparon ficheiros modificados nos últimos 7 días.</string>
-    <string name="file_list_empty_recently_modified_filter">Non hai ficheiros modificados nos últimos 7 días.</string>
     <string name="file_list_empty_search">Quizáis estea nun cartafol diferente?</string>
     <string name="file_list_empty_shared">Aquí amosaranse os ficheiros e cartafoles que comparta.</string>
     <string name="file_list_empty_shared_headline">Aínda non hai nada compartido</string>
-    <string name="file_list_empty_text_photos">Envíe algunhas fotos ou active o envío automático.</string>
-    <string name="file_list_empty_text_photos_filter">Non hai fotos.</string>
-    <string name="file_list_empty_text_videos">Envíe algún vídeo ou active o envío automático.</string>
-    <string name="file_list_empty_text_videos_filter">Non hai vídeos.</string>
     <string name="file_list_folder">cartafol</string>
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">Non foi estabelecida unha aplicación para manexar este tipo de ficheiro.</string>
@@ -463,7 +451,6 @@
     <string name="notification_channel_upload_description">Amosa o progreso do envío</string>
     <string name="notification_channel_upload_name">Canle de notificación de envíos</string>
     <string name="notification_icon">Icona de notificación</string>
-    <string name="notifications_loading_activity">Cargando notificacións…</string>
     <string name="notifications_no_results_headline">Non hai notificacións</string>
     <string name="notifications_no_results_message">Compróbeo máis adiante.</string>
     <string name="offline_mode">Sen conexión coa Internet</string>
@@ -707,7 +694,6 @@
     <string name="sync_string_files">Ficheiros</string>
     <string name="synced_folder_settings_button">Botón de axustes</string>
     <string name="synced_folders_configure_folders">Configurar os cartafoles</string>
-    <string name="synced_folders_loading_folders">Cargando cartafoles…</string>
     <string name="synced_folders_new_info">O envío automático foi renovado completamente. Reconfigure os seus envíos instantáneos no menú principal.\n\nGoce das novas e ampliadas capacidades do envío automático!</string>
     <string name="synced_folders_no_results">Non se atopan cartafoles multimedia</string>
     <string name="synced_folders_preferences">Preferencias de envío automático</string>

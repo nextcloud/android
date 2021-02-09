@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Versió del servidor desconeguda</string>
     <string name="auth_connection_established">S\'ha establert la connexió</string>
     <string name="auth_fail_get_user_name">El vostre servidor no està retornant un ID d\'usuari correcte, si us plau contacteu amb un administrador</string>
-    <string name="auth_host_address">Adreça del servidor</string>
     <string name="auth_host_url">Adreça del servidor https://…</string>
     <string name="auth_incorrect_address_title">Format d\'adreça incorrecte per al servidor</string>
     <string name="auth_incorrect_path_title">No s\'ha trobat el servidor</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Error creant diàleg de conflicte!</string>
     <string name="conflict_file_headline">Fitxer en conflicte %1$s</string>
     <string name="conflict_message_description">Si seleccioneu ambdues versions, s\'afegirà un numero al nom de la versió local.</string>
-    <string name="conflict_message_headline">Quins fitxers voleu conservar?</string>
     <string name="conflict_new_file">Nou fitxer</string>
     <string name="contaclist_restore_selected">Restaura els contactes seleccionats</string>
     <string name="contactlist_account_chooser_title">Escolliu un compte per a importar</string>
@@ -193,6 +191,7 @@
     <string name="dev_version_new_version_available">Hi ha una nova versió disponible</string>
     <string name="dev_version_no_information_available">Sense info disponible.</string>
     <string name="dev_version_no_new_version_available">Cap versió nova disponible.</string>
+    <string name="dialog_close">Tanca</string>
     <string name="digest_algorithm_not_available">Aquest algorisme de resum no és disponible al vostre telèfon.</string>
     <string name="disable_new_media_folder_detection_notifications">Desactiva</string>
     <string name="dismiss">Descarta</string>
@@ -219,7 +218,6 @@
     <string name="drawer_item_home">Inici</string>
     <string name="drawer_item_notifications">Notificacions</string>
     <string name="drawer_item_on_device">Al dispositiu</string>
-    <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Afegit recentment</string>
     <string name="drawer_item_recently_modified">Modificat recentment</string>
     <string name="drawer_item_shared">Compartit</string>
@@ -291,32 +289,24 @@
     <string name="file_keep">Mantén</string>
     <string name="file_list_empty">Carregueu continguts o sincronitzeu els vostres dispositius.</string>
     <string name="file_list_empty_favorite_headline">No s\'ha marcat cap preferit</string>
-    <string name="file_list_empty_favorites_filter">La cerca no ha retornat cap fitxer </string>
     <string name="file_list_empty_favorites_filter_list">Aquí apareixeran els fitxers i carpetes que marqueu com a favorits.</string>
     <string name="file_list_empty_headline">No hi ha fitxers</string>
     <string name="file_list_empty_headline_search">Cap resultat en aquesta carpeta</string>
     <string name="file_list_empty_headline_server_search">Sense resultats</string>
-    <string name="file_list_empty_headline_server_search_photos">Sense imatges</string>
-    <string name="file_list_empty_headline_server_search_videos">Sense vídeos</string>
     <string name="file_list_empty_moving">Aquí no hi ha res. Podeu afegir una carpeta.</string>
     <string name="file_list_empty_on_device">Aquí apareixeran els fitxers i carpetes descarregats.</string>
     <string name="file_list_empty_recently_added">No s\'han trobat fitxers afegits recentment</string>
-    <string name="file_list_empty_recently_added_filter">No hi ha fitxers afegits recentment.</string>
     <string name="file_list_empty_recently_modified">No s\'han trobat fitxers modificats els darrers 7 dies</string>
-    <string name="file_list_empty_recently_modified_filter">No s\'han modificat fitxers els darrers 7 dies</string>
     <string name="file_list_empty_search">Potser és a una altra carpeta?</string>
     <string name="file_list_empty_shared">Aquí apareixeran els fitxers i carpetes que compartiu.</string>
     <string name="file_list_empty_shared_headline">Encara no s\'ha compartit res</string>
-    <string name="file_list_empty_text_photos">Carregueu algunes fotos o activeu la càrrega automàtica.</string>
-    <string name="file_list_empty_text_photos_filter">Sense fotos.</string>
-    <string name="file_list_empty_text_videos">Carregueu vídeos o activeu la càrrega automàtica.</string>
-    <string name="file_list_empty_text_videos_filter">Sense vídeos.</string>
     <string name="file_list_folder">carpeta</string>
     <string name="file_list_loading">S\'està carregant…</string>
     <string name="file_list_no_app_for_file_type">No hi ha cap aplicació configurada per gestionar aquest tipus de fitxer.</string>
     <string name="file_list_seconds_ago">fa uns segons</string>
     <string name="file_migration_checking_destination">S\'està comprovant la destinació…</string>
     <string name="file_migration_cleaning">S\'està netejant…</string>
+    <string name="file_migration_dialog_title">Actualitzant la carpeta de dades</string>
     <string name="file_migration_directory_already_exists">La carpeta de dades ja existeix. Escolliu-ne una de les següents:</string>
     <string name="file_migration_failed_dir_already_exists">La carpeta de Nextcloud ja existeix</string>
     <string name="file_migration_failed_not_enough_space">Es necessita més espai</string>
@@ -330,6 +320,7 @@
     <string name="file_migration_preparing">S\'està preparant la migració…</string>
     <string name="file_migration_restoring_accounts_configuration">S\'està restaurant la configuració del compte…</string>
     <string name="file_migration_saving_accounts_configuration">S\'està desant la configuració del compte…</string>
+    <string name="file_migration_source_not_readable">Encara vols canviar la carpeta de dades a%1$s?\n\nNota: Totes les dades s\'hauran de tornar a descarregar.</string>
     <string name="file_migration_source_not_readable_title">El fitxer d\'origen no es pot llegir</string>
     <string name="file_migration_updating_index">S\'està actualitzant l\'índex…</string>
     <string name="file_migration_use_data_folder">Fes servir</string>
@@ -460,7 +451,6 @@
     <string name="notification_channel_upload_description">Mostra el progrés de càrrega</string>
     <string name="notification_channel_upload_name">Canal de notificacions de càrregues</string>
     <string name="notification_icon">Icona de notificació</string>
-    <string name="notifications_loading_activity">S\'està carregant notificacions…</string>
     <string name="notifications_no_results_headline">No hi ha notificacions</string>
     <string name="notifications_no_results_message">Si us plau, comproveu-ho més tard</string>
     <string name="offline_mode">No hi ha connexió a internet</string>
@@ -534,6 +524,7 @@
     <string name="prefs_recommend">Recomana a un amic</string>
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
     <string name="prefs_sourcecode">Aconseguiu el codi font</string>
+    <string name="prefs_storage_path">Carpeta de dades</string>
     <string name="prefs_sycned_folders_summary">Gestiona les carpetes per a la càrrega automàtica</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
@@ -702,7 +693,6 @@
     <string name="sync_string_files">Fitxers</string>
     <string name="synced_folder_settings_button">Botó de paràmetres</string>
     <string name="synced_folders_configure_folders">Configureu les carpetes</string>
-    <string name="synced_folders_loading_folders">S\'està carregant les carpetes…</string>
     <string name="synced_folders_new_info">La càrrega instantània s\'ha renovat completament. Torneu a configurar la vostra càrrega automàtica des de dins del menú principal.\n\nGaudiu de la nova càrrega automàtica amb més funcionalitats.</string>
     <string name="synced_folders_no_results">No s\'han trobat carpetes multimèdia </string>
     <string name="synced_folders_preferences">Preferències de la càrrega automàtica</string>
@@ -829,6 +819,8 @@
     <string name="whats_new_skip">Omet</string>
     <string name="whats_new_title">Nou a %1$s</string>
     <string name="whats_your_status">Quin és el teu estat?</string>
+    <string name="wrong_storage_path">La carpeta de dades no existeix!</string>
+    <string name="wrong_storage_path_desc">Això podria ser degut a una còpia de seguretat restaurada per un altre dispositiu. Revertint a la configuració per defecte. Si us plau, comprova els paràmetres per seleccionar la carpeta de dades.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">No s\'ha pogut sincronitzar %1$d fitxer (conflictes: %2$d)</item>
         <item quantity="other">No s\'han pogut sincronitzar %1$d fitxers (conflictes: %2$d)</item>

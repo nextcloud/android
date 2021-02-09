@@ -43,7 +43,6 @@
     <string name="auth_account_not_the_same">Въведният потребител не съвпада с потребителя на профила</string>
     <string name="auth_bad_oc_version_title">Неизвестна версия на сървъра</string>
     <string name="auth_connection_established">Осъществена е връзка</string>
-    <string name="auth_host_address">Адрес на сървъра</string>
     <string name="auth_host_url">Адрес на сървъра https://…</string>
     <string name="auth_incorrect_address_title">Грешен формат на адреса на сървъра</string>
     <string name="auth_incorrect_path_title">Сървърът не е открит</string>
@@ -135,7 +134,6 @@
     <string name="conflict_already_existing_file">Файла вече съществува</string>
     <string name="conflict_dialog_error">Грешка при създаване на диалог за конфликт!</string>
     <string name="conflict_message_description">Ако изберете и двете версии, ще бъде добавен номер към името на локалния файл.</string>
-    <string name="conflict_message_headline">Кои файлове желете да запазите?</string>
     <string name="conflict_new_file">Нов файл</string>
     <string name="contaclist_restore_selected">Възстанови избраните контакти</string>
     <string name="contactlist_account_chooser_title">Изберете профил за внасяне</string>
@@ -200,7 +198,6 @@
     <string name="drawer_item_home">Начало</string>
     <string name="drawer_item_notifications">Известия</string>
     <string name="drawer_item_on_device">На устройството</string>
-    <string name="drawer_item_photos">Снимки</string>
     <string name="drawer_item_recently_added">Последно добавени</string>
     <string name="drawer_item_recently_modified">Последно преработени</string>
     <string name="drawer_item_shared">Споделени</string>
@@ -253,23 +250,14 @@
     <string name="file_keep">Запази</string>
     <string name="file_list_empty">Качете файлове или синхронизирайте с устройства.</string>
     <string name="file_list_empty_favorite_headline">Няма любими все още</string>
-    <string name="file_list_empty_favorites_filter">Търсенето ви не откри любими файлове.</string>
     <string name="file_list_empty_headline">Няма файлове</string>
     <string name="file_list_empty_headline_search">Няма намерени резултати в тази папла</string>
     <string name="file_list_empty_headline_server_search">Няма резултат</string>
-    <string name="file_list_empty_headline_server_search_photos">Няма снимки</string>
-    <string name="file_list_empty_headline_server_search_videos">Няма видео</string>
     <string name="file_list_empty_moving">Тук няма нищо. Можете да добавите папка.</string>
     <string name="file_list_empty_recently_added">Няма наскоро добавени файлове</string>
-    <string name="file_list_empty_recently_added_filter">Няма наскоро добавени файлове.</string>
     <string name="file_list_empty_recently_modified">Няма модифицирани файлове през последните 7 дни</string>
-    <string name="file_list_empty_recently_modified_filter">Няма модифицирани файлове през последните 7 дни.</string>
     <string name="file_list_empty_search">Вероятно е в друга директория?</string>
     <string name="file_list_empty_shared_headline">Все още нищо не е споделено</string>
-    <string name="file_list_empty_text_photos">Качете снимки или активирайте автоматичното качване.</string>
-    <string name="file_list_empty_text_photos_filter">Няма снимки.</string>
-    <string name="file_list_empty_text_videos">Качете видеоклипове или активирайте автоматичното качване.</string>
-    <string name="file_list_empty_text_videos_filter">Няма видеоклипове.</string>
     <string name="file_list_folder">папка</string>
     <string name="file_list_loading">Зареждане…</string>
     <string name="file_list_no_app_for_file_type">Няма приложение, което да се справи с подобен тип файл.</string>
@@ -386,7 +374,6 @@
     <string name="notification_channel_general_name">Общи известия</string>
     <string name="notification_channel_media_name">Медиен плеър</string>
     <string name="notification_icon">Икона за известия</string>
-    <string name="notifications_loading_activity">Зареждане на известията…</string>
     <string name="notifications_no_results_headline">Няма известия</string>
     <string name="notifications_no_results_message">Моля, опитайте отново по-късно.</string>
     <string name="offline_mode">Няма връзка с Интернет</string>
@@ -572,7 +559,6 @@
     <string name="sync_string_files">Файлове</string>
     <string name="synced_folder_settings_button">Настройки</string>
     <string name="synced_folders_configure_folders">Конфигуриране на папки</string>
-    <string name="synced_folders_loading_folders">Зареждане на папките…</string>
     <string name="synced_folders_new_info">Моментално качване е преправено изцяло. Конфигурирайте автоматичното качване от главното меню.\n\n Насладете се на новото и продължено автоматично качване.</string>
     <string name="synced_folders_preferences">Предпочитания за автоматично качване</string>
     <string name="synced_folders_preferences_folder_path">За %1$s</string>

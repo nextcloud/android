@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Okänd server serverversion</string>
     <string name="auth_connection_established">Anslutning etablerad</string>
     <string name="auth_fail_get_user_name">Din server returnerar inte ett korrekt användar-ID, vänligen kontakta en administratör.</string>
-    <string name="auth_host_address">Serveradress</string>
     <string name="auth_host_url">Serveradress https://…</string>
     <string name="auth_incorrect_address_title">Fel adressformat för server</string>
     <string name="auth_incorrect_path_title">Server kunde inte hittas</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Fel vid skapande av konfliktdialog!</string>
     <string name="conflict_file_headline">Konfliktande fil %1$s</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
-    <string name="conflict_message_headline">Vilka filer vill du behålla?</string>
     <string name="conflict_new_file">Ny fil</string>
     <string name="contaclist_restore_selected">Återställ valda kontakter</string>
     <string name="contactlist_account_chooser_title">Välj konto att importera</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Hem</string>
     <string name="drawer_item_notifications">Aviseringar</string>
     <string name="drawer_item_on_device">Filer på enheten</string>
-    <string name="drawer_item_photos">Bilder</string>
     <string name="drawer_item_recently_added">Nyligen tillagd</string>
     <string name="drawer_item_recently_modified">Nyligen ändrad</string>
     <string name="drawer_item_shared">Delat</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Behåll</string>
     <string name="file_list_empty">Ladda upp något eller synkronisera med dina enheter</string>
     <string name="file_list_empty_favorite_headline">Inga favoriter ännu</string>
-    <string name="file_list_empty_favorites_filter">Din sökning gav inga favoriserade filer.</string>
     <string name="file_list_empty_favorites_filter_list">Filer och mappar markerade som favoriter kommer att visas här.</string>
     <string name="file_list_empty_headline">Inga filer här</string>
     <string name="file_list_empty_headline_search">Tomt i denna mapp</string>
     <string name="file_list_empty_headline_server_search">Inga resultat</string>
-    <string name="file_list_empty_headline_server_search_photos">Inga bilder</string>
-    <string name="file_list_empty_headline_server_search_videos">Inga videor</string>
     <string name="file_list_empty_moving">Inget här. Du kan lägga till en mapp.</string>
     <string name="file_list_empty_on_device">Nedladdade filer och mappar kommer att visas här.</string>
     <string name="file_list_empty_recently_added">Hittade inga nyligen tillagda filer</string>
-    <string name="file_list_empty_recently_added_filter">Inga nyligen tillagda filer.</string>
     <string name="file_list_empty_recently_modified">Hittade inga ändrade filer de senaste 7 dagarna</string>
-    <string name="file_list_empty_recently_modified_filter">Inga filer ändrade de senaste 7 dagarna.</string>
     <string name="file_list_empty_search">Kanske finns den i en annan mapp?</string>
     <string name="file_list_empty_shared">Filer och mappar som du delar kommer visas här.</string>
     <string name="file_list_empty_shared_headline">Inget delat ännu</string>
-    <string name="file_list_empty_text_photos">Ladda upp några bilder eller aktivera automatisk uppladdning.</string>
-    <string name="file_list_empty_text_photos_filter">Inga foton.</string>
-    <string name="file_list_empty_text_videos">Ladda upp några videor eller aktivera automatisk uppladdning.</string>
-    <string name="file_list_empty_text_videos_filter">Inga videor.</string>
     <string name="file_list_folder">mapp</string>
     <string name="file_list_loading">Läser in…</string>
     <string name="file_list_no_app_for_file_type">Det finns ingen applikation för att hantera denna filtyp</string>
@@ -461,7 +449,6 @@
     <string name="notification_channel_upload_description">Visar uppladdningsförloppet</string>
     <string name="notification_channel_upload_name">Ladda upp aviseringskanal</string>
     <string name="notification_icon">Meddelandeikon</string>
-    <string name="notifications_loading_activity">Läser in aviseringar…</string>
     <string name="notifications_no_results_headline">Inga aviseringar</string>
     <string name="notifications_no_results_message">Vänligen kontrollera igen senare.</string>
     <string name="offline_mode">Ingen internetanslutning</string>
@@ -704,7 +691,6 @@
     <string name="sync_string_files">Filer</string>
     <string name="synced_folder_settings_button">Inställningar-knapp</string>
     <string name="synced_folders_configure_folders">Konfigurera mappar</string>
-    <string name="synced_folders_loading_folders">Läser in mappar…</string>
     <string name="synced_folders_new_info">Direktuppladdning heter numera Automatisk uppladdning och har blivit totalt omgjort. Vänligen se huvudmenyn för att konfigurera Automatisk uppladdning igen. Ledsen för besväret.\n\nNjut av de nya och förbättrade uppladdningsmöjligheterna!</string>
     <string name="synced_folders_no_results">Inga mediamappar hittades</string>
     <string name="synced_folders_preferences">Inställningar för automatisk uppladdning</string>
