@@ -224,34 +224,25 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/standard_half_margin"
         android:layout_weight="7"
-        app:layout_constraintBottom_toTopOf="@+id/relative_layout_choice_buttons"
+        app:layout_constraintBottom_toTopOf="@+id/layout_choice_buttons"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout_pager_button" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/relative_layout_choice_buttons"
+    <LinearLayout
+        android:id="@+id/layout_choice_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:orientation="horizontal"
         android:padding="@dimen/standard_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewPagerScanDocument">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnValidate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/folder_picker_choose_button_text"
-            android:theme="@style/Button.Primary"
-            app:cornerRadius="@dimen/button_corner_radius"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivAddAnOtherScanToDoc"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnClose"
             style="@style/OutlinedButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/common_cancel"
             app:cornerRadius="@dimen/button_corner_radius"
             app:layout_constraintEnd_toStartOf="@+id/ivAddAnOtherScanToDoc"
@@ -263,12 +254,28 @@
             style="@style/Widget.AppTheme.Button.IconButton"
             android:layout_width="@dimen/minimum_size_for_touchable_area"
             android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_weight="0"
             app:icon="@drawable/ic_add"
             app:iconTint="@color/grey_600"
             app:layout_constraintEnd_toStartOf="@+id/btnValidate"
             app:layout_constraintStart_toEndOf="@+id/btnClose"
             app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnValidate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/folder_picker_choose_button_text"
+            android:theme="@style/Button.Primary"
+            app:cornerRadius="@dimen/button_corner_radius"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivAddAnOtherScanToDoc"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBarScanDocument"
