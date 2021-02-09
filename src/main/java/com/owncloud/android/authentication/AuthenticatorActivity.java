@@ -466,10 +466,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void parseAndLoginFromWebView(String dataString) {
-        String prefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/";
-        LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, dataString);
-
         try {
+            String prefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/";
+            LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, dataString);
+
             if (mHostUrlInput != null) {
                 mHostUrlInput.setText("");
             }
@@ -1438,10 +1438,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 Uri data = getIntent().getData();
                 if (data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme))) {
-                    String prefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/";
-                    LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, data.toString());
-
                     try {
+                        String prefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/";
+                        LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, data.toString());
+
                         mServerInfo.mBaseUrl = AuthenticatorUrlUtils.normalizeUrlSuffix(loginUrlInfo.serverAddress);
                         webViewUser = loginUrlInfo.username;
                         webViewPassword = loginUrlInfo.password;
