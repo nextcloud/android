@@ -24,13 +24,17 @@ public class DeepLinkLoginActivity extends AuthenticatorActivity {
         Uri data = getIntent().getData();
 
         if (data != null) {
-            String prefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/";
-            LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, data.toString());
+            try {
+                String prefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/";
+                LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, data.toString());
 
-            TextView loginText = findViewById(R.id.loginInfo);
-            loginText.setTextColor(ThemeUtils.fontColor(this));
-            loginText.setText(String.format("Login with %1$s to %2$s", loginUrlInfo.username,
-                                            loginUrlInfo.serverAddress));
+                TextView loginText = findViewById(R.id.loginInfo);
+                loginText.setTextColor(ThemeUtils.fontColor(this));
+                loginText.setText(String.format("Login with %1$s to %2$s", loginUrlInfo.username,
+                                                loginUrlInfo.serverAddress));
+            } catch (IllegalArgumentException e) {
+                Toast.makeText(this, R.string.direct_login_failed, Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
