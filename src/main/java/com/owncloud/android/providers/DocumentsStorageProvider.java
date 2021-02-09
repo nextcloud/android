@@ -304,12 +304,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throws FileNotFoundException {
         Log.d(TAG, "openDocumentThumbnail(), id=" + documentId);
 
-        OCFile file = toDocument(documentId).getFile();
+        Document document = toDocument(documentId);
+        OCFile file = document.getFile();
 
         boolean exists = ThumbnailsCacheManager.containsBitmap(ThumbnailsCacheManager.PREFIX_THUMBNAIL
                                                                    + file.getRemoteId());
         if (!exists) {
-            ThumbnailsCacheManager.generateThumbnailFromOCFile(file);
+            ThumbnailsCacheManager.generateThumbnailFromOCFile(file, document.getAccount(), getContext());
         }
 
         return new AssetFileDescriptor(DiskLruImageCacheFileProvider.getParcelFileDescriptorForOCFile(file),
