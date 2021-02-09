@@ -124,17 +124,14 @@ public class ScanDocumentFragment extends Fragment {
                                                               binding.holderImageCrop.getHeight());
         saveOriginalImage(tmpBitmap.copy(tmpBitmap.getConfig(), true));
         saveNonInvertedImage(tmpBitmap.copy(tmpBitmap.getConfig(), true));
-        BitmapUtils.freeBitmap(tmpBitmap);
     }
 
     private void updateEditedImage(Bitmap bitmap) {
-        Bitmap tmpBitmap = BitmapUtils.scaleToFitCenterBitmap(bitmap,
-                                                              binding.holderImageCrop.getWidth(),
-                                                              binding.holderImageCrop.getHeight());
-        saveEditedImage(bitmap);
+        saveEditedImage(BitmapUtils.scaleToFitCenterBitmap(bitmap,
+                                                           binding.holderImageCrop.getWidth(),
+                                                           binding.holderImageCrop.getHeight()));
         // update view
         binding.imageViewScanDocument.setImageBitmap(this.editedImage);
-        BitmapUtils.freeBitmap(tmpBitmap);
     }
 
     private void saveNonInvertedImage(Bitmap bitmap) {
