@@ -75,6 +75,7 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
     private static final int PAGE_WIDTH = 960;
     private static final int PAGE_HEIGHT = 1280;
 
+    private boolean lowMemory = false;
     int mCurrentPosition;
     private ActivityScanDocBinding binding;
     private String pdfName = FileOperationsHelper.getScanDocName();
@@ -92,6 +93,7 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
         binding = ActivityScanDocBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        lowMemory = false;
         mCurrentPosition = -1;
 
         scanDocumentAdapter = new ScanDocumentAdapter(this, this, getSupportFragmentManager(), getLifecycle());
@@ -313,7 +315,7 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
         binding.ivPreviousScanDoc.setEnabled(mCurrentPosition != 0);
         binding.ivNextScanDoc.setEnabled(mCurrentPosition != scanDocumentAdapter.getItemCount());
         binding.textViewPageCounter.setText(getString(R.string.upload_scan_doc_page_counter, mCurrentPosition + 1,
-                                              scanDocumentAdapter.getItemCount()));
+                                                      scanDocumentAdapter.getItemCount()));
     }
 
     private ScanDocumentFragment getCurrentScanDocumentFragment() {
@@ -330,6 +332,14 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
     }
 
     @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Log_OC.w(this, "Low memory !!! Limit offloading");
+        lowMemory = true;
+        binding.viewPagerScanDocument.setOffscreenPageLimit(ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -338,17 +348,19 @@ public class ScanDocActivity extends AppCompatActivity implements ScanDocumentFr
 
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
             String path = FileOperationsHelper.createImageFile(this).getAbsolutePath();
-            Bitmap originalBitmap = BitmapFactory.decodeFile(path,
-                                                             bmOptions);
+            Bitmap originalBitmap = BitmapFactory.decodeFile(path, bmOptions);
             originalBitmap = BitmapUtils.rotateImage(originalBitmap, path);
             scanDocumentAdapter.addScanImage(originalBitmap, scanDocumentAdapter.getItemCount());
+            if (!lowMemory) {
+                // Force offloading all fragments to get a smooth UI
+                binding.viewPagerScanDocument.setOffscreenPageLimit(scanDocumentAdapter.getItemCount());
+            }
             updateNextPrevious();
             binding.viewPagerScanDocument.setCurrentItem(scanDocumentAdapter.getItemCount() - 1, false);
         } else if (requestCode == REQUEST_CODE__RETAKE_PICTURE_FROM_CAMERA && resultCode == RESULT_OK) {
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
             String path = FileOperationsHelper.createImageFile(this).getAbsolutePath();
-            Bitmap picture = BitmapFactory.decodeFile(path,
-                                                      bmOptions);
+            Bitmap picture = BitmapFactory.decodeFile(path, bmOptions);
             picture = BitmapUtils.rotateImage(picture, path);
             scanDocumentAdapter.changeScanImage(picture, binding.viewPagerScanDocument.getCurrentItem());
             updateNextPrevious();

@@ -87,6 +87,7 @@ import com.owncloud.android.utils.UriUtils;
 
 import org.apache.commons.io.FileUtils;
 import org.greenrobot.eventbus.EventBus;
+import org.lukhnos.nnio.file.Files;
 import org.lukhnos.nnio.file.Paths;
 
 import java.io.BufferedReader;
@@ -270,118 +271,58 @@ public class FileOperationsHelper {
         }).start();
     }
 
-    private void syncFile(OCFile file, User user, FileDataStorageManager storageManager) {
-        fileActivity.runOnUiThread(() -> fileActivity.showLoadingDialog(fileActivity.getResources()
-                .getString(R.string.sync_in_progress)));
-
-        SynchronizeFileOperation sfo = new SynchronizeFileOperation(file, null, user, true, fileActivity);
-        RemoteOperationResult result = sfo.execute(storageManager, fileActivity);
-
-        if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
-            // ISSUE 5: if the user is not running the app (this is a service!),
-            // this can be very intrusive; a notification should be preferred
-            Intent intent = ConflictsResolveActivity.createIntent(file,
-                                                                  user.toPlatformAccount(),
-                                                                  -1,
-                                                                  Intent.FLAG_ACTIVITY_NEW_TASK,
-                                                                  fileActivity);
-
-            fileActivity.startActivity(intent);
+    public static Bitmap getTmpBitmapFromFile(Activity activity, TmpBitampType type, int index) {
+        File storageDir = getStorageDirectory(activity, SCAN_TMP_FOLDER);
+        File tmpImg = new File(getTempFileUri(storageDir, type, index));
+        if (tmpImg.exists()) {
+            return BitmapFactory.decodeFile(tmpImg.getPath());
         } else {
-            if (file.isDown()) {
-                FileStorageUtils.checkIfFileFinishedSaving(file);
-                if (!result.isSuccess()) {
-                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        Log.e(TAG, "Failed to sleep for a bit");
-                    }
-                }
-            }
+            return null;
         }
-        fileActivity.dismissLoadingDialog();
     }
 
-    public void openFile(OCFile file) {
-        if (file != null) {
-            final Intent openFileWithIntent = createOpenFileIntent(file);
+    public static void saveTmpBitmapToFile(Activity activity, Bitmap bitmap, TmpBitampType type, int index) {
+        File storageDir = getStorageDirectory(activity, SCAN_TMP_FOLDER);
 
-            List<ResolveInfo> launchables = fileActivity.getPackageManager().
-                    queryIntentActivities(openFileWithIntent, PackageManager.GET_RESOLVED_FILTER);
-
-            if (launchables.isEmpty()) {
-                Optional<User> optionalUser = fileActivity.getUser();
-
-                if (optionalUser.isPresent() && FileMenuFilter.isEditorAvailable(fileActivity.getContentResolver(),
-                                                                                 optionalUser.get(),
-                                                                                 file.getMimeType())) {
-                    openFileWithTextEditor(file, fileActivity);
-                } else {
-                    Account account = fileActivity.getAccount();
-                    OCCapability capability = fileActivity.getStorageManager().getCapability(account.name);
-                    if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
-                        capability.getRichDocumentsDirectEditing().isTrue()) {
-                        openFileAsRichDocument(file, fileActivity);
-                        return;
-                    } else {
-                        DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
-                        return;
-                    }
-                }
+        File newImg = new File(getTempFileUri(storageDir, type, index));
+        if (newImg.exists()) {
+            if (!newImg.delete()) {
+                Log_OC.e(TAG, "Error deleting temporary scan image for index: " + index);
             }
+        }
 
-            fileActivity.showLoadingDialog(fileActivity.getResources().getString(R.string.sync_in_progress));
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    User user = currentAccount.getUser();
-                    FileDataStorageManager storageManager =
-                            new FileDataStorageManager(user.toPlatformAccount(), fileActivity.getContentResolver());
-                    // a fresh object is needed; many things could have occurred to the file
-                    // since it was registered to observe again, assuming that local files
-                    // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
-                    SynchronizeFileOperation sfo =
-                            new SynchronizeFileOperation(file, null, user, true, fileActivity);
-                    RemoteOperationResult result = sfo.execute(storageManager, fileActivity);
-                    fileActivity.dismissLoadingDialog();
-                    if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
-                        // ISSUE 5: if the user is not running the app (this is a service!),
-                        // this can be very intrusive; a notification should be preferred
-                        Intent intent = ConflictsResolveActivity.createIntent(file,
-                                                                              user.toPlatformAccount(),
-                                                                              -1,
-                                                                              Intent.FLAG_ACTIVITY_NEW_TASK,
-                                                                              fileActivity);
-                        fileActivity.startActivity(intent);
-                    } else {
-                        if (!launchables.isEmpty()) {
-                            try {
-                                if (!result.isSuccess()) {
-                                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
-                                    try {
-                                        Thread.sleep(3000);
-                                    } catch (InterruptedException e) {
-                                        Log.e(TAG, "Failed to sleep");
-                                    }
-                                }
 
-                                openFileWithIntent.setFlags(openFileWithIntent.getFlags() |
-                                        Intent.FLAG_ACTIVITY_NEW_TASK);
-                                fileActivity.startActivity(openFileWithIntent);
-                            } catch (ActivityNotFoundException exception) {
-                                DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
-                            }
-                        } else {
-                            DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
-                        }
+        OutputStream os;
+        try {
+            os = org.lukhnos.nnio.file.Files.newOutputStream(Paths.get(getTempFileUri(storageDir, type, index)));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os); //loseless compress
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error writing tmp bitmap", e);
+        }
+
+        // if we save a new original image, editedImage and nonInvertedImage should be reset
+        if (type.equals(TmpBitampType.ORIGINAL_IMAGE)) {
+            try {
+                File newEditedImg = new File(getTempFileUri(storageDir, TmpBitampType.EDITED_IMAGE, index));
+                if (newEditedImg.exists()) {
+                    if (!newEditedImg.delete()) {
+                        Log_OC.e(TAG, "Error deleting temporary edited image for index: " + index);
                     }
-
                 }
-            }).start();
+                Files.copy(Paths.get(newImg.getAbsolutePath()), Paths.get(newEditedImg.getAbsolutePath()));
 
-        } else {
-            Log_OC.e(TAG, "Trying to open a NULL OCFile");
+                File newNonInvertedImg = new File(getTempFileUri(storageDir, TmpBitampType.NONINVERTED_IMAGE, index));
+                if (newNonInvertedImg.exists()) {
+                    if (!newNonInvertedImg.delete()) {
+                        Log_OC.e(TAG, "Error deleting temporary noninverted image for index: " + index);
+                    }
+                }
+                Files.copy(Paths.get(newImg.getAbsolutePath()), Paths.get(newNonInvertedImg.getAbsolutePath()));
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Error copying original image", e);
+            }
         }
     }
 
@@ -411,50 +352,53 @@ public class FileOperationsHelper {
     }
 
     @NonNull
-    private Intent createOpenFileIntent(OCFile file) {
-        String storagePath = file.getStoragePath();
-        Uri fileUri = getFileUri(file, MainApp.getAppContext().getResources().getStringArray(R.array
-                .ms_office_extensions));
-        Intent openFileWithIntent = null;
-        int lastIndexOfDot = storagePath.lastIndexOf('.');
-        if (lastIndexOfDot >= 0) {
-            String fileExt = storagePath.substring(lastIndexOfDot + 1);
-            String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExt);
-            if (guessedMimeType != null) {
-                openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-                openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                openFileWithIntent.setDataAndType(
-                        fileUri,
-                        guessedMimeType
-                );
-            }
+    private static String getTempFileUri(File storageDir, TmpBitampType type, int index) {
+        String prefix = "";
+        switch (type) {
+            case EDITED_IMAGE:
+                prefix = "EDITED";
+                break;
+            case ORIGINAL_IMAGE:
+                prefix = "ORIGINAL_IMAGE";
+                break;
+            case NONINVERTED_IMAGE:
+                prefix = "NONINVERTED_IMAGE";
+                break;
         }
-
-        if (openFileWithIntent == null) {
-            openFileWithIntent = createIntentFromFile(storagePath);
-        }
-
-        if (openFileWithIntent == null) {
-            openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-            openFileWithIntent.setDataAndType(
-                    fileUri,
-                    file.getMimeType()
-            );
-        }
-
-        openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        return openFileWithIntent;
+        return storageDir + File.separator + "tmp_image_" + prefix + "_" + index + ".jpg";
     }
 
-    private Uri getFileUri(OCFile file, String... officeExtensions) {
-        if (file.getFileName().contains(".") &&
-                Arrays.asList(officeExtensions).contains(file.getFileName().substring(file.getFileName().
-                        lastIndexOf(".") + 1)) &&
-                !file.getStoragePath().startsWith(MainApp.getAppContext().getFilesDir().getAbsolutePath())) {
-            return file.getLegacyExposedFileUri();
+    private void syncFile(OCFile file, User user, FileDataStorageManager storageManager) {
+        fileActivity.runOnUiThread(() -> fileActivity.showLoadingDialog(fileActivity.getResources()
+                                                                            .getString(R.string.sync_in_progress)));
+
+        SynchronizeFileOperation sfo = new SynchronizeFileOperation(file, null, user, true, fileActivity);
+        RemoteOperationResult result = sfo.execute(storageManager, fileActivity);
+
+        if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+            // ISSUE 5: if the user is not running the app (this is a service!),
+            // this can be very intrusive; a notification should be preferred
+            Intent intent = ConflictsResolveActivity.createIntent(file,
+                                                                  user.toPlatformAccount(),
+                                                                  -1,
+                                                                  Intent.FLAG_ACTIVITY_NEW_TASK,
+                                                                  fileActivity);
+
+            fileActivity.startActivity(intent);
         } else {
-            return file.getExposedFileUri(fileActivity);
+            if (file.isDown()) {
+                FileStorageUtils.checkIfFileFinishedSaving(file);
+                if (!result.isSuccess()) {
+                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        Log.e(TAG, "Failed to sleep for a bit");
+                    }
+                }
+            }
         }
+        fileActivity.dismissLoadingDialog();
     }
 
     public void streamMediaFile(OCFile file) {
@@ -521,52 +465,122 @@ public class FileOperationsHelper {
         }
     }
 
-    /**
-     * Helper method to share a file with a known sharee. Starts a request to do it in {@link OperationsService}
-     *
-     * @param file        The file to share.
-     * @param shareeName  Name (user name or group name) of the target sharee.
-     * @param shareType   The share type determines the sharee type.
-     * @param permissions Permissions to grant to sharee on the shared file.
-     */
-    public void shareFileWithSharee(OCFile file, String shareeName, ShareType shareType, int permissions) {
+    public void openFile(OCFile file) {
         if (file != null) {
-            // TODO check capability?
-            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
-                    getString(R.string.wait_a_moment));
+            final Intent openFileWithIntent = createOpenFileIntent(file);
 
-            Intent service = new Intent(fileActivity, OperationsService.class);
-            service.setAction(OperationsService.ACTION_CREATE_SHARE_WITH_SHAREE);
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            service.putExtra(OperationsService.EXTRA_SHARE_WITH, shareeName);
-            service.putExtra(OperationsService.EXTRA_SHARE_TYPE, shareType);
-            service.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
-            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+            List<ResolveInfo> launchables = fileActivity.getPackageManager().
+                queryIntentActivities(openFileWithIntent, PackageManager.GET_RESOLVED_FILTER);
+
+            if (launchables.isEmpty()) {
+                Optional<User> optionalUser = fileActivity.getUser();
+
+                if (optionalUser.isPresent() && FileMenuFilter.isEditorAvailable(fileActivity.getContentResolver(),
+                                                                                 optionalUser.get(),
+                                                                                 file.getMimeType())) {
+                    openFileWithTextEditor(file, fileActivity);
+                } else {
+                    Account account = fileActivity.getAccount();
+                    OCCapability capability = fileActivity.getStorageManager().getCapability(account.name);
+                    if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
+                        capability.getRichDocumentsDirectEditing().isTrue()) {
+                        openFileAsRichDocument(file, fileActivity);
+                        return;
+                    } else {
+                        DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
+                        return;
+                    }
+                }
+            }
+
+            fileActivity.showLoadingDialog(fileActivity.getResources().getString(R.string.sync_in_progress));
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    User user = currentAccount.getUser();
+                    FileDataStorageManager storageManager =
+                        new FileDataStorageManager(user.toPlatformAccount(), fileActivity.getContentResolver());
+                    // a fresh object is needed; many things could have occurred to the file
+                    // since it was registered to observe again, assuming that local files
+                    // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
+                    SynchronizeFileOperation sfo =
+                        new SynchronizeFileOperation(file, null, user, true, fileActivity);
+                    RemoteOperationResult result = sfo.execute(storageManager, fileActivity);
+                    fileActivity.dismissLoadingDialog();
+                    if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+                        // ISSUE 5: if the user is not running the app (this is a service!),
+                        // this can be very intrusive; a notification should be preferred
+                        Intent intent = ConflictsResolveActivity.createIntent(file,
+                                                                              user.toPlatformAccount(),
+                                                                              -1,
+                                                                              Intent.FLAG_ACTIVITY_NEW_TASK,
+                                                                              fileActivity);
+                        fileActivity.startActivity(intent);
+                    } else {
+                        if (!launchables.isEmpty()) {
+                            try {
+                                if (!result.isSuccess()) {
+                                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
+                                    try {
+                                        Thread.sleep(3000);
+                                    } catch (InterruptedException e) {
+                                        Log.e(TAG, "Failed to sleep");
+                                    }
+                                }
+
+                                openFileWithIntent.setFlags(openFileWithIntent.getFlags() |
+                                                                Intent.FLAG_ACTIVITY_NEW_TASK);
+                                fileActivity.startActivity(openFileWithIntent);
+                            } catch (ActivityNotFoundException exception) {
+                                DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
+                            }
+                        } else {
+                            DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
+                        }
+                    }
+
+                }
+            }).start();
 
         } else {
-            Log_OC.e(TAG, "Trying to share a NULL OCFile");
+            Log_OC.e(TAG, "Trying to open a NULL OCFile");
         }
     }
 
-    /**
-     * Helper method to revert to a file version. Starts a request to do it in {@link OperationsService}
-     *
-     * @param fileVersion The file version to restore
-     */
-    public void restoreFileVersion(FileVersion fileVersion) {
-        if (fileVersion != null) {
-            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
-                    getString(R.string.wait_a_moment));
-
-            Intent service = new Intent(fileActivity, OperationsService.class);
-            service.setAction(OperationsService.ACTION_RESTORE_VERSION);
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-            service.putExtra(OperationsService.EXTRA_FILE_VERSION, fileVersion);
-            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
-        } else {
-            Log_OC.e(TAG, "Trying to restore a NULL FileVersion");
+    @NonNull
+    private Intent createOpenFileIntent(OCFile file) {
+        String storagePath = file.getStoragePath();
+        Uri fileUri = getFileUri(file, MainApp.getAppContext().getResources().getStringArray(R.array
+                                                                                                 .ms_office_extensions));
+        Intent openFileWithIntent = null;
+        int lastIndexOfDot = storagePath.lastIndexOf('.');
+        if (lastIndexOfDot >= 0) {
+            String fileExt = storagePath.substring(lastIndexOfDot + 1);
+            String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExt);
+            if (guessedMimeType != null) {
+                openFileWithIntent = new Intent(Intent.ACTION_VIEW);
+                openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                openFileWithIntent.setDataAndType(
+                    fileUri,
+                    guessedMimeType
+                                                 );
+            }
         }
+
+        if (openFileWithIntent == null) {
+            openFileWithIntent = createIntentFromFile(storagePath);
+        }
+
+        if (openFileWithIntent == null) {
+            openFileWithIntent = new Intent(Intent.ACTION_VIEW);
+            openFileWithIntent.setDataAndType(
+                fileUri,
+                file.getMimeType()
+                                             );
+        }
+
+        openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        return openFileWithIntent;
     }
 
     /**
@@ -744,85 +758,62 @@ public class FileOperationsHelper {
         sendShareFile(file, !file.canReshare());
     }
 
-    public void sendCachedImage(OCFile file, String packageName, String activityName) {
-        if (file != null) {
-            Context context = MainApp.getAppContext();
-            Intent sendIntent = new Intent(Intent.ACTION_SEND);
-            // set MimeType
-            sendIntent.setType(file.getMimeType());
-            sendIntent.setComponent(new ComponentName(packageName, activityName));
-            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" +
-                    context.getResources().getString(R.string.image_cache_provider_authority) +
-                                                                   file.getRemotePath()));
-            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
-            sendIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-            fileActivity.startActivity(Intent.createChooser(sendIntent,
-                                                            context.getString(R.string.actionbar_send_file)));
+    private Uri getFileUri(OCFile file, String... officeExtensions) {
+        if (file.getFileName().contains(".") &&
+            Arrays.asList(officeExtensions).contains(file.getFileName().substring(file.getFileName().
+                lastIndexOf(".") + 1)) &&
+            !file.getStoragePath().startsWith(MainApp.getAppContext().getFilesDir().getAbsolutePath())) {
+            return file.getLegacyExposedFileUri();
         } else {
-            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
-        }
-    }
-
-    public void setPictureAs(OCFile file, View view) {
-        if (file != null) {
-            Context context = MainApp.getAppContext();
-            Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
-            Uri uri;
-
-            try {
-                if (file.isDown()) {
-                    File externalFile = new File(file.getStoragePath());
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        uri = FileProvider.getUriForFile(context,
-                                context.getResources().getString(R.string.file_provider_authority), externalFile);
-                    } else {
-                        uri = Uri.fromFile(externalFile);
-                    }
-                } else {
-                    uri = Uri.parse(UriUtils.URI_CONTENT_SCHEME +
-                            context.getResources().getString(R.string.image_cache_provider_authority) +
-                                        file.getRemotePath());
-                }
-
-                intent.setDataAndType(uri, file.getMimeType());
-                fileActivity.startActivityForResult(Intent.createChooser(intent,
-                                                                         fileActivity.getString(R.string.set_as)),
-                                                    200);
-
-                intent.setDataAndType(uri, file.getMimeType());
-            } catch (ActivityNotFoundException exception) {
-                DisplayUtils.showSnackMessage(view, R.string.picture_set_as_no_app);
-            }
-        } else {
-            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+            return file.getExposedFileUri(fileActivity);
         }
     }
 
     /**
-     * Request the synchronization of a file or folder with the OC server, including its contents.
+     * Helper method to share a file with a known sharee. Starts a request to do it in {@link OperationsService}
      *
-     * @param file The file or folder to synchronize
+     * @param file        The file to share.
+     * @param shareeName  Name (user name or group name) of the target sharee.
+     * @param shareType   The share type determines the sharee type.
+     * @param permissions Permissions to grant to sharee on the shared file.
      */
-    public void syncFile(OCFile file) {
-        if (!file.isFolder()) {
-            Intent intent = new Intent(fileActivity, OperationsService.class);
-            intent.setAction(OperationsService.ACTION_SYNC_FILE);
-            intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-            intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            intent.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
-            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(intent);
+    public void shareFileWithSharee(OCFile file, String shareeName, ShareType shareType, int permissions) {
+        if (file != null) {
+            // TODO check capability?
             fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
-                    getString(R.string.wait_a_moment));
+                getString(R.string.wait_a_moment));
+
+            Intent service = new Intent(fileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_CREATE_SHARE_WITH_SHAREE);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_SHARE_WITH, shareeName);
+            service.putExtra(OperationsService.EXTRA_SHARE_TYPE, shareType);
+            service.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         } else {
-            Intent intent = new Intent(fileActivity, OperationsService.class);
-            intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
-            intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-            intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            fileActivity.startService(intent);
+            Log_OC.e(TAG, "Trying to share a NULL OCFile");
+        }
+    }
+
+    /**
+     * Helper method to revert to a file version. Starts a request to do it in {@link OperationsService}
+     *
+     * @param fileVersion The file version to restore
+     */
+    public void restoreFileVersion(FileVersion fileVersion) {
+        if (fileVersion != null) {
+            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
+                getString(R.string.wait_a_moment));
+
+            Intent service = new Intent(fileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_RESTORE_VERSION);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_FILE_VERSION, fileVersion);
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+        } else {
+            Log_OC.e(TAG, "Trying to restore a NULL FileVersion");
         }
     }
 
@@ -906,29 +897,23 @@ public class FileOperationsHelper {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
     }
 
-    /**
-     * Cancel the transference in downloads (files/folders) and file uploads
-     *
-     * @param file OCFile
-     */
-    public void cancelTransference(OCFile file) {
-        User currentUser = fileActivity.getUser().orElseThrow(IllegalStateException::new);
-        if (file.isFolder()) {
-            OperationsService.OperationsServiceBinder opsBinder =
-                    fileActivity.getOperationsServiceBinder();
-            if (opsBinder != null) {
-                opsBinder.cancel(currentUser.toPlatformAccount(), file);
-            }
-        }
+    public void sendCachedImage(OCFile file, String packageName, String activityName) {
+        if (file != null) {
+            Context context = MainApp.getAppContext();
+            Intent sendIntent = new Intent(Intent.ACTION_SEND);
+            // set MimeType
+            sendIntent.setType(file.getMimeType());
+            sendIntent.setComponent(new ComponentName(packageName, activityName));
+            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" +
+                                                                   context.getResources().getString(R.string.image_cache_provider_authority) +
+                                                                   file.getRemotePath()));
+            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+            sendIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        // for both files and folders
-        FileDownloaderBinder downloaderBinder = fileActivity.getFileDownloaderBinder();
-        if (downloaderBinder != null && downloaderBinder.isDownloading(currentUser, file)) {
-            downloaderBinder.cancel(currentUser.toPlatformAccount(), file);
-        }
-        FileUploaderBinder uploaderBinder = fileActivity.getFileUploaderBinder();
-        if (uploaderBinder != null && uploaderBinder.isUploading(currentUser, file)) {
-            uploaderBinder.cancel(currentUser.toPlatformAccount(), file);
+            fileActivity.startActivity(Intent.createChooser(sendIntent,
+                                                            context.getString(R.string.actionbar_send_file)));
+        } else {
+            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
         }
     }
 
@@ -996,30 +981,91 @@ public class FileOperationsHelper {
         return new File(storageDir + File.separator + "scanDocUpload.pdf");
     }
 
-    public static Bitmap getTmpBitmapFromFile(Activity activity, int index) {
-        File storageDir = getStorageDirectory(activity, SCAN_TMP_FOLDER);
-        File tmpImg = new File(getTempFileUri(index, storageDir));
-        return BitmapFactory.decodeFile(tmpImg.getPath());
+    public void setPictureAs(OCFile file, View view) {
+        if (file != null) {
+            Context context = MainApp.getAppContext();
+            Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
+            Uri uri;
+
+            try {
+                if (file.isDown()) {
+                    File externalFile = new File(file.getStoragePath());
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        uri = FileProvider.getUriForFile(context,
+                                                         context.getResources().getString(R.string.file_provider_authority), externalFile);
+                    } else {
+                        uri = Uri.fromFile(externalFile);
+                    }
+                } else {
+                    uri = Uri.parse(UriUtils.URI_CONTENT_SCHEME +
+                                        context.getResources().getString(R.string.image_cache_provider_authority) +
+                                        file.getRemotePath());
+                }
+
+                intent.setDataAndType(uri, file.getMimeType());
+                fileActivity.startActivityForResult(Intent.createChooser(intent,
+                                                                         fileActivity.getString(R.string.set_as)),
+                                                    200);
+
+                intent.setDataAndType(uri, file.getMimeType());
+            } catch (ActivityNotFoundException exception) {
+                DisplayUtils.showSnackMessage(view, R.string.picture_set_as_no_app);
+            }
+        } else {
+            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+        }
     }
 
-    public static void saveTmpBitmapToFile(Activity activity, Bitmap bitmap, int index) {
-        File storageDir = getStorageDirectory(activity, SCAN_TMP_FOLDER);
+    /**
+     * Request the synchronization of a file or folder with the OC server, including its contents.
+     *
+     * @param file The file or folder to synchronize
+     */
+    public void syncFile(OCFile file) {
+        if (!file.isFolder()) {
+            Intent intent = new Intent(fileActivity, OperationsService.class);
+            intent.setAction(OperationsService.ACTION_SYNC_FILE);
+            intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+            intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            intent.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(intent);
+            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
+                getString(R.string.wait_a_moment));
 
-        File newImg = new File(getTempFileUri(index, storageDir));
-        if (newImg.exists()) {
-            if (!newImg.delete()) {
-                Log_OC.e(TAG, "Error deleting temporary scan image for index: " + index);
+        } else {
+            Intent intent = new Intent(fileActivity, OperationsService.class);
+            intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
+            intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+            intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            fileActivity.startService(intent);
+        }
+    }
+
+    /**
+     * Cancel the transference in downloads (files/folders) and file uploads
+     *
+     * @param file OCFile
+     */
+    public void cancelTransference(OCFile file) {
+        User currentUser = fileActivity.getUser().orElseThrow(IllegalStateException::new);
+        if (file.isFolder()) {
+            OperationsService.OperationsServiceBinder opsBinder =
+                fileActivity.getOperationsServiceBinder();
+            if (opsBinder != null) {
+                opsBinder.cancel(currentUser.toPlatformAccount(), file);
             }
         }
 
-        OutputStream os;
-        try {
-            os = org.lukhnos.nnio.file.Files.newOutputStream(Paths.get(getTempFileUri(index, storageDir)));
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os); //loseless compress
-            os.flush();
-            os.close();
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Error writing tmp bitmap", e);
+        // for both files and folders
+        FileDownloaderBinder downloaderBinder = fileActivity.getFileDownloaderBinder();
+        if (downloaderBinder != null && downloaderBinder.isDownloading(currentUser, file)) {
+            downloaderBinder.cancel(currentUser.toPlatformAccount(), file);
+        }
+        FileUploaderBinder uploaderBinder = fileActivity.getFileUploaderBinder();
+        if (uploaderBinder != null && uploaderBinder.isUploading(currentUser, file)) {
+            uploaderBinder.cancel(currentUser.toPlatformAccount(), file);
         }
     }
 
@@ -1042,9 +1088,10 @@ public class FileOperationsHelper {
         return storageDir;
     }
 
-    @NonNull
-    private static String getTempFileUri(int index, File storageDir) {
-        return storageDir + File.separator + "tmp_image_" + index + ".jpg";
+    public enum TmpBitampType {
+        ORIGINAL_IMAGE,
+        EDITED_IMAGE,
+        NONINVERTED_IMAGE
     }
 
     public static File createImageFile(Activity activity) {

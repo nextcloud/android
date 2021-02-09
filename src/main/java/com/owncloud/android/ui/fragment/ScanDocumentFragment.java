@@ -65,6 +65,7 @@ public class ScanDocumentFragment extends Fragment {
     private OnProcessImage onProcessImageCallback;
     private boolean inverted;
     private float currentRotation;
+    private int imageAdapterPosition;
     private Bitmap originalImage;
     private Bitmap editedImage;
     private Bitmap nonInvertedImage;
@@ -88,25 +89,28 @@ public class ScanDocumentFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        Bitmap tmpBitmap = null;
         if (getArguments() != null) {
-            int position = getArguments().getInt(BUNDLE_POSITION, 0);
-            tmpBitmap = FileOperationsHelper.getTmpBitmapFromFile(requireActivity(), position);
-        }
-        if (tmpBitmap == null) {
-            Log_OC.e(TAG, "Error null bitmap : not found");
-        } else {
-            this.editedImage = tmpBitmap.copy(tmpBitmap.getConfig(), true);
-            this.originalImage = tmpBitmap.copy(tmpBitmap.getConfig(), true);
-            nonInvertedImage = tmpBitmap.copy(tmpBitmap.getConfig(), true);
-            if (getActivity() instanceof OnProcessImage) {
-                onProcessImageCallback = (OnProcessImage) getActivity();
+            imageAdapterPosition = getArguments().getInt(BUNDLE_POSITION, 0);
+            this.originalImage = FileOperationsHelper.getTmpBitmapFromFile(requireActivity(),
+                                                                           FileOperationsHelper.TmpBitampType.ORIGINAL_IMAGE, imageAdapterPosition);
+            this.editedImage = FileOperationsHelper.getTmpBitmapFromFile(requireActivity(),
+                                                                         FileOperationsHelper.TmpBitampType.EDITED_IMAGE,
+                                                                         imageAdapterPosition);
+            this.nonInvertedImage = FileOperationsHelper.getTmpBitmapFromFile(requireActivity(),
+                                                                              FileOperationsHelper.TmpBitampType.NONINVERTED_IMAGE,
+                                                                              imageAdapterPosition);
+            if (originalImage == null || editedImage == null || nonInvertedImage == null) {
+                Log_OC.e(TAG, "Error null bitmap : not found");
             } else {
-                throw new RuntimeException("ScanDocumentFragment should be initiate from an activity which implements " +
-                                               "ScanDocFragment.OnProcessImage");
+                // add callback between activity and fragment
+                if (getActivity() instanceof OnProcessImage) {
+                    onProcessImageCallback = (OnProcessImage) getActivity();
+                } else {
+                    throw new RuntimeException("ScanDocumentFragment should be initiate from an activity which implements " +
+                                                   "ScanDocFragment.OnProcessImage");
+                }
             }
         }
-        BitmapUtils.freeBitmap(tmpBitmap);
     }
 
     public Bitmap getEditedImage() {
@@ -114,23 +118,41 @@ public class ScanDocumentFragment extends Fragment {
     }
 
     public void forceUpdateImages(Bitmap bitmap) {
-        editedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap,
-                                                         binding.holderImageCrop.getWidth(),
-                                                         binding.holderImageCrop.getHeight());
-        originalImage = BitmapUtils.scaleToFitCenterBitmap(bitmap,
-                                                           binding.holderImageCrop.getWidth(),
-                                                           binding.holderImageCrop.getHeight());
-        nonInvertedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap,
+        updateEditedImage(bitmap);
+        Bitmap tmpBitmap = BitmapUtils.scaleToFitCenterBitmap(bitmap,
                                                               binding.holderImageCrop.getWidth(),
                                                               binding.holderImageCrop.getHeight());
-        binding.imageViewScanDocument.setImageBitmap(editedImage);
+        saveOriginalImage(tmpBitmap.copy(tmpBitmap.getConfig(), true));
+        saveNonInvertedImage(tmpBitmap.copy(tmpBitmap.getConfig(), true));
+        BitmapUtils.freeBitmap(tmpBitmap);
     }
 
     private void updateEditedImage(Bitmap bitmap) {
-        editedImage = BitmapUtils.scaleToFitCenterBitmap(bitmap,
-                                                         binding.holderImageCrop.getWidth(),
-                                                         binding.holderImageCrop.getHeight());
-        binding.imageViewScanDocument.setImageBitmap(editedImage);
+        Bitmap tmpBitmap = BitmapUtils.scaleToFitCenterBitmap(bitmap,
+                                                              binding.holderImageCrop.getWidth(),
+                                                              binding.holderImageCrop.getHeight());
+        saveEditedImage(bitmap);
+        // update view
+        binding.imageViewScanDocument.setImageBitmap(this.editedImage);
+        BitmapUtils.freeBitmap(tmpBitmap);
+    }
+
+    private void saveNonInvertedImage(Bitmap bitmap) {
+        this.nonInvertedImage = bitmap;
+        FileOperationsHelper.saveTmpBitmapToFile(getActivity(), nonInvertedImage,
+                                                 FileOperationsHelper.TmpBitampType.NONINVERTED_IMAGE, imageAdapterPosition);
+    }
+
+    private void saveOriginalImage(Bitmap bitmap) {
+        this.originalImage = bitmap;
+        FileOperationsHelper.saveTmpBitmapToFile(getActivity(), originalImage,
+                                                 FileOperationsHelper.TmpBitampType.ORIGINAL_IMAGE, imageAdapterPosition);
+    }
+
+    private void saveEditedImage(Bitmap bitmap) {
+        this.editedImage = bitmap;
+        FileOperationsHelper.saveTmpBitmapToFile(getActivity(), editedImage,
+                                                 FileOperationsHelper.TmpBitampType.EDITED_IMAGE, imageAdapterPosition);
     }
 
     public boolean isNotInverted() {
@@ -183,7 +205,7 @@ public class ScanDocumentFragment extends Fragment {
             Observable.fromCallable(() -> {
                 // Rotate non inverted image to keep rotation when restaure it
                 if (nonInvertedImage != null) {
-                    nonInvertedImage = BitmapUtils.rotateBitmap(nonInvertedImage, angle);
+                    saveNonInvertedImage(BitmapUtils.rotateBitmap(nonInvertedImage, angle));
                 }
                 return BitmapUtils.rotateBitmap(editedImage, angle);
             })
@@ -258,7 +280,7 @@ public class ScanDocumentFragment extends Fragment {
         disposable.add(
             Observable.fromCallable(() -> {
                 // we should crop nonInvertedImage too cause to be able to Un-invertColor after crop
-                nonInvertedImage = cropImageProcess(nonInvertedImage, binding.polygonViewScanDocument.getPoints());
+                saveNonInvertedImage(cropImageProcess(nonInvertedImage, binding.polygonViewScanDocument.getPoints()));
                 return cropImageProcess(editedImage, binding.polygonViewScanDocument.getPoints());
             })
                 .subscribeOn(Schedulers.io())
@@ -310,7 +332,7 @@ public class ScanDocumentFragment extends Fragment {
         if (actionInvert) {
             BitmapUtils.freeBitmap(nonInvertedImage);
             // backup image
-            nonInvertedImage = sourceBitmap.copy(sourceBitmap.getConfig(), true);
+            saveNonInvertedImage(sourceBitmap.copy(sourceBitmap.getConfig(), true));
             return BitmapUtils.grayscaleBitmap(sourceBitmap);
         } else {
             return nonInvertedImage.copy(nonInvertedImage.getConfig(), true);
