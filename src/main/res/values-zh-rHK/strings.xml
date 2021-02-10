@@ -30,7 +30,7 @@
     <string name="activities_no_results_message">尚未有任何新增、更動或分享事件。</string>
     <string name="activity_chooser_send_file_title">發送</string>
     <string name="activity_chooser_title">傳送連結到…</string>
-    <string name="activity_icon">活動</string>
+    <string name="activity_icon">動態</string>
     <string name="add_another_public_share_link">加入另一個連結</string>
     <string name="add_new_public_share">增加一個新的公開連結</string>
     <string name="add_to_cloud">新增到 %1$s </string>
@@ -65,7 +65,7 @@
     <string name="auth_unauthorized">錯誤的使用者或密碼</string>
     <string name="auth_unknown_error_exception_title">未知錯誤：%1$s</string>
     <string name="auth_unknown_error_http_title">發生未知的HTTP錯誤！</string>
-    <string name="auth_unknown_error_title">發生未知的錯誤！</string>
+    <string name="auth_unknown_error_title">發生了不詳的錯誤！</string>
     <string name="auth_unknown_host_title">無法找到主機</string>
     <string name="auth_unsupported_multiaccount">%1$s 不支援多個賬戶</string>
     <string name="auth_wrong_connection_title">無法建立連線</string>
@@ -116,7 +116,7 @@
     <string name="common_share">分享</string>
     <string name="common_switch_account">切換帳號</string>
     <string name="common_switch_to_account">切換到帳號</string>
-    <string name="common_unknown">未知</string>
+    <string name="common_unknown">不詳</string>
     <string name="common_yes">是</string>
     <string name="community_beta_headline">測試開發版本</string>
     <string name="community_beta_text">這包含所有最新功能，預期執行上仍可能會有錯誤，若發現錯誤請回報給我們。</string>
@@ -182,7 +182,7 @@
     <string name="create_rich_workspace">新增資料夾資訊</string>
     <string name="creates_rich_workspace">建立資料夾資訊</string>
     <string name="credentials_disabled">認證方式已取消</string>
-    <string name="date_unknown">未知</string>
+    <string name="date_unknown">不詳</string>
     <string name="default_credentials_wrong">不正確的認證方式</string>
     <string name="delete_account">刪除帳戶</string>
     <string name="delete_account_warning">移除帳號%s並刪除所有本地檔案?\n\n刪除後將無法恢復。</string>
@@ -227,7 +227,7 @@
     <string name="drawer_logout">登出</string>
     <string name="drawer_open">開啟側邊攔</string>
     <string name="drawer_quota">已用 %2$s 中的 %1$s</string>
-    <string name="drawer_quota_unlimited">%1$s已使用</string>
+    <string name="drawer_quota_unlimited">使用了 %1$s 的存儲空間</string>
     <string name="drawer_synced_folders">自動上傳</string>
     <string name="edit_label">更改名稱</string>
     <string name="encrypted">設為已加密的</string>
@@ -606,7 +606,7 @@
     <string name="share_password_title">受密碼保護</string>
     <string name="share_privilege_unshare">撤回分享</string>
     <string name="share_remote_clarification">%1$s （遠端）</string>
-    <string name="share_room_clarification">%1$s(交談)</string>
+    <string name="share_room_clarification">%1$s(對話)</string>
     <string name="share_search">名稱、聯盟雲端 ID 或電子郵件……</string>
     <string name="share_send_note">給接收者的訊息</string>
     <string name="share_via_link_hide_download">隱藏下載</string>

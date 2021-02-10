@@ -951,4 +951,5 @@
     <string name="wrong_storage_path">Data storage folder does not exist!</string>
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
     <string name="dialog_close">Close</string>
+    <string name="direct_login_failed">Login via direct link failed!</string>
 </resources>
