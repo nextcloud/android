@@ -1205,7 +1205,7 @@ public final class ThumbnailsCacheManager {
         }
     }
 
-    public static void generateThumbnailFromOCFile(OCFile file) {
+    public static void generateThumbnailFromOCFile(OCFile file, Account account, Context context) {
         int pxW;
         int pxH;
         pxW = pxH = getThumbnailDimension();
@@ -1216,7 +1216,13 @@ public final class ThumbnailsCacheManager {
         try {
             Bitmap thumbnail = null;
 
-            String uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
+            OwnCloudClient client = mClient;
+            if (client == null) {
+                OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
+                client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context);
+            }
+
+            String uri = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
                 pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
 
             Log_OC.d(TAG, "generate thumbnail: " + file.getFileName() + " URI: " + uri);
@@ -1226,13 +1232,13 @@ public final class ThumbnailsCacheManager {
             getMethod.setRequestHeader(RemoteOperation.OCS_API_HEADER,
                                        RemoteOperation.OCS_API_HEADER_VALUE);
 
-            int status = mClient.executeMethod(getMethod);
+            int status = client.executeMethod(getMethod);
             if (status == HttpStatus.SC_OK) {
                 InputStream inputStream = getMethod.getResponseBodyAsStream();
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
             } else {
-                mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
+                client.exhaustResponse(getMethod.getResponseBodyAsStream());
             }
 
             // Add thumbnail to cache
