@@ -27,14 +27,14 @@
     android:padding="@dimen/standard_padding">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/user_input_container"
+        android:id="@+id/note_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/TextInputLayout"
         android:hint="@string/hint_note">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/user_input"
+            android:id="@+id/note_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
