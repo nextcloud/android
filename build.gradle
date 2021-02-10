@@ -146,6 +146,10 @@ android {
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
+        ndk {
+            abiFilters 'arm64-v8a', 'x86_64', 'armeabi-v7a', 'x86'
+        }
+
         flavorDimensions "default"
 
         buildTypes {
@@ -350,10 +354,10 @@ dependencies {
     kapt "io.noties:prism4j-bundler:$prismVersion"
 
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'com.github.mayuce:AndroidDocumentScanner:1.5.2'
-    // https://github.com/quickbirdstudios/opencv-android opencv 3.4.1
-    // TODO : update to 4.3.0 but min android is API 21 and com.github.mayuce:AndroidDocumentScanner is not
-    //  compatible with
+    // Latest upgrade https://github.com/mayuce/AndroidDocumentScanner/issues/30
+    implementation 'com.github.mayuce:AndroidDocumentScanner:1.5.3'
+    // TODO Latest upgrade https://github.com/quickbirdstudios/opencv-android/issues/44
+    // can't make it work on version over opencv 3.4.1
     implementation 'com.quickbirdstudios:opencv:3.4.1'
 
     // dependencies for local unit tests
