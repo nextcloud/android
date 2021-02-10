@@ -1,0 +1,5 @@
+Fix not showing share view when clicking on it in send share dialog
+Opens bottom share dialog on every file
+Do not crash if wrong deep login url is used
+Update translations
+Update 3rd-party dependencies
