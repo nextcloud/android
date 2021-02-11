@@ -20,9 +20,11 @@
   ~ along with this program. If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<vector android:autoMirrored="false" android:height="47.11639dp"
+<vector xmlns:tools="http://schemas.android.com/tools"
+    android:autoMirrored="false" android:height="47.11639dp"
     android:viewportHeight="44.17161" android:viewportWidth="215.62502"
-    android:width="230dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:width="230dp" xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="VectorRaster">
     <path android:fillColor="#ffffff" android:fillType="nonZero"
         android:pathData="m37.338,9.375c-5.788,0 -10.694,3.924 -12.215,9.241 -1.321,-2.82 -4.185,-4.796 -7.484,-4.796 -4.536,0 -8.265,3.729 -8.265,8.265 0,4.536 3.729,8.267 8.265,8.267 3.298,0 6.162,-1.977 7.484,-4.797 1.521,5.317 6.426,9.242 12.215,9.242 5.745,0 10.626,-3.866 12.186,-9.123 1.346,2.756 4.174,4.678 7.426,4.678 4.536,0 8.267,-3.731 8.267,-8.267 0,-4.536 -3.731,-8.265 -8.267,-8.265 -3.252,0 -6.08,1.92 -7.426,4.676 -1.559,-5.257 -6.44,-9.121 -12.186,-9.121zM37.338,14.227c4.369,0 7.86,3.489 7.86,7.858 0,4.369 -3.49,7.86 -7.86,7.86 -4.369,0 -7.858,-3.491 -7.858,-7.86 0,-4.369 3.489,-7.858 7.858,-7.858zM17.64,18.672c1.914,0 3.415,1.499 3.415,3.413 0,1.914 -1.501,3.415 -3.415,3.415 -1.914,0 -3.413,-1.501 -3.413,-3.415 0,-1.914 1.499,-3.413 3.413,-3.413zM56.95,18.672c1.914,0 3.415,1.499 3.415,3.413 0,1.914 -1.501,3.415 -3.415,3.415 -1.914,0 -3.413,-1.501 -3.413,-3.415 0,-1.914 1.499,-3.413 3.413,-3.413z"
         android:strokeColor="#00000000" android:strokeLineCap="butt"
