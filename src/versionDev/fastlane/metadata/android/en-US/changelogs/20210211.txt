@@ -1,0 +1,3 @@
+It can happen that client is null during thumbnail generation via SAF, if so let us create it
+Update translations
+Update 3rd-party dependencies
