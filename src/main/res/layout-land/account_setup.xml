@@ -90,29 +90,38 @@
             </FrameLayout>
 
             <TextView
+                android:id="@+id/host_url_input_helper_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/standard_eight_padding"
+                android:text="@string/login_url_helper_text"
+                android:textColor="@color/white_helper_text" />
+
+            <TextView
                 android:id="@+id/server_status_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/alternate_half_margin"
                 android:contentDescription="@string/auth_testing_connection"
-                app:drawableStartCompat="@android:drawable/stat_notify_sync"
                 android:drawablePadding="@dimen/alternate_half_padding"
                 android:gravity="center_vertical"
                 android:minHeight="@dimen/display_text_min_height"
+                android:padding="@dimen/standard_eight_padding"
                 android:text="@string/auth_testing_connection"
                 android:textColor="@color/login_text_color"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                app:drawableStartCompat="@android:drawable/stat_notify_sync" />
 
             <TextView
                 android:id="@+id/auth_status_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/auth_unauthorized"
-                app:drawableStartCompat="@android:drawable/stat_notify_sync"
                 android:drawablePadding="@dimen/alternate_half_padding"
                 android:gravity="center_vertical"
+                android:padding="@dimen/standard_eight_padding"
                 android:text="@string/auth_unauthorized"
-                android:textColor="@color/login_text_color" />
+                android:textColor="@color/login_text_color"
+                app:drawableStartCompat="@android:drawable/stat_notify_sync" />
 
             <ImageButton
                 android:id="@+id/scan_qr"

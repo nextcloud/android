@@ -529,6 +529,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private void initOverallUi() {
         accountSetupBinding.hostUrlContainer.setEndIconOnClickListener(v -> checkOcServer());
 
+        accountSetupBinding.hostUrlInputHelperText.setText(
+            String.format(getString(R.string.login_url_helper_text), getString(R.string.app_name)));
+
         if (deviceInfo.hasCamera(this)) {
             accountSetupBinding.scanQr.setOnClickListener(v -> onScan());
             ThemeUtils.tintDrawable(accountSetupBinding.scanQr.getDrawable(),
