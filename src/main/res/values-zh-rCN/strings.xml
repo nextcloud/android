@@ -193,6 +193,7 @@
     <string name="dev_version_no_new_version_available">没有可用的新版本</string>
     <string name="dialog_close">关闭</string>
     <string name="digest_algorithm_not_available">算法不可用。</string>
+    <string name="direct_login_failed">通过直接链接登录失败！</string>
     <string name="disable_new_media_folder_detection_notifications">禁用</string>
     <string name="dismiss">忽略</string>
     <string name="dismiss_notification_description">忽略通知</string>

@@ -193,6 +193,7 @@
     <string name="dev_version_no_new_version_available">Yeni bir sürüm yok.</string>
     <string name="dialog_close">Kapat</string>
     <string name="digest_algorithm_not_available">Telefonunuz için gerekli algoritma bulunamadı.</string>
+    <string name="direct_login_failed">Doğrudan bağlantı ile oturum açılamadı!</string>
     <string name="disable_new_media_folder_detection_notifications">Devre Dışı Bırak</string>
     <string name="dismiss">Yok say</string>
     <string name="dismiss_notification_description">Bildirimi yok say</string>
