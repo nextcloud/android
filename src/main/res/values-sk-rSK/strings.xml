@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Nerozpoznaná verzia servera</string>
     <string name="auth_connection_established">Pripojenie vytvorené</string>
     <string name="auth_fail_get_user_name">Váš server nevracia správne ID používateľa, kontaktujte správcu.</string>
-    <string name="auth_host_address">Adresa servera</string>
     <string name="auth_host_url">Adresa servera https://…</string>
     <string name="auth_incorrect_address_title">Nesprávny formát adresy servera</string>
     <string name="auth_incorrect_path_title">Server sa nenašiel</string>
@@ -144,7 +143,6 @@
     <string name="conflict_already_existing_file">Súbor už existuje </string>
     <string name="conflict_dialog_error">Chyba pri vytváraní konfliktného dialógového okna!</string>
     <string name="conflict_message_description">Ak vyberiete obe verzie, miestny súbor bude mať k svojmu názvu pridané číslo.</string>
-    <string name="conflict_message_headline">Ktoré súbory chcete ponechať?</string>
     <string name="conflict_new_file">Nový súbor</string>
     <string name="contaclist_restore_selected">Obnoviť vybrané kontakty</string>
     <string name="contactlist_account_chooser_title">Zvoliť účet na importovanie</string>
@@ -212,7 +210,6 @@
     <string name="drawer_item_home">Domov</string>
     <string name="drawer_item_notifications">Upozornenia</string>
     <string name="drawer_item_on_device">V zariadení</string>
-    <string name="drawer_item_photos">Fotografie</string>
     <string name="drawer_item_recently_added">Nedávno pridané</string>
     <string name="drawer_item_recently_modified">Nedávno zmené</string>
     <string name="drawer_item_shared">Zdieľané</string>
@@ -283,26 +280,17 @@
     <string name="file_keep">Ponechať</string>
     <string name="file_list_empty">Nahrajte nejaký obsah alebo synchronizujte so svojimi zariadeniami.</string>
     <string name="file_list_empty_favorite_headline">Zatiaľ nemáte nič obľúbené</string>
-    <string name="file_list_empty_favorites_filter">Vaše vyhľadávanie nenašlo žiadne obľúbené súbory.</string>
     <string name="file_list_empty_favorites_filter_list">Tu sa zobrazia súbory a priečinky označené ako obľúbené.</string>
     <string name="file_list_empty_headline">Nie sú tu žiadne súbory</string>
     <string name="file_list_empty_headline_search">Žiadne výsledky v tomto priečinku</string>
     <string name="file_list_empty_headline_server_search">Žiadne výsledky</string>
-    <string name="file_list_empty_headline_server_search_photos">Žiadne fogografie</string>
-    <string name="file_list_empty_headline_server_search_videos">Žiadne videá</string>
     <string name="file_list_empty_moving">Nič tu nie je. Môžete pridať priečinok.</string>
     <string name="file_list_empty_on_device">Tu sa zobrazia nahraté súbory a priečinky</string>
     <string name="file_list_empty_recently_added">Žiadne nedávno pridané súbory</string>
-    <string name="file_list_empty_recently_added_filter">Žiadne nedávno pridané súbory.</string>
     <string name="file_list_empty_recently_modified">V posledných 7 dňoch sa nenašli žiadne zmeny</string>
-    <string name="file_list_empty_recently_modified_filter">Za posledných 7 dní neboli zmenené žiadne súbory.</string>
     <string name="file_list_empty_search">Možno to je v inom priečinku?</string>
     <string name="file_list_empty_shared">Tu sa zobrazia súbory a priečinky, ktoré ste sprístupnili.</string>
     <string name="file_list_empty_shared_headline">Zatiaľ ste nič nesprístupnili</string>
-    <string name="file_list_empty_text_photos">Nahrajte nejaké fotky alebo si zapnite automatické nahrávanie.</string>
-    <string name="file_list_empty_text_photos_filter">Žiadne fotky.</string>
-    <string name="file_list_empty_text_videos">Nahrajte nejaké videá alebo si zapnute automatické nahrávanie.</string>
-    <string name="file_list_empty_text_videos_filter">Žiadne videá.</string>
     <string name="file_list_folder">priečinok</string>
     <string name="file_list_loading">Načítavam…</string>
     <string name="file_list_no_app_for_file_type">Aplikácia pre váš typ súboru sa nenašla.</string>
@@ -451,7 +439,6 @@
     <string name="notification_channel_upload_description">Zobrazuje postup nahrávania</string>
     <string name="notification_channel_upload_name">Kanál oznámení o nahratí</string>
     <string name="notification_icon">Ikona notifikácie</string>
-    <string name="notifications_loading_activity">Nahrávanie notifikácií…</string>
     <string name="notifications_no_results_headline">Žiadne upozornenia</string>
     <string name="notifications_no_results_message">Prosím skontrolujte znova neskôr.</string>
     <string name="offline_mode">Bez internetového pripojenia</string>
@@ -682,7 +669,6 @@
     <string name="sync_string_files">Súbory</string>
     <string name="synced_folder_settings_button">Tlačidlo nastavenia</string>
     <string name="synced_folders_configure_folders">Nastavenie priečinkov</string>
-    <string name="synced_folders_loading_folders">Načítavanie priečinkov…</string>
     <string name="synced_folders_new_info">Okamžité nahrávanie bolo kompletne prepracované.  Zmente si nastavenie automatického nahrávania cez hlavné menu.\n\nUžite si nové a rozšírene možnosti automatického nahrávania.</string>
     <string name="synced_folders_no_results">Nenašli sa žiadne priečinky s médiami</string>
     <string name="synced_folders_preferences">Nastavenie automatického nahrávania</string>

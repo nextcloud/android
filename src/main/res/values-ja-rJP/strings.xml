@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">認識できないサーバーのバージョンです</string>
     <string name="auth_connection_established">接続が確立しました</string>
     <string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返していない場合、管理者に連絡してください。</string>
-    <string name="auth_host_address">サーバーアドレス</string>
     <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_incorrect_address_title">サーバーアドレスの書式が違います</string>
     <string name="auth_incorrect_path_title">サーバーが見つかりません</string>
@@ -79,6 +78,7 @@
     <string name="autoupload_disable_power_save_check">省電力チェックを無効化</string>
     <string name="autoupload_hide_folder">フォルダを隠す</string>
     <string name="avatar">アバター</string>
+    <string name="away">離席中</string>
     <string name="battery_optimization_close">閉じる</string>
     <string name="battery_optimization_disable">無効</string>
     <string name="battery_optimization_message">あなたのデバイスでバッテリー最適化が有効に設定されている場合、自動アップロードはこのアプリを最適化の対象から除外した場合にのみ正常に動作します</string>
@@ -89,9 +89,10 @@
     <string name="checkbox">チェックボックス</string>
     <string name="choose_local_folder">ローカルフォルダーを選択…</string>
     <string name="choose_remote_folder">リモートフォルダを選択…</string>
+    <string name="choose_which_file">保存するファイルを選択</string>
     <string name="clear_notifications_failed">通知の削除に失敗</string>
-    <string name="clear_status_message">ステータスメッセージを消去</string>
-    <string name="clear_status_message_after">ステータスメッセージの有効期限</string>
+    <string name="clear_status_message">メッセージを消去</string>
+    <string name="clear_status_message_after">メッセージ有効期限</string>
     <string name="clipboard_label">%1$s からテキストをコピー</string>
     <string name="clipboard_no_text_to_copy">クリップボードにコピーするテキストを受け取らなかった</string>
     <string name="clipboard_text_copied">リンクをコピーしました</string>
@@ -144,8 +145,8 @@
     <string name="confirmation_remove_local">ローカルのみ</string>
     <string name="conflict_already_existing_file">既存のファイル</string>
     <string name="conflict_dialog_error">コンフリクトダイアログの作成に失敗しました</string>
+    <string name="conflict_file_headline">%1$sはすでに存在します</string>
     <string name="conflict_message_description">両方のバージョンを選択した場合、ローカルファイルはファイル名に数字が追加されます。</string>
-    <string name="conflict_message_headline">どちらのファイルを保持しますか？</string>
     <string name="conflict_new_file">新しいファイル</string>
     <string name="contaclist_restore_selected">選択したアドレス帳を復元</string>
     <string name="contactlist_account_chooser_title">インポートするアカウントを選択</string>
@@ -170,6 +171,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">現在サポートされていない暗号化されたフォルダにコピー/移動します。</string>
     <string name="copy_to">コピー…</string>
     <string name="could_not_download_image">イメージ全体をダウンロードできませんでした</string>
+    <string name="could_not_retrieve_shares">共有元を取得できませんでした</string>
     <string name="could_not_retrieve_url">URL を取得できませんでした</string>
     <string name="create_dir_fail_msg">フォルダーを作成できません</string>
     <string name="create_new">新規作成</string>
@@ -189,10 +191,13 @@
     <string name="dev_version_new_version_available">新しいバージョンが利用可能</string>
     <string name="dev_version_no_information_available">情報がありません。</string>
     <string name="dev_version_no_new_version_available">新しいバージョンはありません。</string>
+    <string name="dialog_close">閉じる</string>
     <string name="digest_algorithm_not_available">このスマートフォンでは、ダイジェストアルゴリズムが利用できません。</string>
     <string name="disable_new_media_folder_detection_notifications">無効</string>
     <string name="dismiss">閉じる</string>
     <string name="dismiss_notification_description">通知を閉じる</string>
+    <string name="dnd">邪魔しないで</string>
+    <string name="dontClear">消去しない</string>
     <string name="download_latest_dev_version">最新の開発バージョンをダウンロード</string>
     <string name="downloader_download_failed_content">%1$sをダウンロードできませんでした</string>
     <string name="downloader_download_failed_credentials_error">ダウンロード失敗、要 再ログイン</string>
@@ -212,7 +217,6 @@
     <string name="drawer_item_home">ホーム</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">デバイス上</string>
-    <string name="drawer_item_photos">写真</string>
     <string name="drawer_item_recently_added">最近追加</string>
     <string name="drawer_item_recently_modified">最近更新</string>
     <string name="drawer_item_shared">共有中</string>
@@ -284,26 +288,17 @@
     <string name="file_keep">保持</string>
     <string name="file_list_empty">コンテンツをアップロードするか、デバイスと同期してください。</string>
     <string name="file_list_empty_favorite_headline">まだお気に入りに登録されていません</string>
-    <string name="file_list_empty_favorites_filter">お気に入りのファイルが見つかりませんでした。</string>
     <string name="file_list_empty_favorites_filter_list">お気に入りに登録されたファイルやフォルダーがここに表示されます。</string>
     <string name="file_list_empty_headline">ここにファイルはありません</string>
     <string name="file_list_empty_headline_search">このフォルダーに該当はありません</string>
     <string name="file_list_empty_headline_server_search">該当なし</string>
-    <string name="file_list_empty_headline_server_search_photos">写真なし</string>
-    <string name="file_list_empty_headline_server_search_videos">ビデオなし</string>
     <string name="file_list_empty_moving">何もありません。フォルダーを追加してください。</string>
     <string name="file_list_empty_on_device">ダウンロードされたファイルやフォルダーがここに表示されます。</string>
     <string name="file_list_empty_recently_added">最近追加されたファイルが見つかりません</string>
-    <string name="file_list_empty_recently_added_filter">最近追加されたファイルはありません。</string>
     <string name="file_list_empty_recently_modified">ここ7日間に更新されたファイルが見つかりません</string>
-    <string name="file_list_empty_recently_modified_filter">ここ7日間に更新されたファイルはありません。</string>
     <string name="file_list_empty_search">別のフォルダーにありませんか？</string>
     <string name="file_list_empty_shared">共有したファイルやフォルダーがここに表示されます。</string>
     <string name="file_list_empty_shared_headline">まだ何も共有されていません</string>
-    <string name="file_list_empty_text_photos">写真をアップロードするか、自動アップロードを有効にしてください。</string>
-    <string name="file_list_empty_text_photos_filter">写真はありません。</string>
-    <string name="file_list_empty_text_videos">動画をアップロードするか、自動アップロードを有効にしてください。</string>
-    <string name="file_list_empty_text_videos_filter">ビデオはありません。</string>
     <string name="file_list_folder">フォルダー</string>
     <string name="file_list_loading">読み込み中…</string>
     <string name="file_list_no_app_for_file_type">このファイル形式に設定されたアプリがありません。</string>
@@ -362,6 +357,7 @@
     <string name="foreign_files_remote_text">リモート: %1$s</string>
     <string name="foreign_files_success">全ファイル移動済</string>
     <string name="forward">転送</string>
+    <string name="fourHours">4時間</string>
     <string name="hint_name">名前</string>
     <string name="hint_note">ノート</string>
     <string name="hint_password">パスワード</string>
@@ -371,7 +367,7 @@
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">無効なURL</string>
-    <string name="invisible">不可視</string>
+    <string name="invisible">隠す</string>
     <string name="label_empty">ラベルは空にできません</string>
     <string name="link">リンク</string>
     <string name="link_share_allow_upload_and_editing">アップロードと編集を許可</string>
@@ -451,11 +447,11 @@
     <string name="notification_channel_upload_description">アップロードの進行状況を表示</string>
     <string name="notification_channel_upload_name">アップロード通知チャンネル</string>
     <string name="notification_icon">通知アイコン</string>
-    <string name="notifications_loading_activity">通知の読み込み中…</string>
     <string name="notifications_no_results_headline">通知なし</string>
     <string name="notifications_no_results_message">後で確認してください。</string>
     <string name="offline_mode">インターネットに接続されていません</string>
     <string name="oneHour">1時間</string>
+    <string name="online">オンライン</string>
     <string name="online_status">オンラインステータス</string>
     <string name="outdated_server">サーバーのEOLが終わったので、アップグレードしてください！</string>
     <string name="overflow_menu">その他のメニュー</string>
@@ -577,7 +573,7 @@
     <string name="set_as">として設定され</string>
     <string name="set_picture_as">画像を使用する</string>
     <string name="set_status">ステータスを設定</string>
-    <string name="set_status_message">ステータスメッセージを設定</string>
+    <string name="set_status_message">メッセージを設定</string>
     <string name="share">共有</string>
     <string name="share_dialog_title">共有</string>
     <string name="share_expiration_date_label">有効期限%1$s</string>
@@ -647,7 +643,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- サーバー証明書は信頼されていません</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- サーバー証明書の有効期限が未来のものです</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URLは証明書内のホスト名と一致しません</string>
-    <string name="status_message">状態メッセージ</string>
+    <string name="status_message">ステータスメッセージ</string>
     <string name="storage_camera">カメラ</string>
     <string name="storage_choose_location">ストレージの場所を選択</string>
     <string name="storage_description_default">デフォルト</string>
@@ -686,7 +682,6 @@
     <string name="sync_string_files">ファイル</string>
     <string name="synced_folder_settings_button">設定ボタン</string>
     <string name="synced_folders_configure_folders">フォルダの設定</string>
-    <string name="synced_folders_loading_folders">フォルダーの読み込み中…</string>
     <string name="synced_folders_new_info">インスタントアップロードは完全に改訂されました。 メインメニューから自動アップロードを再設定してください。\n\n新しく拡張された自動アップロードをお楽しみください。</string>
     <string name="synced_folders_no_results">メディアフォルダーが見つかりません</string>
     <string name="synced_folders_preferences">自動アップロード設定</string>
@@ -812,6 +807,7 @@
     <string name="what_s_new_image">新しいイメージとは</string>
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>
+    <string name="whats_your_status">今のステータスは？</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">%1$d 個のファイルを同期出ません (コンフリクト: %2$d)</item>
     </plurals>

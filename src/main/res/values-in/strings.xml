@@ -41,7 +41,6 @@
     <string name="auth_account_not_the_same">Pengguna yang dimasukkan tidak cocok dengan pengguna akun ini</string>
     <string name="auth_bad_oc_version_title">Versi server tidak dikenal</string>
     <string name="auth_connection_established">Sambungan dibuat</string>
-    <string name="auth_host_address">Alamat server</string>
     <string name="auth_host_url">Alamat server https://…</string>
     <string name="auth_incorrect_address_title">Format alamat server salah</string>
     <string name="auth_incorrect_path_title">Server tidak ditemukan</string>
@@ -115,7 +114,6 @@
     <string name="confirmation_remove_folder_alert">Apakah anda yakin ingin menghapus %1$s beserta isinya?</string>
     <string name="confirmation_remove_folders_alert">Apa anda yakin ingin menghapus item yang terpilih beserta isinya?</string>
     <string name="confirmation_remove_local">Lokal saja</string>
-    <string name="conflict_message_headline">Berkas mana yang ingin anda pertahankan?</string>
     <string name="contaclist_restore_selected">Memulihkan kontak pilihan.</string>
     <string name="contactlist_account_chooser_title">Pilih akun untuk di impor</string>
     <string name="contactlist_no_permission">Tidak ada perizinan diberikan, tidak ada yang terimpor</string>
@@ -165,7 +163,6 @@
     <string name="drawer_item_home">Beranda</string>
     <string name="drawer_item_notifications">Pemberitahuan</string>
     <string name="drawer_item_on_device">Dalam perangkat</string>
-    <string name="drawer_item_photos">Foto</string>
     <string name="drawer_item_recently_added">Baru ditambah</string>
     <string name="drawer_item_recently_modified">Baru diubah</string>
     <string name="drawer_item_shared">Dibagikan</string>
@@ -198,23 +195,14 @@
     <string name="file_keep">Simpan</string>
     <string name="file_list_empty">Unggah beberapa berkas atau sinkronisasi dengan perangkat anda.</string>
     <string name="file_list_empty_favorite_headline">Belum ada yang disukai.</string>
-    <string name="file_list_empty_favorites_filter">Tidak ada hasil penelusuran di folder yang disukai.</string>
     <string name="file_list_empty_headline">Tidak ada berkas</string>
     <string name="file_list_empty_headline_search">Tidak ada hasil di folder ini</string>
     <string name="file_list_empty_headline_server_search">Tidak ada hasil.</string>
-    <string name="file_list_empty_headline_server_search_photos">Tidak ada Foto</string>
-    <string name="file_list_empty_headline_server_search_videos">Tidak ada Video</string>
     <string name="file_list_empty_moving">Kosong. Anda dapat menambahkan folder</string>
     <string name="file_list_empty_recently_added">Tidak ditemukan berkas yang baru ditambah</string>
-    <string name="file_list_empty_recently_added_filter">Tidak ada berkas yang baru ditambahkan.</string>
     <string name="file_list_empty_recently_modified">Tidak ditemukan berkas yang diubah 7 hari terakhir</string>
-    <string name="file_list_empty_recently_modified_filter">Tidak ada berkas yang di ubah selama 7 hari terakhir.</string>
     <string name="file_list_empty_search">Mungkin ada di folder yang berbeda?</string>
     <string name="file_list_empty_shared_headline">Belum ada yang dibagikan.</string>
-    <string name="file_list_empty_text_photos">Unggah beberapa foto atau aktifkan unggah otomatis.</string>
-    <string name="file_list_empty_text_photos_filter">Tidak ada Foto.</string>
-    <string name="file_list_empty_text_videos">Unggah video atau aktifkan unggah otomatis.</string>
-    <string name="file_list_empty_text_videos_filter">Tidak ada Video.</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_loading">Memuat…</string>
     <string name="file_list_no_app_for_file_type">Tidak ada aplikasi untuk membuka jenis berkas ini.</string>
@@ -319,7 +307,6 @@
     <string name="note_could_not_sent">Tidak dapat mengirim catatan</string>
     <string name="notification_channel_general_name">Notifikasi umum</string>
     <string name="notification_icon">Ikon Notifikasi</string>
-    <string name="notifications_loading_activity">Memuat notifikasi…</string>
     <string name="notifications_no_results_headline">Tidak ada notifikasi.</string>
     <string name="notifications_no_results_message">Cek ulang nanti.</string>
     <string name="offline_mode">Tidak ada koneksi ke internet</string>
@@ -465,7 +452,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Beberapa berkas lokal terlupakan</string>
     <string name="sync_string_files">Berkas</string>
     <string name="synced_folders_configure_folders">Konfigurasi folder</string>
-    <string name="synced_folders_loading_folders">Memuat folder…</string>
     <string name="synced_folders_new_info">Unggah instan telah dirubah sepenuhnya. Harap lihat menu utama dan konfigurasi ulang unggah otomatis anda. Maaf untuk gangguannya.\n\nNikmati kemampuan unggah otomatis yang baru!</string>
     <string name="synced_folders_preferences">Preferensi untuk mengunggah otomatis.</string>
     <string name="synced_folders_preferences_folder_path">Untuk %1$s</string>

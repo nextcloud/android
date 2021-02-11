@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Nepoznana različica strežnika</string>
     <string name="auth_connection_established">Povezava je vzpostavljena</string>
     <string name="auth_fail_get_user_name">Strežnik ne vrne ustreznega ID uporabnika. Stopite v stik s skrbnikom sistema.</string>
-    <string name="auth_host_address">Naslov strežnika</string>
     <string name="auth_host_url">Naslov strežnika https:// …</string>
     <string name="auth_incorrect_address_title">Napačen zapis naslova strežnika</string>
     <string name="auth_incorrect_path_title">Strežnika ni mogoče najti</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Prišlo je do napake med ustvarjanjem pogovornega okna spora!</string>
     <string name="conflict_file_headline">Različice %1$s v sporu.</string>
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
-    <string name="conflict_message_headline">Katere datoteke želite ohraniti?</string>
     <string name="conflict_new_file">Nova datoteka</string>
     <string name="contaclist_restore_selected">Obnovi izbrane stike</string>
     <string name="contactlist_account_chooser_title">Izberi račun za uvoz</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Začetna stran</string>
     <string name="drawer_item_notifications">Obvestila</string>
     <string name="drawer_item_on_device">Na napravi</string>
-    <string name="drawer_item_photos">Slike</string>
     <string name="drawer_item_recently_added">Nedavno dodano</string>
     <string name="drawer_item_recently_modified">Nedavno spremenjeno</string>
     <string name="drawer_item_shared">V souporabi</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Ohrani</string>
     <string name="file_list_empty">Pošljite nekaj datotek v oblak, ali pa uskladite vsebino z drugimi napravami.</string>
     <string name="file_list_empty_favorite_headline">Ni datotek, označenih kot priljubljene</string>
-    <string name="file_list_empty_favorites_filter">Iskanje ni vrnilo zadetkov iskanja.</string>
     <string name="file_list_empty_favorites_filter_list">Datoteke ali mape, označene kot priljubljene, bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_headline">Ni datotek</string>
     <string name="file_list_empty_headline_search">V tej mapi ni rezultatov</string>
     <string name="file_list_empty_headline_server_search">Ni rezultatov</string>
-    <string name="file_list_empty_headline_server_search_photos">Ni slik in fotografij</string>
-    <string name="file_list_empty_headline_server_search_videos">Ni video posnetkov</string>
     <string name="file_list_empty_moving">Ni vsebine. Lahko ustvariš na primer mapo.</string>
     <string name="file_list_empty_on_device">Prejete datoteke in mape bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_recently_added">Ni nedavno dodanih datotek</string>
-    <string name="file_list_empty_recently_added_filter">Ni nedavno dodanih datotek.</string>
     <string name="file_list_empty_recently_modified">Ni datotek, spremenjenih v zadnjih 7. dneh</string>
-    <string name="file_list_empty_recently_modified_filter">V zadnjih 7. dneh ni bila spremenjena nobena datoteka.</string>
     <string name="file_list_empty_search">Mogoče v drugi mapi?</string>
     <string name="file_list_empty_shared">Datoteke in mape v souporabi bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_shared_headline">Ni še datotek v souporabi</string>
-    <string name="file_list_empty_text_photos">Pošljite kakšno sliko, ali pa omogočite samodejno nalaganje.</string>
-    <string name="file_list_empty_text_photos_filter">Ni slik in fotografij.</string>
-    <string name="file_list_empty_text_videos">Pošljite kakšen video, ali pa omogočite samodejno nalaganje.</string>
-    <string name="file_list_empty_text_videos_filter">Ni video posnetkov.</string>
     <string name="file_list_folder">mapa</string>
     <string name="file_list_loading">Poteka nalaganje …</string>
     <string name="file_list_no_app_for_file_type">Ni določenega programa za odpiranje te vrste datotek.</string>
@@ -463,7 +451,6 @@
     <string name="notification_channel_upload_description">Pokaži napredek pošiljanja</string>
     <string name="notification_channel_upload_name">Kanal obvestil pošiljanja</string>
     <string name="notification_icon">Obvestilna ikona</string>
-    <string name="notifications_loading_activity">Nalaganje obvestil…</string>
     <string name="notifications_no_results_headline">Ni obvestil</string>
     <string name="notifications_no_results_message">Prosim, preveri kasneje</string>
     <string name="offline_mode">Ni vzpostavljene internetne povezave</string>
@@ -706,7 +693,6 @@
     <string name="sync_string_files">Datoteke</string>
     <string name="synced_folder_settings_button">Gumb nastavitev</string>
     <string name="synced_folders_configure_folders">Nastavi mape</string>
-    <string name="synced_folders_loading_folders">Poteka nalaganje map …</string>
     <string name="synced_folders_new_info">Možnost Hipnega pošiljanja je bila v celoti predelana. Nastavitve je treba ponovno prilagoditi v glavnem meniju.\n\nUživajte v razširjenih možnostih samodejnega pošiljanja.</string>
     <string name="synced_folders_no_results">Ni najdenih map s predstavnimi datotekami</string>
     <string name="synced_folders_preferences">Nastavitve za samodejno pošiljanje</string>

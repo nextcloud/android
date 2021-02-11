@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">서버 버전을 확인할 수 없음</string>
     <string name="auth_connection_established">연결됨</string>
     <string name="auth_fail_get_user_name">당신의 서버가 올바른 사용자ID를 보내지 않았습니다. 관리자에게 문의하십시오.</string>
-    <string name="auth_host_address">서버 주소</string>
     <string name="auth_host_url">서버 주소 https://…</string>
     <string name="auth_incorrect_address_title">서버 주소 형식이 잘못됨</string>
     <string name="auth_incorrect_path_title">서버를 찾을 수 없음</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">다이얼로그의 충돌로 인한 오류</string>
     <string name="conflict_file_headline">충돌하는 파일 %1$s</string>
     <string name="conflict_message_description">두 버전을 모두 선택하면 기존 파일 이름에 번호가 추가됩니다.</string>
-    <string name="conflict_message_headline">어느 파일을 유지하시겠습니까?</string>
     <string name="conflict_new_file">새 파일</string>
     <string name="contaclist_restore_selected">선택한 주소록 복원</string>
     <string name="contactlist_account_chooser_title">가져올 계정 선택</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">홈</string>
     <string name="drawer_item_notifications">알림</string>
     <string name="drawer_item_on_device">장치</string>
-    <string name="drawer_item_photos">사진</string>
     <string name="drawer_item_recently_added">최근 추가됨</string>
     <string name="drawer_item_recently_modified">최근 수정됨</string>
     <string name="drawer_item_shared">공유됨</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">보관</string>
     <string name="file_list_empty">콘텐츠를 업로드하거나 기기와 동기화 하십시오.</string>
     <string name="file_list_empty_favorite_headline">즐겨찾는 항목 없음</string>
-    <string name="file_list_empty_favorites_filter">검색 결과에 즐겨찾기 항목이 없습니다.</string>
     <string name="file_list_empty_favorites_filter_list">즐겨찾기한 파일과 폴더가 여기 나타날 것입니다.</string>
     <string name="file_list_empty_headline">파일이 없습니다</string>
     <string name="file_list_empty_headline_search">이 폴더에 검색 결과 없음</string>
     <string name="file_list_empty_headline_server_search">검색 결과 없음</string>
-    <string name="file_list_empty_headline_server_search_photos">사진 없음</string>
-    <string name="file_list_empty_headline_server_search_videos">비디오 없음</string>
     <string name="file_list_empty_moving">항목이 없습니다. 폴더를 추가할 수 있습니다.</string>
     <string name="file_list_empty_on_device">다운로드 받은 파일과 폴더가 여기 나타날 것입니다.</string>
     <string name="file_list_empty_recently_added">최근 추가된 파일 없음</string>
-    <string name="file_list_empty_recently_added_filter">최근에 추가된 파일이 없습니다.</string>
     <string name="file_list_empty_recently_modified">검색 결과 지난 7일간 수정한 파일 없음</string>
-    <string name="file_list_empty_recently_modified_filter">지난 7일간 수정한 파일이 없습니다.</string>
     <string name="file_list_empty_search">다른 폴더에 있을 수도 있습니다.</string>
     <string name="file_list_empty_shared">당신이 공유한 파일과 폴더가 여기 나타날 것입니다.</string>
     <string name="file_list_empty_shared_headline">공유된 항목 없음</string>
-    <string name="file_list_empty_text_photos">사진을 업로드하거나 자동 업로드를 활성화하십시오.</string>
-    <string name="file_list_empty_text_photos_filter">사진이 없습니다.</string>
-    <string name="file_list_empty_text_videos">비디오를 업로드하거나 자동 업로드를 활성화하십시오.</string>
-    <string name="file_list_empty_text_videos_filter">동영상이 없습니다.</string>
     <string name="file_list_folder">폴더</string>
     <string name="file_list_loading">불러오는 중…</string>
     <string name="file_list_no_app_for_file_type">이 파일을 위한 앱이 존재하지 않습니다.</string>
@@ -463,7 +451,6 @@
     <string name="notification_channel_upload_description">업로드 진행 표시</string>
     <string name="notification_channel_upload_name">업로드 알림 채널</string>
     <string name="notification_icon">알림 아이콘</string>
-    <string name="notifications_loading_activity">알림 불러오는 중…</string>
     <string name="notifications_no_results_headline">알림 없음</string>
     <string name="notifications_no_results_message">나중에 다시 확인하십시오.</string>
     <string name="offline_mode">네트워크에 연결할 수 없음</string>
@@ -727,7 +714,6 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="sync_string_files">파일</string>
     <string name="synced_folder_settings_button">설정 단추</string>
     <string name="synced_folders_configure_folders">폴더 설정</string>
-    <string name="synced_folders_loading_folders">폴더 불러오는 중…</string>
     <string name="synced_folders_new_info">즉석 업로드가 완전히 변경되었습니다. 주 메뉴에서 자동 업로드를 다시 설정해 주십시오.\n\n새롭게 강화된 자동 업로드 기능을 활용하십시오.</string>
     <string name="synced_folders_no_results">미디어 폴더를 찾을 수 없음</string>
     <string name="synced_folders_preferences">자동 업로드 설정</string>

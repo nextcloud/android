@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Ikke genkendt serverversion</string>
     <string name="auth_connection_established">Forbindelse oprettet</string>
     <string name="auth_fail_get_user_name">Din server returnerer ikke et korrekt bruger ID. Kontakt venligst en administrator</string>
-    <string name="auth_host_address">Serveradresse</string>
     <string name="auth_host_url">Serveradresse https://…</string>
     <string name="auth_incorrect_address_title">Forkert adresseformat på server</string>
     <string name="auth_incorrect_path_title">Server ikke fundet</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Fejl ved skabelse af konfliktdialog</string>
     <string name="conflict_file_headline">Fil i konflikt %1$s</string>
     <string name="conflict_message_description">Hvis du vælger begge versioner, vil den lokale fil få tilføjet et nummer til sit navn.</string>
-    <string name="conflict_message_headline">Hvilke filer ønsker du at beholde?</string>
     <string name="conflict_new_file">Ny fil</string>
     <string name="contaclist_restore_selected">Genskab valgte kontakter</string>
     <string name="contactlist_account_chooser_title">Vælg konto at importere</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Hjem</string>
     <string name="drawer_item_notifications">Notifikationer</string>
     <string name="drawer_item_on_device">På enhed</string>
-    <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_recently_added">Tilføjet for nylig</string>
     <string name="drawer_item_recently_modified">Ændret for nylig</string>
     <string name="drawer_item_shared">Delt</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Behold</string>
     <string name="file_list_empty">Upload indhold eller synk med dine enheder.</string>
     <string name="file_list_empty_favorite_headline">Send/Del</string>
-    <string name="file_list_empty_favorites_filter">Din søgning returnerede ingen favoritfiler.</string>
     <string name="file_list_empty_favorites_filter_list">Filer og mapper du markerer som favoritter vil blive vist her.</string>
     <string name="file_list_empty_headline">Her er ingen filer</string>
     <string name="file_list_empty_headline_search">Intet resultat for denne mappe</string>
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
-    <string name="file_list_empty_headline_server_search_photos">Ingen fotos</string>
-    <string name="file_list_empty_headline_server_search_videos">Ingen videoer</string>
     <string name="file_list_empty_moving">Der er intet her. Du kan tilføje en mappe.</string>
     <string name="file_list_empty_on_device">Hentede filer og mapper vil blive vist her.</string>
     <string name="file_list_empty_recently_added">Fandt ikke nogen nylig tilføjet filer</string>
-    <string name="file_list_empty_recently_added_filter">Ingen filer tilføjet fornyeligt</string>
     <string name="file_list_empty_recently_modified">Fandt ikke nogen filer ændre inden for de sidste 7 dage</string>
-    <string name="file_list_empty_recently_modified_filter">Ingen filer ændret de sidste 7 dage</string>
     <string name="file_list_empty_search">Måske den er i en anden mappe?</string>
     <string name="file_list_empty_shared">Filer og mapper du deler vil blive vist her.</string>
     <string name="file_list_empty_shared_headline">Intet er delt endnu</string>
-    <string name="file_list_empty_text_photos">Overføre nogle billeder eller aktivér auto upload</string>
-    <string name="file_list_empty_text_photos_filter">Ingen fotos</string>
-    <string name="file_list_empty_text_videos">Upload nogle videoer eller aktiver auto upload.</string>
-    <string name="file_list_empty_text_videos_filter">Ingen videoer</string>
     <string name="file_list_folder">mappe</string>
     <string name="file_list_loading">Indlæser...</string>
     <string name="file_list_no_app_for_file_type">Ingen app er sat op til at håndtere denne filtype.</string>
@@ -461,7 +449,6 @@
     <string name="notification_channel_upload_description">Viser afsendings fremskridt</string>
     <string name="notification_channel_upload_name">Sende notifikations kanal</string>
     <string name="notification_icon">Notifikationsikon</string>
-    <string name="notifications_loading_activity">Indlæser notifikationer...</string>
     <string name="notifications_no_results_headline">Ingen notifikationer</string>
     <string name="notifications_no_results_message">Prøv igen senere.</string>
     <string name="offline_mode">Ingen internetforbindelse</string>
@@ -705,7 +692,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="sync_string_files">Filer</string>
     <string name="synced_folder_settings_button">Indstillinger knap</string>
     <string name="synced_folders_configure_folders">Konfigurer mapper</string>
-    <string name="synced_folders_loading_folders">Henter mapper...</string>
     <string name="synced_folders_new_info">Øjeblikkelig send er blevet fundamentalt nylanceret. Omkonfigurer din autoupload fra hovedmenuen.\n\nNyd den nye og udvidede auto upload.</string>
     <string name="synced_folders_no_results">Ingen medie mapper fundet</string>
     <string name="synced_folders_preferences">indstillinger til auto send</string>

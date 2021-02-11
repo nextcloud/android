@@ -47,7 +47,6 @@
     <string name="auth_bad_oc_version_title">Nie rozpoznano wersji serwera</string>
     <string name="auth_connection_established">Połączenie nawiązane</string>
     <string name="auth_fail_get_user_name">Twój serwer nie zwraca poprawnego identyfikatora użytkownika. Skontaktuj się z administratorem.</string>
-    <string name="auth_host_address">Adres serwera</string>
     <string name="auth_host_url">Adres serwera https://…</string>
     <string name="auth_incorrect_address_title">Błędny format adresu serwera</string>
     <string name="auth_incorrect_path_title">Nie znaleziono serwera</string>
@@ -148,7 +147,6 @@
     <string name="conflict_dialog_error">Błąd podczas tworzenia dialogu konfliktu!</string>
     <string name="conflict_file_headline">Plik powodujący konflikt %1$s</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
-    <string name="conflict_message_headline">Które pliki chcesz zachować?</string>
     <string name="conflict_new_file">Nowy plik</string>
     <string name="contaclist_restore_selected">Przywróć wybrane kontakty</string>
     <string name="contactlist_account_chooser_title">Wybierz konto do zaimportiwania</string>
@@ -220,7 +218,6 @@
     <string name="drawer_item_home">Start</string>
     <string name="drawer_item_notifications">Powiadomienia</string>
     <string name="drawer_item_on_device">Na urządzeniu</string>
-    <string name="drawer_item_photos">Zdjęcia</string>
     <string name="drawer_item_recently_added">Ostatnio dodane</string>
     <string name="drawer_item_recently_modified">Ostatnio modyfikowane</string>
     <string name="drawer_item_shared">Współdzielone</string>
@@ -292,26 +289,17 @@
     <string name="file_keep">Zachowaj</string>
     <string name="file_list_empty">Wyślij lub zsynchronizuj pliki z urządzeniami.</string>
     <string name="file_list_empty_favorite_headline">Brak ulubionych</string>
-    <string name="file_list_empty_favorites_filter">Twoje wyszukiwanie nie zwróciło żadnych ulubionych plików.</string>
     <string name="file_list_empty_favorites_filter_list">Tutaj pojawią się pliki i katalogi oznaczone jako ulubione.</string>
     <string name="file_list_empty_headline">Brak plików</string>
     <string name="file_list_empty_headline_search">Brak wyników w tym katalogu</string>
     <string name="file_list_empty_headline_server_search">Brak wyników</string>
-    <string name="file_list_empty_headline_server_search_photos">Brak zdjęć</string>
-    <string name="file_list_empty_headline_server_search_videos">Brak plików wideo</string>
     <string name="file_list_empty_moving">Pusto. Możesz dodać katalog.</string>
     <string name="file_list_empty_on_device">Tutaj pojawią się pobrane pliki i katalogi.</string>
     <string name="file_list_empty_recently_added">Nie znaleziono żadnych ostatnio dodanych plików</string>
-    <string name="file_list_empty_recently_added_filter">Brak ostatnio dodanych plików.</string>
     <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików modyfikowanych w ciągu ostatnich 7 dni</string>
-    <string name="file_list_empty_recently_modified_filter">Brak plików zmodyfikowanych w ciągu ostatnich 7 dni.</string>
     <string name="file_list_empty_search">Może jest w innym katalogu?</string>
     <string name="file_list_empty_shared">Tutaj pojawią się pliki i katalogi, które udostępnisz.</string>
     <string name="file_list_empty_shared_headline">Nic nie udostępniasz</string>
-    <string name="file_list_empty_text_photos">Wyślij zdjęcia lub włącz automatyczne wysyłanie.</string>
-    <string name="file_list_empty_text_photos_filter">Brak zdjęć.</string>
-    <string name="file_list_empty_text_videos">Wyślij pliki wideo lub włącz automatyczne wysyłanie.</string>
-    <string name="file_list_empty_text_videos_filter">Brak plików wideo.</string>
     <string name="file_list_folder">katalog</string>
     <string name="file_list_loading">Ładowanie…</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
@@ -463,7 +451,6 @@
     <string name="notification_channel_upload_description">Pokazuje postęp wysyłania</string>
     <string name="notification_channel_upload_name">Kanał powiadomień wysyłania</string>
     <string name="notification_icon">Ikona powiadomień</string>
-    <string name="notifications_loading_activity">Odczytywanie powiadomień…</string>
     <string name="notifications_no_results_headline">Brak powiadomień</string>
     <string name="notifications_no_results_message">Sprawdź później.</string>
     <string name="offline_mode">Brak połączenia z Internetem…</string>
@@ -706,7 +693,6 @@
     <string name="sync_string_files">Pliki</string>
     <string name="synced_folder_settings_button">Przycisk ustawień</string>
     <string name="synced_folders_configure_folders">Skonfiguruj katalogi</string>
-    <string name="synced_folders_loading_folders">Pobieram katalogi…</string>
     <string name="synced_folders_new_info">Automatyczne wysyłanie zostało całkowicie zmienione. Ponownie skonfiguruj automatyczne wysyłanie z menu głównego.\n\nCiesz się nowym i rozszerzonym automatycznym wysyłaniem.</string>
     <string name="synced_folders_no_results">Nie znaleziono katalogów multimedialnych</string>
     <string name="synced_folders_preferences">Preferencje automatycznego wysyłania</string>
@@ -752,7 +738,7 @@
     <string name="upload_file_dialog_filetype_internet_shortcut">Skrót Internetowy plik(%s)</string>
     <string name="upload_file_dialog_filetype_snippet_text">Fragment tekstu plik(.txt)</string>
     <string name="upload_file_dialog_title">Wprowadź nazwę i typ pliku do wysłania</string>
-    <string name="upload_files">Wyślij plik</string>
+    <string name="upload_files">Wyślij pliki</string>
     <string name="upload_item_action_button">Przycisk wysyłania elementu</string>
     <string name="upload_list_delete">Usuń</string>
     <string name="upload_list_empty_headline">Brak wysłanych plików</string>
