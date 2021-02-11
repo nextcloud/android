@@ -10,6 +10,7 @@
     <string name="google_app_id" translatable="false">1:829118773643:android:512449826e931d0e</string>
     <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAWIyOcLafaFp8PFL61h64cy1NNZW2cU_s</string>
     <string name="google_storage_bucket" translatable="false">nextcloud-a7dea.appspot.com</string>
+    <string name="project_id" translatable="false">nextcloud-a7dea</string>
 </resources>
 
 
