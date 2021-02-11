@@ -193,6 +193,7 @@
     <string name="dev_version_no_new_version_available">새로운 버전이 없습니다.</string>
     <string name="dialog_close">닫기</string>
     <string name="digest_algorithm_not_available">이 다이제스트 알고리즘을 이 장치에서 사용할 수 없습니다.</string>
+    <string name="direct_login_failed">직접 링크롤 통한 로그인 실패!</string>
     <string name="disable_new_media_folder_detection_notifications">비활성화</string>
     <string name="dismiss">무시</string>
     <string name="dismiss_notification_description">알림 해제</string>

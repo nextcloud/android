@@ -193,6 +193,7 @@
     <string name="dev_version_no_new_version_available">Brak nowej wersji.</string>
     <string name="dialog_close">Zakończ</string>
     <string name="digest_algorithm_not_available">Algorytm funkcji skrótu nie jest dostępny na Twoim urządzeniu.</string>
+    <string name="direct_login_failed">Logowanie przez link bezpośredni nie powiodło się!</string>
     <string name="disable_new_media_folder_detection_notifications">Wyłącz</string>
     <string name="dismiss">Odrzuć</string>
     <string name="dismiss_notification_description">Odrzuć powiadomienie</string>
