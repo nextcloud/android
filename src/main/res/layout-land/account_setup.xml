@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingMultiplier="1.2"
                 android:paddingStart="@dimen/standard_padding"
-                android:paddingTop="@dimen/standard_eight_padding"
+                android:paddingTop="@dimen/standard_quarter_padding"
                 android:paddingEnd="@dimen/standard_half_padding"
                 android:paddingBottom="@dimen/standard_eight_padding"
                 android:text="@string/login_url_helper_text"
