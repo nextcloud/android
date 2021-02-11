@@ -380,7 +380,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         accountSetupWebviewBinding.loginWebview.loadUrl(url, headers);
 
-        setClient(accountSetupWebviewBinding.loginWebviewProgressBar);
+        setClient();
     }
 
     @Override
@@ -397,7 +397,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         return super.onKeyDown(keyCode, event);
     }
 
-    private void setClient(ProgressBar progressBar) {
+    private void setClient() {
         accountSetupWebviewBinding.loginWebview.setWebViewClient(new WebViewClient() {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
@@ -743,7 +743,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void checkOcServer() {
         String uri;
-        if (accountSetupBinding != null && !accountSetupBinding.hostUrlInput.getText().toString().isEmpty()) {
+        if (accountSetupBinding != null && accountSetupBinding.hostUrlInput.getText()!= null &&
+            !accountSetupBinding.hostUrlInput.getText().toString().isEmpty()) {
             uri = accountSetupBinding.hostUrlInput.getText().toString().trim();
         } else {
             uri = mServerInfo.mBaseUrl;
@@ -936,7 +937,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             case OK_NO_SSL:
             case OK:
-                if (accountSetupBinding.hostUrlInput
+                if (accountSetupBinding.hostUrlInput.getText() != null &&
+                    accountSetupBinding.hostUrlInput
                     .getText()
                     .toString()
                     .trim()
@@ -1039,7 +1041,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             case OK_NO_SSL:
             case OK:
                 if (showWebViewLoginUrl) {
-                    if (accountSetupBinding.hostUrlInput
+                    if (accountSetupBinding.hostUrlInput.getText() != null &&
+                        accountSetupBinding.hostUrlInput
                         .getText()
                         .toString()
                         .trim()
@@ -1465,13 +1468,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mOperationsServiceBinder = null;
             }
         }
-    }
-
-    /**
-     * For retrieving the clicking on authentication cancel button.
-     */
-    public void doNegativeAuthenticationDialogClick() {
-        mIsFirstAuthAttempt = true;
     }
 
     @Override
