@@ -193,7 +193,7 @@
     <string name="dev_version_no_new_version_available">No hay disponible ninguna versión nueva</string>
     <string name="dialog_close">Cerrar</string>
     <string name="digest_algorithm_not_available">Este algoritmo no está disponible en tu teléfono.</string>
-    <string name="direct_login_failed">¡Ha fallado el registro a través del enlace directo!</string>
+    <string name="direct_login_failed">¡Ha fallado el inicio de sesión a través del enlace directo!</string>
     <string name="disable_new_media_folder_detection_notifications">Desactivar</string>
     <string name="dismiss">Descartar</string>
     <string name="dismiss_notification_description">Descartar notificación</string>
