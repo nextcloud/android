@@ -193,6 +193,7 @@
     <string name="dev_version_no_new_version_available">Cap versió nova disponible.</string>
     <string name="dialog_close">Tanca</string>
     <string name="digest_algorithm_not_available">Aquest algorisme de resum no és disponible al vostre telèfon.</string>
+    <string name="direct_login_failed">l\'Inici de sessió via enllaç directe ha fallat!</string>
     <string name="disable_new_media_folder_detection_notifications">Desactiva</string>
     <string name="dismiss">Descarta</string>
     <string name="dismiss_notification_description">Descarta la notificació</string>
