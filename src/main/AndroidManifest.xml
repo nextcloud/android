@@ -130,6 +130,7 @@
                 android:resource="@xml/users_and_groups_searchable"/>
         </activity>
         <activity android:name=".ui.activity.ManageAccountsActivity" />
+        <activity android:name=".ui.activity.ScanDocActivity" />
         <activity android:name=".ui.activity.UserInfoActivity" />
         <activity android:name=".ui.activity.NotificationsActivity"/>
         <activity android:name=".ui.activity.CommunityActivity" />

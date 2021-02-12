@@ -278,6 +278,11 @@ public class DialogFragmentIT extends AbstractIT {
             }
 
             @Override
+            public void scanDocUpload() {
+                
+            }
+
+            @Override
             public void showTemplate(Creator creator) {
 
             }

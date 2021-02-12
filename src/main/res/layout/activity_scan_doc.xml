@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Nextcloud Android client application
+
+ @author thelittlefireman
+ Copyright (C) 2020 thelittlefireman
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayoutMainContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.labters.documentscanner.ImageCropActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_scan_doc_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_half_margin"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:layout_marginEnd="@dimen/standard_half_margin"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivRetakePicture"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:contentDescription="@string/scan_doc_retake_picture"
+            app:cornerRadius="@dimen/button_corner_radius"
+            app:icon="@drawable/ic_photo_cam"
+            app:iconTint="@color/grey_600"
+            app:layout_constraintEnd_toStartOf="@+id/ivDeletePage"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivDeletePage"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:contentDescription="@string/scan_doc_delete_page"
+            app:cornerRadius="@dimen/button_corner_radius"
+            app:icon="@drawable/ic_delete"
+            app:iconTint="@color/grey_600"
+            app:layout_constraintEnd_toStartOf="@+id/ivRotate"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@id/ivRetakePicture"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivRotate"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:contentDescription="@string/scan_doc_rotate_image"
+            app:icon="@drawable/ic_rotate_right"
+            app:iconTint="@color/grey_600"
+            app:layout_constraintEnd_toStartOf="@+id/ivCrop"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@id/ivDeletePage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivCrop"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:contentDescription="@string/scan_doc_crop_image"
+            app:icon="@drawable/ic_crop"
+            app:iconTint="@color/grey_600"
+            app:layout_constraintEnd_toStartOf="@+id/ivReset"
+            app:layout_constraintStart_toEndOf="@+id/ivRotate"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivReset"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:contentDescription="@string/scan_doc_reset_image"
+            app:icon="@drawable/ic_restore"
+            app:iconTint="@color/grey_600"
+            app:layout_constraintEnd_toStartOf="@+id/ivInvert"
+            app:layout_constraintStart_toEndOf="@+id/ivCrop"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivInvert"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:contentDescription="@string/scan_doc_invert_image"
+            app:icon="@drawable/ic_inverting_colors"
+            app:iconTint="@color/grey_600"
+            app:layout_constraintEnd_toStartOf="@+id/ivRename"
+            app:layout_constraintStart_toEndOf="@+id/ivReset"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivRename"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:contentDescription="@string/scan_doc_rename_document"
+            app:icon="@drawable/ic_rename"
+            app:iconTint="@color/grey_600"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivInvert"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_crop_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_half_margin"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:layout_marginEnd="@dimen/standard_half_margin"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/viewPagerScanDocument"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivValidateCrop"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:contentDescription="@string/common_ok"
+            app:icon="@drawable/ic_ok"
+            app:iconTint="@color/grey_600"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ivCancelCrop"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivCancelCrop"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:contentDescription="@string/common_cancel"
+            app:icon="@drawable/ic_cancel"
+            app:iconTint="@color/grey_600"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivValidateCrop"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_pager_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_half_margin"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:layout_marginEnd="@dimen/standard_half_margin"
+        app:layout_constraintBottom_toTopOf="@+id/viewPagerScanDocument"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout_scan_doc_buttons">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivPreviousScanDoc"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:contentDescription="@string/scan_doc_previous_image"
+            app:icon="@drawable/ic_navigate_previous"
+            app:iconTint="@color/grey_600"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textViewPageCounter"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewPageCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey_600"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ivNextScanDoc"
+            app:layout_constraintStart_toEndOf="@+id/ivPreviousScanDoc"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1/2" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivNextScanDoc"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:contentDescription="@string/scan_doc_next_image"
+            app:icon="@drawable/ic_navigate_next"
+            app:iconTint="@color/grey_600"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewPageCounter"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerScanDocument"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/standard_half_margin"
+        android:layout_weight="7"
+        app:layout_constraintBottom_toTopOf="@+id/layout_choice_buttons"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout_pager_button" />
+
+    <LinearLayout
+        android:id="@+id/layout_choice_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/standard_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewPagerScanDocument">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClose"
+            style="@style/OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/common_cancel"
+            app:cornerRadius="@dimen/button_corner_radius"
+            app:layout_constraintEnd_toStartOf="@+id/ivAddAnOtherScanToDoc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivAddAnOtherScanToDoc"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_weight="0"
+            app:icon="@drawable/ic_add"
+            app:iconTint="@color/grey_600"
+            app:layout_constraintEnd_toStartOf="@+id/btnValidate"
+            app:layout_constraintStart_toEndOf="@+id/btnClose"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnValidate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/folder_picker_choose_button_text"
+            android:theme="@style/Button.Primary"
+            app:cornerRadius="@dimen/button_corner_radius"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivAddAnOtherScanToDoc"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarScanDocument"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateOnly="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

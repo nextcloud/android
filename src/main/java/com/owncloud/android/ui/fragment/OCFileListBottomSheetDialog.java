@@ -80,6 +80,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         ThemeUtils.tintDrawable(binding.menuIconUploadFiles.getDrawable(), primaryColor);
         ThemeUtils.tintDrawable(binding.menuIconUploadFromApp.getDrawable(), primaryColor);
         ThemeUtils.tintDrawable(binding.menuIconDirectCameraUpload.getDrawable(), primaryColor);
+        ThemeUtils.tintDrawable(binding.menuIconScanDocUpload.getDrawable(), primaryColor);
         ThemeUtils.tintDrawable(binding.menuIconMkdir.getDrawable(), primaryColor);
 
         binding.addToCloud.setText(getContext().getResources().getString(R.string.add_to_cloud,
@@ -132,6 +133,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         if (!deviceInfo.hasCamera(getContext())) {
             binding.menuDirectCameraUpload.setVisibility(View.GONE);
+            binding.menuScanDocUpload.setVisibility(View.GONE);
         }
 
         // create rich workspace
@@ -178,6 +180,11 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         binding.menuDirectCameraUpload.setOnClickListener(v -> {
             actions.directCameraUpload();
+            dismiss();
+        });
+
+        binding.menuScanDocUpload.setOnClickListener(v -> {
+            actions.scanDocUpload();
             dismiss();
         });
 
