@@ -22,7 +22,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;

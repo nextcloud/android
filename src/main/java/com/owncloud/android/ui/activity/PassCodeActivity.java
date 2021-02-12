@@ -50,6 +50,7 @@ import java.util.Arrays;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PassCodeActivity extends AppCompatActivity implements Injectable {
@@ -174,6 +175,10 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         }
     }
 
+    @VisibleForTesting
+    public PasscodelockBinding getBinding() {
+        return binding;
+    }
 
     /**
      * Binds the appropriate listeners to the input boxes receiving each digit of the pass code.
