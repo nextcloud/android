@@ -1,0 +1,5 @@
+suppress lint, as it looks good on Android 5.0
+remove obsolete dimens-value
+Use full width of drawer for logo
+Use full width of drawer for logo
+Update translations
