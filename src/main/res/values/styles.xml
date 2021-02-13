@@ -313,7 +313,38 @@
 	<style name="NextcloudTextAppearanceMedium" parent="@style/TextAppearance.AppCompat.Medium">
 	</style>
 
+    <style name="Widget.App.Login.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Login.TextInputLayout</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.SmallComponent</item>
+        <item name="hintTextColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Login.TextInputLayout" parent="">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorError">@color/hwSecurityRed</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
+        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
+    </style>
+
 	<style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    </style>
+
+    <style name="TextInputLayoutLogin" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/white</item>
+        <item name="boxStrokeErrorColor">@color/white</item>
+        <item name="hintTextAppearance">@style/HintTextLogin</item>
+        <item name="errorTextAppearance">@style/HintTextLogin</item>
+        <item name="android:colorPrimary">@color/white</item>
+        <!-- Theme attributes -->
+        <item name="android:textColorHint">#80FFFFFF</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
+    <style name="HintTextLogin" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/white</item>
     </style>
 
 	<style name="AppTabTextAppearance" parent="@style/TextAppearance.Design.Tab">

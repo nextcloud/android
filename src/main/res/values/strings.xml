@@ -952,4 +952,5 @@
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
     <string name="dialog_close">Close</string>
     <string name="direct_login_failed">Login via direct link failed!</string>
+    <string name="login_url_helper_text">The link to your %1$s web interface when you open it in the browser.</string>
 </resources>
