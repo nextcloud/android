@@ -1,0 +1,9 @@
+hardening of passcode screenshot test
+Add some more whitespace below the input field
+user container-styling for text field on login screen
+spotbugs: remove unused paramter and add null-check where needed
+add helper text to server address field
+user container-styling for text field on login screen
+move note dialog to native view binding
+Update translations
+Update 3rd-party dependencies
