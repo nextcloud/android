@@ -193,6 +193,7 @@
     <string name="dev_version_no_new_version_available">Není k dispozici žádná novější verze.</string>
     <string name="dialog_close">Zavřít</string>
     <string name="digest_algorithm_not_available">Tento algoritmus vytváření otisku (digest) není na vašem telefonu dostupný.</string>
+    <string name="direct_login_failed">Přihlášení přes přímý odkaz selhalo!</string>
     <string name="disable_new_media_folder_detection_notifications">Vypnout</string>
     <string name="dismiss">Zavřít</string>
     <string name="dismiss_notification_description">Zahodit upozornění</string>

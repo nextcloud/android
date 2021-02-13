@@ -703,7 +703,7 @@
     <string name="tags">標籤</string>
     <string name="test_server_button">測試伺服器連線</string>
     <string name="thirtyMinutes">30分鐘</string>
-    <string name="thisWeek">本週</string>
+    <string name="thisWeek">本星期</string>
     <string name="thumbnail">縮圖</string>
     <string name="thumbnail_for_existing_file_description">現有檔案的縮圖</string>
     <string name="thumbnail_for_new_file_desc">新增檔案的縮圖</string>
