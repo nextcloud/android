@@ -193,6 +193,7 @@
     <string name="dev_version_no_new_version_available">Geen nieuwe versie beschikbaar.</string>
     <string name="dialog_close">Sluiten</string>
     <string name="digest_algorithm_not_available">Dit digest-algoritme is niet beschikbaar op je telefoon.</string>
+    <string name="direct_login_failed">Inloggen via directe link mislukt!</string>
     <string name="disable_new_media_folder_detection_notifications">Uitschakelen</string>
     <string name="dismiss">Weigeren</string>
     <string name="dismiss_notification_description">Handel melding af</string>
@@ -385,6 +386,7 @@
     <string name="log_send_mail_subject">%1$s-Android-app-logs</string>
     <string name="log_send_no_mail_app">Geen applicatie gevonden voor het versturen van de logs. Installeer een email client.</string>
     <string name="login">Inloggen</string>
+    <string name="login_url_helper_text">De link naar je %1$s web interface wanneer je die opent in de browser. </string>
     <string name="logs_menu_delete">Verwijderen logs</string>
     <string name="logs_menu_refresh">Verversen</string>
     <string name="logs_menu_search">Zoeken in logs</string>
