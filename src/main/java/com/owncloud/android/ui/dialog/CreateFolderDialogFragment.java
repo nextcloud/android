@@ -33,6 +33,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.EditBoxDialogBinding;
+import com.owncloud.android.databinding.NoteDialogBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -56,6 +58,7 @@ public class CreateFolderDialogFragment
     public static final String CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT";
 
     private OCFile mParentFolder;
+    private EditBoxDialogBinding binding;
 
     /**
      * Public factory method to create new CreateFolderDialogFragment instances.
@@ -87,23 +90,22 @@ public class CreateFolderDialogFragment
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
+        int primaryColor = ThemeUtils.primaryColor(getActivity());
         mParentFolder = getArguments().getParcelable(ARG_PARENT_FOLDER);
 
         // Inflate the layout for the dialog
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View v = inflater.inflate(R.layout.edit_box_dialog, null);
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        binding = EditBoxDialogBinding.inflate(inflater, null, false);
+        View view = binding.getRoot();
 
         // Setup layout
-        EditText inputText = v.findViewById(R.id.user_input);
-        inputText.setText("");
-        inputText.requestFocus();
-        inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
-        inputText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
+        binding.userInput.setText("");
+        binding.userInput.requestFocus();
+        ThemeUtils.colorTextInput(binding.userInputContainer, binding.userInput, primaryColor);
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(v)
+        builder.setView(view)
                 .setPositiveButton(R.string.folder_confirm_create, this)
                 .setNegativeButton(R.string.common_cancel, this)
                 .setTitle(R.string.uploader_info_dirname);

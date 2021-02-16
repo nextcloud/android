@@ -49,6 +49,7 @@ import android.widget.TextView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManagerImpl;
@@ -521,12 +522,25 @@ public final class ThemeUtils {
     }
 
     /**
+     * Sets the color of the (containerized) text input TextInputLayout to {@code color} for hint text, box stroke and
+     * highlight color.
+     *
+     * @param textInputLayout   the TextInputLayout instance
+     * @param textInputEditText the TextInputEditText child element
+     * @param color             the color to be used for the hint text and box stroke
+     */
+    public static void colorTextInput(TextInputLayout textInputLayout, TextInputEditText textInputEditText, int color) {
+        textInputEditText.setHighlightColor(color);
+        colorTextInputLayout(textInputLayout, color);
+    }
+
+    /**
      * Sets the color of the  TextInputLayout to {@code color} for hint text and box stroke.
      *
      * @param textInputLayout the TextInputLayout instance
      * @param color           the color to be used for the hint text and box stroke
      */
-    public static void colorTextInputLayout(TextInputLayout textInputLayout, int color) {
+    private static void colorTextInputLayout(TextInputLayout textInputLayout, int color) {
         textInputLayout.setBoxStrokeColor(color);
         textInputLayout.setDefaultHintTextColor(new ColorStateList(
             new int[][]{

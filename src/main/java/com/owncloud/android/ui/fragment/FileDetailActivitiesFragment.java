@@ -170,14 +170,11 @@ public class FileDetailActivitiesFragment extends Fragment implements
             }
         };
 
-        binding.commentInputField.getBackground().setColorFilter(
-                ThemeUtils.primaryAccentColor(getContext()),
-                PorterDuff.Mode.SRC_ATOP
-        );
-
         binding.submitComment.setOnClickListener(v -> submitComment());
 
-        ThemeUtils.themeEditText(getContext(), binding.commentInputField, false);
+        ThemeUtils.colorTextInput(binding.commentInputFieldContainer,
+                                  binding.commentInputField,
+                                  ThemeUtils.primaryColor(getContext()));
 
         return view;
     }

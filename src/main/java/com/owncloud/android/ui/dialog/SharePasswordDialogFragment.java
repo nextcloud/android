@@ -22,14 +22,12 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
 
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.PasswordDialogBinding;
@@ -67,10 +65,12 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         super.onStart();
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
-        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
+        if (alertDialog != null) {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
                 .setTextColor(getResources().getColor(R.color.highlight_textColor_Warning));
+        }
     }
 
     /**
@@ -135,13 +135,11 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         View view = binding.getRoot();
 
         // Setup layout
-        EditText inputText = binding.sharePassword;
-        inputText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
-        inputText.setText("");
-        ThemeUtils.themeEditText(getContext(), inputText, false);
-        inputText.requestFocus();
-        inputText.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
-                                                 PorterDuff.Mode.SRC_ATOP);
+        binding.sharePassword.setText("");
+        ThemeUtils.colorTextInput(binding.sharePasswordContainer,
+                                  binding.sharePassword,
+                                  ThemeUtils.primaryColor(getActivity()));
+        binding.sharePassword.requestFocus();
 
         int title;
         if (askForPassword) {

@@ -88,7 +88,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
+        int primaryColor = ThemeUtils.primaryColor(getContext());
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -97,9 +97,8 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
         // Setup layout
         binding.noteText.setText(share.getNote());
-        binding.noteText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
         binding.noteText.requestFocus();
-        ThemeUtils.colorTextInputLayout(binding.noteContainer, accentColor);
+        ThemeUtils.colorTextInput(binding.noteContainer, binding.noteText, primaryColor);
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
