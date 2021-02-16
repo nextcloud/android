@@ -244,24 +244,22 @@ public final class ErrorMessageAdapter {
 
         } else if (result.getCode() == ResultCode.FORBIDDEN) {
             return String.format(res.getString(R.string.forbidden_permissions),
-                    res.getString(R.string.forbidden_permissions_copy));
+                                 res.getString(R.string.forbidden_permissions_copy));
 
         }
         return null;
     }
 
-    private static String getMessageForCreateShareOperations(RemoteOperationResult result, Resources res) {
-        if (result.getData() != null && result.getData().size() > 0) {
-            return (String) result.getData().get(0);     // share API sends its own error messages
-
-        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {
+    private static @Nullable
+    String getMessageForCreateShareOperations(RemoteOperationResult result, Resources res) {
+        if (!TextUtils.isEmpty(result.getMessage())) {
+            return result.getMessage();     // share API sends its own error messages
+        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
             return res.getString(R.string.share_link_file_no_exist);
-
         } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
             // Error --> No permissions
             return String.format(res.getString(R.string.forbidden_permissions),
-                    res.getString(R.string.share_link_forbidden_permissions));
-
+                                 res.getString(R.string.share_link_forbidden_permissions));
         }
         return null;
     }
