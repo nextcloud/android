@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:text="@string/shared_with_you_by"
-                android:textSize="16sp" />
+                android:textSize="@dimen/two_line_primary_text_size" />
 
             <LinearLayout
                 android:id="@+id/shared_with_you_note_container"

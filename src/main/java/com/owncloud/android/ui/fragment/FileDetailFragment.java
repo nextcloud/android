@@ -231,7 +231,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title));
 
         binding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        binding.tabLayout.setSelectedTabIndicatorColor(ThemeUtils.primaryAccentColor(getContext()));
+        binding.tabLayout.setSelectedTabIndicatorColor(ThemeUtils.primaryColor(getContext()));
+        binding.tabLayout.setTabTextColors(getResources().getColor(R.color.text_color), ThemeUtils.primaryColor(getContext()));
 
         final FileDetailTabAdapter adapter = new FileDetailTabAdapter(getFragmentManager(), getFile(), user);
         binding.pager.setAdapter(adapter);
