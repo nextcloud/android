@@ -352,7 +352,7 @@ dependencies {
     kapt "io.noties:prism4j-bundler:$prismVersion"
 
     // dependencies for local unit tests
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation 'androidx.test:core:1.3.0'
     testImplementation "org.powermock:powermock-core:$powermockVersion"

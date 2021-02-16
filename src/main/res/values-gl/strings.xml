@@ -386,6 +386,7 @@
     <string name="log_send_mail_subject">Atopáronse %1$s aplicacións de rexistros para Android</string>
     <string name="log_send_no_mail_app">Non se atopou ningunha aplicación para o envío de rexistros. Instale un cliente de correo-e.</string>
     <string name="login">Acceder</string>
+    <string name="login_url_helper_text">A ligazón á súa interface web %1$s cando a abre no navegador.</string>
     <string name="logs_menu_delete">Eliminar rexistros</string>
     <string name="logs_menu_refresh">Actualizar</string>
     <string name="logs_menu_search">Buscar rexistros</string>

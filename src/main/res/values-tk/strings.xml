@@ -193,6 +193,7 @@
     <string name="dev_version_no_new_version_available">Täze wersiýa ýok.</string>
     <string name="dialog_close">Ýap</string>
     <string name="digest_algorithm_not_available">Bu siňdiriş algoritmi telefonyňyzda elýeterli däl.</string>
+    <string name="direct_login_failed">Göni baglanyşyk arkaly girmek şowsuz!</string>
     <string name="disable_new_media_folder_detection_notifications">Öçürmek</string>
     <string name="dismiss">Işden aýyrmak.</string>
     <string name="dismiss_notification_description">Bildirimi kapat</string>
@@ -517,8 +518,19 @@
     <string name="prefs_lock_device_credentials_enabled">Enjam şahsyýetnamasy açyk</string>
     <string name="prefs_lock_device_credentials_not_setup">Hiç hili enjam şahsyýetnamasy gurulmady.</string>
     <string name="prefs_lock_none">Ýok</string>
+    <string name="prefs_lock_title">Programmany ulanyp goraň</string>
+    <string name="prefs_lock_using_device_credentials">Enjam şahsyýetnamasy</string>
+    <string name="prefs_lock_using_passcode">Programma kody</string>
+    <string name="prefs_manage_accounts">Hasabyňyzy dolandyrmak</string>
+    <string name="prefs_recommend">Dostuňyza maslahat beriň</string>
+    <string name="prefs_show_hidden_files">Gizlin faýllary görkez</string>
+    <string name="prefs_sourcecode">Çeşme koduny alyň</string>
+    <string name="prefs_storage_path">Maglumat saklaýyş bukjasy</string>
+    <string name="prefs_sycned_folders_summary">awtomatik ýüklemek üçin bukjalary dolandyrmak</string>
     <string name="prefs_synced_folders_local_path_title">ýerli bukjasy</string>
+    <string name="prefs_synced_folders_remote_path_title">Uzakdaky bukja</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_value_theme_dark">Garaňky</string>
     <string name="preview_sorry">Bagyşlaň</string>
     <string name="public_share_name">Täze ady</string>
     <string name="recommend_urls">%1$s ýa-da %2$s</string>
