@@ -23,8 +23,6 @@ package com.nextcloud.ui
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -141,8 +139,8 @@ class SetStatusDialogFragment :
 
         currentStatus?.let {
             emoji.setText(it.icon)
-            customStatusInput.text.clear()
-            customStatusInput.setText(it.message)
+            binding.customStatusInput.text?.clear()
+            binding.customStatusInput.setText(it.message)
             visualizeStatus(it.status)
 
             if (it.clearAt > 0) {
@@ -215,9 +213,11 @@ class SetStatusDialogFragment :
 
         clearStatus.setTextColor(ThemeUtils.primaryColor(context, true))
         ThemeUtils.colorPrimaryButton(setStatus, context)
-        customStatusInput.background.colorFilter =
-            PorterDuffColorFilter(ThemeUtils.primaryAccentColor(context), PorterDuff.Mode.SRC_ATOP)
-        customStatusInput.highlightColor = ThemeUtils.primaryColor(activity)
+        ThemeUtils.colorTextInput(
+            binding.customStatusInputContainer,
+            binding.customStatusInput,
+            ThemeUtils.primaryColor(activity)
+        )
     }
 
     private fun setClearStatusAfterValue(item: Int) {
@@ -400,7 +400,7 @@ class SetStatusDialogFragment :
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return binding.root
     }
 
@@ -408,8 +408,8 @@ class SetStatusDialogFragment :
         selectedPredefinedMessageId = predefinedStatus.id
         clearAt = clearAtToUnixTime(predefinedStatus.clearAt)
         emoji.setText(predefinedStatus.icon)
-        customStatusInput.text.clear()
-        customStatusInput.text.append(predefinedStatus.message)
+        binding.customStatusInput.text?.clear()
+        binding.customStatusInput.text?.append(predefinedStatus.message)
 
         remainingClearTime.visibility = View.GONE
         clearStatusAfterSpinner.visibility = View.VISIBLE
