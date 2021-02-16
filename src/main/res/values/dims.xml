@@ -138,4 +138,5 @@
     <dimen name="online_status_item_height">52dp</dimen>
     <dimen name="minimum_size_for_touchable_area">48dp</dimen>
     <dimen name="dialog_elevation">24dp</dimen>
+    <dimen name="default_login_width">400dp</dimen>
 </resources>
