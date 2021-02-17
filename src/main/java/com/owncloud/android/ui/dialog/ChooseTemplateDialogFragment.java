@@ -30,7 +30,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.ArrayMap;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -64,7 +64,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.lang.ref.WeakReference;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -89,6 +88,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
     @Inject ClientFactory clientFactory;
     private Creator creator;
     @Inject CurrentAccountProvider currentAccount;
+    private Button positiveButton;
 
     public enum Type {
         DOCUMENT,
@@ -116,9 +116,10 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         positiveButton.setTextColor(color);
         positiveButton.setOnClickListener(this);
+        positiveButton.setEnabled(false);
 
         alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
     }
@@ -146,6 +147,15 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
 
         binding.filename.requestFocus();
         ThemeUtils.colorTextInputLayout(binding.filenameContainer, ThemeUtils.primaryColor(getContext()));
+
+        binding.filename.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                checkEnablingCreateButton();
+
+                return false;
+            }
+        });
 
         try {
             User user = currentAccount.getUser();
@@ -187,12 +197,6 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
     }
 
     public void setTemplateList(TemplateList templateList) {
-        Map<String, Template> map = new ArrayMap<>();
-
-        map.put("1", new Template("1", "txt", "Test", "null"));
-        map.put("2", new Template("2", "txt", "Test", "null"));
-
-        templateList.setTemplates(map);
         adapter.setTemplateList(templateList);
         adapter.notifyDataSetChanged();
     }
@@ -200,6 +204,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
     @Override
     public void onClick(Template template) {
         adapter.setTemplateAsActive(template);
+        checkEnablingCreateButton();
     }
 
     @Override
@@ -218,6 +223,14 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         } else {
             createFromTemplate(selectedTemplate, path);
         }
+    }
+
+    private void checkEnablingCreateButton() {
+        Template selectedTemplate = adapter.getSelectedTemplate();
+        String name = binding.filename.getText().toString();
+
+        positiveButton.setEnabled(selectedTemplate != null && !name.isEmpty() &&
+                                      !name.equalsIgnoreCase(DOT + selectedTemplate.getExtension()));
     }
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {
