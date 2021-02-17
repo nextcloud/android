@@ -57,6 +57,7 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
     private CurrentAccountProvider currentAccountProvider;
     private ClientFactory clientFactory;
     private String mimetype;
+    private Template selectedTemplate;
 
     public TemplateAdapter(
         String mimetype,
@@ -85,6 +86,15 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
 
     public void setTemplateList(TemplateList templateList) {
         this.templateList = templateList;
+    }
+
+    public void setTemplateAsActive(Template template) {
+        selectedTemplate = template;
+        notifyDataSetChanged();
+    }
+
+    public Template getSelectedTemplate() {
+        return selectedTemplate;
     }
 
     @Override
@@ -124,11 +134,17 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
 
             Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider, clientFactory))
                 .load(template.getPreview())
-                    .placeholder(placeholder)
-                    .error(placeholder)
-                    .into(thumbnail);
+                .placeholder(placeholder)
+                .error(placeholder)
+                .into(thumbnail);
 
             name.setText(template.getTitle());
+
+            if (template == selectedTemplate) {
+                thumbnail.setBackgroundColor(context.getResources().getColor(R.color.hwSecurityRed));
+            } else {
+                thumbnail.setBackgroundColor(context.getResources().getColor(R.color.transparent));
+            }
         }
     }
 
