@@ -24,7 +24,6 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,6 +31,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
+import android.widget.Button;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
@@ -74,7 +74,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 /**
  * Dialog to show templates for new documents/spreadsheets/presentations.
  */
-public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment implements DialogInterface.OnClickListener,
+public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment implements View.OnClickListener,
     RichDocumentsTemplateAdapter.ClickListener, Injectable {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
@@ -87,6 +87,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     private OwnCloudClient client;
     @Inject CurrentAccountProvider currentAccount;
     @Inject ClientFactory clientFactory;
+    private Button positiveButton;
 
     public enum Type {
         DOCUMENT,
@@ -114,7 +115,11 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        ThemeUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE), color);
+        positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        ThemeUtils.themeBorderlessButton(positiveButton, color);
+        positiveButton.setOnClickListener(this);
+        positiveButton.setEnabled(false);
+
         ThemeUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL), color);
     }
 
@@ -158,7 +163,8 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view)
-            .setNeutralButton(R.string.common_cancel, this)
+            .setPositiveButton(R.string.create, null)
+            .setNeutralButton(R.string.common_cancel, null)
             .setTitle(R.string.select_template);
         Dialog dialog = builder.create();
 
@@ -187,22 +193,44 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     }
 
     @Override
-    public void onClick(Template template) {
+    public void onClick(View v) {
         String name = binding.filename.getText().toString();
         String path = parentFolder.getRemotePath() + name;
 
-        if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
+        Template selectedTemplate = adapter.getSelectedTemplate();
+
+        if (selectedTemplate == null) {
+            DisplayUtils.showSnackMessage(binding.list, R.string.select_one_template);
+        } else if (name.isEmpty() || name.equalsIgnoreCase(DOT + selectedTemplate.getExtension())) {
             DisplayUtils.showSnackMessage(binding.list, R.string.enter_filename);
-        } else if (!name.endsWith(template.getExtension())) {
-            createFromTemplate(template, path + DOT + template.getExtension());
+        } else if (!name.endsWith(selectedTemplate.getExtension())) {
+            createFromTemplate(selectedTemplate, path + DOT + selectedTemplate.getExtension());
         } else {
-            createFromTemplate(template, path);
+            createFromTemplate(selectedTemplate, path);
         }
     }
 
     @Override
-    public void onClick(DialogInterface dialog, int which) {
-        // cancel is handled by dialog itself, no other button available
+    public void onClick(Template template) {
+        adapter.setTemplateAsActive(template);
+        prefillFilenameIfEmpty(template);
+        checkEnablingCreateButton();
+    }
+
+    private void prefillFilenameIfEmpty(Template template) {
+        String name = binding.filename.getText().toString();
+        if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
+            binding.filename.setText(String.format("%s.%s", template.name, template.extension));
+        }
+        binding.filename.setSelection(binding.filename.getText().toString().lastIndexOf('.'));
+    }
+
+    private void checkEnablingCreateButton() {
+        Template selectedTemplate = adapter.getSelectedTemplate();
+        String name = binding.filename.getText().toString();
+
+        positiveButton.setEnabled(selectedTemplate != null && !name.isEmpty() &&
+                                      !name.equalsIgnoreCase(DOT + selectedTemplate.getExtension()));
     }
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {
