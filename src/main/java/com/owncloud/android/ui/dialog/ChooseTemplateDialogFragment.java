@@ -30,7 +30,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -147,12 +148,25 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         binding.filename.requestFocus();
         ThemeUtils.colorTextInputLayout(binding.filenameContainer, ThemeUtils.primaryColor(getContext()));
 
-        binding.filename.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                checkEnablingCreateButton();
+        binding.filename.setOnKeyListener((v, keyCode, event) -> {
+            checkEnablingCreateButton();
+            return false;
+        });
 
-                return false;
+        binding.filename.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // generated method stub
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkEnablingCreateButton();
             }
         });
 
