@@ -114,6 +114,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/overflow_menu"
             style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_marginTop="@dimen/standard_quarter_margin"
             android:layout_width="@dimen/minimum_size_for_touchable_area"
             android:layout_height="@dimen/minimum_size_for_touchable_area"
             android:contentDescription="@string/overflow_menu"
