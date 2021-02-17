@@ -83,9 +83,11 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new TemplateAdapter.ViewHolder(TemplateButtonBinding.inflate(LayoutInflater.from(parent.getContext()),
-                                                                            parent,
-                                                                            false));
+        return new TemplateAdapter.ViewHolder(
+            TemplateButtonBinding.inflate(LayoutInflater.from(parent.getContext()),
+                                          parent,
+                                          false)
+        );
     }
 
     @Override

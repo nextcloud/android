@@ -79,9 +79,11 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
     @Override
     @NextcloudServer(max = 18) // remove entire class
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new RichDocumentsTemplateAdapter.ViewHolder(TemplateButtonBinding.inflate(LayoutInflater.from(parent.getContext()),
-                                                                            parent,
-                                                                            false));
+        return new RichDocumentsTemplateAdapter.ViewHolder(
+            TemplateButtonBinding.inflate(LayoutInflater.from(parent.getContext()),
+                                          parent,
+                                          false)
+        );
     }
 
     @Override
