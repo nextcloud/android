@@ -64,7 +64,7 @@ ext {
     mockitoVersion = "3.7.7"
     mockkVersion = "1.10.4"
     powermockVersion = "2.0.9"
-    byteBuddyVersion = "1.10.19"
+    byteBuddyVersion = "1.10.20"
     espressoVersion = "3.3.0"
 
     ciBuild = System.getenv("CI") == "true"
