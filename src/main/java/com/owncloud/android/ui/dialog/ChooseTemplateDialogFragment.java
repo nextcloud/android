@@ -216,6 +216,10 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
 
     @Override
     public void onClick(Template template) {
+        onTemplateChosen(template);
+    }
+
+    private void onTemplateChosen(Template template) {
         adapter.setTemplateAsActive(template);
         prefillFilenameIfEmpty(template);
         checkEnablingCreateButton();
@@ -393,10 +397,16 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
                 if (templateList.templates.isEmpty()) {
                     DisplayUtils.showSnackMessage(fragment.binding.list, R.string.error_retrieving_templates);
                 } else {
-                    fragment.setTemplateList(templateList);
+                    if (templateList.templates.size() == 1) {
+                        fragment.onTemplateChosen(templateList.templates.values().iterator().next());
+                        fragment.binding.list.setVisibility(View.GONE);
+                        fragment.binding.helperText.setVisibility(View.INVISIBLE);
+                    } else {
+                        String name = DOT + templateList.templates.values().iterator().next().getExtension();
+                        fragment.binding.filename.setText(name);
+                    }
 
-                    String name = DOT + templateList.templates.values().iterator().next().getExtension();
-                    fragment.binding.filename.setText(name);
+                    fragment.setTemplateList(templateList);
                 }
             } else {
                 Log_OC.e(TAG, "Error streaming file: no previewMediaFragment!");

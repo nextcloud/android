@@ -212,6 +212,10 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
     @Override
     public void onClick(Template template) {
+        onTemplateChosen(template);
+    }
+
+    private void onTemplateChosen(Template template) {
         adapter.setTemplateAsActive(template);
         prefillFilenameIfEmpty(template);
         checkEnablingCreateButton();
@@ -343,10 +347,16 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                 if (templateList.isEmpty()) {
                     DisplayUtils.showSnackMessage(fragment.binding.list, R.string.error_retrieving_templates);
                 } else {
-                    fragment.setTemplateList(templateList);
+                    if (templateList.size() == 1) {
+                        fragment.onTemplateChosen(templateList.get(0));
+                        fragment.binding.list.setVisibility(View.GONE);
+                        fragment.binding.helperText.setVisibility(View.INVISIBLE);
+                    } else {
+                        String name = DOT + templateList.get(0).getExtension();
+                        fragment.binding.filename.setText(name);
+                    }
 
-                    String name = DOT + templateList.get(0).getExtension();
-                    fragment.binding.filename.setText(name);
+                    fragment.setTemplateList(templateList);
                 }
             } else {
                 Log_OC.e(TAG, "Error streaming file: no previewMediaFragment!");

@@ -30,6 +30,7 @@
     android:paddingEnd="@dimen/standard_padding">
 
     <TextView
+        android:id="@+id/helper_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/standard_half_padding"
