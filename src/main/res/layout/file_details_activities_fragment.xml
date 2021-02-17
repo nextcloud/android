@@ -31,6 +31,17 @@
         android:layout_marginEnd="@dimen/zero"
         android:orientation="horizontal">
 
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/activity_icon_width"
+            android:layout_height="@dimen/activity_icon_height"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/zero"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:contentDescription="@null"
+            tools:src="@drawable/ic_user" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/commentInputField_container"
             android:layout_width="0dp"

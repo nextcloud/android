@@ -87,6 +87,7 @@
     <dimen name="restore_icon_layout_right_end_margin">24dp</dimen>
     <dimen name="activity_icon_width">32dp</dimen>
     <dimen name="activity_icon_height">32dp</dimen>
+    <dimen name="activity_icon_radius">16dp</dimen>
     <dimen name="activity_icon_layout_right_end_margin">24dp</dimen>
     <dimen name="activity_list_item_grid_layout_left_start_margin">-3dp</dimen>
     <dimen name="activity_list_item_title_header_text_size">16sp</dimen>
