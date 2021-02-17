@@ -362,10 +362,11 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                     if (templateList.size() == 1) {
                         fragment.onTemplateChosen(templateList.get(0));
                         fragment.binding.list.setVisibility(View.GONE);
-                        fragment.binding.helperText.setVisibility(View.INVISIBLE);
+                        fragment.binding.helperText.setVisibility(View.VISIBLE);
                     } else {
                         String name = DOT + templateList.get(0).getExtension();
                         fragment.binding.filename.setText(name);
+                        fragment.binding.helperText.setVisibility(View.VISIBLE);
                     }
 
                     fragment.setTemplateList(templateList);

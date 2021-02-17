@@ -403,10 +403,10 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
                     if (templateList.templates.size() == 1) {
                         fragment.onTemplateChosen(templateList.templates.values().iterator().next());
                         fragment.binding.list.setVisibility(View.GONE);
-                        fragment.binding.helperText.setVisibility(View.INVISIBLE);
                     } else {
                         String name = DOT + templateList.templates.values().iterator().next().getExtension();
                         fragment.binding.filename.setText(name);
+                        fragment.binding.helperText.setVisibility(View.VISIBLE);
                     }
 
                     fragment.setTemplateList(templateList);

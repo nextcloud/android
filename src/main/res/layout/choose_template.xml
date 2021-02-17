@@ -36,7 +36,8 @@
         android:paddingStart="@dimen/standard_half_padding"
         android:paddingEnd="@dimen/standard_half_padding"
         android:text="@string/choose_template_helper_text"
-        android:textColor="@color/secondary_text_color" />
+        android:textColor="@color/secondary_text_color"
+        android:visibility="invisible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
