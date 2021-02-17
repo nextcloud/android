@@ -82,7 +82,8 @@
                         android:minLines="1"
                         android:paddingStart="@dimen/standard_padding"
                         android:paddingEnd="@dimen/alternate_padding_right"
-                        android:scrollbars="vertical">
+                        android:scrollbars="vertical"
+                        android:textColor="@color/login_text_color">
 
                         <requestFocus />
 
