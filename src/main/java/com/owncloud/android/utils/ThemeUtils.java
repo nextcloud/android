@@ -622,6 +622,7 @@ public final class ThemeUtils {
         // hacky as no default way is provided
         int fontColor = appBarPrimaryFontColor(context);
         SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
+        editText.setTextSize(16);
         setEditTextColor(context, editText, fontColor);
         editText.setHintTextColor(appBarSecondaryFontColor(context));
 
