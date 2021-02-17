@@ -69,6 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/two_line_primary_text_size"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
                     tools:text="@string/placeholder_fileSize" />
 
                 <TextView
@@ -88,6 +89,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:textSize="@dimen/two_line_primary_text_size"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
                     tools:text="@string/placeholder_media_time" />
 
                 <ImageView
@@ -141,6 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/two_line_primary_text_size"
+                android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:text="@string/downloader_download_in_progress_ticker" />
 
             <ProgressBar
