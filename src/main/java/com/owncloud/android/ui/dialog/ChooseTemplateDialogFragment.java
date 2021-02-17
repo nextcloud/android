@@ -217,7 +217,16 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
     @Override
     public void onClick(Template template) {
         adapter.setTemplateAsActive(template);
+        prefillFilenameIfEmpty(template);
         checkEnablingCreateButton();
+    }
+
+    private void prefillFilenameIfEmpty(Template template) {
+        String name = binding.filename.getText().toString();
+        if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
+            binding.filename.setText(String.format("%s.%s", template.title, template.extension));
+        }
+        binding.filename.setSelection(binding.filename.getText().toString().lastIndexOf('.'));
     }
 
     @Override
