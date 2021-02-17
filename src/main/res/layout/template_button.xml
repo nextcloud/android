@@ -3,6 +3,8 @@
   Nextcloud Android client application
 
   @author Tobias Kaminsky
+  @author Andy Scherzinger
+  Copyright (C) 2020 Andy Scherzinger
   Copyright (C) 2018 Tobias Kaminsky
   Copyright (C) 2018 Nextcloud GmbH.
 
@@ -19,25 +21,35 @@
   You should have received a copy of the GNU General Public License
   along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:paddingTop="@dimen/standard_padding"
-              tools:ignore="UseCompoundDrawables">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/standard_padding">
 
-    <ImageView
-        android:id="@+id/thumbnail"
-        android:layout_width="@dimen/share_icon_size"
-        android:layout_height="@dimen/share_icon_size"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/template_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:contentDescription="@string/thumbnail"
-        android:src="@drawable/file_doc"/>
+        app:cardElevation="0dp"
+        app:strokeColor="@color/grey_200"
+        app:strokeWidth="2dp">
+
+        <ImageView
+            android:id="@+id/template"
+            android:layout_width="60dp"
+            android:layout_height="84dp"
+            android:layout_margin="@dimen/standard_margin"
+            android:contentDescription="@string/thumbnail"
+            android:src="@drawable/file_doc" />
+
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/template_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -45,5 +57,5 @@
         android:gravity="center_horizontal"
         android:paddingTop="@dimen/standard_half_padding"
         android:textColor="@color/text_color"
-        tools:text="@tools:sample/lorem" />
+        tools:text="Template" />
 </LinearLayout>

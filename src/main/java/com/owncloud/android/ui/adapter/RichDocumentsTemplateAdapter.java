@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.TemplateButtonBinding;
 import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.utils.NextcloudServer;
@@ -76,7 +77,9 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
     @Override
     @NextcloudServer(max = 18) // remove entire class
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.template_button, parent, false));
+        return new RichDocumentsTemplateAdapter.ViewHolder(TemplateButtonBinding.inflate(LayoutInflater.from(parent.getContext()),
+                                                                            parent,
+                                                                            false));
     }
 
     @Override
@@ -95,17 +98,12 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.name)
-        public TextView name;
-
-        @BindView(R.id.thumbnail)
-        public ImageView thumbnail;
-
+        private final TemplateButtonBinding binding;
         private Template template;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        public ViewHolder(@NonNull TemplateButtonBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
             itemView.setOnClickListener(this);
         }
 
@@ -143,9 +141,9 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
                 load(template.getThumbnailLink())
                 .placeholder(placeholder)
                 .error(placeholder)
-                .into(thumbnail);
+                .into(binding.template);
 
-            name.setText(template.getName());
+            binding.templateName.setText(template.getName());
         }
     }
 

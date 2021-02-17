@@ -956,4 +956,5 @@
     <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
     <string name="create">Create</string>
     <string name="select_one_template">Please select one template</string>
+    <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
 </resources>

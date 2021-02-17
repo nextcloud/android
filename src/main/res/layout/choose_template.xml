@@ -3,6 +3,8 @@
   Nextcloud Android client application
 
   @author Tobias Kaminsky
+  @author Andy Scherzinger
+  Copyright (C) 2020 Andy Scherzinger
   Copyright (C) 2018 Tobias Kaminsky
   Copyright (C) 2018 Nextcloud GmbH.
 
@@ -20,11 +22,20 @@
   along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="clip_horizontal"
-              android:orientation="vertical"
-              android:padding="@dimen/standard_padding">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="clip_horizontal"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/standard_padding"
+    android:paddingEnd="@dimen/standard_padding">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/standard_half_padding"
+        android:paddingEnd="@dimen/standard_half_padding"
+        android:text="@string/choose_template_helper_text"
+        android:textColor="@color/secondary_text_color" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
@@ -32,11 +43,25 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/filename"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/filename_container"
+        style="@style/TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/filename_hint"
-        android:inputType="text"
-        android:importantForAutofill="no" />
+        android:paddingTop="@dimen/standard_padding">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/filename"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="top"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:scrollbars="vertical">
+
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>
