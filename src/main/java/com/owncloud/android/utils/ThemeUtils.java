@@ -80,8 +80,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class ThemeUtils {
 
-    private static final String TAG = ThemeUtils.class.getSimpleName();
-
     private static final int INDEX_LUMINATION = 2;
     private static final double MAX_LIGHTNESS = 0.92;
     public static final double LUMINATION_THRESHOLD = 0.8;

@@ -23,7 +23,6 @@
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;

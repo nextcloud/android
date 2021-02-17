@@ -22,19 +22,16 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
-import com.owncloud.android.databinding.NoteDialogBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -58,7 +55,6 @@ public class CreateFolderDialogFragment
     public static final String CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT";
 
     private OCFile mParentFolder;
-    private EditBoxDialogBinding binding;
 
     /**
      * Public factory method to create new CreateFolderDialogFragment instances.
@@ -95,7 +91,7 @@ public class CreateFolderDialogFragment
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        binding = EditBoxDialogBinding.inflate(inflater, null, false);
+        EditBoxDialogBinding binding = EditBoxDialogBinding.inflate(inflater, null, false);
         View view = binding.getRoot();
 
         // Setup layout
@@ -118,7 +114,6 @@ public class CreateFolderDialogFragment
 
         return d;
     }
-
 
     @Override
     public void onClick(DialogInterface dialog, int which) {

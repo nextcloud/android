@@ -24,7 +24,6 @@
 package com.owncloud.android.ui.fragment;
 
 import android.content.ContentResolver;
-import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;

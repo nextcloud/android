@@ -24,7 +24,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
