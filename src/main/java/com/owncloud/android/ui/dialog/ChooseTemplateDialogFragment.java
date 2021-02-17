@@ -105,7 +105,6 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         args.putParcelable(ARG_CREATOR, creator);
         frag.setArguments(args);
         return frag;
-
     }
 
     @Override
@@ -117,11 +116,11 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        positiveButton.setTextColor(color);
+        ThemeUtils.themeBorderlessButton(positiveButton, color);
         positiveButton.setOnClickListener(this);
         positiveButton.setEnabled(false);
 
-        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
+        ThemeUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL), color);
     }
 
     @NonNull

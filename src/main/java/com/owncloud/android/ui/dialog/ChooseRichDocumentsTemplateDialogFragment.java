@@ -114,8 +114,8 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
+        ThemeUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE), color);
+        ThemeUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL), color);
     }
 
     @NonNull
