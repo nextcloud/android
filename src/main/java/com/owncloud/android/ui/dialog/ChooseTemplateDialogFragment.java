@@ -81,6 +81,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
     private static final String ARG_CREATOR = "CREATOR";
+    private static final String ARG_HEADLINE = "HEADLINE";
     private static final String TAG = ChooseTemplateDialogFragment.class.getSimpleName();
     private static final String DOT = ".";
 
@@ -99,11 +100,12 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
 
     ChooseTemplateBinding binding;
 
-    public static ChooseTemplateDialogFragment newInstance(OCFile parentFolder, Creator creator) {
+    public static ChooseTemplateDialogFragment newInstance(OCFile parentFolder, Creator creator, String headline) {
         ChooseTemplateDialogFragment frag = new ChooseTemplateDialogFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_PARENT_FOLDER, parentFolder);
         args.putParcelable(ARG_CREATOR, creator);
+        args.putString(ARG_HEADLINE, headline);
         frag.setArguments(args);
         return frag;
     }
@@ -139,6 +141,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
 
         parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER);
         creator = arguments.getParcelable(ARG_CREATOR);
+        String headline = arguments.getString(ARG_HEADLINE, getString(R.string.select_template));
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -187,7 +190,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         builder.setView(view)
             .setPositiveButton(R.string.create, null)
             .setNeutralButton(R.string.common_cancel, null)
-            .setTitle(R.string.select_template);
+            .setTitle(headline);
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();

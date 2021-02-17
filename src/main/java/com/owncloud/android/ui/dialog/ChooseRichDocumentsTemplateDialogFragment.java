@@ -165,7 +165,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         builder.setView(view)
             .setPositiveButton(R.string.create, null)
             .setNeutralButton(R.string.common_cancel, null)
-            .setTitle(R.string.select_template);
+            .setTitle(getTitle(type));
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();
@@ -175,6 +175,18 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         }
 
         return dialog;
+    }
+
+    private int getTitle(Type type) {
+        if (type == Type.DOCUMENT) {
+            return R.string.create_new_document;
+        } else if (type == Type.SPREADSHEET) {
+            return R.string.create_new_spreadsheet;
+        } else if (type == Type.PRESENTATION) {
+            return R.string.create_new_presentation;
+        }
+
+        return R.string.select_template;
     }
 
     @Override
