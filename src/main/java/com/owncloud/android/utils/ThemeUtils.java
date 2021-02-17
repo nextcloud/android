@@ -48,6 +48,7 @@ import android.widget.SeekBar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.nextcloud.client.account.User;
@@ -515,6 +516,26 @@ public final class ThemeUtils {
 
     public static void colorStatusBar(Activity fragmentActivity) {
         colorStatusBar(fragmentActivity, primaryAppbarColor(fragmentActivity));
+    }
+
+    public static void colorTabLayout(Context context, TabLayout tabLayout) {
+        int primaryColor = primaryColor(context);
+        int textColor = context.getResources().getColor(R.color.text_color);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setSelectedTabIndicatorColor(primaryColor);
+        tabLayout.setTabTextColors(textColor, primaryColor);
+        tabLayout.setTabIconTint(new ColorStateList(
+            new int[][]{
+                new int[]{android.R.attr.state_selected},
+                new int[]{android.R.attr.state_enabled},
+                new int[]{-android.R.attr.state_enabled}
+            },
+            new int[]{
+                primaryColor,
+                textColor,
+                Color.GRAY
+            }
+        ));
     }
 
     /**

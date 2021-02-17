@@ -179,7 +179,8 @@
         app:tabGravity="center"
         app:tabMode="fixed"
         app:tabTextAppearance="@style/AppTabTextAppearance"
-        app:tabTextColor="@color/text_color" />
+        app:tabTextColor="@color/text_color"
+        app:tabInlineLabel="true" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
