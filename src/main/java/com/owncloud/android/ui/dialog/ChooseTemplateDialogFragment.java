@@ -30,6 +30,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -64,6 +65,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.ref.WeakReference;
 
 import javax.inject.Inject;
@@ -87,6 +90,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
 
     private TemplateAdapter adapter;
     private OCFile parentFolder;
+    private String title;
     @Inject ClientFactory clientFactory;
     private Creator creator;
     @Inject CurrentAccountProvider currentAccount;
@@ -124,6 +128,8 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         positiveButton.setEnabled(false);
 
         ThemeUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL), color);
+
+        checkEnablingCreateButton();
     }
 
     @NonNull
@@ -141,7 +147,13 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
 
         parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER);
         creator = arguments.getParcelable(ARG_CREATOR);
-        String headline = arguments.getString(ARG_HEADLINE, getString(R.string.select_template));
+        title = arguments.getString(ARG_HEADLINE, getString(R.string.select_template));
+
+        if (savedInstanceState == null) {
+            title = arguments.getString(ARG_HEADLINE);
+        } else {
+            title = savedInstanceState.getString(ARG_HEADLINE);
+        }
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -190,7 +202,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         builder.setView(view)
             .setPositiveButton(R.string.create, null)
             .setNeutralButton(R.string.common_cancel, null)
-            .setTitle(headline);
+            .setTitle(title);
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();
@@ -206,6 +218,12 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString(ARG_HEADLINE, title);
     }
 
     private void createFromTemplate(Template template, String path) {
