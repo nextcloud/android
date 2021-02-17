@@ -120,7 +120,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         positiveButton.setTextColor(color);
         positiveButton.setOnClickListener(this);
 
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
     }
 
     @NonNull
@@ -163,7 +163,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view)
             .setPositiveButton(R.string.create, null)
-            .setNegativeButton(R.string.common_cancel, null)
+            .setNeutralButton(R.string.common_cancel, null)
             .setTitle(R.string.select_template);
         Dialog dialog = builder.create();
 
