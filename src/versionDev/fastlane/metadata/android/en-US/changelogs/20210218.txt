@@ -1,0 +1,5 @@
+Set text field text color
+Add screenshot tests
+resize input fields so they don't span 100% width
+Update translations
+Update 3rd-party dependencies
