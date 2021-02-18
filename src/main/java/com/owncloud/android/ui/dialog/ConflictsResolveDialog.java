@@ -119,7 +119,7 @@ public class ConflictsResolveDialog extends DialogFragment {
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         setPositiveButtonStatus(false);
 
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
     }
 
     @Override
@@ -173,7 +173,7 @@ public class ConflictsResolveDialog extends DialogFragment {
 
                 }
             })
-            .setNegativeButton(R.string.common_cancel, (dialog, which) -> {
+            .setNeutralButton(R.string.common_cancel, (dialog, which) -> {
                 if (listener != null) {
                     listener.conflictDecisionMade(Decision.CANCEL);
                 }

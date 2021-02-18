@@ -69,7 +69,7 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
     }
 
     @NonNull
@@ -82,7 +82,7 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
             .setPositiveButton(R.string.common_ok,
                                (dialogInterface, i) -> backgroundJobManager.startAccountRemovalJob(user.getAccountName(),
                                                                                                    false))
-            .setNegativeButton(R.string.common_cancel, null)
+            .setNeutralButton(R.string.common_cancel, null)
             .create();
     }
 }

@@ -303,7 +303,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
                 startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
             });
-            builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, (dialog, which) -> getActivity().finish());
+            builder.setNeutralButton(R.string.uploader_wrn_no_account_quit_btn_text,
+                                 (dialog, which) -> getActivity().finish());
             return builder.create();
         }
     }
@@ -479,7 +480,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     ((ReceiveExternalFilesActivity) getActivity()).uploadFile(tmpName, filename);
                 }
             });
-            builder.setNegativeButton(R.string.common_cancel, (dialog, id) -> dialog.cancel());
+            builder.setNeutralButton(R.string.common_cancel, (dialog, id) -> dialog.cancel());
 
             return builder.create();
         }

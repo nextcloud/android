@@ -84,7 +84,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     private TextView passphraseTextView;
     private ArbitraryDataProvider arbitraryDataProvider;
     private Button positiveButton;
-    private Button negativeButton;
+    private Button neutralButton;
     private DownloadKeysAsyncTask task;
     private TextView passwordField;
     private String keyResult;
@@ -115,8 +115,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         positiveButton.setTextColor(color);
 
-        negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-        negativeButton.setTextColor(color);
+        neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+        neutralButton.setTextColor(color);
 
         task = new DownloadKeysAsyncTask();
         task.execute();
@@ -151,7 +151,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     private Dialog createDialog(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v).setPositiveButton(R.string.common_ok, null)
-                .setNegativeButton(R.string.common_cancel, null)
+                .setNeutralButton(R.string.common_cancel, null)
                 .setTitle(R.string.end_to_end_encryption_title);
 
         Dialog dialog = builder.create();
@@ -217,7 +217,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                             case KEY_GENERATE:
                                 passphraseTextView.setVisibility(View.GONE);
                                 positiveButton.setVisibility(View.GONE);
-                                negativeButton.setVisibility(View.GONE);
+                                neutralButton.setVisibility(View.GONE);
                                 getDialog().setTitle(R.string.end_to_end_encryption_storing_keys);
 
                                 GenerateNewKeysAsyncTask newKeysTask = new GenerateNewKeysAsyncTask();
@@ -242,7 +242,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
             textView.setText(R.string.end_to_end_encryption_retrieving_keys);
             positiveButton.setVisibility(View.INVISIBLE);
-            negativeButton.setVisibility(View.INVISIBLE);
+            neutralButton.setVisibility(View.INVISIBLE);
         }
 
         @Override
@@ -413,9 +413,9 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         positiveButton.setText(R.string.end_to_end_encryption_confirm_button);
         positiveButton.setVisibility(View.VISIBLE);
 
-        negativeButton.setVisibility(View.VISIBLE);
-        positiveButton.setTextColor(color);
-        negativeButton.setTextColor(color);
+        neutralButton.setVisibility(View.VISIBLE);
+        ThemeUtils.themeBorderlessButton(positiveButton, color);
+        ThemeUtils.themeBorderlessButton(neutralButton, color);
 
         keyResult = KEY_GENERATE;
     }

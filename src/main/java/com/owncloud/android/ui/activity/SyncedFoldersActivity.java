@@ -813,7 +813,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                         }
                     }
                 })
-                .setNegativeButton(getString(R.string.battery_optimization_close), (dialog, which) -> dialog.dismiss())
+                .setNeutralButton(getString(R.string.battery_optimization_close), (dialog, which) -> dialog.dismiss())
                 .setIcon(R.drawable.ic_battery_alert);
 
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
@@ -821,7 +821,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
                 int color = ThemeColorUtils.primaryAccentColor(this);
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+                alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
             }
         }
     }

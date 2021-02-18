@@ -83,7 +83,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
     }
 
     @NonNull
@@ -105,7 +105,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setView(view)
             .setPositiveButton(R.string.note_confirm, this)
-            .setNegativeButton(R.string.common_cancel, this)
+            .setNeutralButton(R.string.common_cancel, this)
             .setTitle(R.string.send_note);
         Dialog dialog = builder.create();
 
