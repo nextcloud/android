@@ -143,6 +143,7 @@ import javax.inject.Inject;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -243,6 +244,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private boolean onlyAdd = false;
     @SuppressLint("ResourceAsColor") @ColorInt
     private int primaryColor = R.color.primary;
+
+    @VisibleForTesting
+    public AccountSetupBinding getAccountSetupBinding() {
+        return accountSetupBinding;
+    }
 
     /**
      * {@inheritDoc}
