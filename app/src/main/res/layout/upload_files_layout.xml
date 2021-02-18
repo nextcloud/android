@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/upload_files_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_standard" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/local_files_list_container"
+        android:name="com.owncloud.android.ui.fragment.LocalFileListFragment"
+        android:tag="local_files_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:src="@drawable/uploader_list_separator"
+            android:contentDescription="@null"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/upload_options"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingBottom="0dp"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/uploader_upload_files_behaviour"
+            android:id="@+id/upload_files_upload_files_behaviour_text"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:paddingBottom="@dimen/standard_half_padding"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/upload_files_spinner_behaviour"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/standard_padding">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/upload_files_btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:layout_weight="1"
+            android:text="@string/common_cancel"
+            style="@style/OutlinedButton"
+            app:cornerRadius="@dimen/button_corner_radius" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/upload_files_btn_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/uploader_btn_upload_text"
+            android:theme="@style/Button.Primary"
+            app:cornerRadius="@dimen/button_corner_radius" />
+
+	</LinearLayout>
+
+</LinearLayout>
