@@ -176,7 +176,7 @@
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
     <string name="create_new">Создать</string>
     <string name="create_new_document">Создать документ</string>
-    <string name="create_new_folder">Создать новую папку</string>
+    <string name="create_new_folder">Создать папку</string>
     <string name="create_new_presentation">Создать презентацию</string>
     <string name="create_new_spreadsheet">Создать таблицу</string>
     <string name="create_rich_workspace">Добавить информацию о папке</string>
