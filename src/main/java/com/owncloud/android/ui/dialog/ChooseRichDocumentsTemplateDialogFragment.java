@@ -81,6 +81,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     private static final String ARG_TYPE = "TYPE";
     private static final String TAG = ChooseRichDocumentsTemplateDialogFragment.class.getSimpleName();
     private static final String DOT = ".";
+    public static final int SINGLE_TEMPLATE = 1;
 
     private RichDocumentsTemplateAdapter adapter;
     private OCFile parentFolder;
@@ -361,7 +362,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                 if (templateList.isEmpty()) {
                     DisplayUtils.showSnackMessage(fragment.binding.list, R.string.error_retrieving_templates);
                 } else {
-                    if (templateList.size() == 1) {
+                    if (templateList.size() == SINGLE_TEMPLATE) {
                         fragment.onTemplateChosen(templateList.get(0));
                         fragment.binding.list.setVisibility(View.GONE);
                     } else {
