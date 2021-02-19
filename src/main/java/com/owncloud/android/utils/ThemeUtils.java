@@ -44,22 +44,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
-
-import java.lang.reflect.Field;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
@@ -81,8 +79,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Utility class with methods for client side theming.
  */
 public final class ThemeUtils {
-
-    private static final String TAG = ThemeUtils.class.getSimpleName();
 
     private static final int INDEX_LUMINATION = 2;
     private static final double MAX_LIGHTNESS = 0.92;
@@ -323,7 +319,7 @@ public final class ThemeUtils {
      * For activities that do not use drawer, e.g. Settings, this can be used to correctly tint back button based on
      * theme
      *
-     * @param supportActionBar
+     * @param supportActionBar the back button's action bar
      */
     public static void tintBackButton(@Nullable ActionBar supportActionBar, Context context) {
         tintBackButton(supportActionBar, context, ThemeUtils.appBarPrimaryFontColor(context));
@@ -520,13 +516,46 @@ public final class ThemeUtils {
         colorStatusBar(fragmentActivity, primaryAppbarColor(fragmentActivity));
     }
 
+    public static void colorTabLayout(Context context, TabLayout tabLayout) {
+        int primaryColor = primaryColor(context);
+        int textColor = context.getResources().getColor(R.color.text_color);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setSelectedTabIndicatorColor(primaryColor);
+        tabLayout.setTabTextColors(textColor, primaryColor);
+        tabLayout.setTabIconTint(new ColorStateList(
+            new int[][]{
+                new int[]{android.R.attr.state_selected},
+                new int[]{android.R.attr.state_enabled},
+                new int[]{-android.R.attr.state_enabled}
+            },
+            new int[]{
+                primaryColor,
+                textColor,
+                Color.GRAY
+            }
+        ));
+    }
+
+    /**
+     * Sets the color of the (containerized) text input TextInputLayout to {@code color} for hint text, box stroke and
+     * highlight color.
+     *
+     * @param textInputLayout   the TextInputLayout instance
+     * @param textInputEditText the TextInputEditText child element
+     * @param color             the color to be used for the hint text and box stroke
+     */
+    public static void colorTextInput(TextInputLayout textInputLayout, TextInputEditText textInputEditText, int color) {
+        textInputEditText.setHighlightColor(color);
+        colorTextInputLayout(textInputLayout, color);
+    }
+
     /**
      * Sets the color of the  TextInputLayout to {@code color} for hint text and box stroke.
      *
      * @param textInputLayout the TextInputLayout instance
      * @param color           the color to be used for the hint text and box stroke
      */
-    public static void colorTextInputLayout(TextInputLayout textInputLayout, int color) {
+    private static void colorTextInputLayout(TextInputLayout textInputLayout, int color) {
         textInputLayout.setBoxStrokeColor(color);
         textInputLayout.setDefaultHintTextColor(new ColorStateList(
             new int[][]{
@@ -581,8 +610,6 @@ public final class ThemeUtils {
     private static void setEditTextColor(Context context, EditText editText, int color) {
         editText.setTextColor(color);
         editText.setHighlightColor(context.getResources().getColor(R.color.fg_contrast));
-        setEditTextCursorColor(editText, color);
-        setTextViewHandlesColor(context, editText, color);
     }
 
     /**
@@ -595,6 +622,7 @@ public final class ThemeUtils {
         // hacky as no default way is provided
         int fontColor = appBarPrimaryFontColor(context);
         SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
+        editText.setTextSize(16);
         setEditTextColor(context, editText, fontColor);
         editText.setHintTextColor(appBarSecondaryFontColor(context));
 
@@ -753,111 +781,6 @@ public final class ThemeUtils {
             color = Color.BLACK;
         }
         return tintDrawable(drawable, color);
-    }
-
-    /**
-     * Lifted from SO. FindBugs surpressed because of lack of public API to alter the cursor color.
-     *
-     * @param editText TextView to be styled
-     * @param color    The desired cursor colour
-     * @see <a href="https://stackoverflow.com/a/52564925">StackOverflow url</a>
-     */
-    @SuppressFBWarnings
-    public static void setEditTextCursorColor(EditText editText, int color) {
-        try {
-            // Get the cursor resource id
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {//set differently in Android P (API 28)
-                Field field = TextView.class.getDeclaredField("mCursorDrawableRes");
-                field.setAccessible(true);
-                int drawableResId = field.getInt(editText);
-
-                // Get the editor
-                field = TextView.class.getDeclaredField("mEditor");
-                field.setAccessible(true);
-                Object editor = field.get(editText);
-
-                // Get the drawable and set a color filter
-                Drawable drawable = ContextCompat.getDrawable(editText.getContext(), drawableResId);
-                drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
-
-                // Set the drawables
-                field = editor.getClass().getDeclaredField("mDrawableForCursor");
-                field.setAccessible(true);
-                field.set(editor, drawable);
-            } else {
-                Field field = TextView.class.getDeclaredField("mCursorDrawableRes");
-                field.setAccessible(true);
-                int drawableResId = field.getInt(editText);
-
-                // Get the editor
-                field = TextView.class.getDeclaredField("mEditor");
-                field.setAccessible(true);
-                Object editor = field.get(editText);
-
-                // Get the drawable and set a color filter
-                Drawable drawable = ContextCompat.getDrawable(editText.getContext(), drawableResId);
-                drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
-                Drawable[] drawables = {drawable, drawable};
-
-                // Set the drawables
-                field = editor.getClass().getDeclaredField("mCursorDrawable");
-                field.setAccessible(true);
-                field.set(editor, drawables);
-            }
-        } catch (Exception exception) {
-            // we do not log this
-        }
-    }
-
-
-    /**
-     * Set the color of the handles when you select text in a {@link android.widget.EditText} or other view that extends
-     * {@link TextView}. FindBugs surpressed because of lack of public API to alter the {@link TextView} handles color.
-     *
-     * @param view  The {@link TextView} or a {@link View} that extends {@link TextView}.
-     * @param color The color to set for the text handles
-     * @see <a href="https://gist.github.com/jaredrummler/2317620559d10ac39b8218a1152ec9d4">External reference</a>
-     */
-    @SuppressFBWarnings
-    private static void setTextViewHandlesColor(Context context, TextView view, int color) {
-        try {
-            Field editorField = TextView.class.getDeclaredField("mEditor");
-            if (!editorField.isAccessible()) {
-                editorField.setAccessible(true);
-            }
-
-            Object editor = editorField.get(view);
-            Class<?> editorClass = editor.getClass();
-
-            String[] handleNames = {"mSelectHandleLeft", "mSelectHandleRight", "mSelectHandleCenter"};
-            String[] resNames = {"mTextSelectHandleLeftRes", "mTextSelectHandleRightRes", "mTextSelectHandleRes"};
-
-            for (int i = 0; i < handleNames.length; i++) {
-                Field handleField = editorClass.getDeclaredField(handleNames[i]);
-                if (!handleField.isAccessible()) {
-                    handleField.setAccessible(true);
-                }
-
-                Drawable handleDrawable = (Drawable) handleField.get(editor);
-
-                if (handleDrawable == null) {
-                    Field resField = TextView.class.getDeclaredField(resNames[i]);
-                    if (!resField.isAccessible()) {
-                        resField.setAccessible(true);
-                    }
-                    int resId = resField.getInt(view);
-                    handleDrawable = ContextCompat.getDrawable(context, resId);
-                }
-
-                if (handleDrawable != null) {
-                    Drawable drawable = handleDrawable.mutate();
-                    drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
-                    handleField.set(editor, drawable);
-                }
-            }
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Error setting TextView handles color", e);
-        }
     }
 
     public static boolean isDarkModeActive(Context context) {

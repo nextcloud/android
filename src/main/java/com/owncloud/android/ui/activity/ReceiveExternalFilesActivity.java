@@ -61,6 +61,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -408,10 +410,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mFileCategory = CATEGORY_MAPS_URL;
             }
 
-            final EditText userInput = view.findViewById(R.id.user_input);
+            final TextInputEditText userInput = view.findViewById(R.id.user_input);
+            final TextInputLayout userInputContainer = view.findViewById(R.id.user_input_container);
             setFilename(userInput, selectPos);
-            userInput.setHighlightColor(ThemeUtils.primaryColor(getContext()));
             userInput.requestFocus();
+            ThemeUtils.colorTextInput(userInputContainer, userInput, ThemeUtils.primaryColor(getContext()));
 
             final Spinner spinner = view.findViewById(R.id.file_type);
             setupSpinner(adapter, selectPos, userInput, spinner);

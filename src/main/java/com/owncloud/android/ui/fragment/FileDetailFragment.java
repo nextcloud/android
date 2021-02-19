@@ -227,11 +227,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private void setupViewPager() {
         binding.tabLayout.removeAllTabs();
 
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities));
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities).setIcon(R.drawable.ic_activity));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.shared_via_users));
 
-        binding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        binding.tabLayout.setSelectedTabIndicatorColor(ThemeUtils.primaryAccentColor(getContext()));
+        ThemeUtils.colorTabLayout(getContext(), binding.tabLayout);
 
         final FileDetailTabAdapter adapter = new FileDetailTabAdapter(getFragmentManager(), getFile(), user);
         binding.pager.setAdapter(adapter);

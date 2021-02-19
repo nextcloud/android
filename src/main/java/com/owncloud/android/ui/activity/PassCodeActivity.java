@@ -91,7 +91,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         binding = PasscodelockBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        int elementColor = ThemeUtils.primaryColor(this);
+        int elementColor = ThemeUtils.primaryColor(this, true);
 
         ThemeUtils.themeDialogActionButton(binding.cancel);
 
