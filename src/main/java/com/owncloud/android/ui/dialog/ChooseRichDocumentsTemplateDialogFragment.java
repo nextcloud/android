@@ -138,6 +138,12 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
             throw new IllegalArgumentException("Activity may not be null");
         }
 
+        try {
+            client = clientFactory.create(currentAccount.getUser());
+        } catch (ClientFactory.CreationException e) {
+            throw new RuntimeException(e); // we'll NPE without the client
+        }
+
         parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER);
 
         // Inflate the layout for the dialog
@@ -147,12 +153,6 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
         binding.filename.requestFocus();
         ThemeUtils.colorTextInput(binding.filenameContainer, binding.filename, ThemeUtils.primaryColor(getContext()));
-
-        try {
-            client = clientFactory.create(currentAccount.getUser());
-        } catch (ClientFactory.CreationException e) {
-            throw new RuntimeException(e); // we'll NPE without the client
-        }
 
         Type type = Type.valueOf(arguments.getString(ARG_TYPE));
         new FetchTemplateTask(this, client).execute(type);

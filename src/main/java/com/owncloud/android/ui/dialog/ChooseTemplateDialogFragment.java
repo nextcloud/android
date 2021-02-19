@@ -30,7 +30,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -65,8 +64,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.lang.ref.WeakReference;
 
 import javax.inject.Inject;
@@ -87,6 +84,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
     private static final String ARG_HEADLINE = "HEADLINE";
     private static final String TAG = ChooseTemplateDialogFragment.class.getSimpleName();
     private static final String DOT = ".";
+    public static final int SINGLE_TEMPLATE = 1;
 
     private TemplateAdapter adapter;
     private OCFile parentFolder;
@@ -418,7 +416,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
                 if (templateList.templates.isEmpty()) {
                     DisplayUtils.showSnackMessage(fragment.binding.list, R.string.error_retrieving_templates);
                 } else {
-                    if (templateList.templates.size() == 1) {
+                    if (templateList.templates.size() == SINGLE_TEMPLATE) {
                         fragment.onTemplateChosen(templateList.templates.values().iterator().next());
                         fragment.binding.list.setVisibility(View.GONE);
                     } else {

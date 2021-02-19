@@ -29,14 +29,11 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
-import com.owncloud.android.databinding.SendButtonBinding;
 import com.owncloud.android.databinding.TemplateButtonBinding;
 import com.owncloud.android.lib.common.Template;
 import com.owncloud.android.lib.common.TemplateList;
@@ -46,8 +43,6 @@ import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Adapter for handling Templates, used to create files out of it via RichDocuments app
