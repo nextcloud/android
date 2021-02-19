@@ -118,16 +118,14 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
     public void onStart() {
         super.onStart();
 
-        int color = ThemeColorUtils.primaryAccentColor(getContext());
-
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        ThemeButtonUtils.themeBorderlessButton(positiveButton, color);
+        ThemeButtonUtils.themeBorderlessButton(ThemeColorUtils.primaryAccentColor(getContext()),
+                                               positiveButton,
+                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         positiveButton.setOnClickListener(this);
         positiveButton.setEnabled(false);
-
-        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL), color);
 
         checkEnablingCreateButton();
     }

@@ -46,6 +46,7 @@ import com.owncloud.android.lib.resources.users.SendCSROperation;
 import com.owncloud.android.lib.resources.users.StorePrivateKeyOperation;
 import com.owncloud.android.utils.CsrHelper;
 import com.owncloud.android.utils.EncryptionUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.io.IOException;
@@ -108,15 +109,13 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     public void onStart() {
         super.onStart();
 
-        int color = ThemeColorUtils.primaryAccentColor(getContext());
-
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        positiveButton.setTextColor(color);
-
         neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-        neutralButton.setTextColor(color);
+        ThemeButtonUtils.themeBorderlessButton(ThemeColorUtils.primaryAccentColor(getContext()),
+                                               positiveButton,
+                                               neutralButton);
 
         task = new DownloadKeysAsyncTask();
         task.execute();
@@ -402,7 +401,6 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
     @VisibleForTesting
     public void showMnemonicInfo() {
-        int color = ThemeColorUtils.primaryAccentColor(getContext());
         requireDialog().setTitle(R.string.end_to_end_encryption_passphrase_title);
 
         textView.setText(R.string.end_to_end_encryption_keywords_description);
@@ -414,8 +412,9 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         positiveButton.setVisibility(View.VISIBLE);
 
         neutralButton.setVisibility(View.VISIBLE);
-        ThemeUtils.themeBorderlessButton(positiveButton, color);
-        ThemeUtils.themeBorderlessButton(neutralButton, color);
+        ThemeButtonUtils.themeBorderlessButton(ThemeColorUtils.primaryAccentColor(getContext()),
+                                               positiveButton,
+                                               neutralButton);
 
         keyResult = KEY_GENERATE;
     }

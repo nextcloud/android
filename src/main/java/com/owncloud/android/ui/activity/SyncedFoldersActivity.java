@@ -204,7 +204,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             .setMessage(getString(R.string.power_save_check_dialog_message))
             .show();
 
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryAccentColor(this));
+        ThemeButtonUtils.themeBorderlessButton(ThemeColorUtils.primaryAccentColor(this),
+                                               alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
     }
 
     /**
@@ -818,10 +819,9 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
                 AlertDialog alertDialog = alertDialogBuilder.show();
-
-                int color = ThemeColorUtils.primaryAccentColor(this);
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-                alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
+                ThemeButtonUtils.themeBorderlessButton(ThemeColorUtils.primaryAccentColor(this),
+                                                       alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                       alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
             }
         }
     }

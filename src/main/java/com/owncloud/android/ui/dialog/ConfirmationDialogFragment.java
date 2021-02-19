@@ -21,6 +21,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 
 import com.owncloud.android.R;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import androidx.annotation.NonNull;
@@ -75,12 +76,12 @@ public class ConfirmationDialogFragment extends DialogFragment {
     public void onStart() {
         super.onStart();
 
-        int color = ThemeColorUtils.primaryAccentColor(getContext());
-
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+        ThemeButtonUtils.themeBorderlessButton(ThemeColorUtils.primaryAccentColor(getContext()),
+                                               alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                               alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE),
+                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
     }
 
     public void setOnConfirmationListener(ConfirmationDialogFragmentListener listener) {

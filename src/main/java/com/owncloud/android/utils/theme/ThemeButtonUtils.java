@@ -64,14 +64,13 @@ public final class ThemeButtonUtils {
         }
     }
 
-    public static void themeBorderlessButton(Button button, int primaryColor) {
-        if (button == null) {
+    public static void themeBorderlessButton(int primaryColor, Button... buttons) {
+        if (buttons == null || buttons.length < 1) {
             return;
         }
-
-        Context context = button.getContext();
+        Context context = buttons[0].getContext();
         int disabledColor = ContextCompat.getColor(context, R.color.disabled_text);
-        button.setTextColor(new ColorStateList(
+        ColorStateList colorStateList = new ColorStateList(
             new int[][]{
                 new int[]{android.R.attr.state_enabled}, // enabled
                 new int[]{-android.R.attr.state_enabled}, // disabled
@@ -80,6 +79,9 @@ public final class ThemeButtonUtils {
                 primaryColor,
                 disabledColor
             }
-        ));
+        );
+        for (Button button: buttons) {
+            button.setTextColor(colorStateList);
+        }
     }
 }
