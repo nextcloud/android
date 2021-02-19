@@ -1,0 +1,6 @@
+Official naming schema
+Meaningfull project name
+Pin prompt: add brute force: delay from 1 to 10s when wrong input
+Update SETUP.md
+Update translations
+Update 3rd-party dependencies
