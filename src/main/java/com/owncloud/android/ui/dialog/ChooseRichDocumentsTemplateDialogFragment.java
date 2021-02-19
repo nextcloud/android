@@ -146,7 +146,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         View view = binding.getRoot();
 
         binding.filename.requestFocus();
-        ThemeUtils.colorTextInputLayout(binding.filenameContainer, ThemeUtils.primaryColor(getContext()));
+        ThemeUtils.colorTextInput(binding.filenameContainer, binding.filename, ThemeUtils.primaryColor(getContext()));
 
         try {
             client = clientFactory.create(currentAccount.getUser());

@@ -161,7 +161,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         View view = binding.getRoot();
 
         binding.filename.requestFocus();
-        ThemeUtils.colorTextInputLayout(binding.filenameContainer, ThemeUtils.primaryColor(getContext()));
+        ThemeUtils.colorTextInput(binding.filenameContainer, binding.filename, ThemeUtils.primaryColor(getContext()));
 
         binding.filename.setOnKeyListener((v, keyCode, event) -> {
             checkEnablingCreateButton();
