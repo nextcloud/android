@@ -45,7 +45,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -569,13 +568,12 @@ public final class ThemeUtils {
         ));
     }
 
-    public static void themeDialogActionButton(MaterialButton button) {
+    public static void themeBorderlessButton(Button button, int primaryColor) {
         if (button == null) {
             return;
         }
 
         Context context = button.getContext();
-        int accentColor = ThemeUtils.primaryAccentColor(button.getContext());
         int disabledColor = ContextCompat.getColor(context, R.color.disabled_text);
         button.setTextColor(new ColorStateList(
             new int[][]{
@@ -583,7 +581,7 @@ public final class ThemeUtils {
                 new int[]{-android.R.attr.state_enabled}, // disabled
             },
             new int[]{
-                accentColor,
+                primaryColor,
                 disabledColor
             }
         ));

@@ -565,8 +565,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
-    public void showTemplate(Creator creator) {
-        ChooseTemplateDialogFragment.newInstance(mFile, creator).show(requireActivity().getSupportFragmentManager(),
+    public void showTemplate(Creator creator, String headline) {
+        ChooseTemplateDialogFragment.newInstance(mFile, creator, headline).show(requireActivity().getSupportFragmentManager(),
                                                                       DIALOG_CREATE_DOCUMENT);
     }
 
