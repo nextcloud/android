@@ -123,6 +123,8 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
             binding.explanation.setVisibility(View.INVISIBLE);
             setCancelButtonEnabled(false);      // no option to cancel
 
+            showDelay();
+
         } else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction())) {
             if (savedInstanceState != null) {
                 confirmingPassCode = savedInstanceState.getBoolean(PassCodeActivity.KEY_CONFIRMING_PASSCODE);
@@ -235,18 +237,22 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     private void processFullPassCode() {
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             if (checkPassCode()) {
+                preferences.resetPinWrongAttempts();
+
                 /// pass code accepted in request, user is allowed to access the app
                 AppPreferencesImpl.fromContext(this).setLockTimestamp(SystemClock.elapsedRealtime());
                 hideSoftKeyboard();
                 finish();
 
             }  else {
+                preferences.increasePinWrongAttempts();
+
                 showErrorAndRestart(R.string.pass_code_wrong, R.string.pass_code_enter_pass_code, View.INVISIBLE);
             }
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
             if (checkPassCode()) {
-                AppPreferencesImpl.fromContext(this).setLockTimestamp(SystemClock.elapsedRealtime());
+                preferences.setLockTimestamp(SystemClock.elapsedRealtime());
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(KEY_CHECK_RESULT, true);
                 setResult(RESULT_OK, resultIntent);
@@ -292,6 +298,8 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         binding.header.setText(headerMessage);                          // TODO check if really needed
         binding.explanation.setVisibility(explanationVisibility); // TODO check if really needed
         clearBoxes();
+
+        showDelay();
     }
 
 
@@ -383,6 +391,38 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         setResult(RESULT_OK, resultIntent);
 
         finish();
+    }
+
+    private void showDelay() {
+        int delay = preferences.pinBruteForceDelay();
+
+        if (delay > 0) {
+            binding.explanation.setText(R.string.brute_force_delay);
+            binding.explanation.setVisibility(View.VISIBLE);
+            binding.txt0.setEnabled(false);
+            binding.txt1.setEnabled(false);
+            binding.txt2.setEnabled(false);
+            binding.txt3.setEnabled(false);
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(delay * 1000);
+
+                        runOnUiThread(() -> {
+                            binding.explanation.setVisibility(View.INVISIBLE);
+                            binding.txt0.setEnabled(true);
+                            binding.txt1.setEnabled(true);
+                            binding.txt2.setEnabled(true);
+                            binding.txt3.setEnabled(true);
+                        });
+                    } catch (InterruptedException e) {
+                        Log_OC.e(this, "Could not delay password input prompt");
+                    }
+                }
+            }).start();
+        }
     }
 
 
