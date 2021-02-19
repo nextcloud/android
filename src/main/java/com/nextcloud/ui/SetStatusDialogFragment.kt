@@ -53,7 +53,9 @@ import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.adapter.PredefinedStatusClickListener
 import com.owncloud.android.ui.adapter.PredefinedStatusListAdapter
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.ThemeUtils
+import com.owncloud.android.utils.theme.ThemeButtonUtils
+import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.ThemeTextInputUtils
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.EmojiPopup
 import com.vanniktech.emoji.google.GoogleEmojiProvider
@@ -211,12 +213,12 @@ class SetStatusDialogFragment :
             }
         }
 
-        clearStatus.setTextColor(ThemeUtils.primaryColor(context, true))
-        ThemeUtils.colorPrimaryButton(setStatus, context)
-        ThemeUtils.colorTextInput(
+        clearStatus.setTextColor(ThemeColorUtils.primaryColor(context, true))
+        ThemeButtonUtils.colorPrimaryButton(setStatus, context)
+        ThemeTextInputUtils.colorTextInput(
             binding.customStatusInputContainer,
             binding.customStatusInput,
-            ThemeUtils.primaryColor(activity)
+            ThemeColorUtils.primaryColor(activity)
         )
     }
 
@@ -325,19 +327,19 @@ class SetStatusDialogFragment :
         when (statusType) {
             StatusType.ONLINE -> {
                 clearTopStatus()
-                onlineStatus.setBackgroundColor(ThemeUtils.primaryColor(context))
+                onlineStatus.setBackgroundColor(ThemeColorUtils.primaryColor(context))
             }
             StatusType.AWAY -> {
                 clearTopStatus()
-                awayStatus.setBackgroundColor(ThemeUtils.primaryColor(context))
+                awayStatus.setBackgroundColor(ThemeColorUtils.primaryColor(context))
             }
             StatusType.DND -> {
                 clearTopStatus()
-                dndStatus.setBackgroundColor(ThemeUtils.primaryColor(context))
+                dndStatus.setBackgroundColor(ThemeColorUtils.primaryColor(context))
             }
             StatusType.INVISIBLE -> {
                 clearTopStatus()
-                invisibleStatus.setBackgroundColor(ThemeUtils.primaryColor(context))
+                invisibleStatus.setBackgroundColor(ThemeColorUtils.primaryColor(context))
             }
             else -> clearTopStatus()
         }

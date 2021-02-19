@@ -42,7 +42,8 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -192,7 +193,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(binding.getRoot());
             this.binding = binding;
 
-            ThemeUtils.tintDrawable(binding.ticker.getDrawable(), ThemeUtils.primaryColor(context, true));
+            ThemeDrawableUtils.tintDrawable(binding.ticker.getDrawable(), ThemeColorUtils.primaryColor(context, true));
 
             binding.getRoot().setOnClickListener(this);
             if (showDotsMenu) {

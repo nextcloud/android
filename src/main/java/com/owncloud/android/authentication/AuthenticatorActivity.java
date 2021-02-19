@@ -73,8 +73,6 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -124,7 +122,9 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertL
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+import com.owncloud.android.utils.theme.ThemeUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -435,7 +435,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
                 accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
 
-                ThemeUtils.colorStatusBar(AuthenticatorActivity.this, primaryColor);
+                ThemeToolbarUtils.colorStatusBar(AuthenticatorActivity.this, primaryColor);
                 getWindow().setNavigationBarColor(primaryColor);
             }
 
@@ -540,8 +540,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (deviceInfo.hasCamera(this)) {
             accountSetupBinding.scanQr.setOnClickListener(v -> onScan());
-            ThemeUtils.tintDrawable(accountSetupBinding.scanQr.getDrawable(),
-                                    getResources().getColor(R.color.login_text_color));
+            ThemeDrawableUtils.tintDrawable(accountSetupBinding.scanQr.getDrawable(),
+                                            getResources().getColor(R.color.login_text_color));
         } else {
             accountSetupBinding.scanQr.setVisibility(View.GONE);
         }

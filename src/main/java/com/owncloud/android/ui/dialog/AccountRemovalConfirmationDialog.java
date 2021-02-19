@@ -29,7 +29,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.owncloud.android.R;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import javax.inject.Inject;
 
@@ -64,7 +64,7 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
     public void onStart() {
         super.onStart();
 
-        int color = ThemeUtils.primaryAccentColor(getActivity());
+        int color = ThemeColorUtils.primaryAccentColor(getActivity());
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 

@@ -62,7 +62,9 @@ import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.adapter.TemplateAdapter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -116,16 +118,16 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
     public void onStart() {
         super.onStart();
 
-        int color = ThemeUtils.primaryAccentColor(getContext());
+        int color = ThemeColorUtils.primaryAccentColor(getContext());
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        ThemeUtils.themeBorderlessButton(positiveButton, color);
+        ThemeButtonUtils.themeBorderlessButton(positiveButton, color);
         positiveButton.setOnClickListener(this);
         positiveButton.setEnabled(false);
 
-        ThemeUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL), color);
+        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL), color);
 
         checkEnablingCreateButton();
     }
@@ -159,7 +161,9 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         View view = binding.getRoot();
 
         binding.filename.requestFocus();
-        ThemeUtils.colorTextInput(binding.filenameContainer, binding.filename, ThemeUtils.primaryColor(getContext()));
+        ThemeTextInputUtils.colorTextInput(binding.filenameContainer,
+                                           binding.filename,
+                                           ThemeColorUtils.primaryColor(getContext()));
 
         binding.filename.setOnKeyListener((v, keyCode, event) -> {
             checkEnablingCreateButton();

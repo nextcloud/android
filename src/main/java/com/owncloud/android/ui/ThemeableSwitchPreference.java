@@ -30,7 +30,7 @@ import android.view.ViewGroup;
 import android.widget.Switch;
 
 import com.owncloud.android.R;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -74,8 +74,8 @@ public class ThemeableSwitchPreference extends SwitchPreference {
                 Switch switchView = (Switch) child;
 
                 if(thumbColorStateList == null && trackColorStateList == null) {
-                    int thumbColor = ThemeUtils.primaryAccentColor(getContext());
-                    if (ThemeUtils.darkTheme(getContext()) &&
+                    int thumbColor = ThemeColorUtils.primaryAccentColor(getContext());
+                    if (ThemeColorUtils.darkTheme(getContext()) &&
                         AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
                         thumbColor = Color.WHITE;
                     }

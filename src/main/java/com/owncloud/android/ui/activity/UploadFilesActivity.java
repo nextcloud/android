@@ -51,7 +51,11 @@ import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+import com.owncloud.android.utils.theme.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -171,11 +175,11 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
         // Set input controllers
         MaterialButton cancelButton = findViewById(R.id.upload_files_btn_cancel);
-        cancelButton.setTextColor(ThemeUtils.primaryColor(this, true));
+        cancelButton.setTextColor(ThemeColorUtils.primaryColor(this, true));
         cancelButton.setOnClickListener(this);
 
         MaterialButton uploadButton = findViewById(R.id.upload_files_btn_upload);
-        ThemeUtils.colorPrimaryButton(uploadButton, this);
+        ThemeButtonUtils.colorPrimaryButton(uploadButton, this);
         uploadButton.setOnClickListener(this);
 
         int localBehaviour = preferences.getUploaderBehaviour();
@@ -208,7 +212,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null);
             actionBar.setDisplayShowTitleEnabled(false);
 
-            ThemeUtils.tintBackButton(actionBar, this);
+            ThemeToolbarUtils.tintBackButton(actionBar, this);
         }
 
         showToolbarSpinner();
@@ -268,11 +272,11 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             setSelectAllMenuItem(selectAll, mSelectAll);
         }
 
-        int fontColor = ThemeUtils.appBarPrimaryFontColor(this);
+        int fontColor = ThemeColorUtils.appBarPrimaryFontColor(this);
         final MenuItem item = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(item);
-        ThemeUtils.themeSearchView(mSearchView, this);
-        ThemeUtils.tintDrawable(menu.findItem(R.id.action_choose_storage_path).getIcon(), fontColor);
+        ThemeToolbarUtils.themeSearchView(mSearchView, this);
+        ThemeDrawableUtils.tintDrawable(menu.findItem(R.id.action_choose_storage_path).getIcon(), fontColor);
 
         mSearchView.setOnSearchClickListener(v -> mToolbarSpinner.setVisibility(View.GONE));
 
@@ -413,7 +417,8 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         if (checked) {
             selectAll.setIcon(R.drawable.ic_select_none);
         } else {
-            selectAll.setIcon(ThemeUtils.tintDrawable(R.drawable.ic_select_all, ThemeUtils.primaryColor(this)));
+            selectAll.setIcon(
+                ThemeDrawableUtils.tintDrawable(R.drawable.ic_select_all, ThemeColorUtils.primaryColor(this)));
         }
     }
 

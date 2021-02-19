@@ -46,7 +46,7 @@ import com.owncloud.android.lib.resources.users.SendCSROperation;
 import com.owncloud.android.lib.resources.users.StorePrivateKeyOperation;
 import com.owncloud.android.utils.CsrHelper;
 import com.owncloud.android.utils.EncryptionUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.io.IOException;
 import java.security.KeyPair;
@@ -108,7 +108,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     public void onStart() {
         super.onStart();
 
-        int color = ThemeUtils.primaryAccentColor(getContext());
+        int color = ThemeColorUtils.primaryAccentColor(getContext());
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
@@ -125,7 +125,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int primaryColor = ThemeUtils.primaryColor(getContext());
+        int primaryColor = ThemeColorUtils.primaryColor(getContext());
         user = getArguments().getParcelable(ARG_USER);
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
@@ -402,7 +402,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
     @VisibleForTesting
     public void showMnemonicInfo() {
-        int color = ThemeUtils.primaryAccentColor(getContext());
+        int color = ThemeColorUtils.primaryAccentColor(getContext());
         requireDialog().setTitle(R.string.end_to_end_encryption_passphrase_title);
 
         textView.setText(R.string.end_to_end_encryption_keywords_description);
@@ -428,7 +428,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         textView.setText(R.string.end_to_end_encryption_unsuccessful);
         positiveButton.setText(R.string.end_to_end_encryption_dialog_close);
         positiveButton.setVisibility(View.VISIBLE);
-        positiveButton.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+        positiveButton.setTextColor(ThemeColorUtils.primaryAccentColor(getContext()));
     }
 
     @VisibleForTesting

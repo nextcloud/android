@@ -59,7 +59,9 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.interfaces.VersionListInterface;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeLayoutUtils;
+import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
@@ -142,8 +144,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         setupView();
 
-        ThemeUtils.colorSwipeRefreshLayout(getContext(), binding.swipeContainingEmpty);
-        ThemeUtils.colorSwipeRefreshLayout(getContext(), binding.swipeContainingList);
+        ThemeLayoutUtils.colorSwipeRefreshLayout(getContext(), binding.swipeContainingEmpty);
+        ThemeLayoutUtils.colorSwipeRefreshLayout(getContext(), binding.swipeContainingList);
 
         fetchAndSetData(-1);
 
@@ -174,9 +176,9 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         binding.submitComment.setOnClickListener(v -> submitComment());
 
-        ThemeUtils.colorTextInput(binding.commentInputFieldContainer,
-                                  binding.commentInputField,
-                                  ThemeUtils.primaryColor(getContext()));
+        ThemeTextInputUtils.colorTextInput(binding.commentInputFieldContainer,
+                                           binding.commentInputField,
+                                           ThemeColorUtils.primaryColor(getContext()));
 
         DisplayUtils.setAvatar(user,
                                this,
