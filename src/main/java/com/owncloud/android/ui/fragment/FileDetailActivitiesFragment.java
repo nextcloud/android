@@ -24,7 +24,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.content.ContentResolver;
-import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -58,6 +58,7 @@ import com.owncloud.android.ui.events.CommentsEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.interfaces.VersionListInterface;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -80,6 +81,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class FileDetailActivitiesFragment extends Fragment implements
     ActivityListInterface,
+    DisplayUtils.AvatarGenerationListener,
     VersionListInterface.View,
     Injectable {
 
@@ -170,14 +172,18 @@ public class FileDetailActivitiesFragment extends Fragment implements
             }
         };
 
-        binding.commentInputField.getBackground().setColorFilter(
-                ThemeUtils.primaryAccentColor(getContext()),
-                PorterDuff.Mode.SRC_ATOP
-        );
-
         binding.submitComment.setOnClickListener(v -> submitComment());
 
-        ThemeUtils.themeEditText(getContext(), binding.commentInputField, false);
+        ThemeUtils.colorTextInput(binding.commentInputFieldContainer,
+                                  binding.commentInputField,
+                                  ThemeUtils.primaryColor(getContext()));
+
+        DisplayUtils.setAvatar(user,
+                               this,
+                               getResources().getDimension(R.dimen.activity_icon_radius),
+                               getResources(),
+                               binding.avatar,
+                               getContext());
 
         return view;
     }
@@ -437,6 +443,16 @@ public class FileDetailActivitiesFragment extends Fragment implements
     @Override
     public void onRestoreClicked(FileVersion fileVersion) {
         operationsHelper.restoreFileVersion(fileVersion);
+    }
+
+    @Override
+    public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
+        binding.avatar.setImageDrawable(avatarDrawable);
+    }
+
+    @Override
+    public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
+        return false;
     }
 
     private static class SubmitCommentTask extends AsyncTask<Void, Void, Boolean> {

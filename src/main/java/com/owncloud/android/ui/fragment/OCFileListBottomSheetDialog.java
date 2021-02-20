@@ -121,7 +121,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
                                                                             getContext()));
 
                     creatorView.setOnClickListener(v -> {
-                        actions.showTemplate(creator);
+                        actions.showTemplate(creator, creatorViewBinding.creatorName.getText().toString());
                         dismiss();
                     });
 

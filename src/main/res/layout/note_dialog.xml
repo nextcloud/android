@@ -30,7 +30,6 @@
         android:id="@+id/note_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/TextInputLayout"
         android:hint="@string/hint_note">
 
         <com.google.android.material.textfield.TextInputEditText

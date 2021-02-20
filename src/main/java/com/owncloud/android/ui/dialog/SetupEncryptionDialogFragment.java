@@ -402,6 +402,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
     @VisibleForTesting
     public void showMnemonicInfo() {
+        int color = ThemeUtils.primaryAccentColor(getContext());
         requireDialog().setTitle(R.string.end_to_end_encryption_passphrase_title);
 
         textView.setText(R.string.end_to_end_encryption_keywords_description);
@@ -413,6 +414,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         positiveButton.setVisibility(View.VISIBLE);
 
         negativeButton.setVisibility(View.VISIBLE);
+        positiveButton.setTextColor(color);
+        negativeButton.setTextColor(color);
 
         keyResult = KEY_GENERATE;
     }
@@ -425,6 +428,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         textView.setText(R.string.end_to_end_encryption_unsuccessful);
         positiveButton.setText(R.string.end_to_end_encryption_dialog_close);
         positiveButton.setVisibility(View.VISIBLE);
+        positiveButton.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
     }
 
     @VisibleForTesting
