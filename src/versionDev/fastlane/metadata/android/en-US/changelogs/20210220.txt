@@ -1,0 +1,37 @@
+codacy: introduce constant
+codacy: remove unused code/imports
+remove deprecated style definition and use new theming method
+preserve button state and title on restore
+show helper text for more than one template only
+Use dynamic titles
+hide template chooser in case there is only one template
+proper code formatting
+update rich document chooser for new prefill logic
+add auto pre-filling of file name upon template chosen
+proper text input handling for button state checks
+Add button state coloring
+enable "create" button only if template is selected and name is valid
+use neutral instead of negative button for cancel action
+polish template chooser dialog
+Template Dialog: template needs to be selected
+repsect color-edge cases for share dialog tinting
+optimize search view
+add avatar to comment field
+adjust menu alignment with headline text
+adjust text colors
+remove unused imports
+harmonize text sizes, make active tab easier to discover
+replace edge color for input field
+cleanup legacy text size values
+add button tinting
+harmonize text sizes, make active tab easier to discover
+containerize status text field
+simplify PIN theming for non-containerized input field
+Use containerized text input field styling
+Fix during CI
+Fix tests
+codacy: Avoid declaring a variable if it is unreferenced before a possible exit point.
+Add test
+Use new GetMethod, drop apache one
+Update translations
+Update 3rd-party dependencies
