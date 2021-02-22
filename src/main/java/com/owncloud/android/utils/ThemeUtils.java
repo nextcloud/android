@@ -516,7 +516,7 @@ public final class ThemeUtils {
     }
 
     public static void colorTabLayout(Context context, TabLayout tabLayout) {
-        int primaryColor = primaryColor(context);
+        int primaryColor = primaryColor(context, true);
         int textColor = context.getResources().getColor(R.color.text_color);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorColor(primaryColor);
