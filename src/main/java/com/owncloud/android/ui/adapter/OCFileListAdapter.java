@@ -442,20 +442,20 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     ThemeUtils.createAvatar(sharee.getShareType(), avatar, activity);
                                     break;
 
+                                case FEDERATED:
+                                    showFederatedShareAvatar(sharee.getUserId(), avatarRadius, resources, avatar);
+                                    break;
                                 default:
-                                    if (sharee.getUserId().contains("@")) {
-                                        showFederatedShareAvatar(sharee.getUserId(), avatarRadius, resources, avatar);
-                                    } else {
-                                        avatar.setTag(sharee);
-                                        DisplayUtils.setAvatar(user,
-                                                               sharee.getUserId(),
-                                                               sharee.getDisplayName(),
-                                                               this,
-                                                               avatarRadius,
-                                                               resources,
-                                                               avatar,
-                                                               activity);
-                                    }
+                                    avatar.setTag(sharee);
+                                    DisplayUtils.setAvatar(user,
+                                                           sharee.getUserId(),
+                                                           sharee.getDisplayName(),
+                                                           this,
+                                                           avatarRadius,
+                                                           resources,
+                                                           avatar,
+                                                           activity);
+                                    break;
                             }
                         }
 
