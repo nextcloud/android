@@ -84,6 +84,7 @@
     <string name="battery_optimization_message">您的裝置可能啟用了電池最佳化。自動上傳功能只能在排除此應用程式的情況下才能運作。</string>
     <string name="battery_optimization_no_setting">無法直接啟動電池設定頁面。請在系統設定中手動調整。</string>
     <string name="battery_optimization_title">電池最佳化</string>
+    <string name="brute_force_delay">由於太多次錯誤的嘗試而延遲</string>
     <string name="certificate_load_problem">載入憑證時發生問題。</string>
     <string name="changelog_dev_version">更新日誌開發版本</string>
     <string name="checkbox">核取方塊</string>

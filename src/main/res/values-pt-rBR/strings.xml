@@ -84,6 +84,7 @@
     <string name="battery_optimization_message">Seu dispositivo pode ter a otimização da bateria ativada. AutoUpload funciona corretamente apenas se você excluir este aplicativo a partir dele.</string>
     <string name="battery_optimization_no_setting">Não é possível iniciar as configurações da bateria diretamente. Ajuste manualmente nas configurações.</string>
     <string name="battery_optimization_title">Otimização da bateria</string>
+    <string name="brute_force_delay">Atrasado devido a muitas tentativas erradas</string>
     <string name="certificate_load_problem">Existe um problema ao carregar o certificado.</string>
     <string name="changelog_dev_version">Changelog da versão dev</string>
     <string name="checkbox">Caixa de marcação</string>

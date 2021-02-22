@@ -84,6 +84,7 @@
     <string name="battery_optimization_message">您的设备可能已启用电池优化。 如果您从中排除此应用，则自动加载只能单独工作。</string>
     <string name="battery_optimization_no_setting">无法直接开启电池设置，请在设置中手动调整。</string>
     <string name="battery_optimization_title">电池优化</string>
+    <string name="brute_force_delay">因过多的错误尝试而延误</string>
     <string name="certificate_load_problem">加载证书失败。</string>
     <string name="changelog_dev_version">开发版本修改日志</string>
     <string name="checkbox">复选框</string>

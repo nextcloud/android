@@ -84,6 +84,7 @@
     <string name="battery_optimization_message">Aygıtınızda pil kullanımı iyileştirmesi kullanılıyor olabilir. Otomatik yükleme yalnız bu uygulamayı pil kullanımı iyileştirmesinin dışında tuttuğunuzda düzgün çalışır.</string>
     <string name="battery_optimization_no_setting">Pil ayarları açılamadı. Lütfen ayarlar bölümünden el ile ayarlayın.</string>
     <string name="battery_optimization_title">Pil kullanımı iyileştirmesi</string>
+    <string name="brute_force_delay">Çok sayıda hatalı deneme nedeniyle geciktirildi</string>
     <string name="certificate_load_problem">Sertifika yüklenirken bir sorun çıktı.</string>
     <string name="changelog_dev_version">Değişiklik günlüğü geliştirici sürümü</string>
     <string name="checkbox">İşaret kutusu</string>
