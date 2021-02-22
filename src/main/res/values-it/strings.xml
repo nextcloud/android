@@ -84,6 +84,7 @@
     <string name="battery_optimization_message">Il tuo dispositivo potrebbe avere l\'ottimizzazione della batteria abilitata. Il caricamento automatico funziona correttamente solo se escludi questa applicazione dall\'ottimizzazione.</string>
     <string name="battery_optimization_no_setting">Impossibile avviare direttamente le impostazioni della batteria. Modificale manualmente nelle impostazioni</string>
     <string name="battery_optimization_title">Ottimizzazione batteria</string>
+    <string name="brute_force_delay">Ritardato a causa di troppi tentativi errati</string>
     <string name="certificate_load_problem">Si è verificato un problema durante il caricamento del certificato.</string>
     <string name="changelog_dev_version">Novità versione di sviluppo</string>
     <string name="checkbox">Casella di selezione</string>

@@ -84,6 +84,7 @@
     <string name="battery_optimization_message">É posíbel que o seu dispositivo teña activada a optimización da batería. O envío automático só funciona correctamente se exclúe esta aplicación.</string>
     <string name="battery_optimization_no_setting">Non é posíbel  iniciar os axustes da batería directamente. Faga os axustes manualmente</string>
     <string name="battery_optimization_title">Optimización da batería</string>
+    <string name="brute_force_delay">Atrasado por mor de demasiados intentos errados</string>
     <string name="certificate_load_problem">Hai un problema ao cargar o certificado.</string>
     <string name="changelog_dev_version">Cambios na versión de desenvolvemento</string>
     <string name="checkbox">Caixa de selección</string>

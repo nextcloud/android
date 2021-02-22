@@ -84,6 +84,7 @@
     <string name="battery_optimization_message">Ihr Gerät hat möglicherweise Batterieoptimierung aktiv. AutoUpload funktioniert nur dann richtig, wenn Sie diese App davon ausschließen.</string>
     <string name="battery_optimization_no_setting">Die Batterieeinstellungen konnten nicht direkt aufgerufen werden. Bitte passen Sie die Einstellungen manuell an.</string>
     <string name="battery_optimization_title">Batterie-Optimierung</string>
+    <string name="brute_force_delay">Durch zu viele Fehlversuche verzögert</string>
     <string name="certificate_load_problem">Beim Laden des Zertifikats ist ein Fehler aufgetreten.</string>
     <string name="changelog_dev_version">Änderungen in der Entwicklerversion</string>
     <string name="checkbox">Checkbox</string>
