@@ -8,6 +8,7 @@ jobs:
     screenshot:
         runs-on: macOS-latest
         strategy:
+            fail-fast: false
             matrix:
                 scheme: [ Dark, Light ]
                 color: [ blue, white ]
