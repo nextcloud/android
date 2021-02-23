@@ -28,6 +28,8 @@ steps:
       - ./gradlew jacocoTestGplayDebugUnitTestReport && scripts/deleteOutdatedComments.sh "stable" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew installGplayDebugAndroidTest
       - scripts/wait_for_server.sh "server"
+      - adb logcat -c
+      - adb logcat &
       - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest && scripts/deleteOutdatedComments.sh "stable" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew combinedTestReport
   - name: notify
@@ -109,6 +111,8 @@ steps:
       - ./gradlew jacocoTestGplayDebugUnitTestReport && scripts/deleteOutdatedComments.sh "master" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew installGplayDebugAndroidTest
       - scripts/wait_for_server.sh "server"
+      - adb logcat -c
+      - adb logcat &
       - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest && scripts/deleteOutdatedComments.sh "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - scripts/runCombinedTest.sh
 
