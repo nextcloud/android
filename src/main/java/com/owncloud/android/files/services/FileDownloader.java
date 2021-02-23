@@ -69,11 +69,11 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.io.File;
+import java.security.SecureRandom;
 import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Random;
 import java.util.Vector;
 
 import javax.inject.Inject;
@@ -81,6 +81,7 @@ import javax.inject.Inject;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import dagger.android.AndroidInjection;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class FileDownloader extends Service
         implements OnDatatransferProgressListener, OnAccountsUpdateListener {
@@ -614,6 +615,7 @@ public class FileDownloader extends Service
      * @param downloadResult Result of the download operation.
      * @param download       Finished download operation
      */
+    @SuppressFBWarnings("DMI")
     private void notifyDownloadResult(DownloadFileOperation download,
                                       RemoteOperationResult downloadResult) {
         if (mNotificationManager == null) {
@@ -653,7 +655,7 @@ public class FileDownloader extends Service
                     download, getResources()));
 
             if (mNotificationManager != null) {
-                mNotificationManager.notify((new Random()).nextInt(), mNotificationBuilder.build());
+                mNotificationManager.notify((new SecureRandom()).nextInt(), mNotificationBuilder.build());
 
                 // Remove success notification
                 if (downloadResult.isSuccess()) {
