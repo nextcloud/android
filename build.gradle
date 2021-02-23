@@ -20,7 +20,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.2'
         classpath('com.hiya:jacoco-android:0.2')
-        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.6.0'
+        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.6.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.15.0"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -64,7 +64,7 @@ ext {
     mockitoVersion = "3.7.7"
     mockkVersion = "1.10.4"
     powermockVersion = "2.0.9"
-    byteBuddyVersion = "1.10.19"
+    byteBuddyVersion = "1.10.21"
     espressoVersion = "3.3.0"
     workRuntime = "2.5.0"
 

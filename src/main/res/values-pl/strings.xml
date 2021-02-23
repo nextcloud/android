@@ -84,6 +84,7 @@
     <string name="battery_optimization_message">Twoje urządzenie może mieć włączoną optymalizację baterii. Automatyczne wysyłanie działa poprawnie tylko wtedy, gdy wykluczysz z niej tę aplikację.</string>
     <string name="battery_optimization_no_setting">Nie można bezpośrednio uruchomić ustawień baterii. Dostosuj ręcznie w ustawieniach.</string>
     <string name="battery_optimization_title">Optymalizacja baterii</string>
+    <string name="brute_force_delay">Opóźnienie z powodu zbyt wielu błędnych prób</string>
     <string name="certificate_load_problem">Problem podczas ładowania certyfikatu.</string>
     <string name="changelog_dev_version">Dziennik zmian wersji dev</string>
     <string name="checkbox">Pole checkbox</string>

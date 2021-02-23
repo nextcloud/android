@@ -84,6 +84,7 @@
     <string name="battery_optimization_message">Op je toestel kan batterij optimalisatie ingeschakeld zijn. AutoUpload werkt alleen als je dat voor deze app uitschakelt.</string>
     <string name="battery_optimization_no_setting">Kan de batterin-instellingen niet direct wijzigen. Pas handmatig in bij Instellingen.</string>
     <string name="battery_optimization_title">Batterij-optimalisatie</string>
+    <string name="brute_force_delay">Vertraagd door te veel onjuiste pogingen</string>
     <string name="certificate_load_problem">Er is een probleem met het laden van het certificaat.</string>
     <string name="changelog_dev_version">Changelog dev versie</string>
     <string name="checkbox">Aanvinkvakje</string>

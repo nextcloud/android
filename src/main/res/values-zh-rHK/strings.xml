@@ -380,7 +380,7 @@
     <string name="link_share_read_only">唯讀</string>
     <string name="list_layout">清單顯示</string>
     <string name="local_file_list_empty">這個資料夾中沒有任何檔案</string>
-    <string name="local_file_not_found_message">本地檔案系統中找不到檔案</string>
+    <string name="local_file_not_found_message">近端檔案系統中找不到檔案</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">沒有其他資料夾了</string>
     <string name="log_send_mail_subject">%1$s Android 應用程式記錄</string>
@@ -534,7 +534,7 @@
     <string name="prefs_value_theme_dark">暗色</string>
     <string name="prefs_value_theme_light">亮色</string>
     <string name="prefs_value_theme_system">跟隨系統</string>
-    <string name="preview_image_description">圖像已儲存</string>
+    <string name="preview_image_description">圖像預覽</string>
     <string name="preview_image_error_no_local_file">沒有可供預覽的本地檔案</string>
     <string name="preview_image_error_unknown_format">無法顯示圖像</string>
     <string name="preview_sorry">很抱歉</string>
