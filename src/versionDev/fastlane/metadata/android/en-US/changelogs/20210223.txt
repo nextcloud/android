@@ -1,0 +1,5 @@
+After reboot passcode timeout was miscalculated
+replace edge colors for primary color highlighting of tabs
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
