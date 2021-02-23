@@ -140,7 +140,7 @@ class SetStatusDialogFragment :
 
         currentStatus?.let {
             binding.emoji.setText(it.icon)
-            binding.customStatusInput.text.clear()
+            binding.customStatusInput.text?.clear()
             binding.customStatusInput.setText(it.message)
             visualizeStatus(it.status)
 
@@ -212,8 +212,8 @@ class SetStatusDialogFragment :
             }
         }
 
-        clearStatus.setTextColor(ThemeColorUtils.primaryColor(context, true))
-        ThemeButtonUtils.colorPrimaryButton(setStatus, context)
+        binding.clearStatus.setTextColor(ThemeColorUtils.primaryColor(context, true))
+        ThemeButtonUtils.colorPrimaryButton(binding.setStatus, context)
         ThemeTextInputUtils.colorTextInput(
             binding.customStatusInputContainer,
             binding.customStatusInput,
@@ -408,7 +408,7 @@ class SetStatusDialogFragment :
     override fun onClick(predefinedStatus: PredefinedStatus) {
         selectedPredefinedMessageId = predefinedStatus.id
         clearAt = clearAtToUnixTime(predefinedStatus.clearAt)
-        emoji.setText(predefinedStatus.icon)
+        binding.emoji.setText(predefinedStatus.icon)
         binding.customStatusInput.text?.clear()
         binding.customStatusInput.text?.append(predefinedStatus.message)
 
