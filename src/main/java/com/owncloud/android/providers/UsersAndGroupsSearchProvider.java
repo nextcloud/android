@@ -406,6 +406,11 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         // create a file to write bitmap data
         File f = new File(getContext().getCacheDir(), "test");
         try {
+            if (f.exists()) {
+                if (!f.delete()) {
+                    throw new IllegalStateException("Existing file could not be deleted!");
+                }
+            }
             if (!f.createNewFile()) {
                 throw new IllegalStateException("File could not be created!");
             }
