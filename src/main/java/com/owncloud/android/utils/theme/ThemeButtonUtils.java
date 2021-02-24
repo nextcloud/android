@@ -32,6 +32,7 @@ import android.widget.ImageButton;
 import com.owncloud.android.R;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 /**
@@ -64,7 +65,25 @@ public final class ThemeButtonUtils {
         }
     }
 
-    public static void themeBorderlessButton(int primaryColor, Button... buttons) {
+    /**
+     * theme buttons based on accent color.
+     *
+     * @param buttons borderless buttons to be themed
+     */
+    public static void themeBorderlessButton(@Nullable Button... buttons) {
+        if (buttons == null || buttons.length < 1) {
+            return;
+        }
+        themeBorderlessButton(ThemeColorUtils.primaryAccentColor(buttons[0].getContext()), buttons);
+    }
+
+    /**
+     * theme buttons based on given color.
+     *
+     * @param color   theme color
+     * @param buttons borderless buttons to be themed
+     */
+    public static void themeBorderlessButton(int color, @Nullable Button... buttons) {
         if (buttons == null || buttons.length < 1) {
             return;
         }
@@ -76,7 +95,7 @@ public final class ThemeButtonUtils {
                 new int[]{-android.R.attr.state_enabled}, // disabled
             },
             new int[]{
-                primaryColor,
+                color,
                 disabledColor
             }
         );

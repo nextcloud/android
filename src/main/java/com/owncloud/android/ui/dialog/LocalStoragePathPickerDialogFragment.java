@@ -33,7 +33,6 @@ import com.owncloud.android.ui.adapter.StoragePathAdapter;
 import com.owncloud.android.ui.adapter.StoragePathItem;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -82,8 +81,7 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        ThemeButtonUtils.themeBorderlessButton(ThemeColorUtils.primaryAccentColor(getContext()),
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
+        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
     }
 
     @Override

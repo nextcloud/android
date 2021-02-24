@@ -113,8 +113,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-        ThemeButtonUtils.themeBorderlessButton(ThemeColorUtils.primaryAccentColor(getContext()),
-                                               positiveButton,
+        ThemeButtonUtils.themeBorderlessButton(positiveButton,
                                                neutralButton);
 
         task = new DownloadKeysAsyncTask();
@@ -412,9 +411,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         positiveButton.setVisibility(View.VISIBLE);
 
         neutralButton.setVisibility(View.VISIBLE);
-        ThemeButtonUtils.themeBorderlessButton(ThemeColorUtils.primaryAccentColor(getContext()),
-                                               positiveButton,
-                                               neutralButton);
+        ThemeButtonUtils.themeBorderlessButton(positiveButton, neutralButton);
 
         keyResult = KEY_GENERATE;
     }

@@ -81,8 +81,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        ThemeButtonUtils.themeBorderlessButton(ThemeColorUtils.primaryAccentColor(getContext()),
-                                               alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
                                                alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
     }
 
