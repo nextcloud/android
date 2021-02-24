@@ -623,7 +623,7 @@ public class FileDownloader extends Service
         }
 
         if (!downloadResult.isCancelled()) {
-            if(downloadResult.isSuccess()){
+            if (downloadResult.isSuccess()) {
                 // Dont show notification except an error has occured.
                 return;
             }

@@ -827,7 +827,7 @@ public class FileUploader extends Service
             }
 
             mNotificationBuilder.setContentText(content);
-            if(!uploadResult.isSuccess()){
+            if (!uploadResult.isSuccess()) {
                 mNotificationManager.notify((new SecureRandom()).nextInt(), mNotificationBuilder.build());
             }
 
