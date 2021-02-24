@@ -90,6 +90,7 @@
     <string name="checkbox">核取方塊</string>
     <string name="choose_local_folder">選擇本機資料夾……</string>
     <string name="choose_remote_folder">選擇遠端資料夾……</string>
+    <string name="choose_template_helper_text">請選擇範本並輸入檔案名稱。</string>
     <string name="choose_which_file">選擇要保留哪個檔案！</string>
     <string name="clear_notifications_failed">清空通知訊息失敗</string>
     <string name="clear_status_message">清空狀態訊息</string>
@@ -174,6 +175,7 @@
     <string name="could_not_download_image">無法下載完整圖片</string>
     <string name="could_not_retrieve_shares">無法從雲端取得共用</string>
     <string name="could_not_retrieve_url">不能取得網址</string>
+    <string name="create">建立</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
     <string name="create_new">建立新的</string>
     <string name="create_new_document">新增文件</string>
@@ -578,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">日曆與通訊錄</string>
     <string name="screenshot_06_davdroid_subline">使用 DAVx5 同步</string>
     <string name="select_all">全選</string>
+    <string name="select_one_template">請選取一個範本</string>
     <string name="select_template">選取範本</string>
     <string name="send">傳送</string>
     <string name="send_note">傳留言給接收者</string>

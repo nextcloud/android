@@ -90,6 +90,7 @@
     <string name="checkbox">Флажок</string>
     <string name="choose_local_folder">Выберите каталог на устройстве…</string>
     <string name="choose_remote_folder">Выберите каталог на сервере…</string>
+    <string name="choose_template_helper_text">Пожалуйста, выберите шаблон и введите имя файла.</string>
     <string name="choose_which_file">Выберите какой файл оставить!</string>
     <string name="clear_notifications_failed">Не удалось удалить уведомления.</string>
     <string name="clear_status_message">Очистить сообщение о состоянии</string>
@@ -174,6 +175,7 @@
     <string name="could_not_download_image">Не удалось скачать полноразмерное изображение</string>
     <string name="could_not_retrieve_shares">Не удалось получить перечень общих ресурсов</string>
     <string name="could_not_retrieve_url">Не удалось получить URL</string>
+    <string name="create">Создать</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
     <string name="create_new">Создать</string>
     <string name="create_new_document">Создать документ</string>
@@ -578,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">Календарь и контакты</string>
     <string name="screenshot_06_davdroid_subline">Синхронизация с DAVx5</string>
     <string name="select_all">Выбрать все</string>
+    <string name="select_one_template">Пожалуйста, выберите один шаблон</string>
     <string name="select_template">Выбрать шаблон</string>
     <string name="send">Отправить</string>
     <string name="send_note">Отправить примечание получателю</string>

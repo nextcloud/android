@@ -90,6 +90,7 @@
     <string name="checkbox">Casella di selezione</string>
     <string name="choose_local_folder">Scegli la cartella locale…</string>
     <string name="choose_remote_folder">Scegli la cartella remota…</string>
+    <string name="choose_template_helper_text">Scegli un modello ed inserisci un nome del file.</string>
     <string name="choose_which_file">Scegli quale file mantenere!</string>
     <string name="clear_notifications_failed">Cancellazione notifiche non riuscita.</string>
     <string name="clear_status_message">Cancella il messaggio di stato</string>
@@ -174,6 +175,7 @@
     <string name="could_not_download_image">Impossibile scaricare l\'immagine completa</string>
     <string name="could_not_retrieve_shares">Impossibile recuperare le condivisioni</string>
     <string name="could_not_retrieve_url">Impossibile recuperare l\'URL</string>
+    <string name="create">Crea</string>
     <string name="create_dir_fail_msg">Impossibile creare la cartella</string>
     <string name="create_new">Crea nuovo</string>
     <string name="create_new_document">Crea nuovo documento</string>
@@ -578,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">Calendario e contatti</string>
     <string name="screenshot_06_davdroid_subline">Sincronizza con DAVx5</string>
     <string name="select_all">Seleziona tutto</string>
+    <string name="select_one_template">Scegli un modello</string>
     <string name="select_template">Seleziona modello</string>
     <string name="send">Invia</string>
     <string name="send_note">Invia nota a destinatario</string>
