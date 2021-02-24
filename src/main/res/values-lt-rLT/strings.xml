@@ -91,6 +91,7 @@
     <string name="checkbox">Žymimasis langelis</string>
     <string name="choose_local_folder">Pasirinkite aplanką ...</string>
     <string name="choose_remote_folder">Pasirinkti nuotolinį aplanką…</string>
+    <string name="choose_template_helper_text">Pasirinkite šabloną ir įveskite failo pavadinimą.</string>
     <string name="choose_which_file">Pasirinkite, kurį failą laikyti!</string>
     <string name="clear_notifications_failed">Nepavyko išvalyti pranešimų.</string>
     <string name="clear_status_message">Išvalyti būsenos žinutę</string>
@@ -175,6 +176,7 @@
     <string name="could_not_download_image">Nepavyko atsisiųsti viso paveikslo</string>
     <string name="could_not_retrieve_shares">Nepavyko gauti viešinių</string>
     <string name="could_not_retrieve_url">Nepavyko nuskaityti URL</string>
+    <string name="create">Sukurti</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
     <string name="create_new">Sukurti naują</string>
     <string name="create_new_document">Sukurti naują dokumentą</string>
@@ -195,6 +197,7 @@
     <string name="dev_version_no_new_version_available">Nauja versija neprieinama.</string>
     <string name="dialog_close">Uždaryti</string>
     <string name="digest_algorithm_not_available">Tavo telefonas nepalaiko digest algoritmo.</string>
+    <string name="direct_login_failed">Prisijungimas per tiesioginę nuorodą nepavyko!</string>
     <string name="disable_new_media_folder_detection_notifications">Išjungti</string>
     <string name="dismiss">Atmesti</string>
     <string name="dismiss_notification_description">Atmesti pranešimą</string>
@@ -579,6 +582,7 @@
     <string name="screenshot_06_davdroid_heading">Kalendorius ir adresatai</string>
     <string name="screenshot_06_davdroid_subline">Sinchronizacija su DAVx5</string>
     <string name="select_all">Pažymėti viską</string>
+    <string name="select_one_template">Pasirinkite vieną šabloną</string>
     <string name="select_template">Pasirinkite šabloną</string>
     <string name="send">Siųsti</string>
     <string name="send_note">Siųsti pastabą gavėjui</string>

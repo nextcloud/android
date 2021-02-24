@@ -90,6 +90,7 @@
     <string name="checkbox">Pole checkbox</string>
     <string name="choose_local_folder">Wybierz katalog lokalny…</string>
     <string name="choose_remote_folder">Wybierz katalog zdalny…</string>
+    <string name="choose_template_helper_text">Wybierz szablon i wprowadź nazwę pliku.</string>
     <string name="choose_which_file">Wybierz, który plik chcesz zachować!</string>
     <string name="clear_notifications_failed">Wyczyszczenie powiadomień nie powiodło się.</string>
     <string name="clear_status_message">Wyczyść komunikat statusu</string>
@@ -174,6 +175,7 @@
     <string name="could_not_download_image">Nie można pobrać pełnego obrazu</string>
     <string name="could_not_retrieve_shares">Nie udało się pobrać udziałów</string>
     <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
+    <string name="create">Utwórz</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć katalogu</string>
     <string name="create_new">Utwórz nowy</string>
     <string name="create_new_document">Utwórz nowy dokument</string>
@@ -578,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">Kontakty kalendarza &amp;</string>
     <string name="screenshot_06_davdroid_subline">Synchronizuj z DAVx5</string>
     <string name="select_all">Wybierz wszystko</string>
+    <string name="select_one_template">Wybierz jeden szablon</string>
     <string name="select_template">Wybierz szablon</string>
     <string name="send">Wyślij</string>
     <string name="send_note">Wyślij notatkę do odbiorcy</string>

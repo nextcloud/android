@@ -84,11 +84,13 @@
     <string name="battery_optimization_message">Tu dispositivo puede tener activada la optimización de batería. La subida automática solo funciona bien si excluyes  de ahí esta app</string>
     <string name="battery_optimization_no_setting">No se puede ir directamente a la configuración de batería. Por favor, ajústalo manualmente en tu configuración</string>
     <string name="battery_optimization_title">Optimización de batería</string>
+    <string name="brute_force_delay">Retrasado debido a los muchos intentos fallidos</string>
     <string name="certificate_load_problem">Existe un problema al cargar el certificado.</string>
     <string name="changelog_dev_version">Historial de cambios de la versión de desarroll</string>
     <string name="checkbox">Casilla de verificación</string>
     <string name="choose_local_folder">Seleccione carpeta local…</string>
     <string name="choose_remote_folder">Selecciona carpeta remota…</string>
+    <string name="choose_template_helper_text">Por favor, elije una plantilla e introduce un nombre de archivo.</string>
     <string name="choose_which_file">¡Elije que archivos mantener!</string>
     <string name="clear_notifications_failed">Fallo al limpiar notificaciones.</string>
     <string name="clear_status_message">Borrar mensaje de estado</string>
@@ -173,6 +175,7 @@
     <string name="could_not_download_image">No se ha podido descargar la imagen completa</string>
     <string name="could_not_retrieve_shares">No se han podido recuperar los recursos compartidos</string>
     <string name="could_not_retrieve_url">No se ha podido recuperar la URL</string>
+    <string name="create">Crear</string>
     <string name="create_dir_fail_msg">No se ha podido crear la carpeta</string>
     <string name="create_new">Crear nuevo</string>
     <string name="create_new_document">Crear nuevo documento</string>
@@ -577,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">Calendario y contactos</string>
     <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx5</string>
     <string name="select_all">Seleccionar todo</string>
+    <string name="select_one_template">Por favor, selecciona una plantilla</string>
     <string name="select_template">Escoge plantilla</string>
     <string name="send">Mandar</string>
     <string name="send_note">Enviar nota al destinatario</string>

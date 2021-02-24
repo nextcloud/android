@@ -90,6 +90,7 @@
     <string name="checkbox">Caixa de selección</string>
     <string name="choose_local_folder">Escoller cartafol local…</string>
     <string name="choose_remote_folder">Escoller cartafol remoto…</string>
+    <string name="choose_template_helper_text">Escolla un modelo e introduza un nome de ficheiro.</string>
     <string name="choose_which_file">Escolla o ficheiro que quere conservar.</string>
     <string name="clear_notifications_failed">Produciuse un fallo ao limpar as notificacións.</string>
     <string name="clear_status_message">Limpar a mensaxe de estado</string>
@@ -174,6 +175,7 @@
     <string name="could_not_download_image">Non foi posíbel descargar a imaxe completa</string>
     <string name="could_not_retrieve_shares">Non foi posíbel recuperar as comparticións</string>
     <string name="could_not_retrieve_url">Non foi posíbel recuperar o URL</string>
+    <string name="create">Crear</string>
     <string name="create_dir_fail_msg">Non foi posíbel crear o cartafol</string>
     <string name="create_new">Crear novo</string>
     <string name="create_new_document">Crear un documento novo</string>
@@ -579,6 +581,7 @@
     <string name="screenshot_06_davdroid_heading">Calendario e contactos</string>
     <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx5</string>
     <string name="select_all">Seleccionar todo</string>
+    <string name="select_one_template">Seleccione un modelo</string>
     <string name="select_template">Seleccionar o modelo</string>
     <string name="send">Enviar</string>
     <string name="send_note">Enviar nota o destinatario</string>
