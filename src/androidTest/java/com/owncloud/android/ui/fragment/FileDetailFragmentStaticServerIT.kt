@@ -49,6 +49,8 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
         sut.addFragment(FileDetailActivitiesFragment.newInstance(file, user))
 
         waitForIdleSync()
+        shortSleep()
+        shortSleep()
         screenshot(sut)
     }
 
@@ -59,6 +61,8 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
         sut.addFragment(FileDetailSharingFragment.newInstance(file, user))
 
         waitForIdleSync()
+        shortSleep()
+        shortSleep()
         screenshot(sut)
     }
 
@@ -128,6 +132,8 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
             sut.fileDetailActivitiesFragment.populateList(activities as List<Any>?, true)
         }
 
+        shortSleep()
+        shortSleep()
         screenshot(activity)
     }
 
@@ -145,7 +151,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
         }
 
         shortSleep()
-
+        shortSleep()
         screenshot(activity)
     }
 
@@ -166,7 +172,6 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
 
         shortSleep()
         shortSleep()
-
         screenshot(activity)
     }
 
@@ -177,6 +182,9 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
         sut.addFragment(FileDetailFragment.newInstance(file, user, 1))
 
         waitForIdleSync()
+
+        shortSleep()
+        shortSleep()
         screenshot(sut)
     }
 }
