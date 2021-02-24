@@ -121,7 +121,6 @@
     <string name="common_save">Save</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Loading…</string>
-    <string name="common_unknown">unknown</string>
     <string name="common_error_unknown">Unknown error</string>
     <string name="common_pending">Pending</string>
     <string name="common_delete">Delete</string>
