@@ -86,14 +86,6 @@ spotbugs {
     toolVersion = '3.1.12'
 }
 
-configurations.all {
-    resolutionStrategy {
-        cacheChangingModulesFor 0, 'seconds'
-        force 'org.objenesis:objenesis:2.6'
-    }
-
-}
-
 tasks.withType(Test) {
     // increased logging for tests
     testLogging {
