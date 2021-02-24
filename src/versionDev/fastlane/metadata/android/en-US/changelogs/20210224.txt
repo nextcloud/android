@@ -1,0 +1,4 @@
+Try to fetch avatar only if sharee type is "federated"
+user search: when reusing temp file, we first need to delete it
+Update Nextcloud Android library
+Update 3rd-party dependencies
