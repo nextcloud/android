@@ -39,7 +39,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeCheckableUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -114,7 +115,7 @@ public class ConflictsResolveDialog extends DialogFragment {
             return;
         }
 
-        int color = ThemeUtils.primaryAccentColor(getContext());
+        int color = ThemeColorUtils.primaryAccentColor(getContext());
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         setPositiveButtonStatus(false);
 
@@ -153,8 +154,9 @@ public class ConflictsResolveDialog extends DialogFragment {
         // Inflate the layout for the dialog
         binding = ConflictResolveDialogBinding.inflate(requireActivity().getLayoutInflater());
 
-        ThemeUtils.tintCheckbox(binding.newCheckbox, ThemeUtils.primaryColor(getContext()));
-        ThemeUtils.tintCheckbox(binding.existingCheckbox, ThemeUtils.primaryColor(getContext()));
+        ThemeCheckableUtils.tintCheckbox(ThemeColorUtils.primaryColor(getContext()),
+                                         binding.newCheckbox,
+                                         binding.existingCheckbox);
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -227,7 +229,7 @@ public class ConflictsResolveDialog extends DialogFragment {
 
     private void setPositiveButtonStatus(boolean enabled) {
         if (enabled) {
-            positiveButton.setTextColor(ThemeUtils.primaryAccentColor(requireContext()));
+            positiveButton.setTextColor(ThemeColorUtils.primaryAccentColor(requireContext()));
         } else {
             positiveButton.setTextColor(ResourcesCompat.getColor(requireContext().getResources(),
                                                                  R.color.grey_200,

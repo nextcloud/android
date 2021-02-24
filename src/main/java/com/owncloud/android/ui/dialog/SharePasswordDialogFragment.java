@@ -35,7 +35,8 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -66,8 +67,8 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
         if (alertDialog != null) {
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryAccentColor(getContext()));
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryAccentColor(getContext()));
             alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
                 .setTextColor(getResources().getColor(R.color.highlight_textColor_Warning));
         }
@@ -136,9 +137,9 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
 
         // Setup layout
         binding.sharePassword.setText("");
-        ThemeUtils.colorTextInput(binding.sharePasswordContainer,
-                                  binding.sharePassword,
-                                  ThemeUtils.primaryColor(getActivity()));
+        ThemeTextInputUtils.colorTextInput(binding.sharePasswordContainer,
+                                           binding.sharePassword,
+                                           ThemeColorUtils.primaryColor(getActivity()));
         binding.sharePassword.requestFocus();
 
         int title;

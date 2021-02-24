@@ -88,8 +88,11 @@ import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.ThemeUtils;
 import com.owncloud.android.utils.svg.MenuSimpleTarget;
+import com.owncloud.android.utils.theme.ThemeBarUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ThemeMenuUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -254,8 +257,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         Drawable backArrow = ResourcesCompat.getDrawable(getResources(),
                                                          R.drawable.ic_arrow_back,
                                                          null);
-        mDrawerToggle.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.appBarPrimaryFontColor(this)));
-        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.appBarPrimaryFontColor(this));
+        mDrawerToggle.setHomeAsUpIndicator(
+            ThemeDrawableUtils.tintDrawable(backArrow, ThemeColorUtils.appBarPrimaryFontColor(this)));
+        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeColorUtils.appBarPrimaryFontColor(this));
     }
 
     /**
@@ -266,14 +270,14 @@ public abstract class DrawerActivity extends ToolbarActivity
         mQuotaProgressBar = (ProgressBar) findQuotaViewById(R.id.drawer_quota_ProgressBar);
         mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
         mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
-        ThemeUtils.colorProgressBar(mQuotaProgressBar, ThemeUtils.primaryColor(this));
+        ThemeBarUtils.colorProgressBar(mQuotaProgressBar, ThemeColorUtils.primaryColor(this));
     }
 
     /**
      * setup drawer header, basically the logo color
      */
     private void setupDrawerHeader(FrameLayout drawerHeader) {
-        drawerHeader.setBackgroundColor(ThemeUtils.primaryColor(getAccount(), true, this));
+        drawerHeader.setBackgroundColor(ThemeColorUtils.primaryColor(getAccount(), true, this));
     }
 
     /**
@@ -604,7 +608,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         mQuotaProgressBar.setProgress(relative);
 
-        ThemeUtils.colorProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
+        ThemeBarUtils.colorProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
 
         updateQuotaLink();
         showQuota(true);
@@ -692,7 +696,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             mCheckedMenuItem = menuItemId;
             MenuItem currentItem = mNavigationView.getMenu().findItem(menuItemId);
             int drawerColor = getResources().getColor(R.color.drawer_text_color);
-            int activeColor = ThemeUtils.primaryColor(null, true, true, this);
+            int activeColor = ThemeColorUtils.primaryColor(null, true, true, this);
 
             currentItem.setChecked(true);
 
@@ -701,11 +705,11 @@ public abstract class DrawerActivity extends ToolbarActivity
                 MenuItem menuItem = mNavigationView.getMenu().getItem(i);
                 if (menuItem.getIcon() != null) {
                     if (menuItem == currentItem) {
-                        ThemeUtils.tintDrawable(currentItem.getIcon(), activeColor);
-                        ThemeUtils.tintMenuItemText(currentItem, activeColor);
+                        ThemeDrawableUtils.tintDrawable(currentItem.getIcon(), activeColor);
+                        ThemeMenuUtils.tintMenuItemText(currentItem, activeColor);
                     } else {
-                        ThemeUtils.tintDrawable(menuItem.getIcon(), drawerColor);
-                        ThemeUtils.tintMenuItemText(menuItem, drawerColor);
+                        ThemeDrawableUtils.tintDrawable(menuItem.getIcon(), drawerColor);
+                        ThemeMenuUtils.tintMenuItemText(menuItem, drawerColor);
                     }
                 }
             }
@@ -811,7 +815,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         if (menuItem != null) {
             if (drawable != null) {
-                menuItem.setIcon(ThemeUtils.tintDrawable(drawable, greyColor));
+                menuItem.setIcon(ThemeDrawableUtils.tintDrawable(drawable, greyColor));
             } else {
                 menuItem.setIcon(R.drawable.ic_link);
             }

@@ -37,7 +37,7 @@ import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -69,7 +69,7 @@ public class RenamePublicShareDialogFragment
     public void onStart() {
         super.onStart();
 
-        int color = ThemeUtils.primaryAccentColor(getContext());
+        int color = ThemeColorUtils.primaryAccentColor(getContext());
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
@@ -82,7 +82,7 @@ public class RenamePublicShareDialogFragment
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
+        int accentColor = ThemeColorUtils.primaryAccentColor(getContext());
         publicShare = requireArguments().getParcelable(ARG_PUBLIC_SHARE);
 
         // Inflate the layout for the dialog
@@ -95,7 +95,7 @@ public class RenamePublicShareDialogFragment
         inputText.setText(publicShare.getLabel());
         inputText.requestFocus();
         inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
-        inputText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
+        inputText.setHighlightColor(ThemeColorUtils.primaryColor(getActivity()));
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());

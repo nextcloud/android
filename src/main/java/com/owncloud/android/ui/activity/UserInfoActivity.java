@@ -59,7 +59,8 @@ import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -136,10 +137,11 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
-            ThemeUtils.tintBackButton(actionBar, this);
+            ThemeToolbarUtils.tintBackButton(actionBar, this);
         }
 
-        binding.userinfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount(), true, this)));
+        binding.userinfoList.setAdapter(
+            new UserInfoAdapter(null, ThemeColorUtils.primaryColor(getAccount(), true, this)));
 
         if (userInfo != null) {
             populateUserInfoUi(userInfo);
@@ -210,7 +212,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             if (backgroundImageView != null) {
 
                 String background = getStorageManager().getCapability(user.getAccountName()).getServerBackground();
-                int primaryColor = ThemeUtils.primaryColor(getAccount(), false, this);
+                int primaryColor = ThemeColorUtils.primaryColor(getAccount(), false, this);
 
                 if (URLUtil.isValidUrl(background)) {
                     // background image
@@ -258,7 +260,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
                                binding.userinfoIcon,
                                this);
 
-        int tint = ThemeUtils.primaryColor(user.toPlatformAccount(), true, this);
+        int tint = ThemeColorUtils.primaryColor(user.toPlatformAccount(), true, this);
 
         if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
             binding.userinfoFullName.setText(userInfo.getDisplayName());

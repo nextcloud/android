@@ -35,7 +35,7 @@ import com.owncloud.android.databinding.TemplateButtonBinding;
 import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.utils.NextcloudServer;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
         this.context = context;
         this.currentAccountProvider = currentAccountProvider;
         this.clientFactory = clientFactory;
-        colorSelected = ThemeUtils.primaryColor(context, true);
+        colorSelected = ThemeColorUtils.primaryColor(context, true);
         colorUnselected = context.getResources().getColor(R.color.grey_200);
     }
 
