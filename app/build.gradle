@@ -18,16 +18,6 @@ def versionMinor = 16
 def versionPatch = 0
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
-for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
-    for (String arg : tr.args) {
-        // any gplay, but only exact "build", as e.g. buildGeneric shall not apply gplay.grade
-        if (arg.contains("Gplay") || arg.contains("lint") || arg.contains("ExecuteScreenshot") || arg == "build") {
-            apply from: 'gplay.gradle'
-            System.console().println("Applying gplay.gradle")
-        }
-    }
-}
-
 android {
     lintOptions {
         checkGeneratedSources = true
@@ -211,6 +201,9 @@ dependencies {
     gplayImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     versionDevImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     qaImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
+
+    // upon each update first test: new registration, receive push
+    gplayImplementation "com.google.firebase:firebase-messaging:20.1.3"
 
     kapt 'javax.xml.bind:jaxb-api:2.3.1'
     kapt 'org.glassfish.jaxb:jaxb-core:2.3.0.1'
