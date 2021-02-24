@@ -716,4 +716,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         SearchView searchView = getView().findViewById(R.id.searchView);
         searchView.setQuery(query, true);
     }
+
+    public OCFile getFile() {
+        return file;
+    }
 }
