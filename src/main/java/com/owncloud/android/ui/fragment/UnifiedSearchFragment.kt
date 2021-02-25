@@ -110,7 +110,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
 
     override fun onPause() {
         super.onPause()
-        //photoSearchTask?.cancel(true)
+        // photoSearchTask?.cancel(true)
     }
 
     override fun onDestroyView() {

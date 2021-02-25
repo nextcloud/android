@@ -1,5 +1,4 @@
 /*
- *
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
@@ -53,7 +52,8 @@ class UnifiedSearchFragmentIT : AbstractIT() {
                         "Files",
                         false,
                         listOf(
-                            SearchResultEntry("thumbnailUrl",
+                            SearchResultEntry(
+                                "thumbnailUrl",
                                 "Test",
                                 "in /Files/",
                                 "resourceUrl",

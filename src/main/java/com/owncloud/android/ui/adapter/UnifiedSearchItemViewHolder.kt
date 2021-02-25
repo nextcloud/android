@@ -36,12 +36,14 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader
 
-class UnifiedSearchItemViewHolder(val binding: UnifiedSearchItemBinding,
-                                  val user: User,
-                                  val clientFactory: ClientFactory,
-                                  private val storageManager: FileDataStorageManager,
-                                  private val listInterface: UnifiedSearchListInterface,
-                                  val context: Context) :
+class UnifiedSearchItemViewHolder(
+    val binding: UnifiedSearchItemBinding,
+    val user: User,
+    val clientFactory: ClientFactory,
+    private val storageManager: FileDataStorageManager,
+    private val listInterface: UnifiedSearchListInterface,
+    val context: Context
+) :
     SectionedViewHolder(binding.root) {
 
     fun bind(entry: SearchResultEntry) {

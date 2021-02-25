@@ -58,7 +58,8 @@ class UnifiedSearchViewModel() : ViewModel() {
         runner: AsyncRunner,
         clientFactory: ClientFactory,
         resources: Resources,
-        context: Context) : this() {
+        context: Context
+    ) : this() {
         this.currentAccountProvider = currentAccountProvider
         this.runner = runner
         this.clientFactory = clientFactory
@@ -94,7 +95,6 @@ class UnifiedSearchViewModel() : ViewModel() {
             repository.loadMore(queryTerm, this)
         }
     }
-
 
     fun openFile(fileUrl: String) {
         if (isLoading.value == false) {
@@ -154,7 +154,7 @@ class UnifiedSearchViewModel() : ViewModel() {
         isLoading.value = false
         if (result.success) {
             // unifiedSearchFragment.showFile(result.file)
-            //(file as MutableLiveData).value = result.file
+            // (file as MutableLiveData).value = result.file
         } else {
             error.value = "Error showing search result"
         }

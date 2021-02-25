@@ -39,20 +39,31 @@ class UnifiedSearchLocalRepository : IUnifiedSearchRepository {
     }
 
     override fun loadMore(query: String, vm: UnifiedSearchViewModel) {
-        val result = SearchOnProviderTask.Result(true, SearchResult("files", false, listOf(SearchResultEntry
-        ("thumbnailUrl",
-            "Test",
-            "in Files",
-            "http://localhost/nc/index.php/apps/files/?dir=/Files&scrollto=Test",
-            "icon",
-            false),
-            SearchResultEntry
-            ("thumbnailUrl",
-                "Test1",
-                "in Folder",
-                "http://localhost/nc/index.php/apps/files/?dir=/folder&scrollto=test1.txt",
-                "icon",
-                false))))
+        val result = SearchOnProviderTask.Result(
+            true,
+            SearchResult(
+                "files",
+                false,
+                listOf(
+                    SearchResultEntry(
+                        "thumbnailUrl",
+                        "Test",
+                        "in Files",
+                        "http://localhost/nc/index.php/apps/files/?dir=/Files&scrollto=Test",
+                        "icon",
+                        false
+                    ),
+                    SearchResultEntry(
+                        "thumbnailUrl",
+                        "Test1",
+                        "in Folder",
+                        "http://localhost/nc/index.php/apps/files/?dir=/folder&scrollto=test1.txt",
+                        "icon",
+                        false
+                    )
+                )
+            )
+        )
         vm.onSearchResult(result)
         Log_OC.d(this, "loadMore")
     }

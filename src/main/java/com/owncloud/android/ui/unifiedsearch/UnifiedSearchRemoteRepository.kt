@@ -1,5 +1,4 @@
 /*
- *
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
@@ -27,10 +26,11 @@ import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 
-
-class UnifiedSearchRemoteRepository(private val clientFactory: ClientFactory,
-                                    private val currentAccountProvider: CurrentAccountProvider,
-                                    private val asyncRunner: AsyncRunner) : IUnifiedSearchRepository {
+class UnifiedSearchRemoteRepository(
+    private val clientFactory: ClientFactory,
+    private val currentAccountProvider: CurrentAccountProvider,
+    private val asyncRunner: AsyncRunner
+) : IUnifiedSearchRepository {
     override fun refresh() {
         TODO("Not yet implemented")
     }
