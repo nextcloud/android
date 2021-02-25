@@ -95,7 +95,7 @@ class EtmActivity : ToolbarActivity(), Injectable {
     }
 
     @VisibleForTesting
-    fun getSharedPreferences() : SharedPreferences{
+    fun getSharedPreferences(): SharedPreferences {
         return vm.defaultPreferences
     }
 }
