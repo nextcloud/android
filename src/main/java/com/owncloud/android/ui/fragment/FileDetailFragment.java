@@ -232,7 +232,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities).setIcon(R.drawable.ic_activity));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.shared_via_users));
 
-        ThemeLayoutUtils.colorTabLayout(getContext(), binding.tabLayout);
+        ThemeLayoutUtils.colorTabLayout(getContext().getApplicationContext(), binding.tabLayout);
 
         final FileDetailTabAdapter adapter = new FileDetailTabAdapter(getFragmentManager(), getFile(), user);
         binding.pager.setAdapter(adapter);
