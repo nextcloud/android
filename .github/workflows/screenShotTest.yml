@@ -35,7 +35,11 @@ jobs:
                     emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
                     script: ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.COLOR=${{ matrix.color }} -Pandroid.testInstrumentationRunnerArguments.DARKMODE=${{ matrix.scheme }}
             -   name: upload failing results
+                uses: actions/upload-artifact@master
                 if: ${{ failure() }}
+                with:
+                    name: Nextcloud-logcat
+                    path: artifacts/logcat.log
                 env:
                     LOG_USERNAME: ${{ secrets.LOG_USERNAME }}
                     LOG_PASSWORD: ${{ secrets.LOG_PASSWORD }}
@@ -43,3 +47,4 @@ jobs:
                     GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
                 run:
                     scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} "$GIT_USERNAME" "$GIT_TOKEN"
+
