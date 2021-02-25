@@ -188,7 +188,7 @@
     <string name="delete_account_warning">移除帳號%s並刪除所有本地檔案?\n\n刪除後將無法恢復。</string>
     <string name="delete_entries">刪除條目</string>
     <string name="deselect_all">取消全選</string>
-    <string name="dev_version_new_version_available">有新版本</string>
+    <string name="dev_version_new_version_available">有新版本可用</string>
     <string name="dev_version_no_information_available">沒有資訊。</string>
     <string name="dev_version_no_new_version_available">沒有新版本。</string>
     <string name="dialog_close">關閉</string>
