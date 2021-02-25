@@ -33,7 +33,8 @@ import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.LogsActivityBinding
 import com.owncloud.android.ui.activity.ToolbarActivity
-import com.owncloud.android.utils.ThemeUtils
+import com.owncloud.android.utils.theme.ThemeBarUtils
+import com.owncloud.android.utils.theme.ThemeToolbarUtils
 import javax.inject.Inject
 
 class LogsActivity : ToolbarActivity() {
@@ -64,7 +65,7 @@ class LogsActivity : ToolbarActivity() {
         }
 
         findViewById<ProgressBar>(R.id.logs_loading_progress).apply {
-            ThemeUtils.themeProgressBar(context, this)
+            ThemeBarUtils.themeProgressBar(context, this)
         }
 
         logsAdapter = LogsAdapter(this)
@@ -78,9 +79,9 @@ class LogsActivity : ToolbarActivity() {
 
         setupToolbar()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.apply { ThemeUtils.setColoredTitle(this, getString(R.string.logs_title), baseContext) }
+        supportActionBar?.apply { ThemeToolbarUtils.setColoredTitle(this, getString(R.string.logs_title), baseContext) }
 
-        ThemeUtils.tintBackButton(supportActionBar, baseContext)
+        ThemeToolbarUtils.tintBackButton(supportActionBar, baseContext)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -88,7 +89,7 @@ class LogsActivity : ToolbarActivity() {
         (menu.findItem(R.id.action_search).actionView as SearchView).apply {
             setOnQueryTextListener(searchBoxListener)
 
-            ThemeUtils.themeSearchView(this, context)
+            ThemeToolbarUtils.themeSearchView(this, context)
         }
         return super.onCreateOptionsMenu(menu)
     }

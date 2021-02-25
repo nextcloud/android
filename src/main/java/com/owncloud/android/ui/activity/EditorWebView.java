@@ -45,7 +45,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,7 +94,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                                                                     R.string.timeout_richDocuments, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.common_back, v -> closeView());
 
-                    ThemeUtils.colorSnackbar(getApplicationContext(), snackbar);
+                    ThemeSnackbarUtils.colorSnackbar(getApplicationContext(), snackbar);
                     setLoadingSnackbar(snackbar);
                     snackbar.show();
                 }

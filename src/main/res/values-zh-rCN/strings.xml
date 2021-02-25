@@ -90,6 +90,7 @@
     <string name="checkbox">复选框</string>
     <string name="choose_local_folder">选择本地文件夹…</string>
     <string name="choose_remote_folder">选择远程文件夹…</string>
+    <string name="choose_template_helper_text">请选择一个模板并输入一个文件名</string>
     <string name="choose_which_file">选择保留的文件！</string>
     <string name="clear_notifications_failed">清除通知失败</string>
     <string name="clear_status_message">清除状态信息</string>
@@ -174,6 +175,7 @@
     <string name="could_not_download_image">无法下载完整图片</string>
     <string name="could_not_retrieve_shares">无法检索共享</string>
     <string name="could_not_retrieve_url">无法获取地址</string>
+    <string name="create">创建</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
     <string name="create_new">新建</string>
     <string name="create_new_document">新建文档</string>
@@ -578,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">日历和联系人</string>
     <string name="screenshot_06_davdroid_subline">与DAVx5同步</string>
     <string name="select_all">全部选择</string>
+    <string name="select_one_template">请选择一个模板</string>
     <string name="select_template">选择模板</string>
     <string name="send">发送</string>
     <string name="send_note">发送备注到收件人</string>

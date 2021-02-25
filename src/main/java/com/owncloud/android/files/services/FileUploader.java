@@ -77,9 +77,10 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.io.File;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -92,6 +93,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import dagger.android.AndroidInjection;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Service for uploading files. Invoke using context.startService(...).
@@ -231,7 +233,7 @@ public class FileUploader extends Service
             .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_upload))
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
-            .setColor(ThemeUtils.primaryColor(getApplicationContext(), true));
+            .setColor(ThemeColorUtils.primaryColor(getApplicationContext(), true));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
@@ -744,14 +746,13 @@ public class FileUploader extends Service
      * @param uploadResult Result of the upload operation.
      * @param upload       Finished upload operation
      */
+    @SuppressFBWarnings("DMI")
     private void notifyUploadResult(UploadFileOperation upload, RemoteOperationResult uploadResult) {
         Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.getCode());
         // cancelled operation or success -> silent removal of progress notification
         if (mNotificationManager == null) {
             mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         }
-
-        mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
 
         // Only notify if the upload fails
         if (!uploadResult.isCancelled() &&
@@ -826,7 +827,10 @@ public class FileUploader extends Service
             }
 
             mNotificationBuilder.setContentText(content);
-            mNotificationManager.notify(tickerId, mNotificationBuilder.build());
+            if (!uploadResult.isSuccess()) {
+                mNotificationManager.notify((new SecureRandom()).nextInt(), mNotificationBuilder.build());
+            }
+
         }
     }
 
@@ -1405,6 +1409,7 @@ public class FileUploader extends Service
                 }
             }
             Log_OC.d(TAG, "Stopping command after id " + msg.arg1);
+            mService.mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
             mService.stopForeground(true);
             mService.stopSelf(msg.arg1);
         }

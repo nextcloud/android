@@ -75,6 +75,7 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.glide.CustomGlideUriLoader;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.parceler.Parcels;
@@ -332,7 +333,7 @@ public final class DisplayUtils {
      */
     public static int getRelativeInfoColor(Context context, int relative) {
         if (relative < RELATIVE_THRESHOLD_WARNING) {
-            return ThemeUtils.primaryColor(context, true);
+            return ThemeColorUtils.primaryColor(context, true);
         } else {
             return context.getResources().getColor(R.color.infolevel_warning);
         }
@@ -522,7 +523,7 @@ public final class DisplayUtils {
         final ThumbnailsCacheManager.AvatarGenerationTask task =
             new ThumbnailsCacheManager.AvatarGenerationTask(listener,
                                                             callContext,
-                                                            user.toPlatformAccount(),
+                                                            user,
                                                             resources,
                                                             avatarRadius,
                                                             userId,

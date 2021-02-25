@@ -27,7 +27,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -128,7 +128,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
     public void onStart() {
         super.onStart();
 
-        int color = ThemeUtils.primaryAccentColor(getActivity());
+        int color = ThemeColorUtils.primaryAccentColor(getActivity());
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 

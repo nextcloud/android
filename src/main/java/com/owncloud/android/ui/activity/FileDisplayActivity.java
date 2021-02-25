@@ -117,7 +117,9 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -304,7 +306,7 @@ public class FileDisplayActivity extends FileActivity
                     .create();
 
                 alertDialog.show();
-                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor(this));
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryAccentColor(this));
             } catch (WindowManager.BadTokenException e) {
                 Log_OC.e(TAG, "Error showing wrong storage info, so skipping it: " + e.getMessage());
             }
@@ -325,7 +327,7 @@ public class FileDisplayActivity extends FileActivity
                                                   R.string.permission_storage_access,
                                                   Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.common_ok, v -> PermissionUtil.requestWriteExternalStoreagePermission(this));
-                ThemeUtils.colorSnackbar(this, snackbar);
+                ThemeSnackbarUtils.colorSnackbar(this, snackbar);
                 snackbar.show();
             } else {
                 // No explanation needed, request the permission.
@@ -767,7 +769,7 @@ public class FileDisplayActivity extends FileActivity
             searchView.setIconified(false);
         });
 
-        ThemeUtils.themeSearchView(searchView, this);
+        ThemeToolbarUtils.themeSearchView(searchView, this);
 
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(1);
@@ -1023,7 +1025,7 @@ public class FileDisplayActivity extends FileActivity
                 this,
                 streamsToUpload,
                 remotePath,
-                getAccount(),
+                getUser().orElseThrow(RuntimeException::new),
                 behaviour,
                 false, // Not show waiting dialog while file is being copied from private storage
                 null  // Not needed copy temp task listener
@@ -1147,6 +1149,17 @@ public class FileDisplayActivity extends FileActivity
         // Instead of onPostCreate, starting the loading in onResume for children fragments
         Fragment leftFragment = getLeftFragment();
 
+        // Listen for sync messages
+        if (!(leftFragment instanceof OCFileListFragment) || !((OCFileListFragment) leftFragment).isSearchFragment()) {
+            IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
+            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
+            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
+            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
+            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
+            mSyncBroadcastReceiver = new SyncBroadcastReceiver();
+            localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+        }
+
         if (!(leftFragment instanceof OCFileListFragment)) {
             return;
         }
@@ -1171,17 +1184,6 @@ public class FileDisplayActivity extends FileActivity
         } else {
             ocFileListFragment.listDirectory(startFile, false, false);
             updateActionBarTitleAndHomeButton(startFile);
-        }
-
-        // Listen for sync messages
-        if (!ocFileListFragment.isSearchFragment()) {
-            IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
-            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
-            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
-            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
-            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
-            mSyncBroadcastReceiver = new SyncBroadcastReceiver();
-            localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
         }
 
         // Listen for upload messages

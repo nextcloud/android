@@ -90,6 +90,7 @@
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Wähle einen lokalen Ordner…</string>
     <string name="choose_remote_folder">Wähle einen entfernten Ordner …</string>
+    <string name="choose_template_helper_text">Bitte eine Vorlage auswählen und einen Dateinamen eingeben.</string>
     <string name="choose_which_file">Wählen Sie, welche Datei behalten werden soll!</string>
     <string name="clear_notifications_failed">Löschen der Benachrichtigungen fehlgeschlagen.</string>
     <string name="clear_status_message">Statusnachricht löschen</string>
@@ -174,6 +175,7 @@
     <string name="could_not_download_image">Originalbild konnte nicht heruntergeladen werden</string>
     <string name="could_not_retrieve_shares">Konnte die Freigaben nicht abrufen</string>
     <string name="could_not_retrieve_url">Konnte URL nicht abrufen</string>
+    <string name="create">Erstellen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
     <string name="create_new">Neu erstellen</string>
     <string name="create_new_document">Neues Dokument erstellen</string>
@@ -578,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">Kalender &amp; Kontakte</string>
     <string name="screenshot_06_davdroid_subline">Synchronisiere mit DAVx5</string>
     <string name="select_all">Alle auswählen</string>
+    <string name="select_one_template">Bitte eine Vorlage auswählen</string>
     <string name="select_template">Vorlage auswählen</string>
     <string name="send">Senden</string>
     <string name="send_note">Notiz an Empfänger senden</string>

@@ -66,9 +66,10 @@ import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.io.File;
+import java.security.SecureRandom;
 import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -80,6 +81,7 @@ import javax.inject.Inject;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import dagger.android.AndroidInjection;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class FileDownloader extends Service
         implements OnDatatransferProgressListener, OnAccountsUpdateListener {
@@ -149,7 +151,7 @@ public class FileDownloader extends Service
                 .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_download))
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
-                .setColor(ThemeUtils.primaryColor(getApplicationContext(), true));
+                .setColor(ThemeColorUtils.primaryColor(getApplicationContext(), true));
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD);
@@ -419,6 +421,7 @@ public class FileDownloader extends Service
                 }
             }
             Log_OC.d(TAG, "Stopping after command with id " + msg.arg1);
+            mService.mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
             mService.stopForeground(true);
             mService.stopSelf(msg.arg1);
         }
@@ -612,17 +615,18 @@ public class FileDownloader extends Service
      * @param downloadResult Result of the download operation.
      * @param download       Finished download operation
      */
+    @SuppressFBWarnings("DMI")
     private void notifyDownloadResult(DownloadFileOperation download,
                                       RemoteOperationResult downloadResult) {
         if (mNotificationManager == null) {
             mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         }
 
-        if (mNotificationManager != null) {
-            mNotificationManager.cancel(R.string.downloader_download_in_progress_ticker);
-        }
-
         if (!downloadResult.isCancelled()) {
+            if (downloadResult.isSuccess()) {
+                // Dont show notification except an error has occured.
+                return;
+            }
             int tickerId = downloadResult.isSuccess() ?
                     R.string.downloader_download_succeeded_ticker : R.string.downloader_download_failed_ticker;
 
@@ -651,7 +655,7 @@ public class FileDownloader extends Service
                     download, getResources()));
 
             if (mNotificationManager != null) {
-                mNotificationManager.notify(tickerId, mNotificationBuilder.build());
+                mNotificationManager.notify((new SecureRandom()).nextInt(), mNotificationBuilder.build());
 
                 // Remove success notification
                 if (downloadResult.isSuccess()) {

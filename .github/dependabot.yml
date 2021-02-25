@@ -1,87 +1,91 @@
 version: 2
 updates:
-- package-ecosystem: gradle
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "03:00"
-    timezone: Europe/Paris
-  open-pull-requests-limit: 10
-  labels:
-  - 2. to review
-  - dependencies
-  ignore:
-  - dependency-name: com.github.albfernandez:juniversalchardet
-    versions:
-    - "> 2.0.3"
-  - dependency-name: com.github.albfernandez:juniversalchardet
-    versions:
-    - "< v2.2.0.999999"
-    - ">= v2.2.0.a"
-  - dependency-name: com.github.albfernandez:juniversalchardet
-    versions:
-    - "< v2.3.999999"
-    - ">= v2.3.a"
-  - dependency-name: com.github.bumptech.glide:glide
-    versions:
-    - ">= 4.9.a"
-    - "< 4.10"
-  - dependency-name: com.github.bumptech.glide:glide
-    versions:
-    - ">= 4.a"
-    - "< 5"
-  - dependency-name: com.github.nextcloud:android-library
-    versions:
-    - "< 2"
-    - ">= 1.a"
-  - dependency-name: gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin
-    versions:
-    - ">= 1.6.10.a"
-    - "< 1.6.11"
-  - dependency-name: gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin
-    versions:
-    - ">= 1.6.11.a"
-    - "< 1.6.12"
-  - dependency-name: gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin
-    versions:
-    - ">= 1.7.0.a"
-    - "< 1.7.1"
-  - dependency-name: gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin
-    versions:
-    - ">= 1.7.1.a"
-    - "< 1.7.2"
-  - dependency-name: org.apache.jackrabbit:jackrabbit-webdav
-    versions:
-    - ">= 2.16.a"
-    - "< 2.17"
-  - dependency-name: org.apache.jackrabbit:jackrabbit-webdav
-    versions:
-    - ">= 2.17.a"
-    - "< 2.18"
-  - dependency-name: org.apache.jackrabbit:jackrabbit-webdav
-    versions:
-    - ">= 2.18.a"
-    - "< 2.19"
-  - dependency-name: org.apache.jackrabbit:jackrabbit-webdav
-    versions:
-    - ">= 2.19.a"
-    - "< 2.20"
-  - dependency-name: org.apache.jackrabbit:jackrabbit-webdav
-    versions:
-    - ">= 2.20.a"
-    - "< 2.21"
-  - dependency-name: org.apache.jackrabbit:jackrabbit-webdav
-    versions:
-    - ">= 2.21.a"
-    - "< 2.22"
-  - dependency-name: org.objenesis:objenesis
-    versions:
-    - "> 2.6"
-  - dependency-name: pl.droidsonroids.gif:android-gif-drawable
-    versions:
-    - "< 1.2.17"
-    - ">= 1.2.16.a"
-  - dependency-name: pl.droidsonroids.gif:android-gif-drawable
-    versions:
-    - ">= 1.2.17.a"
-    - "< 1.2.18"
+    -   package-ecosystem: "github-actions"
+            directory: "/" # Location of package manifests
+            schedule:
+                interval: "weekly"
+    -   package-ecosystem: gradle
+            directory: "/"
+            schedule:
+                interval: daily
+                time: "03:00"
+                timezone: Europe/Paris
+            open-pull-requests-limit: 10
+            labels:
+                - 2. to review
+                - dependencies
+            ignore:
+                -   dependency-name: com.github.albfernandez:juniversalchardet
+                    versions:
+                        - "> 2.0.3"
+                -   dependency-name: com.github.albfernandez:juniversalchardet
+                    versions:
+                        - "< v2.2.0.999999"
+                        - ">= v2.2.0.a"
+                -   dependency-name: com.github.albfernandez:juniversalchardet
+                    versions:
+                        - "< v2.3.999999"
+                        - ">= v2.3.a"
+                -   dependency-name: com.github.bumptech.glide:glide
+                    versions:
+                        - ">= 4.9.a"
+                        - "< 4.10"
+                -   dependency-name: com.github.bumptech.glide:glide
+                    versions:
+                        - ">= 4.a"
+                        - "< 5"
+                -   dependency-name: com.github.nextcloud:android-library
+                    versions:
+                        - "< 2"
+                        - ">= 1.a"
+                -   dependency-name: gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin
+                    versions:
+                        - ">= 1.6.10.a"
+                        - "< 1.6.11"
+                -   dependency-name: gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin
+                    versions:
+                        - ">= 1.6.11.a"
+                        - "< 1.6.12"
+                -   dependency-name: gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin
+                    versions:
+                        - ">= 1.7.0.a"
+                        - "< 1.7.1"
+                -   dependency-name: gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin
+                    versions:
+                        - ">= 1.7.1.a"
+                        - "< 1.7.2"
+                -   dependency-name: org.apache.jackrabbit:jackrabbit-webdav
+                    versions:
+                        - ">= 2.16.a"
+                        - "< 2.17"
+                -   dependency-name: org.apache.jackrabbit:jackrabbit-webdav
+                    versions:
+                        - ">= 2.17.a"
+                        - "< 2.18"
+                -   dependency-name: org.apache.jackrabbit:jackrabbit-webdav
+                    versions:
+                        - ">= 2.18.a"
+                        - "< 2.19"
+                -   dependency-name: org.apache.jackrabbit:jackrabbit-webdav
+                    versions:
+                        - ">= 2.19.a"
+                        - "< 2.20"
+                -   dependency-name: org.apache.jackrabbit:jackrabbit-webdav
+                    versions:
+                        - ">= 2.20.a"
+                        - "< 2.21"
+                -   dependency-name: org.apache.jackrabbit:jackrabbit-webdav
+                    versions:
+                        - ">= 2.21.a"
+                        - "< 2.22"
+                -   dependency-name: org.objenesis:objenesis
+                    versions:
+                        - "> 2.6"
+                -   dependency-name: pl.droidsonroids.gif:android-gif-drawable
+                    versions:
+                        - "< 1.2.17"
+                        - ">= 1.2.16.a"
+                -   dependency-name: pl.droidsonroids.gif:android-gif-drawable
+                    versions:
+                        - ">= 1.2.17.a"
+                        - "< 1.2.18"

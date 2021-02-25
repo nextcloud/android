@@ -16,7 +16,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.ui.preview.PreviewImageActivity
 import com.owncloud.android.ui.preview.PreviewImageFragment
-import com.owncloud.android.utils.ThemeUtils
+import com.owncloud.android.utils.theme.ThemeColorUtils
 import javax.inject.Inject
 
 class AppNotificationManagerImpl @Inject constructor(
@@ -31,7 +31,7 @@ class AppNotificationManagerImpl @Inject constructor(
     }
 
     private fun builder(channelId: String): NotificationCompat.Builder {
-        val color = ThemeUtils.primaryColor(context, true)
+        val color = ThemeColorUtils.primaryColor(context, true)
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationCompat.Builder(context, channelId).setColor(color)
         } else {

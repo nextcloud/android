@@ -1,12 +1,17 @@
-name: "White color on light mode"
+name: "Screenshot Test"
 
 on:
     pull_request:
         branches: [ master, stable-* ]
 
 jobs:
-    whiteLight:
+    screenshot:
         runs-on: macOS-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                scheme: [ Dark, Light ]
+                color: [ blue, white ]
         steps:
             -   uses: actions/checkout@v2
             -   name: set up JDK 1.8
@@ -22,13 +27,13 @@ jobs:
                 env:
                     GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
                     GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
-                run: scripts/deleteOldComments.sh "White-Light" "Screenshot" ${{github.event.number}} "$GIT_USERNAME" "$GIT_TOKEN"
+                run: scripts/deleteOldComments.sh "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} "$GIT_USERNAME" "$GIT_TOKEN"
             -   name: run tests
                 uses: reactivecircus/android-emulator-runner@v2
                 with:
                     api-level: 27
                     emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
-                    script: ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.COLOR=white -Pandroid.testInstrumentationRunnerArguments.DARKMODE=light
+                    script: ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.COLOR=${{ matrix.color }} -Pandroid.testInstrumentationRunnerArguments.DARKMODE=${{ matrix.scheme }}
             -   name: upload failing results
                 if: ${{ failure() }}
                 env:
@@ -37,4 +42,4 @@ jobs:
                     GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
                     GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
                 run:
-                    scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" ${{github.event.number}} "White-Light" "Screenshot" ${{github.event.number}} "$GIT_USERNAME" "$GIT_TOKEN"
+                    scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} "$GIT_USERNAME" "$GIT_TOKEN"

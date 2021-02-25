@@ -32,7 +32,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.ui.adapter.StoragePathAdapter;
 import com.owncloud.android.ui.adapter.StoragePathItem;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
     public void onStart() {
         super.onStart();
 
-        int color = ThemeUtils.primaryAccentColor(getContext());
+        int color = ThemeColorUtils.primaryAccentColor(getContext());
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 

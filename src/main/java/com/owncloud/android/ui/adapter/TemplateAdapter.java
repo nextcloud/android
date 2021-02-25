@@ -38,7 +38,7 @@ import com.owncloud.android.databinding.TemplateButtonBinding;
 import com.owncloud.android.lib.common.Template;
 import com.owncloud.android.lib.common.TemplateList;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 
 import androidx.annotation.NonNull;
@@ -71,7 +71,7 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
         this.context = context;
         this.currentAccountProvider = currentAccountProvider;
         this.clientFactory = clientFactory;
-        colorSelected = ThemeUtils.primaryColor(context, true);
+        colorSelected = ThemeColorUtils.primaryColor(context, true);
         colorUnselected = context.getResources().getColor(R.color.grey_200);
     }
 
