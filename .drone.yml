@@ -53,7 +53,7 @@ steps:
         - master
 
 services:
-  - name: server
+  - name: server.com
     image: nextcloudci/server:server-17 # also change in updateScreenshots.sh
     environment:
       EVAL: true
@@ -135,7 +135,7 @@ steps:
         - master
 
 services:
-  - name: server
+  - name: server.com
     image: nextcloudci/server:server-17 # also change in updateScreenshots.sh
     environment:
       EVAL: true
