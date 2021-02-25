@@ -1,7 +1,7 @@
 name: 'Close stale issues'
 on:
     schedule:
-        -   cron: '30 1 * * *'
+        -   cron: '* */2 * * *'
 
 jobs:
     stale:
@@ -12,7 +12,6 @@ jobs:
                     days-before-stale: 28
                     days-before-close: 14
                     days-before-pr-close: -1
-                    operations-per-run: 10
                     only-labels: 'bug,needs info/discussion'
                     stale-issue-message: 'This bug report did not receive an update in the last 4 weeks.
                                         Please take a look again and update the issue with new details,
