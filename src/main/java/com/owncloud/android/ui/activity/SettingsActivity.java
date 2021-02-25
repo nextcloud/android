@@ -885,8 +885,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
                 String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
 
-                int accentColor = ThemeColorUtils.primaryAccentColor(this);
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);
                 AlertDialog alertDialog = builder.setTitle(R.string.prefs_e2e_mnemonic)
                     .setMessage(mnemonic)
