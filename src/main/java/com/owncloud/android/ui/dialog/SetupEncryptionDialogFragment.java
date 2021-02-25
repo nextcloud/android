@@ -46,6 +46,7 @@ import com.owncloud.android.lib.resources.users.SendCSROperation;
 import com.owncloud.android.lib.resources.users.StorePrivateKeyOperation;
 import com.owncloud.android.utils.CsrHelper;
 import com.owncloud.android.utils.EncryptionUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.io.IOException;
@@ -84,7 +85,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     private TextView passphraseTextView;
     private ArbitraryDataProvider arbitraryDataProvider;
     private Button positiveButton;
-    private Button negativeButton;
+    private Button neutralButton;
     private DownloadKeysAsyncTask task;
     private TextView passwordField;
     private String keyResult;
@@ -108,15 +109,12 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     public void onStart() {
         super.onStart();
 
-        int color = ThemeColorUtils.primaryAccentColor(getContext());
-
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        positiveButton.setTextColor(color);
-
-        negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-        negativeButton.setTextColor(color);
+        neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+        ThemeButtonUtils.themeBorderlessButton(positiveButton,
+                                               neutralButton);
 
         task = new DownloadKeysAsyncTask();
         task.execute();
@@ -151,7 +149,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     private Dialog createDialog(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v).setPositiveButton(R.string.common_ok, null)
-                .setNegativeButton(R.string.common_cancel, null)
+                .setNeutralButton(R.string.common_cancel, null)
                 .setTitle(R.string.end_to_end_encryption_title);
 
         Dialog dialog = builder.create();
@@ -217,7 +215,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                             case KEY_GENERATE:
                                 passphraseTextView.setVisibility(View.GONE);
                                 positiveButton.setVisibility(View.GONE);
-                                negativeButton.setVisibility(View.GONE);
+                                neutralButton.setVisibility(View.GONE);
                                 getDialog().setTitle(R.string.end_to_end_encryption_storing_keys);
 
                                 GenerateNewKeysAsyncTask newKeysTask = new GenerateNewKeysAsyncTask();
@@ -242,7 +240,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
             textView.setText(R.string.end_to_end_encryption_retrieving_keys);
             positiveButton.setVisibility(View.INVISIBLE);
-            negativeButton.setVisibility(View.INVISIBLE);
+            neutralButton.setVisibility(View.INVISIBLE);
         }
 
         @Override
@@ -402,7 +400,6 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
     @VisibleForTesting
     public void showMnemonicInfo() {
-        int color = ThemeColorUtils.primaryAccentColor(getContext());
         requireDialog().setTitle(R.string.end_to_end_encryption_passphrase_title);
 
         textView.setText(R.string.end_to_end_encryption_keywords_description);
@@ -413,9 +410,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         positiveButton.setText(R.string.end_to_end_encryption_confirm_button);
         positiveButton.setVisibility(View.VISIBLE);
 
-        negativeButton.setVisibility(View.VISIBLE);
-        positiveButton.setTextColor(color);
-        negativeButton.setTextColor(color);
+        neutralButton.setVisibility(View.VISIBLE);
+        ThemeButtonUtils.themeBorderlessButton(positiveButton, neutralButton);
 
         keyResult = KEY_GENERATE;
     }

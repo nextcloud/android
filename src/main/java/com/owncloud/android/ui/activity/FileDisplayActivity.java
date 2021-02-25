@@ -117,7 +117,7 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
@@ -301,12 +301,12 @@ public class FileDisplayActivity extends FileActivity
                 AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
                     .setTitle(R.string.wrong_storage_path)
                     .setMessage(R.string.wrong_storage_path_desc)
-                    .setNegativeButton(R.string.dialog_close, (dialog, which) -> dialog.dismiss())
+                    .setPositiveButton(R.string.dialog_close, (dialog, which) -> dialog.dismiss())
                     .setIcon(R.drawable.ic_settings)
                     .create();
 
                 alertDialog.show();
-                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryAccentColor(this));
+                ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
             } catch (WindowManager.BadTokenException e) {
                 Log_OC.e(TAG, "Error showing wrong storage info, so skipping it: " + e.getMessage());
             }

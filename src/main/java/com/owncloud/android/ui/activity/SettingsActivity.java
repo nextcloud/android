@@ -76,6 +76,7 @@ import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeTextUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
@@ -884,8 +885,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
                 String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
 
-                int accentColor = ThemeColorUtils.primaryAccentColor(this);
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);
                 AlertDialog alertDialog = builder.setTitle(R.string.prefs_e2e_mnemonic)
                     .setMessage(mnemonic)
@@ -893,7 +892,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                     .create();
 
                 alertDialog.show();
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(accentColor);
+                ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
             }
         }
     }

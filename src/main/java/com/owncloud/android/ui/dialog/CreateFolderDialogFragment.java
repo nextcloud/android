@@ -36,6 +36,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
@@ -76,12 +77,10 @@ public class CreateFolderDialogFragment
     public void onStart() {
         super.onStart();
 
-        int color = ThemeColorUtils.primaryAccentColor(getContext());
-
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
     }
 
     @NonNull
@@ -104,7 +103,7 @@ public class CreateFolderDialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view)
                 .setPositiveButton(R.string.folder_confirm_create, this)
-                .setNegativeButton(R.string.common_cancel, this)
+                .setNeutralButton(R.string.common_cancel, this)
                 .setTitle(R.string.uploader_info_dirname);
         AlertDialog d = builder.create();
 
