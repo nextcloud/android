@@ -15,27 +15,31 @@ jobs:
         steps:
             -   uses: actions/checkout@v2
             -   name: set up JDK 1.8
+                if: contains(github.event.pull_request.labels.*.name, 'screenshots')
                 uses: actions/setup-java@v1
                 with:
                     java-version: 1.8
             -   name: Build gplay
+                if: contains(github.event.pull_request.labels.*.name, 'screenshots')
                 run: |
                     mkdir -p $HOME/.gradle
                     echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
                     ./gradlew assembleGplayDebug
             -   name: Delete old comments
+                if: contains(github.event.pull_request.labels.*.name, 'screenshots')
                 env:
                     GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
                     GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
                 run: scripts/deleteOldComments.sh "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} "$GIT_USERNAME" "$GIT_TOKEN"
             -   name: run tests
+                if: contains(github.event.pull_request.labels.*.name, 'screenshots')
                 uses: reactivecircus/android-emulator-runner@v2
                 with:
                     api-level: 27
                     emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
                     script: ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.COLOR=${{ matrix.color }} -Pandroid.testInstrumentationRunnerArguments.DARKMODE=${{ matrix.scheme }}
             -   name: upload failing results
-                if: ${{ failure() }}
+                if: ${{ failure() && contains(github.event.pull_request.labels.*.name, 'screenshots') }}
                 env:
                     LOG_USERNAME: ${{ secrets.LOG_USERNAME }}
                     LOG_PASSWORD: ${{ secrets.LOG_PASSWORD }}
@@ -45,7 +49,7 @@ jobs:
                     scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} "$GIT_USERNAME" "$GIT_TOKEN"
             -   name: Archive Espresso results
                 uses: actions/upload-artifact@v2
-                if: ${{ always() }}
+                if: contains(github.event.pull_request.labels.*.name, 'screenshots')
                 with:
                     name: Report-${{ matrix.color }}-${{ matrix.scheme }}
                     path: build/reports
