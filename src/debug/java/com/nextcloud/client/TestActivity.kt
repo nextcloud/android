@@ -1,5 +1,4 @@
 /*
- *
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
@@ -103,7 +102,6 @@ class TestActivity :
     override fun getStorageManager(): FileDataStorageManager {
         if (!this::storage.isInitialized) {
             storage = FileDataStorageManager(account, contentResolver)
-
 
             if (!storage.capabilityExistsForAccount(account.name)) {
                 val ocCapability = OCCapability()
