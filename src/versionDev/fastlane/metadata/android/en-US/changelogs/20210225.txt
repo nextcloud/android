@@ -1,0 +1,11 @@
+Migrate UriUploader to User model
+format code
+replace Random with SecureRandom and ignore Spotbugs warnign about randomness (just creating Notification IDs)
+Dont dismiss notification after each upload/download
+Fix wrong sharing behavior. Test: - open sharing detail of a file - share a file - go back - refresh folder or go into another folder -> should work as expected
+Fix wrong renaming of unkown file types Fix #7962
+Rename .java to .kt
+Migrate ThumbnailsCacheManager to User model
+move color(-calculation) related implementation to distinct class
+Update translations
+Update Nextcloud Android library
