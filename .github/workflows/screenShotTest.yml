@@ -49,11 +49,4 @@ jobs:
                 with:
                     name: Report-${{ matrix.color }}-${{ matrix.scheme }}
                     path: build/reports
-                    retention-days: 5
-            -   name: Archive apk
-                uses: actions/upload-artifact@v2
-                if: ${{ always() }}
-                with:
-                    name: Nextcloud-APK
-                    path: build/outputs/apk/**/**/gplay*.apk
-                    retention-days: 5
+                    retention-days: 4
