@@ -28,7 +28,8 @@ tests/proguard-project.txt
 
 # Android Studio and Gradle specific entries
 .gradle
-.idea
+.idea/*
+!.idea/codeStyles/
 build
 /gradle.properties
 .attach_pid*

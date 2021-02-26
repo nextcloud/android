@@ -87,7 +87,7 @@ public class RenameFileDialogFragment
 
         if (alertDialog != null) {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
         }
     }
 
@@ -117,7 +117,7 @@ public class RenameFileDialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setView(view)
             .setPositiveButton(R.string.file_rename, this)
-            .setNegativeButton(R.string.common_cancel, this)
+            .setNeutralButton(R.string.common_cancel, this)
             .setTitle(R.string.rename_dialog_title);
         Dialog d = builder.create();
 

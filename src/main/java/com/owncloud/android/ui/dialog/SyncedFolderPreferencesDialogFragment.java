@@ -206,10 +206,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mNameCollisionPolicySummary = view.findViewById(R.id.setting_instant_name_collision_policy_summary);
 
         mCancel = view.findViewById(R.id.cancel);
-        ThemeButtonUtils.themeBorderlessButton(mCancel, accentColor);
-
         mSave = view.findViewById(R.id.save);
-        ThemeButtonUtils.themeBorderlessButton(mSave, accentColor);
+
+        ThemeButtonUtils.themeBorderlessButton(mCancel, mSave);
 
         // Set values
         setEnabled(mSyncedFolder.isEnabled());

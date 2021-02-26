@@ -194,10 +194,11 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     }
 
     private void themeShareButtonImage(ImageView shareImageView) {
-        shareImageView.getBackground().setColorFilter(ThemeColorUtils.primaryColor(getContext(), true),
+        shareImageView.getBackground().setColorFilter(ThemeColorUtils.primaryColor(getContext().getApplicationContext(),
+                                                                                   true),
                                                       PorterDuff.Mode.SRC_IN);
-        shareImageView.getDrawable().mutate().setColorFilter(ThemeColorUtils.fontColor(getContext()),
-                PorterDuff.Mode.SRC_IN);
+        shareImageView.getDrawable().mutate().setColorFilter(ThemeColorUtils.fontColor(getContext().getApplicationContext()),
+                                                             PorterDuff.Mode.SRC_IN);
     }
 
     private void showResharingNotAllowedSnackbar() {

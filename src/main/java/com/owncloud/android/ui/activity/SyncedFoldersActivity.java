@@ -69,7 +69,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.SyncedFolderUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
 import java.io.File;
@@ -204,7 +203,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             .setMessage(getString(R.string.power_save_check_dialog_message))
             .show();
 
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryAccentColor(this));
+        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
     }
 
     /**
@@ -813,15 +812,13 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                         }
                     }
                 })
-                .setNegativeButton(getString(R.string.battery_optimization_close), (dialog, which) -> dialog.dismiss())
+                .setNeutralButton(getString(R.string.battery_optimization_close), (dialog, which) -> dialog.dismiss())
                 .setIcon(R.drawable.ic_battery_alert);
 
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
                 AlertDialog alertDialog = alertDialogBuilder.show();
-
-                int color = ThemeColorUtils.primaryAccentColor(this);
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+                ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                       alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
             }
         }
     }

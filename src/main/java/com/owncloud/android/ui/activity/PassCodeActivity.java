@@ -95,7 +95,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
 
         int elementColor = ThemeColorUtils.primaryColor(this, true);
 
-        ThemeButtonUtils.themeBorderlessButton(binding.cancel, ThemeColorUtils.primaryColor(this, true));
+        ThemeButtonUtils.themeBorderlessButton(ThemeColorUtils.primaryColor(this, true), binding.cancel);
 
         passCodeEditTexts[0] = binding.txt0;
         ThemeTextInputUtils.colorEditText(passCodeEditTexts[0], elementColor);

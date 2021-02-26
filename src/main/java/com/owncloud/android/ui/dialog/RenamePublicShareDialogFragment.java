@@ -75,7 +75,7 @@ public class RenamePublicShareDialogFragment
 
         if (alertDialog != null) {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
         }
     }
 
@@ -101,7 +101,7 @@ public class RenamePublicShareDialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setView(view)
             .setPositiveButton(R.string.file_rename, this)
-            .setNegativeButton(R.string.common_cancel, this)
+            .setNeutralButton(R.string.common_cancel, this)
             .setTitle(R.string.public_share_name);
         Dialog dialog = builder.create();
 
