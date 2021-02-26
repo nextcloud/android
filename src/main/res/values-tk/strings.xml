@@ -4,8 +4,8 @@
     <string name="about_title">Hakynda</string>
     <string name="about_version">wersiýasy%1$s</string>
     <string name="about_version_with_build">wersiýasy%1$s, build #%2$s</string>
-    <string name="account_creation_failed">Akaunt döretmek şowsuz boldy</string>
-    <string name="account_icon">Hasap nyşany ( hasabyň znaçogy )</string>
+    <string name="account_creation_failed">Akaunt döretmeklik şowsuz boldy</string>
+    <string name="account_icon">Hasap nyşany</string>
     <string name="account_not_found">Hasap tapylmady</string>
     <string name="action_clear_failed_uploads">Şowsuz ýüklemeleri arassalaň</string>
     <string name="action_edit">Redaktirläň</string>
@@ -27,7 +27,7 @@
     <string name="actionbar_sort">sortlamak</string>
     <string name="active_user">Işjeň ulanyjy</string>
     <string name="activities_no_results_headline">Entek işjeňlik ýok</string>
-    <string name="activities_no_results_message">Goşmaçalar, üýtgeşmeler we paýlaşmalar ýaly wakalar entek ýok.</string>
+    <string name="activities_no_results_message">Goşmaçalar, üýtgeşmeler we paýlaşmalar ýaly hadysalar häzirlikçe ýok.</string>
     <string name="activity_chooser_send_file_title">Iber</string>
     <string name="activity_chooser_title">Baglanyşyk iberiň ...</string>
     <string name="activity_icon">işjeňlik we hereket</string>
