@@ -1,0 +1,8 @@
+codacy: remove unused line
+Previously TestActivity overwrote Capabilities on start if there is no account passed to ThemeUtils when fetching primary Color, FileDataStorageManager is created, there we need application context, normal context is not enough for testing
+remove unused variable
+simplify primary borderless button theming
+simplify and unify borderless button theming
+moving "cancel" dialog-button-action from negative to neutral action-button
+Update translations
+Update 3rd-party dependencies
