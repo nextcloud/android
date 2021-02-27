@@ -371,7 +371,7 @@
     <string name="host_not_available">Serwer jest niedostępny</string>
     <string name="host_your_own_server">Hostuj własny serwer</string>
     <string name="in_folder">w katalogu %1$s</string>
-    <string name="instant_upload_existing">Prześlij również istniejące pliki</string>
+    <string name="instant_upload_existing">Wyślij również istniejące pliki</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">Błędny adres URL</string>
@@ -575,7 +575,7 @@
     <string name="screenshot_03_drawer_subline">wszystko szybko dostępne</string>
     <string name="screenshot_04_accounts_heading">Wszystkie Twoje konta</string>
     <string name="screenshot_04_accounts_subline">w jednym miejscu</string>
-    <string name="screenshot_05_autoUpload_heading">Automatyczne przesyłanie</string>
+    <string name="screenshot_05_autoUpload_heading">Automatyczne wysyłanie</string>
     <string name="screenshot_05_autoUpload_subline">dla Twoich zdjęć &amp; wideo</string>
     <string name="screenshot_06_davdroid_heading">Kontakty kalendarza &amp;</string>
     <string name="screenshot_06_davdroid_subline">Synchronizuj z DAVx5</string>

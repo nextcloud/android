@@ -800,7 +800,7 @@
         <item quantity="other">%1$d möppur</item>
     </plurals>
     <plurals name="file_list__footer__file">
-        <item quantity="one">%d skrá</item>
+        <item quantity="one">%1$d skrá</item>
         <item quantity="other">%1$d skrár</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">

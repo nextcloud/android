@@ -89,6 +89,7 @@
     <string name="checkbox">Valintaruutu</string>
     <string name="choose_local_folder">Valitse paikallinen kansio…</string>
     <string name="choose_remote_folder">Valitse etäkansio…</string>
+    <string name="choose_which_file">Valitse säilytettävä tiedosto!</string>
     <string name="clear_notifications_failed">Ilmoituksia ei voitu tyhjentää</string>
     <string name="clear_status_message">Tyhjennä tilaviesti</string>
     <string name="clear_status_message_after">Tyhjennä tilaviesti, kun on kulunut</string>
@@ -171,6 +172,7 @@
     <string name="could_not_download_image">Koko kuvan lataaminen epäonnistui</string>
     <string name="could_not_retrieve_shares">Jakojen nouto ei onnistunut</string>
     <string name="could_not_retrieve_url">URL:n palautus epännistui</string>
+    <string name="create">Luo</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
     <string name="create_new">Luo uusi</string>
     <string name="create_new_document">Luo uusi asiakirja</string>
@@ -189,7 +191,9 @@
     <string name="dev_version_new_version_available">Uusi versio saatavilla</string>
     <string name="dev_version_no_information_available">Ei tietoja saatavilla.</string>
     <string name="dev_version_no_new_version_available">Ei uutta versiota saatavilla.</string>
+    <string name="dialog_close">Sulje</string>
     <string name="digest_algorithm_not_available">Tämä digest-algoritmi ei ole käytettävissä puhelimellasi</string>
+    <string name="direct_login_failed">Kirjautuminen suoran linkin kautta epäonnistui!</string>
     <string name="disable_new_media_folder_detection_notifications">Poista käytöstä</string>
     <string name="dismiss">Hylkää</string>
     <string name="dismiss_notification_description">Hylkää ilmoitus</string>
