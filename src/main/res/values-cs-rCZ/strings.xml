@@ -90,6 +90,7 @@
     <string name="checkbox">Zatržítko</string>
     <string name="choose_local_folder">Zvolte místní složku…</string>
     <string name="choose_remote_folder">Zvolte federovanou složku…</string>
+    <string name="choose_template_helper_text">Vyberte vzor a zadejte název souboru</string>
     <string name="choose_which_file">Zvolte který soubor ponechat!</string>
     <string name="clear_notifications_failed">Upozornění se nepodařilo vyčistit.</string>
     <string name="clear_status_message">Vyčistit stavovou zprávu</string>
@@ -174,6 +175,7 @@
     <string name="could_not_download_image">Nepodařilo se stáhnout celý obrázek</string>
     <string name="could_not_retrieve_shares">Nedaří se získat sdílení</string>
     <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
+    <string name="create">Vytvořit</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
     <string name="create_new">Vytvořit nové</string>
     <string name="create_new_document">Vytvořit nový dokument</string>
@@ -578,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">Kalendář a kontakty</string>
     <string name="screenshot_06_davdroid_subline">Synchronizace s DAVx5</string>
     <string name="select_all">Vybrat vše</string>
+    <string name="select_one_template">Vyberte jeden vzor</string>
     <string name="select_template">Vybrat šablonu</string>
     <string name="send">Odeslat</string>
     <string name="send_note">Poslat příjemci poznámku</string>
