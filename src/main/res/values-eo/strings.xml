@@ -3,6 +3,7 @@
     <string name="about_android">Android-aplikaĵo %1$s</string>
     <string name="about_title">Pri</string>
     <string name="about_version">versio %1$s</string>
+    <string name="about_version_with_build">versio %1$s, kunmetaĵo n-o %2$s</string>
     <string name="account_creation_failed">Kreado de konto malsukcesis</string>
     <string name="account_icon">Konta piktogramo</string>
     <string name="account_not_found">Konto ne trovita!</string>

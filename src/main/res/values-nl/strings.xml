@@ -162,7 +162,7 @@
     <string name="contacts_preferences_backup_scheduled">Backup ingepland en zal zo starten</string>
     <string name="contacts_preferences_import_scheduled">Import ingepland en zal zo starten</string>
     <string name="contacts_preferences_no_file_found">Geen bestand gevonden</string>
-    <string name="contacts_preferences_something_strange_happened">We kunnen uw laatste backup niet vinden!</string>
+    <string name="contacts_preferences_something_strange_happened">Je laatste backup is niet te vinden!</string>
     <string name="contacts_read_permission">Leesrechten voor contactpersonen vereist</string>
     <string name="copied_to_clipboard">Gekopieerd naar het klembord</string>
     <string name="copy_file_error">Er trad een fout op bij het kopiëren van dit bestand of deze map</string>
