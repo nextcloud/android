@@ -84,11 +84,13 @@
     <string name="battery_optimization_message">Zure gailuak bateriaren optimizazioa aktibatuta eduki dezake. Auto-karga funtzioak ongi funtzionatzeko aplikazio hau bertatik kanpora utzi behar duzu.</string>
     <string name="battery_optimization_no_setting">Ezin dira bateriaren ezarpenak zuzenean abiarazi. Aldatu eskuz ezarpenetan.</string>
     <string name="battery_optimization_title">Bateria optimizazioa</string>
+    <string name="brute_force_delay">Atzeratuta saiakera oker gehiegi egin direlako</string>
     <string name="certificate_load_problem">Arazo bat dago egiaztagiria kargatzean</string>
     <string name="changelog_dev_version">Garapen bertsioaren aldaketa-egunkaria</string>
     <string name="checkbox">Kontrol laukia</string>
     <string name="choose_local_folder">Hautatu tokiko karpeta...</string>
     <string name="choose_remote_folder">Hautatu urruneko karpeta...</string>
+    <string name="choose_template_helper_text">Hautatu txantiloia eta sartu fitxategi-izena.</string>
     <string name="choose_which_file">Aukeratu zein fitxategi gorde!</string>
     <string name="clear_notifications_failed">Huts egin du jakinarazpenak garbitzean.</string>
     <string name="clear_status_message">Garbitu egoera mezua</string>
@@ -173,6 +175,7 @@
     <string name="could_not_download_image">Ezin izan da irudi osoa deskargatu</string>
     <string name="could_not_retrieve_shares">Ezin izan dira partekatzeak berreskuratu</string>
     <string name="could_not_retrieve_url">Ezin izan da URLa berreskuratu</string>
+    <string name="create">Sortu</string>
     <string name="create_dir_fail_msg">Ezin izan da karpeta sortu</string>
     <string name="create_new">Sortu berria</string>
     <string name="create_new_document">Sortu dokumentu berria</string>
@@ -577,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">Egutegia eta kontaktuak</string>
     <string name="screenshot_06_davdroid_subline">Sinkronizatu DAVx5ekin</string>
     <string name="select_all">Hautatu dena</string>
+    <string name="select_one_template">Hautatu txantiloi bat</string>
     <string name="select_template">Hautatu txantiloia</string>
     <string name="send">Bidali</string>
     <string name="send_note">Bidali oharra hartzaileari</string>
