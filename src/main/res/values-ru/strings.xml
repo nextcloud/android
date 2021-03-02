@@ -371,15 +371,15 @@
     <string name="host_not_available">Сервер недоступен</string>
     <string name="host_your_own_server">Развернуть собственный сервер</string>
     <string name="in_folder">в папку %1$s</string>
-    <string name="instant_upload_existing">Также передать существующие файлы</string>
+    <string name="instant_upload_existing">Также загрузить существующие файлы</string>
     <string name="instant_upload_on_charging">Необходимо подключение внешнего питания</string>
     <string name="instant_upload_path">/Автозагрузка</string>
     <string name="invalid_url">Неверный адрес</string>
     <string name="invisible">Невидимая</string>
     <string name="label_empty">Метка не может быть пустой</string>
     <string name="link">Ссылка</string>
-    <string name="link_share_allow_upload_and_editing">Разрешить приём и редактирование</string>
-    <string name="link_share_file_drop">Хранилище (только приём файлов)</string>
+    <string name="link_share_allow_upload_and_editing">Разрешить загрузку и редактирование</string>
+    <string name="link_share_file_drop">Хранилище (только загрузка файлов)</string>
     <string name="link_share_read_only">Только для чтения</string>
     <string name="list_layout">Вид списком</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
@@ -769,7 +769,7 @@
     <string name="uploader_top_message">Выбрать каталог для передачи</string>
     <string name="uploader_upload_failed_content_single">Не удалось передать файл «%1$s»</string>
     <string name="uploader_upload_failed_credentials_error">Ошибка передачи файла, необходимо войти в систему</string>
-    <string name="uploader_upload_failed_sync_conflict_error">Конфликт при передаче файла</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Конфликт при загрузке файла</string>
     <string name="uploader_upload_failed_sync_conflict_error_content">Выберите сохраняемую версию файла %1$s</string>
     <string name="uploader_upload_failed_ticker">Ошибка передачи на сервер</string>
     <string name="uploader_upload_files_behaviour">Параметры передачи:</string>
