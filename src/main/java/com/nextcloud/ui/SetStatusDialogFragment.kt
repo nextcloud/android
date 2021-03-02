@@ -59,7 +59,6 @@ import com.owncloud.android.utils.theme.ThemeTextInputUtils
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.EmojiPopup
 import com.vanniktech.emoji.google.GoogleEmojiProvider
-import kotlinx.android.synthetic.main.dialog_set_status.*
 import java.util.ArrayList
 import java.util.Calendar
 import java.util.Locale
@@ -140,23 +139,23 @@ class SetStatusDialogFragment :
         accountManager = (activity as BaseActivity).userAccountManager
 
         currentStatus?.let {
-            emoji.setText(it.icon)
+            binding.emoji.setText(it.icon)
             binding.customStatusInput.text?.clear()
             binding.customStatusInput.setText(it.message)
             visualizeStatus(it.status)
 
             if (it.clearAt > 0) {
-                clearStatusAfterSpinner.visibility = View.GONE
-                remainingClearTime.apply {
-                    clearStatusMessageTextView.text = getString(R.string.clear_status_message)
+                binding.clearStatusAfterSpinner.visibility = View.GONE
+                binding.remainingClearTime.apply {
+                    binding.clearStatusMessageTextView.text = getString(R.string.clear_status_message)
                     visibility = View.VISIBLE
                     text = DisplayUtils.getRelativeTimestamp(context, it.clearAt * ONE_SECOND_IN_MILLIS, true)
                         .toString()
                         .decapitalize(Locale.getDefault())
                     setOnClickListener {
                         visibility = View.GONE
-                        clearStatusAfterSpinner.visibility = View.VISIBLE
-                        clearStatusMessageTextView.text = getString(R.string.clear_status_message_after)
+                        binding.clearStatusAfterSpinner.visibility = View.VISIBLE
+                        binding.clearStatusMessageTextView.text = getString(R.string.clear_status_message_after)
                     }
                 }
             }
@@ -166,30 +165,30 @@ class SetStatusDialogFragment :
         if (this::predefinedStatus.isInitialized) {
             adapter.list = predefinedStatus
         }
-        predefinedStatusList.adapter = adapter
-        predefinedStatusList.layoutManager = LinearLayoutManager(context)
+        binding.predefinedStatusList.adapter = adapter
+        binding.predefinedStatusList.layoutManager = LinearLayoutManager(context)
 
-        onlineStatus.setOnClickListener { setStatus(StatusType.ONLINE) }
-        dndStatus.setOnClickListener { setStatus(StatusType.DND) }
-        awayStatus.setOnClickListener { setStatus(StatusType.AWAY) }
-        invisibleStatus.setOnClickListener { setStatus(StatusType.INVISIBLE) }
+        binding.onlineStatus.setOnClickListener { setStatus(StatusType.ONLINE) }
+        binding.dndStatus.setOnClickListener { setStatus(StatusType.DND) }
+        binding.awayStatus.setOnClickListener { setStatus(StatusType.AWAY) }
+        binding.invisibleStatus.setOnClickListener { setStatus(StatusType.INVISIBLE) }
 
-        clearStatus.setOnClickListener { clearStatus() }
-        setStatus.setOnClickListener { setStatusMessage() }
-        emoji.setOnClickListener { openEmojiPopup() }
+        binding.clearStatus.setOnClickListener { clearStatus() }
+        binding.setStatus.setOnClickListener { setStatusMessage() }
+        binding.emoji.setOnClickListener { openEmojiPopup() }
 
         popup = EmojiPopup.Builder
             .fromRootView(view)
             .setOnEmojiClickListener { _, _ ->
                 popup.dismiss()
-                emoji.clearFocus()
+                binding.emoji.clearFocus()
                 val imm: InputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as
                     InputMethodManager
-                imm.hideSoftInputFromWindow(emoji.windowToken, 0)
+                imm.hideSoftInputFromWindow(binding.emoji.windowToken, 0)
             }
-            .build(emoji)
-        emoji.disableKeyboardInput(popup)
-        emoji.forceSingleEmoji()
+            .build(binding.emoji)
+        binding.emoji.disableKeyboardInput(popup)
+        binding.emoji.forceSingleEmoji()
 
         val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -200,7 +199,7 @@ class SetStatusDialogFragment :
         adapter.add(getString(R.string.today))
         adapter.add(getString(R.string.thisWeek))
 
-        clearStatusAfterSpinner.apply {
+        binding.clearStatusAfterSpinner.apply {
             this.adapter = adapter
             onItemSelectedListener = object : OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
@@ -213,8 +212,8 @@ class SetStatusDialogFragment :
             }
         }
 
-        clearStatus.setTextColor(ThemeColorUtils.primaryColor(context, true))
-        ThemeButtonUtils.colorPrimaryButton(setStatus, context)
+        binding.clearStatus.setTextColor(ThemeColorUtils.primaryColor(context, true))
+        ThemeButtonUtils.colorPrimaryButton(binding.setStatus, context)
         ThemeTextInputUtils.colorTextInput(
             binding.customStatusInputContainer,
             binding.customStatusInput,
@@ -327,19 +326,19 @@ class SetStatusDialogFragment :
         when (statusType) {
             StatusType.ONLINE -> {
                 clearTopStatus()
-                onlineStatus.setBackgroundColor(ThemeColorUtils.primaryColor(context))
+                binding.onlineStatus.setBackgroundColor(ThemeColorUtils.primaryColor(context))
             }
             StatusType.AWAY -> {
                 clearTopStatus()
-                awayStatus.setBackgroundColor(ThemeColorUtils.primaryColor(context))
+                binding.awayStatus.setBackgroundColor(ThemeColorUtils.primaryColor(context))
             }
             StatusType.DND -> {
                 clearTopStatus()
-                dndStatus.setBackgroundColor(ThemeColorUtils.primaryColor(context))
+                binding.dndStatus.setBackgroundColor(ThemeColorUtils.primaryColor(context))
             }
             StatusType.INVISIBLE -> {
                 clearTopStatus()
-                invisibleStatus.setBackgroundColor(ThemeColorUtils.primaryColor(context))
+                binding.invisibleStatus.setBackgroundColor(ThemeColorUtils.primaryColor(context))
             }
             else -> clearTopStatus()
         }
@@ -348,10 +347,10 @@ class SetStatusDialogFragment :
     private fun clearTopStatus() {
         context?.let {
             val grey = it.resources.getColor(R.color.grey_200)
-            onlineStatus.setBackgroundColor(grey)
-            awayStatus.setBackgroundColor(grey)
-            dndStatus.setBackgroundColor(grey)
-            invisibleStatus.setBackgroundColor(grey)
+            binding.onlineStatus.setBackgroundColor(grey)
+            binding.awayStatus.setBackgroundColor(grey)
+            binding.dndStatus.setBackgroundColor(grey)
+            binding.invisibleStatus.setBackgroundColor(grey)
         }
     }
 
@@ -369,8 +368,8 @@ class SetStatusDialogFragment :
         } else {
             asyncRunner.postQuickTask(
                 SetUserDefinedCustomStatusTask(
-                    customStatusInput.text.toString(),
-                    emoji.text.toString(),
+                    binding.customStatusInput.text.toString(),
+                    binding.emoji.text.toString(),
                     clearAt,
                     accountManager.currentOwnCloudAccount?.savedAccount,
                     context
@@ -409,39 +408,39 @@ class SetStatusDialogFragment :
     override fun onClick(predefinedStatus: PredefinedStatus) {
         selectedPredefinedMessageId = predefinedStatus.id
         clearAt = clearAtToUnixTime(predefinedStatus.clearAt)
-        emoji.setText(predefinedStatus.icon)
+        binding.emoji.setText(predefinedStatus.icon)
         binding.customStatusInput.text?.clear()
         binding.customStatusInput.text?.append(predefinedStatus.message)
 
-        remainingClearTime.visibility = View.GONE
-        clearStatusAfterSpinner.visibility = View.VISIBLE
-        clearStatusMessageTextView.text = getString(R.string.clear_status_message_after)
+        binding.remainingClearTime.visibility = View.GONE
+        binding.clearStatusAfterSpinner.visibility = View.VISIBLE
+        binding.clearStatusMessageTextView.text = getString(R.string.clear_status_message_after)
 
         if (predefinedStatus.clearAt == null) {
-            clearStatusAfterSpinner.setSelection(0)
+            binding.clearStatusAfterSpinner.setSelection(0)
         } else {
             val clearAt = predefinedStatus.clearAt!!
             if (clearAt.type.equals("period")) {
                 when (clearAt.time) {
-                    "1800" -> clearStatusAfterSpinner.setSelection(POS_HALF_AN_HOUR)
-                    "3600" -> clearStatusAfterSpinner.setSelection(POS_AN_HOUR)
-                    "14400" -> clearStatusAfterSpinner.setSelection(POS_FOUR_HOURS)
-                    else -> clearStatusAfterSpinner.setSelection(POS_DONT_CLEAR)
+                    "1800" -> binding.clearStatusAfterSpinner.setSelection(POS_HALF_AN_HOUR)
+                    "3600" -> binding.clearStatusAfterSpinner.setSelection(POS_AN_HOUR)
+                    "14400" -> binding.clearStatusAfterSpinner.setSelection(POS_FOUR_HOURS)
+                    else -> binding.clearStatusAfterSpinner.setSelection(POS_DONT_CLEAR)
                 }
             } else if (clearAt.type.equals("end-of")) {
                 when (clearAt.time) {
-                    "day" -> clearStatusAfterSpinner.setSelection(POS_TODAY)
-                    "week" -> clearStatusAfterSpinner.setSelection(POS_END_OF_WEEK)
-                    else -> clearStatusAfterSpinner.setSelection(POS_DONT_CLEAR)
+                    "day" -> binding.clearStatusAfterSpinner.setSelection(POS_TODAY)
+                    "week" -> binding.clearStatusAfterSpinner.setSelection(POS_END_OF_WEEK)
+                    else -> binding.clearStatusAfterSpinner.setSelection(POS_DONT_CLEAR)
                 }
             }
         }
-        setClearStatusAfterValue(clearStatusAfterSpinner.selectedItemPosition)
+        setClearStatusAfterValue(binding.clearStatusAfterSpinner.selectedItemPosition)
     }
 
     @VisibleForTesting
     fun setPredefinedStatus(predefinedStatus: ArrayList<PredefinedStatus>) {
         adapter.list = predefinedStatus
-        predefinedStatusList.adapter?.notifyDataSetChanged()
+        binding.predefinedStatusList.adapter?.notifyDataSetChanged()
     }
 }
