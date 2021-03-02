@@ -20,14 +20,16 @@ steps:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
-      - sed -i s"#server#server#" gradle.properties
+      - sed -i s"#server#server.com#" gradle.properties
       - sed -i s"#1#5#" ./src/androidTest/java/com/nextcloud/client/RetryTestRule.kt
       - ./gradlew assembleGplay
       - ./gradlew assembleGplayDebug
       - scripts/wait_for_emulator.sh
       - ./gradlew jacocoTestGplayDebugUnitTestReport && scripts/deleteOutdatedComments.sh "stable" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew installGplayDebugAndroidTest
-      - scripts/wait_for_server.sh "server"
+      - scripts/wait_for_server.sh "server.com"
+      - adb logcat -c
+      - adb logcat &
       - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest && scripts/deleteOutdatedComments.sh "stable" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew combinedTestReport
   - name: notify
@@ -53,13 +55,13 @@ steps:
         - master
 
 services:
-  - name: server
+  - name: server.com
     image: nextcloudci/server:server-17 # also change in updateScreenshots.sh
     environment:
       EVAL: true
     commands:
       - BRANCH='stable20' /usr/local/bin/initnc.sh
-      - echo 127.0.0.1 server >> /etc/hosts
+      - echo 127.0.0.1 server.com >> /etc/hosts
       - su www-data -c "OC_PASS=user1 php /var/www/html/occ user:add --password-from-env --display-name='User One' user1"
       - su www-data -c "OC_PASS=user2 php /var/www/html/occ user:add --password-from-env --display-name='User Two' user2"
       - su www-data -c "OC_PASS=user3 php /var/www/html/occ user:add --password-from-env --display-name='User Three' user3"
@@ -108,7 +110,9 @@ steps:
       - scripts/wait_for_emulator.sh
       - ./gradlew jacocoTestGplayDebugUnitTestReport && scripts/deleteOutdatedComments.sh "master" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - ./gradlew installGplayDebugAndroidTest
-      - scripts/wait_for_server.sh "server"
+      - scripts/wait_for_server.sh "server.com"
+      - adb logcat -c
+      - adb logcat &
       - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest && scripts/deleteOutdatedComments.sh "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
       - scripts/runCombinedTest.sh
 
@@ -135,13 +139,13 @@ steps:
         - master
 
 services:
-  - name: server
+  - name: server.com
     image: nextcloudci/server:server-17 # also change in updateScreenshots.sh
     environment:
       EVAL: true
     commands:
       - /usr/local/bin/initnc.sh
-      - echo 127.0.0.1 server >> /etc/hosts
+      - echo 127.0.0.1 server.com >> /etc/hosts
       - su www-data -c "OC_PASS=user1 php /var/www/html/occ user:add --password-from-env --display-name='User One' user1"
       - su www-data -c "OC_PASS=user2 php /var/www/html/occ user:add --password-from-env --display-name='User Two' user2"
       - su www-data -c "OC_PASS=user3 php /var/www/html/occ user:add --password-from-env --display-name='User Three' user3"
