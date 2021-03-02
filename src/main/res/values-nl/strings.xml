@@ -90,6 +90,7 @@
     <string name="checkbox">Aanvinkvakje</string>
     <string name="choose_local_folder">Kies lokale map…</string>
     <string name="choose_remote_folder">Kies externe map…</string>
+    <string name="choose_template_helper_text">Kies een sjabloon en geen een bestandsnaam op.</string>
     <string name="choose_which_file">Kies welk bestand bewaard moet blijven!</string>
     <string name="clear_notifications_failed">Niet gelukt om alle meldingen af te handelen</string>
     <string name="clear_status_message">Statusberichten wissen</string>
@@ -161,7 +162,7 @@
     <string name="contacts_preferences_backup_scheduled">Backup ingepland en zal zo starten</string>
     <string name="contacts_preferences_import_scheduled">Import ingepland en zal zo starten</string>
     <string name="contacts_preferences_no_file_found">Geen bestand gevonden</string>
-    <string name="contacts_preferences_something_strange_happened">We kunnen uw laatste backup niet vinden!</string>
+    <string name="contacts_preferences_something_strange_happened">Je laatste backup is niet te vinden!</string>
     <string name="contacts_read_permission">Leesrechten voor contactpersonen vereist</string>
     <string name="copied_to_clipboard">Gekopieerd naar het klembord</string>
     <string name="copy_file_error">Er trad een fout op bij het kopiëren van dit bestand of deze map</string>
@@ -174,6 +175,7 @@
     <string name="could_not_download_image">Kan de volledige afbeelding niet downloaden</string>
     <string name="could_not_retrieve_shares">Kon shares niet ophalen</string>
     <string name="could_not_retrieve_url">Kon URL niet ophalen</string>
+    <string name="create">Creëren</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
     <string name="create_new">Maak nieuw</string>
     <string name="create_new_document">Creëer nieuw document</string>
@@ -578,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">Agenda&amp; contactpersonen</string>
     <string name="screenshot_06_davdroid_subline">Sync met DAVx5</string>
     <string name="select_all">Alles selecteren</string>
+    <string name="select_one_template">Selecteer een sjabloon</string>
     <string name="select_template">Kies sjabloon</string>
     <string name="send">Versturen</string>
     <string name="send_note">Stuur notitie aan ontvanger</string>

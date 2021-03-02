@@ -84,11 +84,13 @@
     <string name="battery_optimization_message">Laitteellasi on ehkä päällä akun optimisointi tälle sovellukselle. AutoUpload ei välttämättä toimi oikein ellet poista sovellusta optimisointilistalta.</string>
     <string name="battery_optimization_no_setting">Ei voitu käynnistää suoraan asetuksia. Säädä käsin asetuksista.</string>
     <string name="battery_optimization_title">Akun optimointi</string>
+    <string name="brute_force_delay">Viivästetty liian monen epäonnistuneen yrityksen takia</string>
     <string name="certificate_load_problem">Varmennetta ladatessa ilmeni ongelmia.</string>
     <string name="changelog_dev_version">Muutosloki kehitysversiolle</string>
     <string name="checkbox">Valintaruutu</string>
     <string name="choose_local_folder">Valitse paikallinen kansio…</string>
     <string name="choose_remote_folder">Valitse etäkansio…</string>
+    <string name="choose_template_helper_text">Valitse mallipohja ja anna tiedostonimi</string>
     <string name="choose_which_file">Valitse säilytettävä tiedosto!</string>
     <string name="clear_notifications_failed">Ilmoituksia ei voitu tyhjentää</string>
     <string name="clear_status_message">Tyhjennä tilaviesti</string>
@@ -145,6 +147,7 @@
     <string name="confirmation_remove_local">Vain paikallisen</string>
     <string name="conflict_already_existing_file">Jo olemassa olevat tiedostot</string>
     <string name="conflict_dialog_error">Virhe luotaessa konflikti tietoja!</string>
+    <string name="conflict_file_headline">Ristiriitainen kohde %1$s</string>
     <string name="conflict_message_description">Jos valitset molemmat versiot, paikallisen tiedoston nimeen lisätään numero.</string>
     <string name="conflict_new_file">Uusi tiedosto</string>
     <string name="contaclist_restore_selected">Palauta valitut yhteystiedot</string>
@@ -307,6 +310,7 @@
     <string name="file_list_seconds_ago">sekuntia sitten</string>
     <string name="file_migration_checking_destination">Tarkistetaan kohdetta…</string>
     <string name="file_migration_cleaning">Siivotaan…</string>
+    <string name="file_migration_dialog_title">Päivitetään tietojen tallennuspolkua</string>
     <string name="file_migration_directory_already_exists">Data-kansio on jo olemassa, Valitse yksi seuraavista:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud-kansio on jo olemassa</string>
     <string name="file_migration_failed_not_enough_space">Tarvitaan enemmän tilaa</string>
@@ -365,6 +369,7 @@
     <string name="hint_password">Salasana</string>
     <string name="host_not_available">Ei yhteyttä palvelimeen</string>
     <string name="host_your_own_server">Ylläpidä oma palvelin</string>
+    <string name="in_folder">kansiossa %1$s</string>
     <string name="instant_upload_existing">Siirrä myös olemassaolevat tiedostot palvelimelle</string>
     <string name="instant_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -432,6 +437,7 @@
     <string name="no_pdf_app_available">PDF -sovellusta ei löydy</string>
     <string name="note_confirm">Lähetä</string>
     <string name="note_could_not_sent">Huomiota ei voitu lähettää</string>
+    <string name="note_icon_hint">Note-kuvake</string>
     <string name="notification_action_failed">Toimenpiteen suorittaminen epäonnistui</string>
     <string name="notification_channel_download_description">Näyttää latauksen edistymisen</string>
     <string name="notification_channel_download_name">Latausten ilmoituskanava</string>
@@ -474,6 +480,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Tämä on paikkamerkki</string>
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
+    <string name="player_stop">pysäytä</string>
+    <string name="player_toggle">vaihda</string>
     <string name="power_save_check_dialog_message">Virransäästötilan tarkistuksen poistaminen saattaa johtaa tiedostojen lähettämiseen alhaisella akun varauksella!</string>
     <string name="pref_behaviour_entries_delete_file">Poistetaan</string>
     <string name="pref_behaviour_entries_keep_file">Pidetään alkuperäisessä kansiossa</string>
@@ -520,6 +528,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="prefs_recommend">Suosittele kaverille</string>
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_sourcecode">Hanki lähdekoodi</string>
+    <string name="prefs_storage_path">Tiedostojen tallennuskansio</string>
     <string name="prefs_synced_folders_local_path_title">Paikallinen kansio</string>
     <string name="prefs_synced_folders_remote_path_title">Etäkansio</string>
     <string name="prefs_theme_title">Teema</string>
@@ -569,6 +578,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="screenshot_06_davdroid_heading">Kalenteri ja yhteystiedot</string>
     <string name="screenshot_06_davdroid_subline">Synkronoi DAVx5:llä</string>
     <string name="select_all">Valitse kaikki</string>
+    <string name="select_one_template">Valitse yksi mallipohja</string>
     <string name="select_template">Valitse mallipohja</string>
     <string name="send">Lähetä</string>
     <string name="send_note">Lähetä huomio vastaanottajalle</string>
