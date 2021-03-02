@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author masensio
@@ -17,8 +17,6 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-
 package com.owncloud.android.utils;
 
 import android.content.res.Resources;
@@ -70,12 +68,12 @@ public final class ErrorMessageAdapter {
      * @param res           Reference to app resources, for i18n.
      * @return              User message corresponding to 'result' and 'operation'.
      */
-    @NonNull
-    public static String getErrorCauseMessage(
-            RemoteOperationResult result,
-            RemoteOperation operation,
-            Resources res
-    ) {
+    public static @NonNull
+    String getErrorCauseMessage(
+        RemoteOperationResult result,
+        RemoteOperation operation,
+        Resources res) {
+
         String message = getMessageForResultAndOperation(result, operation, res);
 
         if (TextUtils.isEmpty(message)) {
@@ -108,12 +106,11 @@ public final class ErrorMessageAdapter {
      * @return              User message corresponding to 'result' and 'operation', or NULL if there is no
      *                      specific message for both.
      */
-    @Nullable
-    private static String getMessageForResultAndOperation(
-            RemoteOperationResult result,
-            RemoteOperation operation,
-            Resources res
-    ) {
+    private static @Nullable
+    String getMessageForResultAndOperation(
+        RemoteOperationResult result,
+        RemoteOperation operation,
+        Resources res) {
 
         String message = null;
 
@@ -170,8 +167,8 @@ public final class ErrorMessageAdapter {
     String getMessageForSynchronizeFolderOperation(
         RemoteOperationResult result,
         SynchronizeFolderOperation operation,
-        Resources res
-                                                  ) {
+        Resources res) {
+
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND) {
             return String.format(
                 res.getString(R.string.sync_current_folder_was_removed),
@@ -319,8 +316,8 @@ public final class ErrorMessageAdapter {
     String getMessageForDownloadFileOperation(
         RemoteOperationResult result,
         DownloadFileOperation operation,
-        Resources res
-                                             ) {
+        Resources res) {
+
         if (result.isSuccess()) {
             return String.format(
                 res.getString(R.string.downloader_download_succeeded_content),
@@ -339,8 +336,8 @@ public final class ErrorMessageAdapter {
     String getMessageForUploadFileOperation(
         RemoteOperationResult result,
         UploadFileOperation operation,
-        Resources res
-                                           ) {
+        Resources res) {
+
         if (result.isSuccess()) {
             return String.format(
                 res.getString(R.string.uploader_upload_succeeded_content_single),
@@ -379,8 +376,8 @@ public final class ErrorMessageAdapter {
      * @param res           Reference to app resources, for i18n.
      * @return              User message corresponding to 'result'.
      */
-    @Nullable
-    private static String getMessageForResult(RemoteOperationResult result, Resources res) {
+    private static @Nullable
+    String getMessageForResult(RemoteOperationResult result, Resources res) {
         String message = null;
 
         if (!result.isSuccess()) {
@@ -454,8 +451,8 @@ public final class ErrorMessageAdapter {
      * @param res           Reference to app resources, for i18n.
      * @return              User message corresponding to a generic error of 'operation'.
      */
-    @Nullable
-    private static String getMessageForOperation(RemoteOperation operation, Resources res) {
+    private static @Nullable
+    String getMessageForOperation(RemoteOperation operation, Resources res) {
         String message = null;
 
         if (operation instanceof UploadFileOperation) {
