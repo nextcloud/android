@@ -25,9 +25,7 @@ jobs:
                     ./gradlew assembleGplayDebug
             -   name: Delete old comments
                 env:
-                    GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
-                    GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
-                run: scripts/deleteOldComments.sh "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} "$GIT_USERNAME" "$GIT_TOKEN"
+                run: scripts/deleteOldComments.sh "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
             -   name: run tests
                 uses: reactivecircus/android-emulator-runner@v2
                 with:
@@ -39,10 +37,8 @@ jobs:
                 env:
                     LOG_USERNAME: ${{ secrets.LOG_USERNAME }}
                     LOG_PASSWORD: ${{ secrets.LOG_PASSWORD }}
-                    GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
-                    GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
                 run:
-                    scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} "$GIT_USERNAME" "$GIT_TOKEN"
+                    scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
             -   name: Archive Espresso results
                 uses: actions/upload-artifact@v2
                 if: ${{ always() }}
