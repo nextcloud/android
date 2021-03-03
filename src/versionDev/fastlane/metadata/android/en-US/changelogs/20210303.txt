@@ -1,0 +1,9 @@
+reformat code
+Correctly parse share api
+Fix after rebase
+remove unexpected spacing
+use binding instead of findById
+plugin: 'kotlin-android-extensions' deprecrated use viewbinding see: https://developer.android.com/topic/libraries/view-binding/migration
+plugin: 'kotlin-android-extensions' deprecrated use viewbinding see: https://developer.android.com/topic/libraries/view-binding/migration
+Update translations
+Update Nextcloud Android library
