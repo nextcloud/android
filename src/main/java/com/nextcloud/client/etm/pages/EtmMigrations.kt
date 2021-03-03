@@ -9,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.nextcloud.client.etm.EtmBaseFragment
 import com.owncloud.android.R
-import kotlinx.android.synthetic.main.fragment_etm_migrations.*
+import com.owncloud.android.databinding.FragmentEtmMigrationsBinding
 import java.util.Locale
 
 class EtmMigrations : EtmBaseFragment() {
+    private var _binding: FragmentEtmMigrationsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +22,9 @@ class EtmMigrations : EtmBaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_etm_migrations, container, false)
+        _binding = FragmentEtmMigrationsBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     override fun onResume() {
@@ -47,7 +51,7 @@ class EtmMigrations : EtmBaseFragment() {
             }
             builder.append(" - ${it.id} ${it.description} - $migrationStatus\n")
         }
-        etm_migrations_text.text = builder.toString()
+        binding.etmMigrationsText.text = builder.toString()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -67,5 +71,11 @@ class EtmMigrations : EtmBaseFragment() {
     private fun onDeleteMigrationsClicked() {
         vm.clearMigrations()
         showStatus()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
     }
 }

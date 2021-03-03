@@ -29,9 +29,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.nextcloud.client.etm.EtmBaseFragment
 import com.owncloud.android.R
-import kotlinx.android.synthetic.main.fragment_etm_preferences.*
+import com.owncloud.android.databinding.FragmentEtmPreferencesBinding
 
 class EtmPreferencesFragment : EtmBaseFragment() {
+    private var _binding: FragmentEtmPreferencesBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,14 +41,16 @@ class EtmPreferencesFragment : EtmBaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_etm_preferences, container, false)
+        _binding = FragmentEtmPreferencesBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     override fun onResume() {
         super.onResume()
         val builder = StringBuilder()
         vm.preferences.forEach { builder.append("${it.key}: ${it.value}\n") }
-        etm_preferences_text.text = builder
+        binding.etmPreferencesText.text = builder
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -66,8 +70,14 @@ class EtmPreferencesFragment : EtmBaseFragment() {
     private fun onClickedShare() {
         val intent = Intent(Intent.ACTION_SEND)
         intent.putExtra(Intent.EXTRA_SUBJECT, "Nextcloud preferences")
-        intent.putExtra(Intent.EXTRA_TEXT, etm_preferences_text.text)
+        intent.putExtra(Intent.EXTRA_TEXT, binding.etmPreferencesText.text)
         intent.type = "text/plain"
         startActivity(intent)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
     }
 }
