@@ -27,6 +27,8 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -55,6 +57,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.java.util.Optional;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.owncloud.android.MainApp;
@@ -66,6 +69,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.Quota;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.ExternalLinksOperation;
@@ -99,6 +103,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -731,10 +736,24 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
 
             final Context context = MainApp.getAppContext();
-            RemoteOperationResult result = new GetUserInfoRemoteOperation().execute(user.toPlatformAccount(), context);
+            NextcloudClient nextcloudClient = null;
+            try {
+                nextcloudClient = OwnCloudClientManagerFactory
+                    .getDefaultSingleton()
+                    .getNextcloudClientFor(user.toOwnCloudAccount(),
+                                           context);
+            } catch (OperationCanceledException | AuthenticatorException | IOException e) {
+                Log_OC.e(this, "Error retrieving user quota", e);
+            }
 
-            if (result.isSuccess() && result.getData() != null) {
-                final UserInfo userInfo = (UserInfo) result.getData().get(0);
+            if (nextcloudClient == null) {
+                return;
+            }
+
+            RemoteOperationResult<UserInfo> result = new GetUserInfoRemoteOperation().execute(nextcloudClient);
+
+            if (result.isSuccess() && result.getResultData() != null) {
+                final UserInfo userInfo = result.getResultData();
                 final Quota quota = userInfo.getQuota();
 
                 if (quota != null) {

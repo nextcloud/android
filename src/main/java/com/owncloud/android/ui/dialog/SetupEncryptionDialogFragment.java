@@ -258,19 +258,19 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
                 String publicKeyFromServer = (String) publicKeyResult.getData().get(0);
                 arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY,
-                        publicKeyFromServer);
+                                                            publicKeyFromServer);
             } else {
                 return null;
             }
 
-            GetPrivateKeyOperation privateKeyOperation = new GetPrivateKeyOperation();
-            RemoteOperationResult privateKeyResult = privateKeyOperation.execute(user.toPlatformAccount(), getContext());
+            RemoteOperationResult<com.owncloud.android.lib.ocs.responses.PrivateKey> privateKeyResult =
+                new GetPrivateKeyOperation().execute(user.toPlatformAccount(), getContext());
 
             if (privateKeyResult.isSuccess()) {
                 Log_OC.d(TAG, "private key successful downloaded for " + user.getAccountName());
 
                 keyResult = KEY_EXISTING_USED;
-                return (String) privateKeyResult.getData().get(0);
+                return privateKeyResult.getResultData().getKey();
             } else {
                 return null;
             }
