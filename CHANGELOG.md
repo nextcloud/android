@@ -1,3 +1,11 @@
+## 3.15.1 RC2 (March, 04, 2021)
+
+- share fix
+- passcode fix
+- enhance share access
+
+For a full list, please see https://github.com/nextcloud/android/milestone/57
+
 ## 3.15.1 RC1 (February, 24, 2021)
 
 - share fix
