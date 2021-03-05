@@ -90,6 +90,7 @@
     <string name="checkbox">İşaret kutusu</string>
     <string name="choose_local_folder">Yerel klasörü seçin …</string>
     <string name="choose_remote_folder">Uzak klasörü seçin …</string>
+    <string name="choose_template_helper_text">Lütfen bir kalıp seçin ve bir dosya adı yazın.</string>
     <string name="choose_which_file">Korunacak dosyayı seçin!</string>
     <string name="clear_notifications_failed">Bildirimler temizlenemedi.</string>
     <string name="clear_status_message">Durum iletisini kaldır</string>
@@ -174,6 +175,7 @@
     <string name="could_not_download_image">Tam boyuttaki görsel indirilemedi</string>
     <string name="could_not_retrieve_shares">Paylaşımlar alınamadı</string>
     <string name="could_not_retrieve_url">Adres alınamadı</string>
+    <string name="create">Ekle</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
     <string name="create_new">Yeni ekle</string>
     <string name="create_new_document">Yeni belge</string>
@@ -578,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">Takvim ve kişiler</string>
     <string name="screenshot_06_davdroid_subline">DAVx5 ile eşitleme</string>
     <string name="select_all">Tümünü seç</string>
+    <string name="select_one_template">Lütfen bir kalıp seçin</string>
     <string name="select_template">Kalıp seçin</string>
     <string name="send">Gönder</string>
     <string name="send_note">Alıcıya not gönder</string>
