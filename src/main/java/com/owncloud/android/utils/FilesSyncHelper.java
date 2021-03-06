@@ -33,6 +33,7 @@ import android.provider.MediaStore;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
+import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
@@ -185,10 +186,20 @@ public final class FilesSyncHelper {
 
         boolean accountExists;
 
+        boolean whileChargingOnly = true;
+        boolean useWifiOnly = true;
+
         OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
 
         for (OCUpload failedUpload : failedUploads) {
             accountExists = false;
+            if(!failedUpload.isWhileChargingOnly()){
+                whileChargingOnly = false;
+            }
+            if(!failedUpload.isUseWifiOnly())
+            {
+                useWifiOnly = false;
+            }
 
             // check if accounts still exists
             for (Account account : accountManager.getAccounts()) {
@@ -201,6 +212,27 @@ public final class FilesSyncHelper {
             if (!accountExists) {
                 uploadsStorageManager.removeUpload(failedUpload);
             }
+        }
+
+        failedUploads = uploadsStorageManager.getFailedUploads();
+        if(failedUploads.length == 0)
+        {
+            //nothing to do
+            return;
+        }
+
+        if(whileChargingOnly){
+            final BatteryStatus batteryStatus = powerManagementService.getBattery();
+            final boolean charging = batteryStatus.isCharging() || batteryStatus.isFull();
+            if(!charging){
+                //all uploads requires charging
+                return;
+            }
+        }
+
+        if (useWifiOnly && !connectivityService.getConnectivity().isWifi()){
+            //all uploads requires wifi
+            return;
         }
 
         new Thread(() -> {
