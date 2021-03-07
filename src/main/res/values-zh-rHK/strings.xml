@@ -124,7 +124,7 @@
     <string name="community_beta_text">這包含所有最新功能，預期執行上仍可能會有錯誤，若發現錯誤請回報給我們。</string>
     <string name="community_contribute_forum_forum">論壇</string>
     <string name="community_contribute_forum_text">幫助其他人</string>
-    <string name="community_contribute_github_text">檢查、修改和撰寫程式碼，請參見 %1$s。</string>
+    <string name="community_contribute_github_text">審閱、修改和撰寫程式碼，請參見 %1$s。</string>
     <string name="community_contribute_headline">積極貢獻</string>
     <string name="community_contribute_irc_text">加入 IRC：</string>
     <string name="community_contribute_translate_text">應用程式</string>
@@ -164,7 +164,7 @@
     <string name="contacts_preferences_no_file_found">無檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份</string>
     <string name="contacts_read_permission">需要讀取聯絡人清單的權限</string>
-    <string name="copied_to_clipboard">複製至剪貼簿中</string>
+    <string name="copied_to_clipboard">已複製到剪貼板</string>
     <string name="copy_file_error">嘗試複製檔案或資料夾時發生錯誤</string>
     <string name="copy_file_invalid_into_descendent">無法將資料夾複製到自己的子資料夾中。</string>
     <string name="copy_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
@@ -198,8 +198,8 @@
     <string name="digest_algorithm_not_available">這種加密演算法在您的手機中無法使用</string>
     <string name="direct_login_failed">透過直接連結登入失敗！</string>
     <string name="disable_new_media_folder_detection_notifications">停用</string>
-    <string name="dismiss">取消</string>
-    <string name="dismiss_notification_description">清除通知訊息。</string>
+    <string name="dismiss">撤銷</string>
+    <string name="dismiss_notification_description">撤銷通告</string>
     <string name="dnd">請勿打擾</string>
     <string name="dontClear">不要清空</string>
     <string name="download_latest_dev_version">下載最新開發的版本</string>
