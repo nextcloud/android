@@ -1,0 +1,3 @@
+Reduce number of calls to /index.php/204 if there is nothing to do.
+Update translations
+Update Nextcloud Android library
