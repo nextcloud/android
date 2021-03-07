@@ -145,7 +145,7 @@
     <string name="confirmation_remove_folders_alert">A beru boles cantzellare is elementos seberados e is cuntenutos issoro?</string>
     <string name="confirmation_remove_local">Locale isceti</string>
     <string name="conflict_already_existing_file">S\'archìviu s\'agatat giai</string>
-    <string name="conflict_dialog_error">Agiuda·nos  in sa fase de proa!</string>
+    <string name="conflict_dialog_error">Errore creende una bentana de cunflitu!</string>
     <string name="conflict_file_headline">Archìviu in cunflitu %1$s</string>
     <string name="conflict_message_description">Si seletzionas ambas is versiones, s\'archìviu locale at a tènnere unu nùmeru in agiunta a su nùmene.</string>
     <string name="conflict_new_file">Archìviu nou</string>
