@@ -33,6 +33,7 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -86,7 +87,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeAvatarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -485,14 +485,27 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 final String storagePath = file.getStoragePath();
                 if (onlyOnDevice && storagePath != null) {
                     File localFile = new File(storagePath);
-                    long localSize;
                     if (localFile.isDirectory()) {
-                        localSize = FileStorageUtils.getFolderSize(localFile);
+                        itemViewHolder.setFileId(file.getFileId());
+                        new AsyncTask<Void, Void, Long>() {
+                            @Override
+                            protected Long doInBackground(Void... voids) {
+                                return FileStorageUtils.getFolderSize(localFile);
+                            }
+
+                            @Override
+                            protected void onPostExecute(Long localSize) {
+                                if (itemViewHolder.getFileId() == file.getFileId()) {
+                                    itemViewHolder.fileSize.setText(DisplayUtils.bytesToHumanReadable(localSize));
+                                }
+                            }
+                        }.execute();
+
+                        itemViewHolder.fileSize.setText("Computing …");
                     } else {
-                        localSize = localFile.length();
+                        itemViewHolder.fileSize.setText(DisplayUtils.bytesToHumanReadable(localFile.length()));
                     }
 
-                    itemViewHolder.fileSize.setText(DisplayUtils.bytesToHumanReadable(localSize));
                 } else {
                     itemViewHolder.fileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 }
@@ -1277,6 +1290,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     static class OCFileListItemViewHolder extends OCFileListGridItemViewHolder {
+        private long fileId;
+
         @BindView(R.id.file_size)
         public TextView fileSize;
 
@@ -1292,6 +1307,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private OCFileListItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        public void setFileId(long fileId) {
+            this.fileId = fileId;
+        }
+
+        public long getFileId() {
+            return fileId;
         }
     }
 
