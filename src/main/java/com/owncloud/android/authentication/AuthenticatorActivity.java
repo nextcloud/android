@@ -124,7 +124,6 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -133,7 +132,6 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -835,7 +833,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-    private void onGetUserNameFinish(RemoteOperationResult result) {
+    private void onGetUserNameFinish(RemoteOperationResult<UserInfo> result) {
         mWaitingForOpId = Long.MAX_VALUE;
         if (result.isSuccess()) {
             boolean success = false;
@@ -1105,7 +1103,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * @param result Result of the operation.
      */
     @Override
-    public void onAuthenticatorTaskCallback(RemoteOperationResult result) {
+    public void onAuthenticatorTaskCallback(RemoteOperationResult<UserInfo> result) {
         mWaitingForOpId = Long.MAX_VALUE;
         dismissWaitingDialog();
         mAsyncTask = null;
@@ -1230,7 +1228,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     @SuppressFBWarnings("DMI")
     @SuppressLint("TrulyRandom")
-    protected boolean createAccount(RemoteOperationResult authResult) {
+    protected boolean createAccount(RemoteOperationResult<UserInfo> authResult) {
         String accountType = MainApp.getAccountType(this);
 
         // create and save new ownCloud account
@@ -1281,13 +1279,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_VERSION, mServerInfo.mVersion.getVersion());
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_BASE_URL, mServerInfo.mBaseUrl);
 
-            ArrayList<Object> authResultData = authResult.getData();
-            if (authResultData == null || authResultData.size() == 0) {
+            UserInfo userInfo = authResult.getResultData();
+            if (userInfo == null) {
                 Log_OC.e(this, "Could not read user data!");
                 return false;
             }
 
-            UserInfo userInfo = (UserInfo) authResultData.get(0);
             mAccountMgr.setUserData(mAccount, Constants.KEY_DISPLAY_NAME, userInfo.getDisplayName());
             mAccountMgr.setUserData(mAccount, Constants.KEY_USER_ID, userInfo.getId());
             mAccountMgr.setUserData(mAccount,
