@@ -43,7 +43,7 @@
 
             <FrameLayout
                 android:id="@+id/left_fragment_container"
-                android:layout_width="@dimen/zero"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
