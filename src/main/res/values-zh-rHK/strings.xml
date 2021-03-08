@@ -96,9 +96,9 @@
     <string name="clear_status_message">清空狀態列訊息</string>
     <string name="clear_status_message_after">繼此之後清空狀態訊息</string>
     <string name="clipboard_label">文字已由 %1$s 複製</string>
-    <string name="clipboard_no_text_to_copy">無任何文字複製到剪貼簿。</string>
+    <string name="clipboard_no_text_to_copy">無任何文字複製到剪貼板。</string>
     <string name="clipboard_text_copied">連結已複製</string>
-    <string name="clipboard_unexpected_error">複製到剪貼簿時出現不可遇期的錯誤</string>
+    <string name="clipboard_unexpected_error">複製到剪貼板時出現不可遇期的錯誤</string>
     <string name="common_back">返回</string>
     <string name="common_cancel">取消</string>
     <string name="common_cancel_sync">取消同步</string>
@@ -451,7 +451,7 @@
     <string name="notification_channel_general_name">一般通知</string>
     <string name="notification_channel_media_description">媒體播放器進度</string>
     <string name="notification_channel_media_name">媒體播放器</string>
-    <string name="notification_channel_push_description">顯示伺服器發送的推送通知：評論中的提及，接收新的遠端分享，管理員發布的公告等。</string>
+    <string name="notification_channel_push_description">顯示伺服器發送的推送通知：評論中的提及，接收新的遠端分享，管理員發佈的公告等。</string>
     <string name="notification_channel_push_name">推送通知</string>
     <string name="notification_channel_upload_description">顯示上傳進度</string>
     <string name="notification_channel_upload_name">上傳通知頻道</string>
@@ -713,7 +713,7 @@
     <string name="thumbnail_for_existing_file_description">現有檔案的縮圖</string>
     <string name="thumbnail_for_new_file_desc">新增檔案的縮圖</string>
     <string name="timeout_richDocuments">載入需要花一段時間…</string>
-    <string name="today">今天</string>
+    <string name="today">今日</string>
     <string name="trashbin_activity_title">已刪除檔案</string>
     <string name="trashbin_empty_headline">無已刪除檔案</string>
     <string name="trashbin_empty_message">您可以從這裡還原已刪除的檔案</string>
