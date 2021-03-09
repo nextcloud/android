@@ -96,9 +96,9 @@
     <string name="clear_status_message">清空狀態列訊息</string>
     <string name="clear_status_message_after">繼此之後清空狀態訊息</string>
     <string name="clipboard_label">文字已由 %1$s 複製</string>
-    <string name="clipboard_no_text_to_copy">無任何文字複製到剪貼簿。</string>
+    <string name="clipboard_no_text_to_copy">無任何文字複製到剪貼板。</string>
     <string name="clipboard_text_copied">連結已複製</string>
-    <string name="clipboard_unexpected_error">複製到剪貼簿時出現不可遇期的錯誤</string>
+    <string name="clipboard_unexpected_error">複製到剪貼板時出現不可遇期的錯誤</string>
     <string name="common_back">返回</string>
     <string name="common_cancel">取消</string>
     <string name="common_cancel_sync">取消同步</string>
@@ -124,7 +124,7 @@
     <string name="community_beta_text">這包含所有最新功能，預期執行上仍可能會有錯誤，若發現錯誤請回報給我們。</string>
     <string name="community_contribute_forum_forum">論壇</string>
     <string name="community_contribute_forum_text">幫助其他人</string>
-    <string name="community_contribute_github_text">檢查、修改和撰寫程式碼，請參見 %1$s。</string>
+    <string name="community_contribute_github_text">審閱、修改和撰寫程式碼，請參見 %1$s。</string>
     <string name="community_contribute_headline">積極貢獻</string>
     <string name="community_contribute_irc_text">加入 IRC：</string>
     <string name="community_contribute_translate_text">應用程式</string>
@@ -164,7 +164,7 @@
     <string name="contacts_preferences_no_file_found">無檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份</string>
     <string name="contacts_read_permission">需要讀取聯絡人清單的權限</string>
-    <string name="copied_to_clipboard">複製至剪貼簿中</string>
+    <string name="copied_to_clipboard">已複製到剪貼板</string>
     <string name="copy_file_error">嘗試複製檔案或資料夾時發生錯誤</string>
     <string name="copy_file_invalid_into_descendent">無法將資料夾複製到自己的子資料夾中。</string>
     <string name="copy_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
@@ -198,8 +198,8 @@
     <string name="digest_algorithm_not_available">這種加密演算法在您的手機中無法使用</string>
     <string name="direct_login_failed">透過直接連結登入失敗！</string>
     <string name="disable_new_media_folder_detection_notifications">停用</string>
-    <string name="dismiss">取消</string>
-    <string name="dismiss_notification_description">清除通知訊息。</string>
+    <string name="dismiss">撤銷</string>
+    <string name="dismiss_notification_description">撤銷通告</string>
     <string name="dnd">請勿打擾</string>
     <string name="dontClear">不要清空</string>
     <string name="download_latest_dev_version">下載最新開發的版本</string>
@@ -451,7 +451,7 @@
     <string name="notification_channel_general_name">一般通知</string>
     <string name="notification_channel_media_description">媒體播放器進度</string>
     <string name="notification_channel_media_name">媒體播放器</string>
-    <string name="notification_channel_push_description">顯示伺服器發送的推送通知：評論中的提及，接收新的遠端分享，管理員發布的公告等。</string>
+    <string name="notification_channel_push_description">顯示伺服器發送的推送通知：評論中的提及，接收新的遠端分享，管理員發佈的公告等。</string>
     <string name="notification_channel_push_name">推送通知</string>
     <string name="notification_channel_upload_description">顯示上傳進度</string>
     <string name="notification_channel_upload_name">上傳通知頻道</string>
@@ -713,7 +713,7 @@
     <string name="thumbnail_for_existing_file_description">現有檔案的縮圖</string>
     <string name="thumbnail_for_new_file_desc">新增檔案的縮圖</string>
     <string name="timeout_richDocuments">載入需要花一段時間…</string>
-    <string name="today">今天</string>
+    <string name="today">今日</string>
     <string name="trashbin_activity_title">已刪除檔案</string>
     <string name="trashbin_empty_headline">無已刪除檔案</string>
     <string name="trashbin_empty_message">您可以從這裡還原已刪除的檔案</string>

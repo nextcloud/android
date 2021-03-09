@@ -307,7 +307,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
             try {
                 OwnCloudClient client = clientFactory.create(user);
 
-                RemoteOperationResult result =
+                RemoteOperationResult<String> result =
                     new DirectEditingCreateFileRemoteOperation(path,
                                                                creator.getEditor(),
                                                                creator.getId(),
@@ -339,7 +339,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
                 storageManager.saveFile(temp);
                 file = storageManager.getFileByPath(path);
 
-                return result.getData().get(0).toString();
+                return result.getResultData();
 
             } catch (ClientFactory.CreationException e) {
                 Log_OC.e(TAG, "Error creating file from template!", e);
@@ -392,15 +392,16 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
 
             try {
                 OwnCloudClient client = clientFactory.create(user);
-                RemoteOperationResult result = new DirectEditingObtainListOfTemplatesRemoteOperation(creator.getEditor(),
-                                                                                                     creator.getId())
-                    .execute(client);
+                RemoteOperationResult<TemplateList> result =
+                    new DirectEditingObtainListOfTemplatesRemoteOperation(creator.getEditor(),
+                                                                          creator.getId())
+                        .execute(client);
 
                 if (!result.isSuccess()) {
                     return new TemplateList();
                 }
 
-                return (TemplateList) result.getSingleData();
+                return result.getResultData();
             } catch (ClientFactory.CreationException e) {
                 Log_OC.e(TAG, "Could not fetch template", e);
 

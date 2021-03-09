@@ -48,10 +48,12 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UserInfoLayoutBinding;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.UserInfo;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
@@ -318,12 +320,21 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
 
     private void fetchAndSetData() {
         Thread t = new Thread(() -> {
-            RemoteOperation getRemoteUserInfoOperation = new GetUserInfoRemoteOperation();
-            RemoteOperationResult result = getRemoteUserInfoOperation.execute(user.toPlatformAccount(), this);
+            NextcloudClient nextcloudClient;
+
+            try {
+                nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(),
+                                                                              this);
+            } catch (AccountUtils.AccountNotFoundException e) {
+                Log_OC.e(this, "Error retrieving user info", e);
+                return;
+            }
+
+            RemoteOperationResult<UserInfo> result = new GetUserInfoRemoteOperation().execute(nextcloudClient);
 
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
-                if (result.isSuccess() && result.getData() != null) {
-                    userInfo = (UserInfo) result.getData().get(0);
+                if (result.isSuccess() && result.getResultData() != null) {
+                    userInfo = result.getResultData();
 
                     runOnUiThread(() -> populateUserInfoUi(userInfo));
                 } else {
