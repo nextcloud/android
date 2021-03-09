@@ -72,6 +72,8 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
         sut.getListOfFilesFragment().setFabEnabled(false);
         sut.getListOfFilesFragment().setEmptyListLoadingMessage();
         sut.getListOfFilesFragment().setLoading(false);
+        waitForIdleSync();
+        shortSleep();
 
         // open drawer
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
