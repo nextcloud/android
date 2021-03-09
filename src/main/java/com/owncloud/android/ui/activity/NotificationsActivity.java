@@ -202,6 +202,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
 
     @VisibleForTesting
     public void populateList(List<Notification> notifications) {
+        initializeAdapter();
         adapter.setNotificationItems(notifications);
         binding.loadingContent.setVisibility(View.GONE);
 
@@ -220,19 +221,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
 
     private void fetchAndSetData() {
         Thread t = new Thread(() -> {
-            if (client == null && optionalUser.isPresent()) {
-                try {
-                    User user = optionalUser.get();
-                    client = clientFactory.create(user);
-                } catch (ClientFactory.CreationException e) {
-                    Log_OC.e(TAG, "Error initializing client", e);
-                }
-            }
-
-            if (adapter == null) {
-                adapter = new NotificationListAdapter(client, this);
-                binding.list.setAdapter(adapter);
-            }
+            initializeAdapter();
 
             RemoteOperation getRemoteNotificationOperation = new GetNotificationsRemoteOperation();
             final RemoteOperationResult result = getRemoteNotificationOperation.execute(client);
@@ -251,6 +240,25 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
         });
 
         t.start();
+    }
+
+    private void initializeClient() {
+        if (client == null && optionalUser.isPresent()) {
+            try {
+                User user = optionalUser.get();
+                client = clientFactory.create(user);
+            } catch (ClientFactory.CreationException e) {
+                Log_OC.e(TAG, "Error initializing client", e);
+            }
+        }
+    }
+
+    private void initializeAdapter() {
+        initializeClient();
+        if (adapter == null) {
+            adapter = new NotificationListAdapter(client, this);
+            binding.list.setAdapter(adapter);
+        }
     }
 
     private void hideRefreshLayoutLoader() {
