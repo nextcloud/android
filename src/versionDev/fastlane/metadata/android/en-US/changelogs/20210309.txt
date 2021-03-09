@@ -1,0 +1,5 @@
+Fixed Misdisplaying view in landscape mode.
+Use v2 for user info, also switched to typed response
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
