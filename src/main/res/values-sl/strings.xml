@@ -89,6 +89,7 @@
     <string name="checkbox">Izbirno polje</string>
     <string name="choose_local_folder">Izberi krajevno mapo…</string>
     <string name="choose_remote_folder">Izberi oddaljeno mapo…</string>
+    <string name="choose_template_helper_text">Izbrati je treba predlogo in vpisati ime datoteke.</string>
     <string name="choose_which_file">Izberite, katero datoteko želite obdržati!</string>
     <string name="clear_notifications_failed">Počiščenje obvestil je spodletelo.</string>
     <string name="clear_status_message">Počisti sporočilo stanja</string>
@@ -173,6 +174,7 @@
     <string name="could_not_download_image">Slike ni mogoče prejeti v celoti.</string>
     <string name="could_not_retrieve_shares">Naslovov mest souporabe ni mogoče pridobiti</string>
     <string name="could_not_retrieve_url">Naslova URL ni mogoče pridobiti</string>
+    <string name="create">Ustvari</string>
     <string name="create_dir_fail_msg">Ni mogoče ustvariti mape</string>
     <string name="create_new">Ustvari novo</string>
     <string name="create_new_document">Ustvari nov dokument</string>
@@ -575,6 +577,7 @@
     <string name="screenshot_06_davdroid_heading">Koledar in stiki</string>
     <string name="screenshot_06_davdroid_subline">Uskladi z DAVx5</string>
     <string name="select_all">Izberi vse</string>
+    <string name="select_one_template">Izbor predloge</string>
     <string name="select_template">Izbor predloge</string>
     <string name="send">Pošlji</string>
     <string name="send_note">Pošlji sporočilo prejemniku</string>
