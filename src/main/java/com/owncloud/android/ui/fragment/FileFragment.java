@@ -174,4 +174,11 @@ public class FileFragment extends Fragment {
         void showSortListGroup(boolean show);
     }
 
+    /**
+     * Allow resetting the header scrolling state for activities.
+     */
+    public interface ScrollableHeaderContainerActivity extends ContainerActivity {
+        void resetHeaderScrollingState();
+    }
+
 }
