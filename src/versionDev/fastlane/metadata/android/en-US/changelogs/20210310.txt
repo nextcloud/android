@@ -1,0 +1,2 @@
+harden notification empty screenshot test
+Update translations
