@@ -1,3 +1,11 @@
+## 3.15.1 (March, 10, 2021)
+
+- share fix
+- passcode fix
+- enhance share access
+
+For a full list, please see https://github.com/nextcloud/android/milestone/57
+
 ## 3.15.0 (February, 02, 2021)
 
 - Media instead of Photos: also show videos
