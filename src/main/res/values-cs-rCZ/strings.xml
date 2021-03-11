@@ -847,7 +847,7 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="whats_new_title">Co je v %1$s nového</string>
     <string name="whats_your_status">Jaký je váš stav?</string>
     <string name="wrong_storage_path">Složka úložiště neexistuje!</string>
-    <string name="wrong_storage_path_desc">Toto může být způsobeno obnovením zálohy na jiném zařízení. Vráceno do původního stavu. Prosím zkontrolujte nastavení a upravte cestu k úložišti.</string>
+    <string name="wrong_storage_path_desc">Toto může být způsobeno obnovením ze zálohy na jiném zařízení. Náhradně vráceno do výchozího stavu. Zkontrolujte nastavení a upravte popis umístění úložiště.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nedaří se synchronizovat %1$d soubor (konflikty: %2$d)</item>
         <item quantity="few">Nedaří se synchronizovat %1$d soubory (konflikty: %2$d)</item>
