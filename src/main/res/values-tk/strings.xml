@@ -241,13 +241,13 @@
     <string name="end_to_end_encryption_generating_keys">Täze düwmeler döretmek ...</string>
     <string name="end_to_end_encryption_keywords_description">12 sözüň hemmesi bilelikde şifrlenen faýllaryňyzy görmäge we ulanmaga mümkinçilik berýän gaty güýçli parol ýasaýar. Muny ýazyň we howpsuz ýerde saklaň.</string>
     <string name="end_to_end_encryption_not_enabled">Serwerde açyk şifrlemek öçürildi.</string>
-    <string name="end_to_end_encryption_passphrase_title">12 söz şifrlemek parolyňyzy belläň</string>
+    <string name="end_to_end_encryption_passphrase_title">Şifrlemek parolyňyzy 12 söz bilen belläň</string>
     <string name="end_to_end_encryption_password">Parol we açar söz</string>
     <string name="end_to_end_encryption_retrieving_keys">Açarlary almak…</string>
     <string name="end_to_end_encryption_storing_keys">Açarlary saklamak</string>
     <string name="end_to_end_encryption_title">Şifrlemäni düzüň</string>
     <string name="end_to_end_encryption_unsuccessful">Düwmeleri ýatda saklap bilmedim, gaýtadan synanyşyň.</string>
-    <string name="end_to_end_encryption_wrong_password">Şifrlemekde säwlik. Yalnyş parol?</string>
+    <string name="end_to_end_encryption_wrong_password">Şifrlemekde ýalňyşlyk. Yalnyş parol?</string>
     <string name="enter_filename">Faýlyň adyny ýazmagyňyzy haýyş edýäris</string>
     <string name="error__upload__local_file_not_copied">%1$s%2$sýerli bukjany göçürip kopýalap bolmaýar</string>
     <string name="error_cant_bind_to_operations_service">Möhüm ýalňyşlyk: Amallary ýerine ýetirip bolmaýar</string>
@@ -276,7 +276,7 @@
     <string name="etm_downloader">Ýüklenildi</string>
     <string name="etm_migrations">Migrations (app upgrade)</string>
     <string name="etm_preferences">Saýlamalar</string>
-    <string name="etm_title">inženerçilik synag tertibi</string>
+    <string name="etm_title">Inženerçilik synag tertibi</string>
     <string name="fab_label">Goşmak ýa-da ýüklemek</string>
     <string name="failed_to_download">Dolandyryjyny göçürip almak üçin faýl geçirip bilmedi</string>
     <string name="failed_to_print">Faýl çap edilmedi</string>
@@ -800,8 +800,8 @@
     <string name="uploads_view_upload_status_service_interrupted">Programma ýatyryldy</string>
     <string name="uploads_view_upload_status_succeeded">Tamamlanan</string>
     <string name="uploads_view_upload_status_unknown_fail">Näbelli ýalňyşlyk</string>
-    <string name="uploads_view_upload_status_virus_detected">Wirus tapyldy. Ýüklemek gutaryp bolmaz!</string>
-    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Kuwwat tygşytlamak remodeiminden çykmaga garaşmak</string>
+    <string name="uploads_view_upload_status_virus_detected">Wirus tapyldy. Ýüklemekligi gutaryp bolmaz!</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Güýji tygşytlamak tertibinden çykmaga garaşmak</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Garaşylýan töleg</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Ölçegsiz Wi-Fi garaşmak</string>
     <string name="user_icon">Ulanyjy</string>
@@ -818,7 +818,7 @@
     <string name="wait_a_moment">Biraz garaşyň ...</string>
     <string name="wait_checking_credentials">Saklanan şahsyýet maglumatlaryny barlamak</string>
     <string name="wait_for_tmp_copy_from_private_storage">Şahsy ammardan faýly göçürmek</string>
-    <string name="what_s_new_image">Sinhronlamak şowsuz boldy, gaýtadan giriň</string>
+    <string name="what_s_new_image">Täze şekil näme</string>
     <string name="whats_new_skip">Geçmek</string>
     <string name="whats_new_title">Täze%1$s-da</string>
     <string name="whats_your_status">Derejäňiz nähili?</string>
