@@ -485,9 +485,9 @@
     <string name="player_stop">para</string>
     <string name="player_toggle">alternar</string>
     <string name="power_save_check_dialog_message">Desativar a verificação de economia de energia pode resultar em uploads com a bateria baixa!</string>
-    <string name="pref_behaviour_entries_delete_file">excluído</string>
+    <string name="pref_behaviour_entries_delete_file">Excluído</string>
     <string name="pref_behaviour_entries_keep_file">Mantido na pasta original</string>
-    <string name="pref_behaviour_entries_move">movido para a pasta aplicativos</string>
+    <string name="pref_behaviour_entries_move">Movido para a pasta aplicativos</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">O que fazer se o arquivo já existir?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Perguntar sempre</string>
     <string name="pref_instant_name_collision_policy_entries_cancel">Ignorar envio</string>
@@ -529,7 +529,7 @@
     <string name="prefs_recommend">Recomendar a um amigo</string>
     <string name="prefs_show_hidden_files">Exibir arquivos ocultos</string>
     <string name="prefs_sourcecode">Obter código-fonte</string>
-    <string name="prefs_storage_path">Pasta de armazenamente de dados</string>
+    <string name="prefs_storage_path">Pasta de armazenamento de dados</string>
     <string name="prefs_sycned_folders_summary">Gerenciar pastas para envio automático</string>
     <string name="prefs_synced_folders_local_path_title">Pasta local</string>
     <string name="prefs_synced_folders_remote_path_title">Pasta remota</string>
@@ -543,7 +543,7 @@
     <string name="preview_sorry">Desculpe</string>
     <string name="privacy">Privacidade</string>
     <string name="public_share_name">Novo nome</string>
-    <string name="push_notifications_not_implemented">Envio de notificações desativado devido a dependências dos serviços proprietários do Google Play.</string>
+    <string name="push_notifications_not_implemented">Envio de notificações desativado devido a dependências de serviços proprietários do Google Play.</string>
     <string name="push_notifications_old_login">Sem envio de notificações devido à sessão de login desatualizada. Considere readicionar sua conta.</string>
     <string name="push_notifications_temp_error">Atualmente o envio de notificações está indisponível.</string>
     <string name="qr_could_not_be_read">Não foi possível ler o Código QR!</string>
