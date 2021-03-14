@@ -1,0 +1,2 @@
+add debug section for Windows
+Update translations
