@@ -53,8 +53,10 @@
     <string name="auth_oauth_error_access_denied">Từ chối truy cập vì xác nhận từ phía máy chủ</string>
     <string name="auth_secure_connection">Kết nối an toàn đã được thiết lập</string>
     <string name="auth_ssl_general_error_title">SSL khởi tạo thất bại</string>
+    <string name="auth_ssl_unverified_server_title">Không thể xác minh danh tính của máy chủ SSL</string>
     <string name="auth_testing_connection">Kiểm tra kết nối</string>
     <string name="auth_timeout_title">Máy chủ đã quá dài để đáp ứng</string>
+    <string name="auth_trying_to_login">Đang cố đăng nhập...</string>
     <string name="auth_unauthorized">Sai tên người dùng hoặc mật khẩu</string>
     <string name="auth_unknown_error_exception_title">Lỗi không xác định: %1$s</string>
     <string name="auth_unknown_error_http_title">Lỗi HTTP không xác định đã xảy ra!</string>
