@@ -273,7 +273,7 @@
     <string name="etm_background_jobs_start_test_job">Cumintza traballu de proa</string>
     <string name="etm_background_jobs_stop_test_job">Firma traballu de proa</string>
     <string name="etm_download_enqueue_test_download">Pone in fila s\'iscarrigamentu de sa proa</string>
-    <string name="etm_download_path">Percursu remotu</string>
+    <string name="etm_download_path">Caminu remotu</string>
     <string name="etm_downloader">Iscarrigadore</string>
     <string name="etm_migrations">Migratziones (agiornamentu de s\'aplicatzione)</string>
     <string name="etm_preferences">Preferèntzias</string>
