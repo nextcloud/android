@@ -335,7 +335,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
         HttpMethodBase method = buildMethod(request, client.getBaseUri(), requestBodyInputStream);
 
-        if (!request.getParameterV2().isEmpty()) {
+        if (request.getParameterV2() != null && !request.getParameterV2().isEmpty()) {
             method.setQueryString(convertListToNVP(request.getParameterV2()));
         } else {
             method.setQueryString(convertMapToNVP(request.getParameter()));
