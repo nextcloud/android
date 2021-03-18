@@ -33,7 +33,6 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import androidx.test.espresso.contrib.DrawerActions;
-import androidx.test.espresso.contrib.NavigationViewActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
@@ -64,39 +63,40 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
         screenshot(sut);
     }
 
-    @Test
-    @ScreenshotTest
-    public void showMediaThenAllFiles() {
-        FileDisplayActivity sut = activityRule.launchActivity(null);
-
-        sut.getListOfFilesFragment().setFabEnabled(false);
-        sut.getListOfFilesFragment().setEmptyListLoadingMessage();
-        sut.getListOfFilesFragment().setLoading(false);
-        waitForIdleSync();
-        shortSleep();
-
-        // open drawer
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-
-        // click "all files"
-        onView(withId(R.id.nav_view))
-            .perform(NavigationViewActions.navigateTo(R.id.nav_gallery));
-
-        // wait
-        shortSleep();
-
-        // click "all files"
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-        onView(withId(R.id.nav_view)).perform(NavigationViewActions.navigateTo(R.id.nav_all_files));
-
-        // then compare screenshot
-        shortSleep();
-        sut.getListOfFilesFragment().setFabEnabled(false);
-        sut.getListOfFilesFragment().setEmptyListLoadingMessage();
-        sut.getListOfFilesFragment().setLoading(false);
-        shortSleep();
-        screenshot(sut);
-    }
+    // This requires a working server to test
+//    @Test
+//    @ScreenshotTest
+//    public void showMediaThenAllFiles() {
+//        FileDisplayActivity sut = activityRule.launchActivity(null);
+//
+//        sut.getListOfFilesFragment().setFabEnabled(false);
+//        sut.getListOfFilesFragment().setEmptyListLoadingMessage();
+//        sut.getListOfFilesFragment().setLoading(false);
+//        waitForIdleSync();
+//        shortSleep();
+//
+//        // open drawer
+//        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+//
+//        // click "all files"
+//        onView(withId(R.id.nav_view))
+//            .perform(NavigationViewActions.navigateTo(R.id.nav_gallery));
+//
+//        // wait
+//        shortSleep();
+//
+//        // click "all files"
+//        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+//        onView(withId(R.id.nav_view)).perform(NavigationViewActions.navigateTo(R.id.nav_all_files));
+//
+//        // then compare screenshot
+//        shortSleep();
+//        sut.getListOfFilesFragment().setFabEnabled(false);
+//        sut.getListOfFilesFragment().setEmptyListLoadingMessage();
+//        sut.getListOfFilesFragment().setLoading(false);
+//        shortSleep();
+//        screenshot(sut);
+//    }
 
     @Test
     @ScreenshotTest
