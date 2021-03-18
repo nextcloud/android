@@ -117,6 +117,7 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
+import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
@@ -127,6 +128,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -907,7 +909,8 @@ public class FileDisplayActivity extends FileActivity
                             return;
                         }
 
-                        requestUploadOfFilesFromFileSystem(new String[]{renamedFile.getAbsolutePath()},
+                        requestUploadOfFilesFromFileSystem(renamedFile.getParentFile().getAbsolutePath(),
+                                                           new String[]{renamedFile.getAbsolutePath()},
                                                            FileUploader.LOCAL_BEHAVIOUR_DELETE);
                     }
                 }
@@ -951,15 +954,21 @@ public class FileDisplayActivity extends FileActivity
 
     private void requestUploadOfFilesFromFileSystem(Intent data, int resultCode) {
         String[] filePaths = data.getStringArrayExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
-        requestUploadOfFilesFromFileSystem(filePaths, resultCode);
+        String basePath = data.getStringExtra(UploadFilesActivity.LOCAL_BASE_PATH);
+        requestUploadOfFilesFromFileSystem(basePath, filePaths, resultCode);
     }
 
-    private void requestUploadOfFilesFromFileSystem(String[] filePaths, int resultCode) {
+    private void requestUploadOfFilesFromFileSystem(String localBasePath, String[] filePaths, int resultCode) {
         if (filePaths != null) {
+            if (!localBasePath.endsWith("/")) {
+                localBasePath = localBasePath + "/";
+            }
+
             String[] remotePaths = new String[filePaths.length];
             String remotePathBase = getCurrentDir().getRemotePath();
             for (int j = 0; j < remotePaths.length; j++) {
-                remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
+                String relativePath = StringUtils.removePrefix(filePaths[j], localBasePath);
+                remotePaths[j] = remotePathBase + relativePath;
             }
 
             int behaviour;
@@ -988,7 +997,7 @@ public class FileDisplayActivity extends FileActivity
                 remotePaths,
                 null,           // MIME type will be detected from file name
                 behaviour,
-                false,          // do not create parent folder if not existent
+                true,
                 UploadFileOperation.CREATED_BY_USER,
                 false,
                 false,
