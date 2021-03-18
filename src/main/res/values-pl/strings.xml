@@ -536,7 +536,7 @@
     <string name="prefs_theme_title">Motyw</string>
     <string name="prefs_value_theme_dark">Ciemny</string>
     <string name="prefs_value_theme_light">Jasny</string>
-    <string name="prefs_value_theme_system">System śledzenia</string>
+    <string name="prefs_value_theme_system">Śledź system</string>
     <string name="preview_image_description">Podgląd</string>
     <string name="preview_image_error_no_local_file">Brak lokalnego pliku do podglądu</string>
     <string name="preview_image_error_unknown_format">Nie można wyświetlić obrazu</string>
