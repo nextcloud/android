@@ -119,6 +119,8 @@ public class FileDownloader extends Service
 
     private long conflictUploadId;
 
+    public boolean mStartedDownload = false;
+
     @Inject UserAccountManager accountManager;
     @Inject UploadsStorageManager uploadsStorageManager;
     @Inject LocalBroadcastManager localBroadcastManager;
@@ -420,6 +422,15 @@ public class FileDownloader extends Service
                     mService.downloadFile(next);
                 }
             }
+            mService.mStartedDownload=false;
+            (new Handler()).postDelayed(new Runnable(){
+                public void run() {
+                    if(!mService.mStartedDownload){
+                        mService.mNotificationManager.cancel(R.string.downloader_download_in_progress_ticker);
+                    }
+                }}, 2000);
+
+
             Log_OC.d(TAG, "Stopping after command with id " + msg.arg1);
             mService.mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
             mService.stopForeground(true);
@@ -435,6 +446,7 @@ public class FileDownloader extends Service
      */
     private void downloadFile(String downloadKey) {
 
+        mStartedDownload = true;
         mCurrentDownload = mPendingDownloads.get(downloadKey);
 
         if (mCurrentDownload != null) {
