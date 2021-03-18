@@ -322,7 +322,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -345,7 +344,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity(),
             accountManager.getUser(),
             preferences,
-            accountManager,
             mContainerActivity,
             this,
             hideItemOptions,
