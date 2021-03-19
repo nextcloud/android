@@ -1,0 +1,7 @@
+dismiss only after delay to remove stuck notification
+Enhance overlapping multi-avatar display
+Themes header: plain background color and logo, if available
+All files -> media --> all files: show sort header
+Added Tests
+Added comment
+Implementation of folder uploads
