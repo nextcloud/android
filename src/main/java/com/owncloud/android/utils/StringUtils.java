@@ -68,4 +68,13 @@ public final class StringUtils {
             return "";
         }
     }
+
+    public static
+    @NonNull String removePrefix(@NonNull String s, @NonNull String prefix)
+    {
+        if (s.startsWith(prefix)){
+            return s.substring(prefix.length());
+        }
+        return s;
+    }
 }
