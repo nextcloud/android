@@ -84,11 +84,13 @@
     <string name="battery_optimization_message">Your device may have battery optimization enabled. AutoUpload works only properly if you exclude this app from it.</string>
     <string name="battery_optimization_no_setting">Unable to start battery settings directly. Please adjust manually in settings.</string>
     <string name="battery_optimization_title">Battery optimization</string>
+    <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
     <string name="certificate_load_problem">There is a problem loading the certificate.</string>
     <string name="changelog_dev_version">Changelog dev version</string>
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Choose local folder…</string>
     <string name="choose_remote_folder">Choose remote folder…</string>
+    <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
     <string name="choose_which_file">Choose which file to keep!</string>
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
     <string name="clear_status_message">Clear status message</string>
@@ -173,6 +175,7 @@
     <string name="could_not_download_image">Could not download full image</string>
     <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
+    <string name="create">Create</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
     <string name="create_new">Create new</string>
     <string name="create_new_document">Create new document</string>
@@ -577,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">Calendar &amp; contacts</string>
     <string name="screenshot_06_davdroid_subline">Sync with DAVx5</string>
     <string name="select_all">Select all</string>
+    <string name="select_one_template">Please select one template</string>
     <string name="select_template">Select template</string>
     <string name="send">Send</string>
     <string name="send_note">Send note to recipient</string>
