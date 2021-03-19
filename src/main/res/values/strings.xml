@@ -126,6 +126,7 @@
     <string name="common_delete">Delete</string>
     <string name="common_send">Send</string>
     <string name="common_share">Share</string>
+    <string name="common_skip">Skip</string>
     <string name="about_title">About</string>
     <string name="delete_account">Remove account</string>
     <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
