@@ -121,7 +121,7 @@
     <string name="common_unknown">不詳</string>
     <string name="common_yes">是</string>
     <string name="community_beta_headline">測試開發版本</string>
-    <string name="community_beta_text">這包含所有最新功能，預期執行上仍可能會有錯誤，若發現錯誤請回報給我們。</string>
+    <string name="community_beta_text">這包含所有最新功能，預期執行上仍可能會有錯誤，若發現錯誤請舉報給我們。</string>
     <string name="community_contribute_forum_forum">論壇</string>
     <string name="community_contribute_forum_text">幫助其他人</string>
     <string name="community_contribute_github_text">審閱、修改和撰寫程式碼，請參見 %1$s。</string>
@@ -137,7 +137,7 @@
     <string name="community_release_candidate_text">最終測試版是新版本發行前的快照，應該相當穩定。您的測試將協助我們確保穩定性，在 Play 商店中註冊成為測試者，或是在 F-Droid 中尋找「版本」區塊</string>
     <string name="community_testing_bug_text">發現問題或瑕疵？</string>
     <string name="community_testing_headline">協助測試</string>
-    <string name="community_testing_report_text">在 GitHub 上回報問題</string>
+    <string name="community_testing_report_text">在 GitHub 上舉報問題</string>
     <string name="community_testing_version_text">有興趣幫我們測試下一個版本嗎？</string>
     <string name="configure_new_media_folder_detection_notifications">設定</string>
     <string name="confirmation_remove_file_alert">你真的想要刪除 %1$s？</string>
@@ -146,8 +146,8 @@
     <string name="confirmation_remove_folders_alert">您真的想要刪除所選項目和裡面的內容嗎？</string>
     <string name="confirmation_remove_local">只有近端</string>
     <string name="conflict_already_existing_file">檔案已存在</string>
-    <string name="conflict_dialog_error">建立衝突訊息時發生錯誤！</string>
-    <string name="conflict_file_headline">檔案 %1$s 衝突</string>
+    <string name="conflict_dialog_error">建立抵觸訊息時發生錯誤！</string>
+    <string name="conflict_file_headline">檔案 %1$s 抵觸</string>
     <string name="conflict_message_description">若您同時選擇兩個版本，近端的檔案會在檔名後附加編號。</string>
     <string name="conflict_new_file">新增檔案</string>
     <string name="contaclist_restore_selected">還原所選的聯絡人</string>
@@ -195,7 +195,7 @@
     <string name="dev_version_no_information_available">沒有資訊。</string>
     <string name="dev_version_no_new_version_available">沒有新版本。</string>
     <string name="dialog_close">關閉</string>
-    <string name="digest_algorithm_not_available">這種加密演算法在您的手機中無法使用</string>
+    <string name="digest_algorithm_not_available">這種加密算法在您的手機中無法使用</string>
     <string name="direct_login_failed">透過直接連結登入失敗！</string>
     <string name="disable_new_media_folder_detection_notifications">停用</string>
     <string name="dismiss">撤銷</string>
@@ -255,8 +255,8 @@
     <string name="error_cant_bind_to_operations_service">嚴重錯誤：無法執行操作</string>
     <string name="error_comment_file">留言錯誤</string>
     <string name="error_crash_title">%1$s失敗</string>
-    <string name="error_report_issue_action">回報</string>
-    <string name="error_report_issue_text">想回報問題？(需要Github賬號)</string>
+    <string name="error_report_issue_action">舉報</string>
+    <string name="error_report_issue_text">想舉報問題？(需要Github賬號)</string>
     <string name="error_retrieving_file">檢索檔案時發生錯誤</string>
     <string name="error_retrieving_templates">取得範本時發生錯誤</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
@@ -400,7 +400,7 @@
     <string name="logs_title">紀錄檔</string>
     <string name="maintenance_mode">伺服器正處於維護模式</string>
     <string name="manage_space_clear_data">清除資料</string>
-    <string name="manage_space_description">來自%1$s的設定，資料庫與伺服器憑證相關資料將被永久刪除，已下載的檔案將不會變動，此過程需要花費一些時間。</string>
+    <string name="manage_space_description">來自%1$s的設定，數據庫與伺服器憑證相關資料將被永久刪除，已下載的檔案將不會變動，此過程需要花費一些時間。</string>
     <string name="manage_space_title">管理空間</string>
     <string name="media_err_invalid_progressive_playback">此媒體檔案無法被串流播放</string>
     <string name="media_err_io">無法讀取媒體檔案</string>
@@ -507,7 +507,7 @@
     <string name="prefs_category_more">更多</string>
     <string name="prefs_daily_contacts_sync_summary">每日通訊錄備份</string>
     <string name="prefs_e2e_mnemonic">端到端助記碼</string>
-    <string name="prefs_e2e_no_device_credentials">裝置若要顯示助記碼請啟用裝置身份驗證。</string>
+    <string name="prefs_e2e_no_device_credentials">裝置若要顯示助記碼請啟用裝置身分驗證。</string>
     <string name="prefs_enable_media_scan_notifications">顯示媒體掃描通知</string>
     <string name="prefs_enable_media_scan_notifications_summary">發現新的多媒體資料夾時通知</string>
     <string name="prefs_gpl_v2">GNU General Public License, 第二版</string>
@@ -519,11 +519,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子資料夾</string>
     <string name="prefs_license">授權</string>
     <string name="prefs_lock">App 通行碼</string>
-    <string name="prefs_lock_device_credentials_enabled">裝置身份驗證已啟動</string>
-    <string name="prefs_lock_device_credentials_not_setup">未設定任何裝置身份驗證方式</string>
+    <string name="prefs_lock_device_credentials_enabled">裝置身分驗證已啟動</string>
+    <string name="prefs_lock_device_credentials_not_setup">未設定任何裝置身分驗證方式</string>
     <string name="prefs_lock_none">無</string>
     <string name="prefs_lock_title">使用以下工具保護 app</string>
-    <string name="prefs_lock_using_device_credentials">裝置身份驗證方式</string>
+    <string name="prefs_lock_using_device_credentials">裝置身分驗證方式</string>
     <string name="prefs_lock_using_passcode">通行碼</string>
     <string name="prefs_manage_accounts">管理賬號</string>
     <string name="prefs_recommend">向朋友推薦</string>
@@ -580,7 +580,7 @@
     <string name="screenshot_06_davdroid_heading">日曆 &amp; 通訊錄</string>
     <string name="screenshot_06_davdroid_subline">跟 DAVx5 同步</string>
     <string name="select_all">全選</string>
-    <string name="select_one_template">請選取一個模板</string>
+    <string name="select_one_template">請選擇一個模板</string>
     <string name="select_template">選擇範本</string>
     <string name="send">傳送</string>
     <string name="send_note">傳留言給接收者</string>
@@ -637,7 +637,7 @@
     <string name="sort_by_size_descending">最大先</string>
     <string name="ssl_validator_btn_details_hide">隱藏</string>
     <string name="ssl_validator_btn_details_see">細節</string>
-    <string name="ssl_validator_header">無法驗證伺服器身份</string>
+    <string name="ssl_validator_header">無法驗證伺服器身分</string>
     <string name="ssl_validator_label_C">國家：</string>
     <string name="ssl_validator_label_CN">通用名：</string>
     <string name="ssl_validator_label_L">地點：</string>
@@ -647,7 +647,7 @@
     <string name="ssl_validator_label_certificate_fingerprint">指紋：</string>
     <string name="ssl_validator_label_issuer">發行者：</string>
     <string name="ssl_validator_label_signature">簽名：</string>
-    <string name="ssl_validator_label_signature_algorithm">演算法：</string>
+    <string name="ssl_validator_label_signature_algorithm">算法：</string>
     <string name="ssl_validator_label_subject">發行給：</string>
     <string name="ssl_validator_label_validity">有效期：</string>
     <string name="ssl_validator_label_validity_from">從：</string>
@@ -670,8 +670,8 @@
     <string name="storage_movies">電影</string>
     <string name="storage_music">音樂</string>
     <string name="storage_pictures">圖片</string>
-    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的用戶介面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多賬號支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx5 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 回報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https://nextcloud.com 以取得更多資訊</string>
-    <string name="store_full_dev_desc">可自架且始終讓您掌控一切的生產力平台。\n這是官方的開發版本，每天都會提供未經測試的任何新功能的範例，可能造成不穩定或資料遺失。此應用程式適合願意測試且回報遇到的問題的用戶。不要將其用於您的生產力工作！\n\nF-Droid 同時提供了官方的開發版本與一般版本，可同時安裝。</string>
+    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的用戶介面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多賬號支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx5 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 舉報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https://nextcloud.com 以取得更多資訊</string>
+    <string name="store_full_dev_desc">可自架且始終讓您掌控一切的生產力平台。\n這是官方的開發版本，每天都會提供未經測試的任何新功能的範例，可能造成不穩定或資料遺失。此應用程式適合願意測試且舉報遇到的問題的用戶。不要將其用於您的生產力工作！\n\nF-Droid 同時提供了官方的開發版本與一般版本，可同時安裝。</string>
     <string name="store_short_desc">讓你能完全掌控、自建且具生產力的平台</string>
     <string name="store_short_dev_desc">讓你能完全掌控、自建且具生產力的平台（開發者預覽版）</string>
     <string name="stream">串流…</string>
@@ -679,7 +679,7 @@
     <string name="stream_not_possible_message">請改為下載媒體或使用外部應用程式。</string>
     <string name="subject_shared_with_you">已經與您分享了 \"%1$s\"</string>
     <string name="subject_user_shared_with_you">%1$s 分享了 \"%2$s\" 給您</string>
-    <string name="sync_conflicts_in_favourites_ticker">出現衝突</string>
+    <string name="sync_conflicts_in_favourites_ticker">出現抵觸</string>
     <string name="sync_current_folder_was_removed">資料夾 %1$s 已不存在</string>
     <string name="sync_fail_content">無法同步%1$s</string>
     <string name="sync_fail_content_unauthorized">無效的密碼 %1$s</string>
@@ -749,13 +749,13 @@
     <string name="upload_list_delete">刪除</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
     <string name="upload_list_empty_text_auto_upload">上傳一些內容或者啟用自動上傳。</string>
-    <string name="upload_list_resolve_conflict">解決衝突</string>
+    <string name="upload_list_resolve_conflict">解決抵觸</string>
     <string name="upload_local_storage_full">近端儲存空間已滿</string>
     <string name="upload_local_storage_not_copied">無法複製檔案到近端資料夾</string>
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
     <string name="upload_old_android">加密功能只適用於 Android 5.0 及以上版本</string>
-    <string name="upload_query_move_foreign_files">空間不足會阻止將所選檔案複製到 %1$s 資料夾中。是否要改成移動它們？</string>
-    <string name="upload_sync_conflict">同步發生衝突，請手動處理</string>
+    <string name="upload_query_move_foreign_files">空間不足會無法將所選檔案複製到 %1$s 資料夾中。是否要改成移動它們？</string>
+    <string name="upload_sync_conflict">同步發生抵觸，請手動處理</string>
     <string name="upload_unknown_error">未知的錯誤</string>
     <string name="uploader_btn_alternative_text">選擇</string>
     <string name="uploader_btn_upload_text">上戴</string>
@@ -769,7 +769,7 @@
     <string name="uploader_top_message">選擇上傳檔案夾</string>
     <string name="uploader_upload_failed_content_single">上傳 %1$s 無法完成</string>
     <string name="uploader_upload_failed_credentials_error">上傳失敗，再重新登入</string>
-    <string name="uploader_upload_failed_sync_conflict_error">檔案上傳衝突</string>
+    <string name="uploader_upload_failed_sync_conflict_error">檔案上傳抵觸</string>
     <string name="uploader_upload_failed_sync_conflict_error_content">請選擇 %1$s 要留下的版本</string>
     <string name="uploader_upload_failed_ticker">上載失敗</string>
     <string name="uploader_upload_files_behaviour">上傳選項：</string>
@@ -791,9 +791,9 @@
     <string name="uploads_view_later_waiting_to_upload">上傳等候中</string>
     <string name="uploads_view_title">上傳</string>
     <string name="uploads_view_upload_status_cancelled">已取消</string>
-    <string name="uploads_view_upload_status_conflict">衝突</string>
+    <string name="uploads_view_upload_status_conflict">抵觸</string>
     <string name="uploads_view_upload_status_failed_connection_error">連線錯誤</string>
-    <string name="uploads_view_upload_status_failed_credentials_error">身份驗證錯誤</string>
+    <string name="uploads_view_upload_status_failed_credentials_error">身分驗證錯誤</string>
     <string name="uploads_view_upload_status_failed_file_error">檔案錯誤</string>
     <string name="uploads_view_upload_status_failed_folder_error">資料夾錯誤</string>
     <string name="uploads_view_upload_status_failed_localfile_error">找不到近端的檔案</string>
@@ -819,7 +819,7 @@
     <string name="username">用戶名稱</string>
     <string name="version_dev_download">下載</string>
     <string name="wait_a_moment">請稍候…</string>
-    <string name="wait_checking_credentials">檢查儲存的身份驗證</string>
+    <string name="wait_checking_credentials">檢查儲存的身分驗證</string>
     <string name="wait_for_tmp_copy_from_private_storage">從私有儲存空間複製檔案中</string>
     <string name="what_s_new_image">有什麼新圖像？</string>
     <string name="whats_new_skip">略過</string>
@@ -828,7 +828,7 @@
     <string name="wrong_storage_path">資料儲存資料夾不存在！</string>
     <string name="wrong_storage_path_desc">這可能是由於另一部設備上的備份還原所致。 退回默認值。 請檢查設置以調整數據存儲資料夾。</string>
     <plurals name="sync_fail_in_favourites_content">
-        <item quantity="other">無法同步 %1$d 檔案 (衝突: %2$d)</item>
+        <item quantity="other">無法同步 %1$d 檔案 (抵觸: %2$d)</item>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="other">%2$s 資料夾中的%1$d個檔案無法被複製到</item>
@@ -843,6 +843,6 @@
         <item quantity="other">顯示%1$d個隱藏的資料夾</item>
     </plurals>
     <plurals name="items_selected_count">
-        <item quantity="other">已選取%d個</item>
+        <item quantity="other">已選擇%d個</item>
     </plurals>
 </resources>
