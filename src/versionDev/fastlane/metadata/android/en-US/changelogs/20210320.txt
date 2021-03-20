@@ -1,0 +1,4 @@
+Password dialog: - enforced password: prevent dismiss if empty password - optional password: rename cancel button to skip
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
